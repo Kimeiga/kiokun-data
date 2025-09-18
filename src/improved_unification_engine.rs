@@ -23,7 +23,7 @@ fn create_unified_data(combined: &CombinedEntry) -> UnifiedData {
     let representations = extract_primary_representations(combined);
     let pronunciations = extract_primary_pronunciations(combined);
     let chinese_metadata = combined.chinese_entry.as_ref().map(|c| ChineseMetadata {
-        gloss: c.gloss.clone(),
+        gloss: c.gloss.clone().unwrap_or_default(),
         pinyin_search_string: c.pinyin_search_string.clone(),
     });
     let definitions = extract_primary_definitions(combined);
@@ -112,7 +112,7 @@ fn extract_primary_pronunciations(combined: &CombinedEntry) -> Pronunciations {
     Pronunciations { pinyin, japanese }
 }
 
-fn extract_primary_definitions(combined: &CombinedEntry) -> Vec<crate::improved_unified_types::UnifiedDefinition> {
+fn extract_primary_definitions(combined: &CombinedEntry) -> Vec<UnifiedDefinition> {
     let mut chinese = Vec::new();
     let mut japanese = Vec::new();
 
@@ -207,24 +207,24 @@ fn extract_primary_linguistic_info(combined: &CombinedEntry) -> LinguisticInfo {
 
 fn extract_primary_statistics(combined: &CombinedEntry) -> UnifiedStatistics {
     let chinese = combined.chinese_entry.as_ref().map(|c| ChineseStats {
-        hsk_level: c.statistics.as_ref().map(|s| s.hsk_level as i32),
-        movie_word_count: c.statistics.as_ref().and_then(|s| s.movie_word_count.map(|v| v as i32)),
+        hsk_level: c.statistics.as_ref().map(|s| s.hsk_level as u8),
+        movie_word_count: c.statistics.as_ref().and_then(|s| s.movie_word_count.map(|v| v as u32)),
         movie_word_count_percent: c.statistics.as_ref().and_then(|s| s.movie_word_count_percent),
-        movie_word_rank: c.statistics.as_ref().and_then(|s| s.movie_word_rank.map(|v| v as i32)),
-        movie_word_contexts: c.statistics.as_ref().and_then(|s| s.movie_word_contexts.map(|v| v as i32)),
+        movie_word_rank: c.statistics.as_ref().and_then(|s| s.movie_word_rank.map(|v| v as u32)),
+        movie_word_contexts: c.statistics.as_ref().and_then(|s| s.movie_word_contexts.map(|v| v as u32)),
         movie_word_contexts_percent: c.statistics.as_ref().and_then(|s| s.movie_word_contexts_percent),
-        book_word_count: c.statistics.as_ref().and_then(|s| s.book_word_count.map(|v| v as i32)),
+        book_word_count: c.statistics.as_ref().and_then(|s| s.book_word_count.map(|v| v as u32)),
         book_word_count_percent: c.statistics.as_ref().and_then(|s| s.book_word_count_percent),
-        book_word_rank: c.statistics.as_ref().and_then(|s| s.book_word_rank.map(|v| v as i32)),
-        movie_char_count: c.statistics.as_ref().and_then(|s| s.movie_char_count.map(|v| v as i32)),
+        book_word_rank: c.statistics.as_ref().and_then(|s| s.book_word_rank.map(|v| v as u32)),
+        movie_char_count: c.statistics.as_ref().and_then(|s| s.movie_char_count.map(|v| v as u32)),
         movie_char_count_percent: c.statistics.as_ref().and_then(|s| s.movie_char_count_percent),
-        movie_char_rank: c.statistics.as_ref().and_then(|s| s.movie_char_rank.map(|v| v as i32)),
-        movie_char_contexts: c.statistics.as_ref().and_then(|s| s.movie_char_contexts.map(|v| v as i32)),
+        movie_char_rank: c.statistics.as_ref().and_then(|s| s.movie_char_rank.map(|v| v as u32)),
+        movie_char_contexts: c.statistics.as_ref().and_then(|s| s.movie_char_contexts.map(|v| v as u32)),
         movie_char_contexts_percent: c.statistics.as_ref().and_then(|s| s.movie_char_contexts_percent),
-        book_char_count: c.statistics.as_ref().and_then(|s| s.book_char_count.map(|v| v as i32)),
+        book_char_count: c.statistics.as_ref().and_then(|s| s.book_char_count.map(|v| v as u32)),
         book_char_count_percent: c.statistics.as_ref().and_then(|s| s.book_char_count_percent),
-        book_char_rank: c.statistics.as_ref().and_then(|s| s.book_char_rank.map(|v| v as i32)),
-        pinyin_frequency: c.statistics.as_ref().and_then(|s| s.pinyin_frequency.map(|v| v as i32)),
+        book_char_rank: c.statistics.as_ref().and_then(|s| s.book_char_rank.map(|v| v as u32)),
+        pinyin_frequency: None, // This field is i64 in source but should be HashMap<String, u32>
         top_words: c.statistics.as_ref().and_then(|s| s.top_words.as_ref().map(|tw| 
             tw.iter().map(|w| TopWord {
                 word: w.word.clone(),
@@ -235,7 +235,7 @@ fn extract_primary_statistics(combined: &CombinedEntry) -> UnifiedStatistics {
         )),
     });
 
-    let japanese = combined.japanese_entry.as_ref().map(|_| crate::unified_types::JapaneseStats {
+    let japanese = combined.japanese_entry.as_ref().map(|_| JapaneseStats {
         common: combined.japanese_entry.as_ref()
             .map(|j| j.kanji.iter().any(|k| k.common) || j.kana.iter().any(|k| k.common))
             .unwrap_or(false),
@@ -247,7 +247,7 @@ fn extract_primary_statistics(combined: &CombinedEntry) -> UnifiedStatistics {
     UnifiedStatistics {
         chinese,
         japanese,
-        combined_frequency_score: Some(combined_frequency_score),
+        combined_frequency_score: combined_frequency_score,
     }
 }
 
@@ -265,12 +265,13 @@ fn extract_primary_examples(combined: &CombinedEntry) -> Vec<Example> {
                             text: sentence.text.clone(),
                             translation: example.sentences.iter()
                                 .find(|s| format!("{:?}", s.land) == "Eng")
-                                .map(|s| s.text.clone()),
+                                .map(|s| s.text.clone())
+                                .unwrap_or_default(),
                             source: ExampleSource {
                                 source_type: format!("{:?}", example.source.source_type),
-                                id: Some(example.source.value.clone()),
+                                id: example.source.value.clone(),
                             },
-                            source_entry_id: Some(japanese.id.clone()),
+                            source_entry_id: japanese.id.clone(),
                         });
                     }
                 }
@@ -314,13 +315,13 @@ fn create_japanese_specific_entries(combined: &CombinedEntry) -> Vec<JapaneseSpe
         let mut definitions = Vec::new();
         for (sense_index, sense) in japanese_entry.sense.iter().enumerate() {
             for gloss in &sense.gloss {
-                definitions.push(crate::improved_unified_types::UnifiedDefinition {
+                definitions.push(UnifiedDefinition {
                     text: gloss.text.clone(),
                     source_language: "japanese".to_string(),
                     confidence: Some(0.7),
                     source_entry_ids: vec![japanese_entry.id.clone()],
                     chinese_fields: None,
-                    japanese_fields: Some(crate::improved_unified_types::JapaneseDefinitionFields {
+                    japanese_fields: Some(JapaneseDefinitionFields {
                         part_of_speech: sense.part_of_speech.iter().map(|p| format!("{:?}", p)).collect(),
                         field: sense.field.iter().map(|f| format!("{:?}", f)).collect(),
                         misc: sense.misc.iter().map(|m| format!("{:?}", m)).collect(),
@@ -352,12 +353,13 @@ fn create_japanese_specific_entries(combined: &CombinedEntry) -> Vec<JapaneseSpe
                             text: sentence.text.clone(),
                             translation: example.sentences.iter()
                                 .find(|s| format!("{:?}", s.land) == "Eng")
-                                .map(|s| s.text.clone()),
+                                .map(|s| s.text.clone())
+                                .unwrap_or_default(),
                             source: ExampleSource {
                                 source_type: format!("{:?}", example.source.source_type),
-                                id: Some(example.source.value.clone()),
+                                id: example.source.value.clone(),
                             },
-                            source_entry_id: Some(japanese_entry.id.clone()),
+                            source_entry_id: japanese_entry.id.clone(),
                         });
                     }
                 }
@@ -380,17 +382,17 @@ fn create_japanese_specific_entries(combined: &CombinedEntry) -> Vec<JapaneseSpe
 }
 
 // Helper functions
-fn classify_reading(text: &str) -> crate::unified_types::ReadingType {
+fn classify_reading(text: &str) -> ReadingType {
     if text.chars().all(|c| matches!(c, 'あ'..='ん' | 'ー')) {
-        crate::unified_types::ReadingType::Hiragana
+        ReadingType::Hiragana
     } else if text.chars().all(|c| matches!(c, 'ア'..='ン' | 'ー')) {
-        crate::unified_types::ReadingType::Katakana
+        ReadingType::Katakana
     } else {
-        crate::unified_types::ReadingType::Mixed
+        ReadingType::Mixed
     }
 }
 
-fn calculate_combined_frequency_score(chinese: &Option<ChineseStats>, japanese: &Option<crate::unified_types::JapaneseStats>) -> f32 {
+fn calculate_combined_frequency_score(chinese: &Option<ChineseStats>, japanese: &Option<JapaneseStats>) -> f32 {
     let mut score = 0.0;
     
     if let Some(c) = chinese {
@@ -479,7 +481,7 @@ fn create_unified_metadata(combined: &CombinedEntry) -> UnifiedMetadata {
 fn create_unified_definitions(
     chinese: &[ChineseDefinition],
     japanese: &[JapaneseDefinition]
-) -> Vec<crate::improved_unified_types::UnifiedDefinition> {
+) -> Vec<UnifiedDefinition> {
     let mut unified = Vec::new();
 
     // Simple deduplication strategy: merge definitions with exact text matches
@@ -500,7 +502,7 @@ fn create_unified_definitions(
             // Check for exact text match (case-insensitive)
             if c_def.text.to_lowercase() == j_def.text.to_lowercase() {
                 // Create unified definition
-                let unified_def = crate::improved_unified_types::UnifiedDefinition {
+                let unified_def = UnifiedDefinition {
                     text: c_def.text.clone(),
                     source_language: "unified".to_string(),
                     confidence: Some(0.9), // High confidence for exact matches
@@ -508,14 +510,14 @@ fn create_unified_definitions(
                         format!("chinese:{}", c_def.source),
                         j_def.source_entry_id.clone().unwrap_or_default(),
                     ],
-                    chinese_fields: Some(crate::improved_unified_types::ChineseDefinitionFields {
+                    chinese_fields: Some(ChineseDefinitionFields {
                         source: c_def.source.clone(),
                         context: c_def.context.clone(),
                         pinyin: c_def.pinyin.clone(),
                         simp_trad: c_def.simp_trad.clone(),
                         tang: c_def.tang.clone(),
                     }),
-                    japanese_fields: Some(crate::improved_unified_types::JapaneseDefinitionFields {
+                    japanese_fields: Some(JapaneseDefinitionFields {
                         part_of_speech: j_def.part_of_speech.clone(),
                         field: j_def.field.clone(),
                         misc: j_def.misc.clone(),
@@ -546,12 +548,12 @@ fn create_unified_definitions(
     // Add remaining Chinese definitions as Chinese-only unified definitions
     for (c_idx, c_def) in chinese.iter().enumerate() {
         if !processed_chinese[c_idx] {
-            let unified_def = crate::improved_unified_types::UnifiedDefinition {
+            let unified_def = UnifiedDefinition {
                 text: c_def.text.clone(),
                 source_language: "chinese".to_string(),
                 confidence: Some(0.7), // Medium confidence for single-source
                 source_entry_ids: vec![format!("chinese:{}", c_def.source)],
-                chinese_fields: Some(crate::improved_unified_types::ChineseDefinitionFields {
+                chinese_fields: Some(ChineseDefinitionFields {
                     source: c_def.source.clone(),
                     context: c_def.context.clone(),
                     pinyin: c_def.pinyin.clone(),
@@ -567,13 +569,13 @@ fn create_unified_definitions(
     // Add remaining Japanese definitions as Japanese-only unified definitions
     for (j_idx, j_def) in japanese.iter().enumerate() {
         if !processed_japanese[j_idx] {
-            let unified_def = crate::improved_unified_types::UnifiedDefinition {
+            let unified_def = UnifiedDefinition {
                 text: j_def.text.clone(),
                 source_language: "japanese".to_string(),
                 confidence: Some(0.7), // Medium confidence for single-source
                 source_entry_ids: vec![j_def.source_entry_id.clone().unwrap_or_default()],
                 chinese_fields: None,
-                japanese_fields: Some(crate::improved_unified_types::JapaneseDefinitionFields {
+                japanese_fields: Some(JapaneseDefinitionFields {
                     part_of_speech: j_def.part_of_speech.clone(),
                     field: j_def.field.clone(),
                     misc: j_def.misc.clone(),

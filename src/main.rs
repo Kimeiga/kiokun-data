@@ -1,8 +1,6 @@
 mod chinese_types;
 mod japanese_types;
 mod combined_types;
-mod unified_types;
-mod unification_engine;
 mod kanji_mapping_generated;
 mod improved_unified_types;
 mod improved_unification_engine;
@@ -11,19 +9,17 @@ use anyhow::{Context, Result};
 use std::collections::HashMap;
 use std::fs::{self, File};
 use std::io::{BufRead, BufReader};
-use std::path::Path;
+
 use std::process::Command as ProcessCommand;
 use clap::{Arg, ArgAction, Command};
 use serde_json;
 
-use chinese_types::{ChineseDictionary, ChineseDictionaryElement};
+use chinese_types::ChineseDictionaryElement;
 use japanese_types::{JapaneseEntry, Word};
 use combined_types::{
     CombinedDictionary, CombinedEntry, CombinedMetadata, KeySource,
     MergeStatistics, DictionaryMetadata
 };
-use unified_types::UnifiedEntry;
-use unification_engine::unify_entry;
 
 #[tokio::main]
 async fn main() -> Result<()> {
@@ -36,12 +32,7 @@ async fn main() -> Result<()> {
                 .help("Generate Japanese to Chinese mapping file")
                 .action(clap::ArgAction::SetTrue)
         )
-        .arg(
-            Arg::new("unified-format")
-                .long("unified-format")
-                .help("Generate unified entries with combined Chinese/Japanese data")
-                .action(clap::ArgAction::SetTrue),
-        )
+
         .arg(
             Arg::new("individual-files")
                 .long("individual-files")
@@ -86,12 +77,7 @@ async fn main() -> Result<()> {
     let combined_dict = merge_dictionaries_with_mapping(chinese_entries, japanese_dict.words, j2c_mapping)
         .context("Failed to merge dictionaries")?;
 
-    // Check if unified format is requested
-    if matches.get_flag("unified-format") {
-        println!("🔄 Generating unified entries...");
-        generate_unified_entries(&combined_dict).await?;
-        return Ok(());
-    }
+
 
     // Check if individual files are requested
     if matches.get_flag("individual-files") {
@@ -116,100 +102,7 @@ async fn main() -> Result<()> {
     Ok(())
 }
 
-async fn generate_unified_entries(combined_dict: &CombinedDictionary) -> Result<()> {
-    println!("🔄 Converting to unified format...");
 
-    let mut unified_entries = Vec::new();
-    let mut unified_count = 0;
-    let mut chinese_only_count = 0;
-    let mut japanese_only_count = 0;
-
-    for (i, entry) in combined_dict.entries.iter().enumerate() {
-        if i % 10000 == 0 {
-            println!("  Processed {} entries...", i);
-        }
-
-        let unified_entry = unify_entry(entry);
-
-        // Count entry types
-        match (entry.chinese_entry.is_some(), entry.japanese_entry.is_some()) {
-            (true, true) => unified_count += 1,
-            (true, false) => chinese_only_count += 1,
-            (false, true) => japanese_only_count += 1,
-            (false, false) => {}, // Shouldn't happen
-        }
-
-        unified_entries.push(unified_entry);
-    }
-
-    println!("💾 Saving unified dictionary...");
-
-    // Create unified dictionary structure
-    let unified_dict = serde_json::json!({
-        "metadata": {
-            "format": "unified",
-            "version": "2.0",
-            "created_at": chrono::Utc::now().to_string(),
-            "total_entries": unified_entries.len(),
-            "unified_entries": unified_count,
-            "chinese_only_entries": chinese_only_count,
-            "japanese_only_entries": japanese_only_count,
-            "unification_rate": format!("{:.2}%", (unified_count as f32 / unified_entries.len() as f32) * 100.0)
-        },
-        "entries": unified_entries
-    });
-
-    // Save to file
-    let output_path = "output/unified_dictionary.json";
-    let json_string = serde_json::to_string_pretty(&unified_dict)
-        .context("Failed to serialize unified dictionary")?;
-    fs::write(output_path, json_string)
-        .context("Failed to write unified dictionary file")?;
-
-    println!("📊 Unified Dictionary Statistics:");
-    println!("  Total entries: {}", unified_entries.len());
-    println!("  Unified entries (both languages): {}", unified_count);
-    println!("  Chinese-only entries: {}", chinese_only_count);
-    println!("  Japanese-only entries: {}", japanese_only_count);
-    println!("  Unification rate: {:.2}%", (unified_count as f32 / unified_entries.len() as f32) * 100.0);
-
-    println!("✅ Unified dictionary generated successfully!");
-    println!("📁 Output saved to: {}", output_path);
-
-    // Show sample unified entries
-    println!("\n🔍 Sample unified entries:");
-    for (i, entry) in unified_entries.iter().take(5).enumerate() {
-        if entry.metadata.unification_confidence > 0.7 {
-            println!("  {}. {} (confidence: {:.1}%)",
-                i + 1,
-                entry.word,
-                entry.metadata.unification_confidence * 100.0
-            );
-            println!("     Traditional: {}, Simplified: {}",
-                entry.representations.traditional,
-                entry.representations.simplified
-            );
-            if !entry.representations.japanese_kanji.is_empty() {
-                println!("     Japanese: {}",
-                    entry.representations.japanese_kanji[0].text
-                );
-            }
-            if !entry.representations.japanese_kana.is_empty() {
-                println!("     Reading: {}",
-                    entry.representations.japanese_kana[0].text
-                );
-            }
-            if !entry.pronunciations.pinyin.is_empty() {
-                println!("     Pinyin: {}",
-                    entry.pronunciations.pinyin[0].reading
-                );
-            }
-            println!();
-        }
-    }
-
-    Ok(())
-}
 
 fn load_chinese_dictionary(path: &str) -> Result<Vec<ChineseDictionaryElement>> {
     let file = File::open(path)?;
@@ -255,133 +148,7 @@ fn load_j2c_mapping(path: &str) -> Result<HashMap<String, String>> {
     Ok(mapping)
 }
 
-fn merge_dictionaries(
-    chinese_entries: Vec<ChineseDictionaryElement>,
-    japanese_words: Vec<Word>
-) -> Result<CombinedDictionary> {
-    let mut combined_map: HashMap<String, CombinedEntry> = HashMap::new();
-    let mut stats = MergeStatistics {
-        total_chinese_entries: chinese_entries.len(),
-        total_japanese_words: japanese_words.len(),
-        unified_entries: 0,
-        chinese_only_entries: 0,
-        japanese_only_entries: 0,
-        total_combined_entries: 0,
-        sample_unified_entries: Vec::new(),
-    };
-    
-    // Phase 1: Process Chinese entries
-    println!("  📝 Phase 1: Processing Chinese entries...");
-    for (i, chinese_entry) in chinese_entries.into_iter().enumerate() {
-        let key = chinese_entry.trad.clone(); // Use traditional form as key
-        
-        match combined_map.get_mut(&key) {
-            Some(existing_entry) => {
-                // Add to chinese_specific_entries
-                existing_entry.chinese_specific_entries.push(chinese_entry);
-                existing_entry.metadata.chinese_count += 1;
-            }
-            None => {
-                // Create new entry
-                let new_entry = CombinedEntry {
-                    word: key.clone(),
-                    chinese_entry: Some(chinese_entry),
-                    chinese_specific_entries: Vec::new(),
-                    japanese_entry: None,
-                    japanese_specific_entries: Vec::new(),
-                    metadata: CombinedMetadata {
-                        chinese_count: 1,
-                        japanese_count: 0,
-                        is_unified: false,
-                        key_source: KeySource::Chinese,
-                    },
-                };
-                combined_map.insert(key, new_entry);
-            }
-        }
-        
-        if (i + 1) % 10000 == 0 {
-            println!("    Processed {} Chinese entries...", i + 1);
-        }
-    }
-    
-    // Phase 2: Process Japanese entries
-    println!("  📝 Phase 2: Processing Japanese entries...");
-    for (i, japanese_word) in japanese_words.into_iter().enumerate() {
-        // Get key from first kanji, then first kana if no kanji
-        let key = get_japanese_key(&japanese_word);
-        
-        match combined_map.get_mut(&key) {
-            Some(existing_entry) => {
-                // Match found!
-                if existing_entry.japanese_entry.is_none() {
-                    // First Japanese entry for this word
-                    existing_entry.japanese_entry = Some(japanese_word);
-                    existing_entry.metadata.japanese_count = 1;
-                    existing_entry.metadata.is_unified = true;
-                    
-                    // Add to sample for inspection
-                    if stats.sample_unified_entries.len() < 20 {
-                        stats.sample_unified_entries.push(key.clone());
-                    }
-                } else {
-                    // Additional Japanese entry
-                    existing_entry.japanese_specific_entries.push(japanese_word);
-                    existing_entry.metadata.japanese_count += 1;
-                }
-            }
-            None => {
-                // Create new Japanese-only entry
-                let new_entry = CombinedEntry {
-                    word: key.clone(),
-                    chinese_entry: None,
-                    chinese_specific_entries: Vec::new(),
-                    japanese_entry: Some(japanese_word),
-                    japanese_specific_entries: Vec::new(),
-                    metadata: CombinedMetadata {
-                        chinese_count: 0,
-                        japanese_count: 1,
-                        is_unified: false,
-                        key_source: KeySource::Japanese,
-                    },
-                };
-                combined_map.insert(key, new_entry);
-            }
-        }
-        
-        if (i + 1) % 10000 == 0 {
-            println!("    Processed {} Japanese words...", i + 1);
-        }
-    }
-    
-    // Calculate final statistics
-    for entry in combined_map.values() {
-        if entry.metadata.is_unified {
-            stats.unified_entries += 1;
-        } else if entry.chinese_entry.is_some() {
-            stats.chinese_only_entries += 1;
-        } else {
-            stats.japanese_only_entries += 1;
-        }
-    }
-    stats.total_combined_entries = combined_map.len();
-    
-    // Convert to vector
-    let entries: Vec<CombinedEntry> = combined_map.into_values().collect();
-    
-    let combined_dict = CombinedDictionary {
-        entries,
-        statistics: stats,
-        metadata: DictionaryMetadata {
-            chinese_source: "chinese_dictionary_word_2025-06-25.jsonl".to_string(),
-            japanese_source: "jmdict-examples-eng-3.6.1.json".to_string(),
-            created_at: "2025-01-17T00:00:00Z".to_string(), // Simplified for now
-            merger_version: "0.1.0".to_string(),
-        },
-    };
-    
-    Ok(combined_dict)
-}
+
 
 fn merge_dictionaries_with_mapping(
     chinese_entries: Vec<ChineseDictionaryElement>,
@@ -427,7 +194,7 @@ fn merge_dictionaries_with_mapping(
 
     // Phase 2: Process Japanese entries using J2C mapping
     println!("  📝 Phase 2: Processing Japanese entries with J2C mapping...");
-    let mut debug_count = 0;
+    let mut _debug_count = 0;
 
     for (i, japanese_word) in japanese_words.into_iter().enumerate() {
         // Get key from first kanji using J2C mapping
@@ -447,7 +214,7 @@ fn merge_dictionaries_with_mapping(
                 }
             }
             println!("    Chinese dict contains key '{}': {}", key, combined_map.contains_key(&key));
-            debug_count += 1;
+            _debug_count += 1;
         }
 
         match combined_map.get_mut(&key) {
