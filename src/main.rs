@@ -52,11 +52,28 @@ async fn main() -> Result<()> {
                 .help("Run analysis mode - load data in memory without generating files")
                 .action(ArgAction::SetTrue),
         )
+        .arg(
+            Arg::new("find-max-representations")
+                .long("find-max-representations")
+                .help("Find Japanese entries with the most kanji and kana representations (≥2 each)")
+                .action(ArgAction::SetTrue),
+        )
         .get_matches();
 
     if matches.get_flag("generate-j2c-mapping") {
         println!("🔄 Generating Japanese to Chinese mapping...");
         generate_j2c_mapping().await?;
+        return Ok(());
+    }
+
+    // Check if kanji-kana representation analysis is requested
+    if matches.get_flag("find-max-representations") {
+        println!("🔍 Running kanji-kana representation analysis...");
+        println!("📚 Loading Japanese dictionary...");
+        let japanese_dict = load_japanese_dictionary("data/jmdict-examples-eng-3.6.1.json")
+            .context("Failed to load Japanese dictionary")?;
+
+        analysis::find_most_kanji_kana_representations(&japanese_dict.words).await?;
         return Ok(());
     }
 
