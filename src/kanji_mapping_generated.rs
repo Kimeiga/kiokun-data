@@ -3,6 +3,7 @@ use std::sync::LazyLock;
 
 /// Comprehensive mapping from Japanese kanji to Traditional Chinese
 /// Generated from JMDict using OpenCC jp2t configuration
+#[allow(dead_code)]
 pub static KANJI_TO_TRADITIONAL_MAP: LazyLock<HashMap<&'static str, &'static str>> = LazyLock::new(|| {
     let mut map = HashMap::new();
     map.insert("Θ関数", "Θ函數");
@@ -68810,6 +68811,7 @@ pub static KANJI_TO_TRADITIONAL_MAP: LazyLock<HashMap<&'static str, &'static str
 });
 
 /// Convert Japanese kanji string to Traditional Chinese using the comprehensive mapping
+#[allow(dead_code)]
 pub fn convert_japanese_to_traditional(japanese: &str) -> String {
     KANJI_TO_TRADITIONAL_MAP.get(japanese)
         .map(|&traditional| traditional.to_string())
