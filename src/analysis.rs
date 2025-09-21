@@ -1,5 +1,6 @@
 use anyhow::Result;
 use crate::combined_types::CombinedDictionary;
+use crate::japanese_types::Word;
 
 /// Run analysis on the combined dictionary data
 pub async fn run_analysis(combined_dict: &CombinedDictionary) -> Result<()> {
@@ -21,6 +22,90 @@ pub async fn run_analysis(combined_dict: &CombinedDictionary) -> Result<()> {
     // show_proposed_unified_structure(combined_dict).await?;
 
     println!("✅ Analysis complete!");
+    Ok(())
+}
+
+/// Find the Japanese entry with the largest combined number of kanji and kana representations
+/// Requires at least 2 kanji and 2 kana representations
+pub async fn find_most_kanji_kana_representations(japanese_words: &[Word]) -> Result<()> {
+    println!("🔍 Finding Japanese entries with the most kanji and kana representations...");
+    println!("📋 Filtering for entries with at least 2 kanji AND 2 kana representations...");
+
+    let mut candidates = Vec::new();
+
+    for word in japanese_words {
+        let kanji_count = word.kanji.len();
+        let kana_count = word.kana.len();
+        let total_representations = kanji_count + kana_count;
+
+        // Filter for entries with at least 2 kanji AND 2 kana
+        if kanji_count >= 2 && kana_count >= 2 {
+            candidates.push((word, kanji_count, kana_count, total_representations));
+        }
+    }
+
+    // Sort by total representations (descending), then by kanji count, then by kana count
+    candidates.sort_by(|a, b| {
+        b.3.cmp(&a.3)
+            .then(b.1.cmp(&a.1))
+            .then(b.2.cmp(&a.2))
+    });
+
+    println!("📊 Results:");
+    println!("  Total entries with ≥2 kanji AND ≥2 kana: {}", candidates.len());
+
+    if let Some((top_word, top_kanji, top_kana, top_total)) = candidates.first() {
+        println!("  Maximum total representations: {} ({} kanji + {} kana)", top_total, top_kanji, top_kana);
+    }
+
+    println!("\n🏆 Top 20 Japanese entries by total kanji+kana representations:");
+    for (i, (word, kanji_count, kana_count, total)) in candidates.iter().take(20).enumerate() {
+        println!("  {}. ID:{} - {} total ({} kanji + {} kana)",
+                 i + 1, word.id, total, kanji_count, kana_count);
+
+        // Show all kanji representations
+        println!("     🔤 Kanji ({}):", kanji_count);
+        for (j, kanji) in word.kanji.iter().enumerate() {
+            let common_marker = if kanji.common { "★" } else { "" };
+            let tags_str = if kanji.tags.is_empty() {
+                String::new()
+            } else {
+                format!(" [{}]", kanji.tags.iter().map(|t| format!("{:?}", t)).collect::<Vec<_>>().join(","))
+            };
+            println!("       {}. {}{}{}", j + 1, kanji.text, common_marker, tags_str);
+        }
+
+        // Show all kana representations
+        println!("     🔤 Kana ({}):", kana_count);
+        for (j, kana) in word.kana.iter().enumerate() {
+            let common_marker = if kana.common { "★" } else { "" };
+            let tags_str = if kana.tags.is_empty() {
+                String::new()
+            } else {
+                format!(" [{}]", kana.tags.iter().map(|t| format!("{:?}", t)).collect::<Vec<_>>().join(","))
+            };
+            let applies_to = if let Some(applies) = &kana.applies_to_kanji {
+                if applies.contains(&"*".to_string()) {
+                    " (applies to all kanji)".to_string()
+                } else {
+                    format!(" (applies to: {})", applies.join(", "))
+                }
+            } else {
+                " (applies to all kanji)".to_string()
+            };
+            println!("       {}. {}{}{}{}", j + 1, kana.text, common_marker, tags_str, applies_to);
+        }
+
+        // Show primary meaning
+        if let Some(sense) = word.sense.first() {
+            if let Some(gloss) = sense.gloss.first() {
+                println!("     💭 Primary meaning: \"{}\"", gloss.text);
+            }
+        }
+
+        println!(); // Empty line for readability
+    }
+
     Ok(())
 }
 

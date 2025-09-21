@@ -21,7 +21,6 @@ pub fn convert_to_improved_unified(combined: &CombinedEntry) -> ImprovedUnifiedE
 fn create_unified_data(combined: &CombinedEntry) -> UnifiedData {
     // Only use the PRIMARY Chinese and Japanese entries for unified data
     let representations = extract_primary_representations(combined);
-    let pronunciations = extract_primary_pronunciations(combined);
     let chinese_metadata = combined.chinese_entry.as_ref().map(|c| ChineseMetadata {
         gloss: c.gloss.clone().unwrap_or_default(),
         pinyin_search_string: c.pinyin_search_string.clone(),
@@ -33,7 +32,6 @@ fn create_unified_data(combined: &CombinedEntry) -> UnifiedData {
 
     UnifiedData {
         representations,
-        pronunciations,
         chinese_metadata,
         definitions,
         linguistic_info,
@@ -46,10 +44,23 @@ fn extract_primary_representations(combined: &CombinedEntry) -> CharacterReprese
     let traditional = combined.chinese_entry.as_ref()
         .map(|c| c.trad.clone())
         .unwrap_or_else(|| combined.word.clone());
-    
+
     let simplified = combined.chinese_entry.as_ref()
         .map(|c| c.simp.clone())
         .unwrap_or_else(|| combined.word.clone());
+
+    // Extract Chinese pinyin from primary entry
+    let mut chinese_pinyin = Vec::new();
+    if let Some(chinese_entry) = &combined.chinese_entry {
+        for item in &chinese_entry.items {
+            if let Some(pinyin_str) = &item.pinyin {
+                chinese_pinyin.push(PinyinReading {
+                    reading: pinyin_str.clone(),
+                    source: item.source.as_ref().map(|s| format!("{:?}", s)).unwrap_or_default(),
+                });
+            }
+        }
+    }
 
     let mut japanese_kanji = Vec::new();
     let mut japanese_kana = Vec::new();
@@ -77,40 +88,13 @@ fn extract_primary_representations(combined: &CombinedEntry) -> CharacterReprese
     CharacterRepresentations {
         traditional,
         simplified,
+        chinese_pinyin,
         japanese_kanji,
         japanese_kana,
     }
 }
 
-fn extract_primary_pronunciations(combined: &CombinedEntry) -> Pronunciations {
-    let mut pinyin = Vec::new();
-    let mut japanese = Vec::new();
 
-    // Extract Chinese pinyin from primary entry
-    if let Some(chinese_entry) = &combined.chinese_entry {
-        for item in &chinese_entry.items {
-            if let Some(pinyin_str) = &item.pinyin {
-                pinyin.push(PinyinReading {
-                    reading: pinyin_str.clone(),
-                    source: item.source.as_ref().map(|s| format!("{:?}", s)).unwrap_or_default(),
-                });
-            }
-        }
-    }
-
-    // Extract Japanese readings from PRIMARY entry only
-    if let Some(japanese_entry) = &combined.japanese_entry {
-        for kana in &japanese_entry.kana {
-            japanese.push(JapaneseReading {
-                reading: kana.text.clone(),
-                reading_type: classify_reading(&kana.text),
-                common: kana.common,
-            });
-        }
-    }
-
-    Pronunciations { pinyin, japanese }
-}
 
 fn extract_primary_definitions(combined: &CombinedEntry) -> Vec<UnifiedDefinition> {
     let mut chinese = Vec::new();
@@ -382,15 +366,6 @@ fn create_japanese_specific_entries(combined: &CombinedEntry) -> Vec<JapaneseSpe
 }
 
 // Helper functions
-fn classify_reading(text: &str) -> ReadingType {
-    if text.chars().all(|c| matches!(c, 'あ'..='ん' | 'ー')) {
-        ReadingType::Hiragana
-    } else if text.chars().all(|c| matches!(c, 'ア'..='ン' | 'ー')) {
-        ReadingType::Katakana
-    } else {
-        ReadingType::Mixed
-    }
-}
 
 fn calculate_combined_frequency_score(chinese: &Option<ChineseStats>, japanese: &Option<JapaneseStats>) -> f32 {
     let mut score = 0.0;

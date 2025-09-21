@@ -20,24 +20,21 @@ pub struct ImprovedUnifiedEntry {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UnifiedData {
-    /// Character representations from primary entries
+    /// Character representations from primary entries (includes pinyin)
     pub representations: CharacterRepresentations,
-    
-    /// Pronunciations from primary entries
-    pub pronunciations: Pronunciations,
-    
+
     /// Chinese metadata from primary entry
     pub chinese_metadata: Option<ChineseMetadata>,
-    
+
     /// Unified definitions from primary entries only
     pub definitions: Vec<UnifiedDefinition>,
-    
+
     /// Combined linguistic information
     pub linguistic_info: LinguisticInfo,
-    
+
     /// Combined statistical data
     pub statistics: UnifiedStatistics,
-    
+
     /// Examples from primary entries
     pub examples: Vec<Example>,
 }
@@ -126,6 +123,7 @@ use std::collections::HashMap;
 pub struct CharacterRepresentations {
     pub traditional: String,
     pub simplified: String,
+    pub chinese_pinyin: Vec<PinyinReading>,
     pub japanese_kanji: Vec<KanjiVariant>,
     pub japanese_kana: Vec<KanaVariant>,
 }

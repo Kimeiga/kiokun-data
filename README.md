@@ -7,7 +7,7 @@ A high-performance Rust application that merges Chinese and Japanese dictionarie
 - **🧠 Semantic Alignment**: Automatically finds the best Japanese reading that matches Chinese meanings
 - **🔄 OpenCC Integration**: Intelligent Japanese kanji → Traditional Chinese character conversion
 - **📊 Performance Optimized**: Individual JSON files for direct access (no grepping needed)
-- **🌐 Complete Linguistic Data**: Pronunciations, examples, frequency statistics, metadata
+- **🌐 Complete Linguistic Data**: Character representations, examples, frequency statistics, metadata
 - **🎌 Language-Specific Preservation**: Unique Japanese/Chinese usages kept separate
 
 ## 🎯 Project Overview
@@ -33,7 +33,7 @@ This creates a dictionary that helps users understand concepts from a **combined
 - **Individual Files**: 22,135 unified entries as separate JSON files (106MB total)
 - **Semantically Aligned**: 191 entries automatically realigned for better semantic matching
 - **Unified Entries Only**: Entries containing both Chinese and Japanese data
-- **Complete Linguistic Data**: Pronunciations, examples, statistics, metadata
+- **Complete Linguistic Data**: Character representations, examples, statistics, metadata
 
 ## 📊 Current Results Summary
 
@@ -61,8 +61,7 @@ pub struct ImprovedUnifiedEntry {
 }
 
 pub struct UnifiedSection {
-    pub representations: CharacterRepresentations,       // All character forms
-    pub pronunciations: Pronunciations,                  // Pinyin + Japanese readings
+    pub representations: CharacterRepresentations,       // All character forms + pinyin
     pub chinese_metadata: ChineseMetadata,               // Gloss, search strings
     pub definitions: Vec<UnifiedDefinition>,             // ✅ Consolidated definitions
     pub linguistic_info: LinguisticInfo,                 // Parts of speech, fields
@@ -248,7 +247,7 @@ kiokun-data/
 
 - **`src/improved_unified_types.rs`**: Modern data structures
   - `ImprovedUnifiedEntry`: Main unified entry structure
-  - `UnifiedSection`: Core unified data (representations, pronunciations, definitions)
+  - `UnifiedSection`: Core unified data (representations with pinyin, definitions)
   - `UnifiedDefinition`: Consolidated definition with source attribution
   - Complete type safety for all dictionary operations
 
@@ -275,7 +274,7 @@ kiokun-data/
   - One file per unified word (e.g., `學生.json`, `地圖.json`)
   - Minified JSON for performance (no pretty printing)
   - Direct file access without grepping large files
-  - Complete linguistic data: pronunciations, definitions, examples, statistics
+  - Complete linguistic data: character representations, definitions, examples, statistics
 
 ## 🧠 Semantic Alignment System
 
@@ -381,17 +380,14 @@ This example shows how semantic alignment improved the unification:
     "representations": {
       "traditional": "頭",
       "simplified": "头",
+      "chinese_pinyin": [
+        {"reading": "tóu", "source": "Unicode"},
+        {"reading": "tou", "source": "Unicode"}
+      ],
       "japanese_kanji": [{"text": "頭", "common": true, "tags": []}],
       "japanese_kana": [
         {"text": "あたま", "common": true, "tags": [], "applies_to_kanji": ["*"]},
         {"text": "かしら", "common": true, "tags": [], "applies_to_kanji": ["*"]}
-      ]
-    },
-    "pronunciations": {
-      "pinyin": [{"reading": "tóu", "source": "Unicode"}, {"reading": "tou", "source": "Unicode"}],
-      "japanese": [
-        {"reading": "あたま", "reading_type": "hiragana", "common": true},
-        {"reading": "かしら", "reading_type": "hiragana", "common": true}
       ]
     },
     "chinese_metadata": {
@@ -449,6 +445,45 @@ This example shows how semantic alignment improved the unification:
 - ✅ **Primary unified entry**: あたま "head" (perfect semantic match with Chinese "head")
 - ✅ **Japanese-specific entry**: とう "counter for animals" (preserved but separated)
 - ✅ **Clear structure**: Users see the most relevant meaning first, with alternatives available
+- ✅ **No duplication**: Pinyin moved to representations, eliminating redundant pronunciation data
+
+## 🏗️ Improved Structure: Eliminated Duplication
+
+### **Problem Solved: Redundant Pronunciation Data**
+
+The previous structure had **duplication** where kana readings appeared in both sections:
+```json
+// OLD: Duplicated structure
+{
+  "representations": {
+    "japanese_kana": [{"text": "ひきがえる", "applies_to_kanji": ["蟇","蟇蛙"]}]
+  },
+  "pronunciations": {
+    "japanese": [{"reading": "ひきがえる", "reading_type": "hiragana"}] // ← DUPLICATE!
+  }
+}
+```
+
+### **Solution: Consolidated Representations**
+
+The **new structure eliminates duplication** by moving all character representations to one place:
+```json
+// NEW: Clean, consolidated structure
+{
+  "representations": {
+    "chinese_pinyin": [{"reading": "má", "source": "Cedict"}], // ← Moved here
+    "japanese_kana": [{"text": "ひきがえる", "applies_to_kanji": ["蟇","蟇蛙"]}]
+  }
+  // No more "pronunciations" section!
+}
+```
+
+### **Benefits of New Structure**
+- ✅ **No Duplication**: Each reading appears only once
+- ✅ **Logical Grouping**: All character forms and readings in one place
+- ✅ **Rich Mappings Preserved**: Complex `applies_to_kanji` relationships maintained
+- ✅ **Cleaner JSON**: Eliminated entire redundant section
+- ✅ **Better Performance**: Smaller file sizes, faster parsing
 
 ## 🔧 Development & Type Generation
 
@@ -937,15 +972,15 @@ quicktype --lang rust --src data/jmdict-examples-eng-3.6.1.json -o src/schemas/j
 
 ## 📈 Project Status & Metrics
 
-- **Current Version**: 3.1 - Semantic Alignment Edition
+- **Current Version**: 3.2 - Structural Optimization Edition
 - **Lines of Code**: ~70,000 (including generated mappings)
 - **Test Coverage**: Manual validation of key semantic alignments
 - **Performance**: 357K entries processed in ~3 minutes
 - **Memory Usage**: ~1.5GB peak during processing
-- **Output Quality**: 191 semantic improvements applied automatically
+- **Output Quality**: 191 semantic improvements + structural optimization (eliminated duplication)
 
 ---
 
 **Built with ❤️ in Rust for high-performance multilingual dictionary processing with intelligent semantic alignment.**
 
-*Last updated: September 2025 | Version 3.1 - Semantic Alignment Edition*
+*Last updated: September 2025 | Version 3.2 - Structural Optimization Edition*
