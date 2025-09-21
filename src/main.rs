@@ -4,6 +4,7 @@ mod combined_types;
 mod kanji_mapping_generated;
 mod improved_unified_types;
 mod improved_unification_engine;
+mod analysis;
 
 use anyhow::{Context, Result};
 use std::collections::HashMap;
@@ -45,6 +46,12 @@ async fn main() -> Result<()> {
                 .help("Only generate files for unified entries (entries with both Chinese and Japanese data)")
                 .action(ArgAction::SetTrue),
         )
+        .arg(
+            Arg::new("analysis")
+                .long("analysis")
+                .help("Run analysis mode - load data in memory without generating files")
+                .action(ArgAction::SetTrue),
+        )
         .get_matches();
 
     if matches.get_flag("generate-j2c-mapping") {
@@ -77,24 +84,33 @@ async fn main() -> Result<()> {
     let combined_dict = merge_dictionaries_with_mapping(chinese_entries, japanese_dict.words, j2c_mapping)
         .context("Failed to merge dictionaries")?;
 
+    // Check if analysis mode is requested
+    if matches.get_flag("analysis") {
+        println!("🔍 Running analysis mode...");
+        analysis::run_analysis(&combined_dict).await?;
+        return Ok(());
+    }
 
+    // Apply semantic alignment before generating output
+    println!("🎯 Applying semantic alignment...");
+    let aligned_dict = analysis::apply_semantic_alignment(combined_dict).await?;
 
     // Check if individual files are requested
     if matches.get_flag("individual-files") {
         let unified_only = matches.get_flag("unified-only");
         println!("🔄 Generating individual JSON files{}...",
                  if unified_only { " (unified entries only)" } else { "" });
-        generate_individual_files(&combined_dict, unified_only).await?;
+        generate_individual_files(&aligned_dict, unified_only).await?;
         return Ok(());
     }
 
     // Save combined dictionary
     println!("💾 Saving combined dictionary...");
-    save_combined_dictionary(&combined_dict, "output/combined_dictionary.json")
+    save_combined_dictionary(&aligned_dict, "output/combined_dictionary.json")
         .context("Failed to save combined dictionary")?;
 
     // Print statistics
-    print_statistics(&combined_dict.statistics);
+    print_statistics(&aligned_dict.statistics);
 
     println!("✅ Dictionary merger completed successfully!");
     println!("📁 Output saved to: output/combined_dictionary.json");
@@ -312,6 +328,7 @@ fn get_japanese_key_with_mapping(word: &Word, j2c_mapping: &HashMap<String, Stri
     format!("jp_{}", word.id)
 }
 
+#[allow(dead_code)]
 fn get_japanese_key(word: &Word) -> String {
     // First try kanji - convert to Traditional Chinese for better matching
     if let Some(first_kanji) = word.kanji.first() {

@@ -13,6 +13,7 @@
 
 use serde::{Serialize, Deserialize};
 
+#[allow(dead_code)]
 pub type ChineseDictionary = Vec<ChineseDictionaryElement>;
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
