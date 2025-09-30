@@ -138,9 +138,9 @@ async fn main() -> Result<()> {
                 .action(ArgAction::SetTrue),
         )
         .arg(
-            Arg::new("simple-output")
-                .long("simple-output")
-                .help("Generate simple output with no unification - just raw data from each source")
+            Arg::new("unified-output")
+                .long("unified-output")
+                .help("Generate unified output with semantic unification and merged character data")
                 .action(ArgAction::SetTrue),
         )
         .get_matches();
@@ -332,8 +332,14 @@ async fn main() -> Result<()> {
 
     // Check if individual files are requested
     if matches.get_flag("individual-files") {
-        // Check if simple output is requested
-        if matches.get_flag("simple-output") {
+        // Check if unified output is requested (non-default)
+        if matches.get_flag("unified-output") {
+            let unified_only = matches.get_flag("unified-only");
+            println!("🔄 Generating unified individual JSON files (word + character data){}...",
+                     if unified_only { " (unified entries only)" } else { "" });
+            generate_unified_output_files(&aligned_dict, &unified_characters, unified_only).await?;
+        } else {
+            // Default: simple output with no unification
             println!("🔄 Generating simple individual JSON files (no unification)...");
             // Need to reload the raw character dictionaries since they were consumed
             let chinese_char_dict_raw = load_chinese_char_dictionary("data/chinese_dictionary_char_2025-06-25.jsonl")
@@ -346,11 +352,6 @@ async fn main() -> Result<()> {
                 &chinese_char_dict_raw,
                 &japanese_char_dict_raw.characters
             ).await?;
-        } else {
-            let unified_only = matches.get_flag("unified-only");
-            println!("🔄 Generating unified individual JSON files (word + character data){}...",
-                     if unified_only { " (unified entries only)" } else { "" });
-            generate_unified_output_files(&aligned_dict, &unified_characters, unified_only).await?;
         }
 
         return Ok(());
