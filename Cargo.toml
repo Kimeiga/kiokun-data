@@ -17,4 +17,11 @@ regex = "1.0"
 name = "merge_dictionaries"
 path = "src/main.rs"
 
+# Optimize for maximum runtime performance
+[profile.release]
+lto = "fat"            # Full LTO - maximum optimization
+codegen-units = 1      # Single codegen unit for better optimization
+opt-level = 3          # Maximum optimization level
+strip = true           # Remove debug symbols for smaller binary
+panic = "abort"        # Smaller binary, slightly faster (no unwinding)
 
