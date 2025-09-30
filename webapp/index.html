@@ -275,22 +275,7 @@
             text-transform: uppercase;
         }
 
-        /* Source Tags */
-        .source-tag {
-            display: inline-block;
-            background: #e9ecef;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-            font-weight: 600;
-            color: #6c757d;
-            margin-left: 8px;
-            text-transform: uppercase;
-        }
 
-        .source-tag.unicode { background: #d4edda; color: #155724; }
-        .source-tag.cedict { background: #cce5ff; color: #004085; }
-        .source-tag.kanjidic { background: #f8d7da; color: #721c24; }
 
         /* Readings Display */
         .readings-list {
@@ -768,10 +753,6 @@
                                 // Join all definitions with semicolons on one line
                                 const definitionsText = item.definitions.join('; ');
                                 html += `<div class="definition-text" style="margin: 10px 0; line-height: 1.6;">${definitionsText}</div>`;
-                            }
-
-                            if (item.source) {
-                                html += `<span class="source-tag ${item.source}">${item.source}</span>`;
                             }
 
                             html += `</div>`;
