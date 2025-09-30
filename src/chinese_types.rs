@@ -44,6 +44,8 @@ pub struct Item {
     pub definitions: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tang: Option<Vec<String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub variant_refs: Option<Vec<String>>,  // NEW: Variant references for this pronunciation
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

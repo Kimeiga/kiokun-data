@@ -1,6 +1,7 @@
 use anyhow::Result;
 use crate::combined_types::CombinedDictionary;
 use crate::japanese_types::Word;
+use crate::chinese_types::ChineseDictionaryElement;
 
 /// Run analysis on the combined dictionary data
 pub async fn run_analysis(combined_dict: &CombinedDictionary) -> Result<()> {
@@ -951,4 +952,1549 @@ pub async fn apply_semantic_alignment(mut combined_dict: CombinedDictionary) -> 
     println!("🎯 Applied {} semantic realignments", realignments_applied);
 
     Ok(combined_dict)
+}
+
+/// Analyze Chinese dictionary entries that contain "variant of" definitions
+pub async fn analyze_variant_definitions(chinese_entries: &[ChineseDictionaryElement]) -> Result<()> {
+    println!("🔍 Analyzing Chinese dictionary entries with 'variant of' definitions...");
+
+    let mut variant_entries = Vec::new();
+    let mut variant_patterns = std::collections::HashMap::new();
+    let mut entries_by_character = std::collections::HashMap::new();
+
+    // First pass: group entries by character to detect multiple pronunciations
+    for entry in chinese_entries {
+        entries_by_character.entry(entry.trad.clone())
+            .or_insert_with(Vec::new)
+            .push(entry);
+    }
+
+    for entry in chinese_entries {
+        let mut has_variant_def = false;
+        let mut variant_refs = Vec::new();
+        let mut all_definitions = Vec::new();
+        let mut variant_items = Vec::new(); // Track which items have variants
+
+        // Check all items for variant definitions
+        for (item_idx, item) in entry.items.iter().enumerate() {
+            let mut item_has_variant = false;
+            let mut item_variant_refs = Vec::new();
+
+            if let Some(definitions) = &item.definitions {
+                for def in definitions {
+                    all_definitions.push(def.clone());
+
+                    // Check for various variant patterns
+                    let def_lower = def.to_lowercase();
+                    if def_lower.contains("variant of") ||
+                       def_lower.contains("old variant of") ||
+                       def_lower.contains("archaic variant of") ||
+                       def_lower.contains("obsolete variant of") ||
+                       def_lower.contains("ancient variant of") ||
+                       def_lower.contains("traditional variant of") ||
+                       def_lower.contains("simplified variant of") ||
+                       def_lower.contains("japanese variant of") {
+
+                        has_variant_def = true;
+                        item_has_variant = true;
+
+                        // Extract the referenced character(s) from the definition
+                        // Pattern: "variant of 蟆[má]" or "old variant of 蟆"
+                        if let Some(referenced_char) = extract_variant_reference(def) {
+                            variant_refs.push(referenced_char.clone());
+                            item_variant_refs.push(referenced_char);
+                        }
+
+                        // Count pattern types
+                        let pattern = if def_lower.contains("old variant of") {
+                            "old variant of"
+                        } else if def_lower.contains("archaic variant of") {
+                            "archaic variant of"
+                        } else if def_lower.contains("obsolete variant of") {
+                            "obsolete variant of"
+                        } else if def_lower.contains("ancient variant of") {
+                            "ancient variant of"
+                        } else if def_lower.contains("traditional variant of") {
+                            "traditional variant of"
+                        } else if def_lower.contains("simplified variant of") {
+                            "simplified variant of"
+                        } else if def_lower.contains("japanese variant of") {
+                            "japanese variant of"
+                        } else {
+                            "variant of"
+                        };
+
+                        *variant_patterns.entry(pattern.to_string()).or_insert(0) += 1;
+                    }
+                }
+            }
+
+            if item_has_variant {
+                variant_items.push(VariantItem {
+                    item_index: item_idx,
+                    pinyin: item.pinyin.clone(),
+                    variant_refs: item_variant_refs,
+                });
+            }
+        }
+
+        if has_variant_def {
+            let definition_count = all_definitions.len();
+            variant_entries.push(VariantAnalysis {
+                word: entry.trad.clone(),
+                simplified: entry.simp.clone(),
+                variant_refs,
+                all_definitions,
+                definition_count,
+                variant_items,
+            });
+        }
+    }
+
+    // Sort by number of definitions to understand complexity
+    variant_entries.sort_by(|a, b| a.definition_count.cmp(&b.definition_count));
+
+    println!("📊 Variant Analysis Results:");
+    println!("  Total Chinese entries: {}", chinese_entries.len());
+    println!("  Entries with 'variant of' definitions: {}", variant_entries.len());
+    println!("  Percentage with variant definitions: {:.2}%",
+             (variant_entries.len() as f64 / chinese_entries.len() as f64) * 100.0);
+
+    println!("\n📋 Variant Pattern Distribution:");
+    let mut pattern_vec: Vec<_> = variant_patterns.iter().collect();
+    pattern_vec.sort_by(|a, b| b.1.cmp(a.1));
+    for (pattern, count) in pattern_vec {
+        println!("  {}: {} entries", pattern, count);
+    }
+
+    // Analyze definition count distribution
+    let only_variant_def = variant_entries.iter().filter(|e| e.definition_count == 1).count();
+    let multiple_defs = variant_entries.iter().filter(|e| e.definition_count > 1).count();
+
+    println!("\n📈 Definition Count Analysis:");
+    println!("  Entries with ONLY variant definition: {}", only_variant_def);
+    println!("  Entries with variant + other definitions: {}", multiple_defs);
+    println!("  Percentage with only variant definition: {:.1}%",
+             (only_variant_def as f64 / variant_entries.len() as f64) * 100.0);
+
+    // Analyze variant reference patterns
+    let single_ref = variant_entries.iter().filter(|e| e.variant_refs.len() == 1).count();
+    let multiple_refs = variant_entries.iter().filter(|e| e.variant_refs.len() > 1).count();
+    let no_refs = variant_entries.iter().filter(|e| e.variant_refs.is_empty()).count();
+
+    // Analyze multiple pronunciations (multiple items with variants)
+    let multiple_pronunciations = variant_entries.iter().filter(|e| e.variant_items.len() > 1).count();
+    let single_pronunciation = variant_entries.iter().filter(|e| e.variant_items.len() == 1).count();
+
+    println!("\n🔗 Variant Reference Analysis:");
+    println!("  Entries referencing single character: {}", single_ref);
+    println!("  Entries referencing multiple characters: {}", multiple_refs);
+    println!("  Entries with no extractable references: {}", no_refs);
+
+    if single_ref > 0 {
+        println!("  Percentage with single reference: {:.1}%",
+                 (single_ref as f64 / variant_entries.len() as f64) * 100.0);
+    }
+
+    println!("\n🎵 Multiple Pronunciation Analysis:");
+    println!("  Entries with single pronunciation/variant: {}", single_pronunciation);
+    println!("  Entries with multiple pronunciations/variants: {}", multiple_pronunciations);
+    if multiple_pronunciations > 0 {
+        println!("  Percentage with multiple pronunciations: {:.1}%",
+                 (multiple_pronunciations as f64 / variant_entries.len() as f64) * 100.0);
+    }
+
+    // Show examples
+    println!("\n🔍 Examples of variant entries:");
+
+    // Show entries with only variant definitions
+    println!("\n  📝 Entries with ONLY variant definitions:");
+    for entry in variant_entries.iter().filter(|e| e.definition_count == 1).take(10) {
+        println!("    {} ({}): {:?} -> {:?}",
+                 entry.word, entry.simplified, entry.all_definitions, entry.variant_refs);
+    }
+
+    // Show entries with variant + other definitions
+    println!("\n  📝 Entries with variant + other definitions:");
+    for entry in variant_entries.iter().filter(|e| e.definition_count > 1).take(10) {
+        println!("    {} ({}): {} definitions, refs: {:?}",
+                 entry.word, entry.simplified, entry.definition_count, entry.variant_refs);
+        for def in &entry.all_definitions {
+            println!("      - {}", def);
+        }
+    }
+
+    // Show entries with multiple variant references
+    if multiple_refs > 0 {
+        println!("\n  📝 Entries with multiple variant references:");
+        for entry in variant_entries.iter().filter(|e| e.variant_refs.len() > 1).take(5) {
+            println!("    {} ({}): refs: {:?}",
+                     entry.word, entry.simplified, entry.variant_refs);
+            for def in &entry.all_definitions {
+                println!("      - {}", def);
+            }
+        }
+    }
+
+    // Show entries with multiple pronunciations (the key insight!)
+    if multiple_pronunciations > 0 {
+        println!("\n  🎵 Entries with multiple pronunciations (CRITICAL for array design):");
+        for entry in variant_entries.iter().filter(|e| e.variant_items.len() > 1).take(10) {
+            println!("    {} ({}):", entry.word, entry.simplified);
+            for item in &entry.variant_items {
+                let pinyin = item.pinyin.as_deref().unwrap_or("N/A");
+                println!("      - [{}] → {:?}", pinyin, item.variant_refs);
+            }
+        }
+    }
+
+    Ok(())
+}
+
+/// Analyze the file size impact of adding variant_refs to Chinese dictionary
+pub async fn analyze_variant_file_size_impact(chinese_entries: &[ChineseDictionaryElement]) -> Result<()> {
+    println!("📊 Analyzing file size impact of adding variant_refs field...");
+
+    let mut total_items = 0;
+    let mut items_with_variants = 0;
+    let mut total_variant_refs = 0;
+    let mut variant_ref_chars = 0;
+
+    // Analyze current structure
+    for entry in chinese_entries {
+        for item in &entry.items {
+            total_items += 1;
+
+            if let Some(definitions) = &item.definitions {
+                let mut item_has_variant = false;
+                let mut item_variant_refs = Vec::new();
+
+                for def in definitions {
+                    let def_lower = def.to_lowercase();
+                    if def_lower.contains("variant of") {
+                        item_has_variant = true;
+
+                        if let Some(variant_ref) = extract_variant_reference(def) {
+                            item_variant_refs.push(variant_ref.clone());
+                            variant_ref_chars += variant_ref.len();
+                        }
+                    }
+                }
+
+                if item_has_variant {
+                    items_with_variants += 1;
+                    total_variant_refs += item_variant_refs.len();
+                }
+            }
+        }
+    }
+
+    // Calculate size estimates
+    let items_without_variants = total_items - items_with_variants;
+
+    // JSON overhead calculations
+    let null_overhead_per_item = r#","variant_refs":null"#.len(); // 20 bytes
+    let array_overhead_per_item = r#","variant_refs":["#.len() + 1; // 18 bytes + ]
+    let string_overhead_per_ref = 3; // quotes + comma: "X",
+
+    // Size impact calculations
+    let null_field_overhead = items_without_variants * null_overhead_per_item;
+    let array_field_overhead = items_with_variants * array_overhead_per_item;
+    let string_content_overhead = total_variant_refs * string_overhead_per_ref + variant_ref_chars;
+
+    let total_overhead_bytes = null_field_overhead + array_field_overhead + string_content_overhead;
+    let total_overhead_kb = total_overhead_bytes as f64 / 1024.0;
+    let total_overhead_mb = total_overhead_kb / 1024.0;
+
+    // Current file size estimate
+    let current_chinese_file_size_mb = 70.0; // From README
+    let percentage_increase = (total_overhead_mb / current_chinese_file_size_mb) * 100.0;
+
+    println!("\n📈 File Size Impact Analysis:");
+    println!("  Total Chinese dictionary items: {}", total_items);
+    println!("  Items with variant definitions: {} ({:.1}%)",
+             items_with_variants, (items_with_variants as f64 / total_items as f64) * 100.0);
+    println!("  Items without variant definitions: {} ({:.1}%)",
+             items_without_variants, (items_without_variants as f64 / total_items as f64) * 100.0);
+    println!("  Total variant references: {}", total_variant_refs);
+    println!("  Average refs per variant item: {:.1}",
+             total_variant_refs as f64 / items_with_variants as f64);
+
+    println!("\n💾 Storage Overhead Breakdown:");
+    println!("  Null field overhead: {} bytes ({:.1} KB)", null_field_overhead, null_field_overhead as f64 / 1024.0);
+    println!("  Array structure overhead: {} bytes ({:.1} KB)", array_field_overhead, array_field_overhead as f64 / 1024.0);
+    println!("  String content overhead: {} bytes ({:.1} KB)", string_content_overhead, string_content_overhead as f64 / 1024.0);
+    println!("  Total overhead: {} bytes ({:.1} KB, {:.2} MB)",
+             total_overhead_bytes, total_overhead_kb, total_overhead_mb);
+
+    println!("\n📊 Impact on Dictionary Files:");
+    println!("  Current Chinese dictionary: ~{} MB", current_chinese_file_size_mb);
+    println!("  Estimated size with variant_refs: ~{:.2} MB", current_chinese_file_size_mb + total_overhead_mb);
+    println!("  Size increase: {:.2} MB ({:.2}%)", total_overhead_mb, percentage_increase);
+
+    // Impact on unified output
+    let unified_files_mb = 106.0; // From README
+    let unified_impact_mb = total_overhead_mb * 0.15; // Estimate ~15% of Chinese entries make it to unified
+    let unified_percentage = (unified_impact_mb / unified_files_mb) * 100.0;
+
+    println!("\n🎯 Impact on Unified Output:");
+    println!("  Current unified dictionary: ~{} MB", unified_files_mb);
+    println!("  Estimated impact: ~{:.2} MB ({:.2}%)", unified_impact_mb, unified_percentage);
+
+    // Compression estimates
+    println!("\n🗜️  Compression Considerations:");
+    println!("  JSON is highly compressible (especially repeated null fields)");
+    println!("  Gzip compression would reduce actual impact by ~70-80%");
+    println!("  Real-world impact likely: ~{:.2} MB uncompressed, ~{:.2} MB compressed",
+             total_overhead_mb, total_overhead_mb * 0.25);
+
+    Ok(())
+}
+
+/// Analyze the file size impact of resolving variant definitions
+pub async fn analyze_variant_resolution_impact(chinese_entries: &[ChineseDictionaryElement]) -> Result<()> {
+    println!("📊 Analyzing file size impact of resolving variant definitions...");
+
+    // Build lookup map for variant resolution
+    let lookup_map: std::collections::HashMap<String, &ChineseDictionaryElement> = chinese_entries
+        .iter()
+        .map(|entry| (entry.trad.clone(), entry))
+        .collect();
+
+    let mut variant_definitions_count = 0;
+    let mut variant_definitions_chars = 0;
+    let mut resolved_definitions_count = 0;
+    let mut resolved_definitions_chars = 0;
+    let mut unresolvable_variants = 0;
+
+    for entry in chinese_entries {
+        for item in &entry.items {
+            if let Some(definitions) = &item.definitions {
+                for def in definitions {
+                    let def_lower = def.to_lowercase();
+                    if def_lower.contains("variant of") {
+                        variant_definitions_count += 1;
+                        variant_definitions_chars += def.len();
+
+                        if let Some(variant_ref) = extract_variant_reference(def) {
+                            // Try to resolve the variant
+                            if let Some(referenced_entry) = lookup_map.get(&variant_ref) {
+                                // Count resolved definitions
+                                for ref_item in &referenced_entry.items {
+                                    if let Some(ref_definitions) = &ref_item.definitions {
+                                        for ref_def in ref_definitions {
+                                            // Only count non-variant definitions
+                                            let ref_def_lower = ref_def.to_lowercase();
+                                            if !ref_def_lower.contains("variant of") {
+                                                resolved_definitions_count += 1;
+                                                resolved_definitions_chars += ref_def.len();
+                                            }
+                                        }
+                                    }
+                                }
+                            } else {
+                                unresolvable_variants += 1;
+                            }
+                        } else {
+                            unresolvable_variants += 1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Calculate size impact (CORRECTED: we ADD definitions, don't replace)
+    let kept_chars = variant_definitions_chars; // Keep original variant definitions
+    let added_chars = resolved_definitions_chars; // Add resolved definitions
+    let net_char_change = added_chars as i64; // Total addition, no removal
+
+    // JSON overhead for additional definitions
+    let definition_array_overhead = resolved_definitions_count * 3; // quotes + comma
+    let metadata_overhead = variant_definitions_count * 50; // Estimate for variant metadata
+
+    let total_overhead_bytes = net_char_change + definition_array_overhead as i64 + metadata_overhead as i64;
+    let total_overhead_mb = total_overhead_bytes as f64 / (1024.0 * 1024.0);
+
+    // Current file sizes
+    let current_chinese_file_size_mb = 70.0;
+    let unified_files_mb = 106.0;
+
+    println!("\n📈 Variant Resolution Impact Analysis:");
+    println!("  Variant definitions found: {}", variant_definitions_count);
+    println!("  Resolved definitions generated: {}", resolved_definitions_count);
+    println!("  Unresolvable variants: {}", unresolvable_variants);
+    println!("  Resolution ratio: {:.1}:1 (resolved:variant)",
+             resolved_definitions_count as f64 / variant_definitions_count as f64);
+
+    println!("\n💾 Content Size Changes:");
+    println!("  Variant definition chars kept: {} ({:.1} KB)",
+             kept_chars, kept_chars as f64 / 1024.0);
+    println!("  Resolved definition chars added: {} ({:.1} KB)",
+             added_chars, added_chars as f64 / 1024.0);
+    println!("  Net character addition: {} ({:.1} KB)",
+             net_char_change, net_char_change as f64 / 1024.0);
+
+    println!("\n🏗️  Structural Overhead:");
+    println!("  Definition array overhead: {} bytes ({:.1} KB)",
+             definition_array_overhead, definition_array_overhead as f64 / 1024.0);
+    println!("  Metadata overhead: {} bytes ({:.1} KB)",
+             metadata_overhead, metadata_overhead as f64 / 1024.0);
+    println!("  Total estimated impact: {:.2} MB", total_overhead_mb);
+
+    println!("\n📊 Impact on Dictionary Files:");
+    println!("  Current Chinese dictionary: ~{} MB", current_chinese_file_size_mb);
+    println!("  Estimated size with resolution: ~{:.2} MB",
+             current_chinese_file_size_mb + total_overhead_mb);
+    println!("  Size change: {:.2} MB ({:.2}%)",
+             total_overhead_mb, (total_overhead_mb / current_chinese_file_size_mb) * 100.0);
+
+    // Impact on unified output (more significant)
+    let unified_impact_mb = total_overhead_mb * 0.15; // ~15% of Chinese entries in unified
+    println!("\n🎯 Impact on Unified Output:");
+    println!("  Current unified dictionary: ~{} MB", unified_files_mb);
+    println!("  Estimated impact: ~{:.2} MB ({:.2}%)",
+             unified_impact_mb, (unified_impact_mb / unified_files_mb) * 100.0);
+
+    // Quality vs Size tradeoff
+    println!("\n⚖️  Quality vs Size Tradeoff:");
+    println!("  Variant entries with only variant definitions: ~60.5% (from previous analysis)");
+    println!("  These entries become significantly more useful");
+    println!("  Cost: ~{:.2} MB for ~3,500 improved definitions", total_overhead_mb);
+    println!("  Cost per improved definition: ~{:.0} bytes",
+             (total_overhead_mb * 1024.0 * 1024.0) / variant_definitions_count as f64);
+
+    Ok(())
+}
+
+/// Compare both approaches: variant_refs vs full resolution
+pub async fn compare_variant_approaches(chinese_entries: &[ChineseDictionaryElement]) -> Result<()> {
+    println!("⚖️  Comparing variant handling approaches...");
+
+    // Run both analyses
+    println!("\n🔗 APPROACH 1: Adding variant_refs field");
+    println!("{}", "=".repeat(50));
+
+    // Simplified calculation for variant_refs approach
+    let mut items_with_variants = 0;
+    let mut items_without_variants = 0;
+    let mut total_variant_refs = 0;
+    let mut variant_ref_chars = 0;
+
+    for entry in chinese_entries {
+        for item in &entry.items {
+            let mut item_has_variant = false;
+
+            if let Some(definitions) = &item.definitions {
+                for def in definitions {
+                    if def.to_lowercase().contains("variant of") {
+                        item_has_variant = true;
+                        if let Some(variant_ref) = extract_variant_reference(def) {
+                            total_variant_refs += 1;
+                            variant_ref_chars += variant_ref.len();
+                        }
+                    }
+                }
+            }
+
+            if item_has_variant {
+                items_with_variants += 1;
+            } else {
+                items_without_variants += 1;
+            }
+        }
+    }
+
+    let refs_overhead = (items_without_variants * 20) + (items_with_variants * 18) +
+                       (total_variant_refs * 3) + variant_ref_chars;
+    let refs_overhead_mb = refs_overhead as f64 / (1024.0 * 1024.0);
+
+    println!("  Storage overhead: {:.2} MB", refs_overhead_mb);
+    println!("  Benefit: References to other characters");
+    println!("  Drawback: Frontend must resolve references");
+
+    println!("\n📚 APPROACH 2: Full definition resolution");
+    println!("{}", "=".repeat(50));
+
+    // Full resolution calculation
+    let lookup_map: std::collections::HashMap<String, &ChineseDictionaryElement> = chinese_entries
+        .iter()
+        .map(|entry| (entry.trad.clone(), entry))
+        .collect();
+
+    let mut resolved_definitions_chars = 0;
+    let mut resolved_definitions_count = 0;
+
+    for entry in chinese_entries {
+        for item in &entry.items {
+            if let Some(definitions) = &item.definitions {
+                for def in definitions {
+                    if def.to_lowercase().contains("variant of") {
+                        if let Some(variant_ref) = extract_variant_reference(def) {
+                            if let Some(referenced_entry) = lookup_map.get(&variant_ref) {
+                                for ref_item in &referenced_entry.items {
+                                    if let Some(ref_definitions) = &ref_item.definitions {
+                                        for ref_def in ref_definitions {
+                                            if !ref_def.to_lowercase().contains("variant of") {
+                                                resolved_definitions_count += 1;
+                                                resolved_definitions_chars += ref_def.len();
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    let resolution_overhead = resolved_definitions_chars + (resolved_definitions_count * 3) +
+                             (items_with_variants * 50); // metadata overhead
+    let resolution_overhead_mb = resolution_overhead as f64 / (1024.0 * 1024.0);
+
+    println!("  Storage overhead: {:.2} MB", resolution_overhead_mb);
+    println!("  Benefit: Immediate useful definitions");
+    println!("  Drawback: Larger file size");
+
+    println!("\n📊 COMPARISON SUMMARY");
+    println!("{}", "=".repeat(50));
+    println!("  Variant references approach: {:.2} MB overhead", refs_overhead_mb);
+    println!("  Full resolution approach:    {:.2} MB overhead", resolution_overhead_mb);
+    println!("  Difference:                  {:.2} MB ({:.1}x)",
+             resolution_overhead_mb - refs_overhead_mb,
+             resolution_overhead_mb / refs_overhead_mb);
+
+    println!("\n🎯 RECOMMENDATION");
+    println!("{}", "=".repeat(50));
+    if refs_overhead_mb < resolution_overhead_mb {
+        println!("  ✅ Variant references approach is more storage-efficient");
+        println!("  💡 Use variant_refs field + frontend resolution");
+        println!("  📈 Saves {:.2} MB ({:.1}% smaller)",
+                 resolution_overhead_mb - refs_overhead_mb,
+                 ((resolution_overhead_mb - refs_overhead_mb) / resolution_overhead_mb) * 100.0);
+    } else {
+        println!("  ✅ Full resolution approach is more storage-efficient");
+        println!("  💡 Resolve variants during preprocessing");
+    }
+
+    println!("\n🔍 DETAILED BREAKDOWN");
+    println!("  Items with variants: {}", items_with_variants);
+    println!("  Items without variants: {}", items_without_variants);
+    println!("  Total variant references: {}", total_variant_refs);
+    println!("  Resolved definitions: {}", resolved_definitions_count);
+    println!("  Resolution ratio: {:.1}:1", resolved_definitions_count as f64 / total_variant_refs as f64);
+
+    Ok(())
+}
+
+/// Resolve variant definitions by adding the actual definitions from referenced characters
+pub async fn resolve_variant_definitions(chinese_entries: &mut [ChineseDictionaryElement]) -> Result<()> {
+    println!("🔄 Resolving variant definitions...");
+
+    // Build lookup map of all Chinese entries by traditional character (clone to avoid borrow issues)
+    let lookup_map: std::collections::HashMap<String, ChineseDictionaryElement> = chinese_entries
+        .iter()
+        .map(|entry| (entry.trad.clone(), entry.clone()))
+        .collect();
+
+    let mut total_variants_found = 0;
+    let mut total_definitions_added = 0;
+    let mut unresolvable_variants = 0;
+
+    // Process each entry
+    for entry in chinese_entries.iter_mut() {
+        for item in &mut entry.items {
+            if let Some(definitions) = &mut item.definitions {
+                let mut additional_definitions = Vec::new();
+
+                // Check each definition for variant patterns
+                for def in definitions.iter() {
+                    let def_lower = def.to_lowercase();
+                    if def_lower.contains("variant of") {
+                        total_variants_found += 1;
+
+                        // Extract the referenced character(s)
+                        let variant_refs = extract_variant_references(def);
+                        if !variant_refs.is_empty() {
+                            let mut resolved = false;
+
+                            // Try each reference until one is found
+                            for variant_ref in &variant_refs {
+                                if let Some(referenced_entry) = lookup_map.get(variant_ref) {
+                                    // Add definitions from the referenced character
+                                    for ref_item in &referenced_entry.items {
+                                        if let Some(ref_definitions) = &ref_item.definitions {
+                                            for ref_def in ref_definitions {
+                                                // Only add non-variant definitions to avoid infinite loops
+                                                let ref_def_lower = ref_def.to_lowercase();
+                                                if !ref_def_lower.contains("variant of") {
+                                                    additional_definitions.push(ref_def.clone());
+                                                    total_definitions_added += 1;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    resolved = true;
+                                    break; // Found a match, stop trying other references
+                                }
+                            }
+
+                            if !resolved {
+                                unresolvable_variants += 1;
+                                let refs_str = variant_refs.join(", ");
+                                println!("  ⚠️  Could not resolve variant reference: {} → {}",
+                                        entry.trad, refs_str);
+                            }
+                        } else {
+                            unresolvable_variants += 1;
+                            println!("  ⚠️  Could not extract variant reference from: {}", def);
+                        }
+                    }
+                }
+
+                // Add the resolved definitions to the existing ones
+                definitions.extend(additional_definitions);
+            }
+        }
+    }
+
+    println!("✅ Variant resolution complete:");
+    println!("  Variant definitions found: {}", total_variants_found);
+    println!("  Additional definitions added: {}", total_definitions_added);
+    println!("  Unresolvable variants: {}", unresolvable_variants);
+    println!("  Resolution success rate: {:.1}%",
+             ((total_variants_found - unresolvable_variants) as f64 / total_variants_found as f64) * 100.0);
+
+    Ok(())
+}
+
+#[derive(Debug)]
+struct VariantAnalysis {
+    word: String,
+    simplified: String,
+    variant_refs: Vec<String>,
+    all_definitions: Vec<String>,
+    definition_count: usize,
+    variant_items: Vec<VariantItem>,
+}
+
+#[derive(Debug)]
+struct VariantItem {
+    item_index: usize,
+    pinyin: Option<String>,
+    variant_refs: Vec<String>,
+}
+
+/// Extract the referenced character(s) from a variant definition
+/// Examples: "old variant of 蟆[má]" -> ["蟆"], "variant of 罵|骂" -> ["罵", "骂"]
+fn extract_variant_references(definition: &str) -> Vec<String> {
+    // Look for patterns like "variant of X[...]" or "variant of X"
+    let patterns = [
+        r"variant of ([^\[\s\)]+)",  // Matches "variant of 蟆[má]" -> captures "蟆"
+        r"variant of ([^\s\)]+)",    // Matches "variant of 蟆" -> captures "蟆"
+        r"\(.*variant of ([^\[\s\)]+)\)", // Handle parenthetical variants like "(variant of U+53A8 厨)"
+    ];
+
+    for pattern in &patterns {
+        if let Ok(re) = regex::Regex::new(pattern) {
+            if let Some(captures) = re.captures(definition) {
+                if let Some(matched) = captures.get(1) {
+                    let reference = matched.as_str();
+
+                    // Handle multiple references separated by | or ,
+                    let references: Vec<String> = reference
+                        .split(&['|', ','][..])
+                        .map(|s| s.trim())
+                        .filter(|s| !s.is_empty())
+                        .filter(|s| {
+                            // Filter out common non-character references
+                            !s.chars().all(|c| c.is_ascii()) && // Must contain non-ASCII (Chinese chars)
+                            s.len() <= 10 && // Reasonable length limit
+                            !s.starts_with("U+") // Skip Unicode references like "U+53A8"
+                        })
+                        .map(|s| s.to_string())
+                        .collect();
+
+                    if !references.is_empty() {
+                        return references;
+                    }
+                }
+            }
+        }
+    }
+
+    Vec::new()
+}
+
+/// Extract the first resolvable referenced character from a variant definition (backward compatibility)
+/// Examples: "old variant of 蟆[má]" -> Some("蟆"), "variant of 罵|骂" -> Some("罵") or Some("骂")
+fn extract_variant_reference(definition: &str) -> Option<String> {
+    let references = extract_variant_references(definition);
+    references.into_iter().next()
+}
+
+/// Analyze pinyin-definition coverage in Chinese dictionary
+pub async fn analyze_pinyin_definition_coverage(chinese_entries: &[ChineseDictionaryElement]) -> Result<()> {
+    println!("🔍 Analyzing pinyin-definition coverage...");
+
+    let mut total_entries = 0;
+    let mut entries_with_orphaned_pinyin = 0;
+    let mut total_items = 0;
+    let mut items_with_pinyin_no_definitions = 0;
+    let mut total_pinyin_readings = 0;
+    let mut orphaned_pinyin_readings = 0;
+    let mut pinyin_duplication_stats = std::collections::HashMap::new();
+
+    // Track character+pinyin combinations and whether they have definitions from ANY source
+    let mut pinyin_coverage = std::collections::HashMap::new();
+
+    for entry in chinese_entries {
+        total_entries += 1;
+
+        // First pass: collect all pinyin+definition coverage for this character
+        for item in &entry.items {
+            total_items += 1;
+
+            if let Some(pinyin) = &item.pinyin {
+                total_pinyin_readings += 1;
+
+                // Track pinyin duplication by character
+                let key = format!("{}:{}", entry.trad, pinyin);
+                *pinyin_duplication_stats.entry(key.clone()).or_insert(0) += 1;
+
+                // Check if this item has definitions
+                let has_definitions = item.definitions.as_ref()
+                    .map(|defs| !defs.is_empty())
+                    .unwrap_or(false);
+
+                if !has_definitions {
+                    items_with_pinyin_no_definitions += 1;
+                }
+
+                // Track whether this character+pinyin combination has definitions from ANY source
+                let coverage_entry = pinyin_coverage.entry(key).or_insert(false);
+                if has_definitions {
+                    *coverage_entry = true;
+                }
+            }
+        }
+    }
+
+    // Second pass: identify truly orphaned pinyin (no definitions from ANY source)
+    let mut truly_orphaned_examples = Vec::new();
+    for (key, has_definitions) in &pinyin_coverage {
+        if !has_definitions {
+            orphaned_pinyin_readings += 1;
+            if truly_orphaned_examples.len() < 30 {
+                let parts: Vec<&str> = key.split(':').collect();
+                if parts.len() == 2 {
+                    truly_orphaned_examples.push(format!("{} [{}]", parts[0], parts[1]));
+                }
+            }
+        }
+    }
+
+    // Count entries with truly orphaned pinyin
+    for entry in chinese_entries {
+        let mut entry_has_orphaned_pinyin = false;
+
+        // Collect all pinyin for this entry
+        let mut entry_pinyin = std::collections::HashSet::new();
+        for item in &entry.items {
+            if let Some(pinyin) = &item.pinyin {
+                entry_pinyin.insert(pinyin.clone());
+            }
+        }
+
+        // Check if any pinyin for this entry is truly orphaned
+        for pinyin in entry_pinyin {
+            let key = format!("{}:{}", entry.trad, pinyin);
+            if let Some(false) = pinyin_coverage.get(&key) {
+                entry_has_orphaned_pinyin = true;
+                break;
+            }
+        }
+
+        if entry_has_orphaned_pinyin {
+            entries_with_orphaned_pinyin += 1;
+        }
+    }
+
+    // Show examples of truly orphaned pinyin
+    for example in &truly_orphaned_examples {
+        println!("  📍 Truly orphaned pinyin: {} (no definitions from any source)", example);
+    }
+
+    // Analyze duplication
+    let mut duplicated_pinyin_count = 0;
+    let mut total_duplications = 0;
+
+    for (key, count) in &pinyin_duplication_stats {
+        if *count > 1 {
+            duplicated_pinyin_count += 1;
+            total_duplications += count - 1; // Extra occurrences beyond the first
+
+            if duplicated_pinyin_count <= 10 { // Show first 10 examples
+                println!("  🔄 Duplicated: {} appears {} times", key, count);
+            }
+        }
+    }
+
+    println!("\n📊 Pinyin-Definition Coverage Analysis Results:");
+    println!("  Total entries: {}", total_entries);
+    println!("  Total items: {}", total_items);
+    println!("  Total pinyin readings: {}", total_pinyin_readings);
+    println!("  Unique character+pinyin combinations: {}", pinyin_coverage.len());
+    println!("  Truly orphaned pinyin combinations (no definitions from ANY source): {} ({:.1}%)",
+             orphaned_pinyin_readings,
+             (orphaned_pinyin_readings as f64 / pinyin_coverage.len() as f64) * 100.0);
+    println!("  Items with pinyin but no definitions: {} ({:.1}%)",
+             items_with_pinyin_no_definitions,
+             (items_with_pinyin_no_definitions as f64 / total_items as f64) * 100.0);
+    println!("  Entries with truly orphaned pinyin: {} ({:.1}%)",
+             entries_with_orphaned_pinyin,
+             (entries_with_orphaned_pinyin as f64 / total_entries as f64) * 100.0);
+    println!("  Duplicated pinyin readings: {} ({:.1}%)",
+             duplicated_pinyin_count,
+             (duplicated_pinyin_count as f64 / pinyin_duplication_stats.len() as f64) * 100.0);
+    println!("  Total duplicate occurrences: {}", total_duplications);
+
+    if duplicated_pinyin_count > 10 {
+        println!("  (showing first 10 duplicated examples, {} more exist)", duplicated_pinyin_count - 10);
+    }
+
+    if orphaned_pinyin_readings > 30 {
+        println!("  (showing first 30 truly orphaned examples, {} more exist)", orphaned_pinyin_readings - 30);
+    }
+
+    Ok(())
+}
+
+/// Analyze Unicode source items for definition coverage
+pub async fn analyze_unicode_source_coverage(chinese_entries: &[ChineseDictionaryElement]) -> Result<()> {
+    println!("🔍 Analyzing Unicode source definition coverage...");
+
+    let mut total_unicode_items = 0;
+    let mut unicode_items_with_definitions = 0;
+    let mut unicode_items_without_definitions = 0;
+    let mut total_non_unicode_items = 0;
+    let mut non_unicode_items_with_definitions = 0;
+    let mut non_unicode_items_without_definitions = 0;
+
+    let mut unicode_with_definitions_examples = Vec::new();
+    let mut unicode_without_definitions_examples = Vec::new();
+
+    for entry in chinese_entries {
+        for item in &entry.items {
+            let is_unicode = item.source.as_ref()
+                .map(|s| matches!(s, crate::chinese_types::Source::Unicode))
+                .unwrap_or(false);
+
+            let has_definitions = item.definitions.as_ref()
+                .map(|defs| !defs.is_empty())
+                .unwrap_or(false);
+
+            if is_unicode {
+                total_unicode_items += 1;
+                if has_definitions {
+                    unicode_items_with_definitions += 1;
+                    if unicode_with_definitions_examples.len() < 10 {
+                        let pinyin_str = item.pinyin.as_ref().map(|s| s.as_str()).unwrap_or("?");
+                        let def_count = item.definitions.as_ref().map(|d| d.len()).unwrap_or(0);
+                        let first_def = item.definitions.as_ref()
+                            .and_then(|defs| defs.first())
+                            .map(|s| s.as_str())
+                            .unwrap_or("");
+                        unicode_with_definitions_examples.push(format!(
+                            "{} [{}] - {} definitions (e.g., \"{}\")",
+                            entry.trad, pinyin_str, def_count, first_def
+                        ));
+                    }
+                } else {
+                    unicode_items_without_definitions += 1;
+                    if unicode_without_definitions_examples.len() < 10 {
+                        let pinyin_str = item.pinyin.as_ref().map(|s| s.as_str()).unwrap_or("?");
+                        unicode_without_definitions_examples.push(format!(
+                            "{} [{}] - no definitions",
+                            entry.trad, pinyin_str
+                        ));
+                    }
+                }
+            } else {
+                total_non_unicode_items += 1;
+                if has_definitions {
+                    non_unicode_items_with_definitions += 1;
+                } else {
+                    non_unicode_items_without_definitions += 1;
+                }
+            }
+        }
+    }
+
+    println!("\n📊 Unicode Source Analysis Results:");
+    println!("  Total Unicode source items: {}", total_unicode_items);
+    println!("  Unicode items WITH definitions: {} ({:.1}%)",
+             unicode_items_with_definitions,
+             (unicode_items_with_definitions as f64 / total_unicode_items as f64) * 100.0);
+    println!("  Unicode items WITHOUT definitions: {} ({:.1}%)",
+             unicode_items_without_definitions,
+             (unicode_items_without_definitions as f64 / total_unicode_items as f64) * 100.0);
+
+    println!("\n  Total non-Unicode source items: {}", total_non_unicode_items);
+    println!("  Non-Unicode items WITH definitions: {} ({:.1}%)",
+             non_unicode_items_with_definitions,
+             (non_unicode_items_with_definitions as f64 / total_non_unicode_items as f64) * 100.0);
+    println!("  Non-Unicode items WITHOUT definitions: {} ({:.1}%)",
+             non_unicode_items_without_definitions,
+             (non_unicode_items_without_definitions as f64 / total_non_unicode_items as f64) * 100.0);
+
+    if !unicode_with_definitions_examples.is_empty() {
+        println!("\n🎯 Examples of Unicode items WITH definitions:");
+        for example in &unicode_with_definitions_examples {
+            println!("  ✅ {}", example);
+        }
+    }
+
+    if !unicode_without_definitions_examples.is_empty() {
+        println!("\n❌ Examples of Unicode items WITHOUT definitions:");
+        for example in &unicode_without_definitions_examples {
+            println!("  ❌ {}", example);
+        }
+    }
+
+    // Conclusion
+    if unicode_items_with_definitions == 0 {
+        println!("\n🚨 CONCLUSION: NO Unicode source items have definitions!");
+        println!("   💡 Recommendation: Filter out ALL Unicode source items during processing");
+        println!("   📈 This would eliminate {} items ({:.1}% of all items)",
+                 total_unicode_items,
+                 (total_unicode_items as f64 / (total_unicode_items + total_non_unicode_items) as f64) * 100.0);
+    } else {
+        println!("\n✅ CONCLUSION: Some Unicode source items DO have definitions");
+        println!("   💡 Recommendation: Keep Unicode items but filter out those without definitions");
+    }
+
+    Ok(())
+}
+
+/// Analyze characters with multiple readings in both Chinese and Japanese (like 的)
+pub async fn analyze_multi_reading_overlap(
+    chinese_entries: &[ChineseDictionaryElement],
+    japanese_entries: &[crate::japanese_types::Word]
+) -> Result<()> {
+    println!("🔍 Analyzing multi-reading overlap patterns...");
+
+    // Build maps for efficient lookup
+    let mut chinese_multi_reading: std::collections::HashMap<String, Vec<String>> = std::collections::HashMap::new();
+    let mut japanese_multi_reading: std::collections::HashMap<String, Vec<String>> = std::collections::HashMap::new();
+
+    // Collect Chinese characters with multiple pinyin readings
+    for entry in chinese_entries {
+        let mut pinyin_set = std::collections::HashSet::new();
+
+        for item in &entry.items {
+            if let Some(pinyin) = &item.pinyin {
+                // Only include pinyin that have definitions
+                let has_definitions = item.definitions.as_ref()
+                    .map(|defs| !defs.is_empty())
+                    .unwrap_or(false);
+
+                if has_definitions {
+                    pinyin_set.insert(pinyin.clone());
+                }
+            }
+        }
+
+        if pinyin_set.len() > 1 {
+            let mut pinyin_vec: Vec<String> = pinyin_set.into_iter().collect();
+            pinyin_vec.sort();
+            chinese_multi_reading.insert(entry.trad.clone(), pinyin_vec);
+        }
+    }
+
+    // Collect Japanese characters with multiple readings
+    for word in japanese_entries {
+        for kanji_variant in &word.kanji {
+            let kanji_text = &kanji_variant.text;
+
+            // Skip if not a single character
+            if kanji_text.chars().count() != 1 {
+                continue;
+            }
+
+            let mut reading_set = std::collections::HashSet::new();
+
+            for kana_variant in &word.kana {
+                reading_set.insert(kana_variant.text.clone());
+            }
+
+            if reading_set.len() > 1 {
+                let mut reading_vec: Vec<String> = reading_set.into_iter().collect();
+                reading_vec.sort();
+                japanese_multi_reading.insert(kanji_text.clone(), reading_vec);
+            }
+        }
+    }
+
+    // Find overlapping characters (exist in both languages with multiple readings)
+    let mut overlapping_chars = Vec::new();
+
+    for (chinese_char, chinese_readings) in &chinese_multi_reading {
+        if let Some(japanese_readings) = japanese_multi_reading.get(chinese_char) {
+            overlapping_chars.push((
+                chinese_char.clone(),
+                chinese_readings.clone(),
+                japanese_readings.clone(),
+            ));
+        }
+    }
+
+    // Sort by number of total readings (most complex first)
+    overlapping_chars.sort_by(|a, b| {
+        let total_a = a.1.len() + a.2.len();
+        let total_b = b.1.len() + b.2.len();
+        total_b.cmp(&total_a)
+    });
+
+    println!("\n📊 Multi-Reading Overlap Analysis Results:");
+    println!("  Chinese characters with multiple readings: {}", chinese_multi_reading.len());
+    println!("  Japanese characters with multiple readings: {}", japanese_multi_reading.len());
+    println!("  Characters with multiple readings in BOTH languages: {}", overlapping_chars.len());
+
+    println!("\n🎯 Top 30 Characters with Multiple Readings in Both Languages:");
+    println!("  (Sorted by total complexity - most readings first)");
+
+    for (i, (character, chinese_readings, japanese_readings)) in overlapping_chars.iter().take(30).enumerate() {
+        let total_readings = chinese_readings.len() + japanese_readings.len();
+        println!("  {}. {} - {} total readings", i + 1, character, total_readings);
+        println!("     Chinese: {} readings [{}]", chinese_readings.len(), chinese_readings.join(", "));
+        println!("     Japanese: {} readings [{}]", japanese_readings.len(), japanese_readings.join(", "));
+
+        // Look for potential semantic overlaps by checking if any readings are similar
+        let mut potential_overlaps = Vec::new();
+        for chinese_reading in chinese_readings {
+            for japanese_reading in japanese_readings {
+                // Simple heuristic: if readings sound similar or have semantic connection
+                if readings_potentially_related(chinese_reading, japanese_reading) {
+                    potential_overlaps.push(format!("{} ≈ {}", chinese_reading, japanese_reading));
+                }
+            }
+        }
+
+        if !potential_overlaps.is_empty() {
+            println!("     Potential connections: {}", potential_overlaps.join(", "));
+        }
+
+        println!();
+    }
+
+    // Statistics by complexity level
+    let mut complexity_stats = std::collections::HashMap::new();
+    for (_, chinese_readings, japanese_readings) in &overlapping_chars {
+        let total = chinese_readings.len() + japanese_readings.len();
+        *complexity_stats.entry(total).or_insert(0) += 1;
+    }
+
+    println!("📈 Complexity Distribution:");
+    let mut complexity_levels: Vec<_> = complexity_stats.into_iter().collect();
+    complexity_levels.sort_by(|a, b| b.0.cmp(&a.0));
+
+    for (total_readings, count) in complexity_levels {
+        println!("  {} total readings: {} characters", total_readings, count);
+    }
+
+    // Find characters similar to 的 (multiple Chinese readings, multiple Japanese readings, with semantic connections)
+    println!("\n🔍 Characters Most Similar to 的 Pattern:");
+    let de_like_chars: Vec<_> = overlapping_chars.iter()
+        .filter(|(_, chinese_readings, japanese_readings)| {
+            chinese_readings.len() >= 3 && japanese_readings.len() >= 2
+        })
+        .take(10)
+        .collect();
+
+    for (character, chinese_readings, japanese_readings) in de_like_chars {
+        println!("  {} - Chinese: {} readings, Japanese: {} readings",
+                 character, chinese_readings.len(), japanese_readings.len());
+    }
+
+    Ok(())
+}
+
+/// Simple heuristic to detect potentially related readings
+fn readings_potentially_related(chinese_reading: &str, japanese_reading: &str) -> bool {
+    // This is a very basic heuristic - could be improved with phonetic analysis
+
+    // Check for similar sounds (very basic)
+    if chinese_reading.chars().count() >= 2 && japanese_reading.chars().count() >= 2 {
+        let chinese_start = chinese_reading.chars().next().unwrap().to_string();
+        let japanese_start = japanese_reading.chars().next().unwrap().to_string();
+
+        // Some basic sound correspondences
+        match (chinese_start.as_str(), japanese_start.as_str()) {
+            ("d", "t") | ("t", "d") => true,  // de/teki pattern
+            ("b", "h") | ("h", "b") => true,  // common sound shift
+            ("g", "k") | ("k", "g") => true,  // voicing differences
+            _ => chinese_start == japanese_start,
+        }
+    } else {
+        false
+    }
+}
+
+/// Analyze complexity tiers for multi-reading characters to determine which need bespoke treatment
+pub async fn analyze_complexity_tiers(chinese_entries: &[ChineseDictionaryElement], japanese_words: &[Word]) -> Result<()> {
+    println!("🔍 Analyzing complexity tiers for multi-reading characters...");
+
+    // Find characters with multiple readings in both languages
+    let mut multi_reading_chars = Vec::new();
+
+    for entry in chinese_entries {
+        // Skip multi-character words
+        if entry.trad.chars().count() != 1 {
+            continue;
+        }
+
+        // Check if Chinese has multiple readings
+        let chinese_readings: std::collections::HashSet<String> = entry.items.iter()
+            .filter_map(|item| item.pinyin.as_ref())
+            .cloned()
+            .collect();
+
+        if chinese_readings.len() < 2 {
+            continue;
+        }
+
+        // Check if Japanese has multiple readings for this character
+        let japanese_entries: Vec<_> = japanese_words.iter()
+            .filter(|word| word.kanji.iter().any(|k| k.text == entry.trad))
+            .collect();
+
+        if japanese_entries.is_empty() {
+            continue;
+        }
+
+        let mut japanese_readings = std::collections::HashSet::new();
+        for jp_word in &japanese_entries {
+            for kana in &jp_word.kana {
+                japanese_readings.insert(kana.text.clone());
+            }
+        }
+
+        if japanese_readings.len() < 2 {
+            continue;
+        }
+
+        // Analyze complexity for this character
+        let complexity = analyze_character_complexity(&entry.trad, entry, &japanese_entries);
+        multi_reading_chars.push((entry.trad.clone(), complexity));
+    }
+
+    // Sort by complexity score (highest first)
+    multi_reading_chars.sort_by(|a, b| b.1.total_score().partial_cmp(&a.1.total_score()).unwrap());
+
+    println!("\n📊 Complexity Tier Analysis Results:");
+    println!("  Total multi-reading characters: {}", multi_reading_chars.len());
+
+    // Categorize into tiers
+    let mut tier1_bespoke = Vec::new();
+    let mut tier2_enhanced = Vec::new();
+    let mut tier3_basic = Vec::new();
+
+    for (character, complexity) in &multi_reading_chars {
+        let score = complexity.total_score();
+        if score >= 6.0 {  // Lowered from 8.0
+            tier1_bespoke.push((character, complexity));
+        } else if score >= 4.0 {  // Lowered from 5.0
+            tier2_enhanced.push((character, complexity));
+        } else {
+            tier3_basic.push((character, complexity));
+        }
+    }
+
+    println!("\n🎯 TIER 1: BESPOKE TREATMENT NEEDED ({} characters)", tier1_bespoke.len());
+    println!("  High grammatical complexity, POS mismatches, or functional differences");
+    for (i, (character, complexity)) in tier1_bespoke.iter().take(20).enumerate() {
+        println!("  {}. {} - Score: {:.1} - {}",
+            i + 1, character, complexity.total_score(), complexity.primary_issue());
+    }
+
+    println!("\n🔧 TIER 2: ENHANCED PROGRAMMATIC ({} characters)", tier2_enhanced.len());
+    println!("  Semantic clustering works but needs refinement");
+    for (i, (character, complexity)) in tier2_enhanced.iter().take(10).enumerate() {
+        println!("  {}. {} - Score: {:.1} - {}",
+            i + 1, character, complexity.total_score(), complexity.primary_issue());
+    }
+
+    println!("\n⚙️  TIER 3: BASIC PROGRAMMATIC ({} characters)", tier3_basic.len());
+    println!("  Clear semantic overlap, similar POS, direct mappings");
+    for (i, (character, complexity)) in tier3_basic.iter().take(10).enumerate() {
+        println!("  {}. {} - Score: {:.1} - {}",
+            i + 1, character, complexity.total_score(), complexity.primary_issue());
+    }
+
+    // Detailed analysis for Tier 1 characters
+    if !tier1_bespoke.is_empty() {
+        println!("\n🔍 DETAILED ANALYSIS FOR TIER 1 CHARACTERS:");
+        println!("{}", "=".repeat(60));
+
+        for (i, (character, complexity)) in tier1_bespoke.iter().take(15).enumerate() {
+            println!("\n{}. CHARACTER: {} (Score: {:.1})", i + 1, character, complexity.total_score());
+            println!("   Primary Issue: {}", complexity.primary_issue());
+            println!("   Complexity Factors:");
+
+            if complexity.pos_mismatch_score > 0.0 {
+                println!("     • POS Mismatch: {:.1}/4.0 - {}", complexity.pos_mismatch_score, complexity.pos_mismatch_details);
+            }
+            if complexity.grammatical_function_score > 0.0 {
+                println!("     • Grammatical Function: {:.1}/3.0 - {}", complexity.grammatical_function_score, complexity.grammatical_function_details);
+            }
+            if complexity.semantic_distance_score > 0.0 {
+                println!("     • Semantic Distance: {:.1}/2.0 - {}", complexity.semantic_distance_score, complexity.semantic_distance_details);
+            }
+            if complexity.frequency_mismatch_score > 0.0 {
+                println!("     • Frequency Mismatch: {:.1}/1.0 - {}", complexity.frequency_mismatch_score, complexity.frequency_mismatch_details);
+            }
+            if complexity.reading_complexity_score > 0.0 {
+                println!("     • Reading Complexity: {:.1}/1.0 - {}", complexity.reading_complexity_score, complexity.reading_complexity_details);
+            }
+
+            println!("   Recommendation: {}", complexity.recommendation());
+        }
+    }
+
+    // Summary statistics
+    println!("\n📈 SUMMARY STATISTICS:");
+    println!("  Total characters analyzed: {}", multi_reading_chars.len());
+    println!("  Tier 1 (Bespoke): {} ({:.1}%)", tier1_bespoke.len(),
+        (tier1_bespoke.len() as f64 / multi_reading_chars.len() as f64) * 100.0);
+    println!("  Tier 2 (Enhanced): {} ({:.1}%)", tier2_enhanced.len(),
+        (tier2_enhanced.len() as f64 / multi_reading_chars.len() as f64) * 100.0);
+    println!("  Tier 3 (Basic): {} ({:.1}%)", tier3_basic.len(),
+        (tier3_basic.len() as f64 / multi_reading_chars.len() as f64) * 100.0);
+
+    println!("\n🎯 ACTIONABLE INSIGHTS:");
+    println!("  • Focus manual effort on {} Tier 1 characters", tier1_bespoke.len());
+    println!("  • Enhance programmatic rules for {} Tier 2 characters", tier2_enhanced.len());
+    println!("  • Use standard semantic clustering for {} Tier 3 characters", tier3_basic.len());
+
+    if !tier1_bespoke.is_empty() {
+        println!("\n💡 TIER 1 CHARACTER LIST (for ChatGPT bespoke treatment):");
+        let tier1_chars: Vec<String> = tier1_bespoke.iter().take(30).map(|(c, _)| c.to_string()).collect();
+        println!("  {}", tier1_chars.join(", "));
+    }
+
+    Ok(())
+}
+
+#[derive(Debug, Clone)]
+struct CharacterComplexity {
+    // POS mismatch (0-3): particle vs noun, verb vs adjective, etc.
+    pos_mismatch_score: f64,
+    pos_mismatch_details: String,
+
+    // Grammatical function differences (0-3): functional vs content words
+    grammatical_function_score: f64,
+    grammatical_function_details: String,
+
+    // Semantic distance (0-2): how different the meanings are
+    semantic_distance_score: f64,
+    semantic_distance_details: String,
+
+    // Frequency/register mismatch (0-1): formal vs colloquial, etc.
+    frequency_mismatch_score: f64,
+    frequency_mismatch_details: String,
+
+    // Reading complexity (0-1): number of readings, pronunciation difficulty
+    reading_complexity_score: f64,
+    reading_complexity_details: String,
+}
+
+impl CharacterComplexity {
+    fn total_score(&self) -> f64 {
+        self.pos_mismatch_score +
+        self.grammatical_function_score +
+        self.semantic_distance_score +
+        self.frequency_mismatch_score +
+        self.reading_complexity_score
+    }
+
+    fn primary_issue(&self) -> &str {
+        let scores = vec![
+            (self.pos_mismatch_score, "POS Mismatch"),
+            (self.grammatical_function_score, "Grammatical Function"),
+            (self.semantic_distance_score, "Semantic Distance"),
+            (self.frequency_mismatch_score, "Frequency Mismatch"),
+            (self.reading_complexity_score, "Reading Complexity"),
+        ];
+
+        scores.iter()
+            .max_by(|a, b| a.0.partial_cmp(&b.0).unwrap())
+            .map(|(_, issue)| *issue)
+            .unwrap_or("Unknown")
+    }
+
+    fn recommendation(&self) -> &str {
+        let score = self.total_score();
+        if score >= 8.0 {
+            "BESPOKE: Manual ChatGPT treatment with linguistic expertise"
+        } else if score >= 5.0 {
+            "ENHANCED: Programmatic with manual review and refinement"
+        } else {
+            "BASIC: Standard programmatic semantic clustering"
+        }
+    }
+}
+
+fn analyze_character_complexity(character: &str, chinese_entry: &ChineseDictionaryElement, japanese_entries: &[&Word]) -> CharacterComplexity {
+    let mut complexity = CharacterComplexity {
+        pos_mismatch_score: 0.0,
+        pos_mismatch_details: String::new(),
+        grammatical_function_score: 0.0,
+        grammatical_function_details: String::new(),
+        semantic_distance_score: 0.0,
+        semantic_distance_details: String::new(),
+        frequency_mismatch_score: 0.0,
+        frequency_mismatch_details: String::new(),
+        reading_complexity_score: 0.0,
+        reading_complexity_details: String::new(),
+    };
+
+    // Analyze POS mismatches
+    analyze_pos_mismatches(character, chinese_entry, japanese_entries, &mut complexity);
+
+    // Analyze grammatical function differences
+    analyze_grammatical_functions(character, chinese_entry, japanese_entries, &mut complexity);
+
+    // Analyze semantic distance
+    analyze_semantic_distance(character, chinese_entry, japanese_entries, &mut complexity);
+
+    // Analyze frequency/register mismatches
+    analyze_frequency_mismatches(character, chinese_entry, japanese_entries, &mut complexity);
+
+    // Analyze reading complexity
+    analyze_reading_complexity(character, chinese_entry, japanese_entries, &mut complexity);
+
+    complexity
+}
+
+fn analyze_pos_mismatches(_character: &str, chinese_entry: &ChineseDictionaryElement, japanese_entries: &[&Word], complexity: &mut CharacterComplexity) {
+    // Extract Chinese definitions to infer POS
+    let mut chinese_definitions = Vec::new();
+    for item in &chinese_entry.items {
+        if let Some(definitions) = &item.definitions {
+            chinese_definitions.extend(definitions.iter().cloned());
+        }
+    }
+
+    // Extract Japanese POS tags
+    let mut japanese_pos_tags = std::collections::HashSet::new();
+    for jp_word in japanese_entries {
+        for sense in &jp_word.sense {
+            for pos in &sense.part_of_speech {
+                japanese_pos_tags.insert(format!("{:?}", pos));
+            }
+        }
+    }
+
+    // Detect major POS mismatches
+    let chinese_text = chinese_definitions.join(" ").to_lowercase();
+    let japanese_pos_text = japanese_pos_tags.iter().cloned().collect::<Vec<_>>().join(" ").to_lowercase();
+
+    // High-impact mismatches - be more aggressive in detecting them
+    if (chinese_text.contains("particle") || chinese_text.contains("possessive") || chinese_text.contains("'s")) &&
+       (japanese_pos_text.contains("noun") || japanese_pos_text.contains("suffix") || japanese_pos_text.contains("adj")) {
+        complexity.pos_mismatch_score = 4.0;  // Increased from 3.0
+        complexity.pos_mismatch_details = "Chinese particle vs Japanese noun/suffix/adjective".to_string();
+    } else if (chinese_text.contains("preposition") || chinese_text.contains("conjunction")) &&
+              (japanese_pos_text.contains("noun") || japanese_pos_text.contains("adj")) {
+        complexity.pos_mismatch_score = 3.5;  // Increased from 2.5
+        complexity.pos_mismatch_details = "Chinese preposition/conjunction vs Japanese noun/adjective".to_string();
+    } else if chinese_text.contains("adjectival") && japanese_pos_text.contains("noun") {
+        complexity.pos_mismatch_score = 3.0;
+        complexity.pos_mismatch_details = "Chinese adjectival vs Japanese noun".to_string();
+    } else if chinese_text.contains("verb") && japanese_pos_text.contains("adjective") {
+        complexity.pos_mismatch_score = 2.5;  // Increased from 1.5
+        complexity.pos_mismatch_details = "Chinese verb vs Japanese adjective".to_string();
+    }
+
+    // Special cases for known problematic characters
+    match _character {
+        "的" => {
+            complexity.pos_mismatch_score = 4.5;
+            complexity.pos_mismatch_details = "的: Chinese particle vs Japanese suffix/noun - classic example".to_string();
+        },
+        "和" => {
+            complexity.pos_mismatch_score = 3.5;
+            complexity.pos_mismatch_details = "和: Chinese conjunction vs Japanese noun/prefix".to_string();
+        },
+        "所" => {
+            complexity.pos_mismatch_score = 4.0;
+            complexity.pos_mismatch_details = "所: Chinese particle vs Japanese noun".to_string();
+        },
+        "為" | "为" => {
+            complexity.pos_mismatch_score = 3.5;
+            complexity.pos_mismatch_details = "為: Chinese preposition vs Japanese verb".to_string();
+        },
+        _ => {}
+    }
+}
+
+fn analyze_grammatical_functions(_character: &str, chinese_entry: &ChineseDictionaryElement, japanese_entries: &[&Word], complexity: &mut CharacterComplexity) {
+    // Extract Chinese definitions
+    let mut chinese_definitions = Vec::new();
+    for item in &chinese_entry.items {
+        if let Some(definitions) = &item.definitions {
+            chinese_definitions.extend(definitions.iter().cloned());
+        }
+    }
+
+    let chinese_text = chinese_definitions.join(" ").to_lowercase();
+
+    // Check for grammatical function words
+    let grammatical_keywords = vec![
+        "particle", "possessive", "attributive", "nominalizer", "modal",
+        "auxiliary", "conjunction", "preposition", "suffix", "prefix"
+    ];
+
+    let chinese_is_grammatical = grammatical_keywords.iter().any(|&keyword| chinese_text.contains(keyword));
+
+    // Check Japanese for grammatical functions
+    let mut japanese_is_grammatical = false;
+    for jp_word in japanese_entries {
+        for sense in &jp_word.sense {
+            for pos in &sense.part_of_speech {
+                match pos {
+                    crate::japanese_types::PartOfSpeech::Aux |
+                    crate::japanese_types::PartOfSpeech::AuxV |
+                    crate::japanese_types::PartOfSpeech::AuxAdj |
+                    crate::japanese_types::PartOfSpeech::Conj |
+                    crate::japanese_types::PartOfSpeech::Prt => {
+                        japanese_is_grammatical = true;
+                        break;
+                    }
+                    _ => {}
+                }
+            }
+        }
+    }
+
+    // Score based on grammatical function mismatch
+    if chinese_is_grammatical && !japanese_is_grammatical {
+        complexity.grammatical_function_score = 3.0;
+        complexity.grammatical_function_details = "Chinese grammatical function vs Japanese content word".to_string();
+    } else if !chinese_is_grammatical && japanese_is_grammatical {
+        complexity.grammatical_function_score = 2.5;
+        complexity.grammatical_function_details = "Chinese content word vs Japanese grammatical function".to_string();
+    }
+}
+
+fn analyze_semantic_distance(_character: &str, chinese_entry: &ChineseDictionaryElement, japanese_entries: &[&Word], complexity: &mut CharacterComplexity) {
+    // Extract Chinese definitions
+    let mut chinese_definitions = Vec::new();
+    for item in &chinese_entry.items {
+        if let Some(definitions) = &item.definitions {
+            chinese_definitions.extend(definitions.iter().cloned());
+        }
+    }
+
+    // Extract Japanese definitions
+    let mut japanese_definitions = Vec::new();
+    for jp_word in japanese_entries {
+        for sense in &jp_word.sense {
+            for gloss in &sense.gloss {
+                japanese_definitions.push(gloss.text.clone());
+            }
+        }
+    }
+
+    // Calculate semantic overlap
+    let chinese_text = chinese_definitions.join(" ").to_lowercase();
+    let japanese_text = japanese_definitions.join(" ").to_lowercase();
+
+    // Check for semantic overlap
+    let chinese_words: Vec<&str> = chinese_text.split_whitespace().collect();
+    let japanese_words: Vec<&str> = japanese_text.split_whitespace().collect();
+
+    let mut overlap_count = 0;
+    let mut total_comparisons = 0;
+
+    for c_word in &chinese_words {
+        for j_word in &japanese_words {
+            total_comparisons += 1;
+            if c_word == j_word || c_word.contains(j_word) || j_word.contains(c_word) {
+                overlap_count += 1;
+            }
+        }
+    }
+
+    let overlap_ratio = if total_comparisons > 0 {
+        overlap_count as f64 / total_comparisons as f64
+    } else {
+        0.0
+    };
+
+    // Score based on semantic distance
+    if overlap_ratio < 0.1 {
+        complexity.semantic_distance_score = 2.0;
+        complexity.semantic_distance_details = "Very low semantic overlap".to_string();
+    } else if overlap_ratio < 0.3 {
+        complexity.semantic_distance_score = 1.5;
+        complexity.semantic_distance_details = "Low semantic overlap".to_string();
+    } else if overlap_ratio < 0.5 {
+        complexity.semantic_distance_score = 1.0;
+        complexity.semantic_distance_details = "Moderate semantic overlap".to_string();
+    }
+}
+
+fn analyze_frequency_mismatches(_character: &str, chinese_entry: &ChineseDictionaryElement, _japanese_entries: &[&Word], complexity: &mut CharacterComplexity) {
+    // Check for frequency/register indicators in Chinese definitions
+    let mut chinese_definitions = Vec::new();
+    for item in &chinese_entry.items {
+        if let Some(definitions) = &item.definitions {
+            chinese_definitions.extend(definitions.iter().cloned());
+        }
+    }
+
+    let chinese_text = chinese_definitions.join(" ").to_lowercase();
+
+    // Check for register mismatches
+    if chinese_text.contains("literary") || chinese_text.contains("classical") || chinese_text.contains("archaic") {
+        complexity.frequency_mismatch_score = 1.0;
+        complexity.frequency_mismatch_details = "Chinese literary vs Japanese common usage".to_string();
+    } else if chinese_text.contains("colloquial") || chinese_text.contains("slang") {
+        complexity.frequency_mismatch_score = 0.5;
+        complexity.frequency_mismatch_details = "Register mismatch detected".to_string();
+    }
+}
+
+fn analyze_reading_complexity(_character: &str, chinese_entry: &ChineseDictionaryElement, japanese_entries: &[&Word], complexity: &mut CharacterComplexity) {
+    // Count Chinese readings
+    let chinese_readings: std::collections::HashSet<String> = chinese_entry.items.iter()
+        .filter_map(|item| item.pinyin.as_ref())
+        .cloned()
+        .collect();
+
+    // Count Japanese readings
+    let mut japanese_readings = std::collections::HashSet::new();
+    for jp_word in japanese_entries {
+        for kana in &jp_word.kana {
+            japanese_readings.insert(kana.text.clone());
+        }
+    }
+
+    let total_readings = chinese_readings.len() + japanese_readings.len();
+
+    // Score based on reading complexity
+    if total_readings >= 8 {
+        complexity.reading_complexity_score = 1.0;
+        complexity.reading_complexity_details = format!("Very high reading complexity: {} total readings", total_readings);
+    } else if total_readings >= 6 {
+        complexity.reading_complexity_score = 0.7;
+        complexity.reading_complexity_details = format!("High reading complexity: {} total readings", total_readings);
+    } else if total_readings >= 4 {
+        complexity.reading_complexity_score = 0.3;
+        complexity.reading_complexity_details = format!("Moderate reading complexity: {} total readings", total_readings);
+    }
 }
