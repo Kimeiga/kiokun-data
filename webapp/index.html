@@ -19,7 +19,7 @@
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -34,10 +34,11 @@
         }
 
         .character {
-            font-size: 72px;
+            font-size: 96px;
             font-weight: bold;
             margin-bottom: 10px;
             color: #2c3e50;
+            font-family: 'SimSun', 'MS Mincho', serif;
         }
 
         .badges {
@@ -56,51 +57,14 @@
             text-transform: uppercase;
         }
 
-        .badge-complexity { background: #e74c3c; color: white; }
         .badge-hsk { background: #3498db; color: white; }
-        .badge-common { background: #27ae60; color: white; }
+        .badge-jlpt { background: #e74c3c; color: white; }
+        .badge-grade { background: #9b59b6; color: white; }
+        .badge-freq { background: #27ae60; color: white; }
+        .badge-stroke { background: #f39c12; color: white; }
 
-        /* Character Header */
-        .character-header {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-            padding: 30px;
-            text-align: center;
-        }
-
-        .pronunciation-summary {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin: 20px 0;
-        }
-
-        .pronunciation-item {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-        }
-
-        .lang-label {
-            display: block;
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-            opacity: 0.7;
-        }
-
-        .readings {
-            font-size: 18px;
-            font-weight: bold;
-            font-family: 'Courier New', monospace;
-            color: #2c3e50;
-        }
-
-        /* Unified Meanings Section */
-        .unified-meanings-section {
+        /* Section Styles */
+        .section {
             background: white;
             border-radius: 12px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -111,248 +75,262 @@
         .section-header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .section-header h2 {
-            margin: 0 0 5px 0;
+            padding: 20px 30px;
             font-size: 24px;
+            font-weight: bold;
         }
 
-        .section-subtitle {
-            margin: 0;
-            opacity: 0.9;
-            font-size: 14px;
+        .section-header.chinese {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
         }
 
-        .unified-meaning-card {
-            padding: 25px;
-            border-bottom: 1px solid #f1f2f6;
+        .section-header.japanese {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
         }
 
-        .unified-meaning-card:last-child {
-            border-bottom: none;
+        .section-content {
+            padding: 30px;
         }
 
-        .unified-meaning-card.primary {
-            background: linear-gradient(135deg, #fff9e6 0%, #fff3d3 100%);
-            border-left: 4px solid #f39c12;
+        .subsection {
+            margin-bottom: 30px;
         }
 
-        .meaning-explanation {
+        .subsection:last-child {
+            margin-bottom: 0;
+        }
+
+        .subsection-title {
             font-size: 18px;
-            line-height: 1.6;
-            margin-bottom: 20px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        /* Data Display */
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .data-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid #3498db;
+        }
+
+        .data-item.japanese {
+            border-left-color: #e74c3c;
+        }
+
+        .data-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #7f8c8d;
+            margin-bottom: 5px;
+        }
+
+        .data-value {
+            font-size: 16px;
             color: #2c3e50;
             font-weight: 500;
         }
 
-        .language-aspects {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-
-        .aspect {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-        }
-
-        .chinese-aspect {
-            border-left: 3px solid #3498db;
-        }
-
-        .japanese-aspect {
-            border-left: 3px solid #e74c3c;
-        }
-
-        .aspect-label {
-            display: block;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 5px;
-            opacity: 0.8;
-        }
-
-        .aspect-reading {
-            display: block;
-            font-family: 'Courier New', monospace;
+        .data-value.large {
+            font-size: 20px;
             font-weight: bold;
-            font-size: 16px;
-            margin-bottom: 5px;
-            color: #2c3e50;
-        }
-
-        .aspect-function {
-            font-size: 14px;
-            color: #7f8c8d;
-        }
-
-        .cross-linguistic-note {
-            background: #e8f5e8;
-            border-left: 4px solid #27ae60;
-            padding: 12px;
-            border-radius: 0 6px 6px 0;
-            font-size: 14px;
-            color: #27ae60;
-            font-style: italic;
-        }
-
-        /* Language-Specific Section */
-        .language-specific-section {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-
-        .specific-meanings {
-            padding: 25px;
-        }
-
-        .specific-meanings h3 {
-            margin: 0 0 20px 0;
-            color: #2c3e50;
-            font-size: 18px;
-        }
-
-        .chinese-only {
-            border-left: 4px solid #3498db;
-        }
-
-        .japanese-only {
-            border-left: 4px solid #e74c3c;
-            border-top: 1px solid #f1f2f6;
-        }
-
-        .meanings-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 15px;
-        }
-
-        .specific-meaning-card {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid #e9ecef;
-        }
-
-        .meaning-reading {
             font-family: 'Courier New', monospace;
-            font-weight: bold;
-            color: #495057;
-            margin-bottom: 8px;
-            font-size: 14px;
         }
 
-        .meaning-definition {
-            color: #6c757d;
-            font-size: 14px;
-            line-height: 1.4;
-        }
-
-        /* Legacy format styles */
-        .legacy-note {
-            background: #fff3cd;
-            color: #856404;
-            padding: 10px;
-            border-radius: 6px;
-            margin: 15px 0;
-            font-size: 14px;
-            text-align: center;
-        }
-
-        .definition-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid #f1f2f6;
-        }
-
-        .definition-text {
-            flex: 1;
-        }
-
-        .definition-source {
-            background: #e9ecef;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-            color: #6c757d;
-        }
-
-
-
-        .language-section h2 {
-            color: #2c3e50;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .meaning-card {
+        /* Word Entries */
+        .word-entry {
             background: #f8f9fa;
             border: 2px solid #e9ecef;
             border-radius: 8px;
             padding: 20px;
             margin-bottom: 15px;
-            transition: all 0.3s ease;
         }
 
-        .meaning-card:hover {
+        .word-entry:hover {
             border-color: #3498db;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
-        .meaning-card.primary {
-            border-color: #f39c12;
-            background: #fef9e7;
-        }
-
-        .reading {
+        .word-reading {
             font-size: 18px;
             font-weight: bold;
             color: #2c3e50;
-            margin-bottom: 8px;
-        }
-
-        .definition {
-            font-size: 16px;
             margin-bottom: 10px;
+            font-family: 'Courier New', monospace;
         }
 
-        .frequency {
+        .word-definitions {
+            margin: 10px 0;
+        }
+
+        .definition-item {
+            padding: 8px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .definition-item:last-child {
+            border-bottom: none;
+        }
+
+        .definition-text {
+            color: #495057;
+            line-height: 1.5;
+        }
+
+        .pos-tag {
+            display: inline-block;
+            background: #e9ecef;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #6c757d;
+            margin-right: 8px;
+            text-transform: uppercase;
+        }
+
+        /* Character Components */
+        .components-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .component-item {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 10px 15px;
+            font-size: 24px;
+            font-family: 'SimSun', 'MS Mincho', serif;
+        }
+
+        .component-item.meaning {
+            border-color: #3498db;
+        }
+
+        .component-item.phonetic {
+            border-color: #e74c3c;
+        }
+
+        /* IDS Display */
+        .ids-display {
+            font-size: 48px;
+            text-align: center;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'SimSun', 'MS Mincho', serif;
+        }
+
+        /* Etymology */
+        .etymology-box {
+            background: #fff9e6;
+            border-left: 4px solid #f39c12;
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 15px 0;
+            font-style: italic;
+            line-height: 1.8;
+        }
+
+        /* Statistics */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .stat-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
             font-size: 12px;
             color: #7f8c8d;
             text-transform: uppercase;
-            font-weight: 600;
         }
 
-        .examples {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #e9ecef;
-        }
-
-        .example {
-            margin-bottom: 8px;
-            font-family: 'Courier New', monospace;
-            background: white;
-            padding: 8px;
+        /* Source Tags */
+        .source-tag {
+            display: inline-block;
+            background: #e9ecef;
+            padding: 4px 8px;
             border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #6c757d;
+            margin-left: 8px;
+            text-transform: uppercase;
         }
 
-        .chinese { color: #3498db; }
-        .japanese { color: #e74c3c; }
-        .connection { color: #9b59b6; }
+        .source-tag.unicode { background: #d4edda; color: #155724; }
+        .source-tag.cedict { background: #cce5ff; color: #004085; }
+        .source-tag.kanjidic { background: #f8d7da; color: #721c24; }
 
+        /* Readings Display */
+        .readings-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .reading-chip {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .reading-chip.pinyin {
+            border-color: #3498db;
+            color: #3498db;
+        }
+
+        .reading-chip.onyomi {
+            border-color: #e74c3c;
+            color: #e74c3c;
+        }
+
+        .reading-chip.kunyomi {
+            border-color: #9b59b6;
+            color: #9b59b6;
+        }
+
+        .reading-chip.nanori {
+            border-color: #27ae60;
+            color: #27ae60;
+        }
+
+        /* Utility */
         .loading {
             text-align: center;
             padding: 50px;
@@ -371,103 +349,67 @@
 
         .search-box {
             width: 100%;
-            max-width: 300px;
-            padding: 12px 20px;
+            max-width: 400px;
+            padding: 15px 25px;
             border: 2px solid #e9ecef;
-            border-radius: 25px;
-            font-size: 16px;
-            margin: 20px auto;
+            border-radius: 30px;
+            font-size: 18px;
+            margin: 0 auto;
             display: block;
             text-align: center;
+            font-family: 'SimSun', 'MS Mincho', serif;
         }
 
         .search-box:focus {
             outline: none;
             border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
         }
 
-        /* Character Data Sections */
-        .character-info-section {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-            overflow: hidden;
-        }
-
-        .character-decomposition {
-            padding: 25px;
-            background: #f8f9fa;
-        }
-
-        .decomposition-ids {
-            font-size: 48px;
+        .empty-state {
             text-align: center;
-            margin: 20px 0;
-            font-family: 'SimSun', 'MS Mincho', serif;
-        }
-
-        .etymology-text {
-            background: #fff;
-            padding: 15px;
-            border-radius: 8px;
-            border-left: 4px solid #9b59b6;
-            margin: 10px 0;
+            padding: 40px;
+            color: #7f8c8d;
             font-style: italic;
         }
 
-        .readings-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin: 15px 0;
+        .list-item {
+            padding: 8px 0;
+            line-height: 1.6;
         }
 
-        .reading-group {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-        }
-
-        .reading-label {
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            opacity: 0.7;
-            margin-bottom: 8px;
-        }
-
-        .reading-values {
-            font-size: 16px;
+        .list-item::before {
+            content: "• ";
+            color: #3498db;
             font-weight: bold;
-            color: #2c3e50;
+            margin-right: 8px;
         }
 
         @media (max-width: 768px) {
-            .character { font-size: 48px; }
-            .tabs { flex-direction: column; }
-            .tab { border-radius: 0; }
+            .character { font-size: 64px; }
             .container { padding: 10px; }
-            .language-aspects { grid-template-columns: 1fr; }
-            .pronunciation-summary { grid-template-columns: 1fr; }
+            .data-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .section-content { padding: 20px; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <input type="text" class="search-box" placeholder="Enter a character (e.g., 的, 和, 空)" id="searchBox">
+            <h1 style="margin-bottom: 20px; color: #2c3e50;">📚 Kiokun Dictionary</h1>
+            <input type="text" class="search-box" placeholder="Enter a character or word (e.g., 好, 地図)" id="searchBox">
         </div>
 
         <div id="content">
             <div class="loading">
-                <p>Enter a character above to explore its meanings</p>
+                <p>Enter a character or word above to explore its meanings</p>
+                <p style="margin-top: 10px; font-size: 14px; opacity: 0.7;">Try: 好, 的, 和, 空, 地図</p>
             </div>
         </div>
     </div>
 
     <script>
-        // Simple routing and data loading
         class KiokunApp {
             constructor() {
                 this.currentWord = null;
@@ -482,18 +424,14 @@
                         const word = e.target.value.trim();
                         if (word) {
                             this.loadWord(word);
-                            // Update URL without page reload
-                            window.history.pushState({word}, '', `/${word}`);
                         }
                     }
                 });
 
-                // Handle browser back/forward
                 window.addEventListener('popstate', (e) => {
                     if (e.state && e.state.word) {
                         this.loadWord(e.state.word, false);
                     } else {
-                        // Handle direct URL navigation
                         this.loadFromURL();
                     }
                 });
@@ -502,7 +440,7 @@
             loadFromURL() {
                 const path = window.location.pathname;
                 if (path !== '/') {
-                    const word = decodeURIComponent(path.substring(1)); // Remove leading slash and decode
+                    const word = decodeURIComponent(path.substring(1));
                     if (word) {
                         document.getElementById('searchBox').value = word;
                         this.loadWord(word, false);
@@ -515,251 +453,371 @@
                 content.innerHTML = '<div class="loading">Loading...</div>';
 
                 try {
-                    // Try to fetch the JSON file
-                    console.log(`Fetching: ../output_dictionary/${word}.json for word: ${word}`);
                     const response = await fetch(`../output_dictionary/${word}.json`);
-
                     if (!response.ok) {
-                        throw new Error(`Character "${word}" not found`);
+                        throw new Error(`"${word}" not found`);
                     }
 
                     const data = await response.json();
                     this.currentWord = word;
-
-                    // New unified structure with word and character data
-                    this.renderUnifiedData(data);
+                    this.renderData(data);
 
                     if (updateURL) {
                         window.history.pushState({word}, '', `/${word}`);
                     }
-
                 } catch (error) {
                     content.innerHTML = `
                         <div class="error">
-                            <h2>Character Not Found</h2>
+                            <h2>❌ Not Found</h2>
                             <p>${error.message}</p>
-                            <p>Try characters like: 好, 的, 和, 空</p>
+                            <p>Try: 好, 的, 和, 空</p>
                         </div>
                     `;
                 }
             }
 
-            renderUnifiedData(data) {
+            renderData(data) {
                 const content = document.getElementById('content');
-                const character = data.key || this.currentWord;
+                const key = data.key || this.currentWord;
 
                 let html = `
-                    <div class="character-header">
-                        <div class="character">${character}</div>
-                        ${this.renderPronunciationSummary(data)}
+                    <div class="header" style="margin-bottom: 30px;">
+                        <div class="character">${key}</div>
                         ${this.renderBadges(data)}
                     </div>
                 `;
 
-                // Render character-level data if available
-                if (data.character) {
-                    html += this.renderCharacterData(data.character);
+                // Chinese Character
+                if (data.chinese_char) {
+                    html += this.renderChineseChar(data.chinese_char);
                 }
 
-                // Render word-level data if available
-                if (data.word) {
-                    html += this.renderWordData(data.word);
+                // Japanese Character
+                if (data.japanese_char) {
+                    html += this.renderJapaneseChar(data.japanese_char);
+                }
+
+                // Chinese Words
+                if (data.chinese_words && data.chinese_words.length > 0) {
+                    html += this.renderChineseWords(data.chinese_words);
+                }
+
+                // Japanese Words
+                if (data.japanese_words && data.japanese_words.length > 0) {
+                    html += this.renderJapaneseWords(data.japanese_words);
                 }
 
                 content.innerHTML = html;
             }
 
-            renderPronunciationSummary(data) {
-                const chinesePinyin = data.character?.representations?.chinese?.pinyin || [];
-                const japaneseOnyomi = data.character?.representations?.japanese?.onyomi || [];
-                const japaneseKunyomi = data.character?.representations?.japanese?.kunyomi || [];
-
-                if (chinesePinyin.length === 0 && japaneseOnyomi.length === 0 && japaneseKunyomi.length === 0) {
-                    return '';
-                }
-
-                return `
-                    <div class="pronunciation-summary">
-                        <div class="pronunciation-item">
-                            <span class="lang-label">🇨🇳 Chinese</span>
-                            <span class="readings">${chinesePinyin.join(', ') || 'N/A'}</span>
-                        </div>
-                        <div class="pronunciation-item">
-                            <span class="lang-label">🇯🇵 Japanese</span>
-                            <span class="readings">${[...japaneseOnyomi, ...japaneseKunyomi].join(', ') || 'N/A'}</span>
-                        </div>
-                    </div>
-                `;
-            }
-
             renderBadges(data) {
                 const badges = [];
 
-                if (data.character?.linguistic_info?.grade) {
-                    badges.push(`<span class="badge badge-hsk">Grade ${data.character.linguistic_info.grade}</span>`);
+                // Chinese character stats
+                if (data.chinese_char?.statistics?.hskLevel) {
+                    badges.push(`<span class="badge badge-hsk">HSK ${data.chinese_char.statistics.hskLevel}</span>`);
                 }
 
-                if (data.character?.linguistic_info?.jlpt) {
-                    badges.push(`<span class="badge badge-hsk">JLPT N${data.character.linguistic_info.jlpt}</span>`);
+                // Japanese character stats
+                if (data.japanese_char?.misc?.grade) {
+                    badges.push(`<span class="badge badge-grade">Grade ${data.japanese_char.misc.grade}</span>`);
                 }
 
-                if (data.character?.linguistic_info?.frequency) {
-                    badges.push(`<span class="badge badge-common">Freq: ${data.character.linguistic_info.frequency}</span>`);
+                if (data.japanese_char?.misc?.jlpt) {
+                    badges.push(`<span class="badge badge-jlpt">JLPT N${data.japanese_char.misc.jlpt}</span>`);
                 }
 
-                if (data.word?.unified) {
-                    const defCount = data.word.unified.definitions?.length || 0;
-                    if (defCount > 0) {
-                        badges.push(`<span class="badge badge-common">${defCount} definitions</span>`);
-                    }
+                if (data.japanese_char?.misc?.freq) {
+                    badges.push(`<span class="badge badge-freq">Freq: ${data.japanese_char.misc.freq}</span>`);
+                }
+
+                if (data.chinese_char?.strokeCount) {
+                    badges.push(`<span class="badge badge-stroke">${data.chinese_char.strokeCount} strokes</span>`);
                 }
 
                 return badges.length > 0 ? `<div class="badges">${badges.join('')}</div>` : '';
             }
 
-            renderCharacterData(charData) {
+            renderChineseChar(char) {
                 let html = `
-                    <div class="character-info-section">
-                        <div class="section-header">
-                            <h2>📝 Character Information</h2>
-                            <p class="section-subtitle">Etymology, structure, and readings</p>
-                        </div>
+                    <div class="section">
+                        <div class="section-header chinese">🇨🇳 Chinese Character</div>
+                        <div class="section-content">
                 `;
 
-                // Decomposition
-                if (charData.decomposition?.ids) {
-                    html += `
-                        <div class="character-decomposition">
-                            <h3>Structure (IDS)</h3>
-                            <div class="decomposition-ids">${charData.decomposition.ids}</div>
-                            ${charData.decomposition.explanation ? `<p>${charData.decomposition.explanation}</p>` : ''}
-                        </div>
-                    `;
-                }
-
-                // Etymology
-                if (charData.meanings?.shuowen) {
-                    html += `
-                        <div style="padding: 25px;">
-                            <h3>Etymology (Shuowen Jiezi)</h3>
-                            <div class="etymology-text">${charData.meanings.shuowen}</div>
-                        </div>
-                    `;
-                }
-
-                // Detailed readings
-                html += `
-                    <div style="padding: 25px; background: #f8f9fa;">
-                        <h3>Readings</h3>
-                        <div class="readings-grid">
-                `;
-
-                if (charData.representations?.chinese?.pinyin) {
-                    html += `
-                        <div class="reading-group">
-                            <div class="reading-label">Chinese Pinyin</div>
-                            <div class="reading-values">${charData.representations.chinese.pinyin.join(', ')}</div>
-                        </div>
-                    `;
-                }
-
-                if (charData.representations?.japanese?.onyomi) {
-                    html += `
-                        <div class="reading-group">
-                            <div class="reading-label">Japanese On'yomi</div>
-                            <div class="reading-values">${charData.representations.japanese.onyomi.join(', ')}</div>
-                        </div>
-                    `;
-                }
-
-                if (charData.representations?.japanese?.kunyomi) {
-                    html += `
-                        <div class="reading-group">
-                            <div class="reading-label">Japanese Kun'yomi</div>
-                            <div class="reading-values">${charData.representations.japanese.kunyomi.join(', ')}</div>
-                        </div>
-                    `;
-                }
-
-                if (charData.representations?.japanese?.nanori) {
-                    html += `
-                        <div class="reading-group">
-                            <div class="reading-label">Japanese Nanori</div>
-                            <div class="reading-values">${charData.representations.japanese.nanori.join(', ')}</div>
-                        </div>
-                    `;
-                }
-
-                html += `
-                        </div>
-                    </div>
-                `;
-
-                // Character meanings
-                if (charData.meanings?.english) {
-                    html += `
-                        <div style="padding: 25px;">
-                            <h3>Character Meanings</h3>
-                            <div class="meaning-definition">${charData.meanings.english.join(', ')}</div>
-                        </div>
-                    `;
-                }
-
-                html += `</div>`;
-                return html;
-            }
-
-            renderWordData(wordData) {
-                if (!wordData.unified) {
-                    return '';
-                }
-
-                const unified = wordData.unified;
-                let html = `
-                    <div class="unified-meanings-section">
-                        <div class="section-header">
-                            <h2>📖 Word Definitions</h2>
-                            <p class="section-subtitle">Meanings when used as a word</p>
-                        </div>
-                `;
-
-                // Group definitions by pinyin/reading
-                const grouped = this.groupDefinitions(unified.definitions);
-
-                for (const [reading, defs] of Object.entries(grouped)) {
-                    html += `
-                        <div class="unified-meaning-card">
-                            <div class="meaning-explanation">
-                                <strong>${reading}</strong>
-                            </div>
-                            <div class="meaning-definition">
-                                ${defs.map(def => `• ${def.text}`).join('<br>')}
-                            </div>
-                        </div>
-                    `;
-                }
-
-                html += `</div>`;
-                return html;
-            }
-
-            groupDefinitions(definitions) {
-                const grouped = {};
-
-                definitions.forEach(def => {
-                    const reading = def.chinese_fields?.pinyin ||
-                                  def.japanese_fields?.part_of_speech?.[0] ||
-                                  'Other';
-
-                    if (!grouped[reading]) {
-                        grouped[reading] = [];
+                // Pinyin readings
+                if (char.pinyinFrequencies && Object.keys(char.pinyinFrequencies).length > 0) {
+                    html += `<div class="subsection">
+                        <div class="subsection-title">Pinyin Readings</div>
+                        <div class="readings-list">`;
+                    for (const [pinyin, freq] of Object.entries(char.pinyinFrequencies)) {
+                        html += `<span class="reading-chip pinyin">${pinyin}</span>`;
                     }
-                    grouped[reading].push(def);
+                    html += `</div></div>`;
+                }
+
+                // Gloss
+                if (char.gloss) {
+                    html += `<div class="subsection">
+                        <div class="subsection-title">Meaning</div>
+                        <div class="data-value large">${char.gloss}</div>
+                    </div>`;
+                }
+
+                // Etymology (Shuowen)
+                if (char.shuowen) {
+                    html += `<div class="subsection">
+                        <div class="subsection-title">Etymology (說文解字)</div>
+                        <div class="etymology-box">${char.shuowen}</div>
+                    </div>`;
+                }
+
+                // Components
+                if (char.components && char.components.length > 0) {
+                    html += `<div class="subsection">
+                        <div class="subsection-title">Components</div>
+                        <div class="components-list">`;
+                    char.components.forEach(comp => {
+                        const typeClass = comp.type.includes('meaning') ? 'meaning' : 'phonetic';
+                        html += `<div class="component-item ${typeClass}" title="${comp.type.join(', ')}">${comp.character}</div>`;
+                    });
+                    html += `</div></div>`;
+                }
+
+                // Statistics
+                if (char.statistics) {
+                    html += `<div class="subsection">
+                        <div class="subsection-title">Statistics</div>
+                        <div class="stats-grid">`;
+                    if (char.statistics.hskLevel) {
+                        html += `<div class="stat-item">
+                            <div class="stat-value">${char.statistics.hskLevel}</div>
+                            <div class="stat-label">HSK Level</div>
+                        </div>`;
+                    }
+                    if (char.strokeCount) {
+                        html += `<div class="stat-item">
+                            <div class="stat-value">${char.strokeCount}</div>
+                            <div class="stat-label">Strokes</div>
+                        </div>`;
+                    }
+                    html += `</div></div>`;
+                }
+
+                html += `</div></div>`;
+                return html;
+            }
+
+            renderJapaneseChar(char) {
+                let html = `
+                    <div class="section">
+                        <div class="section-header japanese">🇯🇵 Japanese Character</div>
+                        <div class="section-content">
+                `;
+
+                // Readings
+                if (char.readingMeaning?.groups) {
+                    const group = char.readingMeaning.groups[0];
+                    if (group?.readings) {
+                        const onyomi = group.readings.filter(r => r.type === 'ja_on').map(r => r.value);
+                        const kunyomi = group.readings.filter(r => r.type === 'ja_kun').map(r => r.value);
+                        const nanori = group.readings.filter(r => r.type === 'ja_nanori').map(r => r.value);
+
+                        html += `<div class="subsection">
+                            <div class="subsection-title">Readings</div>
+                            <div class="readings-list">`;
+
+                        onyomi.forEach(r => html += `<span class="reading-chip onyomi">音: ${r}</span>`);
+                        kunyomi.forEach(r => html += `<span class="reading-chip kunyomi">訓: ${r}</span>`);
+                        nanori.forEach(r => html += `<span class="reading-chip nanori">名: ${r}</span>`);
+
+                        html += `</div></div>`;
+                    }
+
+                    // Meanings
+                    if (group?.meanings) {
+                        html += `<div class="subsection">
+                            <div class="subsection-title">Meanings</div>`;
+                        group.meanings.forEach(m => {
+                            html += `<div class="list-item">${m}</div>`;
+                        });
+                        html += `</div>`;
+                    }
+                }
+
+                // Radicals
+                if (char.radicals) {
+                    html += `<div class="subsection">
+                        <div class="subsection-title">Radicals</div>
+                        <div class="data-grid">`;
+                    if (char.radicals.classical) {
+                        html += `<div class="data-item japanese">
+                            <div class="data-label">Classical</div>
+                            <div class="data-value large">${char.radicals.classical}</div>
+                        </div>`;
+                    }
+                    if (char.radicals.nelson) {
+                        html += `<div class="data-item japanese">
+                            <div class="data-label">Nelson</div>
+                            <div class="data-value large">${char.radicals.nelson}</div>
+                        </div>`;
+                    }
+                    html += `</div></div>`;
+                }
+
+                // Misc info
+                if (char.misc) {
+                    html += `<div class="subsection">
+                        <div class="subsection-title">Information</div>
+                        <div class="stats-grid">`;
+                    if (char.misc.grade) {
+                        html += `<div class="stat-item">
+                            <div class="stat-value">${char.misc.grade}</div>
+                            <div class="stat-label">Grade</div>
+                        </div>`;
+                    }
+                    if (char.misc.strokeCount) {
+                        html += `<div class="stat-item">
+                            <div class="stat-value">${char.misc.strokeCount}</div>
+                            <div class="stat-label">Strokes</div>
+                        </div>`;
+                    }
+                    if (char.misc.jlpt) {
+                        html += `<div class="stat-item">
+                            <div class="stat-value">N${char.misc.jlpt}</div>
+                            <div class="stat-label">JLPT</div>
+                        </div>`;
+                    }
+                    if (char.misc.freq) {
+                        html += `<div class="stat-item">
+                            <div class="stat-value">${char.misc.freq}</div>
+                            <div class="stat-label">Frequency</div>
+                        </div>`;
+                    }
+                    html += `</div></div>`;
+                }
+
+                html += `</div></div>`;
+                return html;
+            }
+
+            renderChineseWords(words) {
+                let html = `
+                    <div class="section">
+                        <div class="section-header chinese">📖 Chinese Words</div>
+                        <div class="section-content">
+                `;
+
+                words.forEach(word => {
+                    html += `<div class="word-entry">`;
+
+                    // Word header
+                    html += `<div style="margin-bottom: 15px;">
+                        <span style="font-size: 24px; font-weight: bold; font-family: 'SimSun', serif;">${word.simp}</span>`;
+                    if (word.trad && word.trad !== word.simp) {
+                        html += ` <span style="font-size: 20px; color: #7f8c8d;">(${word.trad})</span>`;
+                    }
+                    if (word.gloss) {
+                        html += ` <span style="margin-left: 15px; color: #27ae60; font-weight: 600;">${word.gloss}</span>`;
+                    }
+                    html += `</div>`;
+
+                    // Items (different pronunciations/definitions)
+                    if (word.items && word.items.length > 0) {
+                        word.items.forEach(item => {
+                            html += `<div style="margin-bottom: 15px; padding: 15px; background: #f8f9fa; border-radius: 8px;">`;
+
+                            if (item.pinyin) {
+                                html += `<div class="word-reading">${item.pinyin}</div>`;
+                            }
+
+                            if (item.definitions && item.definitions.length > 0) {
+                                html += `<div class="word-definitions">`;
+                                item.definitions.forEach(def => {
+                                    html += `<div class="definition-item">
+                                        <span class="definition-text">${def}</span>
+                                    </div>`;
+                                });
+                                html += `</div>`;
+                            }
+
+                            if (item.source) {
+                                html += `<span class="source-tag ${item.source}">${item.source}</span>`;
+                            }
+
+                            html += `</div>`;
+                        });
+                    }
+
+                    // Statistics
+                    if (word.statistics) {
+                        html += `<div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #e9ecef;">`;
+                        if (word.statistics.hskLevel) {
+                            html += `<span class="badge badge-hsk">HSK ${word.statistics.hskLevel}</span>`;
+                        }
+                        html += `</div>`;
+                    }
+
+                    html += `</div>`;
                 });
 
-                return grouped;
+                html += `</div></div>`;
+                return html;
             }
 
+            renderJapaneseWords(words) {
+                let html = `
+                    <div class="section">
+                        <div class="section-header japanese">📖 Japanese Words</div>
+                        <div class="section-content">
+                `;
+
+                words.forEach(word => {
+                    html += `<div class="word-entry">`;
+
+                    // Kanji and Kana
+                    html += `<div style="margin-bottom: 15px;">`;
+                    if (word.kanji && word.kanji.length > 0) {
+                        html += `<span style="font-size: 24px; font-weight: bold; font-family: 'MS Mincho', serif;">${word.kanji[0].text}</span> `;
+                    }
+                    if (word.kana && word.kana.length > 0) {
+                        html += `<span style="font-size: 20px; color: #e74c3c; font-family: 'MS Mincho', serif;">${word.kana[0].text}</span>`;
+                    }
+                    html += `</div>`;
+
+                    // Senses (meanings)
+                    if (word.sense && word.sense.length > 0) {
+                        word.sense.forEach((sense, idx) => {
+                            html += `<div style="margin-bottom: 15px; padding: 15px; background: #f8f9fa; border-radius: 8px;">`;
+
+                            // Part of speech
+                            if (sense.partOfSpeech && sense.partOfSpeech.length > 0) {
+                                sense.partOfSpeech.forEach(pos => {
+                                    html += `<span class="pos-tag">${pos}</span>`;
+                                });
+                            }
+
+                            // Glosses
+                            if (sense.gloss && sense.gloss.length > 0) {
+                                html += `<div class="word-definitions" style="margin-top: 10px;">`;
+                                sense.gloss.forEach(g => {
+                                    html += `<div class="definition-item">
+                                        <span class="definition-text">${g.text}</span>
+                                    </div>`;
+                                });
+                                html += `</div>`;
+                            }
+
+                            html += `</div>`;
+                        });
+                    }
+
+                    html += `</div>`;
+                });
+
+                html += `</div></div>`;
+                return html;
+            }
         }
 
         // Initialize the app
