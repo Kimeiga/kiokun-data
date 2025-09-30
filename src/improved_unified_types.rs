@@ -123,7 +123,7 @@ use std::collections::HashMap;
 pub struct CharacterRepresentations {
     pub traditional: String,
     pub simplified: String,
-    pub chinese_pinyin: Vec<PinyinReading>,
+    pub chinese_pinyin: Vec<String>,  // Simplified: just the pinyin strings, deduplicated
     pub japanese_kanji: Vec<KanjiVariant>,
     pub japanese_kana: Vec<KanaVariant>,
 }
@@ -153,6 +153,128 @@ pub struct Pronunciations {
 pub struct PinyinReading {
     pub reading: String,
     pub source: String,
+}
+
+/// Cleaned pinyin-to-definitions mapping (no source, no duplicates)
+pub type PinyinDefinitionsMap = std::collections::HashMap<String, Vec<String>>;
+
+/// Enhanced unified data structure with semantic clustering
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct SemanticUnifiedData {
+    pub representations: CharacterRepresentations,
+    pub unified_meanings: Vec<UnifiedMeaning>,
+    pub chinese_only_meanings: Vec<LanguageSpecificMeaning>,
+    pub japanese_only_meanings: Vec<LanguageSpecificMeaning>,
+    pub statistics: UnifiedStatistics,
+    pub examples: Vec<Example>,
+    pub linguistic_info: LinguisticInfo,
+}
+
+/// A unified meaning that combines semantically related Chinese and Japanese definitions
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct UnifiedMeaning {
+    pub semantic_id: String,
+    pub unified_explanation: String,
+    pub semantic_category: SemanticCategory,
+    pub chinese_aspect: Option<LanguageAspect>,
+    pub japanese_aspect: Option<LanguageAspect>,
+    pub cross_linguistic_note: Option<String>,
+    pub confidence: f64,
+    pub is_primary: bool,
+}
+
+/// Language-specific aspect of a unified meaning
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct LanguageAspect {
+    pub readings: Vec<String>,
+    pub specific_function: String,
+    pub examples: Vec<String>,
+    pub frequency_level: FrequencyLevel,
+}
+
+/// Meaning that exists only in one language
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct LanguageSpecificMeaning {
+    pub reading: String,
+    pub definition: String,
+    pub examples: Vec<String>,
+    pub frequency_level: FrequencyLevel,
+    pub semantic_category: SemanticCategory,
+}
+
+/// Semantic categories for grouping related meanings
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+pub enum SemanticCategory {
+    GrammaticalModifier,    // possessive, adjectival suffixes
+    TargetGoal,            // target, mark, objective
+    Transportation,        // taxi, vehicle-related
+    Intensifier,          // really, truly, very
+    EmptinessVoid,        // empty, hollow, vacant
+    ConflictOpposition,   // enemy, rival, conflict
+    Comparison,           // compare, ratio, proportion
+    Harmony,              // peace, harmony, calm
+    General,              // catch-all for unclear cases
+}
+
+/// Frequency levels for prioritization
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub enum FrequencyLevel {
+    VeryHigh,  // HSK 1-2, JLPT N5-N4
+    High,      // HSK 3-4, JLPT N3
+    Medium,    // HSK 5-6, JLPT N2
+    Low,       // Above HSK 6, JLPT N1
+    Rare,      // Specialized or archaic
+}
+
+/// Learner-focused structure for characters with multiple readings in both languages
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct LearnerFocusedEntry {
+    pub character: String,
+    pub is_multi_reading_overlap: bool,
+    pub chinese_section: Option<LanguageSection>,
+    pub japanese_section: Option<LanguageSection>,
+    pub cross_linguistic_insights: Vec<CrossLinguisticInsight>,
+    pub complexity_score: f64,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct LanguageSection {
+    pub primary_meaning: PrimaryMeaning,
+    pub secondary_meanings: Vec<SecondaryMeaning>,
+    pub total_readings: usize,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct PrimaryMeaning {
+    pub reading: String,
+    pub definition: String,
+    pub examples: Vec<String>,
+    pub frequency_level: String,
+    pub proficiency_level: Option<String>, // HSK 1, JLPT N4, etc.
+    pub semantic_category: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct SecondaryMeaning {
+    pub reading: String,
+    pub definition: String,
+    pub frequency_level: String,
+    pub semantic_category: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct CrossLinguisticInsight {
+    pub insight_type: InsightType,
+    pub description: String,
+    pub confidence: f64,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub enum InsightType {
+    ExactSemanticMatch,    // Chinese dì + Japanese まと (both "target")
+    FunctionalSimilarity,  // Chinese de + Japanese てき (both modify nouns)
+    LanguageSpecific,      // Chinese dī (taxi) - no Japanese equivalent
+    EtymologicalConnection, // Shared historical meaning
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

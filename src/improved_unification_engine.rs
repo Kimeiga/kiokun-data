@@ -49,18 +49,45 @@ fn extract_primary_representations(combined: &CombinedEntry) -> CharacterReprese
         .map(|c| c.simp.clone())
         .unwrap_or_else(|| combined.word.clone());
 
-    // Extract Chinese pinyin from primary entry
-    let mut chinese_pinyin = Vec::new();
+    // Extract Chinese pinyin from ALL Chinese entries (primary + additional)
+    // Only include pinyin that have corresponding definitions, and deduplicate
+    let mut chinese_pinyin_set = std::collections::HashSet::new();
+
+    // Add pinyin from primary Chinese entry (only if they have definitions)
     if let Some(chinese_entry) = &combined.chinese_entry {
         for item in &chinese_entry.items {
             if let Some(pinyin_str) = &item.pinyin {
-                chinese_pinyin.push(PinyinReading {
-                    reading: pinyin_str.clone(),
-                    source: item.source.as_ref().map(|s| format!("{:?}", s)).unwrap_or_default(),
-                });
+                // Only include pinyin if this item has definitions
+                let has_definitions = item.definitions.as_ref()
+                    .map(|defs| !defs.is_empty())
+                    .unwrap_or(false);
+
+                if has_definitions {
+                    chinese_pinyin_set.insert(pinyin_str.clone());
+                }
             }
         }
     }
+
+    // Add pinyin from additional Chinese entries (only if they have definitions)
+    for chinese_entry in &combined.chinese_specific_entries {
+        for item in &chinese_entry.items {
+            if let Some(pinyin_str) = &item.pinyin {
+                // Only include pinyin if this item has definitions
+                let has_definitions = item.definitions.as_ref()
+                    .map(|defs| !defs.is_empty())
+                    .unwrap_or(false);
+
+                if has_definitions {
+                    chinese_pinyin_set.insert(pinyin_str.clone());
+                }
+            }
+        }
+    }
+
+    // Convert to sorted vector for consistent output
+    let mut chinese_pinyin: Vec<String> = chinese_pinyin_set.into_iter().collect();
+    chinese_pinyin.sort();
 
     let mut japanese_kanji = Vec::new();
     let mut japanese_kana = Vec::new();
@@ -100,19 +127,43 @@ fn extract_primary_definitions(combined: &CombinedEntry) -> Vec<UnifiedDefinitio
     let mut chinese = Vec::new();
     let mut japanese = Vec::new();
 
-    // Extract Chinese definitions from primary entry
+    // Extract Chinese definitions from ALL Chinese entries (primary + additional)
+
+    // Add definitions from primary Chinese entry (only items with definitions)
     if let Some(chinese_entry) = &combined.chinese_entry {
         for item in &chinese_entry.items {
             if let Some(definitions) = &item.definitions {
-                for definition in definitions {
-                    chinese.push(ChineseDefinition {
-                        text: definition.clone(),
-                        source: item.source.as_ref().map(|s| format!("{:?}", s)).unwrap_or_default(),
-                        context: None,
-                        pinyin: item.pinyin.clone(),
-                        simp_trad: item.simp_trad.as_ref().map(|st| format!("{:?}", st)),
-                        tang: item.tang.clone(),
-                    });
+                if !definitions.is_empty() {  // Only process items that have definitions
+                    for definition in definitions {
+                        chinese.push(ChineseDefinition {
+                            text: definition.clone(),
+                            source: item.source.as_ref().map(|s| format!("{:?}", s)).unwrap_or_default(),
+                            context: None,
+                            pinyin: item.pinyin.clone(),
+                            simp_trad: item.simp_trad.as_ref().map(|st| format!("{:?}", st)),
+                            tang: item.tang.clone(),
+                        });
+                    }
+                }
+            }
+        }
+    }
+
+    // Add definitions from additional Chinese entries (only items with definitions)
+    for chinese_entry in &combined.chinese_specific_entries {
+        for item in &chinese_entry.items {
+            if let Some(definitions) = &item.definitions {
+                if !definitions.is_empty() {  // Only process items that have definitions
+                    for definition in definitions {
+                        chinese.push(ChineseDefinition {
+                            text: definition.clone(),
+                            source: item.source.as_ref().map(|s| format!("{:?}", s)).unwrap_or_default(),
+                            context: None,
+                            pinyin: item.pinyin.clone(),
+                            simp_trad: item.simp_trad.as_ref().map(|st| format!("{:?}", st)),
+                            tang: item.tang.clone(),
+                        });
+                    }
                 }
             }
         }
@@ -266,10 +317,74 @@ fn extract_primary_examples(combined: &CombinedEntry) -> Vec<Example> {
     examples
 }
 
-fn create_chinese_specific_entries(_combined: &CombinedEntry) -> Vec<ChineseSpecificEntry> {
-    // For now, return empty - we only have one Chinese entry per word
-    // This would be populated if we had multiple Chinese entries for the same word
-    Vec::new()
+fn create_chinese_specific_entries(combined: &CombinedEntry) -> Vec<ChineseSpecificEntry> {
+    let mut specific_entries = Vec::new();
+
+    // Process additional Chinese entries beyond the first one
+    for chinese_entry in &combined.chinese_specific_entries {
+        // Convert each Chinese entry to unified definitions
+        let mut definitions = Vec::new();
+
+        for item in &chinese_entry.items {
+            if let Some(item_definitions) = &item.definitions {
+                for definition in item_definitions {
+                    definitions.push(UnifiedDefinition {
+                        text: definition.clone(),
+                        source_language: "chinese".to_string(),
+                        confidence: Some(0.7), // Medium confidence for single-source
+                        source_entry_ids: vec![format!("chinese:{}", chinese_entry.id)],
+                        chinese_fields: Some(ChineseDefinitionFields {
+                            source: item.source.as_ref().map(|s| format!("{:?}", s)).unwrap_or_default(),
+                            context: None,
+                            pinyin: item.pinyin.clone(),
+                            simp_trad: item.simp_trad.as_ref().map(|st| format!("{:?}", st)),
+                            tang: item.tang.clone(),
+                        }),
+                        japanese_fields: None,
+                    });
+                }
+            }
+        }
+
+        // Extract Chinese metadata and statistics
+        let metadata = Some(ChineseMetadata {
+            gloss: chinese_entry.gloss.clone().unwrap_or_default(),
+            pinyin_search_string: chinese_entry.pinyin_search_string.clone(),
+        });
+
+        let statistics = chinese_entry.statistics.as_ref().map(|stats| ChineseStats {
+            hsk_level: Some(stats.hsk_level as u8),
+            movie_word_count: stats.movie_word_count.map(|c| c as u32),
+            movie_word_count_percent: stats.movie_word_count_percent,
+            movie_word_rank: stats.movie_word_rank.map(|r| r as u32),
+            movie_word_contexts: stats.movie_word_contexts.map(|c| c as u32),
+            movie_word_contexts_percent: stats.movie_word_contexts_percent,
+            book_word_count: stats.book_word_count.map(|c| c as u32),
+            book_word_count_percent: stats.book_word_count_percent,
+            book_word_rank: stats.book_word_rank.map(|r| r as u32),
+            movie_char_count: stats.movie_char_count.map(|c| c as u32),
+            movie_char_count_percent: stats.movie_char_count_percent,
+            movie_char_rank: stats.movie_char_rank.map(|r| r as u32),
+            movie_char_contexts: stats.movie_char_contexts.map(|c| c as u32),
+            movie_char_contexts_percent: stats.movie_char_contexts_percent,
+            book_char_count: stats.book_char_count.map(|c| c as u32),
+            book_char_count_percent: stats.book_char_count_percent,
+            book_char_rank: stats.book_char_rank.map(|r| r as u32),
+            pinyin_frequency: None, // TODO: Convert if needed
+            top_words: Some(Vec::new()), // TODO: Convert if needed
+        });
+
+        specific_entries.push(ChineseSpecificEntry {
+            source_id: chinese_entry.id.clone(),
+            traditional: chinese_entry.trad.clone(),
+            simplified: chinese_entry.simp.clone(),
+            definitions,
+            metadata,
+            statistics,
+        });
+    }
+
+    specific_entries
 }
 
 fn create_japanese_specific_entries(combined: &CombinedEntry) -> Vec<JapaneseSpecificEntry> {
