@@ -523,12 +523,12 @@
                     badges.push(`<span class="badge badge-grade">Grade ${data.japanese_char.misc.grade}</span>`);
                 }
 
-                if (data.japanese_char?.misc?.jlpt) {
-                    badges.push(`<span class="badge badge-jlpt">JLPT N${data.japanese_char.misc.jlpt}</span>`);
+                if (data.japanese_char?.misc?.jlptLevel) {
+                    badges.push(`<span class="badge badge-jlpt">JLPT N${data.japanese_char.misc.jlptLevel}</span>`);
                 }
 
-                if (data.japanese_char?.misc?.freq) {
-                    badges.push(`<span class="badge badge-freq">Freq: ${data.japanese_char.misc.freq}</span>`);
+                if (data.japanese_char?.misc?.frequency) {
+                    badges.push(`<span class="badge badge-freq">Freq: ${data.japanese_char.misc.frequency}</span>`);
                 }
 
                 if (data.chinese_char?.strokeCount) {
@@ -666,29 +666,25 @@
                         html += `<div class="subsection">
                             <div class="subsection-title">Meanings</div>`;
                         group.meanings.forEach(m => {
-                            html += `<div class="list-item">${m}</div>`;
+                            // Handle both string and object formats
+                            const meaning = typeof m === 'string' ? m : (m.value || m.text || m);
+                            html += `<div class="list-item">${meaning}</div>`;
                         });
                         html += `</div>`;
                     }
                 }
 
                 // Radicals
-                if (char.radicals) {
+                if (char.radicals && char.radicals.length > 0) {
                     html += `<div class="subsection">
                         <div class="subsection-title">Radicals</div>
                         <div class="data-grid">`;
-                    if (char.radicals.classical) {
+                    char.radicals.forEach(rad => {
                         html += `<div class="data-item japanese">
-                            <div class="data-label">Classical</div>
-                            <div class="data-value large">${char.radicals.classical}</div>
+                            <div class="data-label">${rad.type}</div>
+                            <div class="data-value large">${rad.value}</div>
                         </div>`;
-                    }
-                    if (char.radicals.nelson) {
-                        html += `<div class="data-item japanese">
-                            <div class="data-label">Nelson</div>
-                            <div class="data-value large">${char.radicals.nelson}</div>
-                        </div>`;
-                    }
+                    });
                     html += `</div></div>`;
                 }
 
@@ -703,21 +699,21 @@
                             <div class="stat-label">Grade</div>
                         </div>`;
                     }
-                    if (char.misc.strokeCount) {
+                    if (char.misc.strokeCounts && char.misc.strokeCounts.length > 0) {
                         html += `<div class="stat-item">
-                            <div class="stat-value">${char.misc.strokeCount}</div>
+                            <div class="stat-value">${char.misc.strokeCounts[0]}</div>
                             <div class="stat-label">Strokes</div>
                         </div>`;
                     }
-                    if (char.misc.jlpt) {
+                    if (char.misc.jlptLevel) {
                         html += `<div class="stat-item">
-                            <div class="stat-value">N${char.misc.jlpt}</div>
+                            <div class="stat-value">N${char.misc.jlptLevel}</div>
                             <div class="stat-label">JLPT</div>
                         </div>`;
                     }
-                    if (char.misc.freq) {
+                    if (char.misc.frequency) {
                         html += `<div class="stat-item">
-                            <div class="stat-value">${char.misc.freq}</div>
+                            <div class="stat-value">${char.misc.frequency}</div>
                             <div class="stat-label">Frequency</div>
                         </div>`;
                     }
@@ -751,7 +747,12 @@
 
                     // Items (different pronunciations/definitions)
                     if (word.items && word.items.length > 0) {
-                        word.items.forEach(item => {
+                        // Filter out items without definitions
+                        const itemsWithDefs = word.items.filter(item =>
+                            item.definitions && item.definitions.length > 0
+                        );
+
+                        itemsWithDefs.forEach(item => {
                             html += `<div style="margin-bottom: 15px; padding: 15px; background: #f8f9fa; border-radius: 8px;">`;
 
                             if (item.pinyin) {
