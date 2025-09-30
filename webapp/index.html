@@ -546,13 +546,13 @@
                 `;
 
                 // Pinyin readings
-                if (char.pinyinFrequencies && Object.keys(char.pinyinFrequencies).length > 0) {
+                if (char.pinyinFrequencies && char.pinyinFrequencies.length > 0) {
                     html += `<div class="subsection">
                         <div class="subsection-title">Pinyin Readings</div>
                         <div class="readings-list">`;
-                    for (const [pinyin, freq] of Object.entries(char.pinyinFrequencies)) {
-                        html += `<span class="reading-chip pinyin">${pinyin}</span>`;
-                    }
+                    char.pinyinFrequencies.forEach(item => {
+                        html += `<span class="reading-chip pinyin">${item.pinyin}</span>`;
+                    });
                     html += `</div></div>`;
                 }
 
@@ -580,6 +580,33 @@
                     char.components.forEach(comp => {
                         const typeClass = comp.type.includes('meaning') ? 'meaning' : 'phonetic';
                         html += `<div class="component-item ${typeClass}" title="${comp.type.join(', ')}">${comp.character}</div>`;
+                    });
+                    html += `</div></div>`;
+                }
+
+                // Old Pronunciations (Middle Chinese, Old Chinese)
+                if (char.oldPronunciations && char.oldPronunciations.length > 0) {
+                    html += `<div class="subsection">
+                        <div class="subsection-title">Historical Pronunciations</div>`;
+                    char.oldPronunciations.forEach(old => {
+                        html += `<div style="margin-bottom: 10px; padding: 12px; background: #fff9e6; border-left: 3px solid #f39c12; border-radius: 0 6px 6px 0;">`;
+                        html += `<div style="font-weight: bold; margin-bottom: 5px;">${old.pinyin} - ${old.gloss}</div>`;
+                        if (old.MC) html += `<div style="font-size: 14px; color: #7f8c8d;">Middle Chinese: <span style="font-family: monospace; color: #2c3e50;">${old.MC}</span></div>`;
+                        if (old.OC) html += `<div style="font-size: 14px; color: #7f8c8d;">Old Chinese: <span style="font-family: monospace; color: #2c3e50;">${old.OC}</span></div>`;
+                        html += `</div>`;
+                    });
+                    html += `</div>`;
+                }
+
+                // Variants
+                if (char.variants && char.variants.length > 0) {
+                    html += `<div class="subsection">
+                        <div class="subsection-title">Variants</div>
+                        <div class="components-list">`;
+                    char.variants.forEach(variant => {
+                        if (variant.char) {
+                            html += `<div class="component-item" title="${variant.parts || ''}">${variant.char}</div>`;
+                        }
                     });
                     html += `</div></div>`;
                 }
