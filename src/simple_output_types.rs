@@ -9,7 +9,7 @@ use crate::japanese_char_types::KanjiCharacter;
 pub struct SimpleOutput {
     /// The key (character or word) for this entry
     pub key: String,
-    
+
     /// Chinese word entries (from CEDICT)
     #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub chinese_words: Vec<ChineseDictionaryElement>,
@@ -25,5 +25,10 @@ pub struct SimpleOutput {
     /// Japanese character entry (from KANJIDIC)
     #[serde(skip_serializing_if = "Option::is_none")]
     pub japanese_char: Option<KanjiCharacter>,
+
+    /// Cross-references to other entries where this character appears in Japanese words
+    /// (e.g., 好 would reference 誼 because 好 appears as an alternative kanji form)
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub related_japanese_words: Vec<String>,
 }
 
