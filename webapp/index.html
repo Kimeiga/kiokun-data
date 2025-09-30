@@ -476,7 +476,7 @@
                 }
             }
 
-            renderData(data) {
+            async renderData(data) {
                 const content = document.getElementById('content');
                 const key = data.key || this.currentWord;
 
@@ -508,6 +508,11 @@
                 }
 
                 content.innerHTML = html;
+
+                // Fetch and display related Japanese words
+                if (data.related_japanese_words && data.related_japanese_words.length > 0) {
+                    await this.renderRelatedJapaneseWords(data.related_japanese_words);
+                }
             }
 
             renderBadges(data) {
@@ -793,12 +798,60 @@
                 return html;
             }
 
-            renderJapaneseWords(words) {
+
+
+            async renderRelatedJapaneseWords(relatedKeys) {
+                const content = document.getElementById('content');
+
+                // Add a section for related words
                 let html = `
                     <div class="section">
-                        <div class="section-header japanese">📖 Japanese Words</div>
+                        <div class="section-header japanese">🔗 Related Japanese Words</div>
                         <div class="section-content">
+                            <div class="subsection">
+                                <div class="subsection-title">Words where "${this.currentWord}" appears as an alternative kanji form</div>
+                                <div id="related-words-container">Loading...</div>
+                            </div>
+                        </div>
+                    </div>
                 `;
+
+                content.innerHTML += html;
+
+                // Fetch each related entry
+                const relatedWordsContainer = document.getElementById('related-words-container');
+                let relatedHtml = '';
+
+                for (const relatedKey of relatedKeys) {
+                    try {
+                        const response = await fetch(`../output_dictionary/${relatedKey}.json`);
+                        if (response.ok) {
+                            const relatedData = await response.json();
+                            if (relatedData.japanese_words && relatedData.japanese_words.length > 0) {
+                                relatedHtml += this.renderJapaneseWords(relatedData.japanese_words, relatedKey);
+                            }
+                        }
+                    } catch (error) {
+                        console.error(`Failed to fetch related word: ${relatedKey}`, error);
+                    }
+                }
+
+                relatedWordsContainer.innerHTML = relatedHtml || '<div class="empty-state">No related words found</div>';
+            }
+
+            renderJapaneseWords(words, sourceKey = null) {
+                let html = '';
+
+                // If sourceKey is provided, we're rendering related words (don't add section wrapper)
+                const isRelated = sourceKey !== null;
+
+                if (!isRelated) {
+                    html += `
+                        <div class="section">
+                            <div class="section-header japanese">📖 Japanese Words</div>
+                            <div class="section-content">
+                    `;
+                }
 
                 words.forEach(word => {
                     html += `<div class="word-entry">`;
@@ -807,9 +860,19 @@
                     html += `<div style="margin-bottom: 15px;">`;
                     if (word.kanji && word.kanji.length > 0) {
                         html += `<span style="font-size: 24px; font-weight: bold; font-family: 'MS Mincho', serif;">${word.kanji[0].text}</span> `;
+
+                        // Show all kanji forms
+                        if (word.kanji.length > 1) {
+                            html += `<span style="font-size: 16px; color: #7f8c8d;">(`;
+                            html += word.kanji.slice(1).map(k => k.text).join(', ');
+                            html += `)</span> `;
+                        }
                     }
                     if (word.kana && word.kana.length > 0) {
-                        html += `<span style="font-size: 20px; color: #e74c3c; font-family: 'MS Mincho', serif;">${word.kana[0].text}</span>`;
+                        html += `<span style="font-size: 20px; color: #e74c3c; font-family: 'MS Mincho', serif;">[${word.kana.map(k => k.text).join(', ')}]</span>`;
+                    }
+                    if (sourceKey) {
+                        html += ` <span style="margin-left: 10px; font-size: 14px; color: #7f8c8d;">from ${sourceKey}</span>`;
                     }
                     html += `</div>`;
 
@@ -843,7 +906,10 @@
                     html += `</div>`;
                 });
 
-                html += `</div></div>`;
+                if (!isRelated) {
+                    html += `</div></div>`;
+                }
+
                 return html;
             }
         }

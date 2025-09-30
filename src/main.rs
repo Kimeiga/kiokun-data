@@ -1490,6 +1490,7 @@ async fn generate_simple_output_files(
             chinese_char: None,
             japanese_words: Vec::new(),
             japanese_char: None,
+            related_japanese_words: Vec::new(),
         });
 
         if let Some(ref chinese) = entry.chinese_entry {
@@ -1498,6 +1499,34 @@ async fn generate_simple_output_files(
 
         if let Some(ref japanese) = entry.japanese_entry {
             output.japanese_words.push(japanese.clone());
+
+            // Add cross-references for alternative kanji forms
+            // If this word has multiple kanji forms, add references from each form to the primary key
+            if japanese.kanji.len() > 1 {
+                for (i, kanji_form) in japanese.kanji.iter().enumerate() {
+                    if i == 0 {
+                        continue; // Skip the first one (it's the primary key)
+                    }
+
+                    // For each alternative kanji form, add a reference to the primary entry
+                    let alt_key = kanji_form.text.clone();
+                    if alt_key != key {
+                        let alt_output = outputs.entry(alt_key.clone()).or_insert_with(|| SimpleOutput {
+                            key: alt_key.clone(),
+                            chinese_words: Vec::new(),
+                            chinese_char: None,
+                            japanese_words: Vec::new(),
+                            japanese_char: None,
+                            related_japanese_words: Vec::new(),
+                        });
+
+                        // Add reference to primary entry if not already present
+                        if !alt_output.related_japanese_words.contains(&key) {
+                            alt_output.related_japanese_words.push(key.clone());
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -1509,6 +1538,7 @@ async fn generate_simple_output_files(
             chinese_char: None,
             japanese_words: Vec::new(),
             japanese_char: None,
+            related_japanese_words: Vec::new(),
         });
         output.chinese_char = Some(char_entry.clone());
     }
@@ -1520,6 +1550,7 @@ async fn generate_simple_output_files(
             chinese_char: None,
             japanese_words: Vec::new(),
             japanese_char: None,
+            related_japanese_words: Vec::new(),
         });
         output.japanese_char = Some(kanji_entry.clone());
     }
