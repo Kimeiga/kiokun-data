@@ -5,7 +5,6 @@ mod chinese_char_types;
 mod japanese_char_types;
 mod ids_types;
 mod combined_types;
-mod kanji_mapping_generated;
 mod analysis;
 mod simple_output_types;
 
@@ -757,7 +756,7 @@ fn build_character_representations(
     let japanese = kanji.reading_meaning.as_ref().map(|rm| {
         let mut onyomi = vec![];
         let mut kunyomi = vec![];
-        let mut nanori = rm.nanori.clone();
+        let nanori = rm.nanori.clone();
 
         // Iterate through all reading groups
         for group in &rm.groups {
@@ -1141,23 +1140,6 @@ fn get_japanese_key_with_mapping(word: &Word, j2c_mapping: &HashMap<String, Stri
         if first_kana.text.contains("ちず") {
             println!("    KEY_GEN: No kanji, using kana '{}'", first_kana.text);
         }
-        return first_kana.text.clone();
-    }
-
-    // Fallback to ID if no text found
-    format!("jp_{}", word.id)
-}
-
-#[allow(dead_code)]
-fn get_japanese_key(word: &Word) -> String {
-    // First try kanji - convert to Traditional Chinese for better matching
-    if let Some(first_kanji) = word.kanji.first() {
-        let traditional = kanji_mapping_generated::convert_japanese_to_traditional(&first_kanji.text);
-        return traditional;
-    }
-
-    // Fallback to kana (no conversion needed)
-    if let Some(first_kana) = word.kana.first() {
         return first_kana.text.clone();
     }
 
@@ -1597,7 +1579,7 @@ async fn test_learner_focused_analysis() -> Result<()> {
         .context("Failed to load Chinese dictionary")?;
     let japanese_dict = load_japanese_dictionary("data/jmdict-examples-eng-3.6.1.json")
         .context("Failed to load Japanese dictionary")?;
-    let j2c_mapping = load_j2c_mapping("output/j2c_mapping.json")
+    let _j2c_mapping = load_j2c_mapping("output/j2c_mapping.json")
         .context("Failed to load J2C mapping")?;
 
     let analyzer = LearnerFocusedAnalyzer::new();

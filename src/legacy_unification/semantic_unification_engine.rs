@@ -344,7 +344,7 @@ impl SemanticUnificationEngine {
 
     fn create_statistics(&self, combined: &CombinedEntry) -> UnifiedStatistics {
         // Reuse existing logic
-        let chinese_stats = if let Some(chinese_entry) = &combined.chinese_entry {
+        let chinese_stats = if let Some(_chinese_entry) = &combined.chinese_entry {
             Some(ChineseStats {
                 hsk_level: None, // TODO: Extract HSK level from items
                 movie_word_count: None,
@@ -494,5 +494,6 @@ struct SemanticCluster {
 enum MatchType {
     ExactSemantic,
     FunctionalSimilarity,
+    #[allow(dead_code)]
     NoMatch,
 }

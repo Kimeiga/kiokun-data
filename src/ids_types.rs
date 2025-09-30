@@ -63,6 +63,7 @@ impl IdsEntry {
     }
     
     /// Get the primary IDS to use (prefers apparent over functional if available)
+    #[allow(dead_code)]
     pub fn primary_ids(&self) -> &str {
         self.apparent_ids.as_deref().unwrap_or(&self.ids)
     }

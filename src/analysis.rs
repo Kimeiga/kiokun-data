@@ -55,7 +55,7 @@ pub async fn find_most_kanji_kana_representations(japanese_words: &[Word]) -> Re
     println!("📊 Results:");
     println!("  Total entries with ≥2 kanji AND ≥2 kana: {}", candidates.len());
 
-    if let Some((top_word, top_kanji, top_kana, top_total)) = candidates.first() {
+    if let Some((_top_word, top_kanji, top_kana, top_total)) = candidates.first() {
         println!("  Maximum total representations: {} ({} kanji + {} kana)", top_total, top_kanji, top_kana);
     }
 
@@ -1582,6 +1582,7 @@ struct VariantAnalysis {
 
 #[derive(Debug)]
 struct VariantItem {
+    #[allow(dead_code)]
     item_index: usize,
     pinyin: Option<String>,
     variant_refs: Vec<String>,
