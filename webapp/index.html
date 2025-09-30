@@ -765,13 +765,9 @@
                             }
 
                             if (item.definitions && item.definitions.length > 0) {
-                                html += `<div class="word-definitions">`;
-                                item.definitions.forEach(def => {
-                                    html += `<div class="definition-item">
-                                        <span class="definition-text">${def}</span>
-                                    </div>`;
-                                });
-                                html += `</div>`;
+                                // Join all definitions with semicolons on one line
+                                const definitionsText = item.definitions.join('; ');
+                                html += `<div class="definition-text" style="margin: 10px 0; line-height: 1.6;">${definitionsText}</div>`;
                             }
 
                             if (item.source) {
@@ -881,22 +877,17 @@
                         word.sense.forEach((sense, idx) => {
                             html += `<div style="margin-bottom: 15px; padding: 15px; background: #f8f9fa; border-radius: 8px;">`;
 
-                            // Part of speech
+                            // Part of speech tags
                             if (sense.partOfSpeech && sense.partOfSpeech.length > 0) {
                                 sense.partOfSpeech.forEach(pos => {
                                     html += `<span class="pos-tag">${pos}</span>`;
                                 });
                             }
 
-                            // Glosses
+                            // Glosses - join with semicolons on one line
                             if (sense.gloss && sense.gloss.length > 0) {
-                                html += `<div class="word-definitions" style="margin-top: 10px;">`;
-                                sense.gloss.forEach(g => {
-                                    html += `<div class="definition-item">
-                                        <span class="definition-text">${g.text}</span>
-                                    </div>`;
-                                });
-                                html += `</div>`;
+                                const glossText = sense.gloss.map(g => g.text).join('; ');
+                                html += `<div class="definition-text" style="margin-top: 10px; line-height: 1.6;">${glossText}</div>`;
                             }
 
                             html += `</div>`;
