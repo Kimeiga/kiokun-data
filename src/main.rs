@@ -1494,7 +1494,16 @@ async fn generate_simple_output_files(
         });
 
         if let Some(ref chinese) = entry.chinese_entry {
-            output.chinese_words.push(chinese.clone());
+            // Filter out unicode source items (redundant/empty compared to cedict)
+            let mut filtered_chinese = chinese.clone();
+            filtered_chinese.items.retain(|item| {
+                !matches!(item.source, Some(crate::chinese_types::Source::Unicode))
+            });
+
+            // Only add if there are items left after filtering
+            if !filtered_chinese.items.is_empty() {
+                output.chinese_words.push(filtered_chinese);
+            }
         }
 
         if let Some(ref japanese) = entry.japanese_entry {
