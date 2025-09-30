@@ -761,11 +761,7 @@
 
                     // Statistics
                     if (word.statistics) {
-                        html += `<div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #e9ecef;">`;
-                        if (word.statistics.hskLevel) {
-                            html += `<span class="badge badge-hsk">HSK ${word.statistics.hskLevel}</span>`;
-                        }
-                        html += `</div>`;
+                        html += this.renderChineseWordStatistics(word.statistics);
                     }
 
                     html += `</div>`;
@@ -776,6 +772,82 @@
             }
 
 
+
+            renderChineseWordStatistics(stats) {
+                let html = `<div style="margin-top: 20px; padding: 20px; background: #f8f9fa; border-radius: 8px;">`;
+                html += `<div style="font-weight: 600; font-size: 16px; margin-bottom: 15px; color: #2c3e50;">📊 Usage Statistics</div>`;
+
+                // HSK Level and Frequency
+                html += `<div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;">`;
+                if (stats.hskLevel) {
+                    html += `<span class="badge badge-hsk">HSK ${stats.hskLevel}</span>`;
+                }
+                if (stats.movieWordRank) {
+                    html += `<span class="badge" style="background: #e3f2fd; color: #1976d2;">Movie Rank: #${stats.movieWordRank.toLocaleString()}</span>`;
+                }
+                if (stats.bookWordRank) {
+                    html += `<span class="badge" style="background: #f3e5f5; color: #7b1fa2;">Book Rank: #${stats.bookWordRank.toLocaleString()}</span>`;
+                }
+                html += `</div>`;
+
+                // Frequency bars
+                if (stats.movieWordCountPercent || stats.bookWordCountPercent) {
+                    html += `<div style="margin-bottom: 20px;">`;
+                    html += `<div style="font-size: 13px; font-weight: 600; margin-bottom: 8px; color: #555;">Frequency</div>`;
+
+                    if (stats.movieWordCountPercent) {
+                        const moviePercent = (stats.movieWordCountPercent * 100).toFixed(4);
+                        html += `<div style="margin-bottom: 8px;">`;
+                        html += `<div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 3px;">`;
+                        html += `<span>Movies: ${stats.movieWordCount.toLocaleString()} occurrences</span>`;
+                        html += `<span>${moviePercent}%</span>`;
+                        html += `</div>`;
+                        html += `<div style="background: #e0e0e0; height: 8px; border-radius: 4px; overflow: hidden;">`;
+                        html += `<div style="background: linear-gradient(90deg, #1976d2, #42a5f5); height: 100%; width: ${Math.min(moviePercent * 10, 100)}%;"></div>`;
+                        html += `</div></div>`;
+                    }
+
+                    if (stats.bookWordCountPercent) {
+                        const bookPercent = (stats.bookWordCountPercent * 100).toFixed(4);
+                        html += `<div style="margin-bottom: 8px;">`;
+                        html += `<div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 3px;">`;
+                        html += `<span>Books: ${stats.bookWordCount.toLocaleString()} occurrences</span>`;
+                        html += `<span>${bookPercent}%</span>`;
+                        html += `</div>`;
+                        html += `<div style="background: #e0e0e0; height: 8px; border-radius: 4px; overflow: hidden;">`;
+                        html += `<div style="background: linear-gradient(90deg, #7b1fa2, #ba68c8); height: 100%; width: ${Math.min(bookPercent * 10, 100)}%;"></div>`;
+                        html += `</div></div>`;
+                    }
+
+                    html += `</div>`;
+                }
+
+                // Top Words
+                if (stats.topWords && stats.topWords.length > 0) {
+                    html += `<div style="margin-top: 20px;">`;
+                    html += `<div style="font-size: 13px; font-weight: 600; margin-bottom: 10px; color: #555;">Top Words Containing This Character</div>`;
+                    html += `<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px;">`;
+
+                    // Show top 12 words
+                    stats.topWords.slice(0, 12).forEach(topWord => {
+                        const sharePercent = (topWord.share * 100).toFixed(1);
+                        html += `<div style="padding: 8px 12px; background: white; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 13px;">`;
+                        html += `<div style="display: flex; justify-content: space-between; align-items: center;">`;
+                        html += `<span style="font-weight: 600; color: #2c3e50;">${topWord.word}</span>`;
+                        html += `<span style="font-size: 11px; color: #7f8c8d;">${sharePercent}%</span>`;
+                        html += `</div>`;
+                        if (topWord.gloss) {
+                            html += `<div style="font-size: 11px; color: #7f8c8d; margin-top: 2px;">${topWord.gloss}</div>`;
+                        }
+                        html += `</div>`;
+                    });
+
+                    html += `</div></div>`;
+                }
+
+                html += `</div>`;
+                return html;
+            }
 
             async renderRelatedJapaneseWords(relatedKeys) {
                 const content = document.getElementById('content');
