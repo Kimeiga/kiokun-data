@@ -1,4 +1,4 @@
-use crate::improved_unified_types::*;
+use crate::legacy_unification::improved_unified_types::*;
 use crate::combined_types::CombinedEntry;
 use std::collections::HashMap;
 

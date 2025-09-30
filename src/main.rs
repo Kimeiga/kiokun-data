@@ -1,18 +1,23 @@
+// Core types
 mod chinese_types;
 mod japanese_types;
 mod chinese_char_types;
 mod japanese_char_types;
 mod ids_types;
-mod unified_character_types;
-mod unified_output_types;
 mod combined_types;
 mod kanji_mapping_generated;
-mod improved_unified_types;
-mod improved_unification_engine;
 mod analysis;
-mod learner_focused_analyzer;
-mod semantic_unification_engine;
 mod simple_output_types;
+
+// Legacy unification code (not used in default simple output)
+mod legacy_unification {
+    pub mod improved_unified_types;
+    pub mod improved_unification_engine;
+    pub mod unified_character_types;
+    pub mod unified_output_types;
+    pub mod semantic_unification_engine;
+    pub mod learner_focused_analyzer;
+}
 
 use anyhow::{Context, Result};
 use std::collections::HashMap;
@@ -28,12 +33,12 @@ use japanese_types::{JapaneseEntry, Word};
 use chinese_char_types::ChineseCharacter;
 use japanese_char_types::{KanjiDictionary, KanjiCharacter};
 use ids_types::{IdsEntry, IdsDatabase};
-use unified_character_types::UnifiedCharacterEntry;
+use legacy_unification::unified_character_types::UnifiedCharacterEntry;
 use combined_types::{
     CombinedDictionary, CombinedEntry, CombinedMetadata, KeySource,
     MergeStatistics, DictionaryMetadata
 };
-use semantic_unification_engine::SemanticUnificationEngine;
+use legacy_unification::semantic_unification_engine::SemanticUnificationEngine;
 
 #[tokio::main]
 async fn main() -> Result<()> {
@@ -532,7 +537,7 @@ fn merge_character_dictionaries(
     kanji_dict: KanjiDictionary,
     j2c_mapping: &HashMap<String, String>,
 ) -> Result<Vec<UnifiedCharacterEntry>> {
-    use unified_character_types::*;
+    use legacy_unification::unified_character_types::*;
     use std::collections::HashMap as StdHashMap;
 
     println!("🔄 Merging character dictionaries...");
@@ -600,7 +605,7 @@ fn merge_single_character(
     kanji: &KanjiCharacter,
     chinese: Option<&ChineseCharacter>,
 ) -> UnifiedCharacterEntry {
-    use unified_character_types::*;
+    use legacy_unification::unified_character_types::*;
 
     let character = kanji.literal.clone();
 
@@ -644,7 +649,7 @@ fn merge_single_character(
 }
 
 fn create_chinese_only_character(chinese: &ChineseCharacter) -> UnifiedCharacterEntry {
-    use unified_character_types::*;
+    use legacy_unification::unified_character_types::*;
 
     let character = chinese.char.clone();
     let codepoint = chinese.codepoint.clone();
@@ -745,8 +750,8 @@ fn create_chinese_only_character(chinese: &ChineseCharacter) -> UnifiedCharacter
 fn build_character_representations(
     kanji: &KanjiCharacter,
     chinese: Option<&ChineseCharacter>,
-) -> unified_character_types::CharacterRepresentations {
-    use unified_character_types::*;
+) -> legacy_unification::unified_character_types::CharacterRepresentations {
+    use legacy_unification::unified_character_types::*;
 
     // Extract Japanese readings
     let japanese = kanji.reading_meaning.as_ref().map(|rm| {
@@ -799,8 +804,8 @@ fn build_character_representations(
 fn build_decomposition(
     kanji: &KanjiCharacter,
     chinese: Option<&ChineseCharacter>,
-) -> Option<unified_character_types::CharacterDecomposition> {
-    use unified_character_types::*;
+) -> Option<legacy_unification::unified_character_types::CharacterDecomposition> {
+    use legacy_unification::unified_character_types::*;
 
     // Prefer kanji IDS, fallback to Chinese IDS
     let ids = kanji.ids.as_ref()
@@ -819,8 +824,8 @@ fn build_decomposition(
 fn build_character_meanings(
     kanji: &KanjiCharacter,
     chinese: Option<&ChineseCharacter>,
-) -> unified_character_types::CharacterMeanings {
-    use unified_character_types::*;
+) -> legacy_unification::unified_character_types::CharacterMeanings {
+    use legacy_unification::unified_character_types::*;
 
     // Extract English meanings from kanji (from all groups)
     let english = kanji.reading_meaning.as_ref()
@@ -851,8 +856,8 @@ fn build_character_meanings(
 fn build_character_linguistic_info(
     kanji: &KanjiCharacter,
     _chinese: Option<&ChineseCharacter>,
-) -> unified_character_types::CharacterLinguisticInfo {
-    use unified_character_types::*;
+) -> legacy_unification::unified_character_types::CharacterLinguisticInfo {
+    use legacy_unification::unified_character_types::*;
 
     // Extract radicals
     let radicals = kanji.radicals.iter().map(|rad| RadicalInfo {
@@ -876,8 +881,8 @@ fn build_character_linguistic_info(
 fn build_character_visual_info(
     kanji: &KanjiCharacter,
     chinese: Option<&ChineseCharacter>,
-) -> unified_character_types::CharacterVisualInfo {
-    use unified_character_types::*;
+) -> legacy_unification::unified_character_types::CharacterVisualInfo {
+    use legacy_unification::unified_character_types::*;
 
     // Get stroke count (prefer kanji, fallback to Chinese)
     let stroke_count = kanji.misc.stroke_counts.first().copied()  // Correct field name
@@ -913,8 +918,8 @@ fn build_character_visual_info(
 fn build_character_statistics(
     kanji: &KanjiCharacter,
     chinese: Option<&ChineseCharacter>,
-) -> Option<unified_character_types::CharacterStatistics> {
-    use unified_character_types::*;
+) -> Option<legacy_unification::unified_character_types::CharacterStatistics> {
+    use legacy_unification::unified_character_types::*;
 
     let japanese_stats = Some(JapaneseCharStats {
         frequency: kanji.misc.frequency,
@@ -938,8 +943,8 @@ fn build_character_statistics(
 fn build_character_sources(
     kanji: &KanjiCharacter,
     chinese: Option<&ChineseCharacter>,
-) -> unified_character_types::CharacterSources {
-    use unified_character_types::*;
+) -> legacy_unification::unified_character_types::CharacterSources {
+    use legacy_unification::unified_character_types::*;
 
     // Build dictionary references from kanji
     let dictionary_references = kanji.dictionary_references.iter().map(|dict_ref| {
@@ -1319,7 +1324,7 @@ async fn generate_unified_output_files(
     use std::fs;
     use std::path::Path;
     use std::collections::HashMap as StdHashMap;
-    use unified_output_types::UnifiedOutput;
+    use legacy_unification::unified_output_types::UnifiedOutput;
 
     println!("📁 Creating output directory...");
     let output_dir = Path::new("output_dictionary");
@@ -1335,7 +1340,7 @@ async fn generate_unified_output_files(
     }
 
     println!("🔄 Converting word entries to improved unified format...");
-    let mut word_entries_map: StdHashMap<String, improved_unified_types::ImprovedUnifiedEntry> = StdHashMap::new();
+    let mut word_entries_map: StdHashMap<String, legacy_unification::improved_unified_types::ImprovedUnifiedEntry> = StdHashMap::new();
     let mut processed = 0;
     let mut filtered_count = 0;
 
@@ -1349,7 +1354,7 @@ async fn generate_unified_output_files(
             }
         }
 
-        let unified_entry = improved_unification_engine::convert_to_improved_unified(entry);
+        let unified_entry = legacy_unification::improved_unification_engine::convert_to_improved_unified(entry);
         let key = unified_entry.word.clone();
         word_entries_map.insert(key, unified_entry);
 
@@ -1581,8 +1586,8 @@ async fn generate_simple_output_files(
 
 /// Test the learner-focused analysis on specific characters
 async fn test_learner_focused_analysis() -> Result<()> {
-    use learner_focused_analyzer::LearnerFocusedAnalyzer;
-    use improved_unification_engine::convert_to_improved_unified;
+    use legacy_unification::learner_focused_analyzer::LearnerFocusedAnalyzer;
+    use legacy_unification::improved_unification_engine::convert_to_improved_unified;
     use combined_types::CombinedEntry;
 
     println!("📚 Loading dictionaries for learner-focused test...");

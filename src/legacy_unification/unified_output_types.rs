@@ -1,7 +1,7 @@
 // Unified output types that combine word and character data
 use serde::{Serialize, Deserialize};
-use crate::improved_unified_types::ImprovedUnifiedEntry;
-use crate::unified_character_types::UnifiedCharacterEntry;
+use crate::legacy_unification::improved_unified_types::ImprovedUnifiedEntry;
+use crate::legacy_unification::unified_character_types::UnifiedCharacterEntry;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UnifiedOutput {
