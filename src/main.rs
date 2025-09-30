@@ -12,6 +12,7 @@ mod improved_unification_engine;
 mod analysis;
 mod learner_focused_analyzer;
 mod semantic_unification_engine;
+mod simple_output_types;
 
 use anyhow::{Context, Result};
 use std::collections::HashMap;
@@ -134,6 +135,12 @@ async fn main() -> Result<()> {
             Arg::new("test-semantic-unification")
                 .long("test-semantic-unification")
                 .help("Test semantic unification engine on specific characters")
+                .action(ArgAction::SetTrue),
+        )
+        .arg(
+            Arg::new("simple-output")
+                .long("simple-output")
+                .help("Generate simple output with no unification - just raw data from each source")
                 .action(ArgAction::SetTrue),
         )
         .get_matches();
@@ -325,10 +332,26 @@ async fn main() -> Result<()> {
 
     // Check if individual files are requested
     if matches.get_flag("individual-files") {
-        let unified_only = matches.get_flag("unified-only");
-        println!("🔄 Generating unified individual JSON files (word + character data){}...",
-                 if unified_only { " (unified entries only)" } else { "" });
-        generate_unified_output_files(&aligned_dict, &unified_characters, unified_only).await?;
+        // Check if simple output is requested
+        if matches.get_flag("simple-output") {
+            println!("🔄 Generating simple individual JSON files (no unification)...");
+            // Need to reload the raw character dictionaries since they were consumed
+            let chinese_char_dict_raw = load_chinese_char_dictionary("data/chinese_dictionary_char_2025-06-25.jsonl")
+                .context("Failed to load Chinese character dictionary")?;
+            let japanese_char_dict_raw = load_japanese_char_dictionary("data/kanjidic2-en-3.6.1.json")
+                .context("Failed to load Japanese character dictionary")?;
+
+            generate_simple_output_files(
+                &aligned_dict,
+                &chinese_char_dict_raw,
+                &japanese_char_dict_raw.characters
+            ).await?;
+        } else {
+            let unified_only = matches.get_flag("unified-only");
+            println!("🔄 Generating unified individual JSON files (word + character data){}...",
+                     if unified_only { " (unified entries only)" } else { "" });
+            generate_unified_output_files(&aligned_dict, &unified_characters, unified_only).await?;
+        }
 
         return Ok(());
     }
@@ -1414,6 +1437,141 @@ async fn generate_unified_output_files(
     results?;
 
     println!("✅ Successfully generated {} unified JSON files!", total);
+    println!("📁 Files saved to: output_dictionary/");
+    println!("💡 Usage: cat output_dictionary/好.json");
+
+    Ok(())
+}
+
+async fn generate_simple_output_files(
+    combined_dict: &CombinedDictionary,
+    chinese_chars: &[ChineseCharacter],
+    kanjidic_entries: &[KanjiCharacter],
+) -> Result<()> {
+    use std::fs;
+    use std::path::Path;
+    use std::collections::HashMap as StdHashMap;
+    use simple_output_types::SimpleOutput;
+
+    println!("📁 Creating output directory...");
+    let output_dir = Path::new("output_dictionary");
+    if output_dir.exists() {
+        fs::remove_dir_all(output_dir).context("Failed to remove existing output directory")?;
+    }
+    fs::create_dir_all(output_dir).context("Failed to create output directory")?;
+
+    // Index Chinese characters by character string
+    let mut chinese_char_by_key: StdHashMap<String, &ChineseCharacter> = StdHashMap::new();
+    for char_entry in chinese_chars {
+        chinese_char_by_key.insert(char_entry.char.clone(), char_entry);
+    }
+
+    // Index KANJIDIC entries by literal
+    let mut kanjidic_by_key: StdHashMap<String, &KanjiCharacter> = StdHashMap::new();
+    for kanji_entry in kanjidic_entries {
+        kanjidic_by_key.insert(kanji_entry.literal.clone(), kanji_entry);
+    }
+
+    println!("🔄 Grouping entries by key...");
+    let mut outputs: StdHashMap<String, SimpleOutput> = StdHashMap::new();
+
+    // Process all combined entries (words)
+    for entry in &combined_dict.entries {
+        let key = if let Some(ref chinese) = entry.chinese_entry {
+            chinese.simp.clone()
+        } else if let Some(ref japanese) = entry.japanese_entry {
+            // Get first kanji or first kana
+            japanese.kanji.first()
+                .map(|k| k.text.clone())
+                .or_else(|| japanese.kana.first().map(|k| k.text.clone()))
+                .unwrap_or_default()
+        } else {
+            continue;
+        };
+
+        let output = outputs.entry(key.clone()).or_insert_with(|| SimpleOutput {
+            key: key.clone(),
+            chinese_words: Vec::new(),
+            chinese_char: None,
+            japanese_words: Vec::new(),
+            japanese_char: None,
+        });
+
+        if let Some(ref chinese) = entry.chinese_entry {
+            output.chinese_words.push(chinese.clone());
+        }
+
+        if let Some(ref japanese) = entry.japanese_entry {
+            output.japanese_words.push(japanese.clone());
+        }
+    }
+
+    // Add character data
+    for (key, char_entry) in chinese_char_by_key {
+        let output = outputs.entry(key.clone()).or_insert_with(|| SimpleOutput {
+            key: key.clone(),
+            chinese_words: Vec::new(),
+            chinese_char: None,
+            japanese_words: Vec::new(),
+            japanese_char: None,
+        });
+        output.chinese_char = Some(char_entry.clone());
+    }
+
+    for (key, kanji_entry) in kanjidic_by_key {
+        let output = outputs.entry(key.clone()).or_insert_with(|| SimpleOutput {
+            key: key.clone(),
+            chinese_words: Vec::new(),
+            chinese_char: None,
+            japanese_words: Vec::new(),
+            japanese_char: None,
+        });
+        output.japanese_char = Some(kanji_entry.clone());
+    }
+
+    println!("💾 Writing {} individual JSON files...", outputs.len());
+
+    // Use parallel processing for maximum performance
+    use rayon::prelude::*;
+    use std::sync::atomic::{AtomicUsize, Ordering};
+    use std::sync::Arc;
+
+    let counter = Arc::new(AtomicUsize::new(0));
+    let total = outputs.len();
+
+    // Convert to vec for parallel processing
+    let outputs_vec: Vec<_> = outputs.into_iter().collect();
+
+    // Process in parallel chunks for optimal performance
+    let results: Result<Vec<_>, anyhow::Error> = outputs_vec
+        .par_iter()
+        .map(|(key, entry)| -> Result<(), anyhow::Error> {
+            let counter = Arc::clone(&counter);
+
+            // Create safe filename from key
+            let safe_filename = create_safe_filename(key);
+            let file_path = output_dir.join(format!("{}.json", safe_filename));
+
+            // Serialize to minified JSON
+            let json_content = serde_json::to_string(entry)
+                .map_err(|e| anyhow::anyhow!("Failed to serialize entry '{}': {}", key, e))?;
+
+            // Write file synchronously (faster for many small files)
+            std::fs::write(&file_path, json_content)
+                .map_err(|e| anyhow::anyhow!("Failed to write file '{}': {}", file_path.display(), e))?;
+
+            let current = counter.fetch_add(1, Ordering::Relaxed) + 1;
+            if current % 10000 == 0 {
+                println!("  Written {}/{} files ({:.1}%)", current, total, (current as f64 / total as f64) * 100.0);
+            }
+
+            Ok(())
+        })
+        .collect();
+
+    results?;
+
+    println!("✅ Successfully generated {} simple JSON files!", total);
     println!("📁 Files saved to: output_dictionary/");
     println!("💡 Usage: cat output_dictionary/好.json");
 
