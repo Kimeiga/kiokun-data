@@ -831,14 +831,20 @@
                     // Show top 12 words
                     stats.topWords.slice(0, 12).forEach(topWord => {
                         const sharePercent = (topWord.share * 100).toFixed(1);
-                        html += `<div style="padding: 8px 12px; background: white; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 13px;">`;
+                        // Use share percentage as background width (light blue gradient)
+                        html += `<div style="position: relative; padding: 8px 12px; background: white; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 13px; overflow: hidden;">`;
+                        // Background progress bar
+                        html += `<div style="position: absolute; top: 0; left: 0; height: 100%; width: ${topWord.share * 100}%; background: linear-gradient(90deg, #e3f2fd, #bbdefb); opacity: 0.6; z-index: 0;"></div>`;
+                        // Content (relative positioned to appear above background)
+                        html += `<div style="position: relative; z-index: 1;">`;
                         html += `<div style="display: flex; justify-content: space-between; align-items: center;">`;
                         html += `<span style="font-weight: 600; color: #2c3e50;">${topWord.word}</span>`;
-                        html += `<span style="font-size: 11px; color: #7f8c8d;">${sharePercent}%</span>`;
+                        html += `<span style="font-size: 11px; color: #1976d2; font-weight: 600;">${sharePercent}%</span>`;
                         html += `</div>`;
                         if (topWord.gloss) {
-                            html += `<div style="font-size: 11px; color: #7f8c8d; margin-top: 2px;">${topWord.gloss}</div>`;
+                            html += `<div style="font-size: 11px; color: #555; margin-top: 2px;">${topWord.gloss}</div>`;
                         }
+                        html += `</div>`;
                         html += `</div>`;
                     });
 
