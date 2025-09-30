@@ -487,16 +487,41 @@
                     html += this.renderChineseWords(data.chinese_words);
                 }
 
-                // Japanese Words
-                if (data.japanese_words && data.japanese_words.length > 0) {
-                    html += this.renderJapaneseWords(data.japanese_words);
-                }
-
                 content.innerHTML = html;
 
-                // Fetch and display related Japanese words
+                // Collect all Japanese words (direct + related)
+                const allJapaneseWords = [];
+
+                // Add direct Japanese words
+                if (data.japanese_words && data.japanese_words.length > 0) {
+                    data.japanese_words.forEach(word => {
+                        allJapaneseWords.push({ word, isDirect: true });
+                    });
+                }
+
+                // Fetch and add related Japanese words
                 if (data.related_japanese_words && data.related_japanese_words.length > 0) {
-                    await this.renderRelatedJapaneseWords(data.related_japanese_words);
+                    for (const relatedKey of data.related_japanese_words) {
+                        try {
+                            const response = await fetch(`../output_dictionary/${relatedKey}.json`);
+                            if (response.ok) {
+                                const relatedData = await response.json();
+                                if (relatedData.japanese_words && relatedData.japanese_words.length > 0) {
+                                    relatedData.japanese_words.forEach(word => {
+                                        allJapaneseWords.push({ word, isDirect: false, sourceKey: relatedKey });
+                                    });
+                                }
+                            }
+                        } catch (error) {
+                            console.error(`Failed to fetch related word: ${relatedKey}`, error);
+                        }
+                    }
+                }
+
+                // Render all Japanese words together
+                if (allJapaneseWords.length > 0) {
+                    const japaneseHtml = this.renderJapaneseWords(allJapaneseWords, key);
+                    content.innerHTML += japaneseHtml;
                 }
             }
 
@@ -855,98 +880,61 @@
                 return html;
             }
 
-            async renderRelatedJapaneseWords(relatedKeys) {
-                const content = document.getElementById('content');
-
-                // Add a section for related words
+            renderJapaneseWords(wordEntries, currentKey) {
                 let html = `
                     <div class="section">
-                        <div class="section-header japanese">🔗 Related Japanese Words</div>
+                        <div class="section-header japanese">📖 Japanese Words</div>
                         <div class="section-content">
-                            <div class="subsection">
-                                <div class="subsection-title">Words where "${this.currentWord}" appears as an alternative kanji form</div>
-                                <div id="related-words-container">Loading...</div>
-                            </div>
-                        </div>
-                    </div>
                 `;
 
-                content.innerHTML += html;
-
-                // Fetch each related entry
-                const relatedWordsContainer = document.getElementById('related-words-container');
-                let relatedHtml = '';
-
-                for (const relatedKey of relatedKeys) {
-                    try {
-                        const response = await fetch(`../output_dictionary/${relatedKey}.json`);
-                        if (response.ok) {
-                            const relatedData = await response.json();
-                            if (relatedData.japanese_words && relatedData.japanese_words.length > 0) {
-                                relatedHtml += this.renderJapaneseWords(relatedData.japanese_words, relatedKey);
-                            }
-                        }
-                    } catch (error) {
-                        console.error(`Failed to fetch related word: ${relatedKey}`, error);
-                    }
-                }
-
-                relatedWordsContainer.innerHTML = relatedHtml || '<div class="empty-state">No related words found</div>';
-            }
-
-            renderJapaneseWords(words, sourceKey = null) {
-                let html = '';
-
-                // If sourceKey is provided, we're rendering related words (don't add section wrapper)
-                const isRelated = sourceKey !== null;
-
-                if (!isRelated) {
-                    html += `
-                        <div class="section">
-                            <div class="section-header japanese">📖 Japanese Words</div>
-                            <div class="section-content">
-                    `;
-                }
-
-                words.forEach(word => {
+                wordEntries.forEach(({ word, isDirect, sourceKey }) => {
                     html += `<div class="word-entry">`;
 
-                    // Kanji and Kana
-                    html += `<div style="margin-bottom: 15px;">`;
-                    if (word.kanji && word.kanji.length > 0) {
-                        html += `<span style="font-size: 24px; font-weight: bold; font-family: 'MS Mincho', serif;">${word.kanji[0].text}</span> `;
+                    // Kanji and Kana on one line
+                    html += `<div style="margin-bottom: 8px; line-height: 1.8;">`;
 
-                        // Show all kanji forms
-                        if (word.kanji.length > 1) {
-                            html += `<span style="font-size: 16px; color: #7f8c8d;">(`;
-                            html += word.kanji.slice(1).map(k => k.text).join(', ');
-                            html += `)</span> `;
-                        }
+                    // Show all kanji forms (comma separated)
+                    if (word.kanji && word.kanji.length > 0) {
+                        const kanjiTexts = word.kanji.map(k => {
+                            // Bold the current character if it appears in the kanji
+                            if (!isDirect && k.text.includes(currentKey)) {
+                                return k.text.replace(new RegExp(currentKey, 'g'), `<strong>${currentKey}</strong>`);
+                            }
+                            return k.text;
+                        }).join(', ');
+                        html += `<span style="font-size: 20px; font-family: 'MS Mincho', serif;">${kanjiTexts}</span> `;
                     }
+
+                    // Kana readings
                     if (word.kana && word.kana.length > 0) {
-                        html += `<span style="font-size: 20px; color: #e74c3c; font-family: 'MS Mincho', serif;">[${word.kana.map(k => k.text).join(', ')}]</span>`;
+                        html += `<span style="font-size: 18px; color: #e74c3c; font-family: 'MS Mincho', serif;">[${word.kana.map(k => k.text).join(', ')}]</span>`;
                     }
-                    if (sourceKey) {
-                        html += ` <span style="margin-left: 10px; font-size: 14px; color: #7f8c8d;">from ${sourceKey}</span>`;
-                    }
+
                     html += `</div>`;
 
-                    // Senses (meanings)
+                    // Senses (meanings) - inline tags with definitions
                     if (word.sense && word.sense.length > 0) {
                         word.sense.forEach((sense, idx) => {
-                            html += `<div style="margin-bottom: 15px; padding: 15px; background: #f8f9fa; border-radius: 8px;">`;
+                            html += `<div style="margin-bottom: 10px; line-height: 1.8;">`;
 
-                            // Part of speech tags
+                            // Part of speech tags inline
                             if (sense.partOfSpeech && sense.partOfSpeech.length > 0) {
                                 sense.partOfSpeech.forEach(pos => {
-                                    html += `<span class="pos-tag">${pos}</span>`;
+                                    html += `<span class="pos-tag" style="display: inline; margin-right: 6px;">${pos}</span>`;
                                 });
                             }
 
-                            // Glosses - join with semicolons on one line
+                            // Misc tags inline (like (uk) for usually kana)
+                            if (sense.misc && sense.misc.length > 0) {
+                                sense.misc.forEach(misc => {
+                                    html += `<span class="pos-tag" style="display: inline; margin-right: 6px; background: #fff3cd; color: #856404;">${misc}</span>`;
+                                });
+                            }
+
+                            // Glosses inline with tags
                             if (sense.gloss && sense.gloss.length > 0) {
                                 const glossText = sense.gloss.map(g => g.text).join('; ');
-                                html += `<div class="definition-text" style="margin-top: 10px; line-height: 1.6;">${glossText}</div>`;
+                                html += `<span style="color: #2c3e50;">${glossText}</span>`;
                             }
 
                             html += `</div>`;
@@ -956,10 +944,7 @@
                     html += `</div>`;
                 });
 
-                if (!isRelated) {
-                    html += `</div></div>`;
-                }
-
+                html += `</div></div>`;
                 return html;
             }
         }
