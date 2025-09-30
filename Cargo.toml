@@ -17,11 +17,11 @@ regex = "1.0"
 name = "merge_dictionaries"
 path = "src/main.rs"
 
-# Optimize for maximum runtime performance
+# Optimized for fastest total time (build + run)
+# Since runtime is I/O bound (95% disk writes), LTO doesn't help
+# Keeping default release settings for fast builds
 [profile.release]
-lto = "fat"            # Full LTO - maximum optimization
-codegen-units = 1      # Single codegen unit for better optimization
-opt-level = 3          # Maximum optimization level
-strip = true           # Remove debug symbols for smaller binary
-panic = "abort"        # Smaller binary, slightly faster (no unwinding)
+opt-level = 3          # Maximum optimization (default for release)
+# lto = false         # No LTO - faster builds, runtime is I/O bound anyway
+# codegen-units = 16  # Default - parallel compilation for faster builds
 
