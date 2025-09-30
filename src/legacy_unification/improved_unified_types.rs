@@ -156,6 +156,7 @@ pub struct PinyinReading {
 }
 
 /// Cleaned pinyin-to-definitions mapping (no source, no duplicates)
+#[allow(dead_code)]
 pub type PinyinDefinitionsMap = std::collections::HashMap<String, Vec<String>>;
 
 /// Enhanced unified data structure with semantic clustering

@@ -1,5 +1,4 @@
 use crate::legacy_unification::improved_unified_types::*;
-use crate::combined_types::CombinedEntry;
 use std::collections::HashMap;
 
 /// Analyzes unified entries to create learner-focused structures for complex characters
@@ -89,7 +88,7 @@ impl LearnerFocusedAnalyzer {
 
         for def in &unified_entry.definitions {
             if def.source_language == "japanese" {
-                if let Some(japanese_fields) = &def.japanese_fields {
+                if let Some(_japanese_fields) = &def.japanese_fields {
                     // Try to infer reading from the definition context
                     // This is a simplified approach - in a full implementation we'd need access to the complete entry
                     japanese_readings_set.insert("inferred_reading");
