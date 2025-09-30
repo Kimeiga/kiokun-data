@@ -1308,12 +1308,15 @@ async fn generate_unified_output_files(
     use std::collections::HashMap as StdHashMap;
     use legacy_unification::unified_output_types::UnifiedOutput;
 
-    println!("📁 Creating output directory...");
+    println!("📁 Preparing output directory...");
     let output_dir = Path::new("output_dictionary");
-    if output_dir.exists() {
-        fs::remove_dir_all(output_dir).context("Failed to remove existing output directory")?;
+
+    // OPTIMIZATION: Instead of removing directory (slow!), just overwrite files
+    if !output_dir.exists() {
+        fs::create_dir_all(output_dir).context("Failed to create output directory")?;
+    } else {
+        println!("  ℹ️  Directory exists, will overwrite files (faster than deleting)");
     }
-    fs::create_dir_all(output_dir).context("Failed to create output directory")?;
 
     // Index characters by their character string for quick lookup
     let mut char_by_key: StdHashMap<String, &UnifiedCharacterEntry> = StdHashMap::new();
@@ -1441,12 +1444,16 @@ async fn generate_simple_output_files(
     use std::collections::HashMap as StdHashMap;
     use simple_output_types::SimpleOutput;
 
-    println!("📁 Creating output directory...");
+    println!("📁 Preparing output directory...");
     let output_dir = Path::new("output_dictionary");
-    if output_dir.exists() {
-        fs::remove_dir_all(output_dir).context("Failed to remove existing output directory")?;
+
+    // OPTIMIZATION: Instead of removing directory (slow!), just overwrite files
+    // This is much faster when the directory already exists
+    if !output_dir.exists() {
+        fs::create_dir_all(output_dir).context("Failed to create output directory")?;
+    } else {
+        println!("  ℹ️  Directory exists, will overwrite files (faster than deleting)");
     }
-    fs::create_dir_all(output_dir).context("Failed to create output directory")?;
 
     // Index Chinese characters by character string
     let mut chinese_char_by_key: StdHashMap<String, &ChineseCharacter> = StdHashMap::new();
@@ -1517,36 +1524,49 @@ async fn generate_simple_output_files(
         output.japanese_char = Some(kanji_entry.clone());
     }
 
-    println!("💾 Writing {} individual JSON files...", outputs.len());
+    println!("💾 Serializing {} entries in parallel...", outputs.len());
 
     // Use parallel processing for maximum performance
     use rayon::prelude::*;
     use std::sync::atomic::{AtomicUsize, Ordering};
     use std::sync::Arc;
+    use std::io::Write;
 
-    let counter = Arc::new(AtomicUsize::new(0));
     let total = outputs.len();
 
     // Convert to vec for parallel processing
     let outputs_vec: Vec<_> = outputs.into_iter().collect();
 
-    // Process in parallel chunks for optimal performance
-    let results: Result<Vec<_>, anyhow::Error> = outputs_vec
+    // OPTIMIZATION 1: Serialize all entries in parallel first (CPU-bound)
+    let serialized: Result<Vec<_>, anyhow::Error> = outputs_vec
         .par_iter()
-        .map(|(key, entry)| -> Result<(), anyhow::Error> {
-            let counter = Arc::clone(&counter);
-
-            // Create safe filename from key
+        .map(|(key, entry)| -> Result<(String, String), anyhow::Error> {
             let safe_filename = create_safe_filename(key);
-            let file_path = output_dir.join(format!("{}.json", safe_filename));
-
-            // Serialize to minified JSON
             let json_content = serde_json::to_string(entry)
                 .map_err(|e| anyhow::anyhow!("Failed to serialize entry '{}': {}", key, e))?;
+            Ok((safe_filename, json_content))
+        })
+        .collect();
 
-            // Write file synchronously (faster for many small files)
-            std::fs::write(&file_path, json_content)
+    let serialized = serialized?;
+
+    println!("💾 Writing {} files to disk...", serialized.len());
+    let counter = Arc::new(AtomicUsize::new(0));
+
+    // OPTIMIZATION 2: Write files in parallel with optimized I/O
+    let results: Result<Vec<_>, anyhow::Error> = serialized
+        .par_iter()
+        .map(|(safe_filename, json_content)| -> Result<(), anyhow::Error> {
+            let counter = Arc::clone(&counter);
+            let file_path = output_dir.join(format!("{}.json", safe_filename));
+
+            // OPTIMIZATION 3: Use BufWriter with 8KB buffer (optimal for small files)
+            let file = std::fs::File::create(&file_path)
+                .map_err(|e| anyhow::anyhow!("Failed to create file '{}': {}", file_path.display(), e))?;
+            let mut writer = std::io::BufWriter::with_capacity(8192, file);
+            writer.write_all(json_content.as_bytes())
                 .map_err(|e| anyhow::anyhow!("Failed to write file '{}': {}", file_path.display(), e))?;
+            // BufWriter::drop() will flush automatically
 
             let current = counter.fetch_add(1, Ordering::Relaxed) + 1;
             if current % 10000 == 0 {
