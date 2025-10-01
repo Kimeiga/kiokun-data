@@ -472,14 +472,9 @@
                     </div>
                 `;
 
-                // Chinese Character
-                if (data.chinese_char) {
-                    html += this.renderChineseChar(data.chinese_char);
-                }
-
-                // Japanese Character
-                if (data.japanese_char) {
-                    html += this.renderJapaneseChar(data.japanese_char);
+                // Unified Character Section (if either Chinese or Japanese character data exists)
+                if (data.chinese_char || data.japanese_char) {
+                    html += this.renderUnifiedCharacter(data.chinese_char, data.japanese_char, key);
                 }
 
                 // Chinese Words
@@ -551,6 +546,234 @@
                 }
 
                 return badges.length > 0 ? `<div class="badges">${badges.join('')}</div>` : '';
+            }
+
+            renderUnifiedCharacter(chineseChar, japaneseChar, key) {
+                let html = `
+                    <div class="section">
+                        <div class="section-header" style="background: linear-gradient(135deg, #3498db 0%, #e74c3c 100%);">
+                            📝 Character
+                        </div>
+                        <div class="section-content">
+                `;
+
+                // Character forms header
+                html += `<div style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 2px solid #e9ecef;">`;
+                html += `<div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-bottom: 10px;">`;
+
+                // Show character with different forms if they differ
+                const forms = [];
+                if (japaneseChar) forms.push({ flag: '🇯🇵', char: key, label: 'Japanese' });
+                if (chineseChar?.trad && chineseChar.trad !== key) forms.push({ flag: '🇹🇼', char: chineseChar.trad, label: 'Traditional' });
+                if (chineseChar?.simp && chineseChar.simp !== key && chineseChar.simp !== chineseChar?.trad) forms.push({ flag: '🇨🇳', char: chineseChar.simp, label: 'Simplified' });
+
+                forms.forEach(form => {
+                    html += `<div style="text-align: center;">`;
+                    html += `<div style="font-size: 48px; font-weight: bold; font-family: 'MS Mincho', serif; line-height: 1;">${form.char}</div>`;
+                    html += `<div style="font-size: 12px; color: #7f8c8d; margin-top: 4px;">${form.flag} ${form.label}</div>`;
+                    html += `</div>`;
+                });
+
+                // Gloss
+                if (chineseChar?.gloss) {
+                    html += `<div style="font-size: 24px; color: #27ae60; font-weight: 600; margin-left: auto;">${chineseChar.gloss}</div>`;
+                }
+
+                html += `</div></div>`;
+
+                // PRONUNCIATIONS
+                html += `<div style="margin-bottom: 20px;">`;
+                html += `<div style="font-weight: 600; font-size: 16px; margin-bottom: 12px; color: #2c3e50;">🗣️ Pronunciations</div>`;
+
+                // Chinese Pinyin
+                if (chineseChar?.pinyinFrequencies && chineseChar.pinyinFrequencies.length > 0) {
+                    html += `<div style="margin-bottom: 10px;">`;
+                    html += `<span style="font-size: 14px; color: #7f8c8d;">🇨🇳 Chinese:</span> `;
+                    html += `<span style="font-size: 18px; color: #3498db; font-weight: 600;">`;
+                    html += chineseChar.pinyinFrequencies.map(pf => pf.pinyin).join(', ');
+                    html += `</span></div>`;
+                }
+
+                // Japanese Readings
+                if (japaneseChar?.readingMeaning?.groups) {
+                    const group = japaneseChar.readingMeaning.groups[0];
+                    const onyomi = group?.readings?.filter(r => r.type === 'ja_on').map(r => r.value) || [];
+                    const kunyomi = group?.readings?.filter(r => r.type === 'ja_kun').map(r => r.value) || [];
+                    const nanori = group?.readings?.filter(r => r.type === 'ja_nanori').map(r => r.value) || [];
+
+                    const formatReading = (reading) => {
+                        const parts = reading.split('.');
+                        if (parts.length === 1) return reading;
+                        return parts.map((part, idx) => idx === 0 ? part : `<span style="color: #95a5a6;">${part}</span>`).join('.');
+                    };
+
+                    html += `<div style="margin-bottom: 8px;">`;
+                    html += `<span style="font-size: 14px; color: #7f8c8d;">🇯🇵 Japanese:</span> `;
+
+                    if (onyomi.length > 0) {
+                        html += `<span style="font-size: 18px; color: #e74c3c; font-family: 'MS Mincho', serif;">`;
+                        html += onyomi.map(r => formatReading(r)).join('、');
+                        html += `</span>`;
+                    }
+
+                    if (kunyomi.length > 0) {
+                        if (onyomi.length > 0) html += ` <span style="color: #bdc3c7;">|</span> `;
+                        html += `<span style="font-size: 18px; color: #27ae60; font-family: 'MS Mincho', serif;">`;
+                        html += kunyomi.map(r => formatReading(r)).join('、');
+                        html += `</span>`;
+                    }
+
+                    if (nanori.length > 0) {
+                        html += `<div style="margin-top: 6px; margin-left: 90px;">`;
+                        html += `<span style="font-size: 12px; color: #7f8c8d;">Names:</span> `;
+                        html += `<span style="font-size: 14px; color: #9b59b6; font-family: 'MS Mincho', serif;">`;
+                        html += nanori.map(r => formatReading(r)).join('、');
+                        html += `</span></div>`;
+                    }
+
+                    html += `</div>`;
+                }
+
+                html += `</div>`;
+
+                // MEANINGS
+                html += `<div style="margin-bottom: 20px;">`;
+                html += `<div style="font-weight: 600; font-size: 16px; margin-bottom: 12px; color: #2c3e50;">💡 Meanings</div>`;
+
+                // Chinese meaning
+                if (chineseChar?.meaning) {
+                    html += `<div style="margin-bottom: 8px; line-height: 1.6;">`;
+                    html += `<span style="font-size: 14px; color: #7f8c8d;">🇨🇳</span> `;
+                    html += `<span style="color: #2c3e50;">${chineseChar.meaning}</span>`;
+                    html += `</div>`;
+                }
+
+                // Japanese meanings
+                if (japaneseChar?.readingMeaning?.groups?.[0]?.meanings) {
+                    const meanings = japaneseChar.readingMeaning.groups[0].meanings.map(m =>
+                        typeof m === 'string' ? m : (m.value || m.text || m)
+                    ).join(', ');
+                    html += `<div style="margin-bottom: 8px; line-height: 1.6;">`;
+                    html += `<span style="font-size: 14px; color: #7f8c8d;">🇯🇵</span> `;
+                    html += `<span style="color: #2c3e50;">${meanings}</span>`;
+                    html += `</div>`;
+                }
+
+                html += `</div>`;
+
+                // ETYMOLOGY & COMPONENTS (Chinese origin)
+                if (chineseChar) {
+                    if (chineseChar.shuowen || chineseChar.components) {
+                        html += `<div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">`;
+                        html += `<div style="font-weight: 600; font-size: 16px; margin-bottom: 12px; color: #2c3e50;">📜 Etymology & Components</div>`;
+
+                        if (chineseChar.shuowen) {
+                            html += `<div style="margin-bottom: 10px;">`;
+                            html += `<div style="font-size: 13px; font-weight: 600; color: #7f8c8d; margin-bottom: 4px;">說文解字 (Shuowen Jiezi)</div>`;
+                            html += `<div style="font-size: 14px; color: #2c3e50; line-height: 1.6;">${chineseChar.shuowen}</div>`;
+                            html += `</div>`;
+                        }
+
+                        if (chineseChar.components) {
+                            html += `<div style="margin-top: 10px;">`;
+                            html += `<span style="font-size: 13px; font-weight: 600; color: #7f8c8d;">Components:</span> `;
+                            html += `<span style="font-size: 18px; font-family: 'MS Mincho', serif;">`;
+                            html += chineseChar.components.join(' + ');
+                            html += `</span></div>`;
+                        }
+
+                        html += `</div>`;
+                    }
+                }
+
+                // STATISTICS
+                html += `<div style="margin-bottom: 20px;">`;
+                html += `<div style="font-weight: 600; font-size: 16px; margin-bottom: 12px; color: #2c3e50;">📊 Statistics</div>`;
+                html += `<div style="display: flex; flex-wrap: wrap; gap: 15px;">`;
+
+                // Chinese stats
+                if (chineseChar) {
+                    html += `<div style="flex: 1; min-width: 200px;">`;
+                    html += `<div style="font-size: 13px; color: #7f8c8d; margin-bottom: 8px;">🇨🇳 Chinese</div>`;
+                    html += `<div style="display: flex; flex-wrap: wrap; gap: 8px;">`;
+
+                    if (chineseChar.hskLevel) {
+                        html += `<span class="badge badge-hsk">HSK ${chineseChar.hskLevel}</span>`;
+                    }
+                    if (chineseChar.strokeCount) {
+                        html += `<span class="badge" style="background: #e3f2fd; color: #1976d2;">✏️ ${chineseChar.strokeCount} strokes</span>`;
+                    }
+
+                    html += `</div></div>`;
+                }
+
+                // Japanese stats
+                if (japaneseChar?.misc) {
+                    html += `<div style="flex: 1; min-width: 200px;">`;
+                    html += `<div style="font-size: 13px; color: #7f8c8d; margin-bottom: 8px;">🇯🇵 Japanese</div>`;
+                    html += `<div style="display: flex; flex-wrap: wrap; gap: 8px;">`;
+
+                    if (japaneseChar.misc.grade) {
+                        html += `<span class="badge" style="background: #f3e5f5; color: #7b1fa2;">🎓 Grade ${japaneseChar.misc.grade}</span>`;
+                    }
+                    if (japaneseChar.misc.jlptLevel) {
+                        html += `<span class="badge" style="background: #fff3cd; color: #856404;">JLPT N${japaneseChar.misc.jlptLevel}</span>`;
+                    }
+                    if (japaneseChar.misc.frequency) {
+                        html += `<span class="badge" style="background: #fce4ec; color: #c2185b;">📊 Freq. ${japaneseChar.misc.frequency.toLocaleString()}</span>`;
+                    }
+                    if (japaneseChar.misc.strokeCounts && japaneseChar.misc.strokeCounts.length > 0) {
+                        html += `<span class="badge" style="background: #e3f2fd; color: #1976d2;">✏️ ${japaneseChar.misc.strokeCounts[0]} strokes</span>`;
+                    }
+
+                    html += `</div></div>`;
+                }
+
+                html += `</div></div>`;
+
+                // ADDITIONAL INFO (Historical pronunciations, variants, radicals)
+                const hasAdditionalInfo = (chineseChar?.oldPronunciations && chineseChar.oldPronunciations.length > 0) ||
+                                         (chineseChar?.variants && chineseChar.variants.length > 0) ||
+                                         (japaneseChar?.radicals && japaneseChar.radicals.length > 0);
+
+                if (hasAdditionalInfo) {
+                    html += `<div style="padding: 15px; background: #f8f9fa; border-radius: 8px; font-size: 13px; color: #555;">`;
+
+                    // Historical pronunciations
+                    if (chineseChar?.oldPronunciations && chineseChar.oldPronunciations.length > 0) {
+                        html += `<div style="margin-bottom: 10px;">`;
+                        html += `<div style="font-weight: 600; margin-bottom: 6px;">Historical Pronunciations</div>`;
+                        chineseChar.oldPronunciations.forEach(op => {
+                            html += `<div style="margin-left: 10px; margin-bottom: 4px;">`;
+                            html += `<span style="font-weight: 600;">${op.pinyin}</span> - ${op.gloss || 'no gloss'}<br>`;
+                            if (op.middleChinese) html += `<span style="color: #7f8c8d;">Middle Chinese: ${op.middleChinese}</span><br>`;
+                            if (op.oldChinese) html += `<span style="color: #7f8c8d;">Old Chinese: ${op.oldChinese}</span>`;
+                            html += `</div>`;
+                        });
+                        html += `</div>`;
+                    }
+
+                    // Variants
+                    if (chineseChar?.variants && chineseChar.variants.length > 0) {
+                        html += `<div style="margin-bottom: 10px;">`;
+                        html += `<span style="font-weight: 600;">Variants:</span> `;
+                        html += `<span style="font-size: 18px; font-family: 'MS Mincho', serif;">${chineseChar.variants.join(', ')}</span>`;
+                        html += `</div>`;
+                    }
+
+                    // Radicals
+                    if (japaneseChar?.radicals && japaneseChar.radicals.length > 0) {
+                        html += `<div>`;
+                        html += `<span style="font-weight: 600;">Radicals:</span> `;
+                        html += japaneseChar.radicals.map(rad => `${rad.type}: ${rad.value}`).join(', ');
+                        html += `</div>`;
+                    }
+
+                    html += `</div>`;
+                }
+
+                html += `</div></div>`;
+                return html;
             }
 
             renderChineseChar(char) {
