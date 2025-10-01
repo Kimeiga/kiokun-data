@@ -611,6 +611,7 @@
                         return parts.map((part, idx) => idx === 0 ? part : `<span style="color: #95a5a6;">${part}</span>`).join('.');
                     };
 
+                    html += `<div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">`;
                     html += `<div>`;
                     html += `<span style="font-size: 14px;">🇯🇵</span> `;
 
@@ -628,11 +629,16 @@
                     }
 
                     html += `</div>`;
-                }
 
-                // Gloss (after pronunciations)
-                if (chineseChar?.gloss) {
-                    html += `<div style="font-size: 20px; color: #27ae60; font-weight: 600; margin-top: 4px;">${chineseChar.gloss}</div>`;
+                    // Gloss (inline after Japanese readings)
+                    if (chineseChar?.gloss) {
+                        html += `<div style="font-size: 20px; color: #27ae60; font-weight: 600;">${chineseChar.gloss}</div>`;
+                    }
+
+                    html += `</div>`;
+                } else if (chineseChar?.gloss) {
+                    // If no Japanese readings, show gloss on its own line
+                    html += `<div style="font-size: 20px; color: #27ae60; font-weight: 600;">${chineseChar.gloss}</div>`;
                 }
 
                 html += `</div></div>`;
