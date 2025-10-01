@@ -468,12 +468,7 @@
                 // Store current data for access in other methods
                 this.currentData = data;
 
-                let html = `
-                    <div class="header" style="margin-bottom: 30px;">
-                        <div class="character">${key}</div>
-                        ${this.renderBadges(data)}
-                    </div>
-                `;
+                let html = '';
 
                 // Unified Character Section (if either Chinese or Japanese character data exists)
                 if (data.chinese_char || data.japanese_char) {
