@@ -706,31 +706,61 @@
                             html += `<div style="font-size: 13px; font-weight: 600; color: #7f8c8d; margin-bottom: 6px;">Components:</div>`;
                             html += `<div style="display: flex; gap: 15px; flex-wrap: wrap; align-items: flex-start;">`;
 
-                            // Show stroke-order SVG if available
+                            // Get stroke data
                             const makeHanziData = chineseChar.images?.find(img => img.source === 'makemeahanzi');
-                            if (makeHanziData?.data?.strokes) {
-                                html += `<div style="flex-shrink: 0;">`;
-                                html += `<svg viewBox="0 0 1024 1024" width="120" height="120" style="border: 2px solid #e0e0e0; border-radius: 8px; background: white;">`;
-                                html += `<g transform="scale(1, -1) translate(0, -900)">`;
-                                makeHanziData.data.strokes.forEach((stroke, idx) => {
-                                    html += `<path d="${stroke}" stroke="#2c3e50" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`;
-                                });
-                                html += `</g></svg>`;
-                                html += `<div style="font-size: 10px; color: #7f8c8d; text-align: center; margin-top: 4px;">Stroke order</div>`;
-                                html += `</div>`;
-                            }
+                            const strokes = makeHanziData?.data?.strokes || [];
 
-                            // Component cards
-                            chineseChar.components.forEach(comp => {
+                            // Simple heuristic for component stroke mapping
+                            // For left-right composition (⿰), split strokes roughly in half
+                            // For top-bottom composition (⿱), split strokes roughly in half
+                            // This is a simplification - ideally we'd have the matches field from Make Me a Hanzi
+                            const getComponentStrokeRanges = (numStrokes, numComponents) => {
+                                if (numComponents === 2) {
+                                    const mid = Math.floor(numStrokes / 2);
+                                    return [[0, mid], [mid, numStrokes]];
+                                }
+                                // For more components, divide equally
+                                const strokesPerComponent = Math.floor(numStrokes / numComponents);
+                                return Array.from({length: numComponents}, (_, i) => {
+                                    const start = i * strokesPerComponent;
+                                    const end = i === numComponents - 1 ? numStrokes : (i + 1) * strokesPerComponent;
+                                    return [start, end];
+                                });
+                            };
+
+                            const strokeRanges = strokes.length > 0 ? getComponentStrokeRanges(strokes.length, chineseChar.components.length) : [];
+
+                            // Component cards with highlighted strokes
+                            chineseChar.components.forEach((comp, compIdx) => {
                                 const char = typeof comp === 'string' ? comp : (comp.character || comp.char || comp);
                                 const types = comp.type || [];
                                 const isMeaning = types.includes('meaning');
                                 const isPhonetic = types.includes('phonetic');
+                                const highlightColor = isMeaning ? '#27ae60' : isPhonetic ? '#e74c3c' : '#95a5a6';
 
-                                html += `<div style="text-align: center; padding: 8px; background: white; border-radius: 6px; border: 2px solid ${isMeaning ? '#27ae60' : isPhonetic ? '#e74c3c' : '#95a5a6'};">`;
-                                html += `<div style="font-size: 32px; font-family: 'MS Mincho', serif; line-height: 1;">${char}</div>`;
+                                html += `<div style="text-align: center; padding: 8px; background: white; border-radius: 6px; border: 2px solid ${highlightColor};">`;
+
+                                // Show character with highlighted component strokes
+                                if (strokes.length > 0 && strokeRanges[compIdx]) {
+                                    const [startStroke, endStroke] = strokeRanges[compIdx];
+                                    html += `<svg viewBox="0 0 1024 1024" width="80" height="80" style="display: block; margin: 0 auto;">`;
+                                    html += `<g transform="scale(1, -1) translate(0, -900)">`;
+                                    strokes.forEach((stroke, idx) => {
+                                        const isHighlighted = idx >= startStroke && idx < endStroke;
+                                        const strokeColor = isHighlighted ? highlightColor : '#d0d0d0';
+                                        const strokeWidth = isHighlighted ? '12' : '8';
+                                        html += `<path d="${stroke}" stroke="${strokeColor}" stroke-width="${strokeWidth}" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`;
+                                    });
+                                    html += `</g></svg>`;
+                                } else {
+                                    // Fallback to just showing the component character
+                                    html += `<div style="font-size: 32px; font-family: 'MS Mincho', serif; line-height: 1;">${char}</div>`;
+                                }
+
+                                // Component info
+                                html += `<div style="font-size: 16px; font-weight: 600; margin-top: 6px; font-family: 'MS Mincho', serif;">${char}</div>`;
                                 if (types.length > 0) {
-                                    html += `<div style="font-size: 10px; color: ${isMeaning ? '#27ae60' : isPhonetic ? '#e74c3c' : '#95a5a6'}; margin-top: 4px; font-weight: 600;">`;
+                                    html += `<div style="font-size: 10px; color: ${highlightColor}; margin-top: 4px; font-weight: 600;">`;
                                     html += types.map(t => t === 'meaning' ? '🟢 meaning' : t === 'phonetic' ? '🔴 sound' : t).join(' ');
                                     html += `</div>`;
                                 }
