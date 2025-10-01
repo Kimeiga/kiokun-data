@@ -710,67 +710,10 @@
                     html += `</div></div>`;
                 }
 
-                // STATISTICS (moved up after components)
-                html += `<div style="margin-bottom: 20px;">`;
-                html += `<div style="font-weight: 600; font-size: 16px; margin-bottom: 12px; color: #2c3e50;">📊 Statistics</div>`;
-                html += `<div style="display: flex; flex-wrap: wrap; gap: 15px;">`;
-
-                // Chinese stats
-                if (chineseChar) {
-                    html += `<div style="flex: 1; min-width: 200px;">`;
-                    html += `<div style="font-size: 13px; color: #7f8c8d; margin-bottom: 8px;">🇨🇳 Chinese</div>`;
-                    html += `<div style="display: flex; flex-wrap: wrap; gap: 8px;">`;
-
-                    if (hskLevel) {
-                        html += `<span class="badge badge-hsk">HSK ${hskLevel}</span>`;
-                    }
-                    if (chineseChar.strokeCount) {
-                        html += `<span class="badge" style="background: #e3f2fd; color: #1976d2;">✏️ ${chineseChar.strokeCount} strokes</span>`;
-                    }
-
-                    // Add character statistics if available
-                    if (chineseChar.statistics) {
-                        const stats = chineseChar.statistics;
-                        if (stats.movieCharRank) {
-                            html += `<span class="badge" style="background: #e8f5e9; color: #2e7d32;">🎬 Char Rank ${stats.movieCharRank}</span>`;
-                        }
-                        if (stats.bookCharRank) {
-                            html += `<span class="badge" style="background: #fff3e0; color: #e65100;">📚 Char Rank ${stats.bookCharRank}</span>`;
-                        }
-                        if (stats.movieWordRank) {
-                            html += `<span class="badge" style="background: #e1f5fe; color: #01579b;">🎬 Word Rank ${stats.movieWordRank}</span>`;
-                        }
-                        if (stats.bookWordRank) {
-                            html += `<span class="badge" style="background: #fce4ec; color: #880e4f;">📚 Word Rank ${stats.bookWordRank}</span>`;
-                        }
-                    }
-
-                    html += `</div></div>`;
+                // STATISTICS (detailed character statistics)
+                if (chineseChar?.statistics) {
+                    html += this.renderChineseWordStatistics(chineseChar.statistics);
                 }
-
-                // Japanese stats
-                if (japaneseChar?.misc) {
-                    html += `<div style="flex: 1; min-width: 200px;">`;
-                    html += `<div style="font-size: 13px; color: #7f8c8d; margin-bottom: 8px;">🇯🇵 Japanese</div>`;
-                    html += `<div style="display: flex; flex-wrap: wrap; gap: 8px;">`;
-
-                    if (japaneseChar.misc.grade) {
-                        html += `<span class="badge" style="background: #f3e5f5; color: #7b1fa2;">🎓 Grade ${japaneseChar.misc.grade}</span>`;
-                    }
-                    if (japaneseChar.misc.jlptLevel) {
-                        html += `<span class="badge" style="background: #fff3cd; color: #856404;">JLPT N${japaneseChar.misc.jlptLevel}</span>`;
-                    }
-                    if (japaneseChar.misc.frequency) {
-                        html += `<span class="badge" style="background: #fce4ec; color: #c2185b;">📊 Freq. ${japaneseChar.misc.frequency.toLocaleString()}</span>`;
-                    }
-                    if (japaneseChar.misc.strokeCounts && japaneseChar.misc.strokeCounts.length > 0) {
-                        html += `<span class="badge" style="background: #e3f2fd; color: #1976d2;">✏️ ${japaneseChar.misc.strokeCounts[0]} strokes</span>`;
-                    }
-
-                    html += `</div></div>`;
-                }
-
-                html += `</div></div>`;
 
                 // MEANINGS (simplified - no header)
                 html += `<div style="margin-bottom: 20px;">`;
