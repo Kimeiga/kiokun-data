@@ -745,6 +745,8 @@
                     html += `<span style="font-weight: 600;">Radicals:</span> `;
                     html += char.radicals.map(rad => `${rad.type}: ${rad.value}`).join(', ');
                     html += `</div>`;
+                }
+
                 html += `</div></div>`;
                 return html;
             }
