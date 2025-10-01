@@ -716,14 +716,6 @@
                     html += `</div></div>`;
                 }
 
-                // SHUOWEN (Etymology - only if available)
-                if (chineseChar?.shuowen) {
-                    html += `<div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">`;
-                    html += `<div style="font-weight: 600; font-size: 16px; margin-bottom: 8px; color: #2c3e50;">📜 說文解字 (Shuowen Jiezi)</div>`;
-                    html += `<div style="font-size: 14px; color: #2c3e50; line-height: 1.6;">${chineseChar.shuowen}</div>`;
-                    html += `</div>`;
-                }
-
                 // HISTORICAL EVOLUTION (Images)
                 if (chineseChar?.images && chineseChar.images.length > 0) {
                     html += `<div style="margin-bottom: 20px;">`;
