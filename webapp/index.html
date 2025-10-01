@@ -566,60 +566,112 @@
                     hskLevel = this.currentData.chinese_words[0].statistics.hskLevel;
                 }
 
-                // Character forms header
-                html += `<div style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 2px solid #e9ecef;">`;
-                html += `<div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-bottom: 10px;">`;
+                // Character and gloss header (larger character, gloss left-aligned)
+                html += `<div style="margin-bottom: 20px;">`;
+                html += `<div style="display: flex; align-items: center; gap: 20px; margin-bottom: 10px;">`;
 
-                // Show character - always show at least the main character
-                // Determine which forms to show
-                const trad = chineseChar?.trad || key;
-                const simp = chineseChar?.simp || key;
-                const allSame = (trad === simp && trad === key);
+                // Large character (72px)
+                html += `<div style="font-size: 72px; font-weight: bold; font-family: 'MS Mincho', serif; line-height: 1;">${key}</div>`;
 
-                if (allSame) {
-                    // All forms are the same, just show once with both flags
-                    html += `<div style="text-align: center;">`;
-                    html += `<div style="font-size: 48px; font-weight: bold; font-family: 'MS Mincho', serif; line-height: 1;">${key}</div>`;
-                    html += `<div style="font-size: 12px; color: #7f8c8d; margin-top: 4px;">`;
-                    if (japaneseChar) html += `🇯🇵 `;
-                    if (chineseChar) html += `🇨🇳 🇹🇼`;
-                    html += `</div></div>`;
-                } else {
-                    // Show different forms
-                    const forms = [];
-                    if (japaneseChar) forms.push({ flag: '🇯🇵', char: key, label: 'Japanese' });
-                    if (trad !== key) forms.push({ flag: '🇹🇼', char: trad, label: 'Traditional' });
-                    if (simp !== key && simp !== trad) forms.push({ flag: '🇨🇳', char: simp, label: 'Simplified' });
+                // Gloss (left-aligned after character)
+                if (chineseChar?.gloss) {
+                    html += `<div style="font-size: 24px; color: #27ae60; font-weight: 600;">${chineseChar.gloss}</div>`;
+                }
 
-                    forms.forEach(form => {
-                        html += `<div style="text-align: center;">`;
-                        html += `<div style="font-size: 48px; font-weight: bold; font-family: 'MS Mincho', serif; line-height: 1;">${form.char}</div>`;
-                        html += `<div style="font-size: 12px; color: #7f8c8d; margin-top: 4px;">${form.flag} ${form.label}</div>`;
+                html += `</div>`;
+
+                // Flags below character
+                html += `<div style="font-size: 12px; color: #7f8c8d; margin-bottom: 10px;">`;
+                if (japaneseChar) html += `🇯🇵 `;
+                if (chineseChar) html += `🇨🇳 🇹🇼`;
+                html += `</div>`;
+
+                // Mnemonic hint right after character
+                if (chineseChar?.hint) {
+                    html += `<div style="margin-top: 12px; padding: 10px; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 4px;">`;
+                    html += `<div style="font-size: 13px; color: #856404; line-height: 1.6;">💡 ${chineseChar.hint}</div>`;
+                    html += `</div>`;
+                }
+
+                html += `</div>`;
+
+                // COMPONENTS (moved up before pronunciations)
+                if (chineseChar?.components && chineseChar.components.length > 0) {
+                    html += `<div style="margin-bottom: 20px;">`;
+                    html += `<div style="font-weight: 600; font-size: 16px; margin-bottom: 12px; color: #2c3e50;">� Components</div>`;
+                    html += `<div style="display: flex; gap: 15px; flex-wrap: wrap; align-items: flex-start;">`;
+
+                    // Get stroke data
+                    const makeHanziData = chineseChar.images?.find(img => img.source === 'makemeahanzi');
+                    const strokes = makeHanziData?.data?.strokes || [];
+
+                    // Simple heuristic for component stroke mapping
+                    const getComponentStrokeRanges = (numStrokes, numComponents) => {
+                        if (numComponents === 2) {
+                            const mid = Math.floor(numStrokes / 2);
+                            return [[0, mid], [mid, numStrokes]];
+                        }
+                        const strokesPerComponent = Math.floor(numStrokes / numComponents);
+                        return Array.from({length: numComponents}, (_, i) => {
+                            const start = i * strokesPerComponent;
+                            const end = i === numComponents - 1 ? numStrokes : (i + 1) * strokesPerComponent;
+                            return [start, end];
+                        });
+                    };
+
+                    const strokeRanges = strokes.length > 0 ? getComponentStrokeRanges(strokes.length, chineseChar.components.length) : [];
+
+                    // Component cards with highlighted strokes
+                    chineseChar.components.forEach((comp, compIdx) => {
+                        const char = typeof comp === 'string' ? comp : (comp.character || comp.char || comp);
+                        const types = comp.type || [];
+                        const isMeaning = types.includes('meaning');
+                        const isPhonetic = types.includes('phonetic');
+                        const highlightColor = isMeaning ? '#27ae60' : isPhonetic ? '#e74c3c' : '#95a5a6';
+
+                        html += `<div style="text-align: center; padding: 8px; background: white; border-radius: 6px; border: 2px solid ${highlightColor};">`;
+
+                        // Show character with highlighted component strokes
+                        if (strokes.length > 0 && strokeRanges[compIdx]) {
+                            const [startStroke, endStroke] = strokeRanges[compIdx];
+                            html += `<svg viewBox="0 0 1024 1024" width="80" height="80" style="display: block; margin: 0 auto;">`;
+                            html += `<g transform="scale(1, -1) translate(0, -900)">`;
+                            strokes.forEach((stroke, idx) => {
+                                const isHighlighted = idx >= startStroke && idx < endStroke;
+                                const fillColor = isHighlighted ? highlightColor : '#e8e8e8';
+                                html += `<path d="${stroke}" fill="${fillColor}" stroke="none"/>`;
+                            });
+                            html += `</g></svg>`;
+                        } else {
+                            html += `<div style="font-size: 32px; font-family: 'MS Mincho', serif; line-height: 1;">${char}</div>`;
+                        }
+
+                        // Component info
+                        html += `<div style="font-size: 16px; font-weight: 600; margin-top: 6px; font-family: 'MS Mincho', serif;">${char}</div>`;
+                        if (types.length > 0) {
+                            html += `<div style="font-size: 10px; color: ${highlightColor}; margin-top: 4px; font-weight: 600;">`;
+                            html += types.map(t => t === 'meaning' ? '🟢 meaning' : t === 'phonetic' ? '🔴 sound' : t).join(' ');
+                            html += `</div>`;
+                        }
                         html += `</div>`;
                     });
+
+                    html += `</div></div>`;
                 }
 
-                // Gloss
-                if (chineseChar?.gloss) {
-                    html += `<div style="font-size: 24px; color: #27ae60; font-weight: 600; margin-left: auto;">${chineseChar.gloss}</div>`;
-                }
-
-                html += `</div></div>`;
-
-                // PRONUNCIATIONS
+                // PRONUNCIATIONS (simplified - no header, just flags)
                 html += `<div style="margin-bottom: 20px;">`;
-                html += `<div style="font-weight: 600; font-size: 16px; margin-bottom: 12px; color: #2c3e50;">🗣️ Pronunciations</div>`;
 
-                // Chinese Pinyin
+                // Chinese Pinyin (simplified)
                 if (chineseChar?.pinyinFrequencies && chineseChar.pinyinFrequencies.length > 0) {
-                    html += `<div style="margin-bottom: 10px;">`;
-                    html += `<span style="font-size: 14px; color: #7f8c8d;">🇨🇳 Chinese:</span> `;
+                    html += `<div style="margin-bottom: 8px;">`;
+                    html += `<span style="font-size: 14px;">🇨🇳</span> `;
                     html += `<span style="font-size: 18px; color: #3498db; font-weight: 600;">`;
                     html += chineseChar.pinyinFrequencies.map(pf => pf.pinyin).join(', ');
                     html += `</span></div>`;
                 }
 
-                // Japanese Readings
+                // Japanese Readings (simplified)
                 if (japaneseChar?.readingMeaning?.groups) {
                     const group = japaneseChar.readingMeaning.groups[0];
                     const onyomi = group?.readings?.filter(r => r.type === 'ja_on').map(r => r.value) || [];
@@ -633,7 +685,7 @@
                     };
 
                     html += `<div style="margin-bottom: 8px;">`;
-                    html += `<span style="font-size: 14px; color: #7f8c8d;">🇯🇵 Japanese:</span> `;
+                    html += `<span style="font-size: 14px;">🇯🇵</span> `;
 
                     if (onyomi.length > 0) {
                         html += `<span style="font-size: 18px; color: #e74c3c; font-family: 'MS Mincho', serif;">`;
@@ -649,7 +701,7 @@
                     }
 
                     if (nanori.length > 0) {
-                        html += `<div style="margin-top: 6px; margin-left: 90px;">`;
+                        html += `<div style="margin-top: 6px; margin-left: 24px;">`;
                         html += `<span style="font-size: 12px; color: #7f8c8d;">Names:</span> `;
                         html += `<span style="font-size: 14px; color: #9b59b6; font-family: 'MS Mincho', serif;">`;
                         html += nanori.map(r => formatReading(r)).join('、');
@@ -661,15 +713,14 @@
 
                 html += `</div>`;
 
-                // MEANINGS
+                // MEANINGS (simplified - no header)
                 html += `<div style="margin-bottom: 20px;">`;
-                html += `<div style="font-weight: 600; font-size: 16px; margin-bottom: 12px; color: #2c3e50;">💡 Meanings</div>`;
 
                 // Chinese meaning (use gloss if meaning is not available)
                 const chineseMeaning = chineseChar?.meaning || chineseChar?.gloss;
                 if (chineseMeaning) {
                     html += `<div style="margin-bottom: 8px; line-height: 1.6;">`;
-                    html += `<span style="font-size: 14px; color: #7f8c8d;">🇨🇳</span> `;
+                    html += `<span style="font-size: 14px;">🇨🇳</span> `;
                     html += `<span style="color: #2c3e50;">${chineseMeaning}</span>`;
                     html += `</div>`;
                 }
@@ -680,105 +731,19 @@
                         typeof m === 'string' ? m : (m.value || m.text || m)
                     ).join(', ');
                     html += `<div style="margin-bottom: 8px; line-height: 1.6;">`;
-                    html += `<span style="font-size: 14px; color: #7f8c8d;">🇯🇵</span> `;
+                    html += `<span style="font-size: 14px;">🇯🇵</span> `;
                     html += `<span style="color: #2c3e50;">${meanings}</span>`;
                     html += `</div>`;
                 }
 
                 html += `</div>`;
 
-                // ETYMOLOGY & COMPONENTS (Chinese origin)
-                if (chineseChar) {
-                    if (chineseChar.shuowen || chineseChar.components || chineseChar.hint) {
-                        html += `<div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">`;
-                        html += `<div style="font-weight: 600; font-size: 16px; margin-bottom: 12px; color: #2c3e50;">📜 Etymology & Components</div>`;
-
-                        // Mnemonic hint
-                        if (chineseChar.hint) {
-                            html += `<div style="margin-bottom: 12px; padding: 10px; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 4px;">`;
-                            html += `<div style="font-size: 13px; color: #856404; line-height: 1.6;">💡 ${chineseChar.hint}</div>`;
-                            html += `</div>`;
-                        }
-
-                        // Component breakdown with types
-                        if (chineseChar.components && chineseChar.components.length > 0) {
-                            html += `<div style="margin-bottom: 12px;">`;
-                            html += `<div style="font-size: 13px; font-weight: 600; color: #7f8c8d; margin-bottom: 6px;">Components:</div>`;
-                            html += `<div style="display: flex; gap: 15px; flex-wrap: wrap; align-items: flex-start;">`;
-
-                            // Get stroke data
-                            const makeHanziData = chineseChar.images?.find(img => img.source === 'makemeahanzi');
-                            const strokes = makeHanziData?.data?.strokes || [];
-
-                            // Simple heuristic for component stroke mapping
-                            // For left-right composition (⿰), split strokes roughly in half
-                            // For top-bottom composition (⿱), split strokes roughly in half
-                            // This is a simplification - ideally we'd have the matches field from Make Me a Hanzi
-                            const getComponentStrokeRanges = (numStrokes, numComponents) => {
-                                if (numComponents === 2) {
-                                    const mid = Math.floor(numStrokes / 2);
-                                    return [[0, mid], [mid, numStrokes]];
-                                }
-                                // For more components, divide equally
-                                const strokesPerComponent = Math.floor(numStrokes / numComponents);
-                                return Array.from({length: numComponents}, (_, i) => {
-                                    const start = i * strokesPerComponent;
-                                    const end = i === numComponents - 1 ? numStrokes : (i + 1) * strokesPerComponent;
-                                    return [start, end];
-                                });
-                            };
-
-                            const strokeRanges = strokes.length > 0 ? getComponentStrokeRanges(strokes.length, chineseChar.components.length) : [];
-
-                            // Component cards with highlighted strokes
-                            chineseChar.components.forEach((comp, compIdx) => {
-                                const char = typeof comp === 'string' ? comp : (comp.character || comp.char || comp);
-                                const types = comp.type || [];
-                                const isMeaning = types.includes('meaning');
-                                const isPhonetic = types.includes('phonetic');
-                                const highlightColor = isMeaning ? '#27ae60' : isPhonetic ? '#e74c3c' : '#95a5a6';
-
-                                html += `<div style="text-align: center; padding: 8px; background: white; border-radius: 6px; border: 2px solid ${highlightColor};">`;
-
-                                // Show character with highlighted component strokes
-                                if (strokes.length > 0 && strokeRanges[compIdx]) {
-                                    const [startStroke, endStroke] = strokeRanges[compIdx];
-                                    html += `<svg viewBox="0 0 1024 1024" width="80" height="80" style="display: block; margin: 0 auto;">`;
-                                    html += `<g transform="scale(1, -1) translate(0, -900)">`;
-                                    strokes.forEach((stroke, idx) => {
-                                        const isHighlighted = idx >= startStroke && idx < endStroke;
-                                        const fillColor = isHighlighted ? highlightColor : '#e8e8e8';
-                                        html += `<path d="${stroke}" fill="${fillColor}" stroke="none"/>`;
-                                    });
-                                    html += `</g></svg>`;
-                                } else {
-                                    // Fallback to just showing the component character
-                                    html += `<div style="font-size: 32px; font-family: 'MS Mincho', serif; line-height: 1;">${char}</div>`;
-                                }
-
-                                // Component info
-                                html += `<div style="font-size: 16px; font-weight: 600; margin-top: 6px; font-family: 'MS Mincho', serif;">${char}</div>`;
-                                if (types.length > 0) {
-                                    html += `<div style="font-size: 10px; color: ${highlightColor}; margin-top: 4px; font-weight: 600;">`;
-                                    html += types.map(t => t === 'meaning' ? '🟢 meaning' : t === 'phonetic' ? '🔴 sound' : t).join(' ');
-                                    html += `</div>`;
-                                }
-                                html += `</div>`;
-                            });
-
-                            html += `</div></div>`;
-                        }
-
-                        // Shuowen explanation
-                        if (chineseChar.shuowen) {
-                            html += `<div style="margin-top: 10px;">`;
-                            html += `<div style="font-size: 13px; font-weight: 600; color: #7f8c8d; margin-bottom: 4px;">說文解字 (Shuowen Jiezi)</div>`;
-                            html += `<div style="font-size: 14px; color: #2c3e50; line-height: 1.6;">${chineseChar.shuowen}</div>`;
-                            html += `</div>`;
-                        }
-
-                        html += `</div>`;
-                    }
+                // SHUOWEN (Etymology - only if available)
+                if (chineseChar?.shuowen) {
+                    html += `<div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">`;
+                    html += `<div style="font-weight: 600; font-size: 16px; margin-bottom: 8px; color: #2c3e50;">📜 說文解字 (Shuowen Jiezi)</div>`;
+                    html += `<div style="font-size: 14px; color: #2c3e50; line-height: 1.6;">${chineseChar.shuowen}</div>`;
+                    html += `</div>`;
                 }
 
                 // STATISTICS
