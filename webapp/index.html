@@ -465,6 +465,9 @@
                 const content = document.getElementById('content');
                 const key = data.key || this.currentWord;
 
+                // Store current data for access in other methods
+                this.currentData = data;
+
                 let html = `
                     <div class="header" style="margin-bottom: 30px;">
                         <div class="character">${key}</div>
@@ -557,22 +560,44 @@
                         <div class="section-content">
                 `;
 
+                // Get HSK level from chinese_words if not in character
+                let hskLevel = chineseChar?.hskLevel;
+                if (!hskLevel && this.currentData?.chinese_words?.[0]?.statistics?.hskLevel) {
+                    hskLevel = this.currentData.chinese_words[0].statistics.hskLevel;
+                }
+
                 // Character forms header
                 html += `<div style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 2px solid #e9ecef;">`;
                 html += `<div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-bottom: 10px;">`;
 
-                // Show character with different forms if they differ
-                const forms = [];
-                if (japaneseChar) forms.push({ flag: '🇯🇵', char: key, label: 'Japanese' });
-                if (chineseChar?.trad && chineseChar.trad !== key) forms.push({ flag: '🇹🇼', char: chineseChar.trad, label: 'Traditional' });
-                if (chineseChar?.simp && chineseChar.simp !== key && chineseChar.simp !== chineseChar?.trad) forms.push({ flag: '🇨🇳', char: chineseChar.simp, label: 'Simplified' });
+                // Show character - always show at least the main character
+                // Determine which forms to show
+                const trad = chineseChar?.trad || key;
+                const simp = chineseChar?.simp || key;
+                const allSame = (trad === simp && trad === key);
 
-                forms.forEach(form => {
+                if (allSame) {
+                    // All forms are the same, just show once with both flags
                     html += `<div style="text-align: center;">`;
-                    html += `<div style="font-size: 48px; font-weight: bold; font-family: 'MS Mincho', serif; line-height: 1;">${form.char}</div>`;
-                    html += `<div style="font-size: 12px; color: #7f8c8d; margin-top: 4px;">${form.flag} ${form.label}</div>`;
-                    html += `</div>`;
-                });
+                    html += `<div style="font-size: 48px; font-weight: bold; font-family: 'MS Mincho', serif; line-height: 1;">${key}</div>`;
+                    html += `<div style="font-size: 12px; color: #7f8c8d; margin-top: 4px;">`;
+                    if (japaneseChar) html += `🇯🇵 `;
+                    if (chineseChar) html += `🇨🇳 🇹🇼`;
+                    html += `</div></div>`;
+                } else {
+                    // Show different forms
+                    const forms = [];
+                    if (japaneseChar) forms.push({ flag: '🇯🇵', char: key, label: 'Japanese' });
+                    if (trad !== key) forms.push({ flag: '🇹🇼', char: trad, label: 'Traditional' });
+                    if (simp !== key && simp !== trad) forms.push({ flag: '🇨🇳', char: simp, label: 'Simplified' });
+
+                    forms.forEach(form => {
+                        html += `<div style="text-align: center;">`;
+                        html += `<div style="font-size: 48px; font-weight: bold; font-family: 'MS Mincho', serif; line-height: 1;">${form.char}</div>`;
+                        html += `<div style="font-size: 12px; color: #7f8c8d; margin-top: 4px;">${form.flag} ${form.label}</div>`;
+                        html += `</div>`;
+                    });
+                }
 
                 // Gloss
                 if (chineseChar?.gloss) {
@@ -640,11 +665,12 @@
                 html += `<div style="margin-bottom: 20px;">`;
                 html += `<div style="font-weight: 600; font-size: 16px; margin-bottom: 12px; color: #2c3e50;">💡 Meanings</div>`;
 
-                // Chinese meaning
-                if (chineseChar?.meaning) {
+                // Chinese meaning (use gloss if meaning is not available)
+                const chineseMeaning = chineseChar?.meaning || chineseChar?.gloss;
+                if (chineseMeaning) {
                     html += `<div style="margin-bottom: 8px; line-height: 1.6;">`;
                     html += `<span style="font-size: 14px; color: #7f8c8d;">🇨🇳</span> `;
-                    html += `<span style="color: #2c3e50;">${chineseChar.meaning}</span>`;
+                    html += `<span style="color: #2c3e50;">${chineseMeaning}</span>`;
                     html += `</div>`;
                 }
 
@@ -674,11 +700,15 @@
                             html += `</div>`;
                         }
 
-                        if (chineseChar.components) {
+                        if (chineseChar.components && chineseChar.components.length > 0) {
                             html += `<div style="margin-top: 10px;">`;
                             html += `<span style="font-size: 13px; font-weight: 600; color: #7f8c8d;">Components:</span> `;
                             html += `<span style="font-size: 18px; font-family: 'MS Mincho', serif;">`;
-                            html += chineseChar.components.join(' + ');
+                            // Handle both string and object formats
+                            const componentChars = chineseChar.components.map(c =>
+                                typeof c === 'string' ? c : (c.character || c.char || c)
+                            );
+                            html += componentChars.join(' + ');
                             html += `</span></div>`;
                         }
 
@@ -697,8 +727,8 @@
                     html += `<div style="font-size: 13px; color: #7f8c8d; margin-bottom: 8px;">🇨🇳 Chinese</div>`;
                     html += `<div style="display: flex; flex-wrap: wrap; gap: 8px;">`;
 
-                    if (chineseChar.hskLevel) {
-                        html += `<span class="badge badge-hsk">HSK ${chineseChar.hskLevel}</span>`;
+                    if (hskLevel) {
+                        html += `<span class="badge badge-hsk">HSK ${hskLevel}</span>`;
                     }
                     if (chineseChar.strokeCount) {
                         html += `<span class="badge" style="background: #e3f2fd; color: #1976d2;">✏️ ${chineseChar.strokeCount} strokes</span>`;
@@ -757,8 +787,13 @@
                     if (chineseChar?.variants && chineseChar.variants.length > 0) {
                         html += `<div style="margin-bottom: 10px;">`;
                         html += `<span style="font-weight: 600;">Variants:</span> `;
-                        html += `<span style="font-size: 18px; font-family: 'MS Mincho', serif;">${chineseChar.variants.join(', ')}</span>`;
-                        html += `</div>`;
+                        html += `<span style="font-size: 18px; font-family: 'MS Mincho', serif;">`;
+                        // Handle both string and object formats
+                        const variantChars = chineseChar.variants.map(v =>
+                            typeof v === 'string' ? v : (v.char || v.character || v)
+                        );
+                        html += variantChars.join(', ');
+                        html += `</span></div>`;
                     }
 
                     // Radicals
