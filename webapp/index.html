@@ -716,31 +716,6 @@
                     html += `</div></div>`;
                 }
 
-                // MEANINGS (simplified - no header)
-                html += `<div style="margin-bottom: 20px;">`;
-
-                // Chinese meaning (use gloss if meaning is not available)
-                const chineseMeaning = chineseChar?.meaning || chineseChar?.gloss;
-                if (chineseMeaning) {
-                    html += `<div style="margin-bottom: 8px; line-height: 1.6;">`;
-                    html += `<span style="font-size: 14px;">🇨🇳</span> `;
-                    html += `<span style="color: #2c3e50;">${chineseMeaning}</span>`;
-                    html += `</div>`;
-                }
-
-                // Japanese meanings
-                if (japaneseChar?.readingMeaning?.groups?.[0]?.meanings) {
-                    const meanings = japaneseChar.readingMeaning.groups[0].meanings.map(m =>
-                        typeof m === 'string' ? m : (m.value || m.text || m)
-                    ).join(', ');
-                    html += `<div style="margin-bottom: 8px; line-height: 1.6;">`;
-                    html += `<span style="font-size: 14px;">🇯🇵</span> `;
-                    html += `<span style="color: #2c3e50;">${meanings}</span>`;
-                    html += `</div>`;
-                }
-
-                html += `</div>`;
-
                 // SHUOWEN (Etymology - only if available)
                 if (chineseChar?.shuowen) {
                     html += `<div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">`;
