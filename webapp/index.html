@@ -704,8 +704,23 @@
                         if (chineseChar.components && chineseChar.components.length > 0) {
                             html += `<div style="margin-bottom: 12px;">`;
                             html += `<div style="font-size: 13px; font-weight: 600; color: #7f8c8d; margin-bottom: 6px;">Components:</div>`;
-                            html += `<div style="display: flex; gap: 15px; flex-wrap: wrap;">`;
+                            html += `<div style="display: flex; gap: 15px; flex-wrap: wrap; align-items: flex-start;">`;
 
+                            // Show stroke-order SVG if available
+                            const makeHanziData = chineseChar.images?.find(img => img.source === 'makemeahanzi');
+                            if (makeHanziData?.data?.strokes) {
+                                html += `<div style="flex-shrink: 0;">`;
+                                html += `<svg viewBox="0 0 1024 1024" width="120" height="120" style="border: 2px solid #e0e0e0; border-radius: 8px; background: white;">`;
+                                html += `<g transform="scale(1, -1) translate(0, -900)">`;
+                                makeHanziData.data.strokes.forEach((stroke, idx) => {
+                                    html += `<path d="${stroke}" stroke="#2c3e50" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`;
+                                });
+                                html += `</g></svg>`;
+                                html += `<div style="font-size: 10px; color: #7f8c8d; text-align: center; margin-top: 4px;">Stroke order</div>`;
+                                html += `</div>`;
+                            }
+
+                            // Component cards
                             chineseChar.components.forEach(comp => {
                                 const char = typeof comp === 'string' ? comp : (comp.character || comp.char || comp);
                                 const types = comp.type || [];
