@@ -749,33 +749,21 @@
                     html += `<div style="font-weight: 600; font-size: 16px; margin-bottom: 12px; color: #2c3e50;">🏛️ Historical Evolution</div>`;
                     html += `<div style="display: flex; gap: 12px; overflow-x: auto; padding: 10px 0;">`;
 
-                    // Group images by type
-                    const imagesByType = {};
+                    // Display all images in order (they're already sorted chronologically in the data)
                     chineseChar.images.forEach(img => {
-                        if (!imagesByType[img.type]) imagesByType[img.type] = [];
-                        imagesByType[img.type].push(img);
-                    });
-
-                    // Display in chronological order
-                    const typeOrder = ['Oracle', 'Bronze', 'Seal', 'Clerical', 'Regular'];
-                    typeOrder.forEach(type => {
-                        if (imagesByType[type]) {
-                            // Show first image of each type
-                            const img = imagesByType[type][0];
-                            if (img.url) {
-                                html += `<div style="flex-shrink: 0; text-align: center; padding: 10px; background: white; border-radius: 8px; border: 1px solid #e0e0e0;">`;
-                                html += `<img src="${img.url}" style="width: 80px; height: 80px; object-fit: contain;" alt="${img.type}" onerror="this.style.display='none'">`;
-                                html += `<div style="font-size: 11px; color: #7f8c8d; margin-top: 6px; font-weight: 600;">${img.type}</div>`;
-                                html += `<div style="font-size: 10px; color: #95a5a6; margin-top: 2px;">${img.era || ''}</div>`;
-                                html += `</div>`;
-                            } else if (img.data) {
-                                // Make Me a Hanzi data - we could render SVG here
-                                html += `<div style="flex-shrink: 0; text-align: center; padding: 10px; background: white; border-radius: 8px; border: 1px solid #e0e0e0;">`;
-                                html += `<div style="width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; font-size: 48px; font-family: 'MS Mincho', serif;">${key}</div>`;
-                                html += `<div style="font-size: 11px; color: #7f8c8d; margin-top: 6px; font-weight: 600;">${img.type}</div>`;
-                                html += `<div style="font-size: 10px; color: #95a5a6; margin-top: 2px;">${img.era || ''}</div>`;
-                                html += `</div>`;
-                            }
+                        if (img.url) {
+                            html += `<div style="flex-shrink: 0; text-align: center; padding: 10px; background: white; border-radius: 8px; border: 1px solid #e0e0e0;">`;
+                            html += `<img src="${img.url}" style="width: 80px; height: 80px; object-fit: contain;" alt="${img.type}" onerror="this.style.display='none'">`;
+                            html += `<div style="font-size: 11px; color: #7f8c8d; margin-top: 6px; font-weight: 600;">${img.type}</div>`;
+                            html += `<div style="font-size: 10px; color: #95a5a6; margin-top: 2px;">${img.era || ''}</div>`;
+                            html += `</div>`;
+                        } else if (img.data) {
+                            // Make Me a Hanzi data - we could render SVG here
+                            html += `<div style="flex-shrink: 0; text-align: center; padding: 10px; background: white; border-radius: 8px; border: 1px solid #e0e0e0;">`;
+                            html += `<div style="width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; font-size: 48px; font-family: 'MS Mincho', serif;">${key}</div>`;
+                            html += `<div style="font-size: 11px; color: #7f8c8d; margin-top: 6px; font-weight: 600;">${img.type}</div>`;
+                            html += `<div style="font-size: 10px; color: #95a5a6; margin-top: 2px;">${img.era || ''}</div>`;
+                            html += `</div>`;
                         }
                     });
 
