@@ -747,9 +747,8 @@
                                     html += `<g transform="scale(1, -1) translate(0, -900)">`;
                                     strokes.forEach((stroke, idx) => {
                                         const isHighlighted = idx >= startStroke && idx < endStroke;
-                                        const strokeColor = isHighlighted ? highlightColor : '#d0d0d0';
-                                        const strokeWidth = isHighlighted ? '12' : '8';
-                                        html += `<path d="${stroke}" stroke="${strokeColor}" stroke-width="${strokeWidth}" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`;
+                                        const fillColor = isHighlighted ? highlightColor : '#e8e8e8';
+                                        html += `<path d="${stroke}" fill="${fillColor}" stroke="none"/>`;
                                     });
                                     html += `</g></svg>`;
                                 } else {
