@@ -657,84 +657,94 @@
                         <div class="section-content">
                 `;
 
-                // Readings
+                // Compact readings and meanings layout
                 if (char.readingMeaning?.groups) {
                     const group = char.readingMeaning.groups[0];
-                    if (group?.readings) {
-                        const onyomi = group.readings.filter(r => r.type === 'ja_on').map(r => r.value);
-                        const kunyomi = group.readings.filter(r => r.type === 'ja_kun').map(r => r.value);
-                        const nanori = group.readings.filter(r => r.type === 'ja_nanori').map(r => r.value);
 
-                        html += `<div class="subsection">
-                            <div class="subsection-title">Readings</div>
-                            <div class="readings-list">`;
+                    // Collect readings
+                    const onyomi = group?.readings?.filter(r => r.type === 'ja_on').map(r => r.value) || [];
+                    const kunyomi = group?.readings?.filter(r => r.type === 'ja_kun').map(r => r.value) || [];
+                    const nanori = group?.readings?.filter(r => r.type === 'ja_nanori').map(r => r.value) || [];
 
-                        onyomi.forEach(r => html += `<span class="reading-chip onyomi">音: ${r}</span>`);
-                        kunyomi.forEach(r => html += `<span class="reading-chip kunyomi">訓: ${r}</span>`);
-                        nanori.forEach(r => html += `<span class="reading-chip nanori">名: ${r}</span>`);
+                    // Helper function to format readings with color-coded okurigana
+                    const formatReading = (reading) => {
+                        // Split on dots to separate kanji reading from okurigana
+                        const parts = reading.split('.');
+                        if (parts.length === 1) {
+                            // No okurigana, just return the reading
+                            return reading;
+                        }
+                        // Color the okurigana parts
+                        return parts.map((part, idx) => {
+                            if (idx === 0) return part; // First part is the kanji reading
+                            return `<span style="color: #95a5a6;">${part}</span>`; // Okurigana in gray
+                        }).join('.');
+                    };
 
-                        html += `</div></div>`;
-                    }
-
-                    // Meanings
-                    if (group?.meanings) {
-                        html += `<div class="subsection">
-                            <div class="subsection-title">Meanings</div>`;
-                        group.meanings.forEach(m => {
-                            // Handle both string and object formats
-                            const meaning = typeof m === 'string' ? m : (m.value || m.text || m);
-                            html += `<div class="list-item">${meaning}</div>`;
-                        });
+                    // On'yomi readings (katakana)
+                    if (onyomi.length > 0) {
+                        html += `<div style="margin-bottom: 12px; line-height: 1.8;">`;
+                        html += `<span style="font-size: 20px; color: #e74c3c; font-family: 'MS Mincho', serif;">`;
+                        html += onyomi.map(r => formatReading(r)).join('、');
+                        html += `</span>`;
                         html += `</div>`;
                     }
+
+                    // Kun'yomi readings (hiragana with okurigana)
+                    if (kunyomi.length > 0) {
+                        html += `<div style="margin-bottom: 12px; line-height: 1.8;">`;
+                        html += `<span style="font-size: 18px; color: #27ae60; font-family: 'MS Mincho', serif;">`;
+                        html += kunyomi.map(r => formatReading(r)).join('、');
+                        html += `</span>`;
+                        html += `</div>`;
+                    }
+
+                    // Nanori readings (name readings)
+                    if (nanori.length > 0) {
+                        html += `<div style="margin-bottom: 12px; line-height: 1.8;">`;
+                        html += `<span style="font-size: 14px; color: #7f8c8d;">Names (名乗り) </span>`;
+                        html += `<span style="font-size: 16px; color: #9b59b6; font-family: 'MS Mincho', serif;">`;
+                        html += nanori.map(r => formatReading(r)).join('、');
+                        html += `</span>`;
+                        html += `</div>`;
+                    }
+
+                    // Meanings on one line
+                    if (group?.meanings && group.meanings.length > 0) {
+                        const meanings = group.meanings.map(m =>
+                            typeof m === 'string' ? m : (m.value || m.text || m)
+                        ).join(', ');
+                        html += `<div style="margin-bottom: 15px; font-size: 16px; color: #2c3e50; line-height: 1.6;">${meanings}</div>`;
+                    }
                 }
 
-                // Radicals
+                // Compact stats line
+                html += `<div style="display: flex; gap: 20px; align-items: center; padding: 12px 0; border-top: 1px solid #e9ecef; font-size: 14px; color: #7f8c8d;">`;
+
+                if (char.misc?.strokeCounts && char.misc.strokeCounts.length > 0) {
+                    html += `<span>✏️ ${char.misc.strokeCounts[0]} strokes</span>`;
+                }
+
+                if (char.misc?.frequency) {
+                    html += `<span>📊 Freq. ${char.misc.frequency.toLocaleString()} / 2,500</span>`;
+                }
+
+                if (char.misc?.grade) {
+                    html += `<span>🎓 Grade ${char.misc.grade}</span>`;
+                }
+
+                if (char.misc?.jlptLevel) {
+                    html += `<span class="badge" style="background: #fff3cd; color: #856404;">JLPT ${char.misc.jlptLevel}</span>`;
+                }
+
+                html += `</div>`;
+
+                // Radicals (if present)
                 if (char.radicals && char.radicals.length > 0) {
-                    html += `<div class="subsection">
-                        <div class="subsection-title">Radicals</div>
-                        <div class="data-grid">`;
-                    char.radicals.forEach(rad => {
-                        html += `<div class="data-item japanese">
-                            <div class="data-label">${rad.type}</div>
-                            <div class="data-value large">${rad.value}</div>
-                        </div>`;
-                    });
-                    html += `</div></div>`;
-                }
-
-                // Misc info
-                if (char.misc) {
-                    html += `<div class="subsection">
-                        <div class="subsection-title">Information</div>
-                        <div class="stats-grid">`;
-                    if (char.misc.grade) {
-                        html += `<div class="stat-item">
-                            <div class="stat-value">${char.misc.grade}</div>
-                            <div class="stat-label">Grade</div>
-                        </div>`;
-                    }
-                    if (char.misc.strokeCounts && char.misc.strokeCounts.length > 0) {
-                        html += `<div class="stat-item">
-                            <div class="stat-value">${char.misc.strokeCounts[0]}</div>
-                            <div class="stat-label">Strokes</div>
-                        </div>`;
-                    }
-                    if (char.misc.jlptLevel) {
-                        html += `<div class="stat-item">
-                            <div class="stat-value">N${char.misc.jlptLevel}</div>
-                            <div class="stat-label">JLPT</div>
-                        </div>`;
-                    }
-                    if (char.misc.frequency) {
-                        html += `<div class="stat-item">
-                            <div class="stat-value">${char.misc.frequency}</div>
-                            <div class="stat-label">Frequency</div>
-                        </div>`;
-                    }
-                    html += `</div></div>`;
-                }
-
+                    html += `<div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid #e9ecef; font-size: 13px; color: #7f8c8d;">`;
+                    html += `<span style="font-weight: 600;">Radicals:</span> `;
+                    html += char.radicals.map(rad => `${rad.type}: ${rad.value}`).join(', ');
+                    html += `</div>`;
                 html += `</div></div>`;
                 return html;
             }
