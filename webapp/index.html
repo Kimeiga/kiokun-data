@@ -710,11 +710,6 @@
                     html += `</div></div>`;
                 }
 
-                // STATISTICS (detailed character statistics)
-                if (chineseChar?.statistics) {
-                    html += this.renderChineseWordStatistics(chineseChar.statistics);
-                }
-
                 // MEANINGS (simplified - no header)
                 html += `<div style="margin-bottom: 20px;">`;
 
@@ -831,6 +826,11 @@
                     }
 
                     html += `</div>`;
+                }
+
+                // STATISTICS (detailed character statistics at the bottom)
+                if (chineseChar?.statistics) {
+                    html += this.renderChineseWordStatistics(chineseChar.statistics);
                 }
 
                 html += `</div></div>`;
