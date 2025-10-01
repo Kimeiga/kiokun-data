@@ -547,13 +547,7 @@
             }
 
             renderUnifiedCharacter(chineseChar, japaneseChar, key) {
-                let html = `
-                    <div class="section">
-                        <div class="section-header" style="background: linear-gradient(135deg, #3498db 0%, #e74c3c 100%);">
-                            📝 Character
-                        </div>
-                        <div class="section-content">
-                `;
+                let html = `<div class="section"><div class="section-content">`;
 
                 // Get HSK level from chinese_words if not in character
                 let hskLevel = chineseChar?.hskLevel;
@@ -953,26 +947,9 @@
             }
 
             renderChineseWords(words) {
-                let html = `
-                    <div class="section">
-                        <div class="section-header chinese">📖 Chinese Words</div>
-                        <div class="section-content">
-                `;
+                let html = `<div class="section"><div class="section-content" style="padding: 20px;">`;
 
                 words.forEach(word => {
-                    html += `<div class="word-entry">`;
-
-                    // Word header
-                    html += `<div style="margin-bottom: 15px;">
-                        <span style="font-size: 24px; font-weight: bold; font-family: 'SimSun', serif;">${word.simp}</span>`;
-                    if (word.trad && word.trad !== word.simp) {
-                        html += ` <span style="font-size: 20px; color: #7f8c8d;">(${word.trad})</span>`;
-                    }
-                    if (word.gloss) {
-                        html += ` <span style="margin-left: 15px; color: #27ae60; font-weight: 600;">${word.gloss}</span>`;
-                    }
-                    html += `</div>`;
-
                     // Items (different pronunciations/definitions)
                     if (word.items && word.items.length > 0) {
                         // Filter out items without definitions
@@ -981,23 +958,21 @@
                         );
 
                         itemsWithDefs.forEach(item => {
-                            html += `<div style="margin-bottom: 15px; padding: 15px; background: #f8f9fa; border-radius: 8px;">`;
+                            html += `<div style="margin-bottom: 15px;">`;
 
                             if (item.pinyin) {
-                                html += `<div class="word-reading">${item.pinyin}</div>`;
+                                html += `<div style="font-weight: 600; color: #3498db; margin-bottom: 6px;">${item.pinyin}</div>`;
                             }
 
                             if (item.definitions && item.definitions.length > 0) {
                                 // Join all definitions with semicolons on one line
                                 const definitionsText = item.definitions.join('; ');
-                                html += `<div class="definition-text" style="margin: 10px 0; line-height: 1.6;">${definitionsText}</div>`;
+                                html += `<div style="color: #2c3e50; line-height: 1.6;">${definitionsText}</div>`;
                             }
 
                             html += `</div>`;
                         });
                     }
-
-                    html += `</div>`;
                 });
 
                 html += `</div></div>`;
@@ -1089,17 +1064,13 @@
             }
 
             renderJapaneseWords(wordEntries, currentKey) {
-                let html = `
-                    <div class="section">
-                        <div class="section-header japanese">📖 Japanese Words</div>
-                        <div class="section-content">
-                `;
+                let html = `<div class="section"><div class="section-content" style="padding: 20px;">`;
 
                 wordEntries.forEach(({ word, isDirect, sourceKey }) => {
-                    html += `<div class="word-entry">`;
+                    html += `<div style="margin-bottom: 20px;">`;
 
                     // Kanji and Kana on one line
-                    html += `<div style="margin-bottom: 8px; line-height: 1.8;">`;
+                    html += `<div style="margin-bottom: 8px;">`;
 
                     // Show all kanji forms (comma separated)
                     if (word.kanji && word.kanji.length > 0) {
@@ -1110,12 +1081,12 @@
                             }
                             return k.text;
                         }).join(', ');
-                        html += `<span style="font-size: 20px; font-family: 'MS Mincho', serif;">${kanjiTexts}</span> `;
+                        html += `<span style="font-size: 18px; font-family: 'MS Mincho', serif; font-weight: 600;">${kanjiTexts}</span> `;
                     }
 
                     // Kana readings
                     if (word.kana && word.kana.length > 0) {
-                        html += `<span style="font-size: 18px; color: #e74c3c; font-family: 'MS Mincho', serif;">[${word.kana.map(k => k.text).join(', ')}]</span>`;
+                        html += `<span style="font-size: 16px; color: #e74c3c; font-family: 'MS Mincho', serif;">[${word.kana.map(k => k.text).join(', ')}]</span>`;
                     }
 
                     html += `</div>`;
@@ -1123,7 +1094,7 @@
                     // Senses (meanings) - inline tags with definitions
                     if (word.sense && word.sense.length > 0) {
                         word.sense.forEach((sense, idx) => {
-                            html += `<div style="margin-bottom: 10px; line-height: 1.8;">`;
+                            html += `<div style="margin-bottom: 8px; line-height: 1.6;">`;
 
                             // Part of speech tags inline
                             if (sense.partOfSpeech && sense.partOfSpeech.length > 0) {
