@@ -1,0 +1,994 @@
+{
+"field_label_agric": {
+    "message": "agriculture",
+    "description": "Label applied to senses with the 'agric' field"
+  },
+  "field_label_anat": {
+    "message": "anatomy",
+    "description": "Label applied to senses with the 'anat' field"
+  },
+  "field_label_archeol": {
+    "message": "archeolology",
+    "description": "Label applied to senses with the 'archeol' field"
+  },
+  "field_label_archit": {
+    "message": "architecture",
+    "description": "Label applied to senses with the 'archit' field"
+  },
+  "field_label_art": {
+    "message": "art",
+    "description": "Label applied to senses with the 'art' field"
+  },
+  "field_label_astron": {
+    "message": "astronomy",
+    "description": "Label applied to senses with the 'astron' field"
+  },
+  "field_label_audvid": {
+    "message": "audiovisual",
+    "description": "Label applied to senses with the 'audvid' field"
+  },
+  "field_label_aviat": {
+    "message": "aviation",
+    "description": "Label applied to senses with the 'aviat' field"
+  },
+  "field_label_baseb": {
+    "message": "baseball",
+    "description": "Label applied to senses with the 'baseb' field"
+  },
+  "field_label_biochem": {
+    "message": "biochemistry",
+    "description": "Label applied to senses with the 'biochem' field"
+  },
+  "field_label_biol": {
+    "message": "biology",
+    "description": "Label applied to senses with the 'biol' field"
+  },
+  "field_label_bot": {
+    "message": "botany",
+    "description": "Label applied to senses with the 'bot' field"
+  },
+  "field_label_boxing": {
+    "message": "boxing",
+    "description": "Label applied to senses with the 'boxing' field"
+  },
+  "field_label_Buddh": {
+    "message": "Buddhism",
+    "description": "Label applied to senses with the 'Buddh' field"
+  },
+  "field_label_bus": {
+    "message": "business",
+    "description": "Label applied to senses with the 'bus' field"
+  },
+  "field_label_cards": {
+    "message": "card games",
+    "description": "Label applied to senses with the 'cards' field"
+  },
+  "field_label_chem": {
+    "message": "chemistry",
+    "description": "Label applied to senses with the 'chem' field"
+  },
+  "field_label_chmyth": {
+    "message": "Chinese myth.",
+    "description": "Label applied to senses with the 'chmyth' field"
+  },
+  "field_label_Christn": {
+    "message": "Christianity",
+    "description": "Label applied to senses with the 'Christn' field"
+  },
+  "field_label_civeng": {
+    "message": "civil eng.",
+    "description": "Label applied to senses with the 'civeng' field"
+  },
+  "field_label_cloth": {
+    "message": "clothing",
+    "description": "Label applied to senses with the 'cloth' field"
+  },
+  "field_label_comp": {
+    "message": "computing",
+    "description": "Label applied to senses with the 'comp' field"
+  },
+  "field_label_cryst": {
+    "message": "crystallography",
+    "description": "Label applied to senses with the 'cryst' field"
+  },
+  "field_label_dent": {
+    "message": "dentistry",
+    "description": "Label applied to senses with the 'dent' field"
+  },
+  "field_label_ecol": {
+    "message": "ecology",
+    "description": "Label applied to senses with the 'ecol' field"
+  },
+  "field_label_econ": {
+    "message": "economics",
+    "description": "Label applied to senses with the 'econ' field"
+  },
+  "field_label_elec": {
+    "message": "electricity",
+    "description": "Label applied to senses with the 'elec' field"
+  },
+  "field_label_electr": {
+    "message": "electronics",
+    "description": "Label applied to senses with the 'electr' field"
+  },
+  "field_label_embryo": {
+    "message": "embryology",
+    "description": "Label applied to senses with the 'embryo' field"
+  },
+  "field_label_engr": {
+    "message": "engineering",
+    "description": "Label applied to senses with the 'engr' field"
+  },
+  "field_label_ent": {
+    "message": "entomology",
+    "description": "Label applied to senses with the 'ent' field"
+  },
+  "field_label_figskt": {
+    "message": "figure skating",
+    "description": "Label applied to senses with the 'figskt' field"
+  },
+  "field_label_film": {
+    "message": "film",
+    "description": "Label applied to senses with the 'film' field"
+  },
+  "field_label_finc": {
+    "message": "finance",
+    "description": "Label applied to senses with the 'finc' field"
+  },
+  "field_label_fish": {
+    "message": "fishing",
+    "description": "Label applied to senses with the 'fish' field"
+  },
+  "field_label_food": {
+    "message": "food",
+    "description": "Label applied to senses with the 'food' field"
+  },
+  "field_label_gardn": {
+    "message": "gardening",
+    "description": "Label applied to senses with the 'gardn' field"
+  },
+  "field_label_genet": {
+    "message": "genetics",
+    "description": "Label applied to senses with the 'genet' field"
+  },
+  "field_label_geogr": {
+    "message": "geography",
+    "description": "Label applied to senses with the 'geogr' field"
+  },
+  "field_label_geol": {
+    "message": "geology",
+    "description": "Label applied to senses with the 'geol' field"
+  },
+  "field_label_geom": {
+    "message": "geometry",
+    "description": "Label applied to senses with the 'geom' field"
+  },
+  "field_label_go": {
+    "message": "Go",
+    "description": "Label applied to senses with the 'go' field"
+  },
+  "field_label_golf": {
+    "message": "golf",
+    "description": "Label applied to senses with the 'golf' field"
+  },
+  "field_label_gramm": {
+    "message": "grammar",
+    "description": "Label applied to senses with the 'gramm' field"
+  },
+  "field_label_grmyth": {
+    "message": "Greek mythology",
+    "description": "Label applied to senses with the 'grmyth' field"
+  },
+  "field_label_hanaf": {
+    "message": "hanafuda",
+    "description": "Label applied to senses with the 'hanaf' field"
+  },
+  "field_label_horse": {
+    "message": "horse racing",
+    "description": "Label applied to senses with the 'horse' field"
+  },
+  "field_label_internet": {
+    "message": "Internet",
+    "description": "Label applied to senses with the 'internet' field"
+  },
+  "field_label_jpmyth": {
+    "message": "Japanese myth.",
+    "description": "Label applied to senses with the 'jpmyth' field"
+  },
+  "field_label_kabuki": {
+    "message": "kabuki",
+    "description": "Label applied to senses with the 'kabuki' field"
+  },
+  "field_label_law": {
+    "message": "law",
+    "description": "Label applied to senses with the 'law' field"
+  },
+  "field_label_ling": {
+    "message": "linguistics",
+    "description": "Label applied to senses with the 'ling' field"
+  },
+  "field_label_logic": {
+    "message": "logic",
+    "description": "Label applied to senses with the 'logic' field"
+  },
+  "field_label_MA": {
+    "message": "martial arts",
+    "description": "Label applied to senses with the 'MA' field"
+  },
+  "field_label_mahj": {
+    "message": "mahjong",
+    "description": "Label applied to senses with the 'mahj' field"
+  },
+  "field_label_manga": {
+    "message": "manga",
+    "description": "Label applied to senses with the 'manga' field"
+  },
+  "field_label_math": {
+    "message": "mathematics",
+    "description": "Label applied to senses with the 'math' field"
+  },
+  "field_label_mech": {
+    "message": "mechanical engineering",
+    "description": "Label applied to senses with the 'mech' field"
+  },
+  "field_label_med": {
+    "message": "medicine",
+    "description": "Label applied to senses with the 'med' field"
+  },
+  "field_label_met": {
+    "message": "climate, weather",
+    "description": "Label applied to senses with the 'met' field"
+  },
+  "field_label_mil": {
+    "message": "military",
+    "description": "Label applied to senses with the 'mil' field"
+  },
+  "field_label_min": {
+    "message": "mineralogy",
+    "description": "Label applied to senses with the 'min' field"
+  },
+  "field_label_mining": {
+    "message": "mining",
+    "description": "Label applied to senses with the 'mining' field"
+  },
+  "field_label_motor": {
+    "message": "motorsport",
+    "description": "Label applied to senses with the 'motor' field"
+  },
+  "field_label_music": {
+    "message": "music",
+    "description": "Label applied to senses with the 'music' field"
+  },
+  "field_label_noh": {
+    "message": "Noh",
+    "description": "Label applied to senses with the 'noh' field"
+  },
+  "field_label_ornith": {
+    "message": "ornithology",
+    "description": "Label applied to senses with the 'ornith' field"
+  },
+  "field_label_paleo": {
+    "message": "paleontology",
+    "description": "Label applied to senses with the 'paleo' field"
+  },
+  "field_label_pathol": {
+    "message": "pathology",
+    "description": "Label applied to senses with the 'pathol' field"
+  },
+  "field_label_pharm": {
+    "message": "pharmacology",
+    "description": "Label applied to senses with the 'pharm' field"
+  },
+  "field_label_phil": {
+    "message": "philosophy",
+    "description": "Label applied to senses with the 'phil' field"
+  },
+  "field_label_photo": {
+    "message": "photography",
+    "description": "Label applied to senses with the 'photo' field"
+  },
+  "field_label_physics": {
+    "message": "physics",
+    "description": "Label applied to senses with the 'physics' field"
+  },
+  "field_label_physiol": {
+    "message": "physiology",
+    "description": "Label applied to senses with the 'physiol' field"
+  },
+  "field_label_politics": {
+    "message": "politics",
+    "description": "Label applied to senses with the 'politics' field"
+  },
+  "field_label_print": {
+    "message": "printing",
+    "description": "Label applied to senses with the 'print' field"
+  },
+  "field_label_prowres": {
+    "message": "wrestling",
+    "description": "Label applied to senses with the 'prowres' field"
+  },
+  "field_label_psy": {
+    "message": "psychiatry",
+    "description": "Label applied to senses with the 'psy' field"
+  },
+  "field_label_psyanal": {
+    "message": "psychoanalysis",
+    "description": "Label applied to senses with the 'psyanal' field"
+  },
+  "field_label_psych": {
+    "message": "psychology",
+    "description": "Label applied to senses with the 'psych' field"
+  },
+  "field_label_rail": {
+    "message": "railway",
+    "description": "Label applied to senses with the 'rail' field"
+  },
+  "field_label_rommyth": {
+    "message": "Roman mythology",
+    "description": "Label applied to senses with the 'rommyth' field"
+  },
+  "field_label_Shinto": {
+    "message": "Shinto",
+    "description": "Label applied to senses with the 'Shinto' field"
+  },
+  "field_label_shogi": {
+    "message": "shogi",
+    "description": "Label applied to senses with the 'shogi' field"
+  },
+  "field_label_ski": {
+    "message": "skiing",
+    "description": "Label applied to senses with the 'ski' field"
+  },
+  "field_label_sports": {
+    "message": "sports",
+    "description": "Label applied to senses with the 'sports' field"
+  },
+  "field_label_stat": {
+    "message": "statistics",
+    "description": "Label applied to senses with the 'stat' field"
+  },
+  "field_label_stockm": {
+    "message": "stock market",
+    "description": "Label applied to senses with the 'stockm' field"
+  },
+  "field_label_sumo": {
+    "message": "sumo",
+    "description": "Label applied to senses with the 'sumo' field"
+  },
+  "field_label_surg": {
+    "message": "surgery",
+    "description": "Label applied to senses with the 'surg' field"
+  },
+  "field_label_telec": {
+    "message": "telecommunications",
+    "description": "Label applied to senses with the 'telec' field"
+  },
+  "field_label_tradem": {
+    "message": "trademark",
+    "description": "Label applied to senses with the 'tradem' field"
+  },
+  "field_label_tv": {
+    "message": "TV",
+    "description": "Label applied to senses with the 'tv' field"
+  },
+  "field_label_vet": {
+    "message": "veterinary",
+    "description": "Label applied to senses with the 'vet' field"
+  },
+  "field_label_vidg": {
+    "message": "video games",
+    "description": "Label applied to senses with the 'vidg' field"
+  },
+  "field_label_zool": {
+    "message": "zoology",
+    "description": "Label applied to senses with the 'zool' field"
+  },
+  "gloss_type_label_expl": {
+    "message": "explanation",
+    "description": "Short annotation used to represent the expl (explanation) gloss type"
+  },
+  "gloss_type_label_fig": {
+    "message": "figurative",
+    "description": "Short annotation used to represent the fig (figurative) gloss type"
+  },
+  "gloss_type_label_lit": {
+    "message": "literally",
+    "description": "Short annotation used to represent the lit (literally) gloss type"
+  },
+  "gloss_type_short_expl": {
+    "message": "expl.",
+    "description": "Short annotation used to represent the expl (explanation) gloss type when copying entries to the clipboard"
+  },
+  "gloss_type_short_fig": {
+    "message": "fig.",
+    "description": "Short annotation used to represent the expl (explanation) gloss type when copying entries to the clipboard"
+  },
+  "gloss_type_short_lit": {
+    "message": "lit.",
+    "description": "Short annotation used to represent the expl (explanation) gloss type when copying entries to the clipboard"
+  },
+  "head_info_label_ateji": {
+    "message": "ateji",
+    "description": "Short annotation given to kanji headwords that are ateji (kanji chosen to represent sounds)"
+  },
+  "head_info_label_gikun": {
+    "message": "gikun",
+    "description": "Short annotation given to kana headwords with gikun (meaning as reading) or jukujikun (special kanji reading)"
+  },
+  "head_info_label_ikana": {
+    "message": "irreg.",
+    "description": "Short annotation given to (mostly?) kana headwords that have rare use of kana"
+  },
+  "head_info_label_ikanji": {
+    "message": "irreg.",
+    "description": "Short annotation given to kanji headwords that have rare use of kanji"
+  },
+  "head_info_label_io": {
+    "message": "irreg.",
+    "description": "Short annotation given to kanji headwords that have rare use of okurigana"
+  },
+  "head_info_label_okana": {
+    "message": "old",
+    "description": "Short annotation given to kana headwords that use out-dated kana"
+  },
+  "head_info_label_okanji": {
+    "message": "old",
+    "description": "Short annotation given to kanji headwords that use out-dated kanji"
+  },
+  "head_info_label_rkana": {
+    "message": "rare",
+    "description": "Short annotation given to kana headwords that use rarely-used kana forms"
+  },
+  "head_info_label_rkanji": {
+    "message": "rare",
+    "description": "Short annotation given to kanji headwords that use rarely-used kanji forms"
+  },
+  "lang_label_af": {
+    "message": "Afrikaans",
+    "description": "Label used to describe senses whose source language is 'af' (Afrikaans)"
+  },
+  "lang_label_ain": {
+    "message": "Ainu",
+    "description": "Label used to describe senses whose source language is 'ain' (Ainu)"
+  },
+  "lang_label_alg": {
+    "message": "Algonquian",
+    "description": "Label used to describe senses whose source language is 'alg' (Algonquian)"
+  },
+  "lang_label_am": {
+    "message": "Amharic",
+    "description": "Label used to describe senses whose source language is 'am' (Amharic)"
+  },
+  "lang_label_ar": {
+    "message": "Arabic",
+    "description": "Label used to describe senses whose source language is 'ar' (Arabic)"
+  },
+  "lang_label_arn": {
+    "message": "Mapuche",
+    "description": "Label used to describe senses whose source language is 'arn' (Mapuche)"
+  },
+  "lang_label_bg": {
+    "message": "Bulgarian",
+    "description": "Label used to describe senses whose source language is 'bg' (Bulgarian)"
+  },
+  "lang_label_bnt": {
+    "message": "Bantu",
+    "description": "Label used to describe senses whose source language is 'bnt' (Bantu)"
+  },
+  "lang_label_bo": {
+    "message": "Tibetan",
+    "description": "Label used to describe senses whose source language is 'bo' (Tibetan)"
+  },
+  "lang_label_br": {
+    "message": "Breton",
+    "description": "Label used to describe senses whose source language is 'br' (Breton)"
+  },
+  "lang_label_chn": {
+    "message": "Chinook",
+    "description": "Label used to describe senses whose source language is 'chn' (Chinook)"
+  },
+  "lang_label_cs": {
+    "message": "Czech",
+    "description": "Label used to describe senses whose source language is 'cs' (Czech)"
+  },
+  "lang_label_da": {
+    "message": "Danish",
+    "description": "Label used to describe senses whose source language is 'da' (Danish)"
+  },
+  "lang_label_de": {
+    "message": "German",
+    "description": "Label used to describe senses whose source language is 'de' (German)"
+  },
+  "lang_label_el": {
+    "message": "Greek",
+    "description": "Label used to describe senses whose source language is 'el' (Greek)"
+  },
+  "lang_label_en": {
+    "message": "English",
+    "description": "Label used to describe senses whose source language is 'en' (English)"
+  },
+  "lang_label_eo": {
+    "message": "Esperanto",
+    "description": "Label used to describe senses whose source language is 'eo' (Esperanto)"
+  },
+  "lang_label_es": {
+    "message": "Spanish",
+    "description": "Label used to describe senses whose source language is 'es' (Spanish)"
+  },
+  "lang_label_et": {
+    "message": "Estonian",
+    "description": "Label used to describe senses whose source language is 'et' (Estonian)"
+  },
+  "lang_label_fa": {
+    "message": "Persian",
+    "description": "Label used to describe senses whose source language is 'fa' (Persian)"
+  },
+  "lang_label_fi": {
+    "message": "Finnish",
+    "description": "Label used to describe senses whose source language is 'fi' (Finnish)"
+  },
+  "lang_label_fil": {
+    "message": "Filipino",
+    "description": "Label used to describe senses whose source language is 'fil' (Filipino)"
+  },
+  "lang_label_fr": {
+    "message": "French",
+    "description": "Label used to describe senses whose source language is 'fr' (French)"
+  },
+  "lang_label_gl": {
+    "message": "Galician",
+    "description": "Label used to describe senses whose source language is 'gl' (Galician)"
+  },
+  "lang_label_grc": {
+    "message": "Ancient Greek",
+    "description": "Label used to describe senses whose source language is 'grc' (Ancient Greek)"
+  },
+  "lang_label_haw": {
+    "message": "Hawaiian",
+    "description": "Label used to describe senses whose source language is 'haw' (Hawaiian)"
+  },
+  "lang_label_he": {
+    "message": "Hebrew",
+    "description": "Label used to describe senses whose source language is 'he' (Hebrew)"
+  },
+  "lang_label_hi": {
+    "message": "Hindi",
+    "description": "Label used to describe senses whose source language is 'hi' (Hindi)"
+  },
+  "lang_label_hr": {
+    "message": "Croatian",
+    "description": "Label used to describe senses whose source language is 'hr' (Croatian)"
+  },
+  "lang_label_hu": {
+    "message": "Hungarian",
+    "description": "Label used to describe senses whose source language is 'hu' (Hungarian)"
+  },
+  "lang_label_id": {
+    "message": "Indonesian",
+    "description": "Label used to describe senses whose source language is 'id' (Indonesian)"
+  },
+  "lang_label_is": {
+    "message": "Icelandic",
+    "description": "Label used to describe senses whose source language is 'is' (Icelandic)"
+  },
+  "lang_label_it": {
+    "message": "Italian",
+    "description": "Label used to describe senses whose source language is 'it' (Italian)"
+  },
+  "lang_label_ka": {
+    "message": "Georgian",
+    "description": "Label used to describe senses whose source language is 'ka' (Georgian)"
+  },
+  "lang_label_km": {
+    "message": "Khmer",
+    "description": "Label used to describe senses whose source language is 'km' (Khmer)"
+  },
+  "lang_label_ko": {
+    "message": "Korean",
+    "description": "Label used to describe senses whose source language is 'ko' (Korean)"
+  },
+  "lang_label_ku": {
+    "message": "Kurdish",
+    "description": "Label used to describe senses whose source language is 'ku' (Kurdish)"
+  },
+  "lang_label_la": {
+    "message": "Latin",
+    "description": "Label used to describe senses whose source language is 'la' (Latin)"
+  },
+  "lang_label_lt": {
+    "message": "Lithuanian",
+    "description": "Label used to describe senses whose source language is 'lt' (Lithuanian)"
+  },
+  "lang_label_mi": {
+    "message": "Māori",
+    "description": "Label used to describe senses whose source language is 'mi' (Maori)"
+  },
+  "lang_label_ml": {
+    "message": "Malayalam",
+    "description": "Label used to describe senses whose source language is 'ml' (Malayalam)"
+  },
+  "lang_label_mn": {
+    "message": "Mongolian",
+    "description": "Label used to describe senses whose source language is 'mn' (Mongolian)"
+  },
+  "lang_label_mnc": {
+    "message": "Manchu",
+    "description": "Label used to describe senses whose source language is 'mnc' (Manchu)"
+  },
+  "lang_label_mo": {
+    "message": "Moldavian",
+    "description": "Label used to describe senses whose source language is 'mo' (Moldavian)"
+  },
+  "lang_label_ms": {
+    "message": "Malay",
+    "description": "Label used to describe senses whose source language is 'ms' (Malay)"
+  },
+  "lang_label_my": {
+    "message": "Burmese",
+    "description": "Label used to describe senses whose source language is 'my' (Burmese)"
+  },
+  "lang_label_nl": {
+    "message": "Dutch",
+    "description": "Label used to describe senses whose source language is 'nl' (Dutch)"
+  },
+  "lang_label_no": {
+    "message": "Norwegian",
+    "description": "Label used to describe senses whose source language is 'no' (Norwegian)"
+  },
+  "lang_label_pl": {
+    "message": "Polish",
+    "description": "Label used to describe senses whose source language is 'pl' (Polish)"
+  },
+  "lang_label_pt": {
+    "message": "Portuguese",
+    "description": "Label used to describe senses whose source language is 'pt' (Portuguese)"
+  },
+  "lang_label_ro": {
+    "message": "Romanian",
+    "description": "Label used to describe senses whose source language is 'ro' (Romanian)"
+  },
+  "lang_label_ru": {
+    "message": "Russian",
+    "description": "Label used to describe senses whose source language is 'ru' (Russian)"
+  },
+  "lang_label_sa": {
+    "message": "Sanskrit",
+    "description": "Label used to describe senses whose source language is 'sa' (Sanskrit)"
+  },
+  "lang_label_sk": {
+    "message": "Slovak",
+    "description": "Label used to describe senses whose source language is 'sk' (Slovak)"
+  },
+  "lang_label_sl": {
+    "message": "Slovenian",
+    "description": "Label used to describe senses whose source language is 'sl' (Slovenian)"
+  },
+  "lang_label_so": {
+    "message": "Somali",
+    "description": "Label used to describe senses whose source language is 'so' (Somali)"
+  },
+  "lang_label_sv": {
+    "message": "Swedish",
+    "description": "Label used to describe senses whose source language is 'sv' (Swedish)"
+  },
+  "lang_label_sw": {
+    "message": "Swahili",
+    "description": "Label used to describe senses whose source language is 'sw' (Swahili)"
+  },
+  "lang_label_ta": {
+    "message": "Tamil",
+    "description": "Label used to describe senses whose source language is 'ta' (Tamil)"
+  },
+  "lang_label_th": {
+    "message": "Thai",
+    "description": "Label used to describe senses whose source language is 'th' (Thai)"
+  },
+  "lang_label_tl": {
+    "message": "Tagalog",
+    "description": "Label used to describe senses whose source language is 'tl' (Tagalog)"
+  },
+  "lang_label_tr": {
+    "message": "Turkish",
+    "description": "Label used to describe senses whose source language is 'tr' (Turkish)"
+  },
+  "lang_label_ty": {
+    "message": "Tahitian",
+    "description": "Label used to describe senses whose source language is 'ty' (Tahitian)"
+  },
+  "lang_label_uk": {
+    "message": "Ukrainian",
+    "description": "Label used to describe senses whose source language is 'uk' (Ukrainian)"
+  },
+  "lang_label_ur": {
+    "message": "Urdu",
+    "description": "Label used to describe senses whose source language is 'ur' (Urdu)"
+  },
+  "lang_label_uz": {
+    "message": "Uzbek",
+    "description": "Label used to describe senses whose source language is 'uz' (Uzbek)"
+  },
+  "lang_label_vi": {
+    "message": "Vietnamese",
+    "description": "Label used to describe senses whose source language is 'vi' (Vietnamese)"
+  },
+  "lang_label_yi": {
+    "message": "Yiddish",
+    "description": "Label used to describe senses whose source language is 'yi' (Yiddish)"
+  },
+  "lang_label_zh": {
+    "message": "Chinese",
+    "description": "Label used to describe senses whose source language is 'zh' (Chinese)"
+  },
+  "lang_lsrc_prefix": {
+    "message": " (from ",
+    "description": "The start of the text used to indicate a source language, e.g. ' (from English)'"
+  },
+  "lang_lsrc_suffix": {
+    "message": ")",
+    "description": "The end of the text used to indicate a source language"
+  },
+  "lang_lsrc_wasei": {
+    "message": "wasei $lang$",
+    "placeholders": { "lang": { "content": "$1", "example": "English" } }
+  },
+  "lang_lsrc_wasei_prefix": {
+    "message": " (",
+    "description": "The start of the text used to indicate a source language when the first source language is waseigo, e.g. ' (wasei English)'"
+  },
+  "lang_tag": {
+    "message": "en",
+    "description": "The BCP-47 compatible language code used to tag content from this localization"
+  },
+  "measure_expl_chuukyouma": {
+    "message": " (Tōkai region)",
+    "description": "Parenthetical explanation used when presenting alternative conversions between 畳 and square metres"
+  },
+  "measure_expl_danchima": {
+    "message": " (Danchi)",
+    "description": "Parenthetical explanation used when presenting alternative conversions between 畳 and square metres"
+  },
+  "measure_expl_edoma": {
+    "message": " (East Japan)",
+    "description": "Parenthetical explanation used when presenting alternative conversions between 畳 and square metres"
+  },
+  "measure_expl_kyouma": {
+    "message": " (West Japan)",
+    "description": "Parenthetical explanation used when presenting alternative conversions between 畳 and square metres"
+  },
+  "menu_enable_extension": {
+    "message": "Enable 10ten reader",
+    "description": "Context menu item to enable the extension."
+  },
+  "menu_enable_puck": {
+    "message": "Enable lookup puck",
+    "description": "Context menu item to enable the puck."
+  },
+  "misc_label_abbr": {
+    "message": "abbrev.",
+    "description": "Label used to describe senses with the 'abbr' (abbrev.) annotation"
+  },
+  "misc_label_aphorism": {
+    "message": "aphorism",
+    "description": "Label used to describe senses with the 'aphorism' (pithy saying) annotation"
+  },
+  "misc_label_arch": {
+    "message": "archaic",
+    "description": "Label used to describe senses with the 'arch' (archaic) annotation"
+  },
+  "misc_label_char": {
+    "message": "character",
+    "description": "Label used to describe senses with the 'char' (character) annotation"
+  },
+  "misc_label_chn": {
+    "message": "children",
+    "description": "Label used to describe senses with the 'chn' (children) annotation"
+  },
+  "misc_label_col": {
+    "message": "colloquial",
+    "description": "Label used to describe senses with the 'col' (colloquial) annotation"
+  },
+  "misc_label_company": {
+    "message": "company",
+    "description": "Label used to describe senses with the 'company' (company) annotation"
+  },
+  "misc_label_creat": {
+    "message": "creature",
+    "description": "Label used to describe senses with the 'creat' (creature) annotation"
+  },
+  "misc_label_dated": {
+    "message": "dated",
+    "description": "Label used to describe senses with the 'dated' (dated) annotation"
+  },
+  "misc_label_dei": {
+    "message": "deity",
+    "description": "Label used to describe senses with the 'dei' (deity) annotation"
+  },
+  "misc_label_derog": {
+    "message": "derogatory",
+    "description": "Label used to describe senses with the 'derog' (derogatory) annotation"
+  },
+  "misc_label_doc": {
+    "message": "document",
+    "description": "Label used to describe senses with the 'doc' (document) annotation"
+  },
+  "misc_label_euph": {
+    "message": "euphemistic",
+    "description": "Label used to describe senses with the 'euph' (euphemistic) annotation"
+  },
+  "misc_label_ev": {
+    "message": "event",
+    "description": "Label used to describe senses with the 'ev' (event) annotation"
+  },
+  "misc_label_fam": {
+    "message": "familiar",
+    "description": "Label used to describe senses with the 'fam' (familiar) annotation"
+  },
+  "misc_label_fem": {
+    "message": "female term",
+    "description": "Label used to describe senses with the 'fem' (female term) annotation"
+  },
+  "misc_label_fict": {
+    "message": "fiction",
+    "description": "Label used to describe senses with the 'fict' (fiction) annotation"
+  },
+  "misc_label_form": {
+    "message": "formal",
+    "description": "Label used to describe senses with the 'form' (formal or literary term) annotation"
+  },
+  "misc_label_given": {
+    "message": "given name",
+    "description": "Label used to describe senses with the 'given' (given name) annotation"
+  },
+  "misc_label_group": {
+    "message": "group",
+    "description": "Label used to describe senses with the 'group' (musical group, band etc.) annotation"
+  },
+  "misc_label_hist": {
+    "message": "historical",
+    "description": "Label used to describe senses with the 'hist' (historical) annotation"
+  },
+  "misc_label_hon": {
+    "message": "honorific",
+    "description": "Label used to describe senses with the 'hon' (honorific) annotation"
+  },
+  "misc_label_hum": {
+    "message": "humble",
+    "description": "Label used to describe senses with the 'hum' (humble) annotation"
+  },
+  "misc_label_id": {
+    "message": "idiomatic",
+    "description": "Label used to describe senses with the 'id' (idiomatic) annotation"
+  },
+  "misc_label_joc": {
+    "message": "jocular",
+    "description": "Label used to describe senses with the 'joc' (jocular) annotation"
+  },
+  "misc_label_leg": {
+    "message": "legend",
+    "description": "Label used to describe senses with the 'leg' (legend) annotation"
+  },
+  "misc_label_m_sl": {
+    "message": "manga slang",
+    "description": "Label used to describe senses with the 'm-sl' (manga slang) annotation"
+  },
+  "misc_label_male": {
+    "message": "male",
+    "description": "Label used to describe senses with the 'male' (male) annotation"
+  },
+  "misc_label_myth": {
+    "message": "mythology",
+    "description": "Label used to describe senses with the 'myth' (mythology) annotation"
+  },
+  "misc_label_net_sl": {
+    "message": "Internet slang",
+    "description": "Label used to describe senses with the 'net-sl' (Internet slang) annotation"
+  },
+  "misc_label_obj": {
+    "message": "object",
+    "description": "Label used to describe senses with the 'obj' (object) annotation"
+  },
+  "misc_label_obs": {
+    "message": "obsolete",
+    "description": "Label used to describe senses with the 'obs' (obsolete) annotation"
+  },
+  "misc_label_obsc": {
+    "message": "obscure",
+    "description": "Label used to describe senses with the 'obsc' (obscure) annotation"
+  },
+  "misc_label_on_mim": {
+    "message": "onomatopoeia",
+    "description": "Label used to describe senses with the 'on-mim' (onomatopoeia) annotation"
+  },
+  "misc_label_organization": {
+    "message": "org.",
+    "description": "Label used to describe senses with the 'organization' (org.) annotation"
+  },
+  "misc_label_oth": {
+    "message": "other",
+    "description": "Label used to describe senses with the 'oth' (other) annotation"
+  },
+  "misc_label_person": {
+    "message": "person",
+    "description": "Label used to describe senses with the 'person' (person) annotation"
+  },
+  "misc_label_place": {
+    "message": "place",
+    "description": "Label used to describe senses with the 'place' (place) annotation"
+  },
+  "misc_label_poet": {
+    "message": "poetical",
+    "description": "Label used to describe senses with the 'poet' (poetical) annotation"
+  },
+  "misc_label_pol": {
+    "message": "polite",
+    "description": "Label used to describe senses with the 'pol' (polite) annotation"
+  },
+  "misc_label_product": {
+    "message": "product",
+    "description": "Label used to describe senses with the 'product' (product) annotation"
+  },
+  "misc_label_proverb": {
+    "message": "proverb",
+    "description": "Label used to describe senses with the 'proverb' (proverb) annotation"
+  },
+  "misc_label_quote": {
+    "message": "quote",
+    "description": "Label used to describe senses with the 'quote' (quote) annotation"
+  },
+  "misc_label_rare": {
+    "message": "rare",
+    "description": "Label used to describe senses with the 'rare' (rare) annotation"
+  },
+  "misc_label_relig": {
+    "message": "religion",
+    "description": "Label used to describe senses with the 'relig' (religion) annotation"
+  },
+  "misc_label_sens": {
+    "message": "sensitive",
+    "description": "Label used to describe senses with the 'sens' (sensitive) annotation"
+  },
+  "misc_label_serv": {
+    "message": "service",
+    "description": "Label used to describe senses with the 'serv' (service) annotation"
+  },
+  "misc_label_ship": {
+    "message": "ship",
+    "description": "Label used to describe senses with the 'ship' (ship) annotation"
+  },
+  "misc_label_sl": {
+    "message": "slang",
+    "description": "Label used to describe senses with the 'sl' (slang) annotation"
+  },
+  "misc_label_station": {
+    "message": "station",
+    "description": "Label used to describe senses with the 'station' (station) annotation"
+  },
+  "misc_label_surname": {
+    "message": "surname",
+    "description": "Label used to describe senses with the 'surname' (surname) annotation"
+  },
+  "misc_label_uk": {
+    "message": "usually kana",
+    "description": "Label used to describe senses with the 'uk' (usually kana) annotation"
+  },
+  "misc_label_unclass": {
+    "message": "unclassified",
+    "description": "Label used to describe senses with the 'unclass' (unclassified) annotation"
+  },
+  "misc_label_vulg": {
+    "message": "vulgar",
+    "description": "Label used to describe senses with the 'vulg' (vulgar) annotation"
+  },
+  "misc_label_work": {
+    "message": "work",
+    "description": "Label used to describe senses with the 'work' (work) annotation"
+  },
+  "misc_label_X": {
+    "message": "X-rated",
+    "description": "Label used to describe senses with the 'X' (X-rated) annotation"
+  },
+  "misc_label_yoji": {
+    "message": "yojijukugo",
+    "description": "Label used to describe senses with the 'yoji' (yojijukugo) annotation"
+  }
+}

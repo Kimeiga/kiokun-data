@@ -23,6 +23,8 @@ Thumbs.db
 output/
 *.json
 *.jsonl
+!webapp/japanese_labels.json
+!labels.json
 
 # Temporary files
 temp/
