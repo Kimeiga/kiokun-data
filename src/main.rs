@@ -1508,7 +1508,14 @@ async fn generate_simple_output_files(
 
         if let Some(ref japanese) = entry.japanese_entry {
             output.japanese_words.push(japanese.clone());
+        }
 
+        // IMPORTANT: Also add all japanese_specific_entries (additional entries with same key)
+        for additional_japanese in &entry.japanese_specific_entries {
+            output.japanese_words.push(additional_japanese.clone());
+        }
+
+        if let Some(ref japanese) = entry.japanese_entry {
             // Add cross-references for alternative kanji forms
             // If this word has multiple kanji forms, add references from each form to the primary key
             if japanese.kanji.len() > 1 {

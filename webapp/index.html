@@ -197,7 +197,6 @@
             font-weight: 600;
             color: #6c757d;
             margin-right: 8px;
-            text-transform: uppercase;
         }
 
         /* Character Components */
@@ -398,8 +397,46 @@
         class KiokunApp {
             constructor() {
                 this.currentWord = null;
+                this.labels = null;
                 this.setupEventListeners();
+                this.loadLabels();
                 this.loadFromURL();
+            }
+
+            async loadLabels() {
+                try {
+                    const response = await fetch('japanese_labels.json');
+                    this.labels = await response.json();
+                    console.log('Labels loaded successfully');
+                } catch (error) {
+                    console.error('Failed to load labels:', error);
+                    this.labels = {};
+                }
+            }
+
+            getPartOfSpeechLabel(pos) {
+                if (!this.labels?.partOfSpeech) return pos;
+                return this.labels.partOfSpeech[pos] || pos;
+            }
+
+            getMiscLabel(misc) {
+                if (!this.labels?.misc) return misc;
+                return this.labels.misc[misc] || misc;
+            }
+
+            getFieldLabel(field) {
+                if (!this.labels?.field) return field;
+                return this.labels.field[field] || field;
+            }
+
+            getDialectLabel(dialect) {
+                if (!this.labels?.dialect) return dialect;
+                return this.labels.dialect[dialect] || dialect;
+            }
+
+            getTagLabel(tag) {
+                if (!this.labels?.tag) return tag;
+                return this.labels.tag[tag] || tag;
             }
 
             setupEventListeners() {
@@ -1067,57 +1104,149 @@
                 let html = `<div class="section"><div class="section-content" style="padding: 20px;">`;
 
                 wordEntries.forEach(({ word, isDirect, sourceKey }) => {
-                    html += `<div style="margin-bottom: 20px;">`;
+                    html += `<div style="margin-bottom: 30px;">`;
 
-                    // Kanji and Kana on one line
-                    html += `<div style="margin-bottom: 8px;">`;
+                    // Kanji and Kana on one line (side by side)
+                    html += `<div style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px;">`;
 
-                    // Show all kanji forms (comma separated)
-                    if (word.kanji && word.kanji.length > 0) {
-                        const kanjiTexts = word.kanji.map(k => {
-                            // Bold the current character if it appears in the kanji
-                            if (!isDirect && k.text.includes(currentKey)) {
-                                return k.text.replace(new RegExp(currentKey, 'g'), `<strong>${currentKey}</strong>`);
-                            }
-                            return k.text;
-                        }).join(', ');
-                        html += `<span style="font-size: 18px; font-family: 'MS Mincho', serif; font-weight: 600;">${kanjiTexts}</span> `;
+                    // Main kanji (first one, or the one matching currentKey)
+                    const mainKanji = word.kanji.find(k => k.text === currentKey || k.text.includes(currentKey)) || word.kanji[0];
+                    if (mainKanji) {
+                        html += `<div style="font-size: 32px; font-family: 'MS Mincho', serif; font-weight: 600;">${mainKanji.text}</div>`;
                     }
 
-                    // Kana readings
-                    if (word.kana && word.kana.length > 0) {
-                        html += `<span style="font-size: 16px; color: #e74c3c; font-family: 'MS Mincho', serif;">[${word.kana.map(k => k.text).join(', ')}]</span>`;
+                    // Only show kana readings that apply to the main kanji
+                    if (word.kana && word.kana.length > 0 && mainKanji) {
+                        const applicableReadings = word.kana.filter(kana => {
+                            if (!kana.appliesToKanji) return false;
+                            return kana.appliesToKanji.includes('*') || kana.appliesToKanji.includes(mainKanji.text);
+                        }).map(kana => kana.text);
+
+                        if (applicableReadings.length > 0) {
+                            html += `<div style="font-size: 18px; color: #e74c3c; font-family: 'MS Mincho', serif;">[${applicableReadings.join(', ')}]</div>`;
+                        }
                     }
 
                     html += `</div>`;
 
-                    // Senses (meanings) - inline tags with definitions
+                    // Senses (meanings) - Group by common part-of-speech tags
                     if (word.sense && word.sense.length > 0) {
+                        // Helper function to get tag signature for grouping
+                        const getTagSignature = (sense) => {
+                            const pos = (sense.partOfSpeech || []).sort().join(',');
+                            return pos;
+                        };
+
+                        // Group consecutive senses with same part-of-speech
+                        let groups = [];
+                        let currentGroup = null;
+
                         word.sense.forEach((sense, idx) => {
-                            html += `<div style="margin-bottom: 8px; line-height: 1.6;">`;
+                            const signature = getTagSignature(sense);
 
-                            // Part of speech tags inline
-                            if (sense.partOfSpeech && sense.partOfSpeech.length > 0) {
-                                sense.partOfSpeech.forEach(pos => {
-                                    html += `<span class="pos-tag" style="display: inline; margin-right: 6px;">${pos}</span>`;
+                            if (!currentGroup || currentGroup.signature !== signature) {
+                                // Start new group
+                                currentGroup = {
+                                    signature: signature,
+                                    partOfSpeech: sense.partOfSpeech || [],
+                                    senses: []
+                                };
+                                groups.push(currentGroup);
+                            }
+
+                            currentGroup.senses.push(sense);
+                        });
+
+                        // Render each group
+                        groups.forEach(group => {
+                            html += `<div style="margin-bottom: 20px;">`;
+
+                            // Show part-of-speech tags once for the group
+                            if (group.partOfSpeech.length > 0) {
+                                group.partOfSpeech.forEach(pos => {
+                                    const label = this.getPartOfSpeechLabel(pos);
+                                    html += `<span class="pos-tag" style="display: inline-block; margin-right: 6px; margin-bottom: 8px;">${label}</span>`;
                                 });
+                                html += `<br>`;
                             }
 
-                            // Misc tags inline (like (uk) for usually kana)
-                            if (sense.misc && sense.misc.length > 0) {
-                                sense.misc.forEach(misc => {
-                                    html += `<span class="pos-tag" style="display: inline; margin-right: 6px; background: #fff3cd; color: #856404;">${misc}</span>`;
-                                });
-                            }
+                            // Render each sense in the group as numbered list
+                            group.senses.forEach((sense, idx) => {
+                                html += `<div style="margin-bottom: 8px; margin-left: 0px;">`;
+                                html += `<span style="font-weight: 600; margin-right: 8px;">${idx + 1}.</span>`;
 
-                            // Glosses inline with tags
-                            if (sense.gloss && sense.gloss.length > 0) {
-                                const glossText = sense.gloss.map(g => g.text).join('; ');
-                                html += `<span style="color: #2c3e50;">${glossText}</span>`;
-                            }
+                                // Misc tags inline
+                                if (sense.misc && sense.misc.length > 0) {
+                                    sense.misc.forEach(misc => {
+                                        const label = this.getMiscLabel(misc);
+                                        html += `<span class="pos-tag" style="display: inline-block; margin-right: 6px; background: #e3f2fd; color: #1976d2; padding: 2px 8px; border-radius: 3px; font-size: 11px;">${label}</span>`;
+                                    });
+                                }
+
+                                // Field tags
+                                if (sense.field && sense.field.length > 0) {
+                                    sense.field.forEach(field => {
+                                        const label = this.getFieldLabel(field);
+                                        html += `<span class="pos-tag" style="display: inline-block; margin-right: 6px; background: #f3e5f5; color: #7b1fa2; padding: 2px 8px; border-radius: 3px; font-size: 11px;">${label}</span>`;
+                                    });
+                                }
+
+                                // Dialect tags
+                                if (sense.dialect && sense.dialect.length > 0) {
+                                    sense.dialect.forEach(dialect => {
+                                        const label = this.getDialectLabel(dialect);
+                                        html += `<span class="pos-tag" style="display: inline-block; margin-right: 6px; background: #fff3cd; color: #856404; padding: 2px 8px; border-radius: 3px; font-size: 11px;">${label}</span>`;
+                                    });
+                                }
+
+                                // Glosses
+                                if (sense.gloss && sense.gloss.length > 0) {
+                                    const glossText = sense.gloss.map(g => g.text).join('; ');
+                                    html += `<span style="color: #2c3e50;">${glossText}</span>`;
+                                }
+
+                                // Info (additional usage notes in parentheses)
+                                if (sense.info && sense.info.length > 0) {
+                                    const infoText = sense.info.join('; ');
+                                    html += `<span style="color: #7f8c8d; font-style: italic; margin-left: 6px;">(${infoText})</span>`;
+                                }
+
+                                html += `</div>`;
+                            });
 
                             html += `</div>`;
                         });
+                    }
+
+                    // Other forms section (exclude the main kanji)
+                    if (word.kanji && word.kanji.length > 1) {
+                        const otherKanji = word.kanji.filter(k => k.text !== mainKanji.text);
+
+                        if (otherKanji.length > 0) {
+                            html += `<div style="margin-top: 20px;">`;
+                            html += `<div style="font-weight: 600; color: #7f8c8d; margin-bottom: 8px; font-size: 13px;">Other forms</div>`;
+
+                            const otherForms = otherKanji.map(k => {
+                                // Get readings that apply to this kanji
+                                const applicableReadings = word.kana.filter(kana => {
+                                    if (!kana.appliesToKanji) return false;
+                                    return kana.appliesToKanji.includes('*') || kana.appliesToKanji.includes(k.text);
+                                }).map(kana => kana.text);
+
+                                // Bold the current character if it matches
+                                const kanjiText = k.text === currentKey || k.text.includes(currentKey)
+                                    ? `<strong>${k.text}</strong>`
+                                    : k.text;
+
+                                if (applicableReadings.length > 0) {
+                                    return `${kanjiText} [${applicableReadings.join(', ')}]`;
+                                }
+                                return kanjiText;
+                            }).join('; ');
+
+                            html += `<div style="font-size: 16px; font-family: 'MS Mincho', serif; line-height: 1.8;">${otherForms}</div>`;
+                            html += `</div>`;
+                        }
                     }
 
                     html += `</div>`;
