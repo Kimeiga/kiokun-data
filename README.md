@@ -984,3 +984,4 @@ quicktype --lang rust --src data/jmdict-examples-eng-3.6.1.json -o src/schemas/j
 **Built with ❤️ in Rust for high-performance multilingual dictionary processing with intelligent semantic alignment.**
 
 *Last updated: September 2025 | Version 3.2 - Structural Optimization Edition*
+# kiokun-data
