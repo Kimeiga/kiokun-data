@@ -437,28 +437,33 @@
 							<!-- Senses (Meanings) -->
 							{#if word.sense && word.sense.length > 0}
 								{@const groupedSenses = word.sense.reduce((groups, sense, idx) => {
-									const posKey = sense.partOfSpeech && sense.partOfSpeech.length > 0
-										? sense.partOfSpeech.join(',')
+									// Group by primary (first) part-of-speech only
+									const primaryPos = sense.partOfSpeech && sense.partOfSpeech.length > 0
+										? sense.partOfSpeech[0]
 										: 'no-pos';
-									if (!groups[posKey]) {
-										groups[posKey] = {
-											partOfSpeech: sense.partOfSpeech || [],
+									if (!groups[primaryPos]) {
+										groups[primaryPos] = {
+											primaryPartOfSpeech: primaryPos,
 											senses: []
 										};
 									}
-									groups[posKey].senses.push({ ...sense, originalIndex: idx });
+									groups[primaryPos].senses.push({
+										...sense,
+										originalIndex: idx,
+										additionalPartOfSpeech: sense.partOfSpeech && sense.partOfSpeech.length > 1
+											? sense.partOfSpeech.slice(1)
+											: []
+									});
 									return groups;
 								}, {})}
 
 								{#each Object.entries(groupedSenses) as [posKey, group]}
 									<div style="margin-bottom: 20px;">
-										{#if group.partOfSpeech.length > 0}
+										{#if group.primaryPartOfSpeech !== 'no-pos'}
 											<p style="margin: 1px 0 0.5rem 0;">
-												{#each group.partOfSpeech as pos}
-													<span class="pos-tag" style="display: inline-block; margin-right: 6px; margin-bottom: 8px;">
-														{getPartOfSpeechLabel(pos)}
-													</span>
-												{/each}
+												<span class="pos-tag" style="display: inline-block; margin-right: 6px; margin-bottom: 8px;">
+													{getPartOfSpeechLabel(group.primaryPartOfSpeech)}
+												</span>
 											</p>
 										{/if}
 
@@ -469,6 +474,13 @@
 											{#if glossTexts.length > 0}
 												<div style="margin-bottom: 8px; margin-left: 0px;">
 													<span style="font-weight: 600; margin-right: 8px;">{sense.originalIndex + 1}.</span>
+													{#if sense.additionalPartOfSpeech && sense.additionalPartOfSpeech.length > 0}
+														{#each sense.additionalPartOfSpeech as pos}
+															<span class="pos-tag" style="display: inline-block; margin-right: 6px; margin-bottom: 8px;">
+																{getPartOfSpeechLabel(pos)}
+															</span>
+														{/each}
+													{/if}
 													{#if sense.misc && sense.misc.length > 0}
 														{#each sense.misc as misc}
 															<span
@@ -581,28 +593,33 @@
 							<!-- Senses (Meanings) -->
 							{#if word.sense && word.sense.length > 0}
 								{@const groupedSenses = word.sense.reduce((groups, sense, idx) => {
-									const posKey = sense.partOfSpeech && sense.partOfSpeech.length > 0
-										? sense.partOfSpeech.join(',')
+									// Group by primary (first) part-of-speech only
+									const primaryPos = sense.partOfSpeech && sense.partOfSpeech.length > 0
+										? sense.partOfSpeech[0]
 										: 'no-pos';
-									if (!groups[posKey]) {
-										groups[posKey] = {
-											partOfSpeech: sense.partOfSpeech || [],
+									if (!groups[primaryPos]) {
+										groups[primaryPos] = {
+											primaryPartOfSpeech: primaryPos,
 											senses: []
 										};
 									}
-									groups[posKey].senses.push({ ...sense, originalIndex: idx });
+									groups[primaryPos].senses.push({
+										...sense,
+										originalIndex: idx,
+										additionalPartOfSpeech: sense.partOfSpeech && sense.partOfSpeech.length > 1
+											? sense.partOfSpeech.slice(1)
+											: []
+									});
 									return groups;
 								}, {})}
 
 								{#each Object.entries(groupedSenses) as [posKey, group]}
 									<div style="margin-bottom: 20px;">
-										{#if group.partOfSpeech.length > 0}
+										{#if group.primaryPartOfSpeech !== 'no-pos'}
 											<p style="margin: 1px 0 0.5rem 0;">
-												{#each group.partOfSpeech as pos}
-													<span class="pos-tag" style="display: inline-block; margin-right: 6px; margin-bottom: 8px;">
-														{getPartOfSpeechLabel(pos)}
-													</span>
-												{/each}
+												<span class="pos-tag" style="display: inline-block; margin-right: 6px; margin-bottom: 8px;">
+													{getPartOfSpeechLabel(group.primaryPartOfSpeech)}
+												</span>
 											</p>
 										{/if}
 
@@ -613,6 +630,13 @@
 											{#if glossTexts.length > 0}
 												<div style="margin-bottom: 8px; margin-left: 0px;">
 													<span style="font-weight: 600; margin-right: 8px;">{sense.originalIndex + 1}.</span>
+													{#if sense.additionalPartOfSpeech && sense.additionalPartOfSpeech.length > 0}
+														{#each sense.additionalPartOfSpeech as pos}
+															<span class="pos-tag" style="display: inline-block; margin-right: 6px; margin-bottom: 8px;">
+																{getPartOfSpeechLabel(pos)}
+															</span>
+														{/each}
+													{/if}
 													{#if sense.misc && sense.misc.length > 0}
 														{#each sense.misc as misc}
 															<span
