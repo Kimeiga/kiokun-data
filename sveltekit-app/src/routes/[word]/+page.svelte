@@ -414,25 +414,25 @@
 										{mainKanji.text}
 									</div>
 								{/if}
-								{#if applicableReadings.length > 0}
+								{#if applicableKana.length > 0}
 									<div
-										style="font-size: 18px; color: #e74c3c; font-family: 'MS Mincho', serif;"
+										style="font-size: 18px; color: #e74c3c; font-family: 'MS Mincho', serif; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;"
 									>
-										[{applicableReadings.join(', ')}]
+										<span>[</span>
+										{#each applicableKana as kana, index}
+											{#if kana.pitchAccents && kana.pitchAccents.length > 0}
+												<PitchAccent kana={kana.text} pitchAccents={kana.pitchAccents} />
+											{:else}
+												<span>{kana.text}</span>
+											{/if}
+											{#if index < applicableKana.length - 1}<span>, </span>{/if}
+										{/each}
+										<span>]</span>
 									</div>
 								{/if}
 							</div>
 
-							<!-- Pitch Accent Visualization -->
-							{#if applicableKana.length > 0}
-								{#each applicableKana as kana}
-									{#if kana.pitchAccents && kana.pitchAccents.length > 0}
-										<div style="margin-bottom: 12px;">
-											<PitchAccent kana={kana.text} pitchAccents={kana.pitchAccents} />
-										</div>
-									{/if}
-								{/each}
-							{/if}
+
 
 							<!-- Senses (Meanings) -->
 							{#if word.sense && word.sense.length > 0}
@@ -600,25 +600,25 @@
 										{mainKanji.text}
 									</div>
 								{/if}
-								{#if applicableReadings.length > 0}
+								{#if applicableKana.length > 0}
 									<div
-										style="font-size: 18px; color: #e74c3c; font-family: 'MS Mincho', serif;"
+										style="font-size: 18px; color: #e74c3c; font-family: 'MS Mincho', serif; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;"
 									>
-										[{applicableReadings.join(', ')}]
+										<span>[</span>
+										{#each applicableKana as kana, index}
+											{#if kana.pitchAccents && kana.pitchAccents.length > 0}
+												<PitchAccent kana={kana.text} pitchAccents={kana.pitchAccents} />
+											{:else}
+												<span>{kana.text}</span>
+											{/if}
+											{#if index < applicableKana.length - 1}<span>, </span>{/if}
+										{/each}
+										<span>]</span>
 									</div>
 								{/if}
 							</div>
 
-							<!-- Pitch Accent Visualization -->
-							{#if applicableKana.length > 0}
-								{#each applicableKana as kana}
-									{#if kana.pitchAccents && kana.pitchAccents.length > 0}
-										<div style="margin-bottom: 12px;">
-											<PitchAccent kana={kana.text} pitchAccents={kana.pitchAccents} />
-										</div>
-									{/if}
-								{/each}
-							{/if}
+
 
 							<!-- Senses (Meanings) -->
 							{#if word.sense && word.sense.length > 0}
