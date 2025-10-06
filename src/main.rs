@@ -28,7 +28,7 @@ use clap::{Arg, ArgAction, Command};
 use serde_json;
 
 use chinese_types::ChineseDictionaryElement;
-use japanese_types::{JapaneseEntry, Word};
+use japanese_types::{JapaneseEntry, Word, PitchAccentDatabase};
 use chinese_char_types::ChineseCharacter;
 use japanese_char_types::{KanjiDictionary, KanjiCharacter};
 use ids_types::{IdsEntry, IdsDatabase};
@@ -145,6 +145,12 @@ async fn main() -> Result<()> {
             Arg::new("unified-output")
                 .long("unified-output")
                 .help("Generate unified output with semantic unification and merged character data")
+                .action(ArgAction::SetTrue),
+        )
+        .arg(
+            Arg::new("include-pitch-accent")
+                .long("include-pitch-accent")
+                .help("Include pitch accent data in Japanese word entries")
                 .action(ArgAction::SetTrue),
         )
         .get_matches();
@@ -288,8 +294,18 @@ async fn main() -> Result<()> {
     }
 
     println!("📚 Loading Japanese dictionary...");
-    let japanese_dict = load_japanese_dictionary("data/jmdict-examples-eng-3.6.1.json")
+    let mut japanese_dict = load_japanese_dictionary("data/jmdict-examples-eng-3.6.1.json")
         .context("Failed to load Japanese dictionary")?;
+
+    // Load and integrate pitch accent data if requested
+    if matches.get_flag("include-pitch-accent") {
+        println!("📚 Loading pitch accent data...");
+        let pitch_data = load_pitch_accent_data("data/jmdict_pitch.json")
+            .context("Failed to load pitch accent data")?;
+
+        println!("🔧 Enriching Japanese words with pitch accent data...");
+        enrich_japanese_words_with_pitch_accent(&mut japanese_dict.words, &pitch_data);
+    }
 
     println!("📚 Loading Chinese character dictionary...");
     let mut chinese_char_dict = load_chinese_char_dictionary("data/chinese_dictionary_char_2025-06-25.jsonl")
@@ -411,6 +427,56 @@ fn load_japanese_dictionary(path: &str) -> Result<JapaneseEntry> {
     let japanese_dict: JapaneseEntry = serde_json::from_str(&content)?;
     println!("  ✅ Loaded {} Japanese words", japanese_dict.words.len());
     Ok(japanese_dict)
+}
+
+fn load_pitch_accent_data(path: &str) -> Result<PitchAccentDatabase> {
+    let content = fs::read_to_string(path)?;
+    let pitch_data: PitchAccentDatabase = serde_json::from_str(&content)?;
+    println!("  ✅ Loaded pitch accent data for {} JMdict entries", pitch_data.entries.len());
+    Ok(pitch_data)
+}
+
+fn enrich_japanese_words_with_pitch_accent(
+    japanese_words: &mut Vec<Word>,
+    pitch_data: &PitchAccentDatabase,
+) {
+    let mut enriched_words = 0;
+    let mut enriched_readings = 0;
+
+    for word in japanese_words.iter_mut() {
+        if let Some(pitch_entries) = pitch_data.entries.get(&word.id) {
+            let mut word_enriched = false;
+
+            // For each kana reading in the word
+            for kana in word.kana.iter_mut() {
+                // Find matching pitch accent entries for this reading
+                let matching_accents: Vec<u8> = pitch_entries
+                    .iter()
+                    .filter(|entry| entry.reading == kana.text)
+                    .flat_map(|entry| entry.accents.iter())
+                    .cloned()
+                    .collect();
+
+                if !matching_accents.is_empty() {
+                    // Remove duplicates and sort
+                    let mut unique_accents = matching_accents;
+                    unique_accents.sort_unstable();
+                    unique_accents.dedup();
+
+                    kana.pitch_accents = Some(unique_accents);
+                    enriched_readings += 1;
+                    word_enriched = true;
+                }
+            }
+
+            if word_enriched {
+                enriched_words += 1;
+            }
+        }
+    }
+
+    println!("  ✅ Enriched {} Japanese words with pitch accent data ({} readings total)",
+             enriched_words, enriched_readings);
 }
 
 fn load_chinese_char_dictionary(path: &str) -> Result<Vec<ChineseCharacter>> {
@@ -1052,6 +1118,8 @@ fn merge_dictionaries_with_mapping(
             _debug_count += 1;
         }
 
+
+
         match combined_map.get_mut(&key) {
             Some(existing_entry) => {
                 // Match found!
@@ -1067,12 +1135,18 @@ fn merge_dictionaries_with_mapping(
                     }
                 } else {
                     // Additional Japanese entry for same key
+                    if japanese_word.id == "1160790" {
+                        println!("    📍 MERGE: Adding as additional Japanese entry");
+                    }
                     existing_entry.japanese_specific_entries.push(japanese_word);
                     existing_entry.metadata.japanese_count += 1;
                 }
             }
             None => {
                 // Japanese-only entry
+                if japanese_word.id == "1160790" {
+                    println!("    📍 MERGE: Creating new Japanese-only entry");
+                }
                 let combined_entry = CombinedEntry {
                     word: key.clone(),
                     chinese_entry: None,
@@ -1483,6 +1557,8 @@ async fn generate_simple_output_files(
         } else {
             continue;
         };
+
+
 
         let output = outputs.entry(key.clone()).or_insert_with(|| SimpleOutput {
             key: key.clone(),
