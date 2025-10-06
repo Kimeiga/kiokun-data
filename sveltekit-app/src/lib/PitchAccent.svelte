@@ -85,27 +85,23 @@
 	}
 
 	const mora = $derived(kanaToMora(kana));
-	const patterns = $derived(pitchAccents.map(accent => generatePitchPattern(mora, accent)));
+	// Only use the first pitch accent pattern to reduce clutter
+	const patterns = $derived(pitchAccents.length > 0 ? [generatePitchPattern(mora, pitchAccents[0])] : []);
 </script>
 
 <div class="pitch-accent-container">
-	{#each patterns as pattern, patternIndex}
-		<div class="pitch-pattern" class:multiple={patterns.length > 1}>
-			{#if patterns.length > 1}
-				<div class="pattern-number">{patternIndex + 1}</div>
-			{/if}
-			<div class="mora-container">
-				{#each pattern as { mora, isHigh, isDropPoint }, i}
-					<span
-						class="mora"
-						class:high={isHigh}
-						class:low={!isHigh}
-						class:has-right-connector={i < pattern.length - 1}
-					>
-						{mora}
-					</span>
-				{/each}
-			</div>
+	{#each patterns as pattern}
+		<div class="mora-container">
+			{#each pattern as { mora, isHigh, isDropPoint }, i}
+				<span
+					class="mora"
+					class:high={isHigh}
+					class:low={!isHigh}
+					class:has-right-connector={i < pattern.length - 1}
+				>
+					{mora}
+				</span>
+			{/each}
 		</div>
 	{/each}
 </div>
@@ -116,25 +112,7 @@
 		margin: 4px 0;
 	}
 
-	.pitch-pattern {
-		display: flex;
-		align-items: center;
-		gap: 8px;
-	}
 
-	.pitch-pattern.multiple {
-		padding: 4px 8px;
-		background: #f8f9fa;
-		border-radius: 4px;
-		border: 1px solid #e9ecef;
-	}
-
-	.pattern-number {
-		font-size: 12px;
-		font-weight: 600;
-		color: #6c757d;
-		min-width: 16px;
-	}
 
 	.mora-container {
 		display: inline-block;
