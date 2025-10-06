@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import { goto } from '$app/navigation';
+	import PitchAccent from '$lib/PitchAccent.svelte';
 
 	let { data }: { data: PageData } = $props();
 
@@ -393,17 +394,16 @@
 						{@const mainKanji =
 							word.kanji.find((k) => k.text === data.word || k.text.includes(data.word)) ||
 							word.kanji[0]}
-						{@const applicableReadings = word.kana && word.kana.length > 0 && mainKanji
-							? word.kana
-									.filter((kana) => {
-										if (!kana.appliesToKanji) return false;
-										return (
-											kana.appliesToKanji.includes('*') ||
-											kana.appliesToKanji.includes(mainKanji.text)
-										);
-									})
-									.map((kana) => kana.text)
+						{@const applicableKana = word.kana && word.kana.length > 0 && mainKanji
+							? word.kana.filter((kana) => {
+								if (!kana.appliesToKanji) return false;
+								return (
+									kana.appliesToKanji.includes('*') ||
+									kana.appliesToKanji.includes(mainKanji.text)
+								);
+							})
 							: []}
+						{@const applicableReadings = applicableKana.map((kana) => kana.text)}
 						<div style="margin-bottom: 30px;">
 							<!-- Kanji and Kana -->
 							<div style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px;">
@@ -422,6 +422,17 @@
 									</div>
 								{/if}
 							</div>
+
+							<!-- Pitch Accent Visualization -->
+							{#if applicableKana.length > 0}
+								{#each applicableKana as kana}
+									{#if kana.pitchAccents && kana.pitchAccents.length > 0}
+										<div style="margin-bottom: 12px;">
+											<PitchAccent kana={kana.text} pitchAccents={kana.pitchAccents} />
+										</div>
+									{/if}
+								{/each}
+							{/if}
 
 							<!-- Senses (Meanings) -->
 							{#if word.sense && word.sense.length > 0}
@@ -505,7 +516,7 @@
 						)}
 						{#if matchingKanji.length > 0}
 							{@const mainKanji = matchingKanji[0]}
-							{@const applicableReadings = word.kana && word.kana.length > 0 && mainKanji
+							{@const applicableKana = word.kana && word.kana.length > 0 && mainKanji
 								? word.kana
 										.filter((kana) => {
 											if (!kana.appliesToKanji) return false;
@@ -514,8 +525,8 @@
 												kana.appliesToKanji.includes(mainKanji.text)
 											);
 										})
-										.map((kana) => kana.text)
 								: []}
+							{@const applicableReadings = applicableKana.map((kana) => kana.text)}
 						<div style="margin-bottom: 30px;">
 							<!-- Kanji and Kana -->
 							<div style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px;">
@@ -534,6 +545,17 @@
 									</div>
 								{/if}
 							</div>
+
+							<!-- Pitch Accent Visualization -->
+							{#if applicableKana.length > 0}
+								{#each applicableKana as kana}
+									{#if kana.pitchAccents && kana.pitchAccents.length > 0}
+										<div style="margin-bottom: 12px;">
+											<PitchAccent kana={kana.text} pitchAccents={kana.pitchAccents} />
+										</div>
+									{/if}
+								{/each}
+							{/if}
 
 							<!-- Senses (Meanings) -->
 							{#if word.sense && word.sense.length > 0}
