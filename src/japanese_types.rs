@@ -14,6 +14,35 @@
 use serde::{Serialize, Deserialize};
 use std::collections::HashMap;
 
+// Pitch accent data structures
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct PitchAccentDatabase {
+    pub build_info: PitchAccentBuildInfo,
+    pub entries: HashMap<String, Vec<PitchAccentEntry>>,
+}
+
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct PitchAccentBuildInfo {
+    pub timestamp_utc: String,
+    pub sources: Vec<String>,
+    pub kanjium_commit: String,
+    pub notes: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct PitchAccentEntry {
+    pub kanji: String,
+    pub reading: String,
+    pub accents: Vec<u8>,
+}
+
+// Minimal pitch accent representation for output
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct PitchAccent {
+    pub reading: String,
+    pub accents: Vec<u8>,
+}
+
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct JapaneseEntry {
@@ -49,6 +78,9 @@ pub struct Kan {
     pub tags: Vec<Tag>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub applies_to_kanji: Option<Vec<String>>,
+    // Pitch accent data - minimal representation
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub pitch_accents: Option<Vec<u8>>,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
