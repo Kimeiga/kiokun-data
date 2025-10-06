@@ -25,6 +25,11 @@
 		if (!data.labels?.misc) return misc;
 		return data.labels.misc[misc] || misc;
 	}
+
+	function getKanjiTagLabel(tag: string): string {
+		if (!data.labels?.tag) return tag;
+		return data.labels.tag[tag] || tag;
+	}
 </script>
 
 <svelte:head>
@@ -485,7 +490,7 @@
 										</div>
 									{/if}
 								{:else}
-									<!-- Multiple definitions: grouped with numbering -->
+									<!-- Multiple definitions: grouped with primary POS headers and inline additional tags -->
 									{#each Object.entries(groupedSenses) as [posKey, group]}
 										<div style="margin-bottom: 20px;">
 											{#if group.primaryPartOfSpeech !== 'no-pos'}
@@ -505,7 +510,7 @@
 														<span style="font-weight: 600; margin-right: 8px;">{sense.originalIndex + 1}.</span>
 														{#if sense.additionalPartOfSpeech && sense.additionalPartOfSpeech.length > 0}
 															{#each sense.additionalPartOfSpeech as pos}
-																<span class="pos-tag" style="display: inline-block; margin-right: 6px; margin-bottom: 8px;">
+																<span class="pos-tag" style="display: inline-block; margin-right: 6px;">
 																	{getPartOfSpeechLabel(pos)}
 																</span>
 															{/each}
@@ -549,10 +554,21 @@
 												k.text === data.word || k.text.includes(data.word)
 													? `<strong>${k.text}</strong>`
 													: k.text;
+
+											// Add kanji tags if present
+											const kanjiTags = k.tags && k.tags.length > 0
+												? k.tags.map(tag => {
+													const label = getKanjiTagLabel(tag);
+													return `<span style="font-size: 12px; color: #666; font-weight: normal;">(${label})</span>`;
+												}).join(' ')
+												: '';
+
+											const kanjiWithTags = kanjiTags ? `${kanjiPart} ${kanjiTags}` : kanjiPart;
+
 											if (applicableReadings.length > 0) {
-												return `${kanjiPart} [${applicableReadings.join(', ')}]`;
+												return `${kanjiWithTags} [${applicableReadings.join(', ')}]`;
 											}
-											return kanjiPart;
+											return kanjiWithTags;
 										})
 										.join('; ')}
 									<div style="margin-top: 20px;">
@@ -671,7 +687,7 @@
 										</div>
 									{/if}
 								{:else}
-									<!-- Multiple definitions: grouped with numbering -->
+									<!-- Multiple definitions: grouped with primary POS headers and inline additional tags -->
 									{#each Object.entries(groupedSenses) as [posKey, group]}
 										<div style="margin-bottom: 20px;">
 											{#if group.primaryPartOfSpeech !== 'no-pos'}
@@ -691,7 +707,7 @@
 														<span style="font-weight: 600; margin-right: 8px;">{sense.originalIndex + 1}.</span>
 														{#if sense.additionalPartOfSpeech && sense.additionalPartOfSpeech.length > 0}
 															{#each sense.additionalPartOfSpeech as pos}
-																<span class="pos-tag" style="display: inline-block; margin-right: 6px; margin-bottom: 8px;">
+																<span class="pos-tag" style="display: inline-block; margin-right: 6px;">
 																	{getPartOfSpeechLabel(pos)}
 																</span>
 															{/each}
@@ -735,10 +751,21 @@
 												k.text === data.word || k.text.includes(data.word)
 													? `<strong>${k.text}</strong>`
 													: k.text;
+
+											// Add kanji tags if present
+											const kanjiTags = k.tags && k.tags.length > 0
+												? k.tags.map(tag => {
+													const label = getKanjiTagLabel(tag);
+													return `<span style="font-size: 12px; color: #666; font-weight: normal;">(${label})</span>`;
+												}).join(' ')
+												: '';
+
+											const kanjiWithTags = kanjiTags ? `${kanjiPart} ${kanjiTags}` : kanjiPart;
+
 											if (applicableReadings.length > 0) {
-												return `${kanjiPart} [${applicableReadings.join(', ')}]`;
+												return `${kanjiWithTags} [${applicableReadings.join(', ')}]`;
 											}
-											return kanjiPart;
+											return kanjiWithTags;
 										})
 										.join('; ')}
 									<div style="margin-top: 20px;">
