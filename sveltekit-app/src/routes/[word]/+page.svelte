@@ -490,33 +490,45 @@
 										</div>
 									{/if}
 								{:else}
-									<!-- Multiple definitions: all tags inline with numbering -->
-									{#each word.sense as sense, index}
-										{@const glossTexts = sense.gloss
-											? sense.gloss.map((g) => (typeof g === 'string' ? g : g.text || g.value || ''))
-											: []}
-										{#if glossTexts.length > 0}
-											<div style="margin-bottom: 8px; margin-left: 0px;">
-												<span style="font-weight: 600; margin-right: 8px;">{index + 1}.</span>
-												{#if sense.partOfSpeech && sense.partOfSpeech.length > 0}
-													{#each sense.partOfSpeech as pos}
-														<span class="pos-tag" style="display: inline-block; margin-right: 6px;">
-															{getPartOfSpeechLabel(pos)}
-														</span>
-													{/each}
+									<!-- Multiple definitions: grouped with numbering -->
+									{#each Object.entries(groupedSenses) as [posKey, group]}
+										<div style="margin-bottom: 20px;">
+											{#if group.primaryPartOfSpeech !== 'no-pos'}
+												<p style="margin: 1px 0 0.5rem 0;">
+													<span class="pos-tag" style="display: inline-block; margin-right: 6px; margin-bottom: 8px;">
+														{getPartOfSpeechLabel(group.primaryPartOfSpeech)}
+													</span>
+												</p>
+											{/if}
+
+											{#each group.senses as sense}
+												{@const glossTexts = sense.gloss
+													? sense.gloss.map((g) => (typeof g === 'string' ? g : g.text || g.value || ''))
+													: []}
+												{#if glossTexts.length > 0}
+													<div style="margin-bottom: 8px; margin-left: 0px;">
+														<span style="font-weight: 600; margin-right: 8px;">{sense.originalIndex + 1}.</span>
+														{#if sense.additionalPartOfSpeech && sense.additionalPartOfSpeech.length > 0}
+															{#each sense.additionalPartOfSpeech as pos}
+																<span class="pos-tag" style="display: inline-block; margin-right: 6px; margin-bottom: 8px;">
+																	{getPartOfSpeechLabel(pos)}
+																</span>
+															{/each}
+														{/if}
+														{#if sense.misc && sense.misc.length > 0}
+															{#each sense.misc as misc}
+																<span
+																	class="pos-tag"
+																	style="display: inline-block; margin-right: 6px; background: #e3f2fd; color: #1976d2; padding: 2px 8px; border-radius: 3px; font-size: 11px;"
+																	>{getMiscLabel(misc)}</span
+																>
+															{/each}
+														{/if}
+														<span style="color: #2c3e50;">{glossTexts.join('; ')}</span>
+													</div>
 												{/if}
-												{#if sense.misc && sense.misc.length > 0}
-													{#each sense.misc as misc}
-														<span
-															class="pos-tag"
-															style="display: inline-block; margin-right: 6px; background: #e3f2fd; color: #1976d2; padding: 2px 8px; border-radius: 3px; font-size: 11px;"
-															>{getMiscLabel(misc)}</span
-														>
-													{/each}
-												{/if}
-												<span style="color: #2c3e50;">{glossTexts.join('; ')}</span>
-											</div>
-										{/if}
+											{/each}
+										</div>
 									{/each}
 								{/if}
 							{/if}
@@ -675,33 +687,45 @@
 										</div>
 									{/if}
 								{:else}
-									<!-- Multiple definitions: all tags inline with numbering -->
-									{#each word.sense as sense, index}
-										{@const glossTexts = sense.gloss
-											? sense.gloss.map((g) => (typeof g === 'string' ? g : g.text || g.value || ''))
-											: []}
-										{#if glossTexts.length > 0}
-											<div style="margin-bottom: 8px; margin-left: 0px;">
-												<span style="font-weight: 600; margin-right: 8px;">{index + 1}.</span>
-												{#if sense.partOfSpeech && sense.partOfSpeech.length > 0}
-													{#each sense.partOfSpeech as pos}
-														<span class="pos-tag" style="display: inline-block; margin-right: 6px;">
-															{getPartOfSpeechLabel(pos)}
-														</span>
-													{/each}
+									<!-- Multiple definitions: grouped with numbering -->
+									{#each Object.entries(groupedSenses) as [posKey, group]}
+										<div style="margin-bottom: 20px;">
+											{#if group.primaryPartOfSpeech !== 'no-pos'}
+												<p style="margin: 1px 0 0.5rem 0;">
+													<span class="pos-tag" style="display: inline-block; margin-right: 6px; margin-bottom: 8px;">
+														{getPartOfSpeechLabel(group.primaryPartOfSpeech)}
+													</span>
+												</p>
+											{/if}
+
+											{#each group.senses as sense}
+												{@const glossTexts = sense.gloss
+													? sense.gloss.map((g) => (typeof g === 'string' ? g : g.text || g.value || ''))
+													: []}
+												{#if glossTexts.length > 0}
+													<div style="margin-bottom: 8px; margin-left: 0px;">
+														<span style="font-weight: 600; margin-right: 8px;">{sense.originalIndex + 1}.</span>
+														{#if sense.additionalPartOfSpeech && sense.additionalPartOfSpeech.length > 0}
+															{#each sense.additionalPartOfSpeech as pos}
+																<span class="pos-tag" style="display: inline-block; margin-right: 6px; margin-bottom: 8px;">
+																	{getPartOfSpeechLabel(pos)}
+																</span>
+															{/each}
+														{/if}
+														{#if sense.misc && sense.misc.length > 0}
+															{#each sense.misc as misc}
+																<span
+																	class="pos-tag"
+																	style="display: inline-block; margin-right: 6px; background: #e3f2fd; color: #1976d2; padding: 2px 8px; border-radius: 3px; font-size: 11px;"
+																	>{getMiscLabel(misc)}</span
+																>
+															{/each}
+														{/if}
+														<span style="color: #2c3e50;">{glossTexts.join('; ')}</span>
+													</div>
 												{/if}
-												{#if sense.misc && sense.misc.length > 0}
-													{#each sense.misc as misc}
-														<span
-															class="pos-tag"
-															style="display: inline-block; margin-right: 6px; background: #e3f2fd; color: #1976d2; padding: 2px 8px; border-radius: 3px; font-size: 11px;"
-															>{getMiscLabel(misc)}</span
-														>
-													{/each}
-												{/if}
-												<span style="color: #2c3e50;">{glossTexts.join('; ')}</span>
-											</div>
-										{/if}
+											{/each}
+										</div>
 									{/each}
 								{/if}
 							{/if}
