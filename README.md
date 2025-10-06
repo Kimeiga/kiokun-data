@@ -979,9 +979,235 @@ quicktype --lang rust --src data/jmdict-examples-eng-3.6.1.json -o src/schemas/j
 - **Memory Usage**: ~1.5GB peak during processing
 - **Output Quality**: 191 semantic improvements + structural optimization (eliminated duplication)
 
+## 🌐 SvelteKit Web Application
+
+### **Overview**
+
+A modern, high-performance web application built with **SvelteKit 2.x** and **Svelte 5** that serves the unified dictionary data. The webapp provides a clean, learner-focused interface for browsing Chinese and Japanese dictionary entries.
+
+### **Key Features**
+
+- ✅ **Dynamic Routing**: Direct URL access to any character (e.g., `/好`, `/的`, `/地圖`)
+- ✅ **File-based Data**: Serves individual JSON files from `output_dictionary/` for optimal performance
+- ✅ **Unified Display**: Shows Chinese and Japanese words in a single flowing page
+- ✅ **Full Label Support**: Displays complete part-of-speech and misc tags (e.g., "prefix", "usually kana")
+- ✅ **Historical Evolution**: Shows character evolution with images and modern font rendering
+- ✅ **Usage Statistics**: HSK levels, frequency data, and top word associations
+- ✅ **Other Forms**: Displays alternative kanji/kana forms inline with proper formatting
+
+### **Technology Stack**
+
+- **Framework**: SvelteKit 2.x with Svelte 5 (runes syntax: `$state`, `$derived`, `$props`)
+- **Styling**: Inline styles matching original Python webapp design
+- **Data Source**: Static JSON files from `output_dictionary/`
+- **Labels**: Japanese part-of-speech and misc labels from `japanese_labels.json`
+- **Fonts**: MS Mincho serif font for CJK characters
+
+### **Project Structure**
+
+```
+sveltekit-app/
+├── src/
+│   ├── routes/
+│   │   ├── [word]/
+│   │   │   ├── +page.svelte          # Main dictionary display page
+│   │   │   └── +page.ts              # Server-side data loading
+│   │   └── +page.svelte              # Home page
+│   ├── lib/
+│   │   └── components/               # Reusable components
+│   └── app.html                      # HTML template
+├── static/
+│   ├── dictionary/                   # Symlink to ../../output_dictionary/
+│   └── japanese_labels.json          # Part-of-speech and misc labels
+├── package.json                      # Dependencies
+├── svelte.config.js                  # SvelteKit configuration
+└── vite.config.ts                    # Vite configuration
+```
+
+### **Data Structure**
+
+Each dictionary entry JSON file contains:
+
+```typescript
+{
+  key: string;                        // Character/word key
+  chinese_char: {                     // Character-level Chinese data
+    pinyinFrequencies: Array<{pinyin: string, frequency: number}>;
+    components: Array<{char: string, meaning?: string, phonetic?: boolean}>;
+    etymology: {type: string, hint: string};
+    images: Array<{url: string, type: string, era: string}>;
+    statistics: {hsk_level?: number, movie_word_rank?: number, ...};
+  };
+  chinese_words: Array<{              // Word-level Chinese data
+    items: Array<{pinyin: string, definitions: string[]}>;
+  }>;
+  japanese_char: {                    // Character-level Japanese data
+    meanings: string[];
+    onReadings: string[];
+    kunReadings: string[];
+  };
+  japanese_words: Array<{             // Word-level Japanese data
+    kanji: Array<{text: string, common: boolean}>;
+    kana: Array<{text: string, appliesToKanji: string[]}>;
+    sense: Array<{
+      partOfSpeech: string[];         // e.g., ["pref", "n", "adj-na"]
+      misc: string[];                 // e.g., ["uk"] for "usually kana"
+      gloss: Array<{text: string}>;
+    }>;
+  }>;
+  related_japanese_words: string[];   // Keys of related characters
+}
+```
+
+### **Display Features**
+
+#### **1. Character Display**
+- Large character with Chinese pinyin and Japanese readings
+- Mnemonic hints for learning
+- Component breakdown with meaning/phonetic indicators
+
+#### **2. Historical Evolution**
+- Horizontal scrollable images showing script evolution
+- Oracle, Bronze, Seal, Clerical, Regular scripts
+- Modern form rendered with font (not image)
+
+#### **3. Usage Statistics**
+- HSK level badge (blue)
+- Movie and Book ranking badges (light blue/purple)
+- Frequency bars with gradients
+- Top words grid with background progress bars
+
+#### **4. Chinese Words**
+- Character + pinyin display (e.g., **好** [hǎo])
+- Multiple pronunciations shown separately
+- Definitions listed below each pronunciation
+
+#### **5. Japanese Words**
+- Character + kana display (e.g., **好** [こう])
+- Full part-of-speech labels (e.g., "prefix" not "pref")
+- Misc tags as styled badges (e.g., "usually kana" in light blue)
+- Inline "Other forms" with semicolons (e.g., "誼 [よしみ, ぎ, よしび]; 誼み [よしみ]")
+- Bold current character in "Other forms"
+- Related words integrated in same section
+
+### **Setup & Development**
+
+```bash
+# Navigate to SvelteKit app
+cd sveltekit-app
+
+# Install dependencies
+npm install
+
+# Create symlink to dictionary data
+ln -s ../output_dictionary static/dictionary
+
+# Copy labels file
+cp ../webapp/japanese_labels.json static/
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+```
+
+### **Deployment**
+
+The app is designed for static hosting and can be deployed to:
+- **Cloudflare Pages** (recommended): 5GB D1 database + 10GB R2 storage
+- **Vercel**: Automatic GitHub deployments
+- **Netlify**: Static site hosting
+- **GitHub Pages**: Free static hosting
+
+```bash
+# Build static site
+npm run build
+
+# Output in build/ directory ready for deployment
+```
+
+### **Key Implementation Details**
+
+#### **Dynamic Routing**
+```typescript
+// src/routes/[word]/+page.ts
+export const load: PageLoad = async ({ params, fetch }) => {
+  const { word } = params;
+  const response = await fetch(`/dictionary/${word}.json`);
+  const data = await response.json();
+
+  // Load Japanese labels
+  const labelsResponse = await fetch('/japanese_labels.json');
+  const labels = await labelsResponse.json();
+
+  // Fetch related Japanese words
+  const relatedJapaneseWords = [];
+  if (data.related_japanese_words) {
+    for (const relatedKey of data.related_japanese_words) {
+      const relatedResponse = await fetch(`/dictionary/${relatedKey}.json`);
+      const relatedData = await relatedResponse.json();
+      relatedJapaneseWords.push(...relatedData.japanese_words);
+    }
+  }
+
+  return { word, data, relatedJapaneseWords, labels };
+};
+```
+
+#### **Label Mapping**
+```typescript
+// Helper functions for full label display
+function getPartOfSpeechLabel(pos: string): string {
+  if (!labels?.partOfSpeech) return pos;
+  return labels.partOfSpeech[pos] || pos;  // "pref" → "prefix"
+}
+
+function getMiscLabel(misc: string): string {
+  if (!labels?.misc) return misc;
+  return labels.misc[misc] || misc;  // "uk" → "usually kana"
+}
+```
+
+#### **Other Forms Display**
+```svelte
+<!-- Inline format with semicolons -->
+{@const otherFormsText = otherKanji
+  .map((k) => {
+    const readings = word.kana
+      .filter((kana) => kana.appliesToKanji?.includes('*') ||
+                        kana.appliesToKanji?.includes(k.text))
+      .map((kana) => kana.text);
+    const kanjiPart = k.text === data.word ? `<strong>${k.text}</strong>` : k.text;
+    return readings.length > 0
+      ? `${kanjiPart} [${readings.join(', ')}]`
+      : kanjiPart;
+  })
+  .join('; ')}
+<div>{@html otherFormsText}</div>
+```
+
+### **Performance Optimizations**
+
+1. **Individual JSON Files**: Direct file access without grepping large files
+2. **Static Generation**: Pre-rendered pages for instant loading
+3. **Lazy Loading**: Related words fetched on-demand
+4. **Minimal JavaScript**: Svelte compiles to efficient vanilla JS
+5. **Font Rendering**: Modern characters use fonts instead of images
+
+### **Design Principles**
+
+- **Learner-Focused**: Single flowing page, no tabs or conditional display
+- **Consistent Layout**: Chinese and Japanese sections use same format
+- **Full Text Labels**: No abbreviations or tooltips needed
+- **Visual Hierarchy**: Clear typography and spacing
+- **Accessibility**: Semantic HTML and proper ARIA labels
+
 ---
 
 **Built with ❤️ in Rust for high-performance multilingual dictionary processing with intelligent semantic alignment.**
 
-*Last updated: September 2025 | Version 3.2 - Structural Optimization Edition*
-# kiokun-data
+*Last updated: October 2025 | Version 3.2 - Structural Optimization Edition + SvelteKit Webapp*
