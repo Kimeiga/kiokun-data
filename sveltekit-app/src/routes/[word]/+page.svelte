@@ -442,9 +442,13 @@
 										: []}
 									<div style="margin-bottom: 8px; margin-left: 0px;">
 										{#if sense.partOfSpeech && sense.partOfSpeech.length > 0}
-											<span class="pos-tag" style="display: inline-block; margin-right: 6px; margin-bottom: 8px;"
-												>{#each sense.partOfSpeech as pos}{getPartOfSpeechLabel(pos)}{/each}</span
-											><br />
+											<p style="margin: 1px 0 0.5rem 0; space-x: 1.5rem;">
+												{#each sense.partOfSpeech as pos, posIdx}
+													<span class="pos-tag" style="display: inline-block; margin-right: 6px; margin-bottom: 8px;">
+														{getPartOfSpeechLabel(pos)}
+													</span>
+												{/each}
+											</p>
 										{/if}
 										{#if glossTexts.length > 0}
 											<div style="margin-bottom: 8px; margin-left: 0px;">
@@ -566,11 +570,13 @@
 											: []}
 										<div style="margin-bottom: 8px; margin-left: 0px;">
 											{#if sense.partOfSpeech && sense.partOfSpeech.length > 0}
-												<span
-													class="pos-tag"
-													style="display: inline-block; margin-right: 6px; margin-bottom: 8px;"
-													>{#each sense.partOfSpeech as pos}{getPartOfSpeechLabel(pos)}{/each}</span
-												><br />
+												<p style="margin: 1px 0 0.5rem 0; space-x: 1.5rem;">
+													{#each sense.partOfSpeech as pos}
+														<span class="pos-tag" style="display: inline-block; margin-right: 6px; margin-bottom: 8px;">
+															{getPartOfSpeechLabel(pos)}
+														</span>
+													{/each}
+												</p>
 											{/if}
 											{#if glossTexts.length > 0}
 												<div style="margin-bottom: 8px; margin-left: 0px;">

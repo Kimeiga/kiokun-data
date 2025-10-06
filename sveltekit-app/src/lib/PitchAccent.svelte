@@ -87,18 +87,14 @@
 			{/if}
 			<div class="mora-container">
 				{#each pattern as { mora, isHigh, isDropPoint }, i}
-					<div class="mora-wrapper">
-						<div class="mora" class:high={isHigh} class:low={!isHigh}>
-							{mora}
-						</div>
-						{#if i < pattern.length - 1}
-							{@const nextIsHigh = pattern[i + 1].isHigh}
-							<div class="connector" class:high-to-low={isHigh && !nextIsHigh} class:low-to-high={!isHigh && nextIsHigh} class:same-level={isHigh === nextIsHigh}></div>
-						{/if}
-						{#if isDropPoint && i < pattern.length - 1}
-							<div class="drop-marker">↓</div>
-						{/if}
-					</div>
+					<span
+						class="mora"
+						class:high={isHigh}
+						class:low={!isHigh}
+						class:has-right-connector={i < pattern.length - 1}
+					>
+						{mora}
+					</span>
 				{/each}
 			</div>
 		</div>
@@ -107,10 +103,8 @@
 
 <style>
 	.pitch-accent-container {
-		display: flex;
-		flex-direction: column;
-		gap: 8px;
-		margin: 8px 0;
+		display: inline-block;
+		margin: 4px 0;
 	}
 
 	.pitch-pattern {
@@ -134,65 +128,29 @@
 	}
 
 	.mora-container {
-		display: flex;
-		align-items: center;
-		position: relative;
-	}
-
-	.mora-wrapper {
-		position: relative;
-		display: flex;
-		align-items: center;
+		display: inline-block;
+		margin-bottom: 1px;
+		--border-width: 1.5px;
 	}
 
 	.mora {
-		font-family: 'MS Mincho', serif;
-		font-size: 16px;
-		padding: 2px 4px;
-		position: relative;
-		z-index: 2;
+		margin: 0;
+		text-align: center;
+		font-size: 90%;
+		border: 0;
+		border-style: dotted;
+		border-color: currentColor;
 	}
 
 	.mora.high {
-		border-top: 2px solid #e74c3c;
-		color: #e74c3c;
+		border-top-width: var(--border-width);
 	}
 
 	.mora.low {
-		border-bottom: 2px solid #3498db;
-		color: #3498db;
+		border-bottom-width: var(--border-width);
 	}
 
-	.connector {
-		width: 8px;
-		height: 2px;
-		position: relative;
-		z-index: 1;
-	}
-
-	.connector.high-to-low {
-		background: linear-gradient(to right, #e74c3c 0%, #e74c3c 30%, #3498db 70%, #3498db 100%);
-		transform: rotate(-20deg);
-		margin: 0 -2px;
-	}
-
-	.connector.low-to-high {
-		background: linear-gradient(to right, #3498db 0%, #3498db 30%, #e74c3c 70%, #e74c3c 100%);
-		transform: rotate(20deg);
-		margin: 0 -2px;
-	}
-
-	.connector.same-level {
-		background: #95a5a6;
-	}
-
-	.drop-marker {
-		position: absolute;
-		top: -20px;
-		right: -4px;
-		font-size: 12px;
-		color: #e74c3c;
-		font-weight: bold;
-		z-index: 3;
+	.mora.has-right-connector {
+		border-right-width: var(--border-width);
 	}
 </style>
