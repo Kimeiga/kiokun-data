@@ -8,8 +8,8 @@ export const load: PageLoad = async ({ params, fetch }) => {
 	const { word } = params;
 
 	try {
-		// Fetch the dictionary data from the static JSON file
-		const response = await fetch(`/dictionary/${word}.json`);
+		// Fetch the dictionary data from D1 database via API
+		const response = await fetch(`/api/dictionary/${word}`);
 
 		if (!response.ok) {
 			throw error(404, `Character "${word}" not found`);
@@ -33,7 +33,7 @@ export const load: PageLoad = async ({ params, fetch }) => {
 		if (data.related_japanese_words && data.related_japanese_words.length > 0) {
 			for (const relatedKey of data.related_japanese_words) {
 				try {
-					const relatedResponse = await fetch(`/dictionary/${relatedKey}.json`);
+					const relatedResponse = await fetch(`/api/dictionary/${relatedKey}`);
 					if (relatedResponse.ok) {
 						const relatedData = await relatedResponse.json();
 						if (relatedData.japanese_words && relatedData.japanese_words.length > 0) {

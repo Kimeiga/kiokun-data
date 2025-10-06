@@ -1,21 +1,11 @@
 #:schema node_modules/wrangler/config-schema.json
-name = "kiokun-notes"
+name = "kiokun-dictionary"
 compatibility_date = "2024-09-23"
 pages_build_output_dir = ".svelte-kit/cloudflare"
 
-# D1 Database binding
+# D1 Database binding for dictionary data
 [[d1_databases]]
 binding = "DB"
-database_name = "kiokun-notes-db"
-database_id = "YOUR_DATABASE_ID_HERE" # Replace with your actual database_id from `wrangler d1 create`
-
-# R2 Bucket binding
-[[r2_buckets]]
-binding = "BUCKET"
-bucket_name = "kiokun-images"
-
-# For local development, create a .dev.vars file with:
-# R2_ACCESS_KEY_ID=your_access_key_id
-# R2_SECRET_ACCESS_KEY=your_secret_access_key
-# R2_ACCOUNT_ID=your_account_id
+database_name = "kiokun-dictionary"
+database_id = "YOUR_DATABASE_ID_HERE" # Replace with your actual database_id from `wrangler d1 create kiokun-dictionary`
 
