@@ -50,7 +50,7 @@
 	// Generate pitch accent pattern for visualization
 	function generatePitchPattern(mora: string[], pitchAccent: number): { mora: string; isHigh: boolean; isDropPoint: boolean }[] {
 		const pattern: { mora: string; isHigh: boolean; isDropPoint: boolean }[] = [];
-		
+
 		if (pitchAccent === 0) {
 			// Heiban (flat) - low first, then high for the rest
 			mora.forEach((m, i) => {
@@ -60,18 +60,27 @@
 					isDropPoint: false
 				});
 			});
+		} else if (pitchAccent === 1) {
+			// Atamadaka - high first, then low for the rest
+			mora.forEach((m, i) => {
+				pattern.push({
+					mora: m,
+					isHigh: i === 0,
+					isDropPoint: i === 0
+				});
+			});
 		} else {
-			// Atamadaka (1) or Nakadaka/Odaka (2+)
+			// Nakadaka/Odaka (2+) - low first, high until accent position, then low
 			mora.forEach((m, i) => {
 				const moraIndex = i + 1; // 1-based indexing for pitch accent
 				pattern.push({
 					mora: m,
-					isHigh: moraIndex <= pitchAccent,
+					isHigh: moraIndex > 1 && moraIndex <= pitchAccent,
 					isDropPoint: moraIndex === pitchAccent
 				});
 			});
 		}
-		
+
 		return pattern;
 	}
 
