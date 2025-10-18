@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use serde::{Serialize, Deserialize};
 
 /// Improved unified dictionary entry that preserves entry distinctions

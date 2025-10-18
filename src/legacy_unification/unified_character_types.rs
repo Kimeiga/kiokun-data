@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use serde::{Serialize, Deserialize};
 
 /// Unified character entry combining KANJIDIC2 and Chinese character dictionary data

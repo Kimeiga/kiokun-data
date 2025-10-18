@@ -38,6 +38,7 @@ pub struct PitchAccentEntry {
 
 // Minimal pitch accent representation for output
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[allow(dead_code)]
 pub struct PitchAccent {
     pub reading: String,
     pub accents: Vec<u8>,
