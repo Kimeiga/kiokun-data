@@ -57,19 +57,19 @@ export function getRepoForShard(shard: ShardType): string {
 }
 
 /**
- * Construct jsDelivr CDN URL for a word
+ * Construct Cloudflare R2 CDN URL for a word
  * @param word - The word/character to fetch
  * @param shard - Optional shard type (will be auto-detected if not provided)
- * @returns The jsDelivr CDN URL
+ * @returns The R2 CDN URL
  */
-export function getJsDelivrUrl(word: string, shard?: ShardType): string {
+export function getR2Url(word: string, shard?: ShardType): string {
 	const shardType = shard || getShardForWord(word);
-	const repo = getRepoForShard(shardType);
-	return `https://cdn.jsdelivr.net/gh/${repo}@latest/${word}.json`;
+	// R2 bucket is served via custom domain with Cloudflare CDN
+	return `https://dict.kiokun.dev/${shardType}/${word}.json`;
 }
 
 /**
- * Get the URL for a word - uses local files in dev, jsDelivr in production
+ * Get the URL for a word - uses local files in dev, R2 CDN in production
  * @param word - The word/character to fetch
  * @returns The URL to fetch from
  */
@@ -78,8 +78,8 @@ export function getDictionaryUrl(word: string): string {
 		// Development: use local files
 		return `/dictionary/${word}.json`;
 	} else {
-		// Production: use jsDelivr CDN
-		return getJsDelivrUrl(word);
+		// Production: use Cloudflare R2 CDN
+		return getR2Url(word);
 	}
 }
 
