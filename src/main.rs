@@ -68,10 +68,10 @@ impl ShardType {
     /// Get the output directory name for this shard
     fn output_dir(&self) -> &'static str {
         match self {
-            ShardType::NonHan => "output_non_han",
-            ShardType::Han1Char => "output_han_1char",
-            ShardType::Han2Char => "output_han_2char",
-            ShardType::Han3Plus => "output_han_3plus",
+            ShardType::NonHan => "output_non-han",
+            ShardType::Han1Char => "output_han-1char",
+            ShardType::Han2Char => "output_han-2char",
+            ShardType::Han3Plus => "output_han-3plus",
         }
     }
 
