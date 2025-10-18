@@ -77,18 +77,19 @@ jobs:
       - name: Sync files to target repository
         run: |
           SHARD_DIR="output_${{ matrix.shard-type }}"
-          
+
           echo "🔄 Syncing files from $SHARD_DIR to target-repo..."
-          
+
           # Remove old files (except .git)
           cd target-repo
           find . -maxdepth 1 -not -name '.git' -not -name '.' -not -name '..' -exec rm -rf {} +
-          
-          # Copy new files
-          cp -r ../$SHARD_DIR/* .
-          
+          cd ..
+
+          # Copy new files using rsync (handles large number of files)
+          rsync -a --info=progress2 "$SHARD_DIR/" target-repo/
+
           # Count files
-          FILE_COUNT=$(find . -name "*.json" | wc -l)
+          FILE_COUNT=$(find target-repo -name "*.json" | wc -l)
           echo "✅ Copied $FILE_COUNT JSON files to target repository"
 
       - name: Commit and push to target repository
