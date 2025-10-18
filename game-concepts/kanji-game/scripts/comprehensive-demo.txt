@@ -1,0 +1,50 @@
+# Comprehensive Demo - Shows all game features
+
+# Initial state
+status
+
+# Play some words automatically
+auto
+auto
+auto
+
+# Try combining cards to make more complex characters
+status
+combine 1 2
+status
+
+# Continue auto-playing
+auto
+auto
+
+# Try dissolving a complex character
+status
+dissolve 1
+status
+
+# Discard some cards
+discard 1 2
+status
+
+# Continue with auto-play until blind complete or game over
+auto
+auto
+auto
+auto
+auto
+auto
+auto
+auto
+auto
+auto
+auto
+auto
+auto
+auto
+auto
+auto
+auto
+auto
+auto
+auto
+

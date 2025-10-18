@@ -1,5 +1,8 @@
 import type { PageLoad } from './$types';
 import { error } from '@sveltejs/kit';
+import { expandFields } from '$lib/field-mappings';
+import { getDictionaryUrl } from '$lib/shard-utils';
+import { dev } from '$app/environment';
 
 // Disable SSR for this route to avoid hanging during development
 export const ssr = false;
@@ -8,14 +11,28 @@ export const load: PageLoad = async ({ params, fetch }) => {
 	const { word } = params;
 
 	try {
-		// Fetch the dictionary data from the static JSON file
-		const response = await fetch(`/dictionary/${word}.json`);
+		// Fetch the dictionary data (local in dev, jsDelivr in prod)
+		const url = getDictionaryUrl(word);
+		console.log(`[${dev ? 'DEV' : 'PROD'}] Fetching from: ${url}`);
+		const response = await fetch(url);
 
 		if (!response.ok) {
 			throw error(404, `Character "${word}" not found`);
 		}
 
-		const data = await response.json();
+		const rawData = await response.json();
+		// Expand optimized field names to readable names
+		let data = expandFields(rawData);
+
+		// If this is a redirect entry, fetch the actual data
+		if (data.redirect) {
+			const redirectUrl = getDictionaryUrl(data.redirect);
+			const redirectResponse = await fetch(redirectUrl);
+			if (redirectResponse.ok) {
+				const redirectRawData = await redirectResponse.json();
+				data = expandFields(redirectRawData);
+			}
+		}
 
 		// Load Japanese labels
 		let labels: any = {};
@@ -29,13 +46,15 @@ export const load: PageLoad = async ({ params, fetch }) => {
 		}
 
 		// Fetch related Japanese words
-		const relatedJapaneseWords = [];
+		const relatedJapaneseWords: any[] = [];
 		if (data.related_japanese_words && data.related_japanese_words.length > 0) {
 			for (const relatedKey of data.related_japanese_words) {
 				try {
-					const relatedResponse = await fetch(`/dictionary/${relatedKey}.json`);
+					const relatedUrl = getDictionaryUrl(relatedKey);
+					const relatedResponse = await fetch(relatedUrl);
 					if (relatedResponse.ok) {
-						const relatedData = await relatedResponse.json();
+						const relatedRawData = await relatedResponse.json();
+						const relatedData = expandFields(relatedRawData);
 						if (relatedData.japanese_words && relatedData.japanese_words.length > 0) {
 							relatedData.japanese_words.forEach((japWord: any) => {
 								relatedJapaneseWords.push({

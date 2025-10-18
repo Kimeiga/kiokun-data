@@ -1,0 +1,58 @@
+# Successful Run - Actually plays the suggested valid words!
+
+# Show initial state
+status
+
+# Get suggestions
+suggest
+
+# Play 水火 (water fire) - cards 5 and 6
+play 5 6
+
+# Show progress
+status
+
+# Get more suggestions
+suggest
+
+# Play 一女 (one woman) - cards that are now at different positions after drawing
+play 5 6
+
+# Show progress
+status
+
+# Get more suggestions and keep playing
+suggest
+play 1 2
+
+status
+suggest
+play 1 2
+
+status
+suggest
+play 1 2
+
+status
+suggest
+play 1 2
+
+status
+suggest
+play 1 2
+
+status
+suggest
+play 1 2
+
+status
+suggest
+play 1 2
+
+status
+suggest
+play 1 2
+
+# Final status
+status
+

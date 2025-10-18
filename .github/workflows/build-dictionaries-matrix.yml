@@ -1,0 +1,153 @@
+name: Build Dictionaries (Matrix)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # Allow manual triggering
+  schedule:
+    - cron: "0 0 1 * *" # Run monthly
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        shard-type: [non-han, han-1char, han-2char, han-3plus]
+      fail-fast: false # Continue other shards even if one fails
+    
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: Setup Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          toolchain: stable
+
+      - name: Download dictionary source files
+        run: |
+          # Create directories if they don't exist
+          mkdir -p data
+
+          # Download JMdict (Japanese-English dictionary)
+          echo "📥 Downloading JMdict..."
+          curl -L "http://ftp.edrdg.org/pub/Nihongo/JMdict_e.gz" -o data/JMdict_e.gz
+          gunzip -f data/JMdict_e.gz
+
+          # Download JMnedict (Japanese proper names)
+          echo "📥 Downloading JMnedict..."
+          curl -L "http://ftp.edrdg.org/pub/Nihongo/JMnedict.xml.gz" -o data/JMnedict.xml.gz
+          gunzip -f data/JMnedict.xml.gz
+
+          # Download KANJIDIC2 (Kanji dictionary)
+          echo "📥 Downloading KANJIDIC2..."
+          curl -L "http://ftp.edrdg.org/pub/Nihongo/kanjidic2.xml.gz" -o data/kanjidic2.xml.gz
+          gunzip -f data/kanjidic2.xml.gz
+
+          # Download CC-CEDICT (Chinese-English dictionary)
+          echo "📥 Downloading CC-CEDICT..."
+          curl -L "https://www.mdbg.net/chinese/export/cedict/cedict_1_0_ts_utf-8_mdbg.txt.gz" -o data/cedict.txt.gz
+          gunzip -f data/cedict.txt.gz
+
+          echo "✅ All dictionary files downloaded successfully"
+
+      - name: Build Rust project
+        run: |
+          echo "🔨 Building Rust project..."
+          cargo build --release
+
+      - name: Run dictionary build for ${{ matrix.shard-type }}
+        run: |
+          echo "🎯 Building dictionary shard: ${{ matrix.shard-type }}..."
+          cargo run --release --bin merge_dictionaries -- --individual-files --optimize --mode ${{ matrix.shard-type }}
+
+      - name: Verify output
+        run: |
+          SHARD_DIR="output_${{ matrix.shard-type }}"
+          if [ ! -d "$SHARD_DIR" ]; then
+            echo "❌ Error: Output directory $SHARD_DIR not found!"
+            exit 1
+          fi
+          
+          FILE_COUNT=$(find "$SHARD_DIR" -name "*.json" | wc -l)
+          echo "✅ Generated $FILE_COUNT JSON files in $SHARD_DIR"
+          
+          if [ "$FILE_COUNT" -eq 0 ]; then
+            echo "❌ Error: No JSON files generated!"
+            exit 1
+          fi
+
+      - name: Setup Git for deployment
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "actions@github.com"
+
+      - name: Clone target repository
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          OUTPUT_REPO="Kimeiga/japanese-dict-${{ matrix.shard-type }}"
+          echo "📦 Cloning target repository: $OUTPUT_REPO"
+          
+          # Clone the target repo (create if doesn't exist)
+          git clone "https://x-access-token:${GITHUB_TOKEN}@github.com/${OUTPUT_REPO}.git" target-repo || {
+            echo "Repository doesn't exist, will create it"
+            mkdir -p target-repo
+            cd target-repo
+            git init
+            git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${OUTPUT_REPO}.git"
+            cd ..
+          }
+
+      - name: Sync files to target repository
+        run: |
+          SHARD_DIR="output_${{ matrix.shard-type }}"
+          
+          echo "🔄 Syncing files from $SHARD_DIR to target-repo..."
+          
+          # Remove old files (except .git)
+          cd target-repo
+          find . -maxdepth 1 -not -name '.git' -not -name '.' -not -name '..' -exec rm -rf {} +
+          
+          # Copy new files
+          cp -r ../$SHARD_DIR/* .
+          
+          # Count files
+          FILE_COUNT=$(find . -name "*.json" | wc -l)
+          echo "✅ Copied $FILE_COUNT JSON files to target repository"
+
+      - name: Commit and push to target repository
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd target-repo
+          
+          # Add all files
+          git add -A
+          
+          # Check if there are changes
+          if git diff --staged --quiet; then
+            echo "ℹ️ No changes to commit"
+            exit 0
+          fi
+          
+          # Commit and push
+          git commit -m "Update dictionary data for ${{ matrix.shard-type }} - $(date -u +"%Y-%m-%d %H:%M:%S UTC")"
+          git push -u origin main --force
+
+      - name: Summary
+        if: always()
+        run: |
+          echo "📊 Build Summary for ${{ matrix.shard-type }}"
+          echo "================================"
+          SHARD_DIR="output_${{ matrix.shard-type }}"
+          if [ -d "$SHARD_DIR" ]; then
+            FILE_COUNT=$(find "$SHARD_DIR" -name "*.json" | wc -l)
+            TOTAL_SIZE=$(du -sh "$SHARD_DIR" | cut -f1)
+            echo "Files generated: $FILE_COUNT"
+            echo "Total size: $TOTAL_SIZE"
+            echo "Target repo: Kimeiga/japanese-dict-${{ matrix.shard-type }}"
+          else
+            echo "❌ Build failed - no output directory"
+          fi
+

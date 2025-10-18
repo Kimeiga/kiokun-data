@@ -1,0 +1,50 @@
+# Winning Demo - Shows a successful playthrough
+# This script uses the suggest command to find valid words
+
+# Show initial state
+status
+
+# Get suggestions for valid words
+suggest
+
+# Play the first suggested word (日中 - Japan-China)
+play 2 3
+
+# Get more suggestions
+suggest
+
+# Play another word (小目 - small eye)
+play 1 4
+
+# Show progress
+status
+
+# Get suggestions again
+suggest
+
+# Play 小火 (small fire)
+play 1 5
+
+# Continue playing valid words
+suggest
+play 1 6
+
+# Check status - should be getting close to target
+status
+
+# Play more words to reach the target
+suggest
+play 1 8
+
+suggest
+play 3 4
+
+suggest
+play 1 2
+
+suggest
+play 1 2
+
+# Should complete the blind now
+status
+

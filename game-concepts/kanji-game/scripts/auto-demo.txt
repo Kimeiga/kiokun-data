@@ -1,0 +1,58 @@
+# Auto-play Demo - Let the AI play itself!
+
+status
+
+# Auto-play will automatically:
+# 1. Find and play valid words
+# 2. Combine cards if no words available
+# 3. Discard low-value cards if stuck
+# 4. Report if completely stuck
+
+auto
+status
+
+auto
+status
+
+auto
+status
+
+auto
+status
+
+auto
+status
+
+auto
+status
+
+auto
+status
+
+auto
+status
+
+auto
+status
+
+auto
+status
+
+auto
+status
+
+auto
+status
+
+auto
+status
+
+auto
+status
+
+auto
+status
+
+auto
+status
+

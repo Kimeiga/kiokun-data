@@ -7,6 +7,9 @@ mod ids_types;
 mod combined_types;
 mod analysis;
 mod simple_output_types;
+mod optimized_output_types;
+mod optimization;
+mod word_preview_types;
 
 // Legacy unification code (not used in default simple output)
 mod legacy_unification {
@@ -38,6 +41,65 @@ use combined_types::{
     MergeStatistics, DictionaryMetadata
 };
 use legacy_unification::semantic_unification_engine::SemanticUnificationEngine;
+use optimized_output_types::OptimizedOutput;
+
+/// Determines which shard a key belongs to based on Han character count
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+enum ShardType {
+    NonHan,      // No Han characters (kana, romaji, etc.)
+    Han1Char,    // Single Han character
+    Han2Char,    // Two Han characters
+    Han3Plus,    // Three or more Han characters
+}
+
+impl ShardType {
+    /// Determine shard type from a key string
+    fn from_key(key: &str) -> Self {
+        let han_count = key.chars().filter(|c| is_han_character(*c)).count();
+
+        match han_count {
+            0 => ShardType::NonHan,
+            1 => ShardType::Han1Char,
+            2 => ShardType::Han2Char,
+            _ => ShardType::Han3Plus,
+        }
+    }
+
+    /// Get the output directory name for this shard
+    fn output_dir(&self) -> &'static str {
+        match self {
+            ShardType::NonHan => "output_non_han",
+            ShardType::Han1Char => "output_han_1char",
+            ShardType::Han2Char => "output_han_2char",
+            ShardType::Han3Plus => "output_han_3plus",
+        }
+    }
+
+    /// Parse from CLI mode string
+    fn from_mode_str(mode: &str) -> Option<Self> {
+        match mode {
+            "non-han" => Some(ShardType::NonHan),
+            "han-1char" => Some(ShardType::Han1Char),
+            "han-2char" => Some(ShardType::Han2Char),
+            "han-3plus" => Some(ShardType::Han3Plus),
+            _ => None,
+        }
+    }
+}
+
+/// Check if a character is a Han character (CJK Unified Ideographs)
+fn is_han_character(c: char) -> bool {
+    matches!(c,
+        '\u{4E00}'..='\u{9FFF}'   | // CJK Unified Ideographs
+        '\u{3400}'..='\u{4DBF}'   | // CJK Unified Ideographs Extension A
+        '\u{20000}'..='\u{2A6DF}' | // CJK Unified Ideographs Extension B
+        '\u{2A700}'..='\u{2B73F}' | // CJK Unified Ideographs Extension C
+        '\u{2B740}'..='\u{2B81F}' | // CJK Unified Ideographs Extension D
+        '\u{2B820}'..='\u{2CEAF}' | // CJK Unified Ideographs Extension E
+        '\u{2CEB0}'..='\u{2EBEF}' | // CJK Unified Ideographs Extension F
+        '\u{30000}'..='\u{3134F}'   // CJK Unified Ideographs Extension G
+    )
+}
 
 #[tokio::main]
 async fn main() -> Result<()> {
@@ -55,6 +117,12 @@ async fn main() -> Result<()> {
             Arg::new("individual-files")
                 .long("individual-files")
                 .help("Generate individual JSON files for each word")
+                .action(ArgAction::SetTrue),
+        )
+        .arg(
+            Arg::new("optimize")
+                .long("optimize")
+                .help("Generate optimized output with shortened field names (60% size reduction)")
                 .action(ArgAction::SetTrue),
         )
         .arg(
@@ -152,6 +220,14 @@ async fn main() -> Result<()> {
                 .long("include-pitch-accent")
                 .help("Include pitch accent data in Japanese word entries")
                 .action(ArgAction::SetTrue),
+        )
+        .arg(
+            Arg::new("mode")
+                .long("mode")
+                .value_name("SHARD_TYPE")
+                .help("Specify which shard to build: non-han, han-1char, han-2char, han-3plus, or all (default: all)")
+                .value_parser(["non-han", "han-1char", "han-2char", "han-3plus", "all"])
+                .default_value("all"),
         )
         .get_matches();
 
@@ -350,6 +426,20 @@ async fn main() -> Result<()> {
     println!("🎯 Applying semantic alignment...");
     let aligned_dict = analysis::apply_semantic_alignment(combined_dict).await?;
 
+    // Parse the mode argument to determine which shard(s) to build
+    let mode_str = matches.get_one::<String>("mode").map(|s| s.as_str()).unwrap_or("all");
+    let shard_filter: Option<ShardType> = ShardType::from_mode_str(mode_str);
+
+    if mode_str != "all" && shard_filter.is_none() {
+        anyhow::bail!("Invalid mode: {}. Must be one of: non-han, han-1char, han-2char, han-3plus, all", mode_str);
+    }
+
+    if let Some(shard) = shard_filter {
+        println!("🎯 Building shard: {} (output to: {})", mode_str, shard.output_dir());
+    } else {
+        println!("🎯 Building all shards (output to: output_dictionary)");
+    }
+
     // Check if individual files are requested
     if matches.get_flag("individual-files") {
         // Check if unified output is requested (non-default)
@@ -357,21 +447,33 @@ async fn main() -> Result<()> {
             let unified_only = matches.get_flag("unified-only");
             println!("🔄 Generating unified individual JSON files (word + character data){}...",
                      if unified_only { " (unified entries only)" } else { "" });
-            generate_unified_output_files(&aligned_dict, &unified_characters, unified_only).await?;
+            generate_unified_output_files(&aligned_dict, &unified_characters, unified_only, shard_filter).await?;
         } else {
             // Default: simple output with no unification
-            println!("🔄 Generating simple individual JSON files (no unification)...");
             // Need to reload the raw character dictionaries since they were consumed
             let chinese_char_dict_raw = load_chinese_char_dictionary("data/chinese_dictionary_char_2025-06-25.jsonl")
                 .context("Failed to load Chinese character dictionary")?;
             let japanese_char_dict_raw = load_japanese_char_dictionary("data/kanjidic2-en-3.6.1.json")
                 .context("Failed to load Japanese character dictionary")?;
 
-            generate_simple_output_files(
-                &aligned_dict,
-                &chinese_char_dict_raw,
-                &japanese_char_dict_raw.characters
-            ).await?;
+            // Check if optimized output is requested
+            if matches.get_flag("optimize") {
+                println!("🔄 Generating optimized individual JSON files (60% size reduction)...");
+                generate_optimized_output_files(
+                    &aligned_dict,
+                    &chinese_char_dict_raw,
+                    &japanese_char_dict_raw.characters,
+                    shard_filter
+                ).await?;
+            } else {
+                println!("🔄 Generating simple individual JSON files (no unification)...");
+                generate_simple_output_files(
+                    &aligned_dict,
+                    &chinese_char_dict_raw,
+                    &japanese_char_dict_raw.characters,
+                    shard_filter
+                ).await?;
+            }
         }
 
         return Ok(());
@@ -1341,12 +1443,22 @@ fn contains_kana(text: &str) -> bool {
 
 /// Convert Japanese text to Traditional Chinese using OpenCC
 fn convert_with_opencc(text: &str) -> Result<String> {
+    convert_with_opencc_config(text, "jp2t")
+}
+
+/// Convert Traditional Chinese to Simplified Chinese using OpenCC
+fn convert_traditional_to_simplified(text: &str) -> Result<String> {
+    convert_with_opencc_config(text, "t2s")
+}
+
+/// Generic OpenCC conversion with configurable conversion type
+fn convert_with_opencc_config(text: &str, config: &str) -> Result<String> {
     use std::process::Stdio;
     use std::io::Write;
 
     let mut child = ProcessCommand::new("opencc")
         .arg("-c")
-        .arg("jp2t")
+        .arg(config)
         .stdin(Stdio::piped())
         .stdout(Stdio::piped())
         .stderr(Stdio::piped())
@@ -1375,7 +1487,8 @@ fn convert_with_opencc(text: &str) -> Result<String> {
 async fn generate_unified_output_files(
     combined_dict: &CombinedDictionary,
     unified_characters: &[UnifiedCharacterEntry],
-    unified_only: bool
+    unified_only: bool,
+    shard_filter: Option<ShardType>,
 ) -> Result<()> {
     use std::fs;
     use std::path::Path;
@@ -1383,7 +1496,11 @@ async fn generate_unified_output_files(
     use legacy_unification::unified_output_types::UnifiedOutput;
 
     println!("📁 Preparing output directory...");
-    let output_dir = Path::new("output_dictionary");
+    let output_dir = if let Some(shard) = shard_filter {
+        Path::new(shard.output_dir())
+    } else {
+        Path::new("output_dictionary")
+    };
 
     // OPTIMIZATION: Instead of removing directory (slow!), just overwrite files
     if !output_dir.exists() {
@@ -1459,6 +1576,16 @@ async fn generate_unified_output_files(
              word_count,
              unified_outputs.len() - word_count);
 
+    // Filter by shard if specified
+    let unified_outputs = if let Some(shard) = shard_filter {
+        println!("🔍 Filtering entries for shard: {:?}", shard);
+        unified_outputs.into_iter()
+            .filter(|(key, _)| ShardType::from_key(key) == shard)
+            .collect()
+    } else {
+        unified_outputs
+    };
+
     println!("💾 Writing {} individual JSON files...", unified_outputs.len());
 
     // Use parallel processing for maximum performance
@@ -1512,6 +1639,7 @@ async fn generate_simple_output_files(
     combined_dict: &CombinedDictionary,
     chinese_chars: &[ChineseCharacter],
     kanjidic_entries: &[KanjiCharacter],
+    shard_filter: Option<ShardType>,
 ) -> Result<()> {
     use std::fs;
     use std::path::Path;
@@ -1519,7 +1647,11 @@ async fn generate_simple_output_files(
     use simple_output_types::SimpleOutput;
 
     println!("📁 Preparing output directory...");
-    let output_dir = Path::new("output_dictionary");
+    let output_dir = if let Some(shard) = shard_filter {
+        Path::new(shard.output_dir())
+    } else {
+        Path::new("output_dictionary")
+    };
 
     // OPTIMIZATION: Instead of removing directory (slow!), just overwrite files
     // This is much faster when the directory already exists
@@ -1562,11 +1694,15 @@ async fn generate_simple_output_files(
 
         let output = outputs.entry(key.clone()).or_insert_with(|| SimpleOutput {
             key: key.clone(),
+            redirect: None,
             chinese_words: Vec::new(),
             chinese_char: None,
             japanese_words: Vec::new(),
             japanese_char: None,
             related_japanese_words: Vec::new(),
+            contains: Vec::new(),
+            contained_in_chinese: Vec::new(),
+            contained_in_japanese: Vec::new(),
         });
 
         if let Some(ref chinese) = entry.chinese_entry {
@@ -1605,11 +1741,15 @@ async fn generate_simple_output_files(
                     if alt_key != key {
                         let alt_output = outputs.entry(alt_key.clone()).or_insert_with(|| SimpleOutput {
                             key: alt_key.clone(),
+                            redirect: None,
                             chinese_words: Vec::new(),
                             chinese_char: None,
                             japanese_words: Vec::new(),
                             japanese_char: None,
                             related_japanese_words: Vec::new(),
+                            contains: Vec::new(),
+                            contained_in_chinese: Vec::new(),
+                            contained_in_japanese: Vec::new(),
                         });
 
                         // Add reference to primary entry if not already present
@@ -1626,11 +1766,15 @@ async fn generate_simple_output_files(
     for (key, char_entry) in chinese_char_by_key {
         let output = outputs.entry(key.clone()).or_insert_with(|| SimpleOutput {
             key: key.clone(),
+            redirect: None,
             chinese_words: Vec::new(),
             chinese_char: None,
             japanese_words: Vec::new(),
             japanese_char: None,
             related_japanese_words: Vec::new(),
+            contains: Vec::new(),
+            contained_in_chinese: Vec::new(),
+            contained_in_japanese: Vec::new(),
         });
         output.chinese_char = Some(char_entry.clone());
     }
@@ -1638,14 +1782,182 @@ async fn generate_simple_output_files(
     for (key, kanji_entry) in kanjidic_by_key {
         let output = outputs.entry(key.clone()).or_insert_with(|| SimpleOutput {
             key: key.clone(),
+            redirect: None,
             chinese_words: Vec::new(),
             chinese_char: None,
             japanese_words: Vec::new(),
             japanese_char: None,
             related_japanese_words: Vec::new(),
+            contains: Vec::new(),
+            contained_in_chinese: Vec::new(),
+            contained_in_japanese: Vec::new(),
         });
         output.japanese_char = Some(kanji_entry.clone());
     }
+
+    // Build reverse index for "contained in" relationships
+    println!("🔍 Building reverse index for word containment...");
+    let mut chinese_containment: StdHashMap<String, Vec<String>> = StdHashMap::new();
+    let mut japanese_containment: StdHashMap<String, Vec<String>> = StdHashMap::new();
+
+    for (word_key, output) in &outputs {
+        // For Chinese words, check each character in the word
+        if !output.chinese_words.is_empty() {
+            for ch in word_key.chars() {
+                let ch_str = ch.to_string();
+                if ch_str != *word_key {  // Don't add self-references
+                    chinese_containment.entry(ch_str).or_insert_with(Vec::new).push(word_key.clone());
+                }
+            }
+        }
+
+        // For Japanese words, check each character in kanji forms
+        for japanese_word in &output.japanese_words {
+            for kanji_form in &japanese_word.kanji {
+                for ch in kanji_form.text.chars() {
+                    let ch_str = ch.to_string();
+                    if ch_str != *word_key {  // Don't add self-references
+                        japanese_containment.entry(ch_str).or_insert_with(Vec::new).push(word_key.clone());
+                    }
+                }
+            }
+        }
+    }
+
+    // Populate the contained_in fields (limit to 100 entries each)
+    println!("  📝 Populating containment data for {} entries...", outputs.len());
+
+    // First pass: collect all the word keys we need
+    let mut chinese_previews_map: StdHashMap<String, Vec<word_preview_types::WordPreview>> = StdHashMap::new();
+    let mut japanese_previews_map: StdHashMap<String, Vec<word_preview_types::WordPreview>> = StdHashMap::new();
+
+    for (key, _) in &outputs {
+        if let Some(chinese_words) = chinese_containment.get(key) {
+            // Deduplicate and limit to 100
+            let mut unique_words: Vec<String> = chinese_words.iter().cloned().collect();
+            unique_words.sort();
+            unique_words.dedup();
+            unique_words.truncate(100);
+
+            // Convert to WordPreview objects
+            let previews: Vec<word_preview_types::WordPreview> = unique_words.iter()
+                .filter_map(|word_key| {
+                    outputs.get(word_key).and_then(|word_output| {
+                        word_output.chinese_words.first()
+                            .map(|chinese_word| word_preview_types::WordPreview::from_chinese(chinese_word))
+                    })
+                })
+                .collect();
+            chinese_previews_map.insert(key.clone(), previews);
+        }
+
+        if let Some(japanese_words) = japanese_containment.get(key) {
+            // Deduplicate and limit to 100
+            let mut unique_words: Vec<String> = japanese_words.iter().cloned().collect();
+            unique_words.sort();
+            unique_words.dedup();
+            unique_words.truncate(100);
+
+            // Convert to WordPreview objects
+            let previews: Vec<word_preview_types::WordPreview> = unique_words.iter()
+                .filter_map(|word_key| {
+                    outputs.get(word_key).and_then(|word_output| {
+                        word_output.japanese_words.first()
+                            .map(|japanese_word| word_preview_types::WordPreview::from_japanese(japanese_word))
+                    })
+                })
+                .collect();
+            japanese_previews_map.insert(key.clone(), previews);
+        }
+    }
+
+    // Second pass: populate the outputs
+    for (key, output) in outputs.iter_mut() {
+        if let Some(previews) = chinese_previews_map.get(key) {
+            output.contained_in_chinese = previews.clone();
+        }
+        if let Some(previews) = japanese_previews_map.get(key) {
+            output.contained_in_japanese = previews.clone();
+        }
+    }
+
+    // Build "contains" relationships for multi-character words
+    println!("🔍 Building 'contains' relationships for multi-character words...");
+    let existing_keys: std::collections::HashSet<String> = outputs.keys().cloned().collect();
+
+    // First pass: collect all contained words
+    let mut contains_map: StdHashMap<String, Vec<String>> = StdHashMap::new();
+
+    for key in outputs.keys() {
+        // Only process multi-character words (2+ characters)
+        if key.chars().count() < 2 {
+            continue;
+        }
+
+        let mut contained_words: Vec<String> = Vec::new();
+        let chars: Vec<char> = key.chars().collect();
+        let len = chars.len();
+
+        // Generate all possible substrings
+        for start in 0..len {
+            for end in (start + 1)..=len {
+                let substring: String = chars[start..end].iter().collect();
+
+                // Skip if it's the same as the original word
+                if substring == *key {
+                    continue;
+                }
+
+                // Check if this substring exists in the dictionary
+                if existing_keys.contains(&substring) {
+                    contained_words.push(substring);
+                }
+            }
+        }
+
+        // Deduplicate and sort
+        contained_words.sort();
+        contained_words.dedup();
+
+        contains_map.insert(key.clone(), contained_words);
+    }
+
+    // Second pass: convert to WordPreview objects
+    let mut contains_previews_map: StdHashMap<String, Vec<word_preview_types::WordPreview>> = StdHashMap::new();
+
+    for (key, contained_words) in &contains_map {
+        let previews: Vec<word_preview_types::WordPreview> = contained_words.iter()
+            .filter_map(|word_key| {
+                outputs.get(word_key).and_then(|word_output| {
+                    // Try Chinese first, then Japanese
+                    word_output.chinese_words.first()
+                        .map(|chinese_word| word_preview_types::WordPreview::from_chinese(chinese_word))
+                        .or_else(|| {
+                            word_output.japanese_words.first()
+                                .map(|japanese_word| word_preview_types::WordPreview::from_japanese(japanese_word))
+                        })
+                })
+            })
+            .collect();
+        contains_previews_map.insert(key.clone(), previews);
+    }
+
+    // Third pass: populate the outputs
+    for (key, output) in outputs.iter_mut() {
+        if let Some(previews) = contains_previews_map.get(key) {
+            output.contains = previews.clone();
+        }
+    }
+
+    // Filter by shard if specified
+    let outputs = if let Some(shard) = shard_filter {
+        println!("🔍 Filtering entries for shard: {:?}", shard);
+        outputs.into_iter()
+            .filter(|(key, _)| ShardType::from_key(key) == shard)
+            .collect()
+    } else {
+        outputs
+    };
 
     println!("💾 Serializing {} entries in parallel...", outputs.len());
 
@@ -1705,6 +2017,475 @@ async fn generate_simple_output_files(
     println!("✅ Successfully generated {} simple JSON files!", total);
     println!("📁 Files saved to: output_dictionary/");
     println!("💡 Usage: cat output_dictionary/好.json");
+
+    Ok(())
+}
+
+async fn generate_optimized_output_files(
+    combined_dict: &CombinedDictionary,
+    chinese_chars: &[ChineseCharacter],
+    kanjidic_entries: &[KanjiCharacter],
+    shard_filter: Option<ShardType>,
+) -> Result<()> {
+    use std::fs;
+    use std::path::Path;
+    use std::collections::HashMap as StdHashMap;
+    use simple_output_types::SimpleOutput;
+    use optimization::optimize_output;
+
+    println!("📁 Preparing output directory...");
+    let output_dir = if let Some(shard) = shard_filter {
+        Path::new(shard.output_dir())
+    } else {
+        Path::new("output_dictionary")
+    };
+
+    // OPTIMIZATION: Instead of removing directory (slow!), just overwrite files
+    // This is much faster when the directory already exists
+    if !output_dir.exists() {
+        fs::create_dir_all(output_dir).context("Failed to create output directory")?;
+    } else {
+        println!("  ℹ️  Directory exists, will overwrite files (faster than deleting)");
+    }
+
+    // Index Chinese characters by character string
+    let mut chinese_char_by_key: StdHashMap<String, &ChineseCharacter> = StdHashMap::new();
+    for char_entry in chinese_chars {
+        chinese_char_by_key.insert(char_entry.char.clone(), char_entry);
+    }
+
+    // Index KANJIDIC entries by literal
+    let mut kanjidic_by_key: StdHashMap<String, &KanjiCharacter> = StdHashMap::new();
+    for kanji_entry in kanjidic_entries {
+        kanjidic_by_key.insert(kanji_entry.literal.clone(), kanji_entry);
+    }
+
+    println!("🔄 Grouping entries by key...");
+    let mut outputs: StdHashMap<String, SimpleOutput> = StdHashMap::new();
+
+    // Process all combined entries (words) - same as simple output
+    for entry in &combined_dict.entries {
+        let key = if let Some(ref chinese) = entry.chinese_entry {
+            chinese.simp.clone()
+        } else if let Some(ref japanese) = entry.japanese_entry {
+            japanese.kanji.first()
+                .map(|k| k.text.clone())
+                .or_else(|| japanese.kana.first().map(|k| k.text.clone()))
+                .unwrap_or_default()
+        } else {
+            continue;
+        };
+
+        let output = outputs.entry(key.clone()).or_insert_with(|| SimpleOutput {
+            key: key.clone(),
+            redirect: None,
+            chinese_words: Vec::new(),
+            chinese_char: None,
+            japanese_words: Vec::new(),
+            japanese_char: None,
+            related_japanese_words: Vec::new(),
+            contains: Vec::new(),
+            contained_in_chinese: Vec::new(),
+            contained_in_japanese: Vec::new(),
+        });
+
+        if let Some(ref chinese) = entry.chinese_entry {
+            let mut filtered_chinese = chinese.clone();
+            filtered_chinese.items.retain(|item| {
+                !matches!(item.source, Some(crate::chinese_types::Source::Unicode))
+            });
+
+            if !filtered_chinese.items.is_empty() {
+                output.chinese_words.push(filtered_chinese);
+            }
+        }
+
+        if let Some(ref japanese) = entry.japanese_entry {
+            output.japanese_words.push(japanese.clone());
+        }
+
+        for additional_japanese in &entry.japanese_specific_entries {
+            output.japanese_words.push(additional_japanese.clone());
+        }
+
+        if let Some(ref japanese) = entry.japanese_entry {
+            if japanese.kanji.len() > 1 {
+                for (i, kanji_form) in japanese.kanji.iter().enumerate() {
+                    if i == 0 {
+                        continue;
+                    }
+
+                    let alt_key = kanji_form.text.clone();
+                    if alt_key != key {
+                        let alt_output = outputs.entry(alt_key.clone()).or_insert_with(|| SimpleOutput {
+                            key: alt_key.clone(),
+                            redirect: None,
+                            chinese_words: Vec::new(),
+                            chinese_char: None,
+                            japanese_words: Vec::new(),
+                            japanese_char: None,
+                            related_japanese_words: Vec::new(),
+                            contains: Vec::new(),
+                            contained_in_chinese: Vec::new(),
+                            contained_in_japanese: Vec::new(),
+                        });
+
+                        if !alt_output.related_japanese_words.contains(&key) {
+                            alt_output.related_japanese_words.push(key.clone());
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Add character data
+    for (key, char_entry) in chinese_char_by_key {
+        let output = outputs.entry(key.clone()).or_insert_with(|| SimpleOutput {
+            key: key.clone(),
+            redirect: None,
+            chinese_words: Vec::new(),
+            chinese_char: None,
+            japanese_words: Vec::new(),
+            japanese_char: None,
+            related_japanese_words: Vec::new(),
+            contains: Vec::new(),
+            contained_in_chinese: Vec::new(),
+            contained_in_japanese: Vec::new(),
+        });
+        output.chinese_char = Some(char_entry.clone());
+    }
+
+    for (key, kanji_entry) in kanjidic_by_key {
+        let output = outputs.entry(key.clone()).or_insert_with(|| SimpleOutput {
+            key: key.clone(),
+            redirect: None,
+            chinese_words: Vec::new(),
+            chinese_char: None,
+            japanese_words: Vec::new(),
+            japanese_char: None,
+            related_japanese_words: Vec::new(),
+            contains: Vec::new(),
+            contained_in_chinese: Vec::new(),
+            contained_in_japanese: Vec::new(),
+        });
+        output.japanese_char = Some(kanji_entry.clone());
+    }
+
+    // Build reverse index for "contained in" relationships
+    println!("🔍 Building reverse index for word containment...");
+    let mut chinese_containment: StdHashMap<String, Vec<String>> = StdHashMap::new();
+    let mut japanese_containment: StdHashMap<String, Vec<String>> = StdHashMap::new();
+
+    for (word_key, output) in &outputs {
+        // For Chinese words, check each character in the word
+        if !output.chinese_words.is_empty() {
+            for ch in word_key.chars() {
+                let ch_str = ch.to_string();
+                if ch_str != *word_key {  // Don't add self-references
+                    chinese_containment.entry(ch_str).or_insert_with(Vec::new).push(word_key.clone());
+                }
+            }
+        }
+
+        // For Japanese words, check each character in kanji forms
+        for japanese_word in &output.japanese_words {
+            for kanji_form in &japanese_word.kanji {
+                for ch in kanji_form.text.chars() {
+                    let ch_str = ch.to_string();
+                    if ch_str != *word_key {  // Don't add self-references
+                        japanese_containment.entry(ch_str).or_insert_with(Vec::new).push(word_key.clone());
+                    }
+                }
+            }
+        }
+    }
+
+    // Populate the contained_in fields (limit to 100 entries each)
+    println!("  📝 Populating containment data for {} entries...", outputs.len());
+
+    // First pass: collect all the word keys we need
+    let mut chinese_previews_map: StdHashMap<String, Vec<word_preview_types::WordPreview>> = StdHashMap::new();
+    let mut japanese_previews_map: StdHashMap<String, Vec<word_preview_types::WordPreview>> = StdHashMap::new();
+
+    for (key, _) in &outputs {
+        if let Some(chinese_words) = chinese_containment.get(key) {
+            // Deduplicate and limit to 100
+            let mut unique_words: Vec<String> = chinese_words.iter().cloned().collect();
+            unique_words.sort();
+            unique_words.dedup();
+            unique_words.truncate(100);
+
+            // Convert to WordPreview objects
+            let previews: Vec<word_preview_types::WordPreview> = unique_words.iter()
+                .filter_map(|word_key| {
+                    outputs.get(word_key).and_then(|word_output| {
+                        word_output.chinese_words.first()
+                            .map(|chinese_word| word_preview_types::WordPreview::from_chinese(chinese_word))
+                    })
+                })
+                .collect();
+            chinese_previews_map.insert(key.clone(), previews);
+        }
+
+        if let Some(japanese_words) = japanese_containment.get(key) {
+            // Deduplicate and limit to 100
+            let mut unique_words: Vec<String> = japanese_words.iter().cloned().collect();
+            unique_words.sort();
+            unique_words.dedup();
+            unique_words.truncate(100);
+
+            // Convert to WordPreview objects
+            let previews: Vec<word_preview_types::WordPreview> = unique_words.iter()
+                .filter_map(|word_key| {
+                    outputs.get(word_key).and_then(|word_output| {
+                        word_output.japanese_words.first()
+                            .map(|japanese_word| word_preview_types::WordPreview::from_japanese(japanese_word))
+                    })
+                })
+                .collect();
+            japanese_previews_map.insert(key.clone(), previews);
+        }
+    }
+
+    // Second pass: populate the outputs
+    for (key, output) in outputs.iter_mut() {
+        if let Some(previews) = chinese_previews_map.get(key) {
+            output.contained_in_chinese = previews.clone();
+        }
+        if let Some(previews) = japanese_previews_map.get(key) {
+            output.contained_in_japanese = previews.clone();
+        }
+    }
+
+    // Build "contains" relationships for multi-character words
+    println!("🔍 Building 'contains' relationships for multi-character words...");
+    let existing_keys: std::collections::HashSet<String> = outputs.keys().cloned().collect();
+
+    // First pass: collect all contained words
+    let mut contains_map: StdHashMap<String, Vec<String>> = StdHashMap::new();
+
+    for key in outputs.keys() {
+        // Only process multi-character words (2+ characters)
+        if key.chars().count() < 2 {
+            continue;
+        }
+
+        let mut contained_words: Vec<String> = Vec::new();
+        let chars: Vec<char> = key.chars().collect();
+        let len = chars.len();
+
+        // Generate all possible substrings
+        for start in 0..len {
+            for end in (start + 1)..=len {
+                let substring: String = chars[start..end].iter().collect();
+
+                // Skip if it's the same as the original word
+                if substring == *key {
+                    continue;
+                }
+
+                // Check if this substring exists in the dictionary
+                if existing_keys.contains(&substring) {
+                    contained_words.push(substring);
+                }
+            }
+        }
+
+        // Deduplicate and sort
+        contained_words.sort();
+        contained_words.dedup();
+
+        contains_map.insert(key.clone(), contained_words);
+    }
+
+    // Second pass: convert to WordPreview objects
+    let mut contains_previews_map: StdHashMap<String, Vec<word_preview_types::WordPreview>> = StdHashMap::new();
+
+    for (key, contained_words) in &contains_map {
+        let previews: Vec<word_preview_types::WordPreview> = contained_words.iter()
+            .filter_map(|word_key| {
+                outputs.get(word_key).and_then(|word_output| {
+                    // Try Chinese first, then Japanese
+                    word_output.chinese_words.first()
+                        .map(|chinese_word| word_preview_types::WordPreview::from_chinese(chinese_word))
+                        .or_else(|| {
+                            word_output.japanese_words.first()
+                                .map(|japanese_word| word_preview_types::WordPreview::from_japanese(japanese_word))
+                        })
+                })
+            })
+            .collect();
+        contains_previews_map.insert(key.clone(), previews);
+    }
+
+    // Third pass: populate the outputs
+    for (key, output) in outputs.iter_mut() {
+        if let Some(previews) = contains_previews_map.get(key) {
+            output.contains = previews.clone();
+        }
+    }
+
+    // Filter by shard if specified
+    let outputs = if let Some(shard) = shard_filter {
+        println!("🔍 Filtering entries for shard: {:?}", shard);
+        outputs.into_iter()
+            .filter(|(key, _)| ShardType::from_key(key) == shard)
+            .collect()
+    } else {
+        outputs
+    };
+
+    println!("🔄 Optimizing {} entries...", outputs.len());
+    println!("  ⚡ Removing unused fields and shortening field names...");
+
+    // Use parallel processing for maximum performance
+    use rayon::prelude::*;
+    use std::sync::atomic::{AtomicUsize, Ordering};
+    use std::sync::Arc;
+    use std::io::Write;
+
+    let total = outputs.len();
+
+    // Convert to vec for parallel processing
+    let outputs_vec: Vec<_> = outputs.into_iter().collect();
+
+    // OPTIMIZATION 1: Convert to optimized format and serialize in parallel (CPU-bound)
+    let serialized: Result<Vec<_>, anyhow::Error> = outputs_vec
+        .par_iter()
+        .map(|(key, entry)| -> Result<(String, String), anyhow::Error> {
+            let safe_filename = create_safe_filename(key);
+            // Convert to optimized format
+            let optimized = optimize_output(entry.clone());
+            let json_content = serde_json::to_string(&optimized)
+                .map_err(|e| anyhow::anyhow!("Failed to serialize entry '{}': {}", key, e))?;
+            Ok((safe_filename, json_content))
+        })
+        .collect();
+
+    let serialized = serialized?;
+
+    println!("💾 Writing {} optimized files to disk...", serialized.len());
+    let counter = Arc::new(AtomicUsize::new(0));
+
+    // OPTIMIZATION 2: Write files in parallel with optimized I/O
+    let results: Result<Vec<_>, anyhow::Error> = serialized
+        .par_iter()
+        .map(|(safe_filename, json_content)| -> Result<(), anyhow::Error> {
+            let counter = Arc::clone(&counter);
+            let file_path = output_dir.join(format!("{}.json", safe_filename));
+
+            let file = std::fs::File::create(&file_path)
+                .map_err(|e| anyhow::anyhow!("Failed to create file '{}': {}", file_path.display(), e))?;
+            let mut writer = std::io::BufWriter::with_capacity(8192, file);
+            writer.write_all(json_content.as_bytes())
+                .map_err(|e| anyhow::anyhow!("Failed to write file '{}': {}", file_path.display(), e))?;
+
+            let current = counter.fetch_add(1, Ordering::Relaxed) + 1;
+            if current % 10000 == 0 {
+                println!("  Written {}/{} files ({:.1}%)", current, total, (current as f64 / total as f64) * 100.0);
+            }
+
+            Ok(())
+        })
+        .collect();
+
+    results?;
+
+    println!("✅ Successfully generated {} optimized JSON files!", total);
+
+    // Generate redirect files for multi-character words that don't have their own entries
+    println!("🔗 Generating redirect files for multi-character words...");
+
+    // Load J2C mapping for Japanese word redirects
+    let j2c_mapping = load_j2c_mapping("output/j2c_mapping.json")
+        .context("Failed to load J2C mapping")?;
+
+    let mut redirect_count = 0;
+
+    // Collect all keys that have actual entries
+    let existing_keys: std::collections::HashSet<String> = outputs_vec.iter()
+        .map(|(key, _)| key.clone())
+        .collect();
+
+    for entry in &combined_dict.entries {
+        // For Chinese words with multiple characters
+        if let Some(ref chinese) = entry.chinese_entry {
+            if chinese.simp.chars().count() > 1 && !existing_keys.contains(&chinese.simp) {
+                // Create redirect from simplified to first character
+                let first_char = chinese.simp.chars().next().unwrap().to_string();
+                let redirect_entry = OptimizedOutput {
+                    key: chinese.simp.clone(),
+                    redirect: Some(first_char),
+                    chinese_words: Vec::new(),
+                    chinese_char: None,
+                    japanese_words: Vec::new(),
+                    japanese_char: None,
+                    related_japanese_words: Vec::new(),
+                    contains: Vec::new(),
+                    contained_in_chinese: Vec::new(),
+                    contained_in_japanese: Vec::new(),
+                };
+
+                let safe_filename = create_safe_filename(&chinese.simp);
+                let file_path = output_dir.join(format!("{}.json", safe_filename));
+                let json_content = serde_json::to_string(&redirect_entry)?;
+                std::fs::write(&file_path, json_content)?;
+                redirect_count += 1;
+            }
+        }
+
+        // For Japanese words with multiple characters
+        if let Some(ref japanese) = entry.japanese_entry {
+            for kanji_form in &japanese.kanji {
+                if kanji_form.text.chars().count() > 1 && !existing_keys.contains(&kanji_form.text) {
+                    // Check if this Japanese word has a J2C mapping to traditional Chinese
+                    let redirect_target = if let Some(traditional_chinese) = j2c_mapping.get(&kanji_form.text) {
+                        // Convert traditional Chinese to simplified Chinese (our dictionary uses simplified as keys)
+                        if let Ok(simplified_chinese) = convert_traditional_to_simplified(traditional_chinese) {
+                            // If the simplified Chinese exists in our dictionary, redirect to it
+                            if existing_keys.contains(&simplified_chinese) {
+                                simplified_chinese
+                            } else {
+                                // Fallback to first character if simplified doesn't exist
+                                kanji_form.text.chars().next().unwrap().to_string()
+                            }
+                        } else {
+                            // Fallback to first character if conversion fails
+                            kanji_form.text.chars().next().unwrap().to_string()
+                        }
+                    } else {
+                        // No J2C mapping, use first character
+                        kanji_form.text.chars().next().unwrap().to_string()
+                    };
+
+                    let redirect_entry = OptimizedOutput {
+                        key: kanji_form.text.clone(),
+                        redirect: Some(redirect_target),
+                        chinese_words: Vec::new(),
+                        chinese_char: None,
+                        japanese_words: Vec::new(),
+                        japanese_char: None,
+                        related_japanese_words: Vec::new(),
+                        contains: Vec::new(),
+                        contained_in_chinese: Vec::new(),
+                        contained_in_japanese: Vec::new(),
+                    };
+
+                    let safe_filename = create_safe_filename(&kanji_form.text);
+                    let file_path = output_dir.join(format!("{}.json", safe_filename));
+                    let json_content = serde_json::to_string(&redirect_entry)?;
+                    std::fs::write(&file_path, json_content)?;
+                    redirect_count += 1;
+                }
+            }
+        }
+    }
+
+    println!("  ✅ Created {} redirect files", redirect_count);
+    println!("📁 Files saved to: output_dictionary/");
+    println!("💡 Usage: cat output_dictionary/好.json | ./scripts/expand-json.js | jq '.'");
+    println!("📊 Expected size reduction: ~60% compared to simple output");
 
     Ok(())
 }

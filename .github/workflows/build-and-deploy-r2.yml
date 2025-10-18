@@ -1,0 +1,199 @@
+name: Build and Deploy to R2
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # Allow manual triggering
+  schedule:
+    - cron: "0 0 1 * *" # Run monthly
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: Setup Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: "1.21"
+
+      - name: Download dictionary source files
+        run: |
+          # Create directories if they don't exist
+          mkdir -p dictionaries/jmdict/source
+          mkdir -p dictionaries/jmnedict/source
+
+          # Download JMdict file with examples
+          echo "Downloading JMdict file with examples..."
+          curl -L -o dictionaries/jmdict/source/jmdict-examples-eng-3.6.1.json.zip https://github.com/scriptin/jmdict-simplified/releases/download/3.6.1+20250505122413/jmdict-examples-eng-3.6.1+20250505122413.json.zip
+
+          # Unzip the JMdict file
+          echo "Unzipping JMdict file..."
+          unzip -o dictionaries/jmdict/source/jmdict-examples-eng-3.6.1.json.zip -d dictionaries/jmdict/source/
+
+          # Download JMNedict file
+          echo "Downloading JMNedict file..."
+          curl -L -o dictionaries/jmnedict/source/jmnedict-all-3.6.1.json.zip https://github.com/scriptin/jmdict-simplified/releases/download/3.6.1+20250505122413/jmnedict-all-3.6.1+20250505122413.json.zip
+
+          # Unzip the JMNedict file
+          echo "Unzipping JMNedict file..."
+          unzip -o dictionaries/jmnedict/source/jmnedict-all-3.6.1.json.zip -d dictionaries/jmnedict/source/
+
+          # Verify files were downloaded
+          ls -la dictionaries/jmdict/source/
+          ls -la dictionaries/jmnedict/source/
+
+          # Create Kanjidic directory if it doesn't exist
+          mkdir -p dictionaries/kanjidic/source
+
+          # Check if Kanjidic file exists
+          if [ -f "dictionaries/kanjidic/source/kanjidic2-en-3.6.1.json" ]; then
+            echo "Kanjidic file exists"
+            ls -la dictionaries/kanjidic/source/
+          else
+            echo "Kanjidic file does not exist, downloading..."
+            curl -L -o dictionaries/kanjidic/source/kanjidic2-en-3.6.1.json https://github.com/scriptin/jmdict-simplified/releases/download/3.6.1+20250505122413/kanjidic2-en-3.6.1+20250505122413.json
+            ls -la dictionaries/kanjidic/source/
+          fi
+
+          # Download and convert Chinese character dictionary
+          mkdir -p dictionaries/chinese_chars/source
+          if [ -f "dictionaries/chinese_chars/source/dictionary_char_2024-06-17.json" ]; then
+            echo "Chinese character dictionary file exists"
+          else
+            echo "Downloading Chinese character dictionary..."
+            curl -L -o dictionaries/chinese_chars/source/dictionary_char_2024-06-17.jsonl https://data.dong-chinese.com/dump/dictionary_char_2024-06-17.jsonl
+
+            echo "Converting Chinese character dictionary from JSONL to JSON..."
+            go run cmd/jsonl2json/main.go -input=dictionaries/chinese_chars/source/dictionary_char_2024-06-17.jsonl -output=dictionaries/chinese_chars/source/dictionary_char_2024-06-17.json
+
+            # Verify the file was created
+            echo "Verifying Chinese character dictionary file..."
+            ls -la dictionaries/chinese_chars/source/
+            if [ -f "dictionaries/chinese_chars/source/dictionary_char_2024-06-17.json" ]; then
+              echo "Chinese character dictionary file was created successfully"
+            else
+              echo "Error: Chinese character dictionary file was not created"
+              exit 1
+            fi
+          fi
+
+          # Download and convert Chinese word dictionary
+          mkdir -p dictionaries/chinese_words/source
+          if [ -f "dictionaries/chinese_words/source/dictionary_word_2024-06-17.json" ]; then
+            echo "Chinese word dictionary file exists"
+          else
+            echo "Downloading Chinese word dictionary..."
+            curl -L -o dictionaries/chinese_words/source/dictionary_word_2024-06-17.jsonl https://data.dong-chinese.com/dump/dictionary_word_2024-06-17.jsonl
+
+            echo "Converting Chinese word dictionary from JSONL to JSON..."
+            go run cmd/jsonl2json/main.go -input=dictionaries/chinese_words/source/dictionary_word_2024-06-17.jsonl -output=dictionaries/chinese_words/source/dictionary_word_2024-06-17.json
+
+            # Verify the file was created
+            echo "Verifying Chinese word dictionary file..."
+            ls -la dictionaries/chinese_words/source/
+            if [ -f "dictionaries/chinese_words/source/dictionary_word_2024-06-17.json" ]; then
+              echo "Chinese word dictionary file was created successfully"
+            else
+              echo "Error: Chinese word dictionary file was not created"
+              exit 1
+            fi
+          fi
+
+      - name: Cache dictionary files
+        uses: actions/cache@v3
+        with:
+          path: |
+            dictionaries/jmdict/source/
+            dictionaries/jmnedict/source/
+            dictionaries/kanjidic/source/
+            dictionaries/chinese_chars/source/
+            dictionaries/chinese_words/source/
+          key: ${{ runner.os }}-dictionary-files-${{ github.sha }}
+
+  build-and-deploy:
+    needs: prepare
+    runs-on: ubuntu-latest
+
+    steps:
+      # Common setup steps
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: Setup Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+
+      # Restore cached dictionary files
+      - name: Restore cached dictionary files
+        uses: actions/cache@v3
+        with:
+          path: |
+            dictionaries/jmdict/source/
+            dictionaries/jmnedict/source/
+            dictionaries/kanjidic/source/
+            dictionaries/chinese_chars/source/
+            dictionaries/chinese_words/source/
+          key: ${{ runner.os }}-dictionary-files-${{ github.sha }}
+
+      # Build the dictionary (single unified build)
+      - name: Build dictionary
+        run: |
+          echo "Building unified dictionary..."
+          cargo run --release -- --individual-files --optimize
+
+          # Verify output
+          if [ -d "output_dictionary" ]; then
+            file_count=$(find output_dictionary -type f | wc -l)
+            echo "✅ Built $file_count dictionary files"
+          else
+            echo "❌ Error: output_dictionary not found"
+            exit 1
+          fi
+
+      # Upload to Cloudflare R2
+      - name: Upload to Cloudflare R2
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_R2_ACCESS_KEY_ID: ${{ secrets.CLOUDFLARE_R2_ACCESS_KEY_ID }}
+          CLOUDFLARE_R2_SECRET_ACCESS_KEY: ${{ secrets.CLOUDFLARE_R2_SECRET_ACCESS_KEY }}
+        run: |
+          # Install rclone for fast parallel uploads
+          curl https://rclone.org/install.sh | sudo bash
+
+          # Configure rclone for Cloudflare R2
+          mkdir -p ~/.config/rclone
+          cat > ~/.config/rclone/rclone.conf << EOF
+          [r2]
+          type = s3
+          provider = Cloudflare
+          access_key_id = $CLOUDFLARE_R2_ACCESS_KEY_ID
+          secret_access_key = $CLOUDFLARE_R2_SECRET_ACCESS_KEY
+          endpoint = https://$CLOUDFLARE_ACCOUNT_ID.r2.cloudflarestorage.com
+          acl = private
+          EOF
+
+          # Count files
+          file_count=$(find output_dictionary -type f | wc -l)
+          echo "📦 Uploading $file_count files to R2..."
+
+          # Upload to R2 with maximum parallelism for speed
+          # Using sync instead of copy to only upload changed files
+          # High parallelism = faster uploads, same API calls, same cost!
+          rclone sync output_dictionary r2:kiokun-dictionary-data/dictionary \
+            --transfers 64 \
+            --checkers 32 \
+            --fast-list \
+            --progress \
+            --stats 30s \
+            --retries 3 \
+            --log-level INFO
+
+          echo "✅ Upload complete! Dictionary deployed to R2"
+          echo "📊 Total files: $file_count"
+          echo "🌐 Access via: https://pub-xxxxx.r2.dev/dictionary/"
+
