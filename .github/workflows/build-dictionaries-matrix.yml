@@ -86,7 +86,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          OUTPUT_REPO="Kimeiga/japanese-dict-${{ matrix.shard-type }}"
+          OUTPUT_REPO="Kimeiga/kiokun-dict-${{ matrix.shard-type }}"
           echo "📦 Cloning target repository: $OUTPUT_REPO"
           
           # Clone the target repo (create if doesn't exist)
