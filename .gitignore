@@ -25,6 +25,9 @@ output/
 *.jsonl
 !webapp/japanese_labels.json
 !labels.json
+!data/*.json
+!data/*.jsonl
+!data/ids/*.txt
 
 # Temporary files
 temp/

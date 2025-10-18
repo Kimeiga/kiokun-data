@@ -1,2 +1,4 @@
+data/*.json filter=lfs diff=lfs merge=lfs -text
+data/*.jsonl filter=lfs diff=lfs merge=lfs -text
 data/*.jsonl !text !filter !merge !diff
 data/jmdict_pitch.json !text !filter !merge !diff
