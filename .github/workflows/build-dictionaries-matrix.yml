@@ -92,7 +92,7 @@ jobs:
             --only-show-errors
 
           echo "✅ Upload complete!"
-          echo "   Files are now available at: https://dict.kiokun.dev/${{ matrix.shard-type }}/{word}.json"
+          echo "   Files are now available at: https://pub-3cf0f772ecad4e0fbb2a59a0ea02df4e.r2.dev/${{ matrix.shard-type }}/{word}.json"
 
       - name: Summary
         if: always()
