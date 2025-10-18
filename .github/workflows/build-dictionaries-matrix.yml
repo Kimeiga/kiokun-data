@@ -57,59 +57,51 @@ jobs:
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email "actions@github.com"
 
-      - name: Clone target repository
+      - name: Deploy to target repository (orphan branch strategy)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           OUTPUT_REPO="Kimeiga/kiokun-dict-${{ matrix.shard-type }}"
-          echo "📦 Cloning target repository: $OUTPUT_REPO"
-          
-          # Clone the target repo (create if doesn't exist)
-          git clone "https://x-access-token:${GITHUB_TOKEN}@github.com/${OUTPUT_REPO}.git" target-repo || {
-            echo "Repository doesn't exist, will create it"
-            mkdir -p target-repo
-            cd target-repo
-            git init
-            git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${OUTPUT_REPO}.git"
-            cd ..
-          }
-
-      - name: Sync files to target repository
-        run: |
           SHARD_DIR="output_${{ matrix.shard-type }}"
 
-          echo "🔄 Syncing files from $SHARD_DIR to target-repo..."
+          echo "📦 Deploying to $OUTPUT_REPO using orphan branch strategy..."
 
-          # Remove old files (except .git)
-          cd target-repo
-          find . -maxdepth 1 -not -name '.git' -not -name '.' -not -name '..' -exec rm -rf {} +
-          cd ..
+          # Create a fresh directory for the target repo
+          mkdir -p deploy-repo
+          cd deploy-repo
 
-          # Copy new files using rsync (handles large number of files)
-          rsync -a --info=progress2 "$SHARD_DIR/" target-repo/
+          # Initialize a new Git repo with orphan branch (no history)
+          git init
+          git checkout --orphan main
+
+          # Copy all dictionary files
+          echo "📁 Copying dictionary files..."
+          cp -r ../$SHARD_DIR/* .
 
           # Count files
-          FILE_COUNT=$(find target-repo -name "*.json" | wc -l)
-          echo "✅ Copied $FILE_COUNT JSON files to target repository"
+          FILE_COUNT=$(find . -name "*.json" | wc -l)
+          TOTAL_SIZE=$(du -sh . | cut -f1)
 
-      - name: Commit and push to target repository
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          cd target-repo
-          
+          echo "✅ Prepared $FILE_COUNT files ($TOTAL_SIZE)"
+
           # Add all files
+          echo "➕ Adding files to Git..."
           git add -A
-          
-          # Check if there are changes
-          if git diff --staged --quiet; then
-            echo "ℹ️ No changes to commit"
-            exit 0
-          fi
-          
-          # Commit and push
-          git commit -m "Update dictionary data for ${{ matrix.shard-type }} - $(date -u +"%Y-%m-%d %H:%M:%S UTC")"
-          git push -u origin main --force
+
+          # Commit
+          echo "💾 Creating commit..."
+          git commit -m "Dictionary data for ${{ matrix.shard-type }} - $(date -u +"%Y-%m-%d %H:%M:%S UTC")"
+
+          # Set remote and force push (replaces all history)
+          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${OUTPUT_REPO}.git"
+
+          echo "🚀 Force pushing to repository..."
+          git push -f origin main
+
+          cd ..
+
+          echo "✅ Deployment complete!"
+          echo "   Files are now available at: https://cdn.jsdelivr.net/gh/${OUTPUT_REPO}@latest/{word}.json"
 
       - name: Summary
         if: always()
