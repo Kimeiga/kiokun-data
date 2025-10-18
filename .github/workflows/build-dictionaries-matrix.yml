@@ -29,12 +29,10 @@ jobs:
           # Download JMdict English with examples (118 MB uncompressed)
           curl -L "https://github.com/scriptin/jmdict-simplified/releases/download/3.6.1%2B20251013122507/jmdict-examples-eng-3.6.1+20251013122507.json.tgz" -o /tmp/jmdict-examples.tgz
           tar -xzf /tmp/jmdict-examples.tgz -C data/
-          mv data/jmdict-examples-eng-3.6.1+20251013122507.json data/jmdict-examples-eng-3.6.1.json
 
           # Download Kanjidic2 English (14 MB uncompressed)
           curl -L "https://github.com/scriptin/jmdict-simplified/releases/download/3.6.1%2B20251013122507/kanjidic2-en-3.6.1+20251013122507.json.tgz" -o /tmp/kanjidic2.tgz
           tar -xzf /tmp/kanjidic2.tgz -C data/
-          mv data/kanjidic2-en-3.6.1+20251013122507.json data/kanjidic2-en-3.6.1.json
 
           echo "✅ Downloaded JMdict data files"
           ls -lh data/
