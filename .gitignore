@@ -21,6 +21,7 @@ Thumbs.db
 
 # Output files
 output/
+!output/j2c_mapping.json
 *.json
 *.jsonl
 !webapp/japanese_labels.json
