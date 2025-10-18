@@ -1,0 +1,7 @@
+# Ignore dictionary files - these are served from jsDelivr in production
+dictionary/
+output_dictionary/
+
+# Ignore any large data files
+*.jsonl
+
