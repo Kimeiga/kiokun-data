@@ -1,11 +1,13 @@
-name: Build and Deploy to R2
+name: Build and Deploy to R2 (DEPRECATED - use build-dictionaries-matrix.yml)
 
 on:
-  push:
-    branches: [main]
-  workflow_dispatch: # Allow manual triggering
-  schedule:
-    - cron: "0 0 1 * *" # Run monthly
+  # Disabled - this workflow is deprecated
+  # Use build-dictionaries-matrix.yml instead
+  workflow_dispatch: # Allow manual triggering only
+  # push:
+  #   branches: [main]
+  # schedule:
+  #   - cron: "0 0 1 * *" # Run monthly
 
 jobs:
   prepare:
