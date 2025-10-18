@@ -18,38 +18,13 @@ jobs:
     steps:
       - name: Checkout source code
         uses: actions/checkout@v3
+        with:
+          lfs: true
 
       - name: Setup Rust
         uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
           toolchain: stable
-
-      - name: Download dictionary source files
-        run: |
-          # Create directories if they don't exist
-          mkdir -p data
-
-          # Download JMdict (Japanese-English dictionary)
-          echo "📥 Downloading JMdict..."
-          curl -L "http://ftp.edrdg.org/pub/Nihongo/JMdict_e.gz" -o data/JMdict_e.gz
-          gunzip -f data/JMdict_e.gz
-
-          # Download JMnedict (Japanese proper names)
-          echo "📥 Downloading JMnedict..."
-          curl -L "http://ftp.edrdg.org/pub/Nihongo/JMnedict.xml.gz" -o data/JMnedict.xml.gz
-          gunzip -f data/JMnedict.xml.gz
-
-          # Download KANJIDIC2 (Kanji dictionary)
-          echo "📥 Downloading KANJIDIC2..."
-          curl -L "http://ftp.edrdg.org/pub/Nihongo/kanjidic2.xml.gz" -o data/kanjidic2.xml.gz
-          gunzip -f data/kanjidic2.xml.gz
-
-          # Download CC-CEDICT (Chinese-English dictionary)
-          echo "📥 Downloading CC-CEDICT..."
-          curl -L "https://www.mdbg.net/chinese/export/cedict/cedict_1_0_ts_utf-8_mdbg.txt.gz" -o data/cedict.txt.gz
-          gunzip -f data/cedict.txt.gz
-
-          echo "✅ All dictionary files downloaded successfully"
 
       - name: Build Rust project
         run: |
