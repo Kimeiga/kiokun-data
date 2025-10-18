@@ -15,7 +15,7 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v3
         with:
-          lfs: true
+          lfs: false  # Disable LFS to avoid bandwidth quota issues
 
       - name: Setup Rust
         uses: actions-rust-lang/setup-rust-toolchain@v1
