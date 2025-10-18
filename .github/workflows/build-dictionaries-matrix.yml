@@ -52,12 +52,17 @@ jobs:
             exit 1
           fi
 
-      - name: Install Wrangler CLI
-        run: npm install -g wrangler
+      - name: Install AWS CLI
+        run: |
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip -q awscliv2.zip
+          sudo ./aws/install --update
+          aws --version
 
-      - name: Upload to Cloudflare R2
+      - name: Upload to Cloudflare R2 using S3 API
         env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           SHARD_DIR="output_${{ matrix.shard-type }}"
@@ -74,23 +79,17 @@ jobs:
           echo "   Files: $FILE_COUNT"
           echo "   Size: $TOTAL_SIZE"
 
-          # Upload all files to R2 using wrangler
-          # Files will be uploaded to: kiokun-dict/{shard-type}/{word}.json
-          cd "$SHARD_DIR"
+          # R2 endpoint URL (S3-compatible)
+          ENDPOINT_URL="https://${CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com"
 
-          echo "📤 Starting upload..."
+          echo "📤 Starting batch upload using AWS S3 sync..."
 
-          # Use find with wrangler to upload files
-          # This uploads each file individually to preserve the filename structure
-          find . -name "*.json" -type f | while read -r file; do
-            # Remove leading ./
-            clean_name="${file#./}"
-
-            # Upload to R2 with path: {shard-type}/{filename}
-            wrangler r2 object put "$BUCKET_NAME/${{ matrix.shard-type }}/$clean_name" --file="$file" 2>&1 | grep -v "Uploading" || true
-          done
-
-          cd ..
+          # Use AWS S3 sync for fast batch upload
+          # This is MUCH faster than uploading files one-by-one
+          aws s3 sync "$SHARD_DIR" "s3://$BUCKET_NAME/${{ matrix.shard-type }}" \
+            --endpoint-url "$ENDPOINT_URL" \
+            --no-progress \
+            --only-show-errors
 
           echo "✅ Upload complete!"
           echo "   Files are now available at: https://dict.kiokun.dev/${{ matrix.shard-type }}/{word}.json"
