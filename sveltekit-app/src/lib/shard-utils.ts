@@ -64,8 +64,8 @@ export function getRepoForShard(shard: ShardType): string {
  */
 export function getR2Url(word: string, shard?: ShardType): string {
 	const shardType = shard || getShardForWord(word);
-	// R2 bucket is served via custom domain with Cloudflare CDN
-	return `https://dict.kiokun.dev/${shardType}/${word}.json`;
+	// R2 bucket public URL (free r2.dev subdomain)
+	return `https://pub-3cf0f772ecad4e0fbb2a59a0ea02df4e.r2.dev/${shardType}/${word}.json`;
 }
 
 /**
