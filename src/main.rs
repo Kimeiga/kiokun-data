@@ -2443,6 +2443,13 @@ async fn generate_optimized_output_files(
         // For Chinese words with multiple characters
         if let Some(ref chinese) = entry.chinese_entry {
             if chinese.simp.chars().count() > 1 && !existing_keys.contains(&chinese.simp) {
+                // Skip if shard_filter is set and this entry doesn't match
+                if let Some(shard) = shard_filter {
+                    if ShardType::from_key(&chinese.simp) != shard {
+                        continue;
+                    }
+                }
+
                 // Create redirect from simplified to first character
                 let first_char = chinese.simp.chars().next().unwrap().to_string();
                 let redirect_entry = OptimizedOutput {
@@ -2459,7 +2466,16 @@ async fn generate_optimized_output_files(
                 };
 
                 let safe_filename = create_safe_filename(&chinese.simp);
-                let file_path = output_dir.join(format!("{}.json", safe_filename));
+
+                // Determine output path based on shard_output flag
+                let file_path = if shard_output {
+                    let shard = ShardType::from_key(&chinese.simp);
+                    let shard_dir = output_dir.join(shard.output_dir().split('/').last().unwrap());
+                    shard_dir.join(format!("{}.json", safe_filename))
+                } else {
+                    output_dir.join(format!("{}.json", safe_filename))
+                };
+
                 let json_content = serde_json::to_string(&redirect_entry)?;
                 std::fs::write(&file_path, json_content)?;
                 redirect_count += 1;
@@ -2470,6 +2486,13 @@ async fn generate_optimized_output_files(
         if let Some(ref japanese) = entry.japanese_entry {
             for kanji_form in &japanese.kanji {
                 if kanji_form.text.chars().count() > 1 && !existing_keys.contains(&kanji_form.text) {
+                    // Skip if shard_filter is set and this entry doesn't match
+                    if let Some(shard) = shard_filter {
+                        if ShardType::from_key(&kanji_form.text) != shard {
+                            continue;
+                        }
+                    }
+
                     // Check if this Japanese word has a J2C mapping to traditional Chinese
                     let redirect_target = if let Some(traditional_chinese) = j2c_mapping.get(&kanji_form.text) {
                         // Convert traditional Chinese to simplified Chinese (our dictionary uses simplified as keys)
@@ -2504,7 +2527,16 @@ async fn generate_optimized_output_files(
                     };
 
                     let safe_filename = create_safe_filename(&kanji_form.text);
-                    let file_path = output_dir.join(format!("{}.json", safe_filename));
+
+                    // Determine output path based on shard_output flag
+                    let file_path = if shard_output {
+                        let shard = ShardType::from_key(&kanji_form.text);
+                        let shard_dir = output_dir.join(shard.output_dir().split('/').last().unwrap());
+                        shard_dir.join(format!("{}.json", safe_filename))
+                    } else {
+                        output_dir.join(format!("{}.json", safe_filename))
+                    };
+
                     let json_content = serde_json::to_string(&redirect_entry)?;
                     std::fs::write(&file_path, json_content)?;
                     redirect_count += 1;
