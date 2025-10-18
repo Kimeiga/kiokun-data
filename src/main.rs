@@ -229,6 +229,12 @@ async fn main() -> Result<()> {
                 .value_parser(["non-han", "han-1char", "han-2char", "han-3plus", "all"])
                 .default_value("all"),
         )
+        .arg(
+            Arg::new("shard-output")
+                .long("shard-output")
+                .help("Output files into 4 shard subdirectories (non-han, han-1char, han-2char, han-3plus) inside output_dictionary/")
+                .action(ArgAction::SetTrue),
+        )
         .get_matches();
 
     if matches.get_flag("generate-j2c-mapping") {
@@ -458,12 +464,14 @@ async fn main() -> Result<()> {
 
             // Check if optimized output is requested
             if matches.get_flag("optimize") {
+                let shard_output = matches.get_flag("shard-output");
                 println!("🔄 Generating optimized individual JSON files (60% size reduction)...");
                 generate_optimized_output_files(
                     &aligned_dict,
                     &chinese_char_dict_raw,
                     &japanese_char_dict_raw.characters,
-                    shard_filter
+                    shard_filter,
+                    shard_output
                 ).await?;
             } else {
                 println!("🔄 Generating simple individual JSON files (no unification)...");
@@ -2026,6 +2034,7 @@ async fn generate_optimized_output_files(
     chinese_chars: &[ChineseCharacter],
     kanjidic_entries: &[KanjiCharacter],
     shard_filter: Option<ShardType>,
+    shard_output: bool,
 ) -> Result<()> {
     use std::fs;
     use std::path::Path;
@@ -2368,18 +2377,40 @@ async fn generate_optimized_output_files(
     println!("💾 Writing {} optimized files to disk...", serialized.len());
     let counter = Arc::new(AtomicUsize::new(0));
 
+    // If shard_output is enabled, create shard subdirectories
+    if shard_output {
+        for shard in [ShardType::NonHan, ShardType::Han1Char, ShardType::Han2Char, ShardType::Han3Plus] {
+            let shard_dir = output_dir.join(shard.output_dir().split('/').last().unwrap());
+            fs::create_dir_all(&shard_dir).context("Failed to create shard directory")?;
+        }
+    }
+
     // OPTIMIZATION 2: Write files in parallel with optimized I/O
-    let results: Result<Vec<_>, anyhow::Error> = serialized
+    // Need to pass the original keys to determine shard
+    let serialized_with_keys: Vec<_> = outputs_vec.iter()
+        .zip(serialized.iter())
+        .map(|((key, _), (safe_filename, json_content))| (key.clone(), safe_filename.clone(), json_content.clone()))
+        .collect();
+
+    let results: Result<Vec<_>, anyhow::Error> = serialized_with_keys
         .par_iter()
-        .map(|(safe_filename, json_content)| -> Result<(), anyhow::Error> {
+        .map(|(key, safe_filename, json_content)| -> Result<(), anyhow::Error> {
             let counter = Arc::clone(&counter);
-            let file_path = output_dir.join(format!("{}.json", safe_filename));
+
+            // Determine output path based on shard_output flag
+            let file_path = if shard_output {
+                let shard = ShardType::from_key(key);
+                let shard_dir = output_dir.join(shard.output_dir().split('/').last().unwrap());
+                shard_dir.join(format!("{}.json", safe_filename))
+            } else {
+                output_dir.join(format!("{}.json", safe_filename))
+            };
 
             let file = std::fs::File::create(&file_path)
                 .map_err(|e| anyhow::anyhow!("Failed to create file '{}': {}", file_path.display(), e))?;
             let mut writer = std::io::BufWriter::with_capacity(8192, file);
             writer.write_all(json_content.as_bytes())
-                .map_err(|e| anyhow::anyhow!("Failed to write file '{}': {}", file_path.display(), e))?;
+                .map_err(|e| anyhow::anyhow!("Failed to create file '{}': {}", file_path.display(), e))?;
 
             let current = counter.fetch_add(1, Ordering::Relaxed) + 1;
             if current % 10000 == 0 {
