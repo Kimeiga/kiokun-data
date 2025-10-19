@@ -1,4 +1,4 @@
-// Core types
+// Core types - Testing auto-deployment 2025-01-27
 mod chinese_types;
 mod japanese_types;
 mod chinese_char_types;
