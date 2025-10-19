@@ -121,7 +121,7 @@ jobs:
       
       - name: Clone target repository
         run: |
-          git clone "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/Kimeiga/kiokun-dict-${{ matrix.shard }}.git" target-repo
+          git clone "https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/Kimeiga/kiokun-dict-${{ matrix.shard }}.git" target-repo
       
       - name: Sync files to target repository
         run: |
