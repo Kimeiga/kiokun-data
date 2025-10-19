@@ -1,0 +1,151 @@
+name: Deploy Dictionary to 23 GitHub Repos (jsDelivr CDN)
+
+on:
+  workflow_dispatch:  # Manual trigger for now
+  # push:
+  #   branches: [main]
+  #   paths:
+  #     - 'src/**'
+  #     - 'data/**'
+  #     - 'Cargo.toml'
+  #     - '.github/workflows/deploy-to-github-23-shards.yml'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        shard:
+          - non-han-non-kana
+          - kana-only-1
+          - kana-only-2
+          - han1-len1-1
+          - han1-len1-2
+          - han1-len1-3
+          - han1-len1-4
+          - han1-len2
+          - han1-len3
+          - han1-len4plus
+          - han2-len2-4e5f-1
+          - han2-len2-4e5f-2
+          - han2-len2-607f-1
+          - han2-len2-607f-2
+          - han2-len2-809f-1
+          - han2-len2-809f-2
+          - han2-len3
+          - han2-len4
+          - han2-len5plus
+          - han3-len3-1
+          - han3-len3-2
+          - han3-len4
+          - han3-len5
+          - han3-len6plus
+          - han4plus-1
+          - han4plus-2
+          - han4plus-3
+      fail-fast: false  # Continue even if one shard fails
+      max-parallel: 10  # Deploy 10 shards in parallel
+    
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+        with:
+          lfs: false
+      
+      - name: Setup Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          toolchain: stable
+      
+      - name: Download JMdict files
+        run: |
+          mkdir -p data
+          cd data
+          
+          # Download JMdict examples
+          curl -L -o jmdict-examples.json.tgz \
+            https://github.com/scriptin/jmdict-simplified/releases/download/3.6.1%2B20251013122507/jmdict-examples-eng-3.6.1%2B20251013122507.json.tgz
+          tar -xzf jmdict-examples.json.tgz
+          mv jmdict-examples-eng-3.6.1+20251013122507.json jmdict-examples-eng-3.6.1.json
+          rm jmdict-examples.json.tgz
+          
+          # Download Kanjidic2
+          curl -L -o kanjidic2.json.tgz \
+            https://github.com/scriptin/jmdict-simplified/releases/download/3.6.1%2B20251013122507/kanjidic2-en-3.6.1%2B20251013122507.json.tgz
+          tar -xzf kanjidic2.json.tgz
+          mv kanjidic2-en-3.6.1+20251013122507.json kanjidic2-en-3.6.1.json
+          rm kanjidic2.json.tgz
+      
+      - name: Build Rust project
+        run: cargo build --release
+      
+      - name: Build dictionary shard
+        run: |
+          cargo run --release --bin merge_dictionaries -- \
+            --individual-files \
+            --optimize \
+            --shard-output
+      
+      - name: Count files in shard
+        id: count
+        run: |
+          SHARD_DIR="output_${{ matrix.shard }}"
+          if [ -d "$SHARD_DIR" ]; then
+            FILE_COUNT=$(find "$SHARD_DIR" -name "*.json" | wc -l)
+            echo "file_count=$FILE_COUNT" >> $GITHUB_OUTPUT
+            echo "✓ Shard ${{ matrix.shard }}: $FILE_COUNT files"
+          else
+            echo "❌ Shard directory $SHARD_DIR not found!"
+            exit 1
+          fi
+      
+      - name: Verify file count is reasonable
+        run: |
+          FILE_COUNT=${{ steps.count.outputs.file_count }}
+          if [ "$FILE_COUNT" -lt 100 ]; then
+            echo "❌ Error: Only $FILE_COUNT files generated (expected at least 100)"
+            exit 1
+          elif [ "$FILE_COUNT" -gt 30000 ]; then
+            echo "❌ Error: $FILE_COUNT files generated (expected max 30,000)"
+            exit 1
+          else
+            echo "✓ File count looks good: $FILE_COUNT files"
+          fi
+      
+      - name: Clone target repository
+        run: |
+          git clone "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/Kimeiga/kiokun-dict-${{ matrix.shard }}.git" target-repo
+      
+      - name: Sync files to target repository
+        run: |
+          SHARD_DIR="output_${{ matrix.shard }}"
+          
+          # Use rsync to handle large number of files
+          rsync -a --delete "$SHARD_DIR/" target-repo/
+          
+          echo "✓ Synced files to target repository"
+      
+      - name: Commit and push to target repository
+        run: |
+          cd target-repo
+          
+          # Configure git
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          
+          # Create orphan branch (no history to keep repo small)
+          git checkout --orphan temp-branch
+          
+          # Add all files
+          git add -A
+          
+          # Commit
+          git commit -m "Update dictionary shard ${{ matrix.shard }} - $(date -u +%Y-%m-%d)"
+          
+          # Force push to main (replaces all history)
+          git branch -D main || true
+          git branch -m main
+          git push -f origin main
+          
+          echo "✓ Pushed to kiokun-dict-${{ matrix.shard }}"
+
