@@ -148,6 +148,7 @@ impl ShardType {
 }
 
 /// Check if a character is kana (hiragana or katakana)
+#[allow(dead_code)]
 fn is_kana(c: char) -> bool {
     matches!(c,
         '\u{3040}'..='\u{309F}' | // Hiragana
