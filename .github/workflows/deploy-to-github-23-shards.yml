@@ -92,14 +92,14 @@ jobs:
       - name: Verify file count is reasonable
         run: |
           FILE_COUNT=${{ steps.count.outputs.file_count }}
-          if [ "$FILE_COUNT" -lt 100 ]; then
-            echo "❌ Error: Only $FILE_COUNT files generated (expected at least 100)"
+          if [ "$FILE_COUNT" -lt 1000 ]; then
+            echo "❌ Error: Only $FILE_COUNT files generated (expected at least 1,000)"
             exit 1
-          elif [ "$FILE_COUNT" -gt 30000 ]; then
-            echo "❌ Error: $FILE_COUNT files generated (expected max 30,000)"
+          elif [ "$FILE_COUNT" -gt 500000 ]; then
+            echo "❌ Error: $FILE_COUNT files generated (expected max 500,000)"
             exit 1
           else
-            echo "✓ File count looks good: $FILE_COUNT files"
+            echo "✓ File count looks good: $FILE_COUNT files (10-shard system)"
           fi
       
       - name: Clone target repository
