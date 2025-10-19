@@ -11,10 +11,12 @@ export const load: PageLoad = async ({ params, fetch }) => {
 	const { word } = params;
 
 	try {
-		// Fetch the dictionary data (local in dev, jsDelivr in prod)
+		// Fetch the dictionary data (local in dev, R2 in prod)
 		const url = getDictionaryUrl(word);
 		console.log(`[${dev ? 'DEV' : 'PROD'}] Fetching from: ${url}`);
+		console.log(`[DEBUG] dev=${dev}, word="${word}"`);
 		const response = await fetch(url);
+		console.log(`[DEBUG] Response status: ${response.status}, ok: ${response.ok}`);
 
 		if (!response.ok) {
 			throw error(404, `Character "${word}" not found`);
