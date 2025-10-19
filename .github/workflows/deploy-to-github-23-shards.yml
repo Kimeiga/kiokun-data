@@ -1,14 +1,14 @@
 name: Deploy Dictionary to 23 GitHub Repos (jsDelivr CDN)
 
 on:
-  workflow_dispatch:  # Manual trigger for now
-  # push:
-  #   branches: [main]
-  #   paths:
-  #     - 'src/**'
-  #     - 'data/**'
-  #     - 'Cargo.toml'
-  #     - '.github/workflows/deploy-to-github-23-shards.yml'
+  workflow_dispatch:  # Manual trigger available
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'data/**'
+      - 'Cargo.toml'
+      - '.github/workflows/deploy-to-github-23-shards.yml'
 
 jobs:
   build-and-deploy:
@@ -66,14 +66,18 @@ jobs:
           curl -L -o jmdict-examples.json.tgz \
             https://github.com/scriptin/jmdict-simplified/releases/download/3.6.1%2B20251013122507/jmdict-examples-eng-3.6.1%2B20251013122507.json.tgz
           tar -xzf jmdict-examples.json.tgz
-          mv jmdict-examples-eng-3.6.1+20251013122507.json jmdict-examples-eng-3.6.1.json
+          ls -la  # Debug: see what files were extracted
+          # Find and rename the extracted file (handle any filename variations)
+          find . -name "jmdict-examples-eng-3.6.1*.json" -exec mv {} jmdict-examples-eng-3.6.1.json \;
           rm jmdict-examples.json.tgz
           
           # Download Kanjidic2
           curl -L -o kanjidic2.json.tgz \
             https://github.com/scriptin/jmdict-simplified/releases/download/3.6.1%2B20251013122507/kanjidic2-en-3.6.1%2B20251013122507.json.tgz
           tar -xzf kanjidic2.json.tgz
-          mv kanjidic2-en-3.6.1+20251013122507.json kanjidic2-en-3.6.1.json
+          ls -la  # Debug: see what files were extracted
+          # Find and rename the extracted file (handle any filename variations)
+          find . -name "kanjidic2-en-3.6.1*.json" -exec mv {} kanjidic2-en-3.6.1.json \;
           rm kanjidic2.json.tgz
       
       - name: Build Rust project
