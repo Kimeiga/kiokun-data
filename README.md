@@ -1,5 +1,7 @@
 # Kiokun Dictionary Merger
 
+> **Status**: ✅ Migrated to 23-repo sharding system with jsDelivr CDN (2025-01-27)
+
 A high-performance Rust application that merges Chinese and Japanese dictionaries into a unified multilingual dictionary with **semantic alignment** and advanced definition deduplication. This tool uses **OpenCC (Open Chinese Convert)** to intelligently match Japanese kanji with Traditional Chinese characters, then applies **automatic semantic alignment** to ensure the most semantically similar entries are unified, while preserving language-specific usages separately.
 
 ## 🎯 Key Features
