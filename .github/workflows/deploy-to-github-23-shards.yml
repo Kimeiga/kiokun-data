@@ -93,13 +93,16 @@ jobs:
       - name: Count files in shard
         id: count
         run: |
-          SHARD_DIR="output_${{ matrix.shard }}"
+          # When using --mode, files are output to output_dictionary/
+          SHARD_DIR="output_dictionary"
           if [ -d "$SHARD_DIR" ]; then
             FILE_COUNT=$(find "$SHARD_DIR" -name "*.json" | wc -l)
             echo "file_count=$FILE_COUNT" >> $GITHUB_OUTPUT
             echo "✓ Shard ${{ matrix.shard }}: $FILE_COUNT files"
           else
             echo "❌ Shard directory $SHARD_DIR not found!"
+            echo "Available directories:"
+            ls -la | grep "output"
             exit 1
           fi
       
@@ -122,7 +125,7 @@ jobs:
       
       - name: Sync files to target repository
         run: |
-          SHARD_DIR="output_${{ matrix.shard }}"
+          SHARD_DIR="output_dictionary"
           
           # Use rsync to handle large number of files
           rsync -a --delete "$SHARD_DIR/" target-repo/
