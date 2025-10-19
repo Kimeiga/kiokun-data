@@ -127,8 +127,11 @@ jobs:
         run: |
           SHARD_DIR="output_dictionary"
           
-          # Use rsync to handle large number of files
-          rsync -a --delete "$SHARD_DIR/" target-repo/
+          # Clear the target repository (keep only .git)
+          find target-repo -mindepth 1 -name '.git' -prune -o -exec rm -rf {} +
+          
+          # Copy only the JSON files from our shard
+          cp -r "$SHARD_DIR"/* target-repo/ || echo "No files to copy"
           
           echo "✓ Synced files to target repository"
       
