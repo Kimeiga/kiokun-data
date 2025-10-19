@@ -22,13 +22,20 @@ Thumbs.db
 # Output files
 output/
 !output/j2c_mapping.json
+# Ignore JSON files in output directories but allow config files
+output_*/
 *.json
 *.jsonl
+# Allow specific JSON files
 !webapp/japanese_labels.json
 !labels.json
 !data/*.json
 !data/*.jsonl
 !data/ids/*.txt
+!sveltekit-app/package.json
+!sveltekit-app/package-lock.json
+!sveltekit-app/tsconfig.json
+!sveltekit-app/static/*.json
 
 # Temporary files
 temp/
