@@ -26,14 +26,12 @@ jobs:
           # cache-dependency-path: sveltekit-app/package-lock.json
       
       - name: Install dependencies
-        run: |
-          cd sveltekit-app
-          npm ci
-      
+        working-directory: sveltekit-app
+        run: npm ci
+
       - name: Build
-        run: |
-          cd sveltekit-app
-          npm run build
+        working-directory: sveltekit-app
+        run: npm run build
       
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
