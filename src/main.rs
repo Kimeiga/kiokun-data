@@ -1713,11 +1713,7 @@ async fn generate_unified_output_files(
     use legacy_unification::unified_output_types::UnifiedOutput;
 
     println!("📁 Preparing output directory...");
-    let output_dir = if let Some(shard) = shard_filter {
-        Path::new(shard.output_dir())
-    } else {
-        Path::new("output_dictionary")
-    };
+    let output_dir = Path::new("output_dictionary");
 
     // OPTIMIZATION: Instead of removing directory (slow!), just overwrite files
     if !output_dir.exists() {
@@ -1864,11 +1860,7 @@ async fn generate_simple_output_files(
     use simple_output_types::SimpleOutput;
 
     println!("📁 Preparing output directory...");
-    let output_dir = if let Some(shard) = shard_filter {
-        Path::new(shard.output_dir())
-    } else {
-        Path::new("output_dictionary")
-    };
+    let output_dir = Path::new("output_dictionary");
 
     // OPTIMIZATION: Instead of removing directory (slow!), just overwrite files
     // This is much faster when the directory already exists
@@ -2252,11 +2244,7 @@ async fn generate_optimized_output_files(
     use optimization::optimize_output;
 
     println!("📁 Preparing output directory...");
-    let output_dir = if let Some(shard) = shard_filter {
-        Path::new(shard.output_dir())
-    } else {
-        Path::new("output_dictionary")
-    };
+    let output_dir = Path::new("output_dictionary");
 
     // OPTIMIZATION: Instead of removing directory (slow!), just overwrite files
     // This is much faster when the directory already exists
