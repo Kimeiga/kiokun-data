@@ -83,20 +83,3 @@ export function getDictionaryUrl(word: string): string {
 	}
 }
 
-/**
- * Fetch dictionary data from jsDelivr CDN
- * @param word - The word/character to fetch
- * @param fetchFn - The fetch function to use (allows passing SvelteKit's fetch)
- * @returns The dictionary data
- */
-export async function fetchFromJsDelivr(word: string, fetchFn: typeof fetch = fetch) {
-	const url = getJsDelivrUrl(word);
-	const response = await fetchFn(url);
-
-	if (!response.ok) {
-		throw new Error(`Failed to fetch ${word} from jsDelivr: ${response.statusText}`);
-	}
-
-	return response.json();
-}
-
