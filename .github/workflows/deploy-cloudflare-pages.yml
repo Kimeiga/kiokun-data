@@ -21,8 +21,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: sveltekit-app/package-lock.json
+          # Disable cache to avoid path resolution issues
+          # cache: 'npm'
+          # cache-dependency-path: sveltekit-app/package-lock.json
       
       - name: Install dependencies
         run: |
