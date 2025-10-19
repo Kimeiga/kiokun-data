@@ -1,4 +1,4 @@
-name: Deploy Dictionary to 23 GitHub Repos (jsDelivr CDN)
+name: Deploy Dictionary to 10 GitHub Repos (jsDelivr CDN - Optimized)
 
 on:
   workflow_dispatch:  # Manual trigger available
@@ -16,35 +16,18 @@ jobs:
     strategy:
       matrix:
         shard:
-          - non-han-non-kana
-          - kana-only-1
-          - kana-only-2
-          - han1-len1-1
-          - han1-len1-2
-          - han1-len1-3
-          - han1-len1-4
-          - han1-len2
-          - han1-len3
-          - han1-len4plus
-          - han2-len2-4e5f-1
-          - han2-len2-4e5f-2
-          - han2-len2-607f-1
-          - han2-len2-607f-2
-          - han2-len2-809f-1
-          - han2-len2-809f-2
-          - han2-len3
-          - han2-len4
-          - han2-len5plus
-          - han3-len3-1
-          - han3-len3-2
-          - han3-len4
-          - han3-len5
-          - han3-len6plus
-          - han4plus-1
-          - han4plus-2
-          - han4plus-3
+          - non-han
+          - han-1char-1
+          - han-1char-2
+          - han-2char-1
+          - han-2char-2
+          - han-2char-3
+          - han-3plus-1
+          - han-3plus-2
+          - han-3plus-3
+          - reserved
       fail-fast: false  # Continue even if one shard fails
-      max-parallel: 10  # Deploy 10 shards in parallel
+      max-parallel: 10  # Deploy all 10 shards in parallel
     
     steps:
       - name: Checkout source code
@@ -121,7 +104,7 @@ jobs:
       
       - name: Clone target repository
         run: |
-          git clone "https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/Kimeiga/kiokun-dict-${{ matrix.shard }}.git" target-repo
+          git clone "https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/Kimeiga/kiokun2-dict-${{ matrix.shard }}.git" target-repo
       
       - name: Sync files to target repository
         run: |
@@ -157,5 +140,5 @@ jobs:
           git branch -m main
           git push -f origin main
           
-          echo "✓ Pushed to kiokun-dict-${{ matrix.shard }}"
+          echo "✓ Pushed to kiokun2-dict-${{ matrix.shard }}"
 
