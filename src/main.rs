@@ -55,10 +55,10 @@ enum ShardType {
     KanaOnly2,  // Katakana サ-ワ (~20K)
 
     // Han1-len1 split (66,624 total → 4 shards)
-    Han1Len1_1,  // First 20K alphabetically
-    Han1Len1_2,  // Next 20K
-    Han1Len1_3,  // Next 20K
-    Han1Len1_4,  // Remaining ~7K
+    Han1Len11,  // First 20K alphabetically
+    Han1Len12,  // Next 20K
+    Han1Len13,  // Next 20K
+    Han1Len14,  // Remaining ~7K
 
     // Han1 other lengths (23,002 total → 3 shards)
     Han1Len2,      // 3,495 files
@@ -66,12 +66,12 @@ enum ShardType {
     Han1Len4Plus,  // 13,501 files
 
     // Han2-len2 split by Unicode range (75,254 total → 6 shards)
-    Han2Len2_4E5F_1,  // U+4E00-U+5FFF, first half (~13.5K)
-    Han2Len2_4E5F_2,  // U+4E00-U+5FFF, second half (~13.5K)
-    Han2Len2_607F_1,  // U+6000-U+7FFF, first half (~14K)
-    Han2Len2_607F_2,  // U+6000-U+7FFF, second half (~14K)
-    Han2Len2_809F_1,  // U+8000-U+9FFF, first half (~10K)
-    Han2Len2_809F_2,  // U+8000-U+9FFF, second half (~10K)
+    Han2Len24e5f1,  // U+4E00-U+5FFF, first half (~13.5K)
+    Han2Len24e5f2,  // U+4E00-U+5FFF, second half (~13.5K)
+    Han2Len2607f1,  // U+6000-U+7FFF, first half (~14K)
+    Han2Len2607f2,  // U+6000-U+7FFF, second half (~14K)
+    Han2Len2809f1,  // U+8000-U+9FFF, first half (~10K)
+    Han2Len2809f2,  // U+8000-U+9FFF, second half (~10K)
 
     // Han2 other lengths (27,546 total → 3 shards)
     Han2Len3,      // 9,157 files
@@ -79,8 +79,8 @@ enum ShardType {
     Han2Len5Plus,  // 10,983 files
 
     // Han3-len3 split (38,860 total → 2 shards)
-    Han3Len3_1,  // First half (~19.5K)
-    Han3Len3_2,  // Second half (~19.5K)
+    Han3Len31,  // First half (~19.5K)
+    Han3Len32,  // Second half (~19.5K)
 
     // Han3 other lengths (8,436 total → 3 shards)
     Han3Len4,      // 3,556 files
@@ -88,9 +88,9 @@ enum ShardType {
     Han3Len6Plus,  // 2,959 files
 
     // Han4+ split (48,833 total → 3 shards)
-    Han4Plus_1,  // First 20K alphabetically
-    Han4Plus_2,  // Next 20K
-    Han4Plus_3,  // Remaining ~9K
+    Han4Plus1,  // First 20K alphabetically
+    Han4Plus2,  // Next 20K
+    Han4Plus3,  // Remaining ~9K
 }
 
 impl ShardType {
@@ -126,10 +126,10 @@ impl ShardType {
                         // Han1-len1: Use hash-based distribution for even split
                         let hash = Self::simple_hash(key);
                         match hash % 4 {
-                            0 => ShardType::Han1Len1_1,
-                            1 => ShardType::Han1Len1_2,
-                            2 => ShardType::Han1Len1_3,
-                            _ => ShardType::Han1Len1_4,
+                            0 => ShardType::Han1Len11,
+                            1 => ShardType::Han1Len12,
+                            2 => ShardType::Han1Len13,
+                            _ => ShardType::Han1Len14,
                         }
                     }
                     2 => ShardType::Han1Len2,
@@ -147,28 +147,28 @@ impl ShardType {
                         match code {
                             0x4E00..=0x5FFF => {
                                 if hash % 2 == 0 {
-                                    ShardType::Han2Len2_4E5F_1
+                                    ShardType::Han2Len24e5f1
                                 } else {
-                                    ShardType::Han2Len2_4E5F_2
+                                    ShardType::Han2Len24e5f2
                                 }
                             }
                             0x6000..=0x7FFF => {
                                 if hash % 2 == 0 {
-                                    ShardType::Han2Len2_607F_1
+                                    ShardType::Han2Len2607f1
                                 } else {
-                                    ShardType::Han2Len2_607F_2
+                                    ShardType::Han2Len2607f2
                                 }
                             }
                             _ => {  // 0x8000..=0x9FFF and others
                                 if hash % 2 == 0 {
-                                    ShardType::Han2Len2_809F_1
+                                    ShardType::Han2Len2809f1
                                 } else {
-                                    ShardType::Han2Len2_809F_2
+                                    ShardType::Han2Len2809f2
                                 }
                             }
                         }
                     } else {
-                        ShardType::Han2Len2_4E5F_1
+                        ShardType::Han2Len24e5f1
                     }
                 } else {
                     match total_len {
@@ -184,9 +184,9 @@ impl ShardType {
                         // Han3-len3: Hash-based split
                         let hash = Self::simple_hash(key);
                         if hash % 2 == 0 {
-                            ShardType::Han3Len3_1
+                            ShardType::Han3Len31
                         } else {
-                            ShardType::Han3Len3_2
+                            ShardType::Han3Len32
                         }
                     }
                     4 => ShardType::Han3Len4,
@@ -198,9 +198,9 @@ impl ShardType {
                 // Han4+: Hash-based distribution
                 let hash = Self::simple_hash(key);
                 match hash % 3 {
-                    0 => ShardType::Han4Plus_1,
-                    1 => ShardType::Han4Plus_2,
-                    _ => ShardType::Han4Plus_3,
+                    0 => ShardType::Han4Plus1,
+                    1 => ShardType::Han4Plus2,
+                    _ => ShardType::Han4Plus3,
                 }
             }
         }
@@ -217,30 +217,30 @@ impl ShardType {
             ShardType::NonHanNonKana => "output_non-han-non-kana",
             ShardType::KanaOnly1 => "output_kana-only-1",
             ShardType::KanaOnly2 => "output_kana-only-2",
-            ShardType::Han1Len1_1 => "output_han1-len1-1",
-            ShardType::Han1Len1_2 => "output_han1-len1-2",
-            ShardType::Han1Len1_3 => "output_han1-len1-3",
-            ShardType::Han1Len1_4 => "output_han1-len1-4",
+            ShardType::Han1Len11 => "output_han1-len1-1",
+            ShardType::Han1Len12 => "output_han1-len1-2",
+            ShardType::Han1Len13 => "output_han1-len1-3",
+            ShardType::Han1Len14 => "output_han1-len1-4",
             ShardType::Han1Len2 => "output_han1-len2",
             ShardType::Han1Len3 => "output_han1-len3",
             ShardType::Han1Len4Plus => "output_han1-len4plus",
-            ShardType::Han2Len2_4E5F_1 => "output_han2-len2-4e5f-1",
-            ShardType::Han2Len2_4E5F_2 => "output_han2-len2-4e5f-2",
-            ShardType::Han2Len2_607F_1 => "output_han2-len2-607f-1",
-            ShardType::Han2Len2_607F_2 => "output_han2-len2-607f-2",
-            ShardType::Han2Len2_809F_1 => "output_han2-len2-809f-1",
-            ShardType::Han2Len2_809F_2 => "output_han2-len2-809f-2",
+            ShardType::Han2Len24e5f1 => "output_han2-len2-4e5f-1",
+            ShardType::Han2Len24e5f2 => "output_han2-len2-4e5f-2",
+            ShardType::Han2Len2607f1 => "output_han2-len2-607f-1",
+            ShardType::Han2Len2607f2 => "output_han2-len2-607f-2",
+            ShardType::Han2Len2809f1 => "output_han2-len2-809f-1",
+            ShardType::Han2Len2809f2 => "output_han2-len2-809f-2",
             ShardType::Han2Len3 => "output_han2-len3",
             ShardType::Han2Len4 => "output_han2-len4",
             ShardType::Han2Len5Plus => "output_han2-len5plus",
-            ShardType::Han3Len3_1 => "output_han3-len3-1",
-            ShardType::Han3Len3_2 => "output_han3-len3-2",
+            ShardType::Han3Len31 => "output_han3-len3-1",
+            ShardType::Han3Len32 => "output_han3-len3-2",
             ShardType::Han3Len4 => "output_han3-len4",
             ShardType::Han3Len5 => "output_han3-len5",
             ShardType::Han3Len6Plus => "output_han3-len6plus",
-            ShardType::Han4Plus_1 => "output_han4plus-1",
-            ShardType::Han4Plus_2 => "output_han4plus-2",
-            ShardType::Han4Plus_3 => "output_han4plus-3",
+            ShardType::Han4Plus1 => "output_han4plus-1",
+            ShardType::Han4Plus2 => "output_han4plus-2",
+            ShardType::Han4Plus3 => "output_han4plus-3",
         }
     }
 
@@ -250,30 +250,30 @@ impl ShardType {
             "non-han-non-kana" => Some(ShardType::NonHanNonKana),
             "kana-only-1" => Some(ShardType::KanaOnly1),
             "kana-only-2" => Some(ShardType::KanaOnly2),
-            "han1-len1-1" => Some(ShardType::Han1Len1_1),
-            "han1-len1-2" => Some(ShardType::Han1Len1_2),
-            "han1-len1-3" => Some(ShardType::Han1Len1_3),
-            "han1-len1-4" => Some(ShardType::Han1Len1_4),
+            "han1-len1-1" => Some(ShardType::Han1Len11),
+            "han1-len1-2" => Some(ShardType::Han1Len12),
+            "han1-len1-3" => Some(ShardType::Han1Len13),
+            "han1-len1-4" => Some(ShardType::Han1Len14),
             "han1-len2" => Some(ShardType::Han1Len2),
             "han1-len3" => Some(ShardType::Han1Len3),
             "han1-len4plus" => Some(ShardType::Han1Len4Plus),
-            "han2-len2-4e5f-1" => Some(ShardType::Han2Len2_4E5F_1),
-            "han2-len2-4e5f-2" => Some(ShardType::Han2Len2_4E5F_2),
-            "han2-len2-607f-1" => Some(ShardType::Han2Len2_607F_1),
-            "han2-len2-607f-2" => Some(ShardType::Han2Len2_607F_2),
-            "han2-len2-809f-1" => Some(ShardType::Han2Len2_809F_1),
-            "han2-len2-809f-2" => Some(ShardType::Han2Len2_809F_2),
+            "han2-len2-4e5f-1" => Some(ShardType::Han2Len24e5f1),
+            "han2-len2-4e5f-2" => Some(ShardType::Han2Len24e5f2),
+            "han2-len2-607f-1" => Some(ShardType::Han2Len2607f1),
+            "han2-len2-607f-2" => Some(ShardType::Han2Len2607f2),
+            "han2-len2-809f-1" => Some(ShardType::Han2Len2809f1),
+            "han2-len2-809f-2" => Some(ShardType::Han2Len2809f2),
             "han2-len3" => Some(ShardType::Han2Len3),
             "han2-len4" => Some(ShardType::Han2Len4),
             "han2-len5plus" => Some(ShardType::Han2Len5Plus),
-            "han3-len3-1" => Some(ShardType::Han3Len3_1),
-            "han3-len3-2" => Some(ShardType::Han3Len3_2),
+            "han3-len3-1" => Some(ShardType::Han3Len31),
+            "han3-len3-2" => Some(ShardType::Han3Len32),
             "han3-len4" => Some(ShardType::Han3Len4),
             "han3-len5" => Some(ShardType::Han3Len5),
             "han3-len6plus" => Some(ShardType::Han3Len6Plus),
-            "han4plus-1" => Some(ShardType::Han4Plus_1),
-            "han4plus-2" => Some(ShardType::Han4Plus_2),
-            "han4plus-3" => Some(ShardType::Han4Plus_3),
+            "han4plus-1" => Some(ShardType::Han4Plus1),
+            "han4plus-2" => Some(ShardType::Han4Plus2),
+            "han4plus-3" => Some(ShardType::Han4Plus3),
             _ => None,
         }
     }
@@ -425,14 +425,23 @@ async fn main() -> Result<()> {
             Arg::new("mode")
                 .long("mode")
                 .value_name("SHARD_TYPE")
-                .help("Specify which shard to build: non-han, han-1char, han-2char, han-3plus, or all (default: all)")
-                .value_parser(["non-han", "han-1char", "han-2char", "han-3plus", "all"])
+                .help("Specify which shard to build (23-shard system) or 'all' for all shards (default: all)")
+                .value_parser([
+                    "non-han-non-kana", "kana-only-1", "kana-only-2",
+                    "han1-len1-1", "han1-len1-2", "han1-len1-3", "han1-len1-4",
+                    "han1-len2", "han1-len3", "han1-len4plus",
+                    "han2-len2-4e5f-1", "han2-len2-4e5f-2", "han2-len2-607f-1",
+                    "han2-len2-607f-2", "han2-len2-809f-1", "han2-len2-809f-2",
+                    "han2-len3", "han2-len4", "han2-len5plus",
+                    "han3-len3-1", "han3-len3-2", "han3-len4", "han3-len5", "han3-len6plus",
+                    "han4plus-1", "han4plus-2", "han4plus-3", "all"
+                ])
                 .default_value("all"),
         )
         .arg(
             Arg::new("shard-output")
                 .long("shard-output")
-                .help("Output files into 4 shard subdirectories (non-han, han-1char, han-2char, han-3plus) inside output_dictionary/")
+                .help("Output files into 23 shard subdirectories using the new sharding system")
                 .action(ArgAction::SetTrue),
         )
         .get_matches();
@@ -637,7 +646,7 @@ async fn main() -> Result<()> {
     let shard_filter: Option<ShardType> = ShardType::from_mode_str(mode_str);
 
     if mode_str != "all" && shard_filter.is_none() {
-        anyhow::bail!("Invalid mode: {}. Must be one of: non-han, han-1char, han-2char, han-3plus, all", mode_str);
+        anyhow::bail!("Invalid mode: {}. Use --help to see all 23 available shard types or 'all'", mode_str);
     }
 
     if let Some(shard) = shard_filter {
@@ -2579,7 +2588,19 @@ async fn generate_optimized_output_files(
 
     // If shard_output is enabled, create shard subdirectories
     if shard_output {
-        for shard in [ShardType::NonHan, ShardType::Han1Char, ShardType::Han2Char, ShardType::Han3Plus] {
+        // Create all 23 shard directories
+        let all_shards = [
+            ShardType::NonHanNonKana, ShardType::KanaOnly1, ShardType::KanaOnly2,
+            ShardType::Han1Len11, ShardType::Han1Len12, ShardType::Han1Len13, ShardType::Han1Len14,
+            ShardType::Han1Len2, ShardType::Han1Len3, ShardType::Han1Len4Plus,
+            ShardType::Han2Len24e5f1, ShardType::Han2Len24e5f2, ShardType::Han2Len2607f1, 
+            ShardType::Han2Len2607f2, ShardType::Han2Len2809f1, ShardType::Han2Len2809f2,
+            ShardType::Han2Len3, ShardType::Han2Len4, ShardType::Han2Len5Plus,
+            ShardType::Han3Len31, ShardType::Han3Len32, ShardType::Han3Len4, 
+            ShardType::Han3Len5, ShardType::Han3Len6Plus,
+            ShardType::Han4Plus1, ShardType::Han4Plus2, ShardType::Han4Plus3,
+        ];
+        for shard in all_shards {
             let shard_dir = output_dir.join(shard.output_dir().split('/').last().unwrap());
             fs::create_dir_all(&shard_dir).context("Failed to create shard directory")?;
         }
