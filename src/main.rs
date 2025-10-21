@@ -5,6 +5,7 @@ mod chinese_char_types;
 mod japanese_char_types;
 mod ids_types;
 mod combined_types;
+mod jmnedict_types;
 mod analysis;
 mod simple_output_types;
 mod optimized_output_types;
@@ -35,6 +36,7 @@ use japanese_types::{JapaneseEntry, Word, PitchAccentDatabase};
 use chinese_char_types::ChineseCharacter;
 use japanese_char_types::{KanjiDictionary, KanjiCharacter};
 use ids_types::{IdsEntry, IdsDatabase};
+use jmnedict_types::{JmnedictEntry, JmnedictRoot};
 use legacy_unification::unified_character_types::UnifiedCharacterEntry;
 use combined_types::{
     CombinedDictionary, CombinedEntry, CombinedMetadata, KeySource,
@@ -470,6 +472,10 @@ async fn main() -> Result<()> {
     let mut japanese_char_dict = load_japanese_char_dictionary("data/kanjidic2-en-3.6.1.json")
         .context("Failed to load Japanese character dictionary")?;
 
+    println!("📚 Loading JMnedict (Japanese Names Dictionary)...");
+    let jmnedict_entries = load_jmnedict("data/jmnedict-all-3.6.1.json")
+        .context("Failed to load JMnedict")?;
+
     println!("📚 Loading IDS (character decomposition) database...");
     let ids_database = load_all_ids_files()
         .context("Failed to load IDS files")?;
@@ -691,6 +697,23 @@ fn load_japanese_char_dictionary(path: &str) -> Result<KanjiDictionary> {
     let kanji_dict: KanjiDictionary = serde_json::from_str(&content)?;
     println!("  ✅ Loaded {} Japanese kanji characters", kanji_dict.characters.len());
     Ok(kanji_dict)
+}
+
+/// Load JMnedict (Japanese Names Dictionary) from JSON file
+fn load_jmnedict(path: &str) -> Result<Vec<JmnedictEntry>> {
+    println!("📖 Loading JMnedict from {}", path);
+    
+    let file = std::fs::File::open(path)
+        .with_context(|| format!("Failed to open JMnedict file: {}", path))?;
+    
+    let reader = std::io::BufReader::new(file);
+    let jmnedict_root: JmnedictRoot = serde_json::from_reader(reader)
+        .with_context(|| format!("Failed to parse JMnedict JSON: {}", path))?;
+    
+    println!("  ✅ Loaded {} JMnedict entries (version: {})", 
+             jmnedict_root.words.len(), jmnedict_root.version);
+    
+    Ok(jmnedict_root.words)
 }
 
 fn load_ids_file(path: &str) -> Result<IdsDatabase> {

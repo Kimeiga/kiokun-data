@@ -3,6 +3,7 @@
 
 use serde::{Deserialize, Serialize};
 use crate::word_preview_types::WordPreview;
+use crate::jmnedict_types::OptimizedJmnedictName;
 
 /// Optimized output structure with shortened field names
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -34,6 +35,10 @@ pub struct OptimizedOutput {
     /// relatedJapaneseWords → rjw
     #[serde(rename = "rjw", skip_serializing_if = "Vec::is_empty", default)]
     pub related_japanese_words: Vec<String>,
+    
+    /// japaneseNames → jn (skip if empty)
+    #[serde(rename = "jn", skip_serializing_if = "Vec::is_empty", default)]
+    pub japanese_names: Vec<OptimizedJmnedictName>,
 
     /// contains → ct
     #[serde(rename = "ct", skip_serializing_if = "Vec::is_empty", default)]
