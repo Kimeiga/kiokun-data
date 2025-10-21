@@ -19,6 +19,7 @@ pub fn optimize_output(simple: SimpleOutput) -> OptimizedOutput {
         japanese_char: simple.japanese_char.map(optimize_japanese_char),
         related_japanese_words: simple.related_japanese_words,
         japanese_names: vec![],
+        japanese_names: vec![],
         contains: simple.contains,
         contained_in_chinese: simple.contained_in_chinese,
         contained_in_japanese: simple.contained_in_japanese,
