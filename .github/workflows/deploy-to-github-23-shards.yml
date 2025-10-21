@@ -1,7 +1,6 @@
 name: Deploy Dictionary to 10 GitHub Repos (jsDelivr CDN - Optimized)
 
 on:
-  workflow_dispatch:  # Manual trigger available
   push:
     branches: [main]
     paths:
@@ -9,6 +8,7 @@ on:
       - 'data/**'
       - 'Cargo.toml'
       - '.github/workflows/deploy-to-github-23-shards.yml'
+  workflow_dispatch:  # Manual trigger also available
 
 jobs:
   build-and-deploy:
