@@ -27,7 +27,7 @@ jobs:
       
       - name: Install dependencies
         working-directory: sveltekit-app
-        run: npm ci
+        run: npm ci --include=optional
 
       - name: Build
         working-directory: sveltekit-app
