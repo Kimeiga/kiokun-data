@@ -1796,6 +1796,7 @@ async fn generate_simple_output_files(
             japanese_words: Vec::new(),
             japanese_char: None,
             related_japanese_words: Vec::new(),
+            japanese_names: Vec::new(),
             contains: Vec::new(),
             contained_in_chinese: Vec::new(),
             contained_in_japanese: Vec::new(),
@@ -1843,6 +1844,7 @@ async fn generate_simple_output_files(
                             japanese_words: Vec::new(),
                             japanese_char: None,
                             related_japanese_words: Vec::new(),
+                            japanese_names: Vec::new(),
                             contains: Vec::new(),
                             contained_in_chinese: Vec::new(),
                             contained_in_japanese: Vec::new(),
@@ -1868,6 +1870,7 @@ async fn generate_simple_output_files(
             japanese_words: Vec::new(),
             japanese_char: None,
             related_japanese_words: Vec::new(),
+            japanese_names: Vec::new(),
             contains: Vec::new(),
             contained_in_chinese: Vec::new(),
             contained_in_japanese: Vec::new(),
@@ -1884,6 +1887,7 @@ async fn generate_simple_output_files(
             japanese_words: Vec::new(),
             japanese_char: None,
             related_japanese_words: Vec::new(),
+            japanese_names: Vec::new(),
             contains: Vec::new(),
             contained_in_chinese: Vec::new(),
             contained_in_japanese: Vec::new(),
@@ -2177,6 +2181,7 @@ async fn generate_optimized_output_files(
             japanese_words: Vec::new(),
             japanese_char: None,
             related_japanese_words: Vec::new(),
+            japanese_names: Vec::new(),
             contains: Vec::new(),
             contained_in_chinese: Vec::new(),
             contained_in_japanese: Vec::new(),
@@ -2218,6 +2223,7 @@ async fn generate_optimized_output_files(
                             japanese_words: Vec::new(),
                             japanese_char: None,
                             related_japanese_words: Vec::new(),
+                            japanese_names: Vec::new(),
                             contains: Vec::new(),
                             contained_in_chinese: Vec::new(),
                             contained_in_japanese: Vec::new(),
@@ -2242,6 +2248,7 @@ async fn generate_optimized_output_files(
             japanese_words: Vec::new(),
             japanese_char: None,
             related_japanese_words: Vec::new(),
+            japanese_names: Vec::new(),
             contains: Vec::new(),
             contained_in_chinese: Vec::new(),
             contained_in_japanese: Vec::new(),
@@ -2258,6 +2265,7 @@ async fn generate_optimized_output_files(
             japanese_words: Vec::new(),
             japanese_char: None,
             related_japanese_words: Vec::new(),
+            japanese_names: Vec::new(),
             contains: Vec::new(),
             contained_in_chinese: Vec::new(),
             contained_in_japanese: Vec::new(),
@@ -2552,6 +2560,7 @@ async fn generate_optimized_output_files(
                     japanese_words: Vec::new(),
                     japanese_char: None,
                     related_japanese_words: Vec::new(),
+                    japanese_names: Vec::new(),
                     contains: Vec::new(),
                     contained_in_chinese: Vec::new(),
                     contained_in_japanese: Vec::new(),
@@ -2613,6 +2622,7 @@ async fn generate_optimized_output_files(
                         japanese_words: Vec::new(),
                         japanese_char: None,
                         related_japanese_words: Vec::new(),
+                        japanese_names: Vec::new(),
                         contains: Vec::new(),
                         contained_in_chinese: Vec::new(),
                         contained_in_japanese: Vec::new(),
@@ -2873,4 +2883,31 @@ fn create_safe_filename(word: &str) -> String {
             c => c,
         })
         .collect()
+}
+
+/// Process JMnedict entries and create a mapping from keys to Japanese names
+fn process_jmnedict_names(jmnedict_entries: &[JmnedictEntry]) -> HashMap<String, Vec<crate::jmnedict_types::OptimizedJmnedictName>> {
+    use std::collections::HashMap;
+    
+    println!("🔄 Processing {} JMnedict entries for name matching...", jmnedict_entries.len());
+    
+    let mut name_map: HashMap<String, Vec<crate::jmnedict_types::OptimizedJmnedictName>> = HashMap::new();
+    let mut processed = 0;
+    
+    for entry in jmnedict_entries {
+        let optimized_name = entry.to_optimized();
+        
+        // Get all possible keys for this name entry (kanji and kana forms)
+        for key in entry.get_keys() {
+            name_map.entry(key).or_insert_with(Vec::new).push(optimized_name.clone());
+        }
+        
+        processed += 1;
+        if processed % 100000 == 0 {
+            println!("  Processed {} JMnedict entries...", processed);
+        }
+    }
+    
+    println!("  ✅ Created name mappings for {} unique keys", name_map.len());
+    name_map
 }

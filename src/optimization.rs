@@ -1,14 +1,10 @@
-// Conversion functions from SimpleOutput to OptimizedOutput
-// Removes unused fields and shortens field names for size reduction
-
+use crate::optimized_output_types::OptimizedOutput;
 use crate::simple_output_types::SimpleOutput;
-use crate::optimized_output_types::*;
 use crate::chinese_char_types::ChineseCharacter;
 use crate::japanese_char_types::KanjiCharacter;
 use crate::chinese_types::ChineseDictionaryElement;
 use crate::japanese_types::Word;
 
-/// Convert SimpleOutput to OptimizedOutput
 pub fn optimize_output(simple: SimpleOutput) -> OptimizedOutput {
     OptimizedOutput {
         key: simple.key,
@@ -17,6 +13,15 @@ pub fn optimize_output(simple: SimpleOutput) -> OptimizedOutput {
         chinese_char: simple.chinese_char.map(optimize_chinese_char),
         japanese_words: simple.japanese_words.into_iter().map(optimize_japanese_word).collect(),
         japanese_char: simple.japanese_char.map(optimize_japanese_char),
+        related_japanese_words: simple.related_japanese_words,
+        japanese_names: simple.japanese_names,
+        contains: simple.contains,
+        contained_in_chinese: simple.contained_in_chinese,
+        contained_in_japanese: simple.contained_in_japanese,
+    }
+}
+
+// Include all the optimization functions from the original file
         related_japanese_words: simple.related_japanese_words,
         japanese_names: vec![],
         japanese_names: vec![],

@@ -1,4 +1,5 @@
 use serde::{Deserialize, Serialize};
+use crate::jmnedict_types::OptimizedJmnedictName;
 use crate::chinese_types::ChineseDictionaryElement;
 use crate::chinese_char_types::ChineseCharacter;
 use crate::japanese_types::Word;
@@ -35,6 +36,7 @@ pub struct SimpleOutput {
     /// (e.g., 好 would reference 誼 because 好 appears as an alternative kanji form)
     #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub related_japanese_words: Vec<String>,
+    pub japanese_names: Vec<OptimizedJmnedictName>,
 
     /// Words/characters contained within this word (for multi-character words only)
     /// e.g., for "一把好手", this would include ["一", "把", "好", "手", "一把", "好手", etc.]
