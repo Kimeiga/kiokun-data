@@ -326,6 +326,41 @@ export function expandFields(data: any): any {
     }
   }
 
+  // Expand japanese_names (JMnedict)
+  if (expanded.japanese_names && Array.isArray(expanded.japanese_names)) {
+    expanded.japanese_names = expanded.japanese_names.map((name: any) => {
+      const expandedName = expandObject(name, JMNEDICT_NAME_MAP);
+      
+      // Expand kanji array
+      if (expandedName.kanji && Array.isArray(expandedName.kanji)) {
+        expandedName.kanji = expandedName.kanji.map((k: any) => expandObject(k, JMNEDICT_KANJI_MAP));
+      }
+      
+      // Expand kana array
+      if (expandedName.kana && Array.isArray(expandedName.kana)) {
+        expandedName.kana = expandedName.kana.map((k: any) => expandObject(k, JMNEDICT_KANA_MAP));
+      }
+      
+      // Expand translation array
+      if (expandedName.translation && Array.isArray(expandedName.translation)) {
+        expandedName.translation = expandedName.translation.map((t: any) => {
+          const expandedTranslation = expandObject(t, JMNEDICT_TRANSLATION_MAP);
+          
+          // Expand translation text array
+          if (expandedTranslation.translation && Array.isArray(expandedTranslation.translation)) {
+            expandedTranslation.translation = expandedTranslation.translation.map((tt: any) => 
+              expandObject(tt, JMNEDICT_TRANSLATION_TEXT_MAP)
+            );
+          }
+          
+          return expandedTranslation;
+        });
+      }
+      
+      return expandedName;
+    });
+  }
+
   // Expand chinese_words
   if (expanded.chinese_words) {
     expanded.chinese_words = expanded.chinese_words.map((word: any) => {
@@ -458,3 +493,33 @@ export const REVERSE_MAPPINGS = {
   EXAMPLE_SENTENCE: EXAMPLE_SENTENCE_REVERSE,
 };
 
+
+/** JMnedict (Japanese Names) field mappings */
+export const JMNEDICT_NAME_MAP = {
+  i: 'id',
+  k: 'kanji',
+  n: 'kana',
+  t: 'translation',
+} as const;
+
+export const JMNEDICT_KANJI_MAP = {
+  t: 'text',
+  g: 'tags',
+} as const;
+
+export const JMNEDICT_KANA_MAP = {
+  t: 'text',
+  g: 'tags',
+  a: 'applies_to_kanji',
+} as const;
+
+export const JMNEDICT_TRANSLATION_MAP = {
+  y: 'name_type',
+  r: 'related',
+  t: 'translation',
+} as const;
+
+export const JMNEDICT_TRANSLATION_TEXT_MAP = {
+  l: 'lang',
+  t: 'text',
+} as const;
