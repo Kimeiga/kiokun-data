@@ -46,6 +46,13 @@ export const load: PageLoad = async ({ params, fetch }) => {
 
 		// Decompress and parse JSON
 		let data = decompressAndParse(compressedData);
+		console.log('[DEBUG] Decompressed successfully');
+		console.log('[DEBUG] Raw decompressed JSON:', data);
+
+		if (data.japanese_names) {
+			console.log('[DEBUG] Japanese names count:', data.japanese_names.length);
+			console.log('[DEBUG] First 3 Japanese names:', data.japanese_names.slice(0, 3));
+		}
 
 		// If this is a redirect entry, fetch the actual data
 		if (data.redirect) {

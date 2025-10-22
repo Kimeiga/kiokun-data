@@ -20,6 +20,9 @@
 
 	let { names, word }: Props = $props();
 
+	console.log('[JapaneseNames] Received names:', names);
+	console.log('[JapaneseNames] First name structure:', names[0]);
+
 	// Group names by type for better organization
 	const groupedNames = names.reduce((groups, name) => {
 		if (name.translation && Array.isArray(name.translation)) {
@@ -34,6 +37,9 @@
 		}
 		return groups;
 	}, {} as Record<string, JmnedictName[]>);
+
+	console.log('[JapaneseNames] Grouped names:', groupedNames);
+	console.log('[JapaneseNames] Group keys:', Object.keys(groupedNames));
 
 	// Type display names
 	const typeNames: Record<string, string> = {
