@@ -2913,8 +2913,6 @@ fn process_jmnedict_names(jmnedict_entries: &[JmnedictEntry]) -> HashMap<String,
 }
 
 /// Process JMnedict entries and create a mapping from keys to Japanese names
-fn process_jmnedict_names(jmnedict_entries: &[JmnedictEntry]) -> std::collections::HashMap<String, Vec<crate::jmnedict_types::OptimizedJmnedictName>> {
-    println!("🔄 Processing {} JMnedict entries for name matching...", jmnedict_entries.len());
     
     let mut name_map = std::collections::HashMap::new();
     let mut processed = 0;
