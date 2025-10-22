@@ -118,13 +118,14 @@ jobs:
       - name: Sync files to target repository
         run: |
           SHARD_DIR="output_dictionary"
-          
+
           # Clear the target repository (keep only .git)
           find target-repo -mindepth 1 -name '.git' -prune -o -exec rm -rf {} +
-          
-          # Copy only the JSON files from our shard
-          cp -r "$SHARD_DIR"/* target-repo/ || echo "No files to copy"
-          
+
+          # Copy files using rsync to avoid "Argument list too long" error
+          # This handles large numbers of files (400K+) that cp can't handle
+          rsync -a "$SHARD_DIR/" target-repo/
+
           echo "✓ Synced files to target repository"
       
       - name: Commit and push to target repository
