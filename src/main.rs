@@ -2911,3 +2911,28 @@ fn process_jmnedict_names(jmnedict_entries: &[JmnedictEntry]) -> HashMap<String,
     println!("  ✅ Created name mappings for {} unique keys", name_map.len());
     name_map
 }
+
+/// Process JMnedict entries and create a mapping from keys to Japanese names
+fn process_jmnedict_names(jmnedict_entries: &[JmnedictEntry]) -> std::collections::HashMap<String, Vec<crate::jmnedict_types::OptimizedJmnedictName>> {
+    println!("🔄 Processing {} JMnedict entries for name matching...", jmnedict_entries.len());
+    
+    let mut name_map = std::collections::HashMap::new();
+    let mut processed = 0;
+    
+    for entry in jmnedict_entries {
+        let optimized_name = entry.to_optimized();
+        
+        // Get all possible keys for this name entry (kanji and kana forms)
+        for key in entry.get_keys() {
+            name_map.entry(key).or_insert_with(Vec::new).push(optimized_name.clone());
+        }
+        
+        processed += 1;
+        if processed % 100000 == 0 {
+            println!("  Processed {} JMnedict entries...", processed);
+        }
+    }
+    
+    println!("  ✅ Created name mappings for {} unique keys", name_map.len());
+    name_map
+}

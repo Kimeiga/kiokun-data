@@ -5,6 +5,7 @@
 	import PitchAccent from '$lib/PitchAccent.svelte';
 	import Contains from '$lib/Contains.svelte';
 	import AppearsIn from '$lib/AppearsIn.svelte';
+	import JapaneseNames from \'$lib/components/JapaneseNames.svelte\';
 
 	let { data }: { data: PageData } = $props();
 

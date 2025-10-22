@@ -22,6 +22,7 @@ export const TOP_LEVEL_MAP = {
   jw: 'japanese_words',
   jc: 'japanese_char',
   rjw: 'related_japanese_words',
+  jn: \'japanese_names\',
   ct: 'contains',
   cic: 'contained_in_chinese',
   cij: 'contained_in_japanese',
