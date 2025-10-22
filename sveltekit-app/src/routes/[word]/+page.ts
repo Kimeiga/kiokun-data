@@ -48,19 +48,30 @@ export const load: PageLoad = async ({ params, fetch }) => {
 		// Decompress and parse JSON
 		const rawData = decompressAndParse(compressedData);
 		console.log(`[DEBUG] Decompressed successfully`);
+		console.log('[DEBUG] Raw decompressed JSON:', rawData);
 
 		// Expand optimized field names to readable names
 		let data = expandFields(rawData);
+		console.log('[DEBUG] After field expansion:', data);
 
 		// If this is a redirect entry, fetch the actual data
 		if (data.redirect) {
+			console.log('[DEBUG] Redirect detected, fetching:', data.redirect);
 			const redirectUrl = getDictionaryUrl(data.redirect);
 			const redirectResponse = await fetch(redirectUrl);
 			if (redirectResponse.ok) {
 				const redirectCompressed = await redirectResponse.arrayBuffer();
 				const redirectRawData = decompressAndParse(redirectCompressed);
+				console.log('[DEBUG] Redirect raw data:', redirectRawData);
 				data = expandFields(redirectRawData);
+				console.log('[DEBUG] Redirect after expansion:', data);
 			}
+		}
+
+		console.log('[DEBUG] Final data object:', data);
+		console.log('[DEBUG] Japanese names count:', data.japanese_names?.length || 0);
+		if (data.japanese_names?.length > 0) {
+			console.log('[DEBUG] First 3 Japanese names:', data.japanese_names.slice(0, 3));
 		}
 
 		// Load Japanese labels
