@@ -120,16 +120,23 @@ export function getJsDelivrUrl(word: string): string {
 
 /**
  * Get the appropriate dictionary URL based on environment
- * 
+ *
  * ENVIRONMENT DETECTION:
  * - Production/Staging: Uses jsDelivr CDN (fast, global, free)
- * - Development: Uses jsDelivr CDN (consistent with production)
- * 
+ * - Development: Uses local API endpoint that serves from output_dictionary
+ *
  * @param word - The dictionary word to look up
  * @returns Full URL to fetch the word's dictionary data
  */
 export function getDictionaryUrl(word: string): string {
-  // Always use jsDelivr for consistency and performance
+  // Check if we're running on localhost (development)
+  if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
+    const encodedWord = encodeURIComponent(word);
+    // Use local API endpoint that serves files from output_dictionary
+    return `/api/dict/${encodedWord}`;
+  }
+
+  // In production, use jsDelivr CDN
   return getJsDelivrUrl(word);
 }
 

@@ -549,6 +549,7 @@ async fn main() -> Result<()> {
                     &aligned_dict,
                     &chinese_char_dict_raw,
                     &japanese_char_dict_raw.characters,
+                    &jmnedict_entries,
                     shard_filter,
                     shard_output
                 ).await?;
@@ -558,6 +559,7 @@ async fn main() -> Result<()> {
                     &aligned_dict,
                     &chinese_char_dict_raw,
                     &japanese_char_dict_raw.characters,
+                    &jmnedict_entries,
                     shard_filter
                 ).await?;
             }
@@ -1739,6 +1741,7 @@ async fn generate_simple_output_files(
     combined_dict: &CombinedDictionary,
     chinese_chars: &[ChineseCharacter],
     kanjidic_entries: &[KanjiCharacter],
+    jmnedict_entries: &[JmnedictEntry],
     shard_filter: Option<ShardType>,
 ) -> Result<()> {
     use std::fs;
@@ -1753,6 +1756,7 @@ async fn generate_simple_output_files(
     // This is much faster when the directory already exists
     if !output_dir.exists() {
         fs::create_dir_all(output_dir).context("Failed to create output directory")?;
+        println!("  ✅ Created output directory: {}", output_dir.display());
     } else {
         println!("  ℹ️  Directory exists, will overwrite files (faster than deleting)");
     }
@@ -1772,6 +1776,8 @@ async fn generate_simple_output_files(
     println!("🔄 Grouping entries by key...");
     let mut outputs: StdHashMap<String, SimpleOutput> = StdHashMap::new();
 
+    println!("  📊 Processing {} combined dictionary entries...", combined_dict.entries.len());
+
     // Process all combined entries (words)
     for entry in &combined_dict.entries {
         let key = if let Some(ref chinese) = entry.chinese_entry {
@@ -1785,8 +1791,6 @@ async fn generate_simple_output_files(
         } else {
             continue;
         };
-
-
 
         let output = outputs.entry(key.clone()).or_insert_with(|| SimpleOutput {
             key: key.clone(),
@@ -1893,6 +1897,36 @@ async fn generate_simple_output_files(
             contained_in_japanese: Vec::new(),
         });
         output.japanese_char = Some(kanji_entry.clone());
+    }
+
+    // Add JMnedict entries (Japanese names)
+    println!("🏷️ Adding JMnedict entries (Japanese names)...");
+    println!("  Processing {} JMnedict entries", jmnedict_entries.len());
+    for jmnedict_entry in jmnedict_entries {
+        let optimized_name = jmnedict_entry.to_optimized();
+        let keys = jmnedict_entry.get_keys();
+        
+        println!("  JMnedict entry ID: {} has {} keys", jmnedict_entry.id, keys.len());
+        
+        // Get all possible keys for this name entry
+        for key in keys {
+            let output = outputs.entry(key.clone()).or_insert_with(|| SimpleOutput {
+                key: key.clone(),
+                redirect: None,
+                chinese_words: Vec::new(),
+                chinese_char: None,
+                japanese_words: Vec::new(),
+                japanese_char: None,
+                related_japanese_words: Vec::new(),
+                japanese_names: Vec::new(),
+                contains: Vec::new(),
+                contained_in_chinese: Vec::new(),
+                contained_in_japanese: Vec::new(),
+            });
+            
+            // Add the optimized name entry to this key's japanese_names
+            output.japanese_names.push(optimized_name.clone());
+        }
     }
 
     // Build reverse index for "contained in" relationships
@@ -2125,6 +2159,7 @@ async fn generate_optimized_output_files(
     combined_dict: &CombinedDictionary,
     chinese_chars: &[ChineseCharacter],
     kanjidic_entries: &[KanjiCharacter],
+    jmnedict_entries: &[JmnedictEntry],
     shard_filter: Option<ShardType>,
     shard_output: bool,
 ) -> Result<()> {
@@ -2271,6 +2306,41 @@ async fn generate_optimized_output_files(
             contained_in_japanese: Vec::new(),
         });
         output.japanese_char = Some(kanji_entry.clone());
+    }
+
+    // Add JMnedict entries (Japanese names)
+    println!("🏷️ Adding JMnedict entries (Japanese names)...");
+    println!("  📊 Processing {} JMnedict entries", jmnedict_entries.len());
+    for (i, jmnedict_entry) in jmnedict_entries.iter().enumerate() {
+        if i % 10000 == 0 {
+            println!("  📝 Processing JMnedict entry {}/{}", i + 1, jmnedict_entries.len());
+        }
+        let optimized_name = jmnedict_entry.to_optimized();
+
+        // Get all possible keys for this name entry
+        let keys = jmnedict_entry.get_keys();
+        if i < 5 {
+            println!("  🔍 Entry {} keys: {:?}", i, keys);
+        }
+
+        for key in keys {
+            let output = outputs.entry(key.clone()).or_insert_with(|| SimpleOutput {
+                key: key.clone(),
+                redirect: None,
+                chinese_words: Vec::new(),
+                chinese_char: None,
+                japanese_words: Vec::new(),
+                japanese_char: None,
+                related_japanese_words: Vec::new(),
+                japanese_names: Vec::new(),
+                contains: Vec::new(),
+                contained_in_chinese: Vec::new(),
+                contained_in_japanese: Vec::new(),
+            });
+            
+            // Add the optimized name entry to this key's japanese_names
+            output.japanese_names.push(optimized_name.clone());
+        }
     }
 
     // Build reverse index for "contained in" relationships
@@ -2440,6 +2510,11 @@ async fn generate_optimized_output_files(
     println!("🔄 Optimizing {} entries...", outputs.len());
     println!("  ⚡ Removing unused fields and shortening field names...");
 
+    if outputs.is_empty() {
+        println!("  ⚠️  No entries to process! This might indicate a problem with data loading or filtering.");
+        return Ok(());
+    }
+
     // Use parallel processing for maximum performance
     use rayon::prelude::*;
     use std::sync::atomic::{AtomicUsize, Ordering};
@@ -2506,11 +2581,20 @@ async fn generate_optimized_output_files(
                 output_dir.join(format!("{}.json", safe_filename))
             };
 
+            println!("🔍 DEBUG: Attempting to write file: {}", file_path.display());
+
             let file = std::fs::File::create(&file_path)
                 .map_err(|e| anyhow::anyhow!("Failed to create file '{}': {}", file_path.display(), e))?;
             let mut writer = std::io::BufWriter::with_capacity(8192, file);
             writer.write_all(json_content.as_bytes())
-                .map_err(|e| anyhow::anyhow!("Failed to create file '{}': {}", file_path.display(), e))?;
+                .map_err(|e| anyhow::anyhow!("Failed to write to file '{}': {}", file_path.display(), e))?;
+            
+            // Ensure the data is flushed to disk
+            writer.flush()
+                .map_err(|e| anyhow::anyhow!("Failed to flush file '{}': {}", file_path.display(), e))?;
+            drop(writer);
+
+            println!("✅ DEBUG: Successfully wrote file: {}", file_path.display());
 
             let current = counter.fetch_add(1, Ordering::Relaxed) + 1;
             if current % 10000 == 0 {
