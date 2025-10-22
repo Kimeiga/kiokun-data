@@ -3,6 +3,11 @@
 **/*.rs.bk
 Cargo.lock
 
+# Compression benchmark build artifacts
+compression-benchmark/target/
+compression-benchmark/node_modules/
+compression-benchmark/package-lock.json
+
 # IDE
 .vscode/
 .idea/

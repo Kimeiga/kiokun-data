@@ -1,4 +1,4 @@
-name: Deploy Dictionary to 10 GitHub Repos (jsDelivr CDN - Optimized)
+name: Deploy Dictionary to 10 GitHub Repos (jsDelivr CDN - Deflate Compressed)
 
 on:
   push:
@@ -79,7 +79,6 @@ jobs:
         run: |
           cargo run --release --bin merge_dictionaries -- \
             --individual-files \
-            --optimize \
             --mode ${{ matrix.shard }}
       
       - name: Count files in shard
@@ -88,7 +87,7 @@ jobs:
           # When using --mode, files are output to output_dictionary/
           SHARD_DIR="output_dictionary"
           if [ -d "$SHARD_DIR" ]; then
-            FILE_COUNT=$(find "$SHARD_DIR" -name "*.json" | wc -l)
+            FILE_COUNT=$(find "$SHARD_DIR" -name "*.deflate" | wc -l)
             echo "file_count=$FILE_COUNT" >> $GITHUB_OUTPUT
             echo "✓ Shard ${{ matrix.shard }}: $FILE_COUNT files"
           else

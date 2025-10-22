@@ -99,23 +99,26 @@ export function getShardName(word: string): string {
 
 /**
  * Get the jsDelivr CDN URL for a dictionary word
- * 
+ *
  * PRODUCTION URL FORMAT:
- * https://cdn.jsdelivr.net/gh/Kimeiga/kiokun2-dict-{shard}@latest/{word}.json
- * 
+ * https://cdn.jsdelivr.net/gh/Kimeiga/kiokun2-dict-{shard}@latest/{word}.json.deflate
+ *
  * EXAMPLES:
- * - "hello" → https://cdn.jsdelivr.net/gh/Kimeiga/kiokun2-dict-non-han@latest/hello.json
- * - "人" → https://cdn.jsdelivr.net/gh/Kimeiga/kiokun2-dict-han-1char-1@latest/人.json
- * - "你好" → https://cdn.jsdelivr.net/gh/Kimeiga/kiokun2-dict-han-2char-2@latest/你好.json
- * 
+ * - "hello" → https://cdn.jsdelivr.net/gh/Kimeiga/kiokun2-dict-non-han@latest/hello.json.deflate
+ * - "人" → https://cdn.jsdelivr.net/gh/Kimeiga/kiokun2-dict-han-1char-1@latest/人.json.deflate
+ * - "你好" → https://cdn.jsdelivr.net/gh/Kimeiga/kiokun2-dict-han-2char-2@latest/你好.json.deflate
+ *
+ * NOTE: Files are compressed with Deflate level 9 for 64% size reduction.
+ * Use fflate library to decompress in the browser.
+ *
  * @param word - The dictionary word to look up
- * @returns Full jsDelivr CDN URL for the word's JSON file
+ * @returns Full jsDelivr CDN URL for the word's compressed JSON file
  */
 export function getJsDelivrUrl(word: string): string {
   const shard = getShardName(word);
   // URL encode the word to handle special characters like %
   const encodedWord = encodeURIComponent(word);
-  return `https://cdn.jsdelivr.net/gh/Kimeiga/kiokun2-dict-${shard}@latest/${encodedWord}.json`;
+  return `https://cdn.jsdelivr.net/gh/Kimeiga/kiokun2-dict-${shard}@latest/${encodedWord}.json.deflate`;
 }
 
 /**
