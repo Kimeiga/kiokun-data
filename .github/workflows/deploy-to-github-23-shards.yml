@@ -101,7 +101,12 @@ jobs:
       - name: Verify file count is reasonable
         run: |
           FILE_COUNT=${{ steps.count.outputs.file_count }}
-          if [ "$FILE_COUNT" -lt 1000 ]; then
+          SHARD="${{ matrix.shard }}"
+
+          # Allow reserved shard to be empty (it's for future growth)
+          if [ "$SHARD" = "reserved" ]; then
+            echo "✓ Reserved shard can be empty (has $FILE_COUNT files)"
+          elif [ "$FILE_COUNT" -lt 1000 ]; then
             echo "❌ Error: Only $FILE_COUNT files generated (expected at least 1,000)"
             exit 1
           elif [ "$FILE_COUNT" -gt 500000 ]; then
