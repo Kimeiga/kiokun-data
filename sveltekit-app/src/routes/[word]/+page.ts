@@ -29,8 +29,8 @@ export const load: PageLoad = async ({ params, fetch }) => {
 	const { word } = params;
 
 	try {
-		// Fetch the compressed dictionary data
-		const url = getDictionaryUrl(word);
+		// Fetch the compressed dictionary data (uses localhost:8000 in dev mode)
+		const url = getDictionaryUrl(word, dev);
 		console.log(`[${dev ? 'DEV' : 'PROD'}] Fetching from: ${url}`);
 		console.log(`[DEBUG] dev=${dev}, word="${word}"`);
 		const response = await fetch(url);
@@ -49,7 +49,7 @@ export const load: PageLoad = async ({ params, fetch }) => {
 
 		// If this is a redirect entry, fetch the actual data
 		if (data.redirect) {
-			const redirectUrl = getDictionaryUrl(data.redirect);
+			const redirectUrl = getDictionaryUrl(data.redirect, dev);
 			const redirectResponse = await fetch(redirectUrl);
 			if (redirectResponse.ok) {
 				const redirectCompressed = await redirectResponse.arrayBuffer();
@@ -73,7 +73,7 @@ export const load: PageLoad = async ({ params, fetch }) => {
 		if (data.related_japanese_words && data.related_japanese_words.length > 0) {
 			for (const relatedKey of data.related_japanese_words) {
 				try {
-					const relatedUrl = getDictionaryUrl(relatedKey);
+					const relatedUrl = getDictionaryUrl(relatedKey, dev);
 					const relatedResponse = await fetch(relatedUrl);
 					if (relatedResponse.ok) {
 						const relatedCompressed = await relatedResponse.arrayBuffer();

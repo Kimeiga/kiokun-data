@@ -122,20 +122,40 @@ export function getJsDelivrUrl(word: string): string {
 }
 
 /**
+ * Get the local development URL for a dictionary word
+ *
+ * LOCAL DEVELOPMENT URL FORMAT:
+ * http://localhost:8000/{word}.json.deflate
+ *
+ * This assumes you're running a simple HTTP server in the output_dictionary folder:
+ * cd output_dictionary && python3 -m http.server 8000
+ *
+ * @param word - The dictionary word to look up
+ * @returns Full local URL for the word's compressed JSON file
+ */
+export function getLocalUrl(word: string): string {
+  const encodedWord = encodeURIComponent(word);
+  return `http://localhost:8000/${encodedWord}.json.deflate`;
+}
+
+/**
  * Get the appropriate dictionary URL based on environment
  *
  * ENVIRONMENT DETECTION:
- * - Production/Staging/Development: Uses jsDelivr CDN (fast, global, free)
+ * - Development (dev=true): Uses local HTTP server at localhost:8000
+ * - Production/Staging: Uses jsDelivr CDN (fast, global, free)
  *
- * Note: Local development also uses jsDelivr CDN since we can't serve local files
- * in a Cloudflare Pages environment. For local testing with local data, you would
- * need to set up a separate local server or use a different approach.
+ * For local development, run this in the output_dictionary folder:
+ * cd output_dictionary && python3 -m http.server 8000
  *
  * @param word - The dictionary word to look up
+ * @param dev - Whether we're in development mode (from $app/environment)
  * @returns Full URL to fetch the word's dictionary data
  */
-export function getDictionaryUrl(word: string): string {
-  // Always use jsDelivr CDN (works in all environments)
+export function getDictionaryUrl(word: string, dev: boolean = false): string {
+  if (dev) {
+    return getLocalUrl(word);
+  }
   return getJsDelivrUrl(word);
 }
 
