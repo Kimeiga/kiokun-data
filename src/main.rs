@@ -1532,6 +1532,7 @@ fn convert_with_opencc(text: &str) -> Result<String> {
 }
 
 /// Convert Traditional Chinese to Simplified Chinese using OpenCC
+#[allow(dead_code)]
 fn convert_traditional_to_simplified(text: &str) -> Result<String> {
     convert_with_opencc_config(text, "t2s")
 }
