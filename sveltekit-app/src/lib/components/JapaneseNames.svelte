@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { OptimizedJmnedictName } from '../types';
+	// Types will be expanded by field-mappings before reaching this component
 
 	interface Props {
 		names: OptimizedJmnedictName[];

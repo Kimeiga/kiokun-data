@@ -219,7 +219,7 @@ function expandObject(obj: any, mapping: Record<string, string>): any {
   if (!obj || typeof obj !== 'object') return obj;
   
   const result: any = {};
-  for (const [shortKey, value] of Object.entries(obj)) {
+  for (const [shortKey, value] of Object.keys(obj).map(key => [key, obj[key as keyof typeof obj]] as const)) {
     const longKey = mapping[shortKey] || shortKey;
     result[longKey] = value;
   }
@@ -423,7 +423,7 @@ export function expandFields(data: any): any {
 /** Create reverse mapping */
 function reverseMapping(mapping: Record<string, string>): Record<string, string> {
   const reversed: Record<string, string> = {};
-  for (const [short, long] of Object.entries(mapping)) {
+  for (const [short, long] of Object.keys(mapping).map(key => [key, mapping[key as keyof typeof mapping]] as const)) {
     reversed[long] = short;
   }
   return reversed;
@@ -459,7 +459,7 @@ function compressObject(obj: any, reverseMapping: Record<string, string>): any {
   if (!obj || typeof obj !== 'object') return obj;
   
   const result: any = {};
-  for (const [longKey, value] of Object.entries(obj)) {
+  for (const [longKey, value] of Object.keys(obj).map(key => [key, obj[key as keyof typeof obj]] as const)) {
     const shortKey = reverseMapping[longKey] || longKey;
     result[shortKey] = value;
   }
