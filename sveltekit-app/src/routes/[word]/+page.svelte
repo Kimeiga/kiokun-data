@@ -870,6 +870,11 @@
 		</div>
 		<!-- End Word Definitions Container -->
 
+		<!-- Japanese Names Section -->
+		{#if data.data.japanese_names && data.data.japanese_names.length > 0}
+			<JapaneseNames names={data.data.japanese_names} word={data.word} />
+		{/if}
+
 		<!-- Contains Section (for multi-character words) -->
 		<Contains words={data.data.contains || []} />
 
