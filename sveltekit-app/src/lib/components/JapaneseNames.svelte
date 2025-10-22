@@ -5,9 +5,9 @@
 	interface JmnedictName {
 		id: string;
 		kanji: Array<{text: string; tags?: string[]}>;
-		kana: Array<{text: string; tags?: string[]; applies_to_kanji?: string[]}>;
+		kana: Array<{text: string; tags?: string[]; appliesToKanji?: string[]}>;
 		translation: Array<{
-			name_type: string[];
+			type: string[];
 			related?: string[];
 			translation: Array<{lang?: string; text: string}>;
 		}>;
@@ -19,17 +19,26 @@
 	}
 
 	let { names, word }: Props = $props();
-	
+
+	console.log('[JapaneseNames] Received names:', names);
+	console.log('[JapaneseNames] First name:', names[0]);
+
 	// Group names by type for better organization
 	const groupedNames = names.reduce((groups, name) => {
-		name.translation.forEach(translation => {
-			translation.name_type.forEach(type => {
-				if (!groups[type]) groups[type] = [];
-				groups[type].push(name);
+		if (name.translation && Array.isArray(name.translation)) {
+			name.translation.forEach(translation => {
+				if (translation.type && Array.isArray(translation.type)) {
+					translation.type.forEach((type: string) => {
+						if (!groups[type]) groups[type] = [];
+						groups[type].push(name);
+					});
+				}
 			});
-		});
+		}
 		return groups;
 	}, {} as Record<string, JmnedictName[]>);
+
+	console.log('[JapaneseNames] Grouped names:', groupedNames);
 
 	// Type display names
 	const typeNames: Record<string, string> = {

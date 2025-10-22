@@ -1883,11 +1883,10 @@ async fn generate_simple_output_files(
     println!("🏷️ Adding JMnedict entries (Japanese names)...");
     println!("  Processing {} JMnedict entries", jmnedict_entries.len());
     for jmnedict_entry in jmnedict_entries {
-        let optimized_name = jmnedict_entry.to_optimized();
         let keys = jmnedict_entry.get_keys();
-        
+
         println!("  JMnedict entry ID: {} has {} keys", jmnedict_entry.id, keys.len());
-        
+
         // Get all possible keys for this name entry
         for key in keys {
             let output = outputs.entry(key.clone()).or_insert_with(|| SimpleOutput {
@@ -1903,9 +1902,9 @@ async fn generate_simple_output_files(
                 contained_in_chinese: Vec::new(),
                 contained_in_japanese: Vec::new(),
             });
-            
-            // Add the optimized name entry to this key's japanese_names
-            output.japanese_names.push(optimized_name.clone());
+
+            // Add the name entry to this key's japanese_names
+            output.japanese_names.push(jmnedict_entry.clone());
         }
     }
 

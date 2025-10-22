@@ -1,5 +1,5 @@
 use serde::{Deserialize, Serialize};
-use crate::jmnedict_types::OptimizedJmnedictName;
+use crate::jmnedict_types::JmnedictEntry;
 use crate::chinese_types::ChineseDictionaryElement;
 use crate::chinese_char_types::ChineseCharacter;
 use crate::japanese_types::Word;
@@ -39,7 +39,7 @@ pub struct SimpleOutput {
 
     /// Japanese name entries (from JMnedict)
     #[serde(skip_serializing_if = "Vec::is_empty", default)]
-    pub japanese_names: Vec<OptimizedJmnedictName>,
+    pub japanese_names: Vec<JmnedictEntry>,
 
     /// Words/characters contained within this word (for multi-character words only)
     /// e.g., for "一把好手", this would include ["一", "把", "好", "手", "一把", "好手", etc.]

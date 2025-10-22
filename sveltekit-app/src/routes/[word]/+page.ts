@@ -1,6 +1,5 @@
 import type { PageLoad } from './$types';
 import { error } from '@sveltejs/kit';
-import { expandFields } from '$lib/field-mappings';
 import { getDictionaryUrl } from '$lib/shard-utils';
 import { dev } from '$app/environment';
 import { decompressSync, strFromU8 } from 'fflate';
@@ -46,32 +45,16 @@ export const load: PageLoad = async ({ params, fetch }) => {
 		console.log(`[DEBUG] Compressed size: ${compressedData.byteLength} bytes`);
 
 		// Decompress and parse JSON
-		const rawData = decompressAndParse(compressedData);
-		console.log(`[DEBUG] Decompressed successfully`);
-		console.log('[DEBUG] Raw decompressed JSON:', rawData);
-
-		// Expand optimized field names to readable names
-		let data = expandFields(rawData);
-		console.log('[DEBUG] After field expansion:', data);
+		let data = decompressAndParse(compressedData);
 
 		// If this is a redirect entry, fetch the actual data
 		if (data.redirect) {
-			console.log('[DEBUG] Redirect detected, fetching:', data.redirect);
 			const redirectUrl = getDictionaryUrl(data.redirect);
 			const redirectResponse = await fetch(redirectUrl);
 			if (redirectResponse.ok) {
 				const redirectCompressed = await redirectResponse.arrayBuffer();
-				const redirectRawData = decompressAndParse(redirectCompressed);
-				console.log('[DEBUG] Redirect raw data:', redirectRawData);
-				data = expandFields(redirectRawData);
-				console.log('[DEBUG] Redirect after expansion:', data);
+				data = decompressAndParse(redirectCompressed);
 			}
-		}
-
-		console.log('[DEBUG] Final data object:', data);
-		console.log('[DEBUG] Japanese names count:', data.japanese_names?.length || 0);
-		if (data.japanese_names?.length > 0) {
-			console.log('[DEBUG] First 3 Japanese names:', data.japanese_names.slice(0, 3));
 		}
 
 		// Load Japanese labels
@@ -94,8 +77,7 @@ export const load: PageLoad = async ({ params, fetch }) => {
 					const relatedResponse = await fetch(relatedUrl);
 					if (relatedResponse.ok) {
 						const relatedCompressed = await relatedResponse.arrayBuffer();
-						const relatedRawData = decompressAndParse(relatedCompressed);
-						const relatedData = expandFields(relatedRawData);
+						const relatedData = decompressAndParse(relatedCompressed);
 						if (relatedData.japanese_words && relatedData.japanese_words.length > 0) {
 							relatedData.japanese_words.forEach((japWord: any) => {
 								relatedJapaneseWords.push({
