@@ -219,6 +219,12 @@ function expandObject(obj: any, mapping: Record<string, string>): any {
   if (!obj || typeof obj !== 'object') return obj;
   
   const result: any = {};
+  for (const key in obj) {
+    const mappedKey = mapping[key] || key;
+    result[mappedKey] = obj[key];
+  }
+  return result;
+};
   for (const [shortKey, value] of Object.keys(obj).map(key => [key, obj[key as keyof typeof obj]] as const)) {
     const longKey = mapping[shortKey] || shortKey;
     result[longKey] = value;

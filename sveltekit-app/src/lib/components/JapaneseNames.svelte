@@ -1,8 +1,20 @@
 <script lang="ts">
-	// Types will be expanded by field-mappings before reaching this component
+	// JapaneseNames component - displays Japanese name data from JMnedict
+	// Data comes pre-expanded from field-mappings.ts
+	
+	interface JmnedictName {
+		id: string;
+		kanji: Array<{text: string; tags?: string[]}>;
+		kana: Array<{text: string; tags?: string[]; applies_to_kanji?: string[]}>;
+		translation: Array<{
+			name_type: string[];
+			related?: string[];
+			translation: Array<{lang?: string; text: string}>;
+		}>;
+	}
 
 	interface Props {
-		names: OptimizedJmnedictName[];
+		names: JmnedictName[];
 		word: string;
 	}
 
@@ -17,7 +29,7 @@
 			});
 		});
 		return groups;
-	}, {} as Record<string, OptimizedJmnedictName[]>);
+	}, {} as Record<string, JmnedictName[]>);
 
 	// Type display names
 	const typeNames: Record<string, string> = {
@@ -34,11 +46,11 @@
 <div class="japanese-names">
 	<h3>📛 Japanese Names</h3>
 	<div class="names-grid">
-		{#each Object.entries(groupedNames) as [type, typeNames]}
+		{#each Object.entries(groupedNames) as [type, nameList]}
 			<div class="name-type-group">
-				<h4 class="name-type-badge">{typeNames[type] || type}</h4>
+				<h4 class="name-type-badge">{typeNames[type as keyof typeof typeNames] || type}</h4>
 				<div class="names-list">
-					{#each typeNames as name}
+					{#each nameList as name}
 						<div class="name-entry">
 							<div class="name-forms">
 								{#each name.kanji as kanji}
