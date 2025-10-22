@@ -36,6 +36,9 @@ pub struct SimpleOutput {
     /// (e.g., 好 would reference 誼 because 好 appears as an alternative kanji form)
     #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub related_japanese_words: Vec<String>,
+
+    /// Japanese name entries (from JMnedict)
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub japanese_names: Vec<OptimizedJmnedictName>,
 
     /// Words/characters contained within this word (for multi-character words only)
