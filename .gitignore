@@ -24,14 +24,13 @@ output/
 !output/j2c_mapping.json
 # Ignore JSON files in output directories but allow config files
 output_*/
-*.json
-*.jsonl
+
+# Ignore large dictionary data files (downloaded in CI/CD)
+data/jmdict-examples-eng-3.6.1.json
+data/kanjidic2-en-3.6.1.json
+data/jmnedict-all-3.6.1.json
+
 # Allow specific JSON files
-!webapp/japanese_labels.json
-!labels.json
-!data/*.json
-!data/*.jsonl
-!data/ids/*.txt
 !sveltekit-app/package.json
 !sveltekit-app/package-lock.json
 !sveltekit-app/tsconfig.json
@@ -90,7 +89,6 @@ schemas/chinese_sample.json
 schemas/japanese_sample.json
 
 # Keep the actual data files and generated Rust types
-!data/
 !schemas/*.rs
 !README*.md
 !scripts/

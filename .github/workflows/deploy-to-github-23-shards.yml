@@ -44,7 +44,7 @@ jobs:
         run: |
           mkdir -p data
           cd data
-          
+
           # Download JMdict examples
           curl -L -o jmdict-examples.json.tgz \
             https://github.com/scriptin/jmdict-simplified/releases/download/3.6.1%2B20251013122507/jmdict-examples-eng-3.6.1%2B20251013122507.json.tgz
@@ -53,7 +53,7 @@ jobs:
           # Find and rename the extracted file (handle any filename variations)
           find . -name "jmdict-examples-eng-3.6.1*.json" -exec mv {} jmdict-examples-eng-3.6.1.json \;
           rm jmdict-examples.json.tgz
-          
+
           # Download Kanjidic2
           curl -L -o kanjidic2.json.tgz \
             https://github.com/scriptin/jmdict-simplified/releases/download/3.6.1%2B20251013122507/kanjidic2-en-3.6.1%2B20251013122507.json.tgz
@@ -62,6 +62,15 @@ jobs:
           # Find and rename the extracted file (handle any filename variations)
           find . -name "kanjidic2-en-3.6.1*.json" -exec mv {} kanjidic2-en-3.6.1.json \;
           rm kanjidic2.json.tgz
+
+          # Download JMnedict (Japanese Names Dictionary)
+          curl -L -o jmnedict-all.json.tgz \
+            https://github.com/scriptin/jmdict-simplified/releases/download/3.6.1%2B20251013122507/jmnedict-all-3.6.1%2B20251013122507.json.tgz
+          tar -xzf jmnedict-all.json.tgz
+          ls -la  # Debug: see what files were extracted
+          # Find and rename the extracted file (handle any filename variations)
+          find . -name "jmnedict-all-3.6.1*.json" -exec mv {} jmnedict-all-3.6.1.json \;
+          rm jmnedict-all.json.tgz
       
       - name: Build Rust project
         run: cargo build --release

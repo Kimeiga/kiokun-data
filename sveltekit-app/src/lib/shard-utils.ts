@@ -122,21 +122,17 @@ export function getJsDelivrUrl(word: string): string {
  * Get the appropriate dictionary URL based on environment
  *
  * ENVIRONMENT DETECTION:
- * - Production/Staging: Uses jsDelivr CDN (fast, global, free)
- * - Development: Uses local API endpoint that serves from output_dictionary
+ * - Production/Staging/Development: Uses jsDelivr CDN (fast, global, free)
+ *
+ * Note: Local development also uses jsDelivr CDN since we can't serve local files
+ * in a Cloudflare Pages environment. For local testing with local data, you would
+ * need to set up a separate local server or use a different approach.
  *
  * @param word - The dictionary word to look up
  * @returns Full URL to fetch the word's dictionary data
  */
 export function getDictionaryUrl(word: string): string {
-  // Check if we're running on localhost (development)
-  if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
-    const encodedWord = encodeURIComponent(word);
-    // Use local API endpoint that serves files from output_dictionary
-    return `/api/dict/${encodedWord}`;
-  }
-
-  // In production, use jsDelivr CDN
+  // Always use jsDelivr CDN (works in all environments)
   return getJsDelivrUrl(word);
 }
 
