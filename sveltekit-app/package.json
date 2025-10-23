@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "vite dev",
+    "dev": "concurrently \"npm run dev:cors\" \"npm run dev:vite\"",
+    "dev:cors": "cd ../output_dictionary && python3 cors_server.py",
+    "dev:vite": "vite dev",
     "build": "vite build",
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
@@ -15,6 +17,7 @@
     "@sveltejs/adapter-cloudflare": "^4.7.2",
     "@sveltejs/kit": "^2.5.28",
     "@sveltejs/vite-plugin-svelte": "^4.0.0",
+    "concurrently": "^9.2.1",
     "svelte": "^5.1.9",
     "svelte-check": "^4.0.4",
     "tslib": "^2.7.0",
