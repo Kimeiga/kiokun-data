@@ -3,6 +3,7 @@
 		w: string; // word
 		p?: string; // pronunciation
 		d?: string; // definition
+		c?: boolean; // common (Japanese words only)
 	}
 
 	interface Props {
@@ -128,7 +129,12 @@
 						{#each displayedJapanese as preview}
 							<a href="/{preview.w}" class="word-card">
 								<div class="word-header">
-									<span class="word-text">{preview.w}</span>
+									<span class="word-text">
+										{#if preview.c}
+											<span class="common-star" title="Common word">⭐</span>
+										{/if}
+										{preview.w}
+									</span>
 									{#if preview.p}
 										<span class="pronunciation">[{preview.p}]</span>
 									{/if}
@@ -212,6 +218,15 @@
 		font-weight: 600;
 		font-family: 'MS Mincho', serif;
 		color: var(--text-primary);
+		display: flex;
+		align-items: center;
+		gap: 6px;
+	}
+
+	.common-star {
+		font-size: 14px;
+		line-height: 1;
+		opacity: 0.9;
 	}
 
 	.pronunciation {

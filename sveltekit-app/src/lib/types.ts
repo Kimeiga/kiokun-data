@@ -29,6 +29,7 @@ export interface WordPreview {
   w: string;           // word
   p?: string;          // pronunciation
   d?: string;          // definition
+  c?: boolean;         // common (Japanese words only)
 }
 
 // ============================================================================
