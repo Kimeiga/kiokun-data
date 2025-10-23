@@ -52,15 +52,7 @@
 			// Separate current user's note from others
 			if ($session.data?.user) {
 				const currentUserId = $session.data.user.id;
-				console.log("Current user ID:", currentUserId);
-				console.log("All notes:", notes);
-
-				myNote = notes.find((n) => {
-					console.log("Comparing:", n.userId, "===", currentUserId, "->", n.userId === currentUserId);
-					return n.userId === currentUserId;
-				}) || null;
-
-				console.log("My note:", myNote);
+				myNote = notes.find((n) => n.userId === currentUserId) || null;
 				otherNotes = notes.filter((n) => n.userId !== currentUserId);
 			} else {
 				myNote = null;
