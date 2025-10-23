@@ -428,6 +428,9 @@
 			</div>
 		{/if}
 
+		<!-- Notes Section -->
+		<Notes character={data.word} />
+
 		<!-- Word Definitions Container (Two Columns on Desktop) -->
 		<div class="word-definitions-container">
 			<!-- Chinese Words -->
@@ -884,9 +887,6 @@
 			chineseWords={data.data.contained_in_chinese || []}
 			japaneseWords={data.data.contained_in_japanese || []}
 		/>
-
-		<!-- Notes Section -->
-		<Notes character={data.word} />
 	</div>
 </div>
 

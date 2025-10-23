@@ -25,6 +25,7 @@
 	let error = $state("");
 	let editingNoteId = $state<string | null>(null);
 	let editingText = $state("");
+	let showAddNote = $state(false);
 
 	async function loadNotes() {
 		try {
@@ -147,9 +148,17 @@
 		<div class="notes-list">
 			{#each notes as note (note.id)}
 				<div class="note" class:admin={note.isAdmin}>
-					{#if note.isAdmin}
-						<span class="admin-badge">Admin</span>
-					{/if}
+					<div class="note-header">
+						{#if note.isAdmin}
+							<span class="admin-badge">Admin</span>
+						{/if}
+						{#if canEditNote(note) && editingNoteId !== note.id}
+							<div class="note-actions">
+								<button onclick={() => startEditing(note)} class="edit-btn" title="Edit">Edit</button>
+								<button onclick={() => deleteNote(note.id)} class="delete-btn" title="Delete">Delete</button>
+							</div>
+						{/if}
+					</div>
 
 					{#if editingNoteId === note.id}
 						<div class="edit-form">
@@ -161,12 +170,6 @@
 						</div>
 					{:else}
 						<p class="note-text">{note.noteText}</p>
-						{#if canEditNote(note)}
-							<div class="note-actions">
-								<button onclick={() => startEditing(note)} class="edit-btn">Edit</button>
-								<button onclick={() => deleteNote(note.id)} class="delete-btn">Delete</button>
-							</div>
-						{/if}
 					{/if}
 				</div>
 			{/each}
@@ -174,17 +177,27 @@
 	{/if}
 
 	{#if $session.data?.user}
-		<div class="add-note">
-			<h4>Add a note</h4>
-			<textarea
-				bind:value={newNoteText}
-				placeholder="Write your note here..."
-				rows="3"
-			></textarea>
-			<button onclick={createNote} disabled={loading || !newNoteText.trim()}>
-				{loading ? "Adding..." : "Add Note"}
+		{#if !showAddNote}
+			<button onclick={() => showAddNote = true} class="add-note-btn">
+				+ Add Note
 			</button>
-		</div>
+		{:else}
+			<div class="add-note">
+				<textarea
+					bind:value={newNoteText}
+					placeholder="Write your note here..."
+					rows="3"
+				></textarea>
+				<div class="add-note-actions">
+					<button onclick={createNote} disabled={loading || !newNoteText.trim()}>
+						{loading ? "Adding..." : "Submit"}
+					</button>
+					<button onclick={() => { showAddNote = false; newNoteText = ""; }} class="cancel">
+						Cancel
+					</button>
+				</div>
+			</div>
+		{/if}
 	{:else}
 		<p class="sign-in-prompt">Sign in to add your own notes</p>
 	{/if}
@@ -196,17 +209,12 @@
 		padding: 1.5rem;
 		background: var(--bg-secondary, #f9f9f9);
 		border-radius: 8px;
+		max-width: 100%;
 	}
 
 	h3 {
 		margin: 0 0 1rem 0;
 		font-size: 1.3rem;
-		color: var(--text-color, #333);
-	}
-
-	h4 {
-		margin: 0 0 0.5rem 0;
-		font-size: 1rem;
 		color: var(--text-color, #333);
 	}
 
@@ -245,6 +253,14 @@
 		background: #f0f7ff;
 	}
 
+	.note-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 0.5rem;
+		min-height: 24px;
+	}
+
 	.admin-badge {
 		display: inline-block;
 		padding: 0.2rem 0.5rem;
@@ -252,7 +268,6 @@
 		color: white;
 		font-size: 0.75rem;
 		border-radius: 3px;
-		margin-bottom: 0.5rem;
 		font-weight: 600;
 	}
 
@@ -266,7 +281,6 @@
 	.note-actions {
 		display: flex;
 		gap: 0.5rem;
-		margin-top: 0.75rem;
 	}
 
 	.edit-btn,
@@ -275,6 +289,7 @@
 		font-size: 0.85rem;
 		border: 1px solid #ddd;
 		background: white;
+		color: #333;
 		border-radius: 4px;
 		cursor: pointer;
 		transition: all 0.2s;
@@ -283,6 +298,7 @@
 	.edit-btn:hover {
 		background: #f0f0f0;
 		border-color: #4285f4;
+		color: #4285f4;
 	}
 
 	.delete-btn:hover {
@@ -297,12 +313,14 @@
 		gap: 0.5rem;
 	}
 
-	.edit-actions {
+	.edit-actions,
+	.add-note-actions {
 		display: flex;
 		gap: 0.5rem;
 	}
 
-	.edit-actions button {
+	.edit-actions button,
+	.add-note-actions button {
 		padding: 0.4rem 0.8rem;
 		font-size: 0.9rem;
 		border: 1px solid #ddd;
@@ -310,16 +328,47 @@
 		color: white;
 		border-radius: 4px;
 		cursor: pointer;
+		transition: all 0.2s;
 	}
 
-	.edit-actions button.cancel {
+	.edit-actions button:hover:not(:disabled),
+	.add-note-actions button:hover:not(:disabled) {
+		background: #3367d6;
+	}
+
+	.edit-actions button.cancel,
+	.add-note-actions button.cancel {
 		background: white;
 		color: #333;
+		border-color: #ddd;
+	}
+
+	.edit-actions button.cancel:hover,
+	.add-note-actions button.cancel:hover {
+		background: #f5f5f5;
 	}
 
 	.add-note {
-		padding-top: 1.5rem;
+		padding-top: 1rem;
 		border-top: 1px solid #e0e0e0;
+		margin-top: 1rem;
+	}
+
+	.add-note-btn {
+		width: 100%;
+		padding: 0.6rem 1.2rem;
+		background: #4285f4;
+		color: white;
+		border: none;
+		border-radius: 4px;
+		font-size: 0.95rem;
+		cursor: pointer;
+		transition: background 0.2s;
+		text-align: center;
+	}
+
+	.add-note-btn:hover {
+		background: #3367d6;
 	}
 
 	textarea {
@@ -331,26 +380,12 @@
 		font-size: 0.95rem;
 		resize: vertical;
 		margin-bottom: 0.5rem;
+		box-sizing: border-box;
 	}
 
 	textarea:focus {
 		outline: none;
 		border-color: #4285f4;
-	}
-
-	button {
-		padding: 0.6rem 1.2rem;
-		background: #4285f4;
-		color: white;
-		border: none;
-		border-radius: 4px;
-		font-size: 0.95rem;
-		cursor: pointer;
-		transition: background 0.2s;
-	}
-
-	button:hover:not(:disabled) {
-		background: #3367d6;
 	}
 
 	button:disabled {
@@ -374,9 +409,14 @@
 	}
 
 	:global(.dark) .note-text,
-	:global(.dark) h3,
-	:global(.dark) h4 {
+	:global(.dark) h3 {
 		color: #e0e0e0;
+	}
+
+	:global(.dark) .loading,
+	:global(.dark) .no-notes,
+	:global(.dark) .sign-in-prompt {
+		color: #999;
 	}
 
 	:global(.dark) textarea {
@@ -390,6 +430,34 @@
 		background: #2a2a2a;
 		border-color: #444;
 		color: #e0e0e0;
+	}
+
+	:global(.dark) .edit-btn:hover {
+		background: #333;
+		border-color: #4285f4;
+		color: #4285f4;
+	}
+
+	:global(.dark) .delete-btn:hover {
+		background: #3a1a1a;
+		border-color: #c33;
+		color: #ff6666;
+	}
+
+	:global(.dark) .edit-actions button.cancel,
+	:global(.dark) .add-note-actions button.cancel {
+		background: #2a2a2a;
+		color: #e0e0e0;
+		border-color: #444;
+	}
+
+	:global(.dark) .edit-actions button.cancel:hover,
+	:global(.dark) .add-note-actions button.cancel:hover {
+		background: #333;
+	}
+
+	:global(.dark) .add-note {
+		border-top-color: #444;
 	}
 </style>
 
