@@ -215,7 +215,7 @@
 	h3 {
 		margin: 0 0 1rem 0;
 		font-size: 1.3rem;
-		color: var(--text-color, #333);
+		color: var(--text-primary);
 	}
 
 	.error {
@@ -229,7 +229,7 @@
 	.loading,
 	.no-notes,
 	.sign-in-prompt {
-		color: var(--text-muted, #666);
+		color: var(--text-muted);
 		font-style: italic;
 	}
 
@@ -242,15 +242,15 @@
 
 	.note {
 		padding: 1rem;
-		background: white;
+		background: var(--bg-tertiary);
 		border-radius: 6px;
-		border: 1px solid #e0e0e0;
+		border: 1px solid var(--border-light);
 		position: relative;
 	}
 
 	.note.admin {
 		border-color: #4285f4;
-		background: #f0f7ff;
+		background: var(--accent-light);
 	}
 
 	.note-header {
@@ -274,7 +274,7 @@
 	.note-text {
 		margin: 0;
 		white-space: pre-wrap;
-		color: var(--text-color, #333);
+		color: var(--text-primary);
 		line-height: 1.5;
 	}
 
@@ -287,24 +287,24 @@
 	.delete-btn {
 		padding: 0.3rem 0.6rem;
 		font-size: 0.85rem;
-		border: 1px solid #ddd;
-		background: white;
-		color: #333;
+		border: 1px solid var(--border-color);
+		background: var(--bg-secondary);
+		color: var(--text-primary);
 		border-radius: 4px;
 		cursor: pointer;
 		transition: all 0.2s;
 	}
 
 	.edit-btn:hover {
-		background: #f0f0f0;
+		background: var(--bg-tertiary);
 		border-color: #4285f4;
 		color: #4285f4;
 	}
 
 	.delete-btn:hover {
-		background: #fee;
+		background: #3a1a1a;
 		border-color: #c33;
-		color: #c33;
+		color: #ff6666;
 	}
 
 	.edit-form {
@@ -323,7 +323,7 @@
 	.add-note-actions button {
 		padding: 0.4rem 0.8rem;
 		font-size: 0.9rem;
-		border: 1px solid #ddd;
+		border: 1px solid var(--border-color);
 		background: #4285f4;
 		color: white;
 		border-radius: 4px;
@@ -338,19 +338,19 @@
 
 	.edit-actions button.cancel,
 	.add-note-actions button.cancel {
-		background: white;
-		color: #333;
-		border-color: #ddd;
+		background: var(--bg-secondary);
+		color: var(--text-primary);
+		border-color: var(--border-color);
 	}
 
 	.edit-actions button.cancel:hover,
 	.add-note-actions button.cancel:hover {
-		background: #f5f5f5;
+		background: var(--bg-tertiary);
 	}
 
 	.add-note {
 		padding-top: 1rem;
-		border-top: 1px solid #e0e0e0;
+		border-top: 1px solid var(--border-light);
 		margin-top: 1rem;
 	}
 
@@ -374,13 +374,15 @@
 	textarea {
 		width: 100%;
 		padding: 0.75rem;
-		border: 1px solid #ddd;
+		border: 1px solid var(--border-color);
 		border-radius: 4px;
 		font-family: inherit;
 		font-size: 0.95rem;
-		resize: vertical;
+		resize: none;
 		margin-bottom: 0.5rem;
 		box-sizing: border-box;
+		background: var(--bg-secondary);
+		color: var(--text-primary);
 	}
 
 	textarea:focus {
@@ -391,73 +393,6 @@
 	button:disabled {
 		opacity: 0.5;
 		cursor: not-allowed;
-	}
-
-	/* Dark mode */
-	:global(.dark) .notes-section {
-		background: #1a1a1a;
-	}
-
-	:global(.dark) .note {
-		background: #2a2a2a;
-		border-color: #444;
-	}
-
-	:global(.dark) .note.admin {
-		background: #1a2a3a;
-		border-color: #4285f4;
-	}
-
-	:global(.dark) .note-text,
-	:global(.dark) h3 {
-		color: #e0e0e0;
-	}
-
-	:global(.dark) .loading,
-	:global(.dark) .no-notes,
-	:global(.dark) .sign-in-prompt {
-		color: #999;
-	}
-
-	:global(.dark) textarea {
-		background: #2a2a2a;
-		border-color: #444;
-		color: #e0e0e0;
-	}
-
-	:global(.dark) .edit-btn,
-	:global(.dark) .delete-btn {
-		background: #2a2a2a;
-		border-color: #444;
-		color: #e0e0e0;
-	}
-
-	:global(.dark) .edit-btn:hover {
-		background: #333;
-		border-color: #4285f4;
-		color: #4285f4;
-	}
-
-	:global(.dark) .delete-btn:hover {
-		background: #3a1a1a;
-		border-color: #c33;
-		color: #ff6666;
-	}
-
-	:global(.dark) .edit-actions button.cancel,
-	:global(.dark) .add-note-actions button.cancel {
-		background: #2a2a2a;
-		color: #e0e0e0;
-		border-color: #444;
-	}
-
-	:global(.dark) .edit-actions button.cancel:hover,
-	:global(.dark) .add-note-actions button.cancel:hover {
-		background: #333;
-	}
-
-	:global(.dark) .add-note {
-		border-top-color: #444;
 	}
 </style>
 

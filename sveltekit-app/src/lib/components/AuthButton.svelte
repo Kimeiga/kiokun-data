@@ -59,7 +59,7 @@
 
 	.user-name {
 		font-size: 0.9rem;
-		color: var(--text-color, #333);
+		color: var(--text-primary);
 	}
 
 	.sign-in-btn,
@@ -68,10 +68,10 @@
 		align-items: center;
 		gap: 0.5rem;
 		padding: 0.5rem 1rem;
-		border: 1px solid #ddd;
+		border: 1px solid var(--border-color);
 		border-radius: 4px;
-		background: white;
-		color: #333;
+		background: var(--bg-secondary);
+		color: var(--text-primary);
 		font-size: 0.9rem;
 		cursor: pointer;
 		transition: all 0.2s;
@@ -79,31 +79,13 @@
 
 	.sign-in-btn:hover,
 	.sign-out-btn:hover {
-		background: #f5f5f5;
-		border-color: #ccc;
+		background: var(--bg-tertiary);
+		border-color: var(--border-light);
 	}
 
 	.sign-out-btn {
 		padding: 0.4rem 0.8rem;
 		font-size: 0.85rem;
-	}
-
-	/* Dark mode support */
-	:global(.dark) .sign-in-btn,
-	:global(.dark) .sign-out-btn {
-		background: #2a2a2a;
-		color: #e0e0e0;
-		border-color: #444;
-	}
-
-	:global(.dark) .sign-in-btn:hover,
-	:global(.dark) .sign-out-btn:hover {
-		background: #333;
-		border-color: #555;
-	}
-
-	:global(.dark) .user-name {
-		color: #e0e0e0;
 	}
 </style>
 
