@@ -54,6 +54,9 @@ pub struct JmnedictTranslationText {
 }
 
 /// Optimized output type for JMnedict names (compressed field names)
+/// NOTE: This is kept for backwards compatibility but is no longer used.
+/// We now use full field names with Deflate compression instead.
+#[allow(dead_code)]
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct OptimizedJmnedictName {
     /// id -> i
@@ -73,6 +76,7 @@ pub struct OptimizedJmnedictName {
     pub translation: Vec<OptimizedJmnedictTranslation>,
 }
 
+#[allow(dead_code)]
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct OptimizedJmnedictKanji {
     /// text -> t
@@ -84,6 +88,7 @@ pub struct OptimizedJmnedictKanji {
     pub tags: Vec<String>,
 }
 
+#[allow(dead_code)]
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct OptimizedJmnedictKana {
     /// text -> t
@@ -99,6 +104,7 @@ pub struct OptimizedJmnedictKana {
     pub applies_to_kanji: Vec<String>,
 }
 
+#[allow(dead_code)]
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct OptimizedJmnedictTranslation {
     /// type -> y
@@ -114,6 +120,7 @@ pub struct OptimizedJmnedictTranslation {
     pub translation: Vec<OptimizedJmnedictTranslationText>,
 }
 
+#[allow(dead_code)]
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct OptimizedJmnedictTranslationText {
     /// lang -> l (skip if "eng")
@@ -127,6 +134,8 @@ pub struct OptimizedJmnedictTranslationText {
 
 impl JmnedictEntry {
     /// Convert to optimized format for JSON output
+    /// NOTE: This is kept for backwards compatibility but is no longer used.
+    #[allow(dead_code)]
     pub fn to_optimized(&self) -> OptimizedJmnedictName {
         OptimizedJmnedictName {
             id: self.id.clone(),
