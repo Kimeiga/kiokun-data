@@ -6,6 +6,7 @@
 	import Contains from '$lib/Contains.svelte';
 	import AppearsIn from '$lib/AppearsIn.svelte';
 	import JapaneseNames from '$lib/components/JapaneseNames.svelte';
+	import Notes from '$lib/components/Notes.svelte';
 
 	let { data }: { data: PageData } = $props();
 
@@ -883,6 +884,9 @@
 			chineseWords={data.data.contained_in_chinese || []}
 			japaneseWords={data.data.contained_in_japanese || []}
 		/>
+
+		<!-- Notes Section -->
+		<Notes character={data.word} />
 	</div>
 </div>
 
