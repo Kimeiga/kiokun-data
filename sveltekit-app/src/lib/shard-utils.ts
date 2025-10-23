@@ -122,6 +122,24 @@ export function getJsDelivrUrl(word: string): string {
 }
 
 /**
+ * Get the raw GitHub URL for a dictionary word (bypasses jsDelivr CDN)
+ *
+ * RAW GITHUB URL FORMAT:
+ * https://raw.githubusercontent.com/Kimeiga/kiokun2-dict-{shard}/main/{word}.json.deflate
+ *
+ * Use this as a fallback when jsDelivr cache is stale or for testing.
+ *
+ * @param word - The dictionary word to look up
+ * @returns Full raw GitHub URL for the word's compressed JSON file
+ */
+export function getRawGitHubUrl(word: string): string {
+  const shard = getShardName(word);
+  // URL encode the word to handle special characters like %
+  const encodedWord = encodeURIComponent(word);
+  return `https://raw.githubusercontent.com/Kimeiga/kiokun2-dict-${shard}/main/${encodedWord}.json.deflate`;
+}
+
+/**
  * Get the local development URL for a dictionary word
  *
  * LOCAL DEVELOPMENT URL FORMAT:
@@ -143,10 +161,13 @@ export function getLocalUrl(word: string): string {
  *
  * ENVIRONMENT DETECTION:
  * - Development (dev=true): Uses local HTTP server at localhost:8000
- * - Production/Staging: Uses jsDelivr CDN (fast, global, free)
+ * - Production/Staging: Uses raw GitHub URLs (temporary - bypasses jsDelivr cache issues)
  *
  * For local development, run this in the output_dictionary folder:
  * cd output_dictionary && python3 -m http.server 8000
+ *
+ * TEMPORARY: Using raw GitHub URLs instead of jsDelivr to bypass CDN cache issues.
+ * Will switch back to jsDelivr once cache is properly purged.
  *
  * @param word - The dictionary word to look up
  * @param dev - Whether we're in development mode (from $app/environment)
@@ -156,7 +177,10 @@ export function getDictionaryUrl(word: string, dev: boolean = false): string {
   if (dev) {
     return getLocalUrl(word);
   }
-  return getJsDelivrUrl(word);
+  // TEMPORARY: Use raw GitHub URLs to bypass jsDelivr cache
+  return getRawGitHubUrl(word);
+  // TODO: Switch back to jsDelivr once cache is stable
+  // return getJsDelivrUrl(word);
 }
 
 // Legacy compatibility exports (deprecated - use getDictionaryUrl instead)
