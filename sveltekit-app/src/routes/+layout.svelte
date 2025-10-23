@@ -138,5 +138,42 @@
 		background: var(--bg-primary);
 		transition: background-color 0.3s ease, color 0.3s ease;
 	}
+
+	/* Utility classes for common theme-aware styles */
+	:global(.bg-primary) { background: var(--bg-primary); }
+	:global(.bg-secondary) { background: var(--bg-secondary); }
+	:global(.bg-tertiary) { background: var(--bg-tertiary); }
+
+	:global(.text-primary) { color: var(--text-primary); }
+	:global(.text-secondary) { color: var(--text-secondary); }
+	:global(.text-tertiary) { color: var(--text-tertiary); }
+	:global(.text-muted) { color: var(--text-muted); }
+
+	:global(.border-color) { border-color: var(--border-color); }
+	:global(.border-light) { border-color: var(--border-light); }
+
+	:global(.btn) {
+		padding: 0.5rem 1rem;
+		border: 1px solid var(--border-color);
+		border-radius: 4px;
+		background: var(--bg-secondary);
+		color: var(--text-primary);
+		cursor: pointer;
+		transition: all 0.2s;
+	}
+
+	:global(.btn:hover) {
+		background: var(--bg-tertiary);
+	}
+
+	:global(.btn-primary) {
+		background: #4285f4;
+		color: white;
+		border-color: #4285f4;
+	}
+
+	:global(.btn-primary:hover) {
+		background: #3367d6;
+	}
 </style>
 
