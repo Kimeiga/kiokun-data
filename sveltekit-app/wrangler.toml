@@ -4,6 +4,11 @@ compatibility_date = "2024-09-23"
 pages_build_output_dir = ".svelte-kit/cloudflare"
 compatibility_flags = ["nodejs_compat"]
 
+# Environment variables (non-secret)
+[vars]
+GOOGLE_CLIENT_ID = "161613656116-oo8klt01mabvlu46r26evvcmogam35em.apps.googleusercontent.com"
+ADMIN_EMAIL = "hak7alp@gmail.com"
+
 # D1 Database binding
 [[d1_databases]]
 binding = "DB"
