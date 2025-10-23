@@ -1,13 +1,14 @@
 #:schema node_modules/wrangler/config-schema.json
 name = "kiokun"
 compatibility_date = "2024-09-23"
-# pages_build_output_dir is set in Cloudflare Pages dashboard
+pages_build_output_dir = ".svelte-kit/cloudflare"
+compatibility_flags = ["nodejs_compat"]
 
 # D1 Database binding
 [[d1_databases]]
 binding = "DB"
 database_name = "kiokun-notes-db"
-database_id = "YOUR_DATABASE_ID_HERE" # Replace with your actual database_id from `wrangler d1 create`
+database_id = "21f5b45e-ce53-4a63-b07b-dec1a0b44fcc" # Replace with your actual database_id from `wrangler d1 create`
 
 # R2 Bucket binding
 [[r2_buckets]]
@@ -18,4 +19,8 @@ bucket_name = "kiokun-images"
 # R2_ACCESS_KEY_ID=your_access_key_id
 # R2_SECRET_ACCESS_KEY=your_secret_access_key
 # R2_ACCOUNT_ID=your_account_id
+# GOOGLE_CLIENT_ID=your_google_client_id
+# GOOGLE_CLIENT_SECRET=your_google_client_secret
+# BASE_URL=http://localhost:5173
+# ADMIN_EMAIL=your_admin_email@gmail.com
 

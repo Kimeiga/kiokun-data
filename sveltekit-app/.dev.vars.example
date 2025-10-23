@@ -5,3 +5,14 @@ R2_ACCESS_KEY_ID=your_access_key_id_here
 R2_SECRET_ACCESS_KEY=your_secret_access_key_here
 R2_ACCOUNT_ID=your_account_id_here
 
+# Google OAuth Configuration
+# Get these from: https://console.cloud.google.com/apis/credentials
+GOOGLE_CLIENT_ID=your_google_client_id.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+
+# Base URL (for OAuth callbacks)
+BASE_URL=http://localhost:5173
+
+# Admin Email (user with this email will have admin privileges)
+ADMIN_EMAIL=hak7alp@gmail.com
+
