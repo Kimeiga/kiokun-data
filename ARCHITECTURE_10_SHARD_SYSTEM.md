@@ -106,8 +106,8 @@ function getShardName(word: string): string {
 ### Local Testing
 ```bash
 # Build specific shard
-cargo run --release --bin merge_dictionaries -- \
-  --individual-files --optimize --mode han-1char-1
+cargo run --release --bin build_dictionary -- \
+  --mode han-1char-1
 
 # Test shard URL generation
 npm test shard-utils

@@ -1,0 +1,18 @@
+{
+  "type": "char-to-component-glosses",
+  "character": "䁽",
+  "components": [
+    "目",
+    "巤"
+  ],
+  "correctAnswer": 5,
+  "options": [
+    "rain + have",
+    "grass + orphan",
+    "you + bug, insect",
+    "air + copy",
+    "mouth + new",
+    "eye + a mane"
+  ],
+  "timestamp": 1760314985924
+}

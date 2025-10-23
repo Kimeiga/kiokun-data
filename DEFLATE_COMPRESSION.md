@@ -145,7 +145,7 @@ For 461K files:
 cargo build --release
 
 # Generate compressed files for a shard
-./target/release/merge_dictionaries --individual-files --mode han-1char-2
+./target/release/build_dictionary --mode han-1char-2
 
 # Verify files were created
 find output_dictionary -name "*.deflate" | wc -l

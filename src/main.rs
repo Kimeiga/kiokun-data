@@ -30,12 +30,11 @@ use clap::{Arg, ArgAction, Command};
 use serde_json;
 
 use chinese_types::ChineseDictionaryElement;
-use japanese_types::{JapaneseEntry, Word, PitchAccentDatabase};
+use japanese_types::{JapaneseEntry, Word};
 use chinese_char_types::ChineseCharacter;
 use japanese_char_types::{KanjiDictionary, KanjiCharacter};
 use ids_types::{IdsEntry, IdsDatabase};
 use jmnedict_types::{JmnedictEntry, JmnedictRoot};
-use legacy_unification::unified_character_types::UnifiedCharacterEntry;
 use combined_types::{
     CombinedDictionary, CombinedEntry, CombinedMetadata, KeySource,
     MergeStatistics, DictionaryMetadata
@@ -182,19 +181,6 @@ async fn main() -> Result<()> {
         )
 
         .arg(
-            Arg::new("individual-files")
-                .long("individual-files")
-                .help("Generate individual JSON files for each word")
-                .action(ArgAction::SetTrue),
-        )
-
-        .arg(
-            Arg::new("unified-only")
-                .long("unified-only")
-                .help("Only generate files for unified entries (entries with both Chinese and Japanese data)")
-                .action(ArgAction::SetTrue),
-        )
-        .arg(
             Arg::new("analysis")
                 .long("analysis")
                 .help("Run analysis mode - load data in memory without generating files")
@@ -228,12 +214,6 @@ async fn main() -> Result<()> {
             Arg::new("compare-variant-approaches")
                 .long("compare-variant-approaches")
                 .help("Compare variant_refs vs full resolution approaches")
-                .action(ArgAction::SetTrue),
-        )
-        .arg(
-            Arg::new("resolve-variants")
-                .long("resolve-variants")
-                .help("Resolve variant definitions during dictionary processing")
                 .action(ArgAction::SetTrue),
         )
         .arg(
@@ -273,34 +253,16 @@ async fn main() -> Result<()> {
                 .action(ArgAction::SetTrue),
         )
         .arg(
-            Arg::new("unified-output")
-                .long("unified-output")
-                .help("Generate unified output with semantic unification and merged character data")
-                .action(ArgAction::SetTrue),
-        )
-        .arg(
-            Arg::new("include-pitch-accent")
-                .long("include-pitch-accent")
-                .help("Include pitch accent data in Japanese word entries")
-                .action(ArgAction::SetTrue),
-        )
-        .arg(
             Arg::new("mode")
                 .long("mode")
                 .value_name("SHARD_TYPE")
                 .help("Specify which shard to build (10-shard system) or 'all' for all shards (default: all)")
                 .value_parser([
-                    "non-han", "han-1char-1", "han-1char-2", "han-2char-1", 
-                    "han-2char-2", "han-2char-3", "han-3plus-1", "han-3plus-2", 
+                    "non-han", "han-1char-1", "han-1char-2", "han-2char-1",
+                    "han-2char-2", "han-2char-3", "han-3plus-1", "han-3plus-2",
                     "han-3plus-3", "reserved", "all"
                 ])
                 .default_value("all"),
-        )
-        .arg(
-            Arg::new("shard-output")
-                .long("shard-output")
-                .help("Output files into 10 shard subdirectories using the optimized sharding system")
-                .action(ArgAction::SetTrue),
         )
         .get_matches();
 
@@ -434,48 +396,12 @@ async fn main() -> Result<()> {
     
     // Load dictionaries
     println!("📚 Loading Chinese dictionary...");
-    let mut chinese_entries = load_chinese_dictionary("data/chinese_dictionary_word_2025-06-25.jsonl")
+    let chinese_entries = load_chinese_dictionary("data/chinese_dictionary_word_2025-06-25.jsonl")
         .context("Failed to load Chinese dictionary")?;
 
-    // Resolve variant definitions if requested
-    if matches.get_flag("resolve-variants") {
-        analysis::resolve_variant_definitions(&mut chinese_entries).await?;
-    }
-
     println!("📚 Loading Japanese dictionary...");
-    let mut japanese_dict = load_japanese_dictionary("data/jmdict-examples-eng-3.6.1.json")
+    let japanese_dict = load_japanese_dictionary("data/jmdict-examples-eng-3.6.1.json")
         .context("Failed to load Japanese dictionary")?;
-
-    // Load and integrate pitch accent data if requested
-    if matches.get_flag("include-pitch-accent") {
-        println!("📚 Loading pitch accent data...");
-        let pitch_data = load_pitch_accent_data("data/jmdict_pitch.json")
-            .context("Failed to load pitch accent data")?;
-
-        println!("🔧 Enriching Japanese words with pitch accent data...");
-        enrich_japanese_words_with_pitch_accent(&mut japanese_dict.words, &pitch_data);
-    }
-
-    println!("📚 Loading Chinese character dictionary...");
-    let mut chinese_char_dict = load_chinese_char_dictionary("data/chinese_dictionary_char_2025-06-25.jsonl")
-        .context("Failed to load Chinese character dictionary")?;
-
-    println!("📚 Loading Japanese character dictionary (KANJIDIC2)...");
-    let mut japanese_char_dict = load_japanese_char_dictionary("data/kanjidic2-en-3.6.1.json")
-        .context("Failed to load Japanese character dictionary")?;
-
-    println!("📚 Loading JMnedict (Japanese Names Dictionary)...");
-    let jmnedict_entries = load_jmnedict("data/jmnedict-all-3.6.1.json")
-        .context("Failed to load JMnedict")?;
-
-    println!("📚 Loading IDS (character decomposition) database...");
-    let ids_database = load_all_ids_files()
-        .context("Failed to load IDS files")?;
-    println!("  ✅ Total unique characters in IDS database: {}", ids_database.len());
-
-    println!("🔧 Enriching character dictionaries with IDS decomposition data...");
-    enrich_chinese_chars_with_ids(&mut chinese_char_dict, &ids_database);
-    enrich_japanese_chars_with_ids(&mut japanese_char_dict, &ids_database);
 
     println!("📚 Loading Japanese to Chinese mapping...");
     let j2c_mapping = load_j2c_mapping("output/j2c_mapping.json")
@@ -486,11 +412,6 @@ async fn main() -> Result<()> {
     println!("🔄 Merging word dictionaries...");
     let combined_dict = merge_dictionaries_with_mapping(chinese_entries, japanese_dict.words, j2c_mapping.clone())
         .context("Failed to merge dictionaries")?;
-
-    // Merge character dictionaries
-    println!("🔄 Merging character dictionaries...");
-    let unified_characters = merge_character_dictionaries(chinese_char_dict, japanese_char_dict, &j2c_mapping)
-        .context("Failed to merge character dictionaries")?;
 
     // Check if analysis mode is requested
     if matches.get_flag("analysis") {
@@ -517,43 +438,37 @@ async fn main() -> Result<()> {
         println!("🎯 Building all shards (output to: output_dictionary)");
     }
 
-    // Check if individual files are requested
-    if matches.get_flag("individual-files") {
-        // Check if unified output is requested (non-default)
-        if matches.get_flag("unified-output") {
-            let unified_only = matches.get_flag("unified-only");
-            println!("🔄 Generating unified individual JSON files (word + character data){}...",
-                     if unified_only { " (unified entries only)" } else { "" });
-            generate_unified_output_files(&aligned_dict, &unified_characters, unified_only, shard_filter).await?;
-        } else {
-            // Default: simple output with no unification
-            // Need to reload the raw character dictionaries since they were consumed
-            let chinese_char_dict_raw = load_chinese_char_dictionary("data/chinese_dictionary_char_2025-06-25.jsonl")
-                .context("Failed to load Chinese character dictionary")?;
-            let japanese_char_dict_raw = load_japanese_char_dictionary("data/kanjidic2-en-3.6.1.json")
-                .context("Failed to load Japanese character dictionary")?;
+    // Load character dictionaries and JMnedict for individual file generation
+    println!("📚 Loading Chinese character dictionary...");
+    let mut chinese_char_dict_raw = load_chinese_char_dictionary("data/chinese_dictionary_char_2025-06-25.jsonl")
+        .context("Failed to load Chinese character dictionary")?;
 
-            // Generate simple individual JSON files
-            println!("🔄 Generating individual JSON files...");
-            generate_simple_output_files(
-                &aligned_dict,
-                &chinese_char_dict_raw,
-                &japanese_char_dict_raw.characters,
-                &jmnedict_entries,
-                shard_filter
-            ).await?;
-        }
+    println!("📚 Loading Japanese character dictionary (KANJIDIC2)...");
+    let mut japanese_char_dict_raw = load_japanese_char_dictionary("data/kanjidic2-en-3.6.1.json")
+        .context("Failed to load Japanese character dictionary")?;
 
-        return Ok(());
-    }
+    println!("📚 Loading JMnedict (Japanese Names Dictionary)...");
+    let jmnedict_entries = load_jmnedict("data/jmnedict-all-3.6.1.json")
+        .context("Failed to load JMnedict")?;
 
-    // Save combined dictionary
-    println!("💾 Saving combined dictionary...");
-    save_combined_dictionary(&aligned_dict, "output/combined_dictionary.json")
-        .context("Failed to save combined dictionary")?;
+    println!("📚 Loading IDS (character decomposition) database...");
+    let ids_database = load_all_ids_files()
+        .context("Failed to load IDS files")?;
+    println!("  ✅ Total unique characters in IDS database: {}", ids_database.len());
 
-    // Print statistics
-    print_statistics(&aligned_dict.statistics);
+    println!("🔧 Enriching character dictionaries with IDS decomposition data...");
+    enrich_chinese_chars_with_ids(&mut chinese_char_dict_raw, &ids_database);
+    enrich_japanese_chars_with_ids(&mut japanese_char_dict_raw, &ids_database);
+
+    // Generate individual JSON files (default behavior)
+    println!("🔄 Generating individual JSON files...");
+    generate_simple_output_files(
+        &aligned_dict,
+        &chinese_char_dict_raw,
+        &japanese_char_dict_raw.characters,
+        &jmnedict_entries,
+        shard_filter
+    ).await?;
 
     println!("✅ Dictionary merger completed successfully!");
     println!("📁 Output saved to: output/combined_dictionary.json");
@@ -597,56 +512,6 @@ fn load_japanese_dictionary(path: &str) -> Result<JapaneseEntry> {
     let japanese_dict: JapaneseEntry = serde_json::from_str(&content)?;
     println!("  ✅ Loaded {} Japanese words", japanese_dict.words.len());
     Ok(japanese_dict)
-}
-
-fn load_pitch_accent_data(path: &str) -> Result<PitchAccentDatabase> {
-    let content = fs::read_to_string(path)?;
-    let pitch_data: PitchAccentDatabase = serde_json::from_str(&content)?;
-    println!("  ✅ Loaded pitch accent data for {} JMdict entries", pitch_data.entries.len());
-    Ok(pitch_data)
-}
-
-fn enrich_japanese_words_with_pitch_accent(
-    japanese_words: &mut Vec<Word>,
-    pitch_data: &PitchAccentDatabase,
-) {
-    let mut enriched_words = 0;
-    let mut enriched_readings = 0;
-
-    for word in japanese_words.iter_mut() {
-        if let Some(pitch_entries) = pitch_data.entries.get(&word.id) {
-            let mut word_enriched = false;
-
-            // For each kana reading in the word
-            for kana in word.kana.iter_mut() {
-                // Find matching pitch accent entries for this reading
-                let matching_accents: Vec<u8> = pitch_entries
-                    .iter()
-                    .filter(|entry| entry.reading == kana.text)
-                    .flat_map(|entry| entry.accents.iter())
-                    .cloned()
-                    .collect();
-
-                if !matching_accents.is_empty() {
-                    // Remove duplicates and sort
-                    let mut unique_accents = matching_accents;
-                    unique_accents.sort_unstable();
-                    unique_accents.dedup();
-
-                    kana.pitch_accents = Some(unique_accents);
-                    enriched_readings += 1;
-                    word_enriched = true;
-                }
-            }
-
-            if word_enriched {
-                enriched_words += 1;
-            }
-        }
-    }
-
-    println!("  ✅ Enriched {} Japanese words with pitch accent data ({} readings total)",
-             enriched_words, enriched_readings);
 }
 
 fn load_chinese_char_dictionary(path: &str) -> Result<Vec<ChineseCharacter>> {
@@ -784,440 +649,12 @@ fn enrich_japanese_chars_with_ids(
     println!("  ✅ Enriched {} Japanese kanji with IDS decomposition data", enriched_count);
 }
 
-fn merge_character_dictionaries(
-    chinese_chars: Vec<ChineseCharacter>,
-    kanji_dict: KanjiDictionary,
-    j2c_mapping: &HashMap<String, String>,
-) -> Result<Vec<UnifiedCharacterEntry>> {
-    use legacy_unification::unified_character_types::*;
-    use std::collections::HashMap as StdHashMap;
-
-    println!("🔄 Merging character dictionaries...");
-
-    // Index Chinese characters by character
-    // Keep only the first occurrence (which typically has the most complete data)
-    let mut chinese_by_char: StdHashMap<String, ChineseCharacter> = StdHashMap::new();
-    for chinese_char in chinese_chars {
-        chinese_by_char.entry(chinese_char.char.clone())
-            .or_insert(chinese_char);
-    }
-
-    let mut unified_chars: Vec<UnifiedCharacterEntry> = Vec::new();
-    let mut matched_count = 0;
-    let mut japanese_only_count = 0;
-
-    // Build set of kanji characters first (before consuming the vector)
-    let kanji_chars: std::collections::HashSet<String> = kanji_dict.characters.iter()
-        .map(|k| k.literal.clone())
-        .collect();
-
-    // Process each Japanese kanji
-    for kanji in kanji_dict.characters {
-        let kanji_char = kanji.literal.clone();
-
-        // Try to find matching Chinese character
-        // First try direct match, then try j2c_mapping
-        let chinese_match = chinese_by_char.get(&kanji_char)
-            .or_else(|| {
-                j2c_mapping.get(&kanji_char)
-                    .and_then(|mapped_char| chinese_by_char.get(mapped_char))
-            });
-
-        let unified = if let Some(chinese_char) = chinese_match {
-            matched_count += 1;
-            merge_single_character(&kanji, Some(chinese_char))
-        } else {
-            japanese_only_count += 1;
-            merge_single_character(&kanji, None)
-        };
-
-        unified_chars.push(unified);
-    }
-
-    // Add Chinese-only characters
-
-    let mut chinese_only_count = 0;
-    for (char_str, chinese_char) in chinese_by_char {
-        if !kanji_chars.contains(&char_str) {
-            chinese_only_count += 1;
-            let unified = create_chinese_only_character(&chinese_char);
-            unified_chars.push(unified);
-        }
-    }
-
-    println!("  ✅ Merged {} characters:", unified_chars.len());
-    println!("     - {} matched (in both dictionaries)", matched_count);
-    println!("     - {} Japanese-only", japanese_only_count);
-    println!("     - {} Chinese-only", chinese_only_count);
-
-    Ok(unified_chars)
-}
-
-fn merge_single_character(
-    kanji: &KanjiCharacter,
-    chinese: Option<&ChineseCharacter>,
-) -> UnifiedCharacterEntry {
-    use legacy_unification::unified_character_types::*;
-
-    let character = kanji.literal.clone();
-
-    // Get codepoint from kanji
-    let codepoint = kanji.codepoints.first()
-        .map(|cp| cp.value.clone())
-        .unwrap_or_else(|| format!("U+{:04X}", character.chars().next().unwrap() as u32));
-
-    // Build representations
-    let representations = build_character_representations(kanji, chinese);
-
-    // Build decomposition
-    let decomposition = build_decomposition(kanji, chinese);
-
-    // Build meanings
-    let meanings = build_character_meanings(kanji, chinese);
-
-    // Build linguistic info
-    let linguistic_info = build_character_linguistic_info(kanji, chinese);
-
-    // Build visual info
-    let visual_info = build_character_visual_info(kanji, chinese);
-
-    // Build statistics
-    let statistics = build_character_statistics(kanji, chinese);
-
-    // Build sources
-    let sources = build_character_sources(kanji, chinese);
-
-    UnifiedCharacterEntry {
-        character,
-        codepoint,
-        representations,
-        decomposition,
-        meanings,
-        linguistic_info,
-        visual_info,
-        statistics,
-        sources,
-    }
-}
-
-fn create_chinese_only_character(chinese: &ChineseCharacter) -> UnifiedCharacterEntry {
-    use legacy_unification::unified_character_types::*;
-
-    let character = chinese.char.clone();
-    let codepoint = chinese.codepoint.clone();
-
-    // Build representations (Chinese only)
-    let representations = CharacterRepresentations {
-        chinese: Some(ChineseReadings {
-            pinyin: chinese.pinyin_frequencies.as_ref()
-                .map(|freqs| freqs.iter().map(|f| f.pinyin.clone()).collect())
-                .unwrap_or_default(),
-            traditional: chinese.trad_variants.as_ref().and_then(|v| v.first().cloned()),
-            simplified: chinese.simp_variants.as_ref().and_then(|v| v.first().cloned()),
-        }),
-        japanese: None,
-    };
-
-    // Build decomposition
-    let decomposition = if let Some(ids) = &chinese.ids {
-        Some(CharacterDecomposition {
-            ids: ids.clone(),
-            ids_apparent: chinese.ids_apparent.clone(),
-            components: None,
-        })
-    } else {
-        None
-    };
-
-    // Build meanings
-    let meanings = CharacterMeanings {
-        english: vec![],
-        chinese_gloss: chinese.gloss.clone(),
-        shuowen: chinese.shuowen.clone(),
-    };
-
-    // Build linguistic info
-    let linguistic_info = CharacterLinguisticInfo {
-        radicals: vec![],
-        grade: None,
-        jlpt: None,
-        frequency: None,
-    };
-
-    // Build visual info
-    let visual_info = CharacterVisualInfo {
-        stroke_count: chinese.stroke_count,
-        images: chinese.images.as_ref().map(|imgs| {
-            imgs.iter().map(|img| HistoricalImage {
-                source: img.source.clone(),
-                url: img.url.clone(),
-                description: img.description.clone(),
-                image_type: img.image_type.clone(),
-                era: img.era.clone(),
-            }).collect()
-        }).unwrap_or_default(),
-        variants: chinese.variants.as_ref().map(|vars| {
-            vars.iter().map(|var| CharacterVariant {
-                variant_type: var.source.clone(),  // Use source as variant_type
-                character: var.char.clone(),
-                parts: var.parts.as_ref().map(|p| vec![p.clone()]),  // Convert String to Vec<String>
-            }).collect()
-        }).unwrap_or_default(),
-    };
-
-    // Build statistics
-    let statistics = chinese.statistics.as_ref().map(|stats| {
-        CharacterStatistics {
-            chinese: Some(ChineseCharStats {
-                hsk_level: stats.hsk_level,
-                frequency_rank: stats.movie_char_rank.or(stats.book_char_rank),  // Use available rank
-                general_standard_num: None,  // Not available in this dataset
-            }),
-            japanese: None,
-        }
-    });
-
-    // Build sources
-    let sources = CharacterSources {
-        in_kanjidic: false,
-        in_chinese_dict: true,
-        kanjidic_id: None,
-        chinese_dict_id: Some(chinese.id.clone()),
-        dictionary_references: vec![],
-    };
-
-    UnifiedCharacterEntry {
-        character,
-        codepoint,
-        representations,
-        decomposition,
-        meanings,
-        linguistic_info,
-        visual_info,
-        statistics,
-        sources,
-    }
-}
-
-fn build_character_representations(
-    kanji: &KanjiCharacter,
-    chinese: Option<&ChineseCharacter>,
-) -> legacy_unification::unified_character_types::CharacterRepresentations {
-    use legacy_unification::unified_character_types::*;
-
-    // Extract Japanese readings
-    let japanese = kanji.reading_meaning.as_ref().map(|rm| {
-        let mut onyomi = vec![];
-        let mut kunyomi = vec![];
-        let nanori = rm.nanori.clone();
-
-        // Iterate through all reading groups
-        for group in &rm.groups {
-            for reading in &group.readings {
-                match reading.reading_type.as_str() {
-                    "ja_on" => onyomi.push(reading.value.clone()),
-                    "ja_kun" => kunyomi.push(reading.value.clone()),
-                    _ => {}
-                }
-            }
-        }
-
-        JapaneseReadings {
-            onyomi,
-            kunyomi,
-            nanori,
-        }
-    });
-
-    // Extract Chinese readings
-    let chinese_readings = chinese.map(|ch| {
-        // Extract pinyin from pinyinFrequencies (sorted by frequency)
-        let pinyin = ch.pinyin_frequencies.as_ref()
-            .map(|freqs| {
-                freqs.iter()
-                    .map(|f| f.pinyin.clone())
-                    .collect()
-            })
-            .unwrap_or_default();
-
-        ChineseReadings {
-            pinyin,
-            traditional: ch.trad_variants.as_ref().and_then(|v| v.first().cloned()),
-            simplified: ch.simp_variants.as_ref().and_then(|v| v.first().cloned()),
-        }
-    });
-
-    CharacterRepresentations {
-        chinese: chinese_readings,
-        japanese,
-    }
-}
-
-fn build_decomposition(
-    kanji: &KanjiCharacter,
-    chinese: Option<&ChineseCharacter>,
-) -> Option<legacy_unification::unified_character_types::CharacterDecomposition> {
-    use legacy_unification::unified_character_types::*;
-
-    // Prefer kanji IDS, fallback to Chinese IDS
-    let ids = kanji.ids.as_ref()
-        .or_else(|| chinese.and_then(|ch| ch.ids.as_ref()));
-
-    let ids_apparent = kanji.ids_apparent.as_ref()
-        .or_else(|| chinese.and_then(|ch| ch.ids_apparent.as_ref()));
-
-    ids.map(|ids_str| CharacterDecomposition {
-        ids: ids_str.clone(),
-        ids_apparent: ids_apparent.cloned(),
-        components: None, // Could parse IDS string to extract components
-    })
-}
-
-fn build_character_meanings(
-    kanji: &KanjiCharacter,
-    chinese: Option<&ChineseCharacter>,
-) -> legacy_unification::unified_character_types::CharacterMeanings {
-    use legacy_unification::unified_character_types::*;
-
-    // Extract English meanings from kanji (from all groups)
-    let english = kanji.reading_meaning.as_ref()
-        .map(|rm| {
-            let mut meanings = vec![];
-            for group in &rm.groups {
-                for meaning in &group.meanings {
-                    if meaning.lang == "en" {
-                        meanings.push(meaning.value.clone());
-                    }
-                }
-            }
-            meanings
-        })
-        .unwrap_or_default();
-
-    // Extract Chinese gloss and shuowen
-    let chinese_gloss = chinese.and_then(|ch| ch.gloss.clone());
-    let shuowen = chinese.and_then(|ch| ch.shuowen.clone());
-
-    CharacterMeanings {
-        english,
-        chinese_gloss,
-        shuowen,
-    }
-}
-
-fn build_character_linguistic_info(
-    kanji: &KanjiCharacter,
-    _chinese: Option<&ChineseCharacter>,
-) -> legacy_unification::unified_character_types::CharacterLinguisticInfo {
-    use legacy_unification::unified_character_types::*;
-
-    // Extract radicals
-    let radicals = kanji.radicals.iter().map(|rad| RadicalInfo {
-        radical_type: rad.radical_type.clone(),
-        value: rad.value,
-    }).collect();
-
-    // Extract grade, JLPT, frequency from misc
-    let grade = kanji.misc.grade;
-    let jlpt = kanji.misc.jlpt_level;  // Correct field name
-    let frequency = kanji.misc.frequency;
-
-    CharacterLinguisticInfo {
-        radicals,
-        grade,
-        jlpt,
-        frequency,
-    }
-}
-
-fn build_character_visual_info(
-    kanji: &KanjiCharacter,
-    chinese: Option<&ChineseCharacter>,
-) -> legacy_unification::unified_character_types::CharacterVisualInfo {
-    use legacy_unification::unified_character_types::*;
-
-    // Get stroke count (prefer kanji, fallback to Chinese)
-    let stroke_count = kanji.misc.stroke_counts.first().copied()  // Correct field name
-        .unwrap_or_else(|| chinese.map(|ch| ch.stroke_count).unwrap_or(0));
-
-    // Get historical images from Chinese dict
-    let images = chinese.and_then(|ch| ch.images.as_ref())
-        .map(|imgs| imgs.iter().map(|img| HistoricalImage {
-            source: img.source.clone(),
-            url: img.url.clone(),
-            description: img.description.clone(),
-            image_type: img.image_type.clone(),
-            era: img.era.clone(),
-        }).collect())
-        .unwrap_or_default();
-
-    // Get variants from Chinese dict
-    let variants = chinese.and_then(|ch| ch.variants.as_ref())
-        .map(|vars| vars.iter().map(|var| CharacterVariant {
-            variant_type: var.source.clone(),  // Use source as variant_type
-            character: var.char.clone(),
-            parts: var.parts.as_ref().map(|p| vec![p.clone()]),  // Convert String to Vec<String>
-        }).collect())
-        .unwrap_or_default();
-
-    CharacterVisualInfo {
-        stroke_count,
-        images,
-        variants,
-    }
-}
-
-fn build_character_statistics(
-    kanji: &KanjiCharacter,
-    chinese: Option<&ChineseCharacter>,
-) -> Option<legacy_unification::unified_character_types::CharacterStatistics> {
-    use legacy_unification::unified_character_types::*;
-
-    let japanese_stats = Some(JapaneseCharStats {
-        frequency: kanji.misc.frequency,
-        grade: kanji.misc.grade,
-        jlpt: kanji.misc.jlpt_level,  // Correct field name
-    });
-
-    let chinese_stats = chinese.and_then(|ch| ch.statistics.as_ref())
-        .map(|stats| ChineseCharStats {
-            hsk_level: stats.hsk_level,
-            frequency_rank: stats.movie_char_rank.or(stats.book_char_rank),  // Use available rank
-            general_standard_num: None,  // Not available in this dataset
-        });
-
-    Some(CharacterStatistics {
-        chinese: chinese_stats,
-        japanese: japanese_stats,
-    })
-}
-
-fn build_character_sources(
-    kanji: &KanjiCharacter,
-    chinese: Option<&ChineseCharacter>,
-) -> legacy_unification::unified_character_types::CharacterSources {
-    use legacy_unification::unified_character_types::*;
-
-    // Build dictionary references from kanji
-    let dictionary_references = kanji.dictionary_references.iter().map(|dict_ref| {
-        DictionaryReference {
-            reference_type: dict_ref.dictionary_reference_type.clone(),
-            value: dict_ref.value.clone(),
-            morohashi: dict_ref.morohashi.as_ref().map(|m| MorohashiReference {
-                volume: m.volume,
-                page: m.page,
-            }),
-        }
-    }).collect();
-
-    CharacterSources {
-        in_kanjidic: true,
-        in_chinese_dict: chinese.is_some(),
-        kanjidic_id: Some(kanji.literal.clone()),
-        chinese_dict_id: chinese.map(|ch| ch.id.clone()),
-        dictionary_references,
-    }
-}
+// Removed deprecated unified character merging functions (435 lines)
+// These were only used with the deprecated --unified-output flag:
+// - merge_character_dictionaries, merge_single_character, create_chinese_only_character
+// - build_character_representations, build_decomposition, build_character_meanings
+// - build_character_linguistic_info, build_character_visual_info
+// - build_character_statistics, build_character_sources
 
 fn load_j2c_mapping(path: &str) -> Result<HashMap<String, String>> {
     let content = fs::read_to_string(path)
@@ -1408,30 +845,6 @@ fn get_japanese_key_with_mapping(word: &Word, j2c_mapping: &HashMap<String, Stri
     format!("jp_{}", word.id)
 }
 
-fn save_combined_dictionary(dict: &CombinedDictionary, path: &str) -> Result<()> {
-    let json = serde_json::to_string_pretty(dict)?;
-    fs::write(path, json)?;
-    Ok(())
-}
-
-fn print_statistics(stats: &MergeStatistics) {
-    println!("\n📊 Merge Statistics:");
-    println!("  Chinese entries processed: {}", stats.total_chinese_entries);
-    println!("  Japanese words processed: {}", stats.total_japanese_words);
-    println!("  Total combined entries: {}", stats.total_combined_entries);
-    println!("  Unified entries (both languages): {}", stats.unified_entries);
-    println!("  Chinese-only entries: {}", stats.chinese_only_entries);
-    println!("  Japanese-only entries: {}", stats.japanese_only_entries);
-    
-    let unification_rate = (stats.unified_entries as f64 / stats.total_combined_entries as f64) * 100.0;
-    println!("  Unification rate: {:.2}%", unification_rate);
-    
-    println!("\n🔍 Sample unified entries for inspection:");
-    for (i, word) in stats.sample_unified_entries.iter().enumerate() {
-        println!("  {}. {}", i + 1, word);
-    }
-}
-
 /// Generate Japanese to Chinese mapping by checking which Japanese kanji entries
 /// exist in the Chinese dictionary after OpenCC conversion
 async fn generate_j2c_mapping() -> Result<()> {
@@ -1568,153 +981,6 @@ fn convert_with_opencc_config(text: &str, config: &str) -> Result<String> {
         let error = String::from_utf8_lossy(&output.stderr);
         anyhow::bail!("OpenCC conversion failed: {}", error);
     }
-}
-
-async fn generate_unified_output_files(
-    combined_dict: &CombinedDictionary,
-    unified_characters: &[UnifiedCharacterEntry],
-    unified_only: bool,
-    shard_filter: Option<ShardType>,
-) -> Result<()> {
-    use std::fs;
-    use std::path::Path;
-    use std::collections::HashMap as StdHashMap;
-    use legacy_unification::unified_output_types::UnifiedOutput;
-
-    println!("📁 Preparing output directory...");
-    let output_dir = Path::new("output_dictionary");
-
-    // OPTIMIZATION: Instead of removing directory (slow!), just overwrite files
-    if !output_dir.exists() {
-        fs::create_dir_all(output_dir).context("Failed to create output directory")?;
-    } else {
-        println!("  ℹ️  Directory exists, will overwrite files (faster than deleting)");
-    }
-
-    // Index characters by their character string for quick lookup
-    let mut char_by_key: StdHashMap<String, &UnifiedCharacterEntry> = StdHashMap::new();
-    for char_entry in unified_characters {
-        char_by_key.insert(char_entry.character.clone(), char_entry);
-    }
-
-    println!("🔄 Converting word entries to improved unified format...");
-    let mut word_entries_map: StdHashMap<String, legacy_unification::improved_unified_types::ImprovedUnifiedEntry> = StdHashMap::new();
-    let mut processed = 0;
-    let mut filtered_count = 0;
-
-    for entry in &combined_dict.entries {
-        // Check if we should filter to unified-only entries
-        if unified_only {
-            let has_both = entry.chinese_entry.is_some() && entry.japanese_entry.is_some();
-            if !has_both {
-                filtered_count += 1;
-                continue;
-            }
-        }
-
-        let unified_entry = legacy_unification::improved_unification_engine::convert_to_improved_unified(entry);
-        let key = unified_entry.word.clone();
-        word_entries_map.insert(key, unified_entry);
-
-        processed += 1;
-        if processed % 10000 == 0 {
-            println!("  Converted {} word entries...", processed);
-        }
-    }
-
-    if unified_only {
-        println!("  Filtered out {} non-unified word entries", filtered_count);
-        println!("  Keeping {} unified word entries", word_entries_map.len());
-    }
-
-    println!("🔄 Merging word and character data...");
-    let mut unified_outputs: StdHashMap<String, UnifiedOutput> = StdHashMap::new();
-
-    let word_count = word_entries_map.len();
-
-    // Add all word entries
-    for (key, word_entry) in word_entries_map {
-        let char_data = char_by_key.get(&key).map(|c| (*c).clone());
-        unified_outputs.insert(key.clone(), UnifiedOutput {
-            key: key.clone(),
-            word: Some(word_entry),
-            character: char_data,
-        });
-    }
-
-    // Add character-only entries (characters that don't have word entries)
-    for (key, char_entry) in char_by_key {
-        if !unified_outputs.contains_key(&key) {
-            unified_outputs.insert(key.clone(), UnifiedOutput {
-                key: key.clone(),
-                word: None,
-                character: Some(char_entry.clone()),
-            });
-        }
-    }
-
-    println!("  ✅ Created {} unified entries ({} with words, {} character-only)",
-             unified_outputs.len(),
-             word_count,
-             unified_outputs.len() - word_count);
-
-    // Filter by shard if specified
-    let unified_outputs = if let Some(shard) = shard_filter {
-        println!("🔍 Filtering entries for shard: {:?}", shard);
-        unified_outputs.into_iter()
-            .filter(|(key, _)| ShardType::from_key(key) == shard)
-            .collect()
-    } else {
-        unified_outputs
-    };
-
-    println!("💾 Writing {} individual JSON files...", unified_outputs.len());
-
-    // Use parallel processing for maximum performance
-    use rayon::prelude::*;
-    use std::sync::atomic::{AtomicUsize, Ordering};
-    use std::sync::Arc;
-
-    let counter = Arc::new(AtomicUsize::new(0));
-    let total = unified_outputs.len();
-
-    // Convert to vec for parallel processing
-    let outputs_vec: Vec<_> = unified_outputs.into_iter().collect();
-
-    // Process in parallel chunks for optimal performance
-    let results: Result<Vec<_>, anyhow::Error> = outputs_vec
-        .par_iter()
-        .map(|(key, entry)| -> Result<(), anyhow::Error> {
-            let counter = Arc::clone(&counter);
-
-            // Create safe filename from key
-            let safe_filename = create_safe_filename(key);
-            let file_path = output_dir.join(format!("{}.json", safe_filename));
-
-            // Serialize to minified JSON
-            let json_content = serde_json::to_string(entry)
-                .map_err(|e| anyhow::anyhow!("Failed to serialize entry '{}': {}", key, e))?;
-
-            // Write file synchronously (faster for many small files)
-            std::fs::write(&file_path, json_content)
-                .map_err(|e| anyhow::anyhow!("Failed to write file '{}': {}", file_path.display(), e))?;
-
-            let current = counter.fetch_add(1, Ordering::Relaxed) + 1;
-            if current % 10000 == 0 {
-                println!("  Written {}/{} files ({:.1}%)", current, total, (current as f64 / total as f64) * 100.0);
-            }
-
-            Ok(())
-        })
-        .collect();
-
-    results?;
-
-    println!("✅ Successfully generated {} unified JSON files!", total);
-    println!("📁 Files saved to: output_dictionary/");
-    println!("💡 Usage: cat output_dictionary/好.json");
-
-    Ok(())
 }
 
 async fn generate_simple_output_files(
@@ -1946,13 +1212,12 @@ async fn generate_simple_output_files(
 
     for (key, _) in &outputs {
         if let Some(chinese_words) = chinese_containment.get(key) {
-            // Deduplicate and limit to 100
+            // Deduplicate
             let mut unique_words: Vec<String> = chinese_words.iter().cloned().collect();
             unique_words.sort();
             unique_words.dedup();
-            unique_words.truncate(100);
 
-            // Convert to WordPreview objects
+            // Convert to WordPreview objects and limit to 100
             let previews: Vec<word_preview_types::WordPreview> = unique_words.iter()
                 .filter_map(|word_key| {
                     outputs.get(word_key).and_then(|word_output| {
@@ -1960,26 +1225,43 @@ async fn generate_simple_output_files(
                             .map(|chinese_word| word_preview_types::WordPreview::from_chinese(chinese_word))
                     })
                 })
+                .take(200)  // Limit to 200 after conversion
                 .collect();
             chinese_previews_map.insert(key.clone(), previews);
         }
 
         if let Some(japanese_words) = japanese_containment.get(key) {
-            // Deduplicate and limit to 100
+            // Deduplicate
             let mut unique_words: Vec<String> = japanese_words.iter().cloned().collect();
             unique_words.sort();
             unique_words.dedup();
-            unique_words.truncate(100);
 
-            // Convert to WordPreview objects
-            let previews: Vec<word_preview_types::WordPreview> = unique_words.iter()
+            // Convert to WordPreview objects with their source Word for sorting
+            let mut previews_with_words: Vec<(word_preview_types::WordPreview, &crate::japanese_types::Word)> = unique_words.iter()
                 .filter_map(|word_key| {
                     outputs.get(word_key).and_then(|word_output| {
                         word_output.japanese_words.first()
-                            .map(|japanese_word| word_preview_types::WordPreview::from_japanese(japanese_word))
+                            .map(|japanese_word| {
+                                let preview = word_preview_types::WordPreview::from_japanese(japanese_word);
+                                (preview, japanese_word)
+                            })
                     })
                 })
                 .collect();
+
+            // Sort by common status (common words first)
+            previews_with_words.sort_by_key(|(_, word)| {
+                // A word is common if any of its kanji or kana forms are marked as common
+                let is_common = word.kanji.iter().any(|k| k.common) || word.kana.iter().any(|k| k.common);
+                !is_common // Reverse sort: false (common) comes before true (not common)
+            });
+
+            // Extract just the previews and limit to 200 AFTER sorting by common status
+            let previews: Vec<word_preview_types::WordPreview> = previews_with_words.into_iter()
+                .map(|(preview, _)| preview)
+                .take(200)  // Limit to 200 after sorting, so we get the 200 most relevant (common first)
+                .collect();
+
             japanese_previews_map.insert(key.clone(), previews);
         }
     }

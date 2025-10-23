@@ -35,7 +35,7 @@ Complete parallel build and deployment workflow:
 - ✅ Matrix strategy with 4 parallel jobs
 - ✅ Downloads all dictionary source files (JMdict, KANJIDIC, CC-CEDICT)
 - ✅ Builds Rust project once per shard
-- ✅ Runs `cargo run --release --bin merge_dictionaries -- --individual-files --optimize --mode {shard}`
+- ✅ Runs `cargo run --release --bin build_dictionary -- --mode {shard}`
 - ✅ Verifies output (file count check)
 - ✅ Clones target repository (creates if doesn't exist)
 - ✅ Syncs files to target repository
@@ -163,7 +163,7 @@ Test building a single shard locally:
 
 ```bash
 # Build han-1char shard
-cargo run --release --bin merge_dictionaries -- --individual-files --optimize --mode han-1char
+cargo run --release --bin build_dictionary -- --mode han-1char
 
 # Verify output
 ls -lh output_han_1char/
@@ -236,7 +236,7 @@ npx wrangler pages deploy .svelte-kit/cloudflare
 If Rust build fails:
 ```bash
 cargo clean
-cargo build --release --bin merge_dictionaries
+cargo build --release --bin build_dictionary
 ```
 
 ### Workflow Fails

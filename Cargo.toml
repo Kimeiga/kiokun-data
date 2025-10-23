@@ -15,7 +15,7 @@ regex = "1.0"
 flate2 = "1.0"  # For Deflate compression
 
 [[bin]]
-name = "merge_dictionaries"
+name = "build_dictionary"
 path = "src/main.rs"
 
 # Optimized for fastest total time (build + run)
