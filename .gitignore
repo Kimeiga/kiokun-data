@@ -29,6 +29,8 @@ output/
 !output/j2c_mapping.json
 # Ignore JSON files in output directories but allow config files
 output_*/
+# Ignore CORS server port file (dynamically generated)
+output_dictionary/.cors_port
 
 # Ignore large dictionary data files (downloaded in CI/CD)
 data/jmdict-examples-eng-3.6.1.json

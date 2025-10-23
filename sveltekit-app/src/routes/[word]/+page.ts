@@ -3,6 +3,7 @@ import { error } from '@sveltejs/kit';
 import { getDictionaryUrl } from '$lib/shard-utils';
 import { dev } from '$app/environment';
 import { decompressSync, strFromU8 } from 'fflate';
+import type { DictionaryEntry } from '$lib/types';
 
 // Disable SSR for this route to avoid hanging during development
 export const ssr = false;
@@ -10,9 +11,9 @@ export const ssr = false;
 /**
  * Decompress Deflate-compressed data and parse as JSON
  * @param compressedData - ArrayBuffer containing Deflate-compressed data
- * @returns Parsed JSON object
+ * @returns Parsed dictionary entry
  */
-function decompressAndParse(compressedData: ArrayBuffer): any {
+function decompressAndParse(compressedData: ArrayBuffer): DictionaryEntry {
 	const uint8Array = new Uint8Array(compressedData);
 
 	// Decompress using raw deflate (no headers)
@@ -21,11 +22,37 @@ function decompressAndParse(compressedData: ArrayBuffer): any {
 	// Convert decompressed bytes to string
 	const jsonString = strFromU8(decompressed);
 
-	// Parse JSON
-	return JSON.parse(jsonString);
+	// Parse JSON and return as DictionaryEntry
+	return JSON.parse(jsonString) as DictionaryEntry;
 }
 
-export const load: PageLoad = async ({ params, fetch }) => {
+/**
+ * Related Japanese word entry with metadata
+ */
+interface RelatedJapaneseWord {
+	word: import('$lib/types').JapaneseWord;
+	isDirect: boolean;
+	sourceKey: string;
+}
+
+/**
+ * Japanese labels mapping (tag codes to full text)
+ */
+interface JapaneseLabels {
+	[key: string]: string;
+}
+
+/**
+ * Page data returned by the load function
+ */
+export interface PageData {
+	word: string;
+	data: DictionaryEntry;
+	relatedJapaneseWords: RelatedJapaneseWord[];
+	labels: JapaneseLabels;
+}
+
+export const load: PageLoad<PageData> = async ({ params, fetch }) => {
 	const { word } = params;
 
 	try {
@@ -45,7 +72,7 @@ export const load: PageLoad = async ({ params, fetch }) => {
 		console.log(`[DEBUG] Compressed size: ${compressedData.byteLength} bytes`);
 
 		// Decompress and parse JSON
-		let data = decompressAndParse(compressedData);
+		let data: DictionaryEntry = decompressAndParse(compressedData);
 		console.log('[DEBUG] Decompressed successfully');
 		console.log('[DEBUG] Raw decompressed JSON:', data);
 
@@ -65,7 +92,7 @@ export const load: PageLoad = async ({ params, fetch }) => {
 		}
 
 		// Load Japanese labels
-		let labels: any = {};
+		let labels: JapaneseLabels = {};
 		try {
 			const labelsResponse = await fetch('/japanese_labels.json');
 			if (labelsResponse.ok) {
@@ -76,7 +103,7 @@ export const load: PageLoad = async ({ params, fetch }) => {
 		}
 
 		// Fetch related Japanese words
-		const relatedJapaneseWords: any[] = [];
+		const relatedJapaneseWords: RelatedJapaneseWord[] = [];
 		if (data.related_japanese_words && data.related_japanese_words.length > 0) {
 			for (const relatedKey of data.related_japanese_words) {
 				try {
@@ -84,9 +111,9 @@ export const load: PageLoad = async ({ params, fetch }) => {
 					const relatedResponse = await fetch(relatedUrl);
 					if (relatedResponse.ok) {
 						const relatedCompressed = await relatedResponse.arrayBuffer();
-						const relatedData = decompressAndParse(relatedCompressed);
+						const relatedData: DictionaryEntry = decompressAndParse(relatedCompressed);
 						if (relatedData.japanese_words && relatedData.japanese_words.length > 0) {
-							relatedData.japanese_words.forEach((japWord: any) => {
+							relatedData.japanese_words.forEach((japWord) => {
 								relatedJapaneseWords.push({
 									word: japWord,
 									isDirect: false,

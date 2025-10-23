@@ -143,17 +143,23 @@ export function getRawGitHubUrl(word: string): string {
  * Get the local development URL for a dictionary word
  *
  * LOCAL DEVELOPMENT URL FORMAT:
- * http://localhost:8000/{word}.json.deflate
+ * http://localhost:{PORT}/{word}.json.deflate
  *
- * This assumes you're running a simple HTTP server in the output_dictionary folder:
- * cd output_dictionary && python3 -m http.server 8000
+ * The port is dynamically determined by the CORS server (cors_server.py)
+ * which writes the port number to output_dictionary/.cors_port
+ *
+ * This assumes you're running the CORS server in the output_dictionary folder:
+ * cd output_dictionary && python3 cors_server.py
  *
  * @param word - The dictionary word to look up
  * @returns Full local URL for the word's compressed JSON file
  */
 export function getLocalUrl(word: string): string {
   const encodedWord = encodeURIComponent(word);
-  return `http://localhost:8000/${encodedWord}.json.deflate`;
+  // Default to 8000, but the actual port is read at build time from .cors_port
+  // In dev mode, the port is injected via import.meta.env.VITE_CORS_PORT
+  const port = import.meta.env.VITE_CORS_PORT || '8000';
+  return `http://localhost:${port}/${encodedWord}.json.deflate`;
 }
 
 /**
