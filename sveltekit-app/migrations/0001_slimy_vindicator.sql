@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX `notes_userId_character_unique` ON `notes` (`userId`,`character`);

@@ -2,7 +2,7 @@ import { error, json } from "@sveltejs/kit";
 import type { RequestEvent } from "@sveltejs/kit";
 import { getDb } from "$lib/server/db";
 import { notes } from "$lib/server/db/schema";
-import { eq, desc } from "drizzle-orm";
+import { eq, desc, and } from "drizzle-orm";
 
 // GET /api/notes/[character] - Get all notes for a character
 export async function GET({ params, platform }: RequestEvent) {
@@ -31,7 +31,8 @@ export async function GET({ params, platform }: RequestEvent) {
 	return json(characterNotes);
 }
 
-// POST /api/notes/[character] - Create a new note
+// POST /api/notes/[character] - Create or update note (upsert)
+// Each user can only have ONE note per character
 export async function POST({ params, locals, request, platform }: RequestEvent) {
 	const { character } = params;
 
@@ -52,20 +53,42 @@ export async function POST({ params, locals, request, platform }: RequestEvent) 
 
 	const db = getDb(platform!.env.DB);
 
+	// Check if user already has a note for this character
+	const existingNotes = await db
+		.select()
+		.from(notes)
+		.where(and(eq(notes.userId, locals.user.id), eq(notes.character, character)))
+		.limit(1);
+
 	const now = new Date();
-	const noteId = crypto.randomUUID();
 
-	await db.insert(notes).values({
-		id: noteId,
-		userId: locals.user.id,
-		character,
-		noteText: noteText.trim(),
-		isAdmin: locals.isAdmin,
-		createdAt: now,
-		updatedAt: now,
-	});
+	if (existingNotes.length > 0) {
+		// Update existing note
+		await db
+			.update(notes)
+			.set({
+				noteText: noteText.trim(),
+				updatedAt: now,
+			})
+			.where(eq(notes.id, existingNotes[0].id));
 
-	return json({ success: true, id: noteId });
+		return json({ success: true, id: existingNotes[0].id, updated: true });
+	} else {
+		// Create new note
+		const noteId = crypto.randomUUID();
+
+		await db.insert(notes).values({
+			id: noteId,
+			userId: locals.user.id,
+			character,
+			noteText: noteText.trim(),
+			isAdmin: locals.isAdmin,
+			createdAt: now,
+			updatedAt: now,
+		});
+
+		return json({ success: true, id: noteId, updated: false });
+	}
 }
 
 // PUT /api/notes/[character] - Update a note (must be owner or admin)

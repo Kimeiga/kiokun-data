@@ -1,4 +1,4 @@
-import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core";
+import { sqliteTable, text, integer, unique } from "drizzle-orm/sqlite-core";
 
 // Better Auth tables
 export const user = sqliteTable("user", {
@@ -56,15 +56,19 @@ export const verification = sqliteTable("verification", {
 });
 
 // Notes table for user notes
+// Each user can have ONE note per character (enforced by unique constraint)
 export const notes = sqliteTable("notes", {
 	id: text("id").primaryKey(),
 	userId: text("userId")
 		.notNull()
 		.references(() => user.id),
 	character: text("character").notNull(),
-	noteText: text("noteText").notNull(),
+	noteText: text("noteText").notNull(), // Markdown supported
 	isAdmin: integer("isAdmin", { mode: "boolean" }).notNull().default(false),
 	createdAt: integer("createdAt", { mode: "timestamp" }).notNull(),
 	updatedAt: integer("updatedAt", { mode: "timestamp" }).notNull(),
-});
+}, (table) => ({
+	// Unique constraint: one note per user per character
+	userCharacterUnique: unique().on(table.userId, table.character),
+}));
 
