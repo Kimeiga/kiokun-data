@@ -1,5 +1,6 @@
 <script lang="ts">
 	import ThemeToggle from './ThemeToggle.svelte';
+	import AuthButton from './AuthButton.svelte';
 	import { goto } from '$app/navigation';
 
 	let { currentWord = '' }: { currentWord?: string } = $props();
@@ -39,8 +40,9 @@
 			/>
 		</div>
 
-		<!-- Actions (Theme Toggle) -->
+		<!-- Actions (Auth & Theme Toggle) -->
 		<div class="actions-section">
+			<AuthButton />
 			<ThemeToggle />
 		</div>
 	</div>
