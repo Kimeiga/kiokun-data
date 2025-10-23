@@ -10,9 +10,6 @@ R2_ACCOUNT_ID=your_account_id_here
 GOOGLE_CLIENT_ID=your_google_client_id.apps.googleusercontent.com
 GOOGLE_CLIENT_SECRET=your_google_client_secret
 
-# Base URL (for OAuth callbacks)
-BASE_URL=http://localhost:5173
-
 # Admin Email (user with this email will have admin privileges)
-ADMIN_EMAIL=hak7alp@gmail.com
+ADMIN_EMAIL=your_email@gmail.com
 

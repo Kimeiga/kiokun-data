@@ -26,8 +26,14 @@ export function createAuth(d1: D1Database, env: Record<string, string>) {
 				clientSecret: env.GOOGLE_CLIENT_SECRET,
 			},
 		},
-		// Set your base URL (will be different for local vs production)
-		baseURL: env.BASE_URL || "http://localhost:5173",
+		// Better Auth will automatically detect the base URL from the request
+		// This works for both local dev (any port) and production
+		trustedOrigins: [
+			"http://localhost:5173",
+			"http://localhost:5174",
+			"http://localhost:5175",
+			"https://kiokun.pages.dev",
+		],
 	});
 }
 
