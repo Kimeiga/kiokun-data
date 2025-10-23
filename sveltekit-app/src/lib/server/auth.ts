@@ -5,6 +5,13 @@ import { getDb } from "./db";
 import * as schema from "./db/schema";
 
 export function createAuth(d1: D1Database, env: Record<string, string>) {
+	// Validate required environment variables
+	if (!env.GOOGLE_CLIENT_ID || !env.GOOGLE_CLIENT_SECRET) {
+		throw new Error(
+			`Missing required environment variables: ${!env.GOOGLE_CLIENT_ID ? "GOOGLE_CLIENT_ID " : ""}${!env.GOOGLE_CLIENT_SECRET ? "GOOGLE_CLIENT_SECRET" : ""}`
+		);
+	}
+
 	const db = getDb(d1);
 
 	return betterAuth({
