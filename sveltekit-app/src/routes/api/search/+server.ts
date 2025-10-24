@@ -54,20 +54,34 @@ export async function GET({ url, platform }: RequestEvent) {
 		// We search across the definition column
 		const results = await platform.env.DB
 			.prepare(`
-				SELECT 
+				SELECT
 					word,
 					language,
 					definition,
 					pronunciation,
-					is_common
+					is_common,
+					-- Calculate custom relevance score
+					CASE
+						-- Exact match gets highest priority
+						WHEN LOWER(definition) = LOWER(?) THEN 1000
+						-- Starts with query gets high priority
+						WHEN LOWER(definition) LIKE LOWER(? || '%') THEN 500
+						-- Contains query as whole word gets medium priority
+						WHEN LOWER(definition) LIKE LOWER('% ' || ? || ' %')
+						  OR LOWER(definition) LIKE LOWER(? || ' %')
+						  OR LOWER(definition) LIKE LOWER('% ' || ?) THEN 100
+						-- Otherwise use FTS5 rank
+						ELSE 0
+					END as custom_rank
 				FROM dictionary_search
 				WHERE dictionary_search MATCH ?
-				ORDER BY 
-					is_common DESC,  -- Common words first
-					rank                -- FTS5 relevance ranking
+				ORDER BY
+					custom_rank DESC,   -- Custom relevance first
+					is_common DESC,     -- Common words next
+					rank                -- FTS5 relevance last
 				LIMIT ?
 			`)
-			.bind(query, limit * 3) // Get more results for grouping
+			.bind(query, query, query, query, query, query, limit * 3) // Get more results for grouping
 			.all();
 		
 		if (!results.success) {
