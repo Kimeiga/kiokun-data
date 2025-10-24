@@ -9,6 +9,7 @@ mod jmnedict_types;
 mod analysis;
 mod simple_output_types;
 mod word_preview_types;
+mod search_index_builder;
 
 // Legacy unification code (not used in default simple output)
 mod legacy_unification {
@@ -253,6 +254,12 @@ async fn main() -> Result<()> {
                 .action(ArgAction::SetTrue),
         )
         .arg(
+            Arg::new("build-search-index")
+                .long("build-search-index")
+                .help("Build search index CSV for Cloudflare D1 full-text search")
+                .action(ArgAction::SetTrue),
+        )
+        .arg(
             Arg::new("mode")
                 .long("mode")
                 .value_name("SHARD_TYPE")
@@ -269,6 +276,26 @@ async fn main() -> Result<()> {
     if matches.get_flag("generate-j2c-mapping") {
         println!("🔄 Generating Japanese to Chinese mapping...");
         generate_j2c_mapping().await?;
+        return Ok(());
+    }
+
+    // Check if search index building is requested
+    if matches.get_flag("build-search-index") {
+        println!("🔍 Building search index for Cloudflare D1...");
+        println!("📚 Loading Chinese dictionary...");
+        let chinese_entries = load_chinese_dictionary("data/chinese_dictionary_word_2025-06-25.jsonl")
+            .context("Failed to load Chinese dictionary")?;
+
+        println!("📚 Loading Japanese dictionary...");
+        let japanese_dict = load_japanese_dictionary("data/jmdict-examples-eng-3.6.1.json")
+            .context("Failed to load Japanese dictionary")?;
+
+        search_index_builder::build_search_index(
+            &chinese_entries,
+            &japanese_dict.words,
+            "output_search_index.csv"
+        ).await?;
+
         return Ok(());
     }
 

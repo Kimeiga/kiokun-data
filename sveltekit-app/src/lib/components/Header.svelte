@@ -1,18 +1,18 @@
 <script lang="ts">
 	import ThemeToggle from './ThemeToggle.svelte';
 	import AuthButton from './AuthButton.svelte';
-	import { goto } from '$app/navigation';
 	import { useSession } from '$lib/auth-client';
+	import { navigateOrSearch } from '$lib/utils/search-navigation';
 
 	let { currentWord = '' }: { currentWord?: string } = $props();
 	let searchValue = $state(currentWord);
 	const session = useSession();
 
-	function handleSearch(event: KeyboardEvent) {
+	async function handleSearch(event: KeyboardEvent) {
 		if (event.key === 'Enter') {
 			const word = searchValue.trim();
 			if (word) {
-				goto(`/${word}`);
+				await navigateOrSearch(word);
 			}
 		}
 	}

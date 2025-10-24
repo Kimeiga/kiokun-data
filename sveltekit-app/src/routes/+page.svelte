@@ -1,14 +1,14 @@
 <script lang="ts">
 	import Header from '$lib/components/Header.svelte';
-	import { goto } from '$app/navigation';
+	import { navigateOrSearch } from '$lib/utils/search-navigation';
 
 	let searchValue = $state('');
 
-	function handleSearch(event: KeyboardEvent) {
+	async function handleSearch(event: KeyboardEvent) {
 		if (event.key === 'Enter') {
 			const word = searchValue.trim();
 			if (word) {
-				goto(`/${word}`);
+				await navigateOrSearch(word);
 			}
 		}
 	}
