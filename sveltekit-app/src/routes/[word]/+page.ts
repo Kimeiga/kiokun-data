@@ -1,6 +1,6 @@
 import type { PageLoad } from './$types';
 import { error } from '@sveltejs/kit';
-import { getDictionaryUrl } from '$lib/shard-utils';
+import { getDictionaryUrl, getShardName } from '$lib/shard-utils';
 import { dev } from '$app/environment';
 import { decompressSync, strFromU8 } from 'fflate';
 import type { DictionaryEntry } from '$lib/types';
@@ -56,12 +56,21 @@ export const load: PageLoad<PageData> = async ({ params, fetch }) => {
 	const { word } = params;
 
 	try {
-		// Fetch the compressed dictionary data (uses localhost:8000 in dev mode)
+		// Fetch the compressed dictionary data with fallback mechanism
 		const url = getDictionaryUrl(word, dev);
 		console.log(`[${dev ? 'DEV' : 'PROD'}] Fetching from: ${url}`);
 		console.log(`[DEBUG] dev=${dev}, word="${word}"`);
-		const response = await fetch(url);
+
+		let response = await fetch(url);
 		console.log(`[DEBUG] Response status: ${response.status}, ok: ${response.ok}`);
+
+		// If jsDelivr fails, try raw GitHub as fallback
+		if (!response.ok && !dev) {
+			const fallbackUrl = `https://raw.githubusercontent.com/Kimeiga/kiokun2-dict-${getShardName(word)}/main/${encodeURIComponent(word)}.json.deflate`;
+			console.log(`[FALLBACK] Trying raw GitHub: ${fallbackUrl}`);
+			response = await fetch(fallbackUrl);
+			console.log(`[FALLBACK] Response status: ${response.status}, ok: ${response.ok}`);
+		}
 
 		if (!response.ok) {
 			throw error(404, `Character "${word}" not found`);
