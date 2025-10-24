@@ -167,10 +167,14 @@ export function getLocalUrl(word: string): string {
  *
  * ENVIRONMENT DETECTION:
  * - Development (dev=true): Uses local HTTP server at localhost:8000
- * - Production/Staging: Uses jsDelivr CDN for fast, reliable global delivery
+ * - Production/Staging: Uses raw GitHub URLs for better performance
  *
  * For local development, run this in the output_dictionary folder:
  * cd output_dictionary && python3 -m http.server 8000
+ *
+ * NOTE: Raw GitHub URLs are faster than jsDelivr when files are not cached.
+ * jsDelivr can take several seconds on cache miss, while GitHub is consistently fast.
+ * The +page.ts has a fallback to jsDelivr if GitHub fails.
  *
  * @param word - The dictionary word to look up
  * @param dev - Whether we're in development mode (from $app/environment)
@@ -180,8 +184,8 @@ export function getDictionaryUrl(word: string, dev: boolean = false): string {
   if (dev) {
     return getLocalUrl(word);
   }
-  // Use jsDelivr CDN for production (fast, reliable, no rate limiting)
-  return getJsDelivrUrl(word);
+  // Use raw GitHub URLs for production (better performance than jsDelivr on cache miss)
+  return getRawGitHubUrl(word);
 }
 
 // Legacy compatibility exports (deprecated - use getDictionaryUrl instead)

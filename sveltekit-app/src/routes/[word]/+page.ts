@@ -56,39 +56,73 @@ export const load: PageLoad<PageData> = async ({ params, fetch }) => {
 	const { word } = params;
 
 	try {
-		// Fetch the compressed dictionary data with fallback mechanism
+		// Fetch the compressed dictionary data with detailed logging
 		const url = getDictionaryUrl(word, dev);
-		console.log(`[${dev ? 'DEV' : 'PROD'}] Fetching from: ${url}`);
-		console.log(`[DEBUG] dev=${dev}, word="${word}"`);
+		const startTime = performance.now();
+
+		console.log(`[FETCH] Starting fetch for "${word}"`);
+		console.log(`[FETCH] Environment: ${dev ? 'DEV' : 'PROD'}`);
+		console.log(`[FETCH] URL: ${url}`);
+		console.log(`[FETCH] Shard: ${getShardName(word)}`);
 
 		let response = await fetch(url);
-		console.log(`[DEBUG] Response status: ${response.status}, ok: ${response.ok}`);
+		const fetchTime = performance.now() - startTime;
 
-		// If jsDelivr fails, try raw GitHub as fallback
+		console.log(`[FETCH] Response received in ${fetchTime.toFixed(2)}ms`);
+		console.log(`[FETCH] Status: ${response.status} ${response.statusText}`);
+		console.log(`[FETCH] OK: ${response.ok}`);
+		console.log(`[FETCH] Headers:`, {
+			'content-type': response.headers.get('content-type'),
+			'content-length': response.headers.get('content-length'),
+			'cache-control': response.headers.get('cache-control'),
+			'age': response.headers.get('age'),
+			'x-cache': response.headers.get('x-cache'),
+			'cf-cache-status': response.headers.get('cf-cache-status'),
+			'x-served-by': response.headers.get('x-served-by'),
+		});
+
+		// If GitHub fails, try jsDelivr CDN as fallback
 		if (!response.ok && !dev) {
-			const fallbackUrl = `https://raw.githubusercontent.com/Kimeiga/kiokun2-dict-${getShardName(word)}/main/${encodeURIComponent(word)}.json.deflate`;
-			console.log(`[FALLBACK] Trying raw GitHub: ${fallbackUrl}`);
+			const fallbackUrl = `https://cdn.jsdelivr.net/gh/Kimeiga/kiokun2-dict-${getShardName(word)}@latest/${encodeURIComponent(word)}.json.deflate`;
+			console.log(`[FALLBACK] Primary fetch failed, trying jsDelivr CDN`);
+			console.log(`[FALLBACK] URL: ${fallbackUrl}`);
+
+			const fallbackStartTime = performance.now();
 			response = await fetch(fallbackUrl);
-			console.log(`[FALLBACK] Response status: ${response.status}, ok: ${response.ok}`);
+			const fallbackFetchTime = performance.now() - fallbackStartTime;
+
+			console.log(`[FALLBACK] Response received in ${fallbackFetchTime.toFixed(2)}ms`);
+			console.log(`[FALLBACK] Status: ${response.status} ${response.statusText}`);
+			console.log(`[FALLBACK] OK: ${response.ok}`);
 		}
 
 		if (!response.ok) {
+			console.error(`[FETCH] Failed to load "${word}" - returning 404`);
 			throw error(404, `Character "${word}" not found`);
 		}
 
 		// Get compressed data as ArrayBuffer
+		const downloadStartTime = performance.now();
 		const compressedData = await response.arrayBuffer();
-		console.log(`[DEBUG] Compressed size: ${compressedData.byteLength} bytes`);
+		const downloadTime = performance.now() - downloadStartTime;
+
+		console.log(`[DOWNLOAD] Downloaded ${compressedData.byteLength} bytes in ${downloadTime.toFixed(2)}ms`);
+		console.log(`[DOWNLOAD] Speed: ${(compressedData.byteLength / 1024 / (downloadTime / 1000)).toFixed(2)} KB/s`);
 
 		// Decompress and parse JSON
+		const decompressStartTime = performance.now();
 		let data: DictionaryEntry = decompressAndParse(compressedData);
-		console.log('[DEBUG] Decompressed successfully');
-		console.log('[DEBUG] Raw decompressed JSON:', data);
+		const decompressTime = performance.now() - decompressStartTime;
 
-		if (data.japanese_names) {
-			console.log('[DEBUG] Japanese names count:', data.japanese_names.length);
-			console.log('[DEBUG] First 3 Japanese names:', data.japanese_names.slice(0, 3));
-		}
+		console.log(`[DECOMPRESS] Decompressed in ${decompressTime.toFixed(2)}ms`);
+		console.log(`[DECOMPRESS] Data structure:`, {
+			hasChinese: !!data.chinese_char || (data.chinese_words && data.chinese_words.length > 0),
+			hasJapanese: !!data.japanese_char || (data.japanese_words && data.japanese_words.length > 0),
+			hasNames: !!(data.japanese_names && data.japanese_names.length > 0),
+			isRedirect: !!data.redirect,
+		});
+
+
 
 		// If this is a redirect entry, fetch the actual data
 		if (data.redirect) {
@@ -137,6 +171,10 @@ export const load: PageLoad<PageData> = async ({ params, fetch }) => {
 			}
 		}
 
+		const totalTime = performance.now() - startTime;
+		console.log(`[LOAD] ✅ Successfully loaded "${word}" in ${totalTime.toFixed(2)}ms`);
+		console.log(`[LOAD] Related words: ${relatedJapaneseWords.length}`);
+
 		return {
 			word,
 			data,
@@ -144,7 +182,7 @@ export const load: PageLoad<PageData> = async ({ params, fetch }) => {
 			labels
 		};
 	} catch (err) {
-		console.error(`Failed to load dictionary entry for "${word}":`, err);
+		console.error(`[LOAD] ❌ Failed to load dictionary entry for "${word}":`, err);
 		throw error(404, `Character "${word}" not found`);
 	}
 };
