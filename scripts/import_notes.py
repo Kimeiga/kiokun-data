@@ -23,11 +23,46 @@ from pathlib import Path
 from datetime import datetime
 import uuid
 
-def convert_with_opencc(text: str) -> str:
+def find_opencc() -> str:
+    """Find the opencc binary."""
+    # Try common locations
+    locations = [
+        'opencc',  # In PATH
+        '/opt/homebrew/bin/opencc',  # Homebrew on Apple Silicon
+        '/usr/local/bin/opencc',  # Homebrew on Intel Mac
+        '/usr/bin/opencc',  # Linux
+    ]
+
+    for loc in locations:
+        try:
+            subprocess.run([loc, '--version'], capture_output=True, check=True)
+            return loc
+        except (subprocess.CalledProcessError, FileNotFoundError):
+            continue
+
+    # Try to find it in Cellar
+    try:
+        result = subprocess.run(
+            ['find', '/opt/homebrew/Cellar/opencc', '-name', 'opencc', '-type', 'f'],
+            capture_output=True,
+            text=True,
+            check=True
+        )
+        if result.stdout.strip():
+            return result.stdout.strip().split('\n')[0]
+    except:
+        pass
+
+    print("❌ OpenCC not found. Please install OpenCC:")
+    print("   macOS: brew install opencc")
+    print("   Linux: sudo apt-get install opencc")
+    sys.exit(1)
+
+def convert_with_opencc(text: str, opencc_path: str) -> str:
     """Convert Japanese text to Traditional Chinese using OpenCC."""
     try:
         result = subprocess.run(
-            ['opencc', '-c', 'jp2t'],
+            [opencc_path, '-c', 'jp2t'],
             input=text,
             text=True,
             capture_output=True,
@@ -38,11 +73,6 @@ def convert_with_opencc(text: str) -> str:
         print(f"❌ OpenCC conversion failed for '{text}': {e}")
         print(f"   Error output: {e.stderr}")
         return text
-    except FileNotFoundError:
-        print("❌ OpenCC not found. Please install OpenCC:")
-        print("   macOS: brew install opencc")
-        print("   Linux: sudo apt-get install opencc")
-        sys.exit(1)
 
 def load_notes(notes_path: Path) -> list:
     """Load notes from JSON file."""
@@ -56,24 +86,24 @@ def load_notes(notes_path: Path) -> list:
     print(f"📖 Loaded {len(notes)} notes from {notes_path}")
     return notes
 
-def process_notes(notes: list, user_id: str) -> list:
+def process_notes(notes: list, user_id: str, opencc_path: str) -> list:
     """
     Process notes: convert Japanese characters to Traditional Chinese.
-    
+
     Returns list of tuples: (character, note_text, user_id, note_id, created_at, updated_at, is_admin)
     """
     processed = []
     conversions = {}
-    
+
     print("\n🔄 Converting Japanese characters to Traditional Chinese...")
-    
+
     for note in notes:
         word = note['word']
         note_text = note['note']
-        
+
         # Convert to Traditional Chinese
         if word not in conversions:
-            traditional = convert_with_opencc(word)
+            traditional = convert_with_opencc(word, opencc_path)
             conversions[word] = traditional
             if word != traditional:
                 print(f"  {word} → {traditional}")
@@ -164,15 +194,20 @@ def main():
     parser.add_argument('--remote', action='store_true', help='Apply to remote database instead of local')
     
     args = parser.parse_args()
-    
+
+    # Find OpenCC
+    print("🔍 Finding OpenCC...")
+    opencc_path = find_opencc()
+    print(f"  ✅ Found OpenCC at: {opencc_path}")
+
     # Paths
     notes_path = Path('notes.json')
-    
+
     # Load notes
     notes = load_notes(notes_path)
-    
+
     # Process notes (convert Japanese to Traditional Chinese)
-    processed_notes = process_notes(notes, args.user_id)
+    processed_notes = process_notes(notes, args.user_id, opencc_path)
     
     # Show preview
     print("\n📋 Preview of first 3 notes:")
