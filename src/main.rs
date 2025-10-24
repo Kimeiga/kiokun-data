@@ -1027,7 +1027,7 @@ async fn generate_simple_output_files(
     // Process all combined entries (words)
     for entry in &combined_dict.entries {
         let key = if let Some(ref chinese) = entry.chinese_entry {
-            chinese.simp.clone()
+            chinese.trad.clone()  // Use traditional Chinese as key
         } else if let Some(ref japanese) = entry.japanese_entry {
             // Get first kanji or first kana
             japanese.kanji.first()
@@ -1359,18 +1359,18 @@ async fn generate_simple_output_files(
     // Create redirects for Chinese multi-character words
     for entry in &combined_dict.entries {
         if let Some(ref chinese) = entry.chinese_entry {
-            if chinese.simp.chars().count() > 1 && !existing_keys.contains(&chinese.simp) {
+            if chinese.trad.chars().count() > 1 && !existing_keys.contains(&chinese.trad) {
                 // Skip if shard_filter is set and this entry doesn't match
                 if let Some(shard) = shard_filter {
-                    if ShardType::from_key(&chinese.simp) != shard {
+                    if ShardType::from_key(&chinese.trad) != shard {
                         continue;
                     }
                 }
 
-                // Create redirect from simplified to first character
-                let first_char = chinese.simp.chars().next().unwrap().to_string();
+                // Create redirect from traditional Chinese to first character
+                let first_char = chinese.trad.chars().next().unwrap().to_string();
                 let redirect_entry = SimpleOutput {
-                    key: chinese.simp.clone(),
+                    key: chinese.trad.clone(),
                     redirect: Some(first_char),
                     chinese_words: Vec::new(),
                     chinese_char: None,
@@ -1383,7 +1383,7 @@ async fn generate_simple_output_files(
                     contained_in_japanese: Vec::new(),
                 };
 
-                outputs.insert(chinese.simp.clone(), redirect_entry);
+                outputs.insert(chinese.trad.clone(), redirect_entry);
                 redirect_count += 1;
             }
         }
@@ -1401,17 +1401,11 @@ async fn generate_simple_output_files(
 
                     // Check if this Japanese word has a J2C mapping to traditional Chinese
                     let redirect_target = if let Some(traditional_chinese) = j2c_mapping.get(&kanji_form.text) {
-                        // Convert traditional Chinese to simplified Chinese (our dictionary uses simplified as keys)
-                        if let Ok(simplified_chinese) = convert_traditional_to_simplified(traditional_chinese) {
-                            // If the simplified Chinese exists in our dictionary, redirect to it
-                            if existing_keys.contains(&simplified_chinese) {
-                                simplified_chinese
-                            } else {
-                                // Fallback to first character if simplified doesn't exist
-                                kanji_form.text.chars().next().unwrap().to_string()
-                            }
+                        // Our dictionary uses traditional Chinese as keys, so use it directly
+                        if existing_keys.contains(traditional_chinese) {
+                            traditional_chinese.clone()
                         } else {
-                            // Fallback to first character if conversion fails
+                            // Fallback to first character if traditional doesn't exist
                             kanji_form.text.chars().next().unwrap().to_string()
                         }
                     } else {
