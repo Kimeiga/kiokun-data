@@ -44,6 +44,9 @@
 
 		<!-- Actions (Lists, Auth & Theme Toggle) -->
 		<div class="actions-section">
+			<a href="/users" class="users-link" title="Community">
+				👥
+			</a>
 			{#if $session.data?.user}
 				<a href="/lists" class="lists-link" title="My Notes">
 					📝
@@ -133,6 +136,7 @@
 		gap: 12px;
 	}
 
+	.users-link,
 	.lists-link {
 		display: flex;
 		align-items: center;
@@ -147,6 +151,7 @@
 		transition: all 0.2s ease;
 	}
 
+	.users-link:hover,
 	.lists-link:hover {
 		border-color: var(--accent);
 		background: var(--accent-light);
