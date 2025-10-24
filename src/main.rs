@@ -1386,6 +1386,33 @@ async fn generate_simple_output_files(
                 outputs.insert(chinese.trad.clone(), redirect_entry);
                 redirect_count += 1;
             }
+
+            // Create redirect from Simplified Chinese to Traditional Chinese (if different)
+            if chinese.simp != chinese.trad && !existing_keys.contains(&chinese.simp) {
+                // Skip if shard_filter is set and this entry doesn't match
+                if let Some(shard) = shard_filter {
+                    if ShardType::from_key(&chinese.simp) != shard {
+                        continue;
+                    }
+                }
+
+                let redirect_entry = SimpleOutput {
+                    key: chinese.simp.clone(),
+                    redirect: Some(chinese.trad.clone()),
+                    chinese_words: Vec::new(),
+                    chinese_char: None,
+                    japanese_words: Vec::new(),
+                    japanese_char: None,
+                    related_japanese_words: Vec::new(),
+                    japanese_names: Vec::new(),
+                    contains: Vec::new(),
+                    contained_in_chinese: Vec::new(),
+                    contained_in_japanese: Vec::new(),
+                };
+
+                outputs.insert(chinese.simp.clone(), redirect_entry);
+                redirect_count += 1;
+            }
         }
 
         // Create redirects for Japanese multi-character words
