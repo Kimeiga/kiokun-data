@@ -29,6 +29,8 @@
 	let error = $state("");
 	let isEditing = $state(false);
 	let showPreview = $state(false);
+	let uploadingImage = $state(false);
+	let fileInput = $state<HTMLInputElement>();
 
 	// Configure marked for security
 	marked.setOptions({
@@ -134,6 +136,56 @@
 		}
 	}
 
+	async function uploadImage(file: File) {
+		try {
+			uploadingImage = true;
+			error = "";
+
+			const formData = new FormData();
+			formData.append("image", file);
+
+			const response = await fetch("/api/images/upload", {
+				method: "POST",
+				body: formData,
+			});
+
+			if (!response.ok) {
+				const data = await response.json();
+				throw new Error(data.message || "Failed to upload image");
+			}
+
+			const data = await response.json();
+
+			// Insert markdown image syntax at cursor position or end of text
+			const imageMarkdown = `![${file.name}](${data.url})`;
+			noteText = noteText + "\n\n" + imageMarkdown;
+
+			return data.url;
+		} catch (err) {
+			error = err instanceof Error ? err.message : "Failed to upload image";
+			console.error(err);
+			return null;
+		} finally {
+			uploadingImage = false;
+		}
+	}
+
+	function handleImageSelect(event: Event) {
+		const input = event.target as HTMLInputElement;
+		const file = input.files?.[0];
+
+		if (file) {
+			uploadImage(file);
+		}
+
+		// Reset input so same file can be selected again
+		input.value = "";
+	}
+
+	function triggerImageUpload() {
+		fileInput?.click();
+	}
+
 	onMount(() => {
 		loadNotes();
 	});
@@ -203,6 +255,21 @@
 					{/if}
 
 					<div class="editor-actions">
+						<input
+							type="file"
+							accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
+							onchange={handleImageSelect}
+							bind:this={fileInput}
+							style="display: none;"
+						/>
+						<button
+							onclick={triggerImageUpload}
+							disabled={uploadingImage}
+							class="image-btn"
+							title="Upload image"
+						>
+							{uploadingImage ? "Uploading..." : "📷 Add Image"}
+						</button>
 						<button onclick={saveNote} disabled={loading || !noteText.trim()} class="save-btn">
 							{loading ? "Saving..." : "Save"}
 						</button>
@@ -392,6 +459,27 @@
 
 	.cancel-btn:hover {
 		background: var(--bg-tertiary);
+	}
+
+	.image-btn {
+		padding: 0.5rem 1.2rem;
+		background: var(--bg-secondary);
+		color: var(--text-primary);
+		border: 1px solid var(--border-color);
+		border-radius: 4px;
+		cursor: pointer;
+		font-size: 0.9rem;
+		transition: all 0.2s;
+	}
+
+	.image-btn:hover:not(:disabled) {
+		background: var(--bg-tertiary);
+		border-color: #4285f4;
+	}
+
+	.image-btn:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
 	}
 
 	/* Other Users' Notes */

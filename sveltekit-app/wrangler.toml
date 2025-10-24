@@ -15,10 +15,10 @@ binding = "DB"
 database_name = "kiokun-notes-db"
 database_id = "21f5b45e-ce53-4a63-b07b-dec1a0b44fcc" # Replace with your actual database_id from `wrangler d1 create`
 
-# R2 Bucket binding (commented out until needed)
-# [[r2_buckets]]
-# binding = "BUCKET"
-# bucket_name = "kiokun-images"
+# R2 Bucket binding for note images
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "kiokun-images"
 
 # For local development, create a .dev.vars file with:
 # R2_ACCESS_KEY_ID=your_access_key_id
