@@ -2,9 +2,11 @@
 	import ThemeToggle from './ThemeToggle.svelte';
 	import AuthButton from './AuthButton.svelte';
 	import { goto } from '$app/navigation';
+	import { useSession } from '$lib/auth-client';
 
 	let { currentWord = '' }: { currentWord?: string } = $props();
 	let searchValue = $state(currentWord);
+	const session = useSession();
 
 	function handleSearch(event: KeyboardEvent) {
 		if (event.key === 'Enter') {
@@ -40,8 +42,13 @@
 			/>
 		</div>
 
-		<!-- Actions (Auth & Theme Toggle) -->
+		<!-- Actions (Lists, Auth & Theme Toggle) -->
 		<div class="actions-section">
+			{#if $session.data?.user}
+				<a href="/lists" class="lists-link" title="My Notes">
+					📝
+				</a>
+			{/if}
 			<AuthButton />
 			<ThemeToggle />
 		</div>
@@ -124,6 +131,26 @@
 		display: flex;
 		align-items: center;
 		gap: 12px;
+	}
+
+	.lists-link {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		background: var(--bg-primary);
+		border: 2px solid var(--border-color);
+		font-size: 20px;
+		text-decoration: none;
+		transition: all 0.2s ease;
+	}
+
+	.lists-link:hover {
+		border-color: var(--accent);
+		background: var(--accent-light);
+		transform: scale(1.05);
 	}
 
 	/* Responsive design */

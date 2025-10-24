@@ -65,7 +65,7 @@ export const load: PageLoad<PageData> = async ({ params, fetch }) => {
 		console.log(`[FETCH] URL: ${url}`);
 		console.log(`[FETCH] Shard: ${getShardName(word)}`);
 
-		let response = await fetch(url);
+		const response = await fetch(url);
 		const fetchTime = performance.now() - startTime;
 
 		console.log(`[FETCH] Response received in ${fetchTime.toFixed(2)}ms`);
@@ -80,21 +80,6 @@ export const load: PageLoad<PageData> = async ({ params, fetch }) => {
 			'cf-cache-status': response.headers.get('cf-cache-status'),
 			'x-served-by': response.headers.get('x-served-by'),
 		});
-
-		// If GitHub fails, try jsDelivr CDN as fallback
-		if (!response.ok && !dev) {
-			const fallbackUrl = `https://cdn.jsdelivr.net/gh/Kimeiga/kiokun2-dict-${getShardName(word)}@latest/${encodeURIComponent(word)}.json.deflate`;
-			console.log(`[FALLBACK] Primary fetch failed, trying jsDelivr CDN`);
-			console.log(`[FALLBACK] URL: ${fallbackUrl}`);
-
-			const fallbackStartTime = performance.now();
-			response = await fetch(fallbackUrl);
-			const fallbackFetchTime = performance.now() - fallbackStartTime;
-
-			console.log(`[FALLBACK] Response received in ${fallbackFetchTime.toFixed(2)}ms`);
-			console.log(`[FALLBACK] Status: ${response.status} ${response.statusText}`);
-			console.log(`[FALLBACK] OK: ${response.ok}`);
-		}
 
 		if (!response.ok) {
 			console.error(`[FETCH] Failed to load "${word}" - returning 404`);

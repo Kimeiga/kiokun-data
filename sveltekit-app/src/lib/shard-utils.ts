@@ -97,29 +97,7 @@ export function getShardName(word: string): string {
   }
 }
 
-/**
- * Get the jsDelivr CDN URL for a dictionary word
- *
- * PRODUCTION URL FORMAT:
- * https://cdn.jsdelivr.net/gh/Kimeiga/kiokun2-dict-{shard}@latest/{word}.json.deflate
- *
- * EXAMPLES:
- * - "hello" → https://cdn.jsdelivr.net/gh/Kimeiga/kiokun2-dict-non-han@latest/hello.json.deflate
- * - "人" → https://cdn.jsdelivr.net/gh/Kimeiga/kiokun2-dict-han-1char-1@latest/人.json.deflate
- * - "你好" → https://cdn.jsdelivr.net/gh/Kimeiga/kiokun2-dict-han-2char-2@latest/你好.json.deflate
- *
- * NOTE: Files are compressed with Deflate level 9 for 64% size reduction.
- * Use fflate library to decompress in the browser.
- *
- * @param word - The dictionary word to look up
- * @returns Full jsDelivr CDN URL for the word's compressed JSON file
- */
-export function getJsDelivrUrl(word: string): string {
-  const shard = getShardName(word);
-  // URL encode the word to handle special characters like %
-  const encodedWord = encodeURIComponent(word);
-  return `https://cdn.jsdelivr.net/gh/Kimeiga/kiokun2-dict-${shard}@latest/${encodedWord}.json.deflate`;
-}
+
 
 /**
  * Get the raw GitHub URL for a dictionary word (bypasses jsDelivr CDN)
@@ -167,14 +145,13 @@ export function getLocalUrl(word: string): string {
  *
  * ENVIRONMENT DETECTION:
  * - Development (dev=true): Uses local HTTP server at localhost:8000
- * - Production/Staging: Uses raw GitHub URLs for better performance
+ * - Production/Staging: Uses raw GitHub URLs
  *
  * For local development, run this in the output_dictionary folder:
  * cd output_dictionary && python3 -m http.server 8000
  *
- * NOTE: Raw GitHub URLs are faster than jsDelivr when files are not cached.
- * jsDelivr can take several seconds on cache miss, while GitHub is consistently fast.
- * The +page.ts has a fallback to jsDelivr if GitHub fails.
+ * NOTE: Raw GitHub URLs provide consistent global performance and avoid
+ * CDN cache inconsistencies between geographic regions.
  *
  * @param word - The dictionary word to look up
  * @param dev - Whether we're in development mode (from $app/environment)
@@ -184,7 +161,7 @@ export function getDictionaryUrl(word: string, dev: boolean = false): string {
   if (dev) {
     return getLocalUrl(word);
   }
-  // Use raw GitHub URLs for production (better performance than jsDelivr on cache miss)
+  // Use raw GitHub URLs for production
   return getRawGitHubUrl(word);
 }
 
