@@ -219,8 +219,8 @@ def main():
     # Confirm
     db_type = "REMOTE" if args.remote else "LOCAL"
     response = input(f"\n⚠️  About to insert {len(processed_notes)} notes into {db_type} database. Continue? (y/N): ")
-    
-    if response.lower() != 'y':
+
+    if response.strip().lower() not in ['y', 'yes']:
         print("❌ Cancelled")
         sys.exit(0)
     
