@@ -274,6 +274,7 @@
 		border: 1px solid rgba(255, 255, 255, 0.1);
 		border-radius: 8px;
 		text-decoration: none;
+		color: inherit;
 		transition: all 0.2s ease;
 	}
 
@@ -327,8 +328,12 @@
 	}
 
 	.definition {
-		color: var(--color-text);
+		color: white;
 		line-height: 1.5;
+	}
+
+	:global(body.light-theme) .definition {
+		color: black;
 	}
 
 	.more-definitions {
