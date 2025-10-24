@@ -43,7 +43,7 @@
 		error = '';
 
 		try {
-			const response = await fetch(`/api/search?q=${encodeURIComponent(searchQuery)}&limit=50`);
+			const response = await fetch(`/api/search?q=${encodeURIComponent(searchQuery)}&limit=100`);
 
 			if (!response.ok) {
 				throw new Error(`Search failed: ${response.statusText}`);
@@ -59,6 +59,10 @@
 			loading = false;
 		}
 	}
+
+	// Separate results by language
+	let japaneseResults = $derived(results.filter(r => r.language === 'japanese'));
+	let chineseResults = $derived(results.filter(r => r.language === 'chinese'));
 </script>
 
 <svelte:head>
@@ -100,42 +104,77 @@
 			<p>Found {total} {total === 1 ? 'result' : 'results'}</p>
 		</div>
 
-		<div class="results-list">
-			{#each results as result}
-				<a href="/{result.word}" class="result-card">
-					<div class="result-header">
-						<span class="word">{result.word}</span>
-						{#if result.pronunciation}
-							<span class="pronunciation">[{result.pronunciation}]</span>
-						{/if}
-						<span class="language-badge" class:chinese={result.language === 'chinese'} class:japanese={result.language === 'japanese'}>
-							{result.language === 'chinese' ? '🇨🇳' : '🇯🇵'}
-						</span>
-						{#if result.is_common}
-							<span class="common-badge">Common</span>
-						{/if}
-					</div>
-					<div class="definitions">
-						{#each result.definitions.slice(0, 3) as definition, i}
-							<div class="definition">
-								{i + 1}. {definition}
+		<div class="results-container">
+			<!-- Japanese results column -->
+			<div class="results-column">
+				<h2 class="column-title">Japanese 🇯🇵</h2>
+				<div class="results-list">
+					{#each japaneseResults as result}
+						<a href="/{result.word}" class="result-card">
+							<div class="result-header">
+								<span class="word">{result.word}</span>
+								{#if result.pronunciation}
+									<span class="pronunciation">[{result.pronunciation}]</span>
+								{/if}
+								{#if result.is_common}
+									<span class="common-badge">Common</span>
+								{/if}
 							</div>
-						{/each}
-						{#if result.definitions.length > 3}
-							<div class="more-definitions">
-								+{result.definitions.length - 3} more {result.definitions.length - 3 === 1 ? 'definition' : 'definitions'}
+							<div class="definitions">
+								{#each result.definitions.slice(0, 3) as definition, i}
+									<div class="definition">
+										{i + 1}. {definition}
+									</div>
+								{/each}
+								{#if result.definitions.length > 3}
+									<div class="more-definitions">
+										+{result.definitions.length - 3} more {result.definitions.length - 3 === 1 ? 'definition' : 'definitions'}
+									</div>
+								{/if}
 							</div>
-						{/if}
-					</div>
-				</a>
-			{/each}
+						</a>
+					{/each}
+				</div>
+			</div>
+
+			<!-- Chinese results column -->
+			<div class="results-column">
+				<h2 class="column-title">Chinese 🇨🇳</h2>
+				<div class="results-list">
+					{#each chineseResults as result}
+						<a href="/{result.word}" class="result-card">
+							<div class="result-header">
+								<span class="word">{result.word}</span>
+								{#if result.pronunciation}
+									<span class="pronunciation">[{result.pronunciation}]</span>
+								{/if}
+								{#if result.is_common}
+									<span class="common-badge">Common</span>
+								{/if}
+							</div>
+							<div class="definitions">
+								{#each result.definitions.slice(0, 3) as definition, i}
+									<div class="definition">
+										{i + 1}. {definition}
+									</div>
+								{/each}
+								{#if result.definitions.length > 3}
+									<div class="more-definitions">
+										+{result.definitions.length - 3} more {result.definitions.length - 3 === 1 ? 'definition' : 'definitions'}
+									</div>
+								{/if}
+							</div>
+						</a>
+					{/each}
+				</div>
+			</div>
 		</div>
 	{/if}
 </div>
 
 <style>
 	.search-page {
-		max-width: 900px;
+		max-width: 1400px;
 		margin: 0 auto;
 		padding: 20px;
 	}
@@ -201,6 +240,27 @@
 		color: var(--color-text-secondary);
 	}
 
+	.results-container {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 30px;
+	}
+
+	.results-column {
+		display: flex;
+		flex-direction: column;
+		gap: 15px;
+	}
+
+	.column-title {
+		font-size: 20px;
+		font-weight: 600;
+		color: var(--color-text);
+		margin-bottom: 10px;
+		padding-bottom: 8px;
+		border-bottom: 2px solid var(--color-border);
+	}
+
 	.results-list {
 		display: flex;
 		flex-direction: column;
@@ -210,11 +270,16 @@
 	.result-card {
 		display: block;
 		padding: 20px;
-		background: var(--color-card-bg);
-		border: 1px solid var(--color-border);
+		background: rgba(255, 255, 255, 0.03);
+		border: 1px solid rgba(255, 255, 255, 0.1);
 		border-radius: 8px;
 		text-decoration: none;
 		transition: all 0.2s ease;
+	}
+
+	:global(body.light-theme) .result-card {
+		background: rgba(0, 0, 0, 0.02);
+		border: 1px solid rgba(0, 0, 0, 0.08);
 	}
 
 	.result-card:hover {
@@ -234,19 +299,16 @@
 	.word {
 		font-size: 24px;
 		font-weight: bold;
-		color: var(--color-text);
+		color: white;
+	}
+
+	:global(body.light-theme) .word {
+		color: black;
 	}
 
 	.pronunciation {
 		font-size: 16px;
 		color: var(--color-kunyomi);
-	}
-
-	.language-badge {
-		font-size: 18px;
-		padding: 2px 8px;
-		border-radius: 4px;
-		background: var(--color-bg-secondary);
 	}
 
 	.common-badge {
@@ -287,6 +349,15 @@
 
 		.word {
 			font-size: 20px;
+		}
+
+		.results-container {
+			grid-template-columns: 1fr;
+			gap: 30px;
+		}
+
+		.column-title {
+			font-size: 18px;
 		}
 	}
 </style>
