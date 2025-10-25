@@ -1,7 +1,7 @@
 import { createAuthClient } from "better-auth/svelte";
 
 export const authClient = createAuthClient({
-	baseURL: typeof window !== "undefined" ? `${window.location.origin}/api/auth` : "/api/auth",
+	baseURL: typeof window !== "undefined" ? `${window.location.origin}/api/auth` : "http://localhost:5173/api/auth",
 	fetchOptions: {
 		onError(context) {
 			console.error("Auth fetch error:", context.error);
