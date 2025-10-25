@@ -1,5 +1,7 @@
 <script lang="ts">
-	let { children } = $props();
+	import type { LayoutData } from './$types';
+
+	let { children, data }: { children: any; data: LayoutData } = $props();
 </script>
 
 <svelte:head>

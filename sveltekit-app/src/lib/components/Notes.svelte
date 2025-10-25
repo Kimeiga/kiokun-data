@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { useSession } from "$lib/auth-client";
-	import { onMount } from "svelte";
 	import { marked } from "marked";
 	import DOMPurify from "dompurify";
 
@@ -36,6 +35,7 @@
 	let showPreview = $state(false);
 	let uploadingImage = $state(false);
 	let fileInput = $state<HTMLInputElement>();
+	let hasAttemptedLoad = $state(false);
 
 	// Configure marked for security
 	marked.setOptions({
@@ -72,7 +72,7 @@
 			}
 		} catch (err) {
 			error = "Failed to load notes";
-			console.error(err);
+			console.error('Error loading notes:', err);
 		} finally {
 			loading = false;
 		}
@@ -191,8 +191,27 @@
 		fileInput?.click();
 	}
 
-	onMount(() => {
-		loadNotes();
+	// Wait for session to be ready, then load notes
+	// Reload if session changes (user logs in/out)
+	$effect(() => {
+		const userId = $session.data?.user?.id;
+
+		// Load notes when session is ready and we haven't loaded yet
+		if ($session.data !== undefined) {
+			if (!hasAttemptedLoad) {
+				hasAttemptedLoad = true;
+				loadNotes();
+			} else if (notes.length > 0) {
+				// Session changed after initial load - re-separate notes
+				if (userId) {
+					myNote = notes.find((n) => n.userId === userId) || null;
+					otherNotes = notes.filter((n) => n.userId !== userId);
+				} else {
+					myNote = null;
+					otherNotes = notes;
+				}
+			}
+		}
 	});
 </script>
 
