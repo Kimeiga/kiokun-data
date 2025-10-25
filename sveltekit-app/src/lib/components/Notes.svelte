@@ -12,6 +12,11 @@
 		isAdmin: boolean;
 		createdAt: Date;
 		updatedAt: Date;
+		user: {
+			id: string;
+			name: string;
+			image: string | null;
+		} | null;
 	}
 
 	interface Props {
@@ -286,11 +291,19 @@
 		<!-- Other Users' Notes -->
 		{#if otherNotes.length > 0}
 			<div class="other-notes">
-				<h4>Community Notes</h4>
 				<div class="notes-list">
 					{#each otherNotes as note (note.id)}
 						<div class="note" class:admin={note.isAdmin}>
-							<div class="note-header">
+							<div class="note-header-with-avatar">
+								<a href="/users/{note.userId}" class="user-avatar-link">
+									{#if note.user?.image}
+										<img src={note.user.image} alt={note.user.name} class="user-avatar" />
+									{:else}
+										<div class="user-avatar-placeholder">
+											{note.user?.name?.charAt(0).toUpperCase() || '?'}
+										</div>
+									{/if}
+								</a>
 								{#if note.isAdmin}
 									<span class="admin-badge">Admin</span>
 								{/if}
@@ -489,12 +502,6 @@
 		border-top: 1px solid var(--border-light);
 	}
 
-	.other-notes h4 {
-		margin: 0 0 1rem 0;
-		font-size: 1.1rem;
-		color: var(--text-secondary);
-	}
-
 	.notes-list {
 		display: flex;
 		flex-direction: column;
@@ -506,11 +513,56 @@
 		background: var(--bg-tertiary);
 		border-radius: 6px;
 		border: 1px solid var(--border-light);
+		position: relative;
 	}
 
 	.note.admin {
 		border-color: #4285f4;
 		background: var(--accent-light);
+	}
+
+	.note-header-with-avatar {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		margin-bottom: 0.75rem;
+	}
+
+	.user-avatar-link {
+		text-decoration: none;
+		display: block;
+	}
+
+	.user-avatar {
+		width: 32px;
+		height: 32px;
+		border-radius: 50%;
+		object-fit: cover;
+		border: 2px solid var(--border-color);
+		transition: border-color 0.2s;
+	}
+
+	.user-avatar-link:hover .user-avatar {
+		border-color: var(--accent);
+	}
+
+	.user-avatar-placeholder {
+		width: 32px;
+		height: 32px;
+		border-radius: 50%;
+		background: var(--accent);
+		color: white;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-weight: bold;
+		font-size: 0.9rem;
+		border: 2px solid var(--border-color);
+		transition: border-color 0.2s;
+	}
+
+	.user-avatar-link:hover .user-avatar-placeholder {
+		border-color: var(--accent);
 	}
 
 	.admin-badge {

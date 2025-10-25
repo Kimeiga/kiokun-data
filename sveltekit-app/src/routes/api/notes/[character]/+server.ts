@@ -1,7 +1,7 @@
 import { error, json } from "@sveltejs/kit";
 import type { RequestEvent } from "@sveltejs/kit";
 import { getDb } from "$lib/server/db";
-import { notes } from "$lib/server/db/schema";
+import { notes, user } from "$lib/server/db/schema";
 import { eq, desc, and } from "drizzle-orm";
 
 // GET /api/notes/[character] - Get all notes for a character
@@ -23,8 +23,14 @@ export async function GET({ params, platform }: RequestEvent) {
 			isAdmin: notes.isAdmin,
 			createdAt: notes.createdAt,
 			updatedAt: notes.updatedAt,
+			user: {
+				id: user.id,
+				name: user.name,
+				image: user.image,
+			},
 		})
 		.from(notes)
+		.leftJoin(user, eq(notes.userId, user.id))
 		.where(eq(notes.character, character))
 		.orderBy(desc(notes.isAdmin), desc(notes.createdAt));
 
