@@ -215,35 +215,35 @@
 	});
 </script>
 
-<div class="notes-section">
-	<h3>Notes</h3>
+<div class="my-8 p-4 md:p-6 bg-primary-secondary rounded-lg max-w-full">
+	<h3 class="m-0 mb-4 text-xl md:text-2xl text-text-primary">Notes</h3>
 
 	{#if error}
-		<div class="error">{error}</div>
+		<div class="p-3 bg-red-50 text-red-700 rounded mb-4">{error}</div>
 	{/if}
 
 	{#if loading && notes.length === 0}
-		<p class="loading">Loading notes...</p>
+		<p class="text-text-muted italic my-4">Loading notes...</p>
 	{:else}
 		<!-- Current User's Note -->
 		{#if $session.data?.user}
 			{#if myNote && !isEditing}
-				<div class="my-note">
-					<div class="note-header">
-						<span class="note-label">Your Note</span>
+				<div class="mb-8 p-4 bg-primary-tertiary rounded-md border border-border-light">
+					<div class="flex justify-between items-center mb-3">
+						<span class="font-semibold text-text-secondary text-sm">Your Note</span>
 						<div class="note-actions">
 							<button onclick={startEditing} class="edit-btn" title="Edit">Edit</button>
 							<button onclick={deleteNote} class="delete-btn" title="Delete">Delete</button>
 						</div>
 					</div>
-					<div class="note-content markdown-content">
+					<div class="text-text-primary leading-relaxed markdown-content">
 						{@html renderMarkdown(myNote.noteText)}
 					</div>
 				</div>
 			{:else if isEditing || !myNote}
-				<div class="note-editor">
-					<div class="editor-header">
-						<span class="note-label">{myNote ? "Edit Your Note" : "Add Your Note"}</span>
+				<div class="mb-8 p-4 bg-primary-tertiary rounded-md border border-border-light">
+					<div class="flex justify-between items-center mb-3">
+						<span class="font-semibold text-text-secondary text-sm">{myNote ? "Edit Your Note" : "Add Your Note"}</span>
 						<div class="editor-tabs">
 							<button
 								class="tab"
@@ -339,286 +339,129 @@
 </div>
 
 <style>
-	.notes-section {
-		margin: 2rem 0;
-		padding: 1.5rem;
-		background: var(--bg-secondary, #f9f9f9);
-		border-radius: 8px;
-		max-width: 100%;
-	}
-
-	h3 {
-		margin: 0 0 1rem 0;
-		font-size: 1.3rem;
-		color: var(--text-primary);
-	}
-
-	.error {
-		padding: 0.75rem;
-		background: #fee;
-		color: #c33;
-		border-radius: 4px;
-		margin-bottom: 1rem;
-	}
-
-	.loading,
-	.sign-in-prompt {
-		color: var(--text-muted);
-		font-style: italic;
-		margin: 1rem 0;
-	}
-
-	/* My Note */
-	.my-note {
-		margin-bottom: 2rem;
-		padding: 1rem;
-		background: var(--bg-tertiary);
-		border-radius: 6px;
-		border: 1px solid var(--border-light);
-	}
-
-	.note-label {
-		font-weight: 600;
-		color: var(--text-secondary);
-		font-size: 0.9rem;
-	}
-
-	.note-header {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		margin-bottom: 0.75rem;
-	}
-
-	.note-content {
-		color: var(--text-primary);
-		line-height: 1.6;
-	}
-
-	/* Note Editor */
-	.note-editor {
-		margin-bottom: 2rem;
-		padding: 1rem;
-		background: var(--bg-tertiary);
-		border-radius: 6px;
-		border: 1px solid var(--border-light);
-	}
-
-	.editor-header {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		margin-bottom: 0.75rem;
-	}
-
 	.editor-tabs {
-		display: flex;
-		gap: 0.5rem;
+		@apply flex gap-2;
 	}
 
 	.tab {
-		padding: 0.3rem 0.8rem;
-		background: transparent;
-		border: 1px solid var(--border-color);
-		border-radius: 4px;
-		color: var(--text-secondary);
-		cursor: pointer;
-		font-size: 0.85rem;
-		transition: all 0.2s;
+		@apply px-3 py-1.5 bg-transparent border border-border rounded text-text-secondary cursor-pointer text-sm transition-all duration-200;
 	}
 
 	.tab.active {
+		@apply text-white border-accent;
 		background: var(--accent);
-		color: white;
-		border-color: var(--accent);
 	}
 
 	.tab:hover:not(.active):not(:disabled) {
-		background: var(--bg-secondary);
+		@apply bg-primary-secondary;
 	}
 
 	.markdown-hint {
-		margin-top: 0.5rem;
-		margin-bottom: 0.75rem;
+		@apply mt-2 mb-3;
 	}
 
 	.markdown-hint p {
-		margin: 0;
-		font-size: 0.8rem;
-		color: var(--text-muted);
-		font-style: italic;
+		@apply m-0 text-xs text-text-muted italic;
 	}
 
 	.preview-content {
-		min-height: 200px;
-		padding: 0.75rem;
-		background: var(--bg-secondary);
-		border: 1px solid var(--border-light);
-		border-radius: 4px;
-		margin-bottom: 0.75rem;
+		@apply min-h-[200px] p-3 bg-primary-secondary border border-border-light rounded mb-3;
 	}
 
 	.editor-actions {
-		display: flex;
-		gap: 0.5rem;
+		@apply flex gap-2;
 	}
 
 	.save-btn {
-		padding: 0.5rem 1.2rem;
-		background: #4285f4;
-		color: white;
-		border: none;
-		border-radius: 4px;
-		cursor: pointer;
-		font-size: 0.9rem;
-		transition: background 0.2s;
+		@apply px-5 py-2 bg-[#4285f4] text-white border-none rounded cursor-pointer text-sm transition-colors duration-200;
 	}
 
 	.save-btn:hover:not(:disabled) {
-		background: #3367d6;
+		@apply bg-[#3367d6];
 	}
 
 	.cancel-btn {
-		padding: 0.5rem 1.2rem;
-		background: var(--bg-secondary);
-		color: var(--text-primary);
-		border: 1px solid var(--border-color);
-		border-radius: 4px;
-		cursor: pointer;
-		font-size: 0.9rem;
-		transition: all 0.2s;
+		@apply px-5 py-2 bg-primary-secondary text-text-primary border border-border rounded cursor-pointer text-sm transition-all duration-200;
 	}
 
 	.cancel-btn:hover {
-		background: var(--bg-tertiary);
+		@apply bg-primary-tertiary;
 	}
 
 	.image-btn {
-		padding: 0.5rem 1.2rem;
-		background: var(--bg-secondary);
-		color: var(--text-primary);
-		border: 1px solid var(--border-color);
-		border-radius: 4px;
-		cursor: pointer;
-		font-size: 0.9rem;
-		transition: all 0.2s;
+		@apply px-5 py-2 bg-primary-secondary text-text-primary border border-border rounded cursor-pointer text-sm transition-all duration-200;
 	}
 
 	.image-btn:hover:not(:disabled) {
-		background: var(--bg-tertiary);
-		border-color: #4285f4;
+		@apply bg-primary-tertiary border-[#4285f4];
 	}
 
 	.image-btn:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
+		@apply opacity-50 cursor-not-allowed;
 	}
 
 	/* Other Users' Notes */
 	.other-notes {
-		margin-top: 2rem;
+		@apply mt-8;
 	}
 
 	.notes-list {
-		display: flex;
-		flex-direction: column;
-		gap: 1rem;
+		@apply flex flex-col gap-4;
 	}
 
 	.note {
-		padding: 1rem;
-		background: var(--bg-tertiary);
-		border-radius: 6px;
-		border: 1px solid var(--border-light);
-		position: relative;
+		@apply p-4 bg-primary-tertiary rounded-md border border-border-light relative;
 	}
 
 	.note.admin {
-		border-color: #4285f4;
+		@apply border-[#4285f4];
 		background: var(--accent-light);
 	}
 
 	.note-header-with-avatar {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-		margin-bottom: 0.75rem;
+		@apply flex items-center gap-2 mb-3;
 	}
 
 	.user-avatar-link {
-		text-decoration: none;
-		display: block;
+		@apply no-underline block;
 	}
 
 	.user-avatar {
-		width: 32px;
-		height: 32px;
-		border-radius: 50%;
-		object-fit: cover;
-		border: 2px solid var(--border-color);
-		transition: border-color 0.2s;
+		@apply w-8 h-8 rounded-full object-cover border-2 border-border transition-colors duration-200;
 	}
 
 	.user-avatar-link:hover .user-avatar {
-		border-color: var(--accent);
+		@apply border-accent;
 	}
 
 	.user-avatar-placeholder {
-		width: 32px;
-		height: 32px;
-		border-radius: 50%;
+		@apply w-8 h-8 rounded-full text-white flex items-center justify-center font-bold text-sm border-2 border-border transition-colors duration-200;
 		background: var(--accent);
-		color: white;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-weight: bold;
-		font-size: 0.9rem;
-		border: 2px solid var(--border-color);
-		transition: border-color 0.2s;
 	}
 
 	.user-avatar-link:hover .user-avatar-placeholder {
-		border-color: var(--accent);
+		@apply border-accent;
 	}
 
 	.admin-badge {
-		display: inline-block;
-		padding: 0.2rem 0.5rem;
-		background: #4285f4;
-		color: white;
-		font-size: 0.75rem;
-		border-radius: 3px;
-		font-weight: 600;
+		@apply inline-block px-2 py-1 bg-[#4285f4] text-white text-xs rounded font-semibold;
 	}
 
 	.note-actions {
-		display: flex;
-		gap: 0.5rem;
+		@apply flex gap-2;
 	}
 
 	.edit-btn,
 	.delete-btn {
-		padding: 0.3rem 0.6rem;
-		font-size: 0.85rem;
-		border: 1px solid var(--border-color);
-		background: var(--bg-secondary);
-		color: var(--text-primary);
-		border-radius: 4px;
-		cursor: pointer;
-		transition: all 0.2s;
+		@apply px-2.5 py-1.5 text-sm border border-border bg-primary-secondary text-text-primary rounded cursor-pointer transition-all duration-200;
 	}
 
 	.edit-btn:hover {
-		background: var(--bg-tertiary);
-		border-color: #4285f4;
-		color: #4285f4;
+		@apply bg-primary-tertiary border-[#4285f4] text-[#4285f4];
 	}
 
 	.delete-btn:hover {
-		background: #3a1a1a;
-		border-color: #c33;
-		color: #ff6666;
+		@apply bg-[#3a1a1a] border-[#c33] text-[#ff6666];
 	}
 
 	/* Markdown Content Styling */
@@ -661,64 +504,39 @@
 	}
 
 	.markdown-content :global(pre) {
-		background: var(--bg-secondary);
-		padding: 1rem;
-		border-radius: 4px;
-		overflow-x: auto;
-		margin: 0.5rem 0;
+		@apply bg-primary-secondary p-4 rounded overflow-x-auto my-2;
 	}
 
 	.markdown-content :global(pre code) {
-		background: none;
-		padding: 0;
+		@apply bg-transparent p-0;
 	}
 
 	.markdown-content :global(blockquote) {
-		border-left: 3px solid var(--border-color);
-		padding-left: 1rem;
-		margin: 0.5rem 0;
-		color: var(--text-secondary);
+		@apply border-l-4 border-border pl-4 my-2 text-text-secondary;
 	}
 
 	.markdown-content :global(a) {
-		color: var(--accent);
-		text-decoration: none;
+		@apply text-accent no-underline;
 	}
 
 	.markdown-content :global(a:hover) {
-		text-decoration: underline;
+		@apply underline;
 	}
 
 	.markdown-content :global(img) {
-		max-width: 100%;
-		height: auto;
-		border-radius: 4px;
-		margin: 0.5rem 0;
+		@apply max-w-full h-auto rounded my-2;
 	}
 
 	textarea {
-		width: 100%;
-		padding: 0.75rem;
-		border: 1px solid var(--border-color);
-		border-radius: 4px;
-		font-family: inherit;
-		font-size: 0.95rem;
-		resize: vertical;
-		min-height: 200px;
-		box-sizing: border-box;
-		background: var(--bg-secondary);
-		color: var(--text-primary);
-		line-height: 1.6;
+		@apply w-full p-3 border border-border rounded font-sans text-base resize-y min-h-[200px] box-border bg-primary-secondary text-text-primary leading-relaxed;
 	}
 
 	textarea:focus {
-		outline: none;
-		border-color: #4285f4;
+		@apply outline-none border-[#4285f4];
 	}
 
 	button:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
+		@apply opacity-50 cursor-not-allowed;
 	}
 </style>
 

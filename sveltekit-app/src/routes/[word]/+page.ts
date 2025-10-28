@@ -54,58 +54,32 @@ export interface PageData {
 
 export const load: PageLoad<PageData> = async ({ params, fetch }) => {
 	const { word } = params;
+	console.log('[LOAD] Starting load for word:', word);
 
 	try {
-		// Fetch the compressed dictionary data with detailed logging
+		// Fetch the compressed dictionary data
 		const url = getDictionaryUrl(word, dev);
-		const startTime = performance.now();
-
-		console.log(`[FETCH] Starting fetch for "${word}"`);
-		console.log(`[FETCH] Environment: ${dev ? 'DEV' : 'PROD'}`);
-		console.log(`[FETCH] URL: ${url}`);
-		console.log(`[FETCH] Shard: ${getShardName(word)}`);
-
+		console.log('[LOAD] Fetching URL:', url);
 		const response = await fetch(url);
-		const fetchTime = performance.now() - startTime;
-
-		console.log(`[FETCH] Response received in ${fetchTime.toFixed(2)}ms`);
-		console.log(`[FETCH] Status: ${response.status} ${response.statusText}`);
-		console.log(`[FETCH] OK: ${response.ok}`);
-		console.log(`[FETCH] Headers:`, {
-			'content-type': response.headers.get('content-type'),
-			'content-length': response.headers.get('content-length'),
-			'cache-control': response.headers.get('cache-control'),
-			'age': response.headers.get('age'),
-			'x-cache': response.headers.get('x-cache'),
-			'cf-cache-status': response.headers.get('cf-cache-status'),
-			'x-served-by': response.headers.get('x-served-by'),
-		});
+		console.log('[LOAD] Response status:', response.status);
 
 		if (!response.ok) {
-			console.error(`[FETCH] Failed to load "${word}" - returning 404`);
+			console.error(`Failed to load "${word}"`);
 			throw error(404, `Character "${word}" not found`);
 		}
 
-		// Get compressed data as ArrayBuffer
-		const downloadStartTime = performance.now();
+		// Get compressed data and decompress
 		const compressedData = await response.arrayBuffer();
-		const downloadTime = performance.now() - downloadStartTime;
-
-		console.log(`[DOWNLOAD] Downloaded ${compressedData.byteLength} bytes in ${downloadTime.toFixed(2)}ms`);
-		console.log(`[DOWNLOAD] Speed: ${(compressedData.byteLength / 1024 / (downloadTime / 1000)).toFixed(2)} KB/s`);
-
-		// Decompress and parse JSON
-		const decompressStartTime = performance.now();
 		let data: DictionaryEntry = decompressAndParse(compressedData);
-		const decompressTime = performance.now() - decompressStartTime;
 
-		console.log(`[DECOMPRESS] Decompressed in ${decompressTime.toFixed(2)}ms`);
-		console.log(`[DECOMPRESS] Data structure:`, {
-			hasChinese: !!data.chinese_char || (data.chinese_words && data.chinese_words.length > 0),
-			hasJapanese: !!data.japanese_char || (data.japanese_words && data.japanese_words.length > 0),
-			hasNames: !!(data.japanese_names && data.japanese_names.length > 0),
-			isRedirect: !!data.redirect,
-		});
+		// Debug: Log image data for historical evolution
+		if (data.chinese_char?.images) {
+			// Filter out any undefined/null images
+			data.chinese_char.images = data.chinese_char.images.filter((img: any) => img != null);
+			console.log(`[IMAGES] Found ${data.chinese_char.images.length} images for "${word}":`, data.chinese_char.images);
+		} else {
+			console.log(`[IMAGES] No images found for "${word}"`);
+		}
 
 
 
@@ -156,10 +130,6 @@ export const load: PageLoad<PageData> = async ({ params, fetch }) => {
 			}
 		}
 
-		const totalTime = performance.now() - startTime;
-		console.log(`[LOAD] ✅ Successfully loaded "${word}" in ${totalTime.toFixed(2)}ms`);
-		console.log(`[LOAD] Related words: ${relatedJapaneseWords.length}`);
-
 		return {
 			word,
 			data,
@@ -167,7 +137,7 @@ export const load: PageLoad<PageData> = async ({ params, fetch }) => {
 			labels
 		};
 	} catch (err) {
-		console.error(`[LOAD] ❌ Failed to load dictionary entry for "${word}":`, err);
+		console.error(`Failed to load dictionary entry for "${word}":`, err);
 		throw error(404, `Character "${word}" not found`);
 	}
 };

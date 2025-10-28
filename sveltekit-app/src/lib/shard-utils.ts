@@ -134,9 +134,8 @@ export function getRawGitHubUrl(word: string): string {
  */
 export function getLocalUrl(word: string): string {
   const encodedWord = encodeURIComponent(word);
-  // Default to 8000, but the actual port is read at build time from .cors_port
-  // In dev mode, the port is injected via import.meta.env.VITE_CORS_PORT
-  const port = import.meta.env.VITE_CORS_PORT || '8000';
+  // Always use port 8000 for local development
+  const port = '8000';
   return `http://localhost:${port}/${encodedWord}.json.deflate`;
 }
 

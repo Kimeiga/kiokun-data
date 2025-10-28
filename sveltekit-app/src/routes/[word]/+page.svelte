@@ -7,33 +7,91 @@
 	import AppearsIn from '$lib/AppearsIn.svelte';
 	import JapaneseNames from '$lib/components/JapaneseNames.svelte';
 	import Notes from '$lib/components/Notes.svelte';
+	import { getDictionaryUrl } from '$lib/shard-utils';
+	import { dev } from '$app/environment';
 
 	let { data }: { data: PageData } = $props();
 
-	// Initialize Hanzi Writer for stroke animation
+	// Get all character variants
+	const traditionalChar = data.data.chinese_char?.char || data.word;
+	const simplifiedChar = data.data.chinese_char?.simpVariants?.[0];
+	const japaneseChar = data.data.japanese_char?.literal;
+
+	// State for simplified character data
+	let simplifiedCharData: any = $state(null);
+
+	// Initialize Hanzi Writer for stroke animations
 	onMount(async () => {
-		if (data.data.chinese_char && typeof window !== 'undefined') {
+		if (typeof window !== 'undefined') {
 			// Dynamically import Hanzi Writer
 			const HanziWriter = (await import('hanzi-writer')).default;
 
-			const target = document.getElementById('hanzi-writer-target');
-			if (target) {
-				const writer = HanziWriter.create(target, data.word, {
-					width: 72,
-					height: 72,
-					padding: 5,
-					showOutline: true,
-					strokeAnimationSpeed: 3, // 3x speed = ~0.33 seconds per stroke
-					delayBetweenStrokes: 200, // 0.2 seconds between strokes
-					delayBetweenLoops: 1000, // 0.5s fade + 0.5s pause = 1 second
-					strokeColor: getComputedStyle(document.documentElement).getPropertyValue('--color-stroke').trim() || '#2c3e50',
-					outlineColor: getComputedStyle(document.documentElement).getPropertyValue('--color-outline').trim() || '#e0e0e0',
-					drawingColor: getComputedStyle(document.documentElement).getPropertyValue('--color-stroke').trim() || '#2c3e50',
-					strokeFadeDuration: 500 // 0.5 seconds to fade out all strokes
-				});
+			const strokeColor = getComputedStyle(document.documentElement).getPropertyValue('--color-stroke').trim() || '#2c3e50';
+			const outlineColor = getComputedStyle(document.documentElement).getPropertyValue('--color-outline').trim() || '#e0e0e0';
 
-				// Loop the animation
-				writer.loopCharacterAnimation();
+			const writerConfig = {
+				width: 72,
+				height: 72,
+				padding: 5,
+				showOutline: true,
+				strokeAnimationSpeed: 3,
+				delayBetweenStrokes: 200,
+				delayBetweenLoops: 1000,
+				strokeColor,
+				outlineColor,
+				drawingColor: strokeColor,
+				strokeFadeDuration: 500
+			};
+
+			// Traditional character animation
+			if (traditionalChar) {
+				const tradTarget = document.getElementById('trad-writer-target');
+				if (tradTarget) {
+					const writer = HanziWriter.create(tradTarget, traditionalChar, writerConfig);
+					writer.loopCharacterAnimation();
+				}
+			}
+
+			// Simplified character animation
+			if (simplifiedChar) {
+				const simpTarget = document.getElementById('simp-writer-target');
+				if (simpTarget) {
+					const writer = HanziWriter.create(simpTarget, simplifiedChar, writerConfig);
+					writer.loopCharacterAnimation();
+				}
+
+				// Load simplified character data for component breakdown
+				try {
+					const url = getDictionaryUrl(simplifiedChar, dev);
+					const response = await fetch(url);
+					if (response.ok) {
+						const arrayBuffer = await response.arrayBuffer();
+						const { inflateSync } = await import('fflate');
+						const decompressed = inflateSync(new Uint8Array(arrayBuffer));
+						const jsonData = JSON.parse(new TextDecoder().decode(decompressed));
+						console.log('[SIMP CHAR] Full JSON data:', jsonData);
+						simplifiedCharData = jsonData.chinese_char;
+						console.log('[SIMP CHAR] Loaded data for', simplifiedChar, simplifiedCharData);
+					} else {
+						console.error(`Failed to load char data for ${simplifiedChar}: ${response.status}`);
+					}
+				} catch (e) {
+					console.error(`Failed to load char data for ${simplifiedChar}`, e);
+				}
+			}
+
+			// Japanese character animation (try Hanzi Writer first, fallback to note if not available)
+			if (japaneseChar) {
+				const jpTarget = document.getElementById('jp-writer-target');
+				if (jpTarget) {
+					try {
+						const writer = HanziWriter.create(jpTarget, japaneseChar, writerConfig);
+						writer.loopCharacterAnimation();
+					} catch (e) {
+						// If Hanzi Writer doesn't have this character, show a note
+						jpTarget.innerHTML = '<div style="font-size: 10px; color: #999; text-align: center; padding: 20px;">No stroke data</div>';
+					}
+				}
 			}
 		}
 	});
@@ -54,113 +112,156 @@
 	}
 </script>
 
+{#if typeof window !== 'undefined'}
+	{console.log('[PAGE] Rendering page for:', data.word)}
+{/if}
+
 <svelte:head>
 	<title>{data.word} - Kiokun Dictionary</title>
 </svelte:head>
 
 <Header currentWord={data.word} />
 
-<div class="container">
+<div class="max-w-6xl mx-auto px-3 py-4 md:px-5 md:py-5">
 	<div id="content">
 		<!-- Character Header -->
 		{#if data.data.chinese_char || data.data.japanese_char}
-			<div class="section">
-				<div class="section-content">
-					<!-- Character Display -->
-					<div style="margin-bottom: 20px;">
-						<div style="display: flex; align-items: flex-start; gap: 20px; margin-bottom: 10px;">
-							<!-- Large Character -->
-							<div style="font-size: 72px; font-weight: bold; font-family: 'MS Mincho', serif; line-height: 1;">
-								{data.word}
-							</div>
-
-							<!-- Hanzi Writer Animation (same size as character) -->
-							{#if data.data.chinese_char}
-								<div
-									id="hanzi-writer-target"
-									style="width: 72px; height: 72px;"
-								></div>
+			<div class="bg-primary-secondary rounded-xl shadow overflow-hidden transition-all duration-300 mb-0">
+				<div class="p-4 md:p-6 lg:p-8">
+					<!-- Character Variants Display -->
+					<div class="mb-5">
+						<div class="flex items-start gap-6 md:gap-8 mb-4 flex-wrap">
+							<!-- Traditional Chinese Character -->
+							{#if traditionalChar}
+								<div class="flex flex-col items-center gap-2">
+									<div class="text-5xl md:text-6xl font-bold font-cjk leading-none">
+										{traditionalChar}
+									</div>
+									<div class="text-sm">🇹🇼</div>
+									<div
+										id="trad-writer-target"
+										class="w-[72px] h-[72px]"
+									></div>
+								</div>
 							{/if}
 
-							<!-- Pronunciations -->
-							<div style="display: flex; flex-direction: column; gap: 8px; padding-top: 8px;">
-								<!-- Chinese Pinyin -->
-								{#if data.data.chinese_char?.pinyinFrequencies}
-									{@const wordPinyins = new Set(
-										data.data.chinese_words?.flatMap((w) =>
-											w.items?.map((item) => item.pinyin).filter(Boolean)
-										) || []
-									)}
-									{@const filteredPinyins = data.data.chinese_char.pinyinFrequencies.filter((pf) =>
-										wordPinyins.has(pf.pinyin)
-									)}
-									{#if filteredPinyins.length > 0}
-										<div>
-											<span style="font-size: 14px;">🇨🇳</span>
-											<span style="font-size: 18px; color: var(--color-pinyin); font-weight: 600;">
-												{filteredPinyins.map((pf) => pf.pinyin).join(', ')}
-											</span>
-										</div>
-									{/if}
-								{/if}
+							<!-- Simplified Chinese Character -->
+							{#if simplifiedChar}
+								<div class="flex flex-col items-center gap-2">
+									<div class="text-5xl md:text-6xl font-bold font-cjk leading-none">
+										{simplifiedChar}
+									</div>
+									<div class="text-sm">🇨🇳</div>
+									<div
+										id="simp-writer-target"
+										class="w-[72px] h-[72px]"
+									></div>
+								</div>
+							{/if}
 
-								<!-- Japanese Readings -->
-								{#if data.data.japanese_char?.readingMeaning?.readings}
-									{@const onyomi =
-										data.data.japanese_char.readingMeaning.readings?.filter((r) => r.type === 'ja_on').map((r) => r.value) || []}
-									{@const kunyomi =
-										data.data.japanese_char.readingMeaning.readings?.filter((r) => r.type === 'ja_kun').map((r) => r.value) || []}
-									<div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-										<div>
-											<span style="font-size: 14px;">🇯🇵</span>
+							<!-- Japanese Character -->
+							{#if japaneseChar}
+								<div class="flex flex-col items-center gap-2">
+									<div class="text-5xl md:text-6xl font-bold font-cjk leading-none">
+										{japaneseChar}
+									</div>
+									<div class="text-sm">🇯🇵</div>
+									<div
+										id="jp-writer-target"
+										class="w-[72px] h-[72px]"
+									></div>
+								</div>
+							{/if}
+						</div>
+
+						<!-- Pronunciations and Gloss -->
+						<div class="flex flex-col gap-3 mb-4">
+							<!-- Chinese Pinyin -->
+							{#if data.data.chinese_char?.pinyinFrequencies}
+								{@const wordPinyins = new Set(
+									data.data.chinese_words?.flatMap((w) =>
+										w.items?.map((item) => item.pinyin).filter(Boolean)
+									) || []
+								)}
+								{@const filteredPinyins = data.data.chinese_char.pinyinFrequencies.filter((pf) =>
+									wordPinyins.has(pf.pinyin)
+								)}
+								{#if filteredPinyins.length > 0}
+									<div class="flex items-center gap-2">
+										<span class="text-sm">🇨🇳</span>
+										<span class="text-base md:text-lg text-pinyin font-semibold">
+											{filteredPinyins.map((pf) => pf.pinyin).join(', ')}
+										</span>
+									</div>
+								{/if}
+							{/if}
+
+							<!-- Japanese Readings -->
+							{#if data.data.japanese_char?.readingMeaning}
+								{@const allReadings = data.data.japanese_char.readingMeaning.groups?.[0]?.readings ||
+								                       data.data.japanese_char.readingMeaning.readings || []}
+								{@const onyomi = allReadings.filter((r) => r.type === 'ja_on').map((r) => r.value)}
+								{@const kunyomi = allReadings.filter((r) => r.type === 'ja_kun').map((r) => r.value)}
+								{#if onyomi.length > 0 || kunyomi.length > 0}
+									<div class="flex items-center gap-2">
+										<span class="text-sm">🇯🇵</span>
+										{#if onyomi.length > 0}
+											<span class="text-base md:text-lg text-onyomi font-cjk">
+												{onyomi.join('、')}
+											</span>
+										{/if}
+										{#if kunyomi.length > 0}
 											{#if onyomi.length > 0}
-												<span
-													style="font-size: 18px; color: var(--color-onyomi); font-family: 'MS Mincho', serif;"
-												>
-													{onyomi.join('、')}
-												</span>
+												<span class="text-[var(--color-separator)]">|</span>
 											{/if}
-											{#if kunyomi.length > 0}
-												{#if onyomi.length > 0}
-													<span style="color: var(--color-separator);">|</span>
-												{/if}
-												<span
-													style="font-size: 18px; color: var(--color-kunyomi); font-family: 'MS Mincho', serif;"
-												>
-													{kunyomi.join('、')}
-												</span>
-											{/if}
-										</div>
-										{#if data.data.chinese_char?.gloss}
-											<div style="font-size: 20px; color: var(--color-gloss); font-weight: 600;">
-												{data.data.chinese_char.gloss}
-											</div>
+											<span class="text-base md:text-lg text-kunyomi font-cjk">
+												{kunyomi.join('、')}
+											</span>
 										{/if}
 									</div>
-								{:else if data.data.chinese_char?.gloss}
-									<div style="font-size: 20px; color: var(--color-gloss); font-weight: 600;">
-										{data.data.chinese_char.gloss}
-									</div>
 								{/if}
-							</div>
+							{/if}
+
+							<!-- English Gloss -->
+							{#if data.data.chinese_char?.gloss}
+								<div class="text-lg md:text-xl text-gloss font-semibold">
+									{data.data.chinese_char.gloss}
+								</div>
+							{/if}
 						</div>
 
 						<!-- Mnemonic Hint -->
 						{#if data.data.chinese_char?.hint}
-							<div
-								style="margin-top: 12px; padding: 10px; background: var(--color-hint-bg); border-left: 4px solid var(--color-hint-border); border-radius: 4px;"
-							>
-								<div style="font-size: 13px; color: var(--color-hint-text); line-height: 1.6;">
+							<div class="mt-3 p-2.5 rounded border-l-4" style="background: var(--color-hint-bg); border-left-color: var(--color-hint-border);">
+								<div class="text-sm leading-relaxed" style="color: var(--color-hint-text);">
 									💡 {data.data.chinese_char.hint}
 								</div>
 							</div>
 						{/if}
+
+						<!-- Comments (from Academia Sinica, etc.) -->
+						{#if data.data.chinese_char?.comments && data.data.chinese_char.comments.length > 0}
+							<div class="mt-3">
+								{#each data.data.chinese_char.comments as comment}
+									{#if comment && comment.source && comment.comment}
+										<div class="p-2.5 rounded border-l-4 mb-2" style="background: var(--bg-tertiary); border-left-color: var(--border-light);">
+											<div class="text-xs text-tertiary font-semibold mb-1">
+												{comment.source}
+											</div>
+											<div class="text-sm leading-relaxed" style="color: var(--text-secondary);">
+												{comment.comment}
+											</div>
+										</div>
+									{/if}
+								{/each}
+							</div>
+						{/if}
 					</div>
 
-					<!-- Components -->
+					<!-- Components Section -->
 					{#if data.data.chinese_char?.components && data.data.chinese_char.components.length > 0}
 						{@const makemeahanziImage = data.data.chinese_char.images?.find(
-							(img) => img.source === 'makemeahanzi' && img.data
+							(img) => img && img.source === 'makemeahanzi' && img.data
 						)}
 						<div style="margin-bottom: 20px;">
 							<div
@@ -168,139 +269,197 @@
 							>
 								🧩 Components
 							</div>
-							<div style="display: flex; gap: 15px; flex-wrap: wrap; align-items: flex-start;">
-								{#each data.data.chinese_char.components as comp, compIndex}
-									{@const char = typeof comp === 'string' ? comp : comp.character || comp.char || comp}
-									{@const types = comp.componentType || comp.type || []}
-									{@const isMeaning = types.includes('meaning')}
-									{@const isPhonetic = types.includes('phonetic')}
-									{@const highlightColor = isMeaning
-										? '#27ae60'
-										: isPhonetic
-											? '#e74c3c'
-											: '#95a5a6'}
-									<div
-										style="text-align: center; padding: 8px; background: var(--bg-secondary); border-radius: 6px; border: 2px solid {highlightColor};"
-									>
-										{#if makemeahanziImage?.data?.strokes}
-											{@const totalStrokes = makemeahanziImage.data.strokes.length}
-											{@const numComponents = data.data.chinese_char.components.length}
-											{@const strokesPerComponent = Math.ceil(totalStrokes / numComponents)}
-											{@const startStroke = compIndex * strokesPerComponent}
-											{@const endStroke = Math.min((compIndex + 1) * strokesPerComponent, totalStrokes)}
-											<!-- SVG with highlighted strokes for this component -->
-											<svg
-												width="80"
-												height="80"
-												viewBox="0 0 1024 1024"
-												style="border: 1px solid #e0e0e0; margin-bottom: 8px;"
-											>
-												<g transform="scale(1, -1) translate(0, -900)">
-													{#each makemeahanziImage.data.strokes as stroke, strokeIndex}
-														{@const isHighlighted = strokeIndex >= startStroke && strokeIndex < endStroke}
-														<path
-															d={stroke}
-															fill={isHighlighted ? highlightColor : '#d0d0d0'}
-															stroke={isHighlighted ? highlightColor : '#d0d0d0'}
-															stroke-width={isHighlighted ? '12' : '8'}
-														/>
-													{/each}
-												</g>
-											</svg>
-										{:else}
-											<!-- Fallback: just show the character -->
+
+							<!-- Traditional Character Components -->
+							<div style="margin-bottom: 20px;">
+								<div style="font-size: 14px; font-weight: 600; margin-bottom: 10px; color: var(--text-secondary);">
+									Traditional (🇹🇼 {traditionalChar})
+								</div>
+								<div style="display: flex; gap: 15px; flex-wrap: wrap; align-items: flex-start;">
+									{#each data.data.chinese_char.components as comp, compIndex}
+										{@const char = typeof comp === 'string' ? comp : comp.character || comp.char || comp}
+										{@const types = comp.componentType || comp.type || []}
+										{@const hint = comp.hint}
+										{@const isMeaning = types.includes('meaning')}
+										{@const isPhonetic = types.includes('phonetic')}
+										{@const isIconic = types.includes('iconic')}
+										{@const highlightColor = isMeaning
+											? '#27ae60'
+											: isPhonetic
+												? '#e74c3c'
+												: isIconic
+													? '#3498db'
+													: '#95a5a6'}
+										<div
+											style="text-align: center; padding: 8px; background: var(--bg-secondary); border-radius: 6px; border: 2px solid {highlightColor}; max-width: 120px;"
+										>
+											{#if makemeahanziImage?.data?.strokes}
+												{@const totalStrokes = makemeahanziImage.data.strokes.length}
+												{@const numComponents = data.data.chinese_char.components.length}
+												{@const strokesPerComponent = Math.ceil(totalStrokes / numComponents)}
+												{@const startStroke = compIndex * strokesPerComponent}
+												{@const endStroke = Math.min((compIndex + 1) * strokesPerComponent, totalStrokes)}
+												<!-- SVG with highlighted strokes for this component -->
+												<svg
+													width="80"
+													height="80"
+													viewBox="0 0 1024 1024"
+													style="border: 1px solid #e0e0e0; margin-bottom: 8px;"
+												>
+													<g transform="scale(1, -1) translate(0, -900)">
+														{#each makemeahanziImage.data.strokes as stroke, strokeIndex}
+															{@const isHighlighted = strokeIndex >= startStroke && strokeIndex < endStroke}
+															<path
+																d={stroke}
+																fill={isHighlighted ? highlightColor : '#d0d0d0'}
+																stroke={isHighlighted ? highlightColor : '#d0d0d0'}
+																stroke-width={isHighlighted ? '12' : '8'}
+															/>
+														{/each}
+													</g>
+												</svg>
+											{:else}
+												<!-- Fallback: just show the character -->
+												<div
+													style="font-size: 32px; font-family: 'MS Mincho', serif; line-height: 1; margin-bottom: 8px;"
+												>
+													{char}
+												</div>
+											{/if}
 											<div
-												style="font-size: 32px; font-family: 'MS Mincho', serif; line-height: 1; margin-bottom: 8px;"
+												style="font-size: 16px; font-weight: 600; font-family: 'MS Mincho', serif;"
 											>
 												{char}
 											</div>
-										{/if}
-										<div
-											style="font-size: 16px; font-weight: 600; font-family: 'MS Mincho', serif;"
-										>
-											{char}
+											{#if types.length > 0}
+												<div
+													style="font-size: 10px; color: {highlightColor}; margin-top: 4px; font-weight: 600;"
+												>
+													{types
+														.map((t) =>
+															t === 'meaning' ? '🟢 meaning' :
+															t === 'phonetic' ? '🔴 sound' :
+															t === 'iconic' ? '🔵 iconic' :
+															t
+														)
+														.join(' ')}
+												</div>
+											{/if}
+											{#if hint}
+												<div
+													style="font-size: 9px; color: var(--text-tertiary); margin-top: 4px; line-height: 1.3;"
+												>
+													{hint}
+												</div>
+											{/if}
 										</div>
-										{#if types.length > 0}
-											<div
-												style="font-size: 10px; color: {highlightColor}; margin-top: 4px; font-weight: 600;"
-											>
-												{types
-													.map((t) => (t === 'meaning' ? '🟢 meaning' : t === 'phonetic' ? '🔴 sound' : t))
-													.join(' ')}
-											</div>
-										{/if}
+									{/each}
+								</div>
+							</div>
+
+							<!-- Simplified Character Components (if different) -->
+							{#if simplifiedChar && simplifiedChar !== traditionalChar}
+								<div style="margin-bottom: 20px;">
+									<div style="font-size: 14px; font-weight: 600; margin-bottom: 10px; color: var(--text-secondary);">
+										Simplified (🇨🇳 {simplifiedChar})
 									</div>
-								{/each}
-							</div>
-						</div>
-					{/if}
-
-
-
-					<!-- Historical Evolution -->
-					{#if data.data.chinese_char?.images && data.data.chinese_char.images.length > 0}
-						<div style="margin-bottom: 20px;">
-							<div
-								style="font-weight: 600; font-size: 16px; margin-bottom: 12px; color: var(--color-heading);"
-							>
-								🏛️ Historical Evolution
-							</div>
-							<div style="display: flex; gap: 12px; overflow-x: auto; padding: 10px 0;">
-								{#each data.data.chinese_char.images as image}
-									{#if image.source === 'makemeahanzi' && image.data}
-										<!-- MakeMeAHanzi: Show complete character -->
-										<div
-											style="flex-shrink: 0; text-align: center; padding: 10px; background: var(--bg-secondary); border-radius: 8px; border: 1px solid var(--border-light);"
-										>
-											<svg
-												width="80"
-												height="80"
-												viewBox="0 0 1024 1024"
-												style="border: 1px solid #e0e0e0;"
-											>
-												<g transform="scale(1, -1) translate(0, -900)">
-													{#each image.data.strokes as stroke}
-														<path
-															d={stroke}
-															fill="#2c3e50"
-															stroke="#2c3e50"
-															stroke-width="8"
-														/>
-													{/each}
-												</g>
-											</svg>
-											<div style="font-size: 11px; color: #7f8c8d; margin-top: 6px; font-weight: 600;">
-												{image.type}
-											</div>
-											<div style="font-size: 10px; color: #95a5a6; margin-top: 2px;">
-												{image.era || ''}
-											</div>
+									{#if simplifiedCharData?.components && simplifiedCharData.components.length > 0}
+										{@const simpMakemeahanziImage = simplifiedCharData.images?.find(
+											(img) => img && img.source === 'makemeahanzi' && img.data
+										)}
+										<div style="display: flex; gap: 15px; flex-wrap: wrap; align-items: flex-start;">
+											{#each simplifiedCharData.components as comp, compIndex}
+												{@const char = typeof comp === 'string' ? comp : comp.character || comp.char || comp}
+												{@const types = comp.componentType || comp.type || []}
+												{@const hint = comp.hint}
+												{@const isMeaning = types.includes('meaning')}
+												{@const isPhonetic = types.includes('phonetic')}
+												{@const isIconic = types.includes('iconic')}
+												{@const highlightColor = isMeaning
+													? '#27ae60'
+													: isPhonetic
+														? '#e74c3c'
+														: isIconic
+															? '#3498db'
+															: '#95a5a6'}
+												<div
+													style="text-align: center; padding: 8px; background: var(--bg-secondary); border-radius: 6px; border: 2px solid {highlightColor}; max-width: 120px;"
+												>
+													{#if simpMakemeahanziImage?.data?.strokes}
+														{@const totalStrokes = simpMakemeahanziImage.data.strokes.length}
+														{@const numComponents = simplifiedCharData.components.length}
+														{@const strokesPerComponent = Math.ceil(totalStrokes / numComponents)}
+														{@const startStroke = compIndex * strokesPerComponent}
+														{@const endStroke = Math.min((compIndex + 1) * strokesPerComponent, totalStrokes)}
+														<!-- SVG with highlighted strokes for this component -->
+														<svg
+															width="80"
+															height="80"
+															viewBox="0 0 1024 1024"
+															style="border: 1px solid #e0e0e0; margin-bottom: 8px;"
+														>
+															<g transform="scale(1, -1) translate(0, -900)">
+																{#each simpMakemeahanziImage.data.strokes as stroke, strokeIndex}
+																	{@const isHighlighted = strokeIndex >= startStroke && strokeIndex < endStroke}
+																	<path
+																		d={stroke}
+																		fill={isHighlighted ? highlightColor : '#d0d0d0'}
+																		stroke={isHighlighted ? highlightColor : '#d0d0d0'}
+																		stroke-width={isHighlighted ? '12' : '8'}
+																	/>
+																{/each}
+															</g>
+														</svg>
+													{:else}
+														<!-- Fallback: just show the character -->
+														<div
+															style="font-size: 32px; font-family: 'MS Mincho', serif; line-height: 1; margin-bottom: 8px;"
+														>
+															{char}
+														</div>
+													{/if}
+													<div
+														style="font-size: 16px; font-weight: 600; font-family: 'MS Mincho', serif;"
+													>
+														{char}
+													</div>
+													{#if types.length > 0}
+														<div
+															style="font-size: 10px; color: {highlightColor}; margin-top: 4px; font-weight: 600;"
+														>
+															{types
+																.map((t) =>
+																	t === 'meaning' ? '🟢 meaning' :
+																	t === 'phonetic' ? '🔴 sound' :
+																	t === 'iconic' ? '🔵 iconic' :
+																	t
+																)
+																.join(' ')}
+														</div>
+													{/if}
+													{#if hint}
+														<div
+															style="font-size: 9px; color: var(--text-tertiary); margin-top: 4px; line-height: 1.3;"
+														>
+															{hint}
+														</div>
+													{/if}
+												</div>
+											{/each}
 										</div>
-									{:else if image.path}
-										<!-- Historical images from Academia Sinica (hosted on Dong Chinese) -->
-										<div
-											style="flex-shrink: 0; text-align: center; padding: 10px; background: var(--bg-secondary); border-radius: 8px; border: 1px solid var(--border-light);"
-										>
-											<img
-												src="https://data.dong-chinese.com/img/sinica/{image.path}"
-												alt="{image.type} {image.era}"
-												style="width: 80px; height: 80px; object-fit: contain;"
-												onerror={(e) => {
-													e.currentTarget.parentElement.style.display = 'none';
-												}}
-											/>
-											<div style="font-size: 11px; color: #7f8c8d; margin-top: 6px; font-weight: 600;">
-												{image.type}
-											</div>
-											<div style="font-size: 10px; color: #95a5a6; margin-top: 2px;">
-												{image.era || ''}
-											</div>
+									{:else}
+										<div style="font-size: 12px; color: var(--text-tertiary); font-style: italic;">
+											Component breakdown coming soon
 										</div>
 									{/if}
-								{/each}
-							</div>
+								</div>
+							{/if}
 						</div>
 					{/if}
+
+
+
+
 
 					<!-- Usage Statistics -->
 					{#if data.data.chinese_char?.statistics}
@@ -432,11 +591,11 @@
 		<Notes character={data.word} />
 
 		<!-- Word Definitions Container (Two Columns on Desktop) -->
-		<div class="word-definitions-container">
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mb-5 md:mb-8">
 			<!-- Chinese Words -->
 		{#if data.data.chinese_words && data.data.chinese_words.length > 0}
-			<div class="section">
-				<div class="section-content" style="padding: 20px;">
+			<div class="bg-primary-secondary rounded-xl shadow overflow-hidden transition-all duration-300 mb-0">
+				<div class="p-4 md:p-5">
 					{#each data.data.chinese_words as word}
 						{#if word.items && word.items.length > 0}
 							{@const itemsWithDefs = word.items.filter(
@@ -475,8 +634,8 @@
 
 		<!-- Japanese Words -->
 		{#if (data.data.japanese_words && data.data.japanese_words.length > 0) || (data.relatedJapaneseWords && data.relatedJapaneseWords.length > 0)}
-			<div class="section">
-				<div class="section-content" style="padding: 20px;">
+			<div class="bg-primary-secondary rounded-xl shadow overflow-hidden transition-all duration-300 mb-0">
+				<div class="p-4 md:p-5">
 					<!-- Direct Japanese Words -->
 					{#each data.data.japanese_words || [] as word}
 						{@const mainKanji =
@@ -891,63 +1050,21 @@
 </div>
 
 <style>
-	.container {
-		max-width: 1200px;
-		margin: 0 auto;
-		padding: 20px;
-	}
-
-	.word-definitions-container {
-		display: grid;
-		grid-template-columns: 1fr;
-		gap: 30px;
-		margin-bottom: 30px;
-	}
-
-	/* Two columns on desktop */
-	@media (min-width: 768px) {
-		.word-definitions-container {
-			grid-template-columns: 1fr 1fr;
-		}
-	}
-
-	.section {
-		background: var(--bg-secondary);
-		border-radius: 12px;
-		box-shadow: 0 2px 10px var(--shadow);
-		margin-bottom: 0;
-		overflow: hidden;
-		transition: background-color 0.3s ease, box-shadow 0.3s ease;
-	}
-
-	.section-content {
-		padding: 30px;
-	}
-
+	/* Custom styles that are hard to express in Tailwind or use CSS variables */
 	.pos-tag {
-		display: inline-block;
+		@apply inline-block px-2 py-0.5 rounded text-[11px] font-semibold mr-2 transition-all duration-300;
 		background: var(--tag-pos-bg);
-		padding: 2px 8px;
-		border-radius: 4px;
-		font-size: 11px;
-		font-weight: 600;
 		color: var(--tag-pos-text);
-		margin-right: 8px;
-		transition: background-color 0.3s ease, color 0.3s ease;
 	}
 
 	.badge {
-		padding: 6px 12px;
-		border-radius: 20px;
-		font-size: 12px;
-		font-weight: 600;
-		text-transform: uppercase;
+		@apply px-3 py-1.5 rounded-full text-xs font-semibold uppercase;
 	}
 
 	.badge-hsk {
+		@apply transition-all duration-300;
 		background: var(--badge-hsk-bg);
 		color: var(--badge-hsk-text);
-		transition: background-color 0.3s ease, color 0.3s ease;
 	}
 </style>
 
