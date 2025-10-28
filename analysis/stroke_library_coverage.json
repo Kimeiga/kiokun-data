@@ -1,0 +1,76 @@
+{
+  "dictionary_stats": {
+    "traditional": 86425,
+    "simplified": 6126,
+    "japanese": 9902
+  },
+  "library_results": {
+    "AnimCJK": {
+      "japanese": {
+        "total": 9902,
+        "available": 3821,
+        "covered": 3193,
+        "missing": 6709,
+        "coverage_pct": 32.2460109068875
+      },
+      "traditional": {
+        "total": 86425,
+        "available": 953,
+        "covered": 921,
+        "missing": 85504,
+        "coverage_pct": 1.065663870407868
+      },
+      "simplified": {
+        "total": 6126,
+        "available": 7673,
+        "covered": 2321,
+        "missing": 3805,
+        "coverage_pct": 37.88769180541952
+      }
+    },
+    "MakeMeAHanzi": {
+      "traditional": {
+        "total": 86425,
+        "available": 9574,
+        "covered": 7162,
+        "missing": 79263,
+        "coverage_pct": 8.2869540063639
+      },
+      "simplified": {
+        "total": 6126,
+        "available": 9574,
+        "covered": 2290,
+        "missing": 3836,
+        "coverage_pct": 37.38165197518772
+      }
+    },
+    "KanjiVG": {
+      "japanese": {
+        "total": 9902,
+        "available": "Unknown (estimated)",
+        "covered": 6238,
+        "missing": 3664,
+        "coverage_pct": 63.0,
+        "note": "Estimated from sample"
+      }
+    },
+    "HanziWriter": {
+      "traditional": {
+        "total": 86425,
+        "available": "Unknown (estimated)",
+        "covered": 9506,
+        "missing": 76919,
+        "coverage_pct": 11.0,
+        "note": "Estimated from sample"
+      },
+      "simplified": {
+        "total": 6126,
+        "available": "Unknown (estimated)",
+        "covered": 2327,
+        "missing": 3799,
+        "coverage_pct": 38.0,
+        "note": "Estimated from sample"
+      }
+    }
+  }
+}

@@ -1,0 +1,104 @@
+Comprehensive Stroke Order Library Coverage Test
+================================================================================
+Scanning output_dictionary for characters...
+  Traditional Chinese: 86425 characters
+  Simplified Chinese: 6126 characters
+  Japanese: 9902 characters
+
+================================================================================
+Testing AnimCJK
+================================================================================
+
+Downloading japanese...
+  Available: 3821 characters
+  Coverage: 3193/9902 (32.2%)
+
+Downloading traditional...
+  Available: 953 characters
+  Coverage: 921/86425 (1.1%)
+
+Downloading simplified...
+  Available: 7673 characters
+  Coverage: 2321/6126 (37.9%)
+
+================================================================================
+Testing MakeMeAHanzi
+================================================================================
+
+Downloading dictionary...
+  Available: 9574 characters
+
+  Traditional:
+    Coverage: 7162/86425 (8.3%)
+
+  Simplified:
+    Coverage: 2290/6126 (37.4%)
+
+================================================================================
+Testing KanjiVG
+================================================================================
+
+Note: KanjiVG doesn't provide a simple character list.
+Sampling characters to estimate coverage...
+
+  Sample: 63/100 found (63.0%)
+  Estimated coverage: ~6238/9902 (63.0%)
+
+================================================================================
+Testing Hanzi Writer
+================================================================================
+
+Note: Hanzi Writer data is distributed across many files.
+Sampling characters to estimate coverage...
+  Tested 50/200 characters...
+  Tested 100/200 characters...
+  Tested 150/200 characters...
+  Tested 200/200 characters...
+
+  Traditional:
+    Sample: 22/200 found (11.0%)
+    Estimated coverage: ~9506/86425 (11.0%)
+  Tested 50/200 characters...
+  Tested 100/200 characters...
+  Tested 150/200 characters...
+  Tested 200/200 characters...
+
+  Simplified:
+    Sample: 76/200 found (38.0%)
+    Estimated coverage: ~2327/6126 (38.0%)
+
+================================================================================
+SUMMARY & RECOMMENDATIONS
+================================================================================
+
+TRADITIONAL:
+  Total characters in dictionary: 86425
+
+  Coverage by library:
+    AnimCJK: 1.1%
+    MakeMeAHanzi: 8.3%
+    HanziWriter: 11.0% (Estimated from sample)
+
+  ✅ BEST: HanziWriter with 11.0% coverage
+
+SIMPLIFIED:
+  Total characters in dictionary: 6126
+
+  Coverage by library:
+    AnimCJK: 37.9%
+    MakeMeAHanzi: 37.4%
+    HanziWriter: 38.0% (Estimated from sample)
+
+  ✅ BEST: HanziWriter with 38.0% coverage
+
+JAPANESE:
+  Total characters in dictionary: 9902
+
+  Coverage by library:
+    AnimCJK: 32.2%
+    KanjiVG: 63.0% (Estimated from sample)
+
+  ✅ BEST: KanjiVG with 63.0% coverage
+
+
+Detailed results saved to: analysis/stroke_library_coverage.json

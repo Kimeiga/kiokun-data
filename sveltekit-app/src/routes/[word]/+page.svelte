@@ -19,6 +19,7 @@
 
 	// State for simplified character data
 	let simplifiedCharData: any = $state(null);
+	let simpComponentStrokeMap: Map<string, number[]> = $state(new Map());
 
 	// Initialize Hanzi Writer for stroke animations
 	onMount(async () => {
@@ -28,6 +29,145 @@
 
 			const strokeColor = getComputedStyle(document.documentElement).getPropertyValue('--color-stroke').trim() || '#2c3e50';
 			const outlineColor = getComputedStyle(document.documentElement).getPropertyValue('--color-outline').trim() || '#e0e0e0';
+
+			// Custom charDataLoader to use Japanese data for Japanese characters
+			// Falls back to Chinese data, then KanjiVG if neither is available
+			const charDataLoader = (char: string, onComplete: (data: any) => void, onError: (error: any) => void) => {
+				// Determine if this is a Japanese character by checking if the char matches japaneseChar
+				const isJapanese = char === japaneseChar;
+
+				if (isJapanese) {
+					// Try Japanese data first, fall back to Chinese data, then KanjiVG
+					fetch(`https://cdn.jsdelivr.net/npm/hanzi-writer-data-jp@0/${char}.json`)
+						.then(res => {
+							if (!res.ok) throw new Error(`HTTP ${res.status}`);
+							return res.json();
+						})
+						.then(onComplete)
+						.catch(() => {
+							// Fall back to Chinese data if Japanese data is not available
+							fetch(`https://cdn.jsdelivr.net/npm/hanzi-writer-data@latest/${char}.json`)
+								.then(res => {
+									if (!res.ok) throw new Error(`HTTP ${res.status}`);
+									return res.json();
+								})
+								.then(onComplete)
+								.catch(() => {
+									// Final fallback: try to load KanjiVG SVG
+									loadKanjiVGFallback(char, onError);
+								});
+						});
+				} else {
+					// Use Chinese data for Chinese characters
+					fetch(`https://cdn.jsdelivr.net/npm/hanzi-writer-data@latest/${char}.json`)
+						.then(res => {
+							if (!res.ok) throw new Error(`HTTP ${res.status}`);
+							return res.json();
+						})
+						.then(onComplete)
+						.catch(onError);
+				}
+			};
+
+			// Fallback function to load and animate KanjiVG SVG for Japanese characters
+			const loadKanjiVGFallback = async (char: string, onError: (error: any) => void) => {
+				try {
+					// Get Unicode codepoint in hex format (e.g., 図 → 56f3)
+					const codepoint = char.codePointAt(0)?.toString(16).padStart(5, '0');
+					if (!codepoint) throw new Error('Invalid character');
+
+					// Try to load KanjiVG SVG from GitHub
+					const svgUrl = `https://raw.githubusercontent.com/KanjiVG/kanjivg/master/kanji/${codepoint}.svg`;
+					const response = await fetch(svgUrl);
+
+					if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+					const svgText = await response.text();
+
+					// Find the target element and inject the SVG
+					const targetId = char === japaneseChar ? 'jp-writer-target' :
+					                 char === simplifiedChar ? 'simp-writer-target' : 'trad-writer-target';
+					const target = document.getElementById(targetId);
+
+					if (target) {
+						// Parse the SVG text to extract only the SVG element
+						const parser = new DOMParser();
+						const doc = parser.parseFromString(svgText, 'image/svg+xml');
+						const svg = doc.querySelector('svg');
+
+						if (svg) {
+							// Clear the target and append the parsed SVG
+							target.innerHTML = '';
+							target.appendChild(svg);
+
+							// Style the SVG to fit the container
+							svg.setAttribute('width', '72');
+							svg.setAttribute('height', '72');
+							svg.style.display = 'block';
+							svg.id = `kanjivg-${codepoint}`;
+
+							// Clone all paths to create gray background strokes
+							const paths = svg.querySelectorAll('path');
+							const pathsArray = Array.from(paths);
+
+							pathsArray.forEach((path) => {
+								// Create a gray background clone
+								const bgPath = path.cloneNode(true) as SVGPathElement;
+								bgPath.style.fill = 'none';
+								bgPath.style.stroke = outlineColor;
+								bgPath.style.strokeWidth = '3';
+								bgPath.style.strokeLinecap = 'round';
+								bgPath.style.strokeLinejoin = 'round';
+								bgPath.removeAttribute('id'); // Remove ID to avoid duplicates
+
+								// Insert the background path before the original
+								path.parentNode?.insertBefore(bgPath, path);
+
+								// Style the animated foreground path
+								path.style.fill = 'none';
+								path.style.stroke = strokeColor;
+								path.style.strokeWidth = '3';
+								path.style.strokeLinecap = 'round';
+								path.style.strokeLinejoin = 'round';
+
+								// Get path length for stroke-dasharray animation
+								const length = path.getTotalLength();
+								path.style.strokeDasharray = `${length}`;
+								path.style.strokeDashoffset = `${length}`;
+							});
+
+							// Auto-loop animation function
+							const animateStrokes = () => {
+								pathsArray.forEach((path, index) => {
+									// Animate each stroke sequentially
+									setTimeout(() => {
+										path.style.transition = 'stroke-dashoffset 0.5s ease-in-out';
+										path.style.strokeDashoffset = '0';
+									}, index * 600); // 500ms animation + 100ms delay between strokes
+								});
+
+								// Reset and loop after all strokes are drawn
+								const totalDuration = pathsArray.length * 600 + 1000; // Add 1s pause at end
+								setTimeout(() => {
+									pathsArray.forEach((path) => {
+										path.style.transition = 'none';
+										const length = path.getTotalLength();
+										path.style.strokeDashoffset = `${length}`;
+									});
+									// Restart animation after a brief moment
+									setTimeout(animateStrokes, 100);
+								}, totalDuration);
+							};
+
+							// Start the animation loop
+							animateStrokes();
+						}
+					}
+				} catch (error) {
+					console.error('KanjiVG fallback failed:', error);
+					onError(error);
+				}
+			};
 
 			const writerConfig = {
 				width: 72,
@@ -40,7 +180,8 @@
 				strokeColor,
 				outlineColor,
 				drawingColor: strokeColor,
-				strokeFadeDuration: 500
+				strokeFadeDuration: 500,
+				charDataLoader: charDataLoader
 			};
 
 			// Traditional character animation
@@ -70,8 +211,64 @@
 						const decompressed = inflateSync(new Uint8Array(arrayBuffer));
 						const jsonData = JSON.parse(new TextDecoder().decode(decompressed));
 						console.log('[SIMP CHAR] Full JSON data:', jsonData);
-						simplifiedCharData = jsonData.chinese_char;
-						console.log('[SIMP CHAR] Loaded data for', simplifiedChar, simplifiedCharData);
+
+						// Check if this is a redirect entry
+						if (jsonData.redirect) {
+							console.log('[SIMP CHAR] Following redirect to:', jsonData.redirect);
+							// Load the redirect target's data
+							const redirectUrl = getDictionaryUrl(jsonData.redirect, dev);
+							const redirectResponse = await fetch(redirectUrl);
+							if (redirectResponse.ok) {
+								const redirectArrayBuffer = await redirectResponse.arrayBuffer();
+								const redirectDecompressed = inflateSync(new Uint8Array(redirectArrayBuffer));
+								const redirectJsonData = JSON.parse(new TextDecoder().decode(redirectDecompressed));
+								simplifiedCharData = redirectJsonData.chinese_char;
+								console.log('[SIMP CHAR] Loaded redirect data for', jsonData.redirect, simplifiedCharData);
+							}
+						} else {
+							simplifiedCharData = jsonData.chinese_char;
+							console.log('[SIMP CHAR] Loaded data for', simplifiedChar, simplifiedCharData);
+						}
+
+						// Try to load KanjiVG data to get component-to-stroke mappings
+						// Use the simplified character for KanjiVG lookup
+						try {
+							const codepoint = simplifiedChar.codePointAt(0)?.toString(16).padStart(5, '0');
+							if (codepoint) {
+								const svgUrl = `https://raw.githubusercontent.com/KanjiVG/kanjivg/master/kanji/${codepoint}.svg`;
+								const svgResponse = await fetch(svgUrl);
+								if (svgResponse.ok) {
+									const svgText = await svgResponse.text();
+									const parser = new DOMParser();
+									const doc = parser.parseFromString(svgText, 'image/svg+xml');
+
+									// Extract component-to-stroke mappings from kvg:element attributes
+									const componentStrokeMap = new Map<string, number[]>();
+									const paths = doc.querySelectorAll('path[id^="kvg:"]');
+
+									paths.forEach((path, strokeIndex) => {
+										// Find the parent group with kvg:element attribute
+										let currentElement = path.parentElement;
+										while (currentElement && currentElement.tagName === 'g') {
+											const element = currentElement.getAttribute('kvg:element');
+											if (element) {
+												if (!componentStrokeMap.has(element)) {
+													componentStrokeMap.set(element, []);
+												}
+												componentStrokeMap.get(element)!.push(strokeIndex);
+												break;
+											}
+											currentElement = currentElement.parentElement;
+										}
+									});
+
+									console.log('[KANJIVG] Component stroke map:', componentStrokeMap);
+									simpComponentStrokeMap = componentStrokeMap;
+								}
+							}
+						} catch (e) {
+							console.error('Failed to load KanjiVG data for component mapping:', e);
+						}
 					} else {
 						console.error(`Failed to load char data for ${simplifiedChar}: ${response.status}`);
 					}
@@ -386,11 +583,7 @@
 													style="text-align: center; padding: 8px; background: var(--bg-secondary); border-radius: 6px; border: 2px solid {highlightColor}; max-width: 120px;"
 												>
 													{#if simpMakemeahanziImage?.data?.strokes}
-														{@const totalStrokes = simpMakemeahanziImage.data.strokes.length}
-														{@const numComponents = simplifiedCharData.components.length}
-														{@const strokesPerComponent = Math.ceil(totalStrokes / numComponents)}
-														{@const startStroke = compIndex * strokesPerComponent}
-														{@const endStroke = Math.min((compIndex + 1) * strokesPerComponent, totalStrokes)}
+														{@const componentStrokes = simpComponentStrokeMap.get(char) || []}
 														<!-- SVG with highlighted strokes for this component -->
 														<svg
 															width="80"
@@ -400,7 +593,7 @@
 														>
 															<g transform="scale(1, -1) translate(0, -900)">
 																{#each simpMakemeahanziImage.data.strokes as stroke, strokeIndex}
-																	{@const isHighlighted = strokeIndex >= startStroke && strokeIndex < endStroke}
+																	{@const isHighlighted = componentStrokes.includes(strokeIndex)}
 																	<path
 																		d={stroke}
 																		fill={isHighlighted ? highlightColor : '#d0d0d0'}
