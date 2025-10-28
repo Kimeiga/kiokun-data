@@ -271,6 +271,22 @@ async fn main() -> Result<()> {
                 ])
                 .default_value("all"),
         )
+        .arg(
+            Arg::new("exclude-dictionaries")
+                .long("exclude-dictionaries")
+                .value_name("DICTIONARIES")
+                .help("Exclude specific dictionaries from loading (comma-separated: cedict,jmdict,kanjidic,chinese-char,jmnedict)")
+                .value_delimiter(',')
+                .value_parser(["cedict", "jmdict", "kanjidic", "chinese-char", "jmnedict"])
+                .num_args(0..),
+        )
+        .arg(
+            Arg::new("filter-characters")
+                .long("filter-characters")
+                .value_name("CHARACTERS")
+                .help("Only output entries containing at least one of these characters (e.g., '図圖图' for development/testing)")
+                .num_args(1),
+        )
         .get_matches();
 
     if matches.get_flag("generate-j2c-mapping") {
@@ -418,17 +434,54 @@ async fn main() -> Result<()> {
 
     println!("🚀 Starting dictionary merger...");
 
+    // Get excluded dictionaries
+    let excluded_dicts: Vec<String> = matches
+        .get_many::<String>("exclude-dictionaries")
+        .map(|vals| vals.map(|s| s.to_string()).collect())
+        .unwrap_or_default();
+
+    if !excluded_dicts.is_empty() {
+        println!("⚠️  Excluding dictionaries: {}", excluded_dicts.join(", "));
+    }
+
+    // Get character filter for development
+    let filter_characters: Option<String> = matches
+        .get_one::<String>("filter-characters")
+        .map(|s| s.to_string());
+
+    if let Some(ref chars) = filter_characters {
+        println!("🔍 Filtering output to entries containing: {}", chars);
+    }
+
     // Create output directory
     fs::create_dir_all("output")?;
-    
-    // Load dictionaries
-    println!("📚 Loading Chinese dictionary...");
-    let chinese_entries = load_chinese_dictionary("data/chinese_dictionary_word_2025-06-25.jsonl")
-        .context("Failed to load Chinese dictionary")?;
 
-    println!("📚 Loading Japanese dictionary...");
-    let japanese_dict = load_japanese_dictionary("data/jmdict-examples-eng-3.6.1.json")
-        .context("Failed to load Japanese dictionary")?;
+    // Load dictionaries (conditionally based on exclusions)
+    let chinese_entries = if excluded_dicts.contains(&"cedict".to_string()) {
+        println!("⏭️  Skipping Chinese dictionary (CEDICT)");
+        Vec::new()
+    } else {
+        println!("📚 Loading Chinese dictionary...");
+        load_chinese_dictionary("data/chinese_dictionary_word_2025-06-25.jsonl")
+            .context("Failed to load Chinese dictionary")?
+    };
+
+    let japanese_dict = if excluded_dicts.contains(&"jmdict".to_string()) {
+        println!("⏭️  Skipping Japanese dictionary (JMdict)");
+        japanese_types::JapaneseEntry {
+            version: String::new(),
+            languages: Vec::new(),
+            common_only: false,
+            dict_date: String::new(),
+            dict_revisions: Vec::new(),
+            tags: HashMap::new(),
+            words: Vec::new(),
+        }
+    } else {
+        println!("📚 Loading Japanese dictionary...");
+        load_japanese_dictionary("data/jmdict-examples-eng-3.6.1.json")
+            .context("Failed to load Japanese dictionary")?
+    };
 
     println!("📚 Loading Japanese to Chinese mapping...");
     let j2c_mapping = load_j2c_mapping("output/j2c_mapping.json")
@@ -466,17 +519,39 @@ async fn main() -> Result<()> {
     }
 
     // Load character dictionaries and JMnedict for individual file generation
-    println!("📚 Loading Chinese character dictionary...");
-    let mut chinese_char_dict_raw = load_chinese_char_dictionary("data/chinese_dictionary_char_2025-06-25.jsonl")
-        .context("Failed to load Chinese character dictionary")?;
+    let mut chinese_char_dict_raw = if excluded_dicts.contains(&"chinese-char".to_string()) {
+        println!("⏭️  Skipping Chinese character dictionary");
+        Vec::new()
+    } else {
+        println!("📚 Loading Chinese character dictionary...");
+        load_chinese_char_dictionary("data/chinese_dictionary_char_2025-06-25.jsonl")
+            .context("Failed to load Chinese character dictionary")?
+    };
 
-    println!("📚 Loading Japanese character dictionary (KANJIDIC2)...");
-    let mut japanese_char_dict_raw = load_japanese_char_dictionary("data/kanjidic2-en-3.6.1.json")
-        .context("Failed to load Japanese character dictionary")?;
+    let mut japanese_char_dict_raw = if excluded_dicts.contains(&"kanjidic".to_string()) {
+        println!("⏭️  Skipping Japanese character dictionary (KANJIDIC2)");
+        KanjiDictionary {
+            version: String::new(),
+            languages: Vec::new(),
+            dict_date: String::new(),
+            file_version: 0,
+            database_version: String::new(),
+            characters: Vec::new(),
+        }
+    } else {
+        println!("📚 Loading Japanese character dictionary (KANJIDIC2)...");
+        load_japanese_char_dictionary("data/kanjidic2-en-3.6.1.json")
+            .context("Failed to load Japanese character dictionary")?
+    };
 
-    println!("📚 Loading JMnedict (Japanese Names Dictionary)...");
-    let jmnedict_entries = load_jmnedict("data/jmnedict-all-3.6.1.json")
-        .context("Failed to load JMnedict")?;
+    let jmnedict_entries = if excluded_dicts.contains(&"jmnedict".to_string()) {
+        println!("⏭️  Skipping JMnedict (Japanese Names Dictionary)");
+        Vec::new()
+    } else {
+        println!("📚 Loading JMnedict (Japanese Names Dictionary)...");
+        load_jmnedict("data/jmnedict-all-3.6.1.json")
+            .context("Failed to load JMnedict")?
+    };
 
     println!("📚 Loading IDS (character decomposition) database...");
     let ids_database = load_all_ids_files()
@@ -494,7 +569,8 @@ async fn main() -> Result<()> {
         &chinese_char_dict_raw,
         &japanese_char_dict_raw.characters,
         &jmnedict_entries,
-        shard_filter
+        shard_filter,
+        filter_characters.as_deref()
     ).await?;
 
     println!("✅ Dictionary merger completed successfully!");
@@ -1010,12 +1086,45 @@ fn convert_with_opencc_config(text: &str, config: &str) -> Result<String> {
     }
 }
 
+/// Detect if a Chinese character entry is a Japanese variant and extract the traditional Chinese target
+/// Returns Some(traditional_chinese_char) if this is a Japanese variant, None otherwise
+fn detect_japanese_variant(chinese_char: &ChineseCharacter, chinese_word_entries: &[ChineseDictionaryElement]) -> Option<String> {
+    // Check if there's a word entry for this single character
+    let word_entry = chinese_word_entries.iter()
+        .find(|entry| entry.trad == chinese_char.char)?;
+
+    // Look for cedict items with "Japanese variant of" pattern
+    for item in &word_entry.items {
+        if let Some(ref source) = item.source {
+            if matches!(source, crate::chinese_types::Source::Cedict) {
+                if let Some(ref definitions) = item.definitions {
+                    for definition in definitions {
+                        // Pattern: "Japanese variant of 圖|图" or "Japanese variant of X|Y"
+                        if definition.starts_with("Japanese variant of ") {
+                            // Extract the traditional Chinese character (before the |)
+                            let variant_part = definition.strip_prefix("Japanese variant of ")?;
+                            if let Some(pipe_pos) = variant_part.find('|') {
+                                let traditional = &variant_part[..pipe_pos];
+                                // Return the first character (should be a single character)
+                                return traditional.chars().next().map(|c| c.to_string());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    None
+}
+
 async fn generate_simple_output_files(
     combined_dict: &CombinedDictionary,
     chinese_chars: &[ChineseCharacter],
     kanjidic_entries: &[KanjiCharacter],
     jmnedict_entries: &[JmnedictEntry],
     shard_filter: Option<ShardType>,
+    filter_characters: Option<&str>,
 ) -> Result<()> {
     use std::fs;
     use std::path::Path;
@@ -1045,6 +1154,22 @@ async fn generate_simple_output_files(
     for kanji_entry in kanjidic_entries {
         kanjidic_by_key.insert(kanji_entry.literal.clone(), kanji_entry);
     }
+
+    // Collect all Chinese word entries for Japanese variant detection
+    let chinese_word_entries: Vec<ChineseDictionaryElement> = combined_dict.entries.iter()
+        .filter_map(|entry| entry.chinese_entry.clone())
+        .collect();
+
+    // Detect Japanese variant characters and build mapping
+    println!("🔍 Detecting Japanese variant characters...");
+    let mut japanese_variant_map: StdHashMap<String, String> = StdHashMap::new();
+    for char_entry in chinese_chars {
+        if let Some(traditional_target) = detect_japanese_variant(char_entry, &chinese_word_entries) {
+            japanese_variant_map.insert(char_entry.char.clone(), traditional_target.clone());
+            println!("  📍 Detected Japanese variant: {} → {}", char_entry.char, traditional_target);
+        }
+    }
+    println!("  ✅ Found {} Japanese variant characters", japanese_variant_map.len());
 
     println!("🔄 Grouping entries by key...");
     let mut outputs: StdHashMap<String, SimpleOutput> = StdHashMap::new();
@@ -1137,40 +1262,127 @@ async fn generate_simple_output_files(
         }
     }
 
-    // Add character data
+    // Add character data with Japanese variant handling
+    println!("📝 Processing Chinese character entries...");
+    let mut japanese_variant_redirect_count = 0;
+    let mut simplified_redirect_count = 0;
+
     for (key, char_entry) in chinese_char_by_key {
-        let output = outputs.entry(key.clone()).or_insert_with(|| SimpleOutput {
-            key: key.clone(),
-            redirect: None,
-            chinese_words: Vec::new(),
-            chinese_char: None,
-            japanese_words: Vec::new(),
-            japanese_char: None,
-            related_japanese_words: Vec::new(),
-            japanese_names: Vec::new(),
-            contains: Vec::new(),
-            contained_in_chinese: Vec::new(),
-            contained_in_japanese: Vec::new(),
-        });
-        output.chinese_char = Some(char_entry.clone());
+        // Check if this is a Japanese variant character
+        if let Some(traditional_target) = japanese_variant_map.get(&key) {
+            // This is a Japanese variant - create a redirect entry
+            let redirect_entry = SimpleOutput {
+                key: key.clone(),
+                redirect: Some(traditional_target.clone()),
+                chinese_words: Vec::new(),
+                chinese_char: None,
+                japanese_words: Vec::new(),
+                japanese_char: None,
+                related_japanese_words: Vec::new(),
+                japanese_names: Vec::new(),
+                contains: Vec::new(),
+                contained_in_chinese: Vec::new(),
+                contained_in_japanese: Vec::new(),
+            };
+            outputs.insert(key.clone(), redirect_entry);
+            japanese_variant_redirect_count += 1;
+        } else if let Some(ref trad_variants) = char_entry.trad_variants {
+            // This is a simplified character with traditional variant(s)
+            // Create redirect to the first traditional variant
+            if let Some(trad_target) = trad_variants.first() {
+                let redirect_entry = SimpleOutput {
+                    key: key.clone(),
+                    redirect: Some(trad_target.clone()),
+                    chinese_words: Vec::new(),
+                    chinese_char: None,
+                    japanese_words: Vec::new(),
+                    japanese_char: None,
+                    related_japanese_words: Vec::new(),
+                    japanese_names: Vec::new(),
+                    contains: Vec::new(),
+                    contained_in_chinese: Vec::new(),
+                    contained_in_japanese: Vec::new(),
+                };
+                outputs.insert(key.clone(), redirect_entry);
+                simplified_redirect_count += 1;
+            }
+        } else {
+            // Regular Chinese character (traditional or no variants) - add normally
+            let output = outputs.entry(key.clone()).or_insert_with(|| SimpleOutput {
+                key: key.clone(),
+                redirect: None,
+                chinese_words: Vec::new(),
+                chinese_char: None,
+                japanese_words: Vec::new(),
+                japanese_char: None,
+                related_japanese_words: Vec::new(),
+                japanese_names: Vec::new(),
+                contains: Vec::new(),
+                contained_in_chinese: Vec::new(),
+                contained_in_japanese: Vec::new(),
+            });
+            output.chinese_char = Some(char_entry.clone());
+        }
+    }
+    println!("  ✅ Created {} Japanese variant redirects", japanese_variant_redirect_count);
+    println!("  ✅ Created {} simplified→traditional redirects", simplified_redirect_count);
+
+    println!("📝 Processing Japanese character entries (KANJIDIC)...");
+
+    // Build reverse map: traditional Chinese → Japanese variant
+    let mut traditional_to_variant: StdHashMap<String, String> = StdHashMap::new();
+    for (variant, traditional) in &japanese_variant_map {
+        traditional_to_variant.insert(traditional.clone(), variant.clone());
     }
 
+    let mut merged_japanese_char_count = 0;
+    let mut skipped_traditional_count = 0;
+    let mut regular_count = 0;
     for (key, kanji_entry) in kanjidic_by_key {
-        let output = outputs.entry(key.clone()).or_insert_with(|| SimpleOutput {
-            key: key.clone(),
-            redirect: None,
-            chinese_words: Vec::new(),
-            chinese_char: None,
-            japanese_words: Vec::new(),
-            japanese_char: None,
-            related_japanese_words: Vec::new(),
-            japanese_names: Vec::new(),
-            contains: Vec::new(),
-            contained_in_chinese: Vec::new(),
-            contained_in_japanese: Vec::new(),
-        });
-        output.japanese_char = Some(kanji_entry.clone());
+        // Check if this Japanese character is a variant that should be merged into traditional Chinese
+        if let Some(traditional_target) = japanese_variant_map.get(&key) {
+            // This Japanese character should be added to the traditional Chinese entry
+            let output = outputs.entry(traditional_target.clone()).or_insert_with(|| SimpleOutput {
+                key: traditional_target.clone(),
+                redirect: None,
+                chinese_words: Vec::new(),
+                chinese_char: None,
+                japanese_words: Vec::new(),
+                japanese_char: None,
+                related_japanese_words: Vec::new(),
+                japanese_names: Vec::new(),
+                contains: Vec::new(),
+                contained_in_chinese: Vec::new(),
+                contained_in_japanese: Vec::new(),
+            });
+            output.japanese_char = Some(kanji_entry.clone());
+            merged_japanese_char_count += 1;
+        } else if traditional_to_variant.contains_key(&key) {
+            // This is a traditional Chinese character that has a Japanese variant
+            // Skip it - we already added the Japanese variant's KANJIDIC entry
+            skipped_traditional_count += 1;
+        } else {
+            // Regular Japanese character - add normally
+            let output = outputs.entry(key.clone()).or_insert_with(|| SimpleOutput {
+                key: key.clone(),
+                redirect: None,
+                chinese_words: Vec::new(),
+                chinese_char: None,
+                japanese_words: Vec::new(),
+                japanese_char: None,
+                related_japanese_words: Vec::new(),
+                japanese_names: Vec::new(),
+                contains: Vec::new(),
+                contained_in_chinese: Vec::new(),
+                contained_in_japanese: Vec::new(),
+            });
+            output.japanese_char = Some(kanji_entry.clone());
+            regular_count += 1;
+        }
     }
+    println!("  ✅ Merged {} Japanese character entries into traditional Chinese entries", merged_japanese_char_count);
+    println!("  ℹ️  Skipped {} traditional Chinese KANJIDIC entries (have Japanese variants)", skipped_traditional_count);
+    println!("  ℹ️  Added {} regular Japanese character entries", regular_count);
 
     // Add JMnedict entries (Japanese names)
     println!("🏷️ Adding JMnedict entries (Japanese names)...");
@@ -1182,8 +1394,17 @@ async fn generate_simple_output_files(
 
         // Get all possible keys for this name entry
         for key in keys {
-            let output = outputs.entry(key.clone()).or_insert_with(|| SimpleOutput {
-                key: key.clone(),
+            // Map Japanese variant characters to their traditional Chinese equivalents
+            let final_key = if key.chars().count() == 1 {
+                // Single character - check if it's a Japanese variant
+                japanese_variant_map.get(&key).cloned().unwrap_or(key.clone())
+            } else {
+                // Multi-character - keep as is (already handled by J2C mapping in word processing)
+                key.clone()
+            };
+
+            let output = outputs.entry(final_key.clone()).or_insert_with(|| SimpleOutput {
+                key: final_key.clone(),
                 redirect: None,
                 chinese_words: Vec::new(),
                 chinese_char: None,
@@ -1206,6 +1427,12 @@ async fn generate_simple_output_files(
     let mut chinese_containment: StdHashMap<String, Vec<String>> = StdHashMap::new();
     let mut japanese_containment: StdHashMap<String, Vec<String>> = StdHashMap::new();
 
+    // Build reverse map: traditional Chinese → Japanese variant (for containment lookup)
+    let mut traditional_to_variant: StdHashMap<String, String> = StdHashMap::new();
+    for (variant, traditional) in &japanese_variant_map {
+        traditional_to_variant.insert(traditional.clone(), variant.clone());
+    }
+
     for (word_key, output) in &outputs {
         // For Chinese words, check each character in the word
         if !output.chinese_words.is_empty() {
@@ -1223,7 +1450,13 @@ async fn generate_simple_output_files(
                 for ch in kanji_form.text.chars() {
                     let ch_str = ch.to_string();
                     if ch_str != *word_key {  // Don't add self-references
-                        japanese_containment.entry(ch_str).or_insert_with(Vec::new).push(word_key.clone());
+                        japanese_containment.entry(ch_str.clone()).or_insert_with(Vec::new).push(word_key.clone());
+
+                        // ALSO add to traditional Chinese character if this is a Japanese variant
+                        // e.g., if word contains 図, also add to 圖's containment list
+                        if let Some(traditional_target) = japanese_variant_map.get(&ch_str) {
+                            japanese_containment.entry(traditional_target.clone()).or_insert_with(Vec::new).push(word_key.clone());
+                        }
                     }
                 }
             }
@@ -1237,7 +1470,12 @@ async fn generate_simple_output_files(
     let mut chinese_previews_map: StdHashMap<String, Vec<word_preview_types::WordPreview>> = StdHashMap::new();
     let mut japanese_previews_map: StdHashMap<String, Vec<word_preview_types::WordPreview>> = StdHashMap::new();
 
-    for (key, _) in &outputs {
+    for (key, output) in &outputs {
+        // Skip redirect entries - they should not have containment data
+        if output.redirect.is_some() {
+            continue;
+        }
+
         if let Some(chinese_words) = chinese_containment.get(key) {
             // Deduplicate
             let mut unique_words: Vec<String> = chinese_words.iter().cloned().collect();
@@ -1519,7 +1757,22 @@ async fn generate_simple_output_files(
     let total = outputs.len();
 
     // Convert to vec for parallel processing
-    let outputs_vec: Vec<_> = outputs.into_iter().collect();
+    let mut outputs_vec: Vec<_> = outputs.into_iter().collect();
+
+    // Apply character filter if specified (for development/testing)
+    if let Some(filter_chars) = filter_characters {
+        let filter_set: std::collections::HashSet<char> = filter_chars.chars().collect();
+        let original_count = outputs_vec.len();
+
+        outputs_vec.retain(|(key, _entry)| {
+            // Keep entry if key contains any of the filter characters
+            key.chars().any(|c| filter_set.contains(&c))
+        });
+
+        let filtered_count = outputs_vec.len();
+        println!("  🔍 Filtered {} → {} entries (containing: {})",
+                 original_count, filtered_count, filter_chars);
+    }
 
     // OPTIMIZATION 1: Serialize and compress all entries in parallel (CPU-bound)
     use flate2::write::DeflateEncoder;
