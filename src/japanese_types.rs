@@ -15,12 +15,14 @@ use serde::{Serialize, Deserialize};
 use std::collections::HashMap;
 
 // Pitch accent data structures
+#[allow(dead_code)]
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct PitchAccentDatabase {
     pub build_info: PitchAccentBuildInfo,
     pub entries: HashMap<String, Vec<PitchAccentEntry>>,
 }
 
+#[allow(dead_code)]
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct PitchAccentBuildInfo {
     pub timestamp_utc: String,
@@ -29,6 +31,7 @@ pub struct PitchAccentBuildInfo {
     pub notes: String,
 }
 
+#[allow(dead_code)]
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct PitchAccentEntry {
     pub kanji: String,

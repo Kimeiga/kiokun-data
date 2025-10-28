@@ -1490,6 +1490,7 @@ pub async fn compare_variant_approaches(chinese_entries: &[ChineseDictionaryElem
 }
 
 /// Resolve variant definitions by adding the actual definitions from referenced characters
+#[allow(dead_code)]
 pub async fn resolve_variant_definitions(chinese_entries: &mut [ChineseDictionaryElement]) -> Result<()> {
     println!("🔄 Resolving variant definitions...");
 

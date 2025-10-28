@@ -3,15 +3,16 @@ use serde::{Serialize, Deserialize};
 use crate::legacy_unification::improved_unified_types::ImprovedUnifiedEntry;
 use crate::legacy_unification::unified_character_types::UnifiedCharacterEntry;
 
+#[allow(dead_code)]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UnifiedOutput {
     /// The key (character or word) for this entry
     pub key: String,
-    
+
     /// Word-level data (if this key exists as a word in dictionaries)
     #[serde(skip_serializing_if = "Option::is_none")]
     pub word: Option<ImprovedUnifiedEntry>,
-    
+
     /// Character-level data (if this key is a single character)
     #[serde(skip_serializing_if = "Option::is_none")]
     pub character: Option<UnifiedCharacterEntry>,
