@@ -1,6 +1,6 @@
 import type { PageLoad } from './$types';
 import { error } from '@sveltejs/kit';
-import { getDictionaryUrl, getShardName } from '$lib/shard-utils';
+import { getDictionaryUrl } from '$lib/shard-utils';
 import { dev } from '$app/environment';
 import { decompressSync, strFromU8 } from 'fflate';
 import type { DictionaryEntry } from '$lib/types';
@@ -27,15 +27,6 @@ function decompressAndParse(compressedData: ArrayBuffer): DictionaryEntry {
 }
 
 /**
- * Related Japanese word entry with metadata
- */
-interface RelatedJapaneseWord {
-	word: import('$lib/types').JapaneseWord;
-	isDirect: boolean;
-	sourceKey: string;
-}
-
-/**
  * Japanese labels mapping (tag codes to full text)
  */
 interface JapaneseLabels {
@@ -48,7 +39,6 @@ interface JapaneseLabels {
 export interface PageData {
 	word: string;
 	data: DictionaryEntry;
-	relatedJapaneseWords: RelatedJapaneseWord[];
 	labels: JapaneseLabels;
 }
 
@@ -104,36 +94,9 @@ export const load: PageLoad<PageData> = async ({ params, fetch }) => {
 			console.error('Failed to load labels:', err);
 		}
 
-		// Fetch related Japanese words
-		const relatedJapaneseWords: RelatedJapaneseWord[] = [];
-		if (data.related_japanese_words && data.related_japanese_words.length > 0) {
-			for (const relatedKey of data.related_japanese_words) {
-				try {
-					const relatedUrl = getDictionaryUrl(relatedKey, dev);
-					const relatedResponse = await fetch(relatedUrl);
-					if (relatedResponse.ok) {
-						const relatedCompressed = await relatedResponse.arrayBuffer();
-						const relatedData: DictionaryEntry = decompressAndParse(relatedCompressed);
-						if (relatedData.japanese_words && relatedData.japanese_words.length > 0) {
-							relatedData.japanese_words.forEach((japWord) => {
-								relatedJapaneseWords.push({
-									word: japWord,
-									isDirect: false,
-									sourceKey: relatedKey
-								});
-							});
-						}
-					}
-				} catch (err) {
-					console.error(`Failed to fetch related word: ${relatedKey}`, err);
-				}
-			}
-		}
-
 		return {
 			word,
 			data,
-			relatedJapaneseWords,
 			labels
 		};
 	} catch (err) {

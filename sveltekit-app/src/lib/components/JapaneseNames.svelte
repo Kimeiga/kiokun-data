@@ -1,6 +1,7 @@
 <script lang="ts">
 	// JapaneseNames component - displays Japanese name data from JMnedict
-	// Data comes pre-expanded from field-mappings.ts
+	// Based on 10ten-ja-reader's NameEntry component
+	import Tag from './shared/Tag.svelte';
 
 	interface JmnedictName {
 		id: string;
@@ -20,186 +21,135 @@
 
 	let { names, word }: Props = $props();
 
-	console.log('[JapaneseNames] Received names:', names);
-	console.log('[JapaneseNames] First name structure:', names[0]);
-
-	// Type display names
-	const typeNames: Record<string, string> = {
-		'surname': '姓',
-		'fem': '女性名',
-		'masc': '男性名',
-		'given': '名',
-		'place': '地名',
-		'unclass': '名前',
-		'company': '会社',
-		'product': '製品',
-		'work': '作品',
-		'person': '人名',
-		'station': '駅名'
+	// Type display names (English labels for tags)
+	const typeLabels: Record<string, string> = {
+		'surname': 'surname',
+		'fem': 'female given name',
+		'masc': 'male given name',
+		'given': 'given name',
+		'place': 'place name',
+		'unclass': 'unclassified name',
+		'company': 'company name',
+		'product': 'product name',
+		'work': 'work of art',
+		'person': 'full name of a particular person',
+		'station': 'railway station'
 	};
 
-	// Track expanded state
-	const INITIAL_DISPLAY_COUNT = 5;
-	let isExpanded = $state(false);
-
-	// Get display list based on expanded state
-	const displayList = $derived(isExpanded ? names : names.slice(0, INITIAL_DISPLAY_COUNT));
-	const hasMore = names.length > INITIAL_DISPLAY_COUNT;
+	// Map types to tag types for coloring
+	function getTagType(type: string): 'fem' | 'masc' | 'place' | 'pos' {
+		if (type === 'fem') return 'fem';
+		if (type === 'masc') return 'masc';
+		if (type === 'place') return 'place';
+		return 'pos'; // default grey
+	}
 </script>
 
 <div class="japanese-names">
 	<h3>📛 Japanese Names</h3>
 	<div class="names-list">
-		{#each displayList as name}
+		{#each names as name}
 			<div class="name-entry">
-				<div class="name-forms">
-					{#each name.kanji as kanji}
-						<span class="kanji-form">{kanji.text}</span>
-					{/each}
-					{#each name.kana as kana}
-						<span class="kana-form">{kana.text}</span>
-					{/each}
+				<!-- Kanji and Kana on same line -->
+				<div class="name-headwords" lang="ja">
+					{#if name.kanji.length > 0}
+						<span class="kanji-forms">
+							{name.kanji.map(k => k.text).join('、')}
+						</span>
+					{/if}
+					<span class="kana-forms">
+						{name.kana.map(k => k.text).join('、')}
+					</span>
 				</div>
-				<div class="name-info">
-					<div class="name-types">
-						{#each name.translation as trans}
+
+				<!-- Translations with inline tags -->
+				<div class="name-translations">
+					{#each name.translation as trans}
+						<div class="translation-line">
+							<span class="translation-text">
+								{trans.translation.map(t => t.text).join(', ')}
+							</span>
 							{#each trans.type as type}
-								<span class="type-tag">{typeNames[type] || type}</span>
+								<Tag
+									type={getTagType(type)}
+									text={typeLabels[type] || type}
+									langTag="en"
+								/>
 							{/each}
-						{/each}
-					</div>
-					<div class="name-meanings">
-						{#each name.translation as trans}
-							{#each trans.translation as meaning}
-								<span class="meaning">{meaning.text}</span>
-							{/each}
-						{/each}
-					</div>
+						</div>
+					{/each}
 				</div>
 			</div>
 		{/each}
 	</div>
-
-	{#if hasMore}
-		<button
-			class="show-more-btn"
-			onclick={() => isExpanded = !isExpanded}
-		>
-			{isExpanded ? '▲ Show less' : `▼ Show ${names.length - INITIAL_DISPLAY_COUNT} more`}
-		</button>
-	{/if}
 </div>
 
 <style>
 	.japanese-names {
-		margin: 1.5rem 0;
-		padding: 1rem;
-		background: var(--surface-2);
-		border-radius: 0.5rem;
-		border: 1px solid var(--border-color);
+		margin-bottom: 30px;
+	}
+
+	h3 {
+		font-size: 18px;
+		font-weight: 600;
+		margin-bottom: 12px;
+		color: var(--text-color, #2c3e50);
 	}
 
 	.names-list {
-		display: grid;
-		gap: 0.75rem;
-		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		display: flex;
+		flex-direction: column;
+		gap: 0;
 	}
 
 	.name-entry {
-		padding: 0.75rem;
-		background: var(--surface-1);
-		border-radius: 0.375rem;
-		border: 1px solid var(--border-color);
-		transition: all 0.2s ease;
+		padding: 12px 16px;
+		break-inside: avoid;
 	}
 
-	.name-entry:hover {
-		border-color: var(--accent-color);
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-	}
-
-	.name-forms {
+	.name-headwords {
 		display: flex;
-		gap: 0.5rem;
-		flex-wrap: wrap;
-		margin-bottom: 0.5rem;
+		gap: 16px;
+		margin-bottom: 8px;
 	}
 
-	.kanji-form {
+	.kanji-forms {
+		font-size: 24px;
+		font-family: 'MS Mincho', serif;
 		font-weight: 600;
-		color: var(--text-primary);
-		font-size: 1.1rem;
+		color: var(--primary-highlight, #2c3e50);
 	}
 
-	.kana-form {
-		color: var(--text-secondary);
-		font-style: italic;
+	.kana-forms {
+		font-size: 20px;
+		font-family: 'MS Mincho', serif;
+		color: var(--reading-highlight, #e74c3c);
 	}
 
-	.name-info {
+	.name-translations {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: 4px;
 	}
 
-	.name-types {
+	.translation-line {
 		display: flex;
-		gap: 0.375rem;
+		align-items: center;
+		gap: 6px;
 		flex-wrap: wrap;
+		font-size: 16px;
 	}
 
-	.type-tag {
-		font-size: 0.75rem;
-		font-weight: 500;
-		color: var(--accent-color);
-		background: var(--accent-color-alpha);
-		padding: 0.125rem 0.5rem;
-		border-radius: 0.25rem;
-		border: 1px solid var(--accent-color);
+	.translation-text {
+		color: var(--text-color, #2c3e50);
 	}
 
-	.name-meanings {
-		display: flex;
-		gap: 0.375rem;
-		flex-wrap: wrap;
+	/* Dark mode support */
+	:global(.dark) h3 {
+		color: var(--text-color, #ecf0f1);
 	}
 
-	.meaning {
-		font-size: 0.875rem;
-		color: var(--text-tertiary);
-		background: var(--surface-3);
-		padding: 0.125rem 0.375rem;
-		border-radius: 0.25rem;
-	}
-
-	.show-more-btn {
-		margin-top: 0.75rem;
-		width: 100%;
-		padding: 0.5rem;
-		background: var(--surface-3);
-		border: 1px solid var(--border-color);
-		border-radius: 0.25rem;
-		color: var(--text-secondary);
-		font-size: 0.875rem;
-		cursor: pointer;
-		transition: all 0.2s ease;
-	}
-
-	.show-more-btn:hover {
-		background: var(--surface-4);
-		color: var(--text-primary);
-		border-color: var(--accent-color);
-	}
-
-	@media (max-width: 768px) {
-		.names-list {
-			grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-		}
-	}
-
-	@media (max-width: 480px) {
-		.names-list {
-			grid-template-columns: 1fr;
-		}
+	:global(.dark) .translation-text {
+		color: var(--text-color, #ecf0f1);
 	}
 </style>

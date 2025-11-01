@@ -58,6 +58,30 @@
 	--toggle-color: #333333;
 	--toggle-shadow: rgba(0, 0, 0, 0.1);
 	--toggle-shadow-hover: rgba(0, 0, 0, 0.2);
+
+	/* Japanese word entry colors (10ten-ja-reader style) */
+	--primary-highlight: #2c3e50;
+	--selected-highlight: #3498db;
+	--reading-highlight: #e74c3c;
+	--selected-reading-highlight: #c0392b;
+	--def-color: #34495e;
+	--selected-def-color: #2c3e50;
+
+	/* Tag colors for Japanese entries */
+	--tag-border: #bdc3c7;
+	--tag-pink-bg: #fce4ec;
+	--tag-pink-border: #f06292;
+	--tag-pink-text: #c2185b;
+	--tag-blue-bg: #e3f2fd;
+	--tag-blue-border: #42a5f5;
+	--tag-blue-text: #1976d2;
+	--tag-green-bg: #e8f5e9;
+	--tag-green-border: #66bb6a;
+	--tag-green-text: #2e7d32;
+
+	/* Priority star colors */
+	--star-full: #f39c12;
+	--star-hollow: #bdc3c7;
 }
 
 [data-theme='dark'] {
@@ -115,6 +139,30 @@
 	--toggle-color: #e4e4e4;
 	--toggle-shadow: rgba(0, 0, 0, 0.3);
 	--toggle-shadow-hover: rgba(0, 0, 0, 0.6);
+
+	/* Japanese word entry colors (10ten-ja-reader style) - dark theme */
+	--primary-highlight: #e4e4e4;
+	--selected-highlight: #5dade2;
+	--reading-highlight: #ff6b6b;
+	--selected-reading-highlight: #ff5252;
+	--def-color: #b8b8b8;
+	--selected-def-color: #e4e4e4;
+
+	/* Tag colors for Japanese entries - dark theme */
+	--tag-border: #606060;
+	--tag-pink-bg: #4a2a3a;
+	--tag-pink-border: #d06292;
+	--tag-pink-text: #f0a0c0;
+	--tag-blue-bg: #2a3a4a;
+	--tag-blue-border: #5dade2;
+	--tag-blue-text: #7ec8f0;
+	--tag-green-bg: #2a4a2a;
+	--tag-green-border: #66bb6a;
+	--tag-green-text: #90ee90;
+
+	/* Priority star colors - dark theme */
+	--star-full: #f39c12;
+	--star-hollow: #606060;
 }
 
 /* Base styles */
