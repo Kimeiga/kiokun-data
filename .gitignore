@@ -99,3 +99,6 @@ schemas/japanese_sample.json
 !schemas/*.rs
 !README*.md
 !scripts/
+
+# i brought in 10ten reader to see if i can copy some stuff
+10ten-ja-reader/

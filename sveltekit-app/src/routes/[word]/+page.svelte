@@ -101,10 +101,16 @@
 							target.appendChild(svg);
 
 							// Style the SVG to fit the container
-							svg.setAttribute('width', '72');
-							svg.setAttribute('height', '72');
+							svg.setAttribute('width', '100');
+							svg.setAttribute('height', '100');
 							svg.style.display = 'block';
 							svg.id = `kanjivg-${codepoint}`;
+
+							// Hide stroke numbers (they're in a separate group with id containing "StrokeNumbers")
+							const strokeNumbersGroup = svg.querySelector('[id*="StrokeNumbers"]');
+							if (strokeNumbersGroup) {
+								strokeNumbersGroup.style.display = 'none';
+							}
 
 							// Clone all paths to create gray background strokes
 							const paths = svg.querySelectorAll('path');
@@ -170,8 +176,8 @@
 			};
 
 			const writerConfig = {
-				width: 72,
-				height: 72,
+				width: 100,
+				height: 100,
 				padding: 5,
 				showOutline: true,
 				strokeAnimationSpeed: 3,
@@ -188,6 +194,8 @@
 			if (traditionalChar) {
 				const tradTarget = document.getElementById('trad-writer-target');
 				if (tradTarget) {
+					// Clear the fallback character
+					tradTarget.innerHTML = '';
 					const writer = HanziWriter.create(tradTarget, traditionalChar, writerConfig);
 					writer.loopCharacterAnimation();
 				}
@@ -197,6 +205,8 @@
 			if (simplifiedChar) {
 				const simpTarget = document.getElementById('simp-writer-target');
 				if (simpTarget) {
+					// Clear the fallback character
+					simpTarget.innerHTML = '';
 					const writer = HanziWriter.create(simpTarget, simplifiedChar, writerConfig);
 					writer.loopCharacterAnimation();
 				}
@@ -282,11 +292,13 @@
 				const jpTarget = document.getElementById('jp-writer-target');
 				if (jpTarget) {
 					try {
+						// Clear the fallback character
+						jpTarget.innerHTML = '';
 						const writer = HanziWriter.create(jpTarget, japaneseChar, writerConfig);
 						writer.loopCharacterAnimation();
 					} catch (e) {
-						// If Hanzi Writer doesn't have this character, show a note
-						jpTarget.innerHTML = '<div style="font-size: 10px; color: #999; text-align: center; padding: 20px;">No stroke data</div>';
+						// If Hanzi Writer doesn't have this character, keep the fallback
+						console.error('Failed to create Hanzi Writer for Japanese char:', e);
 					}
 				}
 			}
@@ -325,54 +337,61 @@
 		{#if data.data.chinese_char || data.data.japanese_char}
 			<div class="bg-primary-secondary rounded-xl shadow overflow-hidden transition-all duration-300 mb-0">
 				<div class="p-4 md:p-6 lg:p-8">
-					<!-- Character Variants Display -->
-					<div class="mb-5">
-						<div class="flex items-start gap-6 md:gap-8 mb-4 flex-wrap">
+					<!-- Compact Header: Characters + Pronunciations + Gloss in one line -->
+					<div class="flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-6 mb-5">
+						<!-- Character Variants with Stroke Animations -->
+						<div class="flex items-center gap-4 md:gap-6">
 							<!-- Traditional Chinese Character -->
 							{#if traditionalChar}
-								<div class="flex flex-col items-center gap-2">
-									<div class="text-5xl md:text-6xl font-bold font-cjk leading-none">
-										{traditionalChar}
-									</div>
-									<div class="text-sm">🇹🇼</div>
+								<div class="flex flex-col items-center gap-1">
 									<div
 										id="trad-writer-target"
-										class="w-[72px] h-[72px]"
-									></div>
+										class="w-[80px] h-[80px] md:w-[100px] md:h-[100px] flex items-center justify-center"
+									>
+										<!-- Fallback: show character until animation loads -->
+										<div class="text-6xl md:text-7xl font-bold font-cjk leading-none">
+											{traditionalChar}
+										</div>
+									</div>
+									<div class="text-xs text-tertiary">🇹🇼</div>
 								</div>
 							{/if}
 
 							<!-- Simplified Chinese Character -->
 							{#if simplifiedChar}
-								<div class="flex flex-col items-center gap-2">
-									<div class="text-5xl md:text-6xl font-bold font-cjk leading-none">
-										{simplifiedChar}
-									</div>
-									<div class="text-sm">🇨🇳</div>
+								<div class="flex flex-col items-center gap-1">
 									<div
 										id="simp-writer-target"
-										class="w-[72px] h-[72px]"
-									></div>
+										class="w-[80px] h-[80px] md:w-[100px] md:h-[100px] flex items-center justify-center"
+									>
+										<!-- Fallback: show character until animation loads -->
+										<div class="text-6xl md:text-7xl font-bold font-cjk leading-none">
+											{simplifiedChar}
+										</div>
+									</div>
+									<div class="text-xs text-tertiary">🇨🇳</div>
 								</div>
 							{/if}
 
 							<!-- Japanese Character -->
 							{#if japaneseChar}
-								<div class="flex flex-col items-center gap-2">
-									<div class="text-5xl md:text-6xl font-bold font-cjk leading-none">
-										{japaneseChar}
-									</div>
-									<div class="text-sm">🇯🇵</div>
+								<div class="flex flex-col items-center gap-1">
 									<div
 										id="jp-writer-target"
-										class="w-[72px] h-[72px]"
-									></div>
+										class="w-[80px] h-[80px] md:w-[100px] md:h-[100px] flex items-center justify-center"
+									>
+										<!-- Fallback: show character until animation loads -->
+										<div class="text-6xl md:text-7xl font-bold font-cjk leading-none">
+											{japaneseChar}
+										</div>
+									</div>
+									<div class="text-xs text-tertiary">🇯🇵</div>
 								</div>
 							{/if}
 						</div>
 
 						<!-- Pronunciations and Gloss -->
-						<div class="flex flex-col gap-3 mb-4">
+						<div class="flex flex-col gap-2 flex-1">
 							<!-- Chinese Pinyin -->
 							{#if data.data.chinese_char?.pinyinFrequencies}
 								{@const wordPinyins = new Set(

@@ -1228,14 +1228,14 @@ async fn generate_simple_output_files(
 
         if let Some(ref japanese) = entry.japanese_entry {
             // Add cross-references for alternative kanji forms
-            // If this word has multiple kanji forms, add references from each form to the primary key
+            // If this word has multiple kanji forms, add the full entry to each form
             if japanese.kanji.len() > 1 {
                 for (i, kanji_form) in japanese.kanji.iter().enumerate() {
                     if i == 0 {
                         continue; // Skip the first one (it's the primary key)
                     }
 
-                    // For each alternative kanji form, add a reference to the primary entry
+                    // For each alternative kanji form, add the full Japanese word entry
                     let alt_key = kanji_form.text.clone();
                     if alt_key != key {
                         let alt_output = outputs.entry(alt_key.clone()).or_insert_with(|| SimpleOutput {
@@ -1252,7 +1252,12 @@ async fn generate_simple_output_files(
                             contained_in_japanese: Vec::new(),
                         });
 
-                        // Add reference to primary entry if not already present
+                        // Add the full Japanese word entry if not already present
+                        if !alt_output.japanese_words.iter().any(|w| w.id == japanese.id) {
+                            alt_output.japanese_words.push(japanese.clone());
+                        }
+
+                        // Also add reference to primary entry if not already present
                         if !alt_output.related_japanese_words.contains(&key) {
                             alt_output.related_japanese_words.push(key.clone());
                         }
@@ -1288,8 +1293,12 @@ async fn generate_simple_output_files(
             japanese_variant_redirect_count += 1;
         } else if let Some(ref trad_variants) = char_entry.trad_variants {
             // This is a simplified character with traditional variant(s)
-            // Create redirect to the first traditional variant
-            if let Some(trad_target) = trad_variants.first() {
+            // Create redirect to the first traditional variant that's different from the key
+            let trad_target = trad_variants.iter()
+                .find(|&variant| variant != &key)
+                .cloned();
+
+            if let Some(trad_target) = trad_target {
                 let redirect_entry = SimpleOutput {
                     key: key.clone(),
                     redirect: Some(trad_target.clone()),
