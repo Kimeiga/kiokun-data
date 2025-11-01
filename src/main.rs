@@ -1174,6 +1174,13 @@ async fn generate_simple_output_files(
     println!("🔄 Grouping entries by key...");
     let mut outputs: StdHashMap<String, SimpleOutput> = StdHashMap::new();
 
+    // Load J2C mapping for Japanese->Chinese redirects
+    let j2c_mapping = load_j2c_mapping("output/j2c_mapping.json")
+        .unwrap_or_else(|_| {
+            println!("  ⚠️  No J2C mapping found, Japanese words will redirect to first character");
+            StdHashMap::new()
+        });
+
     println!("  📊 Processing {} combined dictionary entries...", combined_dict.entries.len());
 
     // Process all combined entries (words)
@@ -1213,12 +1220,24 @@ async fn generate_simple_output_files(
 
             // Only add if there are items left after filtering
             if !filtered_chinese.items.is_empty() {
+                if key == "地圖" {
+                    println!("    ✅ Adding Chinese word data to '地圖' entry");
+                }
                 output.chinese_words.push(filtered_chinese);
+            } else if key == "地圖" {
+                println!("    ⚠️  No Chinese items left after filtering for '地圖'");
             }
+        } else if key == "地圖" {
+            println!("    ⚠️  No Chinese entry for '地圖'");
         }
 
         if let Some(ref japanese) = entry.japanese_entry {
+            if key == "地圖" {
+                println!("    ✅ Adding Japanese word data to '地圖' entry (ID: {})", japanese.id);
+            }
             output.japanese_words.push(japanese.clone());
+        } else if key == "地圖" {
+            println!("    ⚠️  No Japanese entry for '地圖'");
         }
 
         // IMPORTANT: Also add all japanese_specific_entries (additional entries with same key)
