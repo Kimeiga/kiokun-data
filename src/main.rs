@@ -1174,13 +1174,6 @@ async fn generate_simple_output_files(
     println!("🔄 Grouping entries by key...");
     let mut outputs: StdHashMap<String, SimpleOutput> = StdHashMap::new();
 
-    // Load J2C mapping for Japanese->Chinese redirects
-    let j2c_mapping = load_j2c_mapping("output/j2c_mapping.json")
-        .unwrap_or_else(|_| {
-            println!("  ⚠️  No J2C mapping found, Japanese words will redirect to first character");
-            StdHashMap::new()
-        });
-
     println!("  📊 Processing {} combined dictionary entries...", combined_dict.entries.len());
 
     // Process all combined entries (words)
