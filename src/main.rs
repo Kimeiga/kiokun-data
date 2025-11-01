@@ -1623,13 +1623,6 @@ async fn generate_simple_output_files(
     let existing_keys: std::collections::HashSet<String> = outputs.keys().cloned().collect();
     let mut redirect_count = 0;
 
-    // Load J2C mapping for Japanese->Chinese redirects
-    let j2c_mapping = load_j2c_mapping("output/j2c_mapping.json")
-        .unwrap_or_else(|_| {
-            println!("  ⚠️  No J2C mapping found, Japanese words will redirect to first character");
-            StdHashMap::new()
-        });
-
     // Create redirects for Chinese multi-character words
     for entry in &combined_dict.entries {
         if let Some(ref chinese) = entry.chinese_entry {
@@ -1686,51 +1679,6 @@ async fn generate_simple_output_files(
 
                 outputs.insert(chinese.simp.clone(), redirect_entry);
                 redirect_count += 1;
-            }
-        }
-
-        // Create redirects for Japanese multi-character words
-        if let Some(ref japanese) = entry.japanese_entry {
-            for kanji_form in &japanese.kanji {
-                if kanji_form.text.chars().count() > 1 && !existing_keys.contains(&kanji_form.text) {
-                    // Skip if shard_filter is set and this entry doesn't match
-                    if let Some(shard) = shard_filter {
-                        if ShardType::from_key(&kanji_form.text) != shard {
-                            continue;
-                        }
-                    }
-
-                    // Check if this Japanese word has a J2C mapping to traditional Chinese
-                    let redirect_target = if let Some(traditional_chinese) = j2c_mapping.get(&kanji_form.text) {
-                        // Our dictionary uses traditional Chinese as keys, so use it directly
-                        if existing_keys.contains(traditional_chinese) {
-                            traditional_chinese.clone()
-                        } else {
-                            // Fallback to first character if traditional doesn't exist
-                            kanji_form.text.chars().next().unwrap().to_string()
-                        }
-                    } else {
-                        // No J2C mapping, use first character
-                        kanji_form.text.chars().next().unwrap().to_string()
-                    };
-
-                    let redirect_entry = SimpleOutput {
-                        key: kanji_form.text.clone(),
-                        redirect: Some(redirect_target),
-                        chinese_words: Vec::new(),
-                        chinese_char: None,
-                        japanese_words: Vec::new(),
-                        japanese_char: None,
-                        related_japanese_words: Vec::new(),
-                        japanese_names: Vec::new(),
-                        contains: Vec::new(),
-                        contained_in_chinese: Vec::new(),
-                        contained_in_japanese: Vec::new(),
-                    };
-
-                    outputs.insert(kanji_form.text.clone(), redirect_entry);
-                    redirect_count += 1;
-                }
             }
         }
     }
