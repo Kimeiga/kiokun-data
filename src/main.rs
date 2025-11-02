@@ -1779,7 +1779,15 @@ async fn generate_simple_output_files(
     let outputs = if let Some(shard) = shard_filter {
         println!("🔍 Filtering entries for shard: {:?}", shard);
         outputs.into_iter()
-            .filter(|(key, _)| ShardType::from_key(key) == shard)
+            .filter(|(key, output)| {
+                // For redirect entries, check the shard of the redirect target, not the key
+                if let Some(ref redirect_target) = output.redirect {
+                    ShardType::from_key(redirect_target) == shard
+                } else {
+                    // For non-redirect entries, check the shard of the key
+                    ShardType::from_key(key) == shard
+                }
+            })
             .collect()
     } else {
         outputs
