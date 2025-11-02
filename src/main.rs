@@ -1705,15 +1705,29 @@ async fn generate_simple_output_files(
         if let Some(ref japanese) = entry.japanese_entry {
             for kanji_form in &japanese.kanji {
                 if kanji_form.text.chars().count() > 1 && !existing_keys.contains(&kanji_form.text) {
+                    // Debug logging for 地図
+                    if kanji_form.text == "地図" {
+                        println!("  🔍 DEBUG: Found Japanese word '地図' that needs redirect");
+                        println!("    Shard filter: {:?}", shard_filter);
+                        println!("    Shard for '地図': {:?}", ShardType::from_key(&kanji_form.text));
+                    }
+
                     // Skip if shard_filter is set and this entry doesn't match
                     if let Some(shard) = shard_filter {
                         if ShardType::from_key(&kanji_form.text) != shard {
+                            if kanji_form.text == "地図" {
+                                println!("    ❌ SKIPPED: Shard mismatch");
+                            }
                             continue;
                         }
                     }
 
                     // Check if this Japanese word has a J2C mapping to traditional Chinese
                     let redirect_target = if let Some(traditional_chinese) = j2c_mapping.get(&kanji_form.text) {
+                        if kanji_form.text == "地図" {
+                            println!("    ✅ Found J2C mapping: '地図' → '{}'", traditional_chinese);
+                            println!("    Traditional Chinese exists in outputs: {}", existing_keys.contains(traditional_chinese));
+                        }
                         // Our dictionary uses traditional Chinese as keys, so use it directly
                         if existing_keys.contains(traditional_chinese) {
                             traditional_chinese.clone()
@@ -1726,9 +1740,13 @@ async fn generate_simple_output_files(
                         kanji_form.text.chars().next().unwrap().to_string()
                     };
 
+                    if kanji_form.text == "地図" {
+                        println!("    ✅ Creating redirect: '地図' → '{}'", redirect_target);
+                    }
+
                     let redirect_entry = SimpleOutput {
                         key: kanji_form.text.clone(),
-                        redirect: Some(redirect_target),
+                        redirect: Some(redirect_target.clone()),
                         chinese_words: Vec::new(),
                         chinese_char: None,
                         japanese_words: Vec::new(),
