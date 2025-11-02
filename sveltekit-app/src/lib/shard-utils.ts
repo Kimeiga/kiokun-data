@@ -32,14 +32,15 @@
  */
 
 // Simple hash function to distribute words evenly across shards
+// MUST match the Rust implementation in src/main.rs exactly!
 function simpleHash(str: string): number {
   let hash = 0;
   for (let i = 0; i < str.length; i++) {
     const char = str.charCodeAt(i);
-    hash = ((hash << 5) - hash) + char;
-    hash = hash & hash; // Convert to 32-bit integer
+    // Use wrapping multiplication and addition to match Rust's wrapping_mul and wrapping_add
+    hash = (hash * 31 + char) >>> 0; // >>> 0 converts to unsigned 32-bit integer
   }
-  return Math.abs(hash);
+  return hash;
 }
 
 // Check if a character is a Han character (Chinese/Japanese kanji)
