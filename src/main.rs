@@ -1647,67 +1647,116 @@ async fn generate_simple_output_files(
         });
 
     // Create redirects for Chinese multi-character words
+    println!("  🔍 DEBUG: Total entries in combined_dict: {}", combined_dict.entries.len());
+    let chizu_entry = combined_dict.entries.iter().find(|e| {
+        e.word == "地圖" || e.word == "地図"
+    });
+    if let Some(entry) = chizu_entry {
+        println!("  🔍 DEBUG: Found entry for 地圖/地図:");
+        println!("    Word: {}", entry.word);
+        println!("    Has Chinese: {}", entry.chinese_entry.is_some());
+        println!("    Has Japanese: {}", entry.japanese_entry.is_some());
+        if let Some(ref jp) = entry.japanese_entry {
+            println!("    Japanese kanji forms: {:?}", jp.kanji.iter().map(|k| &k.text).collect::<Vec<_>>());
+        }
+    } else {
+        println!("  🔍 DEBUG: No entry found for 地圖 or 地図");
+    }
+
     for entry in &combined_dict.entries {
+        // Debug: Check if this is the 地圖 entry
+        if entry.word == "地圖" {
+            println!("  🔍 DEBUG: Processing entry '地圖' in redirect loop");
+            println!("    Has Chinese: {}", entry.chinese_entry.is_some());
+            println!("    Has Japanese: {}", entry.japanese_entry.is_some());
+        }
+
         if let Some(ref chinese) = entry.chinese_entry {
             if chinese.trad.chars().count() > 1 && !existing_keys.contains(&chinese.trad) {
-                // Skip if shard_filter is set and this entry doesn't match
-                if let Some(shard) = shard_filter {
-                    if ShardType::from_key(&chinese.trad) != shard {
-                        continue;
-                    }
-                }
-
-                // Create redirect from traditional Chinese to first character
-                let first_char = chinese.trad.chars().next().unwrap().to_string();
-                let redirect_entry = SimpleOutput {
-                    key: chinese.trad.clone(),
-                    redirect: Some(first_char),
-                    chinese_words: Vec::new(),
-                    chinese_char: None,
-                    japanese_words: Vec::new(),
-                    japanese_char: None,
-                    related_japanese_words: Vec::new(),
-                    japanese_names: Vec::new(),
-                    contains: Vec::new(),
-                    contained_in_chinese: Vec::new(),
-                    contained_in_japanese: Vec::new(),
+                // Check if shard_filter matches before creating redirect
+                let should_create_trad_redirect = if let Some(shard) = shard_filter {
+                    ShardType::from_key(&chinese.trad) == shard
+                } else {
+                    true
                 };
 
-                outputs.insert(chinese.trad.clone(), redirect_entry);
-                redirect_count += 1;
+                if should_create_trad_redirect {
+                    // Create redirect from traditional Chinese to first character
+                    let first_char = chinese.trad.chars().next().unwrap().to_string();
+                    let redirect_entry = SimpleOutput {
+                        key: chinese.trad.clone(),
+                        redirect: Some(first_char),
+                        chinese_words: Vec::new(),
+                        chinese_char: None,
+                        japanese_words: Vec::new(),
+                        japanese_char: None,
+                        related_japanese_words: Vec::new(),
+                        japanese_names: Vec::new(),
+                        contains: Vec::new(),
+                        contained_in_chinese: Vec::new(),
+                        contained_in_japanese: Vec::new(),
+                    };
+
+                    outputs.insert(chinese.trad.clone(), redirect_entry);
+                    redirect_count += 1;
+                }
             }
 
             // Create redirect from Simplified Chinese to Traditional Chinese (if different)
             if chinese.simp != chinese.trad && !existing_keys.contains(&chinese.simp) {
-                // Skip if shard_filter is set and this entry doesn't match
-                if let Some(shard) = shard_filter {
-                    if ShardType::from_key(&chinese.simp) != shard {
-                        continue;
-                    }
-                }
-
-                let redirect_entry = SimpleOutput {
-                    key: chinese.simp.clone(),
-                    redirect: Some(chinese.trad.clone()),
-                    chinese_words: Vec::new(),
-                    chinese_char: None,
-                    japanese_words: Vec::new(),
-                    japanese_char: None,
-                    related_japanese_words: Vec::new(),
-                    japanese_names: Vec::new(),
-                    contains: Vec::new(),
-                    contained_in_chinese: Vec::new(),
-                    contained_in_japanese: Vec::new(),
+                // Check if shard_filter matches before creating redirect
+                let should_create_simp_redirect = if let Some(shard) = shard_filter {
+                    ShardType::from_key(&chinese.simp) == shard
+                } else {
+                    true
                 };
 
-                outputs.insert(chinese.simp.clone(), redirect_entry);
-                redirect_count += 1;
+                if should_create_simp_redirect {
+                    let redirect_entry = SimpleOutput {
+                        key: chinese.simp.clone(),
+                        redirect: Some(chinese.trad.clone()),
+                        chinese_words: Vec::new(),
+                        chinese_char: None,
+                        japanese_words: Vec::new(),
+                        japanese_char: None,
+                        related_japanese_words: Vec::new(),
+                        japanese_names: Vec::new(),
+                        contains: Vec::new(),
+                        contained_in_chinese: Vec::new(),
+                        contained_in_japanese: Vec::new(),
+                    };
+
+                    outputs.insert(chinese.simp.clone(), redirect_entry);
+                    redirect_count += 1;
+                }
             }
+        }
+
+        // Debug: Check if we reach this point for 地圖
+        if entry.word == "地圖" {
+            println!("  🔍 DEBUG: Reached Japanese redirect section for '地圖'");
+            println!("    entry.japanese_entry.is_some(): {}", entry.japanese_entry.is_some());
         }
 
         // Create redirects for Japanese multi-character words
         if let Some(ref japanese) = entry.japanese_entry {
+            // Debug: Check if this entry has 地図
+            let has_chizu = japanese.kanji.iter().any(|k| k.text == "地図");
+            if has_chizu {
+                println!("  🔍 DEBUG: Entry has Japanese word '地図'");
+                println!("    Entry key: {:?}", entry.chinese_entry.as_ref().map(|c| &c.trad));
+                println!("    Number of kanji forms: {}", japanese.kanji.len());
+                println!("    Looping over kanji forms...");
+            }
+
             for kanji_form in &japanese.kanji {
+                if has_chizu && kanji_form.text == "地図" {
+                    println!("    🔍 Checking kanji form '地図':");
+                    println!("      Char count: {}", kanji_form.text.chars().count());
+                    println!("      In existing_keys: {}", existing_keys.contains(&kanji_form.text));
+                    println!("      Condition result: {}", kanji_form.text.chars().count() > 1 && !existing_keys.contains(&kanji_form.text));
+                }
+
                 if kanji_form.text.chars().count() > 1 && !existing_keys.contains(&kanji_form.text) {
                     // Debug logging for 地図
                     if kanji_form.text == "地図" {
