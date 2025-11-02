@@ -1635,6 +1635,10 @@ async fn generate_simple_output_files(
     let existing_keys: std::collections::HashSet<String> = outputs.keys().cloned().collect();
     let mut redirect_count = 0;
 
+    // Debug: Check if 地図 or 地圖 are in existing_keys
+    println!("  🔍 DEBUG: existing_keys contains '地図': {}", existing_keys.contains("地図"));
+    println!("  🔍 DEBUG: existing_keys contains '地圖': {}", existing_keys.contains("地圖"));
+
     // Load J2C mapping for Japanese->Chinese redirects
     let j2c_mapping = load_j2c_mapping("output/j2c_mapping.json")
         .unwrap_or_else(|_| {
