@@ -127,6 +127,124 @@ The merger uses **OpenCC-powered character conversion** for intelligent matching
 4. **Unified Entry Creation**: Merge matching Chinese and Japanese entries into single `ImprovedUnifiedEntry`
 5. **Definition Consolidation**: Combine definitions with confidence scoring and source attribution
 
+## ⚠️ Critical Implementation Details
+
+### **Redirect Creation and Shard Filtering**
+
+**IMPORTANT**: When creating redirect entries in the main processing loop (`src/main.rs`), be extremely careful with `continue` statements inside shard filtering logic.
+
+#### **The Problem**
+Redirect entries can belong to different shards than their targets. For example:
+- Japanese word "地図" hashes to `han-2char-3`
+- Traditional Chinese "地圖" hashes to `han-2char-2`
+- The redirect `{"key": "地図", "redirect": "地圖"}` must be in `han-2char-3` (same shard as the key)
+
+#### **Common Pitfall** ⚠️
+```rust
+// ❌ WRONG: This skips the entire entry, preventing Japanese redirects from being created
+if let Some(ref chinese) = entry.chinese_entry {
+    if chinese.trad.chars().count() > 1 && !existing_keys.contains(&chinese.trad) {
+        if let Some(shard) = shard_filter {
+            if ShardType::from_key(&chinese.trad) != shard {
+                continue;  // ❌ Skips entire entry, including Japanese redirect creation!
+            }
+        }
+        // Create Chinese redirect...
+    }
+}
+
+// This code never runs for entries where Chinese redirect was filtered out!
+if let Some(ref japanese) = entry.japanese_entry {
+    // Create Japanese redirects...
+}
+```
+
+#### **Correct Pattern** ✅
+```rust
+// ✅ CORRECT: Only skip creating the specific redirect, not the entire entry
+if let Some(ref chinese) = entry.chinese_entry {
+    if chinese.trad.chars().count() > 1 && !existing_keys.contains(&chinese.trad) {
+        let should_create_redirect = if let Some(shard) = shard_filter {
+            ShardType::from_key(&chinese.trad) == shard
+        } else {
+            true
+        };
+
+        if should_create_redirect {
+            // Create Chinese redirect...
+        }
+        // No continue statement - execution continues to Japanese redirect creation
+    }
+}
+
+// This code now runs for all entries, regardless of Chinese redirect filtering
+if let Some(ref japanese) = entry.japanese_entry {
+    // Create Japanese redirects...
+}
+```
+
+#### **Why This Matters**
+- Entries like "地圖" have both Chinese and Japanese data
+- When building `han-2char-3`, the Chinese redirect for "地圖" is filtered out (belongs to `han-2char-2`)
+- But the Japanese redirect for "地図" MUST be created (belongs to `han-2char-3`)
+- Using `continue` prevents the Japanese redirect from being created, causing 404 errors
+
+#### **Testing Strategy**
+When modifying redirect creation logic:
+1. Build a specific shard: `cargo run --release --bin build_dictionary -- --mode han-2char-3`
+2. Check for cross-shard redirects: `ls output_dictionary/地図.json.deflate`
+3. Verify redirect content: `python3 -c "import zlib, json; print(json.loads(zlib.decompress(open('output_dictionary/地図.json.deflate', 'rb').read(), -zlib.MAX_WBITS)))"`
+4. Test in production: Visit `https://kiokun.pages.dev/地図` and check browser console
+
+### **Frontend-Backend Hash Consistency**
+
+**CRITICAL**: The frontend and backend MUST use identical hash functions for shard calculation.
+
+#### **Backend Hash** (`src/main.rs`)
+```rust
+fn simple_hash(s: &str) -> usize {
+    s.chars().fold(0usize, |acc, c| acc.wrapping_mul(31).wrapping_add(c as usize))
+}
+```
+
+#### **Frontend Hash** (`sveltekit-app/src/lib/shard-utils.ts`)
+```typescript
+function simpleHash(str: string): number {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i);
+    hash = (hash * 31 + char) >>> 0; // >>> 0 converts to unsigned 32-bit integer
+  }
+  return hash;
+}
+```
+
+#### **Common Mistakes** ⚠️
+- Using `hash & hash` (no-op) instead of `>>> 0`
+- Using `((hash << 5) - hash)` instead of `hash * 31`
+- Forgetting to convert to unsigned integer
+- Using different modulo operations for shard selection
+
+#### **Verification**
+Test both implementations produce identical results:
+```bash
+# Backend
+cargo run --release --bin build_dictionary -- --mode han-2char-3 2>&1 | grep "地図"
+
+# Frontend (Node.js)
+node -e "
+function simpleHash(str) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = (hash * 31 + str.charCodeAt(i)) >>> 0;
+  }
+  return hash;
+}
+console.log('地図:', simpleHash('地図'), 'mod 3:', simpleHash('地図') % 3);
+console.log('地圖:', simpleHash('地圖'), 'mod 3:', simpleHash('地圖') % 3);
+"
+```
+
 ## 🚀 Quick Start
 
 ### **Prerequisites**

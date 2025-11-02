@@ -108,7 +108,8 @@ impl ShardType {
     }
 
     /// Simple hash function for consistent distribution
-    fn simple_hash(s: &str) -> usize {
+    /// Public for testing hash consistency between frontend and backend
+    pub fn simple_hash(s: &str) -> usize {
         s.chars().fold(0usize, |acc, c| acc.wrapping_mul(31).wrapping_add(c as usize))
     }
 
@@ -180,7 +181,13 @@ async fn main() -> Result<()> {
                 .help("Generate Japanese to Chinese mapping file")
                 .action(clap::ArgAction::SetTrue)
         )
-
+        .arg(
+            Arg::new("test-hash")
+                .long("test-hash")
+                .value_name("WORD")
+                .help("Test hash function with a word (for verifying frontend-backend consistency)")
+                .num_args(1)
+        )
         .arg(
             Arg::new("analysis")
                 .long("analysis")
@@ -418,6 +425,17 @@ async fn main() -> Result<()> {
     if matches.get_flag("test-semantic-unification") {
         println!("🧠 Testing semantic unification engine...");
         test_semantic_unification().await?;
+        return Ok(());
+    }
+
+    // Check if hash test is requested
+    if let Some(word) = matches.get_one::<String>("test-hash") {
+        let hash = ShardType::simple_hash(word);
+        let shard = ShardType::from_key(word);
+        println!("{}", hash);  // Print only hash for script parsing
+        eprintln!("Word: {}", word);
+        eprintln!("Hash: {}", hash);
+        eprintln!("Shard: {:?}", shard);
         return Ok(());
     }
 
@@ -1646,31 +1664,32 @@ async fn generate_simple_output_files(
             StdHashMap::new()
         });
 
-    // Create redirects for Chinese multi-character words
-    println!("  🔍 DEBUG: Total entries in combined_dict: {}", combined_dict.entries.len());
-    let chizu_entry = combined_dict.entries.iter().find(|e| {
-        e.word == "地圖" || e.word == "地図"
-    });
-    if let Some(entry) = chizu_entry {
-        println!("  🔍 DEBUG: Found entry for 地圖/地図:");
-        println!("    Word: {}", entry.word);
-        println!("    Has Chinese: {}", entry.chinese_entry.is_some());
-        println!("    Has Japanese: {}", entry.japanese_entry.is_some());
-        if let Some(ref jp) = entry.japanese_entry {
-            println!("    Japanese kanji forms: {:?}", jp.kanji.iter().map(|k| &k.text).collect::<Vec<_>>());
-        }
-    } else {
-        println!("  🔍 DEBUG: No entry found for 地圖 or 地図");
-    }
+    // ============================================================================
+    // REDIRECT CREATION LOOP
+    // ============================================================================
+    // CRITICAL: This loop creates redirect entries for words that don't have
+    // their own dictionary entries. Redirects can belong to different shards
+    // than their targets (e.g., "地図" in han-2char-3 → "地圖" in han-2char-2).
+    //
+    // ⚠️  WARNING: DO NOT use `continue` statements inside shard filtering!
+    //     Using `continue` will skip the entire entry, preventing subsequent
+    //     redirect types (e.g., Japanese redirects) from being created.
+    //     Instead, use conditional checks to skip only the specific redirect.
+    //
+    // Example of WRONG pattern:
+    //   if shard_filter.is_some() && shard_doesn't_match {
+    //       continue;  // ❌ Skips entire entry!
+    //   }
+    //
+    // Example of CORRECT pattern:
+    //   let should_create = shard_filter.map_or(true, |s| shard_matches);
+    //   if should_create {
+    //       // Create redirect
+    //   }
+    //   // Execution continues to next redirect type
+    // ============================================================================
 
     for entry in &combined_dict.entries {
-        // Debug: Check if this is the 地圖 entry
-        if entry.word == "地圖" {
-            println!("  🔍 DEBUG: Processing entry '地圖' in redirect loop");
-            println!("    Has Chinese: {}", entry.chinese_entry.is_some());
-            println!("    Has Japanese: {}", entry.japanese_entry.is_some());
-        }
-
         if let Some(ref chinese) = entry.chinese_entry {
             if chinese.trad.chars().count() > 1 && !existing_keys.contains(&chinese.trad) {
                 // Check if shard_filter matches before creating redirect
