@@ -2,6 +2,7 @@
 	import { useSession } from "$lib/auth-client";
 	import { marked } from "marked";
 	import DOMPurify from "dompurify";
+	import SectionHeading from "./shared/SectionHeading.svelte";
 
 	interface Note {
 		id: string;
@@ -36,6 +37,7 @@
 	let uploadingImage = $state(false);
 	let fileInput = $state<HTMLInputElement>();
 	let hasAttemptedLoad = $state(false);
+	let isExpanded = $state(false); // Track if the note box is expanded
 
 	// Configure marked for security
 	marked.setOptions({
@@ -106,12 +108,25 @@
 	function startEditing() {
 		isEditing = true;
 		noteText = myNote?.noteText || "";
+		isExpanded = true; // Expand when editing existing note
 	}
 
 	function cancelEditing() {
 		isEditing = false;
 		showPreview = false;
 		noteText = myNote?.noteText || "";
+		isExpanded = false;
+	}
+
+	function handleFocus() {
+		isExpanded = true;
+	}
+
+	function handleBlur() {
+		// Only collapse if there's no text and we're not editing an existing note
+		if (!noteText.trim() && !myNote) {
+			isExpanded = false;
+		}
 	}
 
 	async function deleteNote() {
@@ -215,9 +230,9 @@
 	});
 </script>
 
-<div class="my-8 p-4 md:p-6 bg-primary-secondary rounded-lg max-w-full">
-	<h3 class="m-0 mb-4 text-xl md:text-2xl text-text-primary">Notes</h3>
+<SectionHeading>Notes</SectionHeading>
 
+<div class="mb-4">
 	{#if error}
 		<div class="p-3 bg-red-50 text-red-700 rounded mb-4">{error}</div>
 	{/if}
@@ -228,9 +243,9 @@
 		<!-- Current User's Note -->
 		{#if $session.data?.user}
 			{#if myNote && !isEditing}
-				<div class="mb-8 p-4 bg-primary-tertiary rounded-md border border-border-light">
-					<div class="flex justify-between items-center mb-3">
-						<span class="font-semibold text-text-secondary text-sm">Your Note</span>
+				<div class="mb-6">
+					<div class="flex justify-between items-center mb-2">
+						<span class="font-semibold text-text-secondary text-xs">Your Note</span>
 						<div class="note-actions">
 							<button onclick={startEditing} class="edit-btn" title="Edit">Edit</button>
 							<button onclick={deleteNote} class="delete-btn" title="Delete">Delete</button>
@@ -241,66 +256,70 @@
 					</div>
 				</div>
 			{:else if isEditing || !myNote}
-				<div class="mb-8 p-4 bg-primary-tertiary rounded-md border border-border-light">
+				<div class="mb-6 note-editor" class:expanded={isExpanded}>
 					<div class="flex justify-between items-center mb-3">
-						<span class="font-semibold text-text-secondary text-sm">{myNote ? "Edit Your Note" : "Add Your Note"}</span>
-						<div class="editor-tabs">
-							<button
-								class="tab"
-								class:active={!showPreview}
-								onclick={() => (showPreview = false)}
-							>
-								Write
-							</button>
-							<button
-								class="tab"
-								class:active={showPreview}
-								onclick={() => (showPreview = true)}
-								disabled={!noteText.trim()}
-							>
-								Preview
-							</button>
+						<div class="flex items-center gap-3">
+							<span class="font-semibold text-text-secondary text-sm">{myNote ? "Edit Your Note" : "Add Your Note"}</span>
+							{#if isExpanded}
+								<div class="editor-tabs">
+									<button
+										class="tab"
+										class:active={!showPreview}
+										onclick={() => (showPreview = false)}
+									>
+										Write
+									</button>
+									<button
+										class="tab"
+										class:active={showPreview}
+										onclick={() => (showPreview = true)}
+										disabled={!noteText.trim()}
+									>
+										Preview
+									</button>
+								</div>
+							{/if}
 						</div>
+						{#if isExpanded}
+							<div class="editor-actions">
+								<input
+									type="file"
+									accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
+									onchange={handleImageSelect}
+									bind:this={fileInput}
+									style="display: none;"
+								/>
+								<button
+									onclick={triggerImageUpload}
+									disabled={uploadingImage}
+									class="image-btn"
+									title="Upload image"
+								>
+									{uploadingImage ? "Uploading..." : "📷 Add Image"}
+								</button>
+								<button onclick={saveNote} disabled={loading || !noteText.trim()} class="save-btn">
+									{loading ? "Saving..." : "Save"}
+								</button>
+								{#if myNote}
+									<button onclick={cancelEditing} class="cancel-btn">Cancel</button>
+								{/if}
+							</div>
+						{/if}
 					</div>
 
 					{#if !showPreview}
 						<textarea
 							bind:value={noteText}
-							placeholder="Write your note here... (Markdown supported)"
-							rows="8"
+							placeholder="Write your note here... Markdown supported: **bold**, *italic*, [links](url), images, lists, etc."
+							rows={isExpanded ? 8 : 2}
+							onfocus={handleFocus}
+							onblur={handleBlur}
 						></textarea>
-						<div class="markdown-hint">
-							<p>Markdown supported: **bold**, *italic*, [links](url), images, lists, etc.</p>
-						</div>
 					{:else}
 						<div class="preview-content markdown-content">
 							{@html renderMarkdown(noteText)}
 						</div>
 					{/if}
-
-					<div class="editor-actions">
-						<input
-							type="file"
-							accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
-							onchange={handleImageSelect}
-							bind:this={fileInput}
-							style="display: none;"
-						/>
-						<button
-							onclick={triggerImageUpload}
-							disabled={uploadingImage}
-							class="image-btn"
-							title="Upload image"
-						>
-							{uploadingImage ? "Uploading..." : "📷 Add Image"}
-						</button>
-						<button onclick={saveNote} disabled={loading || !noteText.trim()} class="save-btn">
-							{loading ? "Saving..." : "Save"}
-						</button>
-						{#if myNote}
-							<button onclick={cancelEditing} class="cancel-btn">Cancel</button>
-						{/if}
-					</div>
 				</div>
 			{/if}
 		{:else}
@@ -309,38 +328,57 @@
 
 		<!-- Other Users' Notes -->
 		{#if otherNotes.length > 0}
-			<div class="other-notes">
-				<div class="notes-list">
-					{#each otherNotes as note (note.id)}
-						<div class="note" class:admin={note.isAdmin}>
-							<div class="note-header-with-avatar">
-								<a href="/users/{note.userId}" class="user-avatar-link">
-									{#if note.user?.image}
-										<img src={note.user.image} alt={note.user.name} class="user-avatar" />
-									{:else}
-										<div class="user-avatar-placeholder">
-											{note.user?.name?.charAt(0).toUpperCase() || '?'}
-										</div>
-									{/if}
-								</a>
-								{#if note.isAdmin}
-									<span class="admin-badge">Admin</span>
+			<div class="notes-list">
+				{#each otherNotes as note (note.id)}
+					<div class="note mb-4" class:admin={note.isAdmin}>
+						<div class="note-header-with-avatar">
+							<a href="/users/{note.userId}" class="user-avatar-link">
+								{#if note.user?.image}
+									<img src={note.user.image} alt={note.user.name} class="user-avatar" />
+								{:else}
+									<div class="user-avatar-placeholder">
+										{note.user?.name?.charAt(0).toUpperCase() || '?'}
+									</div>
 								{/if}
-							</div>
-							<div class="note-content markdown-content">
-								{@html renderMarkdown(note.noteText)}
-							</div>
+							</a>
+							{#if note.isAdmin}
+								<span class="admin-badge">Admin</span>
+							{/if}
 						</div>
-					{/each}
-				</div>
+						<div class="note-content markdown-content">
+							{@html renderMarkdown(note.noteText)}
+						</div>
+					</div>
+				{/each}
 			</div>
 		{/if}
 	{/if}
 </div>
 
 <style>
+	.note-editor {
+		transition: all 0.3s ease-in-out;
+	}
+
+	.note-editor:not(.expanded) {
+		cursor: text;
+	}
+
+	.note-editor:not(.expanded):hover {
+		@apply border-accent;
+	}
+
 	.editor-tabs {
 		@apply flex gap-2;
+		opacity: 0;
+		max-height: 0;
+		overflow: hidden;
+		transition: opacity 0.3s ease-in-out, max-height 0.3s ease-in-out;
+	}
+
+	.note-editor.expanded .editor-tabs {
+		opacity: 1;
+		max-height: 50px;
 	}
 
 	.tab {
@@ -356,20 +394,21 @@
 		@apply bg-primary-secondary;
 	}
 
-	.markdown-hint {
-		@apply mt-2 mb-3;
-	}
-
-	.markdown-hint p {
-		@apply m-0 text-xs text-text-muted italic;
-	}
-
 	.preview-content {
-		@apply min-h-[200px] p-3 bg-primary-secondary border border-border-light rounded mb-3;
+		@apply min-h-[200px] p-3 bg-primary-secondary border border-border-light rounded;
 	}
 
 	.editor-actions {
-		@apply flex gap-2;
+		@apply flex gap-2 items-center;
+		opacity: 0;
+		max-height: 0;
+		overflow: hidden;
+		transition: opacity 0.3s ease-in-out, max-height 0.3s ease-in-out;
+	}
+
+	.note-editor.expanded .editor-actions {
+		opacity: 1;
+		max-height: 50px;
 	}
 
 	.save-btn {
@@ -401,21 +440,16 @@
 	}
 
 	/* Other Users' Notes */
-	.other-notes {
-		@apply mt-8;
-	}
-
 	.notes-list {
-		@apply flex flex-col gap-4;
+		@apply flex flex-col gap-2;
 	}
 
 	.note {
-		@apply p-4 bg-primary-tertiary rounded-md border border-border-light relative;
+		@apply relative;
 	}
 
 	.note.admin {
-		@apply border-[#4285f4];
-		background: var(--accent-light);
+		@apply border-l-2 border-[#4285f4] pl-3;
 	}
 
 	.note-header-with-avatar {
@@ -528,7 +562,8 @@
 	}
 
 	textarea {
-		@apply w-full p-3 border border-border rounded font-sans text-base resize-y min-h-[200px] box-border bg-primary-secondary text-text-primary leading-relaxed;
+		@apply w-full p-3 border border-border rounded font-sans text-base resize-y box-border bg-primary-secondary text-text-primary leading-relaxed;
+		transition: all 0.3s ease-in-out;
 	}
 
 	textarea:focus {

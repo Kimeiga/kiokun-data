@@ -1,4 +1,6 @@
 <script lang="ts">
+	import SectionHeading from './components/shared/SectionHeading.svelte';
+
 	interface WordPreview {
 		w: string; // word
 		p?: string; // pronunciation
@@ -84,9 +86,9 @@
 </script>
 
 {#if chineseWords.length > 0 || japaneseWords.length > 0}
-	<div class="appears-in-section">
-		<h2 style="font-size: 24px; margin-bottom: 20px; color: var(--text-secondary);">Appears In</h2>
+	<SectionHeading>Appears In</SectionHeading>
 
+	<div class="mb-4">
 		<div class="two-column-layout">
 			<!-- Chinese Words Column -->
 			{#if chineseWords.length > 0}
@@ -159,12 +161,6 @@
 {/if}
 
 <style>
-	.appears-in-section {
-		margin-top: 40px;
-		padding-top: 30px;
-		border-top: 2px solid var(--border-color);
-	}
-
 	.two-column-layout {
 		display: grid;
 		grid-template-columns: 1fr 1fr;

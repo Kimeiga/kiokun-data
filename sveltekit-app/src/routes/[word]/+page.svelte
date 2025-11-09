@@ -7,6 +7,7 @@
 	import JapaneseNames from '$lib/components/JapaneseNames.svelte';
 	import Notes from '$lib/components/Notes.svelte';
 	import WordTable from '$lib/components/JapaneseWords/WordTable.svelte';
+	import SectionHeading from '$lib/components/shared/SectionHeading.svelte';
 	import { getDictionaryUrl } from '$lib/shard-utils';
 	import { dev } from '$app/environment';
 
@@ -54,7 +55,10 @@
 								.then(onComplete)
 								.catch(() => {
 									// Final fallback: try to load KanjiVG SVG
-									loadKanjiVGFallback(char, onError);
+									loadKanjiVGFallback(char, (error) => {
+										console.warn(`No stroke data available for character: ${char}`, error);
+										onError(error);
+									});
 								});
 						});
 				} else {
@@ -65,7 +69,11 @@
 							return res.json();
 						})
 						.then(onComplete)
-						.catch(onError);
+						.catch((error) => {
+							// Silently fail for characters without stroke data (e.g., rare components)
+							console.warn(`No stroke data available for character: ${char}`, error);
+							onError(error);
+						});
 				}
 			};
 
@@ -331,12 +339,12 @@
 
 <Header currentWord={data.word} />
 
-<div class="max-w-6xl mx-auto px-3 py-4 md:px-5 md:py-5">
+<div class="max-w-6xl mx-auto px-3 py-2 md:px-5 md:py-3">
 	<div id="content">
 		<!-- Character Header -->
 		{#if data.data.chinese_char || data.data.japanese_char}
-			<div class="bg-primary-secondary rounded-xl shadow overflow-hidden transition-all duration-300 mb-0">
-				<div class="p-4 md:p-6 lg:p-8">
+			<div class="mb-0">
+				<div class="py-3 md:py-4">
 					<!-- Compact Header: Characters + Pronunciations + Gloss in one line -->
 					<div class="flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-6 mb-5">
 						<!-- Character Variants with Stroke Animations -->
@@ -479,12 +487,8 @@
 						{@const makemeahanziImage = data.data.chinese_char.images?.find(
 							(img) => img && img.source === 'makemeahanzi' && img.data
 						)}
-						<div style="margin-bottom: 20px;">
-							<div
-								style="font-weight: 600; font-size: 16px; margin-bottom: 12px; color: var(--color-heading);"
-							>
-								🧩 Components
-							</div>
+						<SectionHeading>🧩 Components</SectionHeading>
+						<div class="mb-4">
 
 							<!-- Traditional Character Components -->
 							<div style="margin-bottom: 20px;">
@@ -676,12 +680,8 @@
 					<!-- Usage Statistics -->
 					{#if data.data.chinese_char?.statistics}
 						{@const stats = data.data.chinese_char.statistics}
-						<div style="margin-top: 20px; padding: 20px; background: var(--bg-tertiary); border-radius: 8px;">
-							<div
-								style="font-weight: 600; font-size: 16px; margin-bottom: 15px; color: var(--color-heading);"
-							>
-								📊 Usage Statistics
-							</div>
+						<SectionHeading>📊 Usage Statistics</SectionHeading>
+						<div class="mb-4">
 
 							<!-- HSK Level and Ranks -->
 							<div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;">
@@ -799,64 +799,54 @@
 			</div>
 		{/if}
 
-		<!-- Notes Section -->
-		<Notes character={data.word} />
-
-		<!-- Word Definitions Container (Two Columns on Desktop) -->
-		<div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mb-5 md:mb-8">
-			<!-- Chinese Words -->
+		<!-- Chinese Words -->
 		{#if data.data.chinese_words && data.data.chinese_words.length > 0}
-			<div class="bg-primary-secondary rounded-xl shadow overflow-hidden transition-all duration-300 mb-0">
-				<div class="p-4 md:p-5">
-					{#each data.data.chinese_words as word}
-						{#if word.items && word.items.length > 0}
-							{@const itemsWithDefs = word.items.filter(
-								(item) => item.definitions && item.definitions.length > 0
-							)}
-							{#each itemsWithDefs as item}
-								<div style="margin-bottom: 30px;">
-									<!-- Character and Pinyin -->
-									<div style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px;">
-										<div
-											style="font-size: 32px; font-family: 'MS Mincho', serif; font-weight: 600;"
-										>
-											{data.word}
-										</div>
-										{#if item.pinyin}
-											<div
-												style="font-size: 18px; color: var(--color-onyomi); font-family: 'MS Mincho', serif;"
-											>
-												[{item.pinyin}]
-											</div>
-										{/if}
+			<SectionHeading>Chinese</SectionHeading>
+			<div class="mb-4">
+				{#each data.data.chinese_words as word}
+					{#if word.items && word.items.length > 0}
+						{@const itemsWithDefs = word.items.filter(
+							(item) => item.definitions && item.definitions.length > 0
+						)}
+						{#each itemsWithDefs as item}
+							<div class="mb-6">
+								<!-- Character and Pinyin -->
+								<div class="flex items-baseline gap-3 mb-2">
+									<div class="text-2xl font-cjk font-semibold">
+										{data.word}
 									</div>
-									<!-- Definitions -->
-									{#if item.definitions && item.definitions.length > 0}
-										<div style="color: var(--text-primary); line-height: 1.6;">
-											{item.definitions.join('; ')}
+									{#if item.pinyin}
+										<div class="text-base text-onyomi font-cjk">
+											[{item.pinyin}]
 										</div>
 									{/if}
 								</div>
-							{/each}
-						{/if}
-					{/each}
-				</div>
+								<!-- Definitions -->
+								{#if item.definitions && item.definitions.length > 0}
+									<div class="text-text-primary leading-relaxed">
+										{item.definitions.join('; ')}
+									</div>
+								{/if}
+							</div>
+						{/each}
+					{/if}
+				{/each}
 			</div>
 		{/if}
 
 		<!-- Japanese Words -->
 		{#if data.data.japanese_words && data.data.japanese_words.length > 0}
-			<div class="bg-primary-secondary rounded-xl shadow overflow-hidden transition-all duration-300 mb-0">
-				<div class="p-4 md:p-5">
-					<WordTable
-						words={data.data.japanese_words}
-						accentDisplay="binary"
-					/>
-				</div>
+			<SectionHeading>Japanese</SectionHeading>
+			<div class="mb-4">
+				<WordTable
+					words={data.data.japanese_words}
+					accentDisplay="binary"
+				/>
 			</div>
 		{/if}
-		</div>
-		<!-- End Word Definitions Container -->
+
+		<!-- Notes Section -->
+		<Notes character={data.word} />
 
 		<!-- Japanese Names Section -->
 		{#if data.data.japanese_names && data.data.japanese_names.length > 0}

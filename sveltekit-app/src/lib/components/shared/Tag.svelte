@@ -50,17 +50,11 @@
 		transition: all 0.2s ease;
 	}
 
-	/* Default grey color for POS tags */
+	/* Default grey color for POS tags - uses CSS variables that adapt to theme */
 	.tag:not(.has-color) {
-		background: transparent;
-		border-color: rgba(0, 0, 0, 0.3);
-		color: var(--text-color, #2c3e50);
-	}
-
-	/* Dark mode support for default tags */
-	:global(.dark) .tag:not(.has-color) {
-		border-color: rgba(255, 255, 255, 0.4);
-		color: var(--text-color, #ecf0f1);
+		background: var(--tag-pos-bg);
+		border-color: var(--tag-border);
+		color: var(--tag-pos-text);
 	}
 </style>
 

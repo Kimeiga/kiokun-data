@@ -1,4 +1,6 @@
 <script lang="ts">
+	import SectionHeading from './components/shared/SectionHeading.svelte';
+
 	interface WordPreview {
 		w: string; // word
 		p?: string; // pronunciation
@@ -47,9 +49,9 @@
 </script>
 
 {#if words.length > 0}
-	<div class="contains-section">
-		<h2>Contains</h2>
+	<SectionHeading>Contains</SectionHeading>
 
+	<div class="mb-4">
 		<div class="words-container">
 			<!-- Chinese words column -->
 			<div class="words-column">
@@ -93,22 +95,6 @@
 {/if}
 
 <style>
-	.contains-section {
-		margin-top: 3rem;
-		padding: 2rem;
-		background: var(--bg-secondary);
-		border-radius: 12px;
-		box-shadow: 0 2px 8px var(--shadow);
-		transition: background-color 0.3s ease, box-shadow 0.3s ease;
-	}
-
-	h2 {
-		color: var(--text-secondary);
-		margin: 0 0 1.5rem 0;
-		font-size: 1.8rem;
-		font-weight: 600;
-	}
-
 	.words-container {
 		display: grid;
 		grid-template-columns: 1fr;
