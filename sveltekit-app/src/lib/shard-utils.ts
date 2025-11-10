@@ -118,6 +118,30 @@ export function getRawGitHubUrl(word: string): string {
   return `https://raw.githubusercontent.com/Kimeiga/kiokun2-dict-${shard}/main/${encodedWord}.json.deflate`;
 }
 
+// Cache for the CORS server port
+let cachedPort: number | null = null;
+
+/**
+ * Get the CORS server port by reading from the API endpoint
+ * @param fetchFn - Optional fetch function (use SvelteKit's fetch in load functions)
+ * @returns The port number, or 8000 as fallback
+ */
+async function getCorsPort(fetchFn: typeof fetch = fetch): Promise<number> {
+  if (cachedPort !== null) {
+    return cachedPort;
+  }
+
+  try {
+    const response = await fetchFn('/api/cors-port');
+    const data = await response.json();
+    cachedPort = data.port;
+    return cachedPort;
+  } catch (error) {
+    console.warn('Failed to fetch CORS port, using default 8000:', error);
+    return 8000;
+  }
+}
+
 /**
  * Get the local development URL for a dictionary word
  *
@@ -131,12 +155,12 @@ export function getRawGitHubUrl(word: string): string {
  * cd output_dictionary && python3 cors_server.py
  *
  * @param word - The dictionary word to look up
+ * @param fetchFn - Optional fetch function (use SvelteKit's fetch in load functions)
  * @returns Full local URL for the word's compressed JSON file
  */
-export function getLocalUrl(word: string): string {
+export async function getLocalUrl(word: string, fetchFn: typeof fetch = fetch): Promise<string> {
   const encodedWord = encodeURIComponent(word);
-  // Always use port 8000 for local development
-  const port = '8000';
+  const port = await getCorsPort(fetchFn);
   return `http://localhost:${port}/${encodedWord}.json.deflate`;
 }
 
@@ -144,22 +168,23 @@ export function getLocalUrl(word: string): string {
  * Get the appropriate dictionary URL based on environment
  *
  * ENVIRONMENT DETECTION:
- * - Development (dev=true): Uses local HTTP server at localhost:8000
+ * - Development (dev=true): Uses local HTTP server with dynamic port detection
  * - Production/Staging: Uses raw GitHub URLs
  *
  * For local development, run this in the output_dictionary folder:
- * cd output_dictionary && python3 -m http.server 8000
+ * cd output_dictionary && python3 cors_server.py
  *
  * NOTE: Raw GitHub URLs provide consistent global performance and avoid
  * CDN cache inconsistencies between geographic regions.
  *
  * @param word - The dictionary word to look up
  * @param dev - Whether we're in development mode (from $app/environment)
+ * @param fetchFn - Optional fetch function (use SvelteKit's fetch in load functions)
  * @returns Full URL to fetch the word's dictionary data
  */
-export function getDictionaryUrl(word: string, dev: boolean = false): string {
+export async function getDictionaryUrl(word: string, dev: boolean = false, fetchFn: typeof fetch = fetch): Promise<string> {
   if (dev) {
-    return getLocalUrl(word);
+    return await getLocalUrl(word, fetchFn);
   }
   // Use raw GitHub URLs for production
   return getRawGitHubUrl(word);

@@ -48,7 +48,7 @@ export const load: PageLoad<PageData> = async ({ params, fetch }) => {
 
 	try {
 		// Fetch the compressed dictionary data
-		const url = getDictionaryUrl(word, dev);
+		const url = await getDictionaryUrl(word, dev, fetch);
 		console.log('[LOAD] Fetching URL:', url);
 		const response = await fetch(url);
 		console.log('[LOAD] Response status:', response.status);
@@ -75,7 +75,7 @@ export const load: PageLoad<PageData> = async ({ params, fetch }) => {
 
 		// If this is a redirect entry, fetch the actual data
 		if (data.redirect) {
-			const redirectUrl = getDictionaryUrl(data.redirect, dev);
+			const redirectUrl = await getDictionaryUrl(data.redirect, dev, fetch);
 			const redirectResponse = await fetch(redirectUrl);
 			if (redirectResponse.ok) {
 				const redirectCompressed = await redirectResponse.arrayBuffer();

@@ -4,15 +4,16 @@ import { dev } from '$app/environment';
 
 /**
  * Navigate to a word if it exists in the dictionary, otherwise redirect to search
- * 
+ *
  * This function:
  * 1. Tries to fetch the word from the dictionary
  * 2. If found, navigates to /{word}
  * 3. If not found (404), redirects to /search?q={word}
- * 
+ *
  * @param word - The word to search for
+ * @param fetchFn - Optional fetch function (defaults to global fetch)
  */
-export async function navigateOrSearch(word: string): Promise<void> {
+export async function navigateOrSearch(word: string, fetchFn: typeof fetch = fetch): Promise<void> {
 	if (!word || word.trim().length === 0) {
 		return;
 	}
@@ -21,8 +22,8 @@ export async function navigateOrSearch(word: string): Promise<void> {
 
 	try {
 		// Try to fetch the word from the dictionary
-		const url = getDictionaryUrl(trimmedWord, dev);
-		const response = await fetch(url, { method: 'HEAD' }); // Use HEAD to avoid downloading the full file
+		const url = await getDictionaryUrl(trimmedWord, dev, fetchFn);
+		const response = await fetchFn(url, { method: 'HEAD' }); // Use HEAD to avoid downloading the full file
 
 		if (response.ok) {
 			// Word exists, navigate to it
