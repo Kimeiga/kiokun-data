@@ -1426,6 +1426,14 @@ async fn generate_simple_output_files(
     // Add JMnedict entries (Japanese names)
     println!("🏷️ Adding JMnedict entries (Japanese names)...");
     println!("  Processing {} JMnedict entries", jmnedict_entries.len());
+
+    // Load J2C mapping for multi-character name entries
+    let j2c_mapping_for_names = load_j2c_mapping("output/j2c_mapping.json")
+        .unwrap_or_else(|_| {
+            println!("  ⚠️  No J2C mapping found for JMnedict entries");
+            StdHashMap::new()
+        });
+
     for jmnedict_entry in jmnedict_entries {
         let keys = jmnedict_entry.get_keys();
 
@@ -1438,8 +1446,8 @@ async fn generate_simple_output_files(
                 // Single character - check if it's a Japanese variant
                 japanese_variant_map.get(&key).cloned().unwrap_or(key.clone())
             } else {
-                // Multi-character - keep as is (already handled by J2C mapping in word processing)
-                key.clone()
+                // Multi-character - use J2C mapping if available
+                j2c_mapping_for_names.get(&key).cloned().unwrap_or(key.clone())
             };
 
             let output = outputs.entry(final_key.clone()).or_insert_with(|| SimpleOutput {
