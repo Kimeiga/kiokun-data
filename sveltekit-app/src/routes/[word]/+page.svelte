@@ -799,49 +799,58 @@
 			</div>
 		{/if}
 
-		<!-- Chinese Words -->
-		{#if data.data.chinese_words && data.data.chinese_words.length > 0}
-			<SectionHeading>Chinese</SectionHeading>
-			<div class="mb-4">
-				{#each data.data.chinese_words as word}
-					{#if word.items && word.items.length > 0}
-						{@const itemsWithDefs = word.items.filter(
-							(item) => item.definitions && item.definitions.length > 0
-						)}
-						{#each itemsWithDefs as item}
-							<div class="mb-6">
-								<!-- Character and Pinyin -->
-								<div class="flex items-baseline gap-3 mb-2">
-									<div class="text-2xl font-cjk font-semibold">
-										{data.word}
-									</div>
-									{#if item.pinyin}
-										<div class="text-base text-onyomi font-cjk">
-											[{item.pinyin}]
+		<!-- Chinese and Japanese Words - Two Column Layout on Desktop -->
+		{#if (data.data.chinese_words && data.data.chinese_words.length > 0) || (data.data.japanese_words && data.data.japanese_words.length > 0)}
+			<div class="word-sections-grid">
+				<!-- Chinese Words -->
+				{#if data.data.chinese_words && data.data.chinese_words.length > 0}
+					<div>
+						<SectionHeading>Chinese</SectionHeading>
+						<div class="mb-4">
+							{#each data.data.chinese_words as word}
+								{#if word.items && word.items.length > 0}
+									{@const itemsWithDefs = word.items.filter(
+										(item) => item.definitions && item.definitions.length > 0
+									)}
+									{#each itemsWithDefs as item}
+										<div class="chinese-word-entry">
+											<!-- Character and Pinyin -->
+											<div class="chinese-headwords">
+												<span class="chinese-word-text">
+													{data.word}
+												</span>
+												{#if item.pinyin}
+													<span class="chinese-pronunciation">
+														[{item.pinyin}]
+													</span>
+												{/if}
+											</div>
+											<!-- Definitions -->
+											{#if item.definitions && item.definitions.length > 0}
+												<div class="chinese-definitions">
+													{item.definitions.join('; ')}
+												</div>
+											{/if}
 										</div>
-									{/if}
-								</div>
-								<!-- Definitions -->
-								{#if item.definitions && item.definitions.length > 0}
-									<div class="text-text-primary leading-relaxed">
-										{item.definitions.join('; ')}
-									</div>
+									{/each}
 								{/if}
-							</div>
-						{/each}
-					{/if}
-				{/each}
-			</div>
-		{/if}
+							{/each}
+						</div>
+					</div>
+				{/if}
 
-		<!-- Japanese Words -->
-		{#if data.data.japanese_words && data.data.japanese_words.length > 0}
-			<SectionHeading>Japanese</SectionHeading>
-			<div class="mb-4">
-				<WordTable
-					words={data.data.japanese_words}
-					accentDisplay="binary"
-				/>
+				<!-- Japanese Words -->
+				{#if data.data.japanese_words && data.data.japanese_words.length > 0}
+					<div>
+						<SectionHeading>Japanese</SectionHeading>
+						<div class="mb-4">
+							<WordTable
+								words={data.data.japanese_words}
+								accentDisplay="binary"
+							/>
+						</div>
+					</div>
+				{/if}
 			</div>
 		{/if}
 
@@ -880,6 +889,52 @@
 		@apply transition-all duration-300;
 		background: var(--badge-hsk-bg);
 		color: var(--badge-hsk-text);
+	}
+
+	/* Two-column layout for Chinese and Japanese word sections on desktop */
+	.word-sections-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 0;
+	}
+
+	@media (min-width: 768px) {
+		.word-sections-grid {
+			grid-template-columns: 1fr 1fr;
+			gap: 2rem;
+		}
+	}
+
+	/* Chinese word entry styling to match Japanese word styling */
+	.chinese-word-entry {
+		margin-bottom: 30px;
+	}
+
+	.chinese-headwords {
+		display: flex;
+		align-items: baseline;
+		gap: 12px;
+		margin-bottom: 12px;
+		flex-wrap: wrap;
+	}
+
+	.chinese-word-text {
+		font-size: 32px;
+		font-family: 'MS Mincho', serif;
+		font-weight: 600;
+		color: var(--primary-highlight, #2c3e50);
+	}
+
+	.chinese-pronunciation {
+		font-size: 20px;
+		font-family: 'MS Mincho', serif;
+		color: var(--reading-highlight, #e74c3c);
+	}
+
+	.chinese-definitions {
+		font-size: 16px;
+		line-height: 1.6;
+		color: var(--text-primary);
 	}
 </style>
 
