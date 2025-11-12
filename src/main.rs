@@ -1482,7 +1482,8 @@ async fn generate_simple_output_files(
 
     for (word_key, output) in &outputs {
         // For Chinese words, check each character in the word
-        if !output.chinese_words.is_empty() {
+        // Include both full entries and redirect entries (e.g., 好处 → 好處)
+        if !output.chinese_words.is_empty() || output.redirect.is_some() {
             for ch in word_key.chars() {
                 let ch_str = ch.to_string();
                 if ch_str != *word_key {  // Don't add self-references
@@ -1510,6 +1511,35 @@ async fn generate_simple_output_files(
         }
     }
 
+    // Pre-populate containment index with simplified forms that will be created as redirects later
+    // This ensures simplified forms appear in the "Appears In" section with correct frequency sorting
+    // We also build a mapping from simplified to traditional forms for lookup later
+    println!("  📝 Pre-populating containment index with simplified forms...");
+    let mut simplified_forms_added = 0;
+    let mut simp_to_trad_map: StdHashMap<String, String> = StdHashMap::new();
+    for (_key, output) in &outputs {
+        // Only process entries that have Chinese words (not redirects or character-only entries)
+        if !output.chinese_words.is_empty() {
+            if let Some(ref chinese_word) = output.chinese_words.first() {
+                // Check if this word has both simplified and traditional forms that are different
+                if chinese_word.simp != chinese_word.trad {
+                    // Store the mapping from simplified to traditional
+                    simp_to_trad_map.insert(chinese_word.simp.clone(), chinese_word.trad.clone());
+
+                    // Add the simplified form to the containment index for each character
+                    for ch in chinese_word.simp.chars() {
+                        let ch_str = ch.to_string();
+                        if ch_str != chinese_word.simp {  // Don't add self-references
+                            chinese_containment.entry(ch_str).or_insert_with(Vec::new).push(chinese_word.simp.clone());
+                            simplified_forms_added += 1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    println!("  ✅ Added {} simplified form entries to containment index", simplified_forms_added);
+
     // Populate the contained_in fields (limit to 100 entries each)
     println!("  📝 Populating containment data for {} entries...", outputs.len());
 
@@ -1529,16 +1559,69 @@ async fn generate_simple_output_files(
             unique_words.sort();
             unique_words.dedup();
 
-            // Convert to WordPreview objects and limit to 100
-            let previews: Vec<word_preview_types::WordPreview> = unique_words.iter()
+            // Build a lookup map from the character's topWords to get frequency/share for each word
+            let top_words_map: StdHashMap<String, f64> = output.chinese_char.as_ref()
+                .and_then(|ch| ch.statistics.as_ref())
+                .and_then(|stats| stats.top_words.as_ref())
+                .map(|top_words| {
+                    top_words.iter()
+                        .map(|tw| (tw.word.clone(), tw.share))
+                        .collect()
+                })
+                .unwrap_or_default();
+
+            // Convert to WordPreview objects with their share values for sorting
+            let mut previews_with_share: Vec<(word_preview_types::WordPreview, f64)> = unique_words.iter()
                 .filter_map(|word_key| {
-                    outputs.get(word_key).and_then(|word_output| {
-                        word_output.chinese_words.first()
-                            .map(|chinese_word| word_preview_types::WordPreview::from_chinese(chinese_word))
+                    // Try to get the entry from outputs
+                    // If the word_key doesn't exist (e.g., simplified form before redirect is created),
+                    // try to find it in the simp_to_trad_map to get the traditional form
+                    let word_output_opt = outputs.get(word_key).or_else(|| {
+                        // Word not found in outputs - might be a simplified form that hasn't been created as a redirect yet
+                        // Try to find it in simp_to_trad_map to get the traditional form
+                        simp_to_trad_map.get(word_key).and_then(|trad_form| {
+                            // Get the traditional form and look it up in outputs
+                            outputs.get(trad_form)
+                        })
+                    });
+
+                    word_output_opt.and_then(|word_output| {
+                        // For redirect entries, follow the redirect to get the actual data
+                        if let Some(ref redirect_target) = word_output.redirect {
+                            outputs.get(redirect_target).and_then(|target_output| {
+                                target_output.chinese_words.first()
+                                    .map(|chinese_word| {
+                                        let preview = word_preview_types::WordPreview::from_chinese(chinese_word);
+                                        // Get the share value from topWords, default to 0.0 if not found
+                                        let share = top_words_map.get(word_key).copied().unwrap_or(0.0);
+                                        (preview, share)
+                                    })
+                            })
+                        } else {
+                            // Regular entry with chinese_words
+                            word_output.chinese_words.first()
+                                .map(|chinese_word| {
+                                    let preview = word_preview_types::WordPreview::from_chinese(chinese_word);
+                                    // Get the share value from topWords, default to 0.0 if not found
+                                    let share = top_words_map.get(word_key).copied().unwrap_or(0.0);
+                                    (preview, share)
+                                })
+                        }
                     })
                 })
-                .take(200)  // Limit to 200 after conversion
                 .collect();
+
+            // Sort by share value (higher share = more common, so reverse sort)
+            previews_with_share.sort_by(|(_, share_a), (_, share_b)| {
+                share_b.partial_cmp(share_a).unwrap_or(std::cmp::Ordering::Equal)
+            });
+
+            // Extract just the previews and limit to 200 AFTER sorting by frequency
+            let previews: Vec<word_preview_types::WordPreview> = previews_with_share.into_iter()
+                .map(|(preview, _)| preview)
+                .take(200)  // Limit to 200 after sorting, so we get the 200 most common words
+                .collect();
+
             chinese_previews_map.insert(key.clone(), previews);
         }
 
@@ -1661,10 +1744,6 @@ async fn generate_simple_output_files(
     let existing_keys: std::collections::HashSet<String> = outputs.keys().cloned().collect();
     let mut redirect_count = 0;
 
-    // Debug: Check if 地図 or 地圖 are in existing_keys
-    println!("  🔍 DEBUG: existing_keys contains '地図': {}", existing_keys.contains("地図"));
-    println!("  🔍 DEBUG: existing_keys contains '地圖': {}", existing_keys.contains("地圖"));
-
     // Load J2C mapping for Japanese->Chinese redirects
     let j2c_mapping = load_j2c_mapping("output/j2c_mapping.json")
         .unwrap_or_else(|_| {
@@ -1755,59 +1834,32 @@ async fn generate_simple_output_files(
 
                     outputs.insert(chinese.simp.clone(), redirect_entry);
                     redirect_count += 1;
+
+                    // Also add the simplified form to the containment index for each character
+                    // This ensures simplified forms like 好处 appear in the "Appears In" section
+                    for ch in chinese.simp.chars() {
+                        let ch_str = ch.to_string();
+                        if ch_str != chinese.simp {  // Don't add self-references
+                            chinese_containment.entry(ch_str).or_insert_with(Vec::new).push(chinese.simp.clone());
+                        }
+                    }
                 }
             }
-        }
-
-        // Debug: Check if we reach this point for 地圖
-        if entry.word == "地圖" {
-            println!("  🔍 DEBUG: Reached Japanese redirect section for '地圖'");
-            println!("    entry.japanese_entry.is_some(): {}", entry.japanese_entry.is_some());
         }
 
         // Create redirects for Japanese multi-character words
         if let Some(ref japanese) = entry.japanese_entry {
-            // Debug: Check if this entry has 地図
-            let has_chizu = japanese.kanji.iter().any(|k| k.text == "地図");
-            if has_chizu {
-                println!("  🔍 DEBUG: Entry has Japanese word '地図'");
-                println!("    Entry key: {:?}", entry.chinese_entry.as_ref().map(|c| &c.trad));
-                println!("    Number of kanji forms: {}", japanese.kanji.len());
-                println!("    Looping over kanji forms...");
-            }
-
             for kanji_form in &japanese.kanji {
-                if has_chizu && kanji_form.text == "地図" {
-                    println!("    🔍 Checking kanji form '地図':");
-                    println!("      Char count: {}", kanji_form.text.chars().count());
-                    println!("      In existing_keys: {}", existing_keys.contains(&kanji_form.text));
-                    println!("      Condition result: {}", kanji_form.text.chars().count() > 1 && !existing_keys.contains(&kanji_form.text));
-                }
-
                 if kanji_form.text.chars().count() > 1 && !existing_keys.contains(&kanji_form.text) {
-                    // Debug logging for 地図
-                    if kanji_form.text == "地図" {
-                        println!("  🔍 DEBUG: Found Japanese word '地図' that needs redirect");
-                        println!("    Shard filter: {:?}", shard_filter);
-                        println!("    Shard for '地図': {:?}", ShardType::from_key(&kanji_form.text));
-                    }
-
                     // Skip if shard_filter is set and this entry doesn't match
                     if let Some(shard) = shard_filter {
                         if ShardType::from_key(&kanji_form.text) != shard {
-                            if kanji_form.text == "地図" {
-                                println!("    ❌ SKIPPED: Shard mismatch");
-                            }
                             continue;
                         }
                     }
 
                     // Check if this Japanese word has a J2C mapping to traditional Chinese
                     let redirect_target = if let Some(traditional_chinese) = j2c_mapping.get(&kanji_form.text) {
-                        if kanji_form.text == "地図" {
-                            println!("    ✅ Found J2C mapping: '地図' → '{}'", traditional_chinese);
-                            println!("    Traditional Chinese exists in outputs: {}", existing_keys.contains(traditional_chinese));
-                        }
                         // Our dictionary uses traditional Chinese as keys, so use it directly
                         if existing_keys.contains(traditional_chinese) {
                             traditional_chinese.clone()
@@ -1819,10 +1871,6 @@ async fn generate_simple_output_files(
                         // No J2C mapping, use first character
                         kanji_form.text.chars().next().unwrap().to_string()
                     };
-
-                    if kanji_form.text == "地図" {
-                        println!("    ✅ Creating redirect: '地図' → '{}'", redirect_target);
-                    }
 
                     let redirect_entry = SimpleOutput {
                         key: kanji_form.text.clone(),

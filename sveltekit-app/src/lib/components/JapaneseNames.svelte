@@ -2,6 +2,7 @@
 	// JapaneseNames component - displays Japanese name data from JMnedict
 	// Based on 10ten-ja-reader's NameEntry component
 	import Tag from './shared/Tag.svelte';
+	import SectionHeading from './shared/SectionHeading.svelte';
 
 	interface JmnedictName {
 		id: string;
@@ -20,6 +21,14 @@
 	}
 
 	let { names, word }: Props = $props();
+
+	// Pagination state
+	let showAll = $state(false);
+	let initialCount = 4; // Show first row (4 items on desktop)
+
+	// Computed displayed names
+	let displayedNames = $derived(showAll ? names : names.slice(0, initialCount));
+	let hasMore = $derived(names.length > initialCount);
 
 	// Type display names (English labels for tags)
 	const typeLabels: Record<string, string> = {
@@ -46,9 +55,9 @@
 </script>
 
 <div class="japanese-names">
-	<h3>📛 Japanese Names</h3>
-	<div class="names-list">
-		{#each names as name}
+	<SectionHeading>Japanese Names</SectionHeading>
+	<div class="names-grid">
+		{#each displayedNames as name}
 			<div class="name-entry">
 				<!-- Kanji and Kana on same line -->
 				<div class="name-headwords" lang="ja">
@@ -82,6 +91,12 @@
 			</div>
 		{/each}
 	</div>
+
+	{#if hasMore && !showAll}
+		<button class="see-more-btn" onclick={() => showAll = true}>
+			See More ({names.length - initialCount} more)
+		</button>
+	{/if}
 </div>
 
 <style>
@@ -89,17 +104,24 @@
 		margin-bottom: 30px;
 	}
 
-	h3 {
-		font-size: 18px;
-		font-weight: 600;
-		margin-bottom: 12px;
-		color: var(--text-color, #2c3e50);
+	.names-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 0;
 	}
 
-	.names-list {
-		display: flex;
-		flex-direction: column;
-		gap: 0;
+	/* 2 columns on tablet */
+	@media (min-width: 768px) {
+		.names-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	/* 4 columns on desktop */
+	@media (min-width: 1200px) {
+		.names-grid {
+			grid-template-columns: repeat(4, 1fr);
+		}
 	}
 
 	.name-entry {
@@ -115,15 +137,15 @@
 
 	.kanji-forms {
 		font-size: 24px;
-		font-family: 'MS Mincho', serif;
+		font-family: var(--font-cjk);
 		font-weight: 600;
-		color: var(--primary-highlight, #2c3e50);
+		color: var(--primary-highlight);
 	}
 
 	.kana-forms {
 		font-size: 20px;
-		font-family: 'MS Mincho', serif;
-		color: var(--reading-highlight, #e74c3c);
+		font-family: var(--font-cjk);
+		color: var(--reading-highlight);
 	}
 
 	.name-translations {
@@ -141,15 +163,27 @@
 	}
 
 	.translation-text {
-		color: var(--text-color, #2c3e50);
+		color: var(--text-secondary);
 	}
 
-	/* Dark mode support */
-	:global(.dark) h3 {
-		color: var(--text-color, #ecf0f1);
+	.see-more-btn {
+		display: block;
+		width: 100%;
+		padding: 12px;
+		margin-top: 16px;
+		background: transparent;
+		border: 1px solid var(--border-color);
+		border-radius: 6px;
+		color: var(--text-secondary);
+		font-size: 14px;
+		font-weight: 500;
+		cursor: pointer;
+		transition: all 0.2s ease;
 	}
 
-	:global(.dark) .translation-text {
-		color: var(--text-color, #ecf0f1);
+	.see-more-btn:hover {
+		background: var(--hover-bg);
+		border-color: var(--primary-highlight);
+		color: var(--primary-highlight);
 	}
 </style>

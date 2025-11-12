@@ -36,7 +36,26 @@ export default {
 				hover: '0 4px 12px var(--shadow-hover)'
 			},
 			fontFamily: {
-				cjk: ['SimSun', 'MS Mincho', 'serif'],
+				cjk: [
+					// Traditional Chinese fonts
+					'Microsoft JhengHei', // Windows Traditional Chinese
+					'PingFang TC', // macOS/iOS Traditional Chinese
+					'Heiti TC', // macOS Traditional Chinese fallback
+					'Apple LiGothic', // macOS Traditional Chinese fallback
+					// Simplified Chinese fonts
+					'Microsoft YaHei', // Windows Simplified Chinese
+					'PingFang SC', // macOS/iOS Simplified Chinese
+					'Heiti SC', // macOS Simplified Chinese fallback
+					'SimSun', // Windows Simplified Chinese fallback
+					// Japanese fonts
+					'MS Mincho', // Windows Japanese serif
+					'Hiragino Mincho ProN', // macOS Japanese serif
+					'Yu Mincho', // Windows/macOS Japanese serif
+					'Meiryo', // Windows Japanese sans-serif fallback
+					'Hiragino Kaku Gothic ProN', // macOS Japanese sans-serif fallback
+					// Generic fallbacks
+					'serif'
+				],
 				sans: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif']
 			}
 		}
