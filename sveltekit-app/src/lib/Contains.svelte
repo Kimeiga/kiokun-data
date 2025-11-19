@@ -1,5 +1,5 @@
 <script lang="ts">
-	import SectionHeading from './components/shared/SectionHeading.svelte';
+	import SectionHeading from "./components/shared/SectionHeading.svelte";
 
 	interface WordPreview {
 		w: string; // word
@@ -38,9 +38,9 @@
 			},
 			{
 				root: null,
-				rootMargin: '200px', // Start loading 200px before reaching the element
-				threshold: 0.1
-			}
+				rootMargin: "200px", // Start loading 200px before reaching the element
+				threshold: 0.1,
+			},
 		);
 
 		observer.observe(observerTarget);
@@ -98,26 +98,27 @@
 	.words-container {
 		display: grid;
 		grid-template-columns: 1fr;
-		gap: 2rem;
+		gap: 1rem;
 	}
 
 	/* Two columns on desktop */
 	@media (min-width: 768px) {
 		.words-container {
 			grid-template-columns: 1fr 1fr;
+			gap: 1.5rem;
 		}
 	}
 
 	.words-column {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: 0.5rem;
 	}
 
 	.word-item {
 		text-decoration: none;
 		color: inherit;
-		padding: 0.75rem 0;
+		padding: 0.5rem 0;
 		border-bottom: 1px solid var(--border-color);
 		transition: background-color 0.2s ease;
 	}
@@ -131,34 +132,33 @@
 	}
 
 	.word-text {
-		font-size: 1.2rem;
+		font-size: 1.1rem;
 		font-weight: 600;
 		color: var(--text-primary);
-		margin-bottom: 0.25rem;
+		margin-bottom: 0.125rem;
 	}
 
 	.pronunciation {
-		font-size: 0.9rem;
+		font-size: 0.85rem;
 		color: var(--text-secondary);
-		margin-bottom: 0.25rem;
+		margin-bottom: 0.125rem;
 	}
 
 	.definition {
-		font-size: 0.9rem;
+		font-size: 0.85rem;
 		color: var(--text-tertiary);
-		line-height: 1.4;
+		line-height: 1.3;
 	}
 
 	.observer-target {
-		margin-top: 2rem;
-		padding: 20px;
+		margin-top: 1.5rem;
+		padding: 10px;
 		text-align: center;
 	}
 
 	.remaining-count {
-		font-size: 13px;
+		font-size: 12px;
 		color: var(--text-muted);
 		font-style: italic;
 	}
 </style>
-

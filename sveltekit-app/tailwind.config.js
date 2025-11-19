@@ -29,7 +29,13 @@ export default {
 				pinyin: 'var(--color-pinyin)',
 				onyomi: 'var(--color-onyomi)',
 				kunyomi: 'var(--color-kunyomi)',
-				gloss: 'var(--color-gloss)'
+				gloss: 'var(--color-gloss)',
+				// Hint/callout colors
+				hint: {
+					bg: 'var(--color-hint-bg)',
+					border: 'var(--color-hint-border)',
+					text: 'var(--color-hint-text)'
+				}
 			},
 			boxShadow: {
 				DEFAULT: '0 2px 10px var(--shadow)',

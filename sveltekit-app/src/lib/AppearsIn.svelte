@@ -1,5 +1,5 @@
 <script lang="ts">
-	import SectionHeading from './components/shared/SectionHeading.svelte';
+	import SectionHeading from "./components/shared/SectionHeading.svelte";
 
 	interface WordPreview {
 		w: string; // word
@@ -26,7 +26,9 @@
 
 	// Computed slices
 	let displayedChinese = $derived(chineseWords.slice(0, chineseDisplayCount));
-	let displayedJapanese = $derived(japaneseWords.slice(0, japaneseDisplayCount));
+	let displayedJapanese = $derived(
+		japaneseWords.slice(0, japaneseDisplayCount),
+	);
 
 	// Check if there are more items to load
 	let hasMoreChinese = $derived(chineseDisplayCount < chineseWords.length);
@@ -35,12 +37,18 @@
 	// Load more items (just increment display count - no fetching!)
 	function loadMoreChinese() {
 		if (!hasMoreChinese) return;
-		chineseDisplayCount = Math.min(chineseDisplayCount + pageSize, chineseWords.length);
+		chineseDisplayCount = Math.min(
+			chineseDisplayCount + pageSize,
+			chineseWords.length,
+		);
 	}
 
 	function loadMoreJapanese() {
 		if (!hasMoreJapanese) return;
-		japaneseDisplayCount = Math.min(japaneseDisplayCount + pageSize, japaneseWords.length);
+		japaneseDisplayCount = Math.min(
+			japaneseDisplayCount + pageSize,
+			japaneseWords.length,
+		);
 	}
 
 	// Set up intersection observers for infinite scroll
@@ -55,9 +63,9 @@
 			},
 			{
 				root: null,
-				rootMargin: '200px', // Start loading 200px before reaching the element
-				threshold: 0.1
-			}
+				rootMargin: "200px", // Start loading 200px before reaching the element
+				threshold: 0.1,
+			},
 		);
 
 		observer.observe(chineseObserverTarget);
@@ -75,9 +83,9 @@
 			},
 			{
 				root: null,
-				rootMargin: '200px',
-				threshold: 0.1
-			}
+				rootMargin: "200px",
+				threshold: 0.1,
+			},
 		);
 
 		observer.observe(japaneseObserverTarget);
@@ -93,7 +101,9 @@
 			<!-- Chinese Words Column -->
 			{#if chineseWords.length > 0}
 				<div class="column">
-					<h3 style="font-size: 18px; margin-bottom: 15px; color: var(--color-onyomi);">
+					<h3
+						style="font-size: 18px; margin-bottom: 15px; color: var(--color-onyomi);"
+					>
 						Chinese ({chineseWords.length})
 					</h3>
 					<div class="word-list">
@@ -102,7 +112,9 @@
 								<div class="word-header">
 									<span class="word-text">{preview.w}</span>
 									{#if preview.p}
-										<span class="pronunciation">[{preview.p}]</span>
+										<span class="pronunciation"
+											>[{preview.p}]</span
+										>
 									{/if}
 								</div>
 								{#if preview.d}
@@ -112,9 +124,13 @@
 						{/each}
 					</div>
 					{#if hasMoreChinese}
-						<div class="observer-target" bind:this={chineseObserverTarget}>
+						<div
+							class="observer-target"
+							bind:this={chineseObserverTarget}
+						>
 							<div class="remaining-count">
-								{chineseWords.length - chineseDisplayCount} more items
+								{chineseWords.length - chineseDisplayCount} more
+								items
 							</div>
 						</div>
 					{/if}
@@ -124,7 +140,9 @@
 			<!-- Japanese Words Column -->
 			{#if japaneseWords.length > 0}
 				<div class="column">
-					<h3 style="font-size: 18px; margin-bottom: 15px; color: var(--color-pinyin);">
+					<h3
+						style="font-size: 18px; margin-bottom: 15px; color: var(--color-pinyin);"
+					>
 						Japanese ({japaneseWords.length})
 					</h3>
 					<div class="word-list">
@@ -133,12 +151,17 @@
 								<div class="word-header">
 									<span class="word-text">
 										{#if preview.c}
-											<span class="common-star" title="Common word">⭐</span>
+											<span
+												class="common-star"
+												title="Common word">⭐</span
+											>
 										{/if}
 										{preview.w}
 									</span>
 									{#if preview.p}
-										<span class="pronunciation">[{preview.p}]</span>
+										<span class="pronunciation"
+											>[{preview.p}]</span
+										>
 									{/if}
 								</div>
 								{#if preview.d}
@@ -148,9 +171,13 @@
 						{/each}
 					</div>
 					{#if hasMoreJapanese}
-						<div class="observer-target" bind:this={japaneseObserverTarget}>
+						<div
+							class="observer-target"
+							bind:this={japaneseObserverTarget}
+						>
 							<div class="remaining-count">
-								{japaneseWords.length - japaneseDisplayCount} more items
+								{japaneseWords.length - japaneseDisplayCount} more
+								items
 							</div>
 						</div>
 					{/if}
@@ -164,12 +191,13 @@
 	.two-column-layout {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		gap: 30px;
+		gap: 1.5rem;
 	}
 
 	@media (max-width: 768px) {
 		.two-column-layout {
 			grid-template-columns: 1fr;
+			gap: 1rem;
 		}
 	}
 
@@ -181,14 +209,14 @@
 	.word-list {
 		display: flex;
 		flex-direction: column;
-		gap: 12px;
+		gap: 8px;
 	}
 
 	.word-card {
 		display: block;
-		padding: 12px 16px;
+		padding: 10px 12px;
 		background: var(--bg-secondary);
-		border-radius: 8px;
+		border-radius: 6px;
 		border: 1px solid var(--border-light);
 		text-decoration: none;
 		color: inherit;
@@ -198,54 +226,54 @@
 	.word-card:hover {
 		background: var(--bg-tertiary);
 		border-color: var(--accent);
-		transform: translateY(-2px);
-		box-shadow: 0 2px 8px var(--shadow);
+		transform: translateY(-1px);
+		box-shadow: 0 2px 6px var(--shadow);
 	}
 
 	.word-header {
 		display: flex;
 		align-items: baseline;
-		gap: 8px;
-		margin-bottom: 4px;
+		gap: 6px;
+		margin-bottom: 2px;
+		flex-wrap: wrap;
 	}
 
 	.word-text {
-		font-size: 18px;
+		font-size: 1.1rem;
 		font-weight: 600;
-		font-family: 'MS Mincho', serif;
+		font-family: "MS Mincho", serif;
 		color: var(--text-primary);
 		display: flex;
 		align-items: center;
-		gap: 6px;
+		gap: 4px;
 	}
 
 	.common-star {
-		font-size: 14px;
+		font-size: 12px;
 		line-height: 1;
 		opacity: 0.9;
 	}
 
 	.pronunciation {
-		font-size: 14px;
+		font-size: 0.9rem;
 		color: var(--text-secondary);
 	}
 
 	.definition {
-		font-size: 14px;
+		font-size: 0.85rem;
 		color: var(--text-tertiary);
-		line-height: 1.4;
+		line-height: 1.3;
 	}
 
 	.observer-target {
-		margin-top: 16px;
-		padding: 20px;
+		margin-top: 12px;
+		padding: 10px;
 		text-align: center;
 	}
 
 	.remaining-count {
-		font-size: 13px;
+		font-size: 12px;
 		color: var(--text-muted);
 		font-style: italic;
 	}
 </style>
-
