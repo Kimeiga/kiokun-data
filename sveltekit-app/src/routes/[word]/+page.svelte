@@ -741,7 +741,7 @@
 								>
 									Traditional (🇹🇼 {traditionalChar})
 								</div>
-								<div class="flex flex-col gap-3">
+								<div class="flex flex-row flex-wrap gap-3">
 									{#each data.data.chinese_char.components as comp, compIndex}
 										{@const char =
 											typeof comp === "string"
@@ -757,7 +757,8 @@
 										{@const isMeaning =
 											types.includes("meaning")}
 										{@const isPhonetic =
-											types.includes("phonetic")}
+											types.includes("phonetic") ||
+											types.includes("sound")}
 										{@const isIconic =
 											types.includes("iconic")}
 										{@const highlightColor = isMeaning
@@ -980,7 +981,9 @@
 														"makemeahanzi" &&
 													img.data,
 											)}
-										<div class="flex flex-col gap-3">
+										<div
+											class="flex flex-row flex-wrap gap-3"
+										>
 											{#each simplifiedCharData.components as comp, compIndex}
 												{@const char =
 													typeof comp === "string"
@@ -996,7 +999,10 @@
 												{@const isMeaning =
 													types.includes("meaning")}
 												{@const isPhonetic =
-													types.includes("phonetic")}
+													types.includes(
+														"phonetic",
+													) ||
+													types.includes("sound")}
 												{@const isIconic =
 													types.includes("iconic")}
 												{@const highlightColor =

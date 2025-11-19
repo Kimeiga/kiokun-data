@@ -141,6 +141,10 @@ pub struct Component {
     pub component_type: Vec<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub hint: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub pinyin: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub meaning: Option<String>,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

@@ -508,7 +508,7 @@ async fn main() -> Result<()> {
 
     // Merge word dictionaries
     println!("🔄 Merging word dictionaries...");
-    let combined_dict = merge_dictionaries_with_mapping(chinese_entries, japanese_dict.words, j2c_mapping.clone())
+    let combined_dict = merge_dictionaries_with_mapping(chinese_entries.clone(), japanese_dict.words, j2c_mapping.clone())
         .context("Failed to merge dictionaries")?;
 
     // Check if analysis mode is requested
@@ -579,6 +579,9 @@ async fn main() -> Result<()> {
     println!("🔧 Enriching character dictionaries with IDS decomposition data...");
     enrich_chinese_chars_with_ids(&mut chinese_char_dict_raw, &ids_database);
     enrich_japanese_chars_with_ids(&mut japanese_char_dict_raw, &ids_database);
+
+    println!("🔧 Enriching component metadata with pinyin and meaning...");
+    enrich_components_with_metadata(&mut chinese_char_dict_raw, &chinese_entries);
 
     // Generate individual JSON files (default behavior)
     println!("🔄 Generating individual JSON files...");
@@ -768,6 +771,49 @@ fn enrich_japanese_chars_with_ids(
     }
 
     println!("  ✅ Enriched {} Japanese kanji with IDS decomposition data", enriched_count);
+}
+
+/// Enrich component metadata with pinyin and meaning from word dictionary
+fn enrich_components_with_metadata(
+    chinese_chars: &mut Vec<ChineseCharacter>,
+    chinese_words: &Vec<ChineseDictionaryElement>,
+) {
+    // Build lookup map: character -> (pinyin, meaning)
+    let mut char_metadata: HashMap<String, (String, String)> = HashMap::new();
+    
+    for word in chinese_words {
+        // Only process single-character words
+        if word.simp.chars().count() == 1 {
+            if let Some(first_item) = word.items.first() {
+                if let Some(pinyin) = &first_item.pinyin {
+                    if let Some(definitions) = &first_item.definitions {
+                        if let Some(first_def) = definitions.first() {
+                            char_metadata.insert(
+                                word.simp.clone(),
+                                (pinyin.clone(), first_def.clone())
+                            );
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    // Enrich components
+    let mut enriched_count = 0;
+    for char_entry in chinese_chars.iter_mut() {
+        if let Some(components) = &mut char_entry.components {
+            for component in components.iter_mut() {
+                if let Some((pinyin, meaning)) = char_metadata.get(&component.character) {
+                    component.pinyin = Some(pinyin.clone());
+                    component.meaning = Some(meaning.clone());
+                    enriched_count += 1;
+                }
+            }
+        }
+    }
+    
+    println!("  ✅ Enriched {} components with pinyin/meaning metadata", enriched_count);
 }
 
 // Removed deprecated unified character merging functions (435 lines)
