@@ -62,47 +62,73 @@
 
 <div class="japanese-names">
 	<SectionHeading>Japanese Names</SectionHeading>
-	<div class="names-grid">
-		{#each displayedNames as name}
-			<div class="name-entry">
-				<!-- Kanji and Kana on same line -->
-				<div class="name-headwords" lang="ja">
-					{#if name.kanji.length > 0}
-						<span class="kanji-forms">
-							{name.kanji.map((k) => k.text).join("、")}
-						</span>
-					{/if}
-					<span class="kana-forms">
-						{name.kana.map((k) => k.text).join("、")}
-					</span>
-				</div>
-
-				<!-- Translations with inline tags -->
-				<div class="name-translations">
-					{#each name.translation as trans}
-						<div class="translation-line">
-							<span class="translation-text">
-								{trans.translation
-									.map((t) => t.text)
-									.join(", ")}
+	<div class="names-container" class:expanded={showAll}>
+		<div class="names-grid">
+			{#each names as name}
+				<div class="name-entry">
+					<!-- Kanji and Kana on same line -->
+					<div class="name-headwords" lang="ja">
+						{#if name.kanji.length > 0}
+							<span class="kanji-forms">
+								{name.kanji.map((k) => k.text).join("、")}
 							</span>
-							{#each trans.type as type}
-								<Tag
-									type={getTagType(type)}
-									text={typeLabels[type] || type}
-									langTag="en"
-								/>
-							{/each}
-						</div>
-					{/each}
+						{/if}
+						<span class="kana-forms">
+							{name.kana.map((k) => k.text).join("、")}
+						</span>
+					</div>
+
+					<!-- Translations with inline tags -->
+					<div class="name-translations">
+						{#each name.translation as trans}
+							<div class="translation-line">
+								<span class="translation-text">
+									{trans.translation
+										.map((t) => t.text)
+										.join(", ")}
+								</span>
+								{#each trans.type as type}
+									<Tag
+										type={getTagType(type)}
+										text={typeLabels[type] || type}
+										langTag="en"
+									/>
+								{/each}
+							</div>
+						{/each}
+					</div>
 				</div>
-			</div>
-		{/each}
+			{/each}
+		</div>
+
+		{#if !showAll && names.length > initialCount}
+			<div class="gradient-overlay"></div>
+		{/if}
 	</div>
 
-	{#if hasMore && !showAll}
-		<button class="see-more-btn" onclick={() => (showAll = true)}>
-			See More ({names.length - initialCount} more)
+	{#if names.length > initialCount}
+		<button
+			class="toggle-btn"
+			onclick={() => (showAll = !showAll)}
+			aria-label={showAll ? "Collapse" : "Expand"}
+		>
+			<div class="arrow-icon" class:flipped={showAll}>
+				<svg
+					width="24"
+					height="24"
+					viewBox="0 0 24 24"
+					fill="none"
+					xmlns="http://www.w3.org/2000/svg"
+				>
+					<path
+						d="M6 9L12 15L18 9"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					/>
+				</svg>
+			</div>
 		</button>
 	{/if}
 </div>
@@ -110,6 +136,18 @@
 <style>
 	.japanese-names {
 		margin-bottom: 20px;
+		position: relative;
+	}
+
+	.names-container {
+		position: relative;
+		max-height: 70px; /* Strictly 1 row */
+		overflow: hidden;
+		transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Faster, smoother easing */
+	}
+
+	.names-container.expanded {
+		max-height: 600px; /* Reduced further to minimize "invisible" transition time */
 	}
 
 	.names-grid {
@@ -176,24 +214,41 @@
 		color: var(--text-secondary);
 	}
 
-	.see-more-btn {
-		display: block;
-		width: 100%;
-		padding: 10px;
-		margin-top: 12px;
-		background: transparent;
-		border: 1px solid var(--border-color);
-		border-radius: 6px;
-		color: var(--text-secondary);
-		font-size: 13px;
-		font-weight: 500;
-		cursor: pointer;
-		transition: all 0.2s ease;
+	.gradient-overlay {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 80px;
+		background: linear-gradient(to bottom, transparent, var(--bg-primary));
+		pointer-events: none;
 	}
 
-	.see-more-btn:hover {
-		background: var(--hover-bg);
-		border-color: var(--primary-highlight);
-		color: var(--primary-highlight);
+	.toggle-btn {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+		padding: 8px;
+		margin-top: -10px; /* Pull up slightly to overlap/connect */
+		background: transparent;
+		border: none;
+		color: var(--text-secondary);
+		cursor: pointer;
+		position: relative;
+		z-index: 10;
+		transition: color 0.2s;
+	}
+
+	.toggle-btn:hover {
+		color: var(--accent);
+	}
+
+	.arrow-icon {
+		transition: transform 0.3s ease;
+	}
+
+	.arrow-icon.flipped {
+		transform: rotate(180deg);
 	}
 </style>

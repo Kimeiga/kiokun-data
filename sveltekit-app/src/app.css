@@ -85,84 +85,97 @@
 }
 
 [data-theme='dark'] {
-	/* Dark theme colors */
-	--bg-primary: #1a1a1a;
-	--bg-secondary: #2d2d2d;
-	--bg-tertiary: #252525;
-	--text-primary: #e4e4e4;
-	--text-secondary: #a0a0a0;
-	--text-tertiary: #b8b8b8;
-	--text-muted: #707070;
-	--border-color: #404040;
-	--border-light: #3a3a3a;
-	--shadow: rgba(0, 0, 0, 0.3);
-	--shadow-hover: rgba(0, 0, 0, 0.5);
-	--accent: #5dade2;
-	--accent-light: rgba(93, 173, 226, 0.15);
+	/* Premium Dark Theme - True Black & Green Accent */
+	--bg-primary: #000000;
+	--bg-secondary: #121212;
+	--bg-tertiary: #1c1c1e;
+	
+	/* High Contrast Text */
+	--text-primary: #ffffff;
+	--text-secondary: #b0b0b0;
+	--text-tertiary: #808080;
+	--text-muted: #505050;
+	
+	/* Borders */
+	--border-color: #2c2c2e;
+	--border-light: #3a3a3c;
+	
+	/* Shadows */
+	--shadow: rgba(0, 0, 0, 0.5);
+	--shadow-hover: rgba(0, 0, 0, 0.8);
+	
+	/* Unified Accent - Premium Green */
+	--accent: #2ecc71;
+	--accent-light: rgba(46, 204, 113, 0.15);
 
-	/* Specific colors */
-	--color-heading: #e4e4e4;
-	--color-pinyin: #5dade2;
-	--color-onyomi: #ff6b6b;
-	--color-kunyomi: #51cf66;
-	--color-separator: #606060;
-	--color-gloss: #51cf66;
-	--color-hint-bg: #3a3520;
-	--color-hint-border: #d4a017;
-	--color-hint-text: #f0d090;
-	--color-stroke: #e4e4e4;
-	--color-outline: #404040;
+	/* Specific colors - Unified to Green/White aesthetic where possible */
+	--color-heading: #ffffff;
+	
+	/* Keep semantic colors but mute them or align with green where appropriate */
+	--color-pinyin: #2ecc71; /* Unified Green for consistency */
+	--color-onyomi: #ff6b6b; /* Keep distinct but can be styled as label */
+	--color-kunyomi: #2ecc71; /* Green */
+	--color-separator: #3a3a3c;
+	--color-gloss: #ffffff; /* White for main meaning */
+	
+	--color-hint-bg: #1c1c1e;
+	--color-hint-border: #2ecc71;
+	--color-hint-text: #b0b0b0;
+	
+	--color-stroke: #ffffff;
+	--color-outline: #333333;
 
 	/* Tag colors - dark theme */
-	--tag-pos-bg: #3a3a3a;
+	--tag-pos-bg: #1c1c1e;
 	--tag-pos-text: #b0b0b0;
-	--tag-misc-bg: #4a4020;
-	--tag-misc-text: #f0d090;
-	--tag-inline-bg: #2a4a5a;
-	--tag-inline-text: #7ec8f0;
-	--badge-hsk-bg: #5dade2;
-	--badge-hsk-text: #1a1a1a;
-	--badge-movie-bg: #2a4a5a;
-	--badge-movie-text: #7ec8f0;
-	--badge-book-bg: #4a2a5a;
-	--badge-book-text: #d4a0e0;
+	--tag-misc-bg: #1c1c1e;
+	--tag-misc-text: #2ecc71;
+	--tag-inline-bg: #1c1c1e;
+	--tag-inline-text: #2ecc71;
+	
+	--badge-hsk-bg: #2ecc71;
+	--badge-hsk-text: #000000;
+	--badge-movie-bg: #1c1c1e;
+	--badge-movie-text: #2ecc71;
+	--badge-book-bg: #1c1c1e;
+	--badge-book-text: #2ecc71;
 
 	/* Progress bars */
-	--progress-bg: #3a3a3a;
-	--progress-movie: linear-gradient(90deg, #4a7ba7, #6ba3d0);
-	--progress-book: linear-gradient(90deg, #8b5fa2, #b88fc8);
-	--progress-word-bg: linear-gradient(90deg, #2a4a5a, #3a5a6a);
+	--progress-bg: #1c1c1e;
+	--progress-movie: linear-gradient(90deg, #2ecc71, #27ae60);
+	--progress-book: linear-gradient(90deg, #2ecc71, #27ae60);
+	--progress-word-bg: linear-gradient(90deg, #1c1c1e, #2c2c2e);
 
 	/* Toggle button colors */
-	--toggle-bg: #2d2d2d;
-	--toggle-border: #404040;
-	--toggle-color: #e4e4e4;
-	--toggle-shadow: rgba(0, 0, 0, 0.3);
-	--toggle-shadow-hover: rgba(0, 0, 0, 0.6);
+	--toggle-bg: #121212;
+	--toggle-border: #2c2c2e;
+	--toggle-color: #ffffff;
+	--toggle-shadow: rgba(0, 0, 0, 0.5);
+	--toggle-shadow-hover: rgba(0, 0, 0, 0.8);
 
-	/* Japanese word entry colors (10ten-ja-reader style) - dark theme */
-	--primary-highlight: #e4e4e4;
-	--selected-highlight: #5dade2;
+	/* Japanese word entry colors */
+	--primary-highlight: #ffffff;
+	--selected-highlight: #2ecc71;
 	--reading-highlight: #ff6b6b;
 	--selected-reading-highlight: #ff5252;
-	--def-color: #b8b8b8;
-	--selected-def-color: #e4e4e4;
+	--def-color: #b0b0b0;
+	--selected-def-color: #ffffff;
 
-	/* Tag colors for Japanese entries - dark theme */
-	--tag-border: #606060;
-	--tag-pink-bg: #4a2a3a;
-	--tag-pink-border: #d06292;
-	--tag-pink-text: #f0a0c0;
-	--tag-blue-bg: #2a3a4a;
-	--tag-blue-border: #5dade2;
-	--tag-blue-text: #7ec8f0;
-	--tag-green-bg: #2a4a2a;
-	--tag-green-border: #66bb6a;
-	--tag-green-text: #90ee90;
+	/* Tag colors for Japanese entries */
+	--tag-border: #2c2c2e;
+	--tag-pink-bg: #1c1c1e;
+	--tag-pink-border: #ff6b6b;
+	--tag-pink-text: #ff6b6b;
+	--tag-blue-bg: #1c1c1e;
+	--tag-blue-border: #2ecc71;
+	--tag-blue-text: #2ecc71;
+	--tag-green-bg: #1c1c1e;
+	--tag-green-border: #2ecc71;
+	--tag-green-text: #2ecc71;
 
-	/* Priority star colors - dark theme */
-	--star-full: #f39c12;
-	--star-hollow: #606060;
+	/* Priority star colors */
+	--star-full: #f1c40f;
+	--star-hollow: #3a3a3c;
 }
 
 /* Base styles */

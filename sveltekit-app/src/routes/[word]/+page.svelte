@@ -545,142 +545,161 @@
 			<div class="mb-0">
 				<div class="py-3 md:py-4">
 					<!-- Compact Header: Characters + Pronunciations + Gloss in one line -->
-					<div
-						class="flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-6 mb-5"
-					>
-						<!-- Character Variants with Stroke Animations -->
-						<div class="flex items-center gap-4 md:gap-6">
-							<!-- Traditional Chinese Character -->
-							{#if traditionalChar}
-								<div class="flex flex-col items-center gap-1">
+					<div class="flex flex-col gap-6 mb-6">
+						<!-- Top Row: Character Variants & Main Gloss -->
+						<div
+							class="flex flex-col md:flex-row md:items-start justify-between gap-6"
+						>
+							<!-- Character Variants with Stroke Animations -->
+							<div class="flex items-center gap-6">
+								<!-- Traditional Chinese Character -->
+								{#if traditionalChar}
 									<div
-										id="trad-writer-target"
-										class="w-[80px] h-[80px] md:w-[100px] md:h-[100px] flex items-center justify-center"
+										class="flex flex-col items-center gap-2"
 									>
-										<!-- Fallback: show character until animation loads -->
 										<div
-											class="text-6xl md:text-7xl font-bold font-cjk leading-none"
+											id="trad-writer-target"
+											class="w-[100px] h-[100px] flex items-center justify-center bg-bg-secondary rounded-xl shadow-lg border border-border"
 										>
-											{traditionalChar}
+											<!-- Fallback: show character until animation loads -->
+											<div
+												class="text-6xl md:text-7xl font-bold font-cjk leading-none text-text-primary"
+											>
+												{traditionalChar}
+											</div>
 										</div>
-									</div>
-									<div class="text-xs text-tertiary">🇹🇼</div>
-								</div>
-							{/if}
-
-							<!-- Simplified Chinese Character -->
-							{#if simplifiedChar}
-								<div class="flex flex-col items-center gap-1">
-									<div
-										id="simp-writer-target"
-										class="w-[80px] h-[80px] md:w-[100px] md:h-[100px] flex items-center justify-center"
-									>
-										<!-- Fallback: show character until animation loads -->
 										<div
-											class="text-6xl md:text-7xl font-bold font-cjk leading-none"
+											class="text-[10px] uppercase tracking-wider font-bold text-text-tertiary"
 										>
-											{simplifiedChar}
+											Trad
 										</div>
-									</div>
-									<div class="text-xs text-tertiary">🇨🇳</div>
-								</div>
-							{/if}
-
-							<!-- Japanese Character -->
-							{#if japaneseChar}
-								<div class="flex flex-col items-center gap-1">
-									<div
-										id="jp-writer-target"
-										class="w-[80px] h-[80px] md:w-[100px] md:h-[100px] flex items-center justify-center"
-									>
-										<!-- Fallback: show character until animation loads -->
-										<div
-											class="text-6xl md:text-7xl font-bold font-cjk leading-none"
-										>
-											{japaneseChar}
-										</div>
-									</div>
-									<div class="text-xs text-tertiary">🇯🇵</div>
-								</div>
-							{/if}
-						</div>
-
-						<!-- Pronunciations and Gloss -->
-						<div class="flex flex-col gap-2 flex-1">
-							<!-- Chinese Pinyin -->
-							{#if data.data.chinese_char?.pinyinFrequencies}
-								{@const wordPinyins = new Set(
-									data.data.chinese_words?.flatMap((w) =>
-										w.items
-											?.map((item) => item.pinyin)
-											.filter(Boolean),
-									) || [],
-								)}
-								{@const filteredPinyins =
-									data.data.chinese_char.pinyinFrequencies.filter(
-										(pf) => wordPinyins.has(pf.pinyin),
-									)}
-								{#if filteredPinyins.length > 0}
-									<div class="flex items-center gap-2">
-										<span class="text-sm">🇨🇳</span>
-										<span
-											class="text-base md:text-lg text-pinyin font-semibold"
-										>
-											{filteredPinyins
-												.map((pf) => pf.pinyin)
-												.join(", ")}
-										</span>
 									</div>
 								{/if}
-							{/if}
 
-							<!-- Japanese Readings -->
-							{#if data.data.japanese_char?.readingMeaning}
-								{@const allReadings =
-									data.data.japanese_char.readingMeaning
-										.groups?.[0]?.readings ||
-									data.data.japanese_char.readingMeaning
-										.readings ||
-									[]}
-								{@const onyomi = allReadings
-									.filter((r) => r.type === "ja_on")
-									.map((r) => r.value)}
-								{@const kunyomi = allReadings
-									.filter((r) => r.type === "ja_kun")
-									.map((r) => r.value)}
-								{#if onyomi.length > 0 || kunyomi.length > 0}
-									<div class="flex items-center gap-2">
-										<span class="text-sm">🇯🇵</span>
-										{#if onyomi.length > 0}
-											<span
-												class="text-base md:text-lg text-onyomi font-cjk"
+								<!-- Simplified Chinese Character -->
+								{#if simplifiedChar}
+									<div
+										class="flex flex-col items-center gap-2"
+									>
+										<div
+											id="simp-writer-target"
+											class="w-[100px] h-[100px] flex items-center justify-center bg-bg-secondary rounded-xl shadow-lg border border-border"
+										>
+											<!-- Fallback: show character until animation loads -->
+											<div
+												class="text-6xl md:text-7xl font-bold font-cjk leading-none text-text-primary"
 											>
-												{onyomi.join("、")}
-											</span>
-										{/if}
-										{#if kunyomi.length > 0}
-											{#if onyomi.length > 0}
-												<span
-													class="text-[var(--color-separator)]"
-													>|</span
-												>
-											{/if}
-											<span
-												class="text-base md:text-lg text-kunyomi font-cjk"
-											>
-												{kunyomi.join("、")}
-											</span>
-										{/if}
+												{simplifiedChar}
+											</div>
+										</div>
+										<div
+											class="text-[10px] uppercase tracking-wider font-bold text-text-tertiary"
+										>
+											Simp
+										</div>
 									</div>
 								{/if}
-							{/if}
 
-							<!-- English Gloss -->
+								<!-- Japanese Character -->
+								{#if japaneseChar}
+									<div
+										class="flex flex-col items-center gap-2"
+									>
+										<div
+											id="jp-writer-target"
+											class="w-[100px] h-[100px] flex items-center justify-center bg-bg-secondary rounded-xl shadow-lg border border-border"
+										>
+											<!-- Fallback: show character until animation loads -->
+											<div
+												class="text-6xl md:text-7xl font-bold font-cjk leading-none text-text-primary"
+											>
+												{japaneseChar}
+											</div>
+										</div>
+										<div
+											class="text-[10px] uppercase tracking-wider font-bold text-text-tertiary"
+										>
+											Kanji
+										</div>
+									</div>
+								{/if}
+							</div>
+
+							<!-- Main Meaning (Gloss) -->
 							{#if data.data.chinese_char?.gloss}
-								<div
-									class="text-lg md:text-xl text-gloss font-semibold"
-								>
-									{data.data.chinese_char.gloss}
+								<div class="flex-1 md:text-right">
+									<h1
+										class="text-2xl md:text-4xl font-bold text-accent mb-2 leading-tight"
+									>
+										{data.data.chinese_char.gloss}
+									</h1>
+									<!-- Pinyin/Readings Summary -->
+									<div
+										class="flex flex-col md:items-end gap-1 text-text-secondary text-sm md:text-base"
+									>
+										{#if data.data.chinese_char?.pinyinFrequencies}
+											{@const wordPinyins = new Set(
+												data.data.chinese_words?.flatMap(
+													(w) =>
+														w.items
+															?.map(
+																(item) =>
+																	item.pinyin,
+															)
+															.filter(Boolean),
+												) || [],
+											)}
+											{@const filteredPinyins =
+												data.data.chinese_char.pinyinFrequencies.filter(
+													(pf) =>
+														wordPinyins.has(
+															pf.pinyin,
+														),
+												)}
+											{#if filteredPinyins.length > 0}
+												<div
+													class="font-mono text-pinyin"
+												>
+													{filteredPinyins
+														.map((pf) => pf.pinyin)
+														.join(", ")}
+												</div>
+											{/if}
+										{/if}
+										{#if data.data.japanese_char?.readingMeaning}
+											{@const allReadings =
+												data.data.japanese_char
+													.readingMeaning.groups?.[0]
+													?.readings ||
+												data.data.japanese_char
+													.readingMeaning.readings ||
+												[]}
+											{@const onyomi = allReadings
+												.filter(
+													(r) => r.type === "ja_on",
+												)
+												.map((r) => r.value)}
+											{@const kunyomi = allReadings
+												.filter(
+													(r) => r.type === "ja_kun",
+												)
+												.map((r) => r.value)}
+											{#if onyomi.length > 0}
+												<div
+													class="font-cjk text-onyomi"
+												>
+													{onyomi.join("、")}
+												</div>
+											{/if}
+											{#if kunyomi.length > 0}
+												<div
+													class="font-cjk text-kunyomi"
+												>
+													{kunyomi.join("、")}
+												</div>
+											{/if}
+										{/if}
+									</div>
 								</div>
 							{/if}
 						</div>

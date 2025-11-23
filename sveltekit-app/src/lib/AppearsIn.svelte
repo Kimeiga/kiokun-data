@@ -94,18 +94,14 @@
 </script>
 
 {#if chineseWords.length > 0 || japaneseWords.length > 0}
-	<SectionHeading>Appears In</SectionHeading>
-
 	<div class="mb-4">
 		<div class="two-column-layout">
 			<!-- Chinese Words Column -->
 			{#if chineseWords.length > 0}
 				<div class="column">
-					<h3
-						style="font-size: 18px; margin-bottom: 15px; color: var(--color-onyomi);"
+					<SectionHeading
+						>CHINESE WORDS ({chineseWords.length})</SectionHeading
 					>
-						Chinese ({chineseWords.length})
-					</h3>
 					<div class="word-list">
 						{#each displayedChinese as preview}
 							<a href="/{preview.w}" class="word-card">
@@ -140,11 +136,9 @@
 			<!-- Japanese Words Column -->
 			{#if japaneseWords.length > 0}
 				<div class="column">
-					<h3
-						style="font-size: 18px; margin-bottom: 15px; color: var(--color-pinyin);"
+					<SectionHeading
+						>JAPANESE WORDS ({japaneseWords.length})</SectionHeading
 					>
-						Japanese ({japaneseWords.length})
-					</h3>
 					<div class="word-list">
 						{#each displayedJapanese as preview}
 							<a href="/{preview.w}" class="word-card">

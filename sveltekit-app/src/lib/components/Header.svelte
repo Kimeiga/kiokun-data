@@ -24,7 +24,7 @@
 </script>
 
 <header
-	class="bg-primary-secondary shadow sticky top-0 z-[100] transition-all duration-300"
+	class="bg-bg-primary/95 backdrop-blur-md border-b border-border sticky top-0 z-[100] transition-all duration-300"
 >
 	<div
 		class="max-w-[1400px] mx-auto px-3 py-2 md:px-5 md:py-3 flex items-center justify-between gap-2 md:gap-6"
@@ -49,7 +49,7 @@
 		<div class="flex-1 max-w-[600px] min-w-0">
 			<input
 				type="text"
-				class="w-full px-3 py-1.5 md:px-5 md:py-2.5 border-2 border-border rounded-full text-sm md:text-base bg-primary text-text-primary font-cjk transition-all duration-300 focus:outline-none focus:border-accent focus:shadow-[0_0_0_3px_var(--accent-light)] placeholder:text-text-muted"
+				class="w-full px-3 py-1.5 md:px-5 md:py-2.5 border border-border rounded-full text-sm md:text-base bg-bg-secondary text-text-primary font-cjk transition-all duration-300 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent placeholder:text-text-muted"
 				placeholder="Search..."
 				bind:value={searchValue}
 				onkeydown={handleSearch}
@@ -61,7 +61,7 @@
 		<div class="flex items-center gap-2 md:gap-3 shrink-0">
 			<a
 				href="/users"
-				class="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary border-2 border-border text-base md:text-xl no-underline transition-all duration-200 hover:border-accent hover:bg-[var(--accent-light)] hover:scale-105"
+				class="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full bg-bg-secondary border border-border text-base md:text-xl no-underline transition-all duration-200 hover:border-accent hover:text-accent hover:scale-105"
 				title="Community"
 			>
 				👥
@@ -69,7 +69,7 @@
 			{#if $session.data?.user}
 				<a
 					href="/lists"
-					class="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary border-2 border-border text-base md:text-xl no-underline transition-all duration-200 hover:border-accent hover:bg-[var(--accent-light)] hover:scale-105"
+					class="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full bg-bg-secondary border border-border text-base md:text-xl no-underline transition-all duration-200 hover:border-accent hover:text-accent hover:scale-105"
 					title="My Notes"
 				>
 					📝
