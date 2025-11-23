@@ -1208,9 +1208,34 @@ async fn generate_simple_output_files(
     }
 
     // Index Chinese characters by character string
+    // When there are duplicates (e.g., U+50CF and U+2F80B for 像), prefer the entry with more sources
     let mut chinese_char_by_key: StdHashMap<String, &ChineseCharacter> = StdHashMap::new();
     for char_entry in chinese_chars {
-        chinese_char_by_key.insert(char_entry.char.clone(), char_entry);
+        let key = char_entry.char.clone();
+
+        // Check if we already have an entry for this character
+        if let Some(existing) = chinese_char_by_key.get(&key) {
+            // Prefer the entry with more sources (more complete data)
+            // If sources are equal, prefer the one with more fields populated
+            let existing_score = existing.sources.len() * 100
+                + if existing.components.is_some() { 10 } else { 0 }
+                + if existing.images.is_some() { 10 } else { 0 }
+                + if existing.pinyin_frequencies.is_some() { 10 } else { 0 };
+
+            let new_score = char_entry.sources.len() * 100
+                + if char_entry.components.is_some() { 10 } else { 0 }
+                + if char_entry.images.is_some() { 10 } else { 0 }
+                + if char_entry.pinyin_frequencies.is_some() { 10 } else { 0 };
+
+            // Only replace if the new entry has a higher score
+            if new_score > existing_score {
+                chinese_char_by_key.insert(key, char_entry);
+            }
+            // If scores are equal, keep the existing one (first occurrence)
+        } else {
+            // No existing entry, insert this one
+            chinese_char_by_key.insert(key, char_entry);
+        }
     }
 
     // Index KANJIDIC entries by literal
