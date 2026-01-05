@@ -849,7 +849,7 @@
 											<img
 												src={image.url}
 												alt="{image.type || 'Historical'} {image.era || ''}"
-												class="w-16 h-16 mx-auto object-contain bg-white rounded"
+												class="historical-image w-16 h-16 mx-auto object-contain bg-white rounded"
 												loading="lazy"
 												onerror={(e) => {
 													const target = e.currentTarget as HTMLImageElement;
@@ -1600,5 +1600,16 @@
 		font-size: 16px;
 		line-height: 1.6;
 		color: var(--text-primary);
+	}
+
+	/* Historical evolution images - invert in dark mode with smooth transition */
+	.historical-image {
+		filter: invert(0);
+		transition: filter 300ms ease-in-out, background-color 300ms ease-in-out;
+	}
+
+	:global([data-theme='dark']) .historical-image {
+		filter: invert(1);
+		background-color: #1c1c1e;
 	}
 </style>
