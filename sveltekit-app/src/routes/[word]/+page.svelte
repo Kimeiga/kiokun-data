@@ -1605,11 +1605,10 @@
 	/* Historical evolution images - invert in dark mode with smooth transition */
 	.historical-image {
 		filter: invert(0);
-		transition: filter 300ms ease-in-out, background-color 300ms ease-in-out;
+		transition: filter 300ms ease-in-out;
 	}
 
 	:global([data-theme='dark']) .historical-image {
 		filter: invert(1);
-		background-color: #1c1c1e;
 	}
 </style>
