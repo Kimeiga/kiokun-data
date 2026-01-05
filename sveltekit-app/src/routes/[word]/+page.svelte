@@ -28,6 +28,7 @@
 		char: string,
 		targetMap: "trad" | "simp",
 	) {
+		console.log(`[COMPONENT-MAP] Loading mappings for ${char} (${targetMap})`);
 		try {
 			const codepoint = char
 				.codePointAt(0)
@@ -35,6 +36,7 @@
 				.padStart(5, "0");
 			if (codepoint) {
 				const svgUrl = `https://raw.githubusercontent.com/KanjiVG/kanjivg/master/kanji/${codepoint}.svg`;
+				console.log(`[COMPONENT-MAP] Fetching KanjiVG: ${svgUrl}`);
 				const svgResponse = await fetch(svgUrl);
 				if (svgResponse.ok) {
 					const svgText = await svgResponse.text();
@@ -45,11 +47,16 @@
 					);
 
 					// Extract component-to-stroke mappings from kvg:element attributes
+					// Use kvg:number to distinguish multiple instances of the same element
+					// e.g., 囗 with number="1" is outer enclosure, number="2" is inner
 					const newMap = new Map<string, number[]>();
+					const instanceCountMap = new Map<string, Set<string>>(); // Track which instance numbers exist for each element
 					const paths = doc.querySelectorAll('path[id^="kvg:"]');
+					const totalStrokes = paths.length;
+					console.log(`[COMPONENT-MAP] Total strokes in KanjiVG: ${totalStrokes}`);
 
 					paths.forEach((path, strokeIndex) => {
-						// Find the parent group with kvg:element attribute
+						// Find the CLOSEST parent group with kvg:element attribute
 						let currentElement = path.parentElement;
 						while (
 							currentElement &&
@@ -58,37 +65,142 @@
 							const element =
 								currentElement.getAttribute("kvg:element");
 							if (element) {
-								if (!newMap.has(element)) {
-									newMap.set(element, []);
+								// Check for kvg:number to distinguish multiple instances
+								const instanceNumber = currentElement.getAttribute("kvg:number");
+
+								// Create a unique key that includes instance number if present
+								// e.g., "囗" becomes "囗#1" or "囗#2"
+								const mapKey = instanceNumber ? `${element}#${instanceNumber}` : element;
+
+								if (!newMap.has(mapKey)) {
+									newMap.set(mapKey, []);
 								}
-								// Add stroke index if not already present (though strictly sequential here)
-								const strokes = newMap.get(element)!;
+								const strokes = newMap.get(mapKey)!;
 								if (!strokes.includes(strokeIndex)) {
 									strokes.push(strokeIndex);
 								}
-								// Continue traversing up to find parent components (e.g., 婁 contains 女)
+
+								// Track which instance numbers exist for this element
+								if (instanceNumber) {
+									if (!instanceCountMap.has(element)) {
+										instanceCountMap.set(element, new Set());
+									}
+									instanceCountMap.get(element)!.add(instanceNumber);
+								}
+
+								break;
 							}
 							currentElement = currentElement.parentElement;
 						}
 					});
 
+					// Post-process: create convenience mappings for elements
+					// If an element has multiple numbered instances (e.g., 囗#1 and 囗#2),
+					// map the bare element name to instance #1 (typically the outer/primary one)
+					for (const [element, instances] of instanceCountMap.entries()) {
+						if (instances.size > 1 && newMap.has(`${element}#1`)) {
+							// Multiple instances exist - map bare name to #1 (outer/primary)
+							console.log(`[COMPONENT-MAP] Element "${element}" has ${instances.size} instances (#${[...instances].join(', #')}), using #1 as primary`);
+							newMap.set(element, newMap.get(`${element}#1`)!);
+						} else if (instances.size === 1) {
+							// Only one numbered instance - use it directly
+							const num = [...instances][0];
+							if (newMap.has(`${element}#${num}`) && !newMap.has(element)) {
+								newMap.set(element, newMap.get(`${element}#${num}`)!);
+							}
+						}
+					}
+
+					console.log(`[COMPONENT-MAP] KanjiVG elements found:`, [...newMap.keys()]);
+					console.log(`[COMPONENT-MAP] KanjiVG stroke mappings:`, Object.fromEntries(newMap));
+
 					if (newMap.size > 0) {
+						// Get our data's components to check if all are mapped
+						const ourComponents =
+							targetMap === "trad"
+								? data.data.chinese_char?.components
+								: simplifiedCharData?.components;
+
+						const ourComponentChars = ourComponents?.map((comp: any) =>
+							typeof comp === "string"
+								? comp
+								: comp.character || comp.char || comp
+						) || [];
+						console.log(`[COMPONENT-MAP] Our data's components:`, ourComponentChars);
+
+						if (ourComponents && ourComponents.length > 0) {
+							// Check if any of our components are missing from KanjiVG
+							for (const comp of ourComponents) {
+								const compChar =
+									typeof comp === "string"
+										? comp
+										: comp.character || comp.char || comp;
+
+								if (!newMap.has(compChar)) {
+									console.log(`[COMPONENT-MAP] ⚠️ Component "${compChar}" NOT found in KanjiVG - calculating complement`);
+									// Component not found in KanjiVG - calculate as complement
+									// Find all strokes NOT assigned to other known components
+									const assignedStrokes = new Set<number>();
+									for (const otherComp of ourComponents) {
+										const otherChar =
+											typeof otherComp === "string"
+												? otherComp
+												: otherComp.character ||
+													otherComp.char ||
+													otherComp;
+										if (
+											otherChar !== compChar &&
+											newMap.has(otherChar)
+										) {
+											console.log(`[COMPONENT-MAP]   - "${otherChar}" has strokes:`, newMap.get(otherChar));
+											for (const idx of newMap.get(
+												otherChar,
+											)!) {
+												assignedStrokes.add(idx);
+											}
+										}
+									}
+									console.log(`[COMPONENT-MAP]   - Already assigned strokes:`, [...assignedStrokes].sort((a,b) => a-b));
+
+									// All strokes not assigned to other components belong to this one
+									const complementStrokes: number[] = [];
+									for (let i = 0; i < totalStrokes; i++) {
+										if (!assignedStrokes.has(i)) {
+											complementStrokes.push(i);
+										}
+									}
+									console.log(`[COMPONENT-MAP]   - Complement strokes for "${compChar}":`, complementStrokes);
+									if (complementStrokes.length > 0) {
+										newMap.set(compChar, complementStrokes);
+									} else {
+										console.warn(`[COMPONENT-MAP] ❌ No complement strokes found for "${compChar}"!`);
+									}
+								} else {
+									console.log(`[COMPONENT-MAP] ✓ Component "${compChar}" found in KanjiVG with strokes:`, newMap.get(compChar));
+								}
+							}
+						}
+
+						console.log(`[COMPONENT-MAP] Final stroke mappings:`, Object.fromEntries(newMap));
+
 						if (targetMap === "trad") {
 							componentStrokeMap = newMap;
 						} else {
 							simpComponentStrokeMap = newMap;
 						}
 					} else {
+						console.log(`[COMPONENT-MAP] No KanjiVG elements found, falling back to sequential`);
 						// Fallback to sequential mapping if KanjiVG map is empty
 						await loadSequentialComponentMappings(char, targetMap);
 					}
 				} else {
+					console.log(`[COMPONENT-MAP] KanjiVG fetch failed (${svgResponse.status}), falling back to sequential`);
 					await loadSequentialComponentMappings(char, targetMap);
 				}
 			}
 		} catch (e) {
 			console.error(
-				`Failed to load KanjiVG data for component mapping for ${char}:`,
+				`[COMPONENT-MAP] Failed to load KanjiVG data for component mapping for ${char}:`,
 				e,
 			);
 			await loadSequentialComponentMappings(char, targetMap);
@@ -100,6 +212,7 @@
 		char: string,
 		targetMap: "trad" | "simp",
 	) {
+		console.log(`[SEQUENTIAL] Using sequential fallback for ${char} (${targetMap})`);
 		try {
 			// Get components list from data
 			// Note: This assumes components are listed in writing order, which is often but not always true
@@ -108,7 +221,10 @@
 					? data.data.chinese_char?.components
 					: simplifiedCharData?.components;
 
-			if (!components || components.length === 0) return;
+			if (!components || components.length === 0) {
+				console.log(`[SEQUENTIAL] No components found in data`);
+				return;
+			}
 
 			const newMap = new Map<string, number[]>();
 			let currentStrokeIndex = 0;
@@ -135,14 +251,17 @@
 						}
 
 						newMap.set(compChar, strokeIndices);
+						console.log(`[SEQUENTIAL] "${compChar}": ${strokeCount} strokes → indices ${strokeIndices.join(', ')}`);
 						currentStrokeIndex += strokeCount;
 					} else {
-						// Silently fail for individual components
+						console.warn(`[SEQUENTIAL] Failed to fetch stroke data for "${compChar}" (${response.status})`);
 					}
 				} catch (err) {
-					// Silently fail for individual components
+					console.warn(`[SEQUENTIAL] Error fetching stroke data for "${compChar}":`, err);
 				}
 			}
+
+			console.log(`[SEQUENTIAL] Final mappings:`, Object.fromEntries(newMap));
 
 			if (newMap.size > 0) {
 				if (targetMap === "trad") {
@@ -150,6 +269,8 @@
 				} else {
 					simpComponentStrokeMap = newMap;
 				}
+			} else {
+				console.warn(`[SEQUENTIAL] No mappings generated!`);
 			}
 		} catch (e) {
 			console.error(
@@ -716,6 +837,57 @@
 						</div>
 					{/if}
 
+					<!-- Historical Evolution (Character form evolution through history) -->
+					{#if data.data.chinese_char?.images && data.data.chinese_char.images.filter((img: { url?: string }) => img.url).length > 0}
+						{@const historicalImages = data.data.chinese_char.images.filter((img: { url?: string }) => img.url)}
+						<div class="mb-5">
+							<SectionHeading>🏛️ Historical Evolution</SectionHeading>
+							<div class="flex gap-3 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-border-subtle scrollbar-track-transparent">
+								{#each historicalImages as image}
+									{#if image.url}
+										<div class="flex-shrink-0 text-center p-3 bg-bg-secondary rounded-lg border border-border-subtle min-w-[100px]">
+											<img
+												src={image.url}
+												alt="{image.type || 'Historical'} {image.era || ''}"
+												class="w-16 h-16 mx-auto object-contain bg-white rounded"
+												loading="lazy"
+												onerror={(e) => {
+													const target = e.currentTarget as HTMLImageElement;
+													target.style.display = 'none';
+													const fallback = target.nextElementSibling as HTMLElement;
+													if (fallback) fallback.style.display = 'flex';
+												}}
+											/>
+											<div class="hidden w-16 h-16 mx-auto items-center justify-center text-3xl font-serif text-text-primary bg-bg-tertiary rounded">
+												{data.word}
+											</div>
+											<div class="text-xs font-semibold text-text-secondary mt-2">
+												{image.type || 'Unknown'}
+											</div>
+											{#if image.era}
+												<div class="text-[10px] text-text-tertiary mt-0.5">
+													{image.era}
+												</div>
+											{/if}
+										</div>
+									{/if}
+								{/each}
+								<!-- Modern form rendered with font -->
+								<div class="flex-shrink-0 text-center p-3 bg-bg-secondary rounded-lg border border-border-subtle min-w-[100px]">
+									<div class="w-16 h-16 mx-auto flex items-center justify-center text-4xl font-serif text-text-primary">
+										{data.word}
+									</div>
+									<div class="text-xs font-semibold text-text-secondary mt-2">
+										Regular
+									</div>
+									<div class="text-[10px] text-text-tertiary mt-0.5">
+										Modern
+									</div>
+								</div>
+							</div>
+						</div>
+					{/if}
+
 					<!-- Comments (from Academia Sinica, etc.) -->
 					{#if data.data.chinese_char?.comments && data.data.chinese_char.comments.length > 0}
 						<div class="mb-5">
@@ -752,6 +924,69 @@
 									img.data,
 							)}
 						<SectionHeading>🧩 Components</SectionHeading>
+						<!-- Debug button to copy diagnostic info -->
+						<button
+							class="mb-4 px-3 py-1 text-xs bg-red-600 hover:bg-red-700 text-white rounded"
+							onclick={() => {
+								const debugInfo: Record<string, any> = {
+									character: traditionalChar,
+									simplified: simplifiedChar,
+									japanese: japaneseChar,
+									timestamp: new Date().toISOString(),
+									componentStrokeMap: Object.fromEntries(componentStrokeMap),
+									simpComponentStrokeMap: Object.fromEntries(simpComponentStrokeMap),
+									ourComponents: data.data.chinese_char?.components?.map((comp: any) => ({
+										raw: comp,
+										extractedChar: typeof comp === "string" ? comp : comp.character || comp.char || comp,
+										types: comp.componentType || comp.type || []
+									})),
+									makemeahanziStrokesCount: makemeahanziImage?.data?.strokes?.length ?? null,
+									makemeahanziMedians: makemeahanziImage?.data?.medians?.length ?? null,
+									japaneseCharData: data.data.japanese_char ?? null,
+								};
+
+								// Fetch KanjiVG for all variants
+								const fetchKanjiVG = async (char: string, label: string) => {
+									const cp = char?.codePointAt(0)?.toString(16).padStart(5, "0");
+									if (!cp) return null;
+									try {
+										const r = await fetch(`https://raw.githubusercontent.com/KanjiVG/kanjivg/master/kanji/${cp}.svg`);
+										if (!r.ok) return { available: false };
+										const svgText = await r.text();
+										const parser = new DOMParser();
+										const doc = parser.parseFromString(svgText, "image/svg+xml");
+										const groups = doc.querySelectorAll('g[kvg\\:element]');
+										const elements: Record<string, { paths: string[], number?: string }> = {};
+										groups.forEach(g => {
+											const el = g.getAttribute('kvg:element');
+											const num = g.getAttribute('kvg:number');
+											const paths = g.querySelectorAll(':scope > path[id^="kvg:"]');
+											if (el) {
+												const key = num ? `${el}#${num}` : el;
+												elements[key] = {
+													paths: Array.from(paths).map(p => p.getAttribute('id') || ''),
+													number: num || undefined
+												};
+											}
+										});
+										return { available: true, elements, svgText };
+									} catch { return { available: false }; }
+								};
+
+								Promise.all([
+									fetchKanjiVG(traditionalChar, 'traditional'),
+									fetchKanjiVG(simplifiedChar, 'simplified'),
+									fetchKanjiVG(japaneseChar, 'japanese'),
+								]).then(([trad, simp, jp]) => {
+									debugInfo.kanjiVG = { traditional: trad, simplified: simp, japanese: jp };
+									const text = JSON.stringify(debugInfo, null, 2);
+									navigator.clipboard.writeText(text);
+									alert('Debug info copied to clipboard!');
+								});
+							}}
+						>
+							🐛 Copy Debug Info
+						</button>
 						<div class="mb-4">
 							<!-- Traditional Character Components -->
 							<div class="mb-6">
@@ -761,7 +996,7 @@
 									Traditional (🇹🇼 {traditionalChar})
 								</div>
 								<div class="flex flex-row flex-wrap gap-3">
-									{#each data.data.chinese_char.components as comp, compIndex}
+									{#each data.data.chinese_char.components as comp, _compIndex}
 										{@const char =
 											typeof comp === "string"
 												? comp
@@ -773,6 +1008,8 @@
 											comp.type ||
 											[]}
 										{@const hint = comp.hint}
+										{@const pinyin = comp.pinyin}
+										{@const meaning = comp.meaning}
 										{@const isMeaning =
 											types.includes("meaning")}
 										{@const isPhonetic =
@@ -787,9 +1024,16 @@
 												: isIconic
 													? "#3498db"
 													: "#95a5a6"}
+										{@const typeLabel = isMeaning
+											? "Meaning"
+											: isPhonetic
+												? "Phonetic"
+												: isIconic
+													? "Iconic"
+													: ""}
 
 										<div
-											class="flex items-center gap-4 py-2 w-full md:w-auto"
+											class="flex items-start gap-3 py-3 px-4 w-full md:w-auto bg-bg-secondary rounded-lg border border-border-subtle"
 										>
 											<!-- SVG with highlighted strokes -->
 											<div
@@ -833,150 +1077,55 @@
 
 											<!-- Component Details -->
 											<div
-												class="flex flex-col justify-center"
+												class="flex flex-col justify-center min-w-0"
 											>
+												<!-- Character and Type Badge -->
 												<div
-													class="flex items-baseline gap-2"
+													class="flex items-center gap-2 mb-1"
 												>
-													<span
-														class="text-xl font-serif text-text-primary"
-														>{char}</span
+													<a
+														href="/{char}"
+														class="text-2xl font-serif text-text-primary hover:text-accent-primary transition-colors"
+														>{char}</a
 													>
-
-													{#if isMeaning}
+													{#if typeLabel}
 														<span
-															class="text-sm text-text-secondary"
+															class="text-xs px-2 py-0.5 rounded-full"
+															style="background-color: {highlightColor}20; color: {highlightColor}; border: 1px solid {highlightColor}40;"
 														>
-															Meaning
-															{#if hint}
-																<div
-																	class="group relative inline-block"
-																>
-																	<div
-																		class="cursor-help text-text-tertiary hover:text-text-primary transition-colors inline-block ml-1"
-																	>
-																		<svg
-																			xmlns="http://www.w3.org/2000/svg"
-																			width="12"
-																			height="12"
-																			viewBox="0 0 24 24"
-																			fill="none"
-																			stroke="currentColor"
-																			stroke-width="2"
-																			stroke-linecap="round"
-																			stroke-linejoin="round"
-																			><circle
-																				cx="12"
-																				cy="12"
-																				r="10"
-
-																			></circle><path
-																				d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
-
-																			></path><line
-																				x1="12"
-																				y1="17"
-																				x2="12.01"
-																				y2="17"
-
-																			></line></svg
-																		>
-																	</div>
-																	<div
-																		class="invisible group-hover:visible absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-bg-tertiary text-text-primary text-xs rounded shadow-lg whitespace-nowrap z-10 border border-border-subtle pointer-events-none"
-																	>
-																		{hint}
-																	</div>
-																</div>
-															{/if}
-															<span
-																class="text-text-tertiary ml-1"
-																>component</span
-															>
+															{typeLabel} component
 														</span>
-													{:else if isPhonetic}
-														<span
-															class="text-sm text-text-secondary"
-														>
-															Sound
-															{#if hint}
-																<div
-																	class="group relative inline-block"
-																>
-																	<div
-																		class="cursor-help text-text-tertiary hover:text-text-primary transition-colors inline-block ml-1"
-																	>
-																		<svg
-																			xmlns="http://www.w3.org/2000/svg"
-																			width="12"
-																			height="12"
-																			viewBox="0 0 24 24"
-																			fill="none"
-																			stroke="currentColor"
-																			stroke-width="2"
-																			stroke-linecap="round"
-																			stroke-linejoin="round"
-																			><circle
-																				cx="12"
-																				cy="12"
-																				r="10"
-
-																			></circle><path
-																				d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
-
-																			></path><line
-																				x1="12"
-																				y1="17"
-																				x2="12.01"
-																				y2="17"
-
-																			></line></svg
-																		>
-																	</div>
-																	<div
-																		class="invisible group-hover:visible absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-bg-tertiary text-text-primary text-xs rounded shadow-lg whitespace-nowrap z-10 border border-border-subtle pointer-events-none"
-																	>
-																		{hint}
-																	</div>
-																</div>
-															{/if}
-															<span
-																class="text-text-tertiary ml-1"
-																>component</span
-															>
-														</span>
-													{:else if isIconic}
-														<span
-															class="text-sm text-text-secondary"
-															>Iconic <span
-																class="text-text-tertiary ml-1"
-																>component</span
-															></span
-														>
-													{:else}
-														<span
-															class="text-sm text-text-tertiary"
-															>Component</span
-														>
 													{/if}
 												</div>
 
-												<div
-													class="flex items-baseline gap-3 text-base"
-												>
-													{#if comp.pinyin}
-														<span
-															class="font-mono text-text-secondary"
-															>{comp.pinyin}</span
-														>
-													{/if}
-													{#if comp.meaning}
-														<span
-															class="text-text-primary"
-															>{comp.meaning}</span
-														>
-													{/if}
-												</div>
+												<!-- Pinyin and Meaning -->
+												{#if pinyin || meaning}
+													<div
+														class="flex items-baseline gap-2 text-sm"
+													>
+														{#if pinyin}
+															<span
+																class="font-mono text-accent-primary"
+																>{pinyin}</span
+															>
+														{/if}
+														{#if meaning}
+															<span
+																class="text-text-secondary"
+																>{meaning}</span
+															>
+														{/if}
+													</div>
+												{/if}
+
+												<!-- Hint/Etymology -->
+												{#if hint}
+													<div
+														class="text-xs text-text-tertiary mt-1 italic"
+													>
+														{hint}
+													</div>
+												{/if}
 											</div>
 										</div>
 									{/each}
@@ -1003,7 +1152,7 @@
 										<div
 											class="flex flex-row flex-wrap gap-3"
 										>
-											{#each simplifiedCharData.components as comp, compIndex}
+											{#each simplifiedCharData.components as comp, _compIndex}
 												{@const char =
 													typeof comp === "string"
 														? comp
@@ -1015,12 +1164,12 @@
 													comp.type ||
 													[]}
 												{@const hint = comp.hint}
+												{@const pinyin = comp.pinyin}
+												{@const meaning = comp.meaning}
 												{@const isMeaning =
 													types.includes("meaning")}
 												{@const isPhonetic =
-													types.includes(
-														"phonetic",
-													) ||
+													types.includes("phonetic") ||
 													types.includes("sound")}
 												{@const isIconic =
 													types.includes("iconic")}
@@ -1032,13 +1181,20 @@
 															: isIconic
 																? "#3498db"
 																: "#95a5a6"}
+												{@const typeLabel = isMeaning
+													? "Meaning"
+													: isPhonetic
+														? "Phonetic"
+														: isIconic
+															? "Iconic"
+															: ""}
 
 												<div
-													class="flex items-center gap-4 p-3 bg-bg-secondary rounded-lg border border-border-subtle w-full md:w-auto max-w-md"
+													class="flex items-start gap-3 py-3 px-4 w-full md:w-auto bg-bg-secondary rounded-lg border border-border-subtle"
 												>
 													<!-- SVG with highlighted strokes -->
 													<div
-														class="relative w-[80px] h-[80px] flex-shrink-0 bg-bg-primary rounded-md border border-border-light"
+														class="relative w-[60px] h-[60px] flex-shrink-0"
 													>
 														{#if simpMakemeahanziImage?.data?.strokes}
 															{@const componentStrokes =
@@ -1046,8 +1202,8 @@
 																	char,
 																) || []}
 															<svg
-																width="80"
-																height="80"
+																width="60"
+																height="60"
 																viewBox="0 0 1024 1024"
 																class="absolute top-0 left-0"
 															>
@@ -1061,7 +1217,7 @@
 																				i,
 																			)
 																				? highlightColor
-																				: "#e5e7eb"}
+																				: "#4b5563"}
 																			class="transition-colors duration-300"
 																		/>
 																	{/each}
@@ -1069,7 +1225,7 @@
 															</svg>
 														{:else}
 															<div
-																class="w-full h-full flex items-center justify-center text-4xl font-serif text-text-primary"
+																class="w-full h-full flex items-center justify-center text-3xl font-serif text-text-primary"
 															>
 																{char}
 															</div>
@@ -1078,149 +1234,55 @@
 
 													<!-- Component Details -->
 													<div
-														class="flex flex-col justify-center flex-grow"
+														class="flex flex-col justify-center min-w-0"
 													>
+														<!-- Character and Type Badge -->
 														<div
-															class="flex items-baseline gap-2 mb-1"
+															class="flex items-center gap-2 mb-1"
 														>
-															<span
-																class="text-2xl font-serif text-text-primary font-bold"
-																>{char}</span
+															<a
+																href="/{char}"
+																class="text-2xl font-serif text-text-primary hover:text-accent-primary transition-colors"
+																>{char}</a
 															>
-
-															{#if isMeaning}
+															{#if typeLabel}
 																<span
-																	class="text-xs font-bold text-green-600 uppercase tracking-wide flex items-center gap-1 bg-green-100 px-1.5 py-0.5 rounded dark:bg-green-900/30"
+																	class="text-xs px-2 py-0.5 rounded-full"
+																	style="background-color: {highlightColor}20; color: {highlightColor}; border: 1px solid {highlightColor}40;"
 																>
-																	Meaning
-																	{#if hint}
-																		<div
-																			class="group relative inline-block"
-																		>
-																			<div
-																				class="cursor-help text-text-tertiary hover:text-text-primary transition-colors"
-																			>
-																				<svg
-																					xmlns="http://www.w3.org/2000/svg"
-																					width="12"
-																					height="12"
-																					viewBox="0 0 24 24"
-																					fill="none"
-																					stroke="currentColor"
-																					stroke-width="2"
-																					stroke-linecap="round"
-																					stroke-linejoin="round"
-																					><circle
-																						cx="12"
-																						cy="12"
-																						r="10"
-
-																					></circle><path
-																						d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
-
-																					></path><line
-																						x1="12"
-																						y1="17"
-																						x2="12.01"
-																						y2="17"
-
-																					></line></svg
-																				>
-																			</div>
-																			<div
-																				class="invisible group-hover:visible absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-bg-tertiary text-text-primary text-xs rounded shadow-lg whitespace-nowrap z-10 border border-border-subtle pointer-events-none"
-																			>
-																				{hint}
-																			</div>
-																		</div>
-																	{/if}
+																	{typeLabel} component
 																</span>
-															{:else if isPhonetic}
-																<span
-																	class="text-xs font-bold text-red-500 uppercase tracking-wide flex items-center gap-1 bg-red-100 px-1.5 py-0.5 rounded dark:bg-red-900/30"
-																>
-																	Sound
-																	{#if hint}
-																		<div
-																			class="group relative inline-block"
-																		>
-																			<div
-																				class="cursor-help text-text-tertiary hover:text-text-primary transition-colors"
-																			>
-																				<svg
-																					xmlns="http://www.w3.org/2000/svg"
-																					width="12"
-																					height="12"
-																					viewBox="0 0 24 24"
-																					fill="none"
-																					stroke="currentColor"
-																					stroke-width="2"
-																					stroke-linecap="round"
-																					stroke-linejoin="round"
-																					><circle
-																						cx="12"
-																						cy="12"
-																						r="10"
-
-																					></circle><path
-																						d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
-
-																					></path><line
-																						x1="12"
-																						y1="17"
-																						x2="12.01"
-																						y2="17"
-
-																					></line></svg
-																				>
-																			</div>
-																			<div
-																				class="invisible group-hover:visible absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-bg-tertiary text-text-primary text-xs rounded shadow-lg whitespace-nowrap z-10 border border-border-subtle pointer-events-none"
-																			>
-																				{hint}
-																			</div>
-																		</div>
-																	{/if}
-																</span>
-															{:else if isIconic}
-																<span
-																	class="text-xs font-bold text-blue-500 uppercase tracking-wide bg-blue-100 px-1.5 py-0.5 rounded dark:bg-blue-900/30"
-																	>Iconic</span
-																>
-															{:else}
-																<span
-																	class="text-xs text-text-tertiary uppercase tracking-wide bg-gray-100 px-1.5 py-0.5 rounded dark:bg-gray-800"
-																	>Component</span
-																>
 															{/if}
-
-															<span
-																class="text-[10px] text-text-tertiary ml-auto uppercase tracking-wider"
-																>component</span
-															>
 														</div>
 
-														<div
-															class="flex flex-col gap-0.5"
-														>
-															{#if comp.pinyin}
-																<div
-																	class="flex items-center gap-2"
-																>
+														<!-- Pinyin and Meaning -->
+														{#if pinyin || meaning}
+															<div
+																class="flex items-baseline gap-2 text-sm"
+															>
+																{#if pinyin}
 																	<span
-																		class="text-sm font-mono text-text-secondary"
-																		>{comp.pinyin}</span
+																		class="font-mono text-accent-primary"
+																		>{pinyin}</span
 																	>
-																</div>
-															{/if}
-															{#if comp.meaning}
-																<div
-																	class="text-sm text-text-primary leading-tight"
-																>
-																	{comp.meaning}
-																</div>
-															{/if}
-														</div>
+																{/if}
+																{#if meaning}
+																	<span
+																		class="text-text-secondary"
+																		>{meaning}</span
+																	>
+																{/if}
+															</div>
+														{/if}
+
+														<!-- Hint/Etymology -->
+														{#if hint}
+															<div
+																class="text-xs text-text-tertiary mt-1 italic"
+															>
+																{hint}
+															</div>
+														{/if}
 													</div>
 												</div>
 											{/each}
