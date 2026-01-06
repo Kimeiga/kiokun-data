@@ -19,9 +19,10 @@
 	let japaneseChar = $derived(data.data.japanese_char?.literal);
 
 	// Simple comparisons to determine which characters are identical
-	let simpSameAsTrad = $derived(simplifiedChar === traditionalChar);
+	// If no simplified variant exists, the character is the same in simplified Chinese
+	let simpSameAsTrad = $derived(!simplifiedChar || simplifiedChar === traditionalChar);
 	let jpSameAsTrad = $derived(japaneseChar === traditionalChar);
-	let jpSameAsSimp = $derived(japaneseChar === simplifiedChar);
+	let jpSameAsSimp = $derived(!simplifiedChar ? jpSameAsTrad : japaneseChar === simplifiedChar);
 
 	// State for character data and component mappings
 	let simplifiedCharData: any = $state(null);
