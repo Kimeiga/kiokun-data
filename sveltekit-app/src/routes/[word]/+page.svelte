@@ -842,14 +842,14 @@
 						{@const historicalImages = data.data.chinese_char.images.filter((img: { url?: string }) => img.url)}
 						<div class="mb-5">
 							<SectionHeading>🏛️ Historical Evolution</SectionHeading>
-							<div class="flex gap-3 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-border-subtle scrollbar-track-transparent">
+							<div class="flex gap-2 overflow-x-auto pb-2">
 								{#each historicalImages as image}
 									{#if image.url}
-										<div class="flex-shrink-0 text-center p-3 bg-bg-secondary rounded-lg border border-border-subtle min-w-[100px]">
+										<div class="historical-card">
 											<img
 												src={image.url}
 												alt="{image.type || 'Historical'} {image.era || ''}"
-												class="historical-image w-16 h-16 mx-auto object-contain bg-white rounded"
+												class="historical-image w-14 h-14 mx-auto object-contain"
 												loading="lazy"
 												onerror={(e) => {
 													const target = e.currentTarget as HTMLImageElement;
@@ -858,14 +858,14 @@
 													if (fallback) fallback.style.display = 'flex';
 												}}
 											/>
-											<div class="hidden w-16 h-16 mx-auto items-center justify-center text-3xl font-serif text-text-primary bg-bg-tertiary rounded">
+											<div class="hidden w-14 h-14 mx-auto items-center justify-center text-2xl font-cjk text-text-primary">
 												{data.word}
 											</div>
-											<div class="text-xs font-semibold text-text-secondary mt-2">
+											<div class="text-[11px] font-medium text-text-secondary mt-1.5">
 												{image.type || 'Unknown'}
 											</div>
 											{#if image.era}
-												<div class="text-[10px] text-text-tertiary mt-0.5">
+												<div class="text-[9px] text-text-tertiary mt-0.5">
 													{image.era}
 												</div>
 											{/if}
@@ -873,14 +873,14 @@
 									{/if}
 								{/each}
 								<!-- Modern form rendered with font -->
-								<div class="flex-shrink-0 text-center p-3 bg-bg-secondary rounded-lg border border-border-subtle min-w-[100px]">
-									<div class="w-16 h-16 mx-auto flex items-center justify-center text-4xl font-serif text-text-primary">
+								<div class="historical-card">
+									<div class="w-14 h-14 mx-auto flex items-center justify-center text-3xl font-cjk text-text-primary">
 										{data.word}
 									</div>
-									<div class="text-xs font-semibold text-text-secondary mt-2">
+									<div class="text-[11px] font-medium text-text-secondary mt-1.5">
 										Regular
 									</div>
-									<div class="text-[10px] text-text-tertiary mt-0.5">
+									<div class="text-[9px] text-text-tertiary mt-0.5">
 										Modern
 									</div>
 								</div>
@@ -1033,7 +1033,7 @@
 													: ""}
 
 										<div
-											class="flex items-start gap-3 py-3 px-4 w-full md:w-auto bg-bg-secondary rounded-lg border border-border-subtle"
+											class="component-card flex items-start gap-3 py-3 px-4 w-full md:w-auto rounded-lg"
 										>
 											<!-- SVG with highlighted strokes -->
 											<div
@@ -1190,7 +1190,7 @@
 															: ""}
 
 												<div
-													class="flex items-start gap-3 py-3 px-4 w-full md:w-auto bg-bg-secondary rounded-lg border border-border-subtle"
+													class="component-card flex items-start gap-3 py-3 px-4 w-full md:w-auto rounded-lg"
 												>
 													<!-- SVG with highlighted strokes -->
 													<div
@@ -1600,6 +1600,29 @@
 		font-size: 16px;
 		line-height: 1.6;
 		color: var(--text-primary);
+	}
+
+	/* Historical evolution cards - soft styling matching rest of app */
+	.historical-card {
+		flex-shrink: 0;
+		text-align: center;
+		padding: 0.625rem;
+		min-width: 70px;
+		border-radius: 6px;
+		transition: all 300ms ease-in-out;
+	}
+
+	.historical-card:hover {
+		background: var(--bg-tertiary);
+	}
+
+	/* Component cards - soft styling without harsh borders */
+	.component-card {
+		transition: all 300ms ease-in-out;
+	}
+
+	.component-card:hover {
+		background: var(--bg-tertiary);
 	}
 
 	/* Historical evolution images - invert in dark mode with smooth transition */

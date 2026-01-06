@@ -91,8 +91,6 @@
 		text-decoration: none;
 		color: inherit;
 		padding: 0.75rem 1rem;
-		background: var(--bg-secondary);
-		border: 1px solid var(--border-light);
 		border-radius: 8px;
 		min-width: 80px;
 		transition: all 300ms ease;
@@ -100,8 +98,6 @@
 
 	.character-card:hover {
 		background: var(--bg-tertiary);
-		border-color: var(--accent);
-		transform: translateY(-2px);
 	}
 
 	.character {
