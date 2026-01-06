@@ -52,36 +52,18 @@
 	<SectionHeading>Contains</SectionHeading>
 
 	<div class="mb-4">
-		<div class="words-container">
-			<!-- Chinese words column -->
-			<div class="words-column">
-				{#each displayedWords as preview}
-					<a href="/{preview.w}" class="word-item">
-						<div class="word-text">{preview.w}</div>
-						{#if preview.p}
-							<div class="pronunciation">[{preview.p}]</div>
-						{/if}
-						{#if preview.d}
-							<div class="definition">{preview.d}</div>
-						{/if}
-					</a>
-				{/each}
-			</div>
-
-			<!-- Japanese words column -->
-			<div class="words-column">
-				{#each displayedWords as preview}
-					<a href="/{preview.w}" class="word-item">
-						<div class="word-text">{preview.w}</div>
-						{#if preview.p}
-							<div class="pronunciation">[{preview.p}]</div>
-						{/if}
-						{#if preview.d}
-							<div class="definition">{preview.d}</div>
-						{/if}
-					</a>
-				{/each}
-			</div>
+		<div class="words-grid">
+			{#each displayedWords as preview}
+				<a href="/{preview.w}" class="word-item">
+					<div class="word-text">{preview.w}</div>
+					{#if preview.p}
+						<div class="pronunciation">[{preview.p}]</div>
+					{/if}
+					{#if preview.d}
+						<div class="definition">{preview.d}</div>
+					{/if}
+				</a>
+			{/each}
 		</div>
 
 		{#if hasMore}
@@ -95,24 +77,18 @@
 {/if}
 
 <style>
-	.words-container {
+	.words-grid {
 		display: grid;
 		grid-template-columns: 1fr;
-		gap: 1rem;
+		gap: 0.5rem;
 	}
 
 	/* Two columns on desktop */
 	@media (min-width: 768px) {
-		.words-container {
+		.words-grid {
 			grid-template-columns: 1fr 1fr;
-			gap: 1.5rem;
+			gap: 0.75rem 1.5rem;
 		}
-	}
-
-	.words-column {
-		display: flex;
-		flex-direction: column;
-		gap: 0.5rem;
 	}
 
 	.word-item {
