@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"npm run dev:cors\" \"vite dev\"",
+    "dev": "concurrently -n cors,vite -c blue,green \"npm run dev:cors\" \"sleep 1 && vite dev\"",
     "dev:cors": "cd ../output_dictionary && python3 cors_server.py",
     "dev:vite": "vite dev",
     "build": "vite build",

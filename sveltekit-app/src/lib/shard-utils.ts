@@ -123,6 +123,7 @@ let cachedPort: number | null = null;
 
 /**
  * Get the CORS server port by reading from the API endpoint
+ * Includes retry logic to handle race conditions during startup
  * @param fetchFn - Optional fetch function (use SvelteKit's fetch in load functions)
  * @returns The port number, or 8000 as fallback
  */
@@ -131,15 +132,27 @@ async function getCorsPort(fetchFn: typeof fetch = fetch): Promise<number> {
     return cachedPort;
   }
 
-  try {
-    const response = await fetchFn('/api/cors-port');
-    const data = await response.json();
-    cachedPort = data.port;
-    return cachedPort;
-  } catch (error) {
-    console.warn('Failed to fetch CORS port, using default 8000:', error);
-    return 8000;
+  // Retry up to 5 times with 500ms delay to handle startup race condition
+  for (let attempt = 0; attempt < 5; attempt++) {
+    try {
+      const response = await fetchFn('/api/cors-port');
+      const data = await response.json();
+      if (data.port) {
+        cachedPort = data.port;
+        return data.port;
+      }
+    } catch (error) {
+      // Only log on last attempt
+      if (attempt === 4) {
+        console.warn('Failed to fetch CORS port after retries, using default 8000:', error);
+      }
+    }
+    // Wait before retrying
+    if (attempt < 4) {
+      await new Promise(resolve => setTimeout(resolve, 500));
+    }
   }
+  return 8000;
 }
 
 /**

@@ -24,12 +24,17 @@ class CORSRequestHandler(SimpleHTTPRequestHandler):
         self.send_response(200)
         self.end_headers()
 
+    # Suppress request logging for cleaner output
+    def log_message(self, format, *args):
+        pass  # Comment out to see request logs
+
 def find_available_port(start_port=8000, max_attempts=100):
     """Find the first available port starting from start_port"""
     for port in range(start_port, start_port + max_attempts):
         try:
             # Try to bind to the port
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
             sock.bind(('', port))
             sock.close()
             return port
@@ -42,17 +47,20 @@ if __name__ == '__main__':
     # Find first available port starting from 8000
     port = find_available_port(8000)
 
-    # Write port to a file that SvelteKit can read
+    # Write port to a file BEFORE starting the server
+    # This ensures Vite can read it as soon as the server is ready
     port_file = os.path.join(os.path.dirname(__file__), '.cors_port')
     with open(port_file, 'w') as f:
         f.write(str(port))
 
+    # Flush to ensure the file is written immediately
+    sys.stdout.flush()
+
     server_address = ('', port)
     httpd = HTTPServer(server_address, CORSRequestHandler)
-    print(f'🚀 CORS-enabled HTTP server running on http://localhost:{port}/')
-    print(f'📁 Serving files from: {os.path.dirname(os.path.abspath(__file__))}')
-    print(f'📝 Port written to: {port_file}')
-    print(f'💡 Press Ctrl+C to stop')
+
+    # Print AFTER server is bound and ready
+    print(f'🚀 CORS server ready on http://localhost:{port}/', flush=True)
 
     try:
         httpd.serve_forever()
