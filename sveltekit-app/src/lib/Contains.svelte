@@ -52,12 +52,12 @@
 	<SectionHeading>Contains</SectionHeading>
 
 	<div class="mb-4">
-		<div class="words-grid">
+		<div class="characters-row">
 			{#each displayedWords as preview}
-				<a href="/{preview.w}" class="word-item">
-					<div class="word-text">{preview.w}</div>
+				<a href="/{preview.w}" class="character-card">
+					<div class="character">{preview.w}</div>
 					{#if preview.p}
-						<div class="pronunciation">[{preview.p}]</div>
+						<div class="pronunciation">{preview.p}</div>
 					{/if}
 					{#if preview.d}
 						<div class="definition">{preview.d}</div>
@@ -69,7 +69,7 @@
 		{#if hasMore}
 			<div class="observer-target" bind:this={observerTarget}>
 				<div class="remaining-count">
-					{words.length - displayCount} more items
+					{words.length - displayCount} more
 				</div>
 			</div>
 		{/if}
@@ -77,63 +77,79 @@
 {/if}
 
 <style>
-	.words-grid {
-		display: grid;
-		grid-template-columns: 1fr;
-		gap: 0.5rem;
+	.characters-row {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
 	}
 
-	/* Two columns on desktop */
-	@media (min-width: 768px) {
-		.words-grid {
-			grid-template-columns: 1fr 1fr;
-			gap: 0.75rem 1.5rem;
-		}
-	}
-
-	.word-item {
+	.character-card {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
 		text-decoration: none;
 		color: inherit;
-		padding: 0.5rem 0;
-		border-bottom: 1px solid var(--border-color);
-		transition: background-color 0.2s ease;
+		padding: 0.75rem 1rem;
+		background: var(--bg-secondary);
+		border: 1px solid var(--border-light);
+		border-radius: 8px;
+		min-width: 80px;
+		transition: all 300ms ease;
 	}
 
-	.word-item:hover {
-		background-color: var(--bg-tertiary);
+	.character-card:hover {
+		background: var(--bg-tertiary);
+		border-color: var(--accent);
+		transform: translateY(-2px);
 	}
 
-	.word-item:last-child {
-		border-bottom: none;
-	}
-
-	.word-text {
-		font-size: 1.1rem;
+	.character {
+		font-size: 2rem;
 		font-weight: 600;
 		color: var(--text-primary);
-		margin-bottom: 0.125rem;
+		line-height: 1.2;
+		font-family:
+			"Noto Sans CJK TC",
+			"Noto Sans CJK SC",
+			"Noto Sans CJK JP",
+			"Source Han Sans TC",
+			"Source Han Sans SC",
+			"Source Han Sans JP",
+			"Microsoft JhengHei",
+			"Microsoft YaHei",
+			"Meiryo",
+			"Hiragino Sans",
+			"Yu Gothic",
+			sans-serif;
 	}
 
 	.pronunciation {
-		font-size: 0.85rem;
-		color: var(--text-secondary);
-		margin-bottom: 0.125rem;
+		font-size: 0.75rem;
+		color: var(--color-pinyin);
+		margin-top: 0.25rem;
+		font-weight: 500;
 	}
 
 	.definition {
-		font-size: 0.85rem;
+		font-size: 0.7rem;
 		color: var(--text-tertiary);
+		margin-top: 0.25rem;
 		line-height: 1.3;
+		max-width: 100px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 
 	.observer-target {
-		margin-top: 1.5rem;
-		padding: 10px;
+		margin-top: 1rem;
+		padding: 8px;
 		text-align: center;
 	}
 
 	.remaining-count {
-		font-size: 12px;
+		font-size: 11px;
 		color: var(--text-muted);
 		font-style: italic;
 	}
