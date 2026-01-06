@@ -24,6 +24,15 @@
 	let jpSameAsTrad = $derived(japaneseChar === traditionalChar);
 	let jpSameAsSimp = $derived(!simplifiedChar ? jpSameAsTrad : japaneseChar === simplifiedChar);
 
+	// Count how many unique character boxes we'll show
+	let characterBoxCount = $derived.by(() => {
+		let count = traditionalChar ? 1 : 0;
+		if (simplifiedChar && !simpSameAsTrad) count++;
+		if (japaneseChar && !jpSameAsTrad && !jpSameAsSimp) count++;
+		return count;
+	});
+	let isSingleCharacter = $derived(characterBoxCount === 1);
+
 	// State for character data and component mappings
 	let simplifiedCharData: any = $state(null);
 	let componentStrokeMap: Map<string, number[]> = $state(new Map()); // For traditional/main character
@@ -767,7 +776,8 @@
 					<div class="flex flex-col gap-6 mb-6">
 						<!-- Top Row: Character Variants & Main Gloss -->
 						<div
-							class="flex flex-col md:flex-row md:items-start justify-between gap-6"
+							class="flex flex-col md:flex-row md:items-start gap-6"
+							class:justify-between={!isSingleCharacter}
 						>
 							<!-- Character Variants with Stroke Animations -->
 							<div class="flex items-center gap-6">
@@ -825,7 +835,7 @@
 
 							<!-- Main Meaning (Gloss) -->
 							{#if data.data.chinese_char?.gloss}
-								<div class="flex-1 md:text-right">
+								<div class:flex-1={!isSingleCharacter} class:md:text-right={!isSingleCharacter}>
 									<h1
 										class="text-2xl md:text-4xl font-bold text-accent mb-2 leading-tight"
 									>
