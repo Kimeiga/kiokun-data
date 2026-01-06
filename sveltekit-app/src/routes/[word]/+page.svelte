@@ -18,6 +18,11 @@
 	let simplifiedChar = $derived(data.data.chinese_char?.simpVariants?.[0]);
 	let japaneseChar = $derived(data.data.japanese_char?.literal);
 
+	// Simple comparisons to determine which characters are identical
+	let simpSameAsTrad = $derived(simplifiedChar === traditionalChar);
+	let jpSameAsTrad = $derived(japaneseChar === traditionalChar);
+	let jpSameAsSimp = $derived(japaneseChar === simplifiedChar);
+
 	// State for character data and component mappings
 	let simplifiedCharData: any = $state(null);
 	let componentStrokeMap: Map<string, number[]> = $state(new Map()); // For traditional/main character
@@ -601,45 +606,47 @@
 			charDataLoader: charDataLoader,
 		};
 
-		// Traditional character animation
+		// Animate traditional character (always if exists)
 		if (traditionalChar) {
-			// Reset sequential fallback flag for traditional character
-			tradUsedSequentialFallback = false;
-			const tradTarget = document.getElementById("trad-writer-target");
-			if (tradTarget) {
-				// Clear the fallback character
-				tradTarget.innerHTML = "";
-				const writer = HanziWriter.create(
-					tradTarget,
-					traditionalChar,
-					writerConfig,
-				);
+			const target = document.getElementById("trad-writer-target");
+			if (target) {
+				target.innerHTML = "";
+				const writer = HanziWriter.create(target, traditionalChar, writerConfig);
 				writer.loopCharacterAnimation();
 			}
-			// Load component mappings for traditional character
+		}
+
+		// Animate simplified character (only if different from traditional)
+		if (simplifiedChar && simplifiedChar !== traditionalChar) {
+			const target = document.getElementById("simp-writer-target");
+			if (target) {
+				target.innerHTML = "";
+				const writer = HanziWriter.create(target, simplifiedChar, writerConfig);
+				writer.loopCharacterAnimation();
+			}
+		}
+
+		// Animate Japanese character (only if different from both trad and simp)
+		if (japaneseChar && japaneseChar !== traditionalChar && japaneseChar !== simplifiedChar) {
+			const target = document.getElementById("jp-writer-target");
+			if (target) {
+				target.innerHTML = "";
+				const writer = HanziWriter.create(target, japaneseChar, writerConfig);
+				writer.loopCharacterAnimation();
+			}
+		}
+
+		// Load component mappings for traditional character
+		if (traditionalChar) {
+			tradUsedSequentialFallback = false;
 			loadComponentMappings(traditionalChar, "trad");
 		}
 
-		// Simplified character animation
-		if (simplifiedChar) {
-			const simpTarget = document.getElementById("simp-writer-target");
-			if (simpTarget) {
-				// Clear the fallback character
-				simpTarget.innerHTML = "";
-				const writer = HanziWriter.create(
-					simpTarget,
-					simplifiedChar,
-					writerConfig,
-				);
-				writer.loopCharacterAnimation();
-			}
-
-			// Load simplified character data for component breakdown
-			// Reset sequential fallback flag for simplified character
+		// Load simplified character data for component breakdown (if different from traditional)
+		if (simplifiedChar && simplifiedChar !== traditionalChar) {
 			simpUsedSequentialFallback = false;
 			try {
 				const url = await getDictionaryUrl(simplifiedChar, dev);
-				// Add cache-busting parameter to force fresh fetch during dev
 				const urlWithCacheBust = dev ? `${url}?t=${Date.now()}` : url;
 				const response = await fetch(urlWithCacheBust);
 				if (response.ok) {
@@ -655,16 +662,13 @@
 
 					// Check if this is a redirect entry
 					if (jsonData.redirect) {
-						// If redirect entry has its own chinese_char data (with components),
-						// use that for simplified-specific component display
 						if (jsonData.chinese_char && jsonData.chinese_char.components?.length > 0) {
 							simplifiedCharData = jsonData.chinese_char;
 							console.log(
-								"[SIMP CHAR] Using simplified character's own data (has components):",
+								"[SIMP CHAR] Using simplified character's own data:",
 								simplifiedCharData,
 							);
 						} else {
-							// No simplified-specific data, follow redirect
 							console.log(
 								"[SIMP CHAR] Following redirect to:",
 								jsonData.redirect,
@@ -712,29 +716,6 @@
 					`Failed to load char data for ${simplifiedChar}`,
 					e,
 				);
-			}
-		}
-
-		// Japanese character animation (try Hanzi Writer first, fallback to note if not available)
-		if (japaneseChar) {
-			const jpTarget = document.getElementById("jp-writer-target");
-			if (jpTarget) {
-				try {
-					// Clear the fallback character
-					jpTarget.innerHTML = "";
-					const writer = HanziWriter.create(
-						jpTarget,
-						japaneseChar,
-						writerConfig,
-					);
-					writer.loopCharacterAnimation();
-				} catch (e) {
-					// If Hanzi Writer doesn't have this character, keep the fallback
-					console.error(
-						"Failed to create Hanzi Writer for Japanese char:",
-						e,
-					);
-				}
 			}
 		}
 	}
@@ -789,74 +770,53 @@
 						>
 							<!-- Character Variants with Stroke Animations -->
 							<div class="flex items-center gap-6">
-								<!-- Traditional Chinese Character -->
+								<!-- Traditional Chinese (always shown if exists) -->
 								{#if traditionalChar}
-									<div
-										class="flex flex-col items-center gap-2"
-									>
+									<div class="flex flex-col items-center gap-2">
 										<div
 											id="trad-writer-target"
 											class="w-[100px] h-[100px] flex items-center justify-center bg-bg-secondary rounded-xl shadow-lg border border-border"
 										>
-											<!-- Fallback: show character until animation loads -->
-											<div
-												class="text-6xl md:text-7xl font-bold font-cjk leading-none text-text-primary"
-											>
+											<div class="text-6xl md:text-7xl font-bold font-cjk leading-none text-text-primary">
 												{traditionalChar}
 											</div>
 										</div>
-										<div
-											class="text-[10px] uppercase tracking-wider font-bold text-text-tertiary"
-										>
-											Trad
+										<div class="text-base tracking-wide">
+											🇹🇼{#if simpSameAsTrad}🇨🇳{/if}{#if jpSameAsTrad}🇯🇵{/if}
 										</div>
 									</div>
 								{/if}
 
-								<!-- Simplified Chinese Character -->
-								{#if simplifiedChar}
-									<div
-										class="flex flex-col items-center gap-2"
-									>
+								<!-- Simplified Chinese (only if different from traditional) -->
+								{#if simplifiedChar && !simpSameAsTrad}
+									<div class="flex flex-col items-center gap-2">
 										<div
 											id="simp-writer-target"
 											class="w-[100px] h-[100px] flex items-center justify-center bg-bg-secondary rounded-xl shadow-lg border border-border"
 										>
-											<!-- Fallback: show character until animation loads -->
-											<div
-												class="text-6xl md:text-7xl font-bold font-cjk leading-none text-text-primary"
-											>
+											<div class="text-6xl md:text-7xl font-bold font-cjk leading-none text-text-primary">
 												{simplifiedChar}
 											</div>
 										</div>
-										<div
-											class="text-[10px] uppercase tracking-wider font-bold text-text-tertiary"
-										>
-											Simp
+										<div class="text-base tracking-wide">
+											🇨🇳{#if jpSameAsSimp}🇯🇵{/if}
 										</div>
 									</div>
 								{/if}
 
-								<!-- Japanese Character -->
-								{#if japaneseChar}
-									<div
-										class="flex flex-col items-center gap-2"
-									>
+								<!-- Japanese Kanji (only if different from both trad and simp) -->
+								{#if japaneseChar && !jpSameAsTrad && !jpSameAsSimp}
+									<div class="flex flex-col items-center gap-2">
 										<div
 											id="jp-writer-target"
 											class="w-[100px] h-[100px] flex items-center justify-center bg-bg-secondary rounded-xl shadow-lg border border-border"
 										>
-											<!-- Fallback: show character until animation loads -->
-											<div
-												class="text-6xl md:text-7xl font-bold font-cjk leading-none text-text-primary"
-											>
+											<div class="text-6xl md:text-7xl font-bold font-cjk leading-none text-text-primary">
 												{japaneseChar}
 											</div>
 										</div>
-										<div
-											class="text-[10px] uppercase tracking-wider font-bold text-text-tertiary"
-										>
-											Kanji
+										<div class="text-base tracking-wide">
+											🇯🇵
 										</div>
 									</div>
 								{/if}
