@@ -22,13 +22,105 @@
 	let simplifiedCharData: any = $state(null);
 	let componentStrokeMap: Map<string, number[]> = $state(new Map()); // For traditional/main character
 	let simpComponentStrokeMap: Map<string, number[]> = $state(new Map()); // For simplified character
+	let tradUsedSequentialFallback = $state(false); // True if traditional used sequential fallback (unreliable)
+	let simpUsedSequentialFallback = $state(false); // True if simplified used sequential fallback (unreliable)
 
-	// Helper to load KanjiVG data and extract component mappings
+	// Helper to load component mappings from makemeahanzi's matches field
+	// The matches field maps each stroke to its component index
+	// e.g., for 图: [[0],[0],[1],[1],[1],[1],[1],[0]] means strokes 0,1,7 belong to component 0 (囗), strokes 2-6 to component 1 (冬)
+	function loadMakemeahanziMappings(
+		char: string,
+		targetMap: "trad" | "simp",
+	): boolean {
+		console.log(`[MAKEMEAHANZI] Checking for matches data for ${char} (${targetMap})`);
+
+		// Get the makemeahanzi image data
+		const makemeahanziImage = targetMap === "trad"
+			? data.data.chinese_char?.images?.find((img: any) => img.source === 'makemeahanzi')
+			: simplifiedCharData?.images?.find((img: any) => img.source === 'makemeahanzi');
+
+		const matches = makemeahanziImage?.data?.matches;
+		if (!matches || !Array.isArray(matches)) {
+			console.log(`[MAKEMEAHANZI] No matches field found for ${char}`);
+			return false;
+		}
+
+		// Get our components list
+		const components = targetMap === "trad"
+			? data.data.chinese_char?.components
+			: simplifiedCharData?.components;
+
+		if (!components || components.length === 0) {
+			console.log(`[MAKEMEAHANZI] No components in our data for ${char}`);
+			return false;
+		}
+
+		console.log(`[MAKEMEAHANZI] Found matches for ${char}:`, matches);
+		console.log(`[MAKEMEAHANZI] Components:`, components.map((c: any) => typeof c === 'string' ? c : c.character || c.char));
+
+		// Build component index -> stroke indices mapping
+		const componentToStrokes = new Map<number, number[]>();
+
+		matches.forEach((strokeMatch: number[] | null, strokeIndex: number) => {
+			if (strokeMatch && strokeMatch.length > 0) {
+				// The match array indicates which component(s) this stroke belongs to
+				// Usually it's a single number like [0] or [1], but can be nested for complex chars
+				// We take the first element as the component index
+				const componentIndex = strokeMatch[0];
+				if (!componentToStrokes.has(componentIndex)) {
+					componentToStrokes.set(componentIndex, []);
+				}
+				componentToStrokes.get(componentIndex)!.push(strokeIndex);
+			}
+		});
+
+		console.log(`[MAKEMEAHANZI] Component index -> strokes:`, Object.fromEntries(componentToStrokes));
+
+		// Now map component characters to their stroke indices
+		const newMap = new Map<string, number[]>();
+
+		components.forEach((comp: any, index: number) => {
+			const compChar = typeof comp === 'string' ? comp : comp.character || comp.char || comp;
+			const strokes = componentToStrokes.get(index) || [];
+			if (strokes.length > 0) {
+				newMap.set(compChar, strokes);
+				console.log(`[MAKEMEAHANZI] ✓ Component "${compChar}" (index ${index}) → strokes ${strokes.join(', ')}`);
+			} else {
+				console.log(`[MAKEMEAHANZI] ⚠️ Component "${compChar}" (index ${index}) has no strokes mapped`);
+			}
+		});
+
+		if (newMap.size > 0) {
+			// Clear the sequential fallback flag since we have accurate data
+			if (targetMap === "trad") {
+				tradUsedSequentialFallback = false;
+				componentStrokeMap = newMap;
+			} else {
+				simpUsedSequentialFallback = false;
+				simpComponentStrokeMap = newMap;
+			}
+			console.log(`[MAKEMEAHANZI] Successfully loaded mappings from matches field`);
+			return true;
+		}
+
+		return false;
+	}
+
+	// Helper to load KanjiVG data and extract component mappings (fallback for Japanese)
 	async function loadComponentMappings(
 		char: string,
 		targetMap: "trad" | "simp",
 	) {
 		console.log(`[COMPONENT-MAP] Loading mappings for ${char} (${targetMap})`);
+
+		// First, try to use makemeahanzi's matches field (most accurate for Chinese)
+		if (loadMakemeahanziMappings(char, targetMap)) {
+			console.log(`[COMPONENT-MAP] Used makemeahanzi matches for ${char}`);
+			return;
+		}
+
+		// Fall back to KanjiVG for Japanese characters or if makemeahanzi matches not available
+		console.log(`[COMPONENT-MAP] Falling back to KanjiVG for ${char}`);
 		try {
 			const codepoint = char
 				.codePointAt(0)
@@ -213,6 +305,14 @@
 		targetMap: "trad" | "simp",
 	) {
 		console.log(`[SEQUENTIAL] Using sequential fallback for ${char} (${targetMap})`);
+
+		// Mark that we're using sequential fallback (which is unreliable for enclosure characters)
+		if (targetMap === "trad") {
+			tradUsedSequentialFallback = true;
+		} else {
+			simpUsedSequentialFallback = true;
+		}
+
 		try {
 			// Get components list from data
 			// Note: This assumes components are listed in writing order, which is often but not always true
@@ -503,6 +603,8 @@
 
 		// Traditional character animation
 		if (traditionalChar) {
+			// Reset sequential fallback flag for traditional character
+			tradUsedSequentialFallback = false;
 			const tradTarget = document.getElementById("trad-writer-target");
 			if (tradTarget) {
 				// Clear the fallback character
@@ -533,9 +635,13 @@
 			}
 
 			// Load simplified character data for component breakdown
+			// Reset sequential fallback flag for simplified character
+			simpUsedSequentialFallback = false;
 			try {
-				const url = getDictionaryUrl(simplifiedChar, dev);
-				const response = await fetch(url);
+				const url = await getDictionaryUrl(simplifiedChar, dev);
+				// Add cache-busting parameter to force fresh fetch during dev
+				const urlWithCacheBust = dev ? `${url}?t=${Date.now()}` : url;
+				const response = await fetch(urlWithCacheBust);
 				if (response.ok) {
 					const arrayBuffer = await response.arrayBuffer();
 					const { inflateSync } = await import("fflate");
@@ -549,31 +655,41 @@
 
 					// Check if this is a redirect entry
 					if (jsonData.redirect) {
-						console.log(
-							"[SIMP CHAR] Following redirect to:",
-							jsonData.redirect,
-						);
-						// Load the redirect target's data
-						const redirectUrl = getDictionaryUrl(
-							jsonData.redirect,
-							dev,
-						);
-						const redirectResponse = await fetch(redirectUrl);
-						if (redirectResponse.ok) {
-							const redirectArrayBuffer =
-								await redirectResponse.arrayBuffer();
-							const redirectDecompressed = inflateSync(
-								new Uint8Array(redirectArrayBuffer),
-							);
-							const redirectJsonData = JSON.parse(
-								new TextDecoder().decode(redirectDecompressed),
-							);
-							simplifiedCharData = redirectJsonData.chinese_char;
+						// If redirect entry has its own chinese_char data (with components),
+						// use that for simplified-specific component display
+						if (jsonData.chinese_char && jsonData.chinese_char.components?.length > 0) {
+							simplifiedCharData = jsonData.chinese_char;
 							console.log(
-								"[SIMP CHAR] Loaded redirect data for",
-								jsonData.redirect,
+								"[SIMP CHAR] Using simplified character's own data (has components):",
 								simplifiedCharData,
 							);
+						} else {
+							// No simplified-specific data, follow redirect
+							console.log(
+								"[SIMP CHAR] Following redirect to:",
+								jsonData.redirect,
+							);
+							const redirectUrl = await getDictionaryUrl(
+								jsonData.redirect,
+								dev,
+							);
+							const redirectResponse = await fetch(redirectUrl);
+							if (redirectResponse.ok) {
+								const redirectArrayBuffer =
+									await redirectResponse.arrayBuffer();
+								const redirectDecompressed = inflateSync(
+									new Uint8Array(redirectArrayBuffer),
+								);
+								const redirectJsonData = JSON.parse(
+									new TextDecoder().decode(redirectDecompressed),
+								);
+								simplifiedCharData = redirectJsonData.chinese_char;
+								console.log(
+									"[SIMP CHAR] Loaded redirect data for",
+									jsonData.redirect,
+									simplifiedCharData,
+								);
+							}
 						}
 					} else {
 						simplifiedCharData = jsonData.chinese_char;
@@ -915,216 +1031,154 @@
 					{/if}
 
 					<!-- Components Section -->
-					{#if data.data.chinese_char?.components && data.data.chinese_char.components.length > 0}
-						{@const makemeahanziImage =
-							data.data.chinese_char.images?.find(
-								(img) =>
+					{#if (data.data.chinese_char?.components && data.data.chinese_char.components.length > 0) || (simplifiedCharData?.components && simplifiedCharData.components.length > 0)}
+						{@const tradMakemeahanziImage =
+							data.data.chinese_char?.images?.find(
+								(img: any) =>
 									img &&
 									img.source === "makemeahanzi" &&
 									img.data,
 							)}
+						{@const simpMakemeahanziImage =
+							simplifiedCharData?.images?.find(
+								(img: any) =>
+									img &&
+									img.source === "makemeahanzi" &&
+									img.data,
+							)}
+						{@const hasTradComponents = data.data.chinese_char?.components && data.data.chinese_char.components.length > 0}
+						{@const hasSimpComponents = simplifiedCharData?.components && simplifiedCharData.components.length > 0 && simplifiedChar}
+						{@const showBothColumns = hasTradComponents && hasSimpComponents && traditionalChar !== simplifiedChar}
+
 						<SectionHeading>🧩 Components</SectionHeading>
-						<!-- Debug button to copy diagnostic info -->
-						<button
-							class="mb-4 px-3 py-1 text-xs bg-red-600 hover:bg-red-700 text-white rounded"
-							onclick={() => {
-								const debugInfo: Record<string, any> = {
-									character: traditionalChar,
-									simplified: simplifiedChar,
-									japanese: japaneseChar,
-									timestamp: new Date().toISOString(),
-									componentStrokeMap: Object.fromEntries(componentStrokeMap),
-									simpComponentStrokeMap: Object.fromEntries(simpComponentStrokeMap),
-									ourComponents: data.data.chinese_char?.components?.map((comp: any) => ({
-										raw: comp,
-										extractedChar: typeof comp === "string" ? comp : comp.character || comp.char || comp,
-										types: comp.componentType || comp.type || []
-									})),
-									makemeahanziStrokesCount: makemeahanziImage?.data?.strokes?.length ?? null,
-									makemeahanziMedians: makemeahanziImage?.data?.medians?.length ?? null,
-									japaneseCharData: data.data.japanese_char ?? null,
-								};
 
-								// Fetch KanjiVG for all variants
-								const fetchKanjiVG = async (char: string, label: string) => {
-									const cp = char?.codePointAt(0)?.toString(16).padStart(5, "0");
-									if (!cp) return null;
-									try {
-										const r = await fetch(`https://raw.githubusercontent.com/KanjiVG/kanjivg/master/kanji/${cp}.svg`);
-										if (!r.ok) return { available: false };
-										const svgText = await r.text();
-										const parser = new DOMParser();
-										const doc = parser.parseFromString(svgText, "image/svg+xml");
-										const groups = doc.querySelectorAll('g[kvg\\:element]');
-										const elements: Record<string, { paths: string[], number?: string }> = {};
-										groups.forEach(g => {
-											const el = g.getAttribute('kvg:element');
-											const num = g.getAttribute('kvg:number');
-											const paths = g.querySelectorAll(':scope > path[id^="kvg:"]');
-											if (el) {
-												const key = num ? `${el}#${num}` : el;
-												elements[key] = {
-													paths: Array.from(paths).map(p => p.getAttribute('id') || ''),
-													number: num || undefined
-												};
-											}
-										});
-										return { available: true, elements, svgText };
-									} catch { return { available: false }; }
-								};
-
-								Promise.all([
-									fetchKanjiVG(traditionalChar, 'traditional'),
-									fetchKanjiVG(simplifiedChar, 'simplified'),
-									fetchKanjiVG(japaneseChar, 'japanese'),
-								]).then(([trad, simp, jp]) => {
-									debugInfo.kanjiVG = { traditional: trad, simplified: simp, japanese: jp };
-									const text = JSON.stringify(debugInfo, null, 2);
-									navigator.clipboard.writeText(text);
-									alert('Debug info copied to clipboard!');
-								});
-							}}
-						>
-							🐛 Copy Debug Info
-						</button>
 						<div class="mb-4">
-							<!-- Character Components -->
-							<div class="mb-6">
-								<div class="flex flex-row flex-wrap gap-3">
-									{#each data.data.chinese_char.components as comp, _compIndex}
-										{@const char =
-											typeof comp === "string"
-												? comp
-												: comp.character ||
-													comp.char ||
-													comp}
-										{@const types =
-											comp.componentType ||
-											comp.type ||
-											[]}
-										{@const hint = comp.hint}
-										{@const pinyin = comp.pinyin}
-										{@const meaning = comp.meaning}
-										{@const isMeaning =
-											types.includes("meaning")}
-										{@const isPhonetic =
-											types.includes("phonetic") ||
-											types.includes("sound")}
-										{@const isIconic =
-											types.includes("iconic")}
-										{@const highlightColor = isMeaning
-											? "#27ae60"
-											: isPhonetic
-												? "#e74c3c"
-												: isIconic
-													? "#3498db"
-													: "#95a5a6"}
-										{@const typeLabel = isMeaning
-											? "Meaning"
-											: isPhonetic
-												? "Phonetic"
-												: isIconic
-													? "Iconic"
-													: ""}
-
-										<div
-											class="component-card flex items-start gap-3 py-3 px-4 w-full md:w-auto rounded-lg"
-										>
-											<!-- SVG with highlighted strokes -->
-											<div
-												class="relative w-[60px] h-[60px] flex-shrink-0"
-											>
-												{#if makemeahanziImage?.data?.strokes}
-													{@const componentStrokes =
-														componentStrokeMap.get(
-															char,
-														) || []}
-													<svg
-														width="60"
-														height="60"
-														viewBox="0 0 1024 1024"
-														class="absolute top-0 left-0"
-													>
-														<g
-															transform="scale(1, -1) translate(0, -900)"
-														>
-															{#each makemeahanziImage.data.strokes as stroke, i}
-																<path
-																	d={stroke}
-																	fill={componentStrokes.includes(
-																		i,
-																	)
-																		? highlightColor
-																		: "#4b5563"}
-																	class="transition-colors duration-300"
-																/>
-															{/each}
-														</g>
-													</svg>
-												{:else}
-													<div
-														class="w-full h-full flex items-center justify-center text-3xl font-serif text-text-primary"
-													>
-														{char}
-													</div>
-												{/if}
+							<!-- Two-column layout when both trad and simp have different components -->
+							<div class={showBothColumns ? "grid grid-cols-1 md:grid-cols-2 gap-6" : ""}>
+								<!-- Traditional Components -->
+								{#if hasTradComponents}
+									<div class="mb-6">
+										{#if showBothColumns}
+											<div class="text-sm font-semibold text-text-tertiary uppercase tracking-wider mb-3">
+												Traditional ({traditionalChar})
 											</div>
+										{/if}
+										<div class="flex flex-row flex-wrap gap-3">
+											{#each data.data.chinese_char.components as comp}
+												{@const char = typeof comp === "string" ? comp : comp.character || comp.char || comp}
+												{@const types = comp.componentType || comp.type || []}
+												{@const hint = comp.hint}
+												{@const pinyin = comp.pinyin}
+												{@const meaning = comp.meaning}
+												{@const isMeaning = types.includes("meaning")}
+												{@const isPhonetic = types.includes("phonetic") || types.includes("sound")}
+												{@const isIconic = types.includes("iconic")}
+												{@const highlightColor = isMeaning ? "#27ae60" : isPhonetic ? "#e74c3c" : isIconic ? "#3498db" : "#95a5a6"}
+												{@const typeLabel = isMeaning ? "Meaning" : isPhonetic ? "Phonetic" : isIconic ? "Iconic" : ""}
 
-											<!-- Component Details -->
-											<div
-												class="flex flex-col justify-center min-w-0"
-											>
-												<!-- Character and Type Badge -->
-												<div
-													class="flex items-center gap-2 mb-1"
-												>
-													<a
-														href="/{char}"
-														class="text-2xl font-serif text-text-primary hover:text-accent-primary transition-colors"
-														>{char}</a
-													>
-													{#if typeLabel}
-														<span
-															class="text-xs px-2 py-0.5 rounded-full"
-															style="background-color: {highlightColor}20; color: {highlightColor}; border: 1px solid {highlightColor}40;"
-														>
-															{typeLabel} component
-														</span>
-													{/if}
+												<div class="component-card flex items-start gap-3 py-3 px-4 w-full rounded-lg">
+													<div class="relative w-[60px] h-[60px] flex-shrink-0">
+														{#if tradMakemeahanziImage?.data?.strokes && !tradUsedSequentialFallback}
+															<!-- Only show stroke highlighting if we have accurate KanjiVG mappings -->
+															{@const componentStrokes = componentStrokeMap.get(char) || []}
+															<svg width="60" height="60" viewBox="0 0 1024 1024" class="absolute top-0 left-0">
+																<g transform="scale(1, -1) translate(0, -900)">
+																	{#each tradMakemeahanziImage.data.strokes as stroke, i}
+																		<path d={stroke} fill={componentStrokes.includes(i) ? highlightColor : "#4b5563"} class="transition-colors duration-300" />
+																	{/each}
+																</g>
+															</svg>
+														{:else}
+															<!-- Fallback: just show the component character without stroke highlighting -->
+															<div class="w-full h-full flex items-center justify-center text-3xl font-serif text-text-primary">{char}</div>
+														{/if}
+													</div>
+													<div class="flex flex-col justify-center min-w-0">
+														<div class="flex items-center gap-2 mb-1">
+															<a href="/{char}" class="text-2xl font-serif text-text-primary hover:text-accent-primary transition-colors">{char}</a>
+															{#if typeLabel}
+																<span class="text-xs px-2 py-0.5 rounded-full" style="background-color: {highlightColor}20; color: {highlightColor}; border: 1px solid {highlightColor}40;">
+																	{typeLabel} component
+																</span>
+															{/if}
+														</div>
+														{#if pinyin || meaning}
+															<div class="flex items-baseline gap-2 text-sm">
+																{#if pinyin}<span class="font-mono text-accent-primary">{pinyin}</span>{/if}
+																{#if meaning}<span class="text-text-secondary">{meaning}</span>{/if}
+															</div>
+														{/if}
+														{#if hint}
+															<div class="text-xs text-text-tertiary mt-1 italic">{hint}</div>
+														{/if}
+													</div>
 												</div>
-
-												<!-- Pinyin and Meaning -->
-												{#if pinyin || meaning}
-													<div
-														class="flex items-baseline gap-2 text-sm"
-													>
-														{#if pinyin}
-															<span
-																class="font-mono text-accent-primary"
-																>{pinyin}</span
-															>
-														{/if}
-														{#if meaning}
-															<span
-																class="text-text-secondary"
-																>{meaning}</span
-															>
-														{/if}
-													</div>
-												{/if}
-
-												<!-- Hint/Etymology -->
-												{#if hint}
-													<div
-														class="text-xs text-text-tertiary mt-1 italic"
-													>
-														{hint}
-													</div>
-												{/if}
-											</div>
+											{/each}
 										</div>
-									{/each}
-								</div>
+									</div>
+								{/if}
+
+								<!-- Simplified Components (only if different from traditional) -->
+								{#if showBothColumns && hasSimpComponents}
+									<div class="mb-6">
+										<div class="text-sm font-semibold text-text-tertiary uppercase tracking-wider mb-3">
+											Simplified ({simplifiedChar})
+										</div>
+										<div class="flex flex-row flex-wrap gap-3">
+											{#each simplifiedCharData.components as comp}
+												{@const char = typeof comp === "string" ? comp : comp.character || comp.char || comp}
+												{@const types = comp.componentType || comp.type || []}
+												{@const hint = comp.hint}
+												{@const pinyin = comp.pinyin}
+												{@const meaning = comp.meaning}
+												{@const isMeaning = types.includes("meaning")}
+												{@const isPhonetic = types.includes("phonetic") || types.includes("sound")}
+												{@const isIconic = types.includes("iconic")}
+												{@const isSimplified = types.includes("simplified")}
+												{@const highlightColor = isMeaning ? "#27ae60" : isPhonetic ? "#e74c3c" : isIconic ? "#3498db" : isSimplified ? "#9b59b6" : "#95a5a6"}
+												{@const typeLabel = isMeaning ? "Meaning" : isPhonetic ? "Phonetic" : isIconic ? "Iconic" : isSimplified ? "Simplified" : ""}
+
+												<div class="component-card flex items-start gap-3 py-3 px-4 w-full rounded-lg">
+													<div class="relative w-[60px] h-[60px] flex-shrink-0">
+														{#if simpMakemeahanziImage?.data?.strokes && !simpUsedSequentialFallback}
+															<!-- Only show stroke highlighting if we have accurate KanjiVG mappings -->
+															{@const componentStrokes = simpComponentStrokeMap.get(char) || []}
+															<svg width="60" height="60" viewBox="0 0 1024 1024" class="absolute top-0 left-0">
+																<g transform="scale(1, -1) translate(0, -900)">
+																	{#each simpMakemeahanziImage.data.strokes as stroke, i}
+																		<path d={stroke} fill={componentStrokes.includes(i) ? highlightColor : "#4b5563"} class="transition-colors duration-300" />
+																	{/each}
+																</g>
+															</svg>
+														{:else}
+															<!-- Fallback: just show the component character without stroke highlighting -->
+															<div class="w-full h-full flex items-center justify-center text-3xl font-serif text-text-primary">{char}</div>
+														{/if}
+													</div>
+													<div class="flex flex-col justify-center min-w-0">
+														<div class="flex items-center gap-2 mb-1">
+															<a href="/{char}" class="text-2xl font-serif text-text-primary hover:text-accent-primary transition-colors">{char}</a>
+															{#if typeLabel}
+																<span class="text-xs px-2 py-0.5 rounded-full" style="background-color: {highlightColor}20; color: {highlightColor}; border: 1px solid {highlightColor}40;">
+																	{typeLabel} component
+																</span>
+															{/if}
+														</div>
+														{#if pinyin || meaning}
+															<div class="flex items-baseline gap-2 text-sm">
+																{#if pinyin}<span class="font-mono text-accent-primary">{pinyin}</span>{/if}
+																{#if meaning}<span class="text-text-secondary">{meaning}</span>{/if}
+															</div>
+														{/if}
+														{#if hint}
+															<div class="text-xs text-text-tertiary mt-1 italic">{hint}</div>
+														{/if}
+													</div>
+												</div>
+											{/each}
+										</div>
+									</div>
+								{/if}
 							</div>
 						</div>
 					{/if}

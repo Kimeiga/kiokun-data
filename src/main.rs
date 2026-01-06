@@ -583,6 +583,13 @@ async fn main() -> Result<()> {
     println!("🔧 Enriching component metadata with pinyin and meaning...");
     enrich_components_with_metadata(&mut chinese_char_dict_raw, &chinese_entries);
 
+    println!("🔧 Loading MakeMeAHanzi stroke-component mappings...");
+    let makemeahanzi_matches = load_makemeahanzi_matches()
+        .context("Failed to load MakeMeAHanzi matches")?;
+
+    println!("🔧 Enriching makemeahanzi images with stroke-component mappings...");
+    enrich_makemeahanzi_with_matches(&mut chinese_char_dict_raw, &makemeahanzi_matches);
+
     // Generate individual JSON files (default behavior)
     println!("🔄 Generating individual JSON files...");
     generate_simple_output_files(
@@ -814,6 +821,98 @@ fn enrich_components_with_metadata(
     }
     
     println!("  ✅ Enriched {} components with pinyin/meaning metadata", enriched_count);
+}
+
+/// MakeMeAHanzi dictionary entry for parsing
+#[derive(Debug, serde::Deserialize)]
+struct MakeMeAHanziEntry {
+    character: String,
+    #[serde(default)]
+    matches: Option<Vec<Option<Vec<i32>>>>,
+}
+
+/// Load MakeMeAHanzi dictionary from GitHub (cached locally)
+fn load_makemeahanzi_matches() -> Result<HashMap<String, Vec<Option<Vec<i32>>>>> {
+    let cache_path = "data/makemeahanzi_dictionary.txt";
+    let url = "https://raw.githubusercontent.com/skishore/makemeahanzi/master/dictionary.txt";
+
+    // Check if cached file exists
+    let content = if std::path::Path::new(cache_path).exists() {
+        println!("  📂 Loading MakeMeAHanzi from cache: {}", cache_path);
+        fs::read_to_string(cache_path)?
+    } else {
+        println!("  🌐 Downloading MakeMeAHanzi dictionary from GitHub...");
+        let response = reqwest::blocking::get(url)
+            .context("Failed to download MakeMeAHanzi dictionary")?;
+        let content = response.text()
+            .context("Failed to read MakeMeAHanzi response")?;
+
+        // Cache for future runs
+        fs::write(cache_path, &content)
+            .context("Failed to cache MakeMeAHanzi dictionary")?;
+        println!("  💾 Cached to: {}", cache_path);
+        content
+    };
+
+    // Parse the JSONL content
+    let mut matches_db: HashMap<String, Vec<Option<Vec<i32>>>> = HashMap::new();
+
+    for line in content.lines() {
+        if line.trim().is_empty() {
+            continue;
+        }
+
+        if let Ok(entry) = serde_json::from_str::<MakeMeAHanziEntry>(line) {
+            if let Some(matches) = entry.matches {
+                matches_db.insert(entry.character, matches);
+            }
+        }
+    }
+
+    println!("  ✅ Loaded {} characters with stroke-component mappings", matches_db.len());
+    Ok(matches_db)
+}
+
+/// Enrich Chinese character images with MakeMeAHanzi matches (stroke-to-component mapping)
+fn enrich_makemeahanzi_with_matches(
+    chinese_chars: &mut Vec<ChineseCharacter>,
+    matches_db: &HashMap<String, Vec<Option<Vec<i32>>>>,
+) {
+    let mut enriched_count = 0;
+
+    for char_entry in chinese_chars.iter_mut() {
+        // Check if this character has matches data
+        if let Some(matches) = matches_db.get(&char_entry.char) {
+            // Find the makemeahanzi image entry
+            if let Some(images) = &mut char_entry.images {
+                for image in images.iter_mut() {
+                    if image.source == "makemeahanzi" {
+                        // Add matches to the data field
+                        if let Some(data) = &mut image.data {
+                            if let Some(obj) = data.as_object_mut() {
+                                obj.insert(
+                                    "matches".to_string(),
+                                    serde_json::to_value(matches).unwrap()
+                                );
+                                enriched_count += 1;
+                            }
+                        } else {
+                            // Create new data object with matches
+                            let mut obj = serde_json::Map::new();
+                            obj.insert(
+                                "matches".to_string(),
+                                serde_json::to_value(matches).unwrap()
+                            );
+                            image.data = Some(serde_json::Value::Object(obj));
+                            enriched_count += 1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    println!("  ✅ Enriched {} makemeahanzi images with stroke-component mappings", enriched_count);
 }
 
 // Removed deprecated unified character merging functions (435 lines)
@@ -1395,6 +1494,7 @@ async fn generate_simple_output_files(
         } else if let Some(ref trad_variants) = char_entry.trad_variants {
             // This is a simplified character with traditional variant(s)
             // Create redirect to the first traditional variant that's different from the key
+            // BUT keep the simplified character's own data (especially components) for display
             let trad_target = trad_variants.iter()
                 .find(|&variant| variant != &key)
                 .cloned();
@@ -1404,7 +1504,9 @@ async fn generate_simple_output_files(
                     key: key.clone(),
                     redirect: Some(trad_target.clone()),
                     chinese_words: Vec::new(),
-                    chinese_char: None,
+                    // Keep the simplified character's own data (components, etymology, etc.)
+                    // This allows showing simplified-specific component breakdown
+                    chinese_char: Some(char_entry.clone()),
                     japanese_words: Vec::new(),
                     japanese_char: None,
                     related_japanese_words: Vec::new(),
