@@ -775,8 +775,13 @@
 					<!-- Compact Header: Characters + Pronunciations + Gloss in one line -->
 					<div class="flex flex-col gap-6 mb-6">
 						<!-- Top Row: Character Variants & Main Gloss -->
+						<!-- Single character: always inline (even on mobile), left-aligned -->
+						<!-- Multiple characters: stacked on mobile, spread apart on desktop -->
 						<div
-							class="flex flex-col md:flex-row md:items-start gap-6"
+							class="flex items-start gap-6"
+							class:flex-row={isSingleCharacter}
+							class:flex-col={!isSingleCharacter}
+							class:md:flex-row={!isSingleCharacter}
 							class:justify-between={!isSingleCharacter}
 						>
 							<!-- Character Variants with Stroke Animations -->
@@ -842,8 +847,10 @@
 										{data.data.chinese_char.gloss}
 									</h1>
 									<!-- Pinyin/Readings Summary -->
+									<!-- Single character: left-aligned. Multiple: right-aligned on desktop -->
 									<div
-										class="flex flex-col md:items-end gap-1 text-text-secondary text-sm md:text-base"
+										class="flex flex-col gap-1 text-text-secondary text-sm md:text-base"
+										class:md:items-end={!isSingleCharacter}
 									>
 										{#if data.data.chinese_char?.pinyinFrequencies}
 											{@const wordPinyins = new Set(
@@ -1028,13 +1035,15 @@
 							<div class={showBothColumns ? "grid grid-cols-1 md:grid-cols-2 gap-6" : ""}>
 								<!-- Traditional Components -->
 								{#if hasTradComponents}
-									<div class="mb-6">
+									<div class={isSingleCharacter && !showBothColumns ? "" : "mb-6"}>
 										{#if showBothColumns}
 											<div class="text-sm font-semibold text-text-tertiary uppercase tracking-wider mb-3">
 												Traditional ({traditionalChar})
 											</div>
 										{/if}
-										<div class="flex flex-row flex-wrap gap-3">
+										<!-- Single character: inline on desktop, stacked on mobile -->
+										<!-- Multiple characters (showBothColumns): always stacked within each column -->
+										<div class={isSingleCharacter && !showBothColumns ? "flex flex-col md:flex-row flex-wrap gap-3" : "flex flex-col gap-3"}>
 											{#each data.data.chinese_char.components as comp}
 												{@const char = typeof comp === "string" ? comp : comp.character || comp.char || comp}
 												{@const types = comp.componentType || comp.type || []}
@@ -1047,7 +1056,10 @@
 												{@const highlightColor = isMeaning ? "#27ae60" : isPhonetic ? "#e74c3c" : isIconic ? "#3498db" : "#95a5a6"}
 												{@const typeLabel = isMeaning ? "Meaning" : isPhonetic ? "Phonetic" : isIconic ? "Iconic" : ""}
 
-												<div class="component-card flex items-start gap-3 py-3 px-4 w-full rounded-lg">
+												<!-- Component card: full width on mobile, auto width on desktop when single character -->
+												<div class="component-card flex items-start gap-3 py-3 px-4 rounded-lg"
+													class:w-full={showBothColumns || !isSingleCharacter}
+													class:md:w-auto={isSingleCharacter && !showBothColumns}>
 													<div class="relative w-[60px] h-[60px] flex-shrink-0">
 														{#if tradMakemeahanziImage?.data?.strokes && !tradUsedSequentialFallback}
 															<!-- Only show stroke highlighting if we have accurate KanjiVG mappings -->
@@ -1095,7 +1107,8 @@
 										<div class="text-sm font-semibold text-text-tertiary uppercase tracking-wider mb-3">
 											Simplified ({simplifiedChar})
 										</div>
-										<div class="flex flex-row flex-wrap gap-3">
+										<!-- Stacked layout within column when showing both trad/simp -->
+										<div class="flex flex-col gap-3">
 											{#each simplifiedCharData.components as comp}
 												{@const char = typeof comp === "string" ? comp : comp.character || comp.char || comp}
 												{@const types = comp.componentType || comp.type || []}
