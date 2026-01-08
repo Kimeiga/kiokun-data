@@ -1644,8 +1644,9 @@ async fn generate_simple_output_files(
 
     // Build reverse index for "contained in" relationships
     println!("🔍 Building reverse index for word containment...");
-    let mut chinese_containment: StdHashMap<String, Vec<String>> = StdHashMap::new();
-    let mut japanese_containment: StdHashMap<String, Vec<String>> = StdHashMap::new();
+    // Use HashSet to automatically deduplicate entries
+    let mut chinese_containment: StdHashMap<String, std::collections::HashSet<String>> = StdHashMap::new();
+    let mut japanese_containment: StdHashMap<String, std::collections::HashSet<String>> = StdHashMap::new();
 
     // Build reverse map: traditional Chinese → Japanese variant (for containment lookup)
     let mut traditional_to_variant: StdHashMap<String, String> = StdHashMap::new();
@@ -1660,7 +1661,7 @@ async fn generate_simple_output_files(
             for ch in word_key.chars() {
                 let ch_str = ch.to_string();
                 if ch_str != *word_key {  // Don't add self-references
-                    chinese_containment.entry(ch_str).or_insert_with(Vec::new).push(word_key.clone());
+                    chinese_containment.entry(ch_str).or_default().insert(word_key.clone());
                 }
             }
         }
@@ -1671,12 +1672,12 @@ async fn generate_simple_output_files(
                 for ch in kanji_form.text.chars() {
                     let ch_str = ch.to_string();
                     if ch_str != *word_key {  // Don't add self-references
-                        japanese_containment.entry(ch_str.clone()).or_insert_with(Vec::new).push(word_key.clone());
+                        japanese_containment.entry(ch_str.clone()).or_default().insert(word_key.clone());
 
                         // ALSO add to traditional Chinese character if this is a Japanese variant
                         // e.g., if word contains 図, also add to 圖's containment list
                         if let Some(traditional_target) = japanese_variant_map.get(&ch_str) {
-                            japanese_containment.entry(traditional_target.clone()).or_insert_with(Vec::new).push(word_key.clone());
+                            japanese_containment.entry(traditional_target.clone()).or_default().insert(word_key.clone());
                         }
                     }
                 }
@@ -1703,8 +1704,9 @@ async fn generate_simple_output_files(
                     for ch in chinese_word.simp.chars() {
                         let ch_str = ch.to_string();
                         if ch_str != chinese_word.simp {  // Don't add self-references
-                            chinese_containment.entry(ch_str).or_insert_with(Vec::new).push(chinese_word.simp.clone());
-                            simplified_forms_added += 1;
+                            if chinese_containment.entry(ch_str).or_default().insert(chinese_word.simp.clone()) {
+                                simplified_forms_added += 1;
+                            }
                         }
                     }
                 }
@@ -1727,19 +1729,26 @@ async fn generate_simple_output_files(
         }
 
         if let Some(chinese_words) = chinese_containment.get(key) {
-            // Deduplicate
+            // HashSet already ensures uniqueness, just collect and sort for consistent ordering
             let mut unique_words: Vec<String> = chinese_words.iter().cloned().collect();
             unique_words.sort();
-            unique_words.dedup();
 
             // Build a lookup map from the character's topWords to get frequency/share for each word
+            // Index by BOTH simplified (tw.word) and traditional (tw.trad) forms
             let top_words_map: StdHashMap<String, f64> = output.chinese_char.as_ref()
                 .and_then(|ch| ch.statistics.as_ref())
                 .and_then(|stats| stats.top_words.as_ref())
                 .map(|top_words| {
-                    top_words.iter()
-                        .map(|tw| (tw.word.clone(), tw.share))
-                        .collect()
+                    let mut map = StdHashMap::new();
+                    for tw in top_words {
+                        // Index by simplified form
+                        map.insert(tw.word.clone(), tw.share);
+                        // Also index by traditional form if different
+                        if tw.trad != tw.word {
+                            map.insert(tw.trad.clone(), tw.share);
+                        }
+                    }
+                    map
                 })
                 .unwrap_or_default();
 
@@ -1799,19 +1808,26 @@ async fn generate_simple_output_files(
         }
 
         if let Some(japanese_words) = japanese_containment.get(key) {
-            // Deduplicate
+            // HashSet already ensures uniqueness, just collect and sort for consistent ordering
             let mut unique_words: Vec<String> = japanese_words.iter().cloned().collect();
             unique_words.sort();
-            unique_words.dedup();
 
             // Convert to WordPreview objects with their source Word for sorting
+            // Also track Word IDs to deduplicate (multiple word_keys can point to the same Word)
+            let mut seen_word_ids: std::collections::HashSet<String> = std::collections::HashSet::new();
             let mut previews_with_words: Vec<(word_preview_types::WordPreview, &crate::japanese_types::Word)> = unique_words.iter()
                 .filter_map(|word_key| {
                     outputs.get(word_key).and_then(|word_output| {
                         word_output.japanese_words.first()
-                            .map(|japanese_word| {
-                                let preview = word_preview_types::WordPreview::from_japanese(japanese_word);
-                                (preview, japanese_word)
+                            .and_then(|japanese_word| {
+                                // Deduplicate by Word ID - skip if we've already seen this word
+                                if seen_word_ids.contains(&japanese_word.id) {
+                                    None
+                                } else {
+                                    seen_word_ids.insert(japanese_word.id.clone());
+                                    let preview = word_preview_types::WordPreview::from_japanese(japanese_word);
+                                    Some((preview, japanese_word))
+                                }
                             })
                     })
                 })
@@ -1851,38 +1867,56 @@ async fn generate_simple_output_files(
     // First pass: collect all contained words
     let mut contains_map: StdHashMap<String, Vec<String>> = StdHashMap::new();
 
-    for key in outputs.keys() {
+    for (key, output) in &outputs {
         // Only process multi-character words (2+ characters)
         if key.chars().count() < 2 {
             continue;
         }
 
-        let mut contained_words: Vec<String> = Vec::new();
-        let chars: Vec<char> = key.chars().collect();
-        let len = chars.len();
+        let mut contained_words: std::collections::HashSet<String> = std::collections::HashSet::new();
 
-        // Generate all possible substrings
-        for start in 0..len {
-            for end in (start + 1)..=len {
-                let substring: String = chars[start..end].iter().collect();
+        // Collect all text forms to process:
+        // 1. The key itself
+        // 2. All alternate kanji forms from Japanese words
+        let mut text_forms: Vec<String> = vec![key.clone()];
 
-                // Skip if it's the same as the original word
-                if substring == *key {
-                    continue;
-                }
-
-                // Check if this substring exists in the dictionary
-                if existing_keys.contains(&substring) {
-                    contained_words.push(substring);
+        // Add all kanji forms from Japanese words (for entries like 不図 which has forms 不図, 不斗, 不圖)
+        for japanese_word in &output.japanese_words {
+            for kanji_form in &japanese_word.kanji {
+                if !text_forms.contains(&kanji_form.text) {
+                    text_forms.push(kanji_form.text.clone());
                 }
             }
         }
 
-        // Deduplicate and sort
-        contained_words.sort();
-        contained_words.dedup();
+        // Process each text form to find contained substrings
+        for text_form in &text_forms {
+            let chars: Vec<char> = text_form.chars().collect();
+            let len = chars.len();
 
-        contains_map.insert(key.clone(), contained_words);
+            // Generate all possible substrings
+            for start in 0..len {
+                for end in (start + 1)..=len {
+                    let substring: String = chars[start..end].iter().collect();
+
+                    // Skip if it's the same as the original key or any of the text forms
+                    if substring == *key || text_forms.contains(&substring) {
+                        continue;
+                    }
+
+                    // Check if this substring exists in the dictionary
+                    if existing_keys.contains(&substring) {
+                        contained_words.insert(substring);
+                    }
+                }
+            }
+        }
+
+        // Convert to sorted Vec
+        let mut contained_words_vec: Vec<String> = contained_words.into_iter().collect();
+        contained_words_vec.sort();
+
+        contains_map.insert(key.clone(), contained_words_vec);
     }
 
     // Second pass: convert to WordPreview objects
@@ -1891,13 +1925,31 @@ async fn generate_simple_output_files(
     for (key, contained_words) in &contains_map {
         let previews: Vec<word_preview_types::WordPreview> = contained_words.iter()
             .filter_map(|word_key| {
-                outputs.get(word_key).and_then(|word_output| {
-                    // Try Chinese first, then Japanese
-                    word_output.chinese_words.first()
+                // First try to get the output directly
+                let word_output = outputs.get(word_key);
+
+                // If the output is a redirect, follow it to get the actual data
+                let actual_output = word_output.and_then(|wo| {
+                    if let Some(ref redirect_target) = wo.redirect {
+                        outputs.get(redirect_target)
+                    } else {
+                        Some(wo)
+                    }
+                });
+
+                actual_output.and_then(|wo| {
+                    // Try Chinese words first
+                    wo.chinese_words.first()
                         .map(|chinese_word| word_preview_types::WordPreview::from_chinese(chinese_word))
                         .or_else(|| {
-                            word_output.japanese_words.first()
+                            // Then try Japanese words
+                            wo.japanese_words.first()
                                 .map(|japanese_word| word_preview_types::WordPreview::from_japanese(japanese_word))
+                        })
+                        .or_else(|| {
+                            // For single characters, try chinese_char data
+                            wo.chinese_char.as_ref()
+                                .map(|chinese_char| word_preview_types::WordPreview::from_chinese_char(chinese_char))
                         })
                 })
             })
@@ -2013,7 +2065,7 @@ async fn generate_simple_output_files(
                     for ch in chinese.simp.chars() {
                         let ch_str = ch.to_string();
                         if ch_str != chinese.simp {  // Don't add self-references
-                            chinese_containment.entry(ch_str).or_insert_with(Vec::new).push(chinese.simp.clone());
+                            chinese_containment.entry(ch_str).or_default().insert(chinese.simp.clone());
                         }
                     }
                 }

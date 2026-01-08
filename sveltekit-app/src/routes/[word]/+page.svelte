@@ -1344,7 +1344,11 @@
 											<!-- Character and Pinyin -->
 											<div class="chinese-headwords">
 												<span class="chinese-word-text">
-													{data.word}
+													{#if word.simp && word.trad && word.simp !== word.trad}
+														{word.simp} / {word.trad}
+													{:else}
+														{word.trad || word.simp || data.word}
+													{/if}
 												</span>
 												{#if item.pinyin}
 													<span

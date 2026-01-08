@@ -39,6 +39,24 @@ impl WordPreview {
             common: None, // Chinese words don't have a common field
         }
     }
+
+    /// Create a preview from a Chinese character (for single-character entries)
+    pub fn from_chinese_char(char: &crate::chinese_char_types::ChineseCharacter) -> Self {
+        // Get pronunciation from pinyinFrequencies (most common first)
+        let pronunciation = char.pinyin_frequencies.as_ref()
+            .and_then(|freqs| freqs.first())
+            .map(|pf| pf.pinyin.clone());
+
+        // Use the gloss as definition
+        let definition = char.gloss.clone();
+
+        WordPreview {
+            word: char.char.clone(),
+            pronunciation,
+            definition,
+            common: None,
+        }
+    }
     
     /// Create a preview from a Japanese word
     pub fn from_japanese(word: &crate::japanese_types::Word) -> Self {
