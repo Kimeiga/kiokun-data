@@ -3,7 +3,8 @@
 
 	interface WordPreview {
 		w: string; // word
-		p?: string; // pronunciation
+		p?: string; // pronunciation (Chinese pinyin)
+		jp?: string; // Japanese pronunciation (kana reading)
 		d?: string; // definition
 	}
 
@@ -56,8 +57,15 @@
 			{#each displayedWords as preview}
 				<a href="/{preview.w}" class="character-card">
 					<div class="character">{preview.w}</div>
-					{#if preview.p}
-						<div class="pronunciation">{preview.p}</div>
+					{#if preview.p || preview.jp}
+						<div class="pronunciations">
+							{#if preview.p}
+								<span class="chinese-reading">{preview.p}</span>
+							{/if}
+							{#if preview.jp}
+								<span class="japanese-reading">{preview.jp}</span>
+							{/if}
+						</div>
 					{/if}
 					{#if preview.d}
 						<div class="definition">{preview.d}</div>
@@ -120,11 +128,24 @@
 			sans-serif;
 	}
 
-	.pronunciation {
+	.pronunciations {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.125rem;
+		margin-top: 0.25rem;
+	}
+
+	.chinese-reading {
 		font-size: 0.75rem;
 		color: var(--color-pinyin);
-		margin-top: 0.25rem;
 		font-weight: 500;
+	}
+
+	.japanese-reading {
+		font-size: 0.7rem;
+		color: var(--text-secondary);
+		font-weight: 400;
 	}
 
 	.definition {

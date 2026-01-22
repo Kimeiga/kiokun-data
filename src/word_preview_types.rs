@@ -8,9 +8,13 @@ pub struct WordPreview {
     #[serde(rename = "w")]
     pub word: String,
 
-    /// Pronunciation (pinyin for Chinese, kana for Japanese)
+    /// Pronunciation (pinyin for Chinese)
     #[serde(rename = "p", skip_serializing_if = "Option::is_none")]
     pub pronunciation: Option<String>,
+
+    /// Japanese pronunciation (kana reading) - for characters with both Chinese and Japanese readings
+    #[serde(rename = "jp", skip_serializing_if = "Option::is_none")]
+    pub japanese_pronunciation: Option<String>,
 
     /// First definition (short English gloss)
     #[serde(rename = "d", skip_serializing_if = "Option::is_none")]
@@ -35,6 +39,7 @@ impl WordPreview {
         WordPreview {
             word: word.simp.clone(),
             pronunciation,
+            japanese_pronunciation: None,
             definition,
             common: None, // Chinese words don't have a common field
         }
@@ -53,11 +58,12 @@ impl WordPreview {
         WordPreview {
             word: char.char.clone(),
             pronunciation,
+            japanese_pronunciation: None,
             definition,
             common: None,
         }
     }
-    
+
     /// Create a preview from a Japanese word
     pub fn from_japanese(word: &crate::japanese_types::Word) -> Self {
         // Get the first kanji or kana as the word text
@@ -66,8 +72,8 @@ impl WordPreview {
             .or_else(|| word.kana.first().map(|k| k.text.clone()))
             .unwrap_or_default();
 
-        // Get the first kana as pronunciation
-        let pronunciation = word.kana.first()
+        // Get the first kana as pronunciation (stored in japanese_pronunciation for consistency)
+        let japanese_pronunciation = word.kana.first()
             .map(|k| k.text.clone());
 
         // Get the first gloss as definition
@@ -80,9 +86,60 @@ impl WordPreview {
 
         WordPreview {
             word: word_text,
-            pronunciation,
+            pronunciation: None, // Japanese words don't have pinyin
+            japanese_pronunciation,
             definition,
             common: Some(is_common),
+        }
+    }
+
+    /// Create a combined preview for characters with both Chinese and Japanese readings
+    /// This is used for the Contains section where we want to show both readings
+    pub fn from_combined_char(
+        chinese_char: Option<&crate::chinese_char_types::ChineseCharacter>,
+        japanese_char: Option<&crate::japanese_char_types::KanjiCharacter>,
+        word_text: &str,
+    ) -> Self {
+        // Get Chinese pinyin
+        let pronunciation = chinese_char.and_then(|c| {
+            c.pinyin_frequencies.as_ref()
+                .and_then(|freqs| freqs.first())
+                .map(|pf| pf.pinyin.clone())
+        });
+
+        // Get Japanese reading (prefer kun reading, then on reading)
+        let japanese_pronunciation = japanese_char.and_then(|jc| {
+            jc.reading_meaning.as_ref().and_then(|rm| {
+                rm.groups.first().and_then(|g| {
+                    // First try kun readings, then on readings
+                    g.readings.iter()
+                        .find(|r| r.reading_type == "ja_kun")
+                        .or_else(|| g.readings.iter().find(|r| r.reading_type == "ja_on"))
+                        .map(|r| r.value.clone())
+                })
+            })
+        });
+
+        // Get definition - prefer Chinese gloss if available, otherwise Japanese meaning
+        let definition = chinese_char.and_then(|c| c.gloss.clone())
+            .or_else(|| {
+                japanese_char.and_then(|jc| {
+                    jc.reading_meaning.as_ref().and_then(|rm| {
+                        rm.groups.first().and_then(|g| {
+                            g.meanings.iter()
+                                .find(|m| m.lang == "en")
+                                .map(|m| m.value.clone())
+                        })
+                    })
+                })
+            });
+
+        WordPreview {
+            word: word_text.to_string(),
+            pronunciation,
+            japanese_pronunciation,
+            definition,
+            common: None,
         }
     }
 }

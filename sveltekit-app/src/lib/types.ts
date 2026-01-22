@@ -27,7 +27,8 @@ export interface DictionaryEntry {
 
 export interface WordPreview {
   w: string;           // word
-  p?: string;          // pronunciation
+  p?: string;          // pronunciation (Chinese pinyin)
+  jp?: string;         // Japanese pronunciation (kana reading)
   d?: string;          // definition
   c?: boolean;         // common (Japanese words only)
 }

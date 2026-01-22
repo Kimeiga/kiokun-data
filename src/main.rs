@@ -1975,19 +1975,28 @@ async fn generate_simple_output_files(
                 });
 
                 actual_output.and_then(|wo| {
-                    // Try Chinese words first
-                    wo.chinese_words.first()
-                        .map(|chinese_word| word_preview_types::WordPreview::from_chinese(chinese_word))
-                        .or_else(|| {
-                            // Then try Japanese words
-                            wo.japanese_words.first()
-                                .map(|japanese_word| word_preview_types::WordPreview::from_japanese(japanese_word))
-                        })
-                        .or_else(|| {
-                            // For single characters, try chinese_char data
-                            wo.chinese_char.as_ref()
-                                .map(|chinese_char| word_preview_types::WordPreview::from_chinese_char(chinese_char))
-                        })
+                    // For single characters, use combined preview to show both Chinese and Japanese readings
+                    let is_single_char = word_key.chars().count() == 1;
+
+                    if is_single_char && (wo.chinese_char.is_some() || wo.japanese_char.is_some()) {
+                        // Use combined preview for single characters with character data
+                        Some(word_preview_types::WordPreview::from_combined_char(
+                            wo.chinese_char.as_ref(),
+                            wo.japanese_char.as_ref(),
+                            word_key,
+                        ))
+                    } else if let Some(chinese_word) = wo.chinese_words.first() {
+                        // For multi-character Chinese words
+                        Some(word_preview_types::WordPreview::from_chinese(chinese_word))
+                    } else if let Some(japanese_word) = wo.japanese_words.first() {
+                        // For multi-character Japanese words
+                        Some(word_preview_types::WordPreview::from_japanese(japanese_word))
+                    } else if let Some(ref chinese_char) = wo.chinese_char {
+                        // Fallback for single chars without Japanese data
+                        Some(word_preview_types::WordPreview::from_chinese_char(chinese_char))
+                    } else {
+                        None
+                    }
                 })
             })
             // Deduplicate by word text - important because variant characters
