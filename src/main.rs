@@ -294,6 +294,18 @@ async fn main() -> Result<()> {
                 .help("Only output entries containing at least one of these characters (e.g., '図圖图' for development/testing)")
                 .num_args(1),
         )
+        .arg(
+            Arg::new("prod")
+                .long("prod")
+                .help("Production mode: use maximum compression (level 9) for smallest file sizes. Default uses level 6 for faster builds.")
+                .action(ArgAction::SetTrue),
+        )
+        .arg(
+            Arg::new("dev-server")
+                .long("dev-server")
+                .help("Dev server mode: output a single SQLite database instead of individual files. Much faster builds (~30s vs 7min).")
+                .action(ArgAction::SetTrue),
+        )
         .get_matches();
 
     if matches.get_flag("generate-j2c-mapping") {
@@ -471,6 +483,18 @@ async fn main() -> Result<()> {
         println!("🔍 Filtering output to entries containing: {}", chars);
     }
 
+    // Get production mode flag
+    let prod_mode = matches.get_flag("prod");
+    if prod_mode {
+        println!("🏭 Production mode: using maximum compression (level 9)");
+    }
+
+    // Get dev server mode flag
+    let dev_server_mode = matches.get_flag("dev-server");
+    if dev_server_mode {
+        println!("🚀 Dev server mode: outputting SQLite database for fast local development");
+    }
+
     // Create output directory
     fs::create_dir_all("output")?;
 
@@ -590,19 +614,25 @@ async fn main() -> Result<()> {
     println!("🔧 Enriching makemeahanzi images with stroke-component mappings...");
     enrich_makemeahanzi_with_matches(&mut chinese_char_dict_raw, &makemeahanzi_matches);
 
-    // Generate individual JSON files (default behavior)
-    println!("🔄 Generating individual JSON files...");
+    // Generate output files (or SQLite database in dev server mode)
+    if dev_server_mode {
+        println!("🔄 Generating SQLite database for dev server...");
+    } else {
+        println!("🔄 Generating individual JSON files...");
+    }
+
     generate_simple_output_files(
         &aligned_dict,
         &chinese_char_dict_raw,
         &japanese_char_dict_raw.characters,
         &jmnedict_entries,
         shard_filter,
-        filter_characters.as_deref()
+        filter_characters.as_deref(),
+        prod_mode,
+        dev_server_mode,
     ).await?;
 
     println!("✅ Dictionary merger completed successfully!");
-    println!("📁 Output saved to: output/combined_dictionary.json");
     
     Ok(())
 }
@@ -1288,6 +1318,8 @@ async fn generate_simple_output_files(
     jmnedict_entries: &[JmnedictEntry],
     shard_filter: Option<ShardType>,
     filter_characters: Option<&str>,
+    prod_mode: bool,
+    dev_server_mode: bool,
 ) -> Result<()> {
     use std::fs;
     use std::path::Path;
@@ -1923,6 +1955,11 @@ async fn generate_simple_output_files(
     let mut contains_previews_map: StdHashMap<String, Vec<word_preview_types::WordPreview>> = StdHashMap::new();
 
     for (key, contained_words) in &contains_map {
+        // Use a HashSet to track seen word texts and deduplicate
+        // This handles cases where different variant characters (e.g., 圖 and 図)
+        // resolve to the same unified entry
+        let mut seen_words: std::collections::HashSet<String> = std::collections::HashSet::new();
+
         let previews: Vec<word_preview_types::WordPreview> = contained_words.iter()
             .filter_map(|word_key| {
                 // First try to get the output directly
@@ -1953,6 +1990,10 @@ async fn generate_simple_output_files(
                         })
                 })
             })
+            // Deduplicate by word text - important because variant characters
+            // (e.g., Traditional 圖, Japanese 図, Simplified 图) may all resolve
+            // to the same entry and produce identical previews
+            .filter(|preview| seen_words.insert(preview.word.clone()))
             .collect();
         contains_previews_map.insert(key.clone(), previews);
     }
@@ -2138,13 +2179,7 @@ async fn generate_simple_output_files(
     let redirect_count_after = outputs.values().filter(|o| o.redirect.is_some()).count();
     println!("  📊 Total entries after shard filter: {} ({} redirects)", outputs.len(), redirect_count_after);
 
-    println!("💾 Serializing {} entries in parallel...", outputs.len());
-
-    // Use parallel processing for maximum performance
-    use rayon::prelude::*;
-    use std::sync::atomic::{AtomicUsize, Ordering};
-    use std::sync::Arc;
-    use std::io::Write;
+    println!("💾 Serializing {} entries...", outputs.len());
 
     let total = outputs.len();
 
@@ -2166,9 +2201,108 @@ async fn generate_simple_output_files(
                  original_count, filtered_count, filter_chars);
     }
 
-    // OPTIMIZATION 1: Serialize and compress all entries in parallel (CPU-bound)
+    // Branch based on output mode
+    if dev_server_mode {
+        // DEV SERVER MODE: Write to SQLite database (much faster - one file instead of 1.4M)
+        write_sqlite_database(&outputs_vec, output_dir)?;
+    } else {
+        // PRODUCTION MODE: Write individual compressed files
+        write_individual_files(&outputs_vec, output_dir, prod_mode, total)?;
+    }
+
+    Ok(())
+}
+
+/// Write all entries to a SQLite database for fast local development
+fn write_sqlite_database(
+    outputs_vec: &[(String, simple_output_types::SimpleOutput)],
+    output_dir: &std::path::Path,
+) -> Result<()> {
+    use rusqlite::{Connection, params};
     use flate2::write::DeflateEncoder;
     use flate2::Compression;
+    use std::io::Write;
+
+    let db_path = output_dir.join("dictionary.db");
+
+    // Remove existing database if present
+    if db_path.exists() {
+        std::fs::remove_file(&db_path)?;
+    }
+
+    // Create new database
+    let conn = Connection::open(&db_path)?;
+
+    // Create table with word as primary key, JSON data as blob (compressed)
+    conn.execute(
+        "CREATE TABLE entries (
+            word TEXT PRIMARY KEY,
+            json_data BLOB NOT NULL
+        )",
+        [],
+    )?;
+
+    let total = outputs_vec.len();
+    println!("💾 Writing {} entries to SQLite database...", total);
+
+    // Use a transaction for much faster inserts
+    conn.execute("BEGIN TRANSACTION", [])?;
+
+    // Prepare statement once
+    let mut stmt = conn.prepare("INSERT INTO entries (word, json_data) VALUES (?1, ?2)")?;
+
+    // Progress tracking
+    let mut count = 0;
+    let progress_interval = if total > 20 { total / 20 } else { 1 }; // Update every 5%
+
+    for (key, entry) in outputs_vec {
+        // Serialize to JSON, then compress
+        let json_content = serde_json::to_string(entry)
+            .map_err(|e| anyhow::anyhow!("Failed to serialize entry '{}': {}", key, e))?;
+
+        // Compress with Deflate level 6 (fast)
+        let mut encoder = DeflateEncoder::new(Vec::new(), Compression::new(6));
+        encoder.write_all(json_content.as_bytes())
+            .map_err(|e| anyhow::anyhow!("Failed to compress entry '{}': {}", key, e))?;
+        let compressed = encoder.finish()
+            .map_err(|e| anyhow::anyhow!("Failed to finish compression for '{}': {}", key, e))?;
+
+        // Insert into database
+        stmt.execute(params![key, compressed])?;
+
+        count += 1;
+        if count % progress_interval == 0 {
+            let pct = (count as f64 / total as f64 * 100.0) as u32;
+            println!("  {}% complete ({}/{})", pct, count, total);
+        }
+    }
+
+    // Commit transaction
+    conn.execute("COMMIT", [])?;
+
+    println!("✅ Successfully generated SQLite database with {} entries!", total);
+    println!("📁 Database saved to: output_dictionary/dictionary.db");
+    println!("💡 Use with: npm run dev (SvelteKit will query this database)");
+
+    Ok(())
+}
+
+/// Write individual compressed JSON files (production mode)
+fn write_individual_files(
+    outputs_vec: &[(String, simple_output_types::SimpleOutput)],
+    output_dir: &std::path::Path,
+    prod_mode: bool,
+    total: usize,
+) -> Result<()> {
+    use rayon::prelude::*;
+    use std::sync::atomic::{AtomicUsize, Ordering};
+    use std::sync::Arc;
+    use std::io::Write;
+    use flate2::write::DeflateEncoder;
+    use flate2::Compression;
+
+    // Use level 9 (best) for production, level 6 (fast) for development
+    let compression_level = if prod_mode { 9 } else { 6 };
 
     let serialized: Result<Vec<_>, anyhow::Error> = outputs_vec
         .par_iter()
@@ -2179,8 +2313,8 @@ async fn generate_simple_output_files(
             let json_content = serde_json::to_string(entry)
                 .map_err(|e| anyhow::anyhow!("Failed to serialize entry '{}': {}", key, e))?;
 
-            // Compress with Deflate level 9 (best compression)
-            let mut encoder = DeflateEncoder::new(Vec::new(), Compression::best());
+            // Compress with Deflate (level depends on prod_mode)
+            let mut encoder = DeflateEncoder::new(Vec::new(), Compression::new(compression_level));
             encoder.write_all(json_content.as_bytes())
                 .map_err(|e| anyhow::anyhow!("Failed to compress entry '{}': {}", key, e))?;
             let compressed = encoder.finish()
@@ -2195,7 +2329,7 @@ async fn generate_simple_output_files(
     println!("💾 Writing {} compressed files to disk...", serialized.len());
     let counter = Arc::new(AtomicUsize::new(0));
 
-    // OPTIMIZATION 2: Write compressed files in parallel
+    // Write compressed files in parallel
     let results: Result<Vec<_>, anyhow::Error> = serialized
         .par_iter()
         .map(|(safe_filename, compressed_content)| -> Result<(), anyhow::Error> {
@@ -2219,7 +2353,11 @@ async fn generate_simple_output_files(
 
     println!("✅ Successfully generated {} compressed JSON files!", total);
     println!("📁 Files saved to: output_dictionary/");
-    println!("💡 Compression: Deflate level 9 (64% reduction)");
+    if prod_mode {
+        println!("💡 Compression: Deflate level 9 (maximum compression for production)");
+    } else {
+        println!("💡 Compression: Deflate level 6 (fast builds for development)");
+    }
     println!("💡 Usage: Files are compressed with .deflate extension");
 
     Ok(())
