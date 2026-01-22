@@ -18,6 +18,21 @@
 	let simplifiedChar = $derived(data.data.chinese_char?.simpVariants?.[0]);
 	let japaneseChar = $derived(data.data.japanese_char?.literal);
 
+	// Get unique gloss from game data (falls back to existing gloss)
+	let uniqueGloss = $derived(
+		data.charGlosses?.[traditionalChar] ||
+		data.charGlosses?.[data.word] ||
+		data.data.chinese_char?.gloss ||
+		''
+	);
+
+	// Get taxonomy path for the character
+	let taxonomy = $derived(
+		data.charTaxonomy?.[traditionalChar] ||
+		data.charTaxonomy?.[data.word] ||
+		[]
+	);
+
 	// Simple comparisons to determine which characters are identical
 	// If no simplified variant exists, the character is the same in simplified Chinese
 	let simpSameAsTrad = $derived(!simplifiedChar || simplifiedChar === traditionalChar);
@@ -839,13 +854,28 @@
 							</div>
 
 							<!-- Main Meaning (Gloss) -->
-							{#if data.data.chinese_char?.gloss}
+							{#if uniqueGloss || data.data.chinese_char?.gloss}
 								<div class:flex-1={!isSingleCharacter} class:md:text-right={!isSingleCharacter}>
 									<h1
 										class="text-2xl md:text-4xl font-bold text-accent mb-2 leading-tight"
 									>
-										{data.data.chinese_char.gloss}
+										{uniqueGloss || data.data.chinese_char?.gloss}
 									</h1>
+									<!-- Taxonomy breadcrumb -->
+									{#if taxonomy && taxonomy.length > 0}
+										<div class="text-xs text-text-tertiary mb-2 flex items-center gap-1 flex-wrap" class:md:justify-end={!isSingleCharacter}>
+											<span class="opacity-70">📂</span>
+											{#each taxonomy as category, i}
+												<a
+													href="/category/{taxonomy.slice(0, i + 1).join('/')}"
+													class="text-text-secondary underline hover:text-accent transition-colors"
+												>{category}</a>
+												{#if i < taxonomy.length - 1}
+													<span class="text-text-tertiary">→</span>
+												{/if}
+											{/each}
+										</div>
+									{/if}
 									<!-- Pinyin/Readings Summary -->
 									<!-- Single character: left-aligned. Multiple: right-aligned on desktop -->
 									<div

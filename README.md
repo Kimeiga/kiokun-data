@@ -296,6 +296,35 @@ cargo build --release
 ./target/release/merge_dictionaries --help
 ```
 
+### **⚡ Fast Development Builds (--dev-server)**
+
+For local development, use the `--dev-server` flag to generate a SQLite database instead of 1.4M individual files:
+
+```bash
+# Fast development build (~2.5 minutes)
+cargo run --release --bin build_dictionary -- --dev-server
+
+# Output: Single SQLite database at output_dictionary/dictionary.db
+```
+
+**Benefits:**
+- ⚡ **3x faster build time**: ~2.5 min vs ~7 min for production build
+- 📦 **Single file output**: One 558MB SQLite database vs 1.4M individual files
+- 🔄 **Same data format**: Entries stored with same deflate compression
+- 🔌 **Auto-detected by CORS server**: No changes needed to frontend code
+
+**How it works:**
+1. The build outputs to `output_dictionary/dictionary.db` (SQLite with deflate-compressed JSON blobs)
+2. The CORS server (`output_dictionary/cors_server.py`) auto-detects the database
+3. Requests to `http://localhost:PORT/{word}.json.deflate` are served from SQLite
+4. Frontend code works unchanged - same URL pattern, same response format
+
+**When to use:**
+| Mode | Command | Time | Use Case |
+|------|---------|------|----------|
+| `--dev-server` | `cargo run --release -- --dev-server` | ~2.5 min | Local development |
+| Production (default) | `cargo run --release` | ~7 min | CDN deployment |
+
 ## 📁 Complete Project Structure & File Guide
 
 ```

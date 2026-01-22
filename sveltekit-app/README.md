@@ -14,7 +14,35 @@ A modern, high-performance dictionary web application built with **SvelteKit 2.x
 
 ## 🚀 Quick Start
 
+### Option 1: Fast Development Build (Recommended)
+
 ```bash
+# From the root directory, build the SQLite database (~2.5 min)
+cargo run --release --bin build_dictionary -- --dev-server
+
+# Navigate to SvelteKit app
+cd sveltekit-app
+
+# Install dependencies
+npm install
+
+# Start development server (auto-starts CORS server)
+npm run dev
+
+# Open browser to http://localhost:5173/好
+```
+
+The `--dev-server` flag creates a single SQLite database (`output_dictionary/dictionary.db`) instead of 1.4M individual files, making builds 3x faster.
+
+### Option 2: Production Files
+
+```bash
+# From the root directory, build individual files (~7 min)
+cargo run --release --bin build_dictionary
+
+# Navigate to SvelteKit app
+cd sveltekit-app
+
 # Install dependencies
 npm install
 

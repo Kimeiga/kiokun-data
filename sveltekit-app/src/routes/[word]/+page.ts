@@ -34,12 +34,28 @@ interface JapaneseLabels {
 }
 
 /**
+ * Character gloss mapping (char to unique English keyword)
+ */
+interface CharGlosses {
+	[char: string]: string;
+}
+
+/**
+ * Character taxonomy mapping (char to category path array)
+ */
+interface CharTaxonomy {
+	[char: string]: string[];
+}
+
+/**
  * Page data returned by the load function
  */
 export interface PageData {
 	word: string;
 	data: DictionaryEntry;
 	labels: JapaneseLabels;
+	charGlosses: CharGlosses;
+	charTaxonomy: CharTaxonomy;
 }
 
 export const load: PageLoad<PageData> = async ({ params, fetch }) => {
@@ -94,10 +110,34 @@ export const load: PageLoad<PageData> = async ({ params, fetch }) => {
 			console.error('Failed to load labels:', err);
 		}
 
+		// Load character glosses (unique English keywords from chinese-word-game)
+		let charGlosses: CharGlosses = {};
+		try {
+			const glossesResponse = await fetch('/game_data/component_glosses.json');
+			if (glossesResponse.ok) {
+				charGlosses = await glossesResponse.json();
+			}
+		} catch (err) {
+			console.error('Failed to load character glosses:', err);
+		}
+
+		// Load character taxonomy (category hierarchy from chinese-word-game)
+		let charTaxonomy: CharTaxonomy = {};
+		try {
+			const taxonomyResponse = await fetch('/game_data/char_taxonomy.json');
+			if (taxonomyResponse.ok) {
+				charTaxonomy = await taxonomyResponse.json();
+			}
+		} catch (err) {
+			console.error('Failed to load character taxonomy:', err);
+		}
+
 		return {
 			word,
 			data,
-			labels
+			labels,
+			charGlosses,
+			charTaxonomy
 		};
 	} catch (err) {
 		console.error(`Failed to load dictionary entry for "${word}":`, err);

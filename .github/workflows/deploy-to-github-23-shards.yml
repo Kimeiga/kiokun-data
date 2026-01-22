@@ -78,7 +78,8 @@ jobs:
       - name: Build dictionary shard
         run: |
           cargo run --release --bin build_dictionary -- \
-            --mode ${{ matrix.shard }}
+            --mode ${{ matrix.shard }} \
+            --prod
       
       - name: Count files in shard
         id: count

@@ -1,0 +1,6 @@
+# This directory contains game data copied from chinese-word-game
+# Files:
+# - component_glosses.json: Character to unique gloss mapping
+# - char_taxonomy.json: Character to taxonomy path mapping
+# - kanji_details.json: Japanese kanji meanings and metadata
+
