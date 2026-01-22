@@ -1985,11 +1985,18 @@ async fn generate_simple_output_files(
                             wo.japanese_char.as_ref(),
                             word_key,
                         ))
+                    } else if !wo.chinese_words.is_empty() && !wo.japanese_words.is_empty() {
+                        // For multi-character words with BOTH Chinese and Japanese readings
+                        Some(word_preview_types::WordPreview::from_combined_word(
+                            wo.chinese_words.first(),
+                            wo.japanese_words.first(),
+                            word_key,
+                        ))
                     } else if let Some(chinese_word) = wo.chinese_words.first() {
-                        // For multi-character Chinese words
+                        // For multi-character Chinese-only words
                         Some(word_preview_types::WordPreview::from_chinese(chinese_word))
                     } else if let Some(japanese_word) = wo.japanese_words.first() {
-                        // For multi-character Japanese words
+                        // For multi-character Japanese-only words
                         Some(word_preview_types::WordPreview::from_japanese(japanese_word))
                     } else if let Some(ref chinese_char) = wo.chinese_char {
                         // Fallback for single chars without Japanese data

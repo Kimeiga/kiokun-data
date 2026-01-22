@@ -93,6 +93,50 @@ impl WordPreview {
         }
     }
 
+    /// Create a combined preview for multi-character words with both Chinese and Japanese readings
+    /// This is used for the Contains section where we want to show both readings
+    pub fn from_combined_word(
+        chinese_word: Option<&crate::chinese_types::ChineseDictionaryElement>,
+        japanese_word: Option<&crate::japanese_types::Word>,
+        word_text: &str,
+    ) -> Self {
+        // Get Chinese pinyin
+        let pronunciation = chinese_word.and_then(|w| {
+            w.items.first().and_then(|item| item.pinyin.clone())
+        });
+
+        // Get Japanese kana reading
+        let japanese_pronunciation = japanese_word.and_then(|w| {
+            w.kana.first().map(|k| k.text.clone())
+        });
+
+        // Get definition - prefer Chinese, fall back to Japanese
+        let definition = chinese_word
+            .and_then(|w| w.items.first())
+            .and_then(|item| item.definitions.as_ref())
+            .and_then(|defs| defs.first())
+            .cloned()
+            .or_else(|| {
+                japanese_word
+                    .and_then(|w| w.sense.first())
+                    .and_then(|s| s.gloss.first())
+                    .map(|g| g.text.clone())
+            });
+
+        // Check if Japanese word is common
+        let common = japanese_word.map(|w| {
+            w.kanji.iter().any(|k| k.common) || w.kana.iter().any(|k| k.common)
+        });
+
+        WordPreview {
+            word: word_text.to_string(),
+            pronunciation,
+            japanese_pronunciation,
+            definition,
+            common,
+        }
+    }
+
     /// Create a combined preview for characters with both Chinese and Japanese readings
     /// This is used for the Contains section where we want to show both readings
     pub fn from_combined_char(
