@@ -777,6 +777,22 @@
 
 <svelte:head>
 	<title>{data.word} - Kiokun Dictionary</title>
+	<meta name="description" content={data.data.chinese_char?.gloss
+		? `${data.word}: ${data.data.chinese_char.gloss}. Chinese and Japanese dictionary entry with stroke order, readings, and definitions.`
+		: `${data.word} - Chinese and Japanese dictionary entry with stroke order, readings, and definitions.`} />
+
+	<!-- Open Graph -->
+	<meta property="og:title" content={`${data.word} - Kiokun Dictionary`} />
+	<meta property="og:description" content={data.data.chinese_char?.gloss
+		? `${data.word}: ${data.data.chinese_char.gloss}. Chinese and Japanese dictionary entry with stroke order, readings, and definitions.`
+		: `${data.word} - Chinese and Japanese dictionary entry with stroke order, readings, and definitions.`} />
+	<meta property="og:url" content={`https://kiokun.pages.dev/${encodeURIComponent(data.word)}`} />
+
+	<!-- Twitter Card -->
+	<meta name="twitter:title" content={`${data.word} - Kiokun Dictionary`} />
+	<meta name="twitter:description" content={data.data.chinese_char?.gloss
+		? `${data.word}: ${data.data.chinese_char.gloss}. Chinese and Japanese dictionary entry with stroke order, readings, and definitions.`
+		: `${data.word} - Chinese and Japanese dictionary entry with stroke order, readings, and definitions.`} />
 </svelte:head>
 
 <Header currentWord={data.word} />

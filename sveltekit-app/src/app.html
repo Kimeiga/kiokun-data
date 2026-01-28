@@ -2,8 +2,49 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<!-- Favicon -->
+		<link rel="icon" type="image/png" sizes="32x32" href="%sveltekit.assets%/favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="%sveltekit.assets%/favicon-16x16.png" />
+		<link rel="apple-touch-icon" sizes="180x180" href="%sveltekit.assets%/apple-touch-icon.png" />
+
+		<!-- PWA Manifest -->
+		<link rel="manifest" href="%sveltekit.assets%/manifest.json" />
+
+		<!-- Theme Color -->
+		<meta name="theme-color" content="#8b5cf6" />
+		<meta name="msapplication-TileColor" content="#1a1a2e" />
+
+		<!-- Apple Mobile Web App -->
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<meta name="apple-mobile-web-app-title" content="Kiokun" />
+
+		<!-- Default Meta Tags (can be overridden by pages) -->
+		<meta name="description" content="A comprehensive Chinese and Japanese dictionary with stroke order, frequency data, and cross-references." />
+		<meta name="keywords" content="Chinese dictionary, Japanese dictionary, kanji, hanzi, stroke order, pinyin, hiragana, katakana, language learning" />
+		<meta name="author" content="Kiokun" />
+
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="Kiokun" />
+		<meta property="og:title" content="Kiokun - Chinese & Japanese Dictionary" />
+		<meta property="og:description" content="A comprehensive Chinese and Japanese dictionary with stroke order, frequency data, and cross-references." />
+		<meta property="og:image" content="https://kiokun.pages.dev/og-image.png" />
+		<meta property="og:url" content="https://kiokun.pages.dev" />
+		<meta property="og:locale" content="en_US" />
+
+		<!-- Twitter Card -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="Kiokun - Chinese & Japanese Dictionary" />
+		<meta name="twitter:description" content="A comprehensive Chinese and Japanese dictionary with stroke order, frequency data, and cross-references." />
+		<meta name="twitter:image" content="https://kiokun.pages.dev/og-image.png" />
+
+		<!-- Additional SEO -->
+		<meta name="robots" content="index, follow" />
+		<link rel="canonical" href="https://kiokun.pages.dev" />
+
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover">
