@@ -960,6 +960,37 @@ fn load_j2c_mapping(path: &str) -> Result<HashMap<String, String>> {
     Ok(mapping)
 }
 
+/// Load JPDB frequency data from CSV file
+/// Returns a HashMap where key is (term, reading) and value is frequency rank (1 = most common)
+fn load_jpdb_frequency(path: &str) -> Result<HashMap<(String, String), u32>> {
+    let file = File::open(path)
+        .with_context(|| format!("Failed to open JPDB frequency file: {}", path))?;
+    let reader = BufReader::new(file);
+    let mut frequency_map = HashMap::new();
+
+    for (line_num, line) in reader.lines().enumerate() {
+        let line = line.with_context(|| format!("Failed to read line {} from JPDB file", line_num + 1))?;
+
+        // Skip header line
+        if line_num == 0 && line.starts_with("term") {
+            continue;
+        }
+
+        // Tab-separated: term, reading, frequency, kana_frequency
+        let parts: Vec<&str> = line.split('\t').collect();
+        if parts.len() >= 3 {
+            let term = parts[0].to_string();
+            let reading = parts[1].to_string();
+            if let Ok(frequency) = parts[2].parse::<u32>() {
+                frequency_map.insert((term, reading), frequency);
+            }
+        }
+    }
+
+    println!("  ✅ Loaded {} JPDB frequency entries", frequency_map.len());
+    Ok(frequency_map)
+}
+
 
 
 fn merge_dictionaries_with_mapping(
@@ -1325,6 +1356,14 @@ async fn generate_simple_output_files(
     use std::path::Path;
     use std::collections::HashMap as StdHashMap;
     use simple_output_types::SimpleOutput;
+
+    // Load JPDB frequency data for Japanese word sorting
+    println!("📚 Loading JPDB frequency data...");
+    let jpdb_frequency = load_jpdb_frequency("data/jpdb_v2.2_freq_list_2024-10-13.csv")
+        .unwrap_or_else(|e| {
+            println!("  ⚠️  Failed to load JPDB frequency data: {}. Falling back to common flag only.", e);
+            StdHashMap::new()
+        });
 
     println!("📁 Preparing output directory...");
     let output_dir = Path::new("output_dictionary");
@@ -1865,14 +1904,67 @@ async fn generate_simple_output_files(
                 })
                 .collect();
 
-            // Sort by common status (common words first)
-            previews_with_words.sort_by_key(|(_, word)| {
-                // A word is common if any of its kanji or kana forms are marked as common
-                let is_common = word.kanji.iter().any(|k| k.common) || word.kana.iter().any(|k| k.common);
-                !is_common // Reverse sort: false (common) comes before true (not common)
+            // Sort by JPDB frequency rank (lower = more common), with common flag as fallback
+            previews_with_words.sort_by(|(_, word_a), (_, word_b)| {
+                // Get the best (lowest) frequency rank for each word by checking all kanji+reading combinations
+                let get_best_rank = |word: &crate::japanese_types::Word| -> Option<u32> {
+                    let mut best_rank: Option<u32> = None;
+
+                    // Try each kanji form with each applicable kana reading
+                    for kanji_form in &word.kanji {
+                        for kana_form in &word.kana {
+                            // Check if this kana applies to this kanji
+                            // applies_to_kanji can be: None (applies to all), empty vec (applies to all),
+                            // ["*"] (applies to all), or specific kanji forms
+                            let applies = kana_form.applies_to_kanji.as_ref()
+                                .map(|applies| {
+                                    applies.is_empty()
+                                    || applies.iter().any(|s| s == "*")
+                                    || applies.contains(&kanji_form.text)
+                                })
+                                .unwrap_or(true);
+
+                            if applies {
+                                if let Some(&rank) = jpdb_frequency.get(&(kanji_form.text.clone(), kana_form.text.clone())) {
+                                    best_rank = Some(best_rank.map_or(rank, |r| r.min(rank)));
+                                }
+                            }
+                        }
+                    }
+
+                    // Only try kana-only lookup if word has NO kanji forms (true kana-only words)
+                    if word.kanji.is_empty() {
+                        for kana_form in &word.kana {
+                            if let Some(&rank) = jpdb_frequency.get(&(kana_form.text.clone(), kana_form.text.clone())) {
+                                best_rank = Some(best_rank.map_or(rank, |r| r.min(rank)));
+                            }
+                        }
+                    }
+
+                    best_rank
+                };
+
+                let rank_a = get_best_rank(word_a);
+                let rank_b = get_best_rank(word_b);
+
+                match (rank_a, rank_b) {
+                    // Both have frequency data: sort by rank (lower = more common)
+                    (Some(a), Some(b)) => a.cmp(&b),
+                    // Only a has frequency data: a comes first
+                    (Some(_), None) => std::cmp::Ordering::Less,
+                    // Only b has frequency data: b comes first
+                    (None, Some(_)) => std::cmp::Ordering::Greater,
+                    // Neither has frequency data: fall back to common flag
+                    (None, None) => {
+                        let is_common_a = word_a.kanji.iter().any(|k| k.common) || word_a.kana.iter().any(|k| k.common);
+                        let is_common_b = word_b.kanji.iter().any(|k| k.common) || word_b.kana.iter().any(|k| k.common);
+                        // Common words should come first (reverse sort: true < false)
+                        is_common_b.cmp(&is_common_a)
+                    }
+                }
             });
 
-            // Extract just the previews and limit to 200 AFTER sorting by common status
+            // Extract just the previews and limit to 200 AFTER sorting by frequency
             let previews: Vec<word_preview_types::WordPreview> = previews_with_words.into_iter()
                 .map(|(preview, _)| preview)
                 .take(200)  // Limit to 200 after sorting, so we get the 200 most relevant (common first)
