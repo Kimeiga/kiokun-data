@@ -306,6 +306,12 @@ async fn main() -> Result<()> {
                 .help("Dev server mode: output a single SQLite database instead of individual files. Much faster builds (~30s vs 7min).")
                 .action(ArgAction::SetTrue),
         )
+        .arg(
+            Arg::new("word-containment")
+                .long("word-containment")
+                .help("Enable word-to-word containment: show which words contain this word as a substring (e.g., 食べる → 食べ過ぎる). Can significantly increase build time.")
+                .action(ArgAction::SetTrue),
+        )
         .get_matches();
 
     if matches.get_flag("generate-j2c-mapping") {
@@ -495,6 +501,12 @@ async fn main() -> Result<()> {
         println!("🚀 Dev server mode: outputting SQLite database for fast local development");
     }
 
+    // Get word containment mode flag
+    let word_containment_mode = matches.get_flag("word-containment");
+    if word_containment_mode {
+        println!("📚 Word containment mode: will build word-to-word containment relationships");
+    }
+
     // Create output directory
     fs::create_dir_all("output")?;
 
@@ -630,6 +642,7 @@ async fn main() -> Result<()> {
         filter_characters.as_deref(),
         prod_mode,
         dev_server_mode,
+        word_containment_mode,
     ).await?;
 
     println!("✅ Dictionary merger completed successfully!");
@@ -1351,6 +1364,7 @@ async fn generate_simple_output_files(
     filter_characters: Option<&str>,
     prod_mode: bool,
     dev_server_mode: bool,
+    word_containment_mode: bool,
 ) -> Result<()> {
     use std::fs;
     use std::path::Path;
@@ -1713,6 +1727,55 @@ async fn generate_simple_output_files(
         }
     }
 
+    // Populate frequency_rank for all Japanese words
+    println!("📊 Populating JPDB frequency ranks for Japanese words...");
+    let mut words_with_frequency = 0;
+    let mut total_japanese_words = 0;
+
+    for output in outputs.values_mut() {
+        for japanese_word in &mut output.japanese_words {
+            total_japanese_words += 1;
+
+            // Get the best (lowest) frequency rank by checking all kanji+reading combinations
+            let mut best_rank: Option<u32> = None;
+
+            // Try each kanji form with each applicable kana reading
+            for kanji_form in &japanese_word.kanji {
+                for kana_form in &japanese_word.kana {
+                    // Check if this kana applies to this kanji
+                    let applies = kana_form.applies_to_kanji.as_ref()
+                        .map(|applies| {
+                            applies.is_empty()
+                            || applies.iter().any(|s| s == "*")
+                            || applies.contains(&kanji_form.text)
+                        })
+                        .unwrap_or(true);
+
+                    if applies {
+                        if let Some(&rank) = jpdb_frequency.get(&(kanji_form.text.clone(), kana_form.text.clone())) {
+                            best_rank = Some(best_rank.map_or(rank, |r| r.min(rank)));
+                        }
+                    }
+                }
+            }
+
+            // Only try kana-only lookup if word has NO kanji forms (true kana-only words)
+            if japanese_word.kanji.is_empty() {
+                for kana_form in &japanese_word.kana {
+                    if let Some(&rank) = jpdb_frequency.get(&(kana_form.text.clone(), kana_form.text.clone())) {
+                        best_rank = Some(best_rank.map_or(rank, |r| r.min(rank)));
+                    }
+                }
+            }
+
+            if best_rank.is_some() {
+                words_with_frequency += 1;
+            }
+            japanese_word.frequency_rank = best_rank;
+        }
+    }
+    println!("  ✅ Added frequency data to {}/{} Japanese words", words_with_frequency, total_japanese_words);
+
     // Build reverse index for "contained in" relationships
     println!("🔍 Building reverse index for word containment...");
     // Use HashSet to automatically deduplicate entries
@@ -1754,6 +1817,93 @@ async fn generate_simple_output_files(
                 }
             }
         }
+    }
+
+    // Word-to-word containment: For each multi-character word, find other words that contain it as a substring
+    // Optimized: Build index grouped by first character to reduce search space
+    if word_containment_mode {
+        println!("  📝 Building word-to-word containment index...");
+        let mut word_containment_chinese = 0;
+        let mut word_containment_japanese = 0;
+
+        // Build indices: group all words by their first character
+        // This allows efficient lookup of words that START with a given character
+        let mut chinese_by_first_char: StdHashMap<char, Vec<String>> = StdHashMap::new();
+        let mut japanese_by_first_char: StdHashMap<char, Vec<String>> = StdHashMap::new();
+
+        for (word_key, output) in &outputs {
+            let char_count = word_key.chars().count();
+            // Index words with 3+ characters (we want to find words containing 2+ char substrings)
+            if char_count >= 3 {
+                if !output.chinese_words.is_empty() || output.redirect.is_some() {
+                    if let Some(first_char) = word_key.chars().next() {
+                        chinese_by_first_char.entry(first_char).or_default().push(word_key.clone());
+                    }
+                }
+                if !output.japanese_words.is_empty() {
+                    if let Some(first_char) = word_key.chars().next() {
+                        japanese_by_first_char.entry(first_char).or_default().push(word_key.clone());
+                    }
+                }
+            }
+        }
+
+        // For each multi-character word (2+ chars), find longer words that contain it as a prefix
+        let total_words = outputs.len();
+        let mut processed = 0;
+
+        for (word_key, output) in &outputs {
+            processed += 1;
+            if processed % 100000 == 0 {
+                println!("    Progress: {}/{} words processed...", processed, total_words);
+            }
+
+            let word_len = word_key.chars().count();
+            // Only process words with 2+ characters
+            if word_len < 2 {
+                continue;
+            }
+
+            // Check Chinese containment: find words that START with this word
+            if !output.chinese_words.is_empty() || output.redirect.is_some() {
+                let first_char = word_key.chars().next().unwrap();
+                if let Some(candidates) = chinese_by_first_char.get(&first_char) {
+                    for candidate_key in candidates {
+                        // Skip self, skip if candidate is shorter or equal length
+                        if candidate_key == word_key || candidate_key.chars().count() <= word_len {
+                            continue;
+                        }
+                        // Check if word_key is a PREFIX of candidate
+                        if candidate_key.starts_with(word_key) {
+                            if chinese_containment.entry(word_key.clone()).or_default().insert(candidate_key.clone()) {
+                                word_containment_chinese += 1;
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Check Japanese containment: find words that START with this word
+            if !output.japanese_words.is_empty() {
+                let first_char = word_key.chars().next().unwrap();
+                if let Some(candidates) = japanese_by_first_char.get(&first_char) {
+                    for candidate_key in candidates {
+                        // Skip self, skip if candidate is shorter or equal length
+                        if candidate_key == word_key || candidate_key.chars().count() <= word_len {
+                            continue;
+                        }
+                        // Check if word_key is a PREFIX of candidate
+                        if candidate_key.starts_with(word_key) {
+                            if japanese_containment.entry(word_key.clone()).or_default().insert(candidate_key.clone()) {
+                                word_containment_japanese += 1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        println!("  ✅ Added {} Chinese and {} Japanese word-to-word containment entries (prefix matches)",
+                 word_containment_chinese, word_containment_japanese);
     }
 
     // Pre-populate containment index with simplified forms that will be created as redirects later

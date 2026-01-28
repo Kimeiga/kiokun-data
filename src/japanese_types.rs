@@ -67,11 +67,15 @@ pub enum Lan {
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct Word {
     pub id: String,
     pub kanji: Vec<Kan>,
     pub kana: Vec<Kan>,
     pub sense: Vec<Sense>,
+    /// JPDB frequency rank (1 = most common). Added during dictionary build, not from JMdict.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub frequency_rank: Option<u32>,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
