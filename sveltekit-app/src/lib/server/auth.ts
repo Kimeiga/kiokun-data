@@ -40,6 +40,8 @@ export function createAuth(d1: D1Database, env: Record<string, string>) {
 			"http://localhost:5174",
 			"http://localhost:5175",
 			"https://kiokun.pages.dev",
+			"https://kiokun.com",
+			"https://www.kiokun.com",
 		],
 	});
 }
