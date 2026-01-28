@@ -312,6 +312,13 @@ async fn main() -> Result<()> {
                 .help("Enable word-to-word containment: show which words contain this word as a substring (e.g., 食べる → 食べ過ぎる). Can significantly increase build time.")
                 .action(ArgAction::SetTrue),
         )
+        .arg(
+            Arg::new("containment-limit")
+                .long("containment-limit")
+                .help("Maximum number of words to show in 'contained in' lists (default: 200)")
+                .value_name("LIMIT")
+                .value_parser(clap::value_parser!(usize)),
+        )
         .get_matches();
 
     if matches.get_flag("generate-j2c-mapping") {
@@ -507,6 +514,12 @@ async fn main() -> Result<()> {
         println!("📚 Word containment mode: will build word-to-word containment relationships");
     }
 
+    // Get containment limit (default: 200)
+    let containment_limit = matches.get_one::<usize>("containment-limit").copied().unwrap_or(200);
+    if containment_limit != 200 {
+        println!("📊 Containment limit: {} words", containment_limit);
+    }
+
     // Create output directory
     fs::create_dir_all("output")?;
 
@@ -643,6 +656,7 @@ async fn main() -> Result<()> {
         prod_mode,
         dev_server_mode,
         word_containment_mode,
+        containment_limit,
     ).await?;
 
     println!("✅ Dictionary merger completed successfully!");
@@ -1365,6 +1379,7 @@ async fn generate_simple_output_files(
     prod_mode: bool,
     dev_server_mode: bool,
     word_containment_mode: bool,
+    containment_limit: usize,
 ) -> Result<()> {
     use std::fs;
     use std::path::Path;
@@ -2019,10 +2034,10 @@ async fn generate_simple_output_files(
                 share_b.partial_cmp(share_a).unwrap_or(std::cmp::Ordering::Equal)
             });
 
-            // Extract just the previews and limit to 200 AFTER sorting by frequency
+            // Extract just the previews and limit AFTER sorting by frequency
             let previews: Vec<word_preview_types::WordPreview> = previews_with_share.into_iter()
                 .map(|(preview, _)| preview)
-                .take(200)  // Limit to 200 after sorting, so we get the 200 most common words
+                .take(containment_limit)  // Limit after sorting, so we get the most common words
                 .collect();
 
             chinese_previews_map.insert(key.clone(), previews);
@@ -2114,10 +2129,10 @@ async fn generate_simple_output_files(
                 }
             });
 
-            // Extract just the previews and limit to 200 AFTER sorting by frequency
+            // Extract just the previews and limit AFTER sorting by frequency
             let previews: Vec<word_preview_types::WordPreview> = previews_with_words.into_iter()
                 .map(|(preview, _)| preview)
-                .take(200)  // Limit to 200 after sorting, so we get the 200 most relevant (common first)
+                .take(containment_limit)  // Limit after sorting, so we get the most relevant (common first)
                 .collect();
 
             japanese_previews_map.insert(key.clone(), previews);
