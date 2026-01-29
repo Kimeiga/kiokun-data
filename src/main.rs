@@ -2557,6 +2557,117 @@ fn write_sqlite_database(
     println!("📁 Database saved to: output_dictionary/dictionary.db");
     println!("💡 Use with: npm run dev (SvelteKit will query this database)");
 
+    // Generate frequency list JSON for the frontend
+    generate_frequency_list(outputs_vec, output_dir)?;
+
+    Ok(())
+}
+
+/// Generate a static JSON file with the top 1000 most common Japanese and Chinese words
+fn generate_frequency_list(
+    outputs_vec: &[(String, simple_output_types::SimpleOutput)],
+    output_dir: &std::path::Path,
+) -> Result<()> {
+    use serde::Serialize;
+
+    #[derive(Serialize)]
+    struct FrequencyWord {
+        rank: u32,
+        word: String,
+        reading: String,
+        definition: String,
+        common: bool,
+    }
+
+    #[derive(Serialize)]
+    struct FrequencyList {
+        japanese: Vec<FrequencyWord>,
+        chinese: Vec<FrequencyWord>,
+    }
+
+    println!("📊 Generating frequency list JSON...");
+
+    let mut japanese_words: Vec<FrequencyWord> = Vec::new();
+    let mut chinese_words: Vec<FrequencyWord> = Vec::new();
+    let mut seen_japanese: std::collections::HashSet<String> = std::collections::HashSet::new();
+    let mut seen_chinese: std::collections::HashSet<String> = std::collections::HashSet::new();
+
+    for (_key, output) in outputs_vec {
+        // Extract Japanese words with frequency rank
+        for jw in &output.japanese_words {
+            if let Some(rank) = jw.frequency_rank {
+                let word_text = jw.kanji.first().map(|k| &k.text)
+                    .or_else(|| jw.kana.first().map(|k| &k.text));
+
+                if let Some(word) = word_text {
+                    if !seen_japanese.contains(word) {
+                        seen_japanese.insert(word.clone());
+                        let is_common = jw.kanji.iter().any(|k| k.common) || jw.kana.iter().any(|k| k.common);
+                        let reading = jw.kana.first().map(|k| k.text.clone()).unwrap_or_default();
+                        let definition = jw.sense.first()
+                            .and_then(|s| s.gloss.first())
+                            .map(|g| g.text.clone())
+                            .unwrap_or_default();
+
+                        japanese_words.push(FrequencyWord {
+                            rank,
+                            word: word.clone(),
+                            reading,
+                            definition,
+                            common: is_common,
+                        });
+                    }
+                }
+            }
+        }
+
+        // Extract Chinese words with frequency rank
+        for cw in &output.chinese_words {
+            if let Some(stats) = &cw.statistics {
+                if let Some(rank) = stats.movie_word_rank.or(stats.book_word_rank) {
+                    if !seen_chinese.contains(&cw.simp) {
+                        seen_chinese.insert(cw.simp.clone());
+                        let reading = cw.items.first()
+                            .and_then(|i| i.pinyin.clone())
+                            .unwrap_or_default();
+                        let definition = cw.items.first()
+                            .and_then(|i| i.definitions.as_ref())
+                            .and_then(|d| d.first())
+                            .cloned()
+                            .unwrap_or_default();
+
+                        chinese_words.push(FrequencyWord {
+                            rank: rank as u32,
+                            word: cw.simp.clone(),
+                            reading,
+                            definition,
+                            common: false, // Chinese doesn't have a common flag
+                        });
+                    }
+                }
+            }
+        }
+    }
+
+    // Sort by frequency rank and take top 1000
+    japanese_words.sort_by_key(|w| w.rank);
+    chinese_words.sort_by_key(|w| w.rank);
+    japanese_words.truncate(1000);
+    chinese_words.truncate(1000);
+
+    let frequency_list = FrequencyList {
+        japanese: japanese_words,
+        chinese: chinese_words,
+    };
+
+    let json_path = output_dir.join("frequency_list.json");
+    let json_content = serde_json::to_string(&frequency_list)?;
+    std::fs::write(&json_path, json_content)?;
+
+    println!("  ✅ Generated frequency list: {} Japanese, {} Chinese words",
+        frequency_list.japanese.len(), frequency_list.chinese.len());
+    println!("  📁 Saved to: {}", json_path.display());
+
     Ok(())
 }
 
