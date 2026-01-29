@@ -70,7 +70,7 @@
 		<div class="flex-1 max-w-[600px] min-w-0">
 			<input
 				type="text"
-				class="w-full px-3 py-1.5 md:px-5 md:py-2.5 border border-border rounded-full text-sm md:text-base bg-white dark:bg-black text-black dark:text-white font-cjk transition-all duration-300 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent placeholder:text-text-muted"
+				class="w-full px-3 py-1.5 md:px-5 md:py-2.5 border border-border rounded-full text-sm md:text-base bg-white dark:bg-black text-black dark:text-white font-sans transition-all duration-300 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent placeholder:text-text-muted"
 				placeholder="Search..."
 				bind:value={internalSearchValue}
 				onkeydown={handleSearch}
