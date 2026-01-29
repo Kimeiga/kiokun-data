@@ -13,46 +13,41 @@
 		}
 	}
 
-	const features = [
-		{
-			icon: '🇨🇳',
-			title: 'Chinese Dictionary',
-			description: 'Comprehensive Chinese character and word definitions with pinyin pronunciations'
-		},
-		{
-			icon: '🇯🇵',
-			title: 'Japanese Dictionary',
-			description: 'Detailed Japanese kanji and word entries with multiple readings and pitch accents'
-		},
-		{
-			icon: '✍️',
-			title: 'Stroke Order',
-			description: 'Animated stroke order diagrams to help you learn proper character writing'
-		},
-		{
-			icon: '📊',
-			title: 'Frequency Data',
-			description: 'HSK levels, word frequency rankings from movies, books, and more'
-		},
-		{
-			icon: '🔗',
-			title: 'Cross-References',
-			description: 'See which words contain a character and where characters appear in other words'
-		},
-		{
-			icon: '🎯',
-			title: 'Unified View',
-			description: 'View Chinese and Japanese information for the same character side-by-side'
-		}
+	// Character examples (single characters)
+	const characterExamples = [
+		{ char: '好', label: 'Good' },
+		{ char: '美', label: 'Beautiful' },
+		{ char: '食', label: 'Eat/Food' },
+		{ char: '愛', label: 'Love' },
+		{ char: '心', label: 'Heart' },
+		{ char: '水', label: 'Water' },
+		{ char: '火', label: 'Fire' },
+		{ char: '木', label: 'Tree' },
 	];
 
-	const examples = [
-		{ char: '好', label: 'Good' },
-		{ char: '地図', label: 'Map' },
+	// Word examples (multi-character)
+	const wordExamples = [
+		{ char: '日本', label: 'Japan 🇯🇵' },
+		{ char: '中国', label: 'China 🇨🇳' },
 		{ char: '学習', label: 'Study' },
-		{ char: '美', label: 'Beautiful' },
-		{ char: '日本', label: 'Japan' },
-		{ char: '中国', label: 'China' }
+		{ char: '食べる', label: 'To eat' },
+		{ char: '朋友', label: 'Friend' },
+		{ char: '勉強', label: 'Study' },
+		{ char: '地図', label: 'Map' },
+		{ char: '可愛い', label: 'Cute' },
+	];
+
+	// English search suggestions
+	const searchSuggestions = ['beautiful', 'water', 'love', 'eat', 'house', 'big'];
+
+	// Category highlights
+	const categoryHighlights = [
+		{ name: 'Animals', path: '/category/Nature/Animals', icon: '🐾' },
+		{ name: 'Body Parts', path: '/category/Humanity/Body', icon: '🫀' },
+		{ name: 'Nature', path: '/category/Nature', icon: '🌿' },
+		{ name: 'Numbers', path: '/category/Abstract/Quantity/Numbers', icon: '🔢' },
+		{ name: 'Colors', path: '/category/Abstract/Attribute/Color', icon: '🎨' },
+		{ name: 'Food', path: '/category/Humanity/Sustenance/Food', icon: '🍜' },
 	];
 </script>
 
@@ -83,73 +78,93 @@
 					placeholder="Search for any character or word..."
 					bind:value={searchValue}
 					onkeydown={handleSearch}
-					autofocus
 				/>
-				<div class="search-hint">Try: 好, 地図, 学習, or any Chinese/Japanese character</div>
-			</div>
-
-			<!-- Example Characters -->
-			<div class="examples">
-				<span class="examples-label">Quick examples:</span>
-				{#each examples as example}
-					<a href="/{example.char}" class="example-chip">
-						<span class="example-char">{example.char}</span>
-						<span class="example-label">{example.label}</span>
-					</a>
-				{/each}
+				<div class="search-hint">Type any Chinese/Japanese character, word, or English meaning</div>
 			</div>
 		</div>
 	</section>
 
-	<!-- Features Section -->
-	<section class="features">
-		<h2 class="section-title">Features</h2>
-		<div class="features-grid">
-			{#each features as feature}
-				<div class="feature-card">
-					<div class="feature-icon">{feature.icon}</div>
-					<h3 class="feature-title">{feature.title}</h3>
-					<p class="feature-description">{feature.description}</p>
-				</div>
+	<!-- Characters Section -->
+	<section class="explore-section">
+		<h2 class="section-title">📝 Characters</h2>
+		<div class="examples-grid">
+			{#each characterExamples as example}
+				<a href="/{example.char}" class="example-chip">
+					<span class="example-char">{example.char}</span>
+					<span class="example-label">{example.label}</span>
+				</a>
 			{/each}
 		</div>
 	</section>
 
-	<!-- About Section -->
-	<section class="about">
-		<h2 class="section-title">About Kiokun</h2>
-		<div class="about-content">
-			<p>
-				Kiokun is a comprehensive dictionary that combines Chinese and Japanese language resources
-				into a single, unified interface. Whether you're learning Chinese characters (Hanzi) or
-				Japanese kanji, Kiokun provides detailed information including:
-			</p>
-			<ul class="about-list">
-				<li>Multiple pronunciations and readings</li>
-				<li>Comprehensive definitions and example sentences</li>
-				<li>Animated stroke order diagrams</li>
-				<li>Frequency rankings from real-world usage</li>
-				<li>Cross-references showing character relationships</li>
-				<li>Historical character evolution images</li>
-			</ul>
-			<p>
-				Perfect for students, teachers, translators, and anyone interested in Chinese and Japanese
-				languages.
-			</p>
+	<!-- Words Section -->
+	<section class="explore-section">
+		<h2 class="section-title">📖 Words</h2>
+		<div class="examples-grid">
+			{#each wordExamples as example}
+				<a href="/{example.char}" class="example-chip">
+					<span class="example-char">{example.char}</span>
+					<span class="example-label">{example.label}</span>
+				</a>
+			{/each}
+		</div>
+	</section>
+
+	<!-- English Search Section -->
+	<section class="explore-section">
+		<h2 class="section-title">🔍 Search by English</h2>
+		<p class="section-subtitle">Find words by their English meaning</p>
+		<div class="examples-grid">
+			{#each searchSuggestions as term}
+				<a href="/search?q={encodeURIComponent(term)}" class="search-chip">
+					{term}
+				</a>
+			{/each}
+		</div>
+	</section>
+
+	<!-- Categories Section -->
+	<section class="explore-section">
+		<h2 class="section-title">📂 Browse by Category</h2>
+		<p class="section-subtitle">Explore characters organized by meaning</p>
+		<div class="category-grid">
+			{#each categoryHighlights as cat}
+				<a href={cat.path} class="category-chip">
+					<span class="category-icon">{cat.icon}</span>
+					<span class="category-name">{cat.name}</span>
+				</a>
+			{/each}
+		</div>
+		<a href="/category" class="see-all-link">See all categories →</a>
+	</section>
+
+	<!-- Frequency Lists Section -->
+	<section class="explore-section frequency-section">
+		<h2 class="section-title">📊 Most Common Words</h2>
+		<p class="section-subtitle">Learn the most frequently used words first</p>
+		<div class="frequency-buttons">
+			<a href="/frequency" class="frequency-btn japanese">
+				<span class="flag">🇯🇵</span>
+				<span class="btn-text">Japanese Top 1000</span>
+			</a>
+			<a href="/frequency" class="frequency-btn chinese">
+				<span class="flag">🇨🇳</span>
+				<span class="btn-text">Chinese Top 1000</span>
+			</a>
 		</div>
 	</section>
 </div>
 
 <style>
 	.home-container {
-		max-width: 1200px;
+		max-width: 1000px;
 		margin: 0 auto;
 		padding: 0 20px 60px;
 	}
 
 	/* Hero Section */
 	.hero {
-		padding: 80px 0 60px;
+		padding: 60px 0 40px;
 		text-align: center;
 	}
 
@@ -159,9 +174,9 @@
 	}
 
 	.hero-title {
-		font-size: 72px;
+		font-size: 64px;
 		font-weight: 800;
-		margin: 0 0 20px;
+		margin: 0 0 16px;
 		line-height: 1.1;
 	}
 
@@ -173,22 +188,22 @@
 	}
 
 	.hero-subtitle {
-		font-size: 24px;
+		font-size: 20px;
 		color: var(--text-secondary);
-		margin: 0 0 40px;
+		margin: 0 0 30px;
 		font-weight: 400;
 	}
 
 	/* Search Container */
 	.search-container {
-		margin: 40px 0;
+		margin: 0 auto;
+		max-width: 600px;
 	}
 
 	.hero-search {
 		width: 100%;
-		max-width: 600px;
-		padding: 20px 30px;
-		font-size: 20px;
+		padding: 18px 28px;
+		font-size: 18px;
 		border: 2px solid var(--border-color);
 		border-radius: 50px;
 		background: var(--bg-secondary);
@@ -202,7 +217,6 @@
 		outline: none;
 		border-color: var(--accent);
 		box-shadow: 0 4px 30px var(--shadow), 0 0 0 4px var(--accent-light);
-		transform: translateY(-2px);
 	}
 
 	.hero-search::placeholder {
@@ -210,38 +224,49 @@
 	}
 
 	.search-hint {
-		margin-top: 12px;
-		font-size: 14px;
+		margin-top: 10px;
+		font-size: 13px;
 		color: var(--text-muted);
 	}
 
-	/* Examples */
-	.examples {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 12px;
-		justify-content: center;
-		align-items: center;
-		margin-top: 30px;
+	/* Explore Sections */
+	.explore-section {
+		padding: 40px 0 20px;
 	}
 
-	.examples-label {
+	.section-title {
+		font-size: 24px;
+		font-weight: 700;
+		text-align: center;
+		margin: 0 0 16px;
+		color: var(--text-primary);
+	}
+
+	.section-subtitle {
+		text-align: center;
 		font-size: 14px;
-		color: var(--text-secondary);
-		font-weight: 600;
+		color: var(--text-muted);
+		margin: 0 0 20px;
+	}
+
+	/* Examples Grid */
+	.examples-grid {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+		justify-content: center;
 	}
 
 	.example-chip {
 		display: inline-flex;
 		align-items: center;
 		gap: 8px;
-		padding: 8px 16px;
+		padding: 10px 16px;
 		background: var(--bg-secondary);
 		border: 1px solid var(--border-color);
-		border-radius: 20px;
+		border-radius: 12px;
 		text-decoration: none;
 		transition: all 0.2s ease;
-		box-shadow: 0 2px 8px var(--shadow);
 	}
 
 	.example-chip:hover {
@@ -252,95 +277,133 @@
 	}
 
 	.example-char {
-		font-size: 20px;
+		font-size: 22px;
 		font-weight: 600;
 		color: var(--text-primary);
 		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", "MS Mincho", serif;
 	}
 
 	.example-label {
-		font-size: 13px;
+		font-size: 12px;
 		color: var(--text-secondary);
 	}
 
-	/* Features Section */
-	.features {
-		padding: 60px 0;
-	}
-
-	.section-title {
-		font-size: 36px;
-		font-weight: 700;
-		text-align: center;
-		margin: 0 0 40px;
-		color: var(--color-heading);
-	}
-
-	.features-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-		gap: 30px;
-	}
-
-	.feature-card {
-		padding: 30px;
+	/* Search Chips */
+	.search-chip {
+		padding: 10px 20px;
 		background: var(--bg-secondary);
-		border-radius: 16px;
 		border: 1px solid var(--border-color);
-		transition: all 0.3s ease;
-		box-shadow: 0 2px 10px var(--shadow);
+		border-radius: 20px;
+		text-decoration: none;
+		color: var(--text-primary);
+		font-size: 14px;
+		transition: all 0.2s ease;
 	}
 
-	.feature-card:hover {
-		transform: translateY(-4px);
-		box-shadow: 0 8px 24px var(--shadow);
+	.search-chip:hover {
+		background: var(--accent);
+		color: white;
 		border-color: var(--accent);
+		transform: translateY(-2px);
 	}
 
-	.feature-icon {
-		font-size: 48px;
-		margin-bottom: 16px;
+	/* Category Grid */
+	.category-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+		gap: 12px;
+		max-width: 700px;
+		margin: 0 auto;
 	}
 
-	.feature-title {
-		font-size: 20px;
-		font-weight: 600;
-		margin: 0 0 12px;
+	.category-chip {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 6px;
+		padding: 16px 12px;
+		background: var(--bg-secondary);
+		border: 1px solid var(--border-color);
+		border-radius: 12px;
+		text-decoration: none;
+		transition: all 0.2s ease;
+	}
+
+	.category-chip:hover {
+		background: var(--bg-tertiary);
+		border-color: var(--accent);
+		transform: translateY(-2px);
+		box-shadow: 0 4px 12px var(--shadow);
+	}
+
+	.category-icon {
+		font-size: 28px;
+	}
+
+	.category-name {
+		font-size: 13px;
+		font-weight: 500;
 		color: var(--text-primary);
 	}
 
-	.feature-description {
+	.see-all-link {
+		display: block;
+		text-align: center;
+		margin-top: 16px;
+		font-size: 14px;
+		color: var(--accent);
+		text-decoration: none;
+	}
+
+	.see-all-link:hover {
+		text-decoration: underline;
+	}
+
+	/* Frequency Section */
+	.frequency-section {
+		padding-bottom: 40px;
+	}
+
+	.frequency-buttons {
+		display: flex;
+		gap: 16px;
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+
+	.frequency-btn {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		padding: 16px 28px;
+		border-radius: 12px;
+		text-decoration: none;
+		font-weight: 600;
+		transition: all 0.2s ease;
+		border: 2px solid transparent;
+	}
+
+	.frequency-btn.japanese {
+		background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+		color: white;
+	}
+
+	.frequency-btn.chinese {
+		background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+		color: white;
+	}
+
+	.frequency-btn:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+	}
+
+	.frequency-btn .flag {
+		font-size: 20px;
+	}
+
+	.frequency-btn .btn-text {
 		font-size: 15px;
-		line-height: 1.6;
-		color: var(--text-secondary);
-		margin: 0;
-	}
-
-	/* About Section */
-	.about {
-		padding: 60px 0;
-	}
-
-	.about-content {
-		max-width: 800px;
-		margin: 0 auto;
-		font-size: 16px;
-		line-height: 1.8;
-		color: var(--text-secondary);
-	}
-
-	.about-content p {
-		margin: 0 0 20px;
-	}
-
-	.about-list {
-		margin: 20px 0;
-		padding-left: 24px;
-	}
-
-	.about-list li {
-		margin: 8px 0;
-		color: var(--text-secondary);
 	}
 
 	/* Responsive Design */
@@ -350,24 +413,56 @@
 		}
 
 		.hero-subtitle {
-			font-size: 18px;
+			font-size: 16px;
 		}
 
 		.hero-search {
 			font-size: 16px;
-			padding: 16px 24px;
+			padding: 14px 20px;
 		}
 
 		.section-title {
-			font-size: 28px;
+			font-size: 20px;
 		}
 
-		.features-grid {
-			grid-template-columns: 1fr;
+		.examples-grid {
+			gap: 8px;
 		}
 
-		.examples {
+		.example-chip {
+			padding: 8px 12px;
+		}
+
+		.example-char {
+			font-size: 18px;
+		}
+
+		.category-grid {
+			grid-template-columns: repeat(3, 1fr);
+			gap: 8px;
+		}
+
+		.category-chip {
+			padding: 12px 8px;
+		}
+
+		.category-icon {
+			font-size: 24px;
+		}
+
+		.category-name {
+			font-size: 11px;
+		}
+
+		.frequency-buttons {
 			flex-direction: column;
+			align-items: center;
+		}
+
+		.frequency-btn {
+			width: 100%;
+			max-width: 280px;
+			justify-content: center;
 		}
 	}
 </style>
