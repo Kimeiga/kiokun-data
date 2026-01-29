@@ -262,7 +262,7 @@
 	.word-text {
 		font-size: 1.1rem;
 		font-weight: 600;
-		font-family: "MS Mincho", serif;
+		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", "MS Mincho", serif;
 		color: var(--text-primary);
 		display: flex;
 		align-items: center;

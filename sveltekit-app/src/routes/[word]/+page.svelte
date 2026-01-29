@@ -1503,14 +1503,14 @@
 
 	.chinese-word-text {
 		font-size: 32px;
-		font-family: "MS Mincho", serif;
+		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", "MS Mincho", serif;
 		font-weight: 600;
 		color: var(--primary-highlight, #2c3e50);
 	}
 
 	.chinese-pronunciation {
 		font-size: 20px;
-		font-family: "MS Mincho", serif;
+		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", "MS Mincho", serif;
 		color: var(--reading-highlight, #e74c3c);
 	}
 

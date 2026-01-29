@@ -193,7 +193,7 @@
 		border-radius: 50px;
 		background: var(--bg-secondary);
 		color: var(--text-primary);
-		font-family: 'SimSun', 'MS Mincho', serif;
+		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", "MS Mincho", serif;
 		transition: all 0.3s ease;
 		box-shadow: 0 4px 20px var(--shadow);
 	}
@@ -255,7 +255,7 @@
 		font-size: 20px;
 		font-weight: 600;
 		color: var(--text-primary);
-		font-family: 'SimSun', 'MS Mincho', serif;
+		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", "MS Mincho", serif;
 	}
 
 	.example-label {

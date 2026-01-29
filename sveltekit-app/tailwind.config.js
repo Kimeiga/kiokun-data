@@ -43,23 +43,18 @@ export default {
 			},
 			fontFamily: {
 				cjk: [
-					// Traditional Chinese fonts
+					// Noto Serif fonts (Google Fonts) - consistent across all CJK
+					'"Noto Serif TC"', // Traditional Chinese
+					'"Noto Serif SC"', // Simplified Chinese
+					'"Noto Serif JP"', // Japanese
+					// System font fallbacks
 					'Microsoft JhengHei', // Windows Traditional Chinese
 					'PingFang TC', // macOS/iOS Traditional Chinese
-					'Heiti TC', // macOS Traditional Chinese fallback
-					'Apple LiGothic', // macOS Traditional Chinese fallback
-					// Simplified Chinese fonts
 					'Microsoft YaHei', // Windows Simplified Chinese
 					'PingFang SC', // macOS/iOS Simplified Chinese
-					'Heiti SC', // macOS Simplified Chinese fallback
-					'SimSun', // Windows Simplified Chinese fallback
-					// Japanese fonts
 					'MS Mincho', // Windows Japanese serif
 					'Hiragino Mincho ProN', // macOS Japanese serif
-					'Yu Mincho', // Windows/macOS Japanese serif
-					'Meiryo', // Windows Japanese sans-serif fallback
-					'Hiragino Kaku Gothic ProN', // macOS Japanese sans-serif fallback
-					// Generic fallbacks
+					// Generic fallback
 					'serif'
 				],
 				sans: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif']
