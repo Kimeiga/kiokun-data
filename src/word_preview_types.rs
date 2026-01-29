@@ -40,13 +40,18 @@ impl WordPreview {
             .and_then(|defs| defs.first())
             .cloned();
 
+        // Get frequency rank from statistics (prefer movie rank as it's more conversational)
+        let frequency_rank = word.statistics.as_ref()
+            .and_then(|s| s.movie_word_rank.or(s.book_word_rank))
+            .map(|r| r as u32);
+
         WordPreview {
             word: word.simp.clone(),
             pronunciation,
             japanese_pronunciation: None,
             definition,
             common: None, // Chinese words don't have a common field
-            frequency_rank: None, // Chinese words don't have JPDB frequency
+            frequency_rank,
         }
     }
 
@@ -135,8 +140,15 @@ impl WordPreview {
             w.kanji.iter().any(|k| k.common) || w.kana.iter().any(|k| k.common)
         });
 
-        // Get frequency rank from Japanese word if available
-        let frequency_rank = japanese_word.and_then(|w| w.frequency_rank);
+        // Get frequency rank - prefer Japanese JPDB, fall back to Chinese movie rank
+        let frequency_rank = japanese_word
+            .and_then(|w| w.frequency_rank)
+            .or_else(|| {
+                chinese_word
+                    .and_then(|w| w.statistics.as_ref())
+                    .and_then(|s| s.movie_word_rank.or(s.book_word_rank))
+                    .map(|r| r as u32)
+            });
 
         WordPreview {
             word: word_text.to_string(),
