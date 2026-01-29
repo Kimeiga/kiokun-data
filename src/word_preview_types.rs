@@ -23,6 +23,10 @@ pub struct WordPreview {
     /// Whether this is a common word (Japanese only)
     #[serde(rename = "c", skip_serializing_if = "Option::is_none")]
     pub common: Option<bool>,
+
+    /// JPDB frequency rank (1 = most common) - Japanese words only
+    #[serde(rename = "fr", skip_serializing_if = "Option::is_none")]
+    pub frequency_rank: Option<u32>,
 }
 
 impl WordPreview {
@@ -42,6 +46,7 @@ impl WordPreview {
             japanese_pronunciation: None,
             definition,
             common: None, // Chinese words don't have a common field
+            frequency_rank: None, // Chinese words don't have JPDB frequency
         }
     }
 
@@ -61,6 +66,7 @@ impl WordPreview {
             japanese_pronunciation: None,
             definition,
             common: None,
+            frequency_rank: None, // Chinese chars don't have JPDB frequency
         }
     }
 
@@ -90,6 +96,7 @@ impl WordPreview {
             japanese_pronunciation,
             definition,
             common: Some(is_common),
+            frequency_rank: word.frequency_rank, // Use JPDB frequency rank
         }
     }
 
@@ -128,12 +135,16 @@ impl WordPreview {
             w.kanji.iter().any(|k| k.common) || w.kana.iter().any(|k| k.common)
         });
 
+        // Get frequency rank from Japanese word if available
+        let frequency_rank = japanese_word.and_then(|w| w.frequency_rank);
+
         WordPreview {
             word: word_text.to_string(),
             pronunciation,
             japanese_pronunciation,
             definition,
             common,
+            frequency_rank,
         }
     }
 
@@ -184,6 +195,7 @@ impl WordPreview {
             japanese_pronunciation,
             definition,
             common: None,
+            frequency_rank: None, // Character previews don't have word frequency
         }
     }
 }

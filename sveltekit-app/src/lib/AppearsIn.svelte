@@ -6,6 +6,8 @@
 		p?: string; // pronunciation
 		d?: string; // definition
 		c?: boolean; // common (Japanese words only)
+		jp?: string; // japanese pronunciation
+		fr?: number; // frequency rank (JPDB)
 	}
 
 	interface Props {
@@ -112,6 +114,9 @@
 											>[{preview.p}]</span
 										>
 									{/if}
+									{#if preview.fr}
+										<span class="frequency-rank" title="JPDB frequency rank">#{preview.fr.toLocaleString()}</span>
+									{/if}
 								</div>
 								{#if preview.d}
 									<div class="definition">{preview.d}</div>
@@ -152,10 +157,17 @@
 										{/if}
 										{preview.w}
 									</span>
-									{#if preview.p}
+									{#if preview.jp}
+										<span class="pronunciation"
+											>[{preview.jp}]</span
+										>
+									{:else if preview.p}
 										<span class="pronunciation"
 											>[{preview.p}]</span
 										>
+									{/if}
+									{#if preview.fr}
+										<span class="frequency-rank" title="JPDB frequency rank">#{preview.fr.toLocaleString()}</span>
 									{/if}
 								</div>
 								{#if preview.d}
@@ -190,8 +202,9 @@
 
 	@media (max-width: 768px) {
 		.two-column-layout {
-			grid-template-columns: 1fr;
-			gap: 1rem;
+			/* Keep two columns on mobile since we have ~200 words */
+			grid-template-columns: 1fr 1fr;
+			gap: 0.5rem;
 		}
 	}
 
@@ -217,6 +230,13 @@
 		transition: all 0.2s ease;
 	}
 
+	@media (max-width: 768px) {
+		.word-card {
+			padding: 6px 8px;
+			border-radius: 4px;
+		}
+	}
+
 	.word-card:hover {
 		background: var(--bg-tertiary);
 		border-color: var(--accent);
@@ -232,6 +252,13 @@
 		flex-wrap: wrap;
 	}
 
+	@media (max-width: 768px) {
+		.word-header {
+			gap: 4px;
+			margin-bottom: 1px;
+		}
+	}
+
 	.word-text {
 		font-size: 1.1rem;
 		font-weight: 600;
@@ -242,15 +269,50 @@
 		gap: 4px;
 	}
 
+	@media (max-width: 768px) {
+		.word-text {
+			font-size: 0.95rem;
+		}
+	}
+
+	.frequency-rank {
+		font-size: 0.7rem;
+		color: var(--text-muted);
+		background: var(--bg-tertiary);
+		padding: 1px 4px;
+		border-radius: 3px;
+		font-weight: 500;
+		white-space: nowrap;
+	}
+
+	@media (max-width: 768px) {
+		.frequency-rank {
+			font-size: 0.6rem;
+			padding: 1px 3px;
+		}
+	}
+
 	.common-star {
 		font-size: 12px;
 		line-height: 1;
 		opacity: 0.9;
 	}
 
+	@media (max-width: 768px) {
+		.common-star {
+			font-size: 10px;
+		}
+	}
+
 	.pronunciation {
 		font-size: 0.9rem;
 		color: var(--text-secondary);
+	}
+
+	@media (max-width: 768px) {
+		.pronunciation {
+			font-size: 0.75rem;
+		}
 	}
 
 	.definition {
@@ -259,15 +321,35 @@
 		line-height: 1.3;
 	}
 
+	@media (max-width: 768px) {
+		.definition {
+			font-size: 0.7rem;
+			line-height: 1.2;
+		}
+	}
+
 	.observer-target {
 		margin-top: 12px;
 		padding: 10px;
 		text-align: center;
 	}
 
+	@media (max-width: 768px) {
+		.observer-target {
+			margin-top: 8px;
+			padding: 6px;
+		}
+	}
+
 	.remaining-count {
 		font-size: 12px;
 		color: var(--text-muted);
 		font-style: italic;
+	}
+
+	@media (max-width: 768px) {
+		.remaining-count {
+			font-size: 10px;
+		}
 	}
 </style>
