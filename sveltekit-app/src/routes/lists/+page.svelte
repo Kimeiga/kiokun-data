@@ -203,6 +203,8 @@
 		max-width: 1200px;
 		margin: 0 auto;
 		padding: 40px 20px;
+		/* Prevent horizontal overflow */
+		overflow-x: hidden;
 	}
 
 	.page-header {
@@ -261,7 +263,7 @@
 
 	.controls {
 		display: flex;
-		gap: 20px;
+		gap: 16px;
 		align-items: center;
 		margin-bottom: 30px;
 		flex-wrap: wrap;
@@ -269,7 +271,7 @@
 
 	.search-container {
 		flex: 1;
-		min-width: 250px;
+		min-width: 0; /* Allow shrinking below content size */
 	}
 
 	.search-input {
@@ -281,6 +283,7 @@
 		background: var(--bg-secondary);
 		color: var(--text-primary);
 		transition: all 0.2s ease;
+		box-sizing: border-box;
 	}
 
 	.search-input:focus {
@@ -293,6 +296,7 @@
 		display: flex;
 		align-items: center;
 		gap: 8px;
+		flex-shrink: 0;
 	}
 
 	.sort-container label {
@@ -324,7 +328,7 @@
 
 	.notes-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+		grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
 		gap: 20px;
 	}
 
@@ -338,6 +342,9 @@
 		transition: all 0.2s ease;
 		text-decoration: none;
 		color: inherit;
+		/* Prevent content from overflowing */
+		overflow: hidden;
+		min-width: 0;
 	}
 
 	.note-card:hover {
@@ -421,25 +428,81 @@
 	}
 
 	@media (max-width: 768px) {
+		.container {
+			padding: 24px 16px;
+		}
+
+		.page-header {
+			margin-bottom: 24px;
+		}
+
 		.page-header h1 {
-			font-size: 36px;
+			font-size: 32px;
+		}
+
+		.subtitle {
+			font-size: 16px;
 		}
 
 		.controls {
 			flex-direction: column;
 			align-items: stretch;
+			gap: 12px;
+			margin-bottom: 20px;
 		}
 
 		.search-container {
-			min-width: 100%;
+			width: 100%;
+		}
+
+		.search-input {
+			padding: 12px 14px;
+			font-size: 16px;
 		}
 
 		.sort-container {
 			justify-content: space-between;
 		}
 
+		.sort-select {
+			flex: 1;
+		}
+
 		.notes-grid {
 			grid-template-columns: 1fr;
+			gap: 16px;
+		}
+
+		.note-card {
+			padding: 16px;
+			border-radius: 10px;
+		}
+
+		.character {
+			font-size: 28px;
+		}
+
+		.note-content {
+			max-height: 150px;
+			font-size: 14px;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.container {
+			padding: 16px 12px;
+		}
+
+		.page-header h1 {
+			font-size: 28px;
+		}
+
+		.note-card {
+			padding: 14px;
+		}
+
+		.character {
+			font-size: 24px;
 		}
 	}
 </style>
