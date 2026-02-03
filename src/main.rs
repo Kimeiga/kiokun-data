@@ -1481,6 +1481,7 @@ async fn generate_simple_output_files(
         let output = outputs.entry(key.clone()).or_insert_with(|| SimpleOutput {
             key: key.clone(),
             redirect: None,
+            simplified_form_of: None,
             chinese_words: Vec::new(),
             chinese_char: None,
             japanese_words: Vec::new(),
@@ -1541,6 +1542,7 @@ async fn generate_simple_output_files(
                         let alt_output = outputs.entry(alt_key.clone()).or_insert_with(|| SimpleOutput {
                             key: alt_key.clone(),
                             redirect: None,
+                            simplified_form_of: None,
                             chinese_words: Vec::new(),
                             chinese_char: None,
                             japanese_words: Vec::new(),
@@ -1579,6 +1581,7 @@ async fn generate_simple_output_files(
             let redirect_entry = SimpleOutput {
                 key: key.clone(),
                 redirect: Some(traditional_target.clone()),
+                simplified_form_of: None,
                 chinese_words: Vec::new(),
                 chinese_char: None,
                 japanese_words: Vec::new(),
@@ -1600,29 +1603,61 @@ async fn generate_simple_output_files(
                 .cloned();
 
             if let Some(trad_target) = trad_target {
-                let redirect_entry = SimpleOutput {
-                    key: key.clone(),
-                    redirect: Some(trad_target.clone()),
-                    chinese_words: Vec::new(),
-                    // Keep the simplified character's own data (components, etymology, etc.)
-                    // This allows showing simplified-specific component breakdown
-                    chinese_char: Some(char_entry.clone()),
-                    japanese_words: Vec::new(),
-                    japanese_char: None,
-                    related_japanese_words: Vec::new(),
-                    japanese_names: Vec::new(),
-                    contains: Vec::new(),
-                    contained_in_chinese: Vec::new(),
-                    contained_in_japanese: Vec::new(),
-                };
-                outputs.insert(key.clone(), redirect_entry);
-                simplified_redirect_count += 1;
+                // Check if this simplified character has its own independent word entries
+                // (i.e., entries where trad == simp == this character)
+                // If so, don't redirect - this is a "merged character" case like 制/製
+                let has_own_word_entries = outputs.get(&key)
+                    .map(|o| !o.chinese_words.is_empty())
+                    .unwrap_or(false);
+
+                if has_own_word_entries {
+                    // This is a merged character case (e.g., 制 has its own meaning AND is simplified form of 製)
+                    // Don't create a redirect - instead, add the character data and set simplified_form_of
+                    let output = outputs.entry(key.clone()).or_insert_with(|| SimpleOutput {
+                        key: key.clone(),
+                        redirect: None,
+                        simplified_form_of: None,
+                        chinese_words: Vec::new(),
+                        chinese_char: None,
+                        japanese_words: Vec::new(),
+                        japanese_char: None,
+                        related_japanese_words: Vec::new(),
+                        japanese_names: Vec::new(),
+                        contains: Vec::new(),
+                        contained_in_chinese: Vec::new(),
+                        contained_in_japanese: Vec::new(),
+                    });
+                    output.chinese_char = Some(char_entry.clone());
+                    output.simplified_form_of = Some(trad_target.clone());
+                    println!("  📍 Merged character detected: {} (also simplified form of {})", key, trad_target);
+                } else {
+                    // Normal simplified character - create redirect
+                    let redirect_entry = SimpleOutput {
+                        key: key.clone(),
+                        redirect: Some(trad_target.clone()),
+                        simplified_form_of: None,
+                        chinese_words: Vec::new(),
+                        // Keep the simplified character's own data (components, etymology, etc.)
+                        // This allows showing simplified-specific component breakdown
+                        chinese_char: Some(char_entry.clone()),
+                        japanese_words: Vec::new(),
+                        japanese_char: None,
+                        related_japanese_words: Vec::new(),
+                        japanese_names: Vec::new(),
+                        contains: Vec::new(),
+                        contained_in_chinese: Vec::new(),
+                        contained_in_japanese: Vec::new(),
+                    };
+                    outputs.insert(key.clone(), redirect_entry);
+                    simplified_redirect_count += 1;
+                }
             }
         } else {
             // Regular Chinese character (traditional or no variants) - add normally
             let output = outputs.entry(key.clone()).or_insert_with(|| SimpleOutput {
                 key: key.clone(),
                 redirect: None,
+                simplified_form_of: None,
                 chinese_words: Vec::new(),
                 chinese_char: None,
                 japanese_words: Vec::new(),
@@ -1657,6 +1692,7 @@ async fn generate_simple_output_files(
             let output = outputs.entry(traditional_target.clone()).or_insert_with(|| SimpleOutput {
                 key: traditional_target.clone(),
                 redirect: None,
+                simplified_form_of: None,
                 chinese_words: Vec::new(),
                 chinese_char: None,
                 japanese_words: Vec::new(),
@@ -1678,6 +1714,7 @@ async fn generate_simple_output_files(
             let output = outputs.entry(key.clone()).or_insert_with(|| SimpleOutput {
                 key: key.clone(),
                 redirect: None,
+                simplified_form_of: None,
                 chinese_words: Vec::new(),
                 chinese_char: None,
                 japanese_words: Vec::new(),
@@ -1726,6 +1763,7 @@ async fn generate_simple_output_files(
             let output = outputs.entry(final_key.clone()).or_insert_with(|| SimpleOutput {
                 key: final_key.clone(),
                 redirect: None,
+                simplified_form_of: None,
                 chinese_words: Vec::new(),
                 chinese_char: None,
                 japanese_words: Vec::new(),
@@ -1741,6 +1779,42 @@ async fn generate_simple_output_files(
             output.japanese_names.push(jmnedict_entry.clone());
         }
     }
+
+    // Merge words from traditional variants into merged characters
+    // For characters like 制 that have simplified_form_of set (e.g., 製),
+    // we need to copy the Chinese words from 製 into 制's entry
+    println!("🔀 Merging words for merged characters...");
+    let mut merged_word_count = 0;
+
+    // First, collect all the merged character relationships
+    let merged_chars: Vec<(String, String)> = outputs.iter()
+        .filter_map(|(key, output)| {
+            output.simplified_form_of.as_ref().map(|trad| (key.clone(), trad.clone()))
+        })
+        .collect();
+
+    // Then, for each merged character, copy words from the traditional variant
+    for (simp_key, trad_key) in &merged_chars {
+        // Get the words from the traditional variant
+        let trad_words: Vec<ChineseDictionaryElement> = outputs.get(trad_key)
+            .map(|o| o.chinese_words.clone())
+            .unwrap_or_default();
+
+        if !trad_words.is_empty() {
+            // Add these words to the simplified character's entry
+            if let Some(simp_output) = outputs.get_mut(simp_key) {
+                for word in trad_words {
+                    // Only add if not already present (avoid duplicates)
+                    if !simp_output.chinese_words.iter().any(|w| w.id == word.id) {
+                        simp_output.chinese_words.push(word);
+                        merged_word_count += 1;
+                    }
+                }
+            }
+            println!("  📍 Merged words from {} into {}", trad_key, simp_key);
+        }
+    }
+    println!("  ✅ Merged {} words into {} merged character entries", merged_word_count, merged_chars.len());
 
     // Populate frequency_rank for all Japanese words
     println!("📊 Populating JPDB frequency ranks for Japanese words...");
@@ -2331,6 +2405,7 @@ async fn generate_simple_output_files(
                     let redirect_entry = SimpleOutput {
                         key: chinese.trad.clone(),
                         redirect: Some(first_char),
+                        simplified_form_of: None,
                         chinese_words: Vec::new(),
                         chinese_char: None,
                         japanese_words: Vec::new(),
@@ -2360,6 +2435,7 @@ async fn generate_simple_output_files(
                     let redirect_entry = SimpleOutput {
                         key: chinese.simp.clone(),
                         redirect: Some(chinese.trad.clone()),
+                        simplified_form_of: None,
                         chinese_words: Vec::new(),
                         chinese_char: None,
                         japanese_words: Vec::new(),
@@ -2414,6 +2490,7 @@ async fn generate_simple_output_files(
                     let redirect_entry = SimpleOutput {
                         key: kanji_form.text.clone(),
                         redirect: Some(redirect_target.clone()),
+                        simplified_form_of: None,
                         chinese_words: Vec::new(),
                         chinese_char: None,
                         japanese_words: Vec::new(),

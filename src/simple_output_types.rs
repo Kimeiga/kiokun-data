@@ -16,6 +16,13 @@ pub struct SimpleOutput {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub redirect: Option<String>,
 
+    /// If this character is the simplified form of another traditional character,
+    /// this field contains that traditional character.
+    /// Used for merged characters like 制 (which is also simplified form of 製).
+    /// The UI can use this to show "Also simplified form of 製 (manufacture)"
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub simplified_form_of: Option<String>,
+
     /// Chinese word entries (from CEDICT)
     #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub chinese_words: Vec<ChineseDictionaryElement>,
