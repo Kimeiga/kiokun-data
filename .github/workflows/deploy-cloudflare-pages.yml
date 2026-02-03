@@ -29,6 +29,9 @@ jobs:
         working-directory: sveltekit-app
         run: npm ci --include=optional
 
+      - name: Generate frequency list
+        run: python3 scripts/generate_frequency_list.py
+
       - name: Build
         working-directory: sveltekit-app
         run: npm run build

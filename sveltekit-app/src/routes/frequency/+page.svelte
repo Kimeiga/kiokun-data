@@ -17,13 +17,15 @@
 	let activeTab: 'japanese' | 'chinese' = $state('japanese');
 	let displayCount = $state(100);
 
-	// Load frequency data from the API
+	// Load frequency data from static file
 	async function loadFrequencyData() {
 		try {
 			loading = true;
 			error = null;
 
-			const response = await fetch('/api/frequency');
+			// Fetch directly from static file instead of API endpoint
+			// This works on Cloudflare Workers where fs.readFileSync is not available
+			const response = await fetch('/frequency_list.json');
 			if (!response.ok) {
 				throw new Error(`Failed to load frequency data: ${response.status}`);
 			}

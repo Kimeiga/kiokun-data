@@ -2737,13 +2737,20 @@ fn generate_frequency_list(
         chinese: chinese_words,
     };
 
-    let json_path = output_dir.join("frequency_list.json");
     let json_content = serde_json::to_string(&frequency_list)?;
-    std::fs::write(&json_path, json_content)?;
+
+    // Save to output_dictionary for backward compatibility
+    let json_path = output_dir.join("frequency_list.json");
+    std::fs::write(&json_path, &json_content)?;
+
+    // Also save to sveltekit-app/static for Cloudflare Pages deployment
+    // This allows the frontend to fetch it directly without needing fs.readFileSync
+    let static_path = std::path::Path::new("sveltekit-app/static/frequency_list.json");
+    std::fs::write(static_path, &json_content)?;
 
     println!("  ✅ Generated frequency list: {} Japanese, {} Chinese words",
         frequency_list.japanese.len(), frequency_list.chinese.len());
-    println!("  📁 Saved to: {}", json_path.display());
+    println!("  📁 Saved to: {} and {}", json_path.display(), static_path.display());
 
     Ok(())
 }
