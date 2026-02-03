@@ -117,16 +117,59 @@
 		// Now map component characters to their stroke indices
 		const newMap = new Map<string, number[]>();
 
-		components.forEach((comp: any, index: number) => {
-			const compChar = typeof comp === 'string' ? comp : comp.character || comp.char || comp;
-			const strokes = componentToStrokes.get(index) || [];
-			if (strokes.length > 0) {
-				newMap.set(compChar, strokes);
-				console.log(`[MAKEMEAHANZI] ✓ Component "${compChar}" (index ${index}) → strokes ${strokes.join(', ')}`);
+		// Count how many components makemeahanzi has vs how many we have
+		const makemeahanziComponentCount = componentToStrokes.size;
+		const ourComponentCount = components.length;
+
+		console.log(`[MAKEMEAHANZI] Component count comparison: ours=${ourComponentCount}, makemeahanzi=${makemeahanziComponentCount}`);
+
+		// Handle mismatch: our data has fewer components than makemeahanzi's decomposition
+		// This happens when our components are "higher-level" abstractions (e.g., 子 instead of 乛+亅)
+		// In this case, we need to merge makemeahanzi's components into ours
+		if (ourComponentCount < makemeahanziComponentCount) {
+			// Collect ALL strokes from all makemeahanzi components
+			const allStrokes: number[] = [];
+			componentToStrokes.forEach((strokes) => {
+				allStrokes.push(...strokes);
+			});
+			allStrokes.sort((a, b) => a - b);
+
+			if (ourComponentCount === 1) {
+				// Simple case: assign all strokes to our single component
+				const compChar = typeof components[0] === 'string' ? components[0] : components[0].character || components[0].char || components[0];
+				newMap.set(compChar, allStrokes);
+				console.log(`[MAKEMEAHANZI] ✓ Single component "${compChar}" gets ALL strokes (makemeahanzi has ${makemeahanziComponentCount} components) → strokes ${allStrokes.join(', ')}`);
 			} else {
-				console.log(`[MAKEMEAHANZI] ⚠️ Component "${compChar}" (index ${index}) has no strokes mapped`);
+				// Multiple components but fewer than makemeahanzi: distribute strokes proportionally
+				// This is a heuristic - we divide strokes roughly evenly among our components
+				const strokesPerComponent = Math.ceil(allStrokes.length / ourComponentCount);
+				let strokeIndex = 0;
+
+				components.forEach((comp: any) => {
+					const compChar = typeof comp === 'string' ? comp : comp.character || comp.char || comp;
+					const endIndex = Math.min(strokeIndex + strokesPerComponent, allStrokes.length);
+					const assignedStrokes = allStrokes.slice(strokeIndex, endIndex);
+
+					if (assignedStrokes.length > 0) {
+						newMap.set(compChar, assignedStrokes);
+						console.log(`[MAKEMEAHANZI] ✓ Component "${compChar}" (proportional distribution) → strokes ${assignedStrokes.join(', ')}`);
+					}
+					strokeIndex = endIndex;
+				});
 			}
-		});
+		} else {
+			// Normal case: component counts match or we have more - use index-based mapping
+			components.forEach((comp: any, index: number) => {
+				const compChar = typeof comp === 'string' ? comp : comp.character || comp.char || comp;
+				const strokes = componentToStrokes.get(index) || [];
+				if (strokes.length > 0) {
+					newMap.set(compChar, strokes);
+					console.log(`[MAKEMEAHANZI] ✓ Component "${compChar}" (index ${index}) → strokes ${strokes.join(', ')}`);
+				} else {
+					console.log(`[MAKEMEAHANZI] ⚠️ Component "${compChar}" (index ${index}) has no strokes mapped`);
+				}
+			});
+		}
 
 		if (newMap.size > 0) {
 			// Clear the sequential fallback flag since we have accurate data

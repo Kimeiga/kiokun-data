@@ -106,3 +106,6 @@ schemas/japanese_sample.json
 10ten-ja-reader/data/makemeahanzi_dictionary.txt
 data/makemeahanzi_dictionary.txt
 chinese-word-game/
+
+output_dictionary/
+output/
