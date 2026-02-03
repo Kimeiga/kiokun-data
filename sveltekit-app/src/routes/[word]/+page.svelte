@@ -6,6 +6,7 @@
 	import AppearsIn from "$lib/AppearsIn.svelte";
 	import JapaneseNames from "$lib/components/JapaneseNames.svelte";
 	import Notes from "$lib/components/Notes.svelte";
+	import ComponentUses from "$lib/components/ComponentUses.svelte";
 	import WordTable from "$lib/components/JapaneseWords/WordTable.svelte";
 	import SectionHeading from "$lib/components/shared/SectionHeading.svelte";
 	import { getDictionaryUrl } from "$lib/shard-utils";
@@ -1490,6 +1491,11 @@
 
 		<!-- Notes Section -->
 		<Notes character={data.word} />
+
+		<!-- Component Uses Section -->
+		<ComponentUses
+			componentUses={data.componentUses[data.word] || null}
+		/>
 
 		<!-- Japanese Names Section -->
 		{#if data.data.japanese_names && data.data.japanese_names.length > 0}

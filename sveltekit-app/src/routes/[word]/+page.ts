@@ -48,6 +48,21 @@ interface CharTaxonomy {
 }
 
 /**
+ * Component uses data - shows which characters use this character as a component
+ */
+interface ComponentTypeData {
+	chars: string[];
+	count: number;
+	verified: number;
+}
+
+interface ComponentUsesMap {
+	[char: string]: {
+		[componentType: string]: ComponentTypeData;
+	};
+}
+
+/**
  * Page data returned by the load function
  */
 export interface PageData {
@@ -56,6 +71,7 @@ export interface PageData {
 	labels: JapaneseLabels;
 	charGlosses: CharGlosses;
 	charTaxonomy: CharTaxonomy;
+	componentUses: ComponentUsesMap;
 }
 
 export const load: PageLoad<PageData> = async ({ params, fetch }) => {
@@ -132,12 +148,24 @@ export const load: PageLoad<PageData> = async ({ params, fetch }) => {
 			console.error('Failed to load character taxonomy:', err);
 		}
 
+		// Load component uses data (shows which characters use this one as a component)
+		let componentUses: ComponentUsesMap = {};
+		try {
+			const componentUsesResponse = await fetch('/game_data/component_uses.json');
+			if (componentUsesResponse.ok) {
+				componentUses = await componentUsesResponse.json();
+			}
+		} catch (err) {
+			console.error('Failed to load component uses:', err);
+		}
+
 		return {
 			word,
 			data,
 			labels,
 			charGlosses,
-			charTaxonomy
+			charTaxonomy,
+			componentUses
 		};
 	} catch (err) {
 		console.error(`Failed to load dictionary entry for "${word}":`, err);
