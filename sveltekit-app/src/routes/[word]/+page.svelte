@@ -18,12 +18,20 @@
 	let simplifiedChar = $derived(data.data.chinese_char?.simpVariants?.[0]);
 	let japaneseChar = $derived(data.data.japanese_char?.literal);
 
+	// Helper to strip variant indicators like (trad), (simp), (jp) from glosses
+	// Since the character page unifies all variants, this info is redundant
+	function stripVariantIndicator(gloss: string): string {
+		return gloss.replace(/\s*\((trad|simp|jp)\)\s*$/i, '').trim();
+	}
+
 	// Get unique gloss from game data (falls back to existing gloss)
 	let uniqueGloss = $derived(
-		data.charGlosses?.[traditionalChar] ||
-		data.charGlosses?.[data.word] ||
-		data.data.chinese_char?.gloss ||
-		''
+		stripVariantIndicator(
+			data.charGlosses?.[traditionalChar] ||
+			data.charGlosses?.[data.word] ||
+			data.data.chinese_char?.gloss ||
+			''
+		)
 	);
 
 	// Get taxonomy path for the character
