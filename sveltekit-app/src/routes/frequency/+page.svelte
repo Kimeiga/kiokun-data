@@ -257,10 +257,23 @@
 	}
 
 	@media (max-width: 768px) {
+		.word-list {
+			gap: var(--spacing-sm);
+		}
+
 		.word-card {
 			grid-template-columns: 50px 60px 1fr;
-			gap: 8px;
-			padding: 10px 12px;
+			gap: var(--spacing-sm);
+			padding: var(--spacing-md);
+			position: relative;
+		}
+
+		.rank {
+			font-size: var(--font-size-caption1);
+		}
+
+		.word-text {
+			font-size: var(--font-size-headline);
 		}
 
 		.reading {
@@ -269,18 +282,21 @@
 
 		.definition {
 			grid-column: 1 / -1;
-			font-size: 12px;
+			font-size: var(--font-size-footnote);
 		}
 
 		.common-badge {
 			position: absolute;
-			right: 12px;
+			right: var(--spacing-md);
 			top: 50%;
 			transform: translateY(-50%);
+			font-size: var(--font-size-caption1);
 		}
 
-		.word-card {
-			position: relative;
+		.load-more {
+			padding: var(--spacing-lg);
+			margin-top: var(--spacing-lg);
+			font-size: var(--font-size-footnote);
 		}
 	}
 </style>

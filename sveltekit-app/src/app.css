@@ -82,6 +82,24 @@
 	/* Priority star colors */
 	--star-full: #f39c12;
 	--star-hollow: #bdc3c7;
+
+	/* ===== TYPOGRAPHY SCALE (iOS HIG-inspired) ===== */
+	/* Desktop sizes */
+	--font-size-title: 32px;
+	--font-size-headline: 20px;
+	--font-size-body: 17px;
+	--font-size-callout: 16px;
+	--font-size-subhead: 15px;
+	--font-size-footnote: 13px;
+	--font-size-caption1: 12px;
+	--font-size-caption2: 11px;
+
+	/* Spacing scale */
+	--spacing-xs: 4px;
+	--spacing-sm: 8px;
+	--spacing-md: 12px;
+	--spacing-lg: 16px;
+	--spacing-xl: 24px;
 }
 
 [data-theme='dark'] {
@@ -203,6 +221,30 @@ body {
 
 	.btn-primary:hover {
 		@apply bg-[#3367d6];
+	}
+}
+
+/* ===== MOBILE TYPOGRAPHY OVERRIDES ===== */
+/* Based on iOS Human Interface Guidelines */
+@media (max-width: 768px) {
+	:root,
+	[data-theme='dark'] {
+		/* Mobile font sizes - slightly smaller for compact display */
+		--font-size-title: 28px;
+		--font-size-headline: 18px;
+		--font-size-body: 15px;        /* iOS Subhead equivalent */
+		--font-size-callout: 14px;
+		--font-size-subhead: 13px;
+		--font-size-footnote: 12px;    /* iOS Caption 1 */
+		--font-size-caption1: 11px;    /* iOS Caption 2 */
+		--font-size-caption2: 10px;
+
+		/* Tighter spacing on mobile */
+		--spacing-xs: 3px;
+		--spacing-sm: 6px;
+		--spacing-md: 10px;
+		--spacing-lg: 14px;
+		--spacing-xl: 20px;
 	}
 }
 

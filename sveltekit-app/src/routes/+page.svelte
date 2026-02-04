@@ -520,12 +520,12 @@
 
 	@media (max-width: 768px) {
 		.home-container {
-			padding: 0 16px 40px;
+			padding: 0 var(--spacing-lg) 40px;
 		}
 
 		.four-column-grid {
 			grid-template-columns: repeat(2, 1fr);
-			gap: 16px;
+			gap: var(--spacing-lg);
 			padding: 0;
 		}
 
@@ -535,7 +535,7 @@
 		}
 
 		.hero {
-			padding: 40px 0 20px;
+			padding: 40px 0 var(--spacing-xl);
 		}
 
 		.hero-title {
@@ -543,42 +543,52 @@
 		}
 
 		.hero-subtitle {
-			font-size: 15px;
-			margin-bottom: 20px;
+			font-size: var(--font-size-body);
+			margin-bottom: var(--spacing-xl);
 		}
 
 		.hero-search {
-			font-size: 15px;
-			padding: 14px 20px;
+			font-size: var(--font-size-body);
+			padding: var(--spacing-lg) var(--spacing-xl);
+		}
+
+		.search-hint {
+			font-size: var(--font-size-caption2);
 		}
 
 		.section-title {
-			font-size: 18px;
+			font-size: var(--font-size-headline);
+		}
+
+		.section-subtitle {
+			font-size: var(--font-size-caption1);
 		}
 
 		.column-header {
-			font-size: 13px;
+			font-size: var(--font-size-subhead);
+			padding-bottom: var(--spacing-sm);
 		}
 
 		.example-chip {
-			padding: 6px 10px;
+			padding: var(--spacing-sm) var(--spacing-md);
+			gap: var(--spacing-sm);
 		}
 
 		.example-char {
-			font-size: 18px;
+			font-size: var(--font-size-headline);
 		}
 
 		.example-label {
-			font-size: 10px;
+			font-size: var(--font-size-caption2);
 		}
 
 		.category-grid {
 			grid-template-columns: repeat(4, 1fr);
-			gap: 6px;
+			gap: var(--spacing-sm);
 		}
 
 		.category-chip {
-			padding: 10px 6px;
+			padding: var(--spacing-md) var(--spacing-sm);
 		}
 
 		.category-icon {
@@ -586,26 +596,30 @@
 		}
 
 		.category-name {
-			font-size: 10px;
+			font-size: var(--font-size-caption2);
+		}
+
+		.see-all-link {
+			font-size: var(--font-size-caption1);
 		}
 
 		.frequency-btn {
-			padding: 12px 16px;
+			padding: var(--spacing-md) var(--spacing-lg);
 		}
 
 		.frequency-btn .flag {
-			font-size: 16px;
+			font-size: var(--font-size-callout);
 		}
 
 		.frequency-btn .btn-text {
-			font-size: 13px;
+			font-size: var(--font-size-subhead);
 		}
 	}
 
 	@media (max-width: 480px) {
 		.four-column-grid {
 			grid-template-columns: 1fr 1fr;
-			gap: 12px;
+			gap: var(--spacing-md);
 		}
 
 		.category-grid {

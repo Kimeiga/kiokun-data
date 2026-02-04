@@ -9,6 +9,7 @@
 	import ComponentUses from "$lib/components/ComponentUses.svelte";
 	import WordTable from "$lib/components/JapaneseWords/WordTable.svelte";
 	import SectionHeading from "$lib/components/shared/SectionHeading.svelte";
+	import SpeakButton from "$lib/components/shared/SpeakButton.svelte";
 	import { getDictionaryUrl } from "$lib/shard-utils";
 	import { dev } from "$app/environment";
 
@@ -1455,6 +1456,7 @@
 														[{item.pinyin}]
 													</span>
 												{/if}
+												<SpeakButton text={word.simp || word.trad || data.word} lang="zh" size={18} />
 											</div>
 											<!-- Definitions -->
 											{#if item.definitions && item.definitions.length > 0}
@@ -1608,5 +1610,42 @@
 
 	:global([data-theme='dark']) .historical-image {
 		filter: invert(1);
+	}
+
+	/* Mobile typography adjustments */
+	@media (max-width: 768px) {
+		.chinese-word-entry {
+			margin-bottom: var(--spacing-xl);
+		}
+
+		.chinese-headwords {
+			gap: var(--spacing-sm);
+			margin-bottom: var(--spacing-sm);
+		}
+
+		.chinese-word-text {
+			font-size: var(--font-size-title);
+		}
+
+		.chinese-pronunciation {
+			font-size: var(--font-size-headline);
+		}
+
+		.chinese-definitions {
+			font-size: var(--font-size-body);
+		}
+
+		.historical-card {
+			padding: var(--spacing-sm);
+			min-width: 60px;
+		}
+
+		.historical-card .text-\[11px\] {
+			font-size: var(--font-size-caption2);
+		}
+
+		.historical-card .text-\[9px\] {
+			font-size: 9px;
+		}
 	}
 </style>

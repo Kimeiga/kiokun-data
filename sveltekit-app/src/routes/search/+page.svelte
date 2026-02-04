@@ -345,24 +345,79 @@
 
 	@media (max-width: 768px) {
 		.search-page {
-			padding: 15px;
+			padding: var(--spacing-lg);
+		}
+
+		.search-header {
+			margin-bottom: var(--spacing-xl);
 		}
 
 		.search-header h1 {
-			font-size: 24px;
+			font-size: var(--font-size-title);
 		}
 
-		.word {
-			font-size: 20px;
+		.search-query {
+			font-size: var(--font-size-body);
+		}
+
+		.results-header {
+			margin-bottom: var(--spacing-lg);
+			font-size: var(--font-size-footnote);
 		}
 
 		.results-container {
 			grid-template-columns: 1fr;
-			gap: 30px;
+			gap: var(--spacing-xl);
+		}
+
+		.results-column {
+			gap: var(--spacing-md);
 		}
 
 		.column-title {
-			font-size: 18px;
+			font-size: var(--font-size-headline);
+			padding-bottom: var(--spacing-sm);
+		}
+
+		.results-list {
+			gap: var(--spacing-md);
+		}
+
+		.result-card {
+			padding: var(--spacing-lg);
+		}
+
+		.result-header {
+			gap: var(--spacing-sm);
+			margin-bottom: var(--spacing-md);
+		}
+
+		.word {
+			font-size: var(--font-size-headline);
+		}
+
+		.pronunciation {
+			font-size: var(--font-size-footnote);
+		}
+
+		.common-badge {
+			font-size: var(--font-size-caption2);
+		}
+
+		.definitions {
+			gap: var(--spacing-xs);
+		}
+
+		.definition {
+			font-size: var(--font-size-footnote);
+		}
+
+		.more-definitions {
+			font-size: var(--font-size-caption1);
+		}
+
+		.no-results .hint {
+			font-size: var(--font-size-caption1);
 		}
 	}
 </style>

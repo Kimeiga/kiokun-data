@@ -197,14 +197,14 @@
 	.two-column-layout {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		gap: 1.5rem;
+		gap: var(--spacing-xl);
 	}
 
 	@media (max-width: 768px) {
 		.two-column-layout {
 			/* Keep two columns on mobile since we have ~200 words */
 			grid-template-columns: 1fr 1fr;
-			gap: 0.5rem;
+			gap: var(--spacing-sm);
 		}
 	}
 
@@ -216,12 +216,12 @@
 	.word-list {
 		display: flex;
 		flex-direction: column;
-		gap: 8px;
+		gap: var(--spacing-sm);
 	}
 
 	.word-card {
 		display: block;
-		padding: 10px 12px;
+		padding: var(--spacing-md);
 		background: var(--bg-secondary);
 		border-radius: 6px;
 		border: 1px solid var(--border-light);
@@ -232,7 +232,7 @@
 
 	@media (max-width: 768px) {
 		.word-card {
-			padding: 6px 8px;
+			padding: var(--spacing-sm);
 			border-radius: 4px;
 		}
 	}
@@ -247,109 +247,64 @@
 	.word-header {
 		display: flex;
 		align-items: baseline;
-		gap: 6px;
+		gap: var(--spacing-sm);
 		margin-bottom: 2px;
 		flex-wrap: wrap;
 	}
 
 	@media (max-width: 768px) {
 		.word-header {
-			gap: 4px;
+			gap: var(--spacing-xs);
 			margin-bottom: 1px;
 		}
 	}
 
 	.word-text {
-		font-size: 1.1rem;
+		font-size: var(--font-size-body);
 		font-weight: 600;
 		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", "MS Mincho", serif;
 		color: var(--text-primary);
 		display: flex;
 		align-items: center;
-		gap: 4px;
-	}
-
-	@media (max-width: 768px) {
-		.word-text {
-			font-size: 0.95rem;
-		}
+		gap: var(--spacing-xs);
 	}
 
 	.frequency-rank {
-		font-size: 0.7rem;
+		font-size: var(--font-size-caption2);
 		color: var(--text-muted);
 		background: var(--bg-tertiary);
-		padding: 1px 4px;
+		padding: 1px var(--spacing-xs);
 		border-radius: 3px;
 		font-weight: 500;
 		white-space: nowrap;
 	}
 
-	@media (max-width: 768px) {
-		.frequency-rank {
-			font-size: 0.6rem;
-			padding: 1px 3px;
-		}
-	}
-
 	.common-star {
-		font-size: 12px;
+		font-size: var(--font-size-caption1);
 		line-height: 1;
 		opacity: 0.9;
 	}
 
-	@media (max-width: 768px) {
-		.common-star {
-			font-size: 10px;
-		}
-	}
-
 	.pronunciation {
-		font-size: 0.9rem;
+		font-size: var(--font-size-footnote);
 		color: var(--text-secondary);
 	}
 
-	@media (max-width: 768px) {
-		.pronunciation {
-			font-size: 0.75rem;
-		}
-	}
-
 	.definition {
-		font-size: 0.85rem;
+		font-size: var(--font-size-caption1);
 		color: var(--text-tertiary);
 		line-height: 1.3;
 	}
 
-	@media (max-width: 768px) {
-		.definition {
-			font-size: 0.7rem;
-			line-height: 1.2;
-		}
-	}
-
 	.observer-target {
-		margin-top: 12px;
-		padding: 10px;
+		margin-top: var(--spacing-md);
+		padding: var(--spacing-sm);
 		text-align: center;
 	}
 
-	@media (max-width: 768px) {
-		.observer-target {
-			margin-top: 8px;
-			padding: 6px;
-		}
-	}
-
 	.remaining-count {
-		font-size: 12px;
+		font-size: var(--font-size-caption2);
 		color: var(--text-muted);
 		font-style: italic;
-	}
-
-	@media (max-width: 768px) {
-		.remaining-count {
-			font-size: 10px;
-		}
 	}
 </style>

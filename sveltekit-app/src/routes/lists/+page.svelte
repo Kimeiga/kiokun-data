@@ -429,26 +429,26 @@
 
 	@media (max-width: 768px) {
 		.container {
-			padding: 24px 16px;
+			padding: var(--spacing-xl) var(--spacing-lg);
 		}
 
 		.page-header {
-			margin-bottom: 24px;
+			margin-bottom: var(--spacing-xl);
 		}
 
 		.page-header h1 {
-			font-size: 32px;
+			font-size: var(--font-size-title);
 		}
 
 		.subtitle {
-			font-size: 16px;
+			font-size: var(--font-size-body);
 		}
 
 		.controls {
 			flex-direction: column;
 			align-items: stretch;
-			gap: 12px;
-			margin-bottom: 20px;
+			gap: var(--spacing-md);
+			margin-bottom: var(--spacing-xl);
 		}
 
 		.search-container {
@@ -456,8 +456,8 @@
 		}
 
 		.search-input {
-			padding: 12px 14px;
-			font-size: 16px;
+			padding: var(--spacing-md) var(--spacing-lg);
+			font-size: var(--font-size-body);
 		}
 
 		.sort-container {
@@ -466,39 +466,40 @@
 
 		.sort-select {
 			flex: 1;
+			font-size: var(--font-size-footnote);
 		}
 
 		.notes-grid {
 			grid-template-columns: 1fr;
-			gap: 16px;
+			gap: var(--spacing-lg);
 		}
 
 		.note-card {
-			padding: 16px;
+			padding: var(--spacing-lg);
 			border-radius: 10px;
 		}
 
 		.character {
-			font-size: 28px;
+			font-size: var(--font-size-title);
 		}
 
 		.note-content {
 			max-height: 150px;
-			font-size: 14px;
+			font-size: var(--font-size-footnote);
 		}
 	}
 
 	@media (max-width: 480px) {
 		.container {
-			padding: 16px 12px;
+			padding: var(--spacing-lg) var(--spacing-md);
 		}
 
 		.page-header h1 {
-			font-size: 28px;
+			font-size: 26px;
 		}
 
 		.note-card {
-			padding: 14px;
+			padding: var(--spacing-lg);
 		}
 
 		.character {

@@ -8,6 +8,7 @@
 	import HeadwordInfo from './HeadwordInfo.svelte';
 	import Reading from './Reading.svelte';
 	import Definitions from './Definitions.svelte';
+	import SpeakButton from '../shared/SpeakButton.svelte';
 
 	export let word: JapaneseWord;
 	export let accentDisplay: 'none' | 'binary' | 'binary-hi-contrast' = 'binary';
@@ -17,6 +18,9 @@
 
 	// Filter kana headwords - keep original dictionary order
 	const displayKana = word.kana.filter((k) => !k.tags.includes('sk')); // Remove search-only kana
+
+	// Get the text to speak - prefer kanji if available, otherwise use kana
+	$: speakText = displayKanji.length > 0 ? displayKanji[0].text : (displayKana.length > 0 ? displayKana[0].text : '');
 </script>
 
 <div class="word-entry">
@@ -65,6 +69,11 @@
 					</span>
 				{/each}
 			</span>
+		{/if}
+
+		<!-- Audio pronunciation -->
+		{#if speakText}
+			<SpeakButton text={speakText} lang="ja" size={18} />
 		{/if}
 	</div>
 

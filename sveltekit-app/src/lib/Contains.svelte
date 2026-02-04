@@ -88,7 +88,7 @@
 	.characters-row {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.75rem;
+		gap: var(--spacing-md);
 	}
 
 	.character-card {
@@ -98,7 +98,7 @@
 		text-align: center;
 		text-decoration: none;
 		color: inherit;
-		padding: 0.75rem 1rem;
+		padding: var(--spacing-md) var(--spacing-lg);
 		border-radius: 8px;
 		min-width: 80px;
 		transition: all 300ms ease;
@@ -132,26 +132,26 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: 0.125rem;
-		margin-top: 0.25rem;
+		gap: 2px;
+		margin-top: var(--spacing-xs);
 	}
 
 	.chinese-reading {
-		font-size: 0.75rem;
+		font-size: var(--font-size-caption1);
 		color: var(--color-pinyin);
 		font-weight: 500;
 	}
 
 	.japanese-reading {
-		font-size: 0.7rem;
+		font-size: var(--font-size-caption2);
 		color: var(--text-secondary);
 		font-weight: 400;
 	}
 
 	.definition {
-		font-size: 0.7rem;
+		font-size: var(--font-size-caption2);
 		color: var(--text-tertiary);
-		margin-top: 0.25rem;
+		margin-top: var(--spacing-xs);
 		line-height: 1.3;
 		max-width: 100px;
 		overflow: hidden;
@@ -160,14 +160,30 @@
 	}
 
 	.observer-target {
-		margin-top: 1rem;
-		padding: 8px;
+		margin-top: var(--spacing-lg);
+		padding: var(--spacing-sm);
 		text-align: center;
 	}
 
 	.remaining-count {
-		font-size: 11px;
+		font-size: var(--font-size-caption2);
 		color: var(--text-muted);
 		font-style: italic;
+	}
+
+	@media (max-width: 768px) {
+		.characters-row {
+			gap: var(--spacing-sm);
+		}
+
+		.character-card {
+			padding: var(--spacing-sm) var(--spacing-md);
+			min-width: 70px;
+			border-radius: 6px;
+		}
+
+		.character {
+			font-size: 1.75rem;
+		}
 	}
 </style>
