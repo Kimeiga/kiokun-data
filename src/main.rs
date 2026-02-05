@@ -42,66 +42,96 @@ use combined_types::{
 };
 use legacy_unification::semantic_unification_engine::SemanticUnificationEngine;
 
-/// Determines which shard a key belongs to based on Han character count and length
-/// This creates 10 shards optimized for GitHub deployment (32K-45K files each)
+/// Determines which shard a key belongs to based on Han character count and hash
+/// This creates 30 shards optimized for GitHub deployment (~10K-15K files each)
+/// Each shard also uses 256 subdirectories (00-ff) to keep directory listings small
+///
+/// ARCHITECTURE (30-shard system with subdirectories):
+/// =================================================
+/// - non-han-1 through non-han-4:     ~45K files / 4 = ~11K files each
+/// - han-1char-1 through han-1char-8: ~90K files / 8 = ~11K files each
+/// - han-2char-1 through han-2char-8: ~103K files / 8 = ~13K files each
+/// - han-3plus-1 through han-3plus-8: ~96K files / 8 = ~12K files each
+/// - reserved-1, reserved-2:          Empty (for future growth)
+///
+/// Each repo has 256 subdirectories (00-ff based on hash), so:
+/// - ~11K files / 256 subdirs = ~43 files per subdirectory
+///
+/// This keeps both repo size and directory listings well within GitHub's limits.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 enum ShardType {
-    // Non-Han (all non-Chinese: ~44,890 files)
-    NonHan,
+    // Non-Han (all non-Chinese: ~45K files → 4 shards)
+    NonHan1, NonHan2, NonHan3, NonHan4,
 
-    // Han 1-character split (89,626 total → 2 shards)
-    Han1Char1,  // ~44,813 files (hash-based split)
-    Han1Char2,  // ~44,813 files (hash-based split)
+    // Han 1-character split (90K total → 8 shards)
+    Han1Char1, Han1Char2, Han1Char3, Han1Char4,
+    Han1Char5, Han1Char6, Han1Char7, Han1Char8,
 
-    // Han 2-character split (102,800 total → 3 shards)
-    Han2Char1,  // ~34,267 files (hash-based split)
-    Han2Char2,  // ~34,267 files (hash-based split)
-    Han2Char3,  // ~34,266 files (hash-based split)
+    // Han 2-character split (103K total → 8 shards)
+    Han2Char1, Han2Char2, Han2Char3, Han2Char4,
+    Han2Char5, Han2Char6, Han2Char7, Han2Char8,
 
-    // Han 3+ character split (96,129 total → 3 shards)
-    Han3Plus1,  // ~32,043 files (hash-based split)
-    Han3Plus2,  // ~32,043 files (hash-based split)
-    Han3Plus3,  // ~32,043 files (hash-based split)
+    // Han 3+ character split (96K total → 8 shards)
+    Han3Plus1, Han3Plus2, Han3Plus3, Han3Plus4,
+    Han3Plus5, Han3Plus6, Han3Plus7, Han3Plus8,
 
-    // Reserved for future growth
-    Reserved,
+    // Reserved for future growth (2 shards)
+    Reserved1, Reserved2,
 }
 
 impl ShardType {
-    /// Determine shard type from a key string (10-shard system)
+    /// Determine shard type from a key string (30-shard system)
     fn from_key(key: &str) -> Self {
         let han_count = key.chars().filter(|c| is_han_character(*c)).count();
+        let hash = Self::simple_hash(key);
 
         match han_count {
             0 => {
-                // All non-Han characters (includes kana, Latin, etc.)
-                ShardType::NonHan
+                // All non-Han characters: split into 4 shards
+                match hash % 4 {
+                    0 => ShardType::NonHan1,
+                    1 => ShardType::NonHan2,
+                    2 => ShardType::NonHan3,
+                    _ => ShardType::NonHan4,
+                }
             }
             1 => {
-                // Single Han character: split into 2 shards using hash
-                let hash = Self::simple_hash(key);
-                if hash % 2 == 0 {
-                    ShardType::Han1Char1
-                } else {
-                    ShardType::Han1Char2
+                // Single Han character: split into 8 shards
+                match hash % 8 {
+                    0 => ShardType::Han1Char1,
+                    1 => ShardType::Han1Char2,
+                    2 => ShardType::Han1Char3,
+                    3 => ShardType::Han1Char4,
+                    4 => ShardType::Han1Char5,
+                    5 => ShardType::Han1Char6,
+                    6 => ShardType::Han1Char7,
+                    _ => ShardType::Han1Char8,
                 }
             }
             2 => {
-                // Two Han characters: split into 3 shards using hash
-                let hash = Self::simple_hash(key);
-                match hash % 3 {
+                // Two Han characters: split into 8 shards
+                match hash % 8 {
                     0 => ShardType::Han2Char1,
                     1 => ShardType::Han2Char2,
-                    _ => ShardType::Han2Char3,
+                    2 => ShardType::Han2Char3,
+                    3 => ShardType::Han2Char4,
+                    4 => ShardType::Han2Char5,
+                    5 => ShardType::Han2Char6,
+                    6 => ShardType::Han2Char7,
+                    _ => ShardType::Han2Char8,
                 }
             }
             _ => {
-                // Three or more Han characters: split into 3 shards using hash
-                let hash = Self::simple_hash(key);
-                match hash % 3 {
+                // Three or more Han characters: split into 8 shards
+                match hash % 8 {
                     0 => ShardType::Han3Plus1,
                     1 => ShardType::Han3Plus2,
-                    _ => ShardType::Han3Plus3,
+                    2 => ShardType::Han3Plus3,
+                    3 => ShardType::Han3Plus4,
+                    4 => ShardType::Han3Plus5,
+                    5 => ShardType::Han3Plus6,
+                    6 => ShardType::Han3Plus7,
+                    _ => ShardType::Han3Plus8,
                 }
             }
         }
@@ -113,37 +143,103 @@ impl ShardType {
         s.chars().fold(0usize, |acc, c| acc.wrapping_mul(31).wrapping_add(c as usize))
     }
 
-    /// Get the output directory name for this shard
-    fn output_dir(&self) -> &'static str {
+    /// Get the subdirectory for a key (first 2 hex digits of hash: 00-ff)
+    /// This creates 256 subdirectories per shard for optimal directory listing performance
+    pub fn get_subdir(key: &str) -> String {
+        let hash = Self::simple_hash(key);
+        format!("{:02x}", (hash & 0xFF) as u8)
+    }
+
+    /// Get the shard name (used for repo names and URLs)
+    fn shard_name(&self) -> &'static str {
         match self {
-            ShardType::NonHan => "output_non-han",
-            ShardType::Han1Char1 => "output_han-1char-1",
-            ShardType::Han1Char2 => "output_han-1char-2",
-            ShardType::Han2Char1 => "output_han-2char-1",
-            ShardType::Han2Char2 => "output_han-2char-2",
-            ShardType::Han2Char3 => "output_han-2char-3",
-            ShardType::Han3Plus1 => "output_han-3plus-1",
-            ShardType::Han3Plus2 => "output_han-3plus-2",
-            ShardType::Han3Plus3 => "output_han-3plus-3",
-            ShardType::Reserved => "output_reserved",
+            ShardType::NonHan1 => "non-han-1",
+            ShardType::NonHan2 => "non-han-2",
+            ShardType::NonHan3 => "non-han-3",
+            ShardType::NonHan4 => "non-han-4",
+            ShardType::Han1Char1 => "han-1char-1",
+            ShardType::Han1Char2 => "han-1char-2",
+            ShardType::Han1Char3 => "han-1char-3",
+            ShardType::Han1Char4 => "han-1char-4",
+            ShardType::Han1Char5 => "han-1char-5",
+            ShardType::Han1Char6 => "han-1char-6",
+            ShardType::Han1Char7 => "han-1char-7",
+            ShardType::Han1Char8 => "han-1char-8",
+            ShardType::Han2Char1 => "han-2char-1",
+            ShardType::Han2Char2 => "han-2char-2",
+            ShardType::Han2Char3 => "han-2char-3",
+            ShardType::Han2Char4 => "han-2char-4",
+            ShardType::Han2Char5 => "han-2char-5",
+            ShardType::Han2Char6 => "han-2char-6",
+            ShardType::Han2Char7 => "han-2char-7",
+            ShardType::Han2Char8 => "han-2char-8",
+            ShardType::Han3Plus1 => "han-3plus-1",
+            ShardType::Han3Plus2 => "han-3plus-2",
+            ShardType::Han3Plus3 => "han-3plus-3",
+            ShardType::Han3Plus4 => "han-3plus-4",
+            ShardType::Han3Plus5 => "han-3plus-5",
+            ShardType::Han3Plus6 => "han-3plus-6",
+            ShardType::Han3Plus7 => "han-3plus-7",
+            ShardType::Han3Plus8 => "han-3plus-8",
+            ShardType::Reserved1 => "reserved-1",
+            ShardType::Reserved2 => "reserved-2",
         }
     }
 
-    /// Parse from CLI mode string (10-shard system)
+    /// Get the output directory name for this shard (for local builds)
+    fn output_dir(&self) -> String {
+        format!("output_{}", self.shard_name())
+    }
+
+    /// Parse from CLI mode string (30-shard system)
     fn from_mode_str(mode: &str) -> Option<Self> {
         match mode {
-            "non-han" => Some(ShardType::NonHan),
+            "non-han-1" => Some(ShardType::NonHan1),
+            "non-han-2" => Some(ShardType::NonHan2),
+            "non-han-3" => Some(ShardType::NonHan3),
+            "non-han-4" => Some(ShardType::NonHan4),
             "han-1char-1" => Some(ShardType::Han1Char1),
             "han-1char-2" => Some(ShardType::Han1Char2),
+            "han-1char-3" => Some(ShardType::Han1Char3),
+            "han-1char-4" => Some(ShardType::Han1Char4),
+            "han-1char-5" => Some(ShardType::Han1Char5),
+            "han-1char-6" => Some(ShardType::Han1Char6),
+            "han-1char-7" => Some(ShardType::Han1Char7),
+            "han-1char-8" => Some(ShardType::Han1Char8),
             "han-2char-1" => Some(ShardType::Han2Char1),
             "han-2char-2" => Some(ShardType::Han2Char2),
             "han-2char-3" => Some(ShardType::Han2Char3),
+            "han-2char-4" => Some(ShardType::Han2Char4),
+            "han-2char-5" => Some(ShardType::Han2Char5),
+            "han-2char-6" => Some(ShardType::Han2Char6),
+            "han-2char-7" => Some(ShardType::Han2Char7),
+            "han-2char-8" => Some(ShardType::Han2Char8),
             "han-3plus-1" => Some(ShardType::Han3Plus1),
             "han-3plus-2" => Some(ShardType::Han3Plus2),
             "han-3plus-3" => Some(ShardType::Han3Plus3),
-            "reserved" => Some(ShardType::Reserved),
+            "han-3plus-4" => Some(ShardType::Han3Plus4),
+            "han-3plus-5" => Some(ShardType::Han3Plus5),
+            "han-3plus-6" => Some(ShardType::Han3Plus6),
+            "han-3plus-7" => Some(ShardType::Han3Plus7),
+            "han-3plus-8" => Some(ShardType::Han3Plus8),
+            "reserved-1" => Some(ShardType::Reserved1),
+            "reserved-2" => Some(ShardType::Reserved2),
             _ => None,
         }
+    }
+
+    /// Get all shard types (for iteration)
+    fn all_shards() -> Vec<ShardType> {
+        vec![
+            ShardType::NonHan1, ShardType::NonHan2, ShardType::NonHan3, ShardType::NonHan4,
+            ShardType::Han1Char1, ShardType::Han1Char2, ShardType::Han1Char3, ShardType::Han1Char4,
+            ShardType::Han1Char5, ShardType::Han1Char6, ShardType::Han1Char7, ShardType::Han1Char8,
+            ShardType::Han2Char1, ShardType::Han2Char2, ShardType::Han2Char3, ShardType::Han2Char4,
+            ShardType::Han2Char5, ShardType::Han2Char6, ShardType::Han2Char7, ShardType::Han2Char8,
+            ShardType::Han3Plus1, ShardType::Han3Plus2, ShardType::Han3Plus3, ShardType::Han3Plus4,
+            ShardType::Han3Plus5, ShardType::Han3Plus6, ShardType::Han3Plus7, ShardType::Han3Plus8,
+            ShardType::Reserved1, ShardType::Reserved2,
+        ]
     }
 }
 
@@ -270,11 +366,16 @@ async fn main() -> Result<()> {
             Arg::new("mode")
                 .long("mode")
                 .value_name("SHARD_TYPE")
-                .help("Specify which shard to build (10-shard system) or 'all' for all shards (default: all)")
+                .help("Specify which shard to build (30-shard system) or 'all' for all shards (default: all)")
                 .value_parser([
-                    "non-han", "han-1char-1", "han-1char-2", "han-2char-1",
-                    "han-2char-2", "han-2char-3", "han-3plus-1", "han-3plus-2",
-                    "han-3plus-3", "reserved", "all"
+                    "non-han-1", "non-han-2", "non-han-3", "non-han-4",
+                    "han-1char-1", "han-1char-2", "han-1char-3", "han-1char-4",
+                    "han-1char-5", "han-1char-6", "han-1char-7", "han-1char-8",
+                    "han-2char-1", "han-2char-2", "han-2char-3", "han-2char-4",
+                    "han-2char-5", "han-2char-6", "han-2char-7", "han-2char-8",
+                    "han-3plus-1", "han-3plus-2", "han-3plus-3", "han-3plus-4",
+                    "han-3plus-5", "han-3plus-6", "han-3plus-7", "han-3plus-8",
+                    "reserved-1", "reserved-2", "all"
                 ])
                 .default_value("all"),
         )
@@ -576,7 +677,7 @@ async fn main() -> Result<()> {
     let shard_filter: Option<ShardType> = ShardType::from_mode_str(mode_str);
 
     if mode_str != "all" && shard_filter.is_none() {
-        anyhow::bail!("Invalid mode: {}. Use --help to see all 10 available shard types or 'all'", mode_str);
+        anyhow::bail!("Invalid mode: {}. Use --help to see all 30 available shard types or 'all'", mode_str);
     }
 
     if let Some(shard) = shard_filter {
@@ -2756,6 +2857,7 @@ fn generate_frequency_list(
 }
 
 /// Write individual compressed JSON files (production mode)
+/// Files are organized into subdirectories (00-ff) based on hash for optimal GitHub performance
 fn write_individual_files(
     outputs_vec: &[(String, simple_output_types::SimpleOutput)],
     output_dir: &std::path::Path,
@@ -2768,14 +2870,33 @@ fn write_individual_files(
     use std::io::Write;
     use flate2::write::DeflateEncoder;
     use flate2::Compression;
+    use std::collections::HashSet;
 
     // Use level 9 (best) for production, level 6 (fast) for development
     let compression_level = if prod_mode { 9 } else { 6 };
 
+    // Collect all subdirectories we'll need to create
+    let subdirs_needed: HashSet<String> = outputs_vec
+        .iter()
+        .map(|(key, _)| ShardType::get_subdir(key))
+        .collect();
+
+    // Create all subdirectories upfront
+    println!("📁 Creating {} subdirectories (00-ff based on hash)...", subdirs_needed.len());
+    for subdir in &subdirs_needed {
+        let subdir_path = output_dir.join(subdir);
+        if !subdir_path.exists() {
+            fs::create_dir_all(&subdir_path)
+                .map_err(|e| anyhow::anyhow!("Failed to create subdir '{}': {}", subdir_path.display(), e))?;
+        }
+    }
+
+    // Serialize entries with their subdirectory info
     let serialized: Result<Vec<_>, anyhow::Error> = outputs_vec
         .par_iter()
-        .map(|(key, entry)| -> Result<(String, Vec<u8>), anyhow::Error> {
+        .map(|(key, entry)| -> Result<(String, String, Vec<u8>), anyhow::Error> {
             let safe_filename = create_safe_filename(key);
+            let subdir = ShardType::get_subdir(key);
 
             // Serialize to JSON
             let json_content = serde_json::to_string(entry)
@@ -2788,21 +2909,22 @@ fn write_individual_files(
             let compressed = encoder.finish()
                 .map_err(|e| anyhow::anyhow!("Failed to finish compression for '{}': {}", key, e))?;
 
-            Ok((safe_filename, compressed))
+            Ok((subdir, safe_filename, compressed))
         })
         .collect();
 
     let serialized = serialized?;
 
-    println!("💾 Writing {} compressed files to disk...", serialized.len());
+    println!("💾 Writing {} compressed files to disk (with subdirectories)...", serialized.len());
     let counter = Arc::new(AtomicUsize::new(0));
 
     // Write compressed files in parallel
     let results: Result<Vec<_>, anyhow::Error> = serialized
         .par_iter()
-        .map(|(safe_filename, compressed_content)| -> Result<(), anyhow::Error> {
+        .map(|(subdir, safe_filename, compressed_content)| -> Result<(), anyhow::Error> {
             let counter = Arc::clone(&counter);
-            let file_path = output_dir.join(format!("{}.json.deflate", safe_filename));
+            // Files go into subdirectory: output_dir/XX/filename.json.deflate
+            let file_path = output_dir.join(subdir).join(format!("{}.json.deflate", safe_filename));
 
             // Write compressed bytes directly
             std::fs::write(&file_path, compressed_content)
@@ -2820,13 +2942,13 @@ fn write_individual_files(
     results?;
 
     println!("✅ Successfully generated {} compressed JSON files!", total);
-    println!("📁 Files saved to: output_dictionary/");
+    println!("📁 Files saved to: output_dictionary/XX/ (256 subdirectories)");
     if prod_mode {
         println!("💡 Compression: Deflate level 9 (maximum compression for production)");
     } else {
         println!("💡 Compression: Deflate level 6 (fast builds for development)");
     }
-    println!("💡 Usage: Files are compressed with .deflate extension");
+    println!("💡 Structure: Each file is in a subdirectory based on hash (00-ff)");
 
     Ok(())
 }

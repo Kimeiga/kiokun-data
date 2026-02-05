@@ -1,4 +1,4 @@
-name: Deploy Dictionary to 10 GitHub Repos (jsDelivr CDN - Deflate Compressed)
+name: Deploy Dictionary to 30 GitHub Repos (jsDelivr CDN - Deflate Compressed)
 
 on:
   push:
@@ -16,18 +16,43 @@ jobs:
     strategy:
       matrix:
         shard:
-          - non-han
+          # Non-Han shards (4 shards, ~11K files each)
+          - non-han-1
+          - non-han-2
+          - non-han-3
+          - non-han-4
+          # Han 1-character shards (8 shards, ~11K files each)
           - han-1char-1
           - han-1char-2
+          - han-1char-3
+          - han-1char-4
+          - han-1char-5
+          - han-1char-6
+          - han-1char-7
+          - han-1char-8
+          # Han 2-character shards (8 shards, ~13K files each)
           - han-2char-1
           - han-2char-2
           - han-2char-3
+          - han-2char-4
+          - han-2char-5
+          - han-2char-6
+          - han-2char-7
+          - han-2char-8
+          # Han 3+ character shards (8 shards, ~12K files each)
           - han-3plus-1
           - han-3plus-2
           - han-3plus-3
-          - reserved
+          - han-3plus-4
+          - han-3plus-5
+          - han-3plus-6
+          - han-3plus-7
+          - han-3plus-8
+          # Reserved shards (2 shards, empty for future growth)
+          - reserved-1
+          - reserved-2
       fail-fast: false  # Continue even if one shard fails
-      max-parallel: 10  # Deploy all 10 shards in parallel
+      max-parallel: 30  # Deploy all 30 shards in parallel
     
     steps:
       - name: Checkout source code
@@ -88,8 +113,12 @@ jobs:
           SHARD_DIR="output_dictionary"
           if [ -d "$SHARD_DIR" ]; then
             FILE_COUNT=$(find "$SHARD_DIR" -name "*.deflate" | wc -l)
+            SUBDIR_COUNT=$(find "$SHARD_DIR" -mindepth 1 -maxdepth 1 -type d | wc -l)
             echo "file_count=$FILE_COUNT" >> $GITHUB_OUTPUT
-            echo "✓ Shard ${{ matrix.shard }}: $FILE_COUNT files"
+            echo "✓ Shard ${{ matrix.shard }}: $FILE_COUNT files in $SUBDIR_COUNT subdirectories"
+            # Show sample of subdirectory structure
+            echo "📁 Subdirectory structure (first 5):"
+            ls -la "$SHARD_DIR" | head -10
           else
             echo "❌ Shard directory $SHARD_DIR not found!"
             echo "Available directories:"
@@ -102,17 +131,17 @@ jobs:
           FILE_COUNT=${{ steps.count.outputs.file_count }}
           SHARD="${{ matrix.shard }}"
 
-          # Allow reserved shard to be empty (it's for future growth)
-          if [ "$SHARD" = "reserved" ]; then
+          # Allow reserved shards to be empty (they're for future growth)
+          if [[ "$SHARD" == reserved-* ]]; then
             echo "✓ Reserved shard can be empty (has $FILE_COUNT files)"
-          elif [ "$FILE_COUNT" -lt 1000 ]; then
-            echo "❌ Error: Only $FILE_COUNT files generated (expected at least 1,000)"
+          elif [ "$FILE_COUNT" -lt 500 ]; then
+            echo "❌ Error: Only $FILE_COUNT files generated (expected at least 500)"
             exit 1
-          elif [ "$FILE_COUNT" -gt 500000 ]; then
-            echo "❌ Error: $FILE_COUNT files generated (expected max 500,000)"
+          elif [ "$FILE_COUNT" -gt 20000 ]; then
+            echo "❌ Error: $FILE_COUNT files generated (expected max 20,000 per shard)"
             exit 1
           else
-            echo "✓ File count looks good: $FILE_COUNT files (10-shard system)"
+            echo "✓ File count looks good: $FILE_COUNT files (30-shard system with subdirectories)"
           fi
       
       - name: Clone target repository

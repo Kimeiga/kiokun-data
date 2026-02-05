@@ -1,34 +1,52 @@
 /**
  * Shard utilities for the Kiokun dictionary
- * 
- * This module handles the 10-shard distribution system that optimally distributes 
+ *
+ * This module handles the 30-shard distribution system that optimally distributes
  * dictionary entries across GitHub repositories for fast jsDelivr CDN delivery.
- * 
- * ARCHITECTURE OVERVIEW:
- * ===================
- * The system uses 10 GitHub repositories (kiokun2-dict-*) to store ~435K dictionary files:
- * 
- * 1. non-han           : ~45K files (all non-Chinese: English, kana, etc.)
- * 2. han-1char-1       : ~45K files (single Han chars, hash split 1/2)  
- * 3. han-1char-2       : ~45K files (single Han chars, hash split 2/2)
- * 4. han-2char-1       : ~34K files (2-char words, hash split 1/3)
- * 5. han-2char-2       : ~34K files (2-char words, hash split 2/3) 
- * 6. han-2char-3       : ~34K files (2-char words, hash split 3/3)
- * 7. han-3plus-1       : ~32K files (3+ char words, hash split 1/3)
- * 8. han-3plus-2       : ~32K files (3+ char words, hash split 2/3)
- * 9. han-3plus-3       : ~32K files (3+ char words, hash split 3/3)
- * 10. reserved         : Empty (for future growth)
- * 
+ *
+ * ARCHITECTURE OVERVIEW (30-shard system with subdirectories):
+ * ===========================================================
+ * The system uses 30 GitHub repositories (kiokun2-dict-*) to store ~435K dictionary files:
+ *
+ * Non-Han (4 shards, ~11K files each):
+ *   non-han-1, non-han-2, non-han-3, non-han-4
+ *
+ * Han 1-character (8 shards, ~11K files each):
+ *   han-1char-1 through han-1char-8
+ *
+ * Han 2-character (8 shards, ~13K files each):
+ *   han-2char-1 through han-2char-8
+ *
+ * Han 3+ character (8 shards, ~12K files each):
+ *   han-3plus-1 through han-3plus-8
+ *
+ * Reserved (2 shards, empty for future growth):
+ *   reserved-1, reserved-2
+ *
+ * SUBDIRECTORY STRUCTURE:
+ * Each shard uses 256 subdirectories (00-ff) based on hash to keep directory listings small:
+ *   kiokun2-dict-non-han-1/
+ *   ├── 00/
+ *   │   ├── word1.json.deflate
+ *   │   └── word2.json.deflate
+ *   ├── 01/
+ *   ...
+ *   └── ff/
+ *
+ * This results in ~40-50 files per subdirectory, well within GitHub's limits.
+ *
  * PERFORMANCE BENEFITS:
- * - Each repo under jsDelivr's 50MB limit (individual files work perfectly)
- * - 61% faster deployment (1m16s vs 3m12s for old 23-shard system)
- * - All shards deploy in parallel (no batching needed)
+ * - Each repo has ~10-13K files (vs 45K before)
+ * - Each subdirectory has ~40-50 files (vs 45K before)
+ * - Commit tree size ~6-8MB (vs 26MB before)
+ * - All shards deploy in parallel
  * - Global CDN distribution via jsDelivr
  * - $0/month cost
- * 
+ *
  * MIGRATION HISTORY:
  * - 2025-01: Migrated from Cloudflare R2 (expensive) to GitHub + jsDelivr (free)
  * - 2025-01: Optimized from 23-shard to 10-shard system for faster deployment
+ * - 2025-02: Expanded to 30-shard system with subdirectories to address GitHub limits
  */
 
 // Simple hash function to distribute words evenly across shards
@@ -66,36 +84,51 @@ function countHanCharacters(word: string): number {
 }
 
 /**
- * Get the shard identifier for a given word using the 10-shard system
- * 
+ * Get the shard identifier for a given word using the 30-shard system
+ *
  * SHARDING LOGIC:
- * - 0 Han chars: "non-han" shard (all non-Chinese content)
- * - 1 Han char:  "han-1char-1" or "han-1char-2" (hash-based split)
- * - 2 Han chars: "han-2char-1/2/3" (hash-based 3-way split) 
- * - 3+ Han chars: "han-3plus-1/2/3" (hash-based 3-way split)
- * 
+ * - 0 Han chars: "non-han-1" through "non-han-4" (4-way hash split)
+ * - 1 Han char:  "han-1char-1" through "han-1char-8" (8-way hash split)
+ * - 2 Han chars: "han-2char-1" through "han-2char-8" (8-way hash split)
+ * - 3+ Han chars: "han-3plus-1" through "han-3plus-8" (8-way hash split)
+ *
  * @param word - The dictionary word to find the shard for
- * @returns Shard identifier string (e.g., "non-han", "han-1char-1")
+ * @returns Shard identifier string (e.g., "non-han-1", "han-1char-3")
  */
 export function getShardName(word: string): string {
   const hanCount = countHanCharacters(word);
   const hash = simpleHash(word);
-  
+
   if (hanCount === 0) {
-    // All non-Han characters (English, kana, symbols, etc.)
-    return 'non-han';
+    // All non-Han characters: split into 4 shards
+    const shardNum = (hash % 4) + 1;
+    return `non-han-${shardNum}`;
   } else if (hanCount === 1) {
-    // Single Han character: split into 2 shards using hash
-    return hash % 2 === 0 ? 'han-1char-1' : 'han-1char-2';
+    // Single Han character: split into 8 shards
+    const shardNum = (hash % 8) + 1;
+    return `han-1char-${shardNum}`;
   } else if (hanCount === 2) {
-    // Two Han characters: split into 3 shards using hash
-    const shardNum = (hash % 3) + 1;
+    // Two Han characters: split into 8 shards
+    const shardNum = (hash % 8) + 1;
     return `han-2char-${shardNum}`;
   } else {
-    // Three or more Han characters: split into 3 shards using hash
-    const shardNum = (hash % 3) + 1;
+    // Three or more Han characters: split into 8 shards
+    const shardNum = (hash % 8) + 1;
     return `han-3plus-${shardNum}`;
   }
+}
+
+/**
+ * Get the subdirectory for a word (first 2 hex digits of hash: 00-ff)
+ * This creates 256 subdirectories per shard for optimal directory listing performance
+ *
+ * @param word - The dictionary word
+ * @returns Subdirectory string (e.g., "a3", "00", "ff")
+ */
+export function getSubdir(word: string): string {
+  const hash = simpleHash(word);
+  // Get the lowest 8 bits and format as 2-digit hex
+  return (hash & 0xFF).toString(16).padStart(2, '0');
 }
 
 
@@ -104,7 +137,10 @@ export function getShardName(word: string): string {
  * Get the raw GitHub URL for a dictionary word (bypasses jsDelivr CDN)
  *
  * RAW GITHUB URL FORMAT:
- * https://raw.githubusercontent.com/Kimeiga/kiokun2-dict-{shard}/main/{word}.json.deflate
+ * https://raw.githubusercontent.com/Kimeiga/kiokun2-dict-{shard}/main/{subdir}/{word}.json.deflate
+ *
+ * The subdir is the first 2 hex digits of the hash (00-ff), creating 256 subdirectories
+ * per shard for optimal GitHub performance.
  *
  * Use this as a fallback when jsDelivr cache is stale or for testing.
  *
@@ -113,9 +149,10 @@ export function getShardName(word: string): string {
  */
 export function getRawGitHubUrl(word: string): string {
   const shard = getShardName(word);
+  const subdir = getSubdir(word);
   // URL encode the word to handle special characters like %
   const encodedWord = encodeURIComponent(word);
-  return `https://raw.githubusercontent.com/Kimeiga/kiokun2-dict-${shard}/main/${encodedWord}.json.deflate`;
+  return `https://raw.githubusercontent.com/Kimeiga/kiokun2-dict-${shard}/main/${subdir}/${encodedWord}.json.deflate`;
 }
 
 // Cache for the CORS server port
@@ -159,10 +196,13 @@ async function getCorsPort(fetchFn: typeof fetch = fetch): Promise<number> {
  * Get the local development URL for a dictionary word
  *
  * LOCAL DEVELOPMENT URL FORMAT:
- * http://localhost:{PORT}/{word}.json.deflate
+ * http://localhost:{PORT}/{subdir}/{word}.json.deflate
  *
  * The port is dynamically determined by the CORS server (cors_server.py)
  * which writes the port number to output_dictionary/.cors_port
+ *
+ * The subdir is the first 2 hex digits of the hash (00-ff), matching the
+ * production subdirectory structure.
  *
  * This assumes you're running the CORS server in the output_dictionary folder:
  * cd output_dictionary && python3 cors_server.py
@@ -172,9 +212,10 @@ async function getCorsPort(fetchFn: typeof fetch = fetch): Promise<number> {
  * @returns Full local URL for the word's compressed JSON file
  */
 export async function getLocalUrl(word: string, fetchFn: typeof fetch = fetch): Promise<string> {
+  const subdir = getSubdir(word);
   const encodedWord = encodeURIComponent(word);
   const port = await getCorsPort(fetchFn);
-  return `http://localhost:${port}/${encodedWord}.json.deflate`;
+  return `http://localhost:${port}/${subdir}/${encodedWord}.json.deflate`;
 }
 
 /**
@@ -207,11 +248,14 @@ export async function getDictionaryUrl(word: string, dev: boolean = false, fetch
 export const getShardNumber = (word: string): number => {
   const shard = getShardName(word);
   const mapping: Record<string, number> = {
-    'non-han': 0,
-    'han-1char-1': 1, 'han-1char-2': 2,
-    'han-2char-1': 3, 'han-2char-2': 4, 'han-2char-3': 5,
-    'han-3plus-1': 6, 'han-3plus-2': 7, 'han-3plus-3': 8,
-    'reserved': 9
+    'non-han-1': 0, 'non-han-2': 1, 'non-han-3': 2, 'non-han-4': 3,
+    'han-1char-1': 4, 'han-1char-2': 5, 'han-1char-3': 6, 'han-1char-4': 7,
+    'han-1char-5': 8, 'han-1char-6': 9, 'han-1char-7': 10, 'han-1char-8': 11,
+    'han-2char-1': 12, 'han-2char-2': 13, 'han-2char-3': 14, 'han-2char-4': 15,
+    'han-2char-5': 16, 'han-2char-6': 17, 'han-2char-7': 18, 'han-2char-8': 19,
+    'han-3plus-1': 20, 'han-3plus-2': 21, 'han-3plus-3': 22, 'han-3plus-4': 23,
+    'han-3plus-5': 24, 'han-3plus-6': 25, 'han-3plus-7': 26, 'han-3plus-8': 27,
+    'reserved-1': 28, 'reserved-2': 29
   };
   return mapping[shard] || 0;
 };
