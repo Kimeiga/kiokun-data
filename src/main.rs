@@ -229,6 +229,7 @@ impl ShardType {
     }
 
     /// Get all shard types (for iteration)
+    #[allow(dead_code)]
     fn all_shards() -> Vec<ShardType> {
         vec![
             ShardType::NonHan1, ShardType::NonHan2, ShardType::NonHan3, ShardType::NonHan4,
