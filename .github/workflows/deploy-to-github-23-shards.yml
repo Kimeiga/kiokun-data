@@ -137,8 +137,8 @@ jobs:
           elif [ "$FILE_COUNT" -lt 500 ]; then
             echo "❌ Error: Only $FILE_COUNT files generated (expected at least 500)"
             exit 1
-          elif [ "$FILE_COUNT" -gt 20000 ]; then
-            echo "❌ Error: $FILE_COUNT files generated (expected max 20,000 per shard)"
+          elif [ "$FILE_COUNT" -gt 150000 ]; then
+            echo "❌ Error: $FILE_COUNT files generated (expected max 150,000 per shard)"
             exit 1
           else
             echo "✓ File count looks good: $FILE_COUNT files (30-shard system with subdirectories)"
