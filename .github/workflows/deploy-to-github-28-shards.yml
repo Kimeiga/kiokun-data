@@ -1,4 +1,4 @@
-name: Deploy Dictionary to 30 GitHub Repos (jsDelivr CDN - Deflate Compressed)
+name: Deploy Dictionary to 28 GitHub Repos (jsDelivr CDN - Deflate Compressed)
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
       - 'src/**'
       - 'data/**'
       - 'Cargo.toml'
-      - '.github/workflows/deploy-to-github-23-shards.yml'
+      - '.github/workflows/deploy-to-github-28-shards.yml'
   workflow_dispatch:  # Manual trigger also available
 
 jobs:
@@ -48,11 +48,8 @@ jobs:
           - han-3plus-6
           - han-3plus-7
           - han-3plus-8
-          # Reserved shards (2 shards, empty for future growth)
-          - reserved-1
-          - reserved-2
       fail-fast: false  # Continue even if one shard fails
-      max-parallel: 30  # Deploy all 30 shards in parallel
+      max-parallel: 28  # Deploy all 28 shards in parallel
     
     steps:
       - name: Checkout source code
@@ -131,10 +128,7 @@ jobs:
           FILE_COUNT=${{ steps.count.outputs.file_count }}
           SHARD="${{ matrix.shard }}"
 
-          # Allow reserved shards to be empty (they're for future growth)
-          if [[ "$SHARD" == reserved-* ]]; then
-            echo "✓ Reserved shard can be empty (has $FILE_COUNT files)"
-          elif [ "$FILE_COUNT" -lt 500 ]; then
+          if [ "$FILE_COUNT" -lt 500 ]; then
             echo "❌ Error: Only $FILE_COUNT files generated (expected at least 500)"
             exit 1
           elif [ "$FILE_COUNT" -gt 150000 ]; then

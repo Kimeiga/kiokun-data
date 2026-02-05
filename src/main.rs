@@ -52,7 +52,7 @@ use legacy_unification::semantic_unification_engine::SemanticUnificationEngine;
 /// - han-1char-1 through han-1char-8: ~90K files / 8 = ~11K files each
 /// - han-2char-1 through han-2char-8: ~103K files / 8 = ~13K files each
 /// - han-3plus-1 through han-3plus-8: ~96K files / 8 = ~12K files each
-/// - reserved-1, reserved-2:          Empty (for future growth)
+
 ///
 /// Each repo has 256 subdirectories (00-ff based on hash), so:
 /// - ~11K files / 256 subdirs = ~43 files per subdirectory
@@ -74,9 +74,6 @@ enum ShardType {
     // Han 3+ character split (96K total → 8 shards)
     Han3Plus1, Han3Plus2, Han3Plus3, Han3Plus4,
     Han3Plus5, Han3Plus6, Han3Plus7, Han3Plus8,
-
-    // Reserved for future growth (2 shards)
-    Reserved1, Reserved2,
 }
 
 impl ShardType {
@@ -181,8 +178,6 @@ impl ShardType {
             ShardType::Han3Plus6 => "han-3plus-6",
             ShardType::Han3Plus7 => "han-3plus-7",
             ShardType::Han3Plus8 => "han-3plus-8",
-            ShardType::Reserved1 => "reserved-1",
-            ShardType::Reserved2 => "reserved-2",
         }
     }
 
@@ -222,8 +217,6 @@ impl ShardType {
             "han-3plus-6" => Some(ShardType::Han3Plus6),
             "han-3plus-7" => Some(ShardType::Han3Plus7),
             "han-3plus-8" => Some(ShardType::Han3Plus8),
-            "reserved-1" => Some(ShardType::Reserved1),
-            "reserved-2" => Some(ShardType::Reserved2),
             _ => None,
         }
     }
@@ -239,7 +232,6 @@ impl ShardType {
             ShardType::Han2Char5, ShardType::Han2Char6, ShardType::Han2Char7, ShardType::Han2Char8,
             ShardType::Han3Plus1, ShardType::Han3Plus2, ShardType::Han3Plus3, ShardType::Han3Plus4,
             ShardType::Han3Plus5, ShardType::Han3Plus6, ShardType::Han3Plus7, ShardType::Han3Plus8,
-            ShardType::Reserved1, ShardType::Reserved2,
         ]
     }
 }
@@ -376,7 +368,7 @@ async fn main() -> Result<()> {
                     "han-2char-5", "han-2char-6", "han-2char-7", "han-2char-8",
                     "han-3plus-1", "han-3plus-2", "han-3plus-3", "han-3plus-4",
                     "han-3plus-5", "han-3plus-6", "han-3plus-7", "han-3plus-8",
-                    "reserved-1", "reserved-2", "all"
+                    "all"
                 ])
                 .default_value("all"),
         )
