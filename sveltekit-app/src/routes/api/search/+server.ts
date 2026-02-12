@@ -9,6 +9,7 @@ interface SearchResult {
 	language: string;
 	definition: string;
 	pronunciation: string;
+	reading_search: string;
 	is_common: boolean;
 }
 
@@ -51,7 +52,9 @@ export async function GET({ url, platform }: RequestEvent) {
 	try {
 		// Use FTS5 MATCH query for full-text search
 		// The query is automatically tokenized and stemmed by FTS5
-		// We search across the definition column
+		// We search across definition and reading_search columns
+		// reading_search enables romaji search for Japanese (e.g., "zenkoku" → 全国)
+		// and pinyin search for Chinese (e.g., "zhongguo" → 中國)
 		const results = await platform.env.DB
 			.prepare(`
 				SELECT
@@ -59,12 +62,17 @@ export async function GET({ url, platform }: RequestEvent) {
 					language,
 					definition,
 					pronunciation,
+					reading_search,
 					is_common,
 					-- Calculate custom relevance score
 					CASE
-						-- Exact match gets highest priority
+						-- Exact match on definition gets highest priority
 						WHEN LOWER(definition) = LOWER(?) THEN 1000
-						-- Starts with query gets high priority
+						-- Exact match on reading_search (romaji/pinyin) gets very high priority
+						WHEN LOWER(reading_search) = LOWER(?) THEN 900
+						-- Reading starts with query gets high priority (e.g., "zen" matches "zenkoku")
+						WHEN LOWER(reading_search) LIKE LOWER(? || '%') THEN 600
+						-- Definition starts with query gets high priority
 						WHEN LOWER(definition) LIKE LOWER(? || '%') THEN 500
 						-- Contains query as whole word gets medium priority
 						WHEN LOWER(definition) LIKE LOWER('% ' || ? || ' %')
@@ -81,7 +89,7 @@ export async function GET({ url, platform }: RequestEvent) {
 					rank                -- FTS5 relevance last
 				LIMIT ?
 			`)
-			.bind(query, query, query, query, query, query, limit * 3) // Get more results for grouping
+			.bind(query, query, query, query, query, query, query, query, limit * 3) // Get more results for grouping
 			.all();
 		
 		if (!results.success) {

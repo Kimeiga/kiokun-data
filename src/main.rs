@@ -10,6 +10,8 @@ mod analysis;
 mod simple_output_types;
 mod word_preview_types;
 mod search_index_builder;
+mod romaji;
+mod pinyin;
 
 // Legacy unification code (not used in default simple output)
 mod legacy_unification {
