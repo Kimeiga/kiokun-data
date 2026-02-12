@@ -1367,8 +1367,6 @@ fn build_korean_character_map(
     kanjidic_entries: &[KanjiCharacter],
     unihan_path: Option<&str>,
 ) -> std::collections::HashMap<String, korean_types::KoreanCharacter> {
-    use std::collections::HashMap;
-
     // Start with KANJIDIC2 (primary source - has both Hangul and romanization)
     let mut korean_chars = extract_kanjidic_korean_readings(kanjidic_entries);
     let kanjidic_count = korean_chars.len();

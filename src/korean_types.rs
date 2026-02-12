@@ -131,6 +131,7 @@ pub struct KoreanReading {
 }
 
 /// Container for Korean dictionary data
+#[allow(dead_code)]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct KoreanDictionary {
     pub words: Vec<KoreanWord>,

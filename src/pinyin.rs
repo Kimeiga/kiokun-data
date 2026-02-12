@@ -63,6 +63,7 @@ pub fn normalize_pinyin(pinyin: &str) -> String {
 /// Process a pinyin_search_string field which may contain multiple readings
 /// e.g., "qiū qiu1 qiu" → "qiu"
 /// Returns a deduplicated, space-separated list of normalized readings
+#[allow(dead_code)]
 pub fn normalize_pinyin_search_string(search_string: &str) -> String {
     if search_string.is_empty() {
         return String::new();
