@@ -1,6 +1,7 @@
 // Core types - Testing auto-deployment 2025-01-27
 mod chinese_types;
 mod japanese_types;
+mod korean_types;
 mod chinese_char_types;
 mod japanese_char_types;
 mod ids_types;
@@ -716,6 +717,19 @@ async fn main() -> Result<()> {
             .context("Failed to load JMnedict")?
     };
 
+    // Load Korean dictionary (KRDICT)
+    let korean_words = if excluded_dicts.contains(&"krdict".to_string()) {
+        println!("⏭️  Skipping Korean dictionary (KRDICT)");
+        Vec::new()
+    } else if std::path::Path::new("data/krdict-en").exists() {
+        println!("📚 Loading Korean dictionary (KRDICT)...");
+        load_korean_dictionary("data/krdict-en")
+            .context("Failed to load Korean dictionary")?
+    } else {
+        println!("⚠️  Korean dictionary not found at data/krdict-en, skipping");
+        Vec::new()
+    };
+
     println!("📚 Loading IDS (character decomposition) database...");
     let ids_database = load_all_ids_files()
         .context("Failed to load IDS files")?;
@@ -735,6 +749,16 @@ async fn main() -> Result<()> {
     println!("🔧 Enriching makemeahanzi images with stroke-component mappings...");
     enrich_makemeahanzi_with_matches(&mut chinese_char_dict_raw, &makemeahanzi_matches);
 
+    // Build Korean character reading map
+    println!("🇰🇷 Building Korean character reading map...");
+    let unihan_path = if std::path::Path::new("data/unihan/Unihan_Readings.txt").exists() {
+        Some("data/unihan/Unihan_Readings.txt")
+    } else {
+        println!("  ℹ️  Unihan not found, using KANJIDIC2 only for Korean readings");
+        None
+    };
+    let korean_char_map = build_korean_character_map(&japanese_char_dict_raw.characters, unihan_path);
+
     // Generate output files (or SQLite database in dev server mode)
     if dev_server_mode {
         println!("🔄 Generating SQLite database for dev server...");
@@ -747,6 +771,8 @@ async fn main() -> Result<()> {
         &chinese_char_dict_raw,
         &japanese_char_dict_raw.characters,
         &jmnedict_entries,
+        &korean_words,
+        &korean_char_map,
         shard_filter,
         filter_characters.as_deref(),
         prod_mode,
@@ -840,10 +866,569 @@ fn load_jmnedict(path: &str) -> Result<Vec<JmnedictEntry>> {
     let jmnedict_root: JmnedictRoot = serde_json::from_reader(reader)
         .with_context(|| format!("Failed to parse JMnedict JSON: {}", path))?;
     
-    println!("  ✅ Loaded {} JMnedict entries (version: {})", 
+    println!("  ✅ Loaded {} JMnedict entries (version: {})",
              jmnedict_root.words.len(), jmnedict_root.version);
-    
+
     Ok(jmnedict_root.words)
+}
+
+/// Load Korean dictionary from KRDICT Yomitan format
+/// This parses the term_bank_*.json files and extracts Korean words
+fn load_korean_dictionary(dir_path: &str) -> Result<Vec<korean_types::KoreanWord>> {
+    use regex::Regex;
+    use std::collections::HashSet;
+
+    println!("📖 Loading Korean dictionary from {}", dir_path);
+
+    // Find all term bank files
+    let mut term_bank_files: Vec<_> = std::fs::read_dir(dir_path)?
+        .filter_map(|e| e.ok())
+        .filter(|e| {
+            e.file_name().to_string_lossy().starts_with("term_bank_")
+                && e.file_name().to_string_lossy().ends_with(".json")
+        })
+        .collect();
+
+    term_bank_files.sort_by_key(|e| e.file_name());
+
+    if term_bank_files.is_empty() {
+        anyhow::bail!("No term_bank_*.json files found in {}", dir_path);
+    }
+
+    // Regex to extract Hanja from content (〔親〕 format)
+    let hanja_regex = Regex::new(r"〔([^〕]+)〕").unwrap();
+
+    // Track processed entries to avoid duplicates (Hangul entries only)
+    let mut processed: HashSet<String> = HashSet::new();
+    let mut words: Vec<korean_types::KoreanWord> = Vec::new();
+
+    for entry in &term_bank_files {
+        let file_path = entry.path();
+        let content = std::fs::read_to_string(&file_path)
+            .with_context(|| format!("Failed to read {:?}", file_path))?;
+
+        // Parse as array of arrays
+        let entries: Vec<serde_json::Value> = serde_json::from_str(&content)
+            .with_context(|| format!("Failed to parse {:?}", file_path))?;
+
+        for entry_val in entries {
+            if let Some(arr) = entry_val.as_array() {
+                if arr.len() < 7 {
+                    continue;
+                }
+
+                let term = arr[0].as_str().unwrap_or("");
+                let _reading = arr[1].as_str().unwrap_or("");
+                let tags = arr[2].as_str().unwrap_or("");
+                let definitions = &arr[5];
+                let sequence = arr[6].as_i64().unwrap_or(0);
+
+                // Skip if term is empty
+                if term.is_empty() {
+                    continue;
+                }
+
+                // Check if term is Hangul or Hanja
+                // Hangul Unicode range: U+AC00 - U+D7AF (syllables) or U+1100 - U+11FF (jamo)
+                let is_hangul = term.chars().next().map_or(false, |c| {
+                    ('\u{AC00}'..='\u{D7AF}').contains(&c) ||
+                    ('\u{1100}'..='\u{11FF}').contains(&c) ||
+                    ('\u{3130}'..='\u{318F}').contains(&c)
+                });
+
+                // Only process Hangul entries (skip Hanja-indexed duplicates)
+                if !is_hangul {
+                    continue;
+                }
+
+                // Create unique key to avoid duplicates
+                let unique_key = format!("{}_{}", term, sequence);
+                if processed.contains(&unique_key) {
+                    continue;
+                }
+                processed.insert(unique_key);
+
+                // Extract data from structured content
+                let (extracted_defs, extracted_hanja, extracted_examples) =
+                    extract_korean_content(definitions, &hanja_regex);
+
+                // Parse part of speech from tags
+                let pos = parse_korean_pos(tags);
+
+                // Parse frequency from star ratings
+                let frequency_rank = parse_korean_frequency(tags);
+
+                // Determine word origin based on Hanja presence
+                let origin = if extracted_hanja.is_some() {
+                    Some(korean_types::WordOrigin::SinoKorean)
+                } else {
+                    Some(korean_types::WordOrigin::Native)
+                };
+
+                let word = korean_types::KoreanWord {
+                    id: format!("krdict_{}", sequence),
+                    hangul: term.to_string(),
+                    hanja: extracted_hanja,
+                    romanization: None, // Will be added from IPA data
+                    pronunciation: None, // Will be added from IPA data
+                    pos,
+                    definitions: extracted_defs,
+                    examples: extracted_examples,
+                    origin,
+                    frequency_rank,
+                };
+
+                words.push(word);
+            }
+        }
+
+        println!("  Processed {:?}, total words: {}", file_path.file_name().unwrap(), words.len());
+    }
+
+    // Load IPA/pronunciation data
+    let ipa_path = dir_path.replace("krdict-en", "krdict-ipa");
+    if std::path::Path::new(&ipa_path).exists() {
+        load_korean_ipa(&ipa_path, &mut words)?;
+    }
+
+    println!("  ✅ Loaded {} Korean words total", words.len());
+    Ok(words)
+}
+
+/// Extract definitions, hanja, and examples from KRDICT structured content
+fn extract_korean_content(
+    definitions: &serde_json::Value,
+    hanja_regex: &regex::Regex
+) -> (Vec<korean_types::KoreanDefinition>, Option<String>, Vec<korean_types::KoreanExample>) {
+    let mut defs = Vec::new();
+    let mut hanja: Option<String> = None;
+    let mut examples = Vec::new();
+
+    // The definitions can be an array of structured-content objects
+    if let Some(def_array) = definitions.as_array() {
+        for def_obj in def_array {
+            if let Some(obj) = def_obj.as_object() {
+                if obj.get("type").and_then(|v| v.as_str()) == Some("structured-content") {
+                    if let Some(content) = obj.get("content") {
+                        let (d, h, e) = parse_structured_content(content, hanja_regex, 1);
+                        defs.extend(d);
+                        if hanja.is_none() && h.is_some() {
+                            hanja = h;
+                        }
+                        examples.extend(e);
+                    }
+                }
+            }
+        }
+    }
+
+    (defs, hanja, examples)
+}
+
+/// Recursively parse structured content to extract text
+fn parse_structured_content(
+    content: &serde_json::Value,
+    hanja_regex: &regex::Regex,
+    sense_num: u32,
+) -> (Vec<korean_types::KoreanDefinition>, Option<String>, Vec<korean_types::KoreanExample>) {
+    let mut defs = Vec::new();
+    let mut hanja: Option<String> = None;
+    let mut examples = Vec::new();
+
+    match content {
+        serde_json::Value::String(s) => {
+            // Check for hanja in 〔...〕 format
+            if let Some(caps) = hanja_regex.captures(s) {
+                if let Some(h) = caps.get(1) {
+                    hanja = Some(h.as_str().to_string());
+                }
+            }
+            // Check if this looks like an English definition
+            let trimmed = s.trim();
+            if !trimmed.is_empty()
+                && !trimmed.starts_with("〔")
+                && !trimmed.starts_with("See More")
+                && !trimmed.contains("〔")
+                && is_likely_english(trimmed)
+            {
+                // Skip numbered prefixes like "1. ", "2. ", etc.
+                if !trimmed.chars().next().map_or(false, |c| c.is_ascii_digit()) {
+                    defs.push(korean_types::KoreanDefinition {
+                        text: trimmed.to_string(),
+                        lang: Some("en".to_string()),
+                        sense_number: Some(sense_num),
+                    });
+                }
+            }
+        }
+        serde_json::Value::Array(arr) => {
+            for item in arr {
+                let (d, h, e) = parse_structured_content(item, hanja_regex, sense_num);
+                defs.extend(d);
+                if hanja.is_none() && h.is_some() {
+                    hanja = h;
+                }
+                examples.extend(e);
+            }
+        }
+        serde_json::Value::Object(obj) => {
+            // Check tag type
+            let tag = obj.get("tag").and_then(|v| v.as_str()).unwrap_or("");
+            let lang = obj.get("lang").and_then(|v| v.as_str()).unwrap_or("");
+
+            // Skip Korean-language content (we want English definitions)
+            if lang == "ko" && tag != "span" {
+                // But still extract hanja from Korean spans
+                if let Some(c) = obj.get("content") {
+                    if let serde_json::Value::String(s) = c {
+                        if let Some(caps) = hanja_regex.captures(s) {
+                            if let Some(h) = caps.get(1) {
+                                hanja = Some(h.as_str().to_string());
+                            }
+                        }
+                    }
+                }
+                return (defs, hanja, examples);
+            }
+
+            // Skip details/summary (expandable sections)
+            if tag == "details" || tag == "summary" {
+                return (defs, hanja, examples);
+            }
+
+            // Recurse into content
+            if let Some(c) = obj.get("content") {
+                let (d, h, e) = parse_structured_content(c, hanja_regex, sense_num);
+                defs.extend(d);
+                if hanja.is_none() && h.is_some() {
+                    hanja = h;
+                }
+                examples.extend(e);
+            }
+        }
+        _ => {}
+    }
+
+    (defs, hanja, examples)
+}
+
+/// Check if text is likely English (simple heuristic)
+fn is_likely_english(s: &str) -> bool {
+    // Check if mostly ASCII letters and common punctuation
+    let ascii_count = s.chars().filter(|c| c.is_ascii_alphabetic()).count();
+    let total_alpha = s.chars().filter(|c| c.is_alphabetic()).count();
+
+    if total_alpha == 0 {
+        return false;
+    }
+
+    // At least 70% ASCII alphabetic
+    (ascii_count as f64 / total_alpha as f64) > 0.7
+}
+
+/// Parse part of speech from KRDICT tags
+fn parse_korean_pos(tags: &str) -> Option<String> {
+    let parts: Vec<&str> = tags.split_whitespace().collect();
+    if let Some(first) = parts.first() {
+        // Remove star ratings
+        let pos = first.trim_start_matches('⭐');
+        if !pos.is_empty() && !pos.starts_with('⭐') {
+            return Some(pos.to_string());
+        }
+    }
+
+    // Try to find POS among parts
+    for part in parts {
+        let clean = part.trim_start_matches('⭐').trim_end_matches('⭐');
+        match clean {
+            "Noun" | "Verb" | "Adjective" | "Adverb" | "Affix" |
+            "Bound Noun" | "Interjection" | "Determiner" | "Pronoun" => {
+                return Some(clean.to_string());
+            }
+            _ => {}
+        }
+    }
+
+    None
+}
+
+/// Parse frequency rank from star ratings (⭐⭐⭐ = rank 1, ⭐⭐ = rank 2, ⭐ = rank 3)
+fn parse_korean_frequency(tags: &str) -> Option<u32> {
+    let star_count = tags.chars().filter(|&c| c == '⭐').count();
+    match star_count {
+        3 => Some(1), // Most frequent
+        2 => Some(2),
+        1 => Some(3),
+        _ => None,    // No frequency data
+    }
+}
+
+/// Load IPA pronunciation data and merge with Korean words
+fn load_korean_ipa(ipa_dir: &str, words: &mut Vec<korean_types::KoreanWord>) -> Result<()> {
+    use std::collections::HashMap;
+
+    // Find term_meta_bank files
+    let meta_files: Vec<_> = std::fs::read_dir(ipa_dir)?
+        .filter_map(|e| e.ok())
+        .filter(|e| {
+            e.file_name().to_string_lossy().starts_with("term_meta_bank_")
+                && e.file_name().to_string_lossy().ends_with(".json")
+        })
+        .collect();
+
+    // Build pronunciation map
+    let mut ipa_map: HashMap<String, String> = HashMap::new();
+
+    for entry in meta_files {
+        let file_path = entry.path();
+        let content = std::fs::read_to_string(&file_path)?;
+
+        let entries: Vec<serde_json::Value> = serde_json::from_str(&content)?;
+
+        for entry_val in entries {
+            if let Some(arr) = entry_val.as_array() {
+                if arr.len() >= 3 {
+                    let term = arr[0].as_str().unwrap_or("");
+                    let meta_type = arr[1].as_str().unwrap_or("");
+
+                    if meta_type == "ipa" {
+                        if let Some(data) = arr[2].as_object() {
+                            if let Some(transcriptions) = data.get("transcriptions") {
+                                if let Some(trans_arr) = transcriptions.as_array() {
+                                    if let Some(first) = trans_arr.first() {
+                                        if let Some(ipa) = first.get("ipa").and_then(|v| v.as_str()) {
+                                            ipa_map.insert(term.to_string(), ipa.to_string());
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    println!("  Loaded {} IPA pronunciations", ipa_map.len());
+
+    // Apply IPA to words
+    let mut matched = 0;
+    for word in words.iter_mut() {
+        if let Some(ipa) = ipa_map.get(&word.hangul) {
+            word.pronunciation = Some(ipa.clone());
+            matched += 1;
+        }
+    }
+
+    println!("  Applied IPA to {} words", matched);
+    Ok(())
+}
+
+/// Load Unihan Korean readings from Unihan_Readings.txt
+/// Returns a HashMap mapping character to (hangul_readings, romanization_readings)
+fn load_unihan_korean_readings(path: &str) -> Result<std::collections::HashMap<String, (Vec<String>, Vec<String>)>> {
+    use std::collections::HashMap;
+    use std::io::{BufRead, BufReader};
+
+    let file = File::open(path)?;
+    let reader = BufReader::new(file);
+
+    let mut korean_map: HashMap<String, (Vec<String>, Vec<String>)> = HashMap::new();
+
+    for line in reader.lines() {
+        let line = line?;
+        if line.starts_with('#') || line.trim().is_empty() {
+            continue;
+        }
+
+        let parts: Vec<&str> = line.split('\t').collect();
+        if parts.len() >= 3 {
+            let codepoint = parts[0];
+            let field = parts[1];
+            let value = parts[2];
+
+            // Convert codepoint (e.g., "U+4E00") to character
+            if let Some(hex_str) = codepoint.strip_prefix("U+") {
+                if let Ok(code) = u32::from_str_radix(hex_str, 16) {
+                    if let Some(ch) = char::from_u32(code) {
+                        let char_str = ch.to_string();
+                        let entry = korean_map.entry(char_str).or_insert_with(|| (Vec::new(), Vec::new()));
+
+                        match field {
+                            "kHangul" => {
+                                // Parse kHangul format: "온:N 은:N" -> ["온", "은"]
+                                for reading in value.split_whitespace() {
+                                    let hangul = reading.split(':').next().unwrap_or(reading);
+                                    if !entry.0.contains(&hangul.to_string()) {
+                                        entry.0.push(hangul.to_string());
+                                    }
+                                }
+                            }
+                            "kKorean" => {
+                                // Parse kKorean format: "IL" or "MAN MWUK" (Yale romanization)
+                                for reading in value.split_whitespace() {
+                                    if !entry.1.contains(&reading.to_string()) {
+                                        entry.1.push(reading.to_string());
+                                    }
+                                }
+                            }
+                            _ => {}
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    println!("  ✅ Loaded Unihan Korean readings for {} characters", korean_map.len());
+    Ok(korean_map)
+}
+
+/// Extract Korean readings from KANJIDIC2 characters
+/// Returns a HashMap mapping character to KoreanCharacter
+fn extract_kanjidic_korean_readings(
+    kanjidic_entries: &[KanjiCharacter]
+) -> std::collections::HashMap<String, korean_types::KoreanCharacter> {
+    use std::collections::HashMap;
+
+    let mut korean_chars: HashMap<String, korean_types::KoreanCharacter> = HashMap::new();
+    let mut chars_with_korean = 0;
+
+    for kanji in kanjidic_entries {
+        let mut hangul_readings: Vec<String> = Vec::new();
+        let mut roman_readings: Vec<String> = Vec::new();
+        let mut meanings_en: Vec<String> = Vec::new();
+
+        if let Some(ref rm) = kanji.reading_meaning {
+            for group in &rm.groups {
+                // Extract Korean readings
+                for reading in &group.readings {
+                    match reading.reading_type.as_str() {
+                        "korean_h" => {
+                            if !hangul_readings.contains(&reading.value) {
+                                hangul_readings.push(reading.value.clone());
+                            }
+                        }
+                        "korean_r" => {
+                            if !roman_readings.contains(&reading.value) {
+                                roman_readings.push(reading.value.clone());
+                            }
+                        }
+                        _ => {}
+                    }
+                }
+
+                // Extract English meanings
+                for meaning in &group.meanings {
+                    if meaning.lang == "en" && !meanings_en.contains(&meaning.value) {
+                        meanings_en.push(meaning.value.clone());
+                    }
+                }
+            }
+        }
+
+        // Only create entry if we have Korean readings
+        if !hangul_readings.is_empty() || !roman_readings.is_empty() {
+            // Build Korean readings with romanization paired
+            let readings: Vec<korean_types::KoreanReading> = hangul_readings.iter().enumerate().map(|(i, hangul)| {
+                korean_types::KoreanReading {
+                    hangul: hangul.clone(),
+                    romanization: roman_readings.get(i).cloned(),
+                    reading_type: None,
+                }
+            }).collect();
+
+            // Get stroke count (first value)
+            let strokes = kanji.misc.stroke_counts.first().map(|&s| s as u32);
+
+            // Get radical
+            let radical = kanji.radicals.first().map(|r| r.value.to_string());
+
+            let korean_char = korean_types::KoreanCharacter {
+                character: kanji.literal.clone(),
+                readings,
+                meanings: Vec::new(), // Korean meanings would need a separate source
+                meanings_en,
+                strokes,
+                radical,
+            };
+
+            korean_chars.insert(kanji.literal.clone(), korean_char);
+            chars_with_korean += 1;
+        }
+    }
+
+    println!("  ✅ Extracted Korean readings from KANJIDIC2 for {} characters", chars_with_korean);
+    korean_chars
+}
+
+/// Build combined Korean character map from KANJIDIC2 and Unihan
+fn build_korean_character_map(
+    kanjidic_entries: &[KanjiCharacter],
+    unihan_path: Option<&str>,
+) -> std::collections::HashMap<String, korean_types::KoreanCharacter> {
+    use std::collections::HashMap;
+
+    // Start with KANJIDIC2 (primary source - has both Hangul and romanization)
+    let mut korean_chars = extract_kanjidic_korean_readings(kanjidic_entries);
+    let kanjidic_count = korean_chars.len();
+
+    // Supplement with Unihan if available
+    if let Some(path) = unihan_path {
+        if std::path::Path::new(path).exists() {
+            match load_unihan_korean_readings(path) {
+                Ok(unihan_korean) => {
+                    let mut added_from_unihan = 0;
+
+                    for (char, (hangul, roman)) in unihan_korean {
+                        if !korean_chars.contains_key(&char) && (!hangul.is_empty() || !roman.is_empty()) {
+                            // Build readings from Unihan data
+                            let readings: Vec<korean_types::KoreanReading> = if !hangul.is_empty() {
+                                hangul.iter().enumerate().map(|(i, h)| {
+                                    korean_types::KoreanReading {
+                                        hangul: h.clone(),
+                                        romanization: roman.get(i).cloned(),
+                                        reading_type: None,
+                                    }
+                                }).collect()
+                            } else {
+                                // Only romanization available - still useful
+                                roman.iter().map(|r| {
+                                    korean_types::KoreanReading {
+                                        hangul: r.to_lowercase(), // Yale romanization as fallback
+                                        romanization: Some(r.clone()),
+                                        reading_type: None,
+                                    }
+                                }).collect()
+                            };
+
+                            let korean_char = korean_types::KoreanCharacter {
+                                character: char.clone(),
+                                readings,
+                                meanings: Vec::new(),
+                                meanings_en: Vec::new(),
+                                strokes: None,
+                                radical: None,
+                            };
+
+                            korean_chars.insert(char, korean_char);
+                            added_from_unihan += 1;
+                        }
+                    }
+
+                    println!("  ✅ Added {} characters from Unihan (not in KANJIDIC2)", added_from_unihan);
+                }
+                Err(e) => {
+                    println!("  ⚠️  Failed to load Unihan Korean readings: {}", e);
+                }
+            }
+        }
+    }
+
+    println!("  📊 Total characters with Korean readings: {} (KANJIDIC2: {}, Unihan supplement: {})",
+             korean_chars.len(), kanjidic_count, korean_chars.len() - kanjidic_count);
+
+    korean_chars
 }
 
 fn load_ids_file(path: &str) -> Result<IdsDatabase> {
@@ -1470,6 +2055,8 @@ async fn generate_simple_output_files(
     chinese_chars: &[ChineseCharacter],
     kanjidic_entries: &[KanjiCharacter],
     jmnedict_entries: &[JmnedictEntry],
+    korean_words: &[korean_types::KoreanWord],
+    korean_char_map: &std::collections::HashMap<String, korean_types::KoreanCharacter>,
     shard_filter: Option<ShardType>,
     filter_characters: Option<&str>,
     prod_mode: bool,
@@ -1587,6 +2174,9 @@ async fn generate_simple_output_files(
             contains: Vec::new(),
             contained_in_chinese: Vec::new(),
             contained_in_japanese: Vec::new(),
+            korean_words: Vec::new(),
+            korean_char: None,
+            contained_in_korean: Vec::new(),
         });
 
         if let Some(ref chinese) = entry.chinese_entry {
@@ -1648,6 +2238,9 @@ async fn generate_simple_output_files(
                             contains: Vec::new(),
                             contained_in_chinese: Vec::new(),
                             contained_in_japanese: Vec::new(),
+                            korean_words: Vec::new(),
+                            korean_char: None,
+                            contained_in_korean: Vec::new(),
                         });
 
                         // Add the full Japanese word entry if not already present
@@ -1687,6 +2280,9 @@ async fn generate_simple_output_files(
                 contains: Vec::new(),
                 contained_in_chinese: Vec::new(),
                 contained_in_japanese: Vec::new(),
+                korean_words: Vec::new(),
+                korean_char: None,
+                contained_in_korean: Vec::new(),
             };
             outputs.insert(key.clone(), redirect_entry);
             japanese_variant_redirect_count += 1;
@@ -1722,6 +2318,9 @@ async fn generate_simple_output_files(
                         contains: Vec::new(),
                         contained_in_chinese: Vec::new(),
                         contained_in_japanese: Vec::new(),
+                        korean_words: Vec::new(),
+                        korean_char: None,
+                        contained_in_korean: Vec::new(),
                     });
                     output.chinese_char = Some(char_entry.clone());
                     output.simplified_form_of = Some(trad_target.clone());
@@ -1743,6 +2342,9 @@ async fn generate_simple_output_files(
                         contains: Vec::new(),
                         contained_in_chinese: Vec::new(),
                         contained_in_japanese: Vec::new(),
+                        korean_words: Vec::new(),
+                        korean_char: None,
+                        contained_in_korean: Vec::new(),
                     };
                     outputs.insert(key.clone(), redirect_entry);
                     simplified_redirect_count += 1;
@@ -1763,6 +2365,9 @@ async fn generate_simple_output_files(
                 contains: Vec::new(),
                 contained_in_chinese: Vec::new(),
                 contained_in_japanese: Vec::new(),
+                korean_words: Vec::new(),
+                korean_char: None,
+                contained_in_korean: Vec::new(),
             });
             output.chinese_char = Some(char_entry.clone());
         }
@@ -1798,6 +2403,9 @@ async fn generate_simple_output_files(
                 contains: Vec::new(),
                 contained_in_chinese: Vec::new(),
                 contained_in_japanese: Vec::new(),
+                korean_words: Vec::new(),
+                korean_char: None,
+                contained_in_korean: Vec::new(),
             });
             output.japanese_char = Some(kanji_entry.clone());
             merged_japanese_char_count += 1;
@@ -1820,6 +2428,9 @@ async fn generate_simple_output_files(
                 contains: Vec::new(),
                 contained_in_chinese: Vec::new(),
                 contained_in_japanese: Vec::new(),
+                korean_words: Vec::new(),
+                korean_char: None,
+                contained_in_korean: Vec::new(),
             });
             output.japanese_char = Some(kanji_entry.clone());
             regular_count += 1;
@@ -1869,12 +2480,115 @@ async fn generate_simple_output_files(
                 contains: Vec::new(),
                 contained_in_chinese: Vec::new(),
                 contained_in_japanese: Vec::new(),
+                korean_words: Vec::new(),
+                korean_char: None,
+                contained_in_korean: Vec::new(),
             });
 
             // Add the name entry to this key's japanese_names
             output.japanese_names.push(jmnedict_entry.clone());
         }
     }
+
+    // Populate Korean character readings for all single-character entries
+    println!("📝 Adding Korean character readings...");
+    let mut korean_char_added = 0;
+    for (key, output) in outputs.iter_mut() {
+        // Only add Korean character data for single-character keys
+        if key.chars().count() == 1 {
+            if let Some(korean_char) = korean_char_map.get(key) {
+                output.korean_char = Some(korean_char.clone());
+                korean_char_added += 1;
+            }
+        }
+    }
+    println!("  ✅ Added Korean readings to {} character entries", korean_char_added);
+
+    // Process Korean words
+    println!("📝 Processing Korean word entries (KRDICT)...");
+    let mut sino_korean_merged = 0;
+    let mut native_korean_added = 0;
+
+    // Build a map from Hanja to Korean words for efficient lookup
+    // Key is the Hanja (traditional Chinese characters), value is list of Korean words
+    let mut hanja_to_korean: std::collections::HashMap<String, Vec<korean_types::KoreanWord>> =
+        std::collections::HashMap::new();
+    let mut native_korean_words: Vec<korean_types::KoreanWord> = Vec::new();
+
+    for korean_word in korean_words {
+        if let Some(ref hanja) = korean_word.hanja {
+            // Sino-Korean word with Hanja - index by Hanja for merging
+            hanja_to_korean
+                .entry(hanja.clone())
+                .or_default()
+                .push(korean_word.clone());
+        } else {
+            // Native Korean word without Hanja - will create standalone entry
+            native_korean_words.push(korean_word.clone());
+        }
+    }
+
+    println!("  📊 {} Sino-Korean words (with Hanja), {} native Korean words",
+             hanja_to_korean.values().map(|v| v.len()).sum::<usize>(),
+             native_korean_words.len());
+
+    // Merge Sino-Korean words into existing entries by Hanja key
+    // The Hanja should match the traditional Chinese character used as key
+    for (hanja, korean_word_list) in &hanja_to_korean {
+        // Check if we have an existing entry for this Hanja
+        if let Some(output) = outputs.get_mut(hanja) {
+            for korean_word in korean_word_list {
+                // Add Korean word to the entry if not already present
+                if !output.korean_words.iter().any(|w| w.id == korean_word.id) {
+                    output.korean_words.push(korean_word.clone());
+                    sino_korean_merged += 1;
+                }
+            }
+        }
+        // Note: If no existing entry, the Korean word won't be added to any entry
+        // This is expected - we only merge into entries that have Chinese/Japanese data
+    }
+
+    println!("  ✅ Merged {} Sino-Korean words into existing entries", sino_korean_merged);
+
+    // Create standalone entries for native Korean words
+    for korean_word in &native_korean_words {
+        let key = korean_word.hangul.clone();
+
+        // Only create entry if no existing entry with this key
+        // (Native Korean words shouldn't conflict with Han character keys)
+        if !outputs.contains_key(&key) {
+            // Check shard filter if applicable
+            if let Some(ref filter) = shard_filter {
+                if ShardType::from_key(&key) != *filter {
+                    continue;
+                }
+            }
+
+            let output = SimpleOutput {
+                key: key.clone(),
+                redirect: None,
+                simplified_form_of: None,
+                chinese_words: Vec::new(),
+                chinese_char: None,
+                japanese_words: Vec::new(),
+                japanese_char: None,
+                related_japanese_words: Vec::new(),
+                japanese_names: Vec::new(),
+                contains: Vec::new(),
+                contained_in_chinese: Vec::new(),
+                contained_in_japanese: Vec::new(),
+                korean_words: vec![korean_word.clone()],
+                korean_char: None,
+                contained_in_korean: Vec::new(),
+            };
+
+            outputs.insert(key, output);
+            native_korean_added += 1;
+        }
+    }
+
+    println!("  ✅ Created {} standalone entries for native Korean words", native_korean_added);
 
     // Merge words from traditional variants into merged characters
     // For characters like 制 that have simplified_form_of set (e.g., 製),
@@ -2511,6 +3225,9 @@ async fn generate_simple_output_files(
                         contains: Vec::new(),
                         contained_in_chinese: Vec::new(),
                         contained_in_japanese: Vec::new(),
+                        korean_words: Vec::new(),
+                        korean_char: None,
+                        contained_in_korean: Vec::new(),
                     };
 
                     outputs.insert(chinese.trad.clone(), redirect_entry);
@@ -2541,6 +3258,9 @@ async fn generate_simple_output_files(
                         contains: Vec::new(),
                         contained_in_chinese: Vec::new(),
                         contained_in_japanese: Vec::new(),
+                        korean_words: Vec::new(),
+                        korean_char: None,
+                        contained_in_korean: Vec::new(),
                     };
 
                     outputs.insert(chinese.simp.clone(), redirect_entry);
@@ -2596,6 +3316,9 @@ async fn generate_simple_output_files(
                         contains: Vec::new(),
                         contained_in_chinese: Vec::new(),
                         contained_in_japanese: Vec::new(),
+                        korean_words: Vec::new(),
+                        korean_char: None,
+                        contained_in_korean: Vec::new(),
                     };
 
                     outputs.insert(kanji_form.text.clone(), redirect_entry);

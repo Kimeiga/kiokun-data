@@ -4,6 +4,7 @@ use crate::chinese_types::ChineseDictionaryElement;
 use crate::chinese_char_types::ChineseCharacter;
 use crate::japanese_types::Word;
 use crate::japanese_char_types::KanjiCharacter;
+use crate::korean_types::{KoreanWord, KoreanCharacter};
 use crate::word_preview_types::WordPreview;
 
 /// Simple output structure with no unification - just raw data from each source
@@ -63,5 +64,18 @@ pub struct SimpleOutput {
     /// Limited to 100 entries, includes preview data
     #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub contained_in_japanese: Vec<WordPreview>,
+
+    /// Korean word entries (from KRDICT)
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub korean_words: Vec<KoreanWord>,
+
+    /// Korean character entry (Hanja with Korean readings)
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub korean_char: Option<KoreanCharacter>,
+
+    /// Korean words that contain this word/character
+    /// Limited to 100 entries, includes preview data
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub contained_in_korean: Vec<WordPreview>,
 }
 
