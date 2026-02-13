@@ -103,6 +103,7 @@ schemas/japanese_sample.json
 !scripts/
 
 # i brought in 10ten reader to see if i can copy some stuff
+10ten-ja-reader/
 10ten-ja-reader/data/makemeahanzi_dictionary.txt
 data/makemeahanzi_dictionary.txt
 chinese-word-game/
