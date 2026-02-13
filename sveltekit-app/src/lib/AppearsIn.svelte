@@ -1,3 +1,4 @@
+<!-- Korean frequency rank display support -->
 <script lang="ts">
 	import SectionHeading from "./components/shared/SectionHeading.svelte";
 	import { languageStore } from '$lib/stores/languages.svelte';
