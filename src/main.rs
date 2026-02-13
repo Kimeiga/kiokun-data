@@ -931,6 +931,7 @@ fn load_korean_dictionary(dir_path: &str) -> Result<Vec<korean_types::KoreanWord
                 let term = arr[0].as_str().unwrap_or("");
                 let _reading = arr[1].as_str().unwrap_or("");
                 let tags = arr[2].as_str().unwrap_or("");
+                let score = arr[4].as_i64().unwrap_or(0); // Frequency score (negative = rank)
                 let definitions = &arr[5];
                 let sequence = arr[6].as_i64().unwrap_or(0);
 
@@ -966,8 +967,13 @@ fn load_korean_dictionary(dir_path: &str) -> Result<Vec<korean_types::KoreanWord
                 // Parse part of speech from tags
                 let pos = parse_korean_pos(tags);
 
-                // Parse frequency from star ratings
-                let frequency_rank = parse_korean_frequency(tags);
+                // Get frequency rank from score field (negative score = rank, e.g., -287 = rank 287)
+                // Fall back to star ratings if no score is present
+                let frequency_rank = if score < 0 {
+                    Some((-score) as u32) // Convert negative score to positive rank
+                } else {
+                    parse_korean_frequency(tags) // Fall back to star ratings
+                };
 
                 // Determine word origin based on Hanja presence
                 let origin = if extracted_hanja.is_some() {
