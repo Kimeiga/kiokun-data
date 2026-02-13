@@ -160,6 +160,28 @@ impl WordPreview {
         }
     }
 
+    /// Create a preview from a Korean word
+    pub fn from_korean(word: &crate::korean_types::KoreanWord) -> Self {
+        // Use the Hangul as the word text
+        let word_text = word.hangul.clone();
+
+        // Use the first English definition as the preview definition
+        // The KoreanDefinition has a `text` field and optional `lang` field
+        let definition = word.definitions.iter()
+            .find(|def| def.lang.as_deref() == Some("en"))
+            .or_else(|| word.definitions.first())
+            .map(|def| def.text.clone());
+
+        WordPreview {
+            word: word_text,
+            pronunciation: word.romanization.clone(), // Korean romanization goes in pronunciation field
+            japanese_pronunciation: None,
+            definition,
+            common: None, // Korean words don't have a common field
+            frequency_rank: None, // Korean words don't have frequency data yet
+        }
+    }
+
     /// Create a combined preview for characters with both Chinese and Japanese readings
     /// This is used for the Contains section where we want to show both readings
     pub fn from_combined_char(

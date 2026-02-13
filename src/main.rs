@@ -2758,6 +2758,7 @@ async fn generate_simple_output_files(
     // Use HashSet to automatically deduplicate entries
     let mut chinese_containment: StdHashMap<String, std::collections::HashSet<String>> = StdHashMap::new();
     let mut japanese_containment: StdHashMap<String, std::collections::HashSet<String>> = StdHashMap::new();
+    let mut korean_containment: StdHashMap<String, std::collections::HashSet<String>> = StdHashMap::new();
 
     // Build reverse map: traditional Chinese → Japanese variant (for containment lookup)
     let mut traditional_to_variant: StdHashMap<String, String> = StdHashMap::new();
@@ -2790,6 +2791,18 @@ async fn generate_simple_output_files(
                         if let Some(traditional_target) = japanese_variant_map.get(&ch_str) {
                             japanese_containment.entry(traditional_target.clone()).or_default().insert(word_key.clone());
                         }
+                    }
+                }
+            }
+        }
+
+        // For Korean words with Hanja, add to containment index for each Hanja character
+        for korean_word in &output.korean_words {
+            if let Some(hanja) = &korean_word.hanja {
+                for ch in hanja.chars() {
+                    let ch_str = ch.to_string();
+                    if ch_str != *word_key {  // Don't add self-references
+                        korean_containment.entry(ch_str).or_default().insert(word_key.clone());
                     }
                 }
             }
@@ -2919,6 +2932,7 @@ async fn generate_simple_output_files(
     // First pass: collect all the word keys we need
     let mut chinese_previews_map: StdHashMap<String, Vec<word_preview_types::WordPreview>> = StdHashMap::new();
     let mut japanese_previews_map: StdHashMap<String, Vec<word_preview_types::WordPreview>> = StdHashMap::new();
+    let mut korean_previews_map: StdHashMap<String, Vec<word_preview_types::WordPreview>> = StdHashMap::new();
 
     for (key, output) in &outputs {
         // Skip redirect entries - they should not have containment data
@@ -3099,6 +3113,28 @@ async fn generate_simple_output_files(
 
             japanese_previews_map.insert(key.clone(), previews);
         }
+
+        // Build Korean word previews for this character
+        if let Some(korean_words) = korean_containment.get(key) {
+            // HashSet already ensures uniqueness, just collect and sort for consistent ordering
+            let mut unique_words: Vec<String> = korean_words.iter().cloned().collect();
+            unique_words.sort();
+
+            // Convert to WordPreview objects
+            let previews: Vec<word_preview_types::WordPreview> = unique_words.iter()
+                .filter_map(|word_key| {
+                    outputs.get(word_key).and_then(|word_output| {
+                        word_output.korean_words.first()
+                            .map(|korean_word| word_preview_types::WordPreview::from_korean(korean_word))
+                    })
+                })
+                .take(containment_limit)
+                .collect();
+
+            if !previews.is_empty() {
+                korean_previews_map.insert(key.clone(), previews);
+            }
+        }
     }
 
     // Second pass: populate the outputs
@@ -3108,6 +3144,9 @@ async fn generate_simple_output_files(
         }
         if let Some(previews) = japanese_previews_map.get(key) {
             output.contained_in_japanese = previews.clone();
+        }
+        if let Some(previews) = korean_previews_map.get(key) {
+            output.contained_in_korean = previews.clone();
         }
     }
 
