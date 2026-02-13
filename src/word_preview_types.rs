@@ -16,6 +16,10 @@ pub struct WordPreview {
     #[serde(rename = "jp", skip_serializing_if = "Option::is_none")]
     pub japanese_pronunciation: Option<String>,
 
+    /// Korean reading (Hangul) - for characters with Korean readings
+    #[serde(rename = "kr", skip_serializing_if = "Option::is_none")]
+    pub korean_reading: Option<String>,
+
     /// First definition (short English gloss)
     #[serde(rename = "d", skip_serializing_if = "Option::is_none")]
     pub definition: Option<String>,
@@ -49,6 +53,7 @@ impl WordPreview {
             word: word.simp.clone(),
             pronunciation,
             japanese_pronunciation: None,
+            korean_reading: None,
             definition,
             common: None, // Chinese words don't have a common field
             frequency_rank,
@@ -69,6 +74,7 @@ impl WordPreview {
             word: char.char.clone(),
             pronunciation,
             japanese_pronunciation: None,
+            korean_reading: None,
             definition,
             common: None,
             frequency_rank: None, // Chinese chars don't have JPDB frequency
@@ -99,6 +105,7 @@ impl WordPreview {
             word: word_text,
             pronunciation: None, // Japanese words don't have pinyin
             japanese_pronunciation,
+            korean_reading: None,
             definition,
             common: Some(is_common),
             frequency_rank: word.frequency_rank, // Use JPDB frequency rank
@@ -154,6 +161,7 @@ impl WordPreview {
             word: word_text.to_string(),
             pronunciation,
             japanese_pronunciation,
+            korean_reading: None, // Multi-character words don't have Korean readings yet
             definition,
             common,
             frequency_rank,
@@ -176,17 +184,19 @@ impl WordPreview {
             word: word_text,
             pronunciation: word.romanization.clone(), // Korean romanization goes in pronunciation field
             japanese_pronunciation: None,
+            korean_reading: None, // Korean words already show Hangul as the word text
             definition,
             common: None, // Korean words don't have a common field
-            frequency_rank: None, // Korean words don't have frequency data yet
+            frequency_rank: word.frequency_rank, // Use Korean frequency rank from subtitle corpus
         }
     }
 
-    /// Create a combined preview for characters with both Chinese and Japanese readings
-    /// This is used for the Contains section where we want to show both readings
+    /// Create a combined preview for characters with Chinese, Japanese, and Korean readings
+    /// This is used for the Contains section where we want to show all available readings
     pub fn from_combined_char(
         chinese_char: Option<&crate::chinese_char_types::ChineseCharacter>,
         japanese_char: Option<&crate::japanese_char_types::KanjiCharacter>,
+        korean_char: Option<&crate::korean_types::KoreanCharacter>,
         word_text: &str,
     ) -> Self {
         // Get Chinese pinyin
@@ -209,6 +219,11 @@ impl WordPreview {
             })
         });
 
+        // Get Korean reading (first Hangul reading)
+        let korean_reading = korean_char.and_then(|kc| {
+            kc.readings.first().map(|r| r.hangul.clone())
+        });
+
         // Get definition - prefer Chinese gloss if available, otherwise Japanese meaning
         let definition = chinese_char.and_then(|c| c.gloss.clone())
             .or_else(|| {
@@ -227,6 +242,7 @@ impl WordPreview {
             word: word_text.to_string(),
             pronunciation,
             japanese_pronunciation,
+            korean_reading,
             definition,
             common: None,
             frequency_rank: None, // Character previews don't have word frequency

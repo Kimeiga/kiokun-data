@@ -251,6 +251,9 @@
 											>[{preview.p}]</span
 										>
 									{/if}
+									{#if preview.fr}
+										<span class="frequency-rank" title="Korean frequency rank">#{preview.fr.toLocaleString()}</span>
+									{/if}
 								</div>
 								{#if preview.d}
 									<div class="definition">{preview.d}</div>
