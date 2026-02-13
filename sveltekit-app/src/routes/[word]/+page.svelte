@@ -22,9 +22,15 @@
 	let koreanChar = $derived(data.data.korean_char);
 
 	// Check if Korean Hanja form differs from traditional Chinese
+	// Note: hanjaForm may contain Korean compatibility characters (U+F900-U+FAD9) which are
+	// visually identical to standard CJK characters but have different Unicode codepoints.
+	// We compare against korean_char.character (the canonical form) to determine if Korean
+	// uses the same character, and only show a separate Korean box when hanjaForm actually
+	// looks different (e.g., 龜 vs its Korean variant).
 	let koreanHanjaForm = $derived(data.data.korean_char?.hanjaForm);
+	let koreanCharacter = $derived(data.data.korean_char?.character);
 	let krHasDifferentForm = $derived(
-		koreanHanjaForm && koreanHanjaForm !== traditionalChar && koreanHanjaForm !== simplifiedChar && koreanHanjaForm !== japaneseChar
+		koreanHanjaForm && koreanCharacter && koreanCharacter !== traditionalChar && koreanCharacter !== simplifiedChar && koreanCharacter !== japaneseChar
 	);
 
 	// Helper to strip variant indicators like (trad), (simp), (jp) from glosses
