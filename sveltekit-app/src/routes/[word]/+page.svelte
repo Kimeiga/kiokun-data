@@ -10,8 +10,10 @@
 	import WordTable from "$lib/components/JapaneseWords/WordTable.svelte";
 	import SectionHeading from "$lib/components/shared/SectionHeading.svelte";
 	import SpeakButton from "$lib/components/shared/SpeakButton.svelte";
+	import Tag from "$lib/components/shared/Tag.svelte";
 	import { getDictionaryUrl } from "$lib/shard-utils";
 	import { dev } from "$app/environment";
+	import { languageStore } from "$lib/stores/languages.svelte";
 
 	let { data }: { data: PageData } = $props();
 
@@ -1465,10 +1467,10 @@
 		{/if}
 
 		<!-- Chinese, Japanese, and Korean Words -->
-		{#if (data.data.chinese_words && data.data.chinese_words.length > 0) || (data.data.japanese_words && data.data.japanese_words.length > 0) || (data.data.korean_words && data.data.korean_words.length > 0)}
+		{#if (data.data.chinese_words?.length && languageStore.preferences.chinese) || (data.data.japanese_words?.length && languageStore.preferences.japanese) || (data.data.korean_words?.length && languageStore.preferences.korean)}
 			<div class="word-sections-grid">
 				<!-- Chinese Words -->
-				{#if data.data.chinese_words && data.data.chinese_words.length > 0}
+				{#if data.data.chinese_words?.length && languageStore.preferences.chinese}
 					<div>
 						<SectionHeading>Chinese</SectionHeading>
 						<div class="mb-4">
@@ -1518,7 +1520,7 @@
 				{/if}
 
 				<!-- Japanese Words -->
-				{#if data.data.japanese_words && data.data.japanese_words.length > 0}
+				{#if data.data.japanese_words?.length && languageStore.preferences.japanese}
 					<div>
 						<SectionHeading>Japanese</SectionHeading>
 						<div class="mb-4">
@@ -1531,7 +1533,7 @@
 				{/if}
 
 				<!-- Korean Words -->
-				{#if data.data.korean_words && data.data.korean_words.length > 0}
+				{#if data.data.korean_words?.length && languageStore.preferences.korean}
 					<div>
 						<SectionHeading>Korean</SectionHeading>
 						<div class="mb-4">
@@ -1547,7 +1549,9 @@
 									</div>
 									<!-- Part of speech -->
 									{#if word.pos}
-										<div class="korean-pos">{word.pos}</div>
+										<div class="korean-pos-tags">
+										<Tag type="pos" text={word.pos} langTag="en" />
+									</div>
 									{/if}
 									<!-- Definitions -->
 									{#if word.definitions && word.definitions.length > 0}
@@ -1590,12 +1594,6 @@
 
 <style>
 	/* Custom styles that are hard to express in Tailwind or use CSS variables */
-	.pos-tag {
-		@apply inline-block px-2 py-0.5 rounded text-[11px] font-semibold mr-2 transition-all duration-300;
-		background: var(--tag-pos-bg);
-		color: var(--tag-pos-text);
-	}
-
 	.badge {
 		@apply px-3 py-1.5 rounded-full text-xs font-semibold uppercase;
 	}
@@ -1678,11 +1676,8 @@
 		color: var(--text-secondary, #666);
 	}
 
-	.korean-pos {
-		font-size: 14px;
-		color: var(--text-tertiary, #888);
+	.korean-pos-tags {
 		margin-bottom: 8px;
-		font-style: italic;
 	}
 
 	.korean-definitions {
