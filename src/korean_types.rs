@@ -93,23 +93,29 @@ pub enum WordOrigin {
 pub struct KoreanCharacter {
     /// The Hanja character (Chinese character)
     pub character: String,
-    
+
+    /// Korean-specific character form (Hanja variant), if different from unified CJK
+    /// This is the Korean compatibility character from U+F900-U+FAFF range
+    /// when the character has a Korean-specific glyph form
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub hanja_form: Option<String>,
+
     /// Korean reading(s) in Hangul
     #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub readings: Vec<KoreanReading>,
-    
+
     /// Meaning(s) in Korean
     #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub meanings: Vec<String>,
-    
+
     /// English meaning(s)
     #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub meanings_en: Vec<String>,
-    
+
     /// Stroke count
     #[serde(skip_serializing_if = "Option::is_none")]
     pub strokes: Option<u32>,
-    
+
     /// Radical information
     #[serde(skip_serializing_if = "Option::is_none")]
     pub radical: Option<String>,

@@ -1284,6 +1284,63 @@ fn load_unihan_korean_readings(path: &str) -> Result<std::collections::HashMap<S
     Ok(korean_map)
 }
 
+/// Load Korean compatibility variant mappings from Unihan_IRGSources.txt
+/// Returns a HashMap mapping unified CJK character to Korean compatibility character(s)
+/// These are characters in the U+F900-U+FAFF range that have Korean-specific glyph forms
+fn load_korean_compatibility_variants(path: &str) -> Result<std::collections::HashMap<String, String>> {
+    use std::fs::File;
+    use std::collections::HashMap;
+    use std::io::{BufRead, BufReader};
+
+    let file = File::open(path)?;
+    let reader = BufReader::new(file);
+
+    // Map from unified CJK character to Korean compatibility character
+    let mut unified_to_korean: HashMap<String, String> = HashMap::new();
+
+    for line in reader.lines() {
+        let line = line?;
+        if line.starts_with('#') || line.trim().is_empty() {
+            continue;
+        }
+
+        // Format: U+F900	kCompatibilityVariant	U+8C48
+        // Meaning: F900 (Korean form) is a variant of 8C48 (unified form)
+        let parts: Vec<&str> = line.split('\t').collect();
+        if parts.len() >= 3 && parts[1] == "kCompatibilityVariant" {
+            let korean_cp = parts[0];  // e.g., U+F900
+            let unified_cp = parts[2]; // e.g., U+8C48
+
+            // Convert codepoints to characters
+            if let (Some(korean_hex), Some(unified_hex)) =
+                (korean_cp.strip_prefix("U+"), unified_cp.strip_prefix("U+"))
+            {
+                if let (Ok(korean_code), Ok(unified_code)) =
+                    (u32::from_str_radix(korean_hex, 16), u32::from_str_radix(unified_hex, 16))
+                {
+                    if let (Some(korean_char), Some(unified_char)) =
+                        (char::from_u32(korean_code), char::from_u32(unified_code))
+                    {
+                        // Only include Korean compatibility characters (U+F900-U+FAFF range)
+                        // that have Korean IRG sources
+                        if (0xF900..=0xFAFF).contains(&korean_code) {
+                            let unified_str = unified_char.to_string();
+                            let korean_str = korean_char.to_string();
+
+                            // Store the first Korean variant for each unified character
+                            // (some characters have multiple variants, we take the first)
+                            unified_to_korean.entry(unified_str).or_insert(korean_str);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    println!("  ✅ Loaded {} Korean compatibility variant mappings", unified_to_korean.len());
+    Ok(unified_to_korean)
+}
+
 /// Extract Korean readings from KANJIDIC2 characters
 /// Returns a HashMap mapping character to KoreanCharacter
 fn extract_kanjidic_korean_readings(
@@ -1346,6 +1403,7 @@ fn extract_kanjidic_korean_readings(
 
             let korean_char = korean_types::KoreanCharacter {
                 character: kanji.literal.clone(),
+                hanja_form: None, // Will be populated later from Unihan compatibility variants
                 readings,
                 meanings: Vec::new(), // Korean meanings would need a separate source
                 meanings_en,
@@ -1402,6 +1460,7 @@ fn build_korean_character_map(
 
                             let korean_char = korean_types::KoreanCharacter {
                                 character: char.clone(),
+                                hanja_form: None, // Will be populated below
                                 readings,
                                 meanings: Vec::new(),
                                 meanings_en: Vec::new(),
@@ -1425,6 +1484,27 @@ fn build_korean_character_map(
 
     println!("  📊 Total characters with Korean readings: {} (KANJIDIC2: {}, Unihan supplement: {})",
              korean_chars.len(), kanjidic_count, korean_chars.len() - kanjidic_count);
+
+    // Load Korean compatibility variants and populate hanja_form field
+    // These are characters in U+F900-U+FAFF that have Korean-specific glyph forms
+    let irg_sources_path = "data/unihan/Unihan_IRGSources.txt";
+    if std::path::Path::new(irg_sources_path).exists() {
+        match load_korean_compatibility_variants(irg_sources_path) {
+            Ok(compat_variants) => {
+                let mut variants_added = 0;
+                for (unified_char, korean_form) in &compat_variants {
+                    if let Some(korean_char) = korean_chars.get_mut(unified_char) {
+                        korean_char.hanja_form = Some(korean_form.clone());
+                        variants_added += 1;
+                    }
+                }
+                println!("  ✅ Added {} Korean Hanja variant forms", variants_added);
+            }
+            Err(e) => {
+                println!("  ⚠️  Failed to load Korean compatibility variants: {}", e);
+            }
+        }
+    }
 
     korean_chars
 }
