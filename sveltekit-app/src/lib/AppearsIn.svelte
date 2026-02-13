@@ -1,5 +1,6 @@
 <script lang="ts">
 	import SectionHeading from "./components/shared/SectionHeading.svelte";
+	import { languageStore } from '$lib/stores/languages.svelte';
 
 	interface WordPreview {
 		w: string; // word
@@ -19,6 +20,11 @@
 
 	let { chineseWords = [], japaneseWords = [], koreanWords = [] }: Props = $props();
 
+	// Filter words based on language preferences
+	let filteredChineseWords = $derived(languageStore.preferences.chinese ? chineseWords : []);
+	let filteredJapaneseWords = $derived(languageStore.preferences.japanese ? japaneseWords : []);
+	let filteredKoreanWords = $derived(languageStore.preferences.korean ? koreanWords : []);
+
 	// State for pagination - start with 10 items
 	let chineseDisplayCount = $state(10);
 	let japaneseDisplayCount = $state(10);
@@ -30,24 +36,24 @@
 	let japaneseObserverTarget: HTMLElement | null = $state(null);
 	let koreanObserverTarget: HTMLElement | null = $state(null);
 
-	// Computed slices
-	let displayedChinese = $derived(chineseWords.slice(0, chineseDisplayCount));
+	// Computed slices (use filtered words)
+	let displayedChinese = $derived(filteredChineseWords.slice(0, chineseDisplayCount));
 	let displayedJapanese = $derived(
-		japaneseWords.slice(0, japaneseDisplayCount),
+		filteredJapaneseWords.slice(0, japaneseDisplayCount),
 	);
-	let displayedKorean = $derived(koreanWords.slice(0, koreanDisplayCount));
+	let displayedKorean = $derived(filteredKoreanWords.slice(0, koreanDisplayCount));
 
-	// Check if there are more items to load
-	let hasMoreChinese = $derived(chineseDisplayCount < chineseWords.length);
-	let hasMoreJapanese = $derived(japaneseDisplayCount < japaneseWords.length);
-	let hasMoreKorean = $derived(koreanDisplayCount < koreanWords.length);
+	// Check if there are more items to load (use filtered words)
+	let hasMoreChinese = $derived(chineseDisplayCount < filteredChineseWords.length);
+	let hasMoreJapanese = $derived(japaneseDisplayCount < filteredJapaneseWords.length);
+	let hasMoreKorean = $derived(koreanDisplayCount < filteredKoreanWords.length);
 
 	// Load more items (just increment display count - no fetching!)
 	function loadMoreChinese() {
 		if (!hasMoreChinese) return;
 		chineseDisplayCount = Math.min(
 			chineseDisplayCount + pageSize,
-			chineseWords.length,
+			filteredChineseWords.length,
 		);
 	}
 
@@ -55,7 +61,7 @@
 		if (!hasMoreJapanese) return;
 		japaneseDisplayCount = Math.min(
 			japaneseDisplayCount + pageSize,
-			japaneseWords.length,
+			filteredJapaneseWords.length,
 		);
 	}
 
@@ -63,7 +69,7 @@
 		if (!hasMoreKorean) return;
 		koreanDisplayCount = Math.min(
 			koreanDisplayCount + pageSize,
-			koreanWords.length,
+			filteredKoreanWords.length,
 		);
 	}
 
@@ -129,15 +135,15 @@
 	});
 </script>
 
-{#if chineseWords.length > 0 || japaneseWords.length > 0 || koreanWords.length > 0}
-	{@const columnCount = (chineseWords.length > 0 ? 1 : 0) + (japaneseWords.length > 0 ? 1 : 0) + (koreanWords.length > 0 ? 1 : 0)}
+{#if filteredChineseWords.length > 0 || filteredJapaneseWords.length > 0 || filteredKoreanWords.length > 0}
+	{@const columnCount = (filteredChineseWords.length > 0 ? 1 : 0) + (filteredJapaneseWords.length > 0 ? 1 : 0) + (filteredKoreanWords.length > 0 ? 1 : 0)}
 	<div class="mb-4">
 		<div class="word-columns" class:two-columns={columnCount === 2} class:three-columns={columnCount === 3}>
 			<!-- Chinese Words Column -->
-			{#if chineseWords.length > 0}
+			{#if filteredChineseWords.length > 0}
 				<div class="column">
 					<SectionHeading
-						>CHINESE WORDS ({chineseWords.length})</SectionHeading
+						>CHINESE WORDS ({filteredChineseWords.length})</SectionHeading
 					>
 					<div class="word-list">
 						{#each displayedChinese as preview}
@@ -165,7 +171,7 @@
 							bind:this={chineseObserverTarget}
 						>
 							<div class="remaining-count">
-								{chineseWords.length - chineseDisplayCount} more
+								{filteredChineseWords.length - chineseDisplayCount} more
 								items
 							</div>
 						</div>
@@ -174,10 +180,10 @@
 			{/if}
 
 			<!-- Japanese Words Column -->
-			{#if japaneseWords.length > 0}
+			{#if filteredJapaneseWords.length > 0}
 				<div class="column">
 					<SectionHeading
-						>JAPANESE WORDS ({japaneseWords.length})</SectionHeading
+						>JAPANESE WORDS ({filteredJapaneseWords.length})</SectionHeading
 					>
 					<div class="word-list">
 						{#each displayedJapanese as preview}
@@ -217,7 +223,7 @@
 							bind:this={japaneseObserverTarget}
 						>
 							<div class="remaining-count">
-								{japaneseWords.length - japaneseDisplayCount} more
+								{filteredJapaneseWords.length - japaneseDisplayCount} more
 								items
 							</div>
 						</div>
@@ -226,10 +232,10 @@
 			{/if}
 
 			<!-- Korean Words Column -->
-			{#if koreanWords.length > 0}
+			{#if filteredKoreanWords.length > 0}
 				<div class="column">
 					<SectionHeading
-						>KOREAN WORDS ({koreanWords.length})</SectionHeading
+						>KOREAN WORDS ({filteredKoreanWords.length})</SectionHeading
 					>
 					<div class="word-list">
 						{#each displayedKorean as preview}
@@ -258,7 +264,7 @@
 							bind:this={koreanObserverTarget}
 						>
 							<div class="remaining-count">
-								{koreanWords.length - koreanDisplayCount} more
+								{filteredKoreanWords.length - koreanDisplayCount} more
 								items
 							</div>
 						</div>

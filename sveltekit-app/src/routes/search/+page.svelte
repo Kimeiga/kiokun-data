@@ -63,6 +63,7 @@
 	// Separate results by language
 	let japaneseResults = $derived(results.filter(r => r.language === 'japanese'));
 	let chineseResults = $derived(results.filter(r => r.language === 'chinese'));
+	let koreanResults = $derived(results.filter(r => r.language === 'korean'));
 </script>
 
 <svelte:head>
@@ -142,6 +143,38 @@
 				<h2 class="column-title">Chinese 🇨🇳</h2>
 				<div class="results-list">
 					{#each chineseResults as result}
+						<a href="/{result.word}" class="result-card">
+							<div class="result-header">
+								<span class="word">{result.word}</span>
+								{#if result.pronunciation}
+									<span class="pronunciation">[{result.pronunciation}]</span>
+								{/if}
+								{#if result.is_common}
+									<span class="common-badge">Common</span>
+								{/if}
+							</div>
+							<div class="definitions">
+								{#each result.definitions.slice(0, 3) as definition, i}
+									<div class="definition">
+										{i + 1}. {definition}
+									</div>
+								{/each}
+								{#if result.definitions.length > 3}
+									<div class="more-definitions">
+										+{result.definitions.length - 3} more {result.definitions.length - 3 === 1 ? 'definition' : 'definitions'}
+									</div>
+								{/if}
+							</div>
+						</a>
+					{/each}
+				</div>
+			</div>
+
+			<!-- Korean results column -->
+			<div class="results-column">
+				<h2 class="column-title">Korean 🇰🇷</h2>
+				<div class="results-list">
+					{#each koreanResults as result}
 						<a href="/{result.word}" class="result-card">
 							<div class="result-header">
 								<span class="word">{result.word}</span>

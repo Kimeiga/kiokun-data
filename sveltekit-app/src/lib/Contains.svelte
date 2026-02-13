@@ -1,10 +1,12 @@
 <script lang="ts">
 	import SectionHeading from "./components/shared/SectionHeading.svelte";
+	import { languageStore } from '$lib/stores/languages.svelte';
 
 	interface WordPreview {
 		w: string; // word
 		p?: string; // pronunciation (Chinese pinyin)
 		jp?: string; // Japanese pronunciation (kana reading)
+		kr?: string; // Korean reading (Hangul)
 		d?: string; // definition
 	}
 
@@ -55,15 +57,21 @@
 	<div class="mb-4">
 		<div class="characters-row">
 			{#each displayedWords as preview}
+				{@const showChinese = preview.p && languageStore.preferences.chinese}
+				{@const showJapanese = preview.jp && languageStore.preferences.japanese}
+				{@const showKorean = preview.kr && languageStore.preferences.korean}
 				<a href="/{preview.w}" class="character-card">
 					<div class="character">{preview.w}</div>
-					{#if preview.p || preview.jp}
+					{#if showChinese || showJapanese || showKorean}
 						<div class="pronunciations">
-							{#if preview.p}
+							{#if showChinese}
 								<span class="chinese-reading">{preview.p}</span>
 							{/if}
-							{#if preview.jp}
+							{#if showJapanese}
 								<span class="japanese-reading">{preview.jp}</span>
+							{/if}
+							{#if showKorean}
+								<span class="korean-reading">{preview.kr}</span>
 							{/if}
 						</div>
 					{/if}
@@ -146,6 +154,13 @@
 		font-size: var(--font-size-caption2);
 		color: var(--text-secondary);
 		font-weight: 400;
+	}
+
+	.korean-reading {
+		font-size: var(--font-size-caption2);
+		color: var(--color-korean, #7c3aed);
+		font-weight: 400;
+		font-family: "Noto Sans KR", "Malgun Gothic", sans-serif;
 	}
 
 	.definition {
