@@ -1,5 +1,5 @@
 /// Search Index Builder
-/// Extracts all definitions from Chinese and Japanese dictionaries
+/// Extracts all definitions from Chinese, Japanese, and Korean dictionaries
 /// and outputs them as CSV for bulk import into Cloudflare D1
 
 use anyhow::Result;
@@ -7,8 +7,10 @@ use std::fs::File;
 use std::io::Write;
 use crate::chinese_types::ChineseDictionaryElement;
 use crate::japanese_types::Word;
+use crate::korean_types::KoreanWord;
 use crate::romaji::kana_to_romaji;
 use crate::pinyin::normalize_pinyin;
+use crate::korean_romanization::hangul_to_romanization;
 
 /// Represents a searchable dictionary entry
 #[derive(Debug, Clone)]
@@ -21,11 +23,12 @@ pub struct SearchEntry {
     pub is_common: bool,
 }
 
-/// Build search index from Chinese and Japanese dictionaries
+/// Build search index from Chinese, Japanese, and Korean dictionaries
 /// Outputs CSV file that can be imported into D1 using wrangler
 pub async fn build_search_index(
     chinese_entries: &[ChineseDictionaryElement],
     japanese_words: &[Word],
+    korean_words: &[KoreanWord],
     output_path: &str,
 ) -> Result<()> {
     println!("🔍 Building search index...");
@@ -104,8 +107,40 @@ pub async fn build_search_index(
     }
     
     println!("  ✅ Processed {} Japanese entries", entries.len() - japanese_start);
+
+    // Extract Korean entries
+    println!("  📖 Processing Korean entries...");
+    let korean_start = entries.len();
+
+    for korean_word in korean_words {
+        let word = &korean_word.hangul;
+
+        // Convert Hangul to romanization for searchable reading
+        let reading_search = hangul_to_romanization(word);
+
+        // Use IPA pronunciation if available, otherwise use romanization
+        let pronunciation = korean_word.pronunciation.as_deref()
+            .unwrap_or(&reading_search);
+
+        // Check if word has frequency data (is_common if in top 5000)
+        let is_common = korean_word.frequency_rank.map(|r| r <= 5000).unwrap_or(false);
+
+        // Extract all definitions
+        for def in &korean_word.definitions {
+            entries.push(SearchEntry {
+                word: word.clone(),
+                language: "korean".to_string(),
+                definition: def.text.clone(),
+                pronunciation: pronunciation.to_string(),
+                reading_search: reading_search.clone(),
+                is_common,
+            });
+        }
+    }
+
+    println!("  ✅ Processed {} Korean entries", entries.len() - korean_start);
     println!("  📊 Total entries: {}", entries.len());
-    
+
     // Write to CSV file
     println!("  💾 Writing to {}...", output_path);
     let mut file = File::create(output_path)?;
@@ -138,7 +173,7 @@ pub async fn build_search_index(
     println!("  1. Drop old table and run migration: wrangler d1 execute kiokun-notes-db --remote --file=sveltekit-app/migrations/0003_search_index_with_reading.sql");
     println!("  2. Import CSV: wrangler d1 execute kiokun-notes-db --remote --command=\".mode csv\" --command=\".import {} dictionary_search\"", output_path);
     println!("\n  Note: For local development, replace --remote with --local");
-    println!("  The reading_search column enables searching by romaji (Japanese) or pinyin (Chinese).");
+    println!("  The reading_search column enables searching by romaji (Japanese), pinyin (Chinese), or romanization (Korean).");
     
     Ok(())
 }

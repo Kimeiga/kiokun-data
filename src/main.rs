@@ -13,6 +13,7 @@ mod word_preview_types;
 mod search_index_builder;
 mod romaji;
 mod pinyin;
+mod korean_romanization;
 
 // Legacy unification code (not used in default simple output)
 mod legacy_unification {
@@ -435,9 +436,19 @@ async fn main() -> Result<()> {
         let japanese_dict = load_japanese_dictionary("data/jmdict-examples-eng-3.6.1.json")
             .context("Failed to load Japanese dictionary")?;
 
+        println!("📚 Loading Korean dictionary...");
+        let korean_words = if std::path::Path::new("data/krdict-en").exists() {
+            load_korean_dictionary("data/krdict-en")
+                .context("Failed to load Korean dictionary")?
+        } else {
+            println!("⚠️  Korean dictionary not found at data/krdict-en, skipping");
+            Vec::new()
+        };
+
         search_index_builder::build_search_index(
             &chinese_entries,
             &japanese_dict.words,
+            &korean_words,
             "output_search_index.csv"
         ).await?;
 
@@ -3316,14 +3327,15 @@ async fn generate_simple_output_files(
                 });
 
                 actual_output.and_then(|wo| {
-                    // For single characters, use combined preview to show both Chinese and Japanese readings
+                    // For single characters, use combined preview to show Chinese, Japanese, and Korean readings
                     let is_single_char = word_key.chars().count() == 1;
 
-                    if is_single_char && (wo.chinese_char.is_some() || wo.japanese_char.is_some()) {
+                    if is_single_char && (wo.chinese_char.is_some() || wo.japanese_char.is_some() || wo.korean_char.is_some()) {
                         // Use combined preview for single characters with character data
                         Some(word_preview_types::WordPreview::from_combined_char(
                             wo.chinese_char.as_ref(),
                             wo.japanese_char.as_ref(),
+                            wo.korean_char.as_ref(),
                             word_key,
                         ))
                     } else if !wo.chinese_words.is_empty() && !wo.japanese_words.is_empty() {
