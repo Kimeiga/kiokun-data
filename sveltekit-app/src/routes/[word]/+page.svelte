@@ -1045,7 +1045,7 @@
 										{/if}
 										{#if koreanChar && koreanChar.readings?.length > 0}
 											<div class="font-cjk text-korean">
-												🇰🇷 {koreanChar.readings.map(r => r.romanization ? `${r.hangul} (${r.romanization})` : r.hangul).join(", ")}
+												🇰🇷 {koreanChar.readings.map(r => r.hangul).join(", ")}
 											</div>
 										{/if}
 									</div>
