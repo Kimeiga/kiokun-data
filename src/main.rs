@@ -1168,18 +1168,6 @@ fn parse_korean_pos(tags: &str) -> Option<String> {
 
     None
 }
-
-/// Parse frequency rank from star ratings (⭐⭐⭐ = rank 1, ⭐⭐ = rank 2, ⭐ = rank 3)
-fn parse_korean_frequency(tags: &str) -> Option<u32> {
-    let star_count = tags.chars().filter(|&c| c == '⭐').count();
-    match star_count {
-        3 => Some(1), // Most frequent
-        2 => Some(2),
-        1 => Some(3),
-        _ => None,    // No frequency data
-    }
-}
-
 /// Load IPA pronunciation data and merge with Korean words
 fn load_korean_ipa(ipa_dir: &str, words: &mut Vec<korean_types::KoreanWord>) -> Result<()> {
     use std::collections::HashMap;
