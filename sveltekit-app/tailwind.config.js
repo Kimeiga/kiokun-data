@@ -29,6 +29,7 @@ export default {
 				pinyin: 'var(--color-pinyin)',
 				onyomi: 'var(--color-onyomi)',
 				kunyomi: 'var(--color-kunyomi)',
+				korean: 'var(--color-korean)',
 				gloss: 'var(--color-gloss)',
 				// Hint/callout colors
 				hint: {

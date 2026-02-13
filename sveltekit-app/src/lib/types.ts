@@ -14,11 +14,14 @@ export interface DictionaryEntry {
   chinese_char?: ChineseCharacter;
   japanese_words: JapaneseWord[];
   japanese_char?: JapaneseCharacter;
+  korean_words?: KoreanWord[];
+  korean_char?: KoreanCharacter;
   related_japanese_words: string[];
   japanese_names: JapaneseNameEntry[];
   contains: WordPreview[];
   contained_in_chinese: WordPreview[];
   contained_in_japanese: WordPreview[];
+  contained_in_korean?: WordPreview[];
 }
 
 // ============================================================================
@@ -273,6 +276,33 @@ export interface JapaneseReadingMeaning {
 export interface JapaneseReadingGroup {
   onReadings: string[];
   kunReadings: string[];
+}
+
+// ============================================================================
+// KOREAN TYPES
+// ============================================================================
+
+export interface KoreanReading {
+  hangul: string;
+  romanization?: string;
+}
+
+export interface KoreanCharacter {
+  character: string;
+  hanjaForm?: string;
+  readings: KoreanReading[];
+  meanings: string[];
+  meaningsEn: string[];
+  strokes?: number;
+  radical?: string;
+}
+
+export interface KoreanWord {
+  word: string;
+  hanja?: string;
+  readings: KoreanReading[];
+  meanings: string[];
+  meaningsEn: string[];
 }
 
 // ============================================================================

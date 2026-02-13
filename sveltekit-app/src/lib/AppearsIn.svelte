@@ -7,34 +7,40 @@
 		d?: string; // definition
 		c?: boolean; // common (Japanese words only)
 		jp?: string; // japanese pronunciation
+		kr?: string; // korean pronunciation (hangul)
 		fr?: number; // frequency rank (JPDB)
 	}
 
 	interface Props {
 		chineseWords: WordPreview[];
 		japaneseWords: WordPreview[];
+		koreanWords?: WordPreview[];
 	}
 
-	let { chineseWords = [], japaneseWords = [] }: Props = $props();
+	let { chineseWords = [], japaneseWords = [], koreanWords = [] }: Props = $props();
 
 	// State for pagination - start with 10 items
 	let chineseDisplayCount = $state(10);
 	let japaneseDisplayCount = $state(10);
+	let koreanDisplayCount = $state(10);
 	const pageSize = 10;
 
 	// Intersection observer elements
 	let chineseObserverTarget: HTMLElement | null = $state(null);
 	let japaneseObserverTarget: HTMLElement | null = $state(null);
+	let koreanObserverTarget: HTMLElement | null = $state(null);
 
 	// Computed slices
 	let displayedChinese = $derived(chineseWords.slice(0, chineseDisplayCount));
 	let displayedJapanese = $derived(
 		japaneseWords.slice(0, japaneseDisplayCount),
 	);
+	let displayedKorean = $derived(koreanWords.slice(0, koreanDisplayCount));
 
 	// Check if there are more items to load
 	let hasMoreChinese = $derived(chineseDisplayCount < chineseWords.length);
 	let hasMoreJapanese = $derived(japaneseDisplayCount < japaneseWords.length);
+	let hasMoreKorean = $derived(koreanDisplayCount < koreanWords.length);
 
 	// Load more items (just increment display count - no fetching!)
 	function loadMoreChinese() {
@@ -50,6 +56,14 @@
 		japaneseDisplayCount = Math.min(
 			japaneseDisplayCount + pageSize,
 			japaneseWords.length,
+		);
+	}
+
+	function loadMoreKorean() {
+		if (!hasMoreKorean) return;
+		koreanDisplayCount = Math.min(
+			koreanDisplayCount + pageSize,
+			koreanWords.length,
 		);
 	}
 
@@ -93,11 +107,32 @@
 		observer.observe(japaneseObserverTarget);
 		return () => observer.disconnect();
 	});
+
+	$effect(() => {
+		if (!koreanObserverTarget) return;
+
+		const observer = new IntersectionObserver(
+			(entries) => {
+				if (entries[0].isIntersecting && hasMoreKorean) {
+					loadMoreKorean();
+				}
+			},
+			{
+				root: null,
+				rootMargin: "200px",
+				threshold: 0.1,
+			},
+		);
+
+		observer.observe(koreanObserverTarget);
+		return () => observer.disconnect();
+	});
 </script>
 
-{#if chineseWords.length > 0 || japaneseWords.length > 0}
+{#if chineseWords.length > 0 || japaneseWords.length > 0 || koreanWords.length > 0}
+	{@const columnCount = (chineseWords.length > 0 ? 1 : 0) + (japaneseWords.length > 0 ? 1 : 0) + (koreanWords.length > 0 ? 1 : 0)}
 	<div class="mb-4">
-		<div class="two-column-layout">
+		<div class="word-columns" class:two-columns={columnCount === 2} class:three-columns={columnCount === 3}>
 			<!-- Chinese Words Column -->
 			{#if chineseWords.length > 0}
 				<div class="column">
@@ -189,20 +224,70 @@
 					{/if}
 				</div>
 			{/if}
+
+			<!-- Korean Words Column -->
+			{#if koreanWords.length > 0}
+				<div class="column">
+					<SectionHeading
+						>KOREAN WORDS ({koreanWords.length})</SectionHeading
+					>
+					<div class="word-list">
+						{#each displayedKorean as preview}
+							<a href="/{preview.w}" class="word-card">
+								<div class="word-header">
+									<span class="word-text">{preview.w}</span>
+									{#if preview.kr}
+										<span class="pronunciation"
+											>[{preview.kr}]</span
+										>
+									{:else if preview.p}
+										<span class="pronunciation"
+											>[{preview.p}]</span
+										>
+									{/if}
+								</div>
+								{#if preview.d}
+									<div class="definition">{preview.d}</div>
+								{/if}
+							</a>
+						{/each}
+					</div>
+					{#if hasMoreKorean}
+						<div
+							class="observer-target"
+							bind:this={koreanObserverTarget}
+						>
+							<div class="remaining-count">
+								{koreanWords.length - koreanDisplayCount} more
+								items
+							</div>
+						</div>
+					{/if}
+				</div>
+			{/if}
 		</div>
 	</div>
 {/if}
 
 <style>
-	.two-column-layout {
+	.word-columns {
 		display: grid;
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: 1fr;
 		gap: var(--spacing-xl);
 	}
 
+	.word-columns.two-columns {
+		grid-template-columns: 1fr 1fr;
+	}
+
+	.word-columns.three-columns {
+		grid-template-columns: 1fr 1fr 1fr;
+	}
+
 	@media (max-width: 768px) {
-		.two-column-layout {
-			/* Keep two columns on mobile since we have ~200 words */
+		.word-columns.two-columns,
+		.word-columns.three-columns {
+			/* Keep two columns on mobile */
 			grid-template-columns: 1fr 1fr;
 			gap: var(--spacing-sm);
 		}

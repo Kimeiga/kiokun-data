@@ -19,6 +19,13 @@
 	let traditionalChar = $derived(data.data.chinese_char?.char || data.word);
 	let simplifiedChar = $derived(data.data.chinese_char?.simpVariants?.[0]);
 	let japaneseChar = $derived(data.data.japanese_char?.literal);
+	let koreanChar = $derived(data.data.korean_char);
+
+	// Check if Korean Hanja form differs from traditional Chinese
+	let koreanHanjaForm = $derived(data.data.korean_char?.hanjaForm);
+	let krHasDifferentForm = $derived(
+		koreanHanjaForm && koreanHanjaForm !== traditionalChar && koreanHanjaForm !== simplifiedChar && koreanHanjaForm !== japaneseChar
+	);
 
 	// Helper to strip variant indicators like (trad), (simp), (jp) from glosses
 	// Since the character page unifies all variants, this info is redundant
@@ -49,11 +56,18 @@
 	let jpSameAsTrad = $derived(japaneseChar === traditionalChar);
 	let jpSameAsSimp = $derived(!simplifiedChar ? jpSameAsTrad : japaneseChar === simplifiedChar);
 
+	// Korean character comparisons - check if Korean uses the same character as traditional
+	let krSameAsTrad = $derived(!koreanChar || koreanChar.character === traditionalChar);
+	let krSameAsSimp = $derived(!koreanChar || !simplifiedChar ? krSameAsTrad : koreanChar.character === simplifiedChar);
+	let krSameAsJp = $derived(!koreanChar || !japaneseChar ? krSameAsTrad : koreanChar.character === japaneseChar);
+
 	// Count how many unique character boxes we'll show
 	let characterBoxCount = $derived.by(() => {
 		let count = traditionalChar ? 1 : 0;
 		if (simplifiedChar && !simpSameAsTrad) count++;
 		if (japaneseChar && !jpSameAsTrad && !jpSameAsSimp) count++;
+		// Korean Hanja variant only if it differs from all others
+		if (krHasDifferentForm) count++;
 		return count;
 	});
 	let isSingleCharacter = $derived(characterBoxCount === 1);
@@ -882,7 +896,7 @@
 											</div>
 										</div>
 										<div class="text-base tracking-wide">
-											🇹🇼{#if simpSameAsTrad}🇨🇳{/if}{#if jpSameAsTrad}🇯🇵{/if}
+											🇹🇼{#if simpSameAsTrad}🇨🇳{/if}{#if jpSameAsTrad}🇯🇵{/if}{#if koreanChar && krSameAsTrad && !krHasDifferentForm}🇰🇷{/if}
 										</div>
 									</div>
 								{/if}
@@ -916,7 +930,23 @@
 											</div>
 										</div>
 										<div class="text-base tracking-wide">
-											🇯🇵
+											🇯🇵{#if koreanChar && krSameAsJp && !krHasDifferentForm}🇰🇷{/if}
+										</div>
+									</div>
+								{/if}
+
+								<!-- Korean Hanja (only if it has a distinct form from all others) -->
+								{#if krHasDifferentForm && koreanHanjaForm}
+									<div class="flex flex-col items-center gap-2">
+										<div
+											class="w-[100px] h-[100px] flex items-center justify-center bg-bg-secondary rounded-xl shadow-lg border border-border"
+										>
+											<div class="text-6xl md:text-7xl font-bold font-cjk leading-none text-text-primary">
+												{koreanHanjaForm}
+											</div>
+										</div>
+										<div class="text-base tracking-wide">
+											🇰🇷
 										</div>
 									</div>
 								{/if}
@@ -1012,6 +1042,11 @@
 													{kunyomi.join("、")}
 												</div>
 											{/if}
+										{/if}
+										{#if koreanChar && koreanChar.readings?.length > 0}
+											<div class="font-cjk text-korean">
+												🇰🇷 {koreanChar.readings.map(r => r.romanization ? `${r.hangul} (${r.romanization})` : r.hangul).join(", ")}
+											</div>
 										{/if}
 									</div>
 								</div>
@@ -1511,6 +1546,7 @@
 		<AppearsIn
 			chineseWords={data.data.contained_in_chinese || []}
 			japaneseWords={data.data.contained_in_japanese || []}
+			koreanWords={data.data.contained_in_korean || []}
 		/>
 	</div>
 </div>

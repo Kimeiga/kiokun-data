@@ -24,6 +24,7 @@
 	--color-pinyin: #3498db;
 	--color-onyomi: #e74c3c;
 	--color-kunyomi: #27ae60;
+	--color-korean: #9b59b6; /* Purple for Korean */
 	--color-separator: #bdc3c7;
 	--color-gloss: #27ae60;
 	--color-hint-bg: #fff3cd;
@@ -133,6 +134,7 @@
 	--color-pinyin: #2ecc71; /* Unified Green for consistency */
 	--color-onyomi: #ff6b6b; /* Keep distinct but can be styled as label */
 	--color-kunyomi: #2ecc71; /* Green */
+	--color-korean: #bb8fce; /* Light purple for Korean */
 	--color-separator: #3a3a3c;
 	--color-gloss: #ffffff; /* White for main meaning */
 	
