@@ -1543,9 +1543,6 @@
 										{#if word.hanja}
 											<span class="korean-hanja">[{word.hanja}]</span>
 										{/if}
-										{#if word.pronunciation}
-											<span class="korean-pronunciation">{word.pronunciation}</span>
-										{/if}
 										<SpeakButton text={word.hangul} lang="ko" size={18} />
 									</div>
 									<!-- Part of speech -->
@@ -1679,12 +1676,6 @@
 		font-size: 20px;
 		font-family: "Noto Serif TC", "Noto Serif SC", "MS Mincho", serif;
 		color: var(--text-secondary, #666);
-	}
-
-	.korean-pronunciation {
-		font-size: 16px;
-		font-family: "Noto Sans KR", "Malgun Gothic", sans-serif;
-		color: var(--text-tertiary, #888);
 	}
 
 	.korean-pos {
