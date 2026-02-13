@@ -1464,8 +1464,8 @@
 			</div>
 		{/if}
 
-		<!-- Chinese and Japanese Words - Two Column Layout on Desktop -->
-		{#if (data.data.chinese_words && data.data.chinese_words.length > 0) || (data.data.japanese_words && data.data.japanese_words.length > 0)}
+		<!-- Chinese, Japanese, and Korean Words -->
+		{#if (data.data.chinese_words && data.data.chinese_words.length > 0) || (data.data.japanese_words && data.data.japanese_words.length > 0) || (data.data.korean_words && data.data.korean_words.length > 0)}
 			<div class="word-sections-grid">
 				<!-- Chinese Words -->
 				{#if data.data.chinese_words && data.data.chinese_words.length > 0}
@@ -1526,6 +1526,40 @@
 								words={data.data.japanese_words}
 								accentDisplay="binary"
 							/>
+						</div>
+					</div>
+				{/if}
+
+				<!-- Korean Words -->
+				{#if data.data.korean_words && data.data.korean_words.length > 0}
+					<div>
+						<SectionHeading>Korean</SectionHeading>
+						<div class="mb-4">
+							{#each data.data.korean_words as word}
+								<div class="korean-word-entry">
+									<!-- Hangul and Hanja -->
+									<div class="korean-headwords">
+										<span class="korean-word-text">{word.hangul}</span>
+										{#if word.hanja}
+											<span class="korean-hanja">[{word.hanja}]</span>
+										{/if}
+										{#if word.pronunciation}
+											<span class="korean-pronunciation">{word.pronunciation}</span>
+										{/if}
+										<SpeakButton text={word.hangul} lang="ko" size={18} />
+									</div>
+									<!-- Part of speech -->
+									{#if word.pos}
+										<div class="korean-pos">{word.pos}</div>
+									{/if}
+									<!-- Definitions -->
+									{#if word.definitions && word.definitions.length > 0}
+										<div class="korean-definitions">
+											{word.definitions.map(d => d.text).join("; ")}
+										</div>
+									{/if}
+								</div>
+							{/each}
 						</div>
 					</div>
 				{/if}
@@ -1621,6 +1655,51 @@
 		color: var(--text-primary);
 	}
 
+	/* Korean word entry styling */
+	.korean-word-entry {
+		margin-bottom: 30px;
+	}
+
+	.korean-headwords {
+		display: flex;
+		align-items: baseline;
+		gap: 12px;
+		margin-bottom: 8px;
+		flex-wrap: wrap;
+	}
+
+	.korean-word-text {
+		font-size: 32px;
+		font-family: "Noto Sans KR", "Malgun Gothic", sans-serif;
+		font-weight: 600;
+		color: var(--primary-highlight, #2c3e50);
+	}
+
+	.korean-hanja {
+		font-size: 20px;
+		font-family: "Noto Serif TC", "Noto Serif SC", "MS Mincho", serif;
+		color: var(--text-secondary, #666);
+	}
+
+	.korean-pronunciation {
+		font-size: 16px;
+		font-family: "Noto Sans KR", "Malgun Gothic", sans-serif;
+		color: var(--text-tertiary, #888);
+	}
+
+	.korean-pos {
+		font-size: 14px;
+		color: var(--text-tertiary, #888);
+		margin-bottom: 8px;
+		font-style: italic;
+	}
+
+	.korean-definitions {
+		font-size: 16px;
+		line-height: 1.6;
+		color: var(--text-primary);
+	}
+
 	/* Historical evolution cards - soft styling matching rest of app */
 	.historical-card {
 		flex-shrink: 0;
@@ -1674,6 +1753,27 @@
 		}
 
 		.chinese-definitions {
+			font-size: var(--font-size-body);
+		}
+
+		.korean-word-entry {
+			margin-bottom: var(--spacing-xl);
+		}
+
+		.korean-headwords {
+			gap: var(--spacing-sm);
+			margin-bottom: var(--spacing-sm);
+		}
+
+		.korean-word-text {
+			font-size: var(--font-size-title);
+		}
+
+		.korean-hanja {
+			font-size: var(--font-size-headline);
+		}
+
+		.korean-definitions {
 			font-size: var(--font-size-body);
 		}
 

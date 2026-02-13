@@ -1,7 +1,7 @@
 <script lang="ts">
 	/**
 	 * SpeakButton - A button that uses the Web SpeechSynthesis API to speak text
-	 * Supports Chinese (Mandarin) and Japanese with platform-optimized voice selection
+	 * Supports Chinese (Mandarin), Japanese, and Korean with platform-optimized voice selection
 	 *
 	 * Voice quality priority (based on https://github.com/readium/speech):
 	 * - veryHigh: Microsoft Natural voices (Edge), Apple Siri voices
@@ -13,8 +13,8 @@
 	interface Props {
 		/** The text to speak (should be the actual characters, not romanization) */
 		text: string;
-		/** The language code: 'zh' for Chinese, 'ja' for Japanese */
-		lang: 'zh' | 'ja';
+		/** The language code: 'zh' for Chinese, 'ja' for Japanese, 'ko' for Korean */
+		lang: 'zh' | 'ja' | 'ko';
 		/** Optional: size of the icon (default: 16) */
 		size?: number;
 	}
@@ -27,6 +27,21 @@
 
 	// Recommended voices ordered by quality (best first)
 	// Based on https://github.com/readium/speech
+	const KOREAN_VOICES = [
+		// veryHigh quality - Microsoft Edge Natural voices
+		{ name: 'Microsoft SunHi Online (Natural) - Korean (Korea)', quality: 'veryHigh' },
+		{ name: 'Microsoft InJoon Online (Natural) - Korean (Korea)', quality: 'veryHigh' },
+		// high quality - Google Chrome Desktop
+		{ name: 'Google 한국의', quality: 'high' },
+		// high quality - Apple premium/enhanced voices
+		{ name: 'Yuna', quality: 'high', altNames: ['Yuna (Enhanced)', 'Yuna (Korean (Korea))'] },
+		// high quality - Android/ChromeOS Google voices
+		{ name: 'Android Speech Recognition and Synthesis from Google ko-KR-x-koc-network', quality: 'high', altNames: ['Android Speech Recognition and Synthesis from Google ko-KR-x-koc-local'] },
+		{ name: 'Android Speech Recognition and Synthesis from Google ko-KR-x-kod-network', quality: 'high', altNames: ['Android Speech Recognition and Synthesis from Google ko-KR-x-kod-local'] },
+		// normal quality - Windows preloaded
+		{ name: 'Microsoft Heami - Korean (Korea)', quality: 'normal' },
+	];
+
 	const JAPANESE_VOICES = [
 		// veryHigh quality - Microsoft Edge Natural voices
 		{ name: 'Microsoft Nanami Online (Natural) - Japanese (Japan)', quality: 'veryHigh' },
@@ -97,10 +112,14 @@
 	 * Find the best available voice for the given language
 	 * Iterates through recommended voices in quality order and returns first match
 	 */
-	function findBestVoice(voices: SpeechSynthesisVoice[], targetLang: 'zh' | 'ja'): SpeechSynthesisVoice | null {
-		const recommendedVoices = targetLang === 'ja' ? JAPANESE_VOICES : CHINESE_VOICES;
+	function findBestVoice(voices: SpeechSynthesisVoice[], targetLang: 'zh' | 'ja' | 'ko'): SpeechSynthesisVoice | null {
+		const recommendedVoices = targetLang === 'ja' ? JAPANESE_VOICES
+			: targetLang === 'ko' ? KOREAN_VOICES
+			: CHINESE_VOICES;
 		const langPrefixes = targetLang === 'ja'
 			? ['ja-JP', 'ja']
+			: targetLang === 'ko'
+			? ['ko-KR', 'ko']
 			: ['zh-CN', 'zh-TW', 'cmn-CN', 'cmn-TW', 'zh'];
 
 		// First, try to find a voice from our recommended list (in quality order)
@@ -150,7 +169,7 @@
 
 		// Set language based on prop
 		// Use specific locale codes for better voice matching
-		utterance.lang = lang === 'zh' ? 'zh-CN' : 'ja-JP';
+		utterance.lang = lang === 'zh' ? 'zh-CN' : lang === 'ko' ? 'ko-KR' : 'ja-JP';
 
 		// Find the best available voice
 		const voices = cachedVoices.length > 0 ? cachedVoices : window.speechSynthesis.getVoices();
@@ -209,8 +228,8 @@
 		class="speak-button"
 		class:speaking={isSpeaking}
 		onclick={speak}
-		title={lang === 'zh' ? 'Listen (Chinese)' : 'Listen (Japanese)'}
-		aria-label={lang === 'zh' ? 'Listen to Chinese pronunciation' : 'Listen to Japanese pronunciation'}
+		title={lang === 'zh' ? 'Listen (Chinese)' : lang === 'ko' ? 'Listen (Korean)' : 'Listen (Japanese)'}
+		aria-label={lang === 'zh' ? 'Listen to Chinese pronunciation' : lang === 'ko' ? 'Listen to Korean pronunciation' : 'Listen to Japanese pronunciation'}
 	>
 		<svg
 			width={size}

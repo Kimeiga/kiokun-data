@@ -297,12 +297,28 @@ export interface KoreanCharacter {
   radical?: string;
 }
 
+export interface KoreanDefinition {
+  text: string;
+  lang?: string;
+  sense_number?: number;
+}
+
+export interface KoreanExample {
+  korean: string;
+  translation?: string;
+}
+
 export interface KoreanWord {
-  word: string;
+  id: string;
+  hangul: string;
   hanja?: string;
-  readings: KoreanReading[];
-  meanings: string[];
-  meaningsEn: string[];
+  romanization?: string;
+  pronunciation?: string;
+  pos?: string;
+  definitions: KoreanDefinition[];
+  examples?: KoreanExample[];
+  origin?: 'native' | 'sino_korean' | 'loanword' | 'mixed' | 'unknown';
+  frequency_rank?: number;
 }
 
 // ============================================================================
