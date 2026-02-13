@@ -2612,6 +2612,10 @@ async fn generate_simple_output_files(
 
     // Merge Sino-Korean words into existing entries by Hanja key
     // The Hanja should match the traditional Chinese character used as key
+    // Also track which Hangul words need redirects or standalone entries
+    let mut hangul_to_hanja_redirects: Vec<(String, String)> = Vec::new();
+    let mut sino_korean_standalone: Vec<korean_types::KoreanWord> = Vec::new();
+
     for (hanja, korean_word_list) in &hanja_to_korean {
         // Check if we have an existing entry for this Hanja
         if let Some(output) = outputs.get_mut(hanja) {
@@ -2620,14 +2624,93 @@ async fn generate_simple_output_files(
                 if !output.korean_words.iter().any(|w| w.id == korean_word.id) {
                     output.korean_words.push(korean_word.clone());
                     sino_korean_merged += 1;
+                    // Create redirect from Hangul to Hanja
+                    hangul_to_hanja_redirects.push((korean_word.hangul.clone(), hanja.clone()));
                 }
             }
+        } else {
+            // No existing entry for this Hanja - create standalone entries for these Korean words
+            for korean_word in korean_word_list {
+                sino_korean_standalone.push(korean_word.clone());
+            }
         }
-        // Note: If no existing entry, the Korean word won't be added to any entry
-        // This is expected - we only merge into entries that have Chinese/Japanese data
     }
 
     println!("  ✅ Merged {} Sino-Korean words into existing entries", sino_korean_merged);
+
+    // Create standalone entries for Sino-Korean words that don't have a Hanja entry
+    let mut sino_korean_standalone_added = 0;
+    for korean_word in &sino_korean_standalone {
+        let key = korean_word.hangul.clone();
+
+        // Only create entry if no existing entry with this key
+        if !outputs.contains_key(&key) {
+            // Check shard filter if applicable
+            if let Some(ref filter) = shard_filter {
+                if ShardType::from_key(&key) != *filter {
+                    continue;
+                }
+            }
+
+            let output = SimpleOutput {
+                key: key.clone(),
+                redirect: None,
+                simplified_form_of: None,
+                chinese_words: Vec::new(),
+                chinese_char: None,
+                japanese_words: Vec::new(),
+                japanese_char: None,
+                related_japanese_words: Vec::new(),
+                japanese_names: Vec::new(),
+                contains: Vec::new(),
+                contained_in_chinese: Vec::new(),
+                contained_in_japanese: Vec::new(),
+                korean_words: vec![korean_word.clone()],
+                korean_char: None,
+                contained_in_korean: Vec::new(),
+            };
+
+            outputs.insert(key, output);
+            sino_korean_standalone_added += 1;
+        }
+    }
+    println!("  ✅ Created {} standalone entries for Sino-Korean words (no Hanja entry)", sino_korean_standalone_added);
+
+    // Create redirect entries from Hangul to Hanja for merged Sino-Korean words
+    let mut hangul_redirects_created = 0;
+    for (hangul, hanja) in &hangul_to_hanja_redirects {
+        // Only create redirect if no existing entry with this Hangul key
+        if !outputs.contains_key(hangul) {
+            // Check shard filter if applicable
+            if let Some(ref filter) = shard_filter {
+                if ShardType::from_key(hangul) != *filter {
+                    continue;
+                }
+            }
+
+            let redirect_entry = SimpleOutput {
+                key: hangul.clone(),
+                redirect: Some(hanja.clone()),
+                simplified_form_of: None,
+                chinese_words: Vec::new(),
+                chinese_char: None,
+                japanese_words: Vec::new(),
+                japanese_char: None,
+                related_japanese_words: Vec::new(),
+                japanese_names: Vec::new(),
+                contains: Vec::new(),
+                contained_in_chinese: Vec::new(),
+                contained_in_japanese: Vec::new(),
+                korean_words: Vec::new(),
+                korean_char: None,
+                contained_in_korean: Vec::new(),
+            };
+
+            outputs.insert(hangul.clone(), redirect_entry);
+            hangul_redirects_created += 1;
+        }
+    }
+    println!("  ✅ Created {} redirect entries from Hangul to Hanja", hangul_redirects_created);
 
     // Create standalone entries for native Korean words
     for korean_word in &native_korean_words {
