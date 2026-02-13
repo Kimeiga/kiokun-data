@@ -3204,18 +3204,39 @@ async fn generate_simple_output_files(
 
         // Build Korean word previews for this character
         if let Some(korean_words) = korean_containment.get(key) {
-            // HashSet already ensures uniqueness, just collect and sort for consistent ordering
-            let mut unique_words: Vec<String> = korean_words.iter().cloned().collect();
-            unique_words.sort();
-
-            // Convert to WordPreview objects
-            let previews: Vec<word_preview_types::WordPreview> = unique_words.iter()
+            // Collect previews WITH the Korean word data for sorting
+            let mut previews_with_words: Vec<(word_preview_types::WordPreview, &crate::korean_types::KoreanWord)> = korean_words.iter()
                 .filter_map(|word_key| {
                     outputs.get(word_key).and_then(|word_output| {
                         word_output.korean_words.first()
-                            .map(|korean_word| word_preview_types::WordPreview::from_korean(korean_word))
+                            .map(|korean_word| {
+                                let preview = word_preview_types::WordPreview::from_korean(korean_word);
+                                (preview, korean_word)
+                            })
                     })
                 })
+                .collect();
+
+            // Sort by frequency rank (lower = more common), words with rank come first
+            previews_with_words.sort_by(|(_, word_a), (_, word_b)| {
+                let rank_a = word_a.frequency_rank;
+                let rank_b = word_b.frequency_rank;
+
+                match (rank_a, rank_b) {
+                    // Both have frequency data: sort by rank (lower = more common)
+                    (Some(a), Some(b)) => a.cmp(&b),
+                    // Only a has frequency data: a comes first
+                    (Some(_), None) => std::cmp::Ordering::Less,
+                    // Only b has frequency data: b comes first
+                    (None, Some(_)) => std::cmp::Ordering::Greater,
+                    // Neither has frequency data: sort alphabetically by hangul for consistency
+                    (None, None) => word_a.hangul.cmp(&word_b.hangul)
+                }
+            });
+
+            // Extract just the previews and limit AFTER sorting by frequency
+            let previews: Vec<word_preview_types::WordPreview> = previews_with_words.into_iter()
+                .map(|(preview, _)| preview)
                 .take(containment_limit)
                 .collect();
 
