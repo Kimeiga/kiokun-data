@@ -968,11 +968,11 @@ fn load_korean_dictionary(dir_path: &str) -> Result<Vec<korean_types::KoreanWord
                 let pos = parse_korean_pos(tags);
 
                 // Get frequency rank from score field (negative score = rank, e.g., -287 = rank 287)
-                // Fall back to star ratings if no score is present
+                // Only use actual subtitle corpus data, NOT star ratings
                 let frequency_rank = if score < 0 {
                     Some((-score) as u32) // Convert negative score to positive rank
                 } else {
-                    parse_korean_frequency(tags) // Fall back to star ratings
+                    None // Don't use star ratings - they're not real frequency ranks
                 };
 
                 // Determine word origin based on Hanja presence
