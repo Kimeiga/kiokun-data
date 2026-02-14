@@ -3,80 +3,80 @@
 
 	// Kanji/semantic emoji - these have meaning from Japanese characters (most interesting for learners)
 	const kanjiEmoji = [
-		{ emoji: '🈁', kanji: 'ココ', reading: 'koko', meaning: 'Here', description: 'Katakana for "here" (ここ). Used to indicate a location or "you are here" on maps.', usage: 'Maps, location markers, directions', emojipedia: 'japanese-here-button', xSearch: '🈁' },
-		{ emoji: '🈂️', kanji: 'サ', reading: 'sa', meaning: 'Service', description: 'Short for サービス (sābisu/service). Indicates free service or "service charge included".', usage: 'Shops, restaurants indicating free extras', emojipedia: 'japanese-service-charge-button', xSearch: '🈂 サービス' },
-		{ emoji: '🈷️', kanji: '月', reading: 'tsuki/getsu', meaning: 'Month/Moon', description: 'Used to indicate monthly fees or subscriptions (月額 gekkai).', usage: 'Subscription services, monthly payments', emojipedia: 'japanese-monthly-amount-button', xSearch: '🈷 月額', dictLink: '月' },
-		{ emoji: '🈶', kanji: '有', reading: 'yū/aru', meaning: 'Have/Exists', description: 'Indicates something is available or there is a fee (有料 yūryō = paid/not free).', usage: '"Wi-Fi available", "Fee applies"', emojipedia: 'japanese-not-free-of-charge-button', xSearch: '🈶 有料', dictLink: '有' },
-		{ emoji: '🈯', kanji: '指', reading: 'shi/yubi', meaning: 'Reserved/Designated', description: 'From 指定席 (shiteiseki = reserved seat). Used in train reservations.', usage: 'Reserved seating, designated areas', emojipedia: 'japanese-reserved-button', xSearch: '🈯 指定席', dictLink: '指' },
-		{ emoji: '🉐', kanji: '得', reading: 'toku', meaning: 'Bargain/Profit', description: 'Indicates a special deal or discount. Common in sales promotions.', usage: 'Sales, special offers, bargain finds', emojipedia: 'japanese-bargain-button', xSearch: '🉐 セール', dictLink: '得' },
-		{ emoji: '🈹', kanji: '割', reading: 'wari', meaning: 'Discount', description: 'From 割引 (waribiki = discount). Indicates reduced prices.', usage: 'Store sales, price reductions, coupons', emojipedia: 'japanese-discount-button', xSearch: '🈹 割引', dictLink: '割' },
-		{ emoji: '🈚', kanji: '無', reading: 'mu/nashi', meaning: 'Nothing/Free', description: 'Indicates no charge or free (無料 muryō). Opposite of 🈶.', usage: '"Free Wi-Fi", "No charge", "Not available"', emojipedia: 'japanese-free-of-charge-button', xSearch: '🈚 無料', dictLink: '無' },
-		{ emoji: '🈲', kanji: '禁', reading: 'kin', meaning: 'Prohibited', description: 'From 禁止 (kinshi = forbidden). Used for "no smoking", "no entry", etc.', usage: '禁煙 No smoking, prohibition signs', emojipedia: 'japanese-prohibited-button', xSearch: '🈲 禁止', dictLink: '禁' },
-		{ emoji: '🉑', kanji: '可', reading: 'ka', meaning: 'Acceptable/OK', description: 'Indicates permission or that something is allowed/possible.', usage: '"Pets allowed", "OK to use"', emojipedia: 'japanese-acceptable-button', xSearch: '🉑', dictLink: '可' },
-		{ emoji: '🈸', kanji: '申', reading: 'shin/mōsu', meaning: 'Application', description: 'From 申し込む (mōshikomu = to apply). Also the zodiac Monkey.', usage: 'Job applications, registration forms', emojipedia: 'japanese-application-button', xSearch: '🈸 申込', dictLink: '申' },
-		{ emoji: '🈴', kanji: '合', reading: 'gō/ai', meaning: 'Pass/Meet', description: 'From 合格 (gōkaku = pass an exam). Indicates success or meeting requirements.', usage: 'Exam results, passing grades, approval', emojipedia: 'japanese-passing-grade-button', xSearch: '🈴 合格', dictLink: '合' },
-		{ emoji: '🈳', kanji: '空', reading: 'kū/kara/sora', meaning: 'Empty/Vacant', description: 'Indicates vacancy or availability. Also means "sky" or Buddhist "emptiness".', usage: 'Hotel vacancies, parking spaces available', emojipedia: 'japanese-vacancy-button', xSearch: '🈳 空室', dictLink: '空' },
-		{ emoji: '㊗️', kanji: '祝', reading: 'shuku/iwau', meaning: 'Congratulations', description: 'From 祝う (iwau = to celebrate). Used for celebrations and well-wishes.', usage: 'Birthdays, weddings, achievements', emojipedia: 'japanese-congratulations-button', xSearch: '㊗ おめでとう', dictLink: '祝' },
-		{ emoji: '㊙️', kanji: '秘', reading: 'hi', meaning: 'Secret', description: 'From 秘密 (himitsu = secret). Often used playfully as "classified".', usage: 'Secret info, confidential, マル秘 (top secret)', emojipedia: 'japanese-secret-button', xSearch: '㊙ 秘密', dictLink: '秘' },
-		{ emoji: '🈺', kanji: '営', reading: 'ei', meaning: 'Open/Operating', description: 'From 営業中 (eigyōchū = open for business).', usage: 'Store hours, "We are open" signs', emojipedia: 'japanese-open-for-business-button', xSearch: '🈺 営業中', dictLink: '営' },
-		{ emoji: '🈵', kanji: '満', reading: 'man', meaning: 'Full/No Vacancy', description: 'Indicates something is full or sold out. Opposite of 🈳.', usage: 'Parking full, hotel booked, sold out', emojipedia: 'japanese-no-vacancy-button', xSearch: '🈵 満席', dictLink: '満' },
+		{ emoji: '🈁', kanji: 'ココ', reading: 'koko', meaning: 'Here', description: 'Katakana for "here" (ここ). You\'ll see this on Japanese maps and shopping mall directories with a pointing finger showing "You are here" (現在地).', usage: 'Maps, location markers, directories', emojipedia: 'japanese-here-button', xSearch: '🈁', imageSearch: '現在地 地図 日本' },
+		{ emoji: '🈂️', kanji: 'サ', reading: 'sa', meaning: 'Service', description: 'Short for サービス (sābisu). In Japanese restaurants, this means "on the house" - a free extra like a drink or side dish. Different from Western "service charge"!', usage: 'Restaurants, shops offering free extras', emojipedia: 'japanese-service-charge-button', xSearch: '🈂 サービス', imageSearch: 'サービス 無料 日本' },
+		{ emoji: '🈷️', kanji: '月', reading: 'tsuki/getsu', meaning: 'Monthly', description: 'Indicates monthly fees or subscriptions (月額 gekkai). You\'ll see this on streaming services, gym memberships, and phone plans showing the price per month.', usage: 'Subscriptions, monthly payments, plans', emojipedia: 'japanese-monthly-amount-button', xSearch: '🈷 月額', dictLink: '月', imageSearch: '月額 料金' },
+		{ emoji: '🈶', kanji: '有', reading: 'yū/aru', meaning: 'Available/Fee', description: 'Means something is available or requires payment (有料 yūryō = fee required). The opposite of 🈚. Common on parking signs, Wi-Fi notices, and facility usage.', usage: '"Wi-Fi available", "Paid parking"', emojipedia: 'japanese-not-free-of-charge-button', xSearch: '🈶 有料', dictLink: '有', imageSearch: '有料 駐車場 看板' },
+		{ emoji: '🈯', kanji: '指', reading: 'shi/yubi', meaning: 'Reserved', description: 'From 指定席 (shiteiseki = reserved seat). On Japanese trains like the Shinkansen, you\'ll see this distinguishing reserved cars from 自由席 (free seating) cars.', usage: 'Train reservations, theater seats', emojipedia: 'japanese-reserved-button', xSearch: '🈯 指定席', dictLink: '指', imageSearch: '指定席 新幹線' },
+		{ emoji: '🉐', kanji: '得', reading: 'toku', meaning: 'Bargain', description: 'Means "profit" or "good deal" - you\'ll see this on sale posters and advertisements indicating a special bargain. Often used with お得 (otoku = great deal).', usage: 'Sales ads, special deals, promotions', emojipedia: 'japanese-bargain-button', xSearch: '🉐 セール', dictLink: '得', imageSearch: 'お得 セール 看板' },
+		{ emoji: '🈹', kanji: '割', reading: 'wari', meaning: 'Discount', description: 'From 割引 (waribiki = discount). In Japanese supermarkets, staff place red-and-yellow stickers with this kanji on items nearing expiration: "2割引" means 20% off, "半額" means half price!', usage: 'Supermarket stickers, sale signs', emojipedia: 'japanese-discount-button', xSearch: '🈹 割引', dictLink: '割', imageSearch: '割引 シール スーパー' },
+		{ emoji: '🈚', kanji: '無', reading: 'mu/nashi', meaning: 'Free/None', description: 'Indicates "free of charge" (無料 muryō) or "none available". The opposite of 🈶. You\'ll see this on free Wi-Fi signs, free parking, and "no additives" food labels.', usage: 'Free Wi-Fi, free parking, "no charge"', emojipedia: 'japanese-free-of-charge-button', xSearch: '🈚 無料', dictLink: '無', imageSearch: '無料 Wi-Fi 看板' },
+		{ emoji: '🈲', kanji: '禁', reading: 'kin', meaning: 'Prohibited', description: 'From 禁止 (kinshi = forbidden). Appears on "No Smoking" (禁煙) signs, "No Photography" signs, and other prohibition notices throughout Japan.', usage: 'No smoking, no entry, prohibition signs', emojipedia: 'japanese-prohibited-button', xSearch: '🈲 禁止', dictLink: '禁', imageSearch: '禁煙 禁止 看板' },
+		{ emoji: '🉑', kanji: '可', reading: 'ka', meaning: 'Acceptable', description: 'Indicates permission or possibility. Common in approval stamps, "pets allowed" signs, and credit card acceptance notices (カード可 = cards accepted).', usage: 'Approval stamps, "allowed" signs', emojipedia: 'japanese-acceptable-button', xSearch: '🉑', dictLink: '可', imageSearch: 'カード可 ペット可 看板' },
+		{ emoji: '🈸', kanji: '申', reading: 'shin/mōsu', meaning: 'Apply', description: 'From 申し込む (mōshikomu = to apply). Used on application forms, registration buttons, and sign-up pages. Also the zodiac sign for Monkey!', usage: 'Application forms, registration, sign-ups', emojipedia: 'japanese-application-button', xSearch: '🈸 申込', dictLink: '申', imageSearch: '申込 申請 フォーム' },
+		{ emoji: '🈴', kanji: '合', reading: 'gō/ai', meaning: 'Pass', description: 'From 合格 (gōkaku = pass an exam). This is the kanji every Japanese student hopes to see on their test results! Used for exam results, certifications, and quality approvals.', usage: 'Exam results, certifications, approvals', emojipedia: 'japanese-passing-grade-button', xSearch: '🈴 合格', dictLink: '合', imageSearch: '合格 スタンプ 試験' },
+		{ emoji: '🈳', kanji: '空', reading: 'kū/kara/sora', meaning: 'Vacant', description: 'Indicates vacancy or availability. In parking lots, LED signs show 空 when spaces are available. Hotels display 空室あり (vacancy). Also means "sky" or Buddhist "emptiness".', usage: 'Hotel vacancy, parking available', emojipedia: 'japanese-vacancy-button', xSearch: '🈳 空室', dictLink: '空', imageSearch: '空車 満車 駐車場 看板' },
+		{ emoji: '㊗️', kanji: '祝', reading: 'shuku/iwau', meaning: 'Congratulations', description: 'From 祝う (iwau = to celebrate). This circled character appears on gift envelopes (祝儀袋), greeting cards, and celebratory banners for weddings, graduations, and New Year.', usage: 'Gift envelopes, celebration cards', emojipedia: 'japanese-congratulations-button', xSearch: '㊗ おめでとう', dictLink: '祝', imageSearch: '祝儀袋 ご祝儀' },
+		{ emoji: '㊙️', kanji: '秘', reading: 'hi', meaning: 'Secret', description: 'From 秘密 (himitsu = secret). マル秘 (maru-hi = circled secret) is the official "confidential" stamp used on Japanese business documents - like "classified" in English!', usage: 'Confidential stamps, playful secrets', emojipedia: 'japanese-secret-button', xSearch: '㊙ 秘密', dictLink: '秘', imageSearch: 'マル秘 スタンプ 機密' },
+		{ emoji: '🈺', kanji: '営', reading: 'ei', meaning: 'Open', description: 'From 営業中 (eigyōchū = open for business). You\'ll see this lit up in red on shop signs indicating they\'re currently open. The opposite is 準備中 (preparing/closed).', usage: 'Shop signs, business hours', emojipedia: 'japanese-open-for-business-button', xSearch: '🈺 営業中', dictLink: '営', imageSearch: '営業中 看板 店舗' },
+		{ emoji: '🈵', kanji: '満', reading: 'man', meaning: 'Full', description: 'Indicates something is full or sold out. Parking lots show 満車 on LED signs when no spaces remain. Hotels display 満室 (no vacancy). Event venues show 満席 (sold out).', usage: 'Parking full, sold out, fully booked', emojipedia: 'japanese-no-vacancy-button', xSearch: '🈵 満席', dictLink: '満', imageSearch: '満車 満室 看板' },
 	];
 
 	// Cultural/pictorial emoji - Japanese items, festivals, food, etc.
 	const culturalEmoji = [
-		{ emoji: '🗾', name: 'Map of Japan', description: 'The only country with its own map emoji! Shows the Japanese archipelago.', emojipedia: 'map-of-japan', xSearch: '🗾 日本', imageSearch: '日本 地図' },
-		{ emoji: '🗻', name: 'Mount Fuji', description: 'Japan\'s iconic sacred mountain (富士山 Fujisan), a UNESCO World Heritage Site.', emojipedia: 'mount-fuji', xSearch: '🗻 富士山', imageSearch: '富士山' },
-		{ emoji: '🗼', name: 'Tokyo Tower', description: 'The famous 333m communications tower in Minato, Tokyo, built in 1958.', emojipedia: 'tokyo-tower', xSearch: '🗼 東京タワー', imageSearch: '東京タワー' },
-		{ emoji: '🏯', name: 'Japanese Castle', description: 'A traditional Japanese castle (城 shiro) like Himeji or Osaka Castle.', emojipedia: 'japanese-castle', xSearch: '🏯 城', imageSearch: '日本 城' },
-		{ emoji: '⛩️', name: 'Shinto Shrine Gate', description: 'Torii (鳥居) - the iconic red gate marking the entrance to a Shinto shrine.', emojipedia: 'shinto-shrine', xSearch: '⛩️ 神社', imageSearch: '鳥居 神社' },
-		{ emoji: '🎌', name: 'Crossed Flags', description: 'Two Japanese flags (日章旗 Nisshōki) crossed, often for national celebrations.', emojipedia: 'crossed-flags', xSearch: '🎌 日本', imageSearch: '日章旗' },
-		{ emoji: '👘', name: 'Kimono', description: 'Traditional Japanese garment (着物) worn for special occasions and festivals.', emojipedia: 'kimono', xSearch: '👘 着物', imageSearch: '着物' },
-		{ emoji: '👺', name: 'Tengu', description: 'A mythological creature (天狗) with a long red nose, associated with mountains.', emojipedia: 'goblin', xSearch: '👺 天狗', imageSearch: '天狗' },
-		{ emoji: '👹', name: 'Oni', description: 'Japanese ogre/demon (鬼) from folklore, often red or blue with horns.', emojipedia: 'ogre', xSearch: '👹 鬼', imageSearch: '鬼 日本' },
-		{ emoji: '🥷', name: 'Ninja', description: 'Covert agent of feudal Japan (忍者), masters of stealth and espionage.', emojipedia: 'ninja', xSearch: '🥷 忍者', imageSearch: '忍者' },
+		{ emoji: '🗾', name: 'Map of Japan', description: 'The only country with its own map emoji! Shows all four main islands: Hokkaido, Honshu, Shikoku, and Kyushu. Japan is called 日本 (Nihon/Nippon), meaning "origin of the sun".', emojipedia: 'map-of-japan', xSearch: '🗾 日本', imageSearch: '日本 地図 四島' },
+		{ emoji: '🗻', name: 'Mount Fuji', description: 'Japan\'s sacred mountain (富士山 Fujisan) at 3,776m is a UNESCO World Heritage Site. This perfectly symmetrical volcano is visible from Tokyo on clear days and has been depicted in art for centuries, including Hokusai\'s famous "Great Wave".', emojipedia: 'mount-fuji', xSearch: '🗻 富士山', imageSearch: '富士山 写真' },
+		{ emoji: '🗼', name: 'Tokyo Tower', description: 'Built in 1958, this 333m communications tower in Minato, Tokyo was inspired by the Eiffel Tower but painted orange-white for aviation safety. It was Japan\'s tallest structure until Tokyo Skytree opened in 2012.', emojipedia: 'tokyo-tower', xSearch: '🗼 東京タワー', imageSearch: '東京タワー 夜景' },
+		{ emoji: '🏯', name: 'Japanese Castle', description: 'Traditional castles (城 shiro) feature distinctive curved roofs and white walls. Famous examples include Himeji Castle (a UNESCO site called "White Heron Castle") and Osaka Castle, built by Toyotomi Hideyoshi in 1583.', emojipedia: 'japanese-castle', xSearch: '🏯 城', imageSearch: '姫路城' },
+		{ emoji: '⛩️', name: 'Shinto Shrine Gate', description: 'Torii (鳥居, literally "bird perch") are vermillion gates marking sacred space at Shinto shrines. They separate the everyday world from the spiritual realm. Fushimi Inari in Kyoto has thousands of them!', emojipedia: 'shinto-shrine', xSearch: '⛩️ 神社', imageSearch: '伏見稲荷 千本鳥居' },
+		{ emoji: '🎌', name: 'Crossed Flags', description: 'Two Japanese flags (日章旗 Nisshōki, "sun-mark flag") crossed for national celebrations. The red circle represents the sun, earning Japan the name "Land of the Rising Sun" (日出ずる国).', emojipedia: 'crossed-flags', xSearch: '🎌 日本', imageSearch: '日章旗 国旗' },
+		{ emoji: '👘', name: 'Kimono', description: 'Traditional Japanese garment (着物, literally "thing to wear") with T-shaped robes and wide sleeves. Worn left-over-right (right-over-left is only for the deceased!). Still worn for weddings, Coming of Age Day, and festivals.', emojipedia: 'kimono', xSearch: '👘 着物', imageSearch: '着物 振袖' },
+		{ emoji: '👺', name: 'Tengu', description: 'Mountain spirits (天狗, "heavenly dogs") from Japanese folklore with long red noses and magical powers. Originally seen as war demons, they became protectors of mountains and martial arts masters. Featured in many festivals as masks.', emojipedia: 'goblin', xSearch: '👺 天狗', imageSearch: '天狗 面' },
+		{ emoji: '👹', name: 'Oni', description: 'Japanese ogres/demons (鬼) with horns, wild hair, and colorful skin (red, blue, or green). During Setsubun festival on Feb 3rd, people throw beans while shouting "Oni wa soto!" (demons out!) to drive away evil.', emojipedia: 'ogre', xSearch: '👹 鬼 節分', imageSearch: '節分 鬼' },
+		{ emoji: '🥷', name: 'Ninja', description: 'Covert agents of feudal Japan (忍者, "one who endures") specializing in espionage, sabotage, and guerrilla warfare. Contrary to pop culture, they rarely wore all-black - that\'s from kabuki theater conventions!', emojipedia: 'ninja', xSearch: '🥷 忍者', imageSearch: '忍者 忍び' },
 	];
 
 	// Festival emoji
 	const festivalEmoji = [
-		{ emoji: '🎍', name: 'Kadomatsu', description: 'New Year\'s decoration (門松) made of bamboo and pine, placed at entrances.', emojipedia: 'pine-decoration', xSearch: '🎍 お正月', imageSearch: '門松' },
-		{ emoji: '🎎', name: 'Hina Dolls', description: 'Ornamental dolls for Hinamatsuri (雛祭り) - Girls\' Day on March 3rd.', emojipedia: 'japanese-dolls', xSearch: '🎎 ひな祭り', imageSearch: 'ひな人形' },
-		{ emoji: '🎏', name: 'Koinobori', description: 'Carp streamers (鯉のぼり) flown for Kodomo no Hi (Children\'s Day) on May 5th.', emojipedia: 'carp-streamer', xSearch: '🎏 こどもの日', imageSearch: '鯉のぼり' },
-		{ emoji: '🎋', name: 'Tanabata Tree', description: 'Bamboo decorated with wishes on paper strips for the Star Festival (七夕) in July.', emojipedia: 'tanabata-tree', xSearch: '🎋 七夕', imageSearch: '七夕 笹' },
-		{ emoji: '🎑', name: 'Moon Viewing', description: 'Tsukimi (月見) - autumn harvest moon festival with dango and pampas grass.', emojipedia: 'moon-viewing-ceremony', xSearch: '🎑 月見', imageSearch: '月見 団子' },
-		{ emoji: '🎐', name: 'Wind Chime', description: 'Fūrin (風鈴) - glass wind chime, a symbol of summer in Japan.', emojipedia: 'wind-chime', xSearch: '🎐 風鈴', imageSearch: '風鈴' },
-		{ emoji: '🎴', name: 'Hanafuda', description: 'Flower cards (花札) - traditional Japanese playing cards with seasonal motifs.', emojipedia: 'flower-playing-cards', xSearch: '🎴 花札', imageSearch: '花札' },
+		{ emoji: '🎍', name: 'Kadomatsu', description: 'New Year\'s "gate pine" (門松) placed in pairs outside homes to welcome ancestral spirits. Made with three cut bamboo pieces (representing heaven, humanity, earth) and pine sprigs (symbolizing longevity). Displayed Dec 28 - Jan 7.', emojipedia: 'pine-decoration', xSearch: '🎍 お正月', imageSearch: '門松 正月飾り' },
+		{ emoji: '🎎', name: 'Hina Dolls', description: 'Ornamental emperor and empress dolls (雛人形) displayed on tiered platforms for Hinamatsuri (Girls\' Day) on March 3rd. Families with daughters display these heirloom dolls to wish for their health and happiness. A full set has 15 dolls!', emojipedia: 'japanese-dolls', xSearch: '🎎 ひな祭り', imageSearch: 'ひな人形 七段飾り' },
+		{ emoji: '🎏', name: 'Koinobori', description: 'Carp streamers (鯉のぼり) flown for Children\'s Day (こどもの日) on May 5th. Carp represent strength because they swim upstream. Traditionally: black carp = father, red = mother, smaller blue/green = children. Some rivers display thousands!', emojipedia: 'carp-streamer', xSearch: '🎏 こどもの日', imageSearch: '鯉のぼり 川' },
+		{ emoji: '🎋', name: 'Tanabata Tree', description: 'For the Star Festival (七夕) on July 7th, people write wishes on colorful paper strips called tanzaku (短冊) and hang them on bamboo branches. The festival celebrates the yearly meeting of star-crossed lovers Orihime and Hikoboshi.', emojipedia: 'tanabata-tree', xSearch: '🎋 七夕', imageSearch: '七夕 短冊 笹' },
+		{ emoji: '🎑', name: 'Moon Viewing', description: 'Tsukimi (月見, "moon viewing") celebrates the autumn harvest moon. Families display pampas grass (susuki) and eat tsukimi dango - white rice dumplings stacked in pyramids. McDonald\'s Japan even sells "Tsukimi Burgers" with egg!', emojipedia: 'moon-viewing-ceremony', xSearch: '🎑 月見', imageSearch: '月見 団子 すすき' },
+		{ emoji: '🎐', name: 'Wind Chime', description: 'Fūrin (風鈴, "wind bell") are delicate glass bells hung in summer. Their gentle chiming sound is said to make people feel cooler - a form of psychological air conditioning! Many temples hold fūrin festivals with hundreds of chimes.', emojipedia: 'wind-chime', xSearch: '🎐 風鈴', imageSearch: '風鈴 ガラス' },
+		{ emoji: '🎴', name: 'Hanafuda', description: 'Flower cards (花札) are traditional playing cards featuring seasonal flowers and plants for each month. Created when gambling cards were banned! Nintendo actually started as a hanafuda company in 1889 before making video games.', emojipedia: 'flower-playing-cards', xSearch: '🎴 花札', imageSearch: '花札 札' },
 	];
 
 	// Food and drink emoji
 	const foodEmoji = [
-		{ emoji: '🍣', name: 'Sushi', description: 'Nigiri sushi (寿司) - vinegared rice topped with raw fish.', emojipedia: 'sushi', xSearch: '🍣 寿司', imageSearch: '寿司' },
-		{ emoji: '🍜', name: 'Ramen', description: 'Japanese noodle soup (ラーメン) with various broths and toppings.', emojipedia: 'steaming-bowl', xSearch: '🍜 ラーメン', imageSearch: 'ラーメン' },
-		{ emoji: '🍙', name: 'Onigiri', description: 'Rice ball (おにぎり) often wrapped in nori with a filling inside.', emojipedia: 'rice-ball', xSearch: '🍙 おにぎり', imageSearch: 'おにぎり' },
-		{ emoji: '🍱', name: 'Bento Box', description: 'Compartmentalized lunchbox (弁当) with rice, protein, and sides.', emojipedia: 'bento-box', xSearch: '🍱 弁当', imageSearch: '弁当' },
-		{ emoji: '🍤', name: 'Fried Shrimp', description: 'Ebi fry (エビフライ) - breaded and deep-fried shrimp, popular in Japan.', emojipedia: 'fried-shrimp', xSearch: '🍤 エビフライ', imageSearch: 'エビフライ' },
-		{ emoji: '🍥', name: 'Narutomaki', description: 'Fish cake (鳴門巻き) with pink spiral pattern, common ramen topping.', emojipedia: 'fish-cake-with-swirl', xSearch: '🍥 なると', imageSearch: '鳴門巻き' },
-		{ emoji: '🍡', name: 'Dango', description: 'Sweet rice dumplings (団子) on a skewer, often pink, white, and green.', emojipedia: 'dango', xSearch: '🍡 団子', imageSearch: '団子' },
-		{ emoji: '🍘', name: 'Senbei', description: 'Rice cracker (煎餅) often wrapped with nori seaweed.', emojipedia: 'rice-cracker', xSearch: '🍘 煎餅', imageSearch: '煎餅' },
-		{ emoji: '🍢', name: 'Oden', description: 'Winter hot pot dish (おでん) with various ingredients in dashi broth.', emojipedia: 'oden', xSearch: '🍢 おでん', imageSearch: 'おでん' },
-		{ emoji: '🍲', name: 'Nabe', description: 'Hot pot (鍋) - communal dish cooked at the table.', emojipedia: 'pot-of-food', xSearch: '🍲 鍋', imageSearch: '鍋料理' },
-		{ emoji: '🍵', name: 'Matcha', description: 'Green tea (抹茶) served in a traditional cup without handles.', emojipedia: 'teacup-without-handle', xSearch: '🍵 抹茶', imageSearch: '抹茶' },
-		{ emoji: '🍶', name: 'Sake', description: 'Japanese rice wine (日本酒) served in a traditional bottle (tokkuri) and cup.', emojipedia: 'sake', xSearch: '🍶 日本酒', imageSearch: '日本酒 徳利' },
-		{ emoji: '🍧', name: 'Kakigōri', description: 'Shaved ice dessert (かき氷) topped with sweet syrup, popular in summer.', emojipedia: 'shaved-ice', xSearch: '🍧 かき氷', imageSearch: 'かき氷' },
+		{ emoji: '🍣', name: 'Sushi', description: 'Nigiri sushi (握り寿司) - hand-pressed vinegared rice topped with fresh seafood. The emoji shows salmon or tuna on rice. Fun fact: "sushi" refers to the seasoned rice, not the fish! Conveyor belt sushi (回転寿司) is a fun, affordable way to try it.', emojipedia: 'sushi', xSearch: '🍣 寿司', imageSearch: '握り寿司 盛り合わせ' },
+		{ emoji: '🍜', name: 'Ramen', description: 'Japan\'s beloved noodle soup (ラーメン) with wheat noodles in flavorful broth. Regional styles include: tonkotsu (pork bone) from Hakata, miso from Sapporo, shoyu (soy sauce) from Tokyo. Slurping is encouraged - it shows you\'re enjoying it!', emojipedia: 'steaming-bowl', xSearch: '🍜 ラーメン', imageSearch: 'ラーメン 味噌' },
+		{ emoji: '🍙', name: 'Onigiri', description: 'Triangular rice balls (おにぎり) wrapped in crispy nori seaweed with fillings like salmon, tuna mayo, or pickled plum (umeboshi). The ultimate Japanese convenience food - available at every konbini (convenience store) for about ¥100-150!', emojipedia: 'rice-ball', xSearch: '🍙 おにぎり', imageSearch: 'おにぎり コンビニ' },
+		{ emoji: '🍱', name: 'Bento Box', description: 'Compartmentalized lunchboxes (弁当) are an art form in Japan. Parents make elaborate "kyaraben" (character bento) for kids, and train stations sell regional "ekiben". A balanced bento follows the 4:3:2:1 ratio of rice, veggies, protein, and pickle.', emojipedia: 'bento-box', xSearch: '🍱 弁当', imageSearch: 'キャラ弁 弁当' },
+		{ emoji: '🍤', name: 'Fried Shrimp', description: 'Ebi fry (エビフライ) - large shrimp coated in panko breadcrumbs and deep-fried golden. A yoshoku (Western-influenced Japanese) dish, often served with tonkatsu sauce or tartar sauce. The tail stays on for presentation!', emojipedia: 'fried-shrimp', xSearch: '🍤 エビフライ', imageSearch: 'エビフライ 定食' },
+		{ emoji: '🍥', name: 'Narutomaki', description: 'Fish cake (鳴門巻き) with distinctive pink spiral pattern, named after the Naruto whirlpools. A classic ramen topping! The anime character Naruto Uzumaki is named after this - note the spiral on his costume.', emojipedia: 'fish-cake-with-swirl', xSearch: '🍥 なると', imageSearch: '鳴門巻き ラーメン' },
+		{ emoji: '🍡', name: 'Dango', description: 'Sweet rice dumplings (団子) on bamboo skewers. The tri-color "hanami dango" (pink, white, green) represents cherry blossoms, snow, and grass - eaten during spring flower viewing. The colors may also represent sunset, moon, and earth!', emojipedia: 'dango', xSearch: '🍡 団子', imageSearch: '花見団子 三色' },
+		{ emoji: '🍘', name: 'Senbei', description: 'Crispy rice crackers (煎餅) in countless varieties - plain, soy-glazed, wrapped in nori, or spicy. A traditional snack since the Edo period! Often sold at tourist spots and temples. The emoji shows the classic nori-wrapped style.', emojipedia: 'rice-cracker', xSearch: '🍘 煎餅', imageSearch: '煎餅 海苔' },
+		{ emoji: '🍢', name: 'Oden', description: 'Winter comfort food (おでん) - various ingredients simmered in dashi broth: fish cakes, boiled eggs, daikon radish, and konjac. Every convenience store serves it from autumn to spring! Each region has unique ingredients.', emojipedia: 'oden', xSearch: '🍢 おでん', imageSearch: 'おでん 屋台' },
+		{ emoji: '🍲', name: 'Nabe', description: 'Hot pot (鍋物) cooked communally at the table - the ultimate winter bonding meal. Styles include sukiyaki, shabu-shabu, and chanko (sumo wrestler stew). Everyone gathers around, adds ingredients, and shares from one pot!', emojipedia: 'pot-of-food', xSearch: '🍲 鍋', imageSearch: 'すき焼き 鍋' },
+		{ emoji: '🍵', name: 'Matcha', description: 'Powdered green tea (抹茶) whisked with hot water in a bowl without handles. Central to the tea ceremony (茶道). The emoji shows a yunomi tea cup. Modern Japan uses matcha in everything: lattes, ice cream, Kit Kats, and more!', emojipedia: 'teacup-without-handle', xSearch: '🍵 抹茶', imageSearch: '抹茶 茶道' },
+		{ emoji: '🍶', name: 'Sake', description: 'Rice wine (日本酒 nihonshu) served in a ceramic bottle called tokkuri with small cups (ochoko). Served hot or cold depending on quality and preference. "Kanpai!" (乾杯) is the Japanese toast - meaning "dry the cup!"', emojipedia: 'sake', xSearch: '🍶 日本酒', imageSearch: '日本酒 徳利 お猪口' },
+		{ emoji: '🍧', name: 'Kakigōri', description: 'Shaved ice (かき氷) with colorful syrups - the quintessential Japanese summer treat! Blue Hawaii, strawberry, and melon are popular. Fancy versions use condensed milk, fresh fruit, and matcha. Look for the 氷 (ice) flag at shops!', emojipedia: 'shaved-ice', xSearch: '🍧 かき氷', imageSearch: 'かき氷 いちご' },
 	];
 
 	// Miscellaneous symbols
 	const symbolEmoji = [
-		{ emoji: '♨️', name: 'Hot Springs', description: 'Onsen (温泉) symbol, marking natural hot spring baths throughout Japan.', emojipedia: 'hot-springs', xSearch: '♨️ 温泉', imageSearch: '温泉' },
-		{ emoji: '🔰', name: 'Beginner Mark', description: 'Shoshinsha mark (初心者マーク) - required on cars of new drivers in Japan. Also means "newbie".', emojipedia: 'japanese-symbol-for-beginner', xSearch: '🔰 初心者', imageSearch: '初心者マーク' },
-		{ emoji: '📛', name: 'Name Badge', description: 'Tulip-shaped kindergarten name tag worn by Japanese children. Sometimes called "tofu on fire" abroad!', emojipedia: 'name-badge', xSearch: '📛 名札', imageSearch: '幼稚園 名札' },
-		{ emoji: '💮', name: 'White Flower', description: 'A stamp (花まる hanamaru) teachers use to mark excellent work. Like a gold star!', emojipedia: 'white-flower', xSearch: '💮 花丸', imageSearch: '花丸 スタンプ' },
-		{ emoji: '💢', name: 'Anger Symbol', description: 'Manga/anime symbol for anger - represents a popping vein on the forehead.', emojipedia: 'anger-symbol', xSearch: '💢 怒り', imageSearch: '漫画 怒りマーク' },
-		{ emoji: '💠', name: 'Kawaii Symbol', description: 'Cute diamond shape often used in Japanese "kawaii" (cute) culture.', emojipedia: 'diamond-with-a-dot', xSearch: '💠 かわいい', imageSearch: 'かわいい デザイン' },
-		{ emoji: '🏩', name: 'Love Hotel', description: 'Hotels for couples (ラブホテル), common in Japan. The H stands for Hotel!', emojipedia: 'love-hotel', xSearch: '🏩 ラブホ', imageSearch: 'ラブホテル 外観' },
-		{ emoji: '🏣', name: 'Japanese Post Office', description: 'Post office with the 〒 postal mark, unique to Japan.', emojipedia: 'japanese-post-office', xSearch: '🏣 郵便局', imageSearch: '郵便局' },
-		{ emoji: '💴', name: 'Yen Banknote', description: 'Japanese yen (円) currency note.', emojipedia: 'yen-banknote', xSearch: '💴 円', imageSearch: '日本円 紙幣' },
-		{ emoji: '🚅', name: 'Shinkansen', description: 'Bullet train (新幹線) - Japan\'s famous high-speed rail network.', emojipedia: 'bullet-train', xSearch: '🚅 新幹線', imageSearch: '新幹線' },
-		{ emoji: '🙈🙉🙊', name: 'Three Wise Monkeys', description: 'See/Hear/Speak no evil - from a famous carving at Nikkō\'s Tōshōgū Shrine.', emojipedia: 'see-no-evil-monkey', xSearch: '🙈🙉🙊 日光', imageSearch: '日光 三猿' },
+		{ emoji: '♨️', name: 'Hot Springs', description: 'The onsen (温泉) symbol appears on maps and signs marking Japan\'s 25,000+ natural hot springs. Three wavy lines represent rising steam. Onsen culture is central to Japanese life - with specific etiquette like washing before entering!', emojipedia: 'hot-springs', xSearch: '♨️ 温泉', imageSearch: '温泉 露天風呂' },
+		{ emoji: '🔰', name: 'Beginner Mark', description: 'The shoshinsha mark (初心者マーク) or "wakaba mark" (young leaf) is legally required on cars of new drivers in Japan for one year. The teal-and-yellow V-shape is also used for "newbie" status in games, jobs, and online!', emojipedia: 'japanese-symbol-for-beginner', xSearch: '🔰 初心者', imageSearch: '初心者マーク 車' },
+		{ emoji: '📛', name: 'Name Badge', description: 'This tulip-shaped name tag (名札) is worn by Japanese kindergarteners and elementary students. The flower shape is so iconic that foreigners nicknamed it "tofu on fire"! New company employees also wear name badges.', emojipedia: 'name-badge', xSearch: '📛 名札', imageSearch: '幼稚園 名札 チューリップ' },
+		{ emoji: '💮', name: 'White Flower', description: 'The hanamaru (花丸, "flower circle") is a stamp or mark teachers draw on excellent student work - Japan\'s equivalent of a gold star! It\'s a circle with flower-like loops around the edge. Getting one feels like winning!', emojipedia: 'white-flower', xSearch: '💮 花丸', imageSearch: '花丸 宿題' },
+		{ emoji: '💢', name: 'Anger Symbol', description: 'A manga/anime visual shorthand for anger - representing a throbbing vein on the forehead. You\'ll see this in countless anime when characters get annoyed! Also called "pikon" after the sound effect.', emojipedia: 'anger-symbol', xSearch: '💢 怒り 漫画', imageSearch: '漫画 怒りマーク 青筋' },
+		{ emoji: '💠', name: 'Kawaii Symbol', description: 'A decorative diamond flower shape used in Japanese "kawaii" (cute) culture. Common in stationery, stickers, and graphic design. Represents the aesthetic focus on cuteness that pervades Japanese pop culture.', emojipedia: 'diamond-with-a-dot', xSearch: '💠 かわいい', imageSearch: 'かわいい デコレーション' },
+		{ emoji: '🏩', name: 'Love Hotel', description: 'Hotels for couples (ラブホテル) with themed rooms, privacy, and hourly rates. Recognizable by heart-shaped signs and ornate architecture. A unique Japanese institution providing privacy in a country with thin walls and multi-gen homes!', emojipedia: 'love-hotel', xSearch: '🏩 ラブホ', imageSearch: 'ラブホテル 看板' },
+		{ emoji: '🏣', name: 'Japanese Post Office', description: 'Post office marked with the 〒 postal symbol (yubin mark), unique to Japan. Japan Post also provides banking services! The distinctive red mailboxes (郵便ポスト) are found throughout the country.', emojipedia: 'japanese-post-office', xSearch: '🏣 郵便局', imageSearch: '郵便局 ポスト 赤' },
+		{ emoji: '💴', name: 'Yen Banknote', description: 'Japanese yen (円) currency. Japan is still largely cash-based! New 2024 bills feature Shibusawa Eiichi (¥10,000), Tsuda Umeko (¥5,000), and Kitasato Shibasaburo (¥1,000). The ¥ symbol comes from "yen" written in romaji.', emojipedia: 'yen-banknote', xSearch: '💴 円', imageSearch: '日本円 新紙幣 2024' },
+		{ emoji: '🚅', name: 'Shinkansen', description: 'The bullet train (新幹線, "new trunk line") network launched in 1964 for the Tokyo Olympics. Trains reach 320 km/h and are famous for punctuality - the average delay is under 1 minute! The emoji shows the N700 series.', emojipedia: 'bullet-train', xSearch: '🚅 新幹線', imageSearch: '新幹線 N700' },
+		{ emoji: '🙈🙉🙊', name: 'Three Wise Monkeys', description: 'See no evil, hear no evil, speak no evil (見ざる聞かざる言わざる) - a famous 17th-century carving at Nikkō Tōshōgū Shrine. The pun works in Japanese: "zaru" means both "monkey" and "not" in old Japanese!', emojipedia: 'see-no-evil-monkey', xSearch: '🙈🙉🙊 日光', imageSearch: '日光東照宮 三猿' },
 	];
 </script>
 
@@ -106,10 +106,12 @@
 		<div class="emoji-grid kanji-grid">
 			{#each kanjiEmoji as item}
 				<div class="emoji-card kanji-card">
-					<div class="emoji-large">{item.emoji}</div>
-					<div class="kanji-info">
-						<span class="kanji-char">{item.kanji}</span>
-						<span class="reading">{item.reading}</span>
+					<div class="card-header">
+						<div class="emoji-large">{item.emoji}</div>
+						<div class="kanji-info">
+							<span class="kanji-char">{item.kanji}</span>
+							<span class="reading">{item.reading}</span>
+						</div>
 					</div>
 					<h3>{item.meaning}</h3>
 					<p class="description">{item.description}</p>
@@ -120,6 +122,7 @@
 						{#if item.dictLink}
 							<a href="https://jisho.org/search/{encodeURIComponent(item.dictLink)}%20%23kanji" target="_blank" rel="noopener" title="Look up on Jisho.org">辞 Jisho</a>
 						{/if}
+						<a href="https://www.google.com/search?tbm=isch&q={encodeURIComponent(item.imageSearch)}" target="_blank" rel="noopener" title="See real photos">🖼️ Images</a>
 					</div>
 				</div>
 			{/each}
@@ -343,6 +346,18 @@
 		font-size: 14px;
 		color: var(--color-kunyomi);
 		font-style: italic;
+	}
+
+	/* Card header layout for kanji cards */
+	.card-header {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		margin-bottom: 12px;
+	}
+
+	.card-header .emoji-large {
+		margin-bottom: 0;
 	}
 
 	.emoji-card h3 {
