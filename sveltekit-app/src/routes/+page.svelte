@@ -216,6 +216,18 @@
 			</div>
 		</section>
 	</div>
+
+	<!-- Japanese Emoji Guide Link -->
+	<section class="explore-section emoji-guide-section">
+		<a href="/japanese-emoji" class="emoji-guide-link">
+			<span class="emoji-icon">🇯🇵</span>
+			<div class="emoji-guide-text">
+				<h3>Japanese Emoji Guide</h3>
+				<p>Learn the meaning of 🈹 🈵 ㊗️ and other Japanese cultural emoji</p>
+			</div>
+			<span class="arrow">→</span>
+		</a>
+	</section>
 </div>
 
 <style>
@@ -508,6 +520,55 @@
 
 	.frequency-btn .btn-text {
 		font-size: 14px;
+	}
+
+	/* Emoji Guide Link */
+	.emoji-guide-section {
+		padding-top: 0;
+	}
+
+	.emoji-guide-link {
+		display: flex;
+		align-items: center;
+		gap: 16px;
+		padding: 20px 24px;
+		background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+		border: 2px solid var(--border-color);
+		border-radius: 16px;
+		text-decoration: none;
+		transition: all 0.2s ease;
+	}
+
+	.emoji-guide-link:hover {
+		border-color: var(--accent);
+		transform: translateY(-2px);
+		box-shadow: 0 4px 16px var(--shadow);
+	}
+
+	.emoji-guide-link .emoji-icon {
+		font-size: 32px;
+	}
+
+	.emoji-guide-text {
+		flex: 1;
+	}
+
+	.emoji-guide-text h3 {
+		margin: 0 0 4px;
+		font-size: 16px;
+		font-weight: 600;
+		color: var(--text-primary);
+	}
+
+	.emoji-guide-text p {
+		margin: 0;
+		font-size: 13px;
+		color: var(--text-secondary);
+	}
+
+	.emoji-guide-link .arrow {
+		font-size: 20px;
+		color: var(--accent);
 	}
 
 	/* Responsive Design */
