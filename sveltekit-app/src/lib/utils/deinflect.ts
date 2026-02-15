@@ -159,6 +159,106 @@ function kanaToHiragana(str: string): string {
   });
 }
 
+// Romaji to hiragana conversion map
+const romajiToHiraganaMap: Record<string, string> = {
+  // Basic vowels
+  'a': 'あ', 'i': 'い', 'u': 'う', 'e': 'え', 'o': 'お',
+  // K-row
+  'ka': 'か', 'ki': 'き', 'ku': 'く', 'ke': 'け', 'ko': 'こ',
+  // S-row
+  'sa': 'さ', 'si': 'し', 'shi': 'し', 'su': 'す', 'se': 'せ', 'so': 'そ',
+  // T-row
+  'ta': 'た', 'ti': 'ち', 'chi': 'ち', 'tu': 'つ', 'tsu': 'つ', 'te': 'て', 'to': 'と',
+  // N-row
+  'na': 'な', 'ni': 'に', 'nu': 'ぬ', 'ne': 'ね', 'no': 'の',
+  // H-row
+  'ha': 'は', 'hi': 'ひ', 'hu': 'ふ', 'fu': 'ふ', 'he': 'へ', 'ho': 'ほ',
+  // M-row
+  'ma': 'ま', 'mi': 'み', 'mu': 'む', 'me': 'め', 'mo': 'も',
+  // Y-row
+  'ya': 'や', 'yu': 'ゆ', 'yo': 'よ',
+  // R-row
+  'ra': 'ら', 'ri': 'り', 'ru': 'る', 're': 'れ', 'ro': 'ろ',
+  // W-row
+  'wa': 'わ', 'wo': 'を',
+  // N
+  'n': 'ん', "n'": 'ん',
+  // G-row (voiced)
+  'ga': 'が', 'gi': 'ぎ', 'gu': 'ぐ', 'ge': 'げ', 'go': 'ご',
+  // Z-row (voiced)
+  'za': 'ざ', 'zi': 'じ', 'ji': 'じ', 'zu': 'ず', 'ze': 'ぜ', 'zo': 'ぞ',
+  // D-row (voiced)
+  'da': 'だ', 'di': 'ぢ', 'du': 'づ', 'de': 'で', 'do': 'ど',
+  // B-row (voiced)
+  'ba': 'ば', 'bi': 'び', 'bu': 'ぶ', 'be': 'べ', 'bo': 'ぼ',
+  // P-row (half-voiced)
+  'pa': 'ぱ', 'pi': 'ぴ', 'pu': 'ぷ', 'pe': 'ぺ', 'po': 'ぽ',
+  // Combo sounds
+  'kya': 'きゃ', 'kyu': 'きゅ', 'kyo': 'きょ',
+  'sha': 'しゃ', 'shu': 'しゅ', 'sho': 'しょ', 'sya': 'しゃ', 'syu': 'しゅ', 'syo': 'しょ',
+  'cha': 'ちゃ', 'chu': 'ちゅ', 'cho': 'ちょ', 'tya': 'ちゃ', 'tyu': 'ちゅ', 'tyo': 'ちょ',
+  'nya': 'にゃ', 'nyu': 'にゅ', 'nyo': 'にょ',
+  'hya': 'ひゃ', 'hyu': 'ひゅ', 'hyo': 'ひょ',
+  'mya': 'みゃ', 'myu': 'みゅ', 'myo': 'みょ',
+  'rya': 'りゃ', 'ryu': 'りゅ', 'ryo': 'りょ',
+  'gya': 'ぎゃ', 'gyu': 'ぎゅ', 'gyo': 'ぎょ',
+  'ja': 'じゃ', 'ju': 'じゅ', 'jo': 'じょ', 'jya': 'じゃ', 'jyu': 'じゅ', 'jyo': 'じょ',
+  'bya': 'びゃ', 'byu': 'びゅ', 'byo': 'びょ',
+  'pya': 'ぴゃ', 'pyu': 'ぴゅ', 'pyo': 'ぴょ',
+  // Small tsu (double consonant) handled separately
+};
+
+// Convert romaji to hiragana
+function romajiToHiragana(str: string): string {
+  let result = '';
+  let i = 0;
+  const lower = str.toLowerCase();
+
+  while (i < lower.length) {
+    // Check for double consonant (small tsu)
+    if (i < lower.length - 1 &&
+        lower[i] === lower[i + 1] &&
+        'kstpgzdbcfhjmrw'.includes(lower[i])) {
+      result += 'っ';
+      i++;
+      continue;
+    }
+
+    // Try 3-char, then 2-char, then 1-char matches
+    let matched = false;
+    for (const len of [3, 2, 1]) {
+      const chunk = lower.slice(i, i + len);
+      if (romajiToHiraganaMap[chunk]) {
+        result += romajiToHiraganaMap[chunk];
+        i += len;
+        matched = true;
+        break;
+      }
+    }
+
+    if (!matched) {
+      // Keep original character if no match
+      result += str[i];
+      i++;
+    }
+  }
+
+  return result;
+}
+
+// Check if string contains only romaji characters
+function isRomaji(str: string): boolean {
+  return /^[a-zA-Z']+$/.test(str);
+}
+
+// Normalize input: convert katakana and romaji to hiragana
+export function normalizeToHiragana(str: string): string {
+  if (isRomaji(str)) {
+    return romajiToHiragana(str);
+  }
+  return kanaToHiragana(str);
+}
+
 // Deinflection rules data
 // Format: [from, to, fromType, toType, reasons]
 // prettier-ignore
@@ -449,15 +549,29 @@ export function deinflect(word: string): Array<CandidateWord> {
   const resultIndex: { [index: string]: number } = {};
   const ruleGroups = getDeinflectRuleGroups();
 
+  // Normalize input: convert romaji/katakana to hiragana for consistent matching
+  const normalizedWord = normalizeToHiragana(word);
+  const wasNormalized = normalizedWord !== word;
+
   const original: CandidateWord = {
-    word,
+    word: normalizedWord,
     // Initially, the type of word is unknown, so we set the type mask to
     // match all rules except stems, that don't make sense on their own.
     type: 0xffff ^ (WordType.TaTeStem | WordType.DaDeStem | WordType.IrrealisStem),
     reasonChains: [],
   };
   result.push(original);
-  resultIndex[word] = 0;
+  resultIndex[normalizedWord] = 0;
+
+  // If input was normalized, also add the original word as a candidate
+  if (wasNormalized && resultIndex[word] === undefined) {
+    result.push({
+      word,
+      type: 0xffff ^ (WordType.TaTeStem | WordType.DaDeStem | WordType.IrrealisStem),
+      reasonChains: [],
+    });
+    resultIndex[word] = result.length - 1;
+  }
 
   let i = 0;
   do {
