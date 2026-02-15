@@ -65,6 +65,14 @@ interface ComponentUsesMap {
 /**
  * Page data returned by the load function
  */
+/**
+ * Alternative conjugation match
+ */
+export interface ConjugationAlternative {
+	word: string;
+	conj: string;
+}
+
 export interface PageData {
 	word: string;
 	data: DictionaryEntry;
@@ -75,6 +83,7 @@ export interface PageData {
 	// Conjugation info (passed via URL params when arriving from deinflection)
 	conjugatedFrom?: string;  // The original conjugated word
 	conjugationInfo?: string; // Human-readable conjugation description
+	conjugationAlternatives?: ConjugationAlternative[]; // Other possible matches
 }
 
 export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
@@ -83,6 +92,18 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 	// Get conjugation info from URL params (set by deinflection navigation)
 	const conjugatedFrom = url.searchParams.get('from') || undefined;
 	const conjugationInfo = url.searchParams.get('conj') || undefined;
+
+	// Parse alternative conjugation matches
+	let conjugationAlternatives: ConjugationAlternative[] | undefined;
+	const altParam = url.searchParams.get('alt');
+	if (altParam) {
+		try {
+			conjugationAlternatives = JSON.parse(altParam) as ConjugationAlternative[];
+		} catch {
+			// Invalid JSON, ignore
+		}
+	}
+
 	console.log('[LOAD] Starting load for word:', word);
 
 	try {
@@ -174,7 +195,8 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 			charTaxonomy,
 			componentUses,
 			conjugatedFrom,
-			conjugationInfo
+			conjugationInfo,
+			conjugationAlternatives
 		};
 	} catch (err) {
 		console.error(`Failed to load dictionary entry for "${word}":`, err);

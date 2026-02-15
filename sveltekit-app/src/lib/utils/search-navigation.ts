@@ -10,6 +10,15 @@ export interface DeinflectionResult {
 }
 
 /**
+ * Result with multiple alternative matches
+ */
+export interface DeinflectionResults {
+	originalWord: string;
+	primary: DeinflectionResult;
+	alternatives: DeinflectionResult[];
+}
+
+/**
  * Check if a string contains only hiragana characters
  */
 function isHiraganaOnly(str: string): boolean {
@@ -24,47 +33,66 @@ function isHiraganaOnly(str: string): boolean {
 }
 
 /**
- * Try to find kanji form from hiragana reading using the lookup-reading API
+ * Try to find kanji forms from hiragana reading using the lookup-reading API
+ * Returns multiple forms if available (for ambiguous readings)
  */
-async function findKanjiFromReading(
+async function findKanjiFormsFromReading(
 	hiragana: string,
 	fetchFn: typeof fetch = fetch
-): Promise<string | null> {
+): Promise<string[]> {
 	try {
-		const response = await fetchFn(`/api/lookup-reading?q=${encodeURIComponent(hiragana)}&limit=5`);
-		if (!response.ok) return null;
+		const response = await fetchFn(`/api/lookup-reading?q=${encodeURIComponent(hiragana)}&limit=10`);
+		if (!response.ok) return [];
 
 		const data = await response.json();
 		if (data.results && data.results.length > 0) {
-			// Return the first (most common) kanji form
-			return data.results[0].word;
+			// Return all kanji forms found
+			return data.results.map((r: { word: string }) => r.word);
 		}
 	} catch {
 		// API not available (e.g., during SSR or in dev without D1)
 	}
-	return null;
+	return [];
 }
 
 /**
- * Try to find a dictionary entry for a word, including deinflected forms
+ * Try to find dictionary entries for a word, including deinflected forms
+ * Returns multiple matches when a conjugated form could map to different words
  *
  * @param word - The word to check
  * @param fetchFn - Optional fetch function
- * @returns Object with found word and deinflection info, or null if not found
+ * @param maxResults - Maximum number of results to return (default: 5)
+ * @returns Object with primary match and alternatives, or null if not found
  */
-export async function findWordWithDeinflection(
+export async function findWordsWithDeinflection(
 	word: string,
-	fetchFn: typeof fetch = fetch
-): Promise<DeinflectionResult | null> {
+	fetchFn: typeof fetch = fetch,
+	maxResults: number = 5
+): Promise<DeinflectionResults | null> {
 	const trimmedWord = word.trim();
 	if (!trimmedWord) return null;
+
+	const matches: DeinflectionResult[] = [];
+	const seenWords = new Set<string>();
+
+	// Helper to add a match if not already seen
+	const addMatch = (dictionaryForm: string, conjugationInfo: string) => {
+		if (!seenWords.has(dictionaryForm) && matches.length < maxResults) {
+			seenWords.add(dictionaryForm);
+			matches.push({
+				originalWord: trimmedWord,
+				dictionaryForm,
+				conjugationInfo,
+			});
+		}
+	};
 
 	// First try the exact word
 	try {
 		const url = await getDictionaryUrl(trimmedWord, dev, fetchFn);
 		const response = await fetchFn(url, { method: 'HEAD' });
 		if (response.ok) {
-			return { originalWord: trimmedWord, dictionaryForm: trimmedWord, conjugationInfo: '' };
+			addMatch(trimmedWord, '');
 		}
 	} catch {
 		// Continue to try deinflection
@@ -86,32 +114,34 @@ export async function findWordWithDeinflection(
 	});
 
 	for (const candidate of deinflectedCandidates) {
+		if (matches.length >= maxResults) break;
+
 		try {
+			const conjugationInfo = formatReasonChains(candidate.reasonChains);
+
 			// First try direct dictionary lookup
 			const url = await getDictionaryUrl(candidate.word, dev, fetchFn);
 			const response = await fetchFn(url, { method: 'HEAD' });
 			if (response.ok) {
-				return {
-					originalWord: trimmedWord,
-					dictionaryForm: candidate.word,
-					conjugationInfo: formatReasonChains(candidate.reasonChains),
-				};
+				addMatch(candidate.word, conjugationInfo);
+				continue;
 			}
 
 			// If direct lookup failed and candidate is hiragana-only,
-			// try to find the kanji form via the reading lookup API
+			// try to find kanji forms via the reading lookup API
 			if (isHiraganaOnly(candidate.word)) {
-				const kanjiForm = await findKanjiFromReading(candidate.word, fetchFn);
-				if (kanjiForm) {
-					// Verify the kanji form exists in the dictionary
-					const kanjiUrl = await getDictionaryUrl(kanjiForm, dev, fetchFn);
-					const kanjiResponse = await fetchFn(kanjiUrl, { method: 'HEAD' });
-					if (kanjiResponse.ok) {
-						return {
-							originalWord: trimmedWord,
-							dictionaryForm: kanjiForm,
-							conjugationInfo: formatReasonChains(candidate.reasonChains),
-						};
+				const kanjiForms = await findKanjiFormsFromReading(candidate.word, fetchFn);
+				for (const kanjiForm of kanjiForms) {
+					if (matches.length >= maxResults) break;
+					try {
+						// Verify the kanji form exists in the dictionary
+						const kanjiUrl = await getDictionaryUrl(kanjiForm, dev, fetchFn);
+						const kanjiResponse = await fetchFn(kanjiUrl, { method: 'HEAD' });
+						if (kanjiResponse.ok) {
+							addMatch(kanjiForm, conjugationInfo);
+						}
+					} catch {
+						// Continue to next kanji form
 					}
 				}
 			}
@@ -120,7 +150,27 @@ export async function findWordWithDeinflection(
 		}
 	}
 
-	return null;
+	if (matches.length === 0) {
+		return null;
+	}
+
+	return {
+		originalWord: trimmedWord,
+		primary: matches[0],
+		alternatives: matches.slice(1),
+	};
+}
+
+/**
+ * Legacy function - returns only the first match
+ * @deprecated Use findWordsWithDeinflection for multiple results
+ */
+export async function findWordWithDeinflection(
+	word: string,
+	fetchFn: typeof fetch = fetch
+): Promise<DeinflectionResult | null> {
+	const results = await findWordsWithDeinflection(word, fetchFn, 1);
+	return results?.primary || null;
 }
 
 /**
@@ -128,7 +178,7 @@ export async function findWordWithDeinflection(
  *
  * This function:
  * 1. Tries to fetch the word from the dictionary (including deinflected forms)
- * 2. If found, navigates to /{word} with optional conjugation info
+ * 2. If found, navigates to /{word} with conjugation info and alternatives
  * 3. If not found (404), redirects to /search?q={word}
  *
  * @param word - The word to search for
@@ -142,17 +192,35 @@ export async function navigateOrSearch(word: string, fetchFn: typeof fetch = fet
 	const trimmedWord = word.trim();
 
 	try {
-		const result = await findWordWithDeinflection(trimmedWord, fetchFn);
+		const results = await findWordsWithDeinflection(trimmedWord, fetchFn);
 
-		if (result) {
-			// Word found (possibly via deinflection)
-			if (result.conjugationInfo && result.originalWord !== result.dictionaryForm) {
-				// Navigate with conjugation info
-				await goto(`/${result.dictionaryForm}?from=${encodeURIComponent(result.originalWord)}&conj=${encodeURIComponent(result.conjugationInfo)}`);
-			} else {
-				// Direct match
-				await goto(`/${result.dictionaryForm}`);
+		if (results) {
+			const { primary, alternatives } = results;
+
+			// Build URL with primary match
+			let url = `/${primary.dictionaryForm}`;
+			const params = new URLSearchParams();
+
+			if (primary.conjugationInfo && primary.originalWord !== primary.dictionaryForm) {
+				params.set('from', primary.originalWord);
+				params.set('conj', primary.conjugationInfo);
 			}
+
+			// Add alternatives as JSON-encoded param
+			if (alternatives.length > 0) {
+				const altData = alternatives.map(a => ({
+					word: a.dictionaryForm,
+					conj: a.conjugationInfo,
+				}));
+				params.set('alt', JSON.stringify(altData));
+			}
+
+			const queryString = params.toString();
+			if (queryString) {
+				url += '?' + queryString;
+			}
+
+			await goto(url);
 		} else {
 			// Word not found, redirect to search
 			await goto(`/search?q=${encodeURIComponent(trimmedWord)}`);

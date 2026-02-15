@@ -887,6 +887,24 @@
 					<span class="ml-2 text-sm opacity-80">({data.conjugationInfo})</span>
 				</div>
 			</div>
+
+			<!-- Alternative matches -->
+			{#if data.conjugationAlternatives && data.conjugationAlternatives.length > 0}
+				<div class="mt-3 pt-3 border-t border-blue-200 dark:border-blue-700">
+					<span class="text-sm text-blue-700 dark:text-blue-300">Could also be:</span>
+					<div class="flex flex-wrap gap-2 mt-2">
+						{#each data.conjugationAlternatives as alt}
+							<a
+								href="/{alt.word}?from={encodeURIComponent(data.conjugatedFrom)}&conj={encodeURIComponent(alt.conj)}"
+								class="inline-flex items-center gap-1 text-sm px-3 py-1.5 bg-blue-100 dark:bg-blue-800/50 text-blue-800 dark:text-blue-200 rounded-full hover:bg-blue-200 dark:hover:bg-blue-700 transition-colors"
+							>
+								<span class="font-medium">{alt.word}</span>
+								<span class="opacity-70">({alt.conj})</span>
+							</a>
+						{/each}
+					</div>
+				</div>
+			{/if}
 		</div>
 	{/if}
 
