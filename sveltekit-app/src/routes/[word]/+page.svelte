@@ -873,6 +873,23 @@
 <Header currentWord={data.word} />
 
 <div class="max-w-6xl mx-auto px-3 py-2 md:px-5 md:py-3">
+	<!-- Conjugation Info Box (shown when arriving via deinflection) -->
+	{#if data.conjugatedFrom && data.conjugationInfo}
+		<div class="mb-4 p-4 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-lg">
+			<div class="flex items-center gap-2 text-blue-800 dark:text-blue-200">
+				<svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+				</svg>
+				<div>
+					<span class="font-medium">{data.conjugatedFrom}</span>
+					<span class="mx-1">→</span>
+					<span class="font-bold">{data.word}</span>
+					<span class="ml-2 text-sm opacity-80">({data.conjugationInfo})</span>
+				</div>
+			</div>
+		</div>
+	{/if}
+
 	<div id="content">
 		<!-- Character Header -->
 		{#if data.data.chinese_char || data.data.japanese_char}

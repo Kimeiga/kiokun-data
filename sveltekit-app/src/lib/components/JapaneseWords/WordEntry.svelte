@@ -9,6 +9,7 @@
 	import Reading from './Reading.svelte';
 	import Definitions from './Definitions.svelte';
 	import SpeakButton from '../shared/SpeakButton.svelte';
+	import ConjugationTable from './ConjugationTable.svelte';
 
 	export let word: JapaneseWord;
 	export let accentDisplay: 'none' | 'binary' | 'binary-hi-contrast' = 'binary';
@@ -79,6 +80,12 @@
 
 	<!-- Definitions -->
 	<Definitions senses={word.sense} />
+
+	<!-- Conjugation Table (for verbs) -->
+	<ConjugationTable
+		senses={word.sense}
+		dictionaryForm={displayKanji.length > 0 ? displayKanji[0].text : (displayKana.length > 0 ? displayKana[0].text : '')}
+	/>
 </div>
 
 <style>

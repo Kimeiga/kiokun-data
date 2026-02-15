@@ -72,10 +72,17 @@ export interface PageData {
 	charGlosses: CharGlosses;
 	charTaxonomy: CharTaxonomy;
 	componentUses: ComponentUsesMap;
+	// Conjugation info (passed via URL params when arriving from deinflection)
+	conjugatedFrom?: string;  // The original conjugated word
+	conjugationInfo?: string; // Human-readable conjugation description
 }
 
-export const load: PageLoad<PageData> = async ({ params, fetch }) => {
+export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 	const { word } = params;
+
+	// Get conjugation info from URL params (set by deinflection navigation)
+	const conjugatedFrom = url.searchParams.get('from') || undefined;
+	const conjugationInfo = url.searchParams.get('conj') || undefined;
 	console.log('[LOAD] Starting load for word:', word);
 
 	try {
@@ -165,7 +172,9 @@ export const load: PageLoad<PageData> = async ({ params, fetch }) => {
 			labels,
 			charGlosses,
 			charTaxonomy,
-			componentUses
+			componentUses,
+			conjugatedFrom,
+			conjugationInfo
 		};
 	} catch (err) {
 		console.error(`Failed to load dictionary entry for "${word}":`, err);
