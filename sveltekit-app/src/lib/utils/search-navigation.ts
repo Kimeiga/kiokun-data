@@ -10,6 +10,42 @@ export interface DeinflectionResult {
 }
 
 /**
+ * Check if a string contains only hiragana characters
+ */
+function isHiraganaOnly(str: string): boolean {
+	// Hiragana range: U+3040 to U+309F
+	for (let i = 0; i < str.length; i++) {
+		const code = str.charCodeAt(i);
+		if (code < 0x3040 || code > 0x309F) {
+			return false;
+		}
+	}
+	return str.length > 0;
+}
+
+/**
+ * Try to find kanji form from hiragana reading using the lookup-reading API
+ */
+async function findKanjiFromReading(
+	hiragana: string,
+	fetchFn: typeof fetch = fetch
+): Promise<string | null> {
+	try {
+		const response = await fetchFn(`/api/lookup-reading?q=${encodeURIComponent(hiragana)}&limit=5`);
+		if (!response.ok) return null;
+
+		const data = await response.json();
+		if (data.results && data.results.length > 0) {
+			// Return the first (most common) kanji form
+			return data.results[0].word;
+		}
+	} catch {
+		// API not available (e.g., during SSR or in dev without D1)
+	}
+	return null;
+}
+
+/**
  * Try to find a dictionary entry for a word, including deinflected forms
  *
  * @param word - The word to check
@@ -51,6 +87,7 @@ export async function findWordWithDeinflection(
 
 	for (const candidate of deinflectedCandidates) {
 		try {
+			// First try direct dictionary lookup
 			const url = await getDictionaryUrl(candidate.word, dev, fetchFn);
 			const response = await fetchFn(url, { method: 'HEAD' });
 			if (response.ok) {
@@ -59,6 +96,24 @@ export async function findWordWithDeinflection(
 					dictionaryForm: candidate.word,
 					conjugationInfo: formatReasonChains(candidate.reasonChains),
 				};
+			}
+
+			// If direct lookup failed and candidate is hiragana-only,
+			// try to find the kanji form via the reading lookup API
+			if (isHiraganaOnly(candidate.word)) {
+				const kanjiForm = await findKanjiFromReading(candidate.word, fetchFn);
+				if (kanjiForm) {
+					// Verify the kanji form exists in the dictionary
+					const kanjiUrl = await getDictionaryUrl(kanjiForm, dev, fetchFn);
+					const kanjiResponse = await fetchFn(kanjiUrl, { method: 'HEAD' });
+					if (kanjiResponse.ok) {
+						return {
+							originalWord: trimmedWord,
+							dictionaryForm: kanjiForm,
+							conjugationInfo: formatReasonChains(candidate.reasonChains),
+						};
+					}
+				}
 			}
 		} catch {
 			// Continue to next candidate
