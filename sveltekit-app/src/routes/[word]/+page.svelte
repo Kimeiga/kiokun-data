@@ -1641,16 +1641,23 @@
 		color: var(--badge-hsk-text);
 	}
 
-	/* Two-column layout for Chinese and Japanese word sections on desktop */
+	/* Three-column layout for Chinese, Japanese, and Korean word sections on desktop */
 	.word-sections-grid {
 		display: grid;
 		grid-template-columns: 1fr;
-		gap: 0;
+		gap: 1.5rem;
 	}
 
 	@media (min-width: 768px) {
 		.word-sections-grid {
-			grid-template-columns: 1fr 1fr;
+			grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+			gap: 2rem;
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.word-sections-grid {
+			grid-template-columns: repeat(3, 1fr);
 			gap: 2rem;
 		}
 	}
