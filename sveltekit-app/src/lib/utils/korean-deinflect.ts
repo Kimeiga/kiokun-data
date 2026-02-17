@@ -246,15 +246,21 @@ const koreanDeinflectRules: KoreanDeinflectRule[] = [
   { from: '지 않아', to: '다', reasons: [KoreanReason.Negative] },
   { from: '지 않습니다', to: '다', reasons: [KoreanReason.Negative, KoreanReason.Formal] },
 
-  // Progressive (-고 있다)
+  // Progressive (-고 있다) - both with and without space
   { from: '고 있어요', to: '다', reasons: [KoreanReason.Progressive, KoreanReason.InformalPolite] },
+  { from: '고있어요', to: '다', reasons: [KoreanReason.Progressive, KoreanReason.InformalPolite] },
   { from: '고 있어', to: '다', reasons: [KoreanReason.Progressive, KoreanReason.InformalCasual] },
+  { from: '고있어', to: '다', reasons: [KoreanReason.Progressive, KoreanReason.InformalCasual] },
   { from: '고 있습니다', to: '다', reasons: [KoreanReason.Progressive, KoreanReason.Formal] },
+  { from: '고있습니다', to: '다', reasons: [KoreanReason.Progressive, KoreanReason.Formal] },
 
-  // Want (-고 싶다)
+  // Want (-고 싶다) - both with and without space
   { from: '고 싶어요', to: '다', reasons: [KoreanReason.Want, KoreanReason.InformalPolite] },
+  { from: '고싶어요', to: '다', reasons: [KoreanReason.Want, KoreanReason.InformalPolite] },
   { from: '고 싶어', to: '다', reasons: [KoreanReason.Want, KoreanReason.InformalCasual] },
+  { from: '고싶어', to: '다', reasons: [KoreanReason.Want, KoreanReason.InformalCasual] },
   { from: '고 싶습니다', to: '다', reasons: [KoreanReason.Want, KoreanReason.Formal] },
+  { from: '고싶습니다', to: '다', reasons: [KoreanReason.Want, KoreanReason.Formal] },
 
   // Imperative
   { from: '세요', to: '다', reasons: [KoreanReason.Imperative, KoreanReason.Honorific] },
@@ -516,25 +522,33 @@ export function koreanDeinflect(word: string): KoreanCandidateWord[] {
     }
   }
 
-  // Also try past tense vowel contractions: 갔어요 → 가다
+  // Also try past tense vowel contractions: 갔어요 → 가다, 갔습니다 → 가다
   // The past marker ㅆ is added to contracted forms
-  // Check for past tense patterns ending in 었어요/았어요 with contraction
-  // e.g., 갔어요 (가 + 았어요 contracted)
-  if (word.endsWith('어요') || word.endsWith('어')) {
-    const beforeEnding = word.endsWith('어요') ? word.slice(0, -2) : word.slice(0, -1);
-    if (beforeEnding.length >= 1) {
-      const lastChar = beforeEnding[beforeEnding.length - 1];
-      const jamo = decomposeHangul(lastChar);
-      // If it ends in ㅆ (past marker), try to reconstruct
-      if (jamo && jamo[2] === FINAL_SSANG_SIOT) {
-        // Now apply vowel contraction rules to find original stem
-        for (const rule of vowelContractionRules) {
-          if (jamo[1] === rule.contractedMedal) {
-            const originalStemChar = composeHangul(jamo[0], rule.originalMedal, FINAL_NONE);
-            const candidate = beforeEnding.slice(0, -1) + originalStemChar + '다';
-            if (!seen.has(candidate)) {
-              results.push({ word: candidate, reasons: [KoreanReason.Past, KoreanReason.InformalPolite] });
-              seen.add(candidate);
+  // Check for past tense patterns with contraction
+  // e.g., 갔어요 (가 + 았어요 contracted), 갔습니다 (가 + 았습니다 contracted)
+  const pastEndings = [
+    { ending: '어요', reasons: [KoreanReason.Past, KoreanReason.InformalPolite] },
+    { ending: '어', reasons: [KoreanReason.Past, KoreanReason.InformalCasual] },
+    { ending: '습니다', reasons: [KoreanReason.Past, KoreanReason.Formal] },
+  ];
+
+  for (const { ending, reasons } of pastEndings) {
+    if (word.endsWith(ending)) {
+      const beforeEnding = word.slice(0, -ending.length);
+      if (beforeEnding.length >= 1) {
+        const lastChar = beforeEnding[beforeEnding.length - 1];
+        const jamo = decomposeHangul(lastChar);
+        // If it ends in ㅆ (past marker), try to reconstruct
+        if (jamo && jamo[2] === FINAL_SSANG_SIOT) {
+          // Now apply vowel contraction rules to find original stem
+          for (const rule of vowelContractionRules) {
+            if (jamo[1] === rule.contractedMedal) {
+              const originalStemChar = composeHangul(jamo[0], rule.originalMedal, FINAL_NONE);
+              const candidate = beforeEnding.slice(0, -1) + originalStemChar + '다';
+              if (!seen.has(candidate)) {
+                results.push({ word: candidate, reasons });
+                seen.add(candidate);
+              }
             }
           }
         }
