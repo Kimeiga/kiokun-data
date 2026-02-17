@@ -63,6 +63,45 @@
 		'happy', 'sun', 'mountain', 'friend', 'time', 'new'
 	];
 
+	// Sample sentences for each language
+	const sampleSentences = {
+		japanese: [
+			{ text: '私は日本語を勉強しています', label: 'I am studying Japanese' },
+			{ text: '今日は天気がいいですね', label: 'The weather is nice today' },
+			{ text: '彼女は音楽が好きです', label: 'She likes music' },
+		],
+		chinese: [
+			{ text: '我今天很开心', label: 'I am very happy today' },
+			{ text: '中国人喜欢吃饭', label: 'Chinese people like to eat' },
+			{ text: '明天下雨吗', label: 'Will it rain tomorrow?' },
+		],
+		korean: [
+			{ text: '저는 한국어를 공부합니다', label: 'I study Korean' },
+			{ text: '오늘 날씨가 좋습니다', label: 'The weather is nice today' },
+			{ text: '음악을 듣고 있어요', label: 'I am listening to music' },
+		]
+	};
+
+	// Conjugated Japanese words (verbs and adjectives)
+	const japaneseConjugated = [
+		{ word: '食べている', base: '食べる', label: 'eating (progressive)' },
+		{ word: '行きました', base: '行く', label: 'went (past)' },
+		{ word: '見たい', base: '見る', label: 'want to see' },
+		{ word: '高くない', base: '高い', label: 'not expensive' },
+		{ word: '美しかった', base: '美しい', label: 'was beautiful' },
+		{ word: '静かな', base: '静か', label: 'quiet (adj)' },
+	];
+
+	// Conjugated Korean words (verbs and adjectives)
+	const koreanConjugated = [
+		{ word: '먹고있어요', base: '먹다', label: 'eating (progressive)' },
+		{ word: '갔습니다', base: '가다', label: 'went (past)' },
+		{ word: '보고싶어요', base: '보다', label: 'want to see' },
+		{ word: '예뻐요', base: '예쁘다', label: 'is pretty' },
+		{ word: '안녕하세요', base: '안녕하다', label: 'hello (polite)' },
+		{ word: '좋아합니다', base: '좋아하다', label: 'like (formal)' },
+	];
+
 	// Category highlights
 	const categoryHighlights = [
 		{ name: 'Animals', path: '/category/Nature/Animals', icon: '🐾' },
@@ -154,6 +193,81 @@
 					{term}
 				</a>
 			{/each}
+		</div>
+	</section>
+
+	<!-- Try Sentences Section -->
+	<section class="explore-section sentences-section">
+		<h2 class="section-title">📝 Try Sentences</h2>
+		<p class="section-subtitle">Click a sentence to see each word broken down</p>
+		<div class="sentences-grid">
+			<div class="sentence-language">
+				<span class="lang-flag">🇯🇵</span>
+				<div class="sentence-list">
+					{#each sampleSentences.japanese as s}
+						<button class="sentence-btn" onclick={() => navigateOrSearch(s.text)}>
+							<span class="sentence-text">{s.text}</span>
+							<span class="sentence-label">{s.label}</span>
+						</button>
+					{/each}
+				</div>
+			</div>
+			<div class="sentence-language">
+				<span class="lang-flag">🇨🇳</span>
+				<div class="sentence-list">
+					{#each sampleSentences.chinese as s}
+						<button class="sentence-btn" onclick={() => navigateOrSearch(s.text)}>
+							<span class="sentence-text">{s.text}</span>
+							<span class="sentence-label">{s.label}</span>
+						</button>
+					{/each}
+				</div>
+			</div>
+			<div class="sentence-language">
+				<span class="lang-flag">🇰🇷</span>
+				<div class="sentence-list">
+					{#each sampleSentences.korean as s}
+						<button class="sentence-btn" onclick={() => navigateOrSearch(s.text)}>
+							<span class="sentence-text">{s.text}</span>
+							<span class="sentence-label">{s.label}</span>
+						</button>
+					{/each}
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Conjugated Words Section -->
+	<section class="explore-section conjugation-section">
+		<h2 class="section-title">🔄 Conjugated Words</h2>
+		<p class="section-subtitle">Try conjugated forms — we'll find the dictionary form</p>
+		<div class="conjugation-grid">
+			<div class="conjugation-language">
+				<h3 class="conj-lang-header"><span class="lang-flag">🇯🇵</span> Japanese</h3>
+				<div class="conj-list">
+					{#each japaneseConjugated as c}
+						<button class="conj-btn" onclick={() => navigateOrSearch(c.word)}>
+							<span class="conj-word">{c.word}</span>
+							<span class="conj-arrow">→</span>
+							<span class="conj-base">{c.base}</span>
+							<span class="conj-label">{c.label}</span>
+						</button>
+					{/each}
+				</div>
+			</div>
+			<div class="conjugation-language">
+				<h3 class="conj-lang-header"><span class="lang-flag">🇰🇷</span> Korean</h3>
+				<div class="conj-list">
+					{#each koreanConjugated as c}
+						<button class="conj-btn" onclick={() => navigateOrSearch(c.word)}>
+							<span class="conj-word">{c.word}</span>
+							<span class="conj-arrow">→</span>
+							<span class="conj-base">{c.base}</span>
+							<span class="conj-label">{c.label}</span>
+						</button>
+					{/each}
+				</div>
+			</div>
 		</div>
 	</section>
 
@@ -408,6 +522,154 @@
 		transform: translateY(-2px);
 	}
 
+	/* Sentences Section */
+	.sentences-section {
+		border-top: 1px solid var(--border-color);
+		margin-top: 20px;
+		padding-top: 30px;
+	}
+
+	.sentences-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 24px;
+		margin-top: 16px;
+	}
+
+	.sentence-language {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+	}
+
+	.sentence-language .lang-flag {
+		font-size: 24px;
+		text-align: center;
+	}
+
+	.sentence-list {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	.sentence-btn {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		padding: 12px 16px;
+		background: var(--bg-secondary);
+		border: 1px solid var(--border-color);
+		border-radius: 10px;
+		cursor: pointer;
+		transition: all 0.2s ease;
+		text-align: left;
+		width: 100%;
+	}
+
+	.sentence-btn:hover {
+		border-color: var(--accent);
+		transform: translateY(-1px);
+		box-shadow: 0 2px 8px var(--shadow);
+	}
+
+	.sentence-text {
+		font-size: 16px;
+		color: var(--text-primary);
+		font-family: "Noto Sans SC", "Noto Sans JP", "Noto Sans KR", sans-serif;
+		line-height: 1.4;
+	}
+
+	.sentence-label {
+		font-size: 11px;
+		color: var(--text-muted);
+		margin-top: 4px;
+	}
+
+	/* Conjugation Section */
+	.conjugation-section {
+		border-top: 1px solid var(--border-color);
+		margin-top: 20px;
+		padding-top: 30px;
+	}
+
+	.conjugation-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 40px;
+		margin-top: 16px;
+	}
+
+	.conjugation-language {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+	}
+
+	.conj-lang-header {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 8px;
+		font-size: 16px;
+		font-weight: 600;
+		color: var(--text-primary);
+		margin: 0;
+	}
+
+	.conj-lang-header .lang-flag {
+		font-size: 20px;
+	}
+
+	.conj-list {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	.conj-btn {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		padding: 10px 14px;
+		background: var(--bg-secondary);
+		border: 1px solid var(--border-color);
+		border-radius: 8px;
+		cursor: pointer;
+		transition: all 0.2s ease;
+		width: 100%;
+	}
+
+	.conj-btn:hover {
+		border-color: var(--accent);
+		transform: translateY(-1px);
+		box-shadow: 0 2px 8px var(--shadow);
+	}
+
+	.conj-word {
+		font-size: 16px;
+		font-weight: 600;
+		color: var(--accent);
+		font-family: "Noto Sans SC", "Noto Sans JP", "Noto Sans KR", sans-serif;
+	}
+
+	.conj-arrow {
+		color: var(--text-muted);
+		font-size: 12px;
+	}
+
+	.conj-base {
+		font-size: 14px;
+		color: var(--text-primary);
+		font-family: "Noto Sans SC", "Noto Sans JP", "Noto Sans KR", sans-serif;
+	}
+
+	.conj-label {
+		font-size: 11px;
+		color: var(--text-muted);
+		margin-left: auto;
+	}
+
 	/* Category Grid */
 	.category-grid {
 		display: grid;
@@ -566,6 +828,16 @@
 
 		.card-grid {
 			grid-template-columns: repeat(4, 1fr);
+		}
+
+		.sentences-grid {
+			grid-template-columns: 1fr;
+			gap: 20px;
+		}
+
+		.conjugation-grid {
+			grid-template-columns: 1fr;
+			gap: 24px;
 		}
 	}
 
