@@ -165,10 +165,16 @@ export async function findWordsWithDeinflection(
 		return entry;
 	};
 
-	// First try the exact word (no deinflection, no POS validation needed)
+	// First try the exact word (only add as match if it has actual word entries, not just names)
+	// This prevents hiragana entries with only names from being the primary match
+	// when the user typed a conjugated form expecting a verb/adjective
 	const exactEntry = await getEntry(trimmedWord);
 	if (exactEntry) {
-		addMatch(trimmedWord, '');
+		// Check if entry has actual word content (japanese_words with meanings, not just names)
+		const hasActualWords = exactEntry.japanese_words && exactEntry.japanese_words.length > 0;
+		if (hasActualWords) {
+			addMatch(trimmedWord, '');
+		}
 	}
 
 	// Try deinflected forms
