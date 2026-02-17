@@ -14,6 +14,7 @@
 	import { getDictionaryUrl } from "$lib/shard-utils";
 	import { dev } from "$app/environment";
 	import { languageStore } from "$lib/stores/languages.svelte";
+	import SentenceBar from "$lib/components/SentenceBar.svelte";
 
 	let { data }: { data: PageData } = $props();
 
@@ -871,6 +872,7 @@
 </svelte:head>
 
 <Header currentWord={data.word} />
+<SentenceBar currentWord={data.word} />
 
 <div class="max-w-6xl mx-auto px-3 py-2 md:px-5 md:py-3">
 	<!-- Conjugation Info Box (shown when arriving via deinflection) -->

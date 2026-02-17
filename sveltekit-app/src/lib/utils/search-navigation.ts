@@ -3,6 +3,8 @@ import { getDictionaryUrl } from '$lib/shard-utils';
 import { dev } from '$app/environment';
 import { deinflect, formatReasonChains, WordType, posToWordType } from '$lib/utils/deinflect';
 import type { DictionaryEntry } from '$lib/types';
+import { tokenizeSentence, detectLanguage } from '$lib/utils/sentence-tokenizer';
+import { sentenceStore } from '$lib/stores/sentence.svelte';
 
 export interface DeinflectionResult {
 	originalWord: string;
@@ -253,14 +255,84 @@ export async function findWordWithDeinflection(
 }
 
 /**
+ * Check if the input looks like a sentence (multiple word-like tokens)
+ * Returns true if the input has 2+ word-like tokens after tokenization
+ */
+export function isSentence(input: string): boolean {
+	const trimmed = input.trim();
+	if (!trimmed) return false;
+
+	// Quick heuristics before tokenizing:
+	// - Contains sentence-ending punctuation
+	// - Is longer than typical single word (e.g., > 6 characters for CJK)
+	const hasSentencePunctuation = /[。！？.!?]/.test(trimmed);
+	const isLongEnough = trimmed.length > 6;
+
+	// If no punctuation and short, probably a single word
+	if (!hasSentencePunctuation && !isLongEnough) return false;
+
+	// Tokenize and check word count
+	const tokenized = tokenizeSentence(trimmed);
+	const words = tokenized.tokens.filter(t => t.isWordLike);
+
+	return words.length >= 2;
+}
+
+/**
+ * Handle sentence input: tokenize, store in sentence context, navigate to first word
+ */
+export async function handleSentenceInput(
+	sentence: string,
+	fetchFn: typeof fetch = fetch
+): Promise<void> {
+	const trimmed = sentence.trim();
+	if (!trimmed) return;
+
+	const language = detectLanguage(trimmed);
+
+	// Set the sentence in the store
+	sentenceStore.setSentence(trimmed, language);
+
+	// Get the first word-like token
+	const words = sentenceStore.words;
+	if (words.length > 0) {
+		sentenceStore.setCurrentWordIndex(0);
+		const firstWord = words[0].segment;
+
+		// Try to find the word in dictionary (with deinflection)
+		const results = await findWordsWithDeinflection(firstWord, fetchFn);
+
+		if (results) {
+			const { primary } = results;
+			let url = `/${encodeURIComponent(primary.dictionaryForm)}`;
+			const params = new URLSearchParams();
+			params.set('sentence', '1');
+
+			if (primary.conjugationInfo && primary.originalWord !== primary.dictionaryForm) {
+				params.set('from', primary.originalWord);
+				params.set('conj', primary.conjugationInfo);
+			}
+
+			url += '?' + params.toString();
+			await goto(url);
+		} else {
+			// Word not in dictionary, still navigate to show the word page
+			await goto(`/${encodeURIComponent(firstWord)}?sentence=1`);
+		}
+	}
+}
+
+/**
  * Navigate to a word if it exists in the dictionary, otherwise redirect to search
  *
  * This function:
- * 1. Tries to fetch the word from the dictionary (including deinflected forms)
- * 2. If found, navigates to /{word} with conjugation info and alternatives
- * 3. If not found (404), redirects to /search?q={word}
+ * 1. First checks if input looks like a sentence (multiple tokens)
+ * 2. If sentence, tokenizes and navigates to first word with sentence context
+ * 3. Otherwise, tries to fetch the word from dictionary (including deinflected forms)
+ * 4. If found, navigates to /{word} with conjugation info and alternatives
+ * 5. If not found (404), redirects to /search?q={word}
  *
- * @param word - The word to search for
+ * @param word - The word or sentence to search for
  * @param fetchFn - Optional fetch function (defaults to global fetch)
  */
 export async function navigateOrSearch(word: string, fetchFn: typeof fetch = fetch): Promise<void> {
@@ -269,6 +341,12 @@ export async function navigateOrSearch(word: string, fetchFn: typeof fetch = fet
 	}
 
 	const trimmedWord = word.trim();
+
+	// Check if this looks like a sentence
+	if (isSentence(trimmedWord)) {
+		await handleSentenceInput(trimmedWord, fetchFn);
+		return;
+	}
 
 	try {
 		const results = await findWordsWithDeinflection(trimmedWord, fetchFn);
