@@ -162,45 +162,56 @@
 	function speak() {
 		if (!isSupported || !text) return;
 
+		const synth = window.speechSynthesis;
+
 		// Cancel any ongoing speech
-		window.speechSynthesis.cancel();
+		synth.cancel();
 
-		const utterance = new SpeechSynthesisUtterance(text);
+		// Chrome bug workaround: Chrome enters a "paused" state after ~15 seconds of inactivity
+		// Calling resume() resets this state so subsequent speak() calls work
+		// See: https://bugs.chromium.org/p/chromium/issues/detail?id=679437
+		synth.resume();
 
-		// Set language based on prop
-		// Use specific locale codes for better voice matching
-		utterance.lang = lang === 'zh' ? 'zh-CN' : lang === 'ko' ? 'ko-KR' : 'ja-JP';
+		// Small delay after cancel() to ensure it takes effect before speak()
+		// This is another Chrome quirk where speaking immediately after cancel can fail
+		setTimeout(() => {
+			const utterance = new SpeechSynthesisUtterance(text);
 
-		// Find the best available voice
-		const voices = cachedVoices.length > 0 ? cachedVoices : window.speechSynthesis.getVoices();
-		const bestVoice = findBestVoice(voices, lang);
+			// Set language based on prop
+			// Use specific locale codes for better voice matching
+			utterance.lang = lang === 'zh' ? 'zh-CN' : lang === 'ko' ? 'ko-KR' : 'ja-JP';
 
-		if (bestVoice) {
-			utterance.voice = bestVoice;
-			// Adjust language to match voice's language for better results
-			if (bestVoice.lang) {
-				utterance.lang = bestVoice.lang;
+			// Find the best available voice
+			const voices = cachedVoices.length > 0 ? cachedVoices : synth.getVoices();
+			const bestVoice = findBestVoice(voices, lang);
+
+			if (bestVoice) {
+				utterance.voice = bestVoice;
+				// Adjust language to match voice's language for better results
+				if (bestVoice.lang) {
+					utterance.lang = bestVoice.lang;
+				}
 			}
-		}
 
-		// Use natural rate (most high-quality voices sound best at 1.0)
-		utterance.rate = 1.0;
-		utterance.pitch = 1.0;
+			// Use natural rate (most high-quality voices sound best at 1.0)
+			utterance.rate = 1.0;
+			utterance.pitch = 1.0;
 
-		utterance.onstart = () => {
-			isSpeaking = true;
-		};
+			utterance.onstart = () => {
+				isSpeaking = true;
+			};
 
-		utterance.onend = () => {
-			isSpeaking = false;
-		};
+			utterance.onend = () => {
+				isSpeaking = false;
+			};
 
-		utterance.onerror = (event) => {
-			console.error('[TTS] Speech error:', event.error);
-			isSpeaking = false;
-		};
+			utterance.onerror = (event) => {
+				console.error('[TTS] Speech error:', event.error);
+				isSpeaking = false;
+			};
 
-		window.speechSynthesis.speak(utterance);
+			synth.speak(utterance);
+		}, 50);
 	}
 
 	// Preload and cache voices (they may not be available immediately)
