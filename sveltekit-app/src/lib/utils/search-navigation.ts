@@ -130,11 +130,13 @@ async function findKanjiFormsFromReading(
 
 /**
  * Fetch and decompress a dictionary entry
+ * Follows redirects (e.g., simplified -> traditional Chinese)
  * Returns null if not found or on error
  */
 async function fetchDictionaryEntry(
 	word: string,
-	fetchFn: typeof fetch
+	fetchFn: typeof fetch,
+	maxRedirects: number = 3
 ): Promise<DictionaryEntry | null> {
 	try {
 		const url = await getDictionaryUrl(word, dev, fetchFn);
@@ -147,7 +149,14 @@ async function fetchDictionaryEntry(
 			new Blob([buffer]).stream().pipeThrough(new DecompressionStream('deflate-raw'))
 		).text();
 
-		return JSON.parse(decompressed) as DictionaryEntry;
+		const entry = JSON.parse(decompressed) as DictionaryEntry;
+
+		// Follow redirect if present (e.g., simplified 学校 -> traditional 學校)
+		if (entry.redirect && maxRedirects > 0) {
+			return fetchDictionaryEntry(entry.redirect, fetchFn, maxRedirects - 1);
+		}
+
+		return entry;
 	} catch {
 		return null;
 	}
