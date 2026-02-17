@@ -65,9 +65,10 @@ function validatePosMatch(candidateType: number, entryType: number): boolean {
 	// If candidate has no type restriction (0 or only intermediate types), allow any match
 	if (candidateActual === 0) return true;
 
-	// If entry has no recognized POS (not a verb/adjective), allow match
-	// This handles nouns and other word types that don't need deinflection validation
-	if (entryActual === 0) return true;
+	// If entry has no recognized POS (not a verb/adjective), DON'T allow match
+	// This forces a kanji fallback lookup for entries that only contain names
+	// For example, くる.json contains names like 久留 but not the verb 来る
+	if (entryActual === 0) return false;
 
 	// Check if there's any overlap between expected and actual types
 	return (candidateActual & entryActual) !== 0;
