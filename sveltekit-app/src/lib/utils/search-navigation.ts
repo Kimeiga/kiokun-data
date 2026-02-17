@@ -188,6 +188,7 @@ export async function findWordsWithDeinflection(
 
 		try {
 			const conjugationInfo = formatReasonChains(candidate.reasonChains);
+			let foundMatch = false;
 
 			// First try direct dictionary lookup
 			const entry = await getEntry(candidate.word);
@@ -196,15 +197,16 @@ export async function findWordsWithDeinflection(
 				const entryType = getEntryWordType(entry);
 				if (validatePosMatch(candidate.type, entryType)) {
 					addMatch(candidate.word, conjugationInfo);
-					continue;
+					foundMatch = true;
 				}
-				// POS mismatch - skip this candidate
-				continue;
+				// If POS validation failed, the hiragana entry might only contain names (no POS)
+				// We should still try kanji fallback below
 			}
 
-			// If direct lookup failed and candidate is hiragana-only,
+			// If no match yet and candidate is hiragana-only,
 			// try to find kanji forms via the reading lookup API
-			if (isHiraganaOnly(candidate.word)) {
+			// This handles cases where the hiragana entry only has names but not the verb
+			if (!foundMatch && isHiraganaOnly(candidate.word)) {
 				const kanjiForms = await findKanjiFormsFromReading(candidate.word, fetchFn);
 				for (const kanjiForm of kanjiForms) {
 					if (matches.length >= maxResults) break;
