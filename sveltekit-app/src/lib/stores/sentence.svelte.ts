@@ -64,6 +64,27 @@ class SentenceStore {
 	}
 
 	/**
+	 * Set a sentence with custom tokens (for character-by-character mode)
+	 * Used when Intl.Segmenter treats a phrase as a single word but we want individual characters
+	 */
+	setSentenceWithTokens(sentence: string, tokens: Array<{ segment: string; index: number; isWordLike: boolean }>, language?: SupportedLanguage) {
+		if (!sentence.trim()) {
+			this.clear();
+			return;
+		}
+
+		this.state = {
+			tokenized: {
+				original: sentence.trim(),
+				language: language ?? 'zh',
+				tokens
+			},
+			currentWordIndex: null
+		};
+		this.save();
+	}
+
+	/**
 	 * Set the currently selected word by its index among word-like tokens
 	 */
 	setCurrentWordIndex(index: number | null) {

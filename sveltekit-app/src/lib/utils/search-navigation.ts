@@ -339,14 +339,15 @@ export function isSentence(input: string): boolean {
 	const trimmed = input.trim();
 	if (!trimmed) return false;
 
-	// Quick heuristics before tokenizing:
-	// - Contains sentence-ending punctuation
-	// - Is longer than typical single word (e.g., > 6 characters for CJK)
+	// For CJK text, we should always try tokenizing since even short phrases
+	// like "我愛你" (3 chars) can be multiple words
+	// Only skip tokenization for very short non-CJK text without punctuation
 	const hasSentencePunctuation = /[。！？.!?]/.test(trimmed);
+	const hasCJK = /[\u4e00-\u9fff\u3040-\u309f\u30a0-\u30ff\uac00-\ud7af]/.test(trimmed);
 	const isLongEnough = trimmed.length > 6;
 
-	// If no punctuation and short, probably a single word
-	if (!hasSentencePunctuation && !isLongEnough) return false;
+	// For non-CJK text without punctuation, require minimum length
+	if (!hasCJK && !hasSentencePunctuation && !isLongEnough) return false;
 
 	// Tokenize and check word count
 	const tokenized = tokenizeSentence(trimmed);
@@ -400,6 +401,55 @@ export async function handleSentenceInput(
 }
 
 /**
+ * Check if input is CJK text that could be split into characters
+ */
+function isCJKText(input: string): boolean {
+	return /^[\u4e00-\u9fff\u3040-\u309f\u30a0-\u30ff\uac00-\ud7af]+$/.test(input);
+}
+
+/**
+ * Handle character-by-character sentence mode for CJK text
+ * Used when a phrase like "我爱你" isn't in the dictionary but we want to show each character
+ */
+async function handleCharacterSplit(text: string, fetchFn: typeof fetch = fetch): Promise<void> {
+	const language = detectLanguage(text);
+
+	// Create character-by-character tokens
+	const characters = Array.from(text);
+
+	// Manually set up the sentence store with character tokens
+	sentenceStore.setSentenceWithTokens(text, characters.map((char, index) => ({
+		segment: char,
+		index,
+		isWordLike: true
+	})), language);
+
+	// Navigate to first character
+	const firstChar = characters[0];
+	sentenceStore.setCurrentWordIndex(0);
+
+	// Try to find the character in dictionary
+	const results = await findWordsWithDeinflection(firstChar, fetchFn);
+
+	if (results) {
+		const { primary } = results;
+		let url = `/${encodeURIComponent(primary.dictionaryForm)}`;
+		const params = new URLSearchParams();
+		params.set('sentence', '1');
+
+		if (primary.conjugationInfo && primary.originalWord !== primary.dictionaryForm) {
+			params.set('from', primary.originalWord);
+			params.set('conj', primary.conjugationInfo);
+		}
+
+		url += '?' + params.toString();
+		await goto(url);
+	} else {
+		await goto(`/${encodeURIComponent(firstChar)}?sentence=1`);
+	}
+}
+
+/**
  * Navigate to a word if it exists in the dictionary, otherwise redirect to search
  *
  * This function:
@@ -407,7 +457,8 @@ export async function handleSentenceInput(
  * 2. If sentence, tokenizes and navigates to first word with sentence context
  * 3. Otherwise, tries to fetch the word from dictionary (including deinflected forms)
  * 4. If found, navigates to /{word} with conjugation info and alternatives
- * 5. If not found (404), redirects to /search?q={word}
+ * 5. If not found and is CJK text with multiple characters, splits into characters
+ * 6. Otherwise, redirects to /search?q={word}
  *
  * @param word - The word or sentence to search for
  * @param fetchFn - Optional fetch function (defaults to global fetch)
@@ -456,8 +507,14 @@ export async function navigateOrSearch(word: string, fetchFn: typeof fetch = fet
 
 			await goto(url);
 		} else {
-			// Word not found, redirect to search
-			await goto(`/search?q=${encodeURIComponent(trimmedWord)}`);
+			// Word not found in dictionary
+			// If it's CJK text with multiple characters, split into characters for learning
+			if (isCJKText(trimmedWord) && trimmedWord.length >= 2) {
+				await handleCharacterSplit(trimmedWord, fetchFn);
+			} else {
+				// Not CJK or single character, redirect to search
+				await goto(`/search?q=${encodeURIComponent(trimmedWord)}`);
+			}
 		}
 	} catch (error) {
 		// On error, redirect to search as fallback
