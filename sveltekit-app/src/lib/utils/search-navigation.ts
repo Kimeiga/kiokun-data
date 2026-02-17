@@ -2,6 +2,7 @@ import { goto } from '$app/navigation';
 import { getDictionaryUrl } from '$lib/shard-utils';
 import { dev } from '$app/environment';
 import { deinflect, formatReasonChains, WordType, posToWordType } from '$lib/utils/deinflect';
+import { koreanDeinflect, formatKoreanReasons, isHangulOnly } from '$lib/utils/korean-deinflect';
 import type { DictionaryEntry } from '$lib/types';
 import { tokenizeSentence, detectLanguage } from '$lib/utils/sentence-tokenizer';
 import { sentenceStore } from '$lib/stores/sentence.svelte';
@@ -72,6 +73,36 @@ function validatePosMatch(candidateType: number, entryType: number): boolean {
 
 	// Check if there's any overlap between expected and actual types
 	return (candidateActual & entryActual) !== 0;
+}
+
+/**
+ * Check if a Korean dictionary entry has valid verb/adjective content
+ * Korean POS is stored as a string like "동사" (verb), "형용사" (adjective)
+ */
+function hasKoreanVerbOrAdjective(entry: DictionaryEntry): boolean {
+	if (!entry.korean_words || entry.korean_words.length === 0) return false;
+
+	const verbAdjectivePos = [
+		'동사', '형용사', '보조 동사', '보조 형용사',  // Korean terms
+		'verb', 'adjective', 'auxiliary verb',          // English terms
+	];
+
+	for (const word of entry.korean_words) {
+		if (word.pos && verbAdjectivePos.some(pos => word.pos?.includes(pos))) {
+			return true;
+		}
+	}
+	return false;
+}
+
+/**
+ * Check if a Korean dictionary entry has any meaningful content (definitions)
+ */
+function hasKoreanContent(entry: DictionaryEntry): boolean {
+	if (!entry.korean_words || entry.korean_words.length === 0) return false;
+
+	// Check if any Korean word has definitions
+	return entry.korean_words.some(w => w.definitions && w.definitions.length > 0);
 }
 
 /**
@@ -165,76 +196,115 @@ export async function findWordsWithDeinflection(
 		return entry;
 	};
 
+	// Detect if input is Korean (Hangul)
+	const isKorean = isHangulOnly(trimmedWord);
+
 	// First try the exact word (only add as match if it has actual word entries, not just names)
 	// This prevents hiragana entries with only names from being the primary match
 	// when the user typed a conjugated form expecting a verb/adjective
 	const exactEntry = await getEntry(trimmedWord);
 	if (exactEntry) {
-		// Check if entry has actual word content (japanese_words with meanings, not just names)
-		const hasActualWords = exactEntry.japanese_words && exactEntry.japanese_words.length > 0;
+		// Check if entry has actual word content based on language
+		const hasActualWords = isKorean
+			? hasKoreanContent(exactEntry)
+			: exactEntry.japanese_words && exactEntry.japanese_words.length > 0;
 		if (hasActualWords) {
 			addMatch(trimmedWord, '');
 		}
 	}
 
-	// Try deinflected forms
-	const candidates = deinflect(trimmedWord);
+	// Try deinflected forms based on language
+	if (isKorean) {
+		// Korean deinflection
+		const koreanCandidates = koreanDeinflect(trimmedWord);
 
-	// Skip the first candidate if it's the original word with no reasons
-	const deinflectedCandidates = candidates.filter(
-		c => c.word !== trimmedWord || c.reasonChains.length > 0
-	);
+		// Skip the first candidate if it's the original word with no reasons
+		const deinflectedCandidates = koreanCandidates.filter(
+			c => c.word !== trimmedWord || c.reasons.length > 0
+		);
 
-	// Sort by number of conjugation steps (prefer simpler deinflections)
-	deinflectedCandidates.sort((a, b) => {
-		const aLen = a.reasonChains.reduce((sum, chain) => sum + chain.length, 0);
-		const bLen = b.reasonChains.reduce((sum, chain) => sum + chain.length, 0);
-		return aLen - bLen;
-	});
+		// Sort by number of conjugation reasons (prefer simpler deinflections)
+		deinflectedCandidates.sort((a, b) => a.reasons.length - b.reasons.length);
 
-	for (const candidate of deinflectedCandidates) {
-		if (matches.length >= maxResults) break;
+		for (const candidate of deinflectedCandidates) {
+			if (matches.length >= maxResults) break;
 
-		try {
-			const conjugationInfo = formatReasonChains(candidate.reasonChains);
-			let foundMatch = false;
+			try {
+				const conjugationInfo = formatKoreanReasons(candidate.reasons);
 
-			// First try direct dictionary lookup
-			const entry = await getEntry(candidate.word);
-			if (entry) {
-				// Validate that the entry's POS matches what the deinflection expects
-				const entryType = getEntryWordType(entry);
-				if (validatePosMatch(candidate.type, entryType)) {
-					addMatch(candidate.word, conjugationInfo);
-					foundMatch = true;
-				}
-				// If POS validation failed, the hiragana entry might only contain names (no POS)
-				// We should still try kanji fallback below
-			}
-
-			// If no match yet and candidate is hiragana-only,
-			// try to find kanji forms via the reading lookup API
-			// This handles cases where the hiragana entry only has names but not the verb
-			if (!foundMatch && isHiraganaOnly(candidate.word)) {
-				const kanjiForms = await findKanjiFormsFromReading(candidate.word, fetchFn);
-				for (const kanjiForm of kanjiForms) {
-					if (matches.length >= maxResults) break;
-					try {
-						const kanjiEntry = await getEntry(kanjiForm);
-						if (kanjiEntry) {
-							// Validate POS for kanji form too
-							const kanjiEntryType = getEntryWordType(kanjiEntry);
-							if (validatePosMatch(candidate.type, kanjiEntryType)) {
-								addMatch(kanjiForm, conjugationInfo);
-							}
-						}
-					} catch {
-						// Continue to next kanji form
+				// Try direct dictionary lookup
+				const entry = await getEntry(candidate.word);
+				if (entry) {
+					// For Korean, validate that entry has verb/adjective content
+					// This prevents matching entries that only have nouns when we deinflected a verb form
+					if (hasKoreanVerbOrAdjective(entry) || hasKoreanContent(entry)) {
+						addMatch(candidate.word, conjugationInfo);
 					}
 				}
+			} catch {
+				// Continue to next candidate
 			}
-		} catch {
-			// Continue to next candidate
+		}
+	} else {
+		// Japanese deinflection (existing logic)
+		const candidates = deinflect(trimmedWord);
+
+		// Skip the first candidate if it's the original word with no reasons
+		const deinflectedCandidates = candidates.filter(
+			c => c.word !== trimmedWord || c.reasonChains.length > 0
+		);
+
+		// Sort by number of conjugation steps (prefer simpler deinflections)
+		deinflectedCandidates.sort((a, b) => {
+			const aLen = a.reasonChains.reduce((sum, chain) => sum + chain.length, 0);
+			const bLen = b.reasonChains.reduce((sum, chain) => sum + chain.length, 0);
+			return aLen - bLen;
+		});
+
+		for (const candidate of deinflectedCandidates) {
+			if (matches.length >= maxResults) break;
+
+			try {
+				const conjugationInfo = formatReasonChains(candidate.reasonChains);
+				let foundMatch = false;
+
+				// First try direct dictionary lookup
+				const entry = await getEntry(candidate.word);
+				if (entry) {
+					// Validate that the entry's POS matches what the deinflection expects
+					const entryType = getEntryWordType(entry);
+					if (validatePosMatch(candidate.type, entryType)) {
+						addMatch(candidate.word, conjugationInfo);
+						foundMatch = true;
+					}
+					// If POS validation failed, the hiragana entry might only contain names (no POS)
+					// We should still try kanji fallback below
+				}
+
+				// If no match yet and candidate is hiragana-only,
+				// try to find kanji forms via the reading lookup API
+				// This handles cases where the hiragana entry only has names but not the verb
+				if (!foundMatch && isHiraganaOnly(candidate.word)) {
+					const kanjiForms = await findKanjiFormsFromReading(candidate.word, fetchFn);
+					for (const kanjiForm of kanjiForms) {
+						if (matches.length >= maxResults) break;
+						try {
+							const kanjiEntry = await getEntry(kanjiForm);
+							if (kanjiEntry) {
+								// Validate POS for kanji form too
+								const kanjiEntryType = getEntryWordType(kanjiEntry);
+								if (validatePosMatch(candidate.type, kanjiEntryType)) {
+									addMatch(kanjiForm, conjugationInfo);
+								}
+							}
+						} catch {
+							// Continue to next kanji form
+						}
+					}
+				}
+			} catch {
+				// Continue to next candidate
+			}
 		}
 	}
 
