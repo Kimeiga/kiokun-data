@@ -4,8 +4,8 @@ import { dev } from '$app/environment';
 import { deinflect, formatReasonChains, WordType, posToWordType } from '$lib/utils/deinflect';
 import { koreanDeinflect, formatKoreanReasons, isHangulOnly } from '$lib/utils/korean-deinflect';
 import type { DictionaryEntry } from '$lib/types';
-import { tokenizeSentence, detectLanguage } from '$lib/utils/sentence-tokenizer';
-import { sentenceStore } from '$lib/stores/sentence.svelte';
+import { tokenizeSentence } from '$lib/utils/sentence-tokenizer';
+import { buildSentenceWordURL, getSentenceWords } from '$lib/stores/sentence.svelte';
 
 export interface DeinflectionResult {
 	originalWord: string;
@@ -366,7 +366,7 @@ export function isSentence(input: string): boolean {
 }
 
 /**
- * Handle sentence input: tokenize, store in sentence context, navigate to first word
+ * Handle sentence input: tokenize and navigate to first word with sentence in URL
  */
 export async function handleSentenceInput(
 	sentence: string,
@@ -375,37 +375,30 @@ export async function handleSentenceInput(
 	const trimmed = sentence.trim();
 	if (!trimmed) return;
 
-	const language = detectLanguage(trimmed);
+	// Get the words from the sentence
+	const words = getSentenceWords(trimmed);
+	if (words.length === 0) return;
 
-	// Set the sentence in the store
-	sentenceStore.setSentence(trimmed, language);
+	const firstWord = words[0].segment;
 
-	// Get the first word-like token
-	const words = sentenceStore.words;
-	if (words.length > 0) {
-		sentenceStore.setCurrentWordIndex(0);
-		const firstWord = words[0].segment;
+	// Try to find the word in dictionary (with deinflection)
+	const results = await findWordsWithDeinflection(firstWord, fetchFn);
 
-		// Try to find the word in dictionary (with deinflection)
-		const results = await findWordsWithDeinflection(firstWord, fetchFn);
+	if (results) {
+		const { primary } = results;
+		const additionalParams: Record<string, string> = {};
 
-		if (results) {
-			const { primary } = results;
-			let url = `/${encodeURIComponent(primary.dictionaryForm)}`;
-			const params = new URLSearchParams();
-			params.set('sentence', '1');
-
-			if (primary.conjugationInfo && primary.originalWord !== primary.dictionaryForm) {
-				params.set('from', primary.originalWord);
-				params.set('conj', primary.conjugationInfo);
-			}
-
-			url += '?' + params.toString();
-			await goto(url);
-		} else {
-			// Word not in dictionary, still navigate to show the word page
-			await goto(`/${encodeURIComponent(firstWord)}?sentence=1`);
+		if (primary.conjugationInfo && primary.originalWord !== primary.dictionaryForm) {
+			additionalParams.from = primary.originalWord;
+			additionalParams.conj = primary.conjugationInfo;
 		}
+
+		const url = buildSentenceWordURL(primary.dictionaryForm, trimmed, 0, additionalParams);
+		await goto(url);
+	} else {
+		// Word not in dictionary, still navigate to show the word page
+		const url = buildSentenceWordURL(firstWord, trimmed, 0);
+		await goto(url);
 	}
 }
 
@@ -419,42 +412,35 @@ function isCJKText(input: string): boolean {
 /**
  * Handle character-by-character sentence mode for CJK text
  * Used when a phrase like "我爱你" isn't in the dictionary but we want to show each character
+ *
+ * For character-by-character mode, we use `c=1` flag to indicate the sentence
+ * should be split into individual characters rather than word-tokenized
  */
 async function handleCharacterSplit(text: string, fetchFn: typeof fetch = fetch): Promise<void> {
-	const language = detectLanguage(text);
-
-	// Create character-by-character tokens
+	// Create character-by-character "sentence"
+	// The sentence is the original text, but we'll add a flag to indicate char-by-char mode
 	const characters = Array.from(text);
+	if (characters.length === 0) return;
 
-	// Manually set up the sentence store with character tokens
-	sentenceStore.setSentenceWithTokens(text, characters.map((char, index) => ({
-		segment: char,
-		index,
-		isWordLike: true
-	})), language);
-
-	// Navigate to first character
 	const firstChar = characters[0];
-	sentenceStore.setCurrentWordIndex(0);
 
 	// Try to find the character in dictionary
 	const results = await findWordsWithDeinflection(firstChar, fetchFn);
 
+	// Build URL with character-split flag
+	const params = new URLSearchParams();
+	params.set('s', text);
+	params.set('c', '1'); // char-by-char mode flag
+
 	if (results) {
 		const { primary } = results;
-		let url = `/${encodeURIComponent(primary.dictionaryForm)}`;
-		const params = new URLSearchParams();
-		params.set('sentence', '1');
-
 		if (primary.conjugationInfo && primary.originalWord !== primary.dictionaryForm) {
 			params.set('from', primary.originalWord);
 			params.set('conj', primary.conjugationInfo);
 		}
-
-		url += '?' + params.toString();
-		await goto(url);
+		await goto(`/${encodeURIComponent(primary.dictionaryForm)}?${params.toString()}`);
 	} else {
-		await goto(`/${encodeURIComponent(firstChar)}?sentence=1`);
+		await goto(`/${encodeURIComponent(firstChar)}?${params.toString()}`);
 	}
 }
 

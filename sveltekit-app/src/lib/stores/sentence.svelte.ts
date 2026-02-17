@@ -1,169 +1,136 @@
 /**
- * Sentence context store using Svelte 5 runes
- * 
- * Persists the current sentence being analyzed across navigation,
- * so users can click on individual words while keeping the sentence bar visible.
+ * Sentence context utilities for URL-based sentence mode
+ *
+ * Sentences are stored in URL parameters for shareability:
+ * - `s` = the full sentence text
+ * - `i` = current word index (0-based, optional, defaults to 0)
+ *
+ * Example: /私?s=私は日本語を勉強しています&i=0
  */
-import { browser } from '$app/environment';
 import { tokenizeSentence, type TokenizedSentence, type SupportedLanguage } from '$lib/utils/sentence-tokenizer';
 
-export interface SentenceState {
+export interface SentenceContext {
+	/** The original sentence */
+	sentence: string;
 	/** The tokenized sentence data */
-	tokenized: TokenizedSentence | null;
-	/** The index of the currently selected word (0-based, only counting word-like tokens) */
-	currentWordIndex: number | null;
+	tokenized: TokenizedSentence;
+	/** Current word index */
+	currentIndex: number;
 }
 
-// Session storage key for persistence across page navigations
-const STORAGE_KEY = 'kiokun_sentence_context';
+/**
+ * Parse sentence context from URL search params
+ * Returns null if no sentence is present
+ *
+ * URL params:
+ * - `s` = sentence text
+ * - `i` = word index (optional, defaults to 0)
+ * - `c` = character-by-character mode flag (optional)
+ */
+export function parseSentenceFromURL(searchParams: URLSearchParams): SentenceContext | null {
+	const sentence = searchParams.get('s');
+	if (!sentence) return null;
 
-// Get initial state from session storage
-function getInitialState(): SentenceState {
-	if (!browser) {
-		return { tokenized: null, currentWordIndex: null };
-	}
-	
-	try {
-		const stored = sessionStorage.getItem(STORAGE_KEY);
-		if (stored) {
-			return JSON.parse(stored);
-		}
-	} catch {
-		// Invalid JSON or storage error, use defaults
-	}
-	
-	return { tokenized: null, currentWordIndex: null };
-}
+	const isCharMode = searchParams.get('c') === '1';
 
-class SentenceStore {
-	state = $state<SentenceState>(getInitialState());
+	let tokenized: TokenizedSentence;
 
-	constructor() {
-		if (browser) {
-			// Re-check on mount in case SSR had wrong value
-			const initial = getInitialState();
-			this.state = initial;
-		}
-	}
-
-	/**
-	 * Set a new sentence to analyze
-	 */
-	setSentence(sentence: string, language?: SupportedLanguage) {
-		if (!sentence.trim()) {
-			this.clear();
-			return;
-		}
-
-		const tokenized = tokenizeSentence(sentence.trim(), language);
-		this.state = {
-			tokenized,
-			currentWordIndex: null
+	if (isCharMode) {
+		// Character-by-character mode: split into individual characters
+		const chars = Array.from(sentence);
+		tokenized = {
+			original: sentence,
+			language: detectCJKLanguage(sentence),
+			tokens: chars.map((char, idx) => ({
+				segment: char,
+				index: idx,
+				isWordLike: /[\u4e00-\u9fff\u3040-\u309f\u30a0-\u30ff\uac00-\ud7af]/.test(char)
+			}))
 		};
-		this.save();
+	} else {
+		tokenized = tokenizeSentence(sentence);
 	}
 
-	/**
-	 * Set a sentence with custom tokens (for character-by-character mode)
-	 * Used when Intl.Segmenter treats a phrase as a single word but we want individual characters
-	 */
-	setSentenceWithTokens(sentence: string, tokens: Array<{ segment: string; index: number; isWordLike: boolean }>, language?: SupportedLanguage) {
-		if (!sentence.trim()) {
-			this.clear();
-			return;
-		}
+	const words = tokenized.tokens.filter(t => t.isWordLike);
 
-		this.state = {
-			tokenized: {
-				original: sentence.trim(),
-				language: language ?? 'zh',
-				tokens
-			},
-			currentWordIndex: null
-		};
-		this.save();
-	}
+	if (words.length === 0) return null;
 
-	/**
-	 * Set the currently selected word by its index among word-like tokens
-	 */
-	setCurrentWordIndex(index: number | null) {
-		this.state.currentWordIndex = index;
-		this.save();
-	}
-
-	/**
-	 * Set the current word by finding it in the tokens
-	 */
-	setCurrentWord(word: string) {
-		if (!this.state.tokenized) return;
-		
-		const words = this.state.tokenized.tokens.filter(t => t.isWordLike);
-		const index = words.findIndex(t => t.segment === word);
-		this.state.currentWordIndex = index >= 0 ? index : null;
-		this.save();
-	}
-
-	/**
-	 * Clear the sentence context
-	 */
-	clear() {
-		this.state = { tokenized: null, currentWordIndex: null };
-		this.save();
-	}
-
-	/**
-	 * Check if there's an active sentence
-	 */
-	get hasSentence(): boolean {
-		return this.state.tokenized !== null;
-	}
-
-	/**
-	 * Get the current sentence text
-	 */
-	get sentence(): string | null {
-		return this.state.tokenized?.original ?? null;
-	}
-
-	/**
-	 * Get the detected/specified language
-	 */
-	get language(): SupportedLanguage | null {
-		return this.state.tokenized?.language ?? null;
-	}
-
-	/**
-	 * Get all tokens
-	 */
-	get tokens() {
-		return this.state.tokenized?.tokens ?? [];
-	}
-
-	/**
-	 * Get only word-like tokens
-	 */
-	get words() {
-		return this.tokens.filter(t => t.isWordLike);
-	}
-
-	/**
-	 * Get the currently selected word token
-	 */
-	get currentWord() {
-		if (this.state.currentWordIndex === null) return null;
-		return this.words[this.state.currentWordIndex] ?? null;
-	}
-
-	private save() {
-		if (!browser) return;
-		try {
-			sessionStorage.setItem(STORAGE_KEY, JSON.stringify(this.state));
-		} catch {
-			// Storage full or not available
+	// Parse index, default to 0
+	const indexParam = searchParams.get('i');
+	let currentIndex = 0;
+	if (indexParam) {
+		const parsed = parseInt(indexParam, 10);
+		if (!isNaN(parsed) && parsed >= 0 && parsed < words.length) {
+			currentIndex = parsed;
 		}
 	}
+
+	return {
+		sentence,
+		tokenized,
+		currentIndex
+	};
 }
 
-export const sentenceStore = new SentenceStore();
+/**
+ * Simple language detection for CJK text
+ */
+function detectCJKLanguage(text: string): SupportedLanguage {
+	// Check for Korean first (Hangul)
+	if (/[\uac00-\ud7af]/.test(text)) return 'ko';
+	// Check for Japanese hiragana/katakana
+	if (/[\u3040-\u309f\u30a0-\u30ff]/.test(text)) return 'ja';
+	// Default to Chinese
+	return 'zh';
+}
+
+/**
+ * Build URL params for sentence context
+ */
+export function buildSentenceParams(sentence: string, wordIndex: number = 0): URLSearchParams {
+	const params = new URLSearchParams();
+	params.set('s', sentence);
+	if (wordIndex > 0) {
+		params.set('i', wordIndex.toString());
+	}
+	return params;
+}
+
+/**
+ * Build a full URL for a word within a sentence context
+ */
+export function buildSentenceWordURL(
+	word: string,
+	sentence: string,
+	wordIndex: number,
+	additionalParams?: Record<string, string>
+): string {
+	const params = buildSentenceParams(sentence, wordIndex);
+
+	if (additionalParams) {
+		for (const [key, value] of Object.entries(additionalParams)) {
+			params.set(key, value);
+		}
+	}
+
+	return `/${encodeURIComponent(word)}?${params.toString()}`;
+}
+
+/**
+ * Get words from a sentence (helper for navigation)
+ */
+export function getSentenceWords(sentence: string): Array<{ segment: string; index: number }> {
+	const tokenized = tokenizeSentence(sentence);
+	return tokenized.tokens
+		.filter(t => t.isWordLike)
+		.map((t, idx) => ({ segment: t.segment, index: idx }));
+}
+
+/**
+ * Legacy compatibility - returns language from sentence
+ */
+export function getSentenceLanguage(sentence: string): SupportedLanguage {
+	const tokenized = tokenizeSentence(sentence);
+	return tokenized.language;
+}
 

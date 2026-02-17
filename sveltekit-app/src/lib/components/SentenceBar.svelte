@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { sentenceStore } from '$lib/stores/sentence.svelte';
+	import { page } from '$app/stores';
+	import { parseSentenceFromURL, buildSentenceWordURL } from '$lib/stores/sentence.svelte';
 
 	interface Props {
 		/** The currently displayed word (to highlight in the sentence) */
@@ -9,10 +10,17 @@
 
 	let { currentWord = '' }: Props = $props();
 
-	// Get words from the store
-	let words = $derived(sentenceStore.words);
-	let tokens = $derived(sentenceStore.tokens);
-	let language = $derived(sentenceStore.language);
+	// Parse sentence context from URL
+	let sentenceContext = $derived(parseSentenceFromURL($page.url.searchParams));
+
+	// Get tokens and words from context
+	let tokens = $derived(sentenceContext?.tokenized.tokens ?? []);
+	let words = $derived(tokens.filter(t => t.isWordLike));
+	let language = $derived(sentenceContext?.tokenized.language ?? null);
+	let sentence = $derived(sentenceContext?.sentence ?? '');
+
+	// Check if we're in character-by-character mode
+	let isCharMode = $derived($page.url.searchParams.get('c') === '1');
 
 	// Find the index of the current word in the words array
 	let currentWordIndex = $derived.by(() => {
@@ -21,14 +29,22 @@
 	});
 
 	function handleWordClick(word: string, index: number) {
-		// Update the store's current word index
-		sentenceStore.setCurrentWordIndex(index);
-		// Navigate to the word page
-		goto(`/${encodeURIComponent(word)}?sentence=1`);
+		// Build URL with sentence context preserved
+		const params: Record<string, string> = {};
+		if (isCharMode) {
+			params.c = '1';
+		}
+		const url = buildSentenceWordURL(word, sentence, index, params);
+		goto(url);
 	}
 
 	function handleClose() {
-		sentenceStore.clear();
+		// Navigate to current word without sentence params
+		if (currentWord) {
+			goto(`/${encodeURIComponent(currentWord)}`);
+		} else {
+			goto('/');
+		}
 	}
 
 	// Language flag helper
@@ -42,12 +58,12 @@
 	}
 </script>
 
-{#if sentenceStore.hasSentence}
+{#if sentenceContext}
 	<div class="sentence-bar">
 		<div class="sentence-content">
 			<span class="language-indicator">{getLanguageFlag(language)}</span>
 			<div class="tokens-container">
-				{#each tokens as token, tokenIndex}
+				{#each tokens as token}
 					{#if token.isWordLike}
 						{@const wordIndex = words.findIndex(w => w.index === token.index)}
 						<button

@@ -13,65 +13,57 @@
 		}
 	}
 
-	// Character examples - Japanese column
-	const japaneseCharacters = [
-		{ char: '愛', label: 'Love' },
-		{ char: '心', label: 'Heart' },
-		{ char: '夢', label: 'Dream' },
-		{ char: '空', label: 'Sky' },
-		{ char: '花', label: 'Flower' },
-		{ char: '雨', label: 'Rain' },
-		{ char: '月', label: 'Moon' },
-		{ char: '星', label: 'Star' },
-		{ char: '海', label: 'Sea' },
-		{ char: '山', label: 'Mountain' },
+	// Shared characters - exist in both Chinese and Japanese
+	// Format: { trad, simp?, jp?, label }
+	// trad = traditional Chinese (primary display)
+	// simp = simplified Chinese (if different from trad)
+	// jp = Japanese form (if different from trad, rarely needed)
+	const sharedCharacters = [
+		{ trad: '愛', simp: '爱', label: 'Love' },
+		{ trad: '心', label: 'Heart' },
+		{ trad: '夢', simp: '梦', label: 'Dream' },
+		{ trad: '空', label: 'Sky' },
+		{ trad: '山', label: 'Mountain' },
+		{ trad: '水', label: 'Water' },
+		{ trad: '火', label: 'Fire' },
+		{ trad: '風', simp: '风', label: 'Wind' },
+		{ trad: '月', label: 'Moon' },
+		{ trad: '日', label: 'Sun' },
+		{ trad: '花', label: 'Flower' },
+		{ trad: '雨', label: 'Rain' },
+		{ trad: '雪', label: 'Snow' },
+		{ trad: '星', label: 'Star' },
+		{ trad: '光', label: 'Light' },
+		{ trad: '道', label: 'Way' },
 	];
 
-	// Character examples - Chinese column
-	const chineseCharacters = [
-		{ char: '好', label: 'Good' },
-		{ char: '美', label: 'Beautiful' },
-		{ char: '龙', label: 'Dragon' },
-		{ char: '福', label: 'Fortune' },
-		{ char: '春', label: 'Spring' },
-		{ char: '风', label: 'Wind' },
-		{ char: '云', label: 'Cloud' },
-		{ char: '雪', label: 'Snow' },
-		{ char: '光', label: 'Light' },
-		{ char: '道', label: 'Way/Tao' },
+	// Shared words - exist in both Chinese and Japanese with similar meanings
+	const sharedWords = [
+		{ trad: '學校', simp: '学校', label: 'School' },
+		{ trad: '音樂', simp: '音乐', label: 'Music' },
+		{ trad: '時間', simp: '时间', label: 'Time' },
+		{ trad: '自然', label: 'Nature' },
+		{ trad: '人生', label: 'Life' },
+		{ trad: '世界', label: 'World' },
+		{ trad: '歷史', simp: '历史', label: 'History' },
+		{ trad: '文化', label: 'Culture' },
+		{ trad: '社會', simp: '社会', label: 'Society' },
+		{ trad: '經濟', simp: '经济', label: 'Economy' },
+		{ trad: '科學', simp: '科学', label: 'Science' },
+		{ trad: '家族', label: 'Family' },
+		{ trad: '友人', label: 'Friend' },
+		{ trad: '感情', label: 'Emotion' },
+		{ trad: '希望', label: 'Hope' },
+		{ trad: '未來', simp: '未来', label: 'Future' },
 	];
 
-	// Word examples - Japanese column
-	const japaneseWords = [
-		{ char: '日本', label: 'Japan' },
-		{ char: '東京', label: 'Tokyo' },
-		{ char: '学校', label: 'School' },
-		{ char: '食べる', label: 'To eat' },
-		{ char: '可愛い', label: 'Cute' },
-		{ char: '勉強', label: 'Study' },
-		{ char: '桜', label: 'Cherry blossom' },
-		{ char: '侍', label: 'Samurai' },
-	];
-
-	// Word examples - Chinese column
-	const chineseWords = [
-		{ char: '中国', label: 'China' },
-		{ char: '北京', label: 'Beijing' },
-		{ char: '朋友', label: 'Friend' },
-		{ char: '谢谢', label: 'Thank you' },
-		{ char: '你好', label: 'Hello' },
-		{ char: '学习', label: 'Study' },
-		{ char: '电脑', label: 'Computer' },
-		{ char: '手机', label: 'Phone' },
-	];
-
-	// English search suggestions - expanded
+	// English search suggestions
 	const searchSuggestions = [
 		'beautiful', 'water', 'love', 'eat', 'house', 'big',
 		'happy', 'sun', 'mountain', 'friend', 'time', 'new'
 	];
 
-	// Category highlights - expanded for grid
+	// Category highlights
 	const categoryHighlights = [
 		{ name: 'Animals', path: '/category/Nature/Animals', icon: '🐾' },
 		{ name: 'Body', path: '/category/Humanity/Body', icon: '🫀' },
@@ -101,7 +93,7 @@
 			<h1 class="hero-title">
 				<span class="gradient-text">Kiokun</span>
 			</h1>
-			<p class="hero-subtitle">Your Unified Chinese & Japanese Dictionary</p>
+			<p class="hero-subtitle">Discover the shared vocabulary of Chinese & Japanese</p>
 
 			<!-- Search Box -->
 			<div class="search-container">
@@ -117,59 +109,39 @@
 		</div>
 	</section>
 
-	<!-- Four-Column Layout: JP Chars | CN Chars | JP Words | CN Words -->
-	<div class="four-column-grid">
-		<div class="column">
-			<div class="column-header">
-				<span class="flag-small">🇯🇵</span>
-				<span>Characters</span>
+	<!-- Unified Grid: Words & Characters side by side -->
+	<div class="unified-grid">
+		<!-- Words Section -->
+		<section class="grid-section">
+			<h2 class="section-header">Words</h2>
+			<div class="card-grid">
+				{#each sharedWords as item}
+					<a href="/{item.trad}" class="unified-card">
+						<span class="card-main">{item.trad}</span>
+						{#if item.simp && item.simp !== item.trad}
+							<span class="card-variants">{item.simp}</span>
+						{/if}
+						<span class="card-label">{item.label}</span>
+					</a>
+				{/each}
 			</div>
-			{#each japaneseCharacters as example}
-				<a href="/{example.char}" class="example-chip">
-					<span class="example-char">{example.char}</span>
-					<span class="example-label">{example.label}</span>
-				</a>
-			{/each}
-		</div>
+		</section>
 
-		<div class="column">
-			<div class="column-header">
-				<span class="flag-small">🇨🇳</span>
-				<span>Characters</span>
+		<!-- Characters Section -->
+		<section class="grid-section">
+			<h2 class="section-header">Characters</h2>
+			<div class="card-grid">
+				{#each sharedCharacters as item}
+					<a href="/{item.trad}" class="unified-card">
+						<span class="card-main">{item.trad}</span>
+						{#if item.simp && item.simp !== item.trad}
+							<span class="card-variants">{item.simp}</span>
+						{/if}
+						<span class="card-label">{item.label}</span>
+					</a>
+				{/each}
 			</div>
-			{#each chineseCharacters as example}
-				<a href="/{example.char}" class="example-chip">
-					<span class="example-char">{example.char}</span>
-					<span class="example-label">{example.label}</span>
-				</a>
-			{/each}
-		</div>
-
-		<div class="column">
-			<div class="column-header">
-				<span class="flag-small">🇯🇵</span>
-				<span>Words</span>
-			</div>
-			{#each japaneseWords as example}
-				<a href="/{example.char}" class="example-chip">
-					<span class="example-char">{example.char}</span>
-					<span class="example-label">{example.label}</span>
-				</a>
-			{/each}
-		</div>
-
-		<div class="column">
-			<div class="column-header">
-				<span class="flag-small">🇨🇳</span>
-				<span>Words</span>
-			</div>
-			{#each chineseWords as example}
-				<a href="/{example.char}" class="example-chip">
-					<span class="example-char">{example.char}</span>
-					<span class="example-label">{example.label}</span>
-				</a>
-			{/each}
-		</div>
+		</section>
 	</div>
 
 	<!-- English Search Section -->
@@ -306,35 +278,79 @@
 		color: var(--text-muted);
 	}
 
-	/* Four Column Grid Layout */
-	.four-column-grid {
+	/* Unified Grid Layout - Words & Characters side by side */
+	.unified-grid {
 		display: grid;
-		grid-template-columns: repeat(4, 1fr);
-		gap: 24px;
+		grid-template-columns: 1fr 1fr;
+		gap: 40px;
 		margin-top: 30px;
 		padding: 0 20px;
 	}
 
-	.column {
+	.grid-section {
 		display: flex;
 		flex-direction: column;
-		gap: 8px;
 	}
 
-	.column-header {
+	.section-header {
+		font-size: 18px;
+		font-weight: 700;
+		color: var(--text-primary);
+		margin: 0 0 16px;
+		padding-bottom: 12px;
+		border-bottom: 2px solid var(--border-color);
+		text-align: center;
+	}
+
+	.card-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 10px;
+	}
+
+	.unified-card {
 		display: flex;
+		flex-direction: column;
 		align-items: center;
-		gap: 6px;
-		font-size: 14px;
-		font-weight: 600;
-		color: var(--text-secondary);
-		padding-bottom: 10px;
-		border-bottom: 1px solid var(--border-color);
-		margin-bottom: 4px;
+		justify-content: center;
+		aspect-ratio: 1;
+		padding: 8px;
+		background: var(--bg-secondary);
+		border: 2px solid var(--border-color);
+		border-radius: 12px;
+		text-decoration: none;
+		transition: all 0.2s ease;
+		min-height: 80px;
 	}
 
-	.flag-small {
-		font-size: 16px;
+	.unified-card:hover {
+		border-color: var(--accent);
+		transform: translateY(-2px);
+		box-shadow: 0 4px 12px var(--shadow);
+		background: var(--bg-tertiary);
+	}
+
+	.card-main {
+		font-size: 28px;
+		font-weight: 600;
+		color: var(--text-primary);
+		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", "MS Mincho", serif;
+		line-height: 1.2;
+	}
+
+	.card-variants {
+		font-size: 14px;
+		color: var(--text-muted);
+		font-family: "Noto Sans SC", "Noto Sans JP", sans-serif;
+		margin-top: 2px;
+	}
+
+	.card-label {
+		font-size: 10px;
+		color: var(--text-secondary);
+		margin-top: 4px;
+		text-align: center;
+		line-height: 1.2;
 	}
 
 	/* Two Column Grid Layout */
@@ -371,36 +387,6 @@
 		flex-wrap: wrap;
 		gap: 10px;
 		justify-content: center;
-	}
-
-	.example-chip {
-		display: inline-flex;
-		align-items: center;
-		gap: 8px;
-		padding: 8px 14px;
-		background: var(--bg-secondary);
-		border: 1px solid var(--border-color);
-		border-radius: 10px;
-		text-decoration: none;
-		transition: all 0.2s ease;
-	}
-
-	.example-chip:hover {
-		border-color: var(--accent);
-		transform: translateY(-1px);
-		box-shadow: 0 2px 8px var(--shadow);
-	}
-
-	.example-char {
-		font-size: 20px;
-		font-weight: 600;
-		color: var(--text-primary);
-		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", "MS Mincho", serif;
-	}
-
-	.example-label {
-		font-size: 11px;
-		color: var(--text-secondary);
 	}
 
 	/* Search Chips */
@@ -573,9 +559,13 @@
 
 	/* Responsive Design */
 	@media (max-width: 1000px) {
-		.four-column-grid {
-			grid-template-columns: repeat(2, 1fr);
-			gap: 20px;
+		.unified-grid {
+			grid-template-columns: 1fr;
+			gap: 30px;
+		}
+
+		.card-grid {
+			grid-template-columns: repeat(4, 1fr);
 		}
 	}
 
@@ -584,10 +574,31 @@
 			padding: 0 var(--spacing-lg) 40px;
 		}
 
-		.four-column-grid {
-			grid-template-columns: repeat(2, 1fr);
-			gap: var(--spacing-lg);
+		.unified-grid {
+			gap: var(--spacing-xl);
 			padding: 0;
+		}
+
+		.card-grid {
+			grid-template-columns: repeat(4, 1fr);
+			gap: 8px;
+		}
+
+		.unified-card {
+			min-height: 70px;
+			padding: 6px;
+		}
+
+		.card-main {
+			font-size: 22px;
+		}
+
+		.card-variants {
+			font-size: 12px;
+		}
+
+		.card-label {
+			font-size: 9px;
 		}
 
 		.two-column-grid {
@@ -625,22 +636,8 @@
 			font-size: var(--font-size-caption1);
 		}
 
-		.column-header {
-			font-size: var(--font-size-subhead);
-			padding-bottom: var(--spacing-sm);
-		}
-
-		.example-chip {
-			padding: var(--spacing-sm) var(--spacing-md);
-			gap: var(--spacing-sm);
-		}
-
-		.example-char {
-			font-size: var(--font-size-headline);
-		}
-
-		.example-label {
-			font-size: var(--font-size-caption2);
+		.section-header {
+			font-size: 16px;
 		}
 
 		.category-grid {
@@ -678,9 +675,26 @@
 	}
 
 	@media (max-width: 480px) {
-		.four-column-grid {
-			grid-template-columns: 1fr 1fr;
-			gap: var(--spacing-md);
+		.card-grid {
+			grid-template-columns: repeat(4, 1fr);
+			gap: 6px;
+		}
+
+		.unified-card {
+			min-height: 60px;
+			padding: 4px;
+		}
+
+		.card-main {
+			font-size: 18px;
+		}
+
+		.card-variants {
+			font-size: 10px;
+		}
+
+		.card-label {
+			font-size: 8px;
 		}
 
 		.category-grid {
