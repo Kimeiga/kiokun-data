@@ -279,6 +279,44 @@ const koreanDeinflectRules: KoreanDeinflectRule[] = [
   { from: '셨습니다', to: '다', reasons: [KoreanReason.Honorific, KoreanReason.Past, KoreanReason.Formal] },
 ];
 
+// =====================================
+// Vowel contraction rules
+// =====================================
+// These handle cases where stem vowels contract with endings
+// e.g., 가다 + 아요 → 가요 (not 가아요)
+//
+// Contraction patterns:
+// - ㅏ + 아 → ㅏ (가다 → 가요)
+// - ㅗ + 아 → ㅘ (오다 → 와요)
+// - ㅜ + 어 → ㅝ (주다 → 줘요)
+// - ㅣ + 어 → ㅕ (기다 → 겨요) [less common]
+// - ㅓ + 어 → ㅓ (서다 → 서요)
+// - ㅡ + 어 → ㅓ (쓰다 → 써요) [ㅡ drops]
+// - ㅔ/ㅐ + 어 → ㅐ/ㅔ (세다 → 세요)
+
+type VowelContractionRule = {
+  contractedMedal: number;  // The vowel in the contracted form
+  originalMedal: number;    // The original stem vowel
+  endingVowel: 'a' | 'eo';  // Whether the ending uses 아 or 어
+};
+
+const vowelContractionRules: VowelContractionRule[] = [
+  // ㅏ + 아 → ㅏ (가다 + 아요 → 가요)
+  { contractedMedal: MEDIAL_A, originalMedal: MEDIAL_A, endingVowel: 'a' },
+  // ㅗ + 아 → ㅘ (오다 + 아요 → 와요)
+  { contractedMedal: MEDIAL_WA, originalMedal: MEDIAL_O, endingVowel: 'a' },
+  // ㅜ + 어 → ㅝ (주다 + 어요 → 줘요)
+  { contractedMedal: MEDIAL_WEO, originalMedal: MEDIAL_U, endingVowel: 'eo' },
+  // ㅓ + 어 → ㅓ (서다 + 어요 → 서요)
+  { contractedMedal: MEDIAL_EO, originalMedal: MEDIAL_EO, endingVowel: 'eo' },
+  // ㅣ + 어 → ㅕ (기다리다: 기다려요 - but this is complex)
+  { contractedMedal: MEDIAL_YEO, originalMedal: MEDIAL_I, endingVowel: 'eo' },
+  // ㅐ + 어 → ㅐ (보내다 + 어요 → 보내요)
+  { contractedMedal: MEDIAL_AE, originalMedal: MEDIAL_AE, endingVowel: 'eo' },
+  // ㅔ + 어 → ㅔ (세다 + 어요 → 세요)
+  { contractedMedal: MEDIAL_E, originalMedal: MEDIAL_E, endingVowel: 'eo' },
+];
+
 /**
  * Try to apply ㅂ irregular reconstruction
  * When ㅂ irregular verbs conjugate: 춥다 → 추워 (ㅂ → 우)
@@ -381,6 +419,44 @@ function tryReuIrregular(stem: string): string[] {
 }
 
 /**
+ * Try to reverse vowel contractions
+ * When vowels contract: 가다 + 아요 → 가요 (not 가아요)
+ * We need to reconstruct the stem
+ *
+ * @param word - The conjugated word ending in contracted vowel + 요/etc
+ * @param ending - The ending to check for (e.g., '요', '서', etc)
+ * @returns Array of possible dictionary forms
+ */
+function tryVowelContraction(word: string, ending: string): string[] {
+  const results: string[] = [];
+
+  // Word must end with the given ending
+  if (!word.endsWith(ending)) return results;
+
+  // Get the syllable before the ending
+  const beforeEnding = word.slice(0, -ending.length);
+  if (beforeEnding.length < 1) return results;
+
+  const lastChar = beforeEnding[beforeEnding.length - 1];
+  const jamo = decomposeHangul(lastChar);
+  if (!jamo) return results;
+
+  const [initial, medial, final] = jamo;
+
+  // Check each vowel contraction rule
+  for (const rule of vowelContractionRules) {
+    if (medial === rule.contractedMedal) {
+      // Reconstruct the original stem
+      const originalStemChar = composeHangul(initial, rule.originalMedal, final);
+      const stem = beforeEnding.slice(0, -1) + originalStemChar;
+      results.push(stem + '다');
+    }
+  }
+
+  return results;
+}
+
+/**
  * Main deinflection function
  * Returns an array of possible dictionary forms with conjugation info
  */
@@ -417,6 +493,50 @@ export function koreanDeinflect(word: string): KoreanCandidateWord[] {
         if (!seen.has(irregular)) {
           results.push({ word: irregular, reasons: rule.reasons });
           seen.add(irregular);
+        }
+      }
+    }
+  }
+
+  // Try vowel contraction deinflection
+  // e.g., 가요 → 가다, 와요 → 오다, 줘요 → 주다
+  const vowelContractionEndings = [
+    { ending: '요', reasons: [KoreanReason.InformalPolite] },
+    { ending: '서', reasons: [KoreanReason.Reason] },
+    { ending: '', reasons: [KoreanReason.InformalCasual] },
+  ];
+
+  for (const vc of vowelContractionEndings) {
+    const contractionCandidates = tryVowelContraction(word, vc.ending);
+    for (const candidate of contractionCandidates) {
+      if (!seen.has(candidate)) {
+        results.push({ word: candidate, reasons: vc.reasons });
+        seen.add(candidate);
+      }
+    }
+  }
+
+  // Also try past tense vowel contractions: 갔어요 → 가다
+  // The past marker ㅆ is added to contracted forms
+  // Check for past tense patterns ending in 었어요/았어요 with contraction
+  // e.g., 갔어요 (가 + 았어요 contracted)
+  if (word.endsWith('어요') || word.endsWith('어')) {
+    const beforeEnding = word.endsWith('어요') ? word.slice(0, -2) : word.slice(0, -1);
+    if (beforeEnding.length >= 1) {
+      const lastChar = beforeEnding[beforeEnding.length - 1];
+      const jamo = decomposeHangul(lastChar);
+      // If it ends in ㅆ (past marker), try to reconstruct
+      if (jamo && jamo[2] === FINAL_SSANG_SIOT) {
+        // Now apply vowel contraction rules to find original stem
+        for (const rule of vowelContractionRules) {
+          if (jamo[1] === rule.contractedMedal) {
+            const originalStemChar = composeHangul(jamo[0], rule.originalMedal, FINAL_NONE);
+            const candidate = beforeEnding.slice(0, -1) + originalStemChar + '다';
+            if (!seen.has(candidate)) {
+              results.push({ word: candidate, reasons: [KoreanReason.Past, KoreanReason.InformalPolite] });
+              seen.add(candidate);
+            }
+          }
         }
       }
     }
