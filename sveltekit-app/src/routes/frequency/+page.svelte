@@ -12,9 +12,10 @@
 
 	let japaneseWords: FrequencyWord[] = $state([]);
 	let chineseWords: FrequencyWord[] = $state([]);
+	let koreanWords: FrequencyWord[] = $state([]);
 	let loading = $state(true);
 	let error = $state<string | null>(null);
-	let activeTab: 'japanese' | 'chinese' = $state('japanese');
+	let activeTab: 'japanese' | 'chinese' | 'korean' = $state('japanese');
 	let displayCount = $state(100);
 
 	// Load frequency data from static file
@@ -33,6 +34,7 @@
 			const data = await response.json();
 			japaneseWords = data.japanese || [];
 			chineseWords = data.chinese || [];
+			koreanWords = data.korean || [];
 		} catch (e) {
 			error = e instanceof Error ? e.message : 'Unknown error';
 			console.error('Failed to load frequency data:', e);
@@ -50,19 +52,25 @@
 	}
 
 	let displayedWords = $derived(
-		activeTab === 'japanese' 
+		activeTab === 'japanese'
 			? japaneseWords.slice(0, displayCount)
-			: chineseWords.slice(0, displayCount)
+			: activeTab === 'chinese'
+				? chineseWords.slice(0, displayCount)
+				: koreanWords.slice(0, displayCount)
 	);
 
 	let totalWords = $derived(
-		activeTab === 'japanese' ? japaneseWords.length : chineseWords.length
+		activeTab === 'japanese'
+			? japaneseWords.length
+			: activeTab === 'chinese'
+				? chineseWords.length
+				: koreanWords.length
 	);
 </script>
 
 <svelte:head>
 	<title>Frequency List - Kiokun Dictionary</title>
-	<meta name="description" content="Most common Japanese and Chinese words ranked by frequency" />
+	<meta name="description" content="Most common Japanese, Chinese, and Korean words ranked by frequency" />
 </svelte:head>
 
 <Header />
@@ -71,25 +79,32 @@
 	<div class="container">
 		<h1>📊 Word Frequency List</h1>
 		<p class="subtitle">
-			The most common words ranked by frequency. Japanese words use JPDB corpus data, 
-			Chinese words use movie subtitle frequency.
+			The most common words ranked by frequency. Japanese words use JPDB corpus data,
+			Chinese words use movie subtitle frequency, Korean words use subtitle frequency.
 		</p>
 
 		<!-- Tab switcher -->
 		<div class="tabs">
-			<button 
-				class="tab" 
+			<button
+				class="tab"
 				class:active={activeTab === 'japanese'}
 				onclick={() => { activeTab = 'japanese'; displayCount = 100; }}
 			>
 				🇯🇵 Japanese ({japaneseWords.length})
 			</button>
-			<button 
-				class="tab" 
+			<button
+				class="tab"
 				class:active={activeTab === 'chinese'}
 				onclick={() => { activeTab = 'chinese'; displayCount = 100; }}
 			>
 				🇨🇳 Chinese ({chineseWords.length})
+			</button>
+			<button
+				class="tab"
+				class:active={activeTab === 'korean'}
+				onclick={() => { activeTab = 'korean'; displayCount = 100; }}
+			>
+				🇰🇷 Korean ({koreanWords.length})
 			</button>
 		</div>
 

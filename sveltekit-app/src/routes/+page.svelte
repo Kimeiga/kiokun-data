@@ -291,13 +291,17 @@
 		<section class="explore-section frequency-section">
 			<h2 class="section-title">📊 Most Common</h2>
 			<div class="frequency-buttons">
-				<a href="/frequency" class="frequency-btn japanese">
+				<a href="/frequency" class="frequency-btn">
 					<span class="flag">🇯🇵</span>
 					<span class="btn-text">Japanese Top 1000</span>
 				</a>
-				<a href="/frequency" class="frequency-btn chinese">
+				<a href="/frequency" class="frequency-btn">
 					<span class="flag">🇨🇳</span>
 					<span class="btn-text">Chinese Top 1000</span>
+				</a>
+				<a href="/frequency" class="frequency-btn">
+					<span class="flag">🇰🇷</span>
+					<span class="btn-text">Korean Top 1000</span>
 				</a>
 			</div>
 		</section>
@@ -744,22 +748,16 @@
 		text-decoration: none;
 		font-weight: 600;
 		transition: all 0.2s ease;
-		border: 2px solid transparent;
-	}
-
-	.frequency-btn.japanese {
-		background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-		color: white;
-	}
-
-	.frequency-btn.chinese {
-		background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-		color: white;
+		background: var(--bg-secondary);
+		border: 1px solid var(--border-color);
+		color: var(--text-primary);
 	}
 
 	.frequency-btn:hover {
+		background: var(--accent);
+		color: white;
+		border-color: var(--accent);
 		transform: translateY(-2px);
-		box-shadow: 0 4px 16px rgba(0,0,0,0.2);
 	}
 
 	.frequency-btn .flag {
