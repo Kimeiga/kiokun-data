@@ -1,7 +1,8 @@
 import { goto } from '$app/navigation';
 import { getDictionaryUrl } from '$lib/shard-utils';
 import { dev } from '$app/environment';
-import { deinflect, formatReasonChains } from '$lib/utils/deinflect';
+import { deinflect, formatReasonChains, WordType, posToWordType } from '$lib/utils/deinflect';
+import type { DictionaryEntry } from '$lib/types';
 
 export interface DeinflectionResult {
 	originalWord: string;
@@ -33,6 +34,44 @@ function isHiraganaOnly(str: string): boolean {
 }
 
 /**
+ * Extract combined WordType from a dictionary entry's part-of-speech tags
+ * Checks all senses and combines their POS types
+ */
+function getEntryWordType(entry: DictionaryEntry): number {
+	let wordType = 0;
+	// Check Japanese words for POS tags
+	for (const word of entry.japanese_words || []) {
+		for (const sense of word.sense || []) {
+			if (sense.partOfSpeech) {
+				wordType |= posToWordType(sense.partOfSpeech);
+			}
+		}
+	}
+	return wordType;
+}
+
+/**
+ * Check if a deinflection candidate's expected type matches the dictionary entry's POS
+ * Returns true if there's an overlap between expected types
+ */
+function validatePosMatch(candidateType: number, entryType: number): boolean {
+	// Mask out intermediate types (stems) - we only care about actual word types
+	const actualTypes = WordType.All; // IchidanVerb | GodanVerb | IAdj | KuruVerb | SuruVerb | SpecialSuruVerb | NounVS
+	const candidateActual = candidateType & actualTypes;
+	const entryActual = entryType & actualTypes;
+
+	// If candidate has no type restriction (0 or only intermediate types), allow any match
+	if (candidateActual === 0) return true;
+
+	// If entry has no recognized POS (not a verb/adjective), allow match
+	// This handles nouns and other word types that don't need deinflection validation
+	if (entryActual === 0) return true;
+
+	// Check if there's any overlap between expected and actual types
+	return (candidateActual & entryActual) !== 0;
+}
+
+/**
  * Try to find kanji forms from hiragana reading using the lookup-reading API
  * Returns multiple forms if available (for ambiguous readings)
  */
@@ -56,8 +95,34 @@ async function findKanjiFormsFromReading(
 }
 
 /**
+ * Fetch and decompress a dictionary entry
+ * Returns null if not found or on error
+ */
+async function fetchDictionaryEntry(
+	word: string,
+	fetchFn: typeof fetch
+): Promise<DictionaryEntry | null> {
+	try {
+		const url = await getDictionaryUrl(word, dev, fetchFn);
+		const response = await fetchFn(url);
+		if (!response.ok) return null;
+
+		// Decompress the deflated response
+		const buffer = await response.arrayBuffer();
+		const decompressed = await new Response(
+			new Blob([buffer]).stream().pipeThrough(new DecompressionStream('deflate-raw'))
+		).text();
+
+		return JSON.parse(decompressed) as DictionaryEntry;
+	} catch {
+		return null;
+	}
+}
+
+/**
  * Try to find dictionary entries for a word, including deinflected forms
  * Returns multiple matches when a conjugated form could map to different words
+ * Uses POS validation to filter out false positives
  *
  * @param word - The word to check
  * @param fetchFn - Optional fetch function
@@ -74,6 +139,8 @@ export async function findWordsWithDeinflection(
 
 	const matches: DeinflectionResult[] = [];
 	const seenWords = new Set<string>();
+	// Cache fetched entries to avoid duplicate requests
+	const entryCache = new Map<string, DictionaryEntry | null>();
 
 	// Helper to add a match if not already seen
 	const addMatch = (dictionaryForm: string, conjugationInfo: string) => {
@@ -87,15 +154,18 @@ export async function findWordsWithDeinflection(
 		}
 	};
 
-	// First try the exact word
-	try {
-		const url = await getDictionaryUrl(trimmedWord, dev, fetchFn);
-		const response = await fetchFn(url, { method: 'HEAD' });
-		if (response.ok) {
-			addMatch(trimmedWord, '');
-		}
-	} catch {
-		// Continue to try deinflection
+	// Helper to fetch entry with caching
+	const getEntry = async (w: string): Promise<DictionaryEntry | null> => {
+		if (entryCache.has(w)) return entryCache.get(w) || null;
+		const entry = await fetchDictionaryEntry(w, fetchFn);
+		entryCache.set(w, entry);
+		return entry;
+	};
+
+	// First try the exact word (no deinflection, no POS validation needed)
+	const exactEntry = await getEntry(trimmedWord);
+	if (exactEntry) {
+		addMatch(trimmedWord, '');
 	}
 
 	// Try deinflected forms
@@ -120,10 +190,15 @@ export async function findWordsWithDeinflection(
 			const conjugationInfo = formatReasonChains(candidate.reasonChains);
 
 			// First try direct dictionary lookup
-			const url = await getDictionaryUrl(candidate.word, dev, fetchFn);
-			const response = await fetchFn(url, { method: 'HEAD' });
-			if (response.ok) {
-				addMatch(candidate.word, conjugationInfo);
+			const entry = await getEntry(candidate.word);
+			if (entry) {
+				// Validate that the entry's POS matches what the deinflection expects
+				const entryType = getEntryWordType(entry);
+				if (validatePosMatch(candidate.type, entryType)) {
+					addMatch(candidate.word, conjugationInfo);
+					continue;
+				}
+				// POS mismatch - skip this candidate
 				continue;
 			}
 
@@ -134,11 +209,13 @@ export async function findWordsWithDeinflection(
 				for (const kanjiForm of kanjiForms) {
 					if (matches.length >= maxResults) break;
 					try {
-						// Verify the kanji form exists in the dictionary
-						const kanjiUrl = await getDictionaryUrl(kanjiForm, dev, fetchFn);
-						const kanjiResponse = await fetchFn(kanjiUrl, { method: 'HEAD' });
-						if (kanjiResponse.ok) {
-							addMatch(kanjiForm, conjugationInfo);
+						const kanjiEntry = await getEntry(kanjiForm);
+						if (kanjiEntry) {
+							// Validate POS for kanji form too
+							const kanjiEntryType = getEntryWordType(kanjiEntry);
+							if (validatePosMatch(candidate.type, kanjiEntryType)) {
+								addMatch(kanjiForm, conjugationInfo);
+							}
 						}
 					} catch {
 						// Continue to next kanji form

@@ -126,15 +126,23 @@ export interface CandidateWord {
 }
 
 // Map JMdict part-of-speech tags to WordType flags
+// POS tags use kebab-case format (e.g., "adj-i", "v1-s", "vs-i")
 export function posToWordType(pos: string[]): number {
   let type = 0;
   for (const p of pos) {
-    if (p === 'v1' || p === 'v1_s' || p === 'vz') type |= WordType.IchidanVerb;
+    // Ichidan verbs: v1, v1-s (special class), vz (zuru verbs)
+    if (p === 'v1' || p === 'v1-s' || p === 'vz') type |= WordType.IchidanVerb;
+    // Godan verbs: v5* (modern), v4* (classical)
     if (p.startsWith('v5') || p.startsWith('v4')) type |= WordType.GodanVerb;
-    if (p === 'adj_i' || p === 'adj_ix') type |= WordType.IAdj;
+    // I-adjectives: adj-i, adj-ix (yoi/ii irregular)
+    if (p === 'adj-i' || p === 'adj-ix') type |= WordType.IAdj;
+    // Kuru verb (来る)
     if (p === 'vk') type |= WordType.KuruVerb;
-    if (p === 'vs_i' || p === 'vs') type |= WordType.SuruVerb;
-    if (p === 'vs_s' || p === 'vs_c') type |= WordType.SpecialSuruVerb;
+    // Suru verbs: vs-i (suru - included), vs (suru verb - usually separate)
+    if (p === 'vs-i' || p === 'vs') type |= WordType.SuruVerb;
+    // Special suru verbs: vs-s (special suru), vs-c (su verb precursor)
+    if (p === 'vs-s' || p === 'vs-c') type |= WordType.SpecialSuruVerb;
+    // Noun with suru (noun that can take suru)
     if (p === 'vs') type |= WordType.NounVS;
   }
   return type;
