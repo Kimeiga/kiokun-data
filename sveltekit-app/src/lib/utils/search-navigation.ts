@@ -445,15 +445,28 @@ async function handleCharacterSplit(text: string, fetchFn: typeof fetch = fetch)
 }
 
 /**
+ * Check if input is clearly a sentence (has spaces or sentence punctuation)
+ * This is a quick heuristic check before trying deinflection
+ */
+function isClearlySentence(input: string): boolean {
+	// Has spaces between words (common in Korean sentences, some mixed text)
+	if (/\s/.test(input)) return true;
+	// Has sentence-ending punctuation
+	if (/[。！？.!?]/.test(input)) return true;
+	// Very long input is likely a sentence (> 15 chars without spaces is unusual for a single word)
+	if (input.length > 15) return true;
+	return false;
+}
+
+/**
  * Navigate to a word if it exists in the dictionary, otherwise redirect to search
  *
  * This function:
- * 1. First checks if input looks like a sentence (multiple tokens)
- * 2. If sentence, tokenizes and navigates to first word with sentence context
- * 3. Otherwise, tries to fetch the word from dictionary (including deinflected forms)
- * 4. If found, navigates to /{word} with conjugation info and alternatives
- * 5. If not found and is CJK text with multiple characters, splits into characters
- * 6. Otherwise, redirects to /search?q={word}
+ * 1. First tries deinflection for short CJK inputs without spaces (to handle conjugated words)
+ * 2. If deinflection succeeds, navigates to the dictionary form
+ * 3. If deinflection fails and input looks like a sentence, tokenizes and shows sentence bar
+ * 4. If not found and is CJK text with multiple characters, splits into characters
+ * 5. Otherwise, redirects to /search?q={word}
  *
  * @param word - The word or sentence to search for
  * @param fetchFn - Optional fetch function (defaults to global fetch)
@@ -465,13 +478,16 @@ export async function navigateOrSearch(word: string, fetchFn: typeof fetch = fet
 
 	const trimmedWord = word.trim();
 
-	// Check if this looks like a sentence
-	if (isSentence(trimmedWord)) {
-		await handleSentenceInput(trimmedWord, fetchFn);
-		return;
+	// If it's clearly a sentence (has spaces, punctuation, or is very long), go straight to sentence mode
+	if (isClearlySentence(trimmedWord)) {
+		if (isSentence(trimmedWord)) {
+			await handleSentenceInput(trimmedWord, fetchFn);
+			return;
+		}
 	}
 
 	try {
+		// Try deinflection first - this handles conjugated words like 食べている → 食べる
 		const results = await findWordsWithDeinflection(trimmedWord, fetchFn);
 
 		if (results) {
@@ -502,8 +518,14 @@ export async function navigateOrSearch(word: string, fetchFn: typeof fetch = fet
 
 			await goto(url);
 		} else {
-			// Word not found in dictionary
-			// If it's CJK text with multiple characters, split into characters for learning
+			// Word not found via deinflection
+			// Now check if it could be a sentence (multiple tokens)
+			if (isSentence(trimmedWord)) {
+				await handleSentenceInput(trimmedWord, fetchFn);
+				return;
+			}
+
+			// Not a sentence either - try character split for CJK
 			if (isCJKText(trimmedWord) && trimmedWord.length >= 2) {
 				await handleCharacterSplit(trimmedWord, fetchFn);
 			} else {
