@@ -27,26 +27,27 @@ def load_japanese_frequency():
     """Load top 1000 Japanese words from JPDB frequency list."""
     print("📚 Loading Japanese frequency data...")
     words = []
-    
+
     if not JPDB_FILE.exists():
         print(f"  ❌ JPDB file not found: {JPDB_FILE}")
         return words
-    
+
     with open(JPDB_FILE, 'r', encoding='utf-8') as f:
         reader = csv.DictReader(f, delimiter='\t')
+        rank_counter = 0
         for row in reader:
-            rank = int(row['frequency'])
-            if rank > 1000:
+            if rank_counter >= 1000:
                 break
-            
+            rank_counter += 1
+
             words.append({
-                "rank": rank,
+                "rank": rank_counter,  # Use sequential rank instead of JPDB rank (which has gaps)
                 "word": row['term'],
                 "reading": row['reading'],
                 "definition": "",  # JPDB doesn't include definitions
                 "common": True  # Top 1000 words are common
             })
-    
+
     print(f"  ✅ Loaded {len(words)} Japanese words")
     return words
 
