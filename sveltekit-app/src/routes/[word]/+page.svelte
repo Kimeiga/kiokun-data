@@ -871,7 +871,7 @@
 		: `${data.word} - Chinese and Japanese dictionary entry with stroke order, readings, and definitions.`} />
 </svelte:head>
 
-<Header currentWord={data.word} />
+<Header currentWord={data.conjugatedFrom || data.word} />
 <SentenceBar currentWord={data.word} />
 
 <div class="max-w-6xl mx-auto px-3 py-2 md:px-5 md:py-3">
