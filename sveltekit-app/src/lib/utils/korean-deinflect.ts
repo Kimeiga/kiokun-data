@@ -34,6 +34,11 @@ export enum KoreanReason {
   Honorific,     // -시-
   Probable,      // -겠-
   Question,      // -까요?
+  // Particles (for nouns/pronouns)
+  SubjectParticle,   // -가/-이
+  TopicParticle,     // -는/-은
+  ObjectParticle,    // -를/-을
+  PossessiveParticle, // -의
 }
 
 // Conjugation info for display
@@ -56,6 +61,10 @@ export const KoreanReasonLabels: Record<KoreanReason, string> = {
   [KoreanReason.Honorific]: 'honorific',
   [KoreanReason.Probable]: 'probable',
   [KoreanReason.Question]: 'question',
+  [KoreanReason.SubjectParticle]: 'subject',
+  [KoreanReason.TopicParticle]: 'topic',
+  [KoreanReason.ObjectParticle]: 'object',
+  [KoreanReason.PossessiveParticle]: 'possessive',
 };
 
 export interface KoreanCandidateWord {
@@ -462,6 +471,118 @@ function tryVowelContraction(word: string, ending: string): string[] {
   return results;
 }
 
+// =====================================
+// Particle stripping for nouns/pronouns
+// =====================================
+// Korean particles attach to nouns/pronouns:
+// - Subject: 가 (after vowel), 이 (after consonant)
+// - Topic: 는 (after vowel), 은 (after consonant)
+// - Object: 를 (after vowel), 을 (after consonant)
+// - Possessive: 의
+//
+// Special contractions with 가:
+// - 나 + 가 → 내가 (I + subject) - ㅏ contracts to ㅐ
+// - 저 + 가 → 제가 (I humble + subject) - ㅓ contracts to ㅔ
+// - 너 + 가 → 네가 (you + subject) - ㅓ contracts to ㅔ (pronunciation: 니가)
+
+interface ParticleRule {
+  particle: string;
+  reason: KoreanReason;
+  afterVowel: boolean; // true if this form follows vowel-ending stems
+}
+
+const particleRules: ParticleRule[] = [
+  // Subject particles
+  { particle: '가', reason: KoreanReason.SubjectParticle, afterVowel: true },
+  { particle: '이', reason: KoreanReason.SubjectParticle, afterVowel: false },
+  // Topic particles
+  { particle: '는', reason: KoreanReason.TopicParticle, afterVowel: true },
+  { particle: '은', reason: KoreanReason.TopicParticle, afterVowel: false },
+  // Object particles
+  { particle: '를', reason: KoreanReason.ObjectParticle, afterVowel: true },
+  { particle: '을', reason: KoreanReason.ObjectParticle, afterVowel: false },
+  // Possessive particle (same form regardless of stem ending)
+  { particle: '의', reason: KoreanReason.PossessiveParticle, afterVowel: true },
+  { particle: '의', reason: KoreanReason.PossessiveParticle, afterVowel: false },
+];
+
+// Vowel contraction rules for particles (especially 가)
+// When certain pronouns attach to 가, vowel contraction occurs
+interface ParticleContractionRule {
+  contractedForm: string; // The contracted syllable (e.g., 내, 제, 네)
+  originalStem: string;   // The original stem (e.g., 나, 저, 너)
+  particle: string;       // The particle that caused contraction (가)
+  reason: KoreanReason;
+}
+
+const particleContractionRules: ParticleContractionRule[] = [
+  // 나 + 가 → 내가 (I + subject marker)
+  { contractedForm: '내', originalStem: '나', particle: '가', reason: KoreanReason.SubjectParticle },
+  // 저 + 가 → 제가 (I humble + subject marker)
+  { contractedForm: '제', originalStem: '저', particle: '가', reason: KoreanReason.SubjectParticle },
+  // 너 + 가 → 네가 (you + subject marker)
+  { contractedForm: '네', originalStem: '너', particle: '가', reason: KoreanReason.SubjectParticle },
+  // 누구 + 가 → 누가 (who + subject marker) - special contraction
+  // This is handled separately as it drops 구
+];
+
+/**
+ * Strip particles from Korean nouns/pronouns
+ * Returns possible base forms with particle information
+ */
+function stripParticles(word: string): KoreanCandidateWord[] {
+  const results: KoreanCandidateWord[] = [];
+  if (word.length < 2) return results;
+
+  // First check for vowel contraction patterns (like 내가 → 나)
+  for (const rule of particleContractionRules) {
+    // Check if word starts with the contracted form and ends with the particle
+    if (word.startsWith(rule.contractedForm) && word.endsWith(rule.particle)) {
+      // For single-syllable contractions like 내가, the contracted form IS the stem
+      if (word === rule.contractedForm + rule.particle) {
+        results.push({
+          word: rule.originalStem,
+          reasons: [rule.reason],
+        });
+      }
+    }
+  }
+
+  // Special case: 누가 → 누구 (who + subject)
+  if (word === '누가') {
+    results.push({
+      word: '누구',
+      reasons: [KoreanReason.SubjectParticle],
+    });
+  }
+
+  // Check for simple particle stripping (no contraction)
+  for (const rule of particleRules) {
+    if (word.endsWith(rule.particle) && word.length > rule.particle.length) {
+      const stem = word.slice(0, -rule.particle.length);
+      if (stem.length > 0) {
+        const lastChar = stem[stem.length - 1];
+        const jamo = decomposeHangul(lastChar);
+
+        if (jamo) {
+          const hasFinal = jamo[2] !== FINAL_NONE;
+          // Check if particle form matches stem ending
+          // 가/는/를 come after vowels (no final consonant)
+          // 이/은/을 come after consonants (has final consonant)
+          if (rule.afterVowel === !hasFinal || rule.particle === '의') {
+            results.push({
+              word: stem,
+              reasons: [rule.reason],
+            });
+          }
+        }
+      }
+    }
+  }
+
+  return results;
+}
+
 /**
  * Main deinflection function
  * Returns an array of possible dictionary forms with conjugation info
@@ -582,6 +703,16 @@ export function koreanDeinflect(word: string): KoreanCandidateWord[] {
           seen.add(base);
         }
       }
+    }
+  }
+
+  // Try particle stripping for nouns/pronouns
+  // e.g., 내가 → 나, 나는 → 나, 저를 → 저
+  const particleCandidates = stripParticles(word);
+  for (const candidate of particleCandidates) {
+    if (!seen.has(candidate.word)) {
+      results.push(candidate);
+      seen.add(candidate.word);
     }
   }
 

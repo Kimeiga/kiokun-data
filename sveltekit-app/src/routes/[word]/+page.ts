@@ -1,9 +1,10 @@
 import type { PageLoad } from './$types';
-import { error } from '@sveltejs/kit';
+import { error, redirect } from '@sveltejs/kit';
 import { getDictionaryUrl } from '$lib/shard-utils';
 import { dev } from '$app/environment';
 import { decompressSync, strFromU8 } from 'fflate';
 import type { DictionaryEntry } from '$lib/types';
+import { findWordsWithDeinflection } from '$lib/utils/search-navigation';
 
 // Disable SSR for this route to avoid hanging during development
 export const ssr = false;
@@ -106,17 +107,45 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 
 	console.log('[LOAD] Starting load for word:', word);
 
-	try {
-		// Fetch the compressed dictionary data
-		const url = await getDictionaryUrl(word, dev, fetch);
-		console.log('[LOAD] Fetching URL:', url);
-		const response = await fetch(url);
-		console.log('[LOAD] Response status:', response.status);
+	// Fetch the compressed dictionary data
+	const dictUrl = await getDictionaryUrl(word, dev, fetch);
+	console.log('[LOAD] Fetching URL:', dictUrl);
+	const response = await fetch(dictUrl);
+	console.log('[LOAD] Response status:', response.status);
 
-		if (!response.ok) {
-			console.error(`Failed to load "${word}"`);
-			throw error(404, `Character "${word}" not found`);
+	if (!response.ok) {
+		console.log(`[LOAD] Word "${word}" not found directly, trying deinflection...`);
+
+		// Try deinflection (handles Japanese conjugation and Korean particles)
+		const deinflectionResults = await findWordsWithDeinflection(word, fetch);
+
+		if (deinflectionResults?.primary) {
+			const { dictionaryForm, conjugationInfo } = deinflectionResults.primary;
+			console.log(`[LOAD] Found deinflected form: "${dictionaryForm}" (${conjugationInfo})`);
+
+			// Redirect to the dictionary form with conjugation info
+			const redirectUrl = new URL(`/${encodeURIComponent(dictionaryForm)}`, url.origin);
+			redirectUrl.searchParams.set('from', word);
+			redirectUrl.searchParams.set('conj', conjugationInfo);
+
+			// Include alternatives if any
+			if (deinflectionResults.alternatives && deinflectionResults.alternatives.length > 0) {
+				const altData = deinflectionResults.alternatives.map(alt => ({
+					word: alt.dictionaryForm,
+					conj: alt.conjugationInfo
+				}));
+				redirectUrl.searchParams.set('alt', JSON.stringify(altData));
+			}
+
+			// Redirect must be thrown outside of try-catch to work properly
+			throw redirect(307, redirectUrl.pathname + redirectUrl.search);
 		}
+
+		console.error(`Failed to load "${word}" and no deinflection found`);
+		throw error(404, `Character "${word}" not found`);
+	}
+
+	try {
 
 		// Get compressed data and decompress
 		const compressedData = await response.arrayBuffer();
