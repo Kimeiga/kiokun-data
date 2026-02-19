@@ -25,6 +25,7 @@
 	let error = $state<string | null>(null);
 	let sessionComplete = $state(false);
 	let reviewedCount = $state(0);
+	let totalCardCount = $state<number | null>(null); // Total cards user has (not just due)
 
 	// Current card
 	let currentCard = $derived(cards[currentIndex]);
@@ -53,10 +54,18 @@
 		isLoading = true;
 		error = null;
 		try {
-			const res = await fetch("/api/study?due=true");
-			if (!res.ok) throw new Error("Failed to load cards");
-			const data = await res.json();
-			cards = data.cards || [];
+			// Fetch both due cards and total count in parallel
+			const [dueRes, allRes] = await Promise.all([
+				fetch("/api/study?due=true"),
+				fetch("/api/study")
+			]);
+
+			if (!dueRes.ok || !allRes.ok) throw new Error("Failed to load cards");
+
+			const [dueData, allData] = await Promise.all([dueRes.json(), allRes.json()]);
+
+			cards = dueData.cards || [];
+			totalCardCount = (allData.cards || []).length;
 			currentIndex = 0;
 			isFlipped = false;
 			sessionComplete = cards.length === 0;
@@ -181,20 +190,37 @@
 			<p class="text-red-500 mb-4">{error}</p>
 			<button onclick={loadDueCards} class="text-accent hover:underline">Try again</button>
 		</div>
+	{:else if sessionComplete && totalCardCount === 0}
+		<!-- Empty state: User has no cards at all -->
+		<div class="text-center py-12">
+			<div class="text-6xl mb-4">📚</div>
+			<h2 class="text-2xl font-bold text-text-primary mb-2">No Cards Yet!</h2>
+			<p class="text-text-secondary mb-6">
+				Start building your vocabulary by adding words to your study deck.
+			</p>
+			<div class="flex gap-4 justify-center flex-wrap">
+				<a href="/" class="px-4 py-2 bg-accent text-white rounded-lg hover:opacity-90">Browse Dictionary</a>
+				<a href="/study/decks" class="px-4 py-2 border border-border rounded-lg hover:bg-bg-secondary">Import Pre-made Decks</a>
+			</div>
+			<p class="text-text-tertiary text-sm mt-6">
+				💡 Tip: Look up any word and click the ➕ button to add it to your deck
+			</p>
+		</div>
 	{:else if sessionComplete}
+		<!-- User has cards but none are due -->
 		<div class="text-center py-12">
 			<div class="text-6xl mb-4">🎉</div>
-			<h2 class="text-2xl font-bold text-text-primary mb-2">Session Complete!</h2>
+			<h2 class="text-2xl font-bold text-text-primary mb-2">All Caught Up!</h2>
 			<p class="text-text-secondary mb-6">
 				{#if reviewedCount > 0}
 					You reviewed {reviewedCount} card{reviewedCount !== 1 ? 's' : ''} today.
 				{:else}
-					No cards due for review right now.
+					No cards due for review right now. You have {totalCardCount} card{totalCardCount !== 1 ? 's' : ''} in your deck.
 				{/if}
 			</p>
 			<div class="flex gap-4 justify-center flex-wrap">
 				<a href="/" class="px-4 py-2 bg-accent text-white rounded-lg hover:opacity-90">Browse Dictionary</a>
-				<a href="/study/decks" class="px-4 py-2 border border-border rounded-lg hover:bg-bg-secondary">Import Decks</a>
+				<a href="/study/cards" class="px-4 py-2 border border-border rounded-lg hover:bg-bg-secondary">Manage Cards</a>
 				<button onclick={loadDueCards} class="px-4 py-2 border border-border rounded-lg hover:bg-bg-secondary">Refresh</button>
 			</div>
 		</div>

@@ -78,6 +78,22 @@
 				<p class="text-red-500 mb-4">{error}</p>
 				<button onclick={loadStats} class="text-accent hover:underline">Try again</button>
 			</div>
+		{:else if stats && stats.totalCards === 0}
+			<!-- Empty state: User has no cards -->
+			<div class="text-center py-12">
+				<div class="text-6xl mb-4">📊</div>
+				<h2 class="text-2xl font-bold text-base-content mb-2">No Study Data Yet</h2>
+				<p class="text-base-content/70 mb-6">
+					Start adding words to your study deck to track your progress.
+				</p>
+				<div class="flex gap-4 justify-center flex-wrap">
+					<a href="/" class="btn btn-primary">Browse Dictionary</a>
+					<a href="/study/decks" class="btn btn-outline">Import Pre-made Decks</a>
+				</div>
+				<p class="text-base-content/50 text-sm mt-6">
+					💡 Tip: Look up any word and click the ➕ button to add it to your deck
+				</p>
+			</div>
 		{:else if stats}
 			<!-- Overview Cards -->
 			<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-8">
