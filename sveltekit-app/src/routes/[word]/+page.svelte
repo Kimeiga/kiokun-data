@@ -11,6 +11,7 @@
 	import SectionHeading from "$lib/components/shared/SectionHeading.svelte";
 	import SpeakButton from "$lib/components/shared/SpeakButton.svelte";
 	import Tag from "$lib/components/shared/Tag.svelte";
+	import SaveToStudy from "$lib/components/SaveToStudy.svelte";
 	import { getDictionaryUrl } from "$lib/shard-utils";
 	import { dev } from "$app/environment";
 	import { languageStore } from "$lib/stores/languages.svelte";
@@ -1000,11 +1001,18 @@
 							<!-- Main Meaning (Gloss) -->
 							{#if uniqueGloss || data.data.chinese_char?.gloss}
 								<div class:flex-1={!isSingleCharacter} class:md:text-right={!isSingleCharacter}>
-									<h1
-										class="text-2xl md:text-4xl font-bold text-accent mb-2 leading-tight"
-									>
-										{uniqueGloss || data.data.chinese_char?.gloss}
-									</h1>
+									<div class="flex items-start gap-3 mb-2" class:md:justify-end={!isSingleCharacter}>
+										<h1
+											class="text-2xl md:text-4xl font-bold text-accent leading-tight"
+										>
+											{uniqueGloss || data.data.chinese_char?.gloss}
+										</h1>
+										<SaveToStudy
+											word={data.word}
+											language={data.data.chinese_char ? 'zh' : (data.data.japanese_char ? 'ja' : 'ko')}
+											size="sm"
+										/>
+									</div>
 									<!-- Taxonomy breadcrumb -->
 									{#if taxonomy && taxonomy.length > 0}
 										<div class="text-xs text-text-tertiary mb-2 flex items-center gap-1 flex-wrap" class:md:justify-end={!isSingleCharacter}>

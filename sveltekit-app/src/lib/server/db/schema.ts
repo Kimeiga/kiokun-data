@@ -72,3 +72,24 @@ export const notes = sqliteTable("notes", {
 	userCharacterUnique: unique().on(table.userId, table.character),
 }));
 
+// Study cards table for spaced repetition system (SRS)
+// Tracks user's vocabulary learning with SM-2 algorithm fields
+export const studyCards = sqliteTable("study_cards", {
+	id: text("id").primaryKey(),
+	userId: text("userId")
+		.notNull()
+		.references(() => user.id, { onDelete: "cascade" }),
+	word: text("word").notNull(), // The word/character being studied
+	language: text("language").notNull(), // 'zh', 'ja', 'ko'
+	// SM-2 algorithm fields
+	easeFactor: integer("easeFactor", { mode: "number" }).notNull().default(250), // Stored as 250 = 2.5 (multiply by 100)
+	interval: integer("interval").notNull().default(0), // Days until next review
+	repetitions: integer("repetitions").notNull().default(0), // Successful reviews in a row
+	nextReview: integer("nextReview", { mode: "timestamp" }).notNull(), // When to review next
+	lastReviewed: integer("lastReviewed", { mode: "timestamp" }), // Last review time
+	createdAt: integer("createdAt", { mode: "timestamp" }).notNull(),
+	updatedAt: integer("updatedAt", { mode: "timestamp" }).notNull(),
+}, (table) => ({
+	// One card per user per word
+	userWordUnique: unique().on(table.userId, table.word),
+}));
