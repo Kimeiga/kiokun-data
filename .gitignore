@@ -110,3 +110,12 @@ chinese-word-game/
 
 output_dictionary/
 output/
+
+# Video transcription files (large, can be regenerated)
+cosmos_videos/
+test_downloads/
+*.mp4
+video_thumbnails.json
+video_words_db.json
+test_video_words.json
+cosmos_video_urls.txt

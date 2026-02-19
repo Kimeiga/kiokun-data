@@ -16,6 +16,7 @@
 	import { dev } from "$app/environment";
 	import { languageStore } from "$lib/stores/languages.svelte";
 	import SentenceBar from "$lib/components/SentenceBar.svelte";
+	import ReelsSection from "$lib/components/ReelsSection.svelte";
 
 	let { data }: { data: PageData } = $props();
 
@@ -1636,6 +1637,9 @@
 			japaneseWords={data.data.contained_in_japanese || []}
 			koreanWords={data.data.contained_in_korean || []}
 		/>
+
+		<!-- Reels Section -->
+		<ReelsSection word={data.word} />
 	</div>
 </div>
 
