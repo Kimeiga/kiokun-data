@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Header from '$lib/components/Header.svelte';
+	import FeaturedReels from '$lib/components/FeaturedReels.svelte';
 	import { navigateOrSearch } from '$lib/utils/search-navigation';
 
 	let searchValue = $state('');
@@ -195,6 +196,9 @@
 			{/each}
 		</div>
 	</section>
+
+	<!-- Featured Reels Section -->
+	<FeaturedReels />
 
 	<!-- Try Sentences Section -->
 	<section class="explore-section sentences-section">
