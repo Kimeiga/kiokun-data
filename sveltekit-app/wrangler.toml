@@ -12,8 +12,8 @@ ADMIN_EMAIL = "hak7alp@gmail.com"
 # D1 Database binding
 [[d1_databases]]
 binding = "DB"
-database_name = "kiokun-notes-db"
-database_id = "21f5b45e-ce53-4a63-b07b-dec1a0b44fcc" # Replace with your actual database_id from `wrangler d1 create`
+database_name = "kiokun-dictionary"
+database_id = "21f5b45e-ce53-4a63-b07b-dec1a0b44fcc"
 
 # R2 Bucket binding for note images
 [[r2_buckets]]
