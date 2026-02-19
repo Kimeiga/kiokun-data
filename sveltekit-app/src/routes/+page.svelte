@@ -305,6 +305,21 @@
 				</a>
 			</div>
 		</section>
+
+		<!-- Study Section -->
+		<section class="explore-section study-section">
+			<h2 class="section-title">📚 Study & Learn</h2>
+			<div class="frequency-buttons">
+				<a href="/study" class="frequency-btn">
+					<span class="flag">🔁</span>
+					<span class="btn-text">Flashcard Review (SRS)</span>
+				</a>
+				<a href="/study/decks" class="frequency-btn">
+					<span class="flag">📥</span>
+					<span class="btn-text">Import JLPT / HSK / TOPIK Decks</span>
+				</a>
+			</div>
+		</section>
 	</div>
 
 	<!-- Japanese Emoji Guide Link -->

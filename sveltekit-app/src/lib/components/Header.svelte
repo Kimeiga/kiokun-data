@@ -89,14 +89,14 @@
 			>
 				👥
 			</a>
+			<a
+				href="/study"
+				class="flex items-center justify-center w-10 h-10 rounded-full bg-bg-secondary border border-border text-xl no-underline transition-all duration-200 hover:border-accent hover:text-accent hover:scale-105"
+				title="Study"
+			>
+				📚
+			</a>
 			{#if $session.data?.user}
-				<a
-					href="/study"
-					class="flex items-center justify-center w-10 h-10 rounded-full bg-bg-secondary border border-border text-xl no-underline transition-all duration-200 hover:border-accent hover:text-accent hover:scale-105"
-					title="Study"
-				>
-					📚
-				</a>
 				<a
 					href="/lists"
 					class="flex items-center justify-center w-10 h-10 rounded-full bg-bg-secondary border border-border text-xl no-underline transition-all duration-200 hover:border-accent hover:text-accent hover:scale-105"
@@ -175,15 +175,16 @@
 					<span class="text-sm font-medium">Community</span>
 				</a>
 
+				<a
+					href="/study"
+					class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-bg-secondary border border-border text-text-primary no-underline transition-all duration-200 hover:border-accent hover:text-accent"
+					onclick={closeMobileMenu}
+				>
+					<span class="text-lg">📚</span>
+					<span class="text-sm font-medium">Study</span>
+				</a>
+
 				{#if $session.data?.user}
-					<a
-						href="/study"
-						class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-bg-secondary border border-border text-text-primary no-underline transition-all duration-200 hover:border-accent hover:text-accent"
-						onclick={closeMobileMenu}
-					>
-						<span class="text-lg">📚</span>
-						<span class="text-sm font-medium">Study</span>
-					</a>
 					<a
 						href="/lists"
 						class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-bg-secondary border border-border text-text-primary no-underline transition-all duration-200 hover:border-accent hover:text-accent"
