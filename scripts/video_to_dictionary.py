@@ -172,16 +172,9 @@ def process_video(video_path: str, dict_path: Path) -> list[WordOccurrence]:
                     video_path=video_path,
                 ))
     
-    # Deduplicate by word (keep first occurrence)
-    seen = set()
-    unique = []
-    for occ in occurrences:
-        if occ.word not in seen:
-            seen.add(occ.word)
-            unique.append(occ)
-    
-    print(f"   Found {len(unique)} unique dictionary words")
-    return unique
+    # Keep all occurrences (no deduplication) for complete transcript
+    print(f"   Found {len(occurrences)} word occurrences ({len(set(o.word for o in occurrences))} unique words)")
+    return occurrences
 
 
 def load_database(db_path: Path) -> dict:

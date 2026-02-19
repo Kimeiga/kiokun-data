@@ -218,6 +218,69 @@ npm install -g quicktype
 
 ---
 
+---
+
+## 🎬 Video Transcription
+
+Scripts for transcribing Japanese video content and linking words to dictionary entries.
+
+### Main Pipeline
+
+#### `video_to_dictionary.py`
+Main transcription pipeline:
+1. Transcribes Japanese audio using mlx-whisper (Large V3 Turbo, optimized for Apple Silicon)
+2. Tokenizes transcripts using SudachiPy (Mode C for casual/spoken Japanese)
+3. Matches tokens to dictionary entries using the correct sharding algorithm
+4. Stores video-word associations with timestamps and sentence context
+
+```bash
+# Single video
+python3 scripts/video_to_dictionary.py path/to/video.mp4
+
+# Batch process directory
+python3 scripts/video_to_dictionary.py cosmos_videos --batch
+```
+
+#### `prepare_video_data.py`
+Prepares the video database for the SvelteKit webapp. Constructs CDN URLs, adds thumbnails, outputs to `sveltekit-app/static/video_data.json`.
+
+```bash
+python3 scripts/prepare_video_data.py
+```
+
+### Video Extraction
+
+#### `cosmos_scroll_extract.py`
+Uses Playwright to scroll through a Cosmos.so collection page and intercept GraphQL responses to extract all video URLs.
+
+#### `download_cosmos_videos.py`
+Downloads videos from Cosmos CDN URLs.
+
+```bash
+python3 scripts/download_cosmos_videos.py --from-file cosmos_video_urls.txt --output cosmos_videos
+```
+
+#### `extract_video_thumbnails.py`
+Extracts thumbnail URLs from Cosmos.so GraphQL data using Playwright.
+
+### Utilities
+
+#### `check_progress.py`
+Monitor batch transcription progress.
+
+### Video Transcription Dependencies
+
+- **mlx-whisper**: `pip install mlx-whisper`
+- **SudachiPy**: `pip install sudachipy sudachidict_core`
+- **Playwright**: `pip install playwright && playwright install`
+- **FFmpeg**: `brew install ffmpeg`
+
+### Experimental Scripts
+
+See `scripts/experimental/README.md` for API exploration and testing scripts.
+
+---
+
 ## 📝 Notes
 
 - All scripts should be run from the repository root directory
