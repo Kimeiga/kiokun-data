@@ -1545,6 +1545,7 @@
 													</span>
 												{/if}
 												<SpeakButton text={word.simp || word.trad || data.word} lang="zh" size={18} />
+												<SaveToStudy word={word.simp || word.trad || data.word} language="zh" size="sm" />
 											</div>
 											<!-- Definitions -->
 											{#if item.definitions && item.definitions.length > 0}
@@ -1591,6 +1592,7 @@
 											<span class="korean-hanja">[{word.hanja}]</span>
 										{/if}
 										<SpeakButton text={word.hangul} lang="ko" size={18} />
+										<SaveToStudy word={word.hangul} language="ko" size="sm" />
 									</div>
 									<!-- Part of speech -->
 									{#if word.pos}
