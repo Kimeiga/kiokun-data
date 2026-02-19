@@ -113,10 +113,13 @@ output/
 
 # Video transcription files (large, can be regenerated)
 cosmos_videos/
+cosmos_chinese_videos/
 test_downloads/
 *.mp4
 video_thumbnails.json
 video_words_db.json
+chinese_video_thumbnails.json
+chinese_video_words_db.json
 test_video_words.json
 cosmos_video_urls.txt
 test_urls.txt
