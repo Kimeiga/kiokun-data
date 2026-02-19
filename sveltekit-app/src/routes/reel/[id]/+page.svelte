@@ -5,6 +5,8 @@
 	let { data }: { data: ReelPageData } = $props();
 	let videoElement: HTMLVideoElement | undefined = $state();
 
+	let languageFlag = $derived(data.language === 'zh' ? '🇨🇳' : '🇯🇵');
+
 	function isWordInSentence(word: string, sentence: string, char: string): boolean {
 		return sentence.includes(word) && word.includes(char);
 	}
@@ -35,7 +37,7 @@
 </script>
 
 <svelte:head>
-	<title>Reel | Kiokun</title>
+	<title>{languageFlag} Reel | Kiokun</title>
 </svelte:head>
 
 <Header />
@@ -58,7 +60,7 @@
 
 		<!-- Right: Interactive transcript -->
 		<div class="md:w-3/5">
-			<h2 class="text-lg font-semibold mb-4 text-text-primary">Transcript</h2>
+			<h2 class="text-lg font-semibold mb-4 text-text-primary">{languageFlag} Transcript</h2>
 			
 			{#if data.transcript.length === 0}
 				<p class="text-text-tertiary">No transcript available for this video.</p>

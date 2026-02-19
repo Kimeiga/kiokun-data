@@ -27,17 +27,20 @@ export interface ReelPageData {
 	highlightWord: string | null;
 	startTime: number;
 	transcript: TranscriptSegment[];
+	language: 'ja' | 'zh';
 }
 
 export const load: PageLoad<ReelPageData> = async ({ params, url, fetch }) => {
 	const videoId = params.id;
 	const highlightWord = url.searchParams.get('word');
 	const startTime = parseFloat(url.searchParams.get('t') || '0');
+	const language = (url.searchParams.get('lang') === 'zh' ? 'zh' : 'ja') as 'ja' | 'zh';
 
 	const videoUrl = `https://cdn.cosmos.so/${videoId}.mp4`;
 
-	// Load video data to build transcript
-	const response = await fetch('/video_data.json');
+	// Load video data based on language
+	const dataFile = language === 'zh' ? '/chinese_video_data.json' : '/video_data.json';
+	const response = await fetch(dataFile);
 	const videoData: VideoData = await response.json();
 
 	// Build transcript from all word occurrences in this video
@@ -72,7 +75,8 @@ export const load: PageLoad<ReelPageData> = async ({ params, url, fetch }) => {
 		videoUrl,
 		highlightWord,
 		startTime,
-		transcript
+		transcript,
+		language
 	};
 };
 

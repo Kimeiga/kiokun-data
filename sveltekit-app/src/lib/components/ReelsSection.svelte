@@ -20,7 +20,7 @@
 		words: Record<string, VideoOccurrence[]>;
 	}
 
-	let { word }: { word: string } = $props();
+	let { word, language = 'ja' }: { word: string; language?: 'ja' | 'zh' } = $props();
 
 	const BATCH_SIZE = 10;
 
@@ -36,15 +36,20 @@
 	let hasMore = $derived(visibleCount < occurrences.length);
 	let remainingCount = $derived(occurrences.length - visibleCount);
 
+	// Determine which JSON file to load based on language
+	let dataFile = $derived(language === 'zh' ? '/chinese_video_data.json' : '/video_data.json');
+	let languageFlag = $derived(language === 'zh' ? '🇨🇳' : '🇯🇵');
+	let languageLabel = $derived(language === 'zh' ? 'Chinese' : 'Japanese');
+
 	onMount(async () => {
 		try {
-			const response = await fetch('/video_data.json');
+			const response = await fetch(dataFile);
 			if (response.ok) {
 				videoData = await response.json();
 				occurrences = videoData?.words[word] || [];
 			}
 		} catch (err) {
-			console.error('Failed to load video data:', err);
+			console.error(`Failed to load ${languageLabel} video data:`, err);
 		} finally {
 			loading = false;
 		}
@@ -63,11 +68,11 @@
 
 {#if !loading && occurrences.length > 0}
 	<div class="mb-6">
-		<SectionHeading>🎬 Reels ({occurrences.length})</SectionHeading>
+		<SectionHeading>{languageFlag} Reels ({occurrences.length})</SectionHeading>
 		<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
 			{#each occurrences.slice(0, visibleCount) as occ}
 				<a
-					href="/reel/{occ.video_id}?word={encodeURIComponent(word)}&t={occ.start_time}"
+					href="/reel/{occ.video_id}?word={encodeURIComponent(word)}&t={occ.start_time}&lang={language}"
 					class="group relative aspect-[9/16] bg-bg-secondary rounded-lg overflow-hidden border border-border hover:border-accent transition-colors"
 				>
 					<!-- Static thumbnail image (much faster than loading video) -->

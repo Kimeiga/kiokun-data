@@ -1638,8 +1638,13 @@
 			koreanWords={data.data.contained_in_korean || []}
 		/>
 
-		<!-- Reels Section -->
-		<ReelsSection word={data.word} />
+		<!-- Reels Sections (show both Japanese and Chinese if applicable) -->
+		{#if data.data.japanese_words && data.data.japanese_words.length > 0}
+			<ReelsSection word={data.word} language="ja" />
+		{/if}
+		{#if data.data.chinese_words && data.data.chinese_words.length > 0}
+			<ReelsSection word={data.word} language="zh" />
+		{/if}
 	</div>
 </div>
 
