@@ -12,6 +12,10 @@ pub struct WordPreview {
     #[serde(rename = "p", skip_serializing_if = "Option::is_none")]
     pub pronunciation: Option<String>,
 
+    /// Cantonese pronunciation (Jyutping) - for Chinese words/characters
+    #[serde(rename = "ct", skip_serializing_if = "Option::is_none")]
+    pub cantonese: Option<String>,
+
     /// Japanese pronunciation (kana reading) - for characters with both Chinese and Japanese readings
     #[serde(rename = "jp", skip_serializing_if = "Option::is_none")]
     pub japanese_pronunciation: Option<String>,
@@ -39,6 +43,10 @@ impl WordPreview {
         let pronunciation = word.items.first()
             .and_then(|item| item.pinyin.clone());
 
+        // Get Cantonese Jyutping from the first item
+        let cantonese = word.items.first()
+            .and_then(|item| item.jyutping.clone());
+
         let definition = word.items.first()
             .and_then(|item| item.definitions.as_ref())
             .and_then(|defs| defs.first())
@@ -52,6 +60,7 @@ impl WordPreview {
         WordPreview {
             word: word.simp.clone(),
             pronunciation,
+            cantonese,
             japanese_pronunciation: None,
             korean_reading: None,
             definition,
@@ -67,12 +76,18 @@ impl WordPreview {
             .and_then(|freqs| freqs.first())
             .map(|pf| pf.pinyin.clone());
 
+        // Get Cantonese Jyutping (first reading from Unihan)
+        let cantonese = char.cantonese.as_ref()
+            .and_then(|readings| readings.first())
+            .cloned();
+
         // Use the gloss as definition
         let definition = char.gloss.clone();
 
         WordPreview {
             word: char.char.clone(),
             pronunciation,
+            cantonese,
             japanese_pronunciation: None,
             korean_reading: None,
             definition,
@@ -104,6 +119,7 @@ impl WordPreview {
         WordPreview {
             word: word_text,
             pronunciation: None, // Japanese words don't have pinyin
+            cantonese: None, // Japanese words don't have Cantonese
             japanese_pronunciation,
             korean_reading: None,
             definition,
@@ -122,6 +138,11 @@ impl WordPreview {
         // Get Chinese pinyin
         let pronunciation = chinese_word.and_then(|w| {
             w.items.first().and_then(|item| item.pinyin.clone())
+        });
+
+        // Get Cantonese Jyutping
+        let cantonese = chinese_word.and_then(|w| {
+            w.items.first().and_then(|item| item.jyutping.clone())
         });
 
         // Get Japanese kana reading
@@ -160,6 +181,7 @@ impl WordPreview {
         WordPreview {
             word: word_text.to_string(),
             pronunciation,
+            cantonese,
             japanese_pronunciation,
             korean_reading: None, // Multi-character words don't have Korean readings yet
             definition,
@@ -183,6 +205,7 @@ impl WordPreview {
         WordPreview {
             word: word_text,
             pronunciation: word.romanization.clone(), // Korean romanization goes in pronunciation field
+            cantonese: None, // Korean words don't have Cantonese
             japanese_pronunciation: None,
             korean_reading: None, // Korean words already show Hangul as the word text
             definition,
@@ -204,6 +227,13 @@ impl WordPreview {
             c.pinyin_frequencies.as_ref()
                 .and_then(|freqs| freqs.first())
                 .map(|pf| pf.pinyin.clone())
+        });
+
+        // Get Cantonese Jyutping (first reading from Unihan)
+        let cantonese = chinese_char.and_then(|c| {
+            c.cantonese.as_ref()
+                .and_then(|readings| readings.first())
+                .cloned()
         });
 
         // Get Japanese reading (prefer kun reading, then on reading)
@@ -241,6 +271,7 @@ impl WordPreview {
         WordPreview {
             word: word_text.to_string(),
             pronunciation,
+            cantonese,
             japanese_pronunciation,
             korean_reading,
             definition,

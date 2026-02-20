@@ -49,6 +49,15 @@ pub struct ChineseCharacter {
     pub ids: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ids_apparent: Option<String>,
+
+    // Cantonese pronunciations (Jyutping from Unihan kCantonese)
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub cantonese: Option<Vec<String>>,
+
+    // Hong Kong character variant (when HK uses a different character form)
+    // Parsed from Unihan kSemanticVariant with kHKGlyph tag
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub hk_char: Option<String>,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

@@ -6,6 +6,7 @@
 	interface WordPreview {
 		w: string; // word
 		p?: string; // pronunciation
+		ct?: string; // cantonese pronunciation (jyutping)
 		d?: string; // definition
 		c?: boolean; // common (Japanese words only)
 		jp?: string; // japanese pronunciation
@@ -154,6 +155,11 @@
 									{#if preview.p}
 										<span class="pronunciation"
 											>[{preview.p}]</span
+										>
+									{/if}
+									{#if preview.ct && languageStore.preferences.cantonese}
+										<span class="cantonese-pronunciation" title="Cantonese (Jyutping)"
+											>🇭🇰 [{preview.ct}]</span
 										>
 									{/if}
 									{#if preview.fr}
@@ -383,6 +389,11 @@
 	.pronunciation {
 		font-size: var(--font-size-footnote);
 		color: var(--text-secondary);
+	}
+
+	.cantonese-pronunciation {
+		font-size: var(--font-size-footnote);
+		color: var(--color-cantonese, #e67e22);
 	}
 
 	.definition {

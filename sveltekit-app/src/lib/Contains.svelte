@@ -5,6 +5,7 @@
 	interface WordPreview {
 		w: string; // word
 		p?: string; // pronunciation (Chinese pinyin)
+		ct?: string; // Cantonese pronunciation (Jyutping)
 		jp?: string; // Japanese pronunciation (kana reading)
 		kr?: string; // Korean reading (Hangul)
 		d?: string; // definition
@@ -58,14 +59,18 @@
 		<div class="characters-row">
 			{#each displayedWords as preview}
 				{@const showChinese = preview.p && languageStore.preferences.chinese}
+				{@const showCantonese = preview.ct && languageStore.preferences.cantonese}
 				{@const showJapanese = preview.jp && languageStore.preferences.japanese}
 				{@const showKorean = preview.kr && languageStore.preferences.korean}
 				<a href="/{preview.w}" class="character-card">
 					<div class="character">{preview.w}</div>
-					{#if showChinese || showJapanese || showKorean}
+					{#if showChinese || showCantonese || showJapanese || showKorean}
 						<div class="pronunciations">
 							{#if showChinese}
 								<span class="chinese-reading">{preview.p}</span>
+							{/if}
+							{#if showCantonese}
+								<span class="cantonese-reading">🇭🇰 {preview.ct}</span>
 							{/if}
 							{#if showJapanese}
 								<span class="japanese-reading">{preview.jp}</span>
@@ -148,6 +153,12 @@
 		font-size: var(--font-size-caption1);
 		color: var(--color-pinyin);
 		font-weight: 500;
+	}
+
+	.cantonese-reading {
+		font-size: var(--font-size-caption2);
+		color: var(--color-cantonese, #e67e22);
+		font-weight: 400;
 	}
 
 	.japanese-reading {

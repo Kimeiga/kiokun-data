@@ -11,6 +11,7 @@ use crate::korean_types::KoreanWord;
 use crate::romaji::kana_to_romaji;
 use crate::pinyin::normalize_pinyin;
 use crate::korean_romanization::hangul_to_romanization;
+use crate::jyutping::normalize_jyutping_search_string;
 
 /// Represents a searchable dictionary entry
 #[derive(Debug, Clone)]
@@ -20,6 +21,7 @@ pub struct SearchEntry {
     pub definition: String,
     pub pronunciation: String,
     pub reading_search: String,  // Searchable romanization (romaji for Japanese, normalized pinyin for Chinese)
+    pub jyutping_search: Option<String>,  // Searchable Cantonese Jyutping (normalized, no tones)
     pub is_common: bool,
 }
 
@@ -47,6 +49,10 @@ pub async fn build_search_index(
                 // Normalize pinyin for search (strip tones: "tiàn" → "tian")
                 let reading_search = normalize_pinyin(pronunciation);
 
+                // Normalize Jyutping for search (strip tones: "din6 nou5" → "din nou")
+                let jyutping_search = item.jyutping.as_ref()
+                    .map(|j| normalize_jyutping_search_string(j));
+
                 for definition in definitions {
                     entries.push(SearchEntry {
                         word: word.clone(),
@@ -54,6 +60,7 @@ pub async fn build_search_index(
                         definition: definition.clone(),
                         pronunciation: pronunciation.to_string(),
                         reading_search: reading_search.clone(),
+                        jyutping_search: jyutping_search.clone(),
                         is_common: false, // Chinese doesn't have is_common flag
                     });
                 }
@@ -100,6 +107,7 @@ pub async fn build_search_index(
                     definition: gloss.text.clone(),
                     pronunciation: pronunciation.to_string(),
                     reading_search: reading_search.clone(),
+                    jyutping_search: None,  // Japanese doesn't have Jyutping
                     is_common,
                 });
             }
@@ -133,6 +141,7 @@ pub async fn build_search_index(
                 definition: def.text.clone(),
                 pronunciation: pronunciation.to_string(),
                 reading_search: reading_search.clone(),
+                jyutping_search: None,  // Korean doesn't have Jyutping
                 is_common,
             });
         }
@@ -146,7 +155,7 @@ pub async fn build_search_index(
     let mut file = File::create(output_path)?;
     
     // Write CSV header
-    writeln!(file, "word,language,definition,pronunciation,reading_search,is_common")?;
+    writeln!(file, "word,language,definition,pronunciation,reading_search,jyutping_search,is_common")?;
 
     // Write entries
     for entry in &entries {
@@ -156,12 +165,15 @@ pub async fn build_search_index(
         let definition = escape_csv_field(&entry.definition);
         let pronunciation = escape_csv_field(&entry.pronunciation);
         let reading_search = escape_csv_field(&entry.reading_search);
+        let jyutping_search = entry.jyutping_search.as_ref()
+            .map(|j| escape_csv_field(j))
+            .unwrap_or_default();
         let is_common = if entry.is_common { "1" } else { "0" };
 
         writeln!(
             file,
-            "{},{},{},{},{},{}",
-            word, language, definition, pronunciation, reading_search, is_common
+            "{},{},{},{},{},{},{}",
+            word, language, definition, pronunciation, reading_search, jyutping_search, is_common
         )?;
     }
     
@@ -174,6 +186,7 @@ pub async fn build_search_index(
     println!("  2. Import CSV: wrangler d1 execute kiokun-notes-db --remote --command=\".mode csv\" --command=\".import {} dictionary_search\"", output_path);
     println!("\n  Note: For local development, replace --remote with --local");
     println!("  The reading_search column enables searching by romaji (Japanese), pinyin (Chinese), or romanization (Korean).");
+    println!("  The jyutping_search column enables searching by Cantonese Jyutping romanization (Chinese words only).");
     
     Ok(())
 }

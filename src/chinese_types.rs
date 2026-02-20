@@ -28,6 +28,8 @@ pub struct ChineseDictionaryElement {
     pub gloss: Option<String>,
     pub pinyin_search_string: String,
     #[serde(skip_serializing_if = "Option::is_none")]
+    pub jyutping_search_string: Option<String>,  // Cantonese Jyutping search string
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub statistics: Option<Statistics>,
 }
 
@@ -38,6 +40,8 @@ pub struct Item {
     pub source: Option<Source>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pinyin: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub jyutping: Option<String>,  // Cantonese pronunciation (Jyutping romanization)
     #[serde(skip_serializing_if = "Option::is_none")]
     pub simp_trad: Option<SimpTrad>,
     #[serde(skip_serializing_if = "Option::is_none")]

@@ -22,6 +22,7 @@
 	/* Specific colors */
 	--color-heading: #2c3e50;
 	--color-pinyin: #3498db;
+	--color-cantonese: #e67e22; /* Orange for Cantonese (Hong Kong) */
 	--color-onyomi: #e74c3c;
 	--color-kunyomi: #27ae60;
 	--color-korean: #9b59b6; /* Purple for Korean */
@@ -129,9 +130,10 @@
 
 	/* Specific colors - Unified to Green/White aesthetic where possible */
 	--color-heading: #ffffff;
-	
+
 	/* Keep semantic colors but mute them or align with green where appropriate */
 	--color-pinyin: #2ecc71; /* Unified Green for consistency */
+	--color-cantonese: #f39c12; /* Golden orange for Cantonese (Hong Kong) - visible in dark mode */
 	--color-onyomi: #ff6b6b; /* Keep distinct but can be styled as label */
 	--color-kunyomi: #2ecc71; /* Green */
 	--color-korean: #bb8fce; /* Light purple for Korean */

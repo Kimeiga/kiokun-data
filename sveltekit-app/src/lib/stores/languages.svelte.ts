@@ -1,12 +1,13 @@
 // Language preferences store using Svelte 5 runes
 import { browser } from '$app/environment';
 
-export type Language = 'chinese' | 'japanese' | 'korean';
+export type Language = 'chinese' | 'japanese' | 'korean' | 'cantonese';
 
 export interface LanguagePreferences {
 	chinese: boolean;
 	japanese: boolean;
 	korean: boolean;
+	cantonese: boolean;
 }
 
 // Check if device is mobile (used for default Korean setting)
@@ -18,23 +19,31 @@ const isMobile = (): boolean => {
 // Initialize preferences from localStorage or defaults
 const getInitialPreferences = (): LanguagePreferences => {
 	if (!browser) {
-		return { chinese: true, japanese: true, korean: true };
+		return { chinese: true, japanese: true, korean: true, cantonese: true };
 	}
-	
+
 	const stored = localStorage.getItem('languagePreferences');
 	if (stored) {
 		try {
-			return JSON.parse(stored);
+			const parsed = JSON.parse(stored);
+			// Ensure all keys exist (for backwards compatibility when adding new languages)
+			return {
+				chinese: parsed.chinese ?? true,
+				japanese: parsed.japanese ?? true,
+				korean: parsed.korean ?? true,
+				cantonese: parsed.cantonese ?? true
+			};
 		} catch {
 			// Invalid JSON, use defaults
 		}
 	}
-	
+
 	// Default: all on for desktop, Korean off for mobile
 	return {
 		chinese: true,
 		japanese: true,
-		korean: !isMobile()
+		korean: !isMobile(),
+		cantonese: true  // Cantonese on by default
 	};
 };
 

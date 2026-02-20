@@ -13,6 +13,7 @@ mod word_preview_types;
 mod search_index_builder;
 mod romaji;
 mod pinyin;
+mod jyutping;
 mod korean_romanization;
 
 // Legacy unification code (not used in default simple output)
@@ -632,7 +633,7 @@ async fn main() -> Result<()> {
     fs::create_dir_all("output")?;
 
     // Load dictionaries (conditionally based on exclusions)
-    let chinese_entries = if excluded_dicts.contains(&"cedict".to_string()) {
+    let mut chinese_entries = if excluded_dicts.contains(&"cedict".to_string()) {
         println!("⏭️  Skipping Chinese dictionary (CEDICT)");
         Vec::new()
     } else {
@@ -640,6 +641,35 @@ async fn main() -> Result<()> {
         load_chinese_dictionary("data/chinese_dictionary_word_2025-06-25.jsonl")
             .context("Failed to load Chinese dictionary")?
     };
+
+    // Enrich Chinese words with Cantonese Jyutping from CC-Canto data
+    let cc_canto_path = "data/cantonese/cc-canto";
+    let cc_cedict_canto_path = "data/cantonese/cc-cedict-canto";
+
+    if std::path::Path::new(cc_cedict_canto_path).exists() {
+        println!("🇭🇰 Loading CC-CEDICT Canto data (Jyutping for words)...");
+        match load_yomitan_cantonese_data(cc_cedict_canto_path) {
+            Ok(jyutping_map) => {
+                enrich_chinese_words_with_jyutping(&mut chinese_entries, &jyutping_map);
+            }
+            Err(e) => {
+                println!("  ⚠️  Failed to load CC-CEDICT Canto: {}", e);
+            }
+        }
+    }
+
+    if std::path::Path::new(cc_canto_path).exists() {
+        println!("🇭🇰 Loading CC-Canto data (additional Cantonese words)...");
+        match load_yomitan_cantonese_data(cc_canto_path) {
+            Ok(jyutping_map) => {
+                // Enrich any remaining entries without jyutping
+                enrich_chinese_words_with_jyutping(&mut chinese_entries, &jyutping_map);
+            }
+            Err(e) => {
+                println!("  ⚠️  Failed to load CC-Canto: {}", e);
+            }
+        }
+    }
 
     let japanese_dict = if excluded_dicts.contains(&"jmdict".to_string()) {
         println!("⏭️  Skipping Japanese dictionary (JMdict)");
@@ -770,6 +800,35 @@ async fn main() -> Result<()> {
     };
     let korean_char_map = build_korean_character_map(&japanese_char_dict_raw.characters, unihan_path);
 
+    // Enrich Chinese characters with Cantonese readings from Unihan
+    println!("🇭🇰 Loading Cantonese readings from Unihan...");
+    if let Some(path) = unihan_path {
+        match load_unihan_cantonese_readings(path) {
+            Ok(cantonese_map) => {
+                enrich_chinese_chars_with_cantonese(&mut chinese_char_dict_raw, &cantonese_map);
+            }
+            Err(e) => {
+                println!("  ⚠️  Failed to load Cantonese readings: {}", e);
+            }
+        }
+    }
+
+    // Enrich Chinese characters with Hong Kong character variants from Unihan
+    println!("🇭🇰 Loading Hong Kong character variants from Unihan...");
+    let unihan_variants_path = "data/unihan/Unihan_Variants.txt";
+    if std::path::Path::new(unihan_variants_path).exists() {
+        match load_unihan_hk_variants(unihan_variants_path) {
+            Ok(hk_variant_map) => {
+                enrich_chinese_chars_with_hk_variants(&mut chinese_char_dict_raw, &hk_variant_map);
+            }
+            Err(e) => {
+                println!("  ⚠️  Failed to load HK variants: {}", e);
+            }
+        }
+    } else {
+        println!("  ℹ️  Unihan_Variants.txt not found, skipping HK variants");
+    }
+
     // Generate output files (or SQLite database in dev server mode)
     if dev_server_mode {
         println!("🔄 Generating SQLite database for dev server...");
@@ -833,6 +892,138 @@ fn load_japanese_dictionary(path: &str) -> Result<JapaneseEntry> {
     let japanese_dict: JapaneseEntry = serde_json::from_str(&content)?;
     println!("  ✅ Loaded {} Japanese words", japanese_dict.words.len());
     Ok(japanese_dict)
+}
+
+/// Load Yomitan CC-Canto/CC-CEDICT-Canto term banks and return word->jyutping mappings
+/// The Yomitan format is: [term, reading, tags, def_tags, score, definitions, sequence, term_tags]
+fn load_yomitan_cantonese_data(dir_path: &str) -> Result<std::collections::HashMap<String, Vec<String>>> {
+    use std::collections::HashMap;
+
+    let mut word_to_jyutping: HashMap<String, Vec<String>> = HashMap::new();
+
+    // Find all term_bank_*.json files in the directory
+    let entries = fs::read_dir(dir_path)?;
+    let mut term_bank_files: Vec<_> = entries
+        .filter_map(|e| e.ok())
+        .filter(|e| {
+            e.file_name().to_string_lossy().starts_with("term_bank_")
+            && e.file_name().to_string_lossy().ends_with(".json")
+        })
+        .collect();
+
+    term_bank_files.sort_by(|a, b| a.file_name().cmp(&b.file_name()));
+
+    for term_bank in &term_bank_files {
+        let content = fs::read_to_string(term_bank.path())?;
+
+        // Parse as array of arrays
+        let entries: Vec<serde_json::Value> = serde_json::from_str(&content)?;
+
+        for entry in entries {
+            if let Some(arr) = entry.as_array() {
+                // [term, reading, tags, def_tags, score, definitions, sequence, term_tags]
+                if arr.len() >= 2 {
+                    let term = arr[0].as_str().unwrap_or("");
+                    let reading = arr[1].as_str().unwrap_or("");
+
+                    if !term.is_empty() && !reading.is_empty() {
+                        let readings = word_to_jyutping.entry(term.to_string()).or_insert_with(Vec::new);
+                        if !readings.contains(&reading.to_string()) {
+                            readings.push(reading.to_string());
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    println!("  ✅ Loaded Jyutping mappings for {} words from {} term banks",
+             word_to_jyutping.len(), term_bank_files.len());
+    Ok(word_to_jyutping)
+}
+
+/// Extract definitions from Yomitan structured content
+fn extract_yomitan_definitions(definitions: &serde_json::Value) -> Vec<String> {
+    let mut result = Vec::new();
+
+    if let Some(arr) = definitions.as_array() {
+        for def in arr {
+            if let Some(def_str) = def.as_str() {
+                result.push(def_str.to_string());
+            } else if let Some(obj) = def.as_object() {
+                // Structured content format - extract text from li elements
+                if let Some(content) = obj.get("content") {
+                    extract_text_from_structured_content(content, &mut result);
+                }
+            }
+        }
+    }
+
+    result
+}
+
+fn extract_text_from_structured_content(content: &serde_json::Value, result: &mut Vec<String>) {
+    if let Some(arr) = content.as_array() {
+        for item in arr {
+            extract_text_from_structured_content(item, result);
+        }
+    } else if let Some(obj) = content.as_object() {
+        if let Some(tag) = obj.get("tag").and_then(|t| t.as_str()) {
+            if tag == "li" {
+                // Extract text content from li element
+                if let Some(li_content) = obj.get("content") {
+                    if let Some(text) = li_content.as_str() {
+                        result.push(text.to_string());
+                    } else {
+                        extract_text_from_structured_content(li_content, result);
+                    }
+                }
+            } else if let Some(nested) = obj.get("content") {
+                extract_text_from_structured_content(nested, result);
+            }
+        }
+    } else if let Some(text) = content.as_str() {
+        if !text.is_empty() && !result.contains(&text.to_string()) {
+            result.push(text.to_string());
+        }
+    }
+}
+
+/// Enrich Chinese word entries with Jyutping from CC-Canto/CC-CEDICT-Canto data
+fn enrich_chinese_words_with_jyutping(
+    chinese_entries: &mut Vec<ChineseDictionaryElement>,
+    word_to_jyutping: &std::collections::HashMap<String, Vec<String>>,
+) {
+    let mut enriched_count = 0;
+
+    for entry in chinese_entries.iter_mut() {
+        // Try to match by traditional Chinese first, then simplified
+        let jyutping_list = word_to_jyutping.get(&entry.trad)
+            .or_else(|| word_to_jyutping.get(&entry.simp));
+
+        if let Some(jyutping_readings) = jyutping_list {
+            // For each item in the entry, try to assign a jyutping if it doesn't have one
+            for item in entry.items.iter_mut() {
+                if item.jyutping.is_none() && !jyutping_readings.is_empty() {
+                    // Use the first jyutping reading
+                    item.jyutping = Some(jyutping_readings[0].clone());
+                }
+            }
+
+            // Build jyutping search string
+            let jyutping_search = jyutping_readings.iter()
+                .map(|j| jyutping::normalize_jyutping(j))
+                .collect::<Vec<_>>()
+                .join(" ");
+
+            if !jyutping_search.is_empty() {
+                entry.jyutping_search_string = Some(jyutping_search);
+                enriched_count += 1;
+            }
+        }
+    }
+
+    println!("  ✅ Enriched {} Chinese words with Jyutping", enriched_count);
 }
 
 fn load_chinese_char_dictionary(path: &str) -> Result<Vec<ChineseCharacter>> {
@@ -1287,6 +1478,167 @@ fn load_unihan_korean_readings(path: &str) -> Result<std::collections::HashMap<S
 
     println!("  ✅ Loaded Unihan Korean readings for {} characters", korean_map.len());
     Ok(korean_map)
+}
+
+/// Load Unihan Cantonese readings from Unihan_Readings.txt
+/// Returns a HashMap mapping character to vector of Jyutping readings
+fn load_unihan_cantonese_readings(path: &str) -> Result<std::collections::HashMap<String, Vec<String>>> {
+    use std::collections::HashMap;
+    use std::io::{BufRead, BufReader};
+
+    let file = File::open(path)?;
+    let reader = BufReader::new(file);
+
+    let mut cantonese_map: HashMap<String, Vec<String>> = HashMap::new();
+
+    for line in reader.lines() {
+        let line = line?;
+        if line.starts_with('#') || line.trim().is_empty() {
+            continue;
+        }
+
+        let parts: Vec<&str> = line.split('\t').collect();
+        if parts.len() >= 3 {
+            let codepoint = parts[0];
+            let field = parts[1];
+            let value = parts[2];
+
+            // Only process kCantonese field
+            if field != "kCantonese" {
+                continue;
+            }
+
+            // Convert codepoint (e.g., "U+4E00") to character
+            if let Some(hex_str) = codepoint.strip_prefix("U+") {
+                if let Ok(code) = u32::from_str_radix(hex_str, 16) {
+                    if let Some(ch) = char::from_u32(code) {
+                        let char_str = ch.to_string();
+                        let entry = cantonese_map.entry(char_str).or_insert_with(Vec::new);
+
+                        // Parse kCantonese format: "jau1" or "ng5 m4" (space-separated readings)
+                        for reading in value.split_whitespace() {
+                            if !entry.contains(&reading.to_string()) {
+                                entry.push(reading.to_string());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    println!("  ✅ Loaded Unihan Cantonese readings for {} characters", cantonese_map.len());
+    Ok(cantonese_map)
+}
+
+/// Enrich Chinese character dictionary with Cantonese readings from Unihan
+fn enrich_chinese_chars_with_cantonese(
+    chinese_chars: &mut Vec<ChineseCharacter>,
+    cantonese_map: &std::collections::HashMap<String, Vec<String>>,
+) {
+    let mut enriched_count = 0;
+
+    for char_entry in chinese_chars.iter_mut() {
+        if let Some(readings) = cantonese_map.get(&char_entry.char) {
+            char_entry.cantonese = Some(readings.clone());
+            enriched_count += 1;
+        }
+    }
+
+    println!("  ✅ Enriched {} Chinese characters with Cantonese readings", enriched_count);
+}
+
+/// Load Hong Kong character variants from Unihan_Variants.txt
+/// Parses kSemanticVariant field for entries with kHKGlyph tag
+/// Returns a HashMap mapping character to its HK variant character
+fn load_unihan_hk_variants(path: &str) -> Result<std::collections::HashMap<String, String>> {
+    use std::collections::HashMap;
+    use std::io::{BufRead, BufReader};
+    use regex::Regex;
+
+    let file = File::open(path)?;
+    let reader = BufReader::new(file);
+
+    let mut hk_variant_map: HashMap<String, String> = HashMap::new();
+
+    // Regex to match "U+XXXX<...kHKGlyph..." pattern
+    // The variant codepoint followed by tags including kHKGlyph
+    // Note: Unihan format doesn't have closing > for tag groups
+    let variant_pattern = Regex::new(r"(U\+[0-9A-Fa-f]+)<[^>\s]*kHKGlyph").unwrap();
+
+    for line in reader.lines() {
+        let line = line?;
+        if line.starts_with('#') || line.trim().is_empty() {
+            continue;
+        }
+
+        let parts: Vec<&str> = line.split('\t').collect();
+        if parts.len() >= 3 {
+            let codepoint = parts[0];
+            let field = parts[1];
+            let value = parts[2];
+
+            // Only process kSemanticVariant field
+            if field != "kSemanticVariant" {
+                continue;
+            }
+
+            // Check if any variant has kHKGlyph tag
+            if !value.contains("kHKGlyph") {
+                continue;
+            }
+
+            // Convert source codepoint to character
+            let source_char = if let Some(hex_str) = codepoint.strip_prefix("U+") {
+                if let Ok(code) = u32::from_str_radix(hex_str, 16) {
+                    char::from_u32(code).map(|c| c.to_string())
+                } else {
+                    None
+                }
+            } else {
+                None
+            };
+
+            if let Some(source) = source_char {
+                // Find the HK variant codepoint
+                if let Some(captures) = variant_pattern.captures(value) {
+                    if let Some(variant_cp) = captures.get(1) {
+                        let variant_cp_str = variant_cp.as_str();
+                        if let Some(hex_str) = variant_cp_str.strip_prefix("U+") {
+                            if let Ok(code) = u32::from_str_radix(hex_str, 16) {
+                                if let Some(variant_char) = char::from_u32(code) {
+                                    // Only add if the variant is different from the source
+                                    if variant_char.to_string() != source {
+                                        hk_variant_map.insert(source, variant_char.to_string());
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    println!("  ✅ Loaded {} Hong Kong character variants from Unihan", hk_variant_map.len());
+    Ok(hk_variant_map)
+}
+
+/// Enrich Chinese character dictionary with Hong Kong character variants
+fn enrich_chinese_chars_with_hk_variants(
+    chinese_chars: &mut Vec<ChineseCharacter>,
+    hk_variant_map: &std::collections::HashMap<String, String>,
+) {
+    let mut enriched_count = 0;
+
+    for char_entry in chinese_chars.iter_mut() {
+        if let Some(hk_char) = hk_variant_map.get(&char_entry.char) {
+            char_entry.hk_char = Some(hk_char.clone());
+            enriched_count += 1;
+        }
+    }
+
+    println!("  ✅ Enriched {} Chinese characters with HK variants", enriched_count);
 }
 
 /// Load Korean compatibility variant mappings from Unihan_IRGSources.txt

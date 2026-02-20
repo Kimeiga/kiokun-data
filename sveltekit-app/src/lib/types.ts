@@ -48,12 +48,14 @@ export interface ChineseWord {
   items: ChineseWordItem[];
   gloss?: string;
   pinyinSearchString: string;
+  jyutpingSearchString?: string;  // Cantonese Jyutping search string
   statistics?: ChineseWordStatistics;
 }
 
 export interface ChineseWordItem {
   source?: string;
   pinyin?: string;
+  jyutping?: string;  // Cantonese pronunciation (Jyutping romanization)
   simpTrad?: 'simp' | 'trad' | 'both';
   definitions?: string[];
   tang?: string[];
@@ -91,6 +93,8 @@ export interface ChineseCharacter {
   comments?: ChineseComment[];
   ids?: string;
   idsApparent?: string;
+  cantonese?: string[];  // Cantonese Jyutping readings from Unihan
+  hkChar?: string;  // Hong Kong character variant (when HK uses different form)
 }
 
 export interface ChineseCharacterImage {

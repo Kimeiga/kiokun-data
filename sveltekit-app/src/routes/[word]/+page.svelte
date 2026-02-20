@@ -25,6 +25,7 @@
 	let simplifiedChar = $derived(data.data.chinese_char?.simpVariants?.[0]);
 	let japaneseChar = $derived(data.data.japanese_char?.literal);
 	let koreanChar = $derived(data.data.korean_char);
+	let hkChar = $derived(data.data.chinese_char?.hkChar);
 
 	// Check if Korean Hanja form differs from traditional Chinese
 	// Note: hanjaForm may contain Korean compatibility characters (U+F900-U+FAD9) which are
@@ -72,6 +73,15 @@
 	let krSameAsSimp = $derived(!koreanChar || !simplifiedChar ? krSameAsTrad : koreanChar.character === simplifiedChar);
 	let krSameAsJp = $derived(!koreanChar || !japaneseChar ? krSameAsTrad : koreanChar.character === japaneseChar);
 
+	// Hong Kong character variant - check if HK uses a different character form than all others
+	let hkHasDifferentForm = $derived(
+		hkChar &&
+		hkChar !== traditionalChar &&
+		hkChar !== simplifiedChar &&
+		hkChar !== japaneseChar &&
+		hkChar !== koreanCharacter
+	);
+
 	// Count how many unique character boxes we'll show
 	let characterBoxCount = $derived.by(() => {
 		let count = traditionalChar ? 1 : 0;
@@ -79,6 +89,8 @@
 		if (japaneseChar && !jpSameAsTrad && !jpSameAsSimp) count++;
 		// Korean Hanja variant only if it differs from all others
 		if (krHasDifferentForm) count++;
+		// Hong Kong variant only if it differs from all others
+		if (hkHasDifferentForm) count++;
 		return count;
 	});
 	let isSingleCharacter = $derived(characterBoxCount === 1);
@@ -943,7 +955,7 @@
 											</div>
 										</div>
 										<div class="text-base tracking-wide">
-											🇹🇼{#if simpSameAsTrad}🇨🇳{/if}{#if jpSameAsTrad}🇯🇵{/if}{#if koreanChar && krSameAsTrad && !krHasDifferentForm}🇰🇷{/if}
+											🇹🇼{#if !hkHasDifferentForm}🇭🇰{/if}{#if simpSameAsTrad}🇨🇳{/if}{#if jpSameAsTrad}🇯🇵{/if}{#if koreanChar && krSameAsTrad && !krHasDifferentForm}🇰🇷{/if}
 										</div>
 									</div>
 								{/if}
@@ -994,6 +1006,22 @@
 										</div>
 										<div class="text-base tracking-wide">
 											🇰🇷
+										</div>
+									</div>
+								{/if}
+
+								<!-- Hong Kong variant (only if it has a distinct form from all others) -->
+								{#if hkHasDifferentForm && hkChar}
+									<div class="flex flex-col items-center gap-2">
+										<div
+											class="w-[100px] h-[100px] flex items-center justify-center bg-bg-secondary rounded-xl shadow-lg border border-border"
+										>
+											<div class="text-6xl md:text-7xl font-bold font-cjk leading-none text-text-primary">
+												{hkChar}
+											</div>
+										</div>
+										<div class="text-base tracking-wide">
+											🇭🇰
 										</div>
 									</div>
 								{/if}
@@ -1063,6 +1091,13 @@
 														.join(", ")}
 												</div>
 											{/if}
+										{/if}
+										<!-- Cantonese (Jyutping) readings from Unihan -->
+										{#if data.data.chinese_char?.cantonese && data.data.chinese_char.cantonese.length > 0}
+											<div class="font-mono text-cantonese flex items-center gap-1">
+												<span class="text-xs opacity-70">🇭🇰</span>
+												{data.data.chinese_char.cantonese.join(", ")}
+											</div>
 										{/if}
 										{#if data.data.japanese_char?.readingMeaning}
 											{@const allReadings =
@@ -1545,6 +1580,14 @@
 														[{item.pinyin}]
 													</span>
 												{/if}
+												{#if item.jyutping}
+													<span
+														class="cantonese-pronunciation"
+														title="Cantonese (Jyutping)"
+													>
+														🇭🇰 [{item.jyutping}]
+													</span>
+												{/if}
 												<SpeakButton text={word.simp || word.trad || data.word} lang="zh" size={18} />
 												<SaveToStudy word={word.simp || word.trad || data.word} language="zh" size="sm" />
 											</div>
@@ -1707,6 +1750,12 @@
 		color: var(--reading-highlight, #e74c3c);
 	}
 
+	.cantonese-pronunciation {
+		font-size: 18px;
+		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", "MS Mincho", serif;
+		color: var(--color-cantonese, #e67e22);
+	}
+
 	.chinese-definitions {
 		font-size: 16px;
 		line-height: 1.6;
@@ -1799,6 +1848,10 @@
 
 		.chinese-pronunciation {
 			font-size: var(--font-size-headline);
+		}
+
+		.cantonese-pronunciation {
+			font-size: var(--font-size-body);
 		}
 
 		.chinese-definitions {
