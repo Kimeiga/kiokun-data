@@ -1,8 +1,15 @@
 <script lang="ts">
 	import type { LayoutData } from './$types';
 	import '../app.css';
+	import { onMount } from 'svelte';
+	import { registerWebMCPTools } from '$lib/webmcp-tools';
 
 	let { children, data }: { children: any; data: LayoutData } = $props();
+
+	// Register WebMCP tools for AI assistant integration
+	onMount(() => {
+		registerWebMCPTools();
+	});
 </script>
 
 <svelte:head>
