@@ -11,26 +11,26 @@
 <style>
 	.section-heading {
 		border-top: 1px solid var(--border-color);
-		margin: var(--spacing-lg) 0 var(--spacing-md) 0;
-		padding-top: var(--spacing-sm);
+		margin: var(--spacing-md) 0 var(--spacing-sm) 0;
+		padding-top: var(--spacing-xs);
 	}
 
 	.section-heading-content {
-		font-size: var(--font-size-footnote);
+		font-size: var(--font-size-caption1);
 		font-weight: 700;
 		color: var(--text-secondary);
 		text-transform: uppercase;
-		letter-spacing: 0.5px;
+		letter-spacing: 0.4px;
 	}
 
 	@media (max-width: 768px) {
 		.section-heading {
-			margin: var(--spacing-md) 0 var(--spacing-sm) 0;
+			margin: var(--spacing-sm) 0 var(--spacing-xs) 0;
 			padding-top: var(--spacing-xs);
 		}
 
 		.section-heading-content {
-			font-size: var(--font-size-caption1);
+			font-size: var(--font-size-caption2);
 			letter-spacing: 0.3px;
 		}
 	}

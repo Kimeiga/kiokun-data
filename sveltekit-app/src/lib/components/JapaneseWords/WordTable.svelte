@@ -20,7 +20,7 @@
 	.word-table {
 		display: flex;
 		flex-direction: column;
-		gap: 8px;
+		gap: var(--spacing-sm);
 	}
 </style>
 

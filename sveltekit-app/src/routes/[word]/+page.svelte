@@ -930,19 +930,19 @@
 			<div class="mb-0">
 				<div class="py-3 md:py-4">
 					<!-- Compact Header: Characters + Pronunciations + Gloss in one line -->
-					<div class="flex flex-col gap-6 mb-6">
+					<div class="flex flex-col gap-4 mb-4">
 						<!-- Top Row: Character Variants & Main Gloss -->
 						<!-- Single character: always inline (even on mobile), left-aligned -->
 						<!-- Multiple characters: stacked on mobile, spread apart on desktop -->
 						<div
-							class="flex items-start gap-6"
+							class="flex items-start gap-4"
 							class:flex-row={isSingleCharacter}
 							class:flex-col={!isSingleCharacter}
 							class:md:flex-row={!isSingleCharacter}
 							class:justify-between={!isSingleCharacter}
 						>
 							<!-- Character Variants with Stroke Animations -->
-							<div class="flex items-center gap-6">
+							<div class="flex items-center gap-4">
 								<!-- Traditional Chinese (always shown if exists) -->
 								{#if traditionalChar}
 									<div class="flex flex-col items-center gap-2">
@@ -1146,7 +1146,7 @@
 					<!-- Mnemonic Hint (on its own line below header) -->
 					{#if data.data.chinese_char?.hint}
 						<div
-							class="mb-5 p-2.5 rounded border-l-4 bg-hint-bg border-l-hint-border"
+							class="mb-3 p-2 rounded border-l-4 bg-hint-bg border-l-hint-border"
 						>
 							<div class="text-sm leading-relaxed text-hint-text">
 								💡 {data.data.chinese_char.hint}
@@ -1170,7 +1170,7 @@
 					<!-- Historical Evolution (Character form evolution through history) -->
 					{#if data.data.chinese_char?.images && data.data.chinese_char.images.filter((img: { url?: string }) => img.url).length > 0}
 						{@const historicalImages = data.data.chinese_char.images.filter((img: { url?: string }) => img.url)}
-						<div class="mb-5">
+						<div class="mb-3">
 							<SectionHeading>🏛️ Historical Evolution</SectionHeading>
 							<div class="flex gap-2 overflow-x-auto pb-2">
 								{#each historicalImages as image}
@@ -1220,7 +1220,7 @@
 
 					<!-- Comments (from Academia Sinica, etc.) -->
 					{#if data.data.chinese_char?.comments && data.data.chinese_char.comments.length > 0}
-						<div class="mb-5">
+						<div class="mb-3">
 							{#each data.data.chinese_char.comments as comment}
 								{#if comment && comment.source && comment.comment}
 									<div
@@ -1293,7 +1293,7 @@
 												{@const typeLabel = isMeaning ? "Meaning" : isPhonetic ? "Phonetic" : isIconic ? "Iconic" : ""}
 
 												<!-- Component card: full width on mobile, auto width on desktop when single character -->
-												<div class="component-card flex items-start gap-3 py-3 px-4 rounded-lg"
+												<div class="component-card flex items-start gap-2 py-2 px-3 rounded-lg"
 													class:w-full={showBothColumns || !isSingleCharacter}
 													class:md:w-auto={isSingleCharacter && !showBothColumns}>
 													<div class="relative w-[60px] h-[60px] flex-shrink-0">
@@ -1358,7 +1358,7 @@
 												{@const highlightColor = isMeaning ? "#27ae60" : isPhonetic ? "#e74c3c" : isIconic ? "#3498db" : isSimplified ? "#9b59b6" : "#95a5a6"}
 												{@const typeLabel = isMeaning ? "Meaning" : isPhonetic ? "Phonetic" : isIconic ? "Iconic" : isSimplified ? "Simplified" : ""}
 
-												<div class="component-card flex items-start gap-3 py-3 px-4 w-full rounded-lg">
+												<div class="component-card flex items-start gap-2 py-2 px-3 w-full rounded-lg">
 													<div class="relative w-[60px] h-[60px] flex-shrink-0">
 														{#if simpMakemeahanziImage?.data?.strokes && !simpUsedSequentialFallback}
 															<!-- Only show stroke highlighting if we have accurate KanjiVG mappings -->
@@ -1553,94 +1553,94 @@
 	.word-sections-grid {
 		display: grid;
 		grid-template-columns: 1fr;
-		gap: 1.5rem;
+		gap: var(--spacing-xl);
 	}
 
 	@media (min-width: 768px) {
 		.word-sections-grid {
-			grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-			gap: 2rem;
+			grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+			gap: var(--spacing-xl);
 		}
 	}
 
 	@media (min-width: 1024px) {
 		.word-sections-grid {
 			grid-template-columns: repeat(3, 1fr);
-			gap: 2rem;
+			gap: var(--spacing-xl);
 		}
 	}
 
 	/* Chinese word entry styling to match Japanese word styling */
 	.chinese-word-entry {
-		margin-bottom: 30px;
+		margin-bottom: var(--spacing-xl);
 	}
 
 	.chinese-headwords {
 		display: flex;
 		align-items: baseline;
-		gap: 12px;
-		margin-bottom: 12px;
+		gap: var(--spacing-sm);
+		margin-bottom: var(--spacing-sm);
 		flex-wrap: wrap;
 	}
 
 	.chinese-word-text {
-		font-size: var(--font-size-title);
+		font-size: var(--font-size-headline);
 		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", "MS Mincho", serif;
 		font-weight: 600;
 		color: var(--primary-highlight, #2c3e50);
 	}
 
 	.chinese-pronunciation {
-		font-size: var(--font-size-headline);
+		font-size: var(--font-size-body);
 		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", "MS Mincho", serif;
 		color: var(--reading-highlight, #e74c3c);
 	}
 
 	.cantonese-pronunciation {
-		font-size: var(--font-size-body);
+		font-size: var(--font-size-subhead);
 		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", "MS Mincho", serif;
 		color: var(--color-cantonese, #e67e22);
 	}
 
 	.chinese-definitions {
-		font-size: var(--font-size-subhead);
-		line-height: 1.6;
+		font-size: var(--font-size-footnote);
+		line-height: 1.5;
 		color: var(--text-primary);
 	}
 
 	/* Korean word entry styling */
 	.korean-word-entry {
-		margin-bottom: 30px;
+		margin-bottom: var(--spacing-xl);
 	}
 
 	.korean-headwords {
 		display: flex;
 		align-items: baseline;
-		gap: 12px;
-		margin-bottom: 8px;
+		gap: var(--spacing-sm);
+		margin-bottom: var(--spacing-sm);
 		flex-wrap: wrap;
 	}
 
 	.korean-word-text {
-		font-size: var(--font-size-title);
+		font-size: var(--font-size-headline);
 		font-family: "Noto Sans KR", "Malgun Gothic", sans-serif;
 		font-weight: 600;
 		color: var(--primary-highlight, #2c3e50);
 	}
 
 	.korean-hanja {
-		font-size: var(--font-size-headline);
+		font-size: var(--font-size-body);
 		font-family: "Noto Serif TC", "Noto Serif SC", "MS Mincho", serif;
 		color: var(--text-secondary, #666);
 	}
 
 	.korean-pos-tags {
-		margin-bottom: 8px;
+		margin-bottom: var(--spacing-sm);
 	}
 
 	.korean-definitions {
-		font-size: var(--font-size-subhead);
-		line-height: 1.6;
+		font-size: var(--font-size-footnote);
+		line-height: 1.5;
 		color: var(--text-primary);
 	}
 
@@ -1679,52 +1679,6 @@
 
 	/* Mobile typography adjustments */
 	@media (max-width: 768px) {
-		.chinese-word-entry {
-			margin-bottom: var(--spacing-xl);
-		}
-
-		.chinese-headwords {
-			gap: var(--spacing-sm);
-			margin-bottom: var(--spacing-sm);
-		}
-
-		.chinese-word-text {
-			font-size: var(--font-size-title);
-		}
-
-		.chinese-pronunciation {
-			font-size: var(--font-size-headline);
-		}
-
-		.cantonese-pronunciation {
-			font-size: var(--font-size-body);
-		}
-
-		.chinese-definitions {
-			font-size: var(--font-size-body);
-		}
-
-		.korean-word-entry {
-			margin-bottom: var(--spacing-xl);
-		}
-
-		.korean-headwords {
-			gap: var(--spacing-sm);
-			margin-bottom: var(--spacing-sm);
-		}
-
-		.korean-word-text {
-			font-size: var(--font-size-title);
-		}
-
-		.korean-hanja {
-			font-size: var(--font-size-headline);
-		}
-
-		.korean-definitions {
-			font-size: var(--font-size-body);
-		}
-
 		.historical-card {
 			padding: var(--spacing-sm);
 			min-width: 60px;

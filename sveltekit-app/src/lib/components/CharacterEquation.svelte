@@ -93,32 +93,32 @@
 
 <style>
 	.character-equation {
-		margin-bottom: 1.5rem;
+		margin-bottom: var(--spacing-lg);
 	}
 
 	.equation-container {
-		padding: 1rem;
+		padding: var(--spacing-md);
 		background: var(--bg-secondary);
 		border: 1px solid var(--border-light);
-		border-radius: 8px;
+		border-radius: 6px;
 	}
 
 	.equation-parts {
 		display: flex;
 		align-items: center;
-		gap: 0.75rem;
+		gap: var(--spacing-sm);
 		flex-wrap: wrap;
-		font-size: var(--font-size-body);
+		font-size: var(--font-size-footnote);
 	}
 
 	.equation-part {
 		display: inline-flex;
 		align-items: baseline;
-		gap: 0.5rem;
-		padding: 0.5rem 0.75rem;
+		gap: var(--spacing-xs);
+		padding: var(--spacing-xs) var(--spacing-sm);
 		background: var(--bg-tertiary);
 		border: 1px solid var(--border-light);
-		border-radius: 6px;
+		border-radius: 4px;
 		text-decoration: none;
 		transition: all 0.2s ease;
 	}
@@ -131,71 +131,70 @@
 
 	.part-gloss {
 		color: var(--text-secondary);
-		font-size: var(--font-size-subhead);
+		font-size: var(--font-size-footnote);
 	}
 
 	.part-char {
 		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", "MS Mincho", serif;
-		font-size: 1.5rem;
+		font-size: 1.25rem;
 		font-weight: 600;
 		color: var(--text-primary);
 	}
 
 	.operator {
 		color: var(--text-tertiary);
-		font-size: 1.25rem;
+		font-size: 1rem;
 		font-weight: 600;
-		padding: 0 0.25rem;
+		padding: 0 2px;
 	}
 
 	.operator.equals {
-		font-size: 1.5rem;
-		padding: 0 0.5rem;
+		font-size: 1.15rem;
+		padding: 0 var(--spacing-xs);
 	}
 
 	.equation-result {
 		display: inline-flex;
 		align-items: baseline;
-		gap: 0.5rem;
-		padding: 0.5rem 0.75rem;
+		gap: var(--spacing-xs);
+		padding: var(--spacing-xs) var(--spacing-sm);
 		background: var(--accent-light);
 		border: 2px solid var(--accent);
-		border-radius: 6px;
+		border-radius: 4px;
 	}
 
 	.result-gloss {
 		color: var(--text-primary);
-		font-size: var(--font-size-subhead);
+		font-size: var(--font-size-footnote);
 		font-weight: 600;
 	}
 
 	.result-char {
 		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", "MS Mincho", serif;
-		font-size: 1.75rem;
+		font-size: 1.4rem;
 		font-weight: 700;
 		color: var(--accent);
 	}
 
 	@media (max-width: 768px) {
 		.equation-parts {
-			font-size: var(--font-size-callout);
-			gap: 0.5rem;
+			gap: var(--spacing-xs);
 		}
 
 		.part-char {
-			font-size: 1.25rem;
+			font-size: 1.1rem;
 		}
 
 		.result-char {
-			font-size: 1.5rem;
+			font-size: 1.25rem;
 		}
 
 		.operator {
-			font-size: 1rem;
+			font-size: 0.9rem;
 		}
 
 		.operator.equals {
-			font-size: 1.25rem;
+			font-size: 1rem;
 		}
 	}
 </style>

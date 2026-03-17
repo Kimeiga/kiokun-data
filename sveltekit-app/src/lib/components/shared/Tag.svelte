@@ -40,13 +40,13 @@
 <style>
 	.tag {
 		display: inline-block;
-		padding: 2px 6px;
+		padding: 1px 5px;
 		border-radius: 3px;
 		border: 1px solid;
-		font-size: 11px;
+		font-size: var(--font-size-caption2);
 		font-weight: 600;
 		white-space: nowrap;
-		margin-right: 4px;
+		margin-right: var(--spacing-xs);
 		transition: all 0.2s ease;
 	}
 

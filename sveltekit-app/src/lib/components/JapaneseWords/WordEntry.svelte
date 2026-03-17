@@ -92,26 +92,26 @@
 
 <style>
 	.word-entry {
-		margin-bottom: 30px;
+		margin-bottom: var(--spacing-xl);
 	}
 
 	.headwords {
 		display: flex;
 		align-items: baseline;
-		gap: 12px;
-		margin-bottom: 12px;
+		gap: var(--spacing-sm);
+		margin-bottom: var(--spacing-sm);
 		flex-wrap: wrap;
 	}
 
 	.kanji-headwords {
-		font-size: 32px;
+		font-size: var(--font-size-headline);
 		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", "MS Mincho", serif;
 		font-weight: 600;
 		color: var(--primary-highlight, #2c3e50);
 	}
 
 	.kana-headwords {
-		font-size: 20px;
+		font-size: var(--font-size-body);
 		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", "MS Mincho", serif;
 		color: var(--reading-highlight, #e74c3c);
 	}
@@ -124,7 +124,7 @@
 	.kana-item {
 		display: inline-flex;
 		align-items: center;
-		gap: 4px;
+		gap: var(--spacing-xs);
 	}
 </style>
 

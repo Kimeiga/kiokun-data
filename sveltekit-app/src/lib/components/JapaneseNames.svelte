@@ -135,7 +135,7 @@
 
 <style>
 	.japanese-names {
-		margin-bottom: 20px;
+		margin-bottom: var(--spacing-xl);
 		position: relative;
 	}
 
@@ -171,27 +171,27 @@
 	}
 
 	.name-entry {
-		padding: 10px 12px;
+		padding: var(--spacing-sm) var(--spacing-md);
 		break-inside: avoid;
 		border-bottom: 1px solid var(--border-light);
 	}
 
 	.name-headwords {
 		display: flex;
-		gap: 10px;
-		margin-bottom: 4px;
+		gap: var(--spacing-sm);
+		margin-bottom: var(--spacing-xs);
 		align-items: baseline;
 	}
 
 	.kanji-forms {
-		font-size: 1.2rem;
+		font-size: var(--font-size-body);
 		font-family: var(--font-cjk);
 		font-weight: 600;
 		color: var(--primary-highlight);
 	}
 
 	.kana-forms {
-		font-size: 1rem;
+		font-size: var(--font-size-subhead);
 		font-family: var(--font-cjk);
 		color: var(--reading-highlight);
 	}
@@ -199,15 +199,15 @@
 	.name-translations {
 		display: flex;
 		flex-direction: column;
-		gap: 2px;
+		gap: 1px;
 	}
 
 	.translation-line {
 		display: flex;
 		align-items: center;
-		gap: 6px;
+		gap: var(--spacing-xs);
 		flex-wrap: wrap;
-		font-size: 0.9rem;
+		font-size: var(--font-size-footnote);
 	}
 
 	.translation-text {

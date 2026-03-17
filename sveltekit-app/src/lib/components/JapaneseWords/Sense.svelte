@@ -84,19 +84,18 @@
 	}
 
 	.tags {
-		margin-right: 4px;
+		margin-right: var(--spacing-xs);
 	}
 
 	.gloss-type {
 		font-size: 0.9em;
 		color: var(--text-secondary);
-		margin-right: 4px;
+		margin-right: var(--spacing-xs);
 	}
 
 	.info-text {
 		font-size: 0.9em;
 		color: var(--text-secondary);
-		font-lang: ja;
 	}
 </style>
 

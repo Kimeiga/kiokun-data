@@ -16,8 +16,8 @@
 
 <style>
 	.info-tag {
-		margin-left: 4px;
-		font-size: 10px;
+		margin-left: var(--spacing-xs);
+		font-size: var(--font-size-caption2);
 		color: var(--text-tertiary, #95a5a6);
 	}
 </style>

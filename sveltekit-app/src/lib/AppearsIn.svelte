@@ -361,7 +361,7 @@
 	}
 
 	.word-text {
-		font-size: var(--font-size-body);
+		font-size: var(--font-size-subhead);
 		font-weight: 600;
 		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", "MS Mincho", serif;
 		color: var(--text-primary);

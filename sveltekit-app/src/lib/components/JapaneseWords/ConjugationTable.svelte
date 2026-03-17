@@ -83,74 +83,74 @@
 
 <style>
 	.conjugation-section {
-		margin-top: 16px;
+		margin-top: var(--spacing-lg);
 		border-top: 1px solid var(--border-color, #e0e0e0);
-		padding-top: 12px;
+		padding-top: var(--spacing-md);
 	}
-	
+
 	.toggle-button {
 		display: flex;
 		align-items: center;
-		gap: 8px;
+		gap: var(--spacing-sm);
 		background: none;
 		border: none;
 		cursor: pointer;
-		font-size: 14px;
+		font-size: var(--font-size-footnote);
 		color: var(--text-secondary, #666);
-		padding: 4px 0;
+		padding: var(--spacing-xs) 0;
 	}
-	
+
 	.toggle-button:hover {
 		color: var(--text-primary, #333);
 	}
-	
+
 	.toggle-icon {
-		font-size: 10px;
+		font-size: var(--font-size-caption2);
 	}
-	
+
 	.conjugation-table {
-		margin-top: 12px;
+		margin-top: var(--spacing-md);
 		display: flex;
 		flex-direction: column;
-		gap: 16px;
+		gap: var(--spacing-md);
 	}
-	
+
 	.form-group {
 		background: var(--bg-secondary, #f5f5f5);
-		border-radius: 8px;
-		padding: 12px;
+		border-radius: 6px;
+		padding: var(--spacing-md);
 	}
-	
+
 	.group-title {
-		font-size: 12px;
+		font-size: var(--font-size-caption1);
 		font-weight: 600;
 		text-transform: uppercase;
 		color: var(--text-secondary, #666);
-		margin: 0 0 8px 0;
+		margin: 0 0 var(--spacing-sm) 0;
 	}
-	
+
 	.forms-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-		gap: 8px;
+		grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+		gap: var(--spacing-sm);
 	}
-	
+
 	.form-row {
 		display: flex;
 		justify-content: space-between;
-		gap: 12px;
-		padding: 4px 8px;
+		gap: var(--spacing-sm);
+		padding: var(--spacing-xs) var(--spacing-sm);
 		background: var(--bg-primary, #fff);
 		border-radius: 4px;
 	}
-	
+
 	.form-name {
-		font-size: 13px;
+		font-size: var(--font-size-caption1);
 		color: var(--text-secondary, #666);
 	}
-	
+
 	.form-value {
-		font-size: 15px;
+		font-size: var(--font-size-subhead);
 		font-family: "Noto Serif JP", "MS Mincho", serif;
 		color: var(--text-primary, #333);
 	}

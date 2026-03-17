@@ -85,23 +85,23 @@
 	--star-full: #f39c12;
 	--star-hollow: #bdc3c7;
 
-	/* ===== TYPOGRAPHY SCALE (iOS HIG-inspired) ===== */
+	/* ===== TYPOGRAPHY SCALE (Compact, content-dense) ===== */
 	/* Desktop sizes */
-	--font-size-title: 32px;
-	--font-size-headline: 20px;
-	--font-size-body: 17px;
-	--font-size-callout: 16px;
-	--font-size-subhead: 15px;
-	--font-size-footnote: 13px;
-	--font-size-caption1: 12px;
-	--font-size-caption2: 11px;
+	--font-size-title: 28px;
+	--font-size-headline: 18px;
+	--font-size-body: 15px;
+	--font-size-callout: 14px;
+	--font-size-subhead: 13px;
+	--font-size-footnote: 12px;
+	--font-size-caption1: 11px;
+	--font-size-caption2: 10px;
 
 	/* Spacing scale */
-	--spacing-xs: 4px;
-	--spacing-sm: 8px;
-	--spacing-md: 12px;
-	--spacing-lg: 16px;
-	--spacing-xl: 24px;
+	--spacing-xs: 3px;
+	--spacing-sm: 6px;
+	--spacing-md: 10px;
+	--spacing-lg: 14px;
+	--spacing-xl: 20px;
 }
 
 [data-theme='dark'] {
@@ -233,22 +233,22 @@ body {
 @media (max-width: 768px) {
 	:root,
 	[data-theme='dark'] {
-		/* Mobile font sizes - slightly smaller for compact display */
-		--font-size-title: 28px;
-		--font-size-headline: 18px;
-		--font-size-body: 15px;        /* iOS Subhead equivalent */
-		--font-size-callout: 14px;
-		--font-size-subhead: 13px;
-		--font-size-footnote: 12px;    /* iOS Caption 1 */
-		--font-size-caption1: 11px;    /* iOS Caption 2 */
-		--font-size-caption2: 10px;
+		/* Mobile font sizes - compact display */
+		--font-size-title: 24px;
+		--font-size-headline: 16px;
+		--font-size-body: 14px;
+		--font-size-callout: 13px;
+		--font-size-subhead: 12px;
+		--font-size-footnote: 11px;
+		--font-size-caption1: 10px;
+		--font-size-caption2: 9px;
 
 		/* Tighter spacing on mobile */
-		--spacing-xs: 3px;
-		--spacing-sm: 6px;
-		--spacing-md: 10px;
-		--spacing-lg: 14px;
-		--spacing-xl: 20px;
+		--spacing-xs: 2px;
+		--spacing-sm: 4px;
+		--spacing-md: 8px;
+		--spacing-lg: 12px;
+		--spacing-xl: 16px;
 	}
 }
 

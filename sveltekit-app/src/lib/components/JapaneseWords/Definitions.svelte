@@ -98,35 +98,35 @@
 
 <style>
 	.definitions {
-		font-size: 16px;
-		line-height: 1.6;
+		font-size: var(--font-size-subhead);
+		line-height: 1.5;
 		color: var(--text-primary);
 	}
 
 	.single-sense {
-		margin-bottom: 8px;
+		margin-bottom: var(--spacing-sm);
 	}
 
 	.sense-group {
-		margin-bottom: 20px;
+		margin-bottom: var(--spacing-lg);
 	}
 
 	.group-heading {
-		margin: 4px 0 8px 0;
+		margin: var(--spacing-xs) 0 var(--spacing-sm) 0;
 		display: flex;
 		flex-wrap: wrap;
-		gap: 6px;
+		gap: var(--spacing-xs);
 	}
 
 	.sense-list {
 		margin: 0;
-		padding-left: 24px;
+		padding-left: 20px;
 		list-style: decimal;
 	}
 
 	.sense-item {
-		margin-bottom: 8px;
-		line-height: 1.6;
+		margin-bottom: var(--spacing-sm);
+		line-height: 1.5;
 	}
 </style>
 
