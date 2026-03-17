@@ -20,7 +20,7 @@
 		words: Record<string, VideoOccurrence[]>;
 	}
 
-	let { word, language = 'ja' }: { word: string; language?: 'ja' | 'zh' } = $props();
+	let { word, language = 'ja', id }: { word: string; language?: 'ja' | 'zh'; id?: string } = $props();
 
 	const BATCH_SIZE = 10;
 
@@ -68,7 +68,7 @@
 
 {#if !loading && occurrences.length > 0}
 	<div class="mb-6">
-		<SectionHeading>{languageFlag} Reels ({occurrences.length})</SectionHeading>
+		<SectionHeading {id}>{languageFlag} Reels ({occurrences.length})</SectionHeading>
 		<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
 			{#each occurrences.slice(0, visibleCount) as occ}
 				<a

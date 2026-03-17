@@ -144,7 +144,7 @@
 			<!-- Chinese Words Column -->
 			{#if filteredChineseWords.length > 0}
 				<div class="column">
-					<SectionHeading
+					<SectionHeading id="chinese-words"
 						>CHINESE WORDS ({filteredChineseWords.length})</SectionHeading
 					>
 					<div class="word-list">
@@ -189,7 +189,7 @@
 			<!-- Japanese Words Column -->
 			{#if filteredJapaneseWords.length > 0}
 				<div class="column">
-					<SectionHeading
+					<SectionHeading id="japanese-words"
 						>JAPANESE WORDS ({filteredJapaneseWords.length})</SectionHeading
 					>
 					<div class="word-list">
@@ -241,7 +241,7 @@
 			<!-- Korean Words Column -->
 			{#if filteredKoreanWords.length > 0}
 				<div class="column">
-					<SectionHeading
+					<SectionHeading id="korean-words"
 						>KOREAN WORDS ({filteredKoreanWords.length})</SectionHeading
 					>
 					<div class="word-list">

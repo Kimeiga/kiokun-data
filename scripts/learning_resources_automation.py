@@ -24,6 +24,18 @@ import hashlib
 from datetime import datetime
 from typing import List, Dict, Optional
 from urllib.parse import urlparse, parse_qs
+from pathlib import Path
+
+# Load .env file if it exists (for local development)
+env_file = Path(__file__).parent / '.env'
+if env_file.exists():
+    print(f"📄 Loading environment variables from {env_file}")
+    with open(env_file) as f:
+        for line in f:
+            line = line.strip()
+            if line and not line.startswith('#') and '=' in line:
+                key, value = line.split('=', 1)
+                os.environ[key.strip()] = value.strip()
 
 # Third-party imports
 try:
@@ -57,7 +69,7 @@ class LearningResourcesAutomation:
         
         # Initialize Gemini API
         genai.configure(api_key=self.gemini_api_key)
-        self.gemini_model = genai.GenerativeModel('gemini-pro')
+        self.gemini_model = genai.GenerativeModel('gemini-2.5-flash')
         
         # Cloudflare D1 API endpoint
         self.d1_api_url = f"https://api.cloudflare.com/client/v4/accounts/{self.cf_account_id}/d1/database/{self.cf_database_id}/query"
@@ -93,27 +105,45 @@ class LearningResourcesAutomation:
         return slug.strip('-')[:100]  # Limit to 100 chars
     
     def execute_d1_query(self, sql: str, params: Optional[List] = None) -> Dict:
-        """Execute a SQL query on Cloudflare D1 database."""
+        """
+        Execute a SQL query on Cloudflare D1 database using REST API.
+
+        This is more reliable than wrangler CLI for automation scripts.
+        """
+        if params is None:
+            params = []
+
+        url = f"https://api.cloudflare.com/client/v4/accounts/{self.cf_account_id}/d1/database/{self.cf_database_id}/query"
+
         headers = {
             "Authorization": f"Bearer {self.cf_api_token}",
             "Content-Type": "application/json"
         }
-        
+
         payload = {
-            "sql": sql
+            "sql": sql,
+            "params": params
         }
-        
-        if params:
-            payload["params"] = params
-        
-        response = requests.post(self.d1_api_url, headers=headers, json=payload)
-        response.raise_for_status()
-        
-        result = response.json()
-        if not result.get("success"):
-            raise Exception(f"D1 query failed: {result.get('errors')}")
-        
-        return result.get("result", [{}])[0]
+
+        try:
+            response = requests.post(url, headers=headers, json=payload)
+            response.raise_for_status()
+
+            result = response.json()
+
+            if not result.get("success"):
+                print(f"  ⚠️  D1 query failed: {result.get('errors')}")
+                return {}
+
+            # Return the first result set
+            results = result.get("result", [])
+            if results and len(results) > 0:
+                return results[0]
+            return {}
+
+        except requests.exceptions.RequestException as e:
+            print(f"  ⚠️  D1 query error: {e}")
+            return {}
 
     def fetch_channel_videos(self, channel_id: str, max_results: int = 10) -> List[Dict]:
         """
@@ -206,7 +236,7 @@ class LearningResourcesAutomation:
 
     def fetch_transcript(self, video_id: str, language: str = 'ja') -> Optional[Dict]:
         """
-        Fetch transcript for a YouTube video.
+        Fetch transcript for a YouTube video using cookies to bypass IP blocks.
 
         Args:
             video_id: YouTube video ID
@@ -219,18 +249,61 @@ class LearningResourcesAutomation:
         print(f"📝 Fetching transcript for video {video_id}...")
 
         try:
-            # Create API instance (new API in v1.2.4+)
-            ytt_api = YouTubeTranscriptApi()
+            # Add delay to avoid rate limiting (2 seconds between requests)
+            time.sleep(2)
 
-            # Try to fetch transcript in target language first, then English as fallback
+            # Check if cookies.txt exists (bypasses IP blocks)
+            cookies_path = Path(__file__).parent / 'cookies.txt'
+
+            # Try to fetch transcript with cookies if available
             try:
+                if cookies_path.exists():
+                    print(f"  🍪 Using cookies.txt to bypass IP restrictions...")
+
+                    # Create a requests session and load cookies
+                    import requests
+                    from http.cookiejar import MozillaCookieJar
+
+                    session = requests.Session()
+                    cookie_jar = MozillaCookieJar(str(cookies_path))
+                    cookie_jar.load(ignore_discard=True, ignore_expires=True)
+                    session.cookies = cookie_jar
+
+                    # Add browser-like headers to avoid detection
+                    session.headers.update({
+                        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+                        'Accept-Language': 'en-US,en;q=0.9,ja;q=0.8',
+                        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+                        'Referer': 'https://www.youtube.com/',
+                    })
+
+                    # Pass the session to YouTubeTranscriptApi
+                    ytt_api = YouTubeTranscriptApi(http_client=session)
+                else:
+                    print(f"  ⚠️  No cookies.txt found. Download from YouTube to bypass IP blocks.")
+                    print(f"  💡 Run: python3 scripts/export_cookies.py")
+                    # Try without cookies (will likely fail if IP is blocked)
+                    ytt_api = YouTubeTranscriptApi()
+
+                # Fetch the transcript
                 fetched_transcript = ytt_api.fetch(video_id, languages=[language, 'en'])
+
+                # Convert FetchedTranscript to raw data (list of dicts)
+                segments = fetched_transcript.to_raw_data()
+
             except Exception as e:
+                error_msg = str(e)
+                if "IpBlocked" in error_msg or "blocking requests from your IP" in error_msg:
+                    print(f"  ❌ YouTube is blocking your IP!")
+                    print(f"  💡 Solution: Add cookies.txt file to bypass blocks")
+                    print(f"  📖 Instructions:")
+                    print(f"     1. Install 'Get cookies.txt LOCALLY' browser extension")
+                    print(f"     2. Go to YouTube.com (logged in)")
+                    print(f"     3. Click extension and download cookies.txt")
+                    print(f"     4. Save to: {cookies_path}")
+                    return None
                 print(f"  ⏭️  No transcript available: {e}")
                 return None
-
-            # Convert to raw data format
-            segments = fetched_transcript.to_raw_data()
 
             # Combine all text segments
             full_text = " ".join(segment['text'] for segment in segments)
@@ -486,15 +559,7 @@ Respond ONLY with valid JSON, no additional text."""
             print(f"\n--- Processing video {i}/{len(videos)} ---")
             print(f"Title: {video['title']}")
 
-            # Check if video already exists in database
-            check_sql = "SELECT id FROM video_posts WHERE videoId = ?"
-            result = self.execute_d1_query(check_sql, [video['video_id']])
-
-            if result.get('results'):
-                print(f"  ⏭️  Video already processed, skipping...")
-                continue
-
-            # Fetch transcript
+            # Fetch transcript (skip database check, let INSERT handle duplicates)
             transcript = self.fetch_transcript(video['video_id'])
             if not transcript:
                 print(f"  ⏭️  No transcript available, skipping...")

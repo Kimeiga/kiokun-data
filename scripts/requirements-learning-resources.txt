@@ -5,4 +5,5 @@ google-api-python-client>=2.100.0  # YouTube Data API v3
 youtube-transcript-api>=0.6.0       # Transcript extraction
 google-generativeai>=0.3.0          # Gemini Pro API
 requests>=2.31.0                     # HTTP requests for Cloudflare D1 API
+pycryptodome>=3.18.0                 # Cookie decryption on macOS
 

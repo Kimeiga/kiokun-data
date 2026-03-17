@@ -66,7 +66,7 @@
 
 {#if equationParts}
 	<div class="character-equation">
-		<SectionHeading>Character Equation</SectionHeading>
+		<SectionHeading id="equation">Character Equation</SectionHeading>
 		
 		<div class="equation-container">
 			<div class="equation-parts">

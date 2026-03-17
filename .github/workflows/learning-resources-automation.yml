@@ -30,7 +30,15 @@ jobs:
         run: |
           cd scripts
           pip install -r requirements-learning-resources.txt
-      
+
+      - name: Decode YouTube cookies
+        env:
+          YOUTUBE_COOKIES_BASE64: ${{ secrets.YOUTUBE_COOKIES_BASE64 }}
+        run: |
+          echo "$YOUTUBE_COOKIES_BASE64" | base64 -d > scripts/cookies.txt
+          echo "✅ Cookies decoded successfully"
+          echo "Cookie file size: $(wc -c < scripts/cookies.txt) bytes"
+
       - name: Run automation script
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}

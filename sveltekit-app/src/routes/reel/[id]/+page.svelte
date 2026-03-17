@@ -44,9 +44,9 @@
 
 <main class="container mx-auto px-4 py-6">
 	<div class="flex flex-col md:flex-row gap-6 max-w-6xl mx-auto md:items-start">
-		<!-- Left: Video player (sticky, offset for header) -->
-		<div class="md:w-2/5 flex justify-center md:sticky md:top-20">
-			<div class="w-full max-w-xs rounded-lg overflow-hidden bg-black">
+		<!-- Left: Video player and metadata (sticky, offset for header) -->
+		<div class="md:w-2/5 flex flex-col md:sticky md:top-20">
+			<div class="w-full max-w-xs mx-auto rounded-lg overflow-hidden bg-black">
 				<!-- svelte-ignore a11y_media_has_caption -->
 				<video
 					bind:this={videoElement}
@@ -55,6 +55,52 @@
 					controls
 					playsinline
 				></video>
+			</div>
+
+			<!-- Video metadata -->
+			<div class="w-full max-w-xs mx-auto mt-4 space-y-2">
+				{#if data.author}
+					<div class="flex items-center gap-2 text-sm">
+						<span class="text-text-tertiary">Author:</span>
+						<a
+							href="https://www.instagram.com/{data.author.replace('@', '')}/"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="text-accent hover:underline font-medium"
+						>{data.author}</a>
+					</div>
+				{/if}
+
+				{#if data.sourceUrl}
+					<div class="flex items-center gap-2 text-sm">
+						<span class="text-text-tertiary">Source:</span>
+						<a
+							href={data.sourceUrl}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="text-accent hover:underline flex items-center gap-1"
+						>
+							Instagram
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+							</svg>
+						</a>
+					</div>
+				{/if}
+
+				{#if data.duration}
+					<div class="flex items-center gap-2 text-sm">
+						<span class="text-text-tertiary">Duration:</span>
+						<span class="text-text-secondary">{formatTime(data.duration)}</span>
+					</div>
+				{/if}
+
+				{#if data.caption}
+					<div class="text-sm mt-3 p-2 bg-bg-secondary rounded-lg">
+						<span class="text-text-tertiary block mb-1">Description:</span>
+						<p class="text-text-secondary text-xs leading-relaxed">{data.caption}</p>
+					</div>
+				{/if}
 			</div>
 		</div>
 

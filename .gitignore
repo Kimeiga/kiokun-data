@@ -78,6 +78,10 @@ wheels/
 *.egg
 MANIFEST
 
+# YouTube cookies (contains authentication tokens)
+scripts/cookies.txt
+cookies.txt
+
 # Virtual environments
 .env
 .venv

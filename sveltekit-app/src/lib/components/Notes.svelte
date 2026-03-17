@@ -274,7 +274,7 @@
 	});
 </script>
 
-<SectionHeading>Notes</SectionHeading>
+<SectionHeading id="notes">Notes</SectionHeading>
 
 <div class="mb-4">
 	{#if error}

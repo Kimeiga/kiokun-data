@@ -17,8 +17,26 @@
 	import { languageStore } from "$lib/stores/languages.svelte";
 	import SentenceBar from "$lib/components/SentenceBar.svelte";
 	import ReelsSection from "$lib/components/ReelsSection.svelte";
+	import EtymologyTrail from "$lib/components/EtymologyTrail.svelte";
+	import SimilarCharacters from "$lib/components/SimilarCharacters.svelte";
+	import SemanticGraph from "$lib/components/SemanticGraph.svelte";
+	import SentenceExamples from "$lib/components/SentenceExamples.svelte";
 
 	let { data }: { data: PageData } = $props();
+
+	// Scroll to hash target on mount (for section permalinks)
+	onMount(() => {
+		const hash = window.location.hash?.slice(1);
+		if (hash) {
+			// Delay slightly to allow child components to render
+			setTimeout(() => {
+				const el = document.getElementById(hash);
+				if (el) {
+					el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+				}
+			}, 300);
+		}
+	});
 
 	// Get all character variants
 	let traditionalChar = $derived(data.data.chinese_char?.char || data.word);
@@ -1171,7 +1189,7 @@
 					{#if data.data.chinese_char?.images && data.data.chinese_char.images.filter((img: { url?: string }) => img.url).length > 0}
 						{@const historicalImages = data.data.chinese_char.images.filter((img: { url?: string }) => img.url)}
 						<div class="mb-3">
-							<SectionHeading>🏛️ Historical Evolution</SectionHeading>
+							<SectionHeading id="history">🏛️ Historical Evolution</SectionHeading>
 							<div class="flex gap-2 overflow-x-auto pb-2">
 								{#each historicalImages as image}
 									{#if image.url}
@@ -1264,7 +1282,7 @@
 						{@const hasSimpComponents = simplifiedCharData?.components && simplifiedCharData.components.length > 0 && simplifiedChar}
 						{@const showBothColumns = hasTradComponents && hasSimpComponents && traditionalChar !== simplifiedChar}
 
-						<SectionHeading>🧩 Components</SectionHeading>
+						<SectionHeading id="components">🧩 Components</SectionHeading>
 
 						<div class="mb-4">
 							<!-- Two-column layout when both trad and simp have different components -->
@@ -1330,6 +1348,11 @@
 														{#if hint}
 															<div class="text-xs text-text-tertiary mt-1 italic">{hint}</div>
 														{/if}
+														{#if isPhonetic}
+															<a href="/phonetic/{char}" class="text-xs mt-1 hover:underline transition-colors" style="color: #e74c3c;">
+																View phonetic series &rarr;
+															</a>
+														{/if}
 													</div>
 												</div>
 											{/each}
@@ -1393,6 +1416,11 @@
 														{#if hint}
 															<div class="text-xs text-text-tertiary mt-1 italic">{hint}</div>
 														{/if}
+														{#if isPhonetic}
+															<a href="/phonetic/{char}" class="text-xs mt-1 hover:underline transition-colors" style="color: #e74c3c;">
+																View phonetic series &rarr;
+															</a>
+														{/if}
 													</div>
 												</div>
 											{/each}
@@ -1404,6 +1432,42 @@
 					{/if}
 
 					<!-- Statistics section removed - data overlaps with word views -->
+
+					<!-- Etymology Trail -->
+					{#if data.data.chinese_char}
+						{@const allReadings = data.data.japanese_char?.readingMeaning?.readingGroups?.[0]}
+						<EtymologyTrail
+							oldPronunciations={data.data.chinese_char.oldPronunciations}
+							modernPinyin={data.data.chinese_char.pinyinFrequencies?.map(pf => pf.pinyin)}
+							cantonese={data.data.chinese_char.cantonese}
+							japaneseOn={allReadings?.onReadings}
+							japaneseKun={allReadings?.kunReadings}
+							koreanReadings={data.data.korean_char?.readings?.map(r => r.hangul)}
+							targetChar={traditionalChar}
+						/>
+					{/if}
+
+					<!-- Similar Characters -->
+					{#if data.data.chinese_char?.components}
+						{@const compChars = data.data.chinese_char.components
+							.filter(c => typeof c !== 'string')
+							.map(c => c.character || c.char || c)
+							.filter(Boolean)}
+						<SimilarCharacters
+							targetChar={traditionalChar}
+							targetStrokeCount={data.data.chinese_char.strokeCount}
+							targetComponents={compChars}
+							componentUses={data.componentUses}
+						/>
+
+						<!-- Semantic Network Graph -->
+						<SemanticGraph
+							targetChar={traditionalChar}
+							components={compChars}
+							componentUses={data.componentUses}
+							charGlosses={data.charGlosses}
+						/>
+					{/if}
 				</div>
 			</div>
 		{/if}
@@ -1414,7 +1478,7 @@
 				<!-- Chinese Words -->
 				{#if data.data.chinese_words?.length && languageStore.preferences.chinese}
 					<div>
-						<SectionHeading>Chinese</SectionHeading>
+						<SectionHeading id="chinese">Chinese</SectionHeading>
 						<div class="mb-4">
 							{#each data.data.chinese_words as word}
 								{#if word.items && word.items.length > 0}
@@ -1473,7 +1537,7 @@
 				<!-- Japanese Words -->
 				{#if data.data.japanese_words?.length && languageStore.preferences.japanese}
 					<div>
-						<SectionHeading>Japanese</SectionHeading>
+						<SectionHeading id="japanese">Japanese</SectionHeading>
 						<div class="mb-4">
 							<WordTable
 								words={data.data.japanese_words}
@@ -1486,7 +1550,7 @@
 				<!-- Korean Words -->
 				{#if data.data.korean_words?.length && languageStore.preferences.korean}
 					<div>
-						<SectionHeading>Korean</SectionHeading>
+						<SectionHeading id="korean">Korean</SectionHeading>
 						<div class="mb-4">
 							{#each data.data.korean_words as word}
 								<div class="korean-word-entry">
@@ -1521,6 +1585,12 @@
 
 		<!-- Notes and Component Uses removed - now at top of page -->
 
+		<!-- Example Sentences -->
+		<SentenceExamples
+			japaneseSenses={data.data.japanese_words?.flatMap(w => w.sense) ?? []}
+			koreanWords={data.data.korean_words ?? []}
+		/>
+
 		<!-- Japanese Names Section -->
 		{#if data.data.japanese_names && data.data.japanese_names.length > 0}
 			<JapaneseNames names={data.data.japanese_names} word={data.word} />
@@ -1538,10 +1608,10 @@
 
 		<!-- Reels Sections (show both Japanese and Chinese if applicable) -->
 		{#if data.data.japanese_words && data.data.japanese_words.length > 0}
-			<ReelsSection word={data.word} language="ja" />
+			<ReelsSection word={data.word} language="ja" id="reels-ja" />
 		{/if}
 		{#if data.data.chinese_words && data.data.chinese_words.length > 0}
-			<ReelsSection word={data.word} language="zh" />
+			<ReelsSection word={data.word} language="zh" id="reels-zh" />
 		{/if}
 	</div>
 </div>

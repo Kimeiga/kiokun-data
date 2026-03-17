@@ -4,10 +4,26 @@
 	import ThemeToggle from "./ThemeToggle.svelte";
 	import AuthButton from "./AuthButton.svelte";
 	import LanguageToggle from "./LanguageToggle.svelte";
+	import HandwritingInput from "./HandwritingInput.svelte";
 	import { useSession } from "$lib/auth-client";
+	import { goto } from "$app/navigation";
 	import { navigateOrSearch } from "$lib/utils/search-navigation";
 
+	let handwritingInput: HandwritingInput;
+
 	let { currentWord = "" }: { currentWord?: string } = $props();
+
+	let cachedGlosses: Record<string, string> | null = null;
+
+	async function goToRandomCharacter() {
+		if (!cachedGlosses) {
+			const res = await fetch("/game_data/component_glosses.json");
+			cachedGlosses = await res.json();
+		}
+		const keys = Object.keys(cachedGlosses!);
+		const char = keys[Math.floor(Math.random() * keys.length)];
+		await goto(`/${char}`);
+	}
 	// Use internal state for search input, synced with currentWord via key
 	let internalSearchValue = $state("");
 	let mobileMenuOpen = $state(false);
@@ -81,6 +97,13 @@
 
 		<!-- Desktop Actions - Hidden on mobile -->
 		<div class="hidden md:flex items-center gap-3 shrink-0">
+			<button
+				onclick={() => handwritingInput.open()}
+				class="flex items-center justify-center w-10 h-10 rounded-full bg-bg-secondary border border-border text-xl transition-all duration-200 hover:border-accent hover:text-accent hover:scale-105 cursor-pointer"
+				title="Draw Character"
+			>
+				&#9999;&#65039;
+			</button>
 			<LanguageToggle compact={true} />
 			<a
 				href="/users"
@@ -96,6 +119,13 @@
 			>
 				📚
 			</a>
+			<button
+				onclick={goToRandomCharacter}
+				class="flex items-center justify-center w-10 h-10 rounded-full bg-bg-secondary border border-border text-xl transition-all duration-200 hover:border-accent hover:text-accent hover:scale-105 cursor-pointer"
+				title="Random Character"
+			>
+				🎲
+			</button>
 			{#if $session.data?.user}
 				<a
 					href="/lists"
@@ -166,6 +196,14 @@
 		>
 			<div class="max-w-[1400px] mx-auto px-4 py-3 flex flex-col gap-3">
 				<!-- Navigation Links -->
+				<button
+					class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-bg-secondary border border-border text-text-primary transition-all duration-200 hover:border-accent hover:text-accent cursor-pointer w-full text-left"
+					onclick={() => { closeMobileMenu(); handwritingInput.open(); }}
+				>
+					<span class="text-lg">&#9999;&#65039;</span>
+					<span class="text-sm font-medium">Draw Character</span>
+				</button>
+
 				<a
 					href="/users"
 					class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-bg-secondary border border-border text-text-primary no-underline transition-all duration-200 hover:border-accent hover:text-accent"
@@ -183,6 +221,15 @@
 					<span class="text-lg">📚</span>
 					<span class="text-sm font-medium">Study</span>
 				</a>
+
+				<button
+					class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-bg-secondary border border-border text-text-primary transition-all duration-200 hover:border-accent hover:text-accent cursor-pointer w-full text-left"
+					title="Random Character"
+					onclick={() => { closeMobileMenu(); goToRandomCharacter(); }}
+				>
+					<span class="text-lg">🎲</span>
+					<span class="text-sm font-medium">Random Character</span>
+				</button>
 
 				{#if $session.data?.user}
 					<a
@@ -209,3 +256,5 @@
 		</div>
 	{/if}
 </header>
+
+<HandwritingInput bind:this={handwritingInput} />

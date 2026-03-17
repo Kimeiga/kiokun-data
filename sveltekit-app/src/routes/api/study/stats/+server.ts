@@ -89,6 +89,23 @@ export async function GET({ locals, platform }: RequestEvent) {
 		// Total reviews done (sum of repetitions)
 		const totalReviews = allCards.reduce((sum, c) => sum + c.repetitions, 0);
 
+		// Leech cards: reviewed but ease factor dropped below 200 (struggling)
+		const leeches = allCards.filter(c => c.repetitions === 0 && c.easeFactor < 200 && c.lastReviewed);
+		const leechCount = leeches.length;
+		const leechWords = leeches.slice(0, 10).map(c => c.word);
+
+		// Forecast: cards due per day for next 7 days
+		const forecast: number[] = [];
+		for (let d = 0; d < 7; d++) {
+			const dayStart = new Date(today);
+			dayStart.setDate(dayStart.getDate() + d);
+			const dayEnd = new Date(dayStart);
+			dayEnd.setDate(dayEnd.getDate() + 1);
+			forecast.push(allCards.filter(c =>
+				c.nextReview && new Date(c.nextReview) >= dayStart && new Date(c.nextReview) < dayEnd
+			).length);
+		}
+
 		return json({
 			totalCards,
 			dueToday,
@@ -100,6 +117,9 @@ export async function GET({ locals, platform }: RequestEvent) {
 			avgEaseFactor: Math.round(avgEaseFactor * 100) / 100,
 			streak,
 			totalReviews,
+			leechCount,
+			leechWords,
+			forecast,
 		});
 	} catch (err) {
 		console.error("Error fetching stats:", err);

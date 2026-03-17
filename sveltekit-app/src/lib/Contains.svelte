@@ -53,7 +53,7 @@
 </script>
 
 {#if words.length > 0}
-	<SectionHeading>Contains</SectionHeading>
+	<SectionHeading id="contains">Contains</SectionHeading>
 
 	<div class="mb-4">
 		<div class="characters-row">

@@ -61,7 +61,7 @@
 </script>
 
 <div class="japanese-names">
-	<SectionHeading>Japanese Names</SectionHeading>
+	<SectionHeading id="names">Japanese Names</SectionHeading>
 	<div class="names-container" class:expanded={showAll}>
 		<div class="names-grid">
 			{#each names as name}

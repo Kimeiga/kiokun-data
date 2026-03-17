@@ -3,6 +3,7 @@
 	import '../app.css';
 	import { onMount } from 'svelte';
 	import { registerWebMCPTools } from '$lib/webmcp-tools';
+	import KeyboardShortcuts from '$lib/components/KeyboardShortcuts.svelte';
 
 	let { children, data }: { children: any; data: LayoutData } = $props();
 
@@ -22,5 +23,6 @@
 	</script>
 </svelte:head>
 
+<KeyboardShortcuts />
 {@render children()}
 

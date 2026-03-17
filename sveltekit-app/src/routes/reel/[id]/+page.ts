@@ -9,8 +9,17 @@ interface VideoOccurrence {
 	sentence: string;
 }
 
+interface VideoInfo {
+	url: string;
+	word_count: number;
+	source_url?: string;
+	author?: string;
+	caption?: string;
+	duration?: number;
+}
+
 interface VideoData {
-	videos: Record<string, { url: string; word_count: number }>;
+	videos: Record<string, VideoInfo>;
 	words: Record<string, VideoOccurrence[]>;
 }
 
@@ -28,6 +37,11 @@ export interface ReelPageData {
 	startTime: number;
 	transcript: TranscriptSegment[];
 	language: 'ja' | 'zh';
+	// Metadata from Instagram
+	sourceUrl: string | null;
+	author: string | null;
+	caption: string | null;
+	duration: number | null;
 }
 
 export const load: PageLoad<ReelPageData> = async ({ params, url, fetch }) => {
@@ -70,13 +84,20 @@ export const load: PageLoad<ReelPageData> = async ({ params, url, fetch }) => {
 	const transcript = Array.from(transcriptMap.values())
 		.sort((a, b) => a.start_time - b.start_time);
 
+	// Get video metadata
+	const videoInfo = videoData.videos[videoId];
+
 	return {
 		videoId,
 		videoUrl,
 		highlightWord,
 		startTime,
 		transcript,
-		language
+		language,
+		sourceUrl: videoInfo?.source_url ?? null,
+		author: videoInfo?.author ?? null,
+		caption: videoInfo?.caption ?? null,
+		duration: videoInfo?.duration ?? null
 	};
 };
 

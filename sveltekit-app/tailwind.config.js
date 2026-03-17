@@ -27,6 +27,7 @@ export default {
 				},
 				// Specific semantic colors
 				pinyin: 'var(--color-pinyin)',
+				cantonese: 'var(--color-cantonese)',
 				onyomi: 'var(--color-onyomi)',
 				kunyomi: 'var(--color-kunyomi)',
 				korean: 'var(--color-korean)',
