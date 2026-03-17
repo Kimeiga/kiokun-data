@@ -44,13 +44,13 @@
 			.map(c => {
 				const char = c.character;
 				// Priority: component meaning from dictionary > charGlosses (game data)
-				// The component meaning comes from the dictionary's first definition
-				// which is more accurate than the game data
-				const rawGloss = c.meaning || charGlosses?.[char];
-				const cleanedGloss = cleanGloss(rawGloss);
-				return { char, gloss: cleanedGloss };
+				// BUT: if the dictionary meaning is empty after cleaning (e.g., "variant of..."),
+				// fall back to the curated gloss from charGlosses
+				const cleanedDictGloss = cleanGloss(c.meaning);
+				const finalGloss = cleanedDictGloss || charGlosses?.[char] || "";
+				return { char, gloss: finalGloss };
 			})
-			.filter(c => c.gloss);  // Only include components with glosses (after cleaning)
+			.filter(c => c.gloss);  // Only include components with glosses
 
 		if (validComponents.length === 0) return null;
 
