@@ -18,6 +18,7 @@
 	async function goToRandomCharacter() {
 		if (!cachedGlosses) {
 			const res = await fetch("/game_data/component_glosses.json");
+			if (!res.ok) return;
 			cachedGlosses = await res.json();
 		}
 		const keys = Object.keys(cachedGlosses!);

@@ -140,8 +140,12 @@ export interface ChineseComponent {
 }
 
 export interface OldPronunciation {
-  dynasty: string;
   pinyin: string;
+  source?: string;
+  gloss?: string;
+  MC?: string;  // Middle Chinese reconstruction
+  OC?: string;  // Old Chinese reconstruction
+  dynasty?: string;  // legacy field
 }
 
 export interface ChineseComment {

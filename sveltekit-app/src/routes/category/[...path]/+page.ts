@@ -75,15 +75,6 @@ export const load: PageLoad<PageData> = async ({ params, fetch }) => {
 				// If there's more depth, track the next subcategory
 				else if (taxonomy.length > categoryPath.length) {
 					subcategoriesSet.add(taxonomy[categoryPath.length]);
-					
-					// Also include characters at this exact level
-					if (taxonomy.length === categoryPath.length) {
-						characters.push({
-							char,
-							gloss: charGlosses[char] || '',
-							taxonomy
-						});
-					}
 				}
 			}
 		}
