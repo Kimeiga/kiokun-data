@@ -21,7 +21,7 @@
 			<h2 class="text-2xl font-bold mb-4 text-text-primary">🇯🇵 Japanese</h2>
 			<div class="grid gap-4 md:grid-cols-2">
 				<!-- Scripting Japan Card -->
-				<a 
+				<a
 					href="/learning-resources/japanese/scripting-japan"
 					class="block p-6 bg-bg-secondary border border-border rounded-lg hover:shadow-lg transition-shadow"
 				>
@@ -41,18 +41,26 @@
 					</div>
 				</a>
 
-				<!-- Placeholder for future channels -->
-				<div class="p-6 bg-bg-secondary border border-border border-dashed rounded-lg opacity-50">
+				<!-- Japanese Emoji Card -->
+				<a
+					href="/japanese-emoji"
+					class="block p-6 bg-bg-secondary border border-border rounded-lg hover:shadow-lg transition-shadow"
+				>
 					<div class="flex items-start gap-4">
-						<div class="text-4xl">➕</div>
+						<div class="text-4xl">😊</div>
 						<div class="flex-1">
-							<h3 class="text-xl font-bold mb-2 text-text-primary">More Coming Soon</h3>
-							<p class="text-text-secondary">
-								Additional Japanese learning resources will be added here
+							<h3 class="text-xl font-bold mb-2 text-text-primary">Japanese Emoji</h3>
+							<p class="text-text-secondary mb-3">
+								Explore Japanese emoticons (kaomoji) and their meanings
 							</p>
+							<div class="flex items-center gap-2 text-sm text-text-tertiary">
+								<span class="px-2 py-1 bg-bg-tertiary rounded">Kaomoji</span>
+								<span class="px-2 py-1 bg-bg-tertiary rounded">Emoticons</span>
+								<span class="px-2 py-1 bg-bg-tertiary rounded">Culture</span>
+							</div>
 						</div>
 					</div>
-				</div>
+				</a>
 			</div>
 		</section>
 
