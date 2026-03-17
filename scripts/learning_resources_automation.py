@@ -219,19 +219,18 @@ class LearningResourcesAutomation:
         print(f"📝 Fetching transcript for video {video_id}...")
 
         try:
-            # Fetch transcript (tries auto-generated if manual not available)
-            transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
+            # Create API instance (new API in v1.2.4+)
+            ytt_api = YouTubeTranscriptApi()
 
-            # Try to get transcript in target language
+            # Try to fetch transcript in target language first, then English as fallback
             try:
-                transcript = transcript_list.find_transcript([language])
-            except:
-                # Fallback to any available transcript
-                print(f"  ⚠️  {language} transcript not found, trying auto-generated...")
-                transcript = transcript_list.find_generated_transcript([language])
+                fetched_transcript = ytt_api.fetch(video_id, languages=[language, 'en'])
+            except Exception as e:
+                print(f"  ⏭️  No transcript available: {e}")
+                return None
 
-            # Fetch the actual transcript data
-            segments = transcript.fetch()
+            # Convert to raw data format
+            segments = fetched_transcript.to_raw_data()
 
             # Combine all text segments
             full_text = " ".join(segment['text'] for segment in segments)
@@ -241,7 +240,7 @@ class LearningResourcesAutomation:
             return {
                 'text': full_text,
                 'segments': segments,
-                'language': language
+                'language': fetched_transcript.language_code
             }
 
         except Exception as e:
