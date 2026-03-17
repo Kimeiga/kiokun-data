@@ -206,6 +206,50 @@
 		fileInput?.click();
 	}
 
+	// Handle paste events for image upload
+	function handlePaste(event: ClipboardEvent) {
+		const items = event.clipboardData?.items;
+		if (!items) return;
+
+		for (let i = 0; i < items.length; i++) {
+			const item = items[i];
+			if (item.type.indexOf('image') !== -1) {
+				event.preventDefault();
+				const file = item.getAsFile();
+				if (file) {
+					uploadImage(file);
+				}
+				break;
+			}
+		}
+	}
+
+	// Handle drag and drop for image upload
+	let isDragging = $state(false);
+
+	function handleDragOver(event: DragEvent) {
+		event.preventDefault();
+		isDragging = true;
+	}
+
+	function handleDragLeave(event: DragEvent) {
+		event.preventDefault();
+		isDragging = false;
+	}
+
+	function handleDrop(event: DragEvent) {
+		event.preventDefault();
+		isDragging = false;
+
+		const files = event.dataTransfer?.files;
+		if (!files || files.length === 0) return;
+
+		const file = files[0];
+		if (file.type.indexOf('image') !== -1) {
+			uploadImage(file);
+		}
+	}
+
 	// Wait for session to be ready, then load notes
 	// Reload if session changes (user logs in/out)
 	$effect(() => {
@@ -308,13 +352,27 @@
 					</div>
 
 					{#if !showPreview}
-						<textarea
-							bind:value={noteText}
-							placeholder="Write your note here... Markdown supported: **bold**, *italic*, [links](url), images, lists, etc."
-							rows={isExpanded ? 8 : 2}
-							onfocus={handleFocus}
-							onblur={handleBlur}
-						></textarea>
+						<div
+							class="textarea-wrapper"
+							class:dragging={isDragging}
+							ondragover={handleDragOver}
+							ondragleave={handleDragLeave}
+							ondrop={handleDrop}
+						>
+							<textarea
+								bind:value={noteText}
+								placeholder="Write your note here... Markdown supported: **bold**, *italic*, [links](url), images, lists, etc.&#10;&#10;💡 Tip: Paste or drag & drop images directly!"
+								rows={isExpanded ? 8 : 2}
+								onfocus={handleFocus}
+								onblur={handleBlur}
+								onpaste={handlePaste}
+							></textarea>
+							{#if isDragging}
+								<div class="drag-overlay">
+									📷 Drop image here
+								</div>
+							{/if}
+						</div>
 					{:else}
 						<div class="preview-content markdown-content">
 							{@html renderMarkdown(noteText)}
@@ -559,6 +617,22 @@
 
 	.markdown-content :global(img) {
 		@apply max-w-full h-auto rounded my-2;
+		max-height: 400px;
+		object-fit: contain;
+	}
+
+	/* Textarea wrapper for drag and drop */
+	.textarea-wrapper {
+		@apply relative;
+	}
+
+	.textarea-wrapper.dragging {
+		@apply border-2 border-dashed border-accent rounded;
+	}
+
+	.drag-overlay {
+		@apply absolute inset-0 flex items-center justify-center bg-primary-secondary bg-opacity-90 text-accent font-semibold text-lg rounded pointer-events-none;
+		z-index: 10;
 	}
 
 	textarea {

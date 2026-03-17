@@ -6,7 +6,7 @@
 	import AppearsIn from "$lib/AppearsIn.svelte";
 	import JapaneseNames from "$lib/components/JapaneseNames.svelte";
 	import Notes from "$lib/components/Notes.svelte";
-	import ComponentUses from "$lib/components/ComponentUses.svelte";
+	import CharacterEquation from "$lib/components/CharacterEquation.svelte";
 	import WordTable from "$lib/components/JapaneseWords/WordTable.svelte";
 	import SectionHeading from "$lib/components/shared/SectionHeading.svelte";
 	import SpeakButton from "$lib/components/shared/SpeakButton.svelte";
@@ -1154,6 +1154,19 @@
 						</div>
 					{/if}
 
+					<!-- Character Equation (Mnemonic breakdown) -->
+					{#if data.data.chinese_char?.components}
+						<CharacterEquation
+							components={data.data.chinese_char.components}
+							targetChar={traditionalChar}
+							targetGloss={uniqueGloss || data.data.chinese_char?.gloss}
+							charGlosses={data.charGlosses}
+						/>
+					{/if}
+
+					<!-- Notes Section (User mnemonics - highest priority) -->
+					<Notes character={data.word} />
+
 					<!-- Historical Evolution (Character form evolution through history) -->
 					{#if data.data.chinese_char?.images && data.data.chinese_char.images.filter((img: { url?: string }) => img.url).length > 0}
 						{@const historicalImages = data.data.chinese_char.images.filter((img: { url?: string }) => img.url)}
@@ -1390,159 +1403,7 @@
 						</div>
 					{/if}
 
-					<!-- Usage Statistics -->
-					{#if data.data.chinese_char?.statistics}
-						{@const stats = data.data.chinese_char.statistics}
-						<SectionHeading>📊 Usage Statistics</SectionHeading>
-						<div class="mb-4">
-							<!-- HSK Level and Ranks -->
-							<div
-								style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;"
-							>
-								{#if stats.hskLevel}
-									<span class="badge badge-hsk"
-										>HSK {stats.hskLevel}</span
-									>
-								{/if}
-								{#if stats.movieWordRank}
-									<span
-										class="badge"
-										style="background: var(--badge-movie-bg); color: var(--badge-movie-text);"
-										>Movie Rank: #{stats.movieWordRank.toLocaleString()}</span
-									>
-								{/if}
-								{#if stats.bookWordRank}
-									<span
-										class="badge"
-										style="background: var(--badge-book-bg); color: var(--badge-book-text);"
-										>Book Rank: #{stats.bookWordRank.toLocaleString()}</span
-									>
-								{/if}
-							</div>
-
-							<!-- Frequency Bars -->
-							{#if stats.movieWordCountPercent || stats.bookWordCountPercent}
-								<div style="margin-bottom: 20px;">
-									<div
-										style="font-size: 13px; font-weight: 600; margin-bottom: 8px; color: var(--text-tertiary);"
-									>
-										Frequency
-									</div>
-
-									{#if stats.movieWordCountPercent}
-										{@const moviePercent = (
-											stats.movieWordCountPercent * 100
-										).toFixed(4)}
-										<div style="margin-bottom: 8px;">
-											<div
-												style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 3px;"
-											>
-												<span
-													>Movies: {stats.movieWordCount.toLocaleString()}
-													occurrences</span
-												>
-												<span>{moviePercent}%</span>
-											</div>
-											<div
-												style="background: var(--progress-bg); height: 8px; border-radius: 4px; overflow: hidden;"
-											>
-												<div
-													style="background: var(--progress-movie); height: 100%; width: {Math.min(
-														parseFloat(
-															moviePercent,
-														) * 10,
-														100,
-													)}%;"
-												></div>
-											</div>
-										</div>
-									{/if}
-
-									{#if stats.bookWordCountPercent}
-										{@const bookPercent = (
-											stats.bookWordCountPercent * 100
-										).toFixed(4)}
-										<div style="margin-bottom: 8px;">
-											<div
-												style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 3px;"
-											>
-												<span
-													>Books: {stats.bookWordCount.toLocaleString()}
-													occurrences</span
-												>
-												<span>{bookPercent}%</span>
-											</div>
-											<div
-												style="background: var(--progress-bg); height: 8px; border-radius: 4px; overflow: hidden;"
-											>
-												<div
-													style="background: var(--progress-book); height: 100%; width: {Math.min(
-														parseFloat(
-															bookPercent,
-														) * 10,
-														100,
-													)}%;"
-												></div>
-											</div>
-										</div>
-									{/if}
-								</div>
-							{/if}
-
-							<!-- Top Words -->
-							{#if stats.topWords && stats.topWords.length > 0}
-								<div style="margin-top: 20px;">
-									<div
-										style="font-size: 13px; font-weight: 600; margin-bottom: 10px; color: var(--text-tertiary);"
-									>
-										Top Words Containing This Character
-									</div>
-									<div
-										style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px;"
-									>
-										{#each stats.topWords.slice(0, 12) as topWord}
-											{@const sharePercent = (
-												topWord.share * 100
-											).toFixed(1)}
-											<div
-												style="position: relative; padding: 8px 12px; background: var(--bg-secondary); border: 1px solid var(--border-light); border-radius: 6px; font-size: 13px; overflow: hidden;"
-											>
-												<!-- Background progress bar -->
-												<div
-													style="position: absolute; top: 0; left: 0; height: 100%; width: {topWord.share *
-														100}%; background: var(--progress-word-bg); opacity: 0.6; z-index: 0;"
-												></div>
-												<!-- Content -->
-												<div
-													style="position: relative; z-index: 1;"
-												>
-													<div
-														style="display: flex; justify-content: space-between; align-items: center;"
-													>
-														<span
-															style="font-weight: 600; color: var(--color-heading);"
-															>{topWord.word}</span
-														>
-														<span
-															style="font-size: 11px; color: var(--badge-movie-text); font-weight: 600;"
-															>{sharePercent}%</span
-														>
-													</div>
-													{#if topWord.gloss}
-														<div
-															style="font-size: 11px; color: var(--text-tertiary); margin-top: 2px;"
-														>
-															{topWord.gloss}
-														</div>
-													{/if}
-												</div>
-											</div>
-										{/each}
-									</div>
-								</div>
-							{/if}
-						</div>
-					{/if}
+					<!-- Statistics section removed - data overlaps with word views -->
 				</div>
 			</div>
 		{/if}
@@ -1658,13 +1519,7 @@
 			</div>
 		{/if}
 
-		<!-- Notes Section -->
-		<Notes character={data.word} />
-
-		<!-- Component Uses Section -->
-		<ComponentUses
-			componentUses={data.componentUses[data.word] || null}
-		/>
+		<!-- Notes and Component Uses removed - now at top of page -->
 
 		<!-- Japanese Names Section -->
 		{#if data.data.japanese_names && data.data.japanese_names.length > 0}
@@ -1693,15 +1548,6 @@
 
 <style>
 	/* Custom styles that are hard to express in Tailwind or use CSS variables */
-	.badge {
-		@apply px-3 py-1.5 rounded-full text-xs font-semibold uppercase;
-	}
-
-	.badge-hsk {
-		@apply transition-all duration-300;
-		background: var(--badge-hsk-bg);
-		color: var(--badge-hsk-text);
-	}
 
 	/* Three-column layout for Chinese, Japanese, and Korean word sections on desktop */
 	.word-sections-grid {
@@ -1738,26 +1584,26 @@
 	}
 
 	.chinese-word-text {
-		font-size: 32px;
+		font-size: var(--font-size-title);
 		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", "MS Mincho", serif;
 		font-weight: 600;
 		color: var(--primary-highlight, #2c3e50);
 	}
 
 	.chinese-pronunciation {
-		font-size: 20px;
+		font-size: var(--font-size-headline);
 		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", "MS Mincho", serif;
 		color: var(--reading-highlight, #e74c3c);
 	}
 
 	.cantonese-pronunciation {
-		font-size: 18px;
+		font-size: var(--font-size-body);
 		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", "MS Mincho", serif;
 		color: var(--color-cantonese, #e67e22);
 	}
 
 	.chinese-definitions {
-		font-size: 16px;
+		font-size: var(--font-size-subhead);
 		line-height: 1.6;
 		color: var(--text-primary);
 	}
@@ -1776,14 +1622,14 @@
 	}
 
 	.korean-word-text {
-		font-size: 32px;
+		font-size: var(--font-size-title);
 		font-family: "Noto Sans KR", "Malgun Gothic", sans-serif;
 		font-weight: 600;
 		color: var(--primary-highlight, #2c3e50);
 	}
 
 	.korean-hanja {
-		font-size: 20px;
+		font-size: var(--font-size-headline);
 		font-family: "Noto Serif TC", "Noto Serif SC", "MS Mincho", serif;
 		color: var(--text-secondary, #666);
 	}
@@ -1793,7 +1639,7 @@
 	}
 
 	.korean-definitions {
-		font-size: 16px;
+		font-size: var(--font-size-subhead);
 		line-height: 1.6;
 		color: var(--text-primary);
 	}
