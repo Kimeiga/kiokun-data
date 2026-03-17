@@ -46,18 +46,16 @@
 				// Priority: component meaning from dictionary > charGlosses (game data)
 				// The component meaning comes from the dictionary's first definition
 				// which is more accurate than the game data
-				const gloss = c.meaning || charGlosses?.[char];
-				return { char, gloss };
+				const rawGloss = c.meaning || charGlosses?.[char];
+				const cleanedGloss = cleanGloss(rawGloss);
+				return { char, gloss: cleanedGloss };
 			})
-			.filter(c => c.gloss);  // Only include components with glosses
+			.filter(c => c.gloss);  // Only include components with glosses (after cleaning)
 
 		if (validComponents.length === 0) return null;
 
 		return {
-			components: validComponents.map(c => ({
-				char: c.char,
-				gloss: cleanGloss(c.gloss)
-			})),
+			components: validComponents,
 			result: {
 				char: targetChar,
 				gloss: cleanGloss(targetGloss)
