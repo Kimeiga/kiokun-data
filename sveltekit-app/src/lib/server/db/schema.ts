@@ -93,3 +93,85 @@ export const studyCards = sqliteTable("study_cards", {
 	// One card per user per word
 	userWordUnique: unique().on(table.userId, table.word),
 }));
+
+// ============================================================================
+// LEARNING RESOURCES TABLES
+// ============================================================================
+
+// Language categories for organizing learning resources
+// e.g., "Japanese", "Chinese (Mandarin)", "Chinese (Cantonese)"
+export const languageCategories = sqliteTable("language_categories", {
+	id: text("id").primaryKey(), // e.g., "japanese", "chinese-mandarin"
+	name: text("name").notNull(), // Display name: "Japanese", "Chinese (Mandarin)"
+	slug: text("slug").notNull().unique(), // URL-friendly: "japanese", "chinese-mandarin"
+	languageCode: text("languageCode").notNull(), // ISO code: "ja", "zh", "yue"
+	createdAt: integer("createdAt", { mode: "timestamp" }).notNull(),
+});
+
+// Resource sources (YouTube channels, podcasts, etc.)
+// e.g., "Scripting Japan", "ChinesePod"
+export const resourceSources = sqliteTable("resource_sources", {
+	id: text("id").primaryKey(),
+	languageCategoryId: text("languageCategoryId")
+		.notNull()
+		.references(() => languageCategories.id),
+	name: text("name").notNull(), // "Scripting Japan"
+	slug: text("slug").notNull(), // "scripting-japan"
+	sourceType: text("sourceType").notNull(), // "youtube", "podcast", "blog"
+	sourceUrl: text("sourceUrl").notNull(), // YouTube channel URL
+	sourceIdentifier: text("sourceIdentifier"), // YouTube channel ID for API
+	description: text("description"), // About the channel/source
+	thumbnailUrl: text("thumbnailUrl"), // Channel avatar/logo
+	isActive: integer("isActive", { mode: "boolean" }).notNull().default(true),
+	createdAt: integer("createdAt", { mode: "timestamp" }).notNull(),
+	updatedAt: integer("updatedAt", { mode: "timestamp" }).notNull(),
+}, (table) => ({
+	// Unique slug per language category
+	languageSlugUnique: unique().on(table.languageCategoryId, table.slug),
+}));
+
+// Video posts (individual videos from sources)
+export const videoPosts = sqliteTable("video_posts", {
+	id: text("id").primaryKey(),
+	resourceSourceId: text("resourceSourceId")
+		.notNull()
+		.references(() => resourceSources.id),
+	title: text("title").notNull(), // Video title
+	slug: text("slug").notNull(), // URL-friendly title
+	videoUrl: text("videoUrl").notNull(), // Full YouTube URL
+	videoId: text("videoId").notNull(), // YouTube video ID
+	thumbnailUrl: text("thumbnailUrl"), // Video thumbnail
+	duration: integer("duration"), // Duration in seconds
+	publishedAt: integer("publishedAt", { mode: "timestamp" }), // Original publish date
+	transcript: text("transcript"), // Full transcript text
+	summary: text("summary"), // AI-generated summary (Gemini)
+	viewCount: integer("viewCount"), // YouTube view count
+	isProcessed: integer("isProcessed", { mode: "boolean" }).notNull().default(false),
+	createdAt: integer("createdAt", { mode: "timestamp" }).notNull(),
+	updatedAt: integer("updatedAt", { mode: "timestamp" }).notNull(),
+}, (table) => ({
+	// Unique slug per source
+	sourceSlugUnique: unique().on(table.resourceSourceId, table.slug),
+	// Unique video ID
+	videoIdUnique: unique().on(table.videoId),
+}));
+
+// Extracted words/slang from videos
+// Links to existing dictionary via word slug
+export const extractedWords = sqliteTable("extracted_words", {
+	id: text("id").primaryKey(),
+	videoPostId: text("videoPostId")
+		.notNull()
+		.references(() => videoPosts.id, { onDelete: "cascade" }),
+	word: text("word").notNull(), // The slang/word in original script
+	wordSlug: text("wordSlug").notNull(), // Dictionary slug for linking
+	reading: text("reading"), // Pronunciation (hiragana for Japanese, pinyin for Chinese)
+	translation: text("translation").notNull(), // Natural spoken translation
+	context: text("context"), // Example sentence from video
+	timestamp: integer("timestamp"), // Timestamp in video (seconds)
+	sortOrder: integer("sortOrder").notNull().default(0), // Display order
+	createdAt: integer("createdAt", { mode: "timestamp" }).notNull(),
+}, (table) => ({
+	// Allow multiple instances of same word in different videos
+	// No unique constraint needed
+}));

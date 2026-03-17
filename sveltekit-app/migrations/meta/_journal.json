@@ -15,6 +15,13 @@
       "when": 1761262421244,
       "tag": "0001_slimy_vindicator",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1773705153512,
+      "tag": "0002_aberrant_spirit",
+      "breakpoints": true
     }
   ]
 }
