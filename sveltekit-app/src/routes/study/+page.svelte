@@ -118,10 +118,12 @@
 						.join('; ');
 				}
 				// Get example sentence if available
+				// Note: data uses "land" not "lang" for the language field
 				if (sense?.examples?.length) {
 					const ex = sense.examples[0];
-					info.example = ex.text;
-					const engSentence = ex.sentences?.find(s => s.lang === 'eng');
+					const jpSentence = ex.sentences?.find((s: any) => s.land === 'jpn' || s.lang === 'jpn');
+					const engSentence = ex.sentences?.find((s: any) => s.land === 'eng' || s.lang === 'eng');
+					info.example = jpSentence?.text || ex.text;
 					info.exampleTranslation = engSentence?.text;
 				}
 			} else if (language === 'ko' && entry.korean_words?.length) {

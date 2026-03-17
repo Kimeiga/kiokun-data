@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { onMount } from "svelte";
 	import { goto } from "$app/navigation";
 	import SectionHeading from "./shared/SectionHeading.svelte";
 
@@ -15,7 +14,6 @@
 
 	let { targetChar, components, componentUses, charGlosses }: Props = $props();
 
-	let canvasEl: HTMLCanvasElement | null = $state(null);
 	let expanded = $state(false);
 	let hoveredNode: string | null = $state(null);
 
@@ -24,10 +22,7 @@
 		label: string;
 		x: number;
 		y: number;
-		vx: number;
-		vy: number;
 		level: number; // 0=center, 1=components, 2=related
-		type: string; // 'center', 'component', 'related'
 	}
 
 	interface GraphEdge {
@@ -35,8 +30,11 @@
 		target: string;
 	}
 
-	let nodes: GraphNode[] = [];
-	let edges: GraphEdge[] = [];
+	let nodes: GraphNode[] = $state([]);
+	let edges: GraphEdge[] = $state([]);
+
+	const WIDTH = 400;
+	const HEIGHT = 300;
 
 	function buildGraph() {
 		if (!components || components.length === 0) return;
@@ -44,18 +42,12 @@
 		const nodeMap = new Map<string, GraphNode>();
 		const edgeList: GraphEdge[] = [];
 
-		// Center node
-		const cx = 200,
-			cy = 150;
+		const cx = WIDTH / 2, cy = HEIGHT / 2;
 		nodeMap.set(targetChar, {
 			id: targetChar,
 			label: charGlosses?.[targetChar] || "",
-			x: cx,
-			y: cy,
-			vx: 0,
-			vy: 0,
+			x: cx, y: cy,
 			level: 0,
-			type: "center",
 		});
 
 		// Component nodes (level 1)
@@ -72,15 +64,12 @@
 				label: charGlosses?.[comp] || "",
 				x: cx + Math.cos(angle) * 80,
 				y: cy + Math.sin(angle) * 80,
-				vx: 0,
-				vy: 0,
 				level: 1,
-				type: "component",
 			});
 			edgeList.push({ source: comp, target: targetChar });
 		});
 
-		// Related nodes (level 2): other chars sharing components
+		// Related nodes (level 2)
 		validComponents.forEach((comp, compIdx) => {
 			const uses = componentUses[comp];
 			if (!uses) return;
@@ -88,67 +77,50 @@
 			for (const typeData of Object.values(uses)) {
 				relatedChars = relatedChars.concat(typeData.chars);
 			}
-			// Deduplicate and filter
 			const seen = new Set<string>();
 			let count = 0;
 			for (const ch of relatedChars) {
-				if (seen.has(ch) || ch === targetChar || nodeMap.has(ch))
-					continue;
+				if (seen.has(ch) || ch === targetChar || nodeMap.has(ch)) continue;
 				const cp = ch.codePointAt(0) || 0;
 				if (cp < 0x4e00 || cp > 0x9fff) continue;
 				seen.add(ch);
 				count++;
-				if (count > 4) break; // Limit per component
+				if (count > 4) break;
 
 				const baseAngle = angleStep * compIdx - Math.PI / 2;
-				const spread = ((count - 1) * 0.4 - 0.8) + Math.random() * 0.2;
+				const spread = (count - 1) * 0.4 - 0.8;
 				nodeMap.set(ch, {
 					id: ch,
 					label: charGlosses?.[ch] || "",
 					x: cx + Math.cos(baseAngle + spread) * 140,
 					y: cy + Math.sin(baseAngle + spread) * 140,
-					vx: 0,
-					vy: 0,
 					level: 2,
-					type: "related",
 				});
 				edgeList.push({ source: comp, target: ch });
 			}
 		});
 
-		nodes = Array.from(nodeMap.values());
-		edges = edgeList;
-	}
+		// Simple force simulation
+		const nodeArr = Array.from(nodeMap.values());
+		for (let iter = 0; iter < 50; iter++) {
+			const alpha = 1 - iter / 50;
 
-	function simulate() {
-		// Simple force simulation (no d3 dependency for lighter build)
-		const iterations = 50;
-		const cx = 200,
-			cy = 150;
-
-		for (let iter = 0; iter < iterations; iter++) {
-			const alpha = 1 - iter / iterations;
-
-			// Repulsion between all nodes
-			for (let i = 0; i < nodes.length; i++) {
-				for (let j = i + 1; j < nodes.length; j++) {
-					const dx = nodes[j].x - nodes[i].x;
-					const dy = nodes[j].y - nodes[i].y;
+			for (let i = 0; i < nodeArr.length; i++) {
+				for (let j = i + 1; j < nodeArr.length; j++) {
+					const dx = nodeArr[j].x - nodeArr[i].x;
+					const dy = nodeArr[j].y - nodeArr[i].y;
 					const dist = Math.sqrt(dx * dx + dy * dy) || 1;
 					const force = (300 * alpha) / (dist * dist);
 					const fx = (dx / dist) * force;
 					const fy = (dy / dist) * force;
-					nodes[j].x += fx;
-					nodes[j].y += fy;
-					nodes[i].x -= fx;
-					nodes[i].y -= fy;
+					nodeArr[j].x += fx; nodeArr[j].y += fy;
+					nodeArr[i].x -= fx; nodeArr[i].y -= fy;
 				}
 			}
 
-			// Attraction along edges
-			for (const edge of edges) {
-				const src = nodes.find((n) => n.id === edge.source);
-				const tgt = nodes.find((n) => n.id === edge.target);
+			for (const edge of edgeList) {
+				const src = nodeArr.find(n => n.id === edge.source);
+				const tgt = nodeArr.find(n => n.id === edge.target);
 				if (!src || !tgt) continue;
 				const dx = tgt.x - src.x;
 				const dy = tgt.y - src.y;
@@ -157,17 +129,13 @@
 				const force = (dist - targetDist) * 0.05 * alpha;
 				const fx = (dx / dist) * force;
 				const fy = (dy / dist) * force;
-				src.x += fx;
-				src.y += fy;
-				tgt.x -= fx;
-				tgt.y -= fy;
+				src.x += fx; src.y += fy;
+				tgt.x -= fx; tgt.y -= fy;
 			}
 
-			// Center gravity
-			for (const node of nodes) {
+			for (const node of nodeArr) {
 				if (node.level === 0) {
-					node.x = cx;
-					node.y = cy;
+					node.x = cx; node.y = cy;
 				} else {
 					node.x += (cx - node.x) * 0.01 * alpha;
 					node.y += (cy - node.y) * 0.01 * alpha;
@@ -175,145 +143,31 @@
 			}
 		}
 
-		// Clamp to canvas bounds
-		for (const node of nodes) {
-			node.x = Math.max(25, Math.min(375, node.x));
-			node.y = Math.max(25, Math.min(275, node.y));
-		}
-	}
-
-	function draw() {
-		if (!canvasEl) return;
-		const ctx = canvasEl.getContext("2d");
-		if (!ctx) return;
-
-		const dpr = window.devicePixelRatio || 1;
-		canvasEl.width = 400 * dpr;
-		canvasEl.height = 300 * dpr;
-		ctx.scale(dpr, dpr);
-
-		// Get theme colors
-		const style = getComputedStyle(canvasEl);
-		const bgColor = style.getPropertyValue("--bg-secondary").trim() || "#121212";
-		const borderColor = style.getPropertyValue("--border-light").trim() || "#3a3a3c";
-		const textPrimary = style.getPropertyValue("--text-primary").trim() || "#ffffff";
-		const textSecondary = style.getPropertyValue("--text-secondary").trim() || "#b0b0b0";
-		const accentColor = style.getPropertyValue("--accent").trim() || "#2ecc71";
-
-		// Clear
-		ctx.fillStyle = bgColor;
-		ctx.fillRect(0, 0, 400, 300);
-
-		// Draw edges
-		ctx.strokeStyle = borderColor;
-		ctx.lineWidth = 1;
-		for (const edge of edges) {
-			const src = nodes.find((n) => n.id === edge.source);
-			const tgt = nodes.find((n) => n.id === edge.target);
-			if (!src || !tgt) continue;
-			ctx.beginPath();
-			ctx.moveTo(src.x, src.y);
-			ctx.lineTo(tgt.x, tgt.y);
-			ctx.stroke();
+		// Clamp to bounds
+		for (const node of nodeArr) {
+			node.x = Math.max(30, Math.min(WIDTH - 30, node.x));
+			node.y = Math.max(30, Math.min(HEIGHT - 30, node.y));
 		}
 
-		// Draw nodes
-		for (const node of nodes) {
-			const isHovered = hoveredNode === node.id;
-			const radius = node.level === 0 ? 22 : node.level === 1 ? 18 : 14;
-
-			// Node circle
-			ctx.beginPath();
-			ctx.arc(node.x, node.y, radius, 0, Math.PI * 2);
-			if (node.level === 0) {
-				ctx.fillStyle = accentColor + "30";
-				ctx.strokeStyle = accentColor;
-				ctx.lineWidth = 2;
-			} else if (node.level === 1) {
-				ctx.fillStyle = isHovered ? accentColor + "20" : bgColor;
-				ctx.strokeStyle = isHovered ? accentColor : borderColor;
-				ctx.lineWidth = 1.5;
-			} else {
-				ctx.fillStyle = isHovered ? accentColor + "10" : bgColor;
-				ctx.strokeStyle = isHovered ? accentColor : borderColor;
-				ctx.lineWidth = 1;
-			}
-			ctx.fill();
-			ctx.stroke();
-
-			// Character text
-			const fontSize = node.level === 0 ? 18 : node.level === 1 ? 15 : 12;
-			ctx.font = `${fontSize}px "Noto Serif TC", "Noto Serif SC", serif`;
-			ctx.fillStyle =
-				node.level === 0 ? accentColor : isHovered ? accentColor : textPrimary;
-			ctx.textAlign = "center";
-			ctx.textBaseline = "middle";
-			ctx.fillText(node.id, node.x, node.y);
-
-			// Label below
-			if (node.label && (node.level <= 1 || isHovered)) {
-				ctx.font = `9px -apple-system, sans-serif`;
-				ctx.fillStyle = textSecondary;
-				ctx.fillText(
-					node.label.length > 10
-						? node.label.slice(0, 9) + "…"
-						: node.label,
-					node.x,
-					node.y + radius + 10,
-				);
-			}
-		}
-	}
-
-	function handleCanvasClick(e: MouseEvent) {
-		if (!canvasEl) return;
-		const rect = canvasEl.getBoundingClientRect();
-		const x = e.clientX - rect.left;
-		const y = e.clientY - rect.top;
-
-		for (const node of nodes) {
-			const radius = node.level === 0 ? 22 : node.level === 1 ? 18 : 14;
-			const dx = node.x - x;
-			const dy = node.y - y;
-			if (dx * dx + dy * dy < radius * radius) {
-				goto(`/${node.id}`);
-				return;
-			}
-		}
-	}
-
-	function handleCanvasMove(e: MouseEvent) {
-		if (!canvasEl) return;
-		const rect = canvasEl.getBoundingClientRect();
-		const x = e.clientX - rect.left;
-		const y = e.clientY - rect.top;
-
-		let found: string | null = null;
-		for (const node of nodes) {
-			const radius = node.level === 0 ? 22 : node.level === 1 ? 18 : 14;
-			const dx = node.x - x;
-			const dy = node.y - y;
-			if (dx * dx + dy * dy < (radius + 4) * (radius + 4)) {
-				found = node.id;
-				break;
-			}
-		}
-		if (found !== hoveredNode) {
-			hoveredNode = found;
-			canvasEl.style.cursor = found ? "pointer" : "default";
-			draw();
-		}
+		nodes = nodeArr;
+		edges = edgeList;
 	}
 
 	let hasContent = $derived(components && components.length > 0);
 
 	$effect(() => {
-		if (expanded && canvasEl && hasContent) {
+		if (expanded && hasContent) {
 			buildGraph();
-			simulate();
-			draw();
 		}
 	});
+
+	function nodeRadius(level: number): number {
+		return level === 0 ? 22 : level === 1 ? 18 : 14;
+	}
+
+	function fontSize(level: number): number {
+		return level === 0 ? 18 : level === 1 ? 15 : 12;
+	}
 </script>
 
 {#if hasContent}
@@ -326,18 +180,57 @@
 			</button>
 		{:else}
 			<div class="graph-container">
-				<canvas
-					bind:this={canvasEl}
-					width="400"
-					height="300"
-					class="graph-canvas"
-					onclick={handleCanvasClick}
-					onmousemove={handleCanvasMove}
-					onmouseleave={() => {
-						hoveredNode = null;
-						draw();
-					}}
-				></canvas>
+				<svg viewBox="0 0 {WIDTH} {HEIGHT}" class="graph-svg">
+					<!-- Edges -->
+					{#each edges as edge}
+						{@const src = nodes.find(n => n.id === edge.source)}
+						{@const tgt = nodes.find(n => n.id === edge.target)}
+						{#if src && tgt}
+							<line
+								x1={src.x} y1={src.y}
+								x2={tgt.x} y2={tgt.y}
+								class="edge"
+							/>
+						{/if}
+					{/each}
+
+					<!-- Nodes -->
+					{#each nodes as node}
+						{@const r = nodeRadius(node.level)}
+						{@const isHovered = hoveredNode === node.id}
+						<!-- svelte-ignore a11y_no_static_element_interactions -->
+						<g
+							class="node level-{node.level}"
+							class:hovered={isHovered}
+							onclick={() => goto(`/${node.id}`)}
+							onmouseenter={() => (hoveredNode = node.id)}
+							onmouseleave={() => (hoveredNode = null)}
+							style="cursor: pointer"
+						>
+							<circle cx={node.x} cy={node.y} {r} />
+							<text
+								x={node.x} y={node.y}
+								dominant-baseline="central"
+								text-anchor="middle"
+								font-size={fontSize(node.level)}
+								class="node-char"
+							>
+								{node.id}
+							</text>
+							{#if node.label && (node.level <= 1 || isHovered)}
+								<text
+									x={node.x} y={node.y + r + 12}
+									dominant-baseline="central"
+									text-anchor="middle"
+									font-size="9"
+									class="node-label"
+								>
+									{node.label.length > 10 ? node.label.slice(0, 9) + "…" : node.label}
+								</text>
+							{/if}
+						</g>
+					{/each}
+				</svg>
 				<div class="graph-legend">
 					<span class="legend-item center">● Target</span>
 					<span class="legend-item component">● Component</span>
@@ -378,10 +271,63 @@
 		overflow: hidden;
 	}
 
-	.graph-canvas {
+	.graph-svg {
 		width: 100%;
-		height: 300px;
+		height: auto;
 		display: block;
+	}
+
+	.edge {
+		stroke: var(--border-light, #3a3a3c);
+		stroke-width: 1;
+	}
+
+	/* Node circles */
+	.node.level-0 circle {
+		fill: color-mix(in srgb, var(--accent) 20%, transparent);
+		stroke: var(--accent);
+		stroke-width: 2;
+	}
+
+	.node.level-1 circle {
+		fill: var(--bg-secondary, #121212);
+		stroke: var(--border-light, #3a3a3c);
+		stroke-width: 1.5;
+	}
+
+	.node.level-1.hovered circle {
+		fill: color-mix(in srgb, var(--accent) 12%, transparent);
+		stroke: var(--accent);
+	}
+
+	.node.level-2 circle {
+		fill: var(--bg-secondary, #121212);
+		stroke: var(--border-light, #3a3a3c);
+		stroke-width: 1;
+	}
+
+	.node.level-2.hovered circle {
+		fill: color-mix(in srgb, var(--accent) 8%, transparent);
+		stroke: var(--accent);
+	}
+
+	/* Node text */
+	.node-char {
+		fill: var(--text-primary, #fff);
+		font-family: "Noto Serif TC", "Noto Serif SC", serif;
+	}
+
+	.node.level-0 .node-char {
+		fill: var(--accent);
+	}
+
+	.node.hovered .node-char {
+		fill: var(--accent);
+	}
+
+	.node-label {
+		fill: var(--text-secondary, #b0b0b0);
+		font-family: -apple-system, sans-serif;
 	}
 
 	.graph-legend {

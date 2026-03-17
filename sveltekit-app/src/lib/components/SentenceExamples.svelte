@@ -19,16 +19,23 @@
 		const items: ExampleItem[] = [];
 
 		// Extract Japanese examples from senses
+		// Data structure: ex.text is the keyword, ex.sentences[] has the actual sentences
+		// Note: the data uses "land" (not "lang") as the language field
 		if (japaneseSenses) {
 			for (const sense of japaneseSenses) {
 				if (!sense.examples) continue;
 				for (const ex of sense.examples) {
-					const jpText = ex.text;
-					const engSentence = ex.sentences?.find((s) => s.lang === "eng");
-					if (jpText) {
+					const jpSentence = ex.sentences?.find(
+						(s) => (s as any).land === "jpn" || s.lang === "jpn",
+					);
+					const engSentence = ex.sentences?.find(
+						(s) => (s as any).land === "eng" || s.lang === "eng",
+					);
+					const displayText = jpSentence?.text;
+					if (displayText) {
 						items.push({
 							source: "ja",
-							text: jpText,
+							text: displayText,
 							translation: engSentence?.text,
 						});
 					}
