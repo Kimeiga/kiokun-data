@@ -120,7 +120,7 @@ class LearningResourcesAutomation:
         Fetch latest videos from a YouTube channel.
 
         Args:
-            channel_id: YouTube channel ID (e.g., "UCXQEfHag5F_wW3kHFBkEJEQ" for Scripting Japan)
+            channel_id: YouTube channel ID (e.g., "UCcSeOwSRnOZvNYOelU-RUkw" for Scripting Japan)
             max_results: Maximum number of videos to fetch (default: 10)
 
         Returns:
@@ -448,7 +448,7 @@ Respond ONLY with valid JSON, no additional text."""
                 "scripting-japan",
                 "youtube",
                 "https://www.youtube.com/@ScriptingJapan",
-                "UCXQEfHag5F_wW3kHFBkEJEQ",  # Scripting Japan channel ID
+                "UCcSeOwSRnOZvNYOelU-RUkw",  # Scripting Japan channel ID
                 "Learn natural Japanese through real conversations and street interviews",
                 1,
                 current_timestamp,
@@ -535,7 +535,7 @@ if __name__ == "__main__":
     automation.initialize_database()
 
     # Process Scripting Japan channel
-    SCRIPTING_JAPAN_CHANNEL_ID = "UCXQEfHag5F_wW3kHFBkEJEQ"
+    SCRIPTING_JAPAN_CHANNEL_ID = "UCcSeOwSRnOZvNYOelU-RUkw"
     automation.process_channel(
         channel_id=SCRIPTING_JAPAN_CHANNEL_ID,
         source_id="scripting-japan",
