@@ -6,8 +6,8 @@ import { decompressSync, strFromU8 } from 'fflate';
 import type { DictionaryEntry } from '$lib/types';
 import { findWordsWithDeinflection } from '$lib/utils/search-navigation';
 
-// Disable SSR for this route to avoid hanging during development
-export const ssr = false;
+// SSR enabled: load function fetches from GitHub CDN which works on both server and client.
+// In dev mode, fetches go to local CORS proxy — SvelteKit's fetch handles this correctly.
 
 /**
  * Decompress Deflate-compressed data and parse as JSON

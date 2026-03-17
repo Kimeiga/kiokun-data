@@ -1,6 +1,6 @@
 import type { PageLoad } from './$types';
 
-export const ssr = false;
+// SSR enabled: fetches static JSON which SvelteKit serves on the server
 
 interface VideoOccurrence {
 	video_id: string;

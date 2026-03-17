@@ -33,7 +33,7 @@ export interface PageData {
 	subcategories: string[];
 }
 
-export const ssr = false;
+// SSR enabled: fetches static JSON which SvelteKit serves on the server
 
 export const load: PageLoad<PageData> = async ({ params, fetch }) => {
 	const pathString = params.path || '';

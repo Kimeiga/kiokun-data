@@ -4,7 +4,7 @@ import { dev } from '$app/environment';
 import { decompressSync, strFromU8 } from 'fflate';
 import type { DictionaryEntry } from '$lib/types';
 
-export const ssr = false;
+// SSR enabled: fetches static JSON + GitHub CDN, both work server-side
 
 interface ComponentUsesEntry {
 	chars: string[];
