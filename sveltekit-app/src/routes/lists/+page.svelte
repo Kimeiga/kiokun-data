@@ -202,24 +202,24 @@
 	.container {
 		max-width: 1200px;
 		margin: 0 auto;
-		padding: 40px 20px;
+		padding: calc(var(--spacing-xl) * 2) var(--spacing-xl);
 		/* Prevent horizontal overflow */
 		overflow-x: hidden;
 	}
 
 	.page-header {
 		text-align: center;
-		margin-bottom: 40px;
+		margin-bottom: calc(var(--spacing-xl) * 2);
 	}
 
 	.page-header h1 {
 		font-size: 48px;
-		margin: 0 0 12px 0;
+		margin: 0 0 var(--spacing-md) 0;
 		color: var(--text-primary);
 	}
 
 	.subtitle {
-		font-size: 18px;
+		font-size: var(--font-size-headline);
 		color: var(--text-secondary);
 		margin: 0;
 	}
@@ -229,41 +229,41 @@
 	.empty-state,
 	.no-results {
 		text-align: center;
-		padding: 60px 20px;
+		padding: 60px var(--spacing-xl);
 		color: var(--text-secondary);
 	}
 
 	.error-message {
-		color: #e74c3c;
+		color: var(--color-error);
 	}
 
 	.hint {
-		margin-top: 12px;
-		font-size: 14px;
+		margin-top: var(--spacing-md);
+		font-size: var(--font-size-callout);
 		color: var(--text-muted);
 	}
 
 	.empty-state {
-		padding: 80px 20px;
+		padding: 80px var(--spacing-xl);
 	}
 
 	.empty-icon {
 		font-size: 64px;
-		margin-bottom: 20px;
+		margin-bottom: var(--spacing-xl);
 	}
 
 	.empty-state h2 {
 		color: var(--text-primary);
-		margin: 0 0 12px 0;
+		margin: 0 0 var(--spacing-md) 0;
 	}
 
 	.empty-state p {
-		margin: 8px 0;
+		margin: var(--spacing-sm) 0;
 	}
 
 	.controls {
 		display: flex;
-		gap: 16px;
+		gap: var(--spacing-lg);
 		align-items: center;
 		margin-bottom: 30px;
 		flex-wrap: wrap;
@@ -276,10 +276,10 @@
 
 	.search-input {
 		width: 100%;
-		padding: 10px 16px;
+		padding: var(--spacing-md) var(--spacing-lg);
 		border: 2px solid var(--border-color);
 		border-radius: var(--radius-md);
-		font-size: 16px;
+		font-size: var(--font-size-body);
 		background: var(--bg-secondary);
 		color: var(--text-primary);
 		transition: background 0.15s ease, border-color 0.15s ease;
@@ -295,22 +295,22 @@
 	.sort-container {
 		display: flex;
 		align-items: center;
-		gap: 8px;
+		gap: var(--spacing-sm);
 		flex-shrink: 0;
 	}
 
 	.sort-container label {
 		color: var(--text-secondary);
-		font-size: 14px;
+		font-size: var(--font-size-callout);
 	}
 
 	.sort-select {
-		padding: 8px 12px;
+		padding: var(--spacing-sm) var(--spacing-md);
 		border: 2px solid var(--border-color);
 		border-radius: var(--radius-md);
 		background: var(--bg-secondary);
 		color: var(--text-primary);
-		font-size: 14px;
+		font-size: var(--font-size-callout);
 		cursor: pointer;
 		transition: background 0.15s ease, border-color 0.15s ease;
 	}
@@ -322,14 +322,14 @@
 
 	.count {
 		color: var(--text-secondary);
-		font-size: 14px;
+		font-size: var(--font-size-callout);
 		white-space: nowrap;
 	}
 
 	.notes-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
-		gap: 20px;
+		gap: var(--spacing-xl);
 	}
 
 	.note-card {
@@ -337,7 +337,7 @@
 		background: var(--bg-secondary);
 		border: 2px solid var(--border-color);
 		border-radius: var(--radius-lg);
-		padding: 20px;
+		padding: var(--spacing-xl);
 		cursor: pointer;
 		transition: background 0.15s ease, border-color 0.15s ease;
 		text-decoration: none;
@@ -357,8 +357,8 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		margin-bottom: 12px;
-		padding-bottom: 12px;
+		margin-bottom: var(--spacing-md);
+		padding-bottom: var(--spacing-md);
 		border-bottom: 1px solid var(--border-color);
 	}
 
@@ -370,7 +370,7 @@
 	}
 
 	.date {
-		font-size: 12px;
+		font-size: var(--font-size-footnote);
 		color: var(--text-muted);
 	}
 
@@ -394,7 +394,7 @@
 
 	/* Markdown content styling */
 	:global(.markdown-content p) {
-		margin: 0 0 8px 0;
+		margin: 0 0 var(--spacing-sm) 0;
 	}
 
 	:global(.markdown-content p:last-child) {
@@ -412,7 +412,7 @@
 
 	:global(.markdown-content code) {
 		background: var(--bg-tertiary);
-		padding: 2px 6px;
+		padding: var(--spacing-xs) var(--spacing-sm);
 		border-radius: var(--radius-sm);
 		font-family: 'Courier New', monospace;
 		font-size: 0.9em;
@@ -476,7 +476,7 @@
 
 		.note-card {
 			padding: var(--spacing-lg);
-			border-radius: 10px;
+			border-radius: var(--radius-md);
 		}
 
 		.character {
@@ -495,7 +495,7 @@
 		}
 
 		.page-header h1 {
-			font-size: 26px;
+			font-size: var(--font-size-title);
 		}
 
 		.note-card {
@@ -503,7 +503,7 @@
 		}
 
 		.character {
-			font-size: 24px;
+			font-size: var(--font-size-title);
 		}
 	}
 </style>

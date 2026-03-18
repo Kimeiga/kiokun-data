@@ -194,7 +194,7 @@
 	.user-notes-page {
 		min-height: 100vh;
 		background: var(--bg-primary);
-		padding: 2rem 1rem;
+		padding: calc(var(--spacing-xl) * 2) var(--spacing-lg);
 	}
 
 	.container {
@@ -206,19 +206,19 @@
 	.error,
 	.empty {
 		text-align: center;
-		padding: 3rem 1rem;
+		padding: calc(var(--spacing-xl) * 3) var(--spacing-lg);
 		color: var(--text-secondary);
 	}
 
 	.error {
-		color: #e74c3c;
+		color: var(--color-error);
 	}
 
 	.back-link {
 		display: inline-block;
 		color: var(--accent);
 		text-decoration: none;
-		margin-bottom: 1.5rem;
+		margin-bottom: var(--spacing-xl);
 		font-weight: 500;
 		transition: color 0.2s;
 	}
@@ -228,23 +228,23 @@
 	}
 
 	.user-header {
-		margin-bottom: 2rem;
+		margin-bottom: calc(var(--spacing-xl) * 2);
 	}
 
 	.user-profile {
 		display: flex;
 		align-items: center;
-		gap: 1.5rem;
+		gap: var(--spacing-xl);
 		background: var(--bg-secondary);
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-lg);
-		padding: 2rem;
+		padding: calc(var(--spacing-xl) * 2);
 	}
 
 	.user-avatar {
 		width: 80px;
 		height: 80px;
-		border-radius: 50%;
+		border-radius: var(--radius-full);
 		overflow: hidden;
 		border: 3px solid var(--border-color);
 		flex-shrink: 0;
@@ -264,37 +264,37 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		font-size: 2rem;
+		font-size: var(--font-size-title);
 		font-weight: bold;
 	}
 
 	.user-details h1 {
-		font-size: 2rem;
+		font-size: var(--font-size-title);
 		color: var(--text-primary);
-		margin-bottom: 0.5rem;
+		margin-bottom: var(--spacing-sm);
 	}
 
 	.note-count {
 		color: var(--text-secondary);
-		font-size: 1.1rem;
+		font-size: var(--font-size-headline);
 	}
 
 	.controls {
 		display: flex;
-		gap: 1rem;
-		margin-bottom: 2rem;
+		gap: var(--spacing-lg);
+		margin-bottom: calc(var(--spacing-xl) * 2);
 		flex-wrap: wrap;
 	}
 
 	.search-input {
 		flex: 1;
 		min-width: 200px;
-		padding: 0.75rem 1rem;
+		padding: var(--spacing-md) var(--spacing-lg);
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-md);
 		background: var(--bg-secondary);
 		color: var(--text-primary);
-		font-size: 1rem;
+		font-size: var(--font-size-body);
 	}
 
 	.search-input:focus {
@@ -303,12 +303,12 @@
 	}
 
 	.sort-select {
-		padding: 0.75rem 1rem;
+		padding: var(--spacing-md) var(--spacing-lg);
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-md);
 		background: var(--bg-secondary);
 		color: var(--text-primary);
-		font-size: 1rem;
+		font-size: var(--font-size-body);
 		cursor: pointer;
 	}
 
@@ -320,14 +320,14 @@
 	.notes-list {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: var(--spacing-lg);
 	}
 
 	.note-item {
 		background: var(--bg-secondary);
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-lg);
-		padding: 1.5rem;
+		padding: var(--spacing-xl);
 		text-decoration: none;
 		color: inherit;
 		transition: background 0.15s ease, border-color 0.15s ease;
@@ -344,20 +344,20 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		margin-bottom: 1rem;
-		padding-bottom: 0.75rem;
+		margin-bottom: var(--spacing-lg);
+		padding-bottom: var(--spacing-md);
 		border-bottom: 1px solid var(--border-color);
 	}
 
 	.character {
-		font-size: 2rem;
+		font-size: var(--font-size-title);
 		font-weight: bold;
 		color: var(--text-primary);
 	}
 
 	.date {
 		color: var(--text-secondary);
-		font-size: 0.9rem;
+		font-size: var(--font-size-callout);
 	}
 
 	.note-content {
@@ -368,28 +368,28 @@
 	.markdown-content :global(h1),
 	.markdown-content :global(h2),
 	.markdown-content :global(h3) {
-		margin-top: 1rem;
-		margin-bottom: 0.5rem;
+		margin-top: var(--spacing-lg);
+		margin-bottom: var(--spacing-sm);
 		color: var(--text-primary);
 	}
 
 	.markdown-content :global(p) {
-		margin-bottom: 0.75rem;
+		margin-bottom: var(--spacing-md);
 	}
 
 	.markdown-content :global(code) {
 		background: var(--bg-tertiary);
-		padding: 0.2rem 0.4rem;
+		padding: var(--spacing-xs) var(--spacing-sm);
 		border-radius: var(--radius-sm);
 		font-family: monospace;
 	}
 
 	.markdown-content :global(pre) {
 		background: var(--bg-tertiary);
-		padding: 1rem;
+		padding: var(--spacing-lg);
 		border-radius: var(--radius-md);
 		overflow-x: auto;
-		margin-bottom: 1rem;
+		margin-bottom: var(--spacing-lg);
 	}
 
 	.markdown-content :global(a) {
@@ -408,7 +408,7 @@
 		}
 
 		.user-details h1 {
-			font-size: 1.5rem;
+			font-size: var(--font-size-title);
 		}
 
 		.controls {

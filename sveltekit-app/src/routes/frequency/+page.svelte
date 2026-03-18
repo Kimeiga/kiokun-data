@@ -140,7 +140,7 @@
 	.frequency-page {
 		min-height: 100vh;
 		background: var(--bg-primary);
-		padding: 20px;
+		padding: var(--spacing-xl);
 	}
 
 	.container {
@@ -150,29 +150,29 @@
 
 	h1 {
 		color: var(--text-primary);
-		margin-bottom: 8px;
+		margin-bottom: var(--spacing-sm);
 	}
 
 	.subtitle {
 		color: var(--text-secondary);
-		margin-bottom: 24px;
-		font-size: 14px;
+		margin-bottom: var(--spacing-xl);
+		font-size: var(--font-size-callout);
 	}
 
 	.tabs {
 		display: flex;
-		gap: 8px;
-		margin-bottom: 20px;
+		gap: var(--spacing-sm);
+		margin-bottom: var(--spacing-xl);
 	}
 
 	.tab {
-		padding: 10px 20px;
+		padding: var(--spacing-md) var(--spacing-xl);
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-md);
 		background: var(--bg-secondary);
 		color: var(--text-primary);
 		cursor: pointer;
-		font-size: 14px;
+		font-size: var(--font-size-callout);
 		transition: background 0.15s ease, border-color 0.15s ease;
 	}
 
@@ -188,26 +188,26 @@
 
 	.loading, .error {
 		text-align: center;
-		padding: 40px;
+		padding: calc(var(--spacing-xl) * 2);
 		color: var(--text-secondary);
 	}
 
 	.error {
-		color: #e74c3c;
+		color: var(--color-error, var(--accent));
 	}
 
 	.word-list {
 		display: flex;
 		flex-direction: column;
-		gap: 8px;
+		gap: var(--spacing-sm);
 	}
 
 	.word-card {
 		display: grid;
 		grid-template-columns: 60px 80px 100px 1fr auto;
-		gap: 12px;
+		gap: var(--spacing-md);
 		align-items: center;
-		padding: 12px 16px;
+		padding: var(--spacing-md) var(--spacing-lg);
 		background: var(--bg-secondary);
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-md);
@@ -218,30 +218,30 @@
 	.word-card:hover {
 		background: var(--bg-tertiary);
 		border-color: var(--accent);
-		transform: translateX(4px);
+		transform: translateX(var(--spacing-xs));
 	}
 
 	.rank {
-		font-size: 12px;
+		font-size: var(--font-size-footnote);
 		color: var(--text-muted);
 		font-weight: 600;
 	}
 
 	.word-text {
-		font-size: 20px;
+		font-size: var(--font-size-title);
 		font-weight: 600;
 		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", "MS Mincho", serif;
 		color: var(--text-primary);
 	}
 
 	.reading {
-		font-size: 14px;
-		color: var(--color-onyomi, #e74c3c);
+		font-size: var(--font-size-callout);
+		color: var(--color-onyomi, var(--accent));
 		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", "MS Mincho", serif;
 	}
 
 	.definition {
-		font-size: 14px;
+		font-size: var(--font-size-callout);
 		color: var(--text-secondary);
 		overflow: hidden;
 		text-overflow: ellipsis;
@@ -249,20 +249,20 @@
 	}
 
 	.common-badge {
-		font-size: 14px;
+		font-size: var(--font-size-callout);
 	}
 
 	.load-more {
 		display: block;
 		width: 100%;
-		padding: 16px;
-		margin-top: 20px;
+		padding: var(--spacing-lg);
+		margin-top: var(--spacing-xl);
 		background: var(--bg-secondary);
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-md);
 		color: var(--text-primary);
 		cursor: pointer;
-		font-size: 14px;
+		font-size: var(--font-size-callout);
 		transition: background 0.15s ease, border-color 0.15s ease;
 	}
 

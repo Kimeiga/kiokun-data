@@ -135,7 +135,7 @@
 	}
 
 	.error {
-		color: #e74c3c;
+		color: var(--color-error);
 	}
 
 	.users-grid {
