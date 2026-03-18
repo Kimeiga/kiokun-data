@@ -103,7 +103,7 @@
 	}
 
 	.similar-char {
-		font-size: 1.4rem;
+		font-size: var(--font-size-title);
 		font-weight: 600;
 		color: var(--text-primary);
 		line-height: 1.2;
@@ -124,7 +124,7 @@
 		}
 
 		.similar-char {
-			font-size: 1.2rem;
+			font-size: var(--font-size-title);
 		}
 	}
 </style>

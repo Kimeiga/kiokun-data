@@ -122,7 +122,7 @@
 	}
 
 	.character {
-		font-size: 1.75rem;
+		font-size: var(--font-size-title);
 		font-weight: 600;
 		color: var(--text-primary);
 		line-height: 1.2;
@@ -209,7 +209,7 @@
 		}
 
 		.character {
-			font-size: 1.5rem;
+			font-size: var(--font-size-title);
 		}
 	}
 </style>

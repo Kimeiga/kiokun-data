@@ -124,7 +124,7 @@
 
 <style>
 	.component-uses {
-		margin-bottom: 1rem;
+		margin-bottom: var(--spacing-lg);
 		position: relative;
 	}
 
@@ -142,43 +142,43 @@
 	.component-types {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: var(--spacing-lg);
 	}
 
 	.component-type-section {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: var(--spacing-sm);
 	}
 
 	.type-header {
 		display: flex;
 		align-items: baseline;
-		gap: 0.5rem;
+		gap: var(--spacing-sm);
 		flex-wrap: wrap;
 	}
 
 	.type-name {
 		font-weight: 600;
 		color: var(--text-primary);
-		font-size: 0.9rem;
+		font-size: var(--font-size-callout);
 	}
 
 	.type-count {
-		font-size: 0.75rem;
+		font-size: var(--font-size-footnote);
 		color: var(--text-muted);
 	}
 
 	.char-grid {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.25rem;
+		gap: var(--spacing-xs);
 		align-items: center;
 	}
 
 	.char-link {
 		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", "MS Mincho", serif;
-		font-size: 1.1rem;
+		font-size: var(--font-size-headline);
 		text-decoration: none;
 		color: var(--text-primary);
 		padding: 2px 4px;
@@ -192,7 +192,7 @@
 	}
 
 	.more-indicator {
-		font-size: 0.75rem;
+		font-size: var(--font-size-footnote);
 		color: var(--text-muted);
 		font-style: italic;
 		padding: 2px 6px;
@@ -243,20 +243,7 @@
 		}
 
 		.char-link {
-			font-size: 1rem;
 			padding: 1px 3px;
-		}
-
-		.type-name {
-			font-size: 0.85rem;
-		}
-
-		.type-count {
-			font-size: 0.7rem;
-		}
-
-		.more-indicator {
-			font-size: 0.65rem;
 		}
 	}
 </style>

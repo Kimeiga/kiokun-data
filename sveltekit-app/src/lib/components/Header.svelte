@@ -11,7 +11,7 @@
 
 	let handwritingInput: HandwritingInput;
 
-	let { currentWord = "" }: { currentWord?: string } = $props();
+	let { currentWord = "", autofocus = false }: { currentWord?: string; autofocus?: boolean } = $props();
 
 	let cachedGlosses: Record<string, string> | null = null;
 
@@ -86,6 +86,7 @@
 
 		<!-- Search Bar with draw button -->
 		<div class="flex-1 max-w-[600px] min-w-0 relative">
+			<!-- svelte-ignore a11y_autofocus -->
 			<input
 				type="text"
 				class="w-full pl-3 pr-10 py-1.5 md:pl-5 md:pr-12 md:py-2.5 border border-border-light rounded-full text-sm md:text-base bg-bg-tertiary text-text-primary font-sans transition-colors duration-150 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent placeholder:text-text-muted"
@@ -93,6 +94,7 @@
 				bind:value={internalSearchValue}
 				onkeydown={handleSearch}
 				onfocus={(e) => e.currentTarget.select()}
+				autofocus={autofocus}
 			/>
 			<button
 				onclick={() => handwritingInput.open()}

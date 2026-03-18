@@ -96,7 +96,7 @@
 	/>
 </svelte:head>
 
-<Header currentWord="" />
+<Header currentWord="" autofocus={true} />
 
 <main class="page">
 	<!-- Hero -->
