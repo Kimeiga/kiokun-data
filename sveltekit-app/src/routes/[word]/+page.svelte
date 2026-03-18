@@ -1596,8 +1596,16 @@
 			<JapaneseNames names={data.data.japanese_names} word={data.word} />
 		{/if}
 
-		<!-- Contains Section (for multi-character words) -->
-		<Contains words={data.data.contains || []} />
+		<!-- Contains Section (for multi-character words), sorted by position in word -->
+		<Contains words={[...(data.data.contains || [])].sort((a, b) => {
+			const idxA = data.word.indexOf(a.w);
+			const idxB = data.word.indexOf(b.w);
+			// Characters found in the word sort first, by position; others go to end
+			if (idxA === -1 && idxB === -1) return 0;
+			if (idxA === -1) return 1;
+			if (idxB === -1) return -1;
+			return idxA - idxB;
+		})} />
 
 		<!-- Appears In Section -->
 		<AppearsIn
