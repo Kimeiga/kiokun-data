@@ -743,10 +743,13 @@
 			}
 		};
 
+		const isMobile = window.innerWidth < 768;
+		const writerSize = isMobile ? 80 : 100;
+
 		const writerConfig = {
-			width: 100,
-			height: 100,
-			padding: 5,
+			width: writerSize,
+			height: writerSize,
+			padding: isMobile ? 3 : 5,
 			showOutline: true,
 			strokeAnimationSpeed: 3,
 			delayBetweenStrokes: 200,

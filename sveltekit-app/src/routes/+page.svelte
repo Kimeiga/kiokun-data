@@ -1,7 +1,20 @@
 <script lang="ts">
 	import Header from '$lib/components/Header.svelte';
+	import HandwritingInput from '$lib/components/HandwritingInput.svelte';
 	import FeaturedReels from '$lib/components/FeaturedReels.svelte';
 	import { navigateOrSearch } from '$lib/utils/search-navigation';
+
+	let handwritingInput: HandwritingInput;
+	let heroSearchValue = $state('');
+
+	async function handleHeroSearch(event: KeyboardEvent) {
+		if (event.key === 'Enter') {
+			const word = heroSearchValue.trim();
+			if (word) {
+				await navigateOrSearch(word);
+			}
+		}
+	}
 
 	// Shared characters - exist in both Chinese and Japanese
 	const sharedCharacters = [
@@ -96,13 +109,34 @@
 	/>
 </svelte:head>
 
-<Header currentWord="" autofocus={true} />
+<Header currentWord="" isHomePage={true} />
 
 <main class="page">
 	<!-- Hero -->
 	<section class="hero">
 		<h1 class="hero-title">Kiokun</h1>
 		<p class="hero-sub">The shared vocabulary of Chinese, Japanese & Korean</p>
+		<!-- Hero Search -->
+		<div class="hero-search">
+			<!-- svelte-ignore a11y_autofocus -->
+			<input
+				type="text"
+				class="hero-search-input"
+				placeholder="Search characters, words, or sentences..."
+				bind:value={heroSearchValue}
+				onkeydown={handleHeroSearch}
+				autofocus
+			/>
+			<button
+				onclick={() => handwritingInput.open()}
+				class="hero-draw-btn"
+				title="Draw Character"
+			>
+				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>
+				</svg>
+			</button>
+		</div>
 	</section>
 
 	<!-- Characters — prominent, the core product -->
@@ -241,6 +275,8 @@
 	</div>
 </main>
 
+<HandwritingInput bind:this={handwritingInput} />
+
 <style>
 	/* ===== Page ===== */
 	.page {
@@ -266,6 +302,56 @@
 		font-size: var(--font-size-body);
 		color: var(--text-secondary);
 		margin: 12px 0 0;
+	}
+
+	.hero-search {
+		position: relative;
+		max-width: 560px;
+		margin: 24px auto 0;
+	}
+
+	.hero-search-input {
+		width: 100%;
+		padding: 12px 48px 12px 20px;
+		border: 1px solid var(--border-light);
+		border-radius: var(--radius-full);
+		font-size: var(--font-size-body);
+		background: var(--bg-tertiary);
+		color: var(--text-primary);
+		font-family: inherit;
+		transition: border-color 0.15s ease, box-shadow 0.15s ease;
+	}
+
+	.hero-search-input:focus {
+		outline: none;
+		border-color: var(--accent);
+		box-shadow: 0 0 0 3px var(--accent-light);
+	}
+
+	.hero-search-input::placeholder {
+		color: var(--text-muted);
+	}
+
+	.hero-draw-btn {
+		position: absolute;
+		right: 8px;
+		top: 50%;
+		transform: translateY(-50%);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 32px;
+		height: 32px;
+		border-radius: 50%;
+		border: none;
+		background: transparent;
+		color: var(--text-tertiary);
+		cursor: pointer;
+		transition: color 0.15s ease;
+	}
+
+	.hero-draw-btn:hover {
+		color: var(--accent);
 	}
 
 	/* ===== Sections ===== */

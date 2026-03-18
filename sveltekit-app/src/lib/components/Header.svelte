@@ -11,7 +11,7 @@
 
 	let handwritingInput: HandwritingInput;
 
-	let { currentWord = "", autofocus = false }: { currentWord?: string; autofocus?: boolean } = $props();
+	let { currentWord = "", autofocus = false, isHomePage = false }: { currentWord?: string; autofocus?: boolean; isHomePage?: boolean } = $props();
 
 	let cachedGlosses: Record<string, string> | null = null;
 
@@ -84,56 +84,63 @@
 			>
 		</a>
 
-		<!-- Search Bar with draw button -->
-		<div class="flex-1 max-w-[600px] min-w-0 relative">
-			<!-- svelte-ignore a11y_autofocus -->
-			<input
-				type="text"
-				class="w-full pl-3 pr-10 py-1.5 md:pl-5 md:pr-12 md:py-2.5 border border-border-light rounded-full text-sm md:text-base bg-bg-tertiary text-text-primary font-sans transition-colors duration-150 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent placeholder:text-text-muted"
-				placeholder="Search..."
-				bind:value={internalSearchValue}
-				onkeydown={handleSearch}
-				onfocus={(e) => e.currentTarget.select()}
-				autofocus={autofocus}
-			/>
-			<button
-				onclick={() => handwritingInput.open()}
-				class="absolute right-1.5 top-1/2 -translate-y-1/2 flex items-center justify-center w-7 h-7 md:w-8 md:h-8 rounded-full text-text-tertiary hover:text-accent transition-colors duration-150 cursor-pointer"
-				title="Draw Character"
-			>
-				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="md:w-[18px] md:h-[18px]">
-					<path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>
-				</svg>
-			</button>
-		</div>
+		{#if !isHomePage}
+			<!-- Search Bar with draw button (not on home page) -->
+			<div class="flex-1 max-w-[600px] min-w-0 relative">
+				<!-- svelte-ignore a11y_autofocus -->
+				<input
+					type="text"
+					class="w-full pl-3 pr-10 py-1.5 md:pl-5 md:pr-12 md:py-2.5 border border-border-light rounded-full text-sm md:text-base bg-bg-tertiary text-text-primary font-sans transition-colors duration-150 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent placeholder:text-text-muted"
+					placeholder="Search..."
+					bind:value={internalSearchValue}
+					onkeydown={handleSearch}
+					onfocus={(e) => e.currentTarget.select()}
+					autofocus={autofocus}
+				/>
+				<button
+					onclick={() => handwritingInput.open()}
+					class="absolute right-1.5 top-1/2 -translate-y-1/2 flex items-center justify-center w-7 h-7 md:w-8 md:h-8 rounded-full text-text-tertiary hover:text-accent transition-colors duration-150 cursor-pointer"
+					title="Draw Character"
+				>
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="md:w-[18px] md:h-[18px]">
+						<path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>
+					</svg>
+				</button>
+			</div>
+		{:else}
+			<!-- Spacer on home page to push nav to the right -->
+			<div class="flex-1"></div>
+		{/if}
 
-		<!-- Desktop Actions - Hidden on mobile -->
-		<div class="hidden md:flex items-center gap-3 shrink-0">
-			<LanguageToggle compact={true} />
+		<!-- Nav Actions: always visible on home page, desktop-only on other pages -->
+		<div class="{isHomePage ? 'flex' : 'hidden md:flex'} items-center gap-2 md:gap-3 shrink-0">
+			{#if !isHomePage}
+				<LanguageToggle compact={true} />
+			{/if}
 			<a
 				href="/users"
-				class="flex items-center justify-center w-10 h-10 rounded-full bg-bg-secondary border border-border text-xl no-underline transition-colors duration-150 hover:border-accent hover:text-accent"
+				class="flex items-center justify-center w-9 h-9 md:w-10 md:h-10 rounded-full bg-bg-secondary border border-border text-lg md:text-xl no-underline transition-colors duration-150 hover:border-accent hover:text-accent"
 				title="Community"
 			>
 				👥
 			</a>
 			<a
 				href="/learning-resources"
-				class="flex items-center justify-center w-10 h-10 rounded-full bg-bg-secondary border border-border text-xl no-underline transition-colors duration-150 hover:border-accent hover:text-accent"
+				class="flex items-center justify-center w-9 h-9 md:w-10 md:h-10 rounded-full bg-bg-secondary border border-border text-lg md:text-xl no-underline transition-colors duration-150 hover:border-accent hover:text-accent"
 				title="Learning Resources"
 			>
 				🎓
 			</a>
 			<a
 				href="/study"
-				class="flex items-center justify-center w-10 h-10 rounded-full bg-bg-secondary border border-border text-xl no-underline transition-colors duration-150 hover:border-accent hover:text-accent"
+				class="flex items-center justify-center w-9 h-9 md:w-10 md:h-10 rounded-full bg-bg-secondary border border-border text-lg md:text-xl no-underline transition-colors duration-150 hover:border-accent hover:text-accent"
 				title="Study"
 			>
 				📚
 			</a>
 			<button
 				onclick={goToRandomCharacter}
-				class="flex items-center justify-center w-10 h-10 rounded-full bg-bg-secondary border border-border text-xl transition-colors duration-150 hover:border-accent hover:text-accent cursor-pointer"
+				class="flex items-center justify-center w-9 h-9 md:w-10 md:h-10 rounded-full bg-bg-secondary border border-border text-lg md:text-xl transition-colors duration-150 hover:border-accent hover:text-accent cursor-pointer"
 				title="Random Character"
 			>
 				🎲
@@ -141,7 +148,7 @@
 			{#if $session.data?.user}
 				<a
 					href="/lists"
-					class="flex items-center justify-center w-10 h-10 rounded-full bg-bg-secondary border border-border text-xl no-underline transition-colors duration-150 hover:border-accent hover:text-accent"
+					class="flex items-center justify-center w-9 h-9 md:w-10 md:h-10 rounded-full bg-bg-secondary border border-border text-lg md:text-xl no-underline transition-colors duration-150 hover:border-accent hover:text-accent"
 					title="My Notes"
 				>
 					📝
@@ -151,57 +158,57 @@
 			<ThemeToggle />
 		</div>
 
-		<!-- Mobile Hamburger Button -->
-		<button
-			class="md:hidden flex items-center justify-center w-11 h-11 rounded-lg bg-bg-secondary border border-border text-text-primary transition-colors duration-150 hover:border-accent shrink-0 relative"
-			onclick={toggleMobileMenu}
-			aria-label="Toggle menu"
-		>
-			{#if mobileMenuOpen}
-				<!-- X icon with fade transition -->
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					width="20"
-					height="20"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					class="absolute"
-					in:fade={{ duration: 150, delay: 100 }}
-					out:fade={{ duration: 100 }}
-				>
-					<line x1="18" y1="6" x2="6" y2="18"></line>
-					<line x1="6" y1="6" x2="18" y2="18"></line>
-				</svg>
-			{:else}
-				<!-- Hamburger icon with fade transition -->
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					width="20"
-					height="20"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					class="absolute"
-					in:fade={{ duration: 150, delay: 100 }}
-					out:fade={{ duration: 100 }}
-				>
-					<line x1="3" y1="12" x2="21" y2="12"></line>
-					<line x1="3" y1="6" x2="21" y2="6"></line>
-					<line x1="3" y1="18" x2="21" y2="18"></line>
-				</svg>
-			{/if}
-		</button>
+		{#if !isHomePage}
+			<!-- Mobile Hamburger Button (not on home page) -->
+			<button
+				class="md:hidden flex items-center justify-center w-11 h-11 rounded-lg bg-bg-secondary border border-border text-text-primary transition-colors duration-150 hover:border-accent shrink-0 relative"
+				onclick={toggleMobileMenu}
+				aria-label="Toggle menu"
+			>
+				{#if mobileMenuOpen}
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="20"
+						height="20"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						class="absolute"
+						in:fade={{ duration: 150, delay: 100 }}
+						out:fade={{ duration: 100 }}
+					>
+						<line x1="18" y1="6" x2="6" y2="18"></line>
+						<line x1="6" y1="6" x2="18" y2="18"></line>
+					</svg>
+				{:else}
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="20"
+						height="20"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						class="absolute"
+						in:fade={{ duration: 150, delay: 100 }}
+						out:fade={{ duration: 100 }}
+					>
+						<line x1="3" y1="12" x2="21" y2="12"></line>
+						<line x1="3" y1="6" x2="21" y2="6"></line>
+						<line x1="3" y1="18" x2="21" y2="18"></line>
+					</svg>
+				{/if}
+			</button>
+		{/if}
 	</div>
 
-	<!-- Mobile Menu Dropdown with slide animation -->
-	{#if mobileMenuOpen}
+	<!-- Mobile Menu Dropdown with slide animation (not on home page) -->
+	{#if mobileMenuOpen && !isHomePage}
 		<div
 			class="md:hidden border-t border-border bg-bg-primary/98 backdrop-blur-md overflow-hidden"
 			transition:slide={{ duration: 250, easing: cubicOut }}
