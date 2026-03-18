@@ -41,7 +41,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		transition: all 0.3s ease;
+		transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
 		box-shadow: 0 2px 8px var(--toggle-shadow);
 	}
 

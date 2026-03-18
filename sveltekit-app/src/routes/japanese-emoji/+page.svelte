@@ -312,9 +312,9 @@
 	.emoji-card {
 		background: var(--bg-secondary);
 		border: 1px solid var(--border-color);
-		border-radius: 12px;
+		border-radius: var(--radius-lg);
 		padding: 20px;
-		transition: all 0.2s ease;
+		transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
 	}
 
 	.emoji-card:hover {
@@ -400,9 +400,9 @@
 		color: var(--text-secondary);
 		background: var(--bg-tertiary);
 		border: 1px solid var(--border-color);
-		border-radius: 6px;
+		border-radius: var(--radius-sm);
 		text-decoration: none;
-		transition: all 0.15s ease;
+		transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
 	}
 
 	.card-links a:hover {
@@ -415,7 +415,7 @@
 	.finding-examples {
 		background: var(--bg-tertiary);
 		padding: 30px;
-		border-radius: 16px;
+		border-radius: var(--radius-lg);
 		margin-top: 40px;
 	}
 
@@ -428,7 +428,7 @@
 	.tip-card {
 		background: var(--bg-secondary);
 		border: 1px solid var(--border-color);
-		border-radius: 12px;
+		border-radius: var(--radius-lg);
 		padding: 20px;
 	}
 
@@ -459,7 +459,7 @@
 	.tip-card code {
 		background: var(--bg-tertiary);
 		padding: 2px 6px;
-		border-radius: 4px;
+		border-radius: var(--radius-sm);
 		font-size: 11px;
 	}
 

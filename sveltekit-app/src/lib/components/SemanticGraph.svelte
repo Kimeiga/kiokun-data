@@ -252,11 +252,11 @@
 		padding: var(--spacing-sm) var(--spacing-md);
 		background: var(--bg-secondary);
 		border: 1px solid var(--border-light);
-		border-radius: 4px;
+		border-radius: var(--radius-sm);
 		color: var(--text-secondary);
 		font-size: var(--font-size-footnote);
 		cursor: pointer;
-		transition: all 0.2s ease;
+		transition: border-color 0.15s ease, color 0.15s ease;
 	}
 
 	.expand-btn:hover {
@@ -267,7 +267,7 @@
 	.graph-container {
 		background: var(--bg-secondary);
 		border: 1px solid var(--border-light);
-		border-radius: 6px;
+		border-radius: var(--radius-md);
 		overflow: hidden;
 	}
 

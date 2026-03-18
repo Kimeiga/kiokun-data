@@ -168,12 +168,12 @@
 	.tab {
 		padding: 10px 20px;
 		border: 1px solid var(--border-color);
-		border-radius: 8px;
+		border-radius: var(--radius-md);
 		background: var(--bg-secondary);
 		color: var(--text-primary);
 		cursor: pointer;
 		font-size: 14px;
-		transition: all 0.2s ease;
+		transition: background 0.15s ease, border-color 0.15s ease;
 	}
 
 	.tab:hover {
@@ -210,9 +210,9 @@
 		padding: 12px 16px;
 		background: var(--bg-secondary);
 		border: 1px solid var(--border-color);
-		border-radius: 8px;
+		border-radius: var(--radius-md);
 		text-decoration: none;
-		transition: all 0.2s ease;
+		transition: background 0.15s ease, border-color 0.15s ease;
 	}
 
 	.word-card:hover {
@@ -259,11 +259,11 @@
 		margin-top: 20px;
 		background: var(--bg-secondary);
 		border: 1px solid var(--border-color);
-		border-radius: 8px;
+		border-radius: var(--radius-md);
 		color: var(--text-primary);
 		cursor: pointer;
 		font-size: 14px;
-		transition: all 0.2s ease;
+		transition: background 0.15s ease, border-color 0.15s ease;
 	}
 
 	.load-more:hover {

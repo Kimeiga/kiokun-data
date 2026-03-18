@@ -189,7 +189,7 @@
 	textarea {
 		padding: 12px;
 		border: 2px solid #e0e0e0;
-		border-radius: 8px;
+		border-radius: var(--radius-md);
 		font-size: 1rem;
 		font-family: inherit;
 		resize: vertical;
@@ -209,7 +209,7 @@
 	input[type='file'] {
 		padding: 8px;
 		border: 2px solid #e0e0e0;
-		border-radius: 8px;
+		border-radius: var(--radius-md);
 		font-size: 0.95rem;
 		cursor: pointer;
 	}
@@ -228,7 +228,7 @@
 	.preview img {
 		max-width: 200px;
 		max-height: 200px;
-		border-radius: 8px;
+		border-radius: var(--radius-md);
 		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 	}
 
@@ -238,7 +238,7 @@
 		background: #e74c3c;
 		color: white;
 		border: none;
-		border-radius: 6px;
+		border-radius: var(--radius-sm);
 		font-size: 0.85rem;
 		cursor: pointer;
 		transition: background 0.2s;
@@ -257,7 +257,7 @@
 		padding: 12px;
 		background: #fee;
 		color: #e74c3c;
-		border-radius: 8px;
+		border-radius: var(--radius-md);
 		font-size: 0.9rem;
 	}
 
@@ -266,7 +266,7 @@
 		background: #3498db;
 		color: white;
 		border: none;
-		border-radius: 8px;
+		border-radius: var(--radius-md);
 		font-size: 1rem;
 		font-weight: 600;
 		cursor: pointer;

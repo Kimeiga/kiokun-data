@@ -11,6 +11,11 @@ export default {
 					secondary: 'var(--bg-secondary)',
 					tertiary: 'var(--bg-tertiary)'
 				},
+				bg: {
+					primary: 'var(--bg-primary)',
+					secondary: 'var(--bg-secondary)',
+					tertiary: 'var(--bg-tertiary)'
+				},
 				text: {
 					primary: 'var(--text-primary)',
 					secondary: 'var(--text-secondary)',
@@ -37,10 +42,24 @@ export default {
 					bg: 'var(--color-hint-bg)',
 					border: 'var(--color-hint-border)',
 					text: 'var(--color-hint-text)'
+				},
+				// Info callout colors
+				info: {
+					bg: 'var(--info-bg)',
+					border: 'var(--info-border)',
+					text: 'var(--info-text)',
+					muted: 'var(--info-text-muted)'
 				}
 			},
+			borderRadius: {
+				sm: 'var(--radius-sm)',
+				DEFAULT: 'var(--radius-md)',
+				md: 'var(--radius-md)',
+				lg: 'var(--radius-lg)',
+				full: 'var(--radius-full)'
+			},
 			boxShadow: {
-				DEFAULT: '0 2px 10px var(--shadow)',
+				DEFAULT: '0 2px 8px var(--shadow)',
 				hover: '0 4px 12px var(--shadow-hover)'
 			},
 			fontFamily: {

@@ -77,7 +77,7 @@
 		height: 28px;
 		border-radius: 50%;
 		font-size: 16px;
-		transition: all 0.2s ease;
+		transition: opacity 0.15s ease, filter 0.15s ease, background 0.15s ease;
 		opacity: 0.4;
 		filter: grayscale(100%);
 		background: transparent;
@@ -101,11 +101,11 @@
 		align-items: center;
 		gap: 6px;
 		padding: 8px 12px;
-		border-radius: 8px;
+		border-radius: var(--radius-md);
 		background: var(--bg-secondary);
 		border: 1px solid var(--border);
 		cursor: pointer;
-		transition: all 0.2s ease;
+		transition: opacity 0.15s ease, filter 0.15s ease, border-color 0.15s ease, background 0.15s ease;
 		opacity: 0.5;
 		filter: grayscale(100%);
 	}

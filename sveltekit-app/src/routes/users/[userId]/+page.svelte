@@ -237,7 +237,7 @@
 		gap: 1.5rem;
 		background: var(--bg-secondary);
 		border: 1px solid var(--border-color);
-		border-radius: 12px;
+		border-radius: var(--radius-lg);
 		padding: 2rem;
 	}
 
@@ -291,7 +291,7 @@
 		min-width: 200px;
 		padding: 0.75rem 1rem;
 		border: 1px solid var(--border-color);
-		border-radius: 8px;
+		border-radius: var(--radius-md);
 		background: var(--bg-secondary);
 		color: var(--text-primary);
 		font-size: 1rem;
@@ -305,7 +305,7 @@
 	.sort-select {
 		padding: 0.75rem 1rem;
 		border: 1px solid var(--border-color);
-		border-radius: 8px;
+		border-radius: var(--radius-md);
 		background: var(--bg-secondary);
 		color: var(--text-primary);
 		font-size: 1rem;
@@ -326,11 +326,11 @@
 	.note-item {
 		background: var(--bg-secondary);
 		border: 1px solid var(--border-color);
-		border-radius: 12px;
+		border-radius: var(--radius-lg);
 		padding: 1.5rem;
 		text-decoration: none;
 		color: inherit;
-		transition: all 0.2s ease;
+		transition: background 0.15s ease, border-color 0.15s ease;
 		display: block;
 	}
 
@@ -380,14 +380,14 @@
 	.markdown-content :global(code) {
 		background: var(--bg-tertiary);
 		padding: 0.2rem 0.4rem;
-		border-radius: 4px;
+		border-radius: var(--radius-sm);
 		font-family: monospace;
 	}
 
 	.markdown-content :global(pre) {
 		background: var(--bg-tertiary);
 		padding: 1rem;
-		border-radius: 8px;
+		border-radius: var(--radius-md);
 		overflow-x: auto;
 		margin-bottom: 1rem;
 	}

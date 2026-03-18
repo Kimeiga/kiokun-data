@@ -45,23 +45,23 @@
 
 <style>
 	.note-card {
-		background: white;
-		border-radius: 12px;
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+		background: var(--bg-secondary);
+		border-radius: var(--radius-lg);
+		border: 1px solid var(--border-light);
 		overflow: hidden;
-		transition: transform 0.2s, box-shadow 0.2s;
+		transition: transform 0.15s ease, box-shadow 0.15s ease;
 	}
 
 	.note-card:hover {
 		transform: translateY(-2px);
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+		box-shadow: 0 4px 12px var(--shadow);
 	}
 
 	.note-image {
 		width: 100%;
 		height: 200px;
 		overflow: hidden;
-		background: #f0f0f0;
+		background: var(--bg-tertiary);
 	}
 
 	.note-image img {
@@ -71,14 +71,14 @@
 	}
 
 	.note-content {
-		padding: 20px;
+		padding: var(--spacing-lg);
 	}
 
 	.note-text {
-		margin: 0 0 15px 0;
+		margin: 0 0 var(--spacing-md) 0;
 		font-size: 1rem;
 		line-height: 1.6;
-		color: #333;
+		color: var(--text-primary);
 		word-wrap: break-word;
 	}
 
@@ -86,28 +86,28 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		padding-top: 15px;
-		border-top: 1px solid #eee;
+		padding-top: var(--spacing-md);
+		border-top: 1px solid var(--border-light);
 	}
 
 	.note-date {
 		font-size: 0.85rem;
-		color: #999;
+		color: var(--text-muted);
 	}
 
 	.delete-btn {
-		padding: 6px 12px;
-		background: #e74c3c;
+		padding: var(--spacing-xs) var(--spacing-sm);
+		background: var(--color-error, #e74c3c);
 		color: white;
 		border: none;
-		border-radius: 6px;
+		border-radius: var(--radius-sm);
 		font-size: 0.85rem;
 		cursor: pointer;
-		transition: background 0.2s;
+		transition: background 0.15s ease;
 	}
 
 	.delete-btn:hover {
-		background: #c0392b;
+		background: color-mix(in srgb, var(--color-error, #e74c3c) 85%, black);
 	}
 </style>
 

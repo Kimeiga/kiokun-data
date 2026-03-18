@@ -63,7 +63,7 @@
 </script>
 
 <header
-	class="bg-bg-primary/95 backdrop-blur-md border-b border-border sticky top-0 z-[100] transition-all duration-300"
+	class="bg-bg-primary/95 backdrop-blur-md border-b border-border sticky top-0 z-[100]"
 >
 	<div
 		class="max-w-[1400px] mx-auto px-3 py-2 md:px-5 md:py-3 flex items-center justify-between gap-2 md:gap-4"
@@ -84,45 +84,54 @@
 			>
 		</a>
 
-		<!-- Search Bar - Always visible and prioritized -->
-		<div class="flex-1 max-w-[600px] min-w-0">
+		<!-- Search Bar with draw button -->
+		<div class="flex-1 max-w-[600px] min-w-0 relative">
 			<input
 				type="text"
-				class="w-full px-3 py-1.5 md:px-5 md:py-2.5 border border-border rounded-full text-sm md:text-base bg-white dark:bg-black text-black dark:text-white font-sans transition-all duration-300 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent placeholder:text-text-muted"
+				class="w-full pl-3 pr-10 py-1.5 md:pl-5 md:pr-12 md:py-2.5 border border-border-light rounded-full text-sm md:text-base bg-bg-tertiary text-text-primary font-sans transition-colors duration-150 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent placeholder:text-text-muted"
 				placeholder="Search..."
 				bind:value={internalSearchValue}
 				onkeydown={handleSearch}
 				onfocus={(e) => e.currentTarget.select()}
 			/>
+			<button
+				onclick={() => handwritingInput.open()}
+				class="absolute right-1.5 top-1/2 -translate-y-1/2 flex items-center justify-center w-7 h-7 md:w-8 md:h-8 rounded-full text-text-tertiary hover:text-accent transition-colors duration-150 cursor-pointer"
+				title="Draw Character"
+			>
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="md:w-[18px] md:h-[18px]">
+					<path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>
+				</svg>
+			</button>
 		</div>
 
 		<!-- Desktop Actions - Hidden on mobile -->
 		<div class="hidden md:flex items-center gap-3 shrink-0">
-			<button
-				onclick={() => handwritingInput.open()}
-				class="flex items-center justify-center w-10 h-10 rounded-full bg-bg-secondary border border-border text-xl transition-all duration-200 hover:border-accent hover:text-accent hover:scale-105 cursor-pointer"
-				title="Draw Character"
-			>
-				&#9999;&#65039;
-			</button>
 			<LanguageToggle compact={true} />
 			<a
 				href="/users"
-				class="flex items-center justify-center w-10 h-10 rounded-full bg-bg-secondary border border-border text-xl no-underline transition-all duration-200 hover:border-accent hover:text-accent hover:scale-105"
+				class="flex items-center justify-center w-10 h-10 rounded-full bg-bg-secondary border border-border text-xl no-underline transition-colors duration-150 hover:border-accent hover:text-accent"
 				title="Community"
 			>
 				👥
 			</a>
 			<a
+				href="/learning-resources"
+				class="flex items-center justify-center w-10 h-10 rounded-full bg-bg-secondary border border-border text-xl no-underline transition-colors duration-150 hover:border-accent hover:text-accent"
+				title="Learning Resources"
+			>
+				🎓
+			</a>
+			<a
 				href="/study"
-				class="flex items-center justify-center w-10 h-10 rounded-full bg-bg-secondary border border-border text-xl no-underline transition-all duration-200 hover:border-accent hover:text-accent hover:scale-105"
+				class="flex items-center justify-center w-10 h-10 rounded-full bg-bg-secondary border border-border text-xl no-underline transition-colors duration-150 hover:border-accent hover:text-accent"
 				title="Study"
 			>
 				📚
 			</a>
 			<button
 				onclick={goToRandomCharacter}
-				class="flex items-center justify-center w-10 h-10 rounded-full bg-bg-secondary border border-border text-xl transition-all duration-200 hover:border-accent hover:text-accent hover:scale-105 cursor-pointer"
+				class="flex items-center justify-center w-10 h-10 rounded-full bg-bg-secondary border border-border text-xl transition-colors duration-150 hover:border-accent hover:text-accent cursor-pointer"
 				title="Random Character"
 			>
 				🎲
@@ -130,7 +139,7 @@
 			{#if $session.data?.user}
 				<a
 					href="/lists"
-					class="flex items-center justify-center w-10 h-10 rounded-full bg-bg-secondary border border-border text-xl no-underline transition-all duration-200 hover:border-accent hover:text-accent hover:scale-105"
+					class="flex items-center justify-center w-10 h-10 rounded-full bg-bg-secondary border border-border text-xl no-underline transition-colors duration-150 hover:border-accent hover:text-accent"
 					title="My Notes"
 				>
 					📝
@@ -142,7 +151,7 @@
 
 		<!-- Mobile Hamburger Button -->
 		<button
-			class="md:hidden flex items-center justify-center w-9 h-9 rounded-lg bg-bg-secondary border border-border text-text-primary transition-all duration-200 hover:border-accent shrink-0 relative"
+			class="md:hidden flex items-center justify-center w-11 h-11 rounded-lg bg-bg-secondary border border-border text-text-primary transition-colors duration-150 hover:border-accent shrink-0 relative"
 			onclick={toggleMobileMenu}
 			aria-label="Toggle menu"
 		>
@@ -197,17 +206,9 @@
 		>
 			<div class="max-w-[1400px] mx-auto px-4 py-3 flex flex-col gap-3">
 				<!-- Navigation Links -->
-				<button
-					class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-bg-secondary border border-border text-text-primary transition-all duration-200 hover:border-accent hover:text-accent cursor-pointer w-full text-left"
-					onclick={() => { closeMobileMenu(); handwritingInput.open(); }}
-				>
-					<span class="text-lg">&#9999;&#65039;</span>
-					<span class="text-sm font-medium">Draw Character</span>
-				</button>
-
 				<a
 					href="/users"
-					class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-bg-secondary border border-border text-text-primary no-underline transition-all duration-200 hover:border-accent hover:text-accent"
+					class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-bg-secondary border border-border text-text-primary no-underline transition-colors duration-150 hover:border-accent hover:text-accent"
 					onclick={closeMobileMenu}
 				>
 					<span class="text-lg">👥</span>
@@ -215,8 +216,17 @@
 				</a>
 
 				<a
+					href="/learning-resources"
+					class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-bg-secondary border border-border text-text-primary no-underline transition-colors duration-150 hover:border-accent hover:text-accent"
+					onclick={closeMobileMenu}
+				>
+					<span class="text-lg">🎓</span>
+					<span class="text-sm font-medium">Learning Resources</span>
+				</a>
+
+				<a
 					href="/study"
-					class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-bg-secondary border border-border text-text-primary no-underline transition-all duration-200 hover:border-accent hover:text-accent"
+					class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-bg-secondary border border-border text-text-primary no-underline transition-colors duration-150 hover:border-accent hover:text-accent"
 					onclick={closeMobileMenu}
 				>
 					<span class="text-lg">📚</span>
@@ -224,7 +234,7 @@
 				</a>
 
 				<button
-					class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-bg-secondary border border-border text-text-primary transition-all duration-200 hover:border-accent hover:text-accent cursor-pointer w-full text-left"
+					class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-bg-secondary border border-border text-text-primary transition-colors duration-150 hover:border-accent hover:text-accent cursor-pointer w-full text-left"
 					title="Random Character"
 					onclick={() => { closeMobileMenu(); goToRandomCharacter(); }}
 				>
@@ -235,7 +245,7 @@
 				{#if $session.data?.user}
 					<a
 						href="/lists"
-						class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-bg-secondary border border-border text-text-primary no-underline transition-all duration-200 hover:border-accent hover:text-accent"
+						class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-bg-secondary border border-border text-text-primary no-underline transition-colors duration-150 hover:border-accent hover:text-accent"
 						onclick={closeMobileMenu}
 					>
 						<span class="text-lg">📝</span>

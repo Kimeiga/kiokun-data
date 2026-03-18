@@ -126,7 +126,7 @@
 
 <div class="container">
 	<div class="page-header">
-		<h1>📝 My Notes</h1>
+		<h1>My Notes</h1>
 		<p class="subtitle">All your character notes in one place</p>
 	</div>
 
@@ -278,11 +278,11 @@
 		width: 100%;
 		padding: 10px 16px;
 		border: 2px solid var(--border-color);
-		border-radius: 8px;
+		border-radius: var(--radius-md);
 		font-size: 16px;
 		background: var(--bg-secondary);
 		color: var(--text-primary);
-		transition: all 0.2s ease;
+		transition: background 0.15s ease, border-color 0.15s ease;
 		box-sizing: border-box;
 	}
 
@@ -307,12 +307,12 @@
 	.sort-select {
 		padding: 8px 12px;
 		border: 2px solid var(--border-color);
-		border-radius: 8px;
+		border-radius: var(--radius-md);
 		background: var(--bg-secondary);
 		color: var(--text-primary);
 		font-size: 14px;
 		cursor: pointer;
-		transition: all 0.2s ease;
+		transition: background 0.15s ease, border-color 0.15s ease;
 	}
 
 	.sort-select:focus {
@@ -336,10 +336,10 @@
 		display: block;
 		background: var(--bg-secondary);
 		border: 2px solid var(--border-color);
-		border-radius: 12px;
+		border-radius: var(--radius-lg);
 		padding: 20px;
 		cursor: pointer;
-		transition: all 0.2s ease;
+		transition: background 0.15s ease, border-color 0.15s ease;
 		text-decoration: none;
 		color: inherit;
 		/* Prevent content from overflowing */
@@ -413,7 +413,7 @@
 	:global(.markdown-content code) {
 		background: var(--bg-tertiary);
 		padding: 2px 6px;
-		border-radius: 4px;
+		border-radius: var(--radius-sm);
 		font-family: 'Courier New', monospace;
 		font-size: 0.9em;
 	}

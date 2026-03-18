@@ -139,7 +139,7 @@
 	.shortcut-modal {
 		background: var(--bg-secondary);
 		border: 1px solid var(--border-color);
-		border-radius: 12px;
+		border-radius: var(--radius-lg);
 		padding: var(--spacing-lg);
 		min-width: 280px;
 		max-width: 360px;
@@ -168,11 +168,11 @@
 		width: 28px;
 		height: 28px;
 		border: 1px solid var(--border-color);
-		border-radius: 6px;
+		border-radius: var(--radius-sm);
 		background: var(--bg-tertiary);
 		color: var(--text-secondary);
 		cursor: pointer;
-		transition: all 0.15s ease;
+		transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 	}
 
 	.shortcut-close:hover {
@@ -209,7 +209,7 @@
 		padding: 2px 8px;
 		background: var(--bg-tertiary);
 		border: 1px solid var(--border-color);
-		border-radius: 5px;
+		border-radius: var(--radius-sm);
 		font-size: var(--font-size-footnote);
 		font-family: inherit;
 		color: var(--text-primary);

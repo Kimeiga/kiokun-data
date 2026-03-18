@@ -69,7 +69,7 @@
 						{#each chars as ch}
 							<a
 								href="/{ch.char}"
-								class="flex items-center gap-2 px-3 py-2 rounded-lg no-underline transition-all duration-200 hover:scale-105"
+								class="flex items-center gap-2 px-3 py-2 rounded-lg no-underline transition-colors duration-150"
 								style="background: var(--bg-secondary); border: 1px solid var(--border-light);"
 							>
 								<span class="text-2xl font-serif" style="color: var(--text-primary);">

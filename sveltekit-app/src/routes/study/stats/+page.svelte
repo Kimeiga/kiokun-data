@@ -154,7 +154,7 @@
 						<div class="flex-1 flex flex-col items-center gap-1">
 							<span class="text-xs text-text-tertiary">{count}</span>
 							<div
-								class="w-full rounded-t transition-all {i === 0 ? 'bg-accent' : 'bg-accent/60'}"
+								class="w-full rounded-t transition-[height] duration-300 {i === 0 ? 'bg-accent' : 'bg-accent/60'}"
 								style="height: {Math.max((count / maxForecast) * 80, count > 0 ? 4 : 0)}px"
 							></div>
 							<span class="text-[10px] text-text-tertiary truncate w-full text-center">{dayLabels[i]}</span>

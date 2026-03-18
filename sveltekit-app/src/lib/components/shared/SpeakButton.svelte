@@ -271,8 +271,8 @@
 		background: transparent;
 		color: var(--text-tertiary, #888);
 		cursor: pointer;
-		border-radius: 4px;
-		transition: all 0.2s ease;
+		border-radius: var(--radius-sm);
+		transition: color 0.15s ease, background 0.15s ease;
 		vertical-align: middle;
 	}
 

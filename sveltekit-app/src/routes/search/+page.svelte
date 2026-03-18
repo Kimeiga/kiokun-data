@@ -305,10 +305,10 @@
 		padding: 20px;
 		background: rgba(255, 255, 255, 0.03);
 		border: 1px solid rgba(255, 255, 255, 0.1);
-		border-radius: 8px;
+		border-radius: var(--radius-md);
 		text-decoration: none;
 		color: inherit;
-		transition: all 0.2s ease;
+		transition: background 0.15s ease, border-color 0.15s ease;
 	}
 
 	:global(body.light-theme) .result-card {
@@ -348,7 +348,7 @@
 	.common-badge {
 		font-size: 12px;
 		padding: 2px 8px;
-		border-radius: 4px;
+		border-radius: var(--radius-sm);
 		background: var(--color-primary);
 		color: white;
 		font-weight: 500;

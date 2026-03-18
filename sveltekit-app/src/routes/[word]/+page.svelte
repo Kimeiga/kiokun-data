@@ -17,7 +17,7 @@
 	import { languageStore } from "$lib/stores/languages.svelte";
 	import SentenceBar from "$lib/components/SentenceBar.svelte";
 	import ReelsSection from "$lib/components/ReelsSection.svelte";
-	import EtymologyTrail from "$lib/components/EtymologyTrail.svelte";
+	// EtymologyTrail removed - not providing enough value for most users
 	import SimilarCharacters from "$lib/components/SimilarCharacters.svelte";
 	import SemanticGraph from "$lib/components/SemanticGraph.svelte";
 	import SentenceExamples from "$lib/components/SentenceExamples.svelte";
@@ -541,8 +541,24 @@
 		const charDataLoader = (
 			char: string,
 			onComplete: (data: any) => void,
-			onError: (error: any) => void,
+			onErrorOriginal: (error: any) => void,
 		) => {
+			// Wrap onError to restore fallback content
+			const onError = (error: any) => {
+				const fallback = targetFallbacks.get(char);
+				if (fallback) {
+					// Find the target element and restore its content
+					const targets = ['trad-writer-target', 'simp-writer-target', 'jp-writer-target'];
+					for (const id of targets) {
+						const el = document.getElementById(id);
+						if (el && el.innerHTML === '') {
+							el.innerHTML = fallback;
+							break;
+						}
+					}
+				}
+				onErrorOriginal(error);
+			};
 			// Determine if this is a Japanese character by checking if the char matches japaneseChar
 			const isJapanese = char === japaneseChar;
 
@@ -579,7 +595,7 @@
 							});
 					});
 			} else {
-				// Use Chinese data for Chinese characters
+				// Use Chinese data for Chinese characters, fall back to KanjiVG
 				fetch(
 					`https://cdn.jsdelivr.net/npm/hanzi-writer-data@latest/${char}.json`,
 				)
@@ -588,13 +604,15 @@
 						return res.json();
 					})
 					.then(onComplete)
-					.catch((error) => {
-						// Silently fail for characters without stroke data (e.g., rare components)
-						console.warn(
-							`No stroke data available for character: ${char}`,
-							error,
-						);
-						onError(error);
+					.catch(() => {
+						// Fallback: try KanjiVG SVG for rare characters
+						loadKanjiVGFallback(char, (error) => {
+							console.warn(
+								`No stroke data available for character: ${char}`,
+								error,
+							);
+							onError(error);
+						});
 					});
 			}
 		};
@@ -621,12 +639,13 @@
 				const svgText = await response.text();
 
 				// Find the target element and inject the SVG
+				// Check traditional first since Japanese/Korean may share the same character
 				const targetId =
-					char === japaneseChar
-						? "jp-writer-target"
+					char === traditionalChar
+						? "trad-writer-target"
 						: char === simplifiedChar
 							? "simp-writer-target"
-							: "trad-writer-target";
+							: "jp-writer-target";
 				const target = document.getElementById(targetId);
 
 				if (target) {
@@ -739,34 +758,36 @@
 			charDataLoader: charDataLoader,
 		};
 
+		// Track targets that need fallback restoration on error
+		const targetFallbacks = new Map<string, string>();
+
+		// Helper to animate a character with fallback on error
+		function animateChar(targetId: string, char: string) {
+			const target = document.getElementById(targetId);
+			if (!target) return;
+			targetFallbacks.set(char, target.innerHTML);
+			target.innerHTML = "";
+			try {
+				const writer = HanziWriter.create(target, char, writerConfig);
+				writer.loopCharacterAnimation();
+			} catch {
+				target.innerHTML = targetFallbacks.get(char) || "";
+			}
+		}
+
 		// Animate traditional character (always if exists)
 		if (traditionalChar) {
-			const target = document.getElementById("trad-writer-target");
-			if (target) {
-				target.innerHTML = "";
-				const writer = HanziWriter.create(target, traditionalChar, writerConfig);
-				writer.loopCharacterAnimation();
-			}
+			animateChar("trad-writer-target", traditionalChar);
 		}
 
 		// Animate simplified character (only if different from traditional)
 		if (simplifiedChar && simplifiedChar !== traditionalChar) {
-			const target = document.getElementById("simp-writer-target");
-			if (target) {
-				target.innerHTML = "";
-				const writer = HanziWriter.create(target, simplifiedChar, writerConfig);
-				writer.loopCharacterAnimation();
-			}
+			animateChar("simp-writer-target", simplifiedChar);
 		}
 
 		// Animate Japanese character (only if different from both trad and simp)
 		if (japaneseChar && japaneseChar !== traditionalChar && japaneseChar !== simplifiedChar) {
-			const target = document.getElementById("jp-writer-target");
-			if (target) {
-				target.innerHTML = "";
-				const writer = HanziWriter.create(target, japaneseChar, writerConfig);
-				writer.loopCharacterAnimation();
-			}
+			animateChar("jp-writer-target", japaneseChar);
 		}
 
 		// Load component mappings for traditional character
@@ -879,10 +900,6 @@
 	}
 </script>
 
-{#if typeof window !== "undefined"}
-	{console.log("[PAGE] Rendering page for:", data.word)}
-{/if}
-
 <svelte:head>
 	<title>{data.word} - Kiokun Dictionary</title>
 	<meta name="description" content={data.data.chinese_char?.gloss
@@ -909,8 +926,8 @@
 <div class="max-w-6xl mx-auto px-3 py-2 md:px-5 md:py-3">
 	<!-- Conjugation Info Box (shown when arriving via deinflection) -->
 	{#if data.conjugatedFrom && data.conjugationInfo}
-		<div class="mb-4 p-4 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-lg">
-			<div class="flex items-center gap-2 text-blue-800 dark:text-blue-200">
+		<div class="mb-4 p-4 bg-info-bg border border-info-border rounded-lg">
+			<div class="flex items-center gap-2 text-info-text">
 				<svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
 				</svg>
@@ -924,13 +941,13 @@
 
 			<!-- Alternative matches -->
 			{#if data.conjugationAlternatives && data.conjugationAlternatives.length > 0}
-				<div class="mt-3 pt-3 border-t border-blue-200 dark:border-blue-700">
-					<span class="text-sm text-blue-700 dark:text-blue-300">Could also be:</span>
+				<div class="mt-3 pt-3 border-t border-info-border">
+					<span class="text-sm text-info-muted">Could also be:</span>
 					<div class="flex flex-wrap gap-2 mt-2">
 						{#each data.conjugationAlternatives as alt}
 							<a
 								href="/{alt.word}?from={encodeURIComponent(data.conjugatedFrom)}&conj={encodeURIComponent(alt.conj)}"
-								class="inline-flex items-center gap-1 text-sm px-3 py-1.5 bg-blue-100 dark:bg-blue-800/50 text-blue-800 dark:text-blue-200 rounded-full hover:bg-blue-200 dark:hover:bg-blue-700 transition-colors"
+								class="inline-flex items-center gap-1 text-sm px-3 py-1.5 bg-accent-light text-accent rounded-full hover:opacity-80 transition-opacity"
 							>
 								<span class="font-medium">{alt.word}</span>
 								<span class="opacity-70">({alt.conj})</span>
@@ -950,29 +967,22 @@
 					<!-- Compact Header: Characters + Pronunciations + Gloss in one line -->
 					<div class="flex flex-col gap-4 mb-4">
 						<!-- Top Row: Character Variants & Main Gloss -->
-						<!-- Single character: always inline (even on mobile), left-aligned -->
-						<!-- Multiple characters: stacked on mobile, spread apart on desktop -->
-						<div
-							class="flex items-start gap-4"
-							class:flex-row={isSingleCharacter}
-							class:flex-col={!isSingleCharacter}
-							class:md:flex-row={!isSingleCharacter}
-							class:justify-between={!isSingleCharacter}
-						>
+						<!-- Grid: chars left, gloss+pronunciations right -->
+						<div class="grid grid-cols-[auto_1fr] gap-3 md:gap-4 items-start">
 							<!-- Character Variants with Stroke Animations -->
-							<div class="flex items-center gap-4">
+							<div class="flex items-center gap-3 md:gap-4">
 								<!-- Traditional Chinese (always shown if exists) -->
 								{#if traditionalChar}
 									<div class="flex flex-col items-center gap-2">
 										<div
 											id="trad-writer-target"
-											class="w-[100px] h-[100px] flex items-center justify-center bg-bg-secondary rounded-xl shadow-lg border border-border"
+											class="w-[80px] h-[80px] md:w-[100px] md:h-[100px] flex items-center justify-center bg-bg-secondary rounded-xl shadow-lg border border-border"
 										>
-											<div class="text-6xl md:text-7xl font-bold font-cjk leading-none text-text-primary">
+											<div class="text-5xl md:text-7xl font-bold font-cjk leading-none text-text-primary">
 												{traditionalChar}
 											</div>
 										</div>
-										<div class="text-base tracking-wide">
+										<div class="text-xs md:text-base tracking-wide">
 											🇹🇼{#if !hkHasDifferentForm}🇭🇰{/if}{#if simpSameAsTrad}🇨🇳{/if}{#if jpSameAsTrad}🇯🇵{/if}{#if koreanChar && krSameAsTrad && !krHasDifferentForm}🇰🇷{/if}
 										</div>
 									</div>
@@ -983,13 +993,13 @@
 									<div class="flex flex-col items-center gap-2">
 										<div
 											id="simp-writer-target"
-											class="w-[100px] h-[100px] flex items-center justify-center bg-bg-secondary rounded-xl shadow-lg border border-border"
+											class="w-[80px] h-[80px] md:w-[100px] md:h-[100px] flex items-center justify-center bg-bg-secondary rounded-xl shadow-lg border border-border"
 										>
-											<div class="text-6xl md:text-7xl font-bold font-cjk leading-none text-text-primary">
+											<div class="text-5xl md:text-7xl font-bold font-cjk leading-none text-text-primary">
 												{simplifiedChar}
 											</div>
 										</div>
-										<div class="text-base tracking-wide">
+										<div class="text-xs md:text-base tracking-wide">
 											🇨🇳{#if jpSameAsSimp}🇯🇵{/if}
 										</div>
 									</div>
@@ -1000,13 +1010,13 @@
 									<div class="flex flex-col items-center gap-2">
 										<div
 											id="jp-writer-target"
-											class="w-[100px] h-[100px] flex items-center justify-center bg-bg-secondary rounded-xl shadow-lg border border-border"
+											class="w-[80px] h-[80px] md:w-[100px] md:h-[100px] flex items-center justify-center bg-bg-secondary rounded-xl shadow-lg border border-border"
 										>
-											<div class="text-6xl md:text-7xl font-bold font-cjk leading-none text-text-primary">
+											<div class="text-5xl md:text-7xl font-bold font-cjk leading-none text-text-primary">
 												{japaneseChar}
 											</div>
 										</div>
-										<div class="text-base tracking-wide">
+										<div class="text-xs md:text-base tracking-wide">
 											🇯🇵{#if koreanChar && krSameAsJp && !krHasDifferentForm}🇰🇷{/if}
 										</div>
 									</div>
@@ -1016,13 +1026,13 @@
 								{#if krHasDifferentForm && koreanHanjaForm}
 									<div class="flex flex-col items-center gap-2">
 										<div
-											class="w-[100px] h-[100px] flex items-center justify-center bg-bg-secondary rounded-xl shadow-lg border border-border"
+											class="w-[80px] h-[80px] md:w-[100px] md:h-[100px] flex items-center justify-center bg-bg-secondary rounded-xl shadow-lg border border-border"
 										>
-											<div class="text-6xl md:text-7xl font-bold font-cjk leading-none text-text-primary">
+											<div class="text-5xl md:text-7xl font-bold font-cjk leading-none text-text-primary">
 												{koreanHanjaForm}
 											</div>
 										</div>
-										<div class="text-base tracking-wide">
+										<div class="text-xs md:text-base tracking-wide">
 											🇰🇷
 										</div>
 									</div>
@@ -1032,38 +1042,37 @@
 								{#if hkHasDifferentForm && hkChar}
 									<div class="flex flex-col items-center gap-2">
 										<div
-											class="w-[100px] h-[100px] flex items-center justify-center bg-bg-secondary rounded-xl shadow-lg border border-border"
+											class="w-[80px] h-[80px] md:w-[100px] md:h-[100px] flex items-center justify-center bg-bg-secondary rounded-xl shadow-lg border border-border"
 										>
-											<div class="text-6xl md:text-7xl font-bold font-cjk leading-none text-text-primary">
+											<div class="text-5xl md:text-7xl font-bold font-cjk leading-none text-text-primary">
 												{hkChar}
 											</div>
 										</div>
-										<div class="text-base tracking-wide">
+										<div class="text-xs md:text-base tracking-wide">
 											🇭🇰
 										</div>
 									</div>
 								{/if}
 							</div>
 
-							<!-- Main Meaning (Gloss) -->
+							<!-- Main Meaning (Gloss) + Pronunciations -->
 							{#if uniqueGloss || data.data.chinese_char?.gloss}
-								<div class:flex-1={!isSingleCharacter} class:md:text-right={!isSingleCharacter}>
-									<div class="flex items-start gap-3 mb-2" class:md:justify-end={!isSingleCharacter}>
-										<h1
-											class="text-2xl md:text-4xl font-bold text-accent leading-tight"
-										>
-											{uniqueGloss || data.data.chinese_char?.gloss}
-										</h1>
+								<div class="min-w-0">
+									<div class="flex items-start gap-2 mb-1 md:mb-2">
 										<SaveToStudy
 											word={data.word}
 											language={data.data.chinese_char ? 'zh' : (data.data.japanese_char ? 'ja' : 'ko')}
 											size="sm"
 										/>
+										<h1
+											class="text-xl md:text-4xl font-bold text-accent leading-tight"
+										>
+											{uniqueGloss || data.data.chinese_char?.gloss}
+										</h1>
 									</div>
 									<!-- Taxonomy breadcrumb -->
 									{#if taxonomy && taxonomy.length > 0}
-										<div class="text-xs text-text-tertiary mb-2 flex items-center gap-1 flex-wrap" class:md:justify-end={!isSingleCharacter}>
-											<span class="opacity-70">📂</span>
+										<div class="text-xs text-text-tertiary mb-2 flex items-center gap-1 flex-wrap">
 											{#each taxonomy as category, i}
 												<a
 													href="/category/{taxonomy.slice(0, i + 1).join('/')}"
@@ -1075,13 +1084,9 @@
 											{/each}
 										</div>
 									{/if}
-									<!-- Pinyin/Readings Summary -->
-									<!-- Single character: left-aligned. Multiple: right-aligned on desktop -->
-									<div
-										class="flex flex-col gap-1 text-text-secondary text-sm md:text-base"
-										class:md:items-end={!isSingleCharacter}
-									>
-										{#if data.data.chinese_char?.pinyinFrequencies}
+									<!-- Pinyin/Readings Summary - always left-aligned -->
+									<div class="flex flex-col gap-1 text-text-secondary text-sm md:text-base">
+										{#if data.data.chinese_char?.pinyinFrequencies && data.data.chinese_char.pinyinFrequencies.length > 0}
 											{@const wordPinyins = new Set(
 												data.data.chinese_words?.flatMap(
 													(w) =>
@@ -1100,20 +1105,30 @@
 															pf.pinyin,
 														),
 												)}
-											{#if filteredPinyins.length > 0}
-												<div
-													class="font-mono text-pinyin"
-												>
-													{filteredPinyins
-														.map((pf) => pf.pinyin)
-														.join(", ")}
+											{@const displayPinyins = filteredPinyins.length > 0 ? filteredPinyins : data.data.chinese_char.pinyinFrequencies}
+											<div class="font-mono text-pinyin">
+												{displayPinyins
+													.map((pf) => pf.pinyin)
+													.join(", ")}
+											</div>
+										{:else if data.data.chinese_char?.oldPronunciations?.length}
+											{@const pinyinFromOld = [...new Set(data.data.chinese_char.oldPronunciations.map((p) => p.pinyin).filter(Boolean))]}
+											{#if pinyinFromOld.length > 0}
+												<div class="font-mono text-pinyin">
+													{pinyinFromOld.join(", ")}
+												</div>
+											{/if}
+										{:else if data.data.chinese_words?.length}
+											{@const pinyinFromWords = [...new Set(data.data.chinese_words.flatMap((w) => w.items?.map((item) => item.pinyin).filter(Boolean) || []))]}
+											{#if pinyinFromWords.length > 0}
+												<div class="font-mono text-pinyin">
+													{pinyinFromWords.join(", ")}
 												</div>
 											{/if}
 										{/if}
 										<!-- Cantonese (Jyutping) readings from Unihan -->
 										{#if data.data.chinese_char?.cantonese && data.data.chinese_char.cantonese.length > 0}
-											<div class="font-mono text-cantonese flex items-center gap-1">
-												<span class="text-xs opacity-70">🇭🇰</span>
+											<div class="font-mono text-cantonese">
 												{data.data.chinese_char.cantonese.join(", ")}
 											</div>
 										{/if}
@@ -1136,16 +1151,12 @@
 												)
 												.map((r) => r.value)}
 											{#if onyomi.length > 0}
-												<div
-													class="font-cjk text-onyomi"
-												>
+												<div class="font-cjk text-onyomi">
 													{onyomi.join("、")}
 												</div>
 											{/if}
 											{#if kunyomi.length > 0}
-												<div
-													class="font-cjk text-kunyomi"
-												>
+												<div class="font-cjk text-kunyomi">
 													{kunyomi.join("、")}
 												</div>
 											{/if}
@@ -1167,7 +1178,7 @@
 							class="mb-3 p-2 rounded border-l-4 bg-hint-bg border-l-hint-border"
 						>
 							<div class="text-sm leading-relaxed text-hint-text">
-								💡 {data.data.chinese_char.hint}
+								{data.data.chinese_char.hint}
 							</div>
 						</div>
 					{/if}
@@ -1189,7 +1200,7 @@
 					{#if data.data.chinese_char?.images && data.data.chinese_char.images.filter((img: { url?: string }) => img.url).length > 0}
 						{@const historicalImages = data.data.chinese_char.images.filter((img: { url?: string }) => img.url)}
 						<div class="mb-3">
-							<SectionHeading id="history">🏛️ Historical Evolution</SectionHeading>
+							<SectionHeading id="history">Historical Evolution</SectionHeading>
 							<div class="flex gap-2 overflow-x-auto pb-2">
 								{#each historicalImages as image}
 									{#if image.url}
@@ -1282,7 +1293,7 @@
 						{@const hasSimpComponents = simplifiedCharData?.components && simplifiedCharData.components.length > 0 && simplifiedChar}
 						{@const showBothColumns = hasTradComponents && hasSimpComponents && traditionalChar !== simplifiedChar}
 
-						<SectionHeading id="components">🧩 Components</SectionHeading>
+						<SectionHeading id="components">Components</SectionHeading>
 
 						<div class="mb-4">
 							<!-- Two-column layout when both trad and simp have different components -->
@@ -1433,21 +1444,7 @@
 
 					<!-- Statistics section removed - data overlaps with word views -->
 
-					<!-- Etymology Trail -->
-					{#if data.data.chinese_char}
-						{@const allReadings = data.data.japanese_char?.readingMeaning?.readingGroups?.[0]}
-						<EtymologyTrail
-							oldPronunciations={data.data.chinese_char.oldPronunciations}
-							modernPinyin={data.data.chinese_char.pinyinFrequencies?.map(pf => pf.pinyin)}
-							cantonese={data.data.chinese_char.cantonese}
-							japaneseOn={allReadings?.onReadings}
-							japaneseKun={allReadings?.kunReadings}
-							koreanReadings={data.data.korean_char?.readings?.map(r => r.hangul)}
-							targetChar={traditionalChar}
-						/>
-					{/if}
-
-					<!-- Similar Characters -->
+						<!-- Similar Characters -->
 					{#if data.data.chinese_char?.components}
 						{@const compChars = data.data.chinese_char.components
 							.filter(c => typeof c !== 'string')
@@ -1510,7 +1507,7 @@
 														class="cantonese-pronunciation"
 														title="Cantonese (Jyutping)"
 													>
-														🇭🇰 [{item.jyutping}]
+														[{item.jyutping}]
 													</span>
 												{/if}
 												<SpeakButton text={word.simp || word.trad || data.word} lang="zh" size={18} />
@@ -1714,33 +1711,31 @@
 		color: var(--text-primary);
 	}
 
-	/* Historical evolution cards - soft styling matching rest of app */
+	/* Historical evolution cards */
 	.historical-card {
 		flex-shrink: 0;
 		text-align: center;
 		padding: 0.625rem;
 		min-width: 70px;
-		border-radius: 6px;
-		transition: all 300ms ease-in-out;
+		border-radius: var(--radius-sm);
+		transition: background 0.15s ease;
 	}
 
 	.historical-card:hover {
 		background: var(--bg-tertiary);
 	}
 
-	/* Component cards - soft styling without harsh borders */
 	.component-card {
-		transition: all 300ms ease-in-out;
+		transition: background 0.15s ease;
 	}
 
 	.component-card:hover {
 		background: var(--bg-tertiary);
 	}
 
-	/* Historical evolution images - invert in dark mode with smooth transition */
 	.historical-image {
 		filter: invert(0);
-		transition: filter 300ms ease-in-out;
+		transition: filter 0.15s ease;
 	}
 
 	:global([data-theme='dark']) .historical-image {

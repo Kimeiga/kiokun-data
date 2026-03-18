@@ -41,13 +41,13 @@
 	.tag {
 		display: inline-block;
 		padding: 1px 5px;
-		border-radius: 3px;
+		border-radius: var(--radius-sm);
 		border: 1px solid;
 		font-size: var(--font-size-caption2);
 		font-weight: 600;
 		white-space: nowrap;
 		margin-right: var(--spacing-xs);
-		transition: all 0.2s ease;
+		transition: background 0.15s ease, color 0.15s ease;
 	}
 
 	/* Default grey color for POS tags - uses CSS variables that adapt to theme */

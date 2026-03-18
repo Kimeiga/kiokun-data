@@ -3,22 +3,7 @@
 	import FeaturedReels from '$lib/components/FeaturedReels.svelte';
 	import { navigateOrSearch } from '$lib/utils/search-navigation';
 
-	let searchValue = $state('');
-
-	async function handleSearch(event: KeyboardEvent) {
-		if (event.key === 'Enter') {
-			const word = searchValue.trim();
-			if (word) {
-				await navigateOrSearch(word);
-			}
-		}
-	}
-
 	// Shared characters - exist in both Chinese and Japanese
-	// Format: { trad, simp?, jp?, label }
-	// trad = traditional Chinese (primary display)
-	// simp = simplified Chinese (if different from trad)
-	// jp = Japanese form (if different from trad, rarely needed)
 	const sharedCharacters = [
 		{ trad: '愛', simp: '爱', label: 'Love' },
 		{ trad: '心', label: 'Heart' },
@@ -32,13 +17,9 @@
 		{ trad: '日', label: 'Sun' },
 		{ trad: '花', label: 'Flower' },
 		{ trad: '雨', label: 'Rain' },
-		{ trad: '雪', label: 'Snow' },
-		{ trad: '星', label: 'Star' },
-		{ trad: '光', label: 'Light' },
-		{ trad: '道', label: 'Way' },
 	];
 
-	// Shared words - exist in both Chinese and Japanese with similar meanings
+	// Shared words
 	const sharedWords = [
 		{ trad: '學校', simp: '学校', label: 'School' },
 		{ trad: '音樂', simp: '音乐', label: 'Music' },
@@ -51,10 +32,6 @@
 		{ trad: '社會', simp: '社会', label: 'Society' },
 		{ trad: '經濟', simp: '经济', label: 'Economy' },
 		{ trad: '科學', simp: '科学', label: 'Science' },
-		{ trad: '家族', label: 'Family' },
-		{ trad: '友人', label: 'Friend' },
-		{ trad: '感情', label: 'Emotion' },
-		{ trad: '希望', label: 'Hope' },
 		{ trad: '未來', simp: '未来', label: 'Future' },
 	];
 
@@ -83,24 +60,19 @@
 		]
 	};
 
-	// Conjugated Japanese words (verbs and adjectives)
+	// Conjugated words
 	const japaneseConjugated = [
-		{ word: '食べている', base: '食べる', label: 'eating (progressive)' },
-		{ word: '行きました', base: '行く', label: 'went (past)' },
+		{ word: '食べている', base: '食べる', label: 'eating' },
+		{ word: '行きました', base: '行く', label: 'went' },
 		{ word: '見たい', base: '見る', label: 'want to see' },
-		{ word: '高くない', base: '高い', label: 'not expensive' },
 		{ word: '美しかった', base: '美しい', label: 'was beautiful' },
-		{ word: '静かな', base: '静か', label: 'quiet (adj)' },
 	];
 
-	// Conjugated Korean words (verbs and adjectives)
 	const koreanConjugated = [
-		{ word: '먹고있어요', base: '먹다', label: 'eating (progressive)' },
-		{ word: '갔습니다', base: '가다', label: 'went (past)' },
+		{ word: '먹고있어요', base: '먹다', label: 'eating' },
+		{ word: '갔습니다', base: '가다', label: 'went' },
 		{ word: '보고싶어요', base: '보다', label: 'want to see' },
 		{ word: '예뻐요', base: '예쁘다', label: 'is pretty' },
-		{ word: '안녕하세요', base: '안녕하다', label: 'hello (polite)' },
-		{ word: '좋아합니다', base: '좋아하다', label: 'like (formal)' },
 	];
 
 	// Category highlights
@@ -117,139 +89,113 @@
 </script>
 
 <svelte:head>
-	<title>Kiokun - Chinese & Japanese Dictionary</title>
+	<title>Kiokun - Chinese, Japanese & Korean Dictionary</title>
 	<meta
 		name="description"
-		content="A comprehensive Chinese and Japanese dictionary with stroke order, frequency data, and cross-references."
+		content="A comprehensive CJK dictionary with stroke order, etymology, frequency data, and cross-references across Chinese, Japanese, and Korean."
 	/>
 </svelte:head>
 
 <Header currentWord="" />
 
-<div class="home-container">
-	<!-- Hero Section -->
+<main class="page">
+	<!-- Hero -->
 	<section class="hero">
-		<div class="hero-content">
-			<h1 class="hero-title">
-				<span class="gradient-text">Kiokun</span>
-			</h1>
-			<p class="hero-subtitle">Discover the shared vocabulary of Chinese & Japanese</p>
-
-			<!-- Search Box -->
-			<div class="search-container">
-				<input
-					type="text"
-					class="hero-search"
-					placeholder="Search for any character or word..."
-					bind:value={searchValue}
-					onkeydown={handleSearch}
-				/>
-				<div class="search-hint">Type any Chinese/Japanese character, word, or English meaning</div>
-			</div>
-		</div>
+		<h1 class="hero-title">Kiokun</h1>
+		<p class="hero-sub">The shared vocabulary of Chinese, Japanese & Korean</p>
 	</section>
 
-	<!-- Unified Grid: Words & Characters side by side -->
-	<div class="unified-grid">
-		<!-- Words Section -->
-		<section class="grid-section">
-			<h2 class="section-header">Words</h2>
-			<div class="card-grid">
-				{#each sharedWords as item}
-					<a href="/{item.trad}" class="unified-card">
-						<span class="card-main">{item.trad}</span>
-						{#if item.simp && item.simp !== item.trad}
-							<span class="card-variants">{item.simp}</span>
-						{/if}
-						<span class="card-label">{item.label}</span>
-					</a>
-				{/each}
-			</div>
-		</section>
-
-		<!-- Characters Section -->
-		<section class="grid-section">
-			<h2 class="section-header">Characters</h2>
-			<div class="card-grid">
-				{#each sharedCharacters as item}
-					<a href="/{item.trad}" class="unified-card">
-						<span class="card-main">{item.trad}</span>
-						{#if item.simp && item.simp !== item.trad}
-							<span class="card-variants">{item.simp}</span>
-						{/if}
-						<span class="card-label">{item.label}</span>
-					</a>
-				{/each}
-			</div>
-		</section>
-	</div>
-
-	<!-- English Search Section -->
-	<section class="explore-section">
-		<h2 class="section-title">🔍 Search by English</h2>
-		<p class="section-subtitle">Find words by their English meaning</p>
-		<div class="examples-grid">
-			{#each searchSuggestions as term}
-				<a href="/search?q={encodeURIComponent(term)}" class="search-chip">
-					{term}
+	<!-- Characters — prominent, the core product -->
+	<section class="section">
+		<div class="section-head">
+			<h2>Characters</h2>
+		</div>
+		<div class="char-grid">
+			{#each sharedCharacters as item}
+				<a href="/{item.trad}" class="char-card">
+					<span class="char-main">{item.trad}</span>
+					{#if item.simp && item.simp !== item.trad}
+						<span class="char-alt">{item.simp}</span>
+					{/if}
+					<span class="char-label">{item.label}</span>
 				</a>
 			{/each}
 		</div>
 	</section>
 
-	<!-- Featured Reels Section -->
+	<!-- Words — secondary, denser -->
+	<section class="section">
+		<div class="section-head">
+			<h2>Words</h2>
+		</div>
+		<div class="word-list">
+			{#each sharedWords as item}
+				<a href="/{item.trad}" class="word-chip">
+					<span class="word-main">{item.trad}</span>
+					{#if item.simp && item.simp !== item.trad}
+						<span class="word-alt">{item.simp}</span>
+					{/if}
+					<span class="word-label">{item.label}</span>
+				</a>
+			{/each}
+		</div>
+	</section>
+
+	<!-- Search by English -->
+	<section class="section">
+		<div class="section-head">
+			<h2>Search by English</h2>
+			<p>Find characters and words by meaning</p>
+		</div>
+		<div class="chip-row">
+			{#each searchSuggestions as term}
+				<a href="/search?q={encodeURIComponent(term)}" class="search-chip">{term}</a>
+			{/each}
+		</div>
+	</section>
+
+	<!-- Featured Reels -->
 	<FeaturedReels />
 
-	<!-- Try Sentences Section -->
-	<section class="explore-section sentences-section">
-		<h2 class="section-title">📝 Try Sentences</h2>
-		<p class="section-subtitle">Click a sentence to see each word broken down</p>
+	<!-- Sentences -->
+	<section class="section">
+		<div class="section-head">
+			<h2>Try a Sentence</h2>
+			<p>Click to see every word broken down</p>
+		</div>
 		<div class="sentences-grid">
-			<div class="sentence-language">
-				<span class="lang-flag">🇯🇵</span>
-				<div class="sentence-list">
-					{#each sampleSentences.japanese as s}
-						<button class="sentence-btn" onclick={() => navigateOrSearch(s.text)}>
-							<span class="sentence-text">{s.text}</span>
-							<span class="sentence-label">{s.label}</span>
+			{#each [
+				{ flag: '🇯🇵', items: sampleSentences.japanese },
+				{ flag: '🇨🇳', items: sampleSentences.chinese },
+				{ flag: '🇰🇷', items: sampleSentences.korean }
+			] as lang}
+				<div class="sent-col">
+					<span class="sent-flag">{lang.flag}</span>
+					{#each lang.items as s}
+						<button class="sent-btn" onclick={() => navigateOrSearch(s.text)}>
+							<span class="sent-text">{s.text}</span>
+							<span class="sent-label">{s.label}</span>
 						</button>
 					{/each}
 				</div>
-			</div>
-			<div class="sentence-language">
-				<span class="lang-flag">🇨🇳</span>
-				<div class="sentence-list">
-					{#each sampleSentences.chinese as s}
-						<button class="sentence-btn" onclick={() => navigateOrSearch(s.text)}>
-							<span class="sentence-text">{s.text}</span>
-							<span class="sentence-label">{s.label}</span>
-						</button>
-					{/each}
-				</div>
-			</div>
-			<div class="sentence-language">
-				<span class="lang-flag">🇰🇷</span>
-				<div class="sentence-list">
-					{#each sampleSentences.korean as s}
-						<button class="sentence-btn" onclick={() => navigateOrSearch(s.text)}>
-							<span class="sentence-text">{s.text}</span>
-							<span class="sentence-label">{s.label}</span>
-						</button>
-					{/each}
-				</div>
-			</div>
+			{/each}
 		</div>
 	</section>
 
-	<!-- Conjugated Words Section -->
-	<section class="explore-section conjugation-section">
-		<h2 class="section-title">🔄 Conjugated Words</h2>
-		<p class="section-subtitle">Try conjugated forms — we'll find the dictionary form</p>
-		<div class="conjugation-grid">
-			<div class="conjugation-language">
-				<h3 class="conj-lang-header"><span class="lang-flag">🇯🇵</span> Japanese</h3>
-				<div class="conj-list">
-					{#each japaneseConjugated as c}
+	<!-- Conjugation -->
+	<section class="section">
+		<div class="section-head">
+			<h2>Conjugated Forms</h2>
+			<p>We find the dictionary form automatically</p>
+		</div>
+		<div class="conj-grid">
+			{#each [
+				{ flag: '🇯🇵', label: 'Japanese', items: japaneseConjugated },
+				{ flag: '🇰🇷', label: 'Korean', items: koreanConjugated }
+			] as lang}
+				<div class="conj-col">
+					<h3 class="conj-lang">{lang.flag} {lang.label}</h3>
+					{#each lang.items as c}
 						<button class="conj-btn" onclick={() => navigateOrSearch(c.word)}>
 							<span class="conj-word">{c.word}</span>
 							<span class="conj-arrow">→</span>
@@ -258,737 +204,396 @@
 						</button>
 					{/each}
 				</div>
-			</div>
-			<div class="conjugation-language">
-				<h3 class="conj-lang-header"><span class="lang-flag">🇰🇷</span> Korean</h3>
-				<div class="conj-list">
-					{#each koreanConjugated as c}
-						<button class="conj-btn" onclick={() => navigateOrSearch(c.word)}>
-							<span class="conj-word">{c.word}</span>
-							<span class="conj-arrow">→</span>
-							<span class="conj-base">{c.base}</span>
-							<span class="conj-label">{c.label}</span>
-						</button>
-					{/each}
-				</div>
-			</div>
+			{/each}
 		</div>
 	</section>
 
-	<!-- Bottom Two-Column Grid -->
-	<div class="two-column-grid">
-		<!-- Categories Section -->
-		<section class="explore-section">
-			<h2 class="section-title">📂 Browse by Category</h2>
-			<div class="category-grid">
+	<!-- Bottom row: Categories + Quick links -->
+	<div class="bottom-row">
+		<section class="section compact">
+			<div class="section-head">
+				<h2>Browse by Category</h2>
+			</div>
+			<div class="cat-grid">
 				{#each categoryHighlights as cat}
-					<a href={cat.path} class="category-chip">
-						<span class="category-icon">{cat.icon}</span>
-						<span class="category-name">{cat.name}</span>
+					<a href={cat.path} class="cat-chip">
+						<span class="cat-icon">{cat.icon}</span>
+						<span class="cat-name">{cat.name}</span>
 					</a>
 				{/each}
 			</div>
-			<a href="/category" class="see-all-link">See all categories →</a>
+			<a href="/category" class="link-more">See all categories →</a>
 		</section>
 
-		<!-- Frequency Lists Section -->
-		<section class="explore-section frequency-section">
-			<h2 class="section-title">📊 Most Common</h2>
-			<div class="frequency-buttons">
-				<a href="/frequency" class="frequency-btn">
-					<span class="flag">🇯🇵</span>
-					<span class="btn-text">Japanese Top 1000</span>
-				</a>
-				<a href="/frequency" class="frequency-btn">
-					<span class="flag">🇨🇳</span>
-					<span class="btn-text">Chinese Top 1000</span>
-				</a>
-				<a href="/frequency" class="frequency-btn">
-					<span class="flag">🇰🇷</span>
-					<span class="btn-text">Korean Top 1000</span>
-				</a>
+		<section class="section compact">
+			<div class="section-head">
+				<h2>Quick Links</h2>
 			</div>
-		</section>
-
-		<!-- Study Section -->
-		<section class="explore-section study-section">
-			<h2 class="section-title">📚 Study & Learn</h2>
-			<div class="frequency-buttons">
-				<a href="/study" class="frequency-btn">
-					<span class="flag">🔁</span>
-					<span class="btn-text">Flashcard Review (SRS)</span>
-				</a>
-				<a href="/study/decks" class="frequency-btn">
-					<span class="flag">📥</span>
-					<span class="btn-text">Import JLPT / HSK / TOPIK Decks</span>
-				</a>
+			<div class="quick-links">
+				<a href="/frequency" class="qlink">🇯🇵 Japanese Top 1000</a>
+				<a href="/frequency" class="qlink">🇨🇳 Chinese Top 1000</a>
+				<a href="/frequency" class="qlink">🇰🇷 Korean Top 1000</a>
+				<a href="/study" class="qlink">Flashcard Review (SRS)</a>
+				<a href="/study/decks" class="qlink">Import JLPT / HSK / TOPIK</a>
+				<a href="/japanese-emoji" class="qlink">Japanese Emoji Guide</a>
 			</div>
 		</section>
 	</div>
-
-	<!-- Japanese Emoji Guide Link -->
-	<section class="explore-section emoji-guide-section">
-		<a href="/japanese-emoji" class="emoji-guide-link">
-			<span class="emoji-icon">🇯🇵</span>
-			<div class="emoji-guide-text">
-				<h3>Japanese Emoji Guide</h3>
-				<p>Learn the meaning of 🈹 🈵 ㊗️ and other Japanese cultural emoji</p>
-			</div>
-			<span class="arrow">→</span>
-		</a>
-	</section>
-</div>
+</main>
 
 <style>
-	.home-container {
-		max-width: 1200px;
+	/* ===== Page ===== */
+	.page {
+		max-width: 960px;
 		margin: 0 auto;
-		padding: 0 20px 60px;
+		padding: 0 var(--spacing-xl) 60px;
 	}
 
-	/* Hero Section */
+	/* ===== Hero ===== */
 	.hero {
-		padding: 50px 0 30px;
+		padding: 48px 0 24px;
 		text-align: center;
 	}
-
-	.hero-content {
-		max-width: 800px;
-		margin: 0 auto;
-	}
-
 	.hero-title {
-		font-size: 56px;
+		font-size: 48px;
 		font-weight: 800;
-		margin: 0 0 12px;
-		line-height: 1.1;
+		letter-spacing: -0.02em;
+		color: var(--accent);
+		margin: 0;
+		line-height: 1;
 	}
-
-	.gradient-text {
-		background: linear-gradient(135deg, var(--accent) 0%, #9b59b6 100%);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
-	}
-
-	.hero-subtitle {
-		font-size: 18px;
+	.hero-sub {
+		font-size: var(--font-size-body);
 		color: var(--text-secondary);
-		margin: 0 0 24px;
-		font-weight: 400;
+		margin: 12px 0 0;
 	}
 
-	/* Search Container */
-	.search-container {
-		margin: 0 auto;
-		max-width: 550px;
+	/* ===== Sections ===== */
+	.section {
+		padding: 32px 0 0;
 	}
-
-	.hero-search {
-		width: 100%;
-		padding: 16px 24px;
-		font-size: 16px;
-		border: 2px solid var(--border-color);
-		border-radius: 50px;
-		background: var(--bg-secondary);
-		color: var(--text-primary);
-		/* Sans-serif by default, CJK for actual typed content handled by browser */
-		font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-		transition: all 0.3s ease;
-		box-shadow: 0 4px 20px var(--shadow);
+	.section.compact {
+		padding: 0;
 	}
-
-	.hero-search:focus {
-		outline: none;
-		border-color: var(--accent);
-		box-shadow: 0 4px 30px var(--shadow), 0 0 0 4px var(--accent-light);
+	.section-head {
+		margin-bottom: 16px;
 	}
-
-	.hero-search::placeholder {
-		color: var(--text-muted);
-		font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-	}
-
-	.search-hint {
-		margin-top: 8px;
-		font-size: 12px;
-		color: var(--text-muted);
-	}
-
-	/* Unified Grid Layout - Words & Characters side by side */
-	.unified-grid {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 40px;
-		margin-top: 30px;
-		padding: 0 20px;
-	}
-
-	.grid-section {
-		display: flex;
-		flex-direction: column;
-	}
-
-	.section-header {
-		font-size: 18px;
+	.section-head h2 {
+		font-size: var(--font-size-headline);
 		font-weight: 700;
-		color: var(--text-primary);
-		margin: 0 0 16px;
-		padding-bottom: 12px;
-		border-bottom: 2px solid var(--border-color);
-		text-align: center;
-	}
-
-	.card-grid {
-		display: grid;
-		grid-template-columns: repeat(4, 1fr);
-		gap: 10px;
-	}
-
-	.unified-card {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		aspect-ratio: 1;
-		padding: 8px;
-		background: var(--bg-secondary);
-		border: 2px solid var(--border-color);
-		border-radius: 12px;
-		text-decoration: none;
-		transition: all 0.2s ease;
-		min-height: 80px;
-	}
-
-	.unified-card:hover {
-		border-color: var(--accent);
-		transform: translateY(-2px);
-		box-shadow: 0 4px 12px var(--shadow);
-		background: var(--bg-tertiary);
-	}
-
-	.card-main {
-		font-size: 28px;
-		font-weight: 600;
-		color: var(--text-primary);
-		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", "MS Mincho", serif;
-		line-height: 1.2;
-	}
-
-	.card-variants {
-		font-size: 14px;
-		color: var(--text-muted);
-		font-family: "Noto Sans SC", "Noto Sans JP", sans-serif;
-		margin-top: 2px;
-	}
-
-	.card-label {
-		font-size: 10px;
-		color: var(--text-secondary);
-		margin-top: 4px;
-		text-align: center;
-		line-height: 1.2;
-	}
-
-	/* Two Column Grid Layout */
-	.two-column-grid {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 40px;
-		margin-top: 20px;
-	}
-
-	/* Explore Sections */
-	.explore-section {
-		padding: 30px 0;
-	}
-
-	.section-title {
-		font-size: 20px;
-		font-weight: 700;
-		text-align: center;
-		margin: 0 0 16px;
-		color: var(--text-primary);
-	}
-
-	.section-subtitle {
-		text-align: center;
-		font-size: 13px;
-		color: var(--text-muted);
-		margin: 0 0 16px;
-	}
-
-	/* Examples Grid */
-	.examples-grid {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 10px;
-		justify-content: center;
-	}
-
-	/* Search Chips */
-	.search-chip {
-		padding: 10px 20px;
-		background: var(--bg-secondary);
-		border: 1px solid var(--border-color);
-		border-radius: 20px;
-		text-decoration: none;
-		color: var(--text-primary);
-		font-size: 14px;
-		transition: all 0.2s ease;
-	}
-
-	.search-chip:hover {
-		background: var(--accent);
-		color: white;
-		border-color: var(--accent);
-		transform: translateY(-2px);
-	}
-
-	/* Sentences Section */
-	.sentences-section {
-		border-top: 1px solid var(--border-color);
-		margin-top: 20px;
-		padding-top: 30px;
-	}
-
-	.sentences-grid {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 24px;
-		margin-top: 16px;
-	}
-
-	.sentence-language {
-		display: flex;
-		flex-direction: column;
-		gap: 12px;
-	}
-
-	.sentence-language .lang-flag {
-		font-size: 24px;
-		text-align: center;
-	}
-
-	.sentence-list {
-		display: flex;
-		flex-direction: column;
-		gap: 8px;
-	}
-
-	.sentence-btn {
-		display: flex;
-		flex-direction: column;
-		align-items: flex-start;
-		padding: 12px 16px;
-		background: var(--bg-secondary);
-		border: 1px solid var(--border-color);
-		border-radius: 10px;
-		cursor: pointer;
-		transition: all 0.2s ease;
-		text-align: left;
-		width: 100%;
-	}
-
-	.sentence-btn:hover {
-		border-color: var(--accent);
-		transform: translateY(-1px);
-		box-shadow: 0 2px 8px var(--shadow);
-	}
-
-	.sentence-text {
-		font-size: 16px;
-		color: var(--text-primary);
-		font-family: "Noto Sans SC", "Noto Sans JP", "Noto Sans KR", sans-serif;
-		line-height: 1.4;
-	}
-
-	.sentence-label {
-		font-size: 11px;
-		color: var(--text-muted);
-		margin-top: 4px;
-	}
-
-	/* Conjugation Section */
-	.conjugation-section {
-		border-top: 1px solid var(--border-color);
-		margin-top: 20px;
-		padding-top: 30px;
-	}
-
-	.conjugation-grid {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 40px;
-		margin-top: 16px;
-	}
-
-	.conjugation-language {
-		display: flex;
-		flex-direction: column;
-		gap: 12px;
-	}
-
-	.conj-lang-header {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 8px;
-		font-size: 16px;
-		font-weight: 600;
 		color: var(--text-primary);
 		margin: 0;
 	}
-
-	.conj-lang-header .lang-flag {
-		font-size: 20px;
+	.section-head p {
+		font-size: var(--font-size-caption1);
+		color: var(--text-tertiary);
+		margin: 4px 0 0;
 	}
 
-	.conj-list {
+	/* ===== Character Grid ===== */
+	.char-grid {
+		display: grid;
+		grid-template-columns: repeat(6, 1fr);
+		gap: 10px;
+	}
+	.char-card {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		padding: 14px 8px 10px;
+		background: var(--bg-secondary);
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-md);
+		text-decoration: none;
+		transition: border-color 0.15s, box-shadow 0.15s;
+	}
+	.char-card:hover {
+		border-color: var(--accent);
+		box-shadow: 0 2px 8px var(--shadow);
+	}
+	.char-main {
+		font-size: 32px;
+		font-weight: 600;
+		color: var(--text-primary);
+		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", serif;
+		line-height: 1.1;
+	}
+	.char-alt {
+		font-size: var(--font-size-caption1);
+		color: var(--text-muted);
+		margin-top: 2px;
+	}
+	.char-label {
+		font-size: var(--font-size-caption1);
+		color: var(--text-tertiary);
+		margin-top: 4px;
+	}
+
+	/* ===== Word List ===== */
+	.word-list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+	}
+	.word-chip {
+		display: inline-flex;
+		align-items: baseline;
+		gap: 6px;
+		padding: 8px 14px;
+		background: var(--bg-secondary);
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-full);
+		text-decoration: none;
+		transition: border-color 0.15s, box-shadow 0.15s;
+	}
+	.word-chip:hover {
+		border-color: var(--accent);
+		box-shadow: 0 2px 8px var(--shadow);
+	}
+	.word-main {
+		font-size: var(--font-size-body);
+		font-weight: 600;
+		color: var(--text-primary);
+		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", serif;
+	}
+	.word-alt {
+		font-size: var(--font-size-caption1);
+		color: var(--text-muted);
+	}
+	.word-label {
+		font-size: var(--font-size-caption1);
+		color: var(--text-tertiary);
+	}
+
+	/* ===== Search Chips ===== */
+	.chip-row {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+	}
+	.search-chip {
+		padding: 8px 16px;
+		background: var(--bg-secondary);
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-full);
+		text-decoration: none;
+		color: var(--text-primary);
+		font-size: var(--font-size-callout);
+		transition: border-color 0.15s, color 0.15s;
+	}
+	.search-chip:hover {
+		border-color: var(--accent);
+		color: var(--accent);
+	}
+
+	/* ===== Sentences ===== */
+	.sentences-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 20px;
+	}
+	.sent-col {
 		display: flex;
 		flex-direction: column;
 		gap: 8px;
 	}
+	.sent-flag {
+		font-size: 20px;
+	}
+	.sent-btn {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		padding: 10px 14px;
+		background: var(--bg-secondary);
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-sm);
+		cursor: pointer;
+		text-align: left;
+		width: 100%;
+		transition: border-color 0.15s;
+	}
+	.sent-btn:hover {
+		border-color: var(--accent);
+	}
+	.sent-text {
+		font-size: var(--font-size-callout);
+		color: var(--text-primary);
+		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", serif;
+		line-height: 1.5;
+	}
+	.sent-label {
+		font-size: var(--font-size-caption1);
+		color: var(--text-muted);
+		margin-top: 4px;
+	}
 
+	/* ===== Conjugation ===== */
+	.conj-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 32px;
+	}
+	.conj-col {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+	.conj-lang {
+		font-size: var(--font-size-callout);
+		font-weight: 600;
+		color: var(--text-primary);
+		margin: 0 0 4px;
+	}
 	.conj-btn {
 		display: flex;
 		align-items: center;
 		gap: 8px;
-		padding: 10px 14px;
+		padding: 8px 12px;
 		background: var(--bg-secondary);
 		border: 1px solid var(--border-color);
-		border-radius: 8px;
+		border-radius: var(--radius-sm);
 		cursor: pointer;
-		transition: all 0.2s ease;
 		width: 100%;
+		transition: border-color 0.15s;
 	}
-
 	.conj-btn:hover {
 		border-color: var(--accent);
-		transform: translateY(-1px);
-		box-shadow: 0 2px 8px var(--shadow);
 	}
-
 	.conj-word {
-		font-size: 16px;
+		font-size: var(--font-size-callout);
 		font-weight: 600;
 		color: var(--accent);
-		font-family: "Noto Sans SC", "Noto Sans JP", "Noto Sans KR", sans-serif;
+		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", serif;
 	}
-
 	.conj-arrow {
 		color: var(--text-muted);
-		font-size: 12px;
+		font-size: var(--font-size-caption1);
 	}
-
 	.conj-base {
-		font-size: 14px;
+		font-size: var(--font-size-callout);
 		color: var(--text-primary);
-		font-family: "Noto Sans SC", "Noto Sans JP", "Noto Sans KR", sans-serif;
+		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", serif;
 	}
-
 	.conj-label {
-		font-size: 11px;
+		font-size: var(--font-size-caption1);
 		color: var(--text-muted);
 		margin-left: auto;
 	}
 
-	/* Category Grid */
-	.category-grid {
+	/* ===== Bottom Row ===== */
+	.bottom-row {
 		display: grid;
-		grid-template-columns: repeat(4, 1fr);
-		gap: 10px;
+		grid-template-columns: 1fr 1fr;
+		gap: 32px;
+		padding-top: 32px;
+		border-top: 1px solid var(--border-color);
+		margin-top: 32px;
 	}
 
-	.category-chip {
+	/* ===== Categories ===== */
+	.cat-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 8px;
+	}
+	.cat-chip {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		gap: 4px;
-		padding: 12px 8px;
+		padding: 10px 6px;
 		background: var(--bg-secondary);
 		border: 1px solid var(--border-color);
-		border-radius: 10px;
+		border-radius: var(--radius-sm);
 		text-decoration: none;
-		transition: all 0.2s ease;
+		transition: border-color 0.15s;
 	}
-
-	.category-chip:hover {
+	.cat-chip:hover {
 		border-color: var(--accent);
-		transform: translateY(-1px);
-		box-shadow: 0 2px 8px var(--shadow);
 	}
-
-	.category-icon {
-		font-size: 24px;
+	.cat-icon {
+		font-size: 20px;
 	}
-
-	.category-name {
-		font-size: 11px;
+	.cat-name {
+		font-size: var(--font-size-caption1);
 		font-weight: 500;
 		color: var(--text-primary);
 		text-align: center;
 	}
-
-	.see-all-link {
+	.link-more {
 		display: block;
-		text-align: center;
-		margin-top: 12px;
-		font-size: 13px;
+		margin-top: 10px;
+		font-size: var(--font-size-caption1);
 		color: var(--accent);
 		text-decoration: none;
 	}
-
-	.see-all-link:hover {
+	.link-more:hover {
 		text-decoration: underline;
 	}
 
-	/* Frequency Section */
-	.frequency-section {
+	/* ===== Quick Links ===== */
+	.quick-links {
 		display: flex;
 		flex-direction: column;
-		justify-content: flex-start;
+		gap: 6px;
 	}
-
-	.frequency-buttons {
-		display: flex;
-		flex-direction: column;
-		gap: 12px;
-		align-items: stretch;
-	}
-
-	.frequency-btn {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 10px;
-		padding: 14px 20px;
-		border-radius: 10px;
-		text-decoration: none;
-		font-weight: 600;
-		transition: all 0.2s ease;
+	.qlink {
+		display: block;
+		padding: 10px 14px;
 		background: var(--bg-secondary);
 		border: 1px solid var(--border-color);
-		color: var(--text-primary);
-	}
-
-	.frequency-btn:hover {
-		background: var(--accent);
-		color: white;
-		border-color: var(--accent);
-		transform: translateY(-2px);
-	}
-
-	.frequency-btn .flag {
-		font-size: 18px;
-	}
-
-	.frequency-btn .btn-text {
-		font-size: 14px;
-	}
-
-	/* Emoji Guide Link */
-	.emoji-guide-section {
-		padding-top: 0;
-	}
-
-	.emoji-guide-link {
-		display: flex;
-		align-items: center;
-		gap: 16px;
-		padding: 20px 24px;
-		background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
-		border: 2px solid var(--border-color);
-		border-radius: 16px;
+		border-radius: var(--radius-sm);
 		text-decoration: none;
-		transition: all 0.2s ease;
-	}
-
-	.emoji-guide-link:hover {
-		border-color: var(--accent);
-		transform: translateY(-2px);
-		box-shadow: 0 4px 16px var(--shadow);
-	}
-
-	.emoji-guide-link .emoji-icon {
-		font-size: 32px;
-	}
-
-	.emoji-guide-text {
-		flex: 1;
-	}
-
-	.emoji-guide-text h3 {
-		margin: 0 0 4px;
-		font-size: 16px;
-		font-weight: 600;
+		font-size: var(--font-size-callout);
+		font-weight: 500;
 		color: var(--text-primary);
+		transition: border-color 0.15s, color 0.15s;
 	}
-
-	.emoji-guide-text p {
-		margin: 0;
-		font-size: 13px;
-		color: var(--text-secondary);
-	}
-
-	.emoji-guide-link .arrow {
-		font-size: 20px;
+	.qlink:hover {
+		border-color: var(--accent);
 		color: var(--accent);
 	}
 
-	/* Responsive Design */
-	@media (max-width: 1000px) {
-		.unified-grid {
-			grid-template-columns: 1fr;
-			gap: 30px;
+	/* ===== Responsive ===== */
+	@media (max-width: 768px) {
+		.page {
+			padding: 0 var(--spacing-lg) 40px;
 		}
-
-		.card-grid {
+		.hero {
+			padding: 32px 0 16px;
+		}
+		.hero-title {
+			font-size: 36px;
+		}
+		.char-grid {
 			grid-template-columns: repeat(4, 1fr);
+			gap: 8px;
 		}
-
+		.char-main {
+			font-size: 24px;
+		}
 		.sentences-grid {
+			grid-template-columns: 1fr;
+			gap: 16px;
+		}
+		.conj-grid {
 			grid-template-columns: 1fr;
 			gap: 20px;
 		}
-
-		.conjugation-grid {
+		.bottom-row {
 			grid-template-columns: 1fr;
 			gap: 24px;
 		}
 	}
 
-	@media (max-width: 768px) {
-		.home-container {
-			padding: 0 var(--spacing-lg) 40px;
-		}
-
-		.unified-grid {
-			gap: var(--spacing-xl);
-			padding: 0;
-		}
-
-		.card-grid {
-			grid-template-columns: repeat(4, 1fr);
-			gap: 8px;
-		}
-
-		.unified-card {
-			min-height: 70px;
-			padding: 6px;
-		}
-
-		.card-main {
-			font-size: 22px;
-		}
-
-		.card-variants {
-			font-size: 12px;
-		}
-
-		.card-label {
-			font-size: 9px;
-		}
-
-		.two-column-grid {
-			grid-template-columns: 1fr;
-			gap: 0;
-		}
-
-		.hero {
-			padding: 40px 0 var(--spacing-xl);
-		}
-
-		.hero-title {
-			font-size: 42px;
-		}
-
-		.hero-subtitle {
-			font-size: var(--font-size-body);
-			margin-bottom: var(--spacing-xl);
-		}
-
-		.hero-search {
-			font-size: var(--font-size-body);
-			padding: var(--spacing-lg) var(--spacing-xl);
-		}
-
-		.search-hint {
-			font-size: var(--font-size-caption2);
-		}
-
-		.section-title {
-			font-size: var(--font-size-headline);
-		}
-
-		.section-subtitle {
-			font-size: var(--font-size-caption1);
-		}
-
-		.section-header {
-			font-size: 16px;
-		}
-
-		.category-grid {
-			grid-template-columns: repeat(4, 1fr);
-			gap: var(--spacing-sm);
-		}
-
-		.category-chip {
-			padding: var(--spacing-md) var(--spacing-sm);
-		}
-
-		.category-icon {
-			font-size: 20px;
-		}
-
-		.category-name {
-			font-size: var(--font-size-caption2);
-		}
-
-		.see-all-link {
-			font-size: var(--font-size-caption1);
-		}
-
-		.frequency-btn {
-			padding: var(--spacing-md) var(--spacing-lg);
-		}
-
-		.frequency-btn .flag {
-			font-size: var(--font-size-callout);
-		}
-
-		.frequency-btn .btn-text {
-			font-size: var(--font-size-subhead);
-		}
-	}
-
 	@media (max-width: 480px) {
-		.card-grid {
-			grid-template-columns: repeat(4, 1fr);
-			gap: 6px;
+		.char-grid {
+			grid-template-columns: repeat(3, 1fr);
 		}
-
-		.unified-card {
-			min-height: 60px;
-			padding: 4px;
-		}
-
-		.card-main {
-			font-size: 18px;
-		}
-
-		.card-variants {
-			font-size: 10px;
-		}
-
-		.card-label {
-			font-size: 8px;
-		}
-
-		.category-grid {
+		.cat-grid {
 			grid-template-columns: repeat(2, 1fr);
 		}
 	}
 </style>
-

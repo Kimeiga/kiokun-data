@@ -159,7 +159,7 @@
 									{/if}
 									{#if preview.ct && languageStore.preferences.cantonese}
 										<span class="cantonese-pronunciation" title="Cantonese (Jyutping)"
-											>🇭🇰 [{preview.ct}]</span
+											>[{preview.ct}]</span
 										>
 									{/if}
 									{#if preview.fr}
@@ -324,17 +324,17 @@
 		display: block;
 		padding: var(--spacing-md);
 		background: var(--bg-secondary);
-		border-radius: 6px;
+		border-radius: var(--radius-sm);
 		border: 1px solid var(--border-light);
 		text-decoration: none;
 		color: inherit;
-		transition: all 0.2s ease;
+		transition: background 0.15s ease, border-color 0.15s ease;
 	}
 
 	@media (max-width: 768px) {
 		.word-card {
 			padding: var(--spacing-sm);
-			border-radius: 4px;
+			border-radius: var(--radius-sm);
 		}
 	}
 
@@ -375,7 +375,7 @@
 		color: var(--text-muted);
 		background: var(--bg-tertiary);
 		padding: 1px var(--spacing-xs);
-		border-radius: 3px;
+		border-radius: var(--radius-sm);
 		font-weight: 500;
 		white-space: nowrap;
 	}

@@ -117,7 +117,7 @@
 
 	.form-group {
 		background: var(--bg-secondary, #f5f5f5);
-		border-radius: 6px;
+		border-radius: var(--radius-sm);
 		padding: var(--spacing-md);
 	}
 
@@ -141,7 +141,7 @@
 		gap: var(--spacing-sm);
 		padding: var(--spacing-xs) var(--spacing-sm);
 		background: var(--bg-primary, #fff);
-		border-radius: 4px;
+		border-radius: var(--radius-sm);
 	}
 
 	.form-name {

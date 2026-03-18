@@ -156,7 +156,7 @@
 		padding: var(--spacing-md);
 		background: var(--bg-secondary);
 		border: 1px solid var(--border-light);
-		border-radius: 6px;
+		border-radius: var(--radius-md);
 	}
 
 	.trail-section {
@@ -177,7 +177,7 @@
 		gap: var(--spacing-xs);
 		padding: var(--spacing-xs) var(--spacing-sm);
 		background: var(--bg-tertiary);
-		border-radius: 4px;
+		border-radius: var(--radius-sm);
 		border: 1px solid var(--border-light);
 	}
 
@@ -238,7 +238,7 @@
 		padding: var(--spacing-xs) var(--spacing-sm);
 		background: var(--bg-tertiary);
 		border: 1px solid var(--border-light);
-		border-radius: 4px;
+		border-radius: var(--radius-sm);
 		flex: 1;
 		min-width: 120px;
 	}

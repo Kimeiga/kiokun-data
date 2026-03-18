@@ -100,7 +100,7 @@
 		padding: var(--spacing-md);
 		background: var(--bg-secondary);
 		border: 1px solid var(--border-light);
-		border-radius: 6px;
+		border-radius: var(--radius-md);
 	}
 
 	.equation-parts {
@@ -118,9 +118,9 @@
 		padding: var(--spacing-xs) var(--spacing-sm);
 		background: var(--bg-tertiary);
 		border: 1px solid var(--border-light);
-		border-radius: 4px;
+		border-radius: var(--radius-sm);
 		text-decoration: none;
-		transition: all 0.2s ease;
+		transition: background 0.15s ease, border-color 0.15s ease;
 	}
 
 	.equation-part:hover {
@@ -160,7 +160,7 @@
 		padding: var(--spacing-xs) var(--spacing-sm);
 		background: var(--accent-light);
 		border: 2px solid var(--accent);
-		border-radius: 4px;
+		border-radius: var(--radius-sm);
 	}
 
 	.result-gloss {

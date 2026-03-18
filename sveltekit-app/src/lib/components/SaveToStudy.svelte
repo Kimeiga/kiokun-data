@@ -85,13 +85,13 @@
 	<button
 		onclick={toggleSave}
 		disabled={isLoading}
-		class="inline-flex items-center rounded-full font-medium transition-all duration-200 
+		class="inline-flex items-center rounded-full font-medium transition-colors duration-150
 			{sizeClasses[size]}
-			{isSaved 
-				? 'bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-800/60' 
-				: 'bg-accent/10 text-accent hover:bg-accent/20 dark:bg-accent/20 dark:hover:bg-accent/30'}
+			{isSaved
+				? 'bg-accent/15 text-accent hover:bg-accent/25'
+				: 'bg-accent/10 text-accent hover:bg-accent/20'}
 			{isLoading ? 'opacity-50 cursor-wait' : 'cursor-pointer'}
-			{justSaved ? 'ring-2 ring-green-400 ring-offset-2 dark:ring-offset-bg-primary' : ''}"
+			{justSaved ? 'ring-2 ring-accent ring-offset-2 ring-offset-bg-primary' : ''}"
 	>
 		{#if isLoading}
 			<svg class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
@@ -102,19 +102,16 @@
 			<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
 				<path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
 			</svg>
-			<span>Saved to Study</span>
 		{:else}
 			<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
 			</svg>
-			<span>Save to Study</span>
 		{/if}
 	</button>
 
 	{#if showSignInHint}
-		<div class="absolute top-full left-1/2 -translate-x-1/2 mt-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-lg shadow-lg whitespace-nowrap z-10">
+		<div class="absolute top-full left-1/2 -translate-x-1/2 mt-2 px-3 py-2 bg-bg-tertiary text-text-primary text-xs rounded-lg shadow-lg whitespace-nowrap z-10 border border-border">
 			Sign in to save words
-			<div class="absolute bottom-full left-1/2 -translate-x-1/2 border-4 border-transparent border-b-gray-900"></div>
 		</div>
 	{/if}
 </div>

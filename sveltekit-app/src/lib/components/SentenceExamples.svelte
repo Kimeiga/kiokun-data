@@ -109,7 +109,7 @@
 		padding: var(--spacing-sm) var(--spacing-md);
 		background: var(--bg-secondary);
 		border: 1px solid var(--border-light);
-		border-radius: 6px;
+		border-radius: var(--radius-md);
 	}
 
 	.example-text {
@@ -123,7 +123,7 @@
 		color: var(--text-muted);
 		background: var(--bg-tertiary);
 		padding: 1px var(--spacing-xs);
-		border-radius: 3px;
+		border-radius: var(--radius-sm);
 		font-weight: 500;
 		flex-shrink: 0;
 	}
@@ -150,11 +150,11 @@
 		margin-top: var(--spacing-sm);
 		background: transparent;
 		border: 1px solid var(--border-light);
-		border-radius: 4px;
+		border-radius: var(--radius-sm);
 		color: var(--text-secondary);
 		font-size: var(--font-size-caption1);
 		cursor: pointer;
-		transition: all 0.2s ease;
+		transition: border-color 0.15s ease, color 0.15s ease;
 	}
 
 	.show-more-btn:hover {

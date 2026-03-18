@@ -2,91 +2,102 @@
 @tailwind components;
 @tailwind utilities;
 
-/* CSS Variables for theming - these work with Tailwind */
+/* ===== DESIGN TOKENS ===== */
 :root {
-	/* Light theme colors */
+	/* ── Radius tokens ── */
+	--radius-sm: 6px;
+	--radius-md: 10px;
+	--radius-lg: 14px;
+	--radius-full: 9999px;
+
+	/* ── Light theme ── */
 	--bg-primary: #f8f9fa;
 	--bg-secondary: #ffffff;
-	--bg-tertiary: #f8f9fa;
-	--text-primary: #333333;
-	--text-secondary: #6c757d;
-	--text-tertiary: #555555;
-	--text-muted: #95a5a6;
-	--border-color: #e9ecef;
-	--border-light: #e0e0e0;
-	--shadow: rgba(0, 0, 0, 0.1);
-	--shadow-hover: rgba(0, 0, 0, 0.15);
-	--accent: #3498db;
-	--accent-light: rgba(52, 152, 219, 0.1);
+	--bg-tertiary: #f0f1f3;
+	--text-primary: #1a1a1a;
+	--text-secondary: #555555;
+	--text-tertiary: #777777;
+	--text-muted: #999999;
+	--border-color: #e2e4e8;
+	--border-light: #eaeaea;
+	--shadow: rgba(0, 0, 0, 0.08);
+	--shadow-hover: rgba(0, 0, 0, 0.14);
+	--accent: #2563eb;
+	--accent-light: rgba(37, 99, 235, 0.1);
 
-	/* Specific colors */
-	--color-heading: #2c3e50;
-	--color-pinyin: #3498db;
-	--color-cantonese: #e67e22; /* Orange for Cantonese (Hong Kong) */
-	--color-onyomi: #e74c3c;
-	--color-kunyomi: #27ae60;
-	--color-korean: #9b59b6; /* Purple for Korean */
-	--color-separator: #bdc3c7;
-	--color-gloss: #27ae60;
-	--color-hint-bg: #fff3cd;
-	--color-hint-border: #ffc107;
-	--color-hint-text: #856404;
-	--color-stroke: #2c3e50;
-	--color-outline: #e0e0e0;
+	/* ── Semantic language colors ── */
+	--color-heading: #1a1a1a;
+	--color-pinyin: #2563eb;
+	--color-cantonese: #d97706;
+	--color-onyomi: #dc2626;
+	--color-kunyomi: #16a34a;
+	--color-korean: #7c3aed;
+	--color-separator: #d1d5db;
+	--color-gloss: #16a34a;
+	--color-hint-bg: #fef9c3;
+	--color-hint-border: #eab308;
+	--color-hint-text: #854d0e;
+	--color-stroke: #1a1a1a;
+	--color-outline: #e5e7eb;
 
-	/* Tag colors - light theme */
-	--tag-pos-bg: #e9ecef;
-	--tag-pos-text: #6c757d;
-	--tag-misc-bg: #fff3cd;
-	--tag-misc-text: #856404;
-	--tag-inline-bg: #e3f2fd;
-	--tag-inline-text: #1976d2;
-	--badge-hsk-bg: #3498db;
+	/* ── Info callout (conjugation box etc.) ── */
+	--info-bg: #eff6ff;
+	--info-border: #bfdbfe;
+	--info-text: #1e40af;
+	--info-text-muted: #3b82f6;
+
+	/* ── Tag colors ── */
+	--tag-pos-bg: #f1f5f9;
+	--tag-pos-text: #64748b;
+	--tag-misc-bg: #fef9c3;
+	--tag-misc-text: #854d0e;
+	--tag-inline-bg: #eff6ff;
+	--tag-inline-text: #2563eb;
+	--badge-hsk-bg: #2563eb;
 	--badge-hsk-text: #ffffff;
-	--badge-movie-bg: #e3f2fd;
-	--badge-movie-text: #1976d2;
-	--badge-book-bg: #f3e5f5;
-	--badge-book-text: #7b1fa2;
+	--badge-movie-bg: #eff6ff;
+	--badge-movie-text: #2563eb;
+	--badge-book-bg: #faf5ff;
+	--badge-book-text: #7c3aed;
 
-	/* Progress bars */
-	--progress-bg: #e0e0e0;
-	--progress-movie: linear-gradient(90deg, #1976d2, #42a5f5);
-	--progress-book: linear-gradient(90deg, #7b1fa2, #ba68c8);
-	--progress-word-bg: linear-gradient(90deg, #e3f2fd, #bbdefb);
+	/* ── Progress bars ── */
+	--progress-bg: #e5e7eb;
+	--progress-movie: linear-gradient(90deg, #2563eb, #60a5fa);
+	--progress-book: linear-gradient(90deg, #7c3aed, #a78bfa);
+	--progress-word-bg: linear-gradient(90deg, #eff6ff, #dbeafe);
 
-	/* Toggle button colors */
+	/* ── Toggle button ── */
 	--toggle-bg: #ffffff;
-	--toggle-border: #e9ecef;
-	--toggle-color: #333333;
-	--toggle-shadow: rgba(0, 0, 0, 0.1);
-	--toggle-shadow-hover: rgba(0, 0, 0, 0.2);
+	--toggle-border: #e2e4e8;
+	--toggle-color: #1a1a1a;
+	--toggle-shadow: rgba(0, 0, 0, 0.08);
+	--toggle-shadow-hover: rgba(0, 0, 0, 0.15);
 
-	/* Japanese word entry colors (10ten-ja-reader style) */
-	--primary-highlight: #2c3e50;
-	--selected-highlight: #3498db;
-	--reading-highlight: #e74c3c;
-	--selected-reading-highlight: #c0392b;
-	--def-color: #34495e;
-	--selected-def-color: #2c3e50;
+	/* ── Japanese word entry ── */
+	--primary-highlight: #1a1a1a;
+	--selected-highlight: #2563eb;
+	--reading-highlight: #dc2626;
+	--selected-reading-highlight: #b91c1c;
+	--def-color: #374151;
+	--selected-def-color: #1a1a1a;
 
-	/* Tag colors for Japanese entries */
-	--tag-border: #bdc3c7;
-	--tag-pink-bg: #fce4ec;
-	--tag-pink-border: #f06292;
-	--tag-pink-text: #c2185b;
-	--tag-blue-bg: #e3f2fd;
-	--tag-blue-border: #42a5f5;
-	--tag-blue-text: #1976d2;
-	--tag-green-bg: #e8f5e9;
-	--tag-green-border: #66bb6a;
-	--tag-green-text: #2e7d32;
+	/* ── Tag colors for Japanese entries ── */
+	--tag-border: #d1d5db;
+	--tag-pink-bg: #fce7f3;
+	--tag-pink-border: #f472b6;
+	--tag-pink-text: #be185d;
+	--tag-blue-bg: #eff6ff;
+	--tag-blue-border: #60a5fa;
+	--tag-blue-text: #2563eb;
+	--tag-green-bg: #f0fdf4;
+	--tag-green-border: #4ade80;
+	--tag-green-text: #16a34a;
 
-	/* Priority star colors */
-	--star-full: #f39c12;
-	--star-hollow: #bdc3c7;
+	/* ── Stars ── */
+	--star-full: #eab308;
+	--star-hollow: #d1d5db;
 
-	/* ===== TYPOGRAPHY SCALE (Compact, content-dense) ===== */
-	/* Desktop sizes */
+	/* ===== TYPOGRAPHY SCALE ===== */
 	--font-size-title: 28px;
 	--font-size-headline: 18px;
 	--font-size-body: 15px;
@@ -96,159 +107,145 @@
 	--font-size-caption1: 11px;
 	--font-size-caption2: 10px;
 
-	/* Spacing scale */
-	--spacing-xs: 3px;
-	--spacing-sm: 6px;
-	--spacing-md: 10px;
-	--spacing-lg: 14px;
-	--spacing-xl: 20px;
+	/* ── Spacing scale ── */
+	--spacing-xs: 4px;
+	--spacing-sm: 8px;
+	--spacing-md: 12px;
+	--spacing-lg: 16px;
+	--spacing-xl: 24px;
 }
 
+/* ===== DARK THEME ===== */
 [data-theme='dark'] {
-	/* Premium Dark Theme - True Black & Green Accent */
 	--bg-primary: #000000;
-	--bg-secondary: #121212;
-	--bg-tertiary: #1c1c1e;
-	
-	/* High Contrast Text */
-	--text-primary: #ffffff;
-	--text-secondary: #b0b0b0;
-	--text-tertiary: #808080;
-	--text-muted: #505050;
-	
-	/* Borders */
-	--border-color: #2c2c2e;
-	--border-light: #3a3a3c;
-	
-	/* Shadows */
+	--bg-secondary: #111111;
+	--bg-tertiary: #1a1a1a;
+
+	--text-primary: #f5f5f5;
+	--text-secondary: #a3a3a3;
+	--text-tertiary: #737373;
+	--text-muted: #666666;
+
+	--border-color: #262626;
+	--border-light: #333333;
+
 	--shadow: rgba(0, 0, 0, 0.5);
-	--shadow-hover: rgba(0, 0, 0, 0.8);
-	
-	/* Unified Accent - Premium Green */
-	--accent: #2ecc71;
-	--accent-light: rgba(46, 204, 113, 0.15);
+	--shadow-hover: rgba(0, 0, 0, 0.7);
 
-	/* Specific colors - Unified to Green/White aesthetic where possible */
-	--color-heading: #ffffff;
+	--accent: #34d399;
+	--accent-light: rgba(52, 211, 153, 0.12);
 
-	/* Keep semantic colors but mute them or align with green where appropriate */
-	--color-pinyin: #2ecc71; /* Unified Green for consistency */
-	--color-cantonese: #f39c12; /* Golden orange for Cantonese (Hong Kong) - visible in dark mode */
-	--color-onyomi: #ff6b6b; /* Keep distinct but can be styled as label */
-	--color-kunyomi: #2ecc71; /* Green */
-	--color-korean: #bb8fce; /* Light purple for Korean */
-	--color-separator: #3a3a3c;
-	--color-gloss: #ffffff; /* White for main meaning */
-	
-	--color-hint-bg: #1c1c1e;
-	--color-hint-border: #2ecc71;
-	--color-hint-text: #b0b0b0;
-	
-	--color-stroke: #ffffff;
+	--color-heading: #f5f5f5;
+	--color-pinyin: #34d399;
+	--color-cantonese: #fbbf24;
+	--color-onyomi: #f87171;
+	--color-kunyomi: #34d399;
+	--color-korean: #c084fc;
+	--color-separator: #333333;
+	--color-gloss: #f5f5f5;
+
+	--color-hint-bg: #1a1a1a;
+	--color-hint-border: #34d399;
+	--color-hint-text: #a3a3a3;
+
+	--color-stroke: #f5f5f5;
 	--color-outline: #333333;
 
-	/* Tag colors - dark theme */
-	--tag-pos-bg: #1c1c1e;
-	--tag-pos-text: #b0b0b0;
-	--tag-misc-bg: #1c1c1e;
-	--tag-misc-text: #2ecc71;
-	--tag-inline-bg: #1c1c1e;
-	--tag-inline-text: #2ecc71;
-	
-	--badge-hsk-bg: #2ecc71;
+	--info-bg: rgba(52, 211, 153, 0.08);
+	--info-border: rgba(52, 211, 153, 0.2);
+	--info-text: #a7f3d0;
+	--info-text-muted: #6ee7b7;
+
+	--tag-pos-bg: #1a1a1a;
+	--tag-pos-text: #a3a3a3;
+	--tag-misc-bg: #1a1a1a;
+	--tag-misc-text: #34d399;
+	--tag-inline-bg: #1a1a1a;
+	--tag-inline-text: #34d399;
+
+	--badge-hsk-bg: #34d399;
 	--badge-hsk-text: #000000;
-	--badge-movie-bg: #1c1c1e;
-	--badge-movie-text: #2ecc71;
-	--badge-book-bg: #1c1c1e;
-	--badge-book-text: #2ecc71;
+	--badge-movie-bg: #1a1a1a;
+	--badge-movie-text: #34d399;
+	--badge-book-bg: #1a1a1a;
+	--badge-book-text: #c084fc;
 
-	/* Progress bars */
-	--progress-bg: #1c1c1e;
-	--progress-movie: linear-gradient(90deg, #2ecc71, #27ae60);
-	--progress-book: linear-gradient(90deg, #2ecc71, #27ae60);
-	--progress-word-bg: linear-gradient(90deg, #1c1c1e, #2c2c2e);
+	--progress-bg: #1a1a1a;
+	--progress-movie: linear-gradient(90deg, #34d399, #10b981);
+	--progress-book: linear-gradient(90deg, #c084fc, #a855f7);
+	--progress-word-bg: linear-gradient(90deg, #1a1a1a, #262626);
 
-	/* Toggle button colors */
-	--toggle-bg: #121212;
-	--toggle-border: #2c2c2e;
-	--toggle-color: #ffffff;
+	--toggle-bg: #111111;
+	--toggle-border: #262626;
+	--toggle-color: #f5f5f5;
 	--toggle-shadow: rgba(0, 0, 0, 0.5);
-	--toggle-shadow-hover: rgba(0, 0, 0, 0.8);
+	--toggle-shadow-hover: rgba(0, 0, 0, 0.7);
 
-	/* Japanese word entry colors */
-	--primary-highlight: #ffffff;
-	--selected-highlight: #2ecc71;
-	--reading-highlight: #ff6b6b;
-	--selected-reading-highlight: #ff5252;
-	--def-color: #b0b0b0;
-	--selected-def-color: #ffffff;
+	--primary-highlight: #f5f5f5;
+	--selected-highlight: #34d399;
+	--reading-highlight: #f87171;
+	--selected-reading-highlight: #ef4444;
+	--def-color: #a3a3a3;
+	--selected-def-color: #f5f5f5;
 
-	/* Tag colors for Japanese entries */
-	--tag-border: #2c2c2e;
-	--tag-pink-bg: #1c1c1e;
-	--tag-pink-border: #ff6b6b;
-	--tag-pink-text: #ff6b6b;
-	--tag-blue-bg: #1c1c1e;
-	--tag-blue-border: #2ecc71;
-	--tag-blue-text: #2ecc71;
-	--tag-green-bg: #1c1c1e;
-	--tag-green-border: #2ecc71;
-	--tag-green-text: #2ecc71;
+	--tag-border: #262626;
+	--tag-pink-bg: #1a1a1a;
+	--tag-pink-border: #f87171;
+	--tag-pink-text: #fca5a5;
+	--tag-blue-bg: #1a1a1a;
+	--tag-blue-border: #34d399;
+	--tag-blue-text: #6ee7b7;
+	--tag-green-bg: #1a1a1a;
+	--tag-green-border: #34d399;
+	--tag-green-text: #6ee7b7;
 
-	/* Priority star colors */
-	--star-full: #f1c40f;
-	--star-hollow: #3a3a3c;
+	--star-full: #fbbf24;
+	--star-hollow: #333333;
 }
 
-/* Base styles */
+/* ===== BASE STYLES ===== */
 body {
 	@apply m-0 p-0 font-sans;
 	line-height: 1.6;
 	color: var(--text-primary);
 	background: var(--bg-primary);
-	transition: background-color 0.3s ease, color 0.3s ease;
+	transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-/* Custom component classes using @layer */
-@layer components {
-	.btn {
-		@apply px-4 py-2 border border-border rounded bg-primary-secondary text-text-primary cursor-pointer transition-all duration-200;
-	}
+/* Global focus-visible for keyboard accessibility */
+*:focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: 2px;
+}
 
-	.btn:hover {
-		@apply bg-primary-tertiary;
-	}
-
-	.btn-primary {
-		@apply bg-[#4285f4] text-white border-[#4285f4];
-	}
-
-	.btn-primary:hover {
-		@apply bg-[#3367d6];
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+	*, *::before, *::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
 	}
 }
 
-/* ===== MOBILE TYPOGRAPHY OVERRIDES ===== */
-/* Based on iOS Human Interface Guidelines */
+/* ===== MOBILE TYPOGRAPHY ===== */
 @media (max-width: 768px) {
 	:root,
 	[data-theme='dark'] {
-		/* Mobile font sizes - compact display */
 		--font-size-title: 24px;
 		--font-size-headline: 16px;
 		--font-size-body: 14px;
 		--font-size-callout: 13px;
 		--font-size-subhead: 12px;
 		--font-size-footnote: 11px;
-		--font-size-caption1: 10px;
-		--font-size-caption2: 9px;
+		--font-size-caption1: 11px;
+		--font-size-caption2: 10px;
 
-		/* Tighter spacing on mobile */
-		--spacing-xs: 2px;
-		--spacing-sm: 4px;
-		--spacing-md: 8px;
-		--spacing-lg: 12px;
-		--spacing-xl: 16px;
+		--spacing-xs: 3px;
+		--spacing-sm: 6px;
+		--spacing-md: 10px;
+		--spacing-lg: 14px;
+		--spacing-xl: 20px;
 	}
 }
 

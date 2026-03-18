@@ -47,7 +47,7 @@
 				{#each data.subcategories as subcat}
 					<a 
 						href="/category/{[...data.categoryPath, subcat].join('/')}"
-						class="p-3 rounded-lg bg-card-bg border border-card-border hover:border-accent hover:bg-card-hover transition-all text-center"
+						class="p-3 rounded-lg bg-card-bg border border-card-border hover:border-accent hover:bg-card-hover transition-colors text-center"
 					>
 						<span class="text-text-primary font-medium">{subcat}</span>
 					</a>
@@ -66,7 +66,7 @@
 				{#each data.characters as entry}
 					<a 
 						href="/{entry.char}"
-						class="p-3 rounded-lg bg-card-bg border border-card-border hover:border-accent hover:bg-card-hover transition-all text-center group"
+						class="p-3 rounded-lg bg-card-bg border border-card-border hover:border-accent hover:bg-card-hover transition-colors text-center group"
 					>
 						<div class="text-3xl font-cjk text-text-primary group-hover:text-accent transition-colors">
 							{entry.char}

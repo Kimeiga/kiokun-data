@@ -295,7 +295,7 @@
 				<!-- Action buttons -->
 				<div class="flex gap-2 mt-3 w-full">
 					<button
-						class="flex-1 px-3 py-2 rounded-lg border border-border text-sm font-medium cursor-pointer transition-all duration-150"
+						class="flex-1 px-3 py-2 rounded-lg border border-border text-sm font-medium cursor-pointer transition-colors duration-150"
 						style="background: var(--bg-tertiary); color: var(--text-primary);"
 						onclick={undoStroke}
 						disabled={strokes.length === 0}
@@ -304,7 +304,7 @@
 						Undo
 					</button>
 					<button
-						class="flex-1 px-3 py-2 rounded-lg border border-border text-sm font-medium cursor-pointer transition-all duration-150"
+						class="flex-1 px-3 py-2 rounded-lg border border-border text-sm font-medium cursor-pointer transition-colors duration-150"
 						style="background: var(--bg-tertiary); color: var(--text-primary);"
 						onclick={clearCanvas}
 						disabled={strokes.length === 0}
@@ -332,7 +332,7 @@
 					{:else if candidates.length > 0}
 						{#each candidates as char}
 							<button
-								class="w-11 h-11 rounded-lg border-2 border-border text-xl font-bold cursor-pointer transition-all duration-150 hover:scale-110"
+								class="w-11 h-11 rounded-lg border-2 border-border text-xl font-bold cursor-pointer transition-colors duration-150"
 								style="background: var(--bg-tertiary); color: var(--text-primary); border-color: var(--border-color);"
 								onmouseenter={(e) => {
 									e.currentTarget.style.borderColor = 'var(--accent)';

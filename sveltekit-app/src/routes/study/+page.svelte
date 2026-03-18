@@ -339,7 +339,7 @@
 			</div>
 			<div class="flex-1 h-1.5 bg-bg-secondary rounded-full overflow-hidden">
 				<div
-					class="h-full bg-accent rounded-full transition-all duration-300"
+					class="h-full bg-accent rounded-full transition-[width] duration-300"
 					style="width: {((reviewedCount) / (reviewedCount + cards.length)) * 100}%"
 				></div>
 			</div>

@@ -148,11 +148,11 @@
 	.user-card {
 		background: var(--bg-secondary);
 		border: 1px solid var(--border-color);
-		border-radius: 12px;
+		border-radius: var(--radius-lg);
 		padding: 1.5rem;
 		text-decoration: none;
 		color: inherit;
-		transition: all 0.2s ease;
+		transition: background 0.15s ease, border-color 0.15s ease;
 		display: flex;
 		flex-direction: column;
 		align-items: center;

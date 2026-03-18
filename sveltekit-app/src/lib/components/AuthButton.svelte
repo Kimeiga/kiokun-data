@@ -77,12 +77,12 @@
 		gap: 0.5rem;
 		padding: 0.5rem 1rem;
 		border: 1px solid var(--border-color);
-		border-radius: 4px;
+		border-radius: var(--radius-sm);
 		background: var(--bg-secondary);
 		color: var(--text-primary);
 		font-size: 0.9rem;
 		cursor: pointer;
-		transition: all 0.2s;
+		transition: background 0.15s ease, border-color 0.15s ease;
 		white-space: nowrap;
 	}
 

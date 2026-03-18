@@ -88,7 +88,7 @@
 
 {#if !loading && reels.length > 0}
 	<section class="featured-reels">
-		<h2 class="section-title">🎬 Learn from Videos</h2>
+		<h2 class="section-title">Learn from Videos</h2>
 		<p class="section-subtitle">Watch real content with interactive transcripts</p>
 		
 		<div class="reels-grid">
@@ -146,11 +146,11 @@
 		display: flex;
 		flex-direction: column;
 		text-decoration: none;
-		border-radius: 12px;
+		border-radius: var(--radius-lg);
 		overflow: hidden;
 		background: var(--bg-secondary);
 		border: 2px solid var(--border-color);
-		transition: all 0.2s ease;
+		transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
 	}
 
 	.reel-card:hover {
@@ -188,7 +188,7 @@
 		right: 6px;
 		font-size: 14px;
 		background: rgba(0, 0, 0, 0.6);
-		border-radius: 4px;
+		border-radius: var(--radius-sm);
 		padding: 2px 4px;
 	}
 

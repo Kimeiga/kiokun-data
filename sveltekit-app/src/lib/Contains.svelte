@@ -70,7 +70,7 @@
 								<span class="chinese-reading">{preview.p}</span>
 							{/if}
 							{#if showCantonese}
-								<span class="cantonese-reading">🇭🇰 {preview.ct}</span>
+								<span class="cantonese-reading">{preview.ct}</span>
 							{/if}
 							{#if showJapanese}
 								<span class="japanese-reading">{preview.jp}</span>
@@ -112,9 +112,9 @@
 		text-decoration: none;
 		color: inherit;
 		padding: var(--spacing-md) var(--spacing-lg);
-		border-radius: 8px;
+		border-radius: var(--radius-md);
 		min-width: 80px;
-		transition: all 300ms ease;
+		transition: background 0.15s ease;
 	}
 
 	.character-card:hover {
@@ -205,7 +205,7 @@
 		.character-card {
 			padding: var(--spacing-sm) var(--spacing-md);
 			min-width: 70px;
-			border-radius: 6px;
+			border-radius: var(--radius-sm);
 		}
 
 		.character {

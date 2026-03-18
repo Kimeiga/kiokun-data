@@ -182,8 +182,8 @@
 		text-decoration: none;
 		color: var(--text-primary);
 		padding: 2px 4px;
-		border-radius: 4px;
-		transition: all 0.15s ease;
+		border-radius: var(--radius-sm);
+		transition: background 0.15s ease, color 0.15s ease;
 	}
 
 	.char-link:hover {
@@ -217,10 +217,10 @@
 		margin-top: 8px;
 		background: transparent;
 		border: 1px solid var(--border-light);
-		border-radius: 6px;
+		border-radius: var(--radius-sm);
 		cursor: pointer;
 		color: var(--text-secondary);
-		transition: all 0.2s ease;
+		transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 	}
 
 	.toggle-btn:hover {

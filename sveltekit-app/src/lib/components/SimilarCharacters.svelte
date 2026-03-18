@@ -93,9 +93,9 @@
 		text-decoration: none;
 		color: inherit;
 		padding: var(--spacing-sm) var(--spacing-md);
-		border-radius: 4px;
+		border-radius: var(--radius-sm);
 		min-width: 56px;
-		transition: all 200ms ease;
+		transition: background 0.15s ease;
 	}
 
 	.similar-card:hover {

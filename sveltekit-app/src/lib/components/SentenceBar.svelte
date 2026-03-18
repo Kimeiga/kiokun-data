@@ -135,7 +135,7 @@
 		color: var(--text-primary, #fff);
 		cursor: pointer;
 		border-radius: 0.25rem;
-		transition: all 0.15s ease;
+		transition: background 0.15s ease, color 0.15s ease;
 	}
 
 	.word-token:hover {
@@ -171,7 +171,7 @@
 		justify-content: center;
 		cursor: pointer;
 		flex-shrink: 0;
-		transition: all 0.15s ease;
+		transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 	}
 
 	.close-button:hover {

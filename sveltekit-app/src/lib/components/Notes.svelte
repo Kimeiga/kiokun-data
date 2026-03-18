@@ -415,7 +415,7 @@
 
 <style>
 	.note-editor {
-		transition: all 0.3s ease-in-out;
+		transition: max-height 0.3s ease-in-out;
 	}
 
 	.note-editor:not(.expanded) {
@@ -440,7 +440,7 @@
 	}
 
 	.tab {
-		@apply px-3 py-1.5 bg-transparent border border-border rounded text-text-secondary cursor-pointer text-sm transition-all duration-200;
+		@apply px-3 py-1.5 bg-transparent border border-border rounded text-text-secondary cursor-pointer text-sm transition-colors duration-200;
 	}
 
 	.tab.active {
@@ -478,7 +478,7 @@
 	}
 
 	.cancel-btn {
-		@apply px-5 py-2 bg-primary-secondary text-text-primary border border-border rounded cursor-pointer text-sm transition-all duration-200;
+		@apply px-5 py-2 bg-primary-secondary text-text-primary border border-border rounded cursor-pointer text-sm transition-colors duration-200;
 	}
 
 	.cancel-btn:hover {
@@ -486,7 +486,7 @@
 	}
 
 	.image-btn {
-		@apply px-5 py-2 bg-primary-secondary text-text-primary border border-border rounded cursor-pointer text-sm transition-all duration-200;
+		@apply px-5 py-2 bg-primary-secondary text-text-primary border border-border rounded cursor-pointer text-sm transition-colors duration-200;
 	}
 
 	.image-btn:hover:not(:disabled) {
@@ -545,7 +545,7 @@
 
 	.edit-btn,
 	.delete-btn {
-		@apply px-2.5 py-1.5 text-sm border border-border bg-primary-secondary text-text-primary rounded cursor-pointer transition-all duration-200;
+		@apply px-2.5 py-1.5 text-sm border border-border bg-primary-secondary text-text-primary rounded cursor-pointer transition-colors duration-200;
 	}
 
 	.edit-btn:hover {
@@ -637,7 +637,7 @@
 
 	textarea {
 		@apply w-full p-3 border border-border rounded font-sans text-base resize-y box-border bg-primary-secondary text-text-primary leading-relaxed;
-		transition: all 0.3s ease-in-out;
+		transition: max-height 0.3s ease-in-out;
 	}
 
 	textarea:focus {

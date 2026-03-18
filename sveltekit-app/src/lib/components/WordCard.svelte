@@ -70,7 +70,7 @@
 
 <style>
 	.word-card {
-		transition: all 0.2s ease;
+		transition: transform 0.15s ease, box-shadow 0.15s ease;
 	}
 
 	.word-card:hover {
