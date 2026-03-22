@@ -8,6 +8,8 @@
 	import { useSession } from "$lib/auth-client";
 	import { goto } from "$app/navigation";
 	import { navigateOrSearch } from "$lib/utils/search-navigation";
+	import { getDictionaryUrl } from "$lib/shard-utils";
+	import { dev } from "$app/environment";
 
 	let handwritingInput: HandwritingInput;
 
@@ -22,6 +24,16 @@
 			cachedGlosses = await res.json();
 		}
 		const keys = Object.keys(cachedGlosses!);
+		// Try up to 10 times to find a character with a dictionary entry
+		for (let attempt = 0; attempt < 10; attempt++) {
+			const char = keys[Math.floor(Math.random() * keys.length)];
+			const url = await getDictionaryUrl(char, dev, fetch);
+			const resp = await fetch(url, { method: 'HEAD' });
+			if (resp.ok) {
+				await goto(`/${char}`);
+				return;
+			}
+		}
 		const char = keys[Math.floor(Math.random() * keys.length)];
 		await goto(`/${char}`);
 	}

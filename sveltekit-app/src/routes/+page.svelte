@@ -18,6 +18,17 @@
 			cachedGlosses = await res.json();
 		}
 		const keys = Object.keys(cachedGlosses!);
+		// Try up to 10 times to find a character with a dictionary entry
+		for (let attempt = 0; attempt < 10; attempt++) {
+			const char = keys[Math.floor(Math.random() * keys.length)];
+			const url = await getDictionaryUrl(char, dev, fetch);
+			const resp = await fetch(url, { method: 'HEAD' });
+			if (resp.ok) {
+				await goto(`/${char}`);
+				return;
+			}
+		}
+		// Fallback: just navigate and let the 404 page handle it
 		const char = keys[Math.floor(Math.random() * keys.length)];
 		await goto(`/${char}`);
 	}
