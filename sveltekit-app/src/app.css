@@ -99,14 +99,14 @@
 	--star-hollow: #d1d5db;
 
 	/* ===== TYPOGRAPHY SCALE ===== */
-	--font-size-title: 28px;
-	--font-size-headline: 18px;
-	--font-size-body: 15px;
-	--font-size-callout: 14px;
-	--font-size-subhead: 13px;
-	--font-size-footnote: 12px;
-	--font-size-caption1: 11px;
-	--font-size-caption2: 10px;
+	--font-size-title: 30px;
+	--font-size-headline: 20px;
+	--font-size-body: 16px;
+	--font-size-callout: 15px;
+	--font-size-subhead: 14px;
+	--font-size-footnote: 13px;
+	--font-size-caption1: 12px;
+	--font-size-caption2: 11px;
 
 	/* ── Spacing scale ── */
 	--spacing-xs: 4px;

@@ -112,8 +112,8 @@
 			<div class="flex-1"></div>
 		{/if}
 
-		<!-- Nav Actions: always visible on home page, desktop-only on other pages -->
-		<div class="{isHomePage ? 'flex' : 'hidden md:flex'} items-center gap-2 md:gap-3 shrink-0">
+		<!-- Nav Actions: desktop only, mobile uses hamburger menu -->
+		<div class="hidden md:flex items-center gap-2 md:gap-3 shrink-0">
 			{#if !isHomePage}
 				<LanguageToggle compact={true} />
 			{/if}
@@ -158,9 +158,8 @@
 			<ThemeToggle />
 		</div>
 
-		{#if !isHomePage}
-			<!-- Mobile Hamburger Button (not on home page) -->
-			<button
+		<!-- Mobile Hamburger Button -->
+		<button
 				class="md:hidden flex items-center justify-center w-11 h-11 rounded-lg bg-bg-secondary border border-border text-text-primary transition-colors duration-150 hover:border-accent shrink-0 relative"
 				onclick={toggleMobileMenu}
 				aria-label="Toggle menu"
@@ -204,11 +203,10 @@
 					</svg>
 				{/if}
 			</button>
-		{/if}
 	</div>
 
-	<!-- Mobile Menu Dropdown with slide animation (not on home page) -->
-	{#if mobileMenuOpen && !isHomePage}
+	<!-- Mobile Menu Dropdown with slide animation -->
+	{#if mobileMenuOpen}
 		<div
 			class="md:hidden border-t border-border bg-bg-primary/98 backdrop-blur-md overflow-hidden"
 			transition:slide={{ duration: 250, easing: cubicOut }}

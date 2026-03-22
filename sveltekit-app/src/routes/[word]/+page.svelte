@@ -1196,9 +1196,6 @@
 						/>
 					{/if}
 
-					<!-- Notes Section (User mnemonics - highest priority) -->
-					<Notes character={data.word} />
-
 					<!-- Historical Evolution (Character form evolution through history) -->
 					{#if data.data.chinese_char?.images && data.data.chinese_char.images.filter((img: { url?: string }) => img.url).length > 0}
 						{@const historicalImages = data.data.chinese_char.images.filter((img: { url?: string }) => img.url)}
@@ -1472,6 +1469,9 @@
 			</div>
 		{/if}
 
+		<!-- Notes Section (User mnemonics) -->
+		<Notes character={data.word} />
+
 		<!-- Chinese, Japanese, and Korean Words -->
 		{#if (data.data.chinese_words?.length && languageStore.preferences.chinese) || (data.data.japanese_words?.length && languageStore.preferences.japanese) || (data.data.korean_words?.length && languageStore.preferences.korean)}
 			<div class="word-sections-grid">
@@ -1627,7 +1627,8 @@
 <style>
 	/* Custom styles that are hard to express in Tailwind or use CSS variables */
 
-	/* Three-column layout for Chinese, Japanese, and Korean word sections on desktop */
+	/* Responsive column layout for Chinese, Japanese, and Korean word sections.
+	   Adapts to 1, 2, or 3 columns based on how many languages have content. */
 	.word-sections-grid {
 		display: grid;
 		grid-template-columns: 1fr;
@@ -1636,14 +1637,7 @@
 
 	@media (min-width: 768px) {
 		.word-sections-grid {
-			grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-			gap: var(--spacing-xl);
-		}
-	}
-
-	@media (min-width: 1024px) {
-		.word-sections-grid {
-			grid-template-columns: repeat(3, 1fr);
+			grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 			gap: var(--spacing-xl);
 		}
 	}

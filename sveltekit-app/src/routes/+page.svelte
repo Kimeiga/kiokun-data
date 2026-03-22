@@ -1,11 +1,21 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import Header from '$lib/components/Header.svelte';
 	import HandwritingInput from '$lib/components/HandwritingInput.svelte';
 	import FeaturedReels from '$lib/components/FeaturedReels.svelte';
 	import { navigateOrSearch } from '$lib/utils/search-navigation';
 
 	let handwritingInput: HandwritingInput;
+	let heroSearchInput: HTMLInputElement;
 	let heroSearchValue = $state('');
+
+	// Programmatic focus to ensure it works on mobile browsers
+	onMount(() => {
+		if (heroSearchInput) {
+			// Small delay helps mobile browsers honor the focus
+			setTimeout(() => heroSearchInput.focus(), 100);
+		}
+	});
 
 	async function handleHeroSearch(event: KeyboardEvent) {
 		if (event.key === 'Enter') {
@@ -124,6 +134,7 @@
 				class="hero-search-input"
 				placeholder="Search characters, words, or sentences..."
 				bind:value={heroSearchValue}
+				bind:this={heroSearchInput}
 				onkeydown={handleHeroSearch}
 				autofocus
 			/>
