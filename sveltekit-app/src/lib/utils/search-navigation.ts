@@ -216,7 +216,8 @@ export async function findWordsWithDeinflection(
 		// Check if entry has actual word content based on language
 		const hasActualWords = isKorean
 			? hasKoreanContent(exactEntry)
-			: exactEntry.japanese_words && exactEntry.japanese_words.length > 0;
+			: (exactEntry.japanese_words && exactEntry.japanese_words.length > 0) ||
+			  (exactEntry.chinese_words && exactEntry.chinese_words.length > 0);
 		if (hasActualWords) {
 			addMatch(trimmedWord, '');
 		}
