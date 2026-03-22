@@ -94,6 +94,36 @@ export const studyCards = sqliteTable("study_cards", {
 	userWordUnique: unique().on(table.userId, table.word),
 }));
 
+// Custom words - user-coined dictionary entries
+export const customWords = sqliteTable("custom_words", {
+	id: text("id").primaryKey(),
+	userId: text("userId")
+		.notNull()
+		.references(() => user.id, { onDelete: "cascade" }),
+	// The canonical word form used as the URL slug (e.g., "重来", "食べる", "학교")
+	word: text("word").notNull().unique(),
+	// Language: "zh", "ja", "ko"
+	language: text("language").notNull(),
+	// Chinese fields
+	simplified: text("simplified"),
+	traditional: text("traditional"),
+	pinyin: text("pinyin"),
+	jyutping: text("jyutping"),
+	// Japanese fields
+	kanji: text("kanji"),
+	kana: text("kana"),
+	// Korean fields
+	hangul: text("hangul"),
+	hanja: text("hanja"),
+	// Common fields
+	partOfSpeech: text("partOfSpeech"), // JSON array: ["noun", "verb"]
+	definitions: text("definitions").notNull(), // JSON array: ["meaning 1", "meaning 2"]
+	notes: text("notes"), // optional markdown notes
+	// Timestamps
+	createdAt: integer("createdAt", { mode: "timestamp" }).notNull(),
+	updatedAt: integer("updatedAt", { mode: "timestamp" }).notNull(),
+});
+
 // ============================================================================
 // LEARNING RESOURCES TABLES
 // ============================================================================

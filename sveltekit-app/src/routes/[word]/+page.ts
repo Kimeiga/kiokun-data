@@ -86,6 +86,8 @@ export interface PageData {
 	conjugatedFrom?: string;  // The original conjugated word
 	conjugationInfo?: string; // Human-readable conjugation description
 	conjugationAlternatives?: ConjugationAlternative[]; // Other possible matches
+	// Custom word (user-created dictionary entry)
+	customWord?: any;
 }
 
 export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
@@ -140,6 +142,30 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 
 			// Redirect must be thrown outside of try-catch to work properly
 			throw redirect(307, redirectUrl.pathname + redirectUrl.search);
+		}
+
+		// Try custom word lookup as last resort
+		console.log(`[LOAD] Trying custom word lookup for "${word}"...`);
+		try {
+			const customResp = await fetch(`/api/custom-words/by-word/${encodeURIComponent(word)}`);
+			if (customResp.ok) {
+				const customWord = await customResp.json();
+				console.log(`[LOAD] Found custom word: "${word}"`);
+				return {
+					word,
+					data: {} as DictionaryEntry,
+					labels: {},
+					charGlosses: {},
+					charTaxonomy: {},
+					componentUses: {},
+					customWord,
+					conjugatedFrom,
+					conjugationInfo,
+					conjugationAlternatives
+				};
+			}
+		} catch {
+			// Custom word lookup failed, continue to 404
 		}
 
 		console.error(`Failed to load "${word}" and no deinflection found`);

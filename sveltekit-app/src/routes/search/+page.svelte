@@ -19,8 +19,22 @@
 		total: number;
 	}
 
+	interface CustomWordResult {
+		id: string;
+		word: string;
+		language: string;
+		definitions: string;
+		pinyin?: string;
+		kana?: string;
+		hangul?: string;
+		simplified?: string;
+		traditional?: string;
+		user?: { name: string } | null;
+	}
+
 	let query = $state('');
 	let results: SearchResult[] = $state([]);
+	let customResults = $state<CustomWordResult[]>([]);
 	let loading = $state(false);
 	let error = $state('');
 	let total = $state(0);
@@ -60,6 +74,16 @@
 
 			// Fetch simplified forms for Chinese results
 			loadSimplifiedForms(data.results.filter(r => r.language === 'chinese'));
+
+			// Also search custom words in parallel
+			try {
+				const customResp = await fetch(`/api/custom-words?q=${encodeURIComponent(searchQuery)}&limit=20`);
+				if (customResp.ok) {
+					customResults = await customResp.json();
+				}
+			} catch {
+				customResults = [];
+			}
 		} catch (err) {
 			error = err instanceof Error ? err.message : 'Search failed';
 			results = [];
@@ -252,6 +276,41 @@
 				</div>
 			{/if}
 		</div>
+
+		<!-- Custom Word Results -->
+		{#if customResults.length > 0}
+			<div class="custom-results-section">
+				<h2 class="column-title" style="margin-top: var(--spacing-xl)">Community Words</h2>
+				<div class="results-list">
+					{#each customResults as cw}
+						{@const defs = typeof cw.definitions === 'string' ? JSON.parse(cw.definitions) : cw.definitions}
+						<a href="/{cw.word}" class="result-card">
+							<div class="result-header">
+								<span class="word">
+									{#if cw.language === 'zh' && cw.simplified && cw.traditional && cw.simplified !== cw.traditional}
+										{cw.simplified} / {cw.traditional}
+									{:else}
+										{cw.word}
+									{/if}
+								</span>
+								{#if cw.pinyin}
+									<span class="pronunciation">[{cw.pinyin}]</span>
+								{/if}
+								{#if cw.kana && cw.word !== cw.kana}
+									<span class="pronunciation">{cw.kana}</span>
+								{/if}
+								<span class="common-badge" style="background: var(--accent-light); color: var(--accent)">Community</span>
+							</div>
+							<div class="definitions">
+								{#each defs.slice(0, 3) as definition, i}
+									<div class="definition">{i + 1}. {definition}</div>
+								{/each}
+							</div>
+						</a>
+					{/each}
+				</div>
+			</div>
+		{/if}
 	{/if}
 </div>
 

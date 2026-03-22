@@ -962,6 +962,79 @@
 		</div>
 	{/if}
 
+	<!-- Custom Word Display -->
+	{#if data.customWord}
+		{@const cw = data.customWord}
+		{@const defs = typeof cw.definitions === 'string' ? JSON.parse(cw.definitions) : cw.definitions}
+		{@const pos = cw.partOfSpeech ? (typeof cw.partOfSpeech === 'string' ? JSON.parse(cw.partOfSpeech) : cw.partOfSpeech) : []}
+		<div id="content">
+			<div class="mb-4 p-3 rounded-lg bg-accent-light border border-accent/20">
+				<div class="flex items-center gap-2 text-sm text-accent">
+					<span>Community Word</span>
+					{#if cw.user}
+						<span class="text-text-muted">by</span>
+						<a href="/users/{cw.userId}" class="text-accent hover:underline">{cw.user.name}</a>
+					{/if}
+				</div>
+			</div>
+
+			<div class="py-3 md:py-4">
+				<div class="flex flex-col gap-2 mb-4">
+					<div class="flex items-baseline gap-3 flex-wrap">
+						{#if cw.language === 'zh'}
+							<span class="custom-word-heading">
+								{#if cw.simplified && cw.traditional && cw.simplified !== cw.traditional}
+									{cw.simplified} / {cw.traditional}
+								{:else}
+									{cw.traditional || cw.simplified || cw.word}
+								{/if}
+							</span>
+							{#if cw.pinyin}
+								<span class="text-accent" style="font-size: var(--font-size-headline)">[{cw.pinyin}]</span>
+							{/if}
+							{#if cw.jyutping}
+								<span class="text-cantonese" style="font-size: var(--font-size-body)">[{cw.jyutping}]</span>
+							{/if}
+						{:else if cw.language === 'ja'}
+							<span class="custom-word-heading">{cw.kanji || cw.kana || cw.word}</span>
+							{#if cw.kana && cw.kanji}
+								<span class="text-accent" style="font-size: var(--font-size-headline)">{cw.kana}</span>
+							{/if}
+						{:else if cw.language === 'ko'}
+							<span class="custom-word-heading">{cw.hangul || cw.word}</span>
+							{#if cw.hanja}
+								<span class="text-text-secondary" style="font-size: var(--font-size-headline)">[{cw.hanja}]</span>
+							{/if}
+						{/if}
+						<SpeakButton text={cw.word} lang={cw.language === 'zh' ? 'zh' : cw.language === 'ja' ? 'ja' : 'ko'} size={20} />
+					</div>
+
+					{#if pos.length > 0}
+						<div class="flex gap-2">
+							{#each pos as p}
+								<Tag type="pos" text={p} langTag="en" />
+							{/each}
+						</div>
+					{/if}
+
+					<div class="custom-word-defs">
+						{#each defs as def, i}
+							<div>{defs.length > 1 ? `${i + 1}. ` : ''}{def}</div>
+						{/each}
+					</div>
+
+					{#if cw.notes}
+						<div class="mt-2 text-text-secondary" style="font-size: var(--font-size-body); line-height: 1.6">
+							{cw.notes}
+						</div>
+					{/if}
+				</div>
+			</div>
+
+			<!-- Notes Section -->
+			<Notes character={data.word} />
+		</div>
+	{:else}
 	<div id="content">
 		<!-- Character Header -->
 		{#if data.data.chinese_char || data.data.japanese_char}
@@ -1622,10 +1695,29 @@
 			<ReelsSection word={data.word} language="zh" id="reels-zh" />
 		{/if}
 	</div>
+	{/if}
 </div>
 
 <style>
 	/* Custom styles that are hard to express in Tailwind or use CSS variables */
+
+	/* Custom word display */
+	.custom-word-heading {
+		font-size: var(--font-size-title);
+		font-family: var(--font-cjk);
+		font-weight: 700;
+		color: var(--text-primary);
+	}
+
+	.custom-word-defs {
+		font-size: var(--font-size-body);
+		line-height: 1.6;
+		color: var(--text-primary);
+	}
+
+	.text-cantonese {
+		color: var(--color-cantonese);
+	}
 
 	/* Responsive column layout for Chinese, Japanese, and Korean word sections.
 	   Adapts to 1, 2, or 3 columns based on how many languages have content. */
