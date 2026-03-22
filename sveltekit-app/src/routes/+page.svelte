@@ -4,10 +4,23 @@
 	import HandwritingInput from '$lib/components/HandwritingInput.svelte';
 	import FeaturedReels from '$lib/components/FeaturedReels.svelte';
 	import { navigateOrSearch } from '$lib/utils/search-navigation';
+	import { goto } from '$app/navigation';
 
 	let handwritingInput: HandwritingInput;
 	let heroSearchInput: HTMLInputElement;
 	let heroSearchValue = $state('');
+	let cachedGlosses: Record<string, string> | null = null;
+
+	async function goToRandomCharacter() {
+		if (!cachedGlosses) {
+			const res = await fetch("/game_data/component_glosses.json");
+			if (!res.ok) return;
+			cachedGlosses = await res.json();
+		}
+		const keys = Object.keys(cachedGlosses!);
+		const char = keys[Math.floor(Math.random() * keys.length)];
+		await goto(`/${char}`);
+	}
 
 	// Programmatic focus to ensure it works on mobile browsers
 	onMount(() => {
@@ -138,15 +151,24 @@
 				onkeydown={handleHeroSearch}
 				autofocus
 			/>
-			<button
-				onclick={() => handwritingInput.open()}
-				class="hero-draw-btn"
-				title="Draw Character"
-			>
-				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-					<path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>
-				</svg>
-			</button>
+			<div class="hero-search-actions">
+				<button
+					onclick={goToRandomCharacter}
+					class="hero-action-btn"
+					title="Random Character"
+				>
+					🎲
+				</button>
+				<button
+					onclick={() => handwritingInput.open()}
+					class="hero-action-btn"
+					title="Draw Character"
+				>
+					<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>
+					</svg>
+				</button>
+			</div>
 		</div>
 	</section>
 
@@ -272,15 +294,14 @@
 
 		<section class="section compact">
 			<div class="section-head">
-				<h2>Quick Links</h2>
+				<h2>Explore</h2>
 			</div>
 			<div class="quick-links">
-				<a href="/frequency" class="qlink">🇯🇵 Japanese Top 1000</a>
-				<a href="/frequency" class="qlink">🇨🇳 Chinese Top 1000</a>
-				<a href="/frequency" class="qlink">🇰🇷 Korean Top 1000</a>
-				<a href="/study" class="qlink">Flashcard Review (SRS)</a>
-				<a href="/study/decks" class="qlink">Import JLPT / HSK / TOPIK</a>
-				<a href="/japanese-emoji" class="qlink">Japanese Emoji Guide</a>
+				<a href="/learning-resources" class="qlink">🎓 Learning Resources</a>
+				<a href="/frequency" class="qlink">📊 Frequency Lists</a>
+				<a href="/study" class="qlink">📚 Flashcard Review (SRS)</a>
+				<a href="/study/decks" class="qlink">📥 Import JLPT / HSK / TOPIK</a>
+				<a href="/users" class="qlink">👥 Community</a>
 			</div>
 		</section>
 	</div>
@@ -323,7 +344,7 @@
 
 	.hero-search-input {
 		width: 100%;
-		padding: 12px 48px 12px 20px;
+		padding: 12px 80px 12px 20px;
 		border: 1px solid var(--border-light);
 		border-radius: var(--radius-full);
 		font-size: var(--font-size-body);
@@ -343,11 +364,17 @@
 		color: var(--text-muted);
 	}
 
-	.hero-draw-btn {
+	.hero-search-actions {
 		position: absolute;
-		right: 8px;
+		right: 6px;
 		top: 50%;
 		transform: translateY(-50%);
+		display: flex;
+		align-items: center;
+		gap: 2px;
+	}
+
+	.hero-action-btn {
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -359,9 +386,10 @@
 		color: var(--text-tertiary);
 		cursor: pointer;
 		transition: color 0.15s ease;
+		font-size: 16px;
 	}
 
-	.hero-draw-btn:hover {
+	.hero-action-btn:hover {
 		color: var(--accent);
 	}
 
