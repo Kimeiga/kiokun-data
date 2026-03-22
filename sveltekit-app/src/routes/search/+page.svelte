@@ -106,101 +106,105 @@
 		</div>
 
 		<div class="results-container">
-			<!-- Japanese results column -->
-			<div class="results-column">
-				<h2 class="column-title">Japanese 🇯🇵</h2>
-				<div class="results-list">
-					{#each japaneseResults as result}
-						<a href="/{result.word}" class="result-card">
-							<div class="result-header">
-								<span class="word">{result.word}</span>
-								{#if result.pronunciation}
-									<span class="pronunciation">[{result.pronunciation}]</span>
-								{/if}
-								{#if result.is_common}
-									<span class="common-badge">Common</span>
-								{/if}
-							</div>
-							<div class="definitions">
-								{#each result.definitions.slice(0, 3) as definition, i}
-									<div class="definition">
-										{i + 1}. {definition}
-									</div>
-								{/each}
-								{#if result.definitions.length > 3}
-									<div class="more-definitions">
-										+{result.definitions.length - 3} more {result.definitions.length - 3 === 1 ? 'definition' : 'definitions'}
-									</div>
-								{/if}
-							</div>
-						</a>
-					{/each}
+			<!-- Only show language columns that have results -->
+			{#if chineseResults.length > 0}
+				<div class="results-column">
+					<h2 class="column-title">Chinese 🇨🇳</h2>
+					<div class="results-list">
+						{#each chineseResults as result}
+							<a href="/{result.word}" class="result-card">
+								<div class="result-header">
+									<span class="word">{result.word}</span>
+									{#if result.pronunciation}
+										<span class="pronunciation">[{result.pronunciation}]</span>
+									{/if}
+									{#if result.is_common}
+										<span class="common-badge">Common</span>
+									{/if}
+								</div>
+								<div class="definitions">
+									{#each result.definitions.slice(0, 3) as definition, i}
+										<div class="definition">
+											{i + 1}. {definition}
+										</div>
+									{/each}
+									{#if result.definitions.length > 3}
+										<div class="more-definitions">
+											+{result.definitions.length - 3} more {result.definitions.length - 3 === 1 ? 'definition' : 'definitions'}
+										</div>
+									{/if}
+								</div>
+							</a>
+						{/each}
+					</div>
 				</div>
-			</div>
+			{/if}
 
-			<!-- Chinese results column -->
-			<div class="results-column">
-				<h2 class="column-title">Chinese 🇨🇳</h2>
-				<div class="results-list">
-					{#each chineseResults as result}
-						<a href="/{result.word}" class="result-card">
-							<div class="result-header">
-								<span class="word">{result.word}</span>
-								{#if result.pronunciation}
-									<span class="pronunciation">[{result.pronunciation}]</span>
-								{/if}
-								{#if result.is_common}
-									<span class="common-badge">Common</span>
-								{/if}
-							</div>
-							<div class="definitions">
-								{#each result.definitions.slice(0, 3) as definition, i}
-									<div class="definition">
-										{i + 1}. {definition}
-									</div>
-								{/each}
-								{#if result.definitions.length > 3}
-									<div class="more-definitions">
-										+{result.definitions.length - 3} more {result.definitions.length - 3 === 1 ? 'definition' : 'definitions'}
-									</div>
-								{/if}
-							</div>
-						</a>
-					{/each}
+			{#if japaneseResults.length > 0}
+				<div class="results-column">
+					<h2 class="column-title">Japanese 🇯🇵</h2>
+					<div class="results-list">
+						{#each japaneseResults as result}
+							<a href="/{result.word}" class="result-card">
+								<div class="result-header">
+									<span class="word">{result.word}</span>
+									{#if result.pronunciation}
+										<span class="pronunciation">[{result.pronunciation}]</span>
+									{/if}
+									{#if result.is_common}
+										<span class="common-badge">Common</span>
+									{/if}
+								</div>
+								<div class="definitions">
+									{#each result.definitions.slice(0, 3) as definition, i}
+										<div class="definition">
+											{i + 1}. {definition}
+										</div>
+									{/each}
+									{#if result.definitions.length > 3}
+										<div class="more-definitions">
+											+{result.definitions.length - 3} more {result.definitions.length - 3 === 1 ? 'definition' : 'definitions'}
+										</div>
+									{/if}
+								</div>
+							</a>
+						{/each}
+					</div>
 				</div>
-			</div>
+			{/if}
 
-			<!-- Korean results column -->
-			<div class="results-column">
-				<h2 class="column-title">Korean 🇰🇷</h2>
-				<div class="results-list">
-					{#each koreanResults as result}
-						<a href="/{result.word}" class="result-card">
-							<div class="result-header">
-								<span class="word">{result.word}</span>
-								{#if result.pronunciation}
-									<span class="pronunciation">[{result.pronunciation}]</span>
-								{/if}
-								{#if result.is_common}
-									<span class="common-badge">Common</span>
-								{/if}
-							</div>
-							<div class="definitions">
-								{#each result.definitions.slice(0, 3) as definition, i}
-									<div class="definition">
-										{i + 1}. {definition}
-									</div>
-								{/each}
-								{#if result.definitions.length > 3}
-									<div class="more-definitions">
-										+{result.definitions.length - 3} more {result.definitions.length - 3 === 1 ? 'definition' : 'definitions'}
-									</div>
-								{/if}
-							</div>
-						</a>
-					{/each}
+			{#if koreanResults.length > 0}
+				<div class="results-column">
+					<h2 class="column-title">Korean 🇰🇷</h2>
+					<div class="results-list">
+						{#each koreanResults as result}
+							<a href="/{result.word}" class="result-card">
+								<div class="result-header">
+									<span class="word">{result.word}</span>
+									{#if result.pronunciation}
+										<span class="pronunciation">[{result.pronunciation}]</span>
+									{/if}
+									{#if result.is_common}
+										<span class="common-badge">Common</span>
+									{/if}
+								</div>
+								<div class="definitions">
+									{#each result.definitions.slice(0, 3) as definition, i}
+										<div class="definition">
+											{i + 1}. {definition}
+										</div>
+									{/each}
+									{#if result.definitions.length > 3}
+										<div class="more-definitions">
+											+{result.definitions.length - 3} more {result.definitions.length - 3 === 1 ? 'definition' : 'definitions'}
+										</div>
+									{/if}
+								</div>
+							</a>
+						{/each}
+					</div>
 				</div>
-			</div>
+			{/if}
 		</div>
 	{/if}
 </div>
@@ -275,7 +279,7 @@
 
 	.results-container {
 		display: grid;
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 		gap: var(--spacing-xl);
 	}
 

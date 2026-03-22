@@ -403,6 +403,45 @@ export async function handleSentenceInput(
 }
 
 /**
+ * Try to find a CJK word by converting simplified Chinese characters to traditional.
+ * For each character, fetches the dictionary entry (which follows redirects from
+ * simplified → traditional), gets the canonical form, reconstructs the word,
+ * and checks if that traditional form exists in the dictionary.
+ *
+ * Example: 重来 → fetches 重 (same), 来 (redirects to 來) → tries 重來 → found!
+ */
+async function lookupSimplifiedAsTraditional(
+	word: string,
+	fetchFn: typeof fetch = fetch
+): Promise<string | null> {
+	const chars = Array.from(word);
+	const traditionalChars: string[] = [];
+
+	for (const char of chars) {
+		const entry = await fetchDictionaryEntry(char, fetchFn);
+		if (entry) {
+			// Get the traditional character form from the entry
+			const tradChar = entry.chinese_char?.char || char;
+			traditionalChars.push(tradChar);
+		} else {
+			traditionalChars.push(char);
+		}
+	}
+
+	const traditionalWord = traditionalChars.join('');
+
+	// Only try if we actually converted something
+	if (traditionalWord !== word) {
+		const entry = await fetchDictionaryEntry(traditionalWord, fetchFn);
+		if (entry) {
+			return traditionalWord;
+		}
+	}
+
+	return null;
+}
+
+/**
  * Check if input is CJK text that could be split into characters
  */
 function isCJKText(input: string): boolean {
@@ -518,7 +557,19 @@ export async function navigateOrSearch(word: string, fetchFn: typeof fetch = fet
 
 			await goto(url);
 		} else {
-			// Word not found via deinflection
+			// Word not found via direct dictionary lookup.
+			// For short CJK text (likely a word, not a sentence), try converting
+			// simplified Chinese to traditional before falling back to sentence mode.
+			// This handles cases like 重来 → 重來 where the simplified form has no
+			// direct dictionary entry but the traditional form does.
+			if (isCJKText(trimmedWord) && trimmedWord.length >= 2 && trimmedWord.length <= 8) {
+				const traditionalForm = await lookupSimplifiedAsTraditional(trimmedWord, fetchFn);
+				if (traditionalForm) {
+					await goto(`/${encodeURIComponent(traditionalForm)}`);
+					return;
+				}
+			}
+
 			// Now check if it could be a sentence (multiple tokens)
 			if (isSentence(trimmedWord)) {
 				await handleSentenceInput(trimmedWord, fetchFn);
