@@ -388,7 +388,7 @@
 		background: #f5f5f5;
 		border: 1px solid #e0e0e0;
 		border-radius: 4px;
-		font-family: 'Monaco', 'Courier New', monospace;
+		font-family: var(--font-mono);
 		font-size: 0.9em;
 	}
 

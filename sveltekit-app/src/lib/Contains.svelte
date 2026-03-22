@@ -171,7 +171,7 @@
 		font-size: var(--font-size-caption2);
 		color: var(--color-korean, #7c3aed);
 		font-weight: 400;
-		font-family: "Noto Sans KR", "Malgun Gothic", sans-serif;
+		font-family: var(--font-cjk);
 	}
 
 	.definition {

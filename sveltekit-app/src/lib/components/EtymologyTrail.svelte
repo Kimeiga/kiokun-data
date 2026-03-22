@@ -191,7 +191,7 @@
 		font-size: var(--font-size-footnote);
 		font-weight: 500;
 		color: var(--text-primary);
-		font-family: monospace;
+		font-family: var(--font-mono);
 	}
 
 	.recon-gloss {
@@ -273,7 +273,7 @@
 
 	.reading.korean {
 		color: var(--color-korean);
-		font-family: "Noto Sans KR", sans-serif;
+		font-family: var(--font-cjk);
 	}
 
 	@media (max-width: 768px) {

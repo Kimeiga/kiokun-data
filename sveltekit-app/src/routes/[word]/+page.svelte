@@ -1695,7 +1695,7 @@
 
 	.korean-word-text {
 		font-size: var(--font-size-title);
-		font-family: "Noto Sans KR", "Malgun Gothic", sans-serif;
+		font-family: var(--font-cjk);
 		font-weight: 600;
 		color: var(--primary-highlight, #2c3e50);
 	}

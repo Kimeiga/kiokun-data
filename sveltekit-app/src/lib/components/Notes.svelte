@@ -591,7 +591,7 @@
 		background: var(--bg-secondary);
 		padding: 0.2rem 0.4rem;
 		border-radius: 3px;
-		font-family: 'Courier New', monospace;
+		font-family: var(--font-mono);
 		font-size: 0.9em;
 	}
 

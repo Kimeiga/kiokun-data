@@ -381,7 +381,7 @@
 		background: var(--bg-tertiary);
 		padding: var(--spacing-xs) var(--spacing-sm);
 		border-radius: var(--radius-sm);
-		font-family: monospace;
+		font-family: var(--font-mono);
 	}
 
 	.markdown-content :global(pre) {
