@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import SectionHeading from './shared/SectionHeading.svelte';
 
 	interface VideoOccurrence {
@@ -41,18 +40,36 @@
 	let languageFlag = $derived(language === 'zh' ? '🇨🇳' : '🇯🇵');
 	let languageLabel = $derived(language === 'zh' ? 'Chinese' : 'Japanese');
 
-	onMount(async () => {
+	// Cache video data per language to avoid refetching on navigation
+	const videoDataCache: Record<string, VideoData> = {};
+
+	async function loadVideoData() {
+		loading = true;
 		try {
-			const response = await fetch(dataFile);
-			if (response.ok) {
-				videoData = await response.json();
-				occurrences = videoData?.words[word] || [];
+			if (videoDataCache[dataFile]) {
+				videoData = videoDataCache[dataFile];
+			} else {
+				const response = await fetch(dataFile);
+				if (response.ok) {
+					videoData = await response.json();
+					if (videoData) videoDataCache[dataFile] = videoData;
+				}
 			}
+			occurrences = videoData?.words[word] || [];
+			visibleCount = BATCH_SIZE;
 		} catch (err) {
 			console.error(`Failed to load ${languageLabel} video data:`, err);
 		} finally {
 			loading = false;
 		}
+	}
+
+	// Reload when word or language changes (handles client-side navigation)
+	$effect(() => {
+		// Track word and dataFile to re-run on changes
+		const _word = word;
+		const _dataFile = dataFile;
+		loadVideoData();
 	});
 
 	function getThumbnailUrl(videoId: string): string | null {

@@ -250,15 +250,30 @@
 		}
 	}
 
-	// Wait for session to be ready, then load notes
-	// Reload if session changes (user logs in/out)
+	// Track the character prop to detect client-side navigation
+	let lastCharacter = $state('');
+
+	// Load notes when character changes or session becomes ready
 	$effect(() => {
 		const userId = $session.data?.user?.id;
+		// Track character to reload on client-side navigation
+		const currentChar = character;
 
-		// Load notes when session is ready and we haven't loaded yet
 		if ($session.data !== undefined) {
-			if (!hasAttemptedLoad) {
+			if (!hasAttemptedLoad || currentChar !== lastCharacter) {
+				// Reset state when navigating to a different word
+				if (currentChar !== lastCharacter) {
+					notes = [];
+					myNote = null;
+					otherNotes = [];
+					noteText = "";
+					isEditing = false;
+					showPreview = false;
+					isExpanded = false;
+					error = "";
+				}
 				hasAttemptedLoad = true;
+				lastCharacter = currentChar;
 				loadNotes();
 			} else if (notes.length > 0) {
 				// Session changed after initial load - re-separate notes
