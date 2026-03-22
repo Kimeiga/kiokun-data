@@ -230,14 +230,14 @@
 	.word-text {
 		font-size: var(--font-size-title);
 		font-weight: 600;
-		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", "MS Mincho", serif;
+		font-family: var(--font-cjk);
 		color: var(--text-primary);
 	}
 
 	.reading {
 		font-size: var(--font-size-callout);
 		color: var(--color-onyomi, var(--accent));
-		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", "MS Mincho", serif;
+		font-family: var(--font-cjk);
 	}
 
 	.definition {

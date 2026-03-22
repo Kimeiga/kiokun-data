@@ -177,7 +177,7 @@
 	}
 
 	.char-link {
-		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", "MS Mincho", serif;
+		font-family: var(--font-cjk);
 		font-size: var(--font-size-headline);
 		text-decoration: none;
 		color: var(--text-primary);

@@ -314,7 +314,7 @@
 	/* Node text */
 	.node-char {
 		fill: var(--text-primary, #fff);
-		font-family: "Noto Serif TC", "Noto Serif SC", serif;
+		font-family: var(--font-cjk);
 	}
 
 	.node.level-0 .node-char {

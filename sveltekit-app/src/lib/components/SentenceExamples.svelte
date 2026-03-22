@@ -131,7 +131,7 @@
 	.source-text {
 		font-size: var(--font-size-body);
 		color: var(--text-primary);
-		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", serif;
+		font-family: var(--font-cjk);
 		line-height: 1.6;
 	}
 

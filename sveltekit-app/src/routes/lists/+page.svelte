@@ -365,7 +365,7 @@
 	.character {
 		font-size: 32px;
 		font-weight: 600;
-		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", "MS Mincho", serif;
+		font-family: var(--font-cjk);
 		color: var(--text-primary);
 	}
 

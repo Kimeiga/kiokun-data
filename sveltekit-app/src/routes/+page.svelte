@@ -452,7 +452,7 @@
 		font-size: 32px;
 		font-weight: 600;
 		color: var(--text-primary);
-		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", serif;
+		font-family: var(--font-cjk);
 		line-height: 1.1;
 	}
 	.char-alt {
@@ -491,7 +491,7 @@
 		font-size: var(--font-size-body);
 		font-weight: 600;
 		color: var(--text-primary);
-		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", serif;
+		font-family: var(--font-cjk);
 	}
 	.word-alt {
 		font-size: var(--font-size-caption1);
@@ -556,7 +556,7 @@
 	.sent-text {
 		font-size: var(--font-size-callout);
 		color: var(--text-primary);
-		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", serif;
+		font-family: var(--font-cjk);
 		line-height: 1.5;
 	}
 	.sent-label {
@@ -601,7 +601,7 @@
 		font-size: var(--font-size-callout);
 		font-weight: 600;
 		color: var(--accent);
-		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", serif;
+		font-family: var(--font-cjk);
 	}
 	.conj-arrow {
 		color: var(--text-muted);
@@ -610,7 +610,7 @@
 	.conj-base {
 		font-size: var(--font-size-callout);
 		color: var(--text-primary);
-		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", serif;
+		font-family: var(--font-cjk);
 	}
 	.conj-label {
 		font-size: var(--font-size-caption1);

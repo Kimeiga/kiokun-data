@@ -361,7 +361,7 @@
 						>
 							<textarea
 								bind:value={noteText}
-								placeholder="Write your note here... Markdown supported: **bold**, *italic*, [links](url), images, lists, etc.&#10;&#10;💡 Tip: Paste or drag & drop images directly!"
+								placeholder="Write your note here... (Markdown supported)"
 								rows={isExpanded ? 8 : 2}
 								onfocus={handleFocus}
 								onblur={handleBlur}
@@ -636,7 +636,8 @@
 	}
 
 	textarea {
-		@apply w-full p-3 border border-border rounded font-sans text-base resize-y box-border bg-primary-secondary text-text-primary leading-relaxed;
+		@apply w-full p-3 border border-border rounded font-sans resize-y box-border bg-primary-secondary text-text-primary leading-relaxed;
+		font-size: var(--font-size-body);
 		transition: max-height 0.3s ease-in-out;
 	}
 

@@ -217,7 +217,7 @@
 		font-size: 1.25rem;
 		font-weight: 700;
 		color: var(--accent);
-		font-family: "Noto Serif TC", serif;
+		font-family: var(--font-cjk);
 	}
 
 	.divergence-arrow {
@@ -268,7 +268,7 @@
 
 	.reading.japanese {
 		color: var(--color-onyomi);
-		font-family: "Noto Serif JP", serif;
+		font-family: var(--font-cjk);
 	}
 
 	.reading.korean {

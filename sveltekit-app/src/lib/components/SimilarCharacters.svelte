@@ -107,14 +107,14 @@
 		font-weight: 600;
 		color: var(--text-primary);
 		line-height: 1.2;
-		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", serif;
+		font-family: var(--font-cjk);
 	}
 
 	.shared-info {
 		font-size: var(--font-size-caption2);
 		color: var(--text-tertiary);
 		margin-top: var(--spacing-xs);
-		font-family: "Noto Serif TC", serif;
+		font-family: var(--font-cjk);
 	}
 
 	@media (max-width: 768px) {

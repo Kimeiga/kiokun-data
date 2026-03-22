@@ -135,7 +135,7 @@
 	}
 
 	.part-char {
-		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", "MS Mincho", serif;
+		font-family: var(--font-cjk);
 		font-size: var(--font-size-headline);
 		font-weight: 600;
 		color: var(--text-primary);
@@ -170,7 +170,7 @@
 	}
 
 	.result-char {
-		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", "MS Mincho", serif;
+		font-family: var(--font-cjk);
 		font-size: var(--font-size-title);
 		font-weight: 700;
 		color: var(--accent);

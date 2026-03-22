@@ -339,7 +339,7 @@
 		font-size: 24px;
 		font-weight: 600;
 		color: var(--text-primary);
-		font-family: "Noto Serif JP", serif;
+		font-family: var(--font-cjk);
 	}
 
 	.reading {

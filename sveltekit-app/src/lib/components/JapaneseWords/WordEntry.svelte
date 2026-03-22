@@ -104,15 +104,15 @@
 	}
 
 	.kanji-headwords {
-		font-size: var(--font-size-headline);
-		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", "MS Mincho", serif;
+		font-size: var(--font-size-title);
+		font-family: var(--font-cjk);
 		font-weight: 600;
 		color: var(--primary-highlight, #2c3e50);
 	}
 
 	.kana-headwords {
 		font-size: var(--font-size-body);
-		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", "MS Mincho", serif;
+		font-family: var(--font-cjk);
 		color: var(--reading-highlight, #e74c3c);
 	}
 

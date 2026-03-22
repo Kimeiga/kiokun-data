@@ -108,6 +108,9 @@
 	--font-size-caption1: 12px;
 	--font-size-caption2: 11px;
 
+	/* ── CJK font stack (sans-serif) ── */
+	--font-cjk: "Noto Sans TC", "Noto Sans SC", "Noto Sans JP", "PingFang TC", "PingFang SC", "Hiragino Sans", "Microsoft YaHei", sans-serif;
+
 	/* ── Spacing scale ── */
 	--spacing-xs: 4px;
 	--spacing-sm: 8px;
@@ -234,14 +237,14 @@ body {
 @media (max-width: 768px) {
 	:root,
 	[data-theme='dark'] {
-		--font-size-title: 24px;
-		--font-size-headline: 16px;
-		--font-size-body: 14px;
-		--font-size-callout: 13px;
-		--font-size-subhead: 12px;
-		--font-size-footnote: 11px;
-		--font-size-caption1: 11px;
-		--font-size-caption2: 10px;
+		--font-size-title: 26px;
+		--font-size-headline: 18px;
+		--font-size-body: 15px;
+		--font-size-callout: 14px;
+		--font-size-subhead: 13px;
+		--font-size-footnote: 12px;
+		--font-size-caption1: 12px;
+		--font-size-caption2: 11px;
 
 		--spacing-xs: 3px;
 		--spacing-sm: 6px;

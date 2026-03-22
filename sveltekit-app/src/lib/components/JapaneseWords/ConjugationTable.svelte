@@ -151,7 +151,7 @@
 
 	.form-value {
 		font-size: var(--font-size-subhead);
-		font-family: "Noto Serif JP", "MS Mincho", serif;
+		font-family: var(--font-cjk);
 		color: var(--text-primary, #333);
 	}
 </style>

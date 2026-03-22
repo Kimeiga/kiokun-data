@@ -1656,21 +1656,21 @@
 	}
 
 	.chinese-word-text {
-		font-size: var(--font-size-headline);
-		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", "MS Mincho", serif;
+		font-size: var(--font-size-title);
+		font-family: var(--font-cjk);
 		font-weight: 600;
 		color: var(--primary-highlight, #2c3e50);
 	}
 
 	.chinese-pronunciation {
 		font-size: var(--font-size-body);
-		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", "MS Mincho", serif;
+		font-family: var(--font-cjk);
 		color: var(--reading-highlight, #e74c3c);
 	}
 
 	.cantonese-pronunciation {
 		font-size: var(--font-size-subhead);
-		font-family: "Noto Serif TC", "Noto Serif SC", "Noto Serif JP", "MS Mincho", serif;
+		font-family: var(--font-cjk);
 		color: var(--color-cantonese, #e67e22);
 	}
 
@@ -1694,7 +1694,7 @@
 	}
 
 	.korean-word-text {
-		font-size: var(--font-size-headline);
+		font-size: var(--font-size-title);
 		font-family: "Noto Sans KR", "Malgun Gothic", sans-serif;
 		font-weight: 600;
 		color: var(--primary-highlight, #2c3e50);
@@ -1702,7 +1702,7 @@
 
 	.korean-hanja {
 		font-size: var(--font-size-body);
-		font-family: "Noto Serif TC", "Noto Serif SC", "MS Mincho", serif;
+		font-family: var(--font-cjk);
 		color: var(--text-secondary, #666);
 	}
 
