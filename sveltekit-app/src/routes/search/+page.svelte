@@ -2,6 +2,8 @@
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
 	import Header from '$lib/components/Header.svelte';
+	import { getDictionaryUrl } from '$lib/shard-utils';
+	import { dev } from '$app/environment';
 
 	interface SearchResult {
 		word: string;
@@ -22,6 +24,9 @@
 	let loading = $state(false);
 	let error = $state('');
 	let total = $state(0);
+
+	// Map of traditional → simplified for Chinese results
+	let simplifiedForms = $state<Record<string, string>>({});
 
 	// Get query from URL parameter
 	$effect(() => {
@@ -52,12 +57,47 @@
 			const data: SearchResponse = await response.json();
 			results = data.results;
 			total = data.total;
+
+			// Fetch simplified forms for Chinese results
+			loadSimplifiedForms(data.results.filter(r => r.language === 'chinese'));
 		} catch (err) {
 			error = err instanceof Error ? err.message : 'Search failed';
 			results = [];
 		} finally {
 			loading = false;
 		}
+	}
+
+	// Fetch dictionary entries for Chinese results to get simplified forms
+	async function loadSimplifiedForms(chineseResults: SearchResult[]) {
+		const uniqueWords = [...new Set(chineseResults.map(r => r.word))];
+		const forms: Record<string, string> = {};
+
+		await Promise.all(uniqueWords.map(async (word) => {
+			try {
+				const url = await getDictionaryUrl(word, dev, fetch);
+				const response = await fetch(url);
+				if (!response.ok) return;
+
+				const buffer = await response.arrayBuffer();
+				const decompressed = await new Response(
+					new Blob([buffer]).stream().pipeThrough(new DecompressionStream('deflate-raw'))
+				).text();
+				const entry = JSON.parse(decompressed);
+
+				// Extract simplified form from chinese_words
+				if (entry.chinese_words?.length > 0) {
+					const cw = entry.chinese_words[0];
+					if (cw.simp && cw.simp !== word) {
+						forms[word] = cw.simp;
+					}
+				}
+			} catch {
+				// Ignore failures
+			}
+		}));
+
+		simplifiedForms = { ...simplifiedForms, ...forms };
 	}
 
 	// Separate results by language
@@ -114,7 +154,13 @@
 						{#each chineseResults as result}
 							<a href="/{result.word}" class="result-card">
 								<div class="result-header">
-									<span class="word">{result.word}</span>
+									<span class="word">
+										{#if simplifiedForms[result.word]}
+											{simplifiedForms[result.word]} / {result.word}
+										{:else}
+											{result.word}
+										{/if}
+									</span>
 									{#if result.pronunciation}
 										<span class="pronunciation">[{result.pronunciation}]</span>
 									{/if}
