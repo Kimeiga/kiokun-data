@@ -205,3 +205,64 @@ export const extractedWords = sqliteTable("extracted_words", {
 	// Allow multiple instances of same word in different videos
 	// No unique constraint needed
 }));
+
+// ============================================================================
+// ARTIFACTS TABLES
+// ============================================================================
+// Real-world language encounters (product packaging, signs, menus, etc.)
+// Users create artifacts from things they find, add sentences, and link words
+
+export const artifacts = sqliteTable("artifacts", {
+	id: text("id").primaryKey(),
+	userId: text("userId")
+		.notNull()
+		.references(() => user.id, { onDelete: "cascade" }),
+	title: text("title").notNull(),
+	description: text("description"), // Optional description/context
+	language: text("language").notNull(), // 'zh', 'ja', 'ko'
+	type: text("type").notNull().default("other"), // 'packaging', 'sign', 'menu', 'book', 'media', 'other'
+	isPublic: integer("isPublic", { mode: "boolean" }).notNull().default(true),
+	createdAt: integer("createdAt", { mode: "timestamp" }).notNull(),
+	updatedAt: integer("updatedAt", { mode: "timestamp" }).notNull(),
+});
+
+// Images associated with artifacts (stored in R2)
+export const artifactImages = sqliteTable("artifact_images", {
+	id: text("id").primaryKey(),
+	artifactId: text("artifactId")
+		.notNull()
+		.references(() => artifacts.id, { onDelete: "cascade" }),
+	imageUrl: text("imageUrl").notNull(), // R2 path like /api/images/userId/filename.jpg
+	sortOrder: integer("sortOrder").notNull().default(0),
+	createdAt: integer("createdAt", { mode: "timestamp" }).notNull(),
+});
+
+// Sentences found on artifacts (optionally tied to a specific image)
+export const artifactSentences = sqliteTable("artifact_sentences", {
+	id: text("id").primaryKey(),
+	artifactId: text("artifactId")
+		.notNull()
+		.references(() => artifacts.id, { onDelete: "cascade" }),
+	imageId: text("imageId")
+		.references(() => artifactImages.id, { onDelete: "cascade" }), // nullable — ties text to a specific image
+	originalText: text("originalText").notNull(), // The sentence in original language
+	translation: text("translation"), // Optional English translation
+	sortOrder: integer("sortOrder").notNull().default(0),
+	createdAt: integer("createdAt", { mode: "timestamp" }).notNull(),
+});
+
+// Links words in the dictionary to sentences where they appear
+// Includes precomputed dictionary data (reading, gloss) for instant rendering
+export const sentenceWords = sqliteTable("sentence_words", {
+	id: text("id").primaryKey(),
+	sentenceId: text("sentenceId")
+		.notNull()
+		.references(() => artifactSentences.id, { onDelete: "cascade" }),
+	wordSlug: text("wordSlug").notNull(), // Dictionary slug for linking to word pages
+	surfaceForm: text("surfaceForm").notNull(), // The actual text as it appears in the sentence
+	position: integer("position").notNull(), // Character position in the sentence
+	dictionaryForm: text("dictionaryForm"), // Deconjugated form (e.g., 剥がす for 剥が)
+	reading: text("reading"), // Pronunciation (e.g., はがす, tòumíng)
+	gloss: text("gloss"), // First English definition
+	createdAt: integer("createdAt", { mode: "timestamp" }).notNull(),
+});

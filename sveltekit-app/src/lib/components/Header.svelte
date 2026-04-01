@@ -6,37 +6,12 @@
 	import LanguageToggle from "./LanguageToggle.svelte";
 	import HandwritingInput from "./HandwritingInput.svelte";
 	import { useSession } from "$lib/auth-client";
-	import { goto } from "$app/navigation";
 	import { navigateOrSearch } from "$lib/utils/search-navigation";
-	import { getDictionaryUrl } from "$lib/shard-utils";
-	import { dev } from "$app/environment";
 
 	let handwritingInput: HandwritingInput;
 
 	let { currentWord = "", autofocus = false, isHomePage = false }: { currentWord?: string; autofocus?: boolean; isHomePage?: boolean } = $props();
 
-	let cachedGlosses: Record<string, string> | null = null;
-
-	async function goToRandomCharacter() {
-		if (!cachedGlosses) {
-			const res = await fetch("/game_data/component_glosses.json");
-			if (!res.ok) return;
-			cachedGlosses = await res.json();
-		}
-		const keys = Object.keys(cachedGlosses!);
-		// Try up to 10 times to find a character with a dictionary entry
-		for (let attempt = 0; attempt < 10; attempt++) {
-			const char = keys[Math.floor(Math.random() * keys.length)];
-			const url = await getDictionaryUrl(char, dev, fetch);
-			const resp = await fetch(url, { method: 'HEAD' });
-			if (resp.ok) {
-				await goto(`/${char}`);
-				return;
-			}
-		}
-		const char = keys[Math.floor(Math.random() * keys.length)];
-		await goto(`/${char}`);
-	}
 	// Use internal state for search input, synced with currentWord via key
 	let internalSearchValue = $state("");
 	let mobileMenuOpen = $state(false);
@@ -150,13 +125,13 @@
 			>
 				📚
 			</a>
-			<button
-				onclick={goToRandomCharacter}
-				class="flex items-center justify-center w-9 h-9 md:w-10 md:h-10 rounded-full bg-bg-secondary border border-border text-lg md:text-xl transition-colors duration-150 hover:border-accent hover:text-accent cursor-pointer"
-				title="Random Character"
+			<a
+				href="/artifacts"
+				class="flex items-center justify-center w-9 h-9 md:w-10 md:h-10 rounded-full bg-bg-secondary border border-border text-lg md:text-xl no-underline transition-colors duration-150 hover:border-accent hover:text-accent"
+				title="Artifacts"
 			>
-				🎲
-			</button>
+				📦
+			</a>
 			{#if $session.data?.user}
 				<a
 					href="/lists"
@@ -252,14 +227,14 @@
 					<span class="text-sm font-medium">Study</span>
 				</a>
 
-				<button
-					class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-bg-secondary border border-border text-text-primary transition-colors duration-150 hover:border-accent hover:text-accent cursor-pointer w-full text-left"
-					title="Random Character"
-					onclick={() => { closeMobileMenu(); goToRandomCharacter(); }}
+				<a
+					href="/artifacts"
+					class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-bg-secondary border border-border text-text-primary no-underline transition-colors duration-150 hover:border-accent hover:text-accent"
+					onclick={closeMobileMenu}
 				>
-					<span class="text-lg">🎲</span>
-					<span class="text-sm font-medium">Random Character</span>
-				</button>
+					<span class="text-lg">📦</span>
+					<span class="text-sm font-medium">Artifacts</span>
+				</a>
 
 				{#if $session.data?.user}
 					<a

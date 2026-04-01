@@ -143,7 +143,7 @@
 					{#if words.length === 0}
 						<p class="text-text-secondary">No vocabulary extracted yet.</p>
 					{:else}
-						<div class="space-y-4 max-h-[800px] overflow-y-auto pr-2">
+						<div class="space-y-2 max-h-[800px] overflow-y-auto pr-2">
 							{#each words as word}
 								<WordCard 
 									word={word.word}

@@ -5,6 +5,8 @@
 	import FeaturedReels from '$lib/components/FeaturedReels.svelte';
 	import { navigateOrSearch } from '$lib/utils/search-navigation';
 	import { goto } from '$app/navigation';
+	import { getDictionaryUrl } from '$lib/shard-utils';
+	import { dev } from '$app/environment';
 
 	let handwritingInput: HandwritingInput;
 	let heroSearchInput: HTMLInputElement;
@@ -396,12 +398,17 @@
 		background: transparent;
 		color: var(--text-tertiary);
 		cursor: pointer;
-		transition: color 0.15s ease;
+		transition: color 0.15s ease, background 0.15s ease;
 		font-size: 16px;
 	}
 
 	.hero-action-btn:hover {
 		color: var(--accent);
+		background: var(--accent-light);
+	}
+
+	.hero-action-btn:active {
+		transform: scale(0.92);
 	}
 
 	/* ===== Sections ===== */

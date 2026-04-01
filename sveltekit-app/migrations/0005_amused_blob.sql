@@ -1,0 +1,1 @@
+ALTER TABLE `artifact_sentences` ADD `imageId` text REFERENCES artifact_images(id);

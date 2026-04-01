@@ -76,16 +76,6 @@
 		</section>
 	</div>
 
-	<!-- Info Section -->
-	<div class="mt-12 p-6 bg-hint-bg border border-hint-border rounded-lg">
-		<h3 class="text-lg font-bold mb-2 text-hint-text">💡 How It Works</h3>
-		<ul class="space-y-2 text-hint-text">
-			<li>• Videos are automatically processed from YouTube channels</li>
-			<li>• AI extracts natural slang and colloquial expressions</li>
-			<li>• Each word links to the full dictionary entry</li>
-			<li>• Learn Japanese as it's actually spoken in real conversations</li>
-		</ul>
-	</div>
 </div>
 
 <style>

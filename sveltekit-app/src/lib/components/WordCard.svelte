@@ -19,62 +19,85 @@
 	}
 </script>
 
-<div class="word-card bg-bg-secondary border border-border rounded-lg p-4 hover:shadow-lg transition-shadow">
-	<!-- Word Header -->
-	<div class="flex items-start justify-between mb-3">
-		<div class="flex-1">
-			<a 
-				href="/{wordSlug}" 
-				class="text-2xl font-bold text-accent hover:underline font-cjk"
-			>
-				{word}
-			</a>
-			{#if reading}
-				<div class="text-sm text-text-secondary mt-1">{reading}</div>
-			{/if}
-		</div>
-		<div class="flex items-center gap-2">
+<a href="/{wordSlug}" class="word-card">
+	<div class="card-row">
+		<span class="card-word">{word}</span>
+		{#if reading}
+			<span class="card-reading">{reading}</span>
+		{/if}
+		<span class="card-actions">
 			{#if timestamp !== undefined && timestamp > 0}
-				<span class="text-xs text-text-tertiary px-2 py-1 bg-bg-tertiary rounded">
-					⏱️ {formatTimestamp(timestamp)}
-				</span>
+				<span class="card-time">⏱ {formatTimestamp(timestamp)}</span>
 			{/if}
-			<SpeakButton text={word} language="ja" size="sm" />
-		</div>
+			<SpeakButton text={word} lang="ja" size={16} />
+		</span>
 	</div>
-
-	<!-- Translation -->
-	<div class="mb-3">
-		<div class="text-sm font-semibold text-text-tertiary mb-1">Translation:</div>
-		<div class="text-text-primary">{translation}</div>
-	</div>
-
-	<!-- Context Example -->
+	<div class="card-translation">{translation}</div>
 	{#if context}
-		<div class="mt-3 pt-3 border-t border-border">
-			<div class="text-sm font-semibold text-text-tertiary mb-1">Example from video:</div>
-			<div class="text-sm text-text-secondary italic font-cjk">"{context}"</div>
-		</div>
+		<div class="card-context">"{context}"</div>
 	{/if}
-
-	<!-- Dictionary Link -->
-	<div class="mt-3 pt-3 border-t border-border">
-		<a 
-			href="/{wordSlug}" 
-			class="text-sm text-accent hover:underline inline-flex items-center gap-1"
-		>
-			📖 View full dictionary entry →
-		</a>
-	</div>
-</div>
+</a>
 
 <style>
 	.word-card {
-		transition: transform 0.15s ease, box-shadow 0.15s ease;
+		display: block;
+		padding: 10px 14px;
+		background: var(--bg-secondary);
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-md);
+		text-decoration: none;
+		color: inherit;
+		transition: border-color 0.15s;
+	}
+	.word-card:hover {
+		border-color: var(--accent);
 	}
 
-	.word-card:hover {
-		transform: translateY(-2px);
+	.card-row {
+		display: flex;
+		align-items: baseline;
+		gap: 8px;
+		flex-wrap: wrap;
+	}
+
+	.card-word {
+		font-size: var(--font-size-headline);
+		font-weight: 600;
+		color: var(--accent);
+		font-family: var(--font-cjk);
+	}
+
+	.card-reading {
+		font-size: var(--font-size-caption1);
+		color: var(--text-secondary);
+	}
+
+	.card-actions {
+		margin-left: auto;
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		flex-shrink: 0;
+	}
+
+	.card-time {
+		font-size: var(--font-size-caption1);
+		color: var(--text-muted);
+	}
+
+	.card-translation {
+		font-size: var(--font-size-callout);
+		color: var(--text-primary);
+		margin-top: 2px;
+		line-height: 1.4;
+	}
+
+	.card-context {
+		font-size: var(--font-size-caption1);
+		color: var(--text-muted);
+		font-style: italic;
+		font-family: var(--font-cjk);
+		margin-top: 4px;
+		line-height: 1.4;
 	}
 </style>
-

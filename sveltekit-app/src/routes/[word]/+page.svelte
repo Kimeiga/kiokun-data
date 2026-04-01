@@ -21,6 +21,7 @@
 	import SimilarCharacters from "$lib/components/SimilarCharacters.svelte";
 	import SemanticGraph from "$lib/components/SemanticGraph.svelte";
 	import SentenceExamples from "$lib/components/SentenceExamples.svelte";
+	import ArtifactMentions from "$lib/components/ArtifactMentions.svelte";
 
 	let { data }: { data: PageData } = $props();
 
@@ -1542,8 +1543,10 @@
 			</div>
 		{/if}
 
-		<!-- Notes Section (User mnemonics) -->
-		<Notes character={data.word} />
+		<!-- Notes Section (User mnemonics) — show here only when there's character data above -->
+		{#if data.data.chinese_char || data.data.japanese_char}
+			<Notes character={data.word} />
+		{/if}
 
 		<!-- Chinese, Japanese, and Korean Words -->
 		{#if (data.data.chinese_words?.length && languageStore.preferences.chinese) || (data.data.japanese_words?.length && languageStore.preferences.japanese) || (data.data.korean_words?.length && languageStore.preferences.korean)}
@@ -1656,7 +1659,10 @@
 			</div>
 		{/if}
 
-		<!-- Notes and Component Uses removed - now at top of page -->
+		<!-- Notes Section — show here (after words) when there's no character data -->
+		{#if !(data.data.chinese_char || data.data.japanese_char)}
+			<Notes character={data.word} />
+		{/if}
 
 		<!-- Example Sentences -->
 		<SentenceExamples
@@ -1686,6 +1692,9 @@
 			japaneseWords={data.data.contained_in_japanese || []}
 			koreanWords={data.data.contained_in_korean || []}
 		/>
+
+		<!-- Artifact Mentions -->
+		<ArtifactMentions word={data.word} />
 
 		<!-- Reels Sections (show both Japanese and Chinese if applicable) -->
 		{#if data.data.japanese_words && data.data.japanese_words.length > 0}
