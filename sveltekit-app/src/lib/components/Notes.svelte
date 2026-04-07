@@ -354,7 +354,7 @@
 									class="image-btn"
 									title="Upload image"
 								>
-									{uploadingImage ? "Uploading..." : "📷 Add Image"}
+									{uploadingImage ? "..." : "📷"}
 								</button>
 								<button onclick={saveNote} disabled={loading || !noteText.trim()} class="save-btn">
 									{loading ? "Saving..." : "Save"}

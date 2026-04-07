@@ -9,9 +9,10 @@
 			string,
 			Record<string, { chars: string[]; count: number }>
 		>;
+		charGlosses?: Record<string, string>;
 	}
 
-	let { targetChar, targetStrokeCount, targetComponents, componentUses }: Props =
+	let { targetChar, targetStrokeCount, targetComponents, componentUses, charGlosses }: Props =
 		$props();
 
 	// Find similar characters: share at least one component with the target
@@ -24,11 +25,9 @@
 			const uses = componentUses[comp];
 			if (!uses) continue;
 
-			// Gather all characters that use this component (across all types)
 			for (const typeData of Object.values(uses)) {
 				for (const ch of typeData.chars) {
 					if (ch === targetChar) continue;
-					// Skip non-CJK characters (component_uses may have unusual chars)
 					const cp = ch.codePointAt(0) || 0;
 					if (cp < 0x4e00 || cp > 0x9fff) continue;
 
@@ -45,29 +44,28 @@
 			}
 		}
 
-		// Sort by number of shared components (descending), take top 12
 		return Array.from(candidates.entries())
 			.map(([char, data]) => ({
 				char,
 				sharedComponents: data.shared,
 				score: data.score,
+				gloss: charGlosses?.[char] || '',
 			}))
 			.sort((a, b) => b.score - a.score)
-			.slice(0, 12);
+			.slice(0, 20);
 	});
 </script>
 
 {#if similarChars.length > 0}
-	<div class="similar-characters">
+	<div class="similar-section">
 		<SectionHeading id="similar">Similar Characters</SectionHeading>
-
-		<div class="similar-grid">
+		<div class="similar-scroll" lang="zh">
 			{#each similarChars as item}
-				<a href="/{item.char}" class="similar-card">
-					<span class="similar-char">{item.char}</span>
-					<span class="shared-info">
-						{item.sharedComponents.join(" ")}
-					</span>
+				<a href="/{item.char}" class="similar-chip" title={item.gloss || item.char}>
+					<span class="chip-char">{item.char}</span>
+					{#if item.gloss}
+						<span class="chip-gloss">{item.gloss}</span>
+					{/if}
 				</a>
 			{/each}
 		</div>
@@ -75,56 +73,67 @@
 {/if}
 
 <style>
-	.similar-characters {
+	.similar-section {
 		margin-bottom: var(--spacing-lg);
 	}
 
-	.similar-grid {
+	.similar-scroll {
 		display: flex;
-		flex-wrap: wrap;
 		gap: var(--spacing-sm);
+		overflow-x: auto;
+		padding-bottom: var(--spacing-sm);
+		scrollbar-width: thin;
+		scrollbar-color: var(--border-color) transparent;
+		-webkit-overflow-scrolling: touch;
 	}
 
-	.similar-card {
+	.similar-scroll::-webkit-scrollbar {
+		height: 4px;
+	}
+	.similar-scroll::-webkit-scrollbar-track {
+		background: transparent;
+	}
+	.similar-scroll::-webkit-scrollbar-thumb {
+		background: var(--border-color);
+		border-radius: 2px;
+	}
+
+	.similar-chip {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		text-align: center;
+		flex-shrink: 0;
 		text-decoration: none;
 		color: inherit;
 		padding: var(--spacing-sm) var(--spacing-md);
-		border-radius: var(--radius-sm);
-		min-width: 56px;
-		transition: background 0.15s ease;
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-md);
+		background: var(--bg-secondary);
+		min-width: 60px;
+		transition: border-color 0.15s, background 0.15s;
 	}
 
-	.similar-card:hover {
+	.similar-chip:hover {
+		border-color: var(--accent);
 		background: var(--bg-tertiary);
 	}
 
-	.similar-char {
-		font-size: var(--font-size-title);
+	.chip-char {
+		font-size: 24px;
 		font-weight: 600;
 		color: var(--text-primary);
 		line-height: 1.2;
 		font-family: var(--font-cjk);
 	}
 
-	.shared-info {
-		font-size: var(--font-size-caption2);
-		color: var(--text-tertiary);
-		margin-top: var(--spacing-xs);
-		font-family: var(--font-cjk);
-	}
-
-	@media (max-width: 768px) {
-		.similar-card {
-			padding: var(--spacing-xs) var(--spacing-sm);
-			min-width: 48px;
-		}
-
-		.similar-char {
-			font-size: var(--font-size-title);
-		}
+	.chip-gloss {
+		font-size: 10px;
+		color: var(--text-muted);
+		margin-top: 2px;
+		max-width: 70px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		text-align: center;
 	}
 </style>

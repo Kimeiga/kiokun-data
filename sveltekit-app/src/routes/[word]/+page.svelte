@@ -19,7 +19,6 @@
 	import ReelsSection from "$lib/components/ReelsSection.svelte";
 	// EtymologyTrail removed - not providing enough value for most users
 	import SimilarCharacters from "$lib/components/SimilarCharacters.svelte";
-	import SemanticGraph from "$lib/components/SemanticGraph.svelte";
 	import SentenceExamples from "$lib/components/SentenceExamples.svelte";
 	import ArtifactMentions from "$lib/components/ArtifactMentions.svelte";
 
@@ -1055,7 +1054,7 @@
 											id="trad-writer-target"
 											class="w-[80px] h-[80px] md:w-[100px] md:h-[100px] flex items-center justify-center bg-bg-secondary rounded-xl shadow-lg border border-border"
 										>
-											<div class="text-5xl md:text-7xl font-bold font-cjk leading-none text-text-primary">
+											<div lang="zh-Hant" class="text-5xl md:text-7xl font-bold font-cjk leading-none text-text-primary">
 												{traditionalChar}
 											</div>
 										</div>
@@ -1072,7 +1071,7 @@
 											id="simp-writer-target"
 											class="w-[80px] h-[80px] md:w-[100px] md:h-[100px] flex items-center justify-center bg-bg-secondary rounded-xl shadow-lg border border-border"
 										>
-											<div class="text-5xl md:text-7xl font-bold font-cjk leading-none text-text-primary">
+											<div lang="zh-Hans" class="text-5xl md:text-7xl font-bold font-cjk leading-none text-text-primary">
 												{simplifiedChar}
 											</div>
 										</div>
@@ -1089,7 +1088,7 @@
 											id="jp-writer-target"
 											class="w-[80px] h-[80px] md:w-[100px] md:h-[100px] flex items-center justify-center bg-bg-secondary rounded-xl shadow-lg border border-border"
 										>
-											<div class="text-5xl md:text-7xl font-bold font-cjk leading-none text-text-primary">
+											<div lang="ja" class="text-5xl md:text-7xl font-bold font-cjk leading-none text-text-primary">
 												{japaneseChar}
 											</div>
 										</div>
@@ -1105,7 +1104,7 @@
 										<div
 											class="w-[80px] h-[80px] md:w-[100px] md:h-[100px] flex items-center justify-center bg-bg-secondary rounded-xl shadow-lg border border-border"
 										>
-											<div class="text-5xl md:text-7xl font-bold font-cjk leading-none text-text-primary">
+											<div lang="ko" class="text-5xl md:text-7xl font-bold font-cjk leading-none text-text-primary">
 												{koreanHanjaForm}
 											</div>
 										</div>
@@ -1121,7 +1120,7 @@
 										<div
 											class="w-[80px] h-[80px] md:w-[100px] md:h-[100px] flex items-center justify-center bg-bg-secondary rounded-xl shadow-lg border border-border"
 										>
-											<div class="text-5xl md:text-7xl font-bold font-cjk leading-none text-text-primary">
+											<div lang="zh-HK" class="text-5xl md:text-7xl font-bold font-cjk leading-none text-text-primary">
 												{hkChar}
 											</div>
 										</div>
@@ -1268,83 +1267,6 @@
 							targetGloss={uniqueGloss || data.data.chinese_char?.gloss}
 							charGlosses={data.charGlosses}
 						/>
-					{/if}
-
-					<!-- Historical Evolution (Character form evolution through history) -->
-					{#if data.data.chinese_char?.images && data.data.chinese_char.images.filter((img: { url?: string }) => img.url).length > 0}
-						{@const historicalImages = data.data.chinese_char.images.filter((img: { url?: string }) => img.url)}
-						<div class="mb-3">
-							<SectionHeading id="history">Historical Evolution</SectionHeading>
-							<div class="flex gap-2 overflow-x-auto pb-2">
-								{#each historicalImages as image}
-									{#if image.url}
-										<div class="historical-card">
-											<img
-												src={image.url}
-												alt="{image.type || 'Historical'} {image.era || ''}"
-												class="historical-image w-14 h-14 mx-auto object-contain"
-												loading="lazy"
-												onerror={(e) => {
-													const target = e.currentTarget as HTMLImageElement;
-													target.style.display = 'none';
-													const fallback = target.nextElementSibling as HTMLElement;
-													if (fallback) fallback.style.display = 'flex';
-												}}
-											/>
-											<div class="hidden w-14 h-14 mx-auto items-center justify-center text-2xl font-cjk text-text-primary">
-												{data.word}
-											</div>
-											<div class="text-[11px] font-medium text-text-secondary mt-1.5">
-												{image.type || 'Unknown'}
-											</div>
-											{#if image.era}
-												<div class="text-[9px] text-text-tertiary mt-0.5">
-													{image.era}
-												</div>
-											{/if}
-										</div>
-									{/if}
-								{/each}
-								<!-- Modern form rendered with font -->
-								<div class="historical-card">
-									<div class="w-14 h-14 mx-auto flex items-center justify-center text-3xl font-cjk text-text-primary">
-										{data.word}
-									</div>
-									<div class="text-[11px] font-medium text-text-secondary mt-1.5">
-										Regular
-									</div>
-									<div class="text-[9px] text-text-tertiary mt-0.5">
-										Modern
-									</div>
-								</div>
-							</div>
-						</div>
-					{/if}
-
-					<!-- Comments (from Academia Sinica, etc.) -->
-					{#if data.data.chinese_char?.comments && data.data.chinese_char.comments.length > 0}
-						<div class="mb-3">
-							{#each data.data.chinese_char.comments as comment}
-								{#if comment && comment.source && comment.comment}
-									<div
-										class="p-2.5 rounded border-l-4 mb-2"
-										style="background: var(--bg-tertiary); border-left-color: var(--border-light);"
-									>
-										<div
-											class="text-xs text-tertiary font-semibold mb-1"
-										>
-											{comment.source}
-										</div>
-										<div
-											class="text-sm leading-relaxed"
-											style="color: var(--text-secondary);"
-										>
-											{comment.comment}
-										</div>
-									</div>
-								{/if}
-							{/each}
-						</div>
 					{/if}
 
 					<!-- Components Section -->
@@ -1529,23 +1451,85 @@
 							targetStrokeCount={data.data.chinese_char.strokeCount}
 							targetComponents={compChars}
 							componentUses={data.componentUses}
-						/>
-
-						<!-- Semantic Network Graph -->
-						<SemanticGraph
-							targetChar={traditionalChar}
-							components={compChars}
-							componentUses={data.componentUses}
 							charGlosses={data.charGlosses}
 						/>
 					{/if}
 				</div>
 			</div>
-		{/if}
 
-		<!-- Notes Section (User mnemonics) — show here only when there's character data above -->
-		{#if data.data.chinese_char || data.data.japanese_char}
+			<!-- Notes Section (User mnemonics) — right after components for easy access -->
 			<Notes character={data.word} />
+
+			<!-- Historical Evolution (reference material, below the learning sections) -->
+			{#if data.data.chinese_char?.images && data.data.chinese_char.images.filter((img: { url?: string }) => img.url).length > 0}
+				{@const historicalImages = data.data.chinese_char.images.filter((img: { url?: string }) => img.url)}
+				<div class="mb-3">
+					<SectionHeading id="history">Historical Evolution</SectionHeading>
+					<div class="flex gap-2 overflow-x-auto pb-2">
+						{#each historicalImages as image}
+							{#if image.url}
+								<div class="historical-card">
+									<img
+										src={image.url}
+										alt="{image.type || 'Historical'} {image.era || ''}"
+										class="historical-image w-14 h-14 mx-auto object-contain"
+										loading="lazy"
+										onerror={(e) => {
+											const target = e.currentTarget as HTMLImageElement;
+											target.style.display = 'none';
+											const fallback = target.nextElementSibling as HTMLElement;
+											if (fallback) fallback.style.display = 'flex';
+										}}
+									/>
+									<div class="hidden w-14 h-14 mx-auto items-center justify-center text-2xl font-cjk text-text-primary">
+										{data.word}
+									</div>
+									<div class="text-[11px] font-medium text-text-secondary mt-1.5">
+										{image.type || 'Unknown'}
+									</div>
+									{#if image.era}
+										<div class="text-[9px] text-text-tertiary mt-0.5">
+											{image.era}
+										</div>
+									{/if}
+								</div>
+							{/if}
+						{/each}
+						<div class="historical-card">
+							<div class="w-14 h-14 mx-auto flex items-center justify-center text-3xl font-cjk text-text-primary">
+								{data.word}
+							</div>
+							<div class="text-[11px] font-medium text-text-secondary mt-1.5">
+								Regular
+							</div>
+							<div class="text-[9px] text-text-tertiary mt-0.5">
+								Modern
+							</div>
+						</div>
+					</div>
+				</div>
+			{/if}
+
+			<!-- Comments (from Academia Sinica, etc.) -->
+			{#if data.data.chinese_char?.comments && data.data.chinese_char.comments.length > 0}
+				<div class="mb-3">
+					{#each data.data.chinese_char.comments as comment}
+						{#if comment && comment.source && comment.comment}
+							<div
+								class="p-2.5 rounded border-l-4 mb-2"
+								style="background: var(--bg-tertiary); border-left-color: var(--border-light);"
+							>
+								<div class="text-xs text-tertiary font-semibold mb-1">
+									{comment.source}
+								</div>
+								<div class="text-sm leading-relaxed" style="color: var(--text-secondary);">
+									{comment.comment}
+								</div>
+							</div>
+						{/if}
+					{/each}
+				</div>
+			{/if}
 		{/if}
 
 		<!-- Chinese, Japanese, and Korean Words -->
@@ -1564,12 +1548,12 @@
 											item.definitions.length > 0,
 									)}
 									{#each itemsWithDefs as item}
-										<div class="chinese-word-entry">
+										<div class="chinese-word-entry" lang="zh">
 											<!-- Character and Pinyin -->
 											<div class="chinese-headwords">
 												<span class="chinese-word-text">
 													{#if word.simp && word.trad && word.simp !== word.trad}
-														{word.simp} / {word.trad}
+														<span lang="zh-Hans">{word.simp}</span> / <span lang="zh-Hant">{word.trad}</span>
 													{:else}
 														{word.trad || word.simp || data.word}
 													{/if}
@@ -1614,7 +1598,7 @@
 				{#if data.data.japanese_words?.length && languageStore.preferences.japanese}
 					<div>
 						<SectionHeading id="japanese">Japanese</SectionHeading>
-						<div class="mb-4">
+						<div class="mb-4" lang="ja">
 							<WordTable
 								words={data.data.japanese_words}
 								accentDisplay="binary"
@@ -1625,7 +1609,7 @@
 
 				<!-- Korean Words -->
 				{#if data.data.korean_words?.length && languageStore.preferences.korean}
-					<div>
+					<div lang="ko">
 						<SectionHeading id="korean">Korean</SectionHeading>
 						<div class="mb-4">
 							{#each data.data.korean_words as word}
