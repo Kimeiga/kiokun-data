@@ -1,18 +1,19 @@
 // @ts-ignore - tiny-segmenter has no type declarations
 import TinySegmenter from 'tiny-segmenter';
+// @ts-ignore - jieba-wasm types
+import { cut as jiebaCut } from 'jieba-wasm';
 
 const jaSegmenter = new TinySegmenter();
 
 /**
  * Segment CJK text into word tokens.
- * Uses TinySegmenter for Japanese (much better verb/okurigana handling than Intl.Segmenter).
- * Falls back to Intl.Segmenter for Chinese/Korean.
+ * - Japanese: TinySegmenter (lightweight, good okurigana handling)
+ * - Chinese: jieba-wasm (proper word segmentation via WASM)
+ * - Korean: Intl.Segmenter fallback
  */
 export function segmentText(text: string, language: string): string[] {
 	if (language === 'ja') {
-		// TinySegmenter sometimes mis-segments short strings that start with
-		// honorific prefixes (e.g., ご使用 → ご使|用). Adding a sentence-boundary
-		// prefix gives it context to segment correctly, then we strip it.
+		// TinySegmenter needs context prefix for short strings
 		const segments: string[] = jaSegmenter.segment('。' + text);
 		if (segments.length > 0 && segments[0] === '。') {
 			segments.shift();
@@ -22,7 +23,16 @@ export function segmentText(text: string, language: string): string[] {
 		return segments;
 	}
 
-	// Chinese and Korean: use Intl.Segmenter
+	if (language === 'zh') {
+		// jieba-wasm for proper Chinese word segmentation
+		try {
+			return jiebaCut(text);
+		} catch {
+			// Fallback to Intl.Segmenter if jieba fails
+		}
+	}
+
+	// Korean and fallback: use Intl.Segmenter
 	try {
 		const locale = language === 'zh' ? 'zh-CN' : 'ko-KR';
 		const segmenter = new Intl.Segmenter(locale, { granularity: 'word' });
@@ -37,12 +47,11 @@ export function segmentText(text: string, language: string): string[] {
  */
 export function isWordToken(segment: string): boolean {
 	const trimmed = segment.trim();
-	return trimmed.length > 0 && !/^[.,;:!?。、！？「」『』（）〈〉《》【】〔〕・…―─ー～\s※●⚠️＜＞〜]+$/.test(trimmed);
+	return trimmed.length > 0 && !/^[.,;:!?。、！？「」『』（）〈〉《》【】〔〕・…―─ー～\s※●⚠️＜＞〜？]+$/.test(trimmed);
 }
 
 /**
  * Build word tokens with positions from segmented text.
- * Returns array of { wordSlug, surfaceForm, position } for non-punctuation tokens.
  */
 export function buildWordTokens(text: string, language: string): { wordSlug: string; surfaceForm: string; position: number }[] {
 	const segments = segmentText(text, language);

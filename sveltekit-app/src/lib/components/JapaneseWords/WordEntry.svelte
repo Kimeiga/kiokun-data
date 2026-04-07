@@ -11,6 +11,7 @@
 	import SpeakButton from '../shared/SpeakButton.svelte';
 	import ConjugationTable from './ConjugationTable.svelte';
 	import SaveToStudy from '../SaveToStudy.svelte';
+	import PitchAccent from '../PitchAccent.svelte';
 
 	export let word: JapaneseWord;
 	export let accentDisplay: 'none' | 'binary' | 'binary-hi-contrast' = 'binary';
@@ -73,9 +74,10 @@
 			</span>
 		{/if}
 
-		<!-- Audio pronunciation -->
+		<!-- Audio pronunciation + Pitch accent -->
 		{#if speakText}
 			<SpeakButton text={speakText} lang="ja" size={18} />
+			<PitchAccent word={speakText} reading={displayKana.length > 0 ? displayKana[0].text : undefined} />
 			<SaveToStudy word={speakText} language="ja" size="sm" />
 		{/if}
 	</div>
