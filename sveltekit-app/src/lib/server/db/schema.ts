@@ -264,5 +264,6 @@ export const sentenceWords = sqliteTable("sentence_words", {
 	dictionaryForm: text("dictionaryForm"), // Deconjugated form (e.g., 剥がす for 剥が)
 	reading: text("reading"), // Pronunciation (e.g., はがす, tòumíng)
 	gloss: text("gloss"), // First English definition
+	conjugation: text("conjugation"), // Conjugation form label (e.g., 連用形, 未然形)
 	createdAt: integer("createdAt", { mode: "timestamp" }).notNull(),
 });

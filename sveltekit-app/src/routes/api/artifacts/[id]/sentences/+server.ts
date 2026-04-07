@@ -52,6 +52,7 @@ async function tokenizeAndEnrich(text: string, language: string, bucket?: R2Buck
 						dictionaryForm: t.basicForm !== t.surfaceForm ? t.basicForm : null,
 						reading: reading || dictData.reading,
 						gloss: dictData.gloss,
+						conjugation: t.conjugation,
 					};
 				})
 			);
@@ -138,6 +139,7 @@ export async function POST({ params, locals, request, platform }: RequestEvent) 
 			dictionaryForm: word.dictionaryForm,
 			reading: word.reading,
 			gloss: word.gloss,
+			conjugation: word.conjugation || null,
 			createdAt: now,
 		});
 	}
@@ -189,6 +191,7 @@ export async function PUT({ params, locals, request, platform }: RequestEvent) {
 			dictionaryForm: word.dictionaryForm,
 			reading: word.reading,
 			gloss: word.gloss,
+			conjugation: word.conjugation || null,
 			createdAt: now,
 		});
 	}

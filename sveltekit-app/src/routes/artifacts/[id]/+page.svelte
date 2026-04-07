@@ -18,6 +18,7 @@
 		dictionaryForm: string | null;
 		reading: string | null;
 		gloss: string | null;
+		conjugation: string | null;
 	}
 
 	interface Sentence {
@@ -414,6 +415,7 @@
 		dictionaryForm: string | null;
 		reading: string | null;
 		gloss: string | null;
+		conjugation: string | null;
 	}
 
 	function renderSentenceTokens(sentence: Sentence): RenderToken[] {
@@ -428,6 +430,7 @@
 				dictionaryForm: null,
 				reading: null,
 				gloss: null,
+				conjugation: null,
 			}));
 		}
 
@@ -438,7 +441,7 @@
 
 		for (const w of sortedWords) {
 			if (w.position > cursor) {
-				tokens.push({ text: originalText.slice(cursor, w.position), isWord: false, wordSlug: null, dictionaryForm: null, reading: null, gloss: null });
+				tokens.push({ text: originalText.slice(cursor, w.position), isWord: false, wordSlug: null, dictionaryForm: null, reading: null, gloss: null, conjugation: null });
 			}
 			tokens.push({
 				text: w.surfaceForm,
@@ -447,12 +450,13 @@
 				dictionaryForm: w.dictionaryForm || null,
 				reading: w.reading || null,
 				gloss: w.gloss || null,
+				conjugation: w.conjugation || null,
 			});
 			cursor = w.position + w.surfaceForm.length;
 		}
 
 		if (cursor < originalText.length) {
-			tokens.push({ text: originalText.slice(cursor), isWord: false, wordSlug: null, dictionaryForm: null, reading: null, gloss: null });
+			tokens.push({ text: originalText.slice(cursor), isWord: false, wordSlug: null, dictionaryForm: null, reading: null, gloss: null, conjugation: null });
 		}
 
 		return tokens;
@@ -706,7 +710,7 @@
 																	onclick={() => openWordPanel(token.wordSlug!)}
 																>{token.text}</button>
 																{#if showGlosses}
-																	<span class="word-gloss">{token.gloss || ''}</span>
+																	<span class="word-gloss">{token.gloss || ''}{#if token.conjugation && token.dictionaryForm} ({token.dictionaryForm}){/if}</span>
 																{/if}
 															</span>
 														{:else}

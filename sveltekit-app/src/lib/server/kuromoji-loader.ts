@@ -65,6 +65,7 @@ export interface TokenizedWord {
 	reading: string | null;  // katakana reading
 	basicForm: string | null; // dictionary form
 	pos: string; // part of speech
+	conjugation: string | null; // conjugation form (e.g., 連用形, 未然形)
 	position: number; // character position in text
 }
 
@@ -80,11 +81,16 @@ export function tokenizeJapanese(
 	const result: TokenizedWord[] = [];
 
 	for (const t of tokens) {
+		// Build conjugation label (e.g., "連用形 of 食べる")
+		const conjForm = t.conjugated_form !== '*' ? t.conjugated_form : null;
+		const isConjugated = conjForm && t.basic_form !== '*' && t.basic_form !== t.surface_form;
+
 		result.push({
 			surfaceForm: t.surface_form,
 			reading: katakanaToHiragana(t.reading) || null,
 			basicForm: t.basic_form !== '*' ? t.basic_form : null,
 			pos: t.pos,
+			conjugation: isConjugated ? conjForm : null,
 			position: t.word_position,
 		});
 	}
