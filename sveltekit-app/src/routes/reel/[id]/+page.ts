@@ -54,7 +54,7 @@ export const load: PageLoad<ReelPageData> = async ({ params, url, fetch }) => {
 
 	// Load video data based on language
 	const dataFile = language === 'zh' ? '/chinese_video_data.json' : '/video_data.json';
-	const transcriptFile = language === 'zh' ? null : '/reel_transcripts_full.json';
+	const transcriptFile = language === 'zh' ? '/reel_transcripts_zh_full.json' : '/reel_transcripts_full.json';
 
 	const [dataResponse, transcriptResponse] = await Promise.all([
 		fetch(dataFile),
