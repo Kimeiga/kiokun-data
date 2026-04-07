@@ -28,6 +28,11 @@
 		return `${mins}:${secs.toString().padStart(2, '0')}`;
 	}
 
+	function isFullTranscript(words: string[]): boolean {
+		// STT transcripts have many short tokens; old format has fewer longer vocabulary words
+		return words.length >= 3 && words.every(w => w.length <= 6);
+	}
+
 	function seekTo(time: number) {
 		if (videoElement) {
 			videoElement.currentTime = time;
@@ -123,34 +128,45 @@
 							<div class="text-xs text-text-tertiary mb-2">
 								{formatTime(segment.start_time)} - {formatTime(segment.end_time)}
 							</div>
-							<p class="text-text-primary font-cjk text-lg leading-relaxed">
-								{#each segment.sentence.split('') as char}
-									{#if segment.words.some(w => isWordInSentence(w, segment.sentence, char))}
-										{@const matchingWord = findMatchingWord(segment.words, char)}
+								<p class="text-text-primary font-cjk text-lg leading-relaxed">
+								{#if isFullTranscript(segment.words)}
+									<!-- Full STT transcript: each word is a clickable token -->
+									{#each segment.words as word}
 										<a
-											href="/{matchingWord}"
-											class="text-accent hover:underline {matchingWord === data.highlightWord ? 'bg-accent/20 rounded px-1' : ''}"
+											href="/{word}"
+											class="hover:text-accent hover:underline transition-colors {word === data.highlightWord ? 'text-accent bg-accent/20 rounded px-0.5' : ''}"
 											onclick={(e) => e.stopPropagation()}
-										>{char}</a>
-									{:else}
-										{char}
-									{/if}
-								{/each}
+										>{word}</a>
+									{/each}
+								{:else}
+									<!-- Old format or short segments: character-by-character with word chips -->
+									{#each segment.sentence.split('') as char}
+										{#if segment.words.some(w => isWordInSentence(w, segment.sentence, char))}
+											{@const matchingWord = findMatchingWord(segment.words, char)}
+											<a
+												href="/{matchingWord}"
+												class="text-accent hover:underline {matchingWord === data.highlightWord ? 'bg-accent/20 rounded px-1' : ''}"
+												onclick={(e) => e.stopPropagation()}
+											>{char}</a>
+										{:else}
+											{char}
+										{/if}
+									{/each}
+								{/if}
 							</p>
-							<!-- Dictionary words in this segment -->
-							<div class="mt-2 flex flex-wrap gap-2">
-								{#each segment.words as word}
-									<a 
-										href="/{word}"
-										class="text-sm px-2 py-1 rounded-full bg-bg-tertiary text-text-secondary hover:bg-accent hover:text-white transition-colors"
-										class:bg-accent={word === data.highlightWord}
-										class:text-white={word === data.highlightWord}
-										onclick={(e) => e.stopPropagation()}
-									>
-										{word}
-									</a>
-								{/each}
-							</div>
+							{#if !isFullTranscript(segment.words) && segment.words.length > 0}
+								<div class="mt-2 flex flex-wrap gap-2">
+									{#each segment.words as word}
+										<a
+											href="/{word}"
+											class="text-sm px-2 py-1 rounded-full bg-bg-tertiary text-text-secondary hover:bg-accent hover:text-white transition-colors"
+											class:bg-accent={word === data.highlightWord}
+											class:text-white={word === data.highlightWord}
+											onclick={(e) => e.stopPropagation()}
+										>{word}</a>
+									{/each}
+								</div>
+							{/if}
 						</div>
 					{/each}
 				</div>
