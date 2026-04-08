@@ -28,8 +28,11 @@
 			.filter(c => typeof c !== 'string')
 			.map(c => {
 				const char = c.character;
-				const cleanedDictGloss = cleanGloss(c.meaning);
-				const finalGloss = cleanedDictGloss || charGlosses?.[char] || "";
+				// Prefer curated charGlosses (clear, learning-focused) over dictionary meaning
+				// (which can be things like "radical number 9" instead of "person")
+				const curatedGloss = charGlosses?.[char] ? cleanGloss(charGlosses[char]) : "";
+				const dictGloss = cleanGloss(c.meaning);
+				const finalGloss = curatedGloss || dictGloss || "";
 				return { char, gloss: finalGloss };
 			})
 			.filter(c => c.gloss);
