@@ -264,38 +264,76 @@
 						</div>
 					{/each}
 				{:else if panelData}
-					{#if panelData.chinese_words?.length > 0}
-						{#each panelData.chinese_words as cw}
-							{#each cw.items || [] as item}
-								{#if item.definitions?.length}
+					<!-- Show reel's language first -->
+					{#if data.language === 'ja'}
+						{#if panelData.japanese_words?.length > 0}
+							{#each panelData.japanese_words.slice(0, 3) as jw}
+								{#if jw.kana?.length > 0}
+									<div class="panel-reading">{jw.kana.map((k) => k.text).join(', ')}</div>
+								{/if}
+								{#each jw.sense?.slice(0, 3) || [] as sense}
 									<div class="panel-sense">
-										{#if item.pinyin}<span class="panel-pinyin">{item.pinyin}</span>{/if}
+										{#if sense.partOfSpeech?.length > 0}
+											<span class="panel-pos">{sense.partOfSpeech.join(', ')}</span>
+										{/if}
 										<ol class="panel-defs">
-											{#each item.definitions as def}<li>{def}</li>{/each}
+											{#each sense.gloss || [] as gloss}<li>{gloss.text}</li>{/each}
 										</ol>
 									</div>
-								{/if}
+								{/each}
 							{/each}
-						{/each}
-					{/if}
-					{#if panelData.japanese_words?.length > 0}
-						{#each panelData.japanese_words.slice(0, 3) as jw}
-							{#if jw.kana?.length > 0}
-								<div class="panel-reading">{jw.kana.map((k) => k.text).join(', ')}</div>
-							{/if}
-							{#each jw.sense?.slice(0, 3) || [] as sense}
-								<div class="panel-sense">
-									{#if sense.partOfSpeech?.length > 0}
-										<span class="panel-pos">{sense.partOfSpeech.join(', ')}</span>
+						{/if}
+						{#if panelData.chinese_words?.length > 0}
+							<div class="panel-divider"></div>
+							{#each panelData.chinese_words as cw}
+								{#each cw.items || [] as item}
+									{#if item.definitions?.length}
+										<div class="panel-sense">
+											{#if item.pinyin}<span class="panel-pinyin">{item.pinyin}</span>{/if}
+											<ol class="panel-defs">
+												{#each item.definitions as def}<li>{def}</li>{/each}
+											</ol>
+										</div>
 									{/if}
-									<ol class="panel-defs">
-										{#each sense.gloss || [] as gloss}<li>{gloss.text}</li>{/each}
-									</ol>
-								</div>
+								{/each}
 							{/each}
-						{/each}
+						{/if}
+					{:else}
+						{#if panelData.chinese_words?.length > 0}
+							{#each panelData.chinese_words as cw}
+								{#each cw.items || [] as item}
+									{#if item.definitions?.length}
+										<div class="panel-sense">
+											{#if item.pinyin}<span class="panel-pinyin">{item.pinyin}</span>{/if}
+											<ol class="panel-defs">
+												{#each item.definitions as def}<li>{def}</li>{/each}
+											</ol>
+										</div>
+									{/if}
+								{/each}
+							{/each}
+						{/if}
+						{#if panelData.japanese_words?.length > 0}
+							<div class="panel-divider"></div>
+							{#each panelData.japanese_words.slice(0, 3) as jw}
+								{#if jw.kana?.length > 0}
+									<div class="panel-reading">{jw.kana.map((k) => k.text).join(', ')}</div>
+								{/if}
+								{#each jw.sense?.slice(0, 3) || [] as sense}
+									<div class="panel-sense">
+										{#if sense.partOfSpeech?.length > 0}
+											<span class="panel-pos">{sense.partOfSpeech.join(', ')}</span>
+										{/if}
+										<ol class="panel-defs">
+											{#each sense.gloss || [] as gloss}<li>{gloss.text}</li>{/each}
+										</ol>
+									</div>
+								{/each}
+							{/each}
+						{/if}
 					{/if}
 					{#if panelData.korean_words?.length > 0}
+						<div class="panel-divider"></div>
 						{#each panelData.korean_words.slice(0, 3) as kw}
 							<div class="panel-sense">
 								{#if kw.hangul}<span class="panel-reading">{kw.hangul}</span>{/if}
@@ -414,6 +452,7 @@
 	.panel-pinyin { font-size: var(--font-size-callout); color: var(--color-pinyin); display: block; margin-bottom: var(--spacing-xs); }
 	.panel-pos { font-size: var(--font-size-caption1); color: var(--text-muted); font-style: italic; display: block; margin-bottom: var(--spacing-xs); }
 	.panel-sense { margin-bottom: var(--spacing-md); }
+	.panel-divider { border-top: 1px solid var(--border-color); margin: var(--spacing-md) 0; }
 	.panel-defs { margin: 0; padding-left: var(--spacing-xl); font-size: var(--font-size-body); color: var(--text-primary); line-height: 1.6; }
 	.panel-hint { font-size: var(--font-size-caption1); color: var(--text-muted); }
 	.link-btn { background: none; border: none; color: var(--accent); cursor: pointer; font: inherit; text-decoration: underline; padding: 0; }
