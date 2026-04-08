@@ -1450,6 +1450,10 @@
 							.filter(c => typeof c !== 'string')
 							.map(c => c.character || c.char || c)
 							.filter(Boolean)}
+
+						<!-- Notes above similar characters -->
+						<Notes character={data.word} />
+
 						<SimilarCharacters
 							targetChar={traditionalChar}
 							targetStrokeCount={data.data.chinese_char.strokeCount}
@@ -1457,12 +1461,11 @@
 							componentUses={data.componentUses}
 							charGlosses={data.charGlosses}
 						/>
+					{:else}
+						<Notes character={data.word} />
 					{/if}
 				</div>
 			</div>
-
-			<!-- Notes Section (User mnemonics) — right after components for easy access -->
-			<Notes character={data.word} />
 
 			<!-- Historical Evolution (reference material, below the learning sections) -->
 			{#if data.data.chinese_char?.images && data.data.chinese_char.images.filter((img: { url?: string }) => img.url).length > 0}

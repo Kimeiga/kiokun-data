@@ -76,7 +76,7 @@
 			{#each displayed as item}
 				<div class="example-item">
 					<div class="example-text">
-						<span class="lang-tag">{item.source === "ja" ? "JP" : "KR"}</span>
+						<span class="lang-tag">{item.source === "ja" ? "🇯🇵" : "🇰🇷"}</span>
 						<span class="source-text">{item.text}</span>
 					</div>
 					{#if item.translation}
