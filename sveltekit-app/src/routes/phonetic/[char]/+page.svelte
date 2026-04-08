@@ -4,18 +4,19 @@
 
 	let { data }: { data: PageData } = $props();
 
-	// Group characters by their primary pinyin reading (syllable without tone for grouping)
+	// Group characters by their primary pinyin reading
+	// Use data.component as a reactive key to ensure regrouping on navigation
 	let grouped = $derived.by(() => {
+		const _key = data.component; // track for reactivity
 		const groups: Record<string, typeof data.characters> = {};
 		for (const ch of data.characters) {
-			const key = ch.pinyin.length > 0 ? ch.pinyin[0] : 'unknown';
+			const key = ch.pinyin.length > 0 ? ch.pinyin[0] : 'none';
 			if (!groups[key]) groups[key] = [];
 			groups[key].push(ch);
 		}
-		// Sort groups by size (largest first), then alphabetically
 		const sorted = Object.entries(groups).sort((a, b) => {
-			if (a[0] === 'unknown') return 1;
-			if (b[0] === 'unknown') return -1;
+			if (a[0] === 'none') return 1;
+			if (b[0] === 'none') return -1;
 			return b[1].length - a[1].length || a[0].localeCompare(b[0]);
 		});
 		return sorted;
@@ -67,27 +68,40 @@
 					<!-- Character cards -->
 					<div class="flex flex-wrap gap-2">
 						{#each chars as ch}
-							<a
-								href="/{ch.char}"
-								class="flex items-center gap-2 px-3 py-2 rounded-lg no-underline transition-colors duration-150"
-								style="background: var(--bg-secondary); border: 1px solid var(--border-light);"
-							>
-								<span class="text-2xl font-serif" style="color: var(--text-primary);">
-									{ch.char}
+							{@const hasEntry = ch.pinyin.length > 0 || ch.gloss}
+							{#if hasEntry}
+								<a
+									href="/{ch.char}"
+									class="flex items-center gap-2 px-3 py-2 rounded-lg no-underline transition-colors duration-150 hover:border-accent"
+									style="background: var(--bg-secondary); border: 1px solid var(--border-light);"
+								>
+									<span class="text-2xl font-serif" style="color: var(--text-primary);" lang="zh">
+										{ch.char}
+									</span>
+									<div class="flex flex-col">
+										{#if ch.pinyin.length > 0}
+											<span class="text-xs font-mono" style="color: var(--color-pinyin, var(--accent));">
+												{ch.pinyin.join(', ')}
+											</span>
+										{/if}
+										{#if ch.gloss}
+											<span class="text-xs" style="color: var(--text-secondary);">
+												{ch.gloss}
+											</span>
+										{/if}
+									</div>
+								</a>
+							{:else}
+								<span
+									class="flex items-center gap-2 px-3 py-2 rounded-lg opacity-40"
+									style="background: var(--bg-secondary); border: 1px solid var(--border-light);"
+									title="No dictionary entry"
+								>
+									<span class="text-2xl font-serif" style="color: var(--text-primary);" lang="zh">
+										{ch.char}
+									</span>
 								</span>
-								<div class="flex flex-col">
-									{#if ch.pinyin.length > 0}
-										<span class="text-xs font-mono" style="color: var(--color-pinyin, var(--accent));">
-											{ch.pinyin.join(', ')}
-										</span>
-									{/if}
-									{#if ch.gloss}
-										<span class="text-xs" style="color: var(--text-secondary);">
-											{ch.gloss}
-										</span>
-									{/if}
-								</div>
-							</a>
+							{/if}
 						{/each}
 					</div>
 				</div>

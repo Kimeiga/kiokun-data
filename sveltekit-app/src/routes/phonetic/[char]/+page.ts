@@ -41,8 +41,9 @@ function decompressAndParse(compressedData: ArrayBuffer): DictionaryEntry {
 	return JSON.parse(jsonString) as DictionaryEntry;
 }
 
-export const load: PageLoad<PhoneticPageData> = async ({ params, fetch }) => {
+export const load: PageLoad<PhoneticPageData> = async ({ params, fetch, depends }) => {
 	const { char } = params;
+	depends(`phonetic:${char}`);
 
 	// Fetch component data
 	const [usesResponse, glossesResponse] = await Promise.all([
