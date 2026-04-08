@@ -57,10 +57,10 @@
 		koreanHanjaForm && koreanCharacter && koreanCharacter !== traditionalChar && koreanCharacter !== simplifiedChar && koreanCharacter !== japaneseChar
 	);
 
-	// Helper to strip variant indicators like (trad), (simp), (jp) from glosses
+	// Strip variant indicators like (trad), (simp), (jp) from glosses
 	// Since the character page unifies all variants, this info is redundant
 	function stripVariantIndicator(gloss: string): string {
-		return gloss.replace(/\s*\((trad|simp|jp)\)\s*$/i, '').trim();
+		return gloss.replace(/\s*\((trad|simp|jp)\)/gi, '').trim();
 	}
 
 	// Get unique gloss from game data (falls back to existing gloss)
@@ -1134,17 +1134,17 @@
 							<!-- Main Meaning (Gloss) + Pronunciations -->
 							{#if uniqueGloss || data.data.chinese_char?.gloss}
 								<div class="min-w-0">
-									<div class="flex items-start gap-2 mb-1 md:mb-2">
+									<div class="flex items-center gap-2 mb-1 md:mb-2">
+										<h1
+											class="text-xl md:text-4xl font-bold text-accent leading-tight flex-1"
+										>
+											{uniqueGloss || stripVariantIndicator(data.data.chinese_char?.gloss || '')}
+										</h1>
 										<SaveToStudy
 											word={data.word}
 											language={data.data.chinese_char ? 'zh' : (data.data.japanese_char ? 'ja' : 'ko')}
 											size="sm"
 										/>
-										<h1
-											class="text-xl md:text-4xl font-bold text-accent leading-tight"
-										>
-											{uniqueGloss || data.data.chinese_char?.gloss}
-										</h1>
 									</div>
 									<!-- Taxonomy breadcrumb -->
 									{#if taxonomy && taxonomy.length > 0}

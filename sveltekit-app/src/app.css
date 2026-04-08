@@ -241,7 +241,7 @@ body {
 	[data-theme='dark'] {
 		--font-size-title: 26px;
 		--font-size-headline: 18px;
-		--font-size-body: 15px;
+		--font-size-body: 16px;
 		--font-size-callout: 14px;
 		--font-size-subhead: 13px;
 		--font-size-footnote: 12px;
@@ -253,6 +253,11 @@ body {
 		--spacing-md: 10px;
 		--spacing-lg: 14px;
 		--spacing-xl: 20px;
+	}
+
+	/* Prevent iOS Safari zoom on input focus — inputs must be ≥16px */
+	input, textarea, select {
+		font-size: 16px !important;
 	}
 }
 
