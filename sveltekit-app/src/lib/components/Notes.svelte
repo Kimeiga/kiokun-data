@@ -318,7 +318,7 @@
 				<div class="mb-6 note-editor" class:expanded={isExpanded}>
 					<div class="flex justify-between items-center mb-3">
 						<div class="flex items-center gap-3">
-							<span class="font-semibold text-text-secondary text-sm">{myNote ? "Edit Your Note" : "Add Your Note"}</span>
+							<span class="font-medium text-text-tertiary text-xs">{myNote ? "Edit Your Note" : "Add Your Note"}</span>
 							{#if isExpanded}
 								<div class="editor-tabs">
 									<button

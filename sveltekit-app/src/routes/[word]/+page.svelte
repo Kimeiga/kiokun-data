@@ -1298,7 +1298,7 @@
 								{#if hasTradComponents}
 									<div class={isSingleCharacter && !showBothColumns ? "" : "mb-6"}>
 										{#if showBothColumns}
-											<div class="text-sm font-semibold text-text-tertiary uppercase tracking-wider mb-3">
+											<div class="text-xs font-medium text-text-muted uppercase tracking-wider mb-2">
 												Traditional ({traditionalChar})
 											</div>
 										{/if}
@@ -1370,7 +1370,7 @@
 								<!-- Simplified Components (only if different from traditional) -->
 								{#if showBothColumns && hasSimpComponents}
 									<div class="mb-6">
-										<div class="text-sm font-semibold text-text-tertiary uppercase tracking-wider mb-3">
+										<div class="text-xs font-medium text-text-muted uppercase tracking-wider mb-2">
 											Simplified ({simplifiedChar})
 										</div>
 										<!-- Stacked layout within column when showing both trad/simp -->
