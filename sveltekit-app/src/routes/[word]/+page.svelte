@@ -57,10 +57,14 @@
 		koreanHanjaForm && koreanCharacter && koreanCharacter !== traditionalChar && koreanCharacter !== simplifiedChar && koreanCharacter !== japaneseChar
 	);
 
-	// Strip variant indicators like (trad), (simp), (jp) from glosses
-	// Since the character page unifies all variants, this info is redundant
+	// Replace variant indicators with flag emojis for brevity
 	function stripVariantIndicator(gloss: string): string {
-		return gloss.replace(/\s*\((trad|simp|jp)\)/gi, '').trim();
+		return gloss
+			.replace(/\s*\(trad\/jp\)/gi, ' 🇹🇼🇯🇵')
+			.replace(/\s*\(trad\)/gi, ' 🇹🇼')
+			.replace(/\s*\(simp\)/gi, ' 🇨🇳')
+			.replace(/\s*\(jp\)/gi, ' 🇯🇵')
+			.trim();
 	}
 
 	// Get unique gloss from game data (falls back to existing gloss)

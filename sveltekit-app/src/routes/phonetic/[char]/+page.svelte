@@ -4,6 +4,15 @@
 
 	let { data }: { data: PageData } = $props();
 
+	function cleanGloss(gloss: string): string {
+		return gloss
+			.replace(/\(trad\/jp\)/gi, '🇹🇼🇯🇵')
+			.replace(/\(trad\)/gi, '🇹🇼')
+			.replace(/\(simp\)/gi, '🇨🇳')
+			.replace(/\(jp\)/gi, '🇯🇵')
+			.trim();
+	}
+
 	// Group characters by their primary pinyin reading
 	// Use data.component as a reactive key to ensure regrouping on navigation
 	let grouped = $derived.by(() => {
@@ -86,7 +95,7 @@
 										{/if}
 										{#if ch.gloss}
 											<span class="text-xs" style="color: var(--text-secondary);">
-												{ch.gloss}
+												{cleanGloss(ch.gloss)}
 											</span>
 										{/if}
 									</div>

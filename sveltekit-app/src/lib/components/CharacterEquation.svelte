@@ -13,7 +13,11 @@
 	function cleanGloss(gloss: string | undefined): string {
 		if (!gloss) return "";
 		let cleaned = gloss.replace(/^variant of\s+[^,;]+(\s*\[[^\]]+\])?\s*/i, "");
-		cleaned = cleaned.replace(/\s*\((Trad|JP|Simp)\)\s*/gi, "");
+		cleaned = cleaned
+			.replace(/\s*\(trad\/jp\)/gi, ' 🇹🇼🇯🇵')
+			.replace(/\s*\(trad\)/gi, ' 🇹🇼')
+			.replace(/\s*\(simp\)/gi, ' 🇨🇳')
+			.replace(/\s*\(jp\)/gi, ' 🇯🇵');
 		return cleaned.trim();
 	}
 
