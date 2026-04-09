@@ -21,8 +21,6 @@
 	let loading = $state(false);
 	let selectedIndex = $state(-1);
 	let debounceTimer: ReturnType<typeof setTimeout> | null = null;
-	let lastValue = $state(value); // Track initial value to suppress dropdown on load
-	let userHasTyped = $state(false);
 
 	$effect(() => {
 		const q = value.trim();
@@ -30,12 +28,6 @@
 			results = [];
 			showDropdown = false;
 			return;
-		}
-
-		// Don't show dropdown if value hasn't changed from initial (page load)
-		if (!userHasTyped) {
-			if (q === lastValue.trim()) return;
-			userHasTyped = true;
 		}
 
 		if (debounceTimer) clearTimeout(debounceTimer);
@@ -91,7 +83,13 @@
 	}
 </script>
 
-<svelte:window onkeydown={handleKeydown} />
+<svelte:window onkeydown={handleKeydown} onclick={(e) => {
+	// Dismiss dropdown when clicking outside the search area
+	const target = e.target as HTMLElement;
+	if (showDropdown && !target.closest('.search-dropdown') && !target.closest('input[type="text"]')) {
+		showDropdown = false;
+	}
+}} />
 
 {#if showDropdown}
 	<div class="search-dropdown">

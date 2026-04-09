@@ -13,24 +13,10 @@
 
 	let { currentWord = "", autofocus = false, isHomePage = false }: { currentWord?: string; autofocus?: boolean; isHomePage?: boolean } = $props();
 
-	// Use internal state for search input, synced with currentWord via key
+	// Search bar starts empty — user types to search
 	let internalSearchValue = $state("");
 	let mobileMenuOpen = $state(false);
 	const session = useSession();
-
-	// Sync internal value with prop when prop changes
-	let lastCurrentWord = $state(currentWord);
-	$effect(() => {
-		if (currentWord !== lastCurrentWord) {
-			internalSearchValue = currentWord;
-			lastCurrentWord = currentWord;
-		}
-	});
-
-	// Initialize on mount
-	$effect(() => {
-		internalSearchValue = currentWord;
-	});
 
 	async function handleSearch(event: KeyboardEvent) {
 		if (event.key === "Enter") {
