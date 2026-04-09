@@ -314,8 +314,6 @@
 			<div class="quick-links">
 				<a href="/learning-resources" class="qlink">🎓 Learning Resources</a>
 				<a href="/artifacts" class="qlink">📦 Artifacts</a>
-				<a href="/homophones/japanese" class="qlink">🔊 Japanese Homophones</a>
-				<a href="/homophones/chinese" class="qlink">🔊 Chinese Homophones</a>
 				<a href="/frequency" class="qlink">📊 Frequency Lists</a>
 				<a href="/study" class="qlink">📚 Flashcard Review (SRS)</a>
 				<a href="/study/decks" class="qlink">📥 Import JLPT / HSK / TOPIK</a>

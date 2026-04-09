@@ -64,63 +64,36 @@
 			</div>
 		</section>
 
-		<!-- Tools Section -->
+		<!-- Homophones Section -->
 		<section>
-			<h2 class="text-2xl font-bold mb-4 text-text-primary">🔧 Tools</h2>
-			<div class="grid gap-4 md:grid-cols-2">
-				<a href="/homophones/japanese" class="block p-6 bg-bg-secondary border border-border rounded-lg hover:shadow-lg transition-shadow">
-					<div class="flex items-start gap-4">
-						<div class="text-4xl">🇯🇵</div>
-						<div class="flex-1">
-							<h3 class="text-xl font-bold mb-2 text-text-primary">Japanese Homophones</h3>
-							<p class="text-text-secondary mb-3">9,649 groups of words that sound the same, with pitch accent</p>
-							<div class="flex items-center gap-2 text-sm text-text-tertiary">
-								<span class="px-2 py-1 bg-bg-tertiary rounded">Pitch Accent</span>
-								<span class="px-2 py-1 bg-bg-tertiary rounded">9,649 Groups</span>
-							</div>
-						</div>
-					</div>
+			<h2 class="text-2xl font-bold mb-4 text-text-primary">🔊 Homophones</h2>
+			<div class="grid gap-4 md:grid-cols-3">
+				<a href="/homophones/japanese" class="block p-5 bg-bg-secondary border border-border rounded-lg hover:shadow-lg transition-shadow">
+					<div class="text-2xl mb-2">🇯🇵</div>
+					<h3 class="text-lg font-bold mb-1 text-text-primary">Japanese</h3>
+					<p class="text-sm text-text-secondary">9,649 word groups with pitch accent patterns</p>
 				</a>
-				<a href="/homophones/chinese" class="block p-6 bg-bg-secondary border border-border rounded-lg hover:shadow-lg transition-shadow">
-					<div class="flex items-start gap-4">
-						<div class="text-4xl">🇨🇳</div>
-						<div class="flex-1">
-							<h3 class="text-xl font-bold mb-2 text-text-primary">Chinese Homophones</h3>
-							<p class="text-text-secondary mb-3">5,000 groups of words sharing the same pinyin pronunciation</p>
-							<div class="flex items-center gap-2 text-sm text-text-tertiary">
-								<span class="px-2 py-1 bg-bg-tertiary rounded">Pinyin</span>
-								<span class="px-2 py-1 bg-bg-tertiary rounded">5,000 Groups</span>
-							</div>
-						</div>
-					</div>
+				<a href="/homophones/chinese" class="block p-5 bg-bg-secondary border border-border rounded-lg hover:shadow-lg transition-shadow">
+					<div class="text-2xl mb-2">🇨🇳</div>
+					<h3 class="text-lg font-bold mb-1 text-text-primary">Chinese</h3>
+					<p class="text-sm text-text-secondary">5,000 word groups by pinyin pronunciation</p>
 				</a>
-				<a href="/homophones/korean" class="block p-6 bg-bg-secondary border border-border rounded-lg hover:shadow-lg transition-shadow">
-					<div class="flex items-start gap-4">
-						<div class="text-4xl">🇰🇷</div>
-						<div class="flex-1">
-							<h3 class="text-xl font-bold mb-2 text-text-primary">Korean Homophones</h3>
-							<p class="text-text-secondary mb-3">585 groups of hanja sharing the same hangul reading</p>
-							<div class="flex items-center gap-2 text-sm text-text-tertiary">
-								<span class="px-2 py-1 bg-bg-tertiary rounded">Hanja</span>
-								<span class="px-2 py-1 bg-bg-tertiary rounded">585 Groups</span>
-							</div>
-						</div>
-					</div>
-				</a>
-				<a href="/artifacts" class="block p-6 bg-bg-secondary border border-border rounded-lg hover:shadow-lg transition-shadow">
-					<div class="flex items-start gap-4">
-						<div class="text-4xl">📦</div>
-						<div class="flex-1">
-							<h3 class="text-xl font-bold mb-2 text-text-primary">Artifacts</h3>
-							<p class="text-text-secondary mb-3">Upload photos of real-world text (packaging, signs, menus) and study the vocabulary</p>
-							<div class="flex items-center gap-2 text-sm text-text-tertiary">
-								<span class="px-2 py-1 bg-bg-tertiary rounded">Interactive Reader</span>
-								<span class="px-2 py-1 bg-bg-tertiary rounded">Image Upload</span>
-							</div>
-						</div>
-					</div>
+				<a href="/homophones/korean" class="block p-5 bg-bg-secondary border border-border rounded-lg hover:shadow-lg transition-shadow">
+					<div class="text-2xl mb-2">🇰🇷</div>
+					<h3 class="text-lg font-bold mb-1 text-text-primary">Korean</h3>
+					<p class="text-sm text-text-secondary">585 hanja groups by hangul reading</p>
 				</a>
 			</div>
+		</section>
+
+		<!-- Artifacts Section -->
+		<section>
+			<h2 class="text-2xl font-bold mb-4 text-text-primary">📦 Artifacts</h2>
+			<a href="/artifacts" class="block p-6 bg-bg-secondary border border-border rounded-lg hover:shadow-lg transition-shadow">
+				<p class="text-text-secondary">
+					Upload photos of real-world text — product packaging, signs, menus — and study the vocabulary with an interactive reader. Every word is clickable with dictionary definitions.
+				</p>
+			</a>
 		</section>
 	</div>
 
