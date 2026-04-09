@@ -291,7 +291,7 @@
 
 <SectionHeading id="notes">Notes</SectionHeading>
 
-<div class="mb-4">
+<div class="mb-2">
 	{#if error}
 		<div class="p-3 bg-red-50 text-red-700 rounded mb-4">{error}</div>
 	{/if}
@@ -302,7 +302,7 @@
 		<!-- Current User's Note -->
 		{#if $session.data?.user}
 			{#if myNote && !isEditing}
-				<div class="mb-6">
+				<div class="mb-3">
 					<div class="flex justify-between items-center mb-2">
 						<span class="font-semibold text-text-secondary text-xs">Your Note</span>
 						<div class="note-actions">
@@ -315,7 +315,7 @@
 					</div>
 				</div>
 			{:else if isEditing || !myNote}
-				<div class="mb-6 note-editor" class:expanded={isExpanded}>
+				<div class="mb-3 note-editor" class:expanded={isExpanded}>
 					<div class="flex justify-between items-center mb-3">
 						<div class="flex items-center gap-3">
 							<span class="font-medium text-text-tertiary text-xs">{myNote ? "Edit Your Note" : "Add Your Note"}</span>
@@ -396,7 +396,7 @@
 				</div>
 			{/if}
 		{:else}
-			<p class="sign-in-prompt">Sign in to add your own note</p>
+			<p class="sign-in-prompt" style="font-size: var(--font-size-caption1); color: var(--text-muted); margin: var(--spacing-xs) 0;">Sign in to add your own note</p>
 		{/if}
 
 		<!-- Other Users' Notes -->

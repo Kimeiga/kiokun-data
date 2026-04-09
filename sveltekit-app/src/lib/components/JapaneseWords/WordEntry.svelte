@@ -101,7 +101,7 @@
 
 <style>
 	.word-entry {
-		margin-bottom: var(--spacing-xl);
+		margin-bottom: var(--spacing-lg);
 	}
 
 	.homophone-link {

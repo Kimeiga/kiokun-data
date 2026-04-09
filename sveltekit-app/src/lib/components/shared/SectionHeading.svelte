@@ -39,7 +39,7 @@
 <style>
 	.section-heading {
 		border-top: 1px solid var(--border-color);
-		margin: var(--spacing-md) 0 var(--spacing-sm) 0;
+		margin: var(--spacing-sm) 0 var(--spacing-xs) 0;
 		padding-top: var(--spacing-xs);
 	}
 
