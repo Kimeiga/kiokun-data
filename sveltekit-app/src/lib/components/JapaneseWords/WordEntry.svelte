@@ -74,10 +74,17 @@
 			</span>
 		{/if}
 
-		<!-- Audio pronunciation + Pitch accent -->
+		<!-- Audio pronunciation + Pitch accent + Homophones -->
 		{#if speakText}
 			<SpeakButton text={speakText} lang="ja" size={18} />
 			<PitchAccent word={speakText} reading={displayKana.length > 0 ? displayKana[0].text : undefined} />
+			{#if displayKana.length > 0}
+				<a
+					href="/homophones/japanese?q={encodeURIComponent(displayKana[0].text)}"
+					class="homophone-link"
+					title="See homophones for {displayKana[0].text}"
+				>同音</a>
+			{/if}
 			<SaveToStudy word={speakText} language="ja" size="sm" />
 		{/if}
 	</div>
@@ -96,6 +103,17 @@
 	.word-entry {
 		margin-bottom: var(--spacing-xl);
 	}
+
+	.homophone-link {
+		padding: 2px 6px;
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-full);
+		font-size: 10px;
+		color: var(--text-muted);
+		text-decoration: none;
+		transition: border-color 0.15s, color 0.15s;
+	}
+	.homophone-link:hover { border-color: var(--accent); color: var(--accent); }
 
 	.headwords {
 		display: flex;

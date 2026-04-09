@@ -7,6 +7,7 @@
 	import HandwritingInput from "./HandwritingInput.svelte";
 	import { useSession } from "$lib/auth-client";
 	import { navigateOrSearch } from "$lib/utils/search-navigation";
+	import SearchDropdown from "./SearchDropdown.svelte";
 
 	let handwritingInput: HandwritingInput;
 
@@ -82,6 +83,7 @@
 					bind:value={internalSearchValue}
 					onkeydown={handleSearch}
 					onfocus={(e) => e.currentTarget.select()}
+					onblur={() => setTimeout(() => {}, 200)}
 					autofocus={autofocus}
 				/>
 				<button
@@ -93,6 +95,7 @@
 						<path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>
 					</svg>
 				</button>
+				<SearchDropdown bind:value={internalSearchValue} />
 			</div>
 		{:else}
 			<!-- Spacer on home page to push nav to the right -->

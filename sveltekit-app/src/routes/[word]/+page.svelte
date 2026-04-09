@@ -22,6 +22,7 @@
 	import SentenceExamples from "$lib/components/SentenceExamples.svelte";
 	import ArtifactMentions from "$lib/components/ArtifactMentions.svelte";
 	import ChineseSentenceExamples from "$lib/components/ChineseSentenceExamples.svelte";
+	import KoreanSentenceExamples from "$lib/components/KoreanSentenceExamples.svelte";
 
 	let { data }: { data: PageData } = $props();
 
@@ -1145,6 +1146,12 @@
 										>
 											{uniqueGloss || stripVariantIndicator(data.data.chinese_char?.gloss || '')}
 										</h1>
+										{#if data.data.chinese_char?.statistics?.hskLevel}
+											<span class="level-badge hsk">HSK {data.data.chinese_char.statistics.hskLevel}</span>
+										{/if}
+										{#if data.data.japanese_char?.misc?.jlptLevel}
+											<span class="level-badge jlpt">N{data.data.japanese_char.misc.jlptLevel}</span>
+										{/if}
 										<SaveToStudy
 											word={data.word}
 											language={data.data.chinese_char ? 'zh' : (data.data.japanese_char ? 'ja' : 'ko')}
@@ -1667,6 +1674,11 @@
 			<ChineseSentenceExamples word={data.word} />
 		{/if}
 
+		<!-- Korean Example Sentences (from Tatoeba) -->
+		{#if data.data.korean_words?.length && languageStore.preferences.korean}
+			<KoreanSentenceExamples word={data.word} />
+		{/if}
+
 		<!-- Japanese Names Section -->
 		{#if data.data.japanese_names && data.data.japanese_names.length > 0}
 			<JapaneseNames names={data.data.japanese_names} word={data.word} />
@@ -1705,7 +1717,17 @@
 </div>
 
 <style>
-	/* Custom styles that are hard to express in Tailwind or use CSS variables */
+	/* Level badges */
+	.level-badge {
+		padding: 2px 8px;
+		border-radius: var(--radius-full);
+		font-size: 11px;
+		font-weight: 600;
+		white-space: nowrap;
+		flex-shrink: 0;
+	}
+	.level-badge.hsk { background: var(--badge-hsk-bg); color: var(--badge-hsk-text); }
+	.level-badge.jlpt { background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent); }
 
 	/* Custom word display */
 	.custom-word-heading {

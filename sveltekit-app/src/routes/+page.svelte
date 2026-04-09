@@ -5,6 +5,7 @@
 	import FeaturedReels from '$lib/components/FeaturedReels.svelte';
 	import { navigateOrSearch } from '$lib/utils/search-navigation';
 	import { goto } from '$app/navigation';
+	import SearchDropdown from '$lib/components/SearchDropdown.svelte';
 	import { getDictionaryUrl } from '$lib/shard-utils';
 	import { dev } from '$app/environment';
 
@@ -164,6 +165,7 @@
 				onkeydown={handleHeroSearch}
 				autofocus
 			/>
+			<SearchDropdown bind:value={heroSearchValue} />
 			<div class="hero-search-actions">
 				<button
 					onclick={goToRandomCharacter}
