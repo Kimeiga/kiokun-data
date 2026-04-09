@@ -79,7 +79,7 @@
 {#if loaded && sentences.length > 0}
 	<div class="kr-examples" class:panel-open={panelOpen}>
 		<div class="examples-main">
-			<SectionHeading id="kr-examples">Example Sentences</SectionHeading>
+			<SectionHeading id="kr-examples">🇰🇷 Sentences ({sentences.length})</SectionHeading>
 			<div class="example-list">
 				{#each sentences as s}
 					<div class="example-item">

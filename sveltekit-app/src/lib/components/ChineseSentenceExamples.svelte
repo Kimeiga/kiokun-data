@@ -139,7 +139,7 @@
 	<div class="zh-examples" class:panel-open={panelOpen}>
 		<div class="examples-main">
 			<div class="section-row">
-				<SectionHeading id="zh-examples">Example Sentences</SectionHeading>
+				<SectionHeading id="zh-examples">🇨🇳 Sentences ({sentences.length})</SectionHeading>
 				<button class="script-toggle" onclick={() => showTraditional = !showTraditional} title={showTraditional ? 'Traditional Chinese' : 'Simplified Chinese'}>
 					{showTraditional ? '🇹🇼' : '🇨🇳'}
 				</button>

@@ -1754,13 +1754,13 @@
 	.word-sections-grid {
 		display: grid;
 		grid-template-columns: 1fr;
-		gap: var(--spacing-xl);
+		gap: var(--spacing-lg);
 	}
 
 	@media (min-width: 768px) {
 		.word-sections-grid {
 			grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-			gap: var(--spacing-xl);
+			gap: var(--spacing-lg);
 		}
 	}
 
