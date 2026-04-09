@@ -79,20 +79,23 @@
 {#if loaded && sentences.length > 0}
 	<div class="kr-examples" class:panel-open={panelOpen}>
 		<div class="examples-main">
-			<SectionHeading id="kr-examples">🇰🇷 Example Sentences</SectionHeading>
+			<SectionHeading id="kr-examples">Example Sentences</SectionHeading>
 			<div class="example-list">
 				{#each sentences as s}
 					<div class="example-item">
-						<div class="example-kr" lang="ko">
-							{#each s.kr.split(/(\s+)/) as segment}
-								{#if segment.trim()}
-									<button class="word-token" class:selected={selectedWord === segment.replace(/[.,;:!?]/g, '')} onclick={() => openPanel(segment.replace(/[.,;:!?]/g, ''))}>{segment}</button>
-								{:else}
-									{segment}
-								{/if}
-							{/each}
+						<div class="example-text">
+							<span class="lang-tag">🇰🇷</span>
+							<span class="source-text" lang="ko">
+								{#each s.kr.split(/(\s+)/) as segment}
+									{#if segment.trim()}
+										<button class="word-token" class:selected={selectedWord === segment.replace(/[.,;:!?]/g, '')} onclick={() => openPanel(segment.replace(/[.,;:!?]/g, ''))}>{segment}</button>
+									{:else}
+										{segment}
+									{/if}
+								{/each}
+							</span>
 						</div>
-						<div class="example-en">{s.en}</div>
+						<div class="example-translation">{s.en}</div>
 					</div>
 				{/each}
 			</div>
@@ -137,10 +140,12 @@
 		.kr-examples.panel-open .panel-overlay { display: none; }
 	}
 	.examples-main { min-width: 0; }
-	.example-list { display: flex; flex-direction: column; gap: var(--spacing-md); }
-	.example-item { padding: var(--spacing-md); background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); }
-	.example-kr { font-size: var(--font-size-headline); font-family: var(--font-cjk); color: var(--text-primary); line-height: 1.8; }
-	.example-en { font-size: var(--font-size-callout); color: var(--text-secondary); margin-top: var(--spacing-xs); }
+	.example-list { display: flex; flex-direction: column; gap: var(--spacing-sm); }
+	.example-item { padding: var(--spacing-sm) var(--spacing-md); background: var(--bg-secondary); border: 1px solid var(--border-light); border-radius: var(--radius-md); }
+	.example-text { display: flex; align-items: baseline; gap: var(--spacing-sm); }
+	.lang-tag { font-size: var(--font-size-caption2); flex-shrink: 0; }
+	.source-text { font-size: var(--font-size-body); font-family: var(--font-cjk); color: var(--text-primary); line-height: 1.6; }
+	.example-translation { font-size: var(--font-size-caption1); color: var(--text-tertiary); margin-top: var(--spacing-xs); line-height: 1.4; padding-left: calc(var(--spacing-sm) + 20px); }
 	.word-token { display: inline; background: none; border: none; border-bottom: 2px solid transparent; padding: 0 1px; margin: 0; font: inherit; color: inherit; cursor: pointer; transition: border-color 0.15s, color 0.15s; }
 	.word-token:hover { border-bottom-color: var(--accent); color: var(--accent); }
 	.word-token.selected { border-bottom-color: var(--accent); color: var(--accent); background: var(--accent-light); }

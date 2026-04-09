@@ -139,33 +139,36 @@
 	<div class="zh-examples" class:panel-open={panelOpen}>
 		<div class="examples-main">
 			<div class="section-row">
-				<SectionHeading id="zh-examples">🇨🇳 Example Sentences</SectionHeading>
-				<button class="script-toggle" onclick={() => showTraditional = !showTraditional}>
-					{showTraditional ? '繁體' : '简体'}
+				<SectionHeading id="zh-examples">Example Sentences</SectionHeading>
+				<button class="script-toggle" onclick={() => showTraditional = !showTraditional} title={showTraditional ? 'Traditional Chinese' : 'Simplified Chinese'}>
+					{showTraditional ? '🇹🇼' : '🇨🇳'}
 				</button>
 			</div>
 			<div class="example-list">
 				{#each sentences as s}
 					<div class="example-item">
-						<div class="example-zh" lang={showTraditional ? 'zh-Hant' : 'zh-Hans'}>
-							{#if s.words}
-								{#each s.words as w}
-									{#if isContentWord(w)}
-										<button
-											class="word-token"
-											class:selected={selectedWord === w}
-											onclick={() => openPanel(w)}
-										>{showTraditional ? w : w}</button>
-									{:else}
-										<span>{w}</span>
-									{/if}
-								{/each}
-							{:else}
-								{showTraditional ? s.trad : s.simp}
-							{/if}
+						<div class="example-text">
+							<span class="lang-tag">{showTraditional ? '🇹🇼' : '🇨🇳'}</span>
+							<span class="source-text" lang={showTraditional ? 'zh-Hant' : 'zh-Hans'}>
+								{#if s.words}
+									{#each s.words as w}
+										{#if isContentWord(w)}
+											<button
+												class="word-token"
+												class:selected={selectedWord === w}
+												onclick={() => openPanel(w)}
+											>{showTraditional ? w : w}</button>
+										{:else}
+											<span>{w}</span>
+										{/if}
+									{/each}
+								{:else}
+									{showTraditional ? s.trad : s.simp}
+								{/if}
+							</span>
 						</div>
-						<div class="example-py">{s.py}</div>
-						<div class="example-en">{s.en}</div>
+						<div class="example-sub">{s.py}</div>
+						<div class="example-translation">{s.en}</div>
 					</div>
 				{/each}
 			</div>
@@ -247,20 +250,41 @@
 	.section-row { display: flex; align-items: center; justify-content: space-between; }
 
 	.script-toggle {
-		padding: 4px 12px; border: 1px solid var(--border-color); border-radius: var(--radius-full);
-		background: var(--bg-secondary); color: var(--text-secondary);
-		font-size: var(--font-size-caption1); font-family: var(--font-cjk); cursor: pointer;
+		padding: var(--spacing-xs) var(--spacing-sm);
+		border: 1px solid var(--border-light);
+		border-radius: var(--radius-sm);
+		background: var(--bg-tertiary);
+		color: var(--text-muted);
+		font-size: var(--font-size-caption1);
+		cursor: pointer;
+		transition: border-color 0.15s, color 0.15s;
 	}
 	.script-toggle:hover { border-color: var(--accent); color: var(--accent); }
 
-	.example-list { display: flex; flex-direction: column; gap: var(--spacing-md); }
+	.example-list { display: flex; flex-direction: column; gap: var(--spacing-sm); }
 	.example-item {
-		padding: var(--spacing-md); background: var(--bg-secondary);
-		border: 1px solid var(--border-color); border-radius: var(--radius-md);
+		padding: var(--spacing-sm) var(--spacing-md);
+		background: var(--bg-secondary);
+		border: 1px solid var(--border-light);
+		border-radius: var(--radius-md);
 	}
-	.example-zh { font-size: var(--font-size-headline); font-family: var(--font-cjk); color: var(--text-primary); line-height: 1.8; }
-	.example-py { font-size: var(--font-size-caption1); color: var(--color-pinyin); margin-top: 2px; }
-	.example-en { font-size: var(--font-size-callout); color: var(--text-secondary); margin-top: var(--spacing-xs); }
+	.example-text {
+		display: flex;
+		align-items: baseline;
+		gap: var(--spacing-sm);
+	}
+	.lang-tag {
+		font-size: var(--font-size-caption2);
+		flex-shrink: 0;
+	}
+	.source-text {
+		font-size: var(--font-size-body);
+		font-family: var(--font-cjk);
+		color: var(--text-primary);
+		line-height: 1.6;
+	}
+	.example-sub { font-size: var(--font-size-caption1); color: var(--color-pinyin); margin-top: var(--spacing-xs); padding-left: calc(var(--spacing-sm) + 20px); }
+	.example-translation { font-size: var(--font-size-caption1); color: var(--text-tertiary); margin-top: var(--spacing-xs); line-height: 1.4; padding-left: calc(var(--spacing-sm) + 20px); }
 
 	.word-token {
 		display: inline; background: none; border: none;
