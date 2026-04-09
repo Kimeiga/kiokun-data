@@ -399,11 +399,22 @@
 			<p class="sign-in-prompt" style="font-size: var(--font-size-caption1); color: var(--text-muted); margin: var(--spacing-xs) 0;">Sign in to add your own note</p>
 		{/if}
 
-		<!-- Other Users' Notes -->
-		{#if otherNotes.length > 0}
+		<!-- Official mnemonic (admin note) — shown without attribution -->
+		{@const adminNote = otherNotes.find(n => n.isAdmin)}
+		{#if adminNote}
+			<div class="official-mnemonic">
+				<div class="markdown-content">
+					{@html renderMarkdown(adminNote.noteText)}
+				</div>
+			</div>
+		{/if}
+
+		<!-- Community Notes (non-admin) -->
+		{@const communityNotes = otherNotes.filter(n => !n.isAdmin)}
+		{#if communityNotes.length > 0}
 			<div class="notes-list">
-				{#each otherNotes as note (note.id)}
-					<div class="note mb-4" class:admin={note.isAdmin}>
+				{#each communityNotes as note (note.id)}
+					<div class="note mb-3">
 						<div class="note-header-with-avatar">
 							<a href="/users/{note.userId}" class="user-avatar-link">
 								{#if note.user?.image}
@@ -414,9 +425,6 @@
 									</div>
 								{/if}
 							</a>
-							{#if note.isAdmin}
-								<span class="admin-badge">Admin</span>
-							{/if}
 						</div>
 						<div class="note-content markdown-content">
 							{@html renderMarkdown(note.noteText)}
@@ -513,16 +521,22 @@
 	}
 
 	/* Other Users' Notes */
+	.official-mnemonic {
+		font-size: var(--font-size-body);
+		color: var(--text-primary);
+		line-height: 1.6;
+		margin-bottom: var(--spacing-sm);
+	}
+
 	.notes-list {
 		@apply flex flex-col gap-2;
+		margin-top: var(--spacing-sm);
+		padding-top: var(--spacing-sm);
+		border-top: 1px solid var(--border-light);
 	}
 
 	.note {
 		@apply relative;
-	}
-
-	.note.admin {
-		@apply border-l-2 border-[#4285f4] pl-3;
 	}
 
 	.note-header-with-avatar {

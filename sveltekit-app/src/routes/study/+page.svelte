@@ -177,17 +177,19 @@
 				} catch {}
 			}
 
-			// Fetch user's mnemonic note
-			if ($session.data?.user) {
-				try {
-					const noteResp = await fetch(`/api/notes/${encodeURIComponent(word)}`);
-					if (noteResp.ok) {
-						const notes = await noteResp.json();
-						const myNote = notes.find((n: any) => n.userId === $session.data?.user?.id);
-						if (myNote) info.userNote = myNote.noteText;
-					}
-				} catch {}
-			}
+			// Fetch mnemonic note — prefer user's own, fall back to admin/official
+			try {
+				const noteResp = await fetch(`/api/notes/${encodeURIComponent(word)}`);
+				if (noteResp.ok) {
+					const notes = await noteResp.json();
+					const myNote = $session.data?.user
+						? notes.find((n: any) => n.userId === $session.data?.user?.id)
+						: null;
+					const adminNote = notes.find((n: any) => n.isAdmin);
+					if (myNote) info.userNote = myNote.noteText;
+					else if (adminNote) info.userNote = adminNote.noteText;
+				}
+			} catch {}
 
 			cardInfoCache = new Map([...cardInfoCache, [word, info]]);
 		} catch {
