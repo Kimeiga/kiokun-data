@@ -23,6 +23,7 @@
 	import ArtifactMentions from "$lib/components/ArtifactMentions.svelte";
 	import ChineseSentenceExamples from "$lib/components/ChineseSentenceExamples.svelte";
 	import KoreanSentenceExamples from "$lib/components/KoreanSentenceExamples.svelte";
+	import ShareButton from "$lib/components/ShareButton.svelte";
 
 	let { data }: { data: PageData } = $props();
 
@@ -1152,6 +1153,7 @@
 										{#if data.data.japanese_char?.misc?.jlptLevel}
 											<span class="level-badge jlpt">N{data.data.japanese_char.misc.jlptLevel}</span>
 										{/if}
+										<ShareButton title="{data.word} - Kiokun Dictionary" />
 										<SaveToStudy
 											word={data.word}
 											language={data.data.chinese_char ? 'zh' : (data.data.japanese_char ? 'ja' : 'ko')}
