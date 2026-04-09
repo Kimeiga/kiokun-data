@@ -24,6 +24,15 @@
 	import ChineseSentenceExamples from "$lib/components/ChineseSentenceExamples.svelte";
 	import KoreanSentenceExamples from "$lib/components/KoreanSentenceExamples.svelte";
 	import ShareButton from "$lib/components/ShareButton.svelte";
+	import StudyModeToggle from "$lib/components/StudyModeToggle.svelte";
+
+	// Study mode: tap-to-reveal interaction
+	function handleStudyClick(event: MouseEvent) {
+		const target = (event.target as HTMLElement).closest?.('.study-hide');
+		if (target) {
+			target.classList.toggle('revealed');
+		}
+	}
 
 	let { data }: { data: PageData } = $props();
 
@@ -1143,7 +1152,8 @@
 								<div class="min-w-0">
 									<div class="flex items-center gap-2 mb-1 md:mb-2">
 										<h1
-											class="text-xl md:text-4xl font-bold text-accent leading-tight flex-1"
+											class="text-xl md:text-4xl font-bold text-accent leading-tight flex-1 study-hide"
+											onclick={handleStudyClick}
 										>
 											{uniqueGloss || stripVariantIndicator(data.data.chinese_char?.gloss || '')}
 										</h1>
@@ -1153,6 +1163,7 @@
 										{#if data.data.japanese_char?.misc?.jlptLevel}
 											<span class="level-badge jlpt">N{data.data.japanese_char.misc.jlptLevel}</span>
 										{/if}
+										<StudyModeToggle />
 										<ShareButton title="{data.word} - Kiokun Dictionary" />
 										<SaveToStudy
 											word={data.word}
@@ -1175,7 +1186,9 @@
 										</div>
 									{/if}
 									<!-- Pinyin/Readings Summary - always left-aligned -->
-									<div class="flex flex-col gap-1 text-text-secondary text-sm md:text-base">
+									<!-- svelte-ignore a11y_click_events_have_key_events -->
+									<!-- svelte-ignore a11y_no_static_element_interactions -->
+									<div class="flex flex-col gap-1 text-text-secondary text-sm md:text-base study-hide" onclick={handleStudyClick}>
 										{#if data.data.chinese_char?.pinyinFrequencies && data.data.chinese_char.pinyinFrequencies.length > 0}
 											{@const wordPinyins = new Set(
 												data.data.chinese_words?.flatMap(
@@ -1551,7 +1564,9 @@
 
 		<!-- Chinese, Japanese, and Korean Words -->
 		{#if (data.data.chinese_words?.length && languageStore.preferences.chinese) || (data.data.japanese_words?.length && languageStore.preferences.japanese) || (data.data.korean_words?.length && languageStore.preferences.korean)}
-			<div class="word-sections-grid">
+			<!-- svelte-ignore a11y_click_events_have_key_events -->
+			<!-- svelte-ignore a11y_no_static_element_interactions -->
+			<div class="word-sections-grid study-hide" onclick={handleStudyClick}>
 				<!-- Chinese Words -->
 				{#if data.data.chinese_words?.length && languageStore.preferences.chinese}
 					<div>
