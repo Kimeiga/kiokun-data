@@ -98,19 +98,20 @@ export async function GET({ url, platform }: RequestEvent) {
 		}
 		
 		// Group results by word (unified — same word across languages goes to one page)
-		const grouped = new Map<string, GroupedResult>();
+		const grouped = new Map<string, GroupedResult & { _pronunciations: Map<string, string> }>();
 
 		for (const row of results.results as SearchResult[]) {
-			const key = row.word; // Group by word only, not word+language
+			const key = row.word;
 
 			if (!grouped.has(key)) {
 				grouped.set(key, {
 					word: row.word,
 					language: row.language,
 					languages: [row.language],
-					pronunciation: row.pronunciation,
+					pronunciation: '',
 					definitions: [],
 					is_common: row.is_common,
+					_pronunciations: new Map(),
 				});
 			}
 
@@ -118,15 +119,30 @@ export async function GET({ url, platform }: RequestEvent) {
 			if (!group.definitions.includes(row.definition)) {
 				group.definitions.push(row.definition);
 			}
-			if (!group.pronunciation && row.pronunciation) {
-				group.pronunciation = row.pronunciation;
+			if (row.pronunciation && !group._pronunciations.has(row.language)) {
+				group._pronunciations.set(row.language, row.pronunciation);
 			}
 			if (group.languages && !group.languages.includes(row.language)) {
 				group.languages.push(row.language);
 			}
 		}
+
+		// Build combined pronunciation strings
+		for (const group of grouped.values()) {
+			const parts: string[] = [];
+			const jp = group._pronunciations.get('japanese');
+			const zh = group._pronunciations.get('chinese');
+			const ko = group._pronunciations.get('korean');
+			if (jp) parts.push(jp);
+			if (zh) parts.push(zh);
+			if (ko) parts.push(ko);
+			group.pronunciation = parts.join(' · ');
+		}
 		
-		// Convert to array and limit to requested number of words
+		// Convert to array, strip internal fields, and limit
+		for (const group of grouped.values()) {
+			delete (group as any)._pronunciations;
+		}
 		const groupedResults = Array.from(grouped.values()).slice(0, limit);
 		
 		return json({
