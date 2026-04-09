@@ -21,6 +21,7 @@
 	import SimilarCharacters from "$lib/components/SimilarCharacters.svelte";
 	import SentenceExamples from "$lib/components/SentenceExamples.svelte";
 	import ArtifactMentions from "$lib/components/ArtifactMentions.svelte";
+	import ChineseSentenceExamples from "$lib/components/ChineseSentenceExamples.svelte";
 
 	let { data }: { data: PageData } = $props();
 
@@ -1660,6 +1661,11 @@
 			japaneseSenses={data.data.japanese_words?.flatMap(w => w.sense) ?? []}
 			koreanWords={data.data.korean_words ?? []}
 		/>
+
+		<!-- Chinese Example Sentences (from Tatoeba) -->
+		{#if data.data.chinese_words?.length && languageStore.preferences.chinese}
+			<ChineseSentenceExamples word={data.word} />
+		{/if}
 
 		<!-- Japanese Names Section -->
 		{#if data.data.japanese_names && data.data.japanese_names.length > 0}
