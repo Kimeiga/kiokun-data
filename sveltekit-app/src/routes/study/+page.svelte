@@ -26,6 +26,8 @@
 		definition?: string;
 		example?: string;
 		exampleTranslation?: string;
+		equation?: string; // e.g., "口 mouth + 自 one grain = 食 food"
+		userNote?: string; // user's mnemonic note
 	}
 
 	let cards = $state<StudyCard[]>([]);
@@ -152,6 +154,39 @@
 				if (!info.pronunciation) {
 					info.pronunciation = item?.pinyin;
 				}
+			}
+
+			// Build character equation from components
+			if (entry.chinese_char?.components?.length) {
+				try {
+					const glossResp = await fetch('/game_data/component_glosses.json');
+					if (glossResp.ok) {
+						const glosses = await glossResp.json();
+						const parts = entry.chinese_char.components
+							.filter((c: any) => typeof c !== 'string' && c.character)
+							.map((c: any) => {
+								const g = glosses[c.character] || c.meaning || '';
+								return c.character + ' ' + g.replace(/\s*\((trad|simp|jp)\)/gi, '');
+							})
+							.filter((s: string) => s.trim().length > 2);
+						if (parts.length > 0) {
+							const targetGloss = glosses[word] || entry.chinese_char.gloss || '';
+							info.equation = parts.join(' + ') + ' = ' + word + ' ' + targetGloss.replace(/\s*\((trad|simp|jp)\)/gi, '');
+						}
+					}
+				} catch {}
+			}
+
+			// Fetch user's mnemonic note
+			if ($session.data?.user) {
+				try {
+					const noteResp = await fetch(`/api/notes/${encodeURIComponent(word)}`);
+					if (noteResp.ok) {
+						const notes = await noteResp.json();
+						const myNote = notes.find((n: any) => n.userId === $session.data?.user?.id);
+						if (myNote) info.userNote = myNote.noteText;
+					}
+				} catch {}
 			}
 
 			cardInfoCache = new Map([...cardInfoCache, [word, info]]);
@@ -408,8 +443,25 @@
 							</div>
 						{/if}
 
-						{#if currentInfo.example}
+						{#if currentInfo.equation}
 							<div class="mt-3 pt-3 border-t border-border/30 text-center max-w-md px-4">
+								<div class="text-sm text-text-tertiary font-cjk">
+									{currentInfo.equation}
+								</div>
+							</div>
+						{/if}
+
+						{#if currentInfo.userNote}
+							<div class="mt-2 pt-2 border-t border-border/30 text-center max-w-md px-4">
+								<div class="text-xs text-text-muted uppercase tracking-wider mb-1">Your mnemonic</div>
+								<div class="text-sm text-text-secondary italic leading-relaxed">
+									{currentInfo.userNote}
+								</div>
+							</div>
+						{/if}
+
+						{#if currentInfo.example}
+							<div class="mt-2 pt-2 border-t border-border/30 text-center max-w-md px-4">
 								<div class="text-sm font-cjk text-text-secondary">
 									{currentInfo.example}
 								</div>
