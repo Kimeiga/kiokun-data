@@ -9,7 +9,8 @@
 	let { word }: Props = $props();
 
 	interface Sentence {
-		zh: string;
+		simp: string;
+		trad: string;
 		en: string;
 		py: string;
 	}
@@ -17,6 +18,7 @@
 	let sentences = $state<Sentence[]>([]);
 	let loading = $state(false);
 	let loaded = $state(false);
+	let showTraditional = $state(false);
 
 	function simpleHash(str: string): number {
 		let h = 0;
@@ -29,23 +31,20 @@
 		loading = true;
 
 		try {
-			// Load index shard for this word
 			const indexShard = (simpleHash(word) & 0xFF).toString(16).padStart(2, '0');
 			const indexResp = await fetch(`/zh_sentences/idx/${indexShard}.json`);
 			if (!indexResp.ok) { loaded = true; loading = false; return; }
 
 			const index = await indexResp.json();
-			const refs = index[word]; // [[shardNum, indexInShard], ...]
+			const refs = index[word];
 			if (!refs || refs.length === 0) { loaded = true; loading = false; return; }
 
-			// Group refs by shard to minimize fetches
 			const shardGroups: Record<number, number[]> = {};
 			for (const [shardNum, idx] of refs) {
 				if (!shardGroups[shardNum]) shardGroups[shardNum] = [];
 				shardGroups[shardNum].push(idx);
 			}
 
-			// Fetch needed shards
 			const results: Sentence[] = [];
 			for (const [shardNum, indices] of Object.entries(shardGroups)) {
 				const shardResp = await fetch(`/zh_sentences/${parseInt(shardNum).toString(16)}.json`);
@@ -53,8 +52,8 @@
 				const shardData = await shardResp.json();
 				for (const idx of indices) {
 					if (shardData[idx]) {
-						const [zh, en, py] = shardData[idx];
-						results.push({ zh, en, py });
+						const [simp, trad, en, py] = shardData[idx];
+						results.push({ simp, trad, en, py });
 					}
 				}
 			}
@@ -71,11 +70,18 @@
 
 {#if loaded && sentences.length > 0}
 	<div class="zh-examples">
-		<SectionHeading id="zh-examples">🇨🇳 Example Sentences</SectionHeading>
+		<div class="section-row">
+			<SectionHeading id="zh-examples">🇨🇳 Example Sentences</SectionHeading>
+			<button class="script-toggle" onclick={() => showTraditional = !showTraditional}>
+				{showTraditional ? '繁體' : '简体'}
+			</button>
+		</div>
 		<div class="example-list">
 			{#each sentences as s}
 				<div class="example-item">
-					<div class="example-zh" lang="zh">{s.zh}</div>
+					<div class="example-zh" lang={showTraditional ? 'zh-Hant' : 'zh-Hans'}>
+						{showTraditional ? s.trad : s.simp}
+					</div>
 					<div class="example-py">{s.py}</div>
 					<div class="example-en">{s.en}</div>
 				</div>
@@ -86,6 +92,25 @@
 
 <style>
 	.zh-examples { margin-top: var(--spacing-lg); }
+
+	.section-row {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.script-toggle {
+		padding: 4px 12px;
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-full);
+		background: var(--bg-secondary);
+		color: var(--text-secondary);
+		font-size: var(--font-size-caption1);
+		font-family: var(--font-cjk);
+		cursor: pointer;
+		transition: border-color 0.15s, color 0.15s;
+	}
+	.script-toggle:hover { border-color: var(--accent); color: var(--accent); }
 
 	.example-list { display: flex; flex-direction: column; gap: var(--spacing-md); }
 
