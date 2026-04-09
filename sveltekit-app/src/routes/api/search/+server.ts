@@ -19,6 +19,7 @@ interface SearchResult {
 interface GroupedResult {
 	word: string;
 	language: string;
+	languages?: string[]; // all languages this word appears in
 	pronunciation: string;
 	definitions: string[];
 	is_common: boolean;
@@ -96,26 +97,32 @@ export async function GET({ url, platform }: RequestEvent) {
 			throw error(500, "Search query failed");
 		}
 		
-		// Group results by word
+		// Group results by word (unified — same word across languages goes to one page)
 		const grouped = new Map<string, GroupedResult>();
-		
+
 		for (const row of results.results as SearchResult[]) {
-			const key = `${row.word}-${row.language}`;
-			
+			const key = row.word; // Group by word only, not word+language
+
 			if (!grouped.has(key)) {
 				grouped.set(key, {
 					word: row.word,
 					language: row.language,
+					languages: [row.language],
 					pronunciation: row.pronunciation,
 					definitions: [],
 					is_common: row.is_common,
 				});
 			}
-			
+
 			const group = grouped.get(key)!;
-			// Avoid duplicate definitions
 			if (!group.definitions.includes(row.definition)) {
 				group.definitions.push(row.definition);
+			}
+			if (!group.pronunciation && row.pronunciation) {
+				group.pronunciation = row.pronunciation;
+			}
+			if (group.languages && !group.languages.includes(row.language)) {
+				group.languages.push(row.language);
 			}
 		}
 		

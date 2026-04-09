@@ -11,6 +11,7 @@
 	interface SearchResult {
 		word: string;
 		language: string;
+		languages?: string[];
 		pronunciation: string;
 		definitions: string[];
 	}
@@ -101,7 +102,7 @@
 				onmousedown={() => navigateTo(r.word)}
 			>
 				<span class="item-word">{r.word}</span>
-				<span class="item-lang">{langFlag(r.language)}</span>
+				<span class="item-lang">{(r.languages || [r.language]).map(langFlag).join('')}</span>
 				{#if r.pronunciation}
 					<span class="item-reading">{r.pronunciation}</span>
 				{/if}
