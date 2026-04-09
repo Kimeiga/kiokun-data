@@ -20,6 +20,8 @@
 	let loading = $state(false);
 	let selectedIndex = $state(-1);
 	let debounceTimer: ReturnType<typeof setTimeout> | null = null;
+	let lastValue = $state(value); // Track initial value to suppress dropdown on load
+	let userHasTyped = $state(false);
 
 	$effect(() => {
 		const q = value.trim();
@@ -27,6 +29,12 @@
 			results = [];
 			showDropdown = false;
 			return;
+		}
+
+		// Don't show dropdown if value hasn't changed from initial (page load)
+		if (!userHasTyped) {
+			if (q === lastValue.trim()) return;
+			userHasTyped = true;
 		}
 
 		if (debounceTimer) clearTimeout(debounceTimer);
