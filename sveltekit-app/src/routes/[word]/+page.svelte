@@ -1770,23 +1770,30 @@
 			<Notes character={traditionalChar} />
 		{/if}
 
-		<!-- Example Sentences -->
-		<SentenceExamples
-			japaneseSenses={data.data.japanese_words?.flatMap(w => w.sense) ?? []}
-			koreanWords={data.data.korean_words ?? []}
-		/>
+		<!-- Example Sentences — unified grid matching the definition columns layout -->
+		{#if (data.data.japanese_words?.some((w: any) => w.sense?.some((s: any) => s.examples?.length)) && languageStore.preferences.japanese)
+			|| (data.data.chinese_words?.length && languageStore.preferences.chinese)
+			|| ((data.data.korean_words?.length || data.data.korean_char || data.data.contained_in_korean?.length) && languageStore.preferences.korean)}
+			<SectionHeading id="sentences">Example Sentences</SectionHeading>
+			<div class="word-sections-grid" style="margin-bottom: var(--spacing-lg);">
+				{#if languageStore.preferences.japanese}
+					<SentenceExamples
+						japaneseSenses={data.data.japanese_words?.flatMap((w: any) => w.sense) ?? []}
+						koreanWords={[]}
+					/>
+				{/if}
 
-		<!-- Chinese Example Sentences (from Tatoeba) -->
-		{#if data.data.chinese_words?.length && languageStore.preferences.chinese}
-			<ChineseSentenceExamples word={data.word} />
-		{/if}
+				{#if data.data.chinese_words?.length && languageStore.preferences.chinese}
+					<ChineseSentenceExamples word={data.word} />
+				{/if}
 
-		<!-- Korean Example Sentences (from Tatoeba) -->
-		{#if (data.data.korean_words?.length || data.data.korean_char || data.data.contained_in_korean?.length) && languageStore.preferences.korean}
-			<KoreanSentenceExamples
-				word={data.word}
-				containedInKorean={data.data.contained_in_korean?.map((w: any) => typeof w === 'string' ? w : w.w || '') || []}
-			/>
+				{#if (data.data.korean_words?.length || data.data.korean_char || data.data.contained_in_korean?.length) && languageStore.preferences.korean}
+					<KoreanSentenceExamples
+						word={data.word}
+						containedInKorean={data.data.contained_in_korean?.map((w: any) => typeof w === 'string' ? w : w.w || '') || []}
+					/>
+				{/if}
+			</div>
 		{/if}
 
 		<!-- Japanese Names Section -->

@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
-	import SectionHeading from './shared/SectionHeading.svelte';
 	import { getDictionaryUrl } from '$lib/shard-utils';
 	import { dev } from '$app/environment';
 
@@ -23,6 +22,7 @@
 	let loading = $state(false);
 	let loaded = $state(false);
 	let showTraditional = $state(false);
+	let expanded = $state(false);
 
 	// Dictionary panel
 	let selectedWord = $state<string | null>(null);
@@ -136,16 +136,19 @@
 </script>
 
 {#if loaded && sentences.length > 0}
+	{@const COLLAPSED_COUNT = 4}
+	{@const displayed = expanded ? sentences : sentences.slice(0, COLLAPSED_COUNT)}
+	{@const hasMoreSentences = sentences.length > COLLAPSED_COUNT}
 	<div class="zh-examples" class:panel-open={panelOpen}>
 		<div class="examples-main">
-			<div class="section-row">
-				<SectionHeading id="zh-examples">🇨🇳 Sentences ({sentences.length})</SectionHeading>
+			<div class="column-header-row">
+				<span class="column-header">🇨🇳 ({sentences.length})</span>
 				<button class="script-toggle" onclick={() => showTraditional = !showTraditional} title={showTraditional ? 'Traditional Chinese' : 'Simplified Chinese'}>
 					{showTraditional ? '🇹🇼' : '🇨🇳'}
 				</button>
 			</div>
 			<div class="example-list">
-				{#each sentences as s}
+				{#each displayed as s}
 					<div class="example-item">
 						<div class="example-text">
 							<span class="lang-tag">{showTraditional ? '🇹🇼' : '🇨🇳'}</span>
@@ -172,6 +175,11 @@
 					</div>
 				{/each}
 			</div>
+			{#if hasMoreSentences}
+				<button class="toggle-btn" onclick={() => expanded = !expanded}>
+					{expanded ? 'Show less' : `Show more (${sentences.length - COLLAPSED_COUNT})`}
+				</button>
+			{/if}
 		</div>
 
 		<!-- Dictionary Panel -->
@@ -238,16 +246,27 @@
 {/if}
 
 <style>
-	.zh-examples { margin-top: var(--spacing-lg); position: relative; }
-
-	@media (min-width: 769px) {
-		.zh-examples.panel-open { display: grid; grid-template-columns: 1fr 340px; gap: var(--spacing-lg); }
-		.zh-examples.panel-open .panel-overlay { display: none; }
-	}
+	.zh-examples { position: relative; }
 
 	.examples-main { min-width: 0; }
 
-	.section-row { display: flex; align-items: center; justify-content: space-between; }
+	.column-header-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--spacing-sm); }
+	.column-header { font-size: var(--font-size-caption1); font-weight: 600; color: var(--text-secondary); }
+
+	.toggle-btn {
+		display: block;
+		width: 100%;
+		padding: var(--spacing-xs);
+		margin-top: var(--spacing-xs);
+		background: transparent;
+		border: 1px solid var(--border-light);
+		border-radius: var(--radius-sm);
+		color: var(--text-secondary);
+		font-size: var(--font-size-caption2);
+		cursor: pointer;
+		transition: border-color 0.15s, color 0.15s;
+	}
+	.toggle-btn:hover { border-color: var(--accent); color: var(--accent); }
 
 	.script-toggle {
 		padding: var(--spacing-xs) var(--spacing-sm);
@@ -261,9 +280,9 @@
 	}
 	.script-toggle:hover { border-color: var(--accent); color: var(--accent); }
 
-	.example-list { display: flex; flex-direction: column; gap: var(--spacing-sm); }
+	.example-list { display: flex; flex-direction: column; gap: var(--spacing-xs); }
 	.example-item {
-		padding: var(--spacing-sm) var(--spacing-md);
+		padding: var(--spacing-xs) var(--spacing-sm);
 		background: var(--bg-secondary);
 		border: 1px solid var(--border-light);
 		border-radius: var(--radius-md);

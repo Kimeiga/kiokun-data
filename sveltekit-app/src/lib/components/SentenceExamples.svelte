@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import SectionHeading from "./shared/SectionHeading.svelte";
 	import { getDictionaryUrl } from '$lib/shard-utils';
 	import { dev } from '$app/environment';
 	import { segmentText, isWordToken } from '$lib/utils/segment';
@@ -17,12 +16,11 @@
 		source: "ja" | "ko";
 		text: string;
 		translation?: string;
-		tokens?: string[]; // Tokenized words for clickable display
+		tokens?: string[];
 	}
 
 	let examples = $derived.by(() => {
 		const items: ExampleItem[] = [];
-
 		if (japaneseSenses) {
 			for (const sense of japaneseSenses) {
 				if (!sense.examples) continue;
@@ -45,7 +43,6 @@
 				}
 			}
 		}
-
 		if (koreanWords) {
 			for (const word of koreanWords) {
 				if (!word.examples) continue;
@@ -61,13 +58,13 @@
 				}
 			}
 		}
-
 		return items;
 	});
 
-	let displayCount = $state(8);
-	let displayed = $derived(examples.slice(0, displayCount));
-	let hasMore = $derived(displayCount < examples.length);
+	let expanded = $state(false);
+	let COLLAPSED_COUNT = 4;
+	let displayed = $derived(expanded ? examples : examples.slice(0, COLLAPSED_COUNT));
+	let hasMore = $derived(examples.length > COLLAPSED_COUNT);
 
 	// Dictionary panel
 	let selectedWord = $state<string | null>(null);
@@ -76,7 +73,6 @@
 	let panelLoading = $state(false);
 
 	async function openPanel(word: string) {
-		// Strip punctuation
 		const clean = word.replace(/[。、！？「」『』（）…・〜\s]/g, '');
 		if (!clean) return;
 		selectedWord = clean;
@@ -101,46 +97,41 @@
 </script>
 
 {#if examples.length > 0}
-	<div class="sentence-examples" class:panel-open={panelOpen}>
-		<div class="examples-main">
-			<SectionHeading id="examples">Example Sentences ({examples.length})</SectionHeading>
+	<div class="sentence-column">
+		<div class="column-header">🇯🇵 ({examples.length})</div>
 
-			<div class="examples-list">
-				{#each displayed as item}
-					<div class="example-item">
-						<div class="example-text">
-							<span class="lang-tag">{item.source === "ja" ? "🇯🇵" : "🇰🇷"}</span>
-							<span class="source-text" lang={item.source === "ja" ? "ja" : "ko"}>
-								{#if item.tokens}
-									{#each item.tokens as token}
-										{#if isWordToken(token, item.source === "ja" ? "japanese" : "korean")}
-											<button
-												class="word-token"
-												class:selected={selectedWord === token.replace(/[。、！？「」『』（）…・〜]/g, '')}
-												onclick={() => openPanel(token)}
-											>{token}</button>
-										{:else}
-											{token}
-										{/if}
-									{/each}
+		<div class="examples-list">
+			{#each displayed as item}
+				<div class="example-item">
+					<div class="example-text" lang={item.source === "ja" ? "ja" : "ko"}>
+						{#if item.tokens}
+							{#each item.tokens as token}
+								{#if isWordToken(token, item.source === "ja" ? "japanese" : "korean")}
+									<button
+										class="word-token"
+										class:selected={selectedWord === token.replace(/[。、！？「」『』（）…・〜]/g, '')}
+										onclick={() => openPanel(token)}
+									>{token}</button>
 								{:else}
-									{item.text}
+									{token}
 								{/if}
-							</span>
-						</div>
-						{#if item.translation}
-							<div class="example-translation">{item.translation}</div>
+							{/each}
+						{:else}
+							{item.text}
 						{/if}
 					</div>
-				{/each}
-			</div>
-
-			{#if hasMore}
-				<button class="show-more-btn" onclick={() => (displayCount += 8)}>
-					Show more ({examples.length - displayCount} remaining)
-				</button>
-			{/if}
+					{#if item.translation}
+						<div class="example-translation">{item.translation}</div>
+					{/if}
+				</div>
+			{/each}
 		</div>
+
+		{#if hasMore}
+			<button class="toggle-btn" onclick={() => expanded = !expanded}>
+				{expanded ? 'Show less' : `Show more (${examples.length - COLLAPSED_COUNT})`}
+			</button>
+		{/if}
 
 		{#if panelOpen}
 			<!-- svelte-ignore a11y_no_static_element_interactions -->
@@ -172,20 +163,7 @@
 					{:else if panelData?.chinese_words?.length}
 						{#each panelData.chinese_words[0].items?.slice(0, 2) || [] as item}
 							{#if item.pinyin}<span class="panel-pinyin">{item.pinyin}</span>{/if}
-							<ol class="panel-defs">
-								{#each item.definitions?.slice(0, 3) || [] as def}
-									<li>{def}</li>
-								{/each}
-							</ol>
-						{/each}
-					{:else if panelData?.korean_words?.length}
-						{#each panelData.korean_words.slice(0, 3) as kw}
-							{#if kw.hangul}<div class="panel-reading">{kw.hangul}</div>{/if}
-							<ol class="panel-defs">
-								{#each kw.definitions || [] as def}
-									<li>{def.text || def}</li>
-								{/each}
-							</ol>
+							<ol class="panel-defs">{#each item.definitions?.slice(0, 3) || [] as def}<li>{def}</li>{/each}</ol>
 						{/each}
 					{:else}
 						<p class="panel-status">No entry found</p>
@@ -197,49 +175,31 @@
 {/if}
 
 <style>
-	.sentence-examples {
-		margin-bottom: var(--spacing-lg);
+	.sentence-column {
 		position: relative;
 	}
 
-	@media (min-width: 769px) {
-		.sentence-examples.panel-open {
-			display: grid;
-			grid-template-columns: 1fr 340px;
-			gap: var(--spacing-lg);
-		}
+	.column-header {
+		font-size: var(--font-size-caption1);
+		font-weight: 600;
+		color: var(--text-secondary);
+		margin-bottom: var(--spacing-sm);
 	}
 
 	.examples-list {
 		display: flex;
 		flex-direction: column;
-		gap: var(--spacing-sm);
+		gap: var(--spacing-xs);
 	}
 
 	.example-item {
-		padding: var(--spacing-sm) var(--spacing-md);
+		padding: var(--spacing-xs) var(--spacing-sm);
 		background: var(--bg-secondary);
 		border: 1px solid var(--border-light);
 		border-radius: var(--radius-md);
 	}
 
 	.example-text {
-		display: flex;
-		align-items: baseline;
-		gap: var(--spacing-sm);
-	}
-
-	.lang-tag {
-		font-size: var(--font-size-caption2);
-		color: var(--text-muted);
-		background: var(--bg-tertiary);
-		padding: 1px var(--spacing-xs);
-		border-radius: var(--radius-sm);
-		font-weight: 500;
-		flex-shrink: 0;
-	}
-
-	.source-text {
 		font-size: var(--font-size-body);
 		color: var(--text-primary);
 		font-family: var(--font-cjk);
@@ -258,12 +218,7 @@
 		transition: border-color 0.15s, color 0.15s;
 	}
 
-	.word-token:hover {
-		color: var(--accent);
-		border-bottom-color: var(--accent);
-	}
-
-	.word-token.selected {
+	.word-token:hover, .word-token.selected {
 		color: var(--accent);
 		border-bottom-color: var(--accent);
 	}
@@ -271,26 +226,25 @@
 	.example-translation {
 		font-size: var(--font-size-caption1);
 		color: var(--text-tertiary);
-		margin-top: var(--spacing-xs);
-		padding-left: calc(var(--spacing-sm) + 24px);
+		margin-top: 2px;
 		line-height: 1.4;
 	}
 
-	.show-more-btn {
+	.toggle-btn {
 		display: block;
 		width: 100%;
-		padding: var(--spacing-xs) var(--spacing-md);
-		margin-top: var(--spacing-sm);
+		padding: var(--spacing-xs);
+		margin-top: var(--spacing-xs);
 		background: transparent;
 		border: 1px solid var(--border-light);
 		border-radius: var(--radius-sm);
 		color: var(--text-secondary);
-		font-size: var(--font-size-caption1);
+		font-size: var(--font-size-caption2);
 		cursor: pointer;
-		transition: border-color 0.15s ease, color 0.15s ease;
+		transition: border-color 0.15s, color 0.15s;
 	}
 
-	.show-more-btn:hover {
+	.toggle-btn:hover {
 		border-color: var(--accent);
 		color: var(--accent);
 	}
@@ -308,7 +262,6 @@
 			background: rgba(0, 0, 0, 0.5);
 			z-index: 40;
 		}
-
 		.dictionary-panel {
 			position: fixed;
 			bottom: 0;
@@ -323,11 +276,14 @@
 
 	@media (min-width: 769px) {
 		.dictionary-panel {
-			position: sticky;
-			top: 80px;
-			max-height: calc(100vh - 100px);
+			position: absolute;
+			top: 0;
+			right: 0;
+			width: 300px;
+			max-height: 400px;
 			overflow-y: auto;
 			border-radius: var(--radius-md);
+			z-index: 20;
 		}
 	}
 
@@ -335,75 +291,16 @@
 		background: var(--bg-secondary);
 		border: 1px solid var(--border-color);
 		padding: var(--spacing-md);
+		box-shadow: 0 4px 16px rgba(0,0,0,0.2);
 	}
 
-	.panel-header {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		margin-bottom: var(--spacing-sm);
-	}
-
-	.panel-word {
-		font-size: var(--font-size-headline);
-		font-family: var(--font-cjk);
-		font-weight: 600;
-		color: var(--text-primary);
-		margin: 0;
-	}
-
-	.panel-actions {
-		display: flex;
-		gap: var(--spacing-xs);
-	}
-
-	.panel-open-btn, .panel-close-btn {
-		padding: var(--spacing-xs) var(--spacing-sm);
-		border: 1px solid var(--border-light);
-		border-radius: var(--radius-sm);
-		background: var(--bg-tertiary);
-		color: var(--text-secondary);
-		cursor: pointer;
-		font-size: var(--font-size-caption1);
-	}
-
-	.panel-open-btn:hover, .panel-close-btn:hover {
-		border-color: var(--accent);
-		color: var(--accent);
-	}
-
-	.panel-reading {
-		font-family: var(--font-cjk);
-		color: var(--color-pinyin);
-		font-size: var(--font-size-subhead);
-		margin-bottom: var(--spacing-xs);
-	}
-
-	.panel-pinyin {
-		font-family: var(--font-mono);
-		color: var(--color-pinyin);
-		font-size: var(--font-size-caption1);
-	}
-
-	.panel-defs {
-		padding-left: var(--spacing-lg);
-		margin: var(--spacing-xs) 0;
-		font-size: var(--font-size-caption1);
-		color: var(--text-secondary);
-	}
-
-	.panel-status {
-		color: var(--text-muted);
-		font-size: var(--font-size-caption1);
-	}
-
-	@media (max-width: 768px) {
-		.example-item {
-			padding: var(--spacing-xs) var(--spacing-sm);
-		}
-
-		.example-translation {
-			padding-left: calc(var(--spacing-xs) + 24px);
-		}
-	}
+	.panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-sm); }
+	.panel-word { font-size: var(--font-size-headline); font-family: var(--font-cjk); font-weight: 600; color: var(--text-primary); margin: 0; }
+	.panel-actions { display: flex; gap: var(--spacing-xs); }
+	.panel-open-btn, .panel-close-btn { padding: var(--spacing-xs) var(--spacing-sm); border: 1px solid var(--border-light); border-radius: var(--radius-sm); background: var(--bg-tertiary); color: var(--text-secondary); cursor: pointer; font-size: var(--font-size-caption1); }
+	.panel-open-btn:hover, .panel-close-btn:hover { border-color: var(--accent); color: var(--accent); }
+	.panel-reading { font-family: var(--font-cjk); color: var(--color-pinyin); font-size: var(--font-size-subhead); margin-bottom: var(--spacing-xs); }
+	.panel-pinyin { font-family: var(--font-mono); color: var(--color-pinyin); font-size: var(--font-size-caption1); }
+	.panel-defs { padding-left: var(--spacing-lg); margin: var(--spacing-xs) 0; font-size: var(--font-size-caption1); color: var(--text-secondary); }
+	.panel-status { color: var(--text-muted); font-size: var(--font-size-caption1); }
 </style>

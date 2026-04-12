@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
-	import SectionHeading from './shared/SectionHeading.svelte';
 	import { getDictionaryUrl } from '$lib/shard-utils';
 	import { dev } from '$app/environment';
 
@@ -15,6 +14,7 @@
 
 	let sentences = $state<Sentence[]>([]);
 	let loaded = $state(false);
+	let expanded = $state(false);
 	let selectedWord = $state<string | null>(null);
 	let panelOpen = $state(false);
 	let panelData = $state<any>(null);
@@ -121,14 +121,16 @@
 </script>
 
 {#if loaded && sentences.length > 0}
+	{@const COLLAPSED_COUNT = 4}
+	{@const displayed = expanded ? sentences : sentences.slice(0, COLLAPSED_COUNT)}
+	{@const hasMoreSentences = sentences.length > COLLAPSED_COUNT}
 	<div class="kr-examples" class:panel-open={panelOpen}>
 		<div class="examples-main">
-			<SectionHeading id="kr-examples">🇰🇷 Sentences ({sentences.length})</SectionHeading>
+			<div class="column-header">🇰🇷 ({sentences.length})</div>
 			<div class="example-list">
-				{#each sentences as s}
+				{#each displayed as s}
 					<div class="example-item">
 						<div class="example-text">
-							<span class="lang-tag">🇰🇷</span>
 							<span class="source-text" lang="ko">
 								{#each s.kr.split(/(\s+)/) as segment}
 									{#if segment.trim()}
@@ -143,6 +145,11 @@
 					</div>
 				{/each}
 			</div>
+			{#if hasMoreSentences}
+				<button class="toggle-btn" onclick={() => expanded = !expanded}>
+					{expanded ? 'Show less' : `Show more (${sentences.length - COLLAPSED_COUNT})`}
+				</button>
+			{/if}
 		</div>
 		{#if panelOpen}
 			<!-- svelte-ignore a11y_no_static_element_interactions -->
@@ -178,7 +185,15 @@
 {/if}
 
 <style>
-	.kr-examples { margin-top: var(--spacing-lg); position: relative; }
+	.kr-examples { position: relative; }
+	.column-header { font-size: var(--font-size-caption1); font-weight: 600; color: var(--text-secondary); margin-bottom: var(--spacing-sm); }
+	.toggle-btn {
+		display: block; width: 100%; padding: var(--spacing-xs); margin-top: var(--spacing-xs);
+		background: transparent; border: 1px solid var(--border-light); border-radius: var(--radius-sm);
+		color: var(--text-secondary); font-size: var(--font-size-caption2); cursor: pointer;
+		transition: border-color 0.15s, color 0.15s;
+	}
+	.toggle-btn:hover { border-color: var(--accent); color: var(--accent); }
 	@media (min-width: 769px) {
 		.kr-examples.panel-open { display: grid; grid-template-columns: 1fr 340px; gap: var(--spacing-lg); }
 		.kr-examples.panel-open .panel-overlay { display: none; }
