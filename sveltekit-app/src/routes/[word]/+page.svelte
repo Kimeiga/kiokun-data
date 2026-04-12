@@ -1782,8 +1782,11 @@
 		{/if}
 
 		<!-- Korean Example Sentences (from Tatoeba) -->
-		{#if (data.data.korean_words?.length || data.data.korean_char) && languageStore.preferences.korean}
-			<KoreanSentenceExamples word={data.word} />
+		{#if (data.data.korean_words?.length || data.data.korean_char || data.data.contained_in_korean?.length) && languageStore.preferences.korean}
+			<KoreanSentenceExamples
+				word={data.word}
+				containedInKorean={data.data.contained_in_korean?.map((w: any) => typeof w === 'string' ? w : w.w || '') || []}
+			/>
 		{/if}
 
 		<!-- Japanese Names Section -->
