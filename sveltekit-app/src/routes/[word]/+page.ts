@@ -78,6 +78,7 @@ export interface ConjugationAlternative {
 export interface PageData {
 	word: string;
 	data: DictionaryEntry;
+	simplifiedCharData?: any; // Preloaded simplified variant's chinese_char data (for equation comparison)
 	labels: JapaneseLabels;
 	charGlosses: CharGlosses;
 	charTaxonomy: CharTaxonomy;
@@ -199,6 +200,51 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 			}
 		}
 
+		// Preload simplified character data if different from traditional, so the page
+		// can show separate character equations when components differ. This runs on
+		// both server and client, ensuring the data is available during the initial render.
+		// If the simplified entry has no chinese_char components of its own, fall back to
+		// parsing its japanese_char.ids (IDS) as a synthetic component list.
+		let simplifiedCharData: any = null;
+		const simpChar = (data.chinese_char as any)?.simpVariants?.[0];
+		const tradCharField = (data.chinese_char as any)?.char;
+		if (simpChar && tradCharField && simpChar !== tradCharField) {
+			try {
+				const simpUrl = await getDictionaryUrl(simpChar, dev, fetch);
+				const simpResponse = await fetch(simpUrl);
+				if (simpResponse.ok) {
+					const simpCompressed = await simpResponse.arrayBuffer();
+					const simpData = decompressAndParse(simpCompressed);
+					simplifiedCharData = simpData.chinese_char || null;
+
+					// Fallback: if the simp entry has no chinese_char components of its own
+					// (common for simplified/shinjitai characters that redirect), derive
+					// synthetic components from japanese_char.ids which describes the glyph.
+					if (!simplifiedCharData || !simplifiedCharData.components || simplifiedCharData.components.length === 0) {
+						const ids = (simpData.japanese_char as any)?.ids;
+						if (ids) {
+							const cleaned = ids.replace(/&[A-Z]+-[A-Z0-9]+;/g, '');
+							const chars: string[] = [];
+							for (const ch of cleaned) {
+								const code = ch.codePointAt(0) || 0;
+								if (code >= 0x2FF0 && code <= 0x2FFB) continue;
+								if (ch.trim()) chars.push(ch);
+							}
+							if (chars.length > 0) {
+								simplifiedCharData = {
+									...(simplifiedCharData || {}),
+									char: simpChar,
+									components: chars.map(c => ({ character: c, type: [] })),
+								};
+							}
+						}
+					}
+				}
+			} catch (err) {
+				console.error(`[LOAD] Failed to fetch simplified char ${simpChar}:`, err);
+			}
+		}
+
 		// Load Japanese labels
 		let labels: JapaneseLabels = {};
 		try {
@@ -246,6 +292,7 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 		return {
 			word,
 			data,
+			simplifiedCharData,
 			labels,
 			charGlosses,
 			charTaxonomy,

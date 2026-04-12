@@ -52,6 +52,8 @@
 
 	// Get all character variants
 	let traditionalChar = $derived(data.data.chinese_char?.char || data.word);
+
+
 	let simplifiedChar = $derived(data.data.chinese_char?.simpVariants?.[0]);
 	let japaneseChar = $derived(data.data.japanese_char?.literal);
 	let koreanChar = $derived(data.data.korean_char);
@@ -69,14 +71,30 @@
 		koreanHanjaForm && koreanCharacter && koreanCharacter !== traditionalChar && koreanCharacter !== simplifiedChar && koreanCharacter !== japaneseChar
 	);
 
-	// Replace variant indicators with flag emojis for brevity
+	// Strip variant indicators (trad/simp/jp labels) from glosses
 	function stripVariantIndicator(gloss: string): string {
 		return gloss
-			.replace(/\s*\(trad\/jp\)/gi, ' 🇹🇼🇯🇵')
-			.replace(/\s*\(trad\)/gi, ' 🇹🇼')
-			.replace(/\s*\(simp\)/gi, ' 🇨🇳')
-			.replace(/\s*\(jp\)/gi, ' 🇯🇵')
+			.replace(/\s*\(trad\/jp\)/gi, '')
+			.replace(/\s*\(trad\)/gi, '')
+			.replace(/\s*\(simp\)/gi, '')
+			.replace(/\s*\(jp\)/gi, '')
 			.trim();
+	}
+
+	// Clean a component gloss for display in component cards.
+	// Strips variant markers but keeps position tags like "(side)" since they're descriptive.
+	function cleanComponentGloss(gloss: string): string {
+		return stripVariantIndicator(gloss);
+	}
+
+	// Decide whether a dictionary meaning is useful to show alongside the curated gloss.
+	// Filters out useless entries like "radical number 9" and exact duplicates of the gloss.
+	function isUsefulMeaning(dictMeaning: string, curatedGloss: string): boolean {
+		if (!dictMeaning) return false;
+		const lower = dictMeaning.trim().toLowerCase();
+		if (/^radical number \d+/.test(lower)) return false;
+		if (curatedGloss && lower === curatedGloss.trim().toLowerCase()) return false;
+		return true;
 	}
 
 	// Get unique gloss from game data (falls back to existing gloss)
@@ -129,12 +147,109 @@
 	});
 	let isSingleCharacter = $derived(characterBoxCount === 1);
 
-	// State for character data and component mappings
-	let simplifiedCharData: any = $state(null);
+	// Parse IDS (Ideographic Description Sequence) into component characters.
+	// IDS uses U+2FF0..U+2FFB as operators followed by their operand characters.
+	function parseIds(ids: string | undefined | null): string[] {
+		if (!ids) return [];
+		// Remove GT-style entity references like &GT-K00822;
+		const cleaned = ids.replace(/&[A-Z]+-[A-Z0-9]+;/g, '');
+		const result: string[] = [];
+		// Iterate over code points (handles surrogates)
+		for (const ch of cleaned) {
+			const code = ch.codePointAt(0) || 0;
+			if (code >= 0x2FF0 && code <= 0x2FFB) continue; // skip IDC operators
+			if (ch.trim()) result.push(ch);
+		}
+		return result;
+	}
+
+	// Build synthetic component objects from an IDS string (for Japanese shinjitai that lack full component data)
+	function componentsFromIds(ids: string | undefined | null, glossesMap: Record<string, string>) {
+		const chars = parseIds(ids);
+		return chars.map((char) => ({
+			character: char,
+			meaning: glossesMap?.[char] || '',
+			type: [],
+		}));
+	}
+
+	// Compare component glosses to determine if variants share a mnemonic.
+	// When glosses differ, we show separate character equations.
+	function componentsAreEquivalent(compsA: any[] | undefined, compsB: any[] | undefined, glossesMap: Record<string, string>): boolean {
+		if (!compsA || !compsB) return true;
+		if (compsA.length === 0 || compsB.length === 0) return true;
+
+		const normalize = (g: string) =>
+			g.replace(/\s*\((simp|trad\/jp|trad|jp)\)/gi, '')
+			 .replace(/[🇨🇳🇹🇼🇯🇵]/g, '')
+			 .trim()
+			 .toLowerCase();
+
+		const getChar = (c: any) => typeof c === 'string' ? c : (c.character || c.char || '');
+		const getGloss = (c: any) => {
+			const char = getChar(c);
+			return normalize(glossesMap?.[char] || c.meaning || '');
+		};
+
+		const glossesA = compsA.map(getGloss).filter(Boolean).sort();
+		const glossesB = compsB.map(getGloss).filter(Boolean).sort();
+
+		if (glossesA.length !== glossesB.length) return false;
+		return glossesA.every((g, i) => g === glossesB[i]);
+	}
+
+	// Japanese components from the trad entry's japanese_char.ids field
+	let japaneseComponents = $derived.by(() => {
+		const ids = (data.data.japanese_char as any)?.ids;
+		if (!ids) return undefined;
+		const comps = componentsFromIds(ids, data.charGlosses);
+		return comps.length > 0 ? comps : undefined;
+	});
+
+	// State for character data and component mappings.
+	// Initialized from server-preloaded data; reset via $effect when navigating to a new word.
+	let simplifiedCharData: any = $state(data.simplifiedCharData || null);
+
+	// Reset ALL page-level state when navigating to a new character (client-side navigation).
+	// Without this, previous page data leaks into the new page (stale simp data, stroke maps, etc.)
+	$effect(() => {
+		// Track data.word to trigger on navigation
+		const _word = data.word;
+		simplifiedCharData = data.simplifiedCharData || null;
+		componentStrokeMap = new Map();
+		simpComponentStrokeMap = new Map();
+		tradUsedSequentialFallback = false;
+		simpUsedSequentialFallback = false;
+	});
 	let componentStrokeMap: Map<string, number[]> = $state(new Map()); // For traditional/main character
 	let simpComponentStrokeMap: Map<string, number[]> = $state(new Map()); // For simplified character
 	let tradUsedSequentialFallback = $state(false); // True if traditional used sequential fallback (unreliable)
 	let simpUsedSequentialFallback = $state(false); // True if simplified used sequential fallback (unreliable)
+
+	// Equivalence states (declared after simplifiedCharData since they read from it)
+	let tradSimpEquivalent = $derived(
+		componentsAreEquivalent(
+			data.data.chinese_char?.components,
+			simplifiedCharData?.components,
+			data.charGlosses
+		)
+	);
+
+	let tradJpEquivalent = $derived.by(() =>
+		componentsAreEquivalent(
+			data.data.chinese_char?.components,
+			japaneseComponents,
+			data.charGlosses
+		)
+	);
+
+	let simpJpEquivalent = $derived.by(() =>
+		componentsAreEquivalent(
+			simplifiedCharData?.components,
+			japaneseComponents,
+			data.charGlosses
+		)
+	);
 
 	// Helper to load component mappings from makemeahanzi's matches field
 	// The matches field maps each stroke to its component index
@@ -815,81 +930,12 @@
 			loadComponentMappings(traditionalChar, "trad");
 		}
 
-		// Load simplified character data for component breakdown (if different from traditional)
-		if (simplifiedChar && simplifiedChar !== traditionalChar) {
+		// Load component stroke mappings for the simplified character.
+		// simplifiedCharData is already preloaded by the +page.ts load function,
+		// so we just need to compute the stroke-to-component mapping from its images.
+		if (simplifiedChar && simplifiedChar !== traditionalChar && simplifiedCharData?.components?.length) {
 			simpUsedSequentialFallback = false;
-			try {
-				const url = await getDictionaryUrl(simplifiedChar, dev);
-				const urlWithCacheBust = dev ? `${url}?t=${Date.now()}` : url;
-				const response = await fetch(urlWithCacheBust);
-				if (response.ok) {
-					const arrayBuffer = await response.arrayBuffer();
-					const { inflateSync } = await import("fflate");
-					const decompressed = inflateSync(
-						new Uint8Array(arrayBuffer),
-					);
-					const jsonData = JSON.parse(
-						new TextDecoder().decode(decompressed),
-					);
-					console.log("[SIMP CHAR] Full JSON data:", jsonData);
-
-					// Check if this is a redirect entry
-					if (jsonData.redirect) {
-						if (jsonData.chinese_char && jsonData.chinese_char.components?.length > 0) {
-							simplifiedCharData = jsonData.chinese_char;
-							console.log(
-								"[SIMP CHAR] Using simplified character's own data:",
-								simplifiedCharData,
-							);
-						} else {
-							console.log(
-								"[SIMP CHAR] Following redirect to:",
-								jsonData.redirect,
-							);
-							const redirectUrl = await getDictionaryUrl(
-								jsonData.redirect,
-								dev,
-							);
-							const redirectResponse = await fetch(redirectUrl);
-							if (redirectResponse.ok) {
-								const redirectArrayBuffer =
-									await redirectResponse.arrayBuffer();
-								const redirectDecompressed = inflateSync(
-									new Uint8Array(redirectArrayBuffer),
-								);
-								const redirectJsonData = JSON.parse(
-									new TextDecoder().decode(redirectDecompressed),
-								);
-								simplifiedCharData = redirectJsonData.chinese_char;
-								console.log(
-									"[SIMP CHAR] Loaded redirect data for",
-									jsonData.redirect,
-									simplifiedCharData,
-								);
-							}
-						}
-					} else {
-						simplifiedCharData = jsonData.chinese_char;
-						console.log(
-							"[SIMP CHAR] Loaded data for",
-							simplifiedChar,
-							simplifiedCharData,
-						);
-					}
-
-					// Load component mappings for simplified character
-					loadComponentMappings(simplifiedChar, "simp");
-				} else {
-					console.error(
-						`Failed to load char data for ${simplifiedChar}: ${response.status}`,
-					);
-				}
-			} catch (e) {
-				console.error(
-					`Failed to load char data for ${simplifiedChar}`,
-					e,
-				);
-			}
+			loadComponentMappings(simplifiedChar, "simp");
 		}
 	}
 
@@ -902,6 +948,7 @@
 			}, 50);
 		}
 	});
+
 
 	function getPartOfSpeechLabel(pos: string): string {
 		if (!data.labels?.partOfSpeech) return pos;
@@ -1048,7 +1095,7 @@
 			</div>
 
 			<!-- Notes Section -->
-			<Notes character={data.word} />
+			<Notes character={traditionalChar} />
 		</div>
 	{:else}
 	<div id="content">
@@ -1286,18 +1333,8 @@
 						</div>
 					{/if}
 
-					<!-- Character Equation (Mnemonic breakdown) -->
-					{#if data.data.chinese_char?.components}
-						<CharacterEquation
-							components={data.data.chinese_char.components}
-							targetChar={traditionalChar}
-							targetGloss={uniqueGloss || data.data.chinese_char?.gloss}
-							charGlosses={data.charGlosses}
-						/>
-					{/if}
-
-					<!-- Components Section -->
-					{#if (data.data.chinese_char?.components && data.data.chinese_char.components.length > 0) || (simplifiedCharData?.components && simplifiedCharData.components.length > 0)}
+					<!-- Unified Components + Equation Section -->
+					{#if (data.data.chinese_char?.components && data.data.chinese_char.components.length > 0) || (simplifiedCharData?.components && simplifiedCharData.components.length > 0) || japaneseComponents}
 						{@const tradMakemeahanziImage =
 							data.data.chinese_char?.images?.find(
 								(img: any) =>
@@ -1314,151 +1351,204 @@
 							)}
 						{@const hasTradComponents = data.data.chinese_char?.components && data.data.chinese_char.components.length > 0}
 						{@const hasSimpComponents = simplifiedCharData?.components && simplifiedCharData.components.length > 0 && simplifiedChar}
-						{@const showBothColumns = hasTradComponents && hasSimpComponents && traditionalChar !== simplifiedChar}
+						{@const showSimpColumn = hasSimpComponents && traditionalChar !== simplifiedChar && !tradSimpEquivalent}
+						{@const hasJpComponents = japaneseComponents && japaneseComponents.length > 0}
+						{@const showJpColumn = hasJpComponents && japaneseChar && japaneseChar !== traditionalChar && !tradJpEquivalent && (!showSimpColumn || !simpJpEquivalent)}
+						{@const columnCount = 1 + (showSimpColumn ? 1 : 0) + (showJpColumn ? 1 : 0)}
+						{@const showLabels = columnCount > 1}
 
 						<SectionHeading id="components">Components</SectionHeading>
 
 						<div class="mb-4">
-							<!-- Two-column layout when both trad and simp have different components -->
-							<div class={showBothColumns ? "grid grid-cols-1 md:grid-cols-2 gap-6" : ""}>
-								<!-- Traditional Components -->
+							<!-- Grid with 1-3 columns based on how many variants differ -->
+							<div class={
+								columnCount === 3 ? "grid grid-cols-1 md:grid-cols-3 gap-6" :
+								columnCount === 2 ? "grid grid-cols-1 md:grid-cols-2 gap-6" :
+								""
+							}>
+								<!-- Traditional column -->
 								{#if hasTradComponents}
-									<div class={isSingleCharacter && !showBothColumns ? "" : "mb-6"}>
-										{#if showBothColumns}
-											<div class="text-xs font-medium text-text-muted uppercase tracking-wider mb-2">
+									<div class="flex flex-col gap-3">
+										{#if showLabels}
+											<div class="text-xs font-medium text-text-muted uppercase tracking-wider">
 												Traditional ({traditionalChar})
 											</div>
 										{/if}
-										<!-- Single character: inline on desktop, stacked on mobile -->
-										<!-- Multiple characters (showBothColumns): always stacked within each column -->
-										<div class={isSingleCharacter && !showBothColumns ? "flex flex-col md:flex-row flex-wrap gap-3" : "flex flex-col gap-3"}>
-											{#each data.data.chinese_char.components as comp}
-												{@const char = typeof comp === "string" ? comp : comp.character || comp.char || comp}
-												{@const types = comp.componentType || comp.type || []}
-												{@const hint = comp.hint}
-												{@const pinyin = comp.pinyin}
-												{@const meaning = comp.meaning}
-												{@const isMeaning = types.includes("meaning")}
-												{@const isPhonetic = types.includes("phonetic") || types.includes("sound")}
-												{@const isIconic = types.includes("iconic")}
-												{@const highlightColor = isMeaning ? "#27ae60" : isPhonetic ? "#e74c3c" : isIconic ? "#3498db" : "#95a5a6"}
-												{@const typeLabel = isMeaning ? "Meaning" : isPhonetic ? "Phonetic" : isIconic ? "Iconic" : ""}
+										<!-- Mini-equation at top of column -->
+										<CharacterEquation
+											components={data.data.chinese_char.components}
+											targetChar={traditionalChar}
+											targetGloss={uniqueGloss || data.data.chinese_char?.gloss}
+											charGlosses={data.charGlosses}
+										/>
+										<!-- Detailed component cards -->
+										{#each data.data.chinese_char.components as comp}
+											{@const char = typeof comp === "string" ? comp : comp.character || comp.char || comp}
+											{@const types = comp.componentType || comp.type || []}
+											{@const hint = comp.hint}
+											{@const pinyin = comp.pinyin}
+											{@const dictMeaning = comp.meaning}
+											{@const curatedGloss = cleanComponentGloss(data.charGlosses?.[char] || '')}
+											{@const isMeaning = types.includes("meaning")}
+											{@const isPhonetic = types.includes("phonetic") || types.includes("sound")}
+											{@const isIconic = types.includes("iconic")}
+											{@const highlightColor = isMeaning ? "#27ae60" : isPhonetic ? "#e74c3c" : isIconic ? "#3498db" : "#95a5a6"}
+											{@const typeLabel = isMeaning ? "Meaning" : isPhonetic ? "Phonetic" : isIconic ? "Iconic" : ""}
 
-												<!-- Component card: full width on mobile, auto width on desktop when single character -->
-												<div class="component-card flex items-start gap-2 py-2 px-3 rounded-lg"
-													class:w-full={showBothColumns || !isSingleCharacter}
-													class:md:w-auto={isSingleCharacter && !showBothColumns}>
-													<div class="relative w-[60px] h-[60px] flex-shrink-0">
-														{#if tradMakemeahanziImage?.data?.strokes && !tradUsedSequentialFallback}
-															<!-- Only show stroke highlighting if we have accurate KanjiVG mappings -->
-															{@const componentStrokes = componentStrokeMap.get(char) || []}
-															<svg width="60" height="60" viewBox="0 0 1024 1024" class="absolute top-0 left-0">
-																<g transform="scale(1, -1) translate(0, -900)">
-																	{#each tradMakemeahanziImage.data.strokes as stroke, i}
-																		<path d={stroke} fill={componentStrokes.includes(i) ? highlightColor : "#4b5563"} class="transition-colors duration-300" />
-																	{/each}
-																</g>
-															</svg>
-														{:else}
-															<!-- Fallback: just show the component character without stroke highlighting -->
-															<div class="w-full h-full flex items-center justify-center text-3xl font-serif text-text-primary">{char}</div>
-														{/if}
-													</div>
-													<div class="flex flex-col justify-center min-w-0">
-														<div class="flex items-center gap-2 mb-1">
-															<a href="/{char}" class="text-2xl font-serif text-text-primary hover:text-accent-primary transition-colors">{char}</a>
-															{#if typeLabel}
-																<span class="text-xs px-2 py-0.5 rounded-full" style="background-color: {highlightColor}20; color: {highlightColor}; border: 1px solid {highlightColor}40;">
-																	{typeLabel} component
-																</span>
-															{/if}
-														</div>
-														{#if pinyin || meaning}
-															<div class="flex items-baseline gap-2 text-sm">
-																{#if pinyin}<span class="font-mono text-accent-primary">{pinyin}</span>{/if}
-																{#if meaning}<span class="text-text-secondary">{meaning}</span>{/if}
-															</div>
-														{/if}
-														{#if hint}
-															<div class="text-xs text-text-tertiary mt-1 italic">{hint}</div>
-														{/if}
-														{#if isPhonetic}
-															<a href="/phonetic/{char}" class="text-xs mt-1 hover:underline transition-colors" style="color: #e74c3c;">
-																View phonetic series &rarr;
-															</a>
-														{/if}
-													</div>
+											<div class="component-card flex items-start gap-2 py-2 px-3 rounded-lg w-full">
+												<div class="relative w-[60px] h-[60px] flex-shrink-0">
+													{#if tradMakemeahanziImage?.data?.strokes && !tradUsedSequentialFallback}
+														{@const componentStrokes = componentStrokeMap.get(char) || []}
+														<svg width="60" height="60" viewBox="0 0 1024 1024" class="absolute top-0 left-0">
+															<g transform="scale(1, -1) translate(0, -900)">
+																{#each tradMakemeahanziImage.data.strokes as stroke, i}
+																	<path d={stroke} fill={componentStrokes.includes(i) ? highlightColor : "#4b5563"} class="transition-colors duration-300" />
+																{/each}
+															</g>
+														</svg>
+													{:else}
+														<div class="w-full h-full flex items-center justify-center text-3xl font-serif text-text-primary">{char}</div>
+													{/if}
 												</div>
-											{/each}
-										</div>
+												<div class="flex flex-col justify-center min-w-0">
+													<div class="flex items-center gap-2 mb-1">
+														<a href="/{char}" class="text-2xl font-serif text-text-primary hover:text-accent-primary transition-colors">{char}</a>
+														{#if typeLabel}
+															<span class="text-xs px-2 py-0.5 rounded-full" style="background-color: {highlightColor}20; color: {highlightColor}; border: 1px solid {highlightColor}40;">
+																{typeLabel} component
+															</span>
+														{/if}
+													</div>
+													{#if pinyin || curatedGloss}
+														<div class="flex items-baseline gap-2 text-sm">
+															{#if pinyin}<span class="font-mono text-accent-primary">{pinyin}</span>{/if}
+															{#if curatedGloss}<span class="text-text-secondary">{curatedGloss}</span>{/if}
+														</div>
+													{/if}
+													{#if dictMeaning && isUsefulMeaning(dictMeaning, curatedGloss)}
+														<div class="text-xs text-text-tertiary">{dictMeaning}</div>
+													{/if}
+													{#if hint}
+														<div class="text-xs text-text-tertiary mt-1 italic">{hint}</div>
+													{/if}
+													{#if isPhonetic}
+														<a href="/phonetic/{char}" class="text-xs mt-1 hover:underline transition-colors" style="color: #e74c3c;">
+															View phonetic series &rarr;
+														</a>
+													{/if}
+												</div>
+											</div>
+										{/each}
 									</div>
 								{/if}
 
-								<!-- Simplified Components (only if different from traditional) -->
-								{#if showBothColumns && hasSimpComponents}
-									<div class="mb-6">
-										<div class="text-xs font-medium text-text-muted uppercase tracking-wider mb-2">
-											Simplified ({simplifiedChar})
-										</div>
-										<!-- Stacked layout within column when showing both trad/simp -->
-										<div class="flex flex-col gap-3">
-											{#each simplifiedCharData.components as comp}
-												{@const char = typeof comp === "string" ? comp : comp.character || comp.char || comp}
-												{@const types = comp.componentType || comp.type || []}
-												{@const hint = comp.hint}
-												{@const pinyin = comp.pinyin}
-												{@const meaning = comp.meaning}
-												{@const isMeaning = types.includes("meaning")}
-												{@const isPhonetic = types.includes("phonetic") || types.includes("sound")}
-												{@const isIconic = types.includes("iconic")}
-												{@const isSimplified = types.includes("simplified")}
-												{@const highlightColor = isMeaning ? "#27ae60" : isPhonetic ? "#e74c3c" : isIconic ? "#3498db" : isSimplified ? "#9b59b6" : "#95a5a6"}
-												{@const typeLabel = isMeaning ? "Meaning" : isPhonetic ? "Phonetic" : isIconic ? "Iconic" : isSimplified ? "Simplified" : ""}
+								<!-- Simplified column (only if significantly different from traditional) -->
+								{#if showSimpColumn && hasSimpComponents}
+									<div class="flex flex-col gap-3">
+										{#if showLabels}
+											<div class="text-xs font-medium text-text-muted uppercase tracking-wider">
+												Simplified ({simplifiedChar})
+											</div>
+										{/if}
+										<CharacterEquation
+											components={simplifiedCharData.components}
+											targetChar={simplifiedChar}
+											targetGloss={simplifiedCharData.gloss || uniqueGloss}
+											charGlosses={data.charGlosses}
+										/>
+										{#each simplifiedCharData.components as comp}
+											{@const char = typeof comp === "string" ? comp : comp.character || comp.char || comp}
+											{@const types = comp.componentType || comp.type || []}
+											{@const hint = comp.hint}
+											{@const pinyin = comp.pinyin}
+											{@const dictMeaning = comp.meaning}
+											{@const curatedGloss = cleanComponentGloss(data.charGlosses?.[char] || '')}
+											{@const isMeaning = types.includes("meaning")}
+											{@const isPhonetic = types.includes("phonetic") || types.includes("sound")}
+											{@const isIconic = types.includes("iconic")}
+											{@const isSimplified = types.includes("simplified")}
+											{@const highlightColor = isMeaning ? "#27ae60" : isPhonetic ? "#e74c3c" : isIconic ? "#3498db" : isSimplified ? "#9b59b6" : "#95a5a6"}
+											{@const typeLabel = isMeaning ? "Meaning" : isPhonetic ? "Phonetic" : isIconic ? "Iconic" : isSimplified ? "Simplified" : ""}
 
-												<div class="component-card flex items-start gap-2 py-2 px-3 w-full rounded-lg">
-													<div class="relative w-[60px] h-[60px] flex-shrink-0">
-														{#if simpMakemeahanziImage?.data?.strokes && !simpUsedSequentialFallback}
-															<!-- Only show stroke highlighting if we have accurate KanjiVG mappings -->
-															{@const componentStrokes = simpComponentStrokeMap.get(char) || []}
-															<svg width="60" height="60" viewBox="0 0 1024 1024" class="absolute top-0 left-0">
-																<g transform="scale(1, -1) translate(0, -900)">
-																	{#each simpMakemeahanziImage.data.strokes as stroke, i}
-																		<path d={stroke} fill={componentStrokes.includes(i) ? highlightColor : "#4b5563"} class="transition-colors duration-300" />
-																	{/each}
-																</g>
-															</svg>
-														{:else}
-															<!-- Fallback: just show the component character without stroke highlighting -->
-															<div class="w-full h-full flex items-center justify-center text-3xl font-serif text-text-primary">{char}</div>
-														{/if}
-													</div>
-													<div class="flex flex-col justify-center min-w-0">
-														<div class="flex items-center gap-2 mb-1">
-															<a href="/{char}" class="text-2xl font-serif text-text-primary hover:text-accent-primary transition-colors">{char}</a>
-															{#if typeLabel}
-																<span class="text-xs px-2 py-0.5 rounded-full" style="background-color: {highlightColor}20; color: {highlightColor}; border: 1px solid {highlightColor}40;">
-																	{typeLabel} component
-																</span>
-															{/if}
-														</div>
-														{#if pinyin || meaning}
-															<div class="flex items-baseline gap-2 text-sm">
-																{#if pinyin}<span class="font-mono text-accent-primary">{pinyin}</span>{/if}
-																{#if meaning}<span class="text-text-secondary">{meaning}</span>{/if}
-															</div>
-														{/if}
-														{#if hint}
-															<div class="text-xs text-text-tertiary mt-1 italic">{hint}</div>
-														{/if}
-														{#if isPhonetic}
-															<a href="/phonetic/{char}" class="text-xs mt-1 hover:underline transition-colors" style="color: #e74c3c;">
-																View phonetic series &rarr;
-															</a>
-														{/if}
-													</div>
+											<div class="component-card flex items-start gap-2 py-2 px-3 rounded-lg w-full">
+												<div class="relative w-[60px] h-[60px] flex-shrink-0">
+													{#if simpMakemeahanziImage?.data?.strokes && !simpUsedSequentialFallback}
+														{@const componentStrokes = simpComponentStrokeMap.get(char) || []}
+														<svg width="60" height="60" viewBox="0 0 1024 1024" class="absolute top-0 left-0">
+															<g transform="scale(1, -1) translate(0, -900)">
+																{#each simpMakemeahanziImage.data.strokes as stroke, i}
+																	<path d={stroke} fill={componentStrokes.includes(i) ? highlightColor : "#4b5563"} class="transition-colors duration-300" />
+																{/each}
+															</g>
+														</svg>
+													{:else}
+														<div class="w-full h-full flex items-center justify-center text-3xl font-serif text-text-primary">{char}</div>
+													{/if}
 												</div>
-											{/each}
-										</div>
+												<div class="flex flex-col justify-center min-w-0">
+													<div class="flex items-center gap-2 mb-1">
+														<a href="/{char}" class="text-2xl font-serif text-text-primary hover:text-accent-primary transition-colors">{char}</a>
+														{#if typeLabel}
+															<span class="text-xs px-2 py-0.5 rounded-full" style="background-color: {highlightColor}20; color: {highlightColor}; border: 1px solid {highlightColor}40;">
+																{typeLabel} component
+															</span>
+														{/if}
+													</div>
+													{#if pinyin || curatedGloss}
+														<div class="flex items-baseline gap-2 text-sm">
+															{#if pinyin}<span class="font-mono text-accent-primary">{pinyin}</span>{/if}
+															{#if curatedGloss}<span class="text-text-secondary">{curatedGloss}</span>{/if}
+														</div>
+													{/if}
+													{#if dictMeaning && isUsefulMeaning(dictMeaning, curatedGloss)}
+														<div class="text-xs text-text-tertiary">{dictMeaning}</div>
+													{/if}
+													{#if hint}
+														<div class="text-xs text-text-tertiary mt-1 italic">{hint}</div>
+													{/if}
+													{#if isPhonetic}
+														<a href="/phonetic/{char}" class="text-xs mt-1 hover:underline transition-colors" style="color: #e74c3c;">
+															View phonetic series &rarr;
+														</a>
+													{/if}
+												</div>
+											</div>
+										{/each}
+									</div>
+								{/if}
+
+								<!-- Japanese column (IDS-derived components, simpler cards) -->
+								{#if showJpColumn && hasJpComponents && japaneseComponents}
+									<div class="flex flex-col gap-3">
+										{#if showLabels}
+											<div class="text-xs font-medium text-text-muted uppercase tracking-wider">
+												Japanese ({japaneseChar})
+											</div>
+										{/if}
+										<CharacterEquation
+											components={japaneseComponents}
+											targetChar={japaneseChar}
+											targetGloss={uniqueGloss || data.data.chinese_char?.gloss}
+											charGlosses={data.charGlosses}
+										/>
+										{#each japaneseComponents as comp}
+											{@const char = comp.character}
+											{@const curatedGloss = cleanComponentGloss(data.charGlosses?.[char] || comp.meaning || '')}
+
+											<div class="component-card flex items-start gap-2 py-2 px-3 rounded-lg w-full">
+												<div class="relative w-[60px] h-[60px] flex-shrink-0">
+													<div class="w-full h-full flex items-center justify-center text-3xl font-serif text-text-primary">{char}</div>
+												</div>
+												<div class="flex flex-col justify-center min-w-0">
+													<div class="flex items-center gap-2 mb-1">
+														<a href="/{char}" class="text-2xl font-serif text-text-primary hover:text-accent-primary transition-colors">{char}</a>
+													</div>
+													{#if curatedGloss}
+														<div class="text-sm text-text-secondary">{curatedGloss}</div>
+													{/if}
+												</div>
+											</div>
+										{/each}
 									</div>
 								{/if}
 							</div>
@@ -1475,7 +1565,7 @@
 							.filter(Boolean)}
 
 						<!-- Notes above similar characters -->
-						<Notes character={data.word} />
+						<Notes character={traditionalChar} />
 
 						<SimilarCharacters
 							targetChar={traditionalChar}
@@ -1485,7 +1575,7 @@
 							charGlosses={data.charGlosses}
 						/>
 					{:else}
-						<Notes character={data.word} />
+						<Notes character={traditionalChar} />
 					{/if}
 				</div>
 			</div>
@@ -1677,7 +1767,7 @@
 
 		<!-- Notes Section — show here (after words) when there's no character data -->
 		{#if !(data.data.chinese_char || data.data.japanese_char)}
-			<Notes character={data.word} />
+			<Notes character={traditionalChar} />
 		{/if}
 
 		<!-- Example Sentences -->
@@ -1692,7 +1782,7 @@
 		{/if}
 
 		<!-- Korean Example Sentences (from Tatoeba) -->
-		{#if data.data.korean_words?.length && languageStore.preferences.korean}
+		{#if (data.data.korean_words?.length || data.data.korean_char) && languageStore.preferences.korean}
 			<KoreanSentenceExamples word={data.word} />
 		{/if}
 
