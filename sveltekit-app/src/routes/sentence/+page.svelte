@@ -4,6 +4,7 @@
 	import { getDictionaryUrl } from '$lib/shard-utils';
 	import { dev } from '$app/environment';
 	import { segmentText, isWordToken } from '$lib/utils/segment';
+	import { findWordsWithDeinflection } from '$lib/utils/search-navigation';
 	import Header from '$lib/components/Header.svelte';
 	import SentenceBar from '$lib/components/SentenceBar.svelte';
 
@@ -37,6 +38,8 @@
 		return w.replace(/[。、！？「」『』（）…・〜.,;:!?\s]/g, '');
 	}
 
+	let panelDeinflectInfo = $state<string | null>(null);
+
 	async function openPanel(word: string) {
 		const clean = cleanWord(word);
 		if (!clean) return;
@@ -44,15 +47,38 @@
 		panelOpen = true;
 		panelData = null;
 		panelLoading = true;
+		panelDeinflectInfo = null;
 		try {
+			const { inflateSync } = await import('fflate');
 			const url = await getDictionaryUrl(clean, dev, fetch);
-			const resp = await fetch(url);
+			const dictFetch = url.startsWith('http') ? globalThis.fetch : fetch;
+			const resp = await dictFetch(url);
 			if (resp.ok) {
-				const { inflateSync } = await import('fflate');
 				panelData = JSON.parse(new TextDecoder().decode(inflateSync(new Uint8Array(await resp.arrayBuffer()))));
 				if (panelData?.redirect) {
-					const r2 = await fetch(await getDictionaryUrl(panelData.redirect, dev, fetch));
+					const rUrl = await getDictionaryUrl(panelData.redirect, dev, fetch);
+					const rFetch = rUrl.startsWith('http') ? globalThis.fetch : fetch;
+					const r2 = await rFetch(rUrl);
 					if (r2.ok) panelData = JSON.parse(new TextDecoder().decode(inflateSync(new Uint8Array(await r2.arrayBuffer()))));
+				}
+			} else {
+				// Try deinflection (handles conjugated Korean/Japanese forms)
+				const result = await findWordsWithDeinflection(clean, fetch);
+				if (result?.primary) {
+					const dUrl = await getDictionaryUrl(result.primary.dictionaryForm, dev, fetch);
+					const dFetch = dUrl.startsWith('http') ? globalThis.fetch : fetch;
+					const dResp = await dFetch(dUrl);
+					if (dResp.ok) {
+						panelData = JSON.parse(new TextDecoder().decode(inflateSync(new Uint8Array(await dResp.arrayBuffer()))));
+						if (panelData?.redirect) {
+							const rUrl = await getDictionaryUrl(panelData.redirect, dev, fetch);
+							const rFetch = rUrl.startsWith('http') ? globalThis.fetch : fetch;
+							const r2 = await rFetch(rUrl);
+							if (r2.ok) panelData = JSON.parse(new TextDecoder().decode(inflateSync(new Uint8Array(await r2.arrayBuffer()))));
+						}
+						panelDeinflectInfo = `${clean} → ${result.primary.dictionaryForm} (${result.primary.conjugationInfo})`;
+						selectedWord = result.primary.dictionaryForm;
+					}
 				}
 			}
 		} catch {} finally { panelLoading = false; }
@@ -123,6 +149,9 @@
 					</div>
 				</div>
 				<div class="panel-body">
+					{#if panelDeinflectInfo}
+						<div class="panel-deinflect">{panelDeinflectInfo}</div>
+					{/if}
 					{#if panelLoading}
 						<p class="panel-status">Loading...</p>
 					{:else if panelData?.japanese_words?.length}
@@ -337,5 +366,6 @@
 	.panel-pinyin { color: var(--color-pinyin); font-size: var(--font-size-subhead); margin-bottom: var(--spacing-xs); }
 	.panel-defs { padding-left: var(--spacing-lg); margin: var(--spacing-xs) 0; font-size: var(--font-size-body); color: var(--text-secondary); line-height: 1.5; }
 	.panel-status { color: var(--text-muted); font-size: var(--font-size-caption1); }
+	.panel-deinflect { color: var(--text-tertiary); font-size: var(--font-size-caption1); margin-bottom: var(--spacing-xs); }
 	.panel-search-link { font-size: var(--font-size-caption1); color: var(--accent); }
 </style>
