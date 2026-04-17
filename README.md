@@ -1359,4 +1359,4 @@ function getMiscLabel(misc: string): string {
 
 **Built with ❤️ in Rust for high-performance multilingual dictionary processing with intelligent semantic alignment.**
 
-*Last updated: October 2025 | Version 3.2 - Structural Optimization Edition + SvelteKit Webapp*
+*Last updated: April 2026 | Version 3.2 - Structural Optimization Edition + SvelteKit Webapp*
