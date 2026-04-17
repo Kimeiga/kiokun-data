@@ -226,6 +226,38 @@
 	let tradUsedSequentialFallback = $state(false); // True if traditional used sequential fallback (unreliable)
 	let simpUsedSequentialFallback = $state(false); // True if simplified used sequential fallback (unreliable)
 
+	// Homophones: words with the same reading
+	interface HomophoneResult { word: string; pronunciation: string; is_common: boolean }
+	interface HomophoneGroup { reading: string; words: HomophoneResult[] }
+	let homophones: HomophoneGroup[] = $state([]);
+
+	$effect(() => {
+		const _word = data.word;
+		homophones = [];
+
+		// Extract unique Japanese readings
+		const readings = new Set<string>();
+		for (const jw of data.data.japanese_words || []) {
+			for (const k of jw.kana || []) {
+				if (k.text) readings.add(k.text);
+			}
+		}
+
+		// Fetch homophones for each reading
+		for (const reading of readings) {
+			fetch(`/api/lookup-reading?q=${encodeURIComponent(reading)}&limit=20`)
+				.then(r => r.ok ? r.json() : null)
+				.then(result => {
+					if (!result?.results?.length) return;
+					const filtered = result.results.filter((w: HomophoneResult) => w.word !== data.word && w.word !== reading);
+					if (filtered.length > 0) {
+						homophones = [...homophones, { reading, words: filtered }];
+					}
+				})
+				.catch(() => {});
+		}
+	});
+
 	// Equivalence states (declared after simplifiedCharData since they read from it)
 	let tradSimpEquivalent = $derived(
 		componentsAreEquivalent(
@@ -1765,6 +1797,27 @@
 			</div>
 		{/if}
 
+		<!-- Homophones -->
+		{#if homophones.length > 0}
+			<SectionHeading id="homophones">Homophones</SectionHeading>
+			<div class="homophones-section">
+				{#each homophones as group}
+					<div class="homophone-group">
+						{#if homophones.length > 1}
+							<div class="homophone-reading">{group.reading}</div>
+						{/if}
+						<div class="homophone-list">
+							{#each group.words as hp}
+								<a href="/{hp.word}" class="homophone-chip" class:common={hp.is_common}>
+									{hp.word}
+								</a>
+							{/each}
+						</div>
+					</div>
+				{/each}
+			</div>
+		{/if}
+
 		<!-- Notes Section — show here (after words) when there's no character data -->
 		{#if !(data.data.chinese_char || data.data.japanese_char)}
 			<Notes character={traditionalChar} />
@@ -1834,6 +1887,27 @@
 </div>
 
 <style>
+	/* Homophones */
+	.homophones-section { margin-bottom: var(--spacing-lg); }
+	.homophone-group { margin-bottom: var(--spacing-sm); }
+	.homophone-reading {
+		font-size: var(--font-size-caption1);
+		color: var(--text-tertiary);
+		margin-bottom: var(--spacing-xs);
+	}
+	.homophone-list { display: flex; flex-wrap: wrap; gap: 6px; }
+	.homophone-chip {
+		padding: 3px 10px;
+		border-radius: var(--radius-full);
+		border: 1px solid var(--border-color);
+		font-size: var(--font-size-body);
+		color: var(--text-primary);
+		text-decoration: none;
+		transition: border-color 0.15s, color 0.15s;
+	}
+	.homophone-chip:hover { border-color: var(--accent); color: var(--accent); }
+	.homophone-chip.common { font-weight: 500; }
+
 	/* Level badges */
 	.level-badge {
 		padding: 2px 8px;
