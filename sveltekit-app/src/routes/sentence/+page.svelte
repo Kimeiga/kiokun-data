@@ -76,7 +76,9 @@
 							const r2 = await rFetch(rUrl);
 							if (r2.ok) panelData = JSON.parse(new TextDecoder().decode(inflateSync(new Uint8Array(await r2.arrayBuffer()))));
 						}
-						panelDeinflectInfo = `${clean} → ${result.primary.dictionaryForm} (${result.primary.conjugationInfo})`;
+						panelDeinflectInfo = result.primary.conjugationInfo
+							? `${clean} → ${result.primary.dictionaryForm} (${result.primary.conjugationInfo})`
+							: `${clean} → ${result.primary.dictionaryForm}`;
 						selectedWord = result.primary.dictionaryForm;
 					}
 				}
