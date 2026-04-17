@@ -112,9 +112,12 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 	console.log('[LOAD] Starting load for word:', word);
 
 	// Fetch the compressed dictionary data
+	// Use globalThis.fetch for external binary URLs to avoid SvelteKit's fetch wrapper
+	// which can corrupt ArrayBuffer data during client-side navigation (popstate)
 	const dictUrl = await getDictionaryUrl(word, dev, fetch);
 	console.log('[LOAD] Fetching URL:', dictUrl);
-	const response = await fetch(dictUrl);
+	const dictFetch = dictUrl.startsWith('http') ? globalThis.fetch : fetch;
+	const response = await dictFetch(dictUrl);
 	console.log('[LOAD] Response status:', response.status);
 
 	if (!response.ok) {
@@ -193,7 +196,8 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 		// If this is a redirect entry, fetch the actual data
 		if (data.redirect) {
 			const redirectUrl = await getDictionaryUrl(data.redirect, dev, fetch);
-			const redirectResponse = await fetch(redirectUrl);
+			const redirectFetch = redirectUrl.startsWith('http') ? globalThis.fetch : fetch;
+			const redirectResponse = await redirectFetch(redirectUrl);
 			if (redirectResponse.ok) {
 				const redirectCompressed = await redirectResponse.arrayBuffer();
 				data = decompressAndParse(redirectCompressed);
@@ -211,7 +215,8 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 		if (simpChar && tradCharField && simpChar !== tradCharField) {
 			try {
 				const simpUrl = await getDictionaryUrl(simpChar, dev, fetch);
-				const simpResponse = await fetch(simpUrl);
+				const simpFetch = simpUrl.startsWith('http') ? globalThis.fetch : fetch;
+				const simpResponse = await simpFetch(simpUrl);
 				if (simpResponse.ok) {
 					const simpCompressed = await simpResponse.arrayBuffer();
 					const simpData = decompressAndParse(simpCompressed);

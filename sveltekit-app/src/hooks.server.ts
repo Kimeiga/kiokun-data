@@ -2,6 +2,14 @@ import { createAuth } from "$lib/server/auth";
 import type { Handle } from "@sveltejs/kit";
 
 export const handle: Handle = async ({ event, resolve }) => {
+	// Skip auth in local dev when platform bindings are unavailable
+	if (!event.platform?.env?.GOOGLE_CLIENT_SECRET) {
+		event.locals.session = null;
+		event.locals.user = null;
+		event.locals.isAdmin = true;
+		return resolve(event);
+	}
+
 	// Get auth instance
 	const auth = createAuth(event.platform!.env.DB, {
 		GOOGLE_CLIENT_ID: event.platform!.env.GOOGLE_CLIENT_ID,
