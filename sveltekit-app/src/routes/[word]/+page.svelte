@@ -1386,9 +1386,10 @@
 						{@const showSimpColumn = hasSimpComponents && traditionalChar !== simplifiedChar && !tradSimpEquivalent}
 						{@const hasJpComponents = japaneseComponents && japaneseComponents.length > 0}
 						{@const showJpColumn = hasJpComponents && japaneseChar && japaneseChar !== traditionalChar && !tradJpEquivalent && (!showSimpColumn || !simpJpEquivalent)}
-						{@const columnCount = 1 + (showSimpColumn ? 1 : 0) + (showJpColumn ? 1 : 0)}
+						{@const columnCount = (hasTradComponents ? 1 : 0) + (showSimpColumn ? 1 : 0) + (showJpColumn ? 1 : 0)}
 						{@const showLabels = columnCount > 1}
 
+						{#if columnCount > 0}
 						<SectionHeading id="components">Components</SectionHeading>
 
 						<div class="mb-4">
@@ -1585,6 +1586,7 @@
 								{/if}
 							</div>
 						</div>
+					{/if}
 					{/if}
 
 					<!-- Statistics section removed - data overlaps with word views -->
