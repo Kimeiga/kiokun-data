@@ -10,6 +10,7 @@
 	import SearchDropdown from "./SearchDropdown.svelte";
 
 	let handwritingInput: HandwritingInput;
+	let handwritingOpen = $state(false);
 
 	let { currentWord = "", autofocus = false, isHomePage = false }: { currentWord?: string; autofocus?: boolean; isHomePage?: boolean } = $props();
 
@@ -25,6 +26,21 @@
 				await navigateOrSearch(word);
 			}
 		}
+	}
+
+	async function doSearch() {
+		const word = internalSearchValue.trim();
+		if (word) {
+			await navigateOrSearch(word);
+		}
+	}
+
+	function handleHandwritingSelect(char: string) {
+		internalSearchValue += char;
+	}
+
+	function toggleHandwriting() {
+		handwritingOpen = !handwritingOpen;
 	}
 
 	function toggleMobileMenu() {
@@ -59,29 +75,49 @@
 		</a>
 
 		{#if !isHomePage}
-			<!-- Search Bar with draw button (not on home page) -->
+			<!-- Search Bar with draw + search buttons (not on home page) -->
 			<div class="flex-1 max-w-[600px] min-w-0 relative">
-				<!-- svelte-ignore a11y_autofocus -->
-				<input
-					type="text"
-					class="w-full pl-3 pr-10 py-1.5 md:pl-5 md:pr-12 md:py-2.5 border border-border-light rounded-full text-sm md:text-base bg-bg-tertiary text-text-primary font-sans transition-colors duration-150 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent placeholder:text-text-muted"
-					placeholder="Search..."
-					bind:value={internalSearchValue}
-					onkeydown={handleSearch}
-					onfocus={(e) => e.currentTarget.select()}
-					onblur={() => setTimeout(() => {}, 200)}
-					autofocus={autofocus}
-				/>
-				<button
-					onclick={() => handwritingInput.open()}
-					class="absolute right-1.5 top-1/2 -translate-y-1/2 flex items-center justify-center w-7 h-7 md:w-8 md:h-8 rounded-full text-text-tertiary hover:text-accent transition-colors duration-150 cursor-pointer"
-					title="Draw Character"
-				>
-					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="md:w-[18px] md:h-[18px]">
-						<path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>
-					</svg>
-				</button>
-				<SearchDropdown bind:value={internalSearchValue} />
+				<div class="flex gap-1.5 items-center">
+					<div class="flex-1 relative">
+						<!-- svelte-ignore a11y_autofocus -->
+						<input
+							type="text"
+							class="w-full pl-3 pr-3 py-1.5 md:pl-5 md:pr-4 md:py-2.5 border border-border-light rounded-full text-sm md:text-base bg-bg-tertiary text-text-primary font-sans transition-colors duration-150 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent placeholder:text-text-muted"
+							placeholder="Search..."
+							bind:value={internalSearchValue}
+							onkeydown={handleSearch}
+							onfocus={(e) => e.currentTarget.select()}
+							onblur={() => setTimeout(() => {}, 200)}
+							autofocus={autofocus}
+						/>
+						<SearchDropdown bind:value={internalSearchValue} />
+					</div>
+					{#if internalSearchValue.trim()}
+						<button
+							onclick={doSearch}
+							class="flex items-center justify-center w-8 h-8 md:w-9 md:h-9 rounded-full bg-accent text-white shrink-0 cursor-pointer transition-opacity hover:opacity-80"
+							title="Search"
+						>
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+						</button>
+					{/if}
+					<button
+						onclick={toggleHandwriting}
+						class="flex items-center justify-center w-8 h-8 md:w-9 md:h-9 rounded-full shrink-0 cursor-pointer transition-colors duration-150 border"
+						class:bg-accent={handwritingOpen}
+						class:text-white={handwritingOpen}
+						class:border-accent={handwritingOpen}
+						class:bg-bg-secondary={!handwritingOpen}
+						class:text-text-tertiary={!handwritingOpen}
+						class:border-border={!handwritingOpen}
+						class:hover:text-accent={!handwritingOpen}
+						class:hover:border-accent={!handwritingOpen}
+						title="Draw Character"
+					>
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
+					</button>
+				</div>
+				<HandwritingInput bind:this={handwritingInput} bind:visible={handwritingOpen} onSelect={handleHandwritingSelect} />
 			</div>
 		{:else}
 			<!-- Spacer on home page to push nav to the right -->
@@ -251,4 +287,3 @@
 	{/if}
 </header>
 
-<HandwritingInput bind:this={handwritingInput} />

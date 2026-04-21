@@ -1,19 +1,24 @@
 <script lang="ts">
-	import { goto } from "$app/navigation";
 	import { fade } from "svelte/transition";
 
-	let visible = $state(false);
+	let {
+		visible = $bindable(false),
+		onSelect,
+	}: {
+		visible?: boolean;
+		onSelect?: (char: string) => void;
+	} = $props();
+
 	let canvasEl: HTMLCanvasElement | undefined = $state();
 	let ctx: CanvasRenderingContext2D | null = $state(null);
 	let isDrawing = $state(false);
 	let candidates = $state<string[]>([]);
 	let isRecognizing = $state(false);
 
-	// Each stroke stores arrays of x, y, t values
 	let strokes = $state<{ x: number[]; y: number[]; t: number[] }[]>([]);
 	let currentStroke: { x: number[]; y: number[]; t: number[] } | null = $state(null);
 
-	const CANVAS_SIZE = 250;
+	const CANVAS_SIZE = 200;
 
 	export function open() {
 		visible = true;
@@ -41,7 +46,6 @@
 		if (!ctx) return;
 		ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
 
-		// Draw light grid
 		const gridColor =
 			typeof document !== "undefined"
 				? getComputedStyle(document.documentElement).getPropertyValue("--border-color").trim() ||
@@ -52,7 +56,6 @@
 		ctx.lineWidth = 0.5;
 		ctx.setLineDash([4, 4]);
 
-		// Center cross
 		ctx.beginPath();
 		ctx.moveTo(CANVAS_SIZE / 2, 0);
 		ctx.lineTo(CANVAS_SIZE / 2, CANVAS_SIZE);
@@ -63,7 +66,6 @@
 		ctx.lineTo(CANVAS_SIZE, CANVAS_SIZE / 2);
 		ctx.stroke();
 
-		// Diagonal guides
 		ctx.beginPath();
 		ctx.moveTo(0, 0);
 		ctx.lineTo(CANVAS_SIZE, CANVAS_SIZE);
@@ -75,8 +77,6 @@
 		ctx.stroke();
 
 		ctx.setLineDash([]);
-
-		// Redraw all existing strokes
 		redrawStrokes();
 	}
 
@@ -99,9 +99,7 @@
 		}
 	}
 
-	function getPos(
-		e: MouseEvent | TouchEvent
-	): { x: number; y: number } | null {
+	function getPos(e: MouseEvent | TouchEvent): { x: number; y: number } | null {
 		if (!canvasEl) return null;
 		const rect = canvasEl.getBoundingClientRect();
 		const scaleX = CANVAS_SIZE / rect.width;
@@ -127,7 +125,6 @@
 		if (!pos || !ctx) return;
 
 		isDrawing = true;
-		const startTime = Date.now();
 		currentStroke = { x: [pos.x], y: [pos.y], t: [0] };
 
 		ctx.strokeStyle = getStrokeColor();
@@ -146,11 +143,8 @@
 
 		currentStroke.x.push(pos.x);
 		currentStroke.y.push(pos.y);
-		currentStroke.t.push(currentStroke.t.length > 0 ? Date.now() - (Date.now() - currentStroke.t[currentStroke.t.length - 1]) : 0);
-
-		// Recalculate time relative to stroke start
-		const elapsed = currentStroke.x.length * 10; // approximate timing
-		currentStroke.t[currentStroke.t.length - 1] = elapsed;
+		const elapsed = currentStroke.x.length * 10;
+		currentStroke.t.push(elapsed);
 
 		ctx.lineTo(pos.x, pos.y);
 		ctx.stroke();
@@ -164,7 +158,6 @@
 		isDrawing = false;
 
 		strokes.push({ ...currentStroke });
-		// Trigger reactivity by reassigning
 		strokes = [...strokes];
 		currentStroke = null;
 
@@ -194,8 +187,8 @@
 	}
 
 	function selectCandidate(char: string) {
-		close();
-		goto(`/${encodeURIComponent(char)}`);
+		onSelect?.(char);
+		clearCanvas();
 	}
 
 	function clearCanvas() {
@@ -221,12 +214,6 @@
 		}
 	}
 
-	function handleBackdropClick(e: MouseEvent) {
-		if (e.target === e.currentTarget) {
-			close();
-		}
-	}
-
 	function handleKeydown(e: KeyboardEvent) {
 		if (e.key === "Escape") {
 			close();
@@ -237,51 +224,16 @@
 <svelte:window onkeydown={visible ? handleKeydown : undefined} />
 
 {#if visible}
-	<!-- Backdrop -->
-	<!-- svelte-ignore a11y_click_events_have_key_events -->
-	<!-- svelte-ignore a11y_no_static_element_interactions -->
-	<div
-		class="fixed inset-0 z-[200] flex items-center justify-center bg-black/50 backdrop-blur-sm p-4"
-		transition:fade={{ duration: 150 }}
-		onclick={handleBackdropClick}
-	>
-		<!-- Modal -->
-		<div
-			class="w-full max-w-[320px] rounded-2xl border border-border shadow-2xl overflow-hidden"
-			style="background: var(--bg-secondary);"
-		>
-			<!-- Header -->
-			<div
-				class="flex items-center justify-between px-4 py-3 border-b border-border"
-			>
-				<h3
-					class="text-base font-semibold m-0"
-					style="color: var(--text-primary);"
-				>
-					Draw Character
-				</h3>
-				<button
-					class="w-8 h-8 flex items-center justify-center rounded-full border-none cursor-pointer text-lg transition-colors duration-150"
-					style="background: var(--bg-tertiary); color: var(--text-secondary);"
-					onclick={close}
-					aria-label="Close"
-				>
-					&times;
-				</button>
-			</div>
-
-			<!-- Canvas area -->
-			<div class="flex flex-col items-center px-4 pt-3 pb-2">
-				<div
-					class="rounded-xl border-2 border-border overflow-hidden touch-none"
-					style="width: {CANVAS_SIZE}px; height: {CANVAS_SIZE}px; background: var(--bg-primary);"
-				>
+	<div class="hw-panel" transition:fade={{ duration: 100 }}>
+		<div class="hw-layout">
+			<!-- Canvas -->
+			<div class="hw-canvas-area">
+				<div class="hw-canvas-wrap">
 					<canvas
 						bind:this={canvasEl}
 						width={CANVAS_SIZE}
 						height={CANVAS_SIZE}
-						class="block cursor-crosshair"
-						style="width: {CANVAS_SIZE}px; height: {CANVAS_SIZE}px;"
+						class="hw-canvas"
 						onmousedown={startStroke}
 						onmousemove={moveStroke}
 						onmouseup={endStroke}
@@ -291,72 +243,125 @@
 						ontouchend={endStroke}
 					></canvas>
 				</div>
-
-				<!-- Action buttons -->
-				<div class="flex gap-2 mt-3 w-full">
-					<button
-						class="flex-1 px-3 py-2 rounded-lg border border-border text-sm font-medium cursor-pointer transition-colors duration-150"
-						style="background: var(--bg-tertiary); color: var(--text-primary);"
-						onclick={undoStroke}
-						disabled={strokes.length === 0}
-						class:opacity-40={strokes.length === 0}
-					>
-						Undo
-					</button>
-					<button
-						class="flex-1 px-3 py-2 rounded-lg border border-border text-sm font-medium cursor-pointer transition-colors duration-150"
-						style="background: var(--bg-tertiary); color: var(--text-primary);"
-						onclick={clearCanvas}
-						disabled={strokes.length === 0}
-						class:opacity-40={strokes.length === 0}
-					>
-						Clear
-					</button>
+				<div class="hw-actions">
+					<button class="hw-btn" onclick={undoStroke} disabled={strokes.length === 0}>Undo</button>
+					<button class="hw-btn" onclick={clearCanvas} disabled={strokes.length === 0}>Clear</button>
+					<button class="hw-btn hw-btn-close" onclick={close}>Done</button>
 				</div>
 			</div>
 
 			<!-- Candidates -->
-			<div
-				class="px-4 pb-4 pt-1"
-			>
-				<div
-					class="flex gap-2 justify-center min-h-[48px] items-center"
-				>
-					{#if isRecognizing && candidates.length === 0}
-						<span
-							class="text-sm"
-							style="color: var(--text-muted);"
-						>
-							Recognizing...
-						</span>
-					{:else if candidates.length > 0}
-						{#each candidates as char}
-							<button
-								class="w-11 h-11 rounded-lg border-2 border-border text-xl font-bold cursor-pointer transition-colors duration-150"
-								style="background: var(--bg-tertiary); color: var(--text-primary); border-color: var(--border-color);"
-								onmouseenter={(e) => {
-									e.currentTarget.style.borderColor = 'var(--accent)';
-									e.currentTarget.style.color = 'var(--accent)';
-								}}
-								onmouseleave={(e) => {
-									e.currentTarget.style.borderColor = 'var(--border-color)';
-									e.currentTarget.style.color = 'var(--text-primary)';
-								}}
-								onclick={() => selectCandidate(char)}
-							>
-								{char}
-							</button>
-						{/each}
-					{:else}
-						<span
-							class="text-sm"
-							style="color: var(--text-muted);"
-						>
-							Draw a character above
-						</span>
-					{/if}
-				</div>
+			<div class="hw-candidates">
+				{#if isRecognizing && candidates.length === 0}
+					<span class="hw-hint">Recognizing...</span>
+				{:else if candidates.length > 0}
+					{#each candidates as char}
+						<button class="hw-char" onclick={() => selectCandidate(char)}>{char}</button>
+					{/each}
+				{:else}
+					<span class="hw-hint">Draw a character</span>
+				{/if}
 			</div>
 		</div>
 	</div>
 {/if}
+
+<style>
+	.hw-panel {
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-lg, 12px);
+		background: var(--bg-secondary);
+		padding: 12px;
+		margin-top: 8px;
+		box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+	}
+
+	.hw-layout {
+		display: flex;
+		gap: 12px;
+		align-items: flex-start;
+	}
+
+	.hw-canvas-area {
+		flex-shrink: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	.hw-canvas-wrap {
+		border: 2px solid var(--border-color);
+		border-radius: 8px;
+		overflow: hidden;
+		touch-action: none;
+		width: 200px;
+		height: 200px;
+		background: var(--bg-primary);
+	}
+
+	.hw-canvas {
+		display: block;
+		cursor: crosshair;
+		width: 200px;
+		height: 200px;
+	}
+
+	.hw-actions {
+		display: flex;
+		gap: 4px;
+	}
+
+	.hw-btn {
+		flex: 1;
+		padding: 4px 8px;
+		border-radius: 6px;
+		border: 1px solid var(--border-color);
+		background: var(--bg-tertiary);
+		color: var(--text-primary);
+		font-size: 12px;
+		cursor: pointer;
+		transition: opacity 0.15s;
+	}
+	.hw-btn:disabled { opacity: 0.35; cursor: default; }
+	.hw-btn-close { border-color: var(--accent); color: var(--accent); }
+
+	.hw-candidates {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 6px;
+		align-content: flex-start;
+		min-width: 0;
+		flex: 1;
+	}
+
+	.hw-char {
+		width: 44px;
+		height: 44px;
+		border-radius: 8px;
+		border: 2px solid var(--border-color);
+		background: var(--bg-tertiary);
+		color: var(--text-primary);
+		font-size: 22px;
+		font-weight: 600;
+		cursor: pointer;
+		transition: border-color 0.15s, color 0.15s;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.hw-char:hover { border-color: var(--accent); color: var(--accent); }
+
+	.hw-hint {
+		color: var(--text-muted);
+		font-size: 13px;
+		padding: 8px;
+	}
+
+	/* Mobile: stack vertically */
+	@media (max-width: 480px) {
+		.hw-layout { flex-direction: column; }
+		.hw-canvas-wrap { width: 100%; height: auto; aspect-ratio: 1; }
+		.hw-canvas { width: 100%; height: 100%; }
+		.hw-candidates { justify-content: center; }
+	}
+</style>

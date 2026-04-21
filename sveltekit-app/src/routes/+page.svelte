@@ -12,6 +12,22 @@
 	let handwritingInput: HandwritingInput;
 	let heroSearchInput: HTMLInputElement;
 	let heroSearchValue = $state('');
+	let handwritingOpen = $state(false);
+
+	function handleHandwritingSelect(char: string) {
+		heroSearchValue += char;
+	}
+
+	function toggleHandwriting() {
+		handwritingOpen = !handwritingOpen;
+	}
+
+	async function doHeroSearch() {
+		const word = heroSearchValue.trim();
+		if (word) {
+			await navigateOrSearch(word);
+		}
+	}
 	let cachedGlosses: Record<string, string> | null = null;
 
 	async function goToRandomCharacter() {
@@ -155,35 +171,39 @@
 		<p class="hero-sub">The shared vocabulary of Chinese, Japanese & Korean</p>
 		<!-- Hero Search -->
 		<div class="hero-search">
-			<!-- svelte-ignore a11y_autofocus -->
-			<input
-				type="text"
-				class="hero-search-input"
-				placeholder="Search characters, words, or sentences..."
-				bind:value={heroSearchValue}
-				bind:this={heroSearchInput}
-				onkeydown={handleHeroSearch}
-				autofocus
-			/>
-			<SearchDropdown bind:value={heroSearchValue} />
-			<div class="hero-search-actions">
-				<button
-					onclick={goToRandomCharacter}
-					class="hero-action-btn"
-					title="Random Character"
-				>
-					🎲
-				</button>
-				<button
-					onclick={() => handwritingInput.open()}
-					class="hero-action-btn"
-					title="Draw Character"
-				>
-					<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-						<path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>
-					</svg>
-				</button>
+			<div class="hero-search-row">
+				<!-- svelte-ignore a11y_autofocus -->
+				<input
+					type="text"
+					class="hero-search-input"
+					placeholder="Search characters, words, or sentences..."
+					bind:value={heroSearchValue}
+					bind:this={heroSearchInput}
+					onkeydown={handleHeroSearch}
+					autofocus
+				/>
+				<div class="hero-search-actions">
+					<button
+						onclick={goToRandomCharacter}
+						class="hero-action-btn"
+						title="Random Character"
+					>
+						🎲
+					</button>
+					<button
+						onclick={toggleHandwriting}
+						class="hero-action-btn"
+						class:active={handwritingOpen}
+						title="Draw Character"
+					>
+						<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>
+						</svg>
+					</button>
+				</div>
 			</div>
+			<SearchDropdown bind:value={heroSearchValue} />
+			<HandwritingInput bind:this={handwritingInput} bind:visible={handwritingOpen} onSelect={handleHandwritingSelect} />
 		</div>
 	</section>
 
@@ -323,7 +343,6 @@
 	</div>
 </main>
 
-<HandwritingInput bind:this={handwritingInput} />
 
 <style>
 	/* ===== Page ===== */
@@ -358,8 +377,16 @@
 		margin: 24px auto 0;
 	}
 
+	.hero-search-row {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		position: relative;
+	}
+
 	.hero-search-input {
-		width: 100%;
+		flex: 1;
+		min-width: 0;
 		padding: 12px 80px 12px 20px;
 		border: 1px solid var(--border-light);
 		border-radius: var(--radius-full);
@@ -412,6 +439,10 @@
 
 	.hero-action-btn:active {
 		transform: scale(0.92);
+	}
+	.hero-action-btn.active {
+		background: var(--accent);
+		color: white;
 	}
 
 	/* ===== Sections ===== */
