@@ -22,26 +22,25 @@ export const POST: RequestHandler = async ({ request }) => {
 		stroke.t,
 	]);
 
-	const requestPayload = JSON.stringify([
-		{
-			writing_guide: {
-				writing_area_width: 250,
-				writing_area_height: 250,
+	const jsonBody = JSON.stringify({
+		app_version: 0.4,
+		api_level: "537.36",
+		device: "5.0 (X11; Linux x86_64) AppleWebKit/537.36",
+		input_type: 0,
+		options: "enable_pre_space",
+		requests: [
+			{
+				writing_guide: {
+					writing_area_width: 250,
+					writing_area_height: 250,
+				},
+				ink,
+				pre_context: "",
+				max_num_results: 5,
+				max_completions: 0,
 			},
-			ink,
-			pre_context: "",
-			max_num_results: 5,
-			max_completions: 0,
-		},
-	]);
-
-	const formData = new URLSearchParams();
-	formData.append("app_version", "0.3.2");
-	formData.append("api_level", "537.36");
-	formData.append("device", "5.0 (X11; Linux x86_64) AppleWebKit/537.36");
-	formData.append("input_type", "0");
-	formData.append("options", "enable_pre_space");
-	formData.append("requests", requestPayload);
+		],
+	});
 
 	const url = `https://inputtools.google.com/request?itc=${langCode}&app=translate`;
 
@@ -49,9 +48,9 @@ export const POST: RequestHandler = async ({ request }) => {
 		const response = await fetch(url, {
 			method: "POST",
 			headers: {
-				"Content-Type": "application/x-www-form-urlencoded",
+				"Content-Type": "application/json",
 			},
-			body: formData.toString(),
+			body: jsonBody,
 		});
 
 		if (!response.ok) {
