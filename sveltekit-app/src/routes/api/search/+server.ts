@@ -51,47 +51,77 @@ export async function GET({ url, platform }: RequestEvent) {
 	}
 	
 	try {
-		// Use FTS5 MATCH query for full-text search
-		// The query is automatically tokenized and stemmed by FTS5
-		// We search across definition and reading_search columns
-		// reading_search enables romaji search for Japanese (e.g., "zenkoku" → 全国)
-		// and pinyin search for Chinese (e.g., "zhongguo" → 中國)
-		const results = await platform.env.DB
-			.prepare(`
-				SELECT
-					word,
-					language,
-					definition,
-					pronunciation,
-					reading_search,
-					is_common,
-					-- Calculate custom relevance score
-					CASE
-						-- Exact match on definition gets highest priority
-						WHEN LOWER(definition) = LOWER(?) THEN 1000
-						-- Exact match on reading_search (romaji/pinyin) gets very high priority
-						WHEN LOWER(reading_search) = LOWER(?) THEN 900
-						-- Reading starts with query gets high priority (e.g., "zen" matches "zenkoku")
-						WHEN LOWER(reading_search) LIKE LOWER(? || '%') THEN 600
-						-- Definition starts with query gets high priority
-						WHEN LOWER(definition) LIKE LOWER(? || '%') THEN 500
-						-- Contains query as whole word gets medium priority
-						WHEN LOWER(definition) LIKE LOWER('% ' || ? || ' %')
-						  OR LOWER(definition) LIKE LOWER(? || ' %')
-						  OR LOWER(definition) LIKE LOWER('% ' || ?) THEN 100
-						-- Otherwise use FTS5 rank
-						ELSE 0
-					END as custom_rank
-				FROM dictionary_search
-				WHERE dictionary_search MATCH ?
-				ORDER BY
-					custom_rank DESC,   -- Custom relevance first
-					is_common DESC,     -- Common words next
-					rank                -- FTS5 relevance last
-				LIMIT ?
-			`)
-			.bind(query, query, query, query, query, query, query, query, limit * 3) // Get more results for grouping
-			.all();
+		// Detect if query contains CJK characters (Chinese/Japanese/Korean)
+		const isCJK = /[\u3000-\u9FFF\uAC00-\uD7AF\uF900-\uFAFF]/.test(query);
+
+		let results;
+
+		if (isCJK) {
+			// CJK input: search by word prefix using LIKE
+			// This finds words starting with the input (e.g., 十 → 十月, 十分, etc.)
+			results = await platform.env.DB
+				.prepare(`
+					SELECT
+						word,
+						language,
+						definition,
+						pronunciation,
+						reading_search,
+						is_common,
+						CASE
+							WHEN word = ? THEN 1000
+							WHEN word LIKE ? || '%' THEN 500
+							ELSE 0
+						END as custom_rank
+					FROM dictionary_search
+					WHERE word LIKE ? || '%'
+					ORDER BY
+						custom_rank DESC,
+						is_common DESC,
+						LENGTH(word) ASC
+					LIMIT ?
+				`)
+				.bind(query, query, query, limit * 3)
+				.all();
+		} else {
+			// Latin/romaji/pinyin input: use FTS5 full-text search on definitions and readings
+			results = await platform.env.DB
+				.prepare(`
+					SELECT
+						word,
+						language,
+						definition,
+						pronunciation,
+						reading_search,
+						is_common,
+						-- Calculate custom relevance score
+						CASE
+							-- Exact match on definition gets highest priority
+							WHEN LOWER(definition) = LOWER(?) THEN 1000
+							-- Exact match on reading_search (romaji/pinyin) gets very high priority
+							WHEN LOWER(reading_search) = LOWER(?) THEN 900
+							-- Reading starts with query gets high priority (e.g., "zen" matches "zenkoku")
+							WHEN LOWER(reading_search) LIKE LOWER(? || '%') THEN 600
+							-- Definition starts with query gets high priority
+							WHEN LOWER(definition) LIKE LOWER(? || '%') THEN 500
+							-- Contains query as whole word gets medium priority
+							WHEN LOWER(definition) LIKE LOWER('% ' || ? || ' %')
+							  OR LOWER(definition) LIKE LOWER(? || ' %')
+							  OR LOWER(definition) LIKE LOWER('% ' || ?) THEN 100
+							-- Otherwise use FTS5 rank
+							ELSE 0
+						END as custom_rank
+					FROM dictionary_search
+					WHERE dictionary_search MATCH ?
+					ORDER BY
+						custom_rank DESC,   -- Custom relevance first
+						is_common DESC,     -- Common words next
+						rank                -- FTS5 relevance last
+					LIMIT ?
+				`)
+				.bind(query, query, query, query, query, query, query, query, limit * 3)
+				.all();
+		}
 		
 		if (!results.success) {
 			throw error(500, "Search query failed");
