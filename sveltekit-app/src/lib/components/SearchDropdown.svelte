@@ -21,6 +21,7 @@
 	let loading = $state(false);
 	let selectedIndex = $state(-1);
 	let debounceTimer: ReturnType<typeof setTimeout> | null = null;
+	let inputFocused = $state(false);
 
 	$effect(() => {
 		const q = value.trim();
@@ -75,7 +76,18 @@
 
 	function handleBlur() {
 		// Delay to allow click on dropdown item
-		setTimeout(() => { showDropdown = false; }, 200);
+		inputFocused = false;
+		setTimeout(() => {
+			if (!inputFocused) showDropdown = false;
+		}, 200);
+	}
+
+	function handleFocus() {
+		inputFocused = true;
+		// Re-show dropdown if we have results
+		if (results.length > 0 && value.trim().length > 0) {
+			showDropdown = true;
+		}
 	}
 
 	function langFlag(lang: string): string {
@@ -83,8 +95,9 @@
 	}
 </script>
 
-<svelte:window onkeydown={handleKeydown} onclick={(e) => {
-	// Dismiss dropdown when clicking outside the search area
+<svelte:window onkeydown={handleKeydown} onfocusin={(e) => {
+	if ((e.target as HTMLElement)?.matches?.('input[type="text"]')) handleFocus();
+}} onclick={(e) => {
 	const target = e.target as HTMLElement;
 	if (showDropdown && !target.closest('.search-dropdown') && !target.closest('input[type="text"]')) {
 		showDropdown = false;
