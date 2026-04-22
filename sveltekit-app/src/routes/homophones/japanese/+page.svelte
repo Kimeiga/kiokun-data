@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Header from '$lib/components/Header.svelte';
+	import Notes from '$lib/components/Notes.svelte';
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 
@@ -290,6 +291,7 @@
 						<span class="group-reading">{group.r}</span>
 						<span class="group-count">{group.w.length} words</span>
 					</div>
+					<Notes character={`ja:${group.r}`} />
 					<div class="group-words">
 						{#each group.w as word}
 							<a href="/{word.w}" class="word-entry" class:common={!!word.c}>
