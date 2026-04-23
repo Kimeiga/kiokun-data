@@ -197,8 +197,10 @@
 		{ lang: '🇯🇵', reading: 'しこう', words: '思考 · 志向 · 嗜好 · 施行 · 至高 · 指向', path: '/homophones/japanese?q=しこう' },
 		{ lang: '🇨🇳', reading: 'shì', words: '是 · 事 · 市 · 式 · 世 · 室', path: '/homophones/chinese?q=shì' },
 		{ lang: '🇨🇳', reading: 'yī', words: '一 · 衣 · 医 · 依 · 伊 · 揖', path: '/homophones/chinese?q=yī' },
+		{ lang: '🇨🇳', reading: 'jī', words: '机 · 鸡 · 基 · 积 · 击 · 激', path: '/homophones/chinese?q=jī' },
 		{ lang: '🇰🇷', reading: '수', words: '水 · 手 · 数 · 首 · 守 · 樹', path: '/homophones/korean?q=수' },
 		{ lang: '🇰🇷', reading: '사', words: '四 · 死 · 社 · 士 · 事 · 史', path: '/homophones/korean?q=사' },
+		{ lang: '🇰🇷', reading: '장', words: '長 · 場 · 章 · 將 · 障 · 張', path: '/homophones/korean?q=장' },
 	];
 
 	// Category highlights
