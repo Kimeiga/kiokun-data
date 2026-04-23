@@ -141,6 +141,17 @@
 		{ word: '예뻐요', base: '예쁘다', label: 'is pretty' },
 	];
 
+	// Interesting homophones — readings with many different words
+	const homophoneHighlights = [
+		{ lang: '🇯🇵', reading: 'こうしょう', words: '交渉 · 高尚 · 公称 · 考証 · 口承 · 工匠', path: '/homophones/japanese?q=こうしょう' },
+		{ lang: '🇯🇵', reading: 'きかん', words: '期間 · 機関 · 気管 · 帰還 · 季刊 · 基幹', path: '/homophones/japanese?q=きかん' },
+		{ lang: '🇯🇵', reading: 'しこう', words: '思考 · 志向 · 嗜好 · 施行 · 至高 · 指向', path: '/homophones/japanese?q=しこう' },
+		{ lang: '🇨🇳', reading: 'shì', words: '是 · 事 · 市 · 式 · 世 · 室', path: '/homophones/chinese?q=shì' },
+		{ lang: '🇨🇳', reading: 'yī', words: '一 · 衣 · 医 · 依 · 伊 · 揖', path: '/homophones/chinese?q=yī' },
+		{ lang: '🇰🇷', reading: '수', words: '水 · 手 · 数 · 首 · 守 · 樹', path: '/homophones/korean?q=수' },
+		{ lang: '🇰🇷', reading: '사', words: '四 · 死 · 社 · 士 · 事 · 史', path: '/homophones/korean?q=사' },
+	];
+
 	// Category highlights
 	const categoryHighlights = [
 		{ name: 'Animals', path: '/category/Nature/Animals', icon: '🐾' },
@@ -307,6 +318,30 @@
 					{/each}
 				</div>
 			{/each}
+		</div>
+	</section>
+
+	<!-- Homophones -->
+	<section class="section">
+		<div class="section-head">
+			<h2>Homophones</h2>
+			<p>Same sound, different meaning — a key challenge in CJK languages</p>
+		</div>
+		<div class="homo-grid">
+			{#each homophoneHighlights as h}
+				<a href={h.path} class="homo-card">
+					<div class="homo-top">
+						<span class="homo-flag">{h.lang}</span>
+						<span class="homo-reading">{h.reading}</span>
+					</div>
+					<span class="homo-words">{h.words}</span>
+				</a>
+			{/each}
+		</div>
+		<div class="homo-links">
+			<a href="/homophones/japanese" class="link-more">Japanese homophones →</a>
+			<a href="/homophones/chinese" class="link-more">Chinese homophones →</a>
+			<a href="/homophones/korean" class="link-more">Korean homophones →</a>
 		</div>
 	</section>
 
@@ -658,6 +693,30 @@
 		color: var(--text-muted);
 		margin-left: auto;
 	}
+
+	/* ===== Homophones ===== */
+	.homo-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+		gap: 10px;
+	}
+	.homo-card {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		padding: 12px 16px;
+		background: var(--bg-secondary);
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-md);
+		text-decoration: none;
+		transition: border-color 0.15s;
+	}
+	.homo-card:hover { border-color: var(--accent); }
+	.homo-top { display: flex; align-items: center; gap: 8px; }
+	.homo-flag { font-size: 14px; }
+	.homo-reading { font-size: var(--font-size-headline); font-weight: 600; color: var(--accent); font-family: var(--font-cjk); }
+	.homo-words { font-size: var(--font-size-caption1); color: var(--text-secondary); font-family: var(--font-cjk); }
+	.homo-links { display: flex; gap: 16px; margin-top: 12px; flex-wrap: wrap; }
 
 	/* ===== Bottom Row ===== */
 	.bottom-row {
