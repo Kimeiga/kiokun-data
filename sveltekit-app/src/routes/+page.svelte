@@ -69,6 +69,55 @@
 		}
 	}
 
+	// Word of the Day — deterministic daily pick from glosses
+	let wotdChar = $state('');
+	let wotdGloss = $state('');
+	let wotdLoading = $state(true);
+
+	onMount(async () => {
+		try {
+			if (!cachedGlosses) {
+				const res = await fetch("/game_data/component_glosses.json");
+				if (res.ok) cachedGlosses = await res.json();
+			}
+			if (cachedGlosses) {
+				const keys = Object.keys(cachedGlosses).filter(k => k.length === 1 && k.charCodeAt(0) >= 0x4E00);
+				// Hash today's date for stable daily pick
+				const today = new Date();
+				const dayStr = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+				let hash = 0;
+				for (let i = 0; i < dayStr.length; i++) {
+					hash = ((hash << 5) - hash) + dayStr.charCodeAt(i);
+					hash = hash & hash;
+				}
+				// Try up to 10 picks to find one with a dictionary entry
+				for (let attempt = 0; attempt < 10; attempt++) {
+					const idx = Math.abs(hash + attempt) % keys.length;
+					const char = keys[idx];
+					const url = await getDictionaryUrl(char, dev, fetch);
+					const resp = await fetch(url, { method: 'HEAD' });
+					if (resp.ok) {
+						wotdChar = char;
+						wotdGloss = cachedGlosses![char] || '';
+						break;
+					}
+				}
+			}
+		} catch {} finally { wotdLoading = false; }
+	});
+
+	// Compare: characters where traditional, simplified Chinese, and Japanese shinjitai all differ
+	const compareExamples = [
+		{ trad: '龍', simp: '龙', jp: '竜', meaning: 'dragon' },
+		{ trad: '圖', simp: '图', jp: '図', meaning: 'map' },
+		{ trad: '鐵', simp: '铁', jp: '鉄', meaning: 'iron' },
+		{ trad: '齒', simp: '齿', jp: '歯', meaning: 'tooth' },
+		{ trad: '廣', simp: '广', jp: '広', meaning: 'wide' },
+		{ trad: '實', simp: '实', jp: '実', meaning: 'real' },
+		{ trad: '戰', simp: '战', jp: '戦', meaning: 'war' },
+		{ trad: '驛', simp: '驿', jp: '駅', meaning: 'station' },
+	];
+
 	// Shared characters - exist in both Chinese and Japanese
 	const sharedCharacters = [
 		{ trad: '愛', simp: '爱', label: 'Love' },
@@ -218,6 +267,21 @@
 		</div>
 	</section>
 
+	<!-- Word of the Day -->
+	{#if wotdChar}
+		<section class="section">
+			<div class="section-head">
+				<h2>Word of the Day</h2>
+			</div>
+			<a href="/{wotdChar}" class="wotd-card">
+				<span class="wotd-char">{wotdChar}</span>
+				{#if wotdGloss}
+					<span class="wotd-gloss">{wotdGloss}</span>
+				{/if}
+			</a>
+		</section>
+	{/if}
+
 	<!-- Characters — prominent, the core product -->
 	<section class="section">
 		<div class="section-head">
@@ -267,8 +331,49 @@
 		</div>
 	</section>
 
-	<!-- Featured Reels -->
-	<FeaturedReels />
+	<!-- Compare: Traditional vs Simplified vs Japanese -->
+	<section class="section">
+		<div class="section-head">
+			<h2>Compare</h2>
+			<p>Same character, three writing systems</p>
+		</div>
+		<div class="compare-grid">
+			{#each compareExamples as ex}
+				<div class="compare-card">
+					<div class="compare-chars">
+						<a href="/{ex.trad}" class="compare-char" title="Traditional">
+							<span class="compare-label">Traditional</span>
+							<span class="compare-glyph">{ex.trad}</span>
+						</a>
+						<span class="compare-arrow">→</span>
+						<a href="/{ex.simp}" class="compare-char" title="Simplified Chinese">
+							<span class="compare-label">Simplified</span>
+							<span class="compare-glyph">{ex.simp}</span>
+						</a>
+						<span class="compare-arrow">→</span>
+						<a href="/{ex.jp}" class="compare-char" title="Japanese">
+							<span class="compare-label">Japanese</span>
+							<span class="compare-glyph">{ex.jp}</span>
+						</a>
+					</div>
+					<span class="compare-meaning">{ex.meaning}</span>
+				</div>
+			{/each}
+		</div>
+	</section>
+
+	<!-- What's New -->
+	<section class="section">
+		<div class="section-head">
+			<h2>What's New</h2>
+			<p>Watch real content with interactive transcripts</p>
+		</div>
+		<FeaturedReels />
+		<div class="whats-new-links">
+			<a href="/users" class="link-more">Community →</a>
+			<a href="/artifacts" class="link-more">Artifacts →</a>
+		</div>
+	</section>
 
 	<!-- Sentences -->
 	<section class="section">
@@ -479,6 +584,63 @@
 		background: var(--accent);
 		color: white;
 	}
+
+	/* ===== Word of the Day ===== */
+	.wotd-card {
+		display: flex;
+		align-items: center;
+		gap: 16px;
+		padding: 20px 24px;
+		background: var(--bg-secondary);
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-lg, 12px);
+		text-decoration: none;
+		transition: border-color 0.15s;
+	}
+	.wotd-card:hover { border-color: var(--accent); }
+	.wotd-char {
+		font-size: 48px;
+		font-family: var(--font-cjk);
+		color: var(--text-primary);
+		line-height: 1;
+	}
+	.wotd-gloss {
+		font-size: var(--font-size-headline);
+		color: var(--text-secondary);
+		text-transform: capitalize;
+	}
+
+	/* ===== Compare ===== */
+	.compare-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+		gap: 10px;
+	}
+	.compare-card {
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+		padding: 12px 16px;
+		background: var(--bg-secondary);
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-md);
+	}
+	.compare-chars { display: flex; align-items: center; gap: 6px; justify-content: center; }
+	.compare-char {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-decoration: none;
+		transition: color 0.15s;
+	}
+	.compare-char:hover .compare-glyph { color: var(--accent); }
+	.compare-label { font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+	.compare-glyph { font-size: 28px; font-family: var(--font-cjk); color: var(--text-primary); line-height: 1.2; }
+	.compare-arrow { color: var(--text-muted); font-size: 14px; }
+	.compare-meaning { font-size: var(--font-size-caption1); color: var(--text-secondary); text-align: center; }
+
+	/* ===== What's New ===== */
+	.whats-new-links { display: flex; gap: 16px; margin-top: 12px; }
 
 	/* ===== Sections ===== */
 	.section {
