@@ -69,10 +69,34 @@
 		}
 	}
 
-	// Word of the Day — deterministic daily pick from glosses
-	let wotdChar = $state('');
+	// Character of the Day + Word of the Day — deterministic daily picks
+	let cotdChar = $state('');
+	let cotdGloss = $state('');
+	let wotdWord = $state('');
 	let wotdGloss = $state('');
-	let wotdLoading = $state(true);
+
+	// Curated pool of interesting multi-character words
+	const wordPool = [
+		{ w: '友達', g: 'friend' }, { w: '勉強', g: 'study' }, { w: '天気', g: 'weather' },
+		{ w: '家族', g: 'family' }, { w: '約束', g: 'promise' }, { w: '冒険', g: 'adventure' },
+		{ w: '努力', g: 'effort' }, { w: '希望', g: 'hope' }, { w: '自由', g: 'freedom' },
+		{ w: '平和', g: 'peace' }, { w: '感謝', g: 'gratitude' }, { w: '挑戦', g: 'challenge' },
+		{ w: '記憶', g: 'memory' }, { w: '幸福', g: 'happiness' }, { w: '運命', g: 'fate' },
+		{ w: '冒頭', g: 'beginning' }, { w: '宇宙', g: 'universe' }, { w: '地球', g: 'earth' },
+		{ w: '景色', g: 'scenery' }, { w: '季節', g: 'season' }, { w: '旅行', g: 'travel' },
+		{ w: '健康', g: 'health' }, { w: '知識', g: 'knowledge' }, { w: '哲学', g: 'philosophy' },
+		{ w: '芸術', g: 'art' }, { w: '言葉', g: 'word' }, { w: '夢中', g: 'absorbed' },
+		{ w: '感動', g: 'emotion' }, { w: '永遠', g: 'eternity' }, { w: '瞬間', g: 'moment' },
+	];
+
+	function dayHash(seed: string): number {
+		let hash = 0;
+		for (let i = 0; i < seed.length; i++) {
+			hash = ((hash << 5) - hash) + seed.charCodeAt(i);
+			hash = hash & hash;
+		}
+		return Math.abs(hash);
+	}
 
 	onMount(async () => {
 		try {
@@ -81,30 +105,31 @@
 				if (res.ok) cachedGlosses = await res.json();
 			}
 			if (cachedGlosses) {
-				const keys = Object.keys(cachedGlosses).filter(k => k.length === 1 && k.charCodeAt(0) >= 0x4E00);
-				// Hash today's date for stable daily pick
+				const charKeys = Object.keys(cachedGlosses).filter(k => k.length === 1 && k.charCodeAt(0) >= 0x4E00);
 				const today = new Date();
 				const dayStr = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
-				let hash = 0;
-				for (let i = 0; i < dayStr.length; i++) {
-					hash = ((hash << 5) - hash) + dayStr.charCodeAt(i);
-					hash = hash & hash;
-				}
-				// Try up to 10 picks to find one with a dictionary entry
+				const h = dayHash(dayStr);
+
+				// Character of the Day
 				for (let attempt = 0; attempt < 10; attempt++) {
-					const idx = Math.abs(hash + attempt) % keys.length;
-					const char = keys[idx];
+					const char = charKeys[(h + attempt) % charKeys.length];
 					const url = await getDictionaryUrl(char, dev, fetch);
 					const resp = await fetch(url, { method: 'HEAD' });
 					if (resp.ok) {
-						wotdChar = char;
-						wotdGloss = cachedGlosses![char] || '';
+						cotdChar = char;
+						cotdGloss = cachedGlosses![char] || '';
 						break;
 					}
 				}
+
+				// Word of the Day (use different seed so they're independent)
+				const h2 = dayHash(dayStr + '-word');
+				const pick = wordPool[h2 % wordPool.length];
+				wotdWord = pick.w;
+				wotdGloss = pick.g;
 			}
-		} catch {} finally { wotdLoading = false; }
-	});
+		} catch {} }
+	);
 
 	// Compare: characters where traditional, simplified Chinese, and Japanese shinjitai all differ
 	const compareExamples = [
@@ -269,18 +294,25 @@
 		</div>
 	</section>
 
-	<!-- Word of the Day -->
-	{#if wotdChar}
+	<!-- Daily Picks -->
+	{#if cotdChar || wotdWord}
 		<section class="section">
-			<div class="section-head">
-				<h2>Word of the Day</h2>
-			</div>
-			<a href="/{wotdChar}" class="wotd-card">
-				<span class="wotd-char">{wotdChar}</span>
-				{#if wotdGloss}
-					<span class="wotd-gloss">{wotdGloss}</span>
+			<div class="daily-row">
+				{#if cotdChar}
+					<a href="/{cotdChar}" class="daily-card">
+						<span class="daily-label">Character of the Day</span>
+						<span class="daily-main">{cotdChar}</span>
+						{#if cotdGloss}<span class="daily-gloss">{cotdGloss}</span>{/if}
+					</a>
 				{/if}
-			</a>
+				{#if wotdWord}
+					<a href="/{wotdWord}" class="daily-card">
+						<span class="daily-label">Word of the Day</span>
+						<span class="daily-main daily-word">{wotdWord}</span>
+						{#if wotdGloss}<span class="daily-gloss">{wotdGloss}</span>{/if}
+					</a>
+				{/if}
+			</div>
 		</section>
 	{/if}
 
@@ -587,29 +619,47 @@
 		color: white;
 	}
 
-	/* ===== Word of the Day ===== */
-	.wotd-card {
+	/* ===== Daily Picks ===== */
+	.daily-row {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 12px;
+	}
+	.daily-card {
 		display: flex;
+		flex-direction: column;
 		align-items: center;
-		gap: 16px;
-		padding: 20px 24px;
+		gap: 6px;
+		padding: 20px 16px;
 		background: var(--bg-secondary);
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-lg, 12px);
 		text-decoration: none;
 		transition: border-color 0.15s;
+		text-align: center;
 	}
-	.wotd-card:hover { border-color: var(--accent); }
-	.wotd-char {
-		font-size: 48px;
+	.daily-card:hover { border-color: var(--accent); }
+	.daily-label {
+		font-size: 11px;
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
+		color: var(--text-muted);
+		font-weight: 600;
+	}
+	.daily-main {
+		font-size: 52px;
 		font-family: var(--font-cjk);
 		color: var(--text-primary);
 		line-height: 1;
 	}
-	.wotd-gloss {
-		font-size: var(--font-size-headline);
+	.daily-word { font-size: 36px; }
+	.daily-gloss {
+		font-size: var(--font-size-body);
 		color: var(--text-secondary);
 		text-transform: capitalize;
+	}
+	@media (max-width: 480px) {
+		.daily-row { grid-template-columns: 1fr; }
 	}
 
 	/* ===== Compare ===== */
