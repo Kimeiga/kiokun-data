@@ -48,6 +48,7 @@ pub fn normalize_jyutping_search_string(search_string: &str) -> String {
 /// Parse Jyutping syllables from a string
 /// Returns individual syllables with tone numbers preserved
 /// e.g., "jat1 gin6" → ["jat1", "gin6"]
+#[allow(dead_code)]
 pub fn parse_jyutping_syllables(jyutping: &str) -> Vec<String> {
     jyutping
         .split_whitespace()

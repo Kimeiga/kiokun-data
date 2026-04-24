@@ -943,6 +943,7 @@ fn load_yomitan_cantonese_data(dir_path: &str) -> Result<std::collections::HashM
 }
 
 /// Extract definitions from Yomitan structured content
+#[allow(dead_code)]
 fn extract_yomitan_definitions(definitions: &serde_json::Value) -> Vec<String> {
     let mut result = Vec::new();
 
@@ -962,6 +963,7 @@ fn extract_yomitan_definitions(definitions: &serde_json::Value) -> Vec<String> {
     result
 }
 
+#[allow(dead_code)]
 fn extract_text_from_structured_content(content: &serde_json::Value, result: &mut Vec<String>) {
     if let Some(arr) = content.as_array() {
         for item in arr {
