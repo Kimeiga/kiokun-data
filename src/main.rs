@@ -784,11 +784,11 @@ async fn main() -> Result<()> {
     enrich_components_with_metadata(&mut chinese_char_dict_raw, &chinese_entries);
 
     println!("🔧 Loading MakeMeAHanzi stroke-component mappings...");
-    let makemeahanzi_matches = load_makemeahanzi_matches()
-        .context("Failed to load MakeMeAHanzi matches")?;
+    let makemeahanzi_data = load_makemeahanzi_data()
+        .context("Failed to load MakeMeAHanzi data")?;
 
     println!("🔧 Enriching makemeahanzi images with stroke-component mappings...");
-    enrich_makemeahanzi_with_matches(&mut chinese_char_dict_raw, &makemeahanzi_matches);
+    enrich_makemeahanzi_with_matches(&mut chinese_char_dict_raw, &makemeahanzi_data);
 
     // Build Korean character reading map
     println!("🇰🇷 Building Korean character reading map...");
@@ -2002,10 +2002,18 @@ struct MakeMeAHanziEntry {
     character: String,
     #[serde(default)]
     matches: Option<Vec<Option<Vec<i32>>>>,
+    #[serde(default)]
+    decomposition: Option<String>,
+}
+
+/// Parsed MakeMeAHanzi data for a character
+struct MakeMeAHanziData {
+    matches: Vec<Option<Vec<i32>>>,
+    decomposition: Option<String>,
 }
 
 /// Load MakeMeAHanzi dictionary from GitHub (cached locally)
-fn load_makemeahanzi_matches() -> Result<HashMap<String, Vec<Option<Vec<i32>>>>> {
+fn load_makemeahanzi_data() -> Result<HashMap<String, MakeMeAHanziData>> {
     let cache_path = "data/makemeahanzi_dictionary.txt";
     let url = "https://raw.githubusercontent.com/skishore/makemeahanzi/master/dictionary.txt";
 
@@ -2028,7 +2036,7 @@ fn load_makemeahanzi_matches() -> Result<HashMap<String, Vec<Option<Vec<i32>>>>>
     };
 
     // Parse the JSONL content
-    let mut matches_db: HashMap<String, Vec<Option<Vec<i32>>>> = HashMap::new();
+    let mut db: HashMap<String, MakeMeAHanziData> = HashMap::new();
 
     for line in content.lines() {
         if line.trim().is_empty() {
@@ -2037,47 +2045,97 @@ fn load_makemeahanzi_matches() -> Result<HashMap<String, Vec<Option<Vec<i32>>>>>
 
         if let Ok(entry) = serde_json::from_str::<MakeMeAHanziEntry>(line) {
             if let Some(matches) = entry.matches {
-                matches_db.insert(entry.character, matches);
+                db.insert(entry.character, MakeMeAHanziData {
+                    matches,
+                    decomposition: entry.decomposition,
+                });
             }
         }
     }
 
-    println!("  ✅ Loaded {} characters with stroke-component mappings", matches_db.len());
-    Ok(matches_db)
+    println!("  ✅ Loaded {} characters with stroke-component mappings", db.len());
+    Ok(db)
 }
 
-/// Enrich Chinese character images with MakeMeAHanzi matches (stroke-to-component mapping)
+/// Parse IDS decomposition string to extract component characters in spatial order.
+/// E.g., "⿰礻見" → ["礻", "見"], "⿱雨田" → ["雨", "田"]
+fn parse_ids_components(decomposition: &str) -> Vec<String> {
+    let mut result = Vec::new();
+    for ch in decomposition.chars() {
+        let code = ch as u32;
+        // Skip IDS operators (U+2FF0..U+2FFB)
+        if (0x2FF0..=0x2FFB).contains(&code) {
+            continue;
+        }
+        // Keep CJK characters and radicals
+        if code >= 0x2E80 {
+            result.push(ch.to_string());
+        }
+    }
+    result
+}
+
+/// Enrich Chinese character images with MakeMeAHanzi matches and reorder components
 fn enrich_makemeahanzi_with_matches(
     chinese_chars: &mut Vec<ChineseCharacter>,
-    matches_db: &HashMap<String, Vec<Option<Vec<i32>>>>,
+    mmah_db: &HashMap<String, MakeMeAHanziData>,
 ) {
     let mut enriched_count = 0;
+    let mut reordered_count = 0;
 
     for char_entry in chinese_chars.iter_mut() {
-        // Check if this character has matches data
-        if let Some(matches) = matches_db.get(&char_entry.char) {
-            // Find the makemeahanzi image entry
+        if let Some(mmah_data) = mmah_db.get(&char_entry.char) {
+            // Add matches to the makemeahanzi image
             if let Some(images) = &mut char_entry.images {
                 for image in images.iter_mut() {
                     if image.source == "makemeahanzi" {
-                        // Add matches to the data field
                         if let Some(data) = &mut image.data {
                             if let Some(obj) = data.as_object_mut() {
                                 obj.insert(
                                     "matches".to_string(),
-                                    serde_json::to_value(matches).unwrap()
+                                    serde_json::to_value(&mmah_data.matches).unwrap()
                                 );
                                 enriched_count += 1;
                             }
                         } else {
-                            // Create new data object with matches
                             let mut obj = serde_json::Map::new();
                             obj.insert(
                                 "matches".to_string(),
-                                serde_json::to_value(matches).unwrap()
+                                serde_json::to_value(&mmah_data.matches).unwrap()
                             );
                             image.data = Some(serde_json::Value::Object(obj));
                             enriched_count += 1;
+                        }
+                    }
+                }
+            }
+
+            // Reorder components to match makemeahanzi's spatial decomposition order.
+            // The IDS decomposition (e.g., "⿰礻見") gives left-to-right spatial order.
+            // The matches field uses indices that correspond to this spatial order.
+            // Our components may be in a different order (semantic: meaning first).
+            if let (Some(decomp), Some(components)) = (&mmah_data.decomposition, &mut char_entry.components) {
+                if components.len() == 2 {
+                    let spatial_order = parse_ids_components(decomp);
+                    if spatial_order.len() >= 2 {
+                        let comp0_char = &components[0].character;
+                        let comp1_char = &components[1].character;
+
+                        // Check if our order matches spatial order
+                        // Allow variant matching: 礻 matches 示, etc.
+                        let comp0_matches_spatial0 =
+                            *comp0_char == spatial_order[0] ||
+                            spatial_order[0].contains(comp0_char.as_str()) ||
+                            comp0_char.contains(spatial_order[0].as_str());
+                        let comp1_matches_spatial0 =
+                            *comp1_char == spatial_order[0] ||
+                            spatial_order[0].contains(comp1_char.as_str()) ||
+                            comp1_char.contains(spatial_order[0].as_str());
+
+                        // If comp1 matches spatial[0] but comp0 doesn't, swap
+                        if comp1_matches_spatial0 && !comp0_matches_spatial0 {
+                            components.swap(0, 1);
+                            reordered_count += 1;
                         }
                     }
                 }
@@ -2086,6 +2144,9 @@ fn enrich_makemeahanzi_with_matches(
     }
 
     println!("  ✅ Enriched {} makemeahanzi images with stroke-component mappings", enriched_count);
+    if reordered_count > 0 {
+        println!("  🔄 Reordered {} characters' components to match spatial decomposition", reordered_count);
+    }
 }
 
 // Removed deprecated unified character merging functions (435 lines)
