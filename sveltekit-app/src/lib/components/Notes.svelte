@@ -21,9 +21,10 @@
 
 	interface Props {
 		character: string;
+		compact?: boolean;
 	}
 
-	let { character }: Props = $props();
+	let { character, compact = false }: Props = $props();
 
 	const session = useSession();
 	let notes = $state<Note[]>([]);
@@ -289,6 +290,7 @@
 	});
 </script>
 
+<div class:notes-compact={compact}>
 <SectionHeading id="notes">Notes</SectionHeading>
 
 <div class="mb-2">
@@ -435,8 +437,16 @@
 		{/if}
 	{/if}
 </div>
+</div>
 
 <style>
+	.notes-compact {
+		padding: 0 var(--spacing-lg) var(--spacing-md);
+	}
+	.notes-compact :global(.notes-list) {
+		border-top: none;
+		padding-top: 0;
+	}
 	.note-editor {
 		transition: max-height 0.3s ease-in-out;
 	}

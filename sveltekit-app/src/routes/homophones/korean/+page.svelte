@@ -103,7 +103,7 @@
 						<span class="group-reading">{group.r}</span>
 						<span class="group-count">{group.w.length} characters</span>
 					</div>
-					<Notes character={`ko:${group.r}`} />
+					<Notes character={`ko:${group.r}`} compact />
 					<div class="group-words">
 						{#each group.w as word}
 							<a href="/{word.w}" class="word-entry" lang="ko">

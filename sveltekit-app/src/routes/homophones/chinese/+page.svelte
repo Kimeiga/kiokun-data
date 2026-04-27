@@ -125,7 +125,7 @@
 						<span class="group-reading">{group.p || group.r}</span>
 						<span class="group-count">{group.w.length} words</span>
 					</div>
-					<Notes character={`zh:${group.r}`} />
+					<Notes character={`zh:${group.r}`} compact />
 					<div class="group-words">
 						{#each group.w as word}
 							<a href="/{word.w}" class="word-entry">
