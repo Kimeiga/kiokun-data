@@ -48,34 +48,11 @@
 			</span>
 		{/if}
 
-		<!-- Kana headwords -->
-		{#if displayKana.length > 0}
-			<span class="kana-headwords">
-				{#each displayKana as kana, index}
-					{#if index > 0}
-						<span class="separator">、</span>
-					{/if}
-					<span class="kana-item">
-						<span class="kana-text">
-							<Reading
-								kana={kana.text}
-								pitchAccents={kana.pitchAccents}
-								{accentDisplay}
-							/>
-						</span>
-						{#if kana.tags.length > 0}
-							<HeadwordInfo info={kana.tags} />
-						{/if}
-						{#if kana.common}
-							<Star style="full" />
-						{/if}
-					</span>
-				{/each}
-			</span>
-		{/if}
-
 		<!-- Audio pronunciation + Pitch accent + Homophones -->
 		{#if speakText}
+			{#if displayKana.length > 0 && displayKana[0].common}
+				<Star style="full" />
+			{/if}
 			<SpeakButton text={speakText} lang="ja" size={18} />
 			<PitchAccent word={speakText} reading={displayKana.length > 0 ? displayKana[0].text : undefined} />
 			{#if displayKana.length > 0}
