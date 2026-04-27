@@ -53,8 +53,8 @@
 			{#if displayKana.length > 0 && displayKana[0].common}
 				<Star style="full" />
 			{/if}
-			<SpeakButton text={speakText} lang="ja" size={18} />
 			<PitchAccent word={speakText} reading={displayKana.length > 0 ? displayKana[0].text : undefined} />
+			<SpeakButton text={speakText} lang="ja" size={18} />
 			{#if displayKana.length > 0}
 				<a
 					href="/homophones/japanese?q={encodeURIComponent(displayKana[0].text)}"
