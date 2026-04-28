@@ -442,6 +442,7 @@
 <style>
 	.notes-compact {
 		padding: 0 var(--spacing-lg) var(--spacing-md);
+		border-bottom: 1px solid var(--border-light);
 	}
 	.notes-compact :global(.notes-list) {
 		border-top: none;
