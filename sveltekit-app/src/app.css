@@ -109,7 +109,7 @@
 	--font-size-caption2: 11px;
 
 	/* ── Font stacks ── */
-	--font-cjk: "Noto Sans TC", "Noto Sans SC", "Noto Sans JP", "Noto Sans KR", "PingFang TC", "PingFang SC", "Hiragino Sans", "Microsoft YaHei", sans-serif;
+	--font-cjk: "Noto Sans", "Noto Sans TC", "Noto Sans SC", "Noto Sans JP", "Noto Sans KR", "PingFang TC", "PingFang SC", "Hiragino Sans", "Microsoft YaHei", sans-serif;
 	--font-mono: "Monaco", "Menlo", "Consolas", monospace;
 
 	/* ── Spacing scale ── */

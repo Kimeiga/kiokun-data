@@ -533,7 +533,7 @@
 
 	/* Other Users' Notes */
 	.official-mnemonic {
-		font-size: var(--font-size-body);
+		font-size: 14px;
 		color: var(--text-primary);
 		line-height: 1.6;
 		margin-bottom: var(--spacing-sm);
@@ -677,7 +677,7 @@
 
 	textarea {
 		@apply w-full p-3 border border-border rounded font-sans resize-y box-border bg-primary-secondary text-text-primary leading-relaxed;
-		font-size: var(--font-size-body);
+		font-size: 14px;
 		transition: max-height 0.3s ease-in-out;
 	}
 
