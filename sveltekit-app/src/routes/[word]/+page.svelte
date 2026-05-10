@@ -36,6 +36,18 @@
 
 	let { data }: { data: PageData } = $props();
 
+	// Async sentence components report whether they actually have content
+	let zhSentencesHaveContent = $state(false);
+	let krSentencesHaveContent = $state(false);
+	let jaSentencesHaveContent = $derived(
+		!!data.data.japanese_words?.some((w: any) => w.sense?.some((s: any) => s.examples?.length))
+	);
+	let anySentencesVisible = $derived(
+		(jaSentencesHaveContent && languageStore.preferences.japanese)
+		|| (zhSentencesHaveContent && languageStore.preferences.chinese)
+		|| (krSentencesHaveContent && languageStore.preferences.korean)
+	);
+
 	// Scroll to hash target on mount (for section permalinks)
 	onMount(() => {
 		const hash = window.location.hash?.slice(1);
@@ -1826,30 +1838,29 @@
 		{/if}
 
 		<!-- Example Sentences — unified grid matching the definition columns layout -->
-		{#if (data.data.japanese_words?.some((w: any) => w.sense?.some((s: any) => s.examples?.length)) && languageStore.preferences.japanese)
-			|| (data.data.chinese_words?.length && languageStore.preferences.chinese)
-			|| ((data.data.korean_words?.length || data.data.korean_char || data.data.contained_in_korean?.length) && languageStore.preferences.korean)}
+		{#if anySentencesVisible}
 			<SectionHeading id="sentences">Example Sentences</SectionHeading>
-			<div class="word-sections-grid" style="margin-bottom: var(--spacing-lg);">
-				{#if languageStore.preferences.japanese}
-					<SentenceExamples
-						japaneseSenses={data.data.japanese_words?.flatMap((w: any) => w.sense) ?? []}
-						koreanWords={[]}
-					/>
-				{/if}
-
-				{#if data.data.chinese_words?.length && languageStore.preferences.chinese}
-					<ChineseSentenceExamples word={data.word} />
-				{/if}
-
-				{#if (data.data.korean_words?.length || data.data.korean_char || data.data.contained_in_korean?.length) && languageStore.preferences.korean}
-					<KoreanSentenceExamples
-						word={data.word}
-						containedInKorean={data.data.contained_in_korean?.map((w: any) => typeof w === 'string' ? w : w.w || '') || []}
-					/>
-				{/if}
-			</div>
 		{/if}
+		<div class="word-sections-grid" style={anySentencesVisible ? 'margin-bottom: var(--spacing-lg);' : 'display: none;'}>
+			{#if languageStore.preferences.japanese}
+				<SentenceExamples
+					japaneseSenses={data.data.japanese_words?.flatMap((w: any) => w.sense) ?? []}
+					koreanWords={[]}
+				/>
+			{/if}
+
+			{#if data.data.chinese_words?.length && languageStore.preferences.chinese}
+				<ChineseSentenceExamples word={data.word} bind:hasContent={zhSentencesHaveContent} />
+			{/if}
+
+			{#if (data.data.korean_words?.length || data.data.korean_char || data.data.contained_in_korean?.length) && languageStore.preferences.korean}
+				<KoreanSentenceExamples
+					word={data.word}
+					containedInKorean={data.data.contained_in_korean?.map((w: any) => typeof w === 'string' ? w : w.w || '') || []}
+					bind:hasContent={krSentencesHaveContent}
+				/>
+			{/if}
+		</div>
 
 		<!-- Japanese Names Section -->
 		{#if data.data.japanese_names && data.data.japanese_names.length > 0}

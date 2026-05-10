@@ -658,9 +658,6 @@
 		color: var(--text-secondary);
 		text-transform: capitalize;
 	}
-	@media (max-width: 480px) {
-		.daily-row { grid-template-columns: 1fr; }
-	}
 
 	/* ===== Compare ===== */
 	.compare-grid {

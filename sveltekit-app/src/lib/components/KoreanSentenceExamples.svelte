@@ -4,14 +4,17 @@
 	interface Props {
 		word: string;
 		containedInKorean?: string[]; // Korean words containing this character (for hanja lookup)
+		hasContent?: boolean;
 	}
-	let { word, containedInKorean = [] }: Props = $props();
+	let { word, containedInKorean = [], hasContent = $bindable(false) }: Props = $props();
 
 	interface Sentence { kr: string; en: string; }
 
 	let sentences = $state<Sentence[]>([]);
 	let loaded = $state(false);
 	let expanded = $state(false);
+
+	$effect(() => { hasContent = loaded && sentences.length > 0; });
 
 	function simpleHash(str: string): number {
 		let h = 0;

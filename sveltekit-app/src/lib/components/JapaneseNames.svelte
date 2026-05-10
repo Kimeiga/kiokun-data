@@ -176,6 +176,10 @@
 		border-bottom: 1px solid var(--border-light);
 	}
 
+	.name-entry:last-child {
+		border-bottom: none;
+	}
+
 	.name-headwords {
 		display: flex;
 		gap: var(--spacing-sm);

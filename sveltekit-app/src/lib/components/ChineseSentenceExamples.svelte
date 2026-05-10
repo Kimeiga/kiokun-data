@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	interface Props { word: string; }
-	let { word }: Props = $props();
+	interface Props { word: string; hasContent?: boolean; }
+	let { word, hasContent = $bindable(false) }: Props = $props();
 
 	interface Sentence { simp: string; trad: string; en: string; py: string; }
 
@@ -10,6 +10,8 @@
 	let loaded = $state(false);
 	let showTraditional = $state(false);
 	let expanded = $state(false);
+
+	$effect(() => { hasContent = loaded && sentences.length > 0; });
 
 	function simpleHash(str: string): number {
 		let h = 0;
