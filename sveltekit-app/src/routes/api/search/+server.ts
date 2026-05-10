@@ -116,7 +116,7 @@ export async function GET({ url, platform }: RequestEvent) {
 					ORDER BY
 						custom_rank DESC,   -- Custom relevance first
 						is_common DESC,     -- Common words next
-						rank                -- FTS5 relevance last
+						rowid ASC           -- Source order — primary sense (sense 1) wins ties
 					LIMIT ?
 				`)
 				.bind(query, query, query, query, query, query, query, query, limit * 3)
