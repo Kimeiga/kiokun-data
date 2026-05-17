@@ -2,7 +2,6 @@
 	import { onMount } from 'svelte';
 	import Header from '$lib/components/Header.svelte';
 	import HandwritingInput from '$lib/components/HandwritingInput.svelte';
-	import FeaturedReels from '$lib/components/FeaturedReels.svelte';
 	import { navigateOrSearch } from '$lib/utils/search-navigation';
 	import { goto } from '$app/navigation';
 	import SearchDropdown from '$lib/components/SearchDropdown.svelte';
@@ -361,19 +360,6 @@
 		</div>
 	</section>
 
-	<!-- What's New -->
-	<section class="section">
-		<div class="section-head">
-			<h2>What's New</h2>
-			<p>Watch real content with interactive transcripts</p>
-		</div>
-		<FeaturedReels />
-		<div class="whats-new-links">
-			<a href="/users" class="link-more">Community →</a>
-			<a href="/artifacts" class="link-more">Artifacts →</a>
-		</div>
-	</section>
-
 	<!-- Sentences -->
 	<section class="section">
 		<div class="section-head">
@@ -663,8 +649,6 @@
 		user-select: none;
 	}
 
-	/* ===== What's New ===== */
-	.whats-new-links { display: flex; gap: 16px; margin-top: 12px; }
 
 	/* ===== Sections ===== */
 	.section {

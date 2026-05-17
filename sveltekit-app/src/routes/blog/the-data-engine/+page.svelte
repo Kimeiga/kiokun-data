@@ -9,6 +9,7 @@
 	import DiagramShardMap from '$lib/blog/DiagramShardMap.svelte';
 	import DiagramPipeline from '$lib/blog/DiagramPipeline.svelte';
 	import DiagramLocalVsCloud from '$lib/blog/DiagramLocalVsCloud.svelte';
+	import Specimen from '$lib/blog/Specimen.svelte';
 </script>
 
 <svelte:head>
@@ -82,8 +83,20 @@
 			<p>
 				The payoff: resolving a word is <em>pure computation</em>. The browser builds a
 				URL and fetches one deflate-compressed JSON file. No round-trip to ask "where is
-				it?" — the question answers itself.
+				it?" — the question answers itself. Here is exactly what comes back for
+				<em>ねこ</em> — the bytes on disk, and what the browser inflates them into:
 			</p>
+		</Reveal>
+
+		<Reveal as="div">
+			<Figure
+				n={2}
+				bleed
+				title="One file"
+				caption="The real ねこ.json.deflate from the CDN — 389 opaque bytes that inflate to a 2,726-byte record, 7× smaller on the wire."
+			>
+				<Specimen />
+			</Figure>
 		</Reveal>
 
 		<Reveal as="section">
@@ -108,7 +121,7 @@
 
 		<Reveal as="div">
 			<Figure
-				n={2}
+				n={3}
 				bleed
 				title="Fan-out"
 				caption="30 repositories, and 256 hash-keyed subdirectories inside each one."
@@ -137,7 +150,7 @@
 
 		<Reveal as="div">
 			<Figure
-				n={3}
+				n={4}
 				bleed
 				title="The matrix"
 				caption="One push → 28 parallel lanes → 28 repositories, each replaced wholesale."
@@ -163,7 +176,7 @@
 
 		<Reveal as="div">
 			<Figure
-				n={4}
+				n={5}
 				bleed
 				title="Locality"
 				caption="Move the computation to the data, not 435K files to the cloud."
