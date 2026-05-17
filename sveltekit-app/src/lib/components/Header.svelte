@@ -130,32 +130,11 @@
 				<LanguageToggle compact={true} />
 			{/if}
 			<a
-				href="/users"
+				href="/learning"
 				class="flex items-center justify-center w-9 h-9 md:w-10 md:h-10 rounded-full bg-bg-secondary border border-border text-lg md:text-xl no-underline transition-colors duration-150 hover:border-accent hover:text-accent"
-				title="Community"
-			>
-				👥
-			</a>
-			<a
-				href="/learning-resources"
-				class="flex items-center justify-center w-9 h-9 md:w-10 md:h-10 rounded-full bg-bg-secondary border border-border text-lg md:text-xl no-underline transition-colors duration-150 hover:border-accent hover:text-accent"
-				title="Learning Resources"
+				title="Learning — resources, study, artifacts & community"
 			>
 				🎓
-			</a>
-			<a
-				href="/study"
-				class="flex items-center justify-center w-9 h-9 md:w-10 md:h-10 rounded-full bg-bg-secondary border border-border text-lg md:text-xl no-underline transition-colors duration-150 hover:border-accent hover:text-accent"
-				title="Study"
-			>
-				📚
-			</a>
-			<a
-				href="/artifacts"
-				class="flex items-center justify-center w-9 h-9 md:w-10 md:h-10 rounded-full bg-bg-secondary border border-border text-lg md:text-xl no-underline transition-colors duration-150 hover:border-accent hover:text-accent"
-				title="Artifacts"
-			>
-				📦
 			</a>
 			{#if $session.data?.user}
 				<a
@@ -226,39 +205,12 @@
 			<div class="max-w-[1400px] mx-auto px-4 py-3 flex flex-col gap-3">
 				<!-- Navigation Links -->
 				<a
-					href="/users"
-					class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-bg-secondary border border-border text-text-primary no-underline transition-colors duration-150 hover:border-accent hover:text-accent"
-					onclick={closeMobileMenu}
-				>
-					<span class="text-lg">👥</span>
-					<span class="text-sm font-medium">Community</span>
-				</a>
-
-				<a
-					href="/learning-resources"
+					href="/learning"
 					class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-bg-secondary border border-border text-text-primary no-underline transition-colors duration-150 hover:border-accent hover:text-accent"
 					onclick={closeMobileMenu}
 				>
 					<span class="text-lg">🎓</span>
-					<span class="text-sm font-medium">Learning Resources</span>
-				</a>
-
-				<a
-					href="/study"
-					class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-bg-secondary border border-border text-text-primary no-underline transition-colors duration-150 hover:border-accent hover:text-accent"
-					onclick={closeMobileMenu}
-				>
-					<span class="text-lg">📚</span>
-					<span class="text-sm font-medium">Study</span>
-				</a>
-
-				<a
-					href="/artifacts"
-					class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-bg-secondary border border-border text-text-primary no-underline transition-colors duration-150 hover:border-accent hover:text-accent"
-					onclick={closeMobileMenu}
-				>
-					<span class="text-lg">📦</span>
-					<span class="text-sm font-medium">Artifacts</span>
+					<span class="text-sm font-medium">Learning</span>
 				</a>
 
 				{#if $session.data?.user}
