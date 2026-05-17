@@ -1,0 +1,5 @@
+# Security policy for kiokun.com — RFC 9116
+Contact: mailto:hak7alp@gmail.com
+Expires: 2027-05-17T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://kiokun.com/.well-known/security.txt
