@@ -8,9 +8,100 @@
 	import { chineseScriptStore } from '$lib/game/stores/chineseScript.svelte';
 	import { convertChinese } from '$lib/game/chineseConverter';
 	import { LANGUAGES, type UnifiedExercise, type TileData, type GradeResult, type ApiTile, type Language, type LanguageExercise } from '$lib/game/types';
+	import DictionaryPopup from '$lib/game/DictionaryPopup.svelte';
 
 	// Animation duration for flip transitions
 	const FLIP_DURATION_MS = 200;
+
+	// --- Tap-to-define (Kiokun integration) ------------------------------------
+	// Long-press a tile to look it up in the Kiokun dictionary; a short tap still
+	// selects/deselects the tile as before.
+	let lookupTarget = $state<string | null>(null);
+
+	/**
+	 * Strip duojp's display markup from a tile so it can be used as a dictionary
+	 * query: drop (optional) allomorph markers, take the first slash alternative,
+	 * and remove punctuation/whitespace. Particle-only fragments will simply
+	 * resolve to "no entry" in the popup, which is handled gracefully.
+	 */
+	function normalizeForLookup(text: string): string {
+		let t = text.replace(/\([^)]*\)/g, '');
+		if (t.includes('/')) t = t.split('/')[0];
+		return t
+			.replace(/[\s。、，．！？!?.,…·「」『』（）()【】《》〈〉“”‘’"']/g, '')
+			.trim();
+	}
+
+	function openLookup(rawText: string) {
+		const w = normalizeForLookup(rawText);
+		if (w) lookupTarget = w;
+	}
+
+	/**
+	 * Svelte action: fire `onfire` after a stationary hold (~450ms) and swallow
+	 * the click that follows so the tile's select/deselect doesn't also run.
+	 * Movement (a drag) cancels the timer so drag-and-drop is unaffected.
+	 */
+	function longpress(node: HTMLElement, opts: { onfire: () => void }) {
+		let current = opts;
+		let timer: ReturnType<typeof setTimeout> | null = null;
+		let fired = false;
+		let sx = 0;
+		let sy = 0;
+		const HOLD_MS = 450;
+		const MOVE_TOL = 10;
+
+		const clear = () => {
+			if (timer) {
+				clearTimeout(timer);
+				timer = null;
+			}
+		};
+		const onDown = (e: PointerEvent) => {
+			fired = false;
+			sx = e.clientX;
+			sy = e.clientY;
+			clear();
+			timer = setTimeout(() => {
+				fired = true;
+				current.onfire();
+			}, HOLD_MS);
+		};
+		const onMove = (e: PointerEvent) => {
+			if (timer && (Math.abs(e.clientX - sx) > MOVE_TOL || Math.abs(e.clientY - sy) > MOVE_TOL)) {
+				clear();
+			}
+		};
+		const onClickCapture = (e: MouseEvent) => {
+			if (fired) {
+				e.stopPropagation();
+				e.preventDefault();
+				fired = false;
+			}
+		};
+
+		node.addEventListener('pointerdown', onDown);
+		node.addEventListener('pointermove', onMove);
+		node.addEventListener('pointerup', clear);
+		node.addEventListener('pointercancel', clear);
+		node.addEventListener('pointerleave', clear);
+		node.addEventListener('click', onClickCapture, true);
+
+		return {
+			update(next: { onfire: () => void }) {
+				current = next;
+			},
+			destroy() {
+				clear();
+				node.removeEventListener('pointerdown', onDown);
+				node.removeEventListener('pointermove', onMove);
+				node.removeEventListener('pointerup', clear);
+				node.removeEventListener('pointercancel', clear);
+				node.removeEventListener('pointerleave', clear);
+				node.removeEventListener('click', onClickCapture, true);
+			}
+		};
+	}
 
 	let unifiedExercise: UnifiedExercise | null = $state(null);
 	let answerTiles: TileData[] = $state([]);
@@ -351,8 +442,10 @@ ${result ? `**Last result:** ${result.correct ? 'Correct' : 'Incorrect'}
 					<button
 						class="tile selected"
 						animate:flip={{ duration: FLIP_DURATION_MS }}
+						use:longpress={{ onfire: () => openLookup(tile.text) }}
 						onclick={() => deselectTile(tile)}
 						aria-label={displayText(tile.text)}
+						title="Tap to remove · hold to define"
 					>
 						{@html renderTileHtml(tile.text)}
 					</button>
@@ -379,8 +472,10 @@ ${result ? `**Last result:** ${result.correct ? 'Correct' : 'Incorrect'}
 					<button
 						class="tile"
 						animate:flip={{ duration: FLIP_DURATION_MS }}
+						use:longpress={{ onfire: () => openLookup(tile.text) }}
 						onclick={() => selectTile(tile)}
 						aria-label={displayText(tile.text)}
+						title="Tap to add · hold to define"
 					>
 						{@html renderTileHtml(tile.text)}
 					</button>
@@ -425,6 +520,12 @@ ${result ? `**Last result:** ${result.correct ? 'Correct' : 'Incorrect'}
 			{debugCopied ? '✓ Copied!' : '📋 Copy Context'}
 		</button>
 	{/if}
+
+	<DictionaryPopup
+		word={lookupTarget}
+		lang={languageStore.value}
+		onclose={() => (lookupTarget = null)}
+	/>
 </main>
 
 <style>
