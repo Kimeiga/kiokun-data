@@ -13,3 +13,5 @@ vite.config.ts.timestamp-*
 .wrangler
 wrangler.toml.backup
 
+.env.local
+/static/data-unified/
