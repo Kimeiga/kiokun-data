@@ -9,6 +9,7 @@
 	import { convertChinese } from '$lib/game/chineseConverter';
 	import { LANGUAGES, type UnifiedExercise, type TileData, type GradeResult, type ApiTile, type Language, type LanguageExercise } from '$lib/game/types';
 	import DictionaryPopup from '$lib/game/DictionaryPopup.svelte';
+	import SpeakButton from '$lib/components/shared/SpeakButton.svelte';
 
 	// Animation duration for flip transitions
 	const FLIP_DURATION_MS = 200;
@@ -305,7 +306,16 @@
 		result = gradeUnifiedAnswer(currentExercise, userTokens, languageStore.value);
 	}
 
-	// Text-to-speech for the correct answer using the Web Speech API
+	// Listen-to-answer TTS. For JA/ZH/KO we reuse Kiokun's shared SpeakButton
+	// (platform-aware voice-quality selection — matches the dictionary popup).
+	// Turkish has no SpeakButton voice set, so it falls back to the basic
+	// Web Speech path below.
+	const answerSpeakLang = $derived(
+		languageStore.value === 'ja' || languageStore.value === 'zh' || languageStore.value === 'ko'
+			? (languageStore.value as 'ja' | 'zh' | 'ko')
+			: null
+	);
+
 	const SPEECH_LANG: Record<Language, string> = {
 		ja: 'ja-JP',
 		zh: 'zh-CN',
@@ -502,15 +512,26 @@ ${result ? `**Last result:** ${result.correct ? 'Correct' : 'Incorrect'}
 					<p class="result-text">Not quite right</p>
 					<p class="expected">Expected: {displayText(result.expected)}</p>
 				{/if}
-				<button
-					class="btn speak"
-					class:speaking
-					onclick={speakAnswer}
-					title="Listen to the correct answer"
-					aria-label="Listen to the correct answer"
-				>
-					🔊 Listen
-				</button>
+				{#if currentExercise && answerSpeakLang}
+					<span class="speak-answer" title="Listen to the correct answer">
+						<SpeakButton
+							text={displayText(currentExercise.text)}
+							lang={answerSpeakLang}
+							size={24}
+						/>
+						<span class="speak-answer-label">Listen</span>
+					</span>
+				{:else}
+					<button
+						class="btn speak"
+						class:speaking
+						onclick={speakAnswer}
+						title="Listen to the correct answer"
+						aria-label="Listen to the correct answer"
+					>
+						🔊 Listen
+					</button>
+				{/if}
 				<button class="btn next" onclick={loadExercise}>Next Exercise →</button>
 			</section>
 		{/if}
@@ -880,6 +901,25 @@ ${result ? `**Last result:** ${result.correct ? 'Correct' : 'Incorrect'}
 	}
 
 	/* Listen / TTS button */
+	/* Kiokun SpeakButton wrapper (JA/ZH/KO) — aligns with the pill buttons */
+	.speak-answer {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		margin-right: 0.75rem;
+		padding: 0.4rem 0.9rem;
+		border: 2px solid var(--border-color);
+		border-radius: 12px;
+		background: var(--bg-secondary);
+		color: var(--text-secondary);
+		vertical-align: middle;
+	}
+
+	.speak-answer-label {
+		font-size: 0.95rem;
+		font-weight: 600;
+	}
+
 	.btn.speak {
 		background: var(--bg-secondary);
 		color: var(--text-primary);
