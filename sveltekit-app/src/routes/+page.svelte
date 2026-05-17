@@ -319,12 +319,15 @@
 		</div>
 		<div class="cjk-grid">
 			{#each compareExamples as ex}
-				<a href="/{ex.trad}" class="cjk-card" title={ex.meaning}>
-					<span class="cjk-glyph">{ex.trad}</span>
-					<span class="cjk-sep">/</span>
-					<span class="cjk-glyph">{ex.simp}</span>
-					<span class="cjk-sep">/</span>
-					<span class="cjk-glyph">{ex.jp}</span>
+				<a href="/{ex.trad}" class="cjk-card">
+					<span class="cjk-row">
+						<span class="cjk-glyph">{ex.trad}</span>
+						<span class="cjk-sep">/</span>
+						<span class="cjk-glyph">{ex.simp}</span>
+						<span class="cjk-sep">/</span>
+						<span class="cjk-glyph">{ex.jp}</span>
+					</span>
+					<span class="cjk-meaning">{ex.meaning}</span>
 				</a>
 			{/each}
 		</div>
@@ -628,15 +631,28 @@
 	}
 	.cjk-card {
 		display: flex;
+		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		gap: 10px;
-		padding: 18px 8px;
+		gap: 7px;
+		padding: 16px 8px 12px;
 		background: var(--bg-secondary);
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-md);
 		text-decoration: none;
 		transition: border-color 0.15s, box-shadow 0.15s;
+	}
+	.cjk-row {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 10px;
+	}
+	.cjk-meaning {
+		font-size: var(--font-size-caption1);
+		color: var(--text-tertiary);
+		text-align: center;
+		line-height: 1.3;
 	}
 	.cjk-card:hover {
 		border-color: var(--accent);
