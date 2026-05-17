@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import Header from '$lib/components/Header.svelte';
 	import HandwritingInput from '$lib/components/HandwritingInput.svelte';
+	import FeaturedReels from '$lib/components/FeaturedReels.svelte';
 	import { navigateOrSearch } from '$lib/utils/search-navigation';
 	import { goto } from '$app/navigation';
 	import SearchDropdown from '$lib/components/SearchDropdown.svelte';
@@ -357,6 +358,15 @@
 			{#each searchSuggestions as term}
 				<a href="/search?q={encodeURIComponent(term)}" class="search-chip">{term}</a>
 			{/each}
+		</div>
+	</section>
+
+	<!-- Featured videos (heading intentionally omitted) -->
+	<section class="section">
+		<FeaturedReels />
+		<div class="whats-new-links">
+			<a href="/users" class="link-more">Community →</a>
+			<a href="/artifacts" class="link-more">Artifacts →</a>
 		</div>
 	</section>
 
@@ -887,6 +897,11 @@
 		font-weight: 500;
 		color: var(--text-primary);
 		text-align: center;
+	}
+	.whats-new-links {
+		display: flex;
+		gap: 16px;
+		margin-top: 12px;
 	}
 	.link-more {
 		display: block;
