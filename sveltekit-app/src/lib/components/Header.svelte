@@ -136,6 +136,13 @@
 			>
 				🎓
 			</a>
+			<a
+				href="/blog"
+				class="flex items-center justify-center w-9 h-9 md:w-10 md:h-10 rounded-full bg-bg-secondary border border-border text-lg md:text-xl no-underline transition-colors duration-150 hover:border-accent hover:text-accent"
+				title="The Kiokun Notebook — engineering blog"
+			>
+				📓
+			</a>
 			{#if $session.data?.user}
 				<a
 					href="/lists"
@@ -211,6 +218,15 @@
 				>
 					<span class="text-lg">🎓</span>
 					<span class="text-sm font-medium">Learning</span>
+				</a>
+
+				<a
+					href="/blog"
+					class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-bg-secondary border border-border text-text-primary no-underline transition-colors duration-150 hover:border-accent hover:text-accent"
+					onclick={closeMobileMenu}
+				>
+					<span class="text-lg">📓</span>
+					<span class="text-sm font-medium">Notebook</span>
 				</a>
 
 				{#if $session.data?.user}

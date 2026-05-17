@@ -165,12 +165,13 @@
 		{ trad: '經濟', simp: '经济', label: 'Economy' },
 		{ trad: '科學', simp: '科学', label: 'Science' },
 		{ trad: '未來', simp: '未来', label: 'Future' },
+		{ trad: '哲學', simp: '哲学', label: 'Philosophy' },
 	];
 
 	// English search suggestions
 	const searchSuggestions = [
 		'beautiful', 'water', 'love', 'eat', 'house', 'big',
-		'happy', 'sun', 'mountain', 'friend', 'time', 'new'
+		'happy', 'sun', 'mountain', 'friend', 'time'
 	];
 
 	// Sample sentences for each language
