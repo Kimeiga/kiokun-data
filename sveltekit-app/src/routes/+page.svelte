@@ -320,7 +320,9 @@
 			{#each compareExamples as ex}
 				<a href="/{ex.trad}" class="cjk-card" title={ex.meaning}>
 					<span class="cjk-glyph">{ex.trad}</span>
+					<span class="cjk-sep">/</span>
 					<span class="cjk-glyph">{ex.simp}</span>
+					<span class="cjk-sep">/</span>
 					<span class="cjk-glyph">{ex.jp}</span>
 				</a>
 			{/each}
@@ -651,6 +653,13 @@
 	}
 	.cjk-card:hover .cjk-glyph {
 		color: var(--accent);
+	}
+	.cjk-sep {
+		font-size: 18px;
+		color: var(--text-muted);
+		opacity: 0.55;
+		font-weight: 300;
+		user-select: none;
 	}
 
 	/* ===== What's New ===== */
