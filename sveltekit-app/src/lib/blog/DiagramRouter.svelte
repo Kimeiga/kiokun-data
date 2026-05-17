@@ -59,12 +59,27 @@
 			<text x="783" y="195" class="path">/a3/日本.json.deflate</text>
 		</g>
 
-		<!-- travelling packet -->
+		<!-- Lead packet: word → count → hash, in the first half of the loop. -->
 		<circle r="5.5" class="packet">
-			<animateMotion dur="4.6s" repeatCount="indefinite"
-				keyPoints="0;0.18;0.36;0.62;1" keyTimes="0;0.25;0.5;0.78;1" calcMode="spline"
-				keySplines="0.5 0 0.5 1;0.5 0 0.5 1;0.5 0 0.5 1;0.5 0 0.5 1"
-				path="M84 180 L283 180 L283 276 L522 276 L522 121 L783 182" />
+			<animateMotion dur="4s" repeatCount="indefinite" calcMode="spline"
+				keyPoints="0;0.5;1;1" keyTimes="0;0.25;0.5;1"
+				keySplines="0.5 0 0.5 1;0.5 0 0.5 1;0 0 1 1"
+				path="M84 180 L283 180 L283 276" />
+		</circle>
+		<!-- The single hash splits into TWO independent coordinates. They are
+		     parked at the hash for the first half, then travel out in
+		     parallel — repo and subdir never depend on one another. -->
+		<circle r="5" class="packet fork">
+			<animateMotion dur="4s" repeatCount="indefinite" calcMode="spline"
+				keyPoints="0;0;0.6;1" keyTimes="0;0.5;0.8;1"
+				keySplines="0 0 1 1;0.5 0 0.5 1;0.5 0 0.5 1"
+				path="M283 276 L522 121 L783 182" />
+		</circle>
+		<circle r="5" class="packet fork">
+			<animateMotion dur="4s" repeatCount="indefinite" calcMode="spline"
+				keyPoints="0;0;0.6;1" keyTimes="0;0.5;0.8;1"
+				keySplines="0 0 1 1;0.5 0 0.5 1;0.5 0 0.5 1"
+				path="M283 276 L522 277 L783 182" />
 		</circle>
 	</svg>
 </div>

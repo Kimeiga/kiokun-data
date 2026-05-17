@@ -141,22 +141,12 @@
 		{ trad: '實', simp: '实', jp: '実', meaning: 'real' },
 		{ trad: '戰', simp: '战', jp: '戦', meaning: 'war' },
 		{ trad: '驛', simp: '驿', jp: '駅', meaning: 'station' },
-	];
-
-	// Shared characters - exist in both Chinese and Japanese
-	const sharedCharacters = [
-		{ trad: '愛', simp: '爱', label: 'Love' },
-		{ trad: '心', label: 'Heart' },
-		{ trad: '夢', simp: '梦', label: 'Dream' },
-		{ trad: '空', label: 'Sky' },
-		{ trad: '山', label: 'Mountain' },
-		{ trad: '水', label: 'Water' },
-		{ trad: '火', label: 'Fire' },
-		{ trad: '風', simp: '风', label: 'Wind' },
-		{ trad: '月', label: 'Moon' },
-		{ trad: '日', label: 'Sun' },
-		{ trad: '花', label: 'Flower' },
-		{ trad: '雨', label: 'Rain' },
+		{ trad: '氣', simp: '气', jp: '気', meaning: 'energy / qi' },
+		{ trad: '樂', simp: '乐', jp: '楽', meaning: 'music / joy' },
+		{ trad: '觀', simp: '观', jp: '観', meaning: 'to observe' },
+		{ trad: '經', simp: '经', jp: '経', meaning: 'to pass through' },
+		{ trad: '變', simp: '变', jp: '変', meaning: 'to change' },
+		{ trad: '藝', simp: '艺', jp: '芸', meaning: 'art' },
 	];
 
 	// Shared words
@@ -316,20 +306,36 @@
 		</section>
 	{/if}
 
-	<!-- Characters — prominent, the core product -->
+	<!-- Characters — prominent, the core product. These are deliberately
+	     characters that render differently across Traditional Chinese,
+	     Simplified Chinese and Japanese, so the grid showcases the whole
+	     point of a cross-CJK dictionary. -->
 	<section class="section">
 		<div class="section-head">
 			<h2>Characters</h2>
+			<p>One character, three writing systems</p>
 		</div>
-		<div class="char-grid">
-			{#each sharedCharacters as item}
-				<a href="/{item.trad}" class="char-card">
-					<span class="char-main">{item.trad}</span>
-					{#if item.simp && item.simp !== item.trad}
-						<span class="char-alt">{item.simp}</span>
-					{/if}
-					<span class="char-label">{item.label}</span>
-				</a>
+		<div class="compare-grid">
+			{#each compareExamples as ex}
+				<div class="compare-card">
+					<div class="compare-chars">
+						<a href="/{ex.trad}" class="compare-char" title="Traditional">
+							<span class="compare-label">Traditional</span>
+							<span class="compare-glyph">{ex.trad}</span>
+						</a>
+						<span class="compare-arrow">→</span>
+						<a href="/{ex.simp}" class="compare-char" title="Simplified Chinese">
+							<span class="compare-label">Simplified</span>
+							<span class="compare-glyph">{ex.simp}</span>
+						</a>
+						<span class="compare-arrow">→</span>
+						<a href="/{ex.jp}" class="compare-char" title="Japanese">
+							<span class="compare-label">Japanese</span>
+							<span class="compare-glyph">{ex.jp}</span>
+						</a>
+					</div>
+					<span class="compare-meaning">{ex.meaning}</span>
+				</div>
 			{/each}
 		</div>
 	</section>
@@ -361,37 +367,6 @@
 		<div class="chip-row">
 			{#each searchSuggestions as term}
 				<a href="/search?q={encodeURIComponent(term)}" class="search-chip">{term}</a>
-			{/each}
-		</div>
-	</section>
-
-	<!-- Compare: Traditional vs Simplified vs Japanese -->
-	<section class="section">
-		<div class="section-head">
-			<h2>Compare</h2>
-			<p>Same character, three writing systems</p>
-		</div>
-		<div class="compare-grid">
-			{#each compareExamples as ex}
-				<div class="compare-card">
-					<div class="compare-chars">
-						<a href="/{ex.trad}" class="compare-char" title="Traditional">
-							<span class="compare-label">Traditional</span>
-							<span class="compare-glyph">{ex.trad}</span>
-						</a>
-						<span class="compare-arrow">→</span>
-						<a href="/{ex.simp}" class="compare-char" title="Simplified Chinese">
-							<span class="compare-label">Simplified</span>
-							<span class="compare-glyph">{ex.simp}</span>
-						</a>
-						<span class="compare-arrow">→</span>
-						<a href="/{ex.jp}" class="compare-char" title="Japanese">
-							<span class="compare-label">Japanese</span>
-							<span class="compare-glyph">{ex.jp}</span>
-						</a>
-					</div>
-					<span class="compare-meaning">{ex.meaning}</span>
-				</div>
 			{/each}
 		</div>
 	</section>
@@ -713,46 +688,6 @@
 		margin: 4px 0 0;
 	}
 
-	/* ===== Character Grid ===== */
-	.char-grid {
-		display: grid;
-		grid-template-columns: repeat(6, 1fr);
-		gap: 10px;
-	}
-	.char-card {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		padding: 14px 8px 10px;
-		background: var(--bg-secondary);
-		border: 1px solid var(--border-color);
-		border-radius: var(--radius-md);
-		text-decoration: none;
-		transition: border-color 0.15s, box-shadow 0.15s;
-	}
-	.char-card:hover {
-		border-color: var(--accent);
-		box-shadow: 0 2px 8px var(--shadow);
-	}
-	.char-main {
-		font-size: 32px;
-		font-weight: 600;
-		color: var(--text-primary);
-		font-family: var(--font-cjk);
-		line-height: 1.1;
-	}
-	.char-alt {
-		font-size: var(--font-size-caption1);
-		color: var(--text-muted);
-		margin-top: 2px;
-	}
-	.char-label {
-		font-size: var(--font-size-caption1);
-		color: var(--text-tertiary);
-		margin-top: 4px;
-	}
-
 	/* ===== Word List ===== */
 	.word-list {
 		display: flex;
@@ -1014,13 +949,6 @@
 		.hero-title {
 			font-size: 36px;
 		}
-		.char-grid {
-			grid-template-columns: repeat(4, 1fr);
-			gap: 8px;
-		}
-		.char-main {
-			font-size: 24px;
-		}
 		.sentences-grid {
 			grid-template-columns: 1fr;
 			gap: 16px;
@@ -1036,9 +964,6 @@
 	}
 
 	@media (max-width: 480px) {
-		.char-grid {
-			grid-template-columns: repeat(3, 1fr);
-		}
 		.cat-grid {
 			grid-template-columns: repeat(2, 1fr);
 		}
