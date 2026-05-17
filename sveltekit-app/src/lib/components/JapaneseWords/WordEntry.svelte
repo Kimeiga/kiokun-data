@@ -28,7 +28,11 @@
 
 <div class="word-entry">
 	<div class="headwords">
-		<!-- Kanji headwords -->
+		<!-- Headword: kanji forms when present, otherwise the kana itself is
+		     the headword (kana-only words like きっぱり). Exactly one common
+		     star per headword form — the kana reading does NOT get its own
+		     extra star when kanji are present (that produced a double star
+		     on common jukugo). -->
 		{#if displayKanji.length > 0}
 			<span class="kanji-headwords">
 				{#each displayKanji as kanji, index}
@@ -46,13 +50,27 @@
 					</span>
 				{/each}
 			</span>
+		{:else if displayKana.length > 0}
+			<span class="kana-headwords">
+				{#each displayKana as kana, index}
+					{#if index > 0}
+						<span class="separator">、</span>
+					{/if}
+					<span class="kana-item">
+						<span class="kana-text">{kana.text}</span>
+						{#if kana.tags.length > 0}
+							<HeadwordInfo info={kana.tags} />
+						{/if}
+						{#if kana.common}
+							<Star style="full" />
+						{/if}
+					</span>
+				{/each}
+			</span>
 		{/if}
 
 		<!-- Audio pronunciation + Pitch accent + Homophones -->
 		{#if speakText}
-			{#if displayKana.length > 0 && displayKana[0].common}
-				<Star style="full" />
-			{/if}
 			<PitchAccent word={speakText} reading={displayKana.length > 0 ? displayKana[0].text : undefined} />
 			<SpeakButton text={speakText} lang="ja" size={18} />
 			{#if displayKana.length > 0}
