@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { dev } from '$app/environment';
 	import { fly, fade } from 'svelte/transition';
-	import { lookupWord, summarizeEntry, type EntrySummary } from '$lib/dictionary/lookup';
+	import { lookupWord, lookupTurkish, summarizeEntry, type EntrySummary } from '$lib/dictionary/lookup';
 	import SpeakButton from '$lib/components/shared/SpeakButton.svelte';
 	import type { Language } from '$lib/game/types';
 
@@ -39,6 +39,22 @@
 		phase = 'loading';
 		summary = null;
 		conjugationInfo = undefined;
+
+		// Turkish has no Kiokun entry — resolve from ozcuk's CDN instead.
+		if (lang === 'tr') {
+			const tr = await lookupTurkish(w, fetch);
+			if (id !== requestId) return;
+			if (!tr) {
+				notfoundWord = w;
+				phase = 'notfound';
+				return;
+			}
+			summary = tr;
+			resolvedWord = w;
+			conjugationInfo = undefined;
+			phase = 'ok';
+			return;
+		}
 
 		let result = await lookupWord(w, fetch, dev);
 		let conj: string | undefined;
@@ -147,7 +163,7 @@
 
 			<a
 				class="dp-full"
-				href={`/${encodeURIComponent(resolvedWord)}`}
+				href={summary.fullHref ?? `/${encodeURIComponent(resolvedWord)}`}
 				target="_blank"
 				rel="noopener"
 			>

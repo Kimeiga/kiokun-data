@@ -24,10 +24,61 @@ export interface EntrySummary {
 	headword: string;
 	reading?: string; // pinyin / kana / romanization
 	definitions: string[];
+	/** External "full entry" link (Turkish points at ozcuk; others use the internal route). */
+	fullHref?: string;
+}
+
+function inflateJson<T>(buf: ArrayBuffer): T {
+	return JSON.parse(strFromU8(decompressSync(new Uint8Array(buf)))) as T;
 }
 
 function decompressAndParse(buf: ArrayBuffer): DictionaryEntry {
-	return JSON.parse(strFromU8(decompressSync(new Uint8Array(buf)))) as DictionaryEntry;
+	return inflateJson<DictionaryEntry>(buf);
+}
+
+// --- Turkish (ozcuk) -------------------------------------------------------
+// Kiokun has no Turkish dictionary. ozcuk publishes its dictionary as a public
+// GitHub CDN of deflate-compressed per-word JSON — same model as Kiokun's
+// shards — so we fetch it client-side directly (no D1 binding / no API route),
+// consistent with how ja/zh/ko already resolve.
+const OZCUK_CDN = 'https://raw.githubusercontent.com/Kimeiga/ozcuk-data/main';
+const OZCUK_SITE = 'https://ozcuk.pages.dev';
+
+interface OzcukWord {
+	word: string;
+	pos?: string;
+	senses?: Array<{ glosses?: string[] }>;
+	pronunciation?: string;
+}
+
+/** Look up a Turkish word in ozcuk's CDN. Exact-match (lowercased) only. */
+export async function lookupTurkish(
+	word: string,
+	fetchFn: typeof fetch = fetch
+): Promise<EntrySummary | null> {
+	const norm = word.toLowerCase().trim();
+	if (!norm) return null;
+	try {
+		const encoded = encodeURIComponent(norm);
+		// External CDN: use global fetch to bypass SvelteKit's wrapper.
+		const res = await globalThis.fetch(`${OZCUK_CDN}/words/${encoded}.json.deflate`);
+		if (!res.ok) return null;
+		const data = inflateJson<OzcukWord>(await res.arrayBuffer());
+		const defs = (data.senses ?? [])
+			.flatMap((s) => s.glosses ?? [])
+			.map((g) => g.trim())
+			.filter(Boolean);
+		if (!defs.length) return null;
+		return {
+			lang: 'other',
+			headword: data.word || norm,
+			reading: data.pronunciation,
+			definitions: demoteProperNouns(defs),
+			fullHref: `${OZCUK_SITE}/${encoded}`
+		};
+	} catch {
+		return null;
+	}
 }
 
 /**
