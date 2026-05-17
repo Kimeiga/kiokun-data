@@ -147,6 +147,8 @@
 		{ trad: '經', simp: '经', jp: '経', meaning: 'to pass through' },
 		{ trad: '變', simp: '变', jp: '変', meaning: 'to change' },
 		{ trad: '藝', simp: '艺', jp: '芸', meaning: 'art' },
+		{ trad: '賣', simp: '卖', jp: '売', meaning: 'to sell' },
+		{ trad: '讀', simp: '读', jp: '読', meaning: 'to read' },
 	];
 
 	// Shared words
@@ -313,29 +315,14 @@
 	<section class="section">
 		<div class="section-head">
 			<h2>Characters</h2>
-			<p>One character, three writing systems</p>
 		</div>
-		<div class="compare-grid">
+		<div class="cjk-grid">
 			{#each compareExamples as ex}
-				<div class="compare-card">
-					<div class="compare-chars">
-						<a href="/{ex.trad}" class="compare-char" title="Traditional">
-							<span class="compare-label">Traditional</span>
-							<span class="compare-glyph">{ex.trad}</span>
-						</a>
-						<span class="compare-arrow">→</span>
-						<a href="/{ex.simp}" class="compare-char" title="Simplified Chinese">
-							<span class="compare-label">Simplified</span>
-							<span class="compare-glyph">{ex.simp}</span>
-						</a>
-						<span class="compare-arrow">→</span>
-						<a href="/{ex.jp}" class="compare-char" title="Japanese">
-							<span class="compare-label">Japanese</span>
-							<span class="compare-glyph">{ex.jp}</span>
-						</a>
-					</div>
-					<span class="compare-meaning">{ex.meaning}</span>
-				</div>
+				<a href="/{ex.trad}" class="cjk-card" title={ex.meaning}>
+					<span class="cjk-glyph">{ex.trad}</span>
+					<span class="cjk-glyph">{ex.simp}</span>
+					<span class="cjk-glyph">{ex.jp}</span>
+				</a>
 			{/each}
 		</div>
 	</section>
@@ -634,34 +621,37 @@
 		text-transform: capitalize;
 	}
 
-	/* ===== Compare ===== */
-	.compare-grid {
+	/* ===== Characters (cross-CJK glyphs) ===== */
+	.cjk-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+		grid-template-columns: repeat(4, 1fr);
 		gap: 10px;
 	}
-	.compare-card {
+	.cjk-card {
 		display: flex;
-		flex-direction: column;
-		gap: 6px;
-		padding: 12px 16px;
+		align-items: center;
+		justify-content: center;
+		gap: 10px;
+		padding: 18px 8px;
 		background: var(--bg-secondary);
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-md);
-	}
-	.compare-chars { display: flex; align-items: center; gap: 6px; justify-content: center; }
-	.compare-char {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
 		text-decoration: none;
-		transition: color 0.15s;
+		transition: border-color 0.15s, box-shadow 0.15s;
 	}
-	.compare-char:hover .compare-glyph { color: var(--accent); }
-	.compare-label { font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
-	.compare-glyph { font-size: 28px; font-family: var(--font-cjk); color: var(--text-primary); line-height: 1.2; }
-	.compare-arrow { color: var(--text-muted); font-size: 14px; }
-	.compare-meaning { font-size: var(--font-size-caption1); color: var(--text-secondary); text-align: center; }
+	.cjk-card:hover {
+		border-color: var(--accent);
+		box-shadow: 0 2px 8px var(--shadow);
+	}
+	.cjk-glyph {
+		font-size: 30px;
+		font-family: var(--font-cjk);
+		color: var(--text-primary);
+		line-height: 1.1;
+	}
+	.cjk-card:hover .cjk-glyph {
+		color: var(--accent);
+	}
 
 	/* ===== What's New ===== */
 	.whats-new-links { display: flex; gap: 16px; margin-top: 12px; }
@@ -966,6 +956,12 @@
 	@media (max-width: 480px) {
 		.cat-grid {
 			grid-template-columns: repeat(2, 1fr);
+		}
+		.cjk-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+		.cjk-glyph {
+			font-size: 24px;
 		}
 	}
 </style>

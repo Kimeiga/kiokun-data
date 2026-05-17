@@ -1,60 +1,128 @@
 <script lang="ts">
-	const sections = [
-		{
-			href: '/learning-resources',
-			icon: '🎓',
-			title: 'Learning Resources',
-			desc: 'Curated videos, guides and reading paths for Japanese, Chinese & Korean.'
-		},
-		{
-			href: '/study',
-			icon: '📚',
-			title: 'Study',
-			desc: 'Your spaced-repetition decks, review queue and progress stats.'
-		},
-		{
-			href: '/artifacts',
-			icon: '📦',
-			title: 'Artifacts',
-			desc: 'Saved sentences, mined cards and shareable study artifacts.'
-		},
-		{
-			href: '/users',
-			icon: '👥',
-			title: 'Community',
-			desc: 'Other learners, their public notes and shared collections.'
-		}
-	];
+	import Header from '$lib/components/Header.svelte';
 </script>
 
 <svelte:head>
 	<title>Learning — Kiokun</title>
-	<meta name="description" content="Learning hub: resources, study tools, artifacts and community." />
+	<meta
+		name="description"
+		content="Learn Chinese, Japanese & Korean through real content, homophones, study tools and artifacts."
+	/>
 </svelte:head>
 
-<main class="mx-auto max-w-3xl px-4 py-10 md:py-16">
-	<header class="mb-8 md:mb-12">
-		<p class="text-sm font-medium tracking-widest uppercase text-accent mb-2">Learning</p>
-		<h1 class="text-3xl md:text-4xl font-bold text-text-primary">Everything to keep learning</h1>
-		<p class="mt-3 text-text-secondary max-w-xl">
-			Resources, your study tools, saved artifacts and the community — gathered in one place.
-		</p>
-	</header>
+<Header currentWord="" />
 
-	<div class="grid gap-3 sm:grid-cols-2">
-		{#each sections as s}
-			<a
-				href={s.href}
-				class="group flex flex-col gap-2 rounded-xl border border-border bg-bg-secondary p-5 no-underline transition-colors duration-150 hover:border-accent"
-			>
-				<span class="text-2xl">{s.icon}</span>
-				<span
-					class="text-lg font-semibold text-text-primary transition-colors group-hover:text-accent"
+<div class="max-w-4xl mx-auto px-4 py-8">
+	<h1 class="text-4xl font-bold mb-4 text-text-primary">🎓 Learning</h1>
+	<p class="text-lg text-text-secondary mb-8">
+		Learn Chinese, Japanese &amp; Korean through real content, example sentences, homophones,
+		your study deck, and saved artifacts.
+	</p>
+
+	<div class="space-y-6">
+		<section>
+			<h2 class="text-2xl font-bold mb-4 text-text-primary">🇯🇵 Japanese</h2>
+			<div class="grid gap-4 md:grid-cols-2">
+				<a
+					href="/learning-resources/japanese/scripting-japan"
+					class="block p-6 bg-bg-secondary border border-border rounded-lg hover:shadow-lg transition-shadow"
 				>
-					{s.title}
-				</span>
-				<span class="text-sm leading-relaxed text-text-secondary">{s.desc}</span>
+					<div class="flex items-start gap-4">
+						<div class="text-4xl">🎥</div>
+						<div class="flex-1">
+							<h3 class="text-xl font-bold mb-2 text-text-primary">Scripting Japan</h3>
+							<p class="text-text-secondary mb-3">
+								Learn natural Japanese through real conversations and street interviews
+							</p>
+							<div class="flex items-center gap-2 text-sm text-text-tertiary">
+								<span class="px-2 py-1 bg-bg-tertiary rounded">YouTube</span>
+								<span class="px-2 py-1 bg-bg-tertiary rounded">Street Interviews</span>
+								<span class="px-2 py-1 bg-bg-tertiary rounded">Natural Speech</span>
+							</div>
+						</div>
+					</div>
+				</a>
+
+				<a
+					href="/japanese-emoji"
+					class="block p-6 bg-bg-secondary border border-border rounded-lg hover:shadow-lg transition-shadow"
+				>
+					<div class="flex items-start gap-4">
+						<div class="text-4xl">😊</div>
+						<div class="flex-1">
+							<h3 class="text-xl font-bold mb-2 text-text-primary">Japanese Emoji</h3>
+							<p class="text-text-secondary mb-3">
+								Explore Japanese emoticons (kaomoji) and their meanings
+							</p>
+							<div class="flex items-center gap-2 text-sm text-text-tertiary">
+								<span class="px-2 py-1 bg-bg-tertiary rounded">Kaomoji</span>
+								<span class="px-2 py-1 bg-bg-tertiary rounded">Emoticons</span>
+								<span class="px-2 py-1 bg-bg-tertiary rounded">Culture</span>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+		</section>
+
+		<section>
+			<h2 class="text-2xl font-bold mb-4 text-text-primary">🔊 Homophones</h2>
+			<div class="grid gap-4 md:grid-cols-3">
+				<a href="/homophones/japanese" class="block p-5 bg-bg-secondary border border-border rounded-lg hover:shadow-lg transition-shadow">
+					<div class="text-2xl mb-2">🇯🇵</div>
+					<h3 class="text-lg font-bold mb-1 text-text-primary">Japanese</h3>
+					<p class="text-sm text-text-secondary">9,649 word groups with pitch accent patterns</p>
+				</a>
+				<a href="/homophones/chinese" class="block p-5 bg-bg-secondary border border-border rounded-lg hover:shadow-lg transition-shadow">
+					<div class="text-2xl mb-2">🇨🇳</div>
+					<h3 class="text-lg font-bold mb-1 text-text-primary">Chinese</h3>
+					<p class="text-sm text-text-secondary">5,000 word groups by pinyin pronunciation</p>
+				</a>
+				<a href="/homophones/korean" class="block p-5 bg-bg-secondary border border-border rounded-lg hover:shadow-lg transition-shadow">
+					<div class="text-2xl mb-2">🇰🇷</div>
+					<h3 class="text-lg font-bold mb-1 text-text-primary">Korean</h3>
+					<p class="text-sm text-text-secondary">585 hanja groups by hangul reading</p>
+				</a>
+			</div>
+		</section>
+
+		<section>
+			<h2 class="text-2xl font-bold mb-4 text-text-primary">📦 Artifacts</h2>
+			<a href="/artifacts" class="block p-6 bg-bg-secondary border border-border rounded-lg hover:shadow-lg transition-shadow">
+				<p class="text-text-secondary">
+					Upload photos of real-world text — product packaging, signs, menus — and study the
+					vocabulary with an interactive reader. Every word is clickable with dictionary
+					definitions.
+				</p>
 			</a>
-		{/each}
+		</section>
+
+		<section>
+			<h2 class="text-2xl font-bold mb-4 text-text-primary">📚 Study &amp; community</h2>
+			<div class="grid gap-4 md:grid-cols-2">
+				<a href="/study" class="block p-6 bg-bg-secondary border border-border rounded-lg hover:shadow-lg transition-shadow">
+					<div class="flex items-start gap-4">
+						<div class="text-4xl">📚</div>
+						<div class="flex-1">
+							<h3 class="text-xl font-bold mb-2 text-text-primary">Study</h3>
+							<p class="text-text-secondary">
+								Your spaced-repetition decks, review queue and progress.
+							</p>
+						</div>
+					</div>
+				</a>
+				<a href="/users" class="block p-6 bg-bg-secondary border border-border rounded-lg hover:shadow-lg transition-shadow">
+					<div class="flex items-start gap-4">
+						<div class="text-4xl">👥</div>
+						<div class="flex-1">
+							<h3 class="text-xl font-bold mb-2 text-text-primary">Community</h3>
+							<p class="text-text-secondary">
+								Other learners, their public notes and shared collections.
+							</p>
+						</div>
+					</div>
+				</a>
+			</div>
+		</section>
 	</div>
-</main>
+</div>
