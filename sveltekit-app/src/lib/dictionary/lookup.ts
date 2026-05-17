@@ -141,7 +141,38 @@ export function summarizeEntry(
 
 	for (const fn of order) {
 		const r = fn();
-		if (r) return r;
+		if (r) {
+			r.definitions = demoteProperNouns(r.definitions);
+			return r;
+		}
 	}
 	return null;
+}
+
+/**
+ * Proper-noun / name senses (e.g. CEDICT "surname Cheng", "place name …")
+ * are almost never the meaning intended in a sentence-builder exercise, yet
+ * dictionaries often list them first. Stable-partition them to the end so
+ * the substantive senses lead, without losing them entirely.
+ */
+function isProperNounDef(def: string): boolean {
+	const d = def.trim();
+	return (
+		/^\(?(a |an |old )*(chinese )?surname\b/i.test(d) ||
+		/\bsurname\b/i.test(d) ||
+		/^\(?(a |an )?(place|given|personal|person'?s|family|clan|county|country|dynasty|era|reign) name\b/i.test(
+			d
+		) ||
+		/^name of (a|an|the)\b/i.test(d) ||
+		/^\(?(place ?name|placename|person ?name|given ?name)\)?$/i.test(d)
+	);
+}
+
+function demoteProperNouns(defs: string[]): string[] {
+	const substantive: string[] = [];
+	const proper: string[] = [];
+	for (const d of defs) (isProperNounDef(d) ? proper : substantive).push(d);
+	// Only demote when there's something substantive to lead with; if every
+	// sense is a name (e.g. a genuine surname entry), keep the original order.
+	return substantive.length ? [...substantive, ...proper] : defs;
 }
