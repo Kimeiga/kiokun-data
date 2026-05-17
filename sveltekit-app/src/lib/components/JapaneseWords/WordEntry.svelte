@@ -128,7 +128,10 @@
 	.kana-headwords {
 		font-size: var(--font-size-body);
 		font-family: var(--font-cjk);
-		color: var(--reading-highlight, #e74c3c);
+		/* Kana-only words are headwords, not readings — use the primary
+		   headword color (white in dark theme) rather than the red
+		   reading-highlight. */
+		color: var(--primary-highlight, #1a1a1a);
 	}
 
 	.separator {
