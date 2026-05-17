@@ -597,6 +597,11 @@
 	}
 
 	/* Markdown Content Styling */
+	/* Rendered note display is 14px; the textarea is 16px (iOS no-zoom). */
+	.markdown-content {
+		font-size: 14px;
+	}
+
 	.markdown-content :global(h1),
 	.markdown-content :global(h2),
 	.markdown-content :global(h3) {
@@ -677,7 +682,9 @@
 
 	textarea {
 		@apply w-full p-3 border border-border rounded font-sans resize-y box-border bg-primary-secondary text-text-primary leading-relaxed;
-		font-size: 14px;
+		/* 16px while editing so iOS Safari doesn't auto-zoom on focus
+		   (it zooms any focused field below 16px). Display is 14px. */
+		font-size: 16px;
 		transition: max-height 0.3s ease-in-out;
 	}
 
