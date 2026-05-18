@@ -195,12 +195,44 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 
 		// If this is a redirect entry, fetch the actual data
 		if (data.redirect) {
+			const original = data;
 			const redirectUrl = await getDictionaryUrl(data.redirect, dev, fetch);
 			const redirectFetch = redirectUrl.startsWith('http') ? globalThis.fetch : fetch;
 			const redirectResponse = await redirectFetch(redirectUrl);
 			if (redirectResponse.ok) {
 				const redirectCompressed = await redirectResponse.arrayBuffer();
 				data = decompressAndParse(redirectCompressed);
+			}
+
+			// A simplified character can map to several traditional variants
+			// (e.g. 当 → 噹 *and* 當). `redirect` only resolves one of them, so
+			// the other variants' senses were being dropped. Merge chinese_words
+			// from every traditional variant, deduped by _id. Only kicks in when
+			// there is more than one variant, so single-redirect pages are
+			// unaffected.
+			const variants: string[] = (original.chinese_char as any)?.tradVariants ?? [];
+			if (variants.length > 1) {
+				const seen = new Set((data.chinese_words ?? []).map((w: any) => w._id));
+				const merged: any[] = [...(data.chinese_words ?? [])];
+				for (const v of variants) {
+					if (v === data.redirect) continue; // already loaded as the base
+					try {
+						const vUrl = await getDictionaryUrl(v, dev, fetch);
+						const vFetch = vUrl.startsWith('http') ? globalThis.fetch : fetch;
+						const vResp = await vFetch(vUrl);
+						if (!vResp.ok) continue;
+						const vData = decompressAndParse(await vResp.arrayBuffer());
+						for (const w of (vData.chinese_words ?? []) as any[]) {
+							if (!seen.has(w._id)) {
+								seen.add(w._id);
+								merged.push(w);
+							}
+						}
+					} catch {
+						// A variant that fails to load just contributes nothing.
+					}
+				}
+				data.chinese_words = merged;
 			}
 		}
 
