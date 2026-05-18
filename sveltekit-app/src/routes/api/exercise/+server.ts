@@ -173,9 +173,13 @@ export const GET: RequestHandler = async ({ fetch, url }) => {
 		const allDistractors = await getDistractors(fetch);
 
 		let sentence: UnifiedSentence | null = null;
+		// The shareable locator is the GLOBAL POSITION (0..total-1), not
+		// sentence.id — the source ids are not positional (chunk 143[267].id
+		// is 33228), so id-as-position would resolve the wrong sentence.
+		let position = -1;
 
-		// Shareable/permalinked exercise: ?id=<sentence index>. Returns that
-		// exact sentence (no suitability filtering — the caller asked for it).
+		// Shareable/permalinked exercise: ?id=<position>. Returns that exact
+		// sentence (no suitability filtering — the caller asked for it).
 		const idParam = url.searchParams.get('id');
 		if (idParam !== null) {
 			const id = Number(idParam);
@@ -192,6 +196,7 @@ export const GET: RequestHandler = async ({ fetch, url }) => {
 			if (!sentence) {
 				return json({ error: 'Exercise not found' }, { status: 404 });
 			}
+			position = id;
 		} else {
 			// Random: try to find a suitable sentence (with retry logic)
 			const MAX_ATTEMPTS = 10;
@@ -206,6 +211,7 @@ export const GET: RequestHandler = async ({ fetch, url }) => {
 				const candidate = chunk[indexInChunk];
 				if (candidate && isSuitableSentence(candidate)) {
 					sentence = candidate;
+					position = sentenceIndex;
 					break;
 				}
 			}
@@ -226,9 +232,11 @@ export const GET: RequestHandler = async ({ fetch, url }) => {
 			}
 		}
 
-		// Return unified response with all translations
+		// Return unified response. exercise_id is the stable global position
+		// (the shareable locator), not the source sentence id.
 		return json({
-			exercise_id: sentence.id,
+			exercise_id: position,
+			source_id: sentence.id,
 			english: sentence.en,
 			exercises  // Contains ja, zh, ko with tiles for each
 		});

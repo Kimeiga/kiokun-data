@@ -200,12 +200,14 @@
 		}));
 	}
 
-	// Keep the current exercise id in the URL (?id=…) so a question can be
-	// reloaded or shared. Pure query change — no navigation/reload.
-	function syncUrl(id: number | string) {
-		if (typeof window === 'undefined') return;
+	// Keep the current exercise + language in the URL (?id=…&lang=…) so a
+	// question can be reloaded or shared exactly. Pure query change — no
+	// navigation/reload.
+	function syncUrl() {
+		if (typeof window === 'undefined' || !unifiedExercise) return;
 		const u = new URL(window.location.href);
-		u.searchParams.set('id', String(id));
+		u.searchParams.set('id', String(unifiedExercise.exercise_id));
+		u.searchParams.set('lang', languageStore.value);
 		window.history.replaceState(window.history.state, '', u);
 	}
 
@@ -217,7 +219,6 @@
 		languageStates = { ja: null, zh: null, ko: null, tr: null };
 		try {
 			unifiedExercise = await fetchUnifiedExercise(id);
-			syncUrl(unifiedExercise.exercise_id);
 			// Initialize tiles for current language
 			const langExercise = unifiedExercise.exercises[languageStore.value];
 			if (langExercise) {
@@ -230,6 +231,8 @@
 					bankTiles = apiTilesToTileData(unifiedExercise.exercises[firstLang]!.tiles);
 				}
 			}
+			// Sync AFTER language is finalized so ?lang= matches what's shown.
+			syncUrl();
 		} catch (e) {
 			console.error('Failed to load exercise:', e);
 		} finally {
@@ -267,6 +270,8 @@
 			answerTiles = [];
 			bankTiles = apiTilesToTileData(unifiedExercise.exercises[lang]!.tiles);
 		}
+		// Reflect the language in the shareable URL.
+		syncUrl();
 	}
 
 	// Handle drag events for the answer zone
@@ -353,13 +358,28 @@
 		window.speechSynthesis.speak(utterance);
 	}
 
-	// Copy debug context to clipboard for pasting into an LLM
+	// "Copy Ask" — copy the exercise context plus questions for an LLM.
 	let debugCopied = $state(false);
-	async function copyDebugContext() {
+	let askExtra = $state(''); // optional extra questions, one per line
+	const DEFAULT_QUESTIONS = [
+		'Is this an accurate, natural translation of the English?',
+		'I built the "Current answer tiles" above. What did I get wrong, and what mistaken assumption led to it?',
+		'Briefly explain the grammar of the correct answer so I understand the pattern.'
+	];
+
+	async function copyAsk() {
 		if (!unifiedExercise || !currentExercise) return;
 
 		const langCode = languageStore.value;
 		const langNames: Record<string, string> = { ja: 'Japanese', zh: 'Chinese', ko: 'Korean', tr: 'Turkish' };
+
+		const extra = askExtra
+			.split('\n')
+			.map((q) => q.trim())
+			.filter(Boolean);
+		const questions = [...DEFAULT_QUESTIONS, ...extra]
+			.map((q, i) => `${i + 1}. ${q}`)
+			.join('\n');
 
 		const context = `## Debug Context for duojp Exercise
 
@@ -376,6 +396,10 @@ ${result ? `**Last result:** ${result.correct ? 'Correct' : 'Incorrect'}
 **Expected:** ${result.expected}` : ''}
 
 **Exercise ID:** ${unifiedExercise.exercise_id}
+
+## Questions
+
+${questions}
 `;
 
 		try {
@@ -395,9 +419,14 @@ ${result ? `**Last result:** ${result.correct ? 'Correct' : 'Incorrect'}
 	});
 
 	onMount(() => {
-		// Resume a shared/reloaded question if ?id= is present, else random.
-		const sharedId = new URLSearchParams(window.location.search).get('id');
-		loadExercise(sharedId);
+		// Resume a shared/reloaded question (?id=) in its shared language
+		// (?lang=) if present; otherwise random in the current language.
+		const params = new URLSearchParams(window.location.search);
+		const sharedLang = params.get('lang');
+		if (sharedLang === 'ja' || sharedLang === 'zh' || sharedLang === 'ko' || sharedLang === 'tr') {
+			languageStore.set(sharedLang);
+		}
+		loadExercise(params.get('id'));
 	});
 </script>
 
@@ -550,10 +579,19 @@ ${result ? `**Last result:** ${result.correct ? 'Correct' : 'Incorrect'}
 			</section>
 		{/if}
 
-		<!-- Debug button to copy context for LLM -->
-		<button class="debug-copy-btn" onclick={copyDebugContext} title="Copy debug context for LLM">
-			{debugCopied ? '✓ Copied!' : '📋 Copy Context'}
-		</button>
+		<!-- Copy Ask: context + standard + custom questions for an LLM -->
+		<div class="ask-box">
+			<input
+				class="ask-input"
+				type="text"
+				bind:value={askExtra}
+				placeholder="extra question for the LLM (optional)"
+				onkeydown={(e) => e.key === 'Enter' && copyAsk()}
+			/>
+			<button class="debug-copy-btn" onclick={copyAsk} title="Copy context + questions for an LLM">
+				{debugCopied ? '✓ Copied!' : '📋 Copy Ask'}
+			</button>
+		</div>
 	{/if}
 
 	<DictionaryPopup
@@ -962,24 +1000,50 @@ ${result ? `**Last result:** ${result.correct ? 'Correct' : 'Incorrect'}
 		50% { opacity: 0.6; }
 	}
 
-	/* Debug copy button - small, unobtrusive at bottom */
-	.debug-copy-btn {
+	/* Copy Ask - small, unobtrusive, bottom-left */
+	.ask-box {
 		position: fixed;
 		bottom: 1rem;
-		right: 1rem;
-		padding: 0.5rem 0.75rem;
+		left: 1rem;
+		display: flex;
+		align-items: center;
+		gap: 0.4rem;
+		max-width: min(22rem, calc(100vw - 2rem));
+		opacity: 0.55;
+		transition: opacity 0.2s;
+		z-index: 50;
+	}
+	.ask-box:hover,
+	.ask-box:focus-within {
+		opacity: 1;
+	}
+	.ask-input {
+		flex: 1;
+		min-width: 0;
+		padding: 0.45rem 0.6rem;
 		font-size: 0.75rem;
+		background: var(--bg-secondary);
+		color: var(--text-primary);
+		border: 1px solid var(--border-color);
+		border-radius: 6px;
+	}
+	.ask-input::placeholder {
+		color: var(--text-muted);
+	}
+	.debug-copy-btn {
+		flex: none;
+		padding: 0.45rem 0.7rem;
+		font-size: 0.75rem;
+		white-space: nowrap;
 		background: var(--bg-tertiary);
 		color: var(--text-muted);
 		border: 1px solid var(--border-color);
 		border-radius: 6px;
 		cursor: pointer;
-		opacity: 0.6;
-		transition: opacity 0.2s, background 0.2s;
+		transition: background 0.2s, color 0.2s;
 	}
 
 	.debug-copy-btn:hover {
-		opacity: 1;
 		background: var(--bg-secondary);
 		color: var(--text-primary);
 	}
