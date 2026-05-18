@@ -166,37 +166,52 @@ function isSuitableSentence(sentence: UnifiedSentence): boolean {
 	return true;
 }
 
-export const GET: RequestHandler = async ({ fetch }) => {
+export const GET: RequestHandler = async ({ fetch, url }) => {
 	try {
 		// Load manifest and distractors
 		const manifest = await getManifest(fetch);
 		const allDistractors = await getDistractors(fetch);
 
-		// Try to find a suitable sentence (with retry logic)
-		const MAX_ATTEMPTS = 10;
 		let sentence: UnifiedSentence | null = null;
 
-		for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
-			// Pick a random sentence
-			const sentenceIndex = Math.floor(Math.random() * manifest.total);
-			const chunkIndex = Math.floor(sentenceIndex / manifest.chunk_size);
-			const indexInChunk = sentenceIndex % manifest.chunk_size;
-
-			// Fetch the chunk
+		// Shareable/permalinked exercise: ?id=<sentence index>. Returns that
+		// exact sentence (no suitability filtering — the caller asked for it).
+		const idParam = url.searchParams.get('id');
+		if (idParam !== null) {
+			const id = Number(idParam);
+			if (!Number.isInteger(id) || id < 0 || id >= manifest.total) {
+				return json({ error: 'Invalid exercise id' }, { status: 400 });
+			}
+			const chunkIndex = Math.floor(id / manifest.chunk_size);
+			const indexInChunk = id % manifest.chunk_size;
 			const chunk = await fetchJSON<UnifiedSentence[]>(
 				fetch,
 				`${DATA_PATH}/chunks/${chunkIndex}.json`
 			);
-
-			const candidate = chunk[indexInChunk];
-			if (candidate && isSuitableSentence(candidate)) {
-				sentence = candidate;
-				break;
+			sentence = chunk[indexInChunk] ?? null;
+			if (!sentence) {
+				return json({ error: 'Exercise not found' }, { status: 404 });
 			}
-		}
-
-		if (!sentence) {
-			return json({ error: 'Could not find suitable sentence' }, { status: 404 });
+		} else {
+			// Random: try to find a suitable sentence (with retry logic)
+			const MAX_ATTEMPTS = 10;
+			for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
+				const sentenceIndex = Math.floor(Math.random() * manifest.total);
+				const chunkIndex = Math.floor(sentenceIndex / manifest.chunk_size);
+				const indexInChunk = sentenceIndex % manifest.chunk_size;
+				const chunk = await fetchJSON<UnifiedSentence[]>(
+					fetch,
+					`${DATA_PATH}/chunks/${chunkIndex}.json`
+				);
+				const candidate = chunk[indexInChunk];
+				if (candidate && isSuitableSentence(candidate)) {
+					sentence = candidate;
+					break;
+				}
+			}
+			if (!sentence) {
+				return json({ error: 'Could not find suitable sentence' }, { status: 404 });
+			}
 		}
 
 		// Build exercises for all available languages

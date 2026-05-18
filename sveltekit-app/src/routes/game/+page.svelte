@@ -200,14 +200,24 @@
 		}));
 	}
 
-	async function loadExercise() {
+	// Keep the current exercise id in the URL (?id=…) so a question can be
+	// reloaded or shared. Pure query change — no navigation/reload.
+	function syncUrl(id: number | string) {
+		if (typeof window === 'undefined') return;
+		const u = new URL(window.location.href);
+		u.searchParams.set('id', String(id));
+		window.history.replaceState(window.history.state, '', u);
+	}
+
+	async function loadExercise(id?: number | string | null) {
 		loading = true;
 		result = null;
 		answerTiles = [];
 		// Reset all saved language states for new exercise
 		languageStates = { ja: null, zh: null, ko: null, tr: null };
 		try {
-			unifiedExercise = await fetchUnifiedExercise();
+			unifiedExercise = await fetchUnifiedExercise(id);
+			syncUrl(unifiedExercise.exercise_id);
 			// Initialize tiles for current language
 			const langExercise = unifiedExercise.exercises[languageStore.value];
 			if (langExercise) {
@@ -384,7 +394,11 @@ ${result ? `**Last result:** ${result.correct ? 'Correct' : 'Incorrect'}
 		}
 	});
 
-	onMount(loadExercise);
+	onMount(() => {
+		// Resume a shared/reloaded question if ?id= is present, else random.
+		const sharedId = new URLSearchParams(window.location.search).get('id');
+		loadExercise(sharedId);
+	});
 </script>
 
 <main>
@@ -532,7 +546,7 @@ ${result ? `**Last result:** ${result.correct ? 'Correct' : 'Incorrect'}
 						🔊 Listen
 					</button>
 				{/if}
-				<button class="btn next" onclick={loadExercise}>Next Exercise →</button>
+				<button class="btn next" onclick={() => loadExercise()}>Next Exercise →</button>
 			</section>
 		{/if}
 

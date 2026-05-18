@@ -5,8 +5,14 @@ const API_BASE = '/api';
 /**
  * Fetch a unified exercise with all language translations.
  */
-export async function fetchUnifiedExercise(): Promise<UnifiedExercise> {
-	const res = await fetch(`${API_BASE}/exercise`);
+export async function fetchUnifiedExercise(
+	id?: number | string | null
+): Promise<UnifiedExercise> {
+	const qs =
+		id !== undefined && id !== null && `${id}` !== ''
+			? `?id=${encodeURIComponent(id)}`
+			: '';
+	const res = await fetch(`${API_BASE}/exercise${qs}`);
 	if (!res.ok) throw new Error('Failed to fetch exercise');
 	return res.json();
 }
