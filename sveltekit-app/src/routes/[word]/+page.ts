@@ -254,13 +254,18 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 					const simpData = decompressAndParse(simpCompressed);
 					simplifiedCharData = simpData.chinese_char || null;
 
-					// Fallback: if the simp entry has no chinese_char components of its own
-					// (common for simplified/shinjitai characters that redirect), derive
-					// synthetic components from japanese_char.ids which describes the glyph.
+					// Fallback: if the simp entry has no chinese_char components of
+					// its own (common for simplified chars that redirect, e.g. 发),
+					// derive synthetic components from an IDS string. Prefer the
+					// simplified char's OWN chinese_char.ids, then japanese_char.ids.
 					if (!simplifiedCharData || !simplifiedCharData.components || simplifiedCharData.components.length === 0) {
-						const ids = (simpData.japanese_char as any)?.ids;
+						const ids =
+							(simpData.chinese_char as any)?.ids ||
+							(simpData.japanese_char as any)?.ids;
 						if (ids) {
-							const cleaned = ids.replace(/&[A-Z]+-[A-Z0-9]+;/g, '');
+							// Strip entity refs (&CDP-…;, &GT-…;, &U+…;) and IDC
+							// description operators (U+2FF0–U+2FFB); keep real glyphs.
+							const cleaned = ids.replace(/&[^;]+;/g, '');
 							const chars: string[] = [];
 							for (const ch of cleaned) {
 								const code = ch.codePointAt(0) || 0;

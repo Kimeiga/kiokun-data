@@ -163,8 +163,8 @@
 	// IDS uses U+2FF0..U+2FFB as operators followed by their operand characters.
 	function parseIds(ids: string | undefined | null): string[] {
 		if (!ids) return [];
-		// Remove GT-style entity references like &GT-K00822;
-		const cleaned = ids.replace(/&[A-Z]+-[A-Z0-9]+;/g, '');
+		// Remove any entity reference (&CDP-89F6;, &GT-K00822;, &U+XXXX;, &#123;)
+		const cleaned = ids.replace(/&[^;]+;/g, '');
 		const result: string[] = [];
 		// Iterate over code points (handles surrogates)
 		for (const ch of cleaned) {
