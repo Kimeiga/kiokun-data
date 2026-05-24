@@ -2,25 +2,75 @@
 	import type { ReelPageData } from './+page';
 	import Header from '$lib/components/Header.svelte';
 	import { getDictionaryUrl } from '$lib/shard-utils';
+	import { deinflect, formatReasonChains } from '$lib/utils/deinflect';
 	import { dev } from '$app/environment';
 	import { goto } from '$app/navigation';
 
+	interface TranscriptToken {
+		text: string;
+		word?: string;
+		lookupIndex?: number;
+	}
+
+	interface TextValue {
+		text: string;
+	}
+
 	let { data }: { data: ReelPageData } = $props();
 	let videoElement: HTMLVideoElement | undefined = $state();
+	let transcriptScroller: HTMLDivElement | undefined = $state();
 
 	let languageFlag = $derived(data.language === 'zh' ? '🇨🇳' : '🇯🇵');
+	let currentTime = $state(data.startTime);
+	let initializedVideoId = $state<string | null>(null);
+	let activeSegmentIndex = $derived(getActiveSegmentIndex(currentTime));
+	let activeWordIndex = $derived(getActiveWordIndex(activeSegmentIndex, currentTime));
+	let lastAutoScrolledIndex = -1;
 
 	// Dictionary panel state
 	let selectedWord = $state<string | null>(null);
 	let panelOpen = $state(false);
 	let panelData = $state<any>(null);
 	let panelLoading = $state(false);
+	let panelLookupWord = $state<string | null>(null);
+	let panelInflection = $state<string | null>(null);
 
 	$effect(() => {
-		if (videoElement && data.startTime > 0) {
+		if (videoElement && initializedVideoId !== data.videoId) {
+			initializedVideoId = data.videoId;
 			videoElement.currentTime = data.startTime;
+			currentTime = data.startTime;
 		}
 	});
+
+	$effect(() => {
+		const index = activeSegmentIndex;
+		const scroller = transcriptScroller;
+		if (!scroller || index < 0 || index === lastAutoScrolledIndex) return;
+
+		lastAutoScrolledIndex = index;
+		requestAnimationFrame(() => alignActiveSegment(index));
+	});
+
+	function alignActiveSegment(index: number) {
+		const scroller = transcriptScroller;
+		const active = scroller?.querySelector<HTMLElement>(`[data-segment-index="${index}"]`);
+		if (!scroller || !active) return;
+
+		const scrollerRect = scroller.getBoundingClientRect();
+		const activeRect = active.getBoundingClientRect();
+		const videoRect = videoElement?.getBoundingClientRect();
+		const desktop = window.matchMedia('(min-width: 769px)').matches;
+		const targetCenter = desktop && videoRect
+			? videoRect.top + videoRect.height / 2
+			: scrollerRect.top + scrollerRect.height / 2;
+		const activeCenter = activeRect.top + activeRect.height / 2;
+
+		scroller.scrollTo({
+			top: scroller.scrollTop + activeCenter - targetCenter,
+			behavior: 'smooth'
+		});
+	}
 
 	function formatTime(seconds: number): string {
 		const mins = Math.floor(seconds / 60);
@@ -31,50 +81,197 @@
 	function seekTo(time: number) {
 		if (videoElement) {
 			videoElement.currentTime = time;
+			currentTime = time;
 			videoElement.play();
 		}
 	}
 
-	function isFullTranscript(words: string[]): boolean {
-		return words.length >= 3 && words.every(w => w.length <= 6);
+	function syncCurrentTime() {
+		if (videoElement) currentTime = videoElement.currentTime;
+	}
+
+	function getActiveSegmentIndex(time: number): number {
+		if (data.transcript.length === 0) return -1;
+
+		let latestStarted = 0;
+		for (let i = 0; i < data.transcript.length; i++) {
+			const segment = data.transcript[i];
+			if (time >= segment.start_time && time <= segment.end_time) return i;
+			if (time >= segment.start_time) latestStarted = i;
+			if (time < segment.start_time) break;
+		}
+		return latestStarted;
+	}
+
+	function lookupWordsForSegment(index: number): string[] {
+		const segment = data.transcript[index];
+		if (!segment) return [];
+		return displayWordsForSegment(segment).filter(isLookupToken);
+	}
+
+	function getActiveWordIndex(segmentIndex: number, time: number): number {
+		const segment = data.transcript[segmentIndex];
+		if (!segment) return -1;
+
+		const words = lookupWordsForSegment(segmentIndex);
+		if (words.length === 0) return -1;
+
+		const duration = Math.max(segment.end_time - segment.start_time, 0.1);
+		const progress = Math.min(Math.max((time - segment.start_time) / duration, 0), 0.999);
+		return Math.floor(progress * words.length);
+	}
+
+	function isLookupToken(token: string): boolean {
+		return /[\p{L}\p{N}]/u.test(token);
+	}
+
+	function wordText(rawWord: string | { word?: string }): string {
+		return typeof rawWord === 'string' ? rawWord : rawWord.word ?? '';
+	}
+
+	function shouldMergeJapaneseSuffix(previous: string, suffix: string): boolean {
+		if (data.language !== 'ja') return false;
+		if (!previous || !suffix) return false;
+		if (!['て', 'で', 'たら', 'だら', 'たり', 'だり'].includes(suffix)) return false;
+
+		// Avoid merging noun + particle cases like バー + で. These endings are
+		// common Japanese verb stem endings before -て/-で/-たら/-たり.
+		return /[いきぎしじちっにびみりん来]$/u.test(previous);
+	}
+
+	function displayWordsForSegment(segment: ReelPageData['transcript'][number]): string[] {
+		const rawWords = segment.words.map(wordText).map((word) => word.trim()).filter(Boolean);
+		const merged: string[] = [];
+
+		for (const word of rawWords) {
+			const previous = merged[merged.length - 1];
+			if (previous && shouldMergeJapaneseSuffix(previous, word)) {
+				merged[merged.length - 1] = previous + word;
+			} else {
+				merged.push(word);
+			}
+		}
+
+		return merged;
+	}
+
+	function escapeRegex(value: string): string {
+		return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+	}
+
+	function findWordRange(sentence: string, word: string, cursor: number): { start: number; end: number } | null {
+		const exactIndex = sentence.indexOf(word, cursor);
+		if (exactIndex >= 0) return { start: exactIndex, end: exactIndex + word.length };
+
+		const spacedPattern = Array.from(word).map(escapeRegex).join('\\s*');
+		const spacedMatch = new RegExp(spacedPattern, 'u').exec(sentence.slice(cursor));
+		if (!spacedMatch || spacedMatch.index < 0) return null;
+
+		const start = cursor + spacedMatch.index;
+		return { start, end: start + spacedMatch[0].length };
+	}
+
+	function segmentTokens(segment: ReelPageData['transcript'][number]): TranscriptToken[] {
+		if (!segment.words.length) return [{ text: segment.sentence }];
+
+		const tokens: TranscriptToken[] = [];
+		let cursor = 0;
+		let lookupIndex = 0;
+
+		for (const word of displayWordsForSegment(segment)) {
+			const range = findWordRange(segment.sentence, word, cursor);
+			if (range) {
+				if (range.start > cursor) {
+					tokens.push({ text: segment.sentence.slice(cursor, range.start) });
+				}
+				const isWord = isLookupToken(word);
+				tokens.push({
+					text: word,
+					word: isWord ? word : undefined,
+					lookupIndex: isWord ? lookupIndex : undefined
+				});
+				if (isWord) lookupIndex += 1;
+				cursor = range.end;
+			} else {
+				const isWord = isLookupToken(word);
+				tokens.push({
+					text: word,
+					word: isWord ? word : undefined,
+					lookupIndex: isWord ? lookupIndex : undefined
+				});
+				if (isWord) lookupIndex += 1;
+			}
+		}
+
+		if (cursor < segment.sentence.length) {
+			tokens.push({ text: segment.sentence.slice(cursor) });
+		}
+
+		return tokens.length ? tokens : [{ text: segment.sentence }];
 	}
 
 	// Dictionary panel — same pattern as artifact detail page
 	async function fetchDictEntry(word: string): Promise<any> {
-		try {
-			const url = await getDictionaryUrl(word, dev, fetch);
-			const resp = await fetch(url);
-			if (!resp.ok) return null;
-			const { inflateSync } = await import('fflate');
-			const compressed = new Uint8Array(await resp.arrayBuffer());
-			const decompressed = inflateSync(compressed);
-			return JSON.parse(new TextDecoder().decode(decompressed));
-		} catch { return null; }
+		const urls = [await getDictionaryUrl(word, dev, fetch)];
+		if (dev) urls.push(await getDictionaryUrl(word, false, fetch));
+
+		for (const url of [...new Set(urls)]) {
+			try {
+				const resp = await fetch(url);
+				if (!resp.ok) continue;
+				const { inflateSync } = await import('fflate');
+				const compressed = new Uint8Array(await resp.arrayBuffer());
+				const decompressed = inflateSync(compressed);
+				return JSON.parse(new TextDecoder().decode(decompressed));
+			} catch {
+				continue;
+			}
+		}
+		return null;
 	}
 
-	function guessJapaneseDictionaryForms(stem: string): string[] {
-		const guesses: string[] = [];
-		const last = stem.slice(-1);
-		const map: Record<string, string[]> = {
-			'か':['く'],'き':['く'],'い':['く','いる','う'],
-			'が':['がす','がる','ぐ'],'ぎ':['ぐ'],
-			'さ':['す'],'し':['す','する'],
-			'っ':['る','つ','う'],
-			'え':['える'],'け':['ける'],'せ':['せる'],
-			'め':['める'],'れ':['れる'],
-			'ら':['る'],'り':['る'],
-		};
-		const endings = map[last];
-		if (endings) {
-			const base = stem.slice(0, -1);
-			for (const e of endings) guesses.push(base + e);
+	function formatInflectionLabel(surface: string, dictionaryForm: string, conjugationInfo: string): string {
+		if (/[てで]$/u.test(surface) && conjugationInfo.includes('-te')) {
+			return `Command/request て-form of ${dictionaryForm}`;
 		}
-		guesses.push(stem + 'る', stem + 'す', stem + 'く');
-		return guesses;
+		return `${conjugationInfo} of ${dictionaryForm}`;
+	}
+
+	async function fetchJapaneseDeinflectedEntry(surface: string): Promise<{ entry: any; word: string; label: string } | null> {
+		const candidates = deinflect(surface)
+			.filter((candidate) => candidate.word !== surface && candidate.reasonChains.length > 0)
+			.sort((left, right) => {
+				const leftLen = left.reasonChains.reduce((sum, chain) => sum + chain.length, 0);
+				const rightLen = right.reasonChains.reduce((sum, chain) => sum + chain.length, 0);
+				return leftLen - rightLen;
+			});
+
+		const seen = new Set<string>();
+		for (const candidate of candidates) {
+			if (seen.has(candidate.word)) continue;
+			seen.add(candidate.word);
+
+			let entry = await fetchDictEntry(candidate.word);
+			if (entry?.redirect) entry = await fetchDictEntry(entry.redirect);
+			if (!entry) continue;
+
+			const conjugationInfo = formatReasonChains(candidate.reasonChains);
+			return {
+				entry,
+				word: candidate.word,
+				label: formatInflectionLabel(surface, candidate.word, conjugationInfo)
+			};
+		}
+
+		return null;
 	}
 
 	async function openWordPanel(word: string) {
+		if (!isLookupToken(word)) return;
+		videoElement?.pause();
 		selectedWord = word;
+		panelLookupWord = word;
+		panelInflection = null;
 		panelOpen = true;
 		panelData = null;
 		panelLoading = true;
@@ -87,10 +284,11 @@
 
 			// Deconjugation fallback for Japanese
 			if (!entry && data.language === 'ja') {
-				for (const guess of guessJapaneseDictionaryForms(word)) {
-					entry = await fetchDictEntry(guess);
-					if (entry?.redirect) entry = await fetchDictEntry(entry.redirect);
-					if (entry) { selectedWord = word + ' → ' + guess; break; }
+				const deinflected = await fetchJapaneseDeinflectedEntry(word);
+				if (deinflected) {
+					entry = deinflected.entry;
+					panelLookupWord = deinflected.word;
+					panelInflection = deinflected.label;
 				}
 			}
 
@@ -99,7 +297,7 @@
 				for (let i = 2; i < word.length - 1; i++) {
 					const [l, r] = await Promise.all([fetchDictEntry(word.slice(0, i)), fetchDictEntry(word.slice(i))]);
 					if (l && r) {
-						selectedWord = word.slice(0, i) + ' + ' + word.slice(i);
+						panelLookupWord = word.slice(0, i);
 						entry = { _compound: true, left: l, right: r, leftWord: word.slice(0, i), rightWord: word.slice(i) };
 						break;
 					}
@@ -118,21 +316,17 @@
 		panelOpen = false;
 		selectedWord = null;
 		panelData = null;
+		panelLookupWord = null;
+		panelInflection = null;
 	}
 
 	function navigateToWord() {
-		if (selectedWord) {
-			const word = selectedWord.includes(' → ') ? selectedWord.split(' → ')[1] : selectedWord.includes(' + ') ? selectedWord.split(' + ')[0] : selectedWord;
-			goto(`/${word}`);
-		}
+		const word = panelLookupWord ?? selectedWord;
+		if (word) goto(`/${word}`);
 	}
 
-	// Check if word is all kana (for old-format matching)
-	function isWordInSentence(word: string, sentence: string, char: string): boolean {
-		return sentence.includes(word) && word.includes(char);
-	}
-	function findMatchingWord(words: string[], char: string): string | undefined {
-		return words.find(w => w.includes(char));
+	function isSelectedToken(word: string): boolean {
+		return selectedWord === word;
 	}
 </script>
 
@@ -140,7 +334,9 @@
 	<title>{languageFlag} Reel | Kiokun</title>
 </svelte:head>
 
-<Header />
+<div class="reel-header">
+	<Header />
+</div>
 
 <main class="layout" class:panel-open={panelOpen}>
 	<div class="main-content">
@@ -155,6 +351,9 @@
 						class="video-player"
 						controls
 						playsinline
+						ontimeupdate={syncCurrentTime}
+						onseeking={syncCurrentTime}
+						onloadedmetadata={syncCurrentTime}
 					></video>
 				</div>
 
@@ -175,43 +374,41 @@
 
 			<!-- Right: Transcript -->
 			<div class="transcript-col">
-				<h2 class="transcript-heading">{languageFlag} Transcript</h2>
-
 				{#if data.transcript.length === 0}
 					<p class="empty">No transcript available.</p>
 				{:else}
-					<div class="segments">
-						{#each data.transcript as segment}
-							<div class="segment" onclick={() => seekTo(segment.start_time)} role="button" tabindex="0" onkeydown={(e) => e.key === 'Enter' && seekTo(segment.start_time)}>
-								<span class="segment-time">{formatTime(segment.start_time)}</span>
-								<div class="segment-text">
-									{#if isFullTranscript(segment.words)}
-										{#each segment.words as word}
-											{#if word.trim()}
+					<div class="transcript-scroll" bind:this={transcriptScroller}>
+						<div class="segments">
+							{#each data.transcript as segment, segmentIndex}
+								<div
+									class="segment"
+									class:active={segmentIndex === activeSegmentIndex}
+									class:past={segmentIndex < activeSegmentIndex}
+									class:future={segmentIndex > activeSegmentIndex}
+									data-segment-index={segmentIndex}
+									onclick={() => seekTo(segment.start_time)}
+									role="button"
+									tabindex="0"
+									onkeydown={(e) => e.key === 'Enter' && seekTo(segment.start_time)}
+								>
+									<span class="segment-time">{formatTime(segment.start_time)}</span>
+									<div class="segment-text">
+										{#each segmentTokens(segment) as token}
+											{#if token.word}
 												<button
 													class="word-token"
-													class:selected={selectedWord?.split(' → ')[0] === word || selectedWord?.split(' + ')[0] === word}
-													onclick={(e) => { e.stopPropagation(); openWordPanel(word); }}
-												>{word}</button>
-											{/if}
-										{/each}
-									{:else}
-										{#each segment.sentence.split('') as char}
-											{#if segment.words.some(w => isWordInSentence(w, segment.sentence, char))}
-												{@const matchingWord = findMatchingWord(segment.words, char)}
-												<button
-													class="word-token"
-													class:selected={selectedWord === matchingWord}
-													onclick={(e) => { e.stopPropagation(); if (matchingWord) openWordPanel(matchingWord); }}
-												>{char}</button>
+													class:selected={isSelectedToken(token.word ?? '')}
+													class:current={segmentIndex === activeSegmentIndex && token.lookupIndex === activeWordIndex}
+													onclick={(e) => { e.stopPropagation(); openWordPanel(token.word ?? ''); }}
+												>{token.text}</button>
 											{:else}
-												<span class="non-word">{char}</span>
+												<span class="non-word">{token.text}</span>
 											{/if}
 										{/each}
-									{/if}
+									</div>
 								</div>
-							</div>
-						{/each}
+							{/each}
+						</div>
 					</div>
 				{/if}
 			</div>
@@ -220,8 +417,7 @@
 
 	<!-- Dictionary Panel -->
 	{#if panelOpen}
-		<!-- svelte-ignore a11y_no_static_element_interactions -->
-		<div class="panel-overlay" onclick={closePanel}></div>
+		<button type="button" class="panel-overlay" aria-label="Close dictionary" onclick={closePanel}></button>
 		<div class="dictionary-panel">
 			<div class="panel-header">
 				<h3 class="panel-word">{selectedWord}</h3>
@@ -233,122 +429,127 @@
 			<div class="panel-body">
 				{#if panelLoading}
 					<p class="panel-status">Loading...</p>
-				{:else if panelData?._compound}
-					{#each [{ word: panelData.leftWord, data: panelData.left }, { word: panelData.rightWord, data: panelData.right }] as part}
-						<div class="compound-part">
-							<h4 class="compound-word">{part.word}</h4>
-							{#if part.data.japanese_words?.length > 0}
-								{#each part.data.japanese_words.slice(0, 1) as jw}
-									{#if jw.kana?.length > 0}
-										<div class="panel-reading">{jw.kana.map((k) => k.text).join(', ')}</div>
-									{/if}
-									{#each jw.sense?.slice(0, 2) || [] as sense}
+				{:else}
+					{#if panelInflection}
+						<div class="panel-inflection">{panelInflection}</div>
+					{/if}
+					{#if panelData?._compound}
+						{#each [{ word: panelData.leftWord, data: panelData.left }, { word: panelData.rightWord, data: panelData.right }] as part}
+							<div class="compound-part">
+								<h4 class="compound-word">{part.word}</h4>
+								{#if part.data.japanese_words?.length > 0}
+									{#each part.data.japanese_words.slice(0, 1) as jw}
+										{#if jw.kana?.length > 0}
+											<div class="panel-reading">{jw.kana.map((k: TextValue) => k.text).join(', ')}</div>
+										{/if}
+										{#each jw.sense?.slice(0, 2) || [] as sense}
+											<ol class="panel-defs">
+												{#each sense.gloss || [] as gloss}
+													<li>{gloss.text}</li>
+												{/each}
+											</ol>
+										{/each}
+									{/each}
+								{/if}
+								{#if part.data.chinese_words?.length > 0}
+									{#each part.data.chinese_words[0].items?.slice(0, 1) || [] as item}
+										{#if item.pinyin}<span class="panel-pinyin">{item.pinyin}</span>{/if}
 										<ol class="panel-defs">
-											{#each sense.gloss || [] as gloss}
-												<li>{gloss.text}</li>
+											{#each item.definitions?.slice(0, 3) || [] as def}
+												<li>{def}</li>
 											{/each}
 										</ol>
 									{/each}
-								{/each}
-							{/if}
-							{#if part.data.chinese_words?.length > 0}
-								{#each part.data.chinese_words[0].items?.slice(0, 1) || [] as item}
-									{#if item.pinyin}<span class="panel-pinyin">{item.pinyin}</span>{/if}
-									<ol class="panel-defs">
-										{#each item.definitions?.slice(0, 3) || [] as def}
-											<li>{def}</li>
-										{/each}
-									</ol>
-								{/each}
-							{/if}
-						</div>
-					{/each}
-				{:else if panelData}
-					<!-- Show reel's language first -->
-					{#if data.language === 'ja'}
-						{#if panelData.japanese_words?.length > 0}
-							{#each panelData.japanese_words.slice(0, 3) as jw}
-								{#if jw.kana?.length > 0}
-									<div class="panel-reading">{jw.kana.map((k) => k.text).join(', ')}</div>
 								{/if}
-								{#each jw.sense?.slice(0, 3) || [] as sense}
-									<div class="panel-sense">
-										{#if sense.partOfSpeech?.length > 0}
-											<span class="panel-pos">{sense.partOfSpeech.join(', ')}</span>
-										{/if}
-										<ol class="panel-defs">
-											{#each sense.gloss || [] as gloss}<li>{gloss.text}</li>{/each}
-										</ol>
-									</div>
-								{/each}
-							{/each}
-						{/if}
-						{#if panelData.chinese_words?.length > 0}
-							<div class="panel-divider"></div>
-							{#each panelData.chinese_words as cw}
-								{#each cw.items || [] as item}
-									{#if item.definitions?.length}
-										<div class="panel-sense">
-											{#if item.pinyin}<span class="panel-pinyin">{item.pinyin}</span>{/if}
-											<ol class="panel-defs">
-												{#each item.definitions as def}<li>{def}</li>{/each}
-											</ol>
-										</div>
-									{/if}
-								{/each}
-							{/each}
-						{/if}
-					{:else}
-						{#if panelData.chinese_words?.length > 0}
-							{#each panelData.chinese_words as cw}
-								{#each cw.items || [] as item}
-									{#if item.definitions?.length}
-										<div class="panel-sense">
-											{#if item.pinyin}<span class="panel-pinyin">{item.pinyin}</span>{/if}
-											<ol class="panel-defs">
-												{#each item.definitions as def}<li>{def}</li>{/each}
-											</ol>
-										</div>
-									{/if}
-								{/each}
-							{/each}
-						{/if}
-						{#if panelData.japanese_words?.length > 0}
-							<div class="panel-divider"></div>
-							{#each panelData.japanese_words.slice(0, 3) as jw}
-								{#if jw.kana?.length > 0}
-									<div class="panel-reading">{jw.kana.map((k) => k.text).join(', ')}</div>
-								{/if}
-								{#each jw.sense?.slice(0, 3) || [] as sense}
-									<div class="panel-sense">
-										{#if sense.partOfSpeech?.length > 0}
-											<span class="panel-pos">{sense.partOfSpeech.join(', ')}</span>
-										{/if}
-										<ol class="panel-defs">
-											{#each sense.gloss || [] as gloss}<li>{gloss.text}</li>{/each}
-										</ol>
-									</div>
-								{/each}
-							{/each}
-						{/if}
-					{/if}
-					{#if panelData.korean_words?.length > 0}
-						<div class="panel-divider"></div>
-						{#each panelData.korean_words.slice(0, 3) as kw}
-							<div class="panel-sense">
-								{#if kw.hangul}<span class="panel-reading">{kw.hangul}</span>{/if}
-								<ol class="panel-defs">
-									{#each kw.definitions || [] as def}<li>{def.text}</li>{/each}
-								</ol>
 							</div>
 						{/each}
+					{:else if panelData}
+						<!-- Show reel's language first -->
+						{#if data.language === 'ja'}
+							{#if panelData.japanese_words?.length > 0}
+								{#each panelData.japanese_words.slice(0, 3) as jw}
+									{#if jw.kana?.length > 0}
+									<div class="panel-reading">{jw.kana.map((k: TextValue) => k.text).join(', ')}</div>
+									{/if}
+									{#each jw.sense?.slice(0, 3) || [] as sense}
+										<div class="panel-sense">
+											{#if sense.partOfSpeech?.length > 0}
+												<span class="panel-pos">{sense.partOfSpeech.join(', ')}</span>
+											{/if}
+											<ol class="panel-defs">
+												{#each sense.gloss || [] as gloss}<li>{gloss.text}</li>{/each}
+											</ol>
+										</div>
+									{/each}
+								{/each}
+							{/if}
+							{#if panelData.chinese_words?.length > 0}
+								<div class="panel-divider"></div>
+								{#each panelData.chinese_words as cw}
+									{#each cw.items || [] as item}
+										{#if item.definitions?.length}
+											<div class="panel-sense">
+												{#if item.pinyin}<span class="panel-pinyin">{item.pinyin}</span>{/if}
+												<ol class="panel-defs">
+													{#each item.definitions as def}<li>{def}</li>{/each}
+												</ol>
+											</div>
+										{/if}
+									{/each}
+								{/each}
+							{/if}
+						{:else}
+							{#if panelData.chinese_words?.length > 0}
+								{#each panelData.chinese_words as cw}
+									{#each cw.items || [] as item}
+										{#if item.definitions?.length}
+											<div class="panel-sense">
+												{#if item.pinyin}<span class="panel-pinyin">{item.pinyin}</span>{/if}
+												<ol class="panel-defs">
+													{#each item.definitions as def}<li>{def}</li>{/each}
+												</ol>
+											</div>
+										{/if}
+									{/each}
+								{/each}
+							{/if}
+							{#if panelData.japanese_words?.length > 0}
+								<div class="panel-divider"></div>
+								{#each panelData.japanese_words.slice(0, 3) as jw}
+									{#if jw.kana?.length > 0}
+									<div class="panel-reading">{jw.kana.map((k: TextValue) => k.text).join(', ')}</div>
+									{/if}
+									{#each jw.sense?.slice(0, 3) || [] as sense}
+										<div class="panel-sense">
+											{#if sense.partOfSpeech?.length > 0}
+												<span class="panel-pos">{sense.partOfSpeech.join(', ')}</span>
+											{/if}
+											<ol class="panel-defs">
+												{#each sense.gloss || [] as gloss}<li>{gloss.text}</li>{/each}
+											</ol>
+										</div>
+									{/each}
+								{/each}
+							{/if}
+						{/if}
+						{#if panelData.korean_words?.length > 0}
+							<div class="panel-divider"></div>
+							{#each panelData.korean_words.slice(0, 3) as kw}
+								<div class="panel-sense">
+									{#if kw.hangul}<span class="panel-reading">{kw.hangul}</span>{/if}
+									<ol class="panel-defs">
+										{#each kw.definitions || [] as def}<li>{def.text}</li>{/each}
+									</ol>
+								</div>
+							{/each}
+						{/if}
+						{#if !panelData.chinese_words?.length && !panelData.japanese_words?.length && !panelData.korean_words?.length}
+							<p class="panel-status">No dictionary entry found</p>
+						{/if}
+					{:else}
+						<p class="panel-status">No entry found for "{selectedWord}"</p>
+						<p class="panel-hint"><button class="link-btn" onclick={navigateToWord}>Search for it</button></p>
 					{/if}
-					{#if !panelData.chinese_words?.length && !panelData.japanese_words?.length && !panelData.korean_words?.length}
-						<p class="panel-status">No dictionary entry found</p>
-					{/if}
-				{:else}
-					<p class="panel-status">No entry found for "{selectedWord}"</p>
-					<p class="panel-hint"><button class="link-btn" onclick={navigateToWord}>Search for it</button></p>
 				{/if}
 			</div>
 		</div>
@@ -356,49 +557,137 @@
 </main>
 
 <style>
-	.layout { max-width: 960px; margin: 0 auto; padding: var(--spacing-lg); position: relative; }
+	.layout {
+		max-width: 1440px;
+		margin: 0 auto;
+		padding: clamp(16px, 2vw, 28px);
+		position: relative;
+	}
 
 	@media (min-width: 769px) {
-		.layout.panel-open { max-width: 1280px; display: grid; grid-template-columns: 1fr 380px; gap: var(--spacing-xl); }
+		.layout {
+			--desktop-reel-max-height: calc(100vh - 96px);
+		}
+		.layout.panel-open {
+			max-width: 1540px;
+			display: grid;
+			grid-template-columns: minmax(0, 1fr) 380px;
+			gap: var(--spacing-xl);
+			align-items: start;
+		}
 		.layout.panel-open .panel-overlay { display: none; }
 	}
 
 	.main-content { min-width: 0; }
 
-	.reel-grid { display: grid; grid-template-columns: 280px 1fr; gap: var(--spacing-xl); align-items: start; }
+	.reel-grid {
+		display: grid;
+		grid-template-columns: minmax(340px, 520px) minmax(420px, 1fr);
+		gap: clamp(36px, 5vw, 80px);
+		align-items: center;
+		min-height: calc(100vh - 120px);
+	}
 
-	.video-col { position: sticky; top: 80px; }
-	.video-wrapper { border-radius: var(--radius-md); overflow: hidden; background: black; }
-	.video-player { width: 100%; height: auto; display: block; }
+	.video-col {
+		position: sticky;
+		top: 72px;
+		align-self: center;
+	}
+	.video-wrapper {
+		width: min(100%, calc(var(--desktop-reel-max-height, calc(100vh - 150px)) * 9 / 16));
+		max-width: 520px;
+		margin-inline: auto;
+		border-radius: var(--radius-md);
+		overflow: hidden;
+		background: black;
+		box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18);
+	}
+	.video-player {
+		width: 100%;
+		max-height: var(--desktop-reel-max-height, calc(100vh - 150px));
+		aspect-ratio: 9 / 16;
+		object-fit: cover;
+		display: block;
+	}
 
-	.video-meta { display: flex; flex-wrap: wrap; gap: var(--spacing-sm); margin-top: var(--spacing-md); font-size: var(--font-size-caption1); }
+	.video-meta {
+		width: min(100%, calc(var(--desktop-reel-max-height, calc(100vh - 150px)) * 9 / 16));
+		max-width: 520px;
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--spacing-sm);
+		margin: var(--spacing-md) auto 0;
+		font-size: var(--font-size-caption1);
+	}
 	.meta-link { color: var(--accent); text-decoration: none; }
 	.meta-link:hover { text-decoration: underline; }
 	.meta-duration { color: var(--text-muted); }
 
-	.transcript-col { min-width: 0; }
-	.transcript-heading { font-size: var(--font-size-headline); font-weight: 600; color: var(--text-primary); margin: 0 0 var(--spacing-lg); }
+	.transcript-col {
+		min-width: 0;
+		position: sticky;
+		top: 72px;
+		height: calc(100vh - 96px);
+		display: flex;
+		flex-direction: column;
+	}
 	.empty { color: var(--text-muted); }
 
-	.segments { display: flex; flex-direction: column; gap: var(--spacing-sm); }
+	.transcript-scroll {
+		min-height: 0;
+		flex: 1;
+		overflow-y: auto;
+		scroll-behavior: smooth;
+		scroll-padding-block: 45%;
+		-webkit-overflow-scrolling: touch;
+	}
+
+	.transcript-scroll::-webkit-scrollbar { width: 8px; }
+	.transcript-scroll::-webkit-scrollbar-thumb {
+		background: var(--border-color);
+		border-radius: var(--radius-full);
+	}
+
+	.segments {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-md);
+		padding-block: 38vh;
+	}
 
 	.segment {
-		display: flex; gap: var(--spacing-md); padding: var(--spacing-md);
-		border-radius: var(--radius-md); background: var(--bg-secondary);
-		border: 1px solid var(--border-color); cursor: pointer;
-		transition: border-color 0.15s;
+		display: flex;
+		gap: var(--spacing-md);
+		padding: var(--spacing-md) var(--spacing-lg);
+		border-radius: var(--radius-md);
+		background: transparent;
+		border: 1px solid transparent;
+		cursor: pointer;
+		opacity: 0.58;
+		transition: opacity 0.18s, border-color 0.18s, background-color 0.18s, transform 0.18s;
 	}
-	.segment:hover { border-color: var(--accent); }
+	.segment.past { opacity: 0.32; }
+	.segment.future { opacity: 0.5; }
+	.segment.active {
+		opacity: 1;
+		background: var(--bg-secondary);
+		border-color: var(--border-color);
+		transform: translateX(0);
+		box-shadow: 0 8px 28px rgba(0, 0, 0, 0.06);
+	}
+	.segment:hover { border-color: var(--accent); opacity: 1; }
 
 	.segment-time {
 		font-size: var(--font-size-caption1); color: var(--text-muted);
-		flex-shrink: 0; padding-top: 4px; min-width: 36px;
+		flex-shrink: 0; padding-top: 6px; min-width: 38px;
 	}
 
 	.segment-text {
 		font-size: var(--font-size-headline); line-height: 1.8;
 		font-family: var(--font-cjk); color: var(--text-primary);
-		display: flex; flex-wrap: wrap; align-items: baseline;
+		display: block;
+		white-space: pre-wrap;
+		overflow-wrap: anywhere;
 	}
 
 	.word-token {
@@ -408,11 +697,24 @@
 		cursor: pointer; transition: border-color 0.15s, color 0.15s;
 	}
 	.word-token:hover { border-bottom-color: var(--accent); color: var(--accent); }
-	.word-token.selected { border-bottom-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+	.word-token.selected,
+	.word-token.current {
+		border-bottom-color: var(--accent);
+		color: var(--accent);
+		background: var(--accent-light);
+	}
 	.non-word { display: inline; }
 
 	/* Dictionary Panel — same as artifact page */
-	.panel-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 200; }
+	.panel-overlay {
+		position: fixed;
+		inset: 0;
+		padding: 0;
+		border: none;
+		background: rgba(0,0,0,0.3);
+		z-index: 200;
+		cursor: pointer;
+	}
 	.dictionary-panel {
 		background: var(--bg-secondary); border: 1px solid var(--border-color);
 		z-index: 201; display: flex; flex-direction: column; overflow: hidden;
@@ -448,6 +750,15 @@
 
 	.panel-body { padding: var(--spacing-lg); overflow-y: auto; flex: 1; }
 	.panel-status { color: var(--text-muted); font-size: var(--font-size-callout); }
+	.panel-inflection {
+		margin-bottom: var(--spacing-md);
+		padding: var(--spacing-sm) var(--spacing-md);
+		border-radius: var(--radius-sm);
+		background: var(--accent-light);
+		color: var(--accent);
+		font-size: var(--font-size-callout);
+		font-weight: 600;
+	}
 	.panel-reading { font-size: var(--font-size-body); color: var(--accent); margin-bottom: var(--spacing-sm); }
 	.panel-pinyin { font-size: var(--font-size-callout); color: var(--color-pinyin); display: block; margin-bottom: var(--spacing-xs); }
 	.panel-pos { font-size: var(--font-size-caption1); color: var(--text-muted); font-style: italic; display: block; margin-bottom: var(--spacing-xs); }
@@ -462,8 +773,149 @@
 	.compound-word { font-size: var(--font-size-headline); font-family: var(--font-cjk); color: var(--accent); margin: 0 0 var(--spacing-xs); font-weight: 600; }
 
 	@media (max-width: 768px) {
-		.reel-grid { grid-template-columns: 1fr; }
-		.video-col { position: static; }
-		.video-wrapper { max-width: 300px; margin: 0 auto; }
+		.reel-header { display: none; }
+
+		.layout {
+			max-width: none;
+			height: 100svh;
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+			background: #000;
+		}
+
+		.main-content,
+		.reel-grid {
+			height: 100%;
+			min-height: 0;
+		}
+
+		.reel-grid {
+			display: block;
+			position: relative;
+		}
+
+		.video-col {
+			position: absolute;
+			inset: 0;
+			transform: none;
+		}
+
+		.video-wrapper {
+			width: 100%;
+			max-width: none;
+			height: 100%;
+			border-radius: 0;
+			box-shadow: none;
+		}
+
+		.video-player {
+			width: 100%;
+			height: 100%;
+			max-height: none;
+			object-fit: cover;
+		}
+
+		.video-meta {
+			width: auto;
+			max-width: none;
+			position: absolute;
+			top: calc(env(safe-area-inset-top) + 12px);
+			left: 12px;
+			right: 12px;
+			z-index: 5;
+			margin: 0;
+			color: white;
+			text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
+		}
+
+		.video-meta .meta-link,
+		.video-meta .meta-duration {
+			color: rgba(255, 255, 255, 0.86);
+		}
+
+		.transcript-col {
+			position: absolute;
+			top: auto;
+			left: 0;
+			right: 0;
+			bottom: calc(env(safe-area-inset-bottom) + 24px);
+			z-index: 6;
+			height: min(42svh, 360px);
+			padding: 0 16px;
+			pointer-events: none;
+			background: linear-gradient(
+				to bottom,
+				rgba(0, 0, 0, 0),
+				rgba(0, 0, 0, 0.18) 22%,
+				rgba(0, 0, 0, 0.18) 78%,
+				rgba(0, 0, 0, 0)
+			);
+		}
+
+		.transcript-scroll {
+			height: 100%;
+			pointer-events: auto;
+			scroll-padding-block: 42%;
+			scrollbar-width: none;
+		}
+
+		.transcript-scroll::-webkit-scrollbar { display: none; }
+
+		.segments {
+			gap: 2px;
+			padding-block: 12svh;
+		}
+
+		.segment {
+			display: block;
+			padding: 4px 9px;
+			color: rgba(255, 255, 255, 0.72);
+			text-shadow: 0 2px 10px rgba(0, 0, 0, 0.86);
+			background: transparent;
+			border-color: transparent;
+			box-shadow: none;
+			opacity: 0.5;
+		}
+
+		.segment.past { opacity: 0.3; }
+		.segment.future { opacity: 0.48; }
+
+		.segment.active {
+			color: white;
+			opacity: 1;
+			background: rgba(0, 0, 0, 0.26);
+			border-color: rgba(255, 255, 255, 0.12);
+			box-shadow: none;
+			backdrop-filter: blur(4px);
+			padding: 7px 10px;
+		}
+
+		.segment-time { display: none; }
+
+		.segment-text {
+			font-size: 16px;
+			line-height: 1.35;
+			text-align: center;
+			color: inherit;
+		}
+
+		.segment.active .segment-text {
+			font-size: 18px;
+			line-height: 1.45;
+		}
+
+		.word-token:hover,
+		.word-token.selected,
+		.word-token.current {
+			color: #fff;
+			border-bottom-color: rgba(255, 255, 255, 0.88);
+			background: rgba(255, 255, 255, 0.16);
+		}
+
+		.dictionary-panel {
+			z-index: 210;
+			background: var(--bg-secondary);
+		}
 	}
 </style>
