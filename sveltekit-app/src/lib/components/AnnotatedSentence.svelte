@@ -43,7 +43,7 @@
 <span class="annotated-sentence">
 	{#each segments as segment}
 		{#if segment.reading}
-			<ruby>{segment.text}<rt>{segment.reading}</rt></ruby>
+			<ruby class="word-ruby"><rb>{segment.text}</rb><rt>{segment.reading}</rt></ruby>
 		{:else}
 			<span>{segment.text}</span>
 		{/if}
@@ -56,16 +56,40 @@
 		color: inherit;
 	}
 
-	ruby {
+	.word-ruby {
+		display: inline-grid;
+		grid-template-areas:
+			"reading"
+			"base";
+		grid-template-columns: max-content;
+		grid-template-rows: auto auto;
+		justify-items: center;
+		align-items: end;
+		margin-inline: 0.03em;
+		line-height: 1.05;
 		ruby-position: over;
+		vertical-align: baseline;
+	}
+
+	rb {
+		display: block;
+		grid-area: base;
+		min-width: 100%;
+		text-align: center;
+		white-space: nowrap;
 	}
 
 	rt {
+		display: block;
+		grid-area: reading;
+		min-width: 100%;
 		font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 		font-size: 0.6em;
 		font-weight: 500;
 		line-height: 1;
 		color: var(--color-pinyin);
+		text-align: center;
+		white-space: nowrap;
 		user-select: none;
 	}
 </style>

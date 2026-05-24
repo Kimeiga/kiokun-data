@@ -140,7 +140,7 @@
 								onclick={() => openPanel(token.text)}
 							>
 								{#if token.reading}
-									<ruby>{token.text}<rt>{token.reading}</rt></ruby>
+									<ruby class="token-ruby"><rb>{token.text}</rb><rt>{token.reading}</rt></ruby>
 								{:else}
 									{token.text}
 								{/if}
@@ -148,7 +148,7 @@
 						{:else}
 							<span class="punct">
 								{#if token.reading}
-									<ruby>{token.text}<rt>{token.reading}</rt></ruby>
+									<ruby class="token-ruby"><rb>{token.text}</rb><rt>{token.reading}</rt></ruby>
 								{:else}
 									{token.text}
 								{/if}
@@ -288,13 +288,38 @@
 		line-height: 2.25;
 		padding-top: 0.35em;
 	}
-	.sentence-text ruby { ruby-position: over; }
+	.sentence-text .token-ruby {
+		display: inline-grid;
+		grid-template-areas:
+			"reading"
+			"base";
+		grid-template-columns: max-content;
+		grid-template-rows: auto auto;
+		justify-items: center;
+		align-items: end;
+		margin-inline: 0.03em;
+		line-height: 1.05;
+		ruby-position: over;
+		vertical-align: baseline;
+	}
+	.sentence-text rb {
+		display: block;
+		grid-area: base;
+		min-width: 100%;
+		text-align: center;
+		white-space: nowrap;
+	}
 	.sentence-text rt {
+		display: block;
+		grid-area: reading;
+		min-width: 100%;
 		font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 		font-size: 0.45em;
 		font-weight: 500;
 		line-height: 1;
 		color: var(--color-pinyin);
+		text-align: center;
+		white-space: nowrap;
 		user-select: none;
 	}
 
