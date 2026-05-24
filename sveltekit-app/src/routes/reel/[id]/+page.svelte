@@ -90,6 +90,29 @@
 		if (videoElement) currentTime = videoElement.currentTime;
 	}
 
+	function isNativeControlAreaClick(event: MouseEvent, video: HTMLVideoElement): boolean {
+		const rect = video.getBoundingClientRect();
+		const controlHeight = Math.min(64, rect.height * 0.22);
+		return event.clientY >= rect.bottom - controlHeight;
+	}
+
+	function preventVideoSurfaceToggle(event: MouseEvent) {
+		const video = event.currentTarget as HTMLVideoElement;
+		if (isNativeControlAreaClick(event, video)) return;
+
+		const wasPaused = video.paused;
+		event.preventDefault();
+		event.stopPropagation();
+
+		requestAnimationFrame(() => {
+			if (wasPaused && !video.paused) {
+				video.pause();
+			} else if (!wasPaused && video.paused) {
+				void video.play().catch(() => {});
+			}
+		});
+	}
+
 	function getActiveSegmentIndex(time: number): number {
 		if (data.transcript.length === 0) return -1;
 
@@ -351,6 +374,7 @@
 						class="video-player"
 						controls
 						playsinline
+						onclick={preventVideoSurfaceToggle}
 						ontimeupdate={syncCurrentTime}
 						onseeking={syncCurrentTime}
 						onloadedmetadata={syncCurrentTime}
