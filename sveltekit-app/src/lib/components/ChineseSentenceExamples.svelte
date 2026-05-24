@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import AnnotatedSentence from '$lib/components/AnnotatedSentence.svelte';
+	import { buildChineseRubySegments } from '$lib/utils/sentence-ruby';
 
 	interface Props { word: string; hasContent?: boolean; }
 	let { word, hasContent = $bindable(false) }: Props = $props();
@@ -67,14 +69,19 @@
 		</div>
 		<div class="example-list">
 			{#each displayed as s}
+				{@const sentenceText = showTraditional ? s.trad : s.simp}
+				{@const rubySegments = buildChineseRubySegments(sentenceText, s.py)}
+				{@const hasRuby = rubySegments.some((segment) => segment.reading)}
 				<a
 					class="example-item"
-					href="/sentence?text={encodeURIComponent(showTraditional ? s.trad : s.simp)}&lang=zh&en={encodeURIComponent(s.en)}&py={encodeURIComponent(s.py)}&from={encodeURIComponent(word)}"
+					href="/sentence?text={encodeURIComponent(sentenceText)}&lang=zh&en={encodeURIComponent(s.en)}&py={encodeURIComponent(s.py)}&from={encodeURIComponent(word)}"
 				>
 					<div class="example-text" lang={showTraditional ? 'zh-Hant' : 'zh-Hans'}>
-						{showTraditional ? s.trad : s.simp}
+						<AnnotatedSentence text={sentenceText} language="zh" pinyin={s.py} />
 					</div>
-					<div class="example-sub">{s.py}</div>
+					{#if !hasRuby}
+						<div class="example-sub">{s.py}</div>
+					{/if}
 					<div class="example-translation">{s.en}</div>
 				</a>
 			{/each}
@@ -113,7 +120,13 @@
 		border-radius: var(--radius-md); text-decoration: none; transition: border-color 0.15s;
 	}
 	.example-item:hover { border-color: var(--accent); }
-	.example-text { font-size: var(--font-size-body); font-family: var(--font-cjk); color: var(--text-primary); line-height: 1.6; }
+	.example-text {
+		font-size: var(--font-size-body);
+		font-family: var(--font-cjk);
+		color: var(--text-primary);
+		line-height: 2.15;
+		padding-top: 0.3em;
+	}
 	.example-sub { font-size: var(--font-size-caption2); color: var(--color-pinyin); margin-top: 1px; }
 	.example-translation { font-size: var(--font-size-caption1); color: var(--text-tertiary); margin-top: 2px; line-height: 1.4; }
 </style>

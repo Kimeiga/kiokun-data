@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { JapaneseSense, KoreanWord } from "$lib/types";
+	import AnnotatedSentence from "$lib/components/AnnotatedSentence.svelte";
 
 	interface Props {
 		japaneseSenses?: JapaneseSense[];
@@ -64,7 +65,7 @@
 					href="/sentence?text={encodeURIComponent(item.text)}&lang={item.source === 'ja' ? 'ja' : 'ko'}{item.translation ? '&en=' + encodeURIComponent(item.translation) : ''}"
 				>
 					<div class="example-text" lang={item.source === "ja" ? "ja" : "ko"}>
-						{item.text}
+						<AnnotatedSentence text={item.text} language={item.source} />
 					</div>
 					{#if item.translation}
 						<div class="example-translation">{item.translation}</div>
@@ -118,7 +119,8 @@
 		font-size: var(--font-size-body);
 		color: var(--text-primary);
 		font-family: var(--font-cjk);
-		line-height: 1.6;
+		line-height: 2.15;
+		padding-top: 0.3em;
 	}
 
 	.example-translation {

@@ -3,7 +3,13 @@
 	import { goto } from '$app/navigation';
 	import { getDictionaryUrl } from '$lib/shard-utils';
 	import { dev } from '$app/environment';
-	import { segmentText, isWordToken } from '$lib/utils/segment';
+	import {
+		buildChineseRubySegments,
+		buildJapaneseRubySegments,
+		buildKoreanRubySegments,
+		enrichJapaneseRubySegments,
+		type RubySegment
+	} from '$lib/utils/sentence-ruby';
 	import { findWordsWithDeinflection } from '$lib/utils/search-navigation';
 	import Header from '$lib/components/Header.svelte';
 	import SentenceBar from '$lib/components/SentenceBar.svelte';
@@ -15,14 +21,29 @@
 	let pinyin = $derived($page.url.searchParams.get('py') || '');
 	let from = $derived($page.url.searchParams.get('from') || '');
 
-	// Tokenize the sentence
-	let tokens = $derived.by(() => {
+	let baseDisplayTokens = $derived.by((): RubySegment[] => {
 		if (!text) return [];
-		if (lang === 'ja') return segmentText(text, 'japanese');
-		if (lang === 'zh') return segmentText(text, 'chinese');
-		// Korean: split by spaces
-		return text.split(/(\s+)/);
+		if (lang === 'zh') return buildChineseRubySegments(text, pinyin);
+		if (lang === 'ko') return buildKoreanRubySegments(text);
+		return buildJapaneseRubySegments(text);
 	});
+	let enrichedDisplayTokens = $state<RubySegment[] | null>(null);
+
+	$effect(() => {
+		enrichedDisplayTokens = null;
+		if (lang !== 'ja' || !text) return;
+
+		let cancelled = false;
+		const segments = baseDisplayTokens;
+		enrichJapaneseRubySegments(segments, fetch).then((result) => {
+			if (!cancelled) enrichedDisplayTokens = result;
+		});
+
+		return () => { cancelled = true; };
+	});
+
+	let displayTokens = $derived(enrichedDisplayTokens ?? baseDisplayTokens);
+	let hasRuby = $derived(displayTokens.some((token) => token.reading));
 
 	let langLabel = $derived(lang === 'ja' ? 'Japanese' : lang === 'zh' ? 'Chinese' : 'Korean');
 	let langAttr = $derived(lang === 'ja' ? 'ja' : lang === 'zh' ? 'zh' : 'ko');
@@ -35,7 +56,7 @@
 	let panelLoading = $state(false);
 
 	function cleanWord(w: string): string {
-		return w.replace(/[。、！？「」『』（）…・〜.,;:!?\s]/g, '');
+		return w.replace(/[。、，！？「」『』“”‘’（）…・〜.,;:!?\s]/g, '');
 	}
 
 	let panelDeinflectInfo = $state<string | null>(null);
@@ -88,10 +109,8 @@
 
 	function closePanel() { panelOpen = false; selectedWord = null; }
 
-	function isClickable(token: string): boolean {
-		const langMap = lang === 'ja' ? 'japanese' : lang === 'zh' ? 'chinese' : 'korean';
-		if (lang === 'ko') return token.trim().length > 0 && !/^\s+$/.test(token);
-		return isWordToken(token, langMap);
+	function isClickableToken(token: { text: string; isWord: boolean }): boolean {
+		return token.isWord;
 	}
 </script>
 
@@ -112,21 +131,33 @@
 			<!-- Sentence display -->
 			<div class="sentence-card">
 				<div class="sentence-flag">{langFlag}</div>
-				<div class="sentence-text" lang={langAttr}>
-					{#each tokens as token}
-						{#if isClickable(token)}
+				<div class="sentence-text" class:withRuby={hasRuby} lang={langAttr}>
+					{#each displayTokens as token}
+						{#if isClickableToken(token)}
 							<button
 								class="word-token"
-								class:selected={selectedWord === cleanWord(token)}
-								onclick={() => openPanel(token)}
-							>{token}</button>
+								class:selected={selectedWord === cleanWord(token.text)}
+								onclick={() => openPanel(token.text)}
+							>
+								{#if token.reading}
+									<ruby>{token.text}<rt>{token.reading}</rt></ruby>
+								{:else}
+									{token.text}
+								{/if}
+							</button>
 						{:else}
-							<span class="punct">{token}</span>
+							<span class="punct">
+								{#if token.reading}
+									<ruby>{token.text}<rt>{token.reading}</rt></ruby>
+								{:else}
+									{token.text}
+								{/if}
+							</span>
 						{/if}
 					{/each}
 				</div>
 
-				{#if pinyin}
+				{#if pinyin && (lang !== 'zh' || !hasRuby)}
 					<div class="sentence-pinyin">{pinyin}</div>
 				{/if}
 
@@ -252,6 +283,19 @@
 		line-height: 1.8;
 		color: var(--text-primary);
 		margin-bottom: var(--spacing-md);
+	}
+	.sentence-text.withRuby {
+		line-height: 2.25;
+		padding-top: 0.35em;
+	}
+	.sentence-text ruby { ruby-position: over; }
+	.sentence-text rt {
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+		font-size: 0.45em;
+		font-weight: 500;
+		line-height: 1;
+		color: var(--color-pinyin);
+		user-select: none;
 	}
 
 	@media (max-width: 768px) {

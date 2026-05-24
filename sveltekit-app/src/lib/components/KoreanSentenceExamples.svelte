@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import AnnotatedSentence from '$lib/components/AnnotatedSentence.svelte';
 
 	interface Props {
 		word: string;
@@ -109,7 +110,9 @@
 						class="example-item"
 						href="/sentence?text={encodeURIComponent(s.kr)}&lang=ko&en={encodeURIComponent(s.en)}&from={encodeURIComponent(word)}"
 					>
-						<div class="example-text" lang="ko">{s.kr}</div>
+						<div class="example-text" lang="ko">
+							<AnnotatedSentence text={s.kr} language="ko" />
+						</div>
 						<div class="example-translation">{s.en}</div>
 					</a>
 				{/each}
@@ -141,6 +144,12 @@
 		text-decoration: none; transition: border-color 0.15s;
 	}
 	.example-item:hover { border-color: var(--accent); }
-	.example-text { font-size: var(--font-size-body); font-family: var(--font-cjk); color: var(--text-primary); line-height: 1.6; }
+	.example-text {
+		font-size: var(--font-size-body);
+		font-family: var(--font-cjk);
+		color: var(--text-primary);
+		line-height: 2.15;
+		padding-top: 0.3em;
+	}
 	.example-translation { font-size: var(--font-size-caption1); color: var(--text-tertiary); margin-top: 2px; line-height: 1.4; }
 </style>
