@@ -12,80 +12,7 @@
       "kind": "audio-stt",
       "segments": [
         {
-          "start_time": 0.2,
-          "end_time": 1.48,
-          "text": "宮下パーク 集合？"
-        },
-        {
-          "start_time": 1.48,
-          "end_time": 2.75,
-          "text": "体 どこにいんの？"
-        },
-        {
-          "start_time": 2.75,
-          "end_time": 5.02,
-          "text": "いやだからお前がよくわかんない。"
-        },
-        {
-          "start_time": 5.02,
-          "end_time": 6.58,
-          "text": "お前 抽象的 な さ。"
-        },
-        {
-          "start_time": 6.58,
-          "end_time": 9.42,
-          "text": "知らねえよ カス お前どこが橋の上だよ。"
-        },
-        {
-          "start_time": 9.42,
-          "end_time": 10.83,
-          "text": "マジでどこにいんの？"
-        },
-        {
-          "start_time": 10.83,
-          "end_time": 21.18,
-          "text": "いや こちら 聞きたいのは、私はちゃんと 時間通り 時間 取りに来てないけど、30分 30分過ぎて見やすかったり来たんだからお前はいないんだって。"
-        },
-        {
-          "start_time": 21.18,
-          "end_time": 30.4,
-          "text": "どこに こちらこそ こちらこそ 橋の上って言ったらここか あっちか2つしかないんだから、とりあえず 叫んで叫んで わかんないから。"
-        },
-        {
-          "start_time": 35.1,
-          "end_time": 36.36,
-          "text": "どこにいんの？"
-        },
-        {
-          "start_time": 36.36,
-          "end_time": 37.3,
-          "text": "ユニコーン？"
-        },
-        {
-          "start_time": 39.0,
-          "end_time": 40.8,
-          "text": "あいたいたいたいたここここ"
-        },
-        {
-          "start_time": 42.1,
-          "end_time": 45.38,
-          "text": "早くしろよ な。"
-        },
-        {
-          "start_time": 45.38,
-          "end_time": 48.3,
-          "text": "そういうのはな。"
-        }
-      ]
-    },
-    {
-      "id": "gemini-25-flash-audio-only",
-      "label": "Gemini 2.5 Flash audio-only",
-      "source": "Audio-only prompt; no video frames or hardsubs provided",
-      "kind": "audio-stt",
-      "segments": [
-        {
-          "start_time": 0.0,
+          "start_time": 0,
           "end_time": 0.8,
           "text": "えね、さ、",
           "confidence": 0.9
@@ -97,49 +24,49 @@
           "confidence": 0.9
         },
         {
-          "start_time": 3.0,
-          "end_time": 6.0,
+          "start_time": 3,
+          "end_time": 6,
           "text": "いや、だからお前がよくわかんねえ、お前抽象的なさ、",
           "confidence": 0.9
         },
         {
-          "start_time": 6.0,
+          "start_time": 6,
           "end_time": 7.9,
           "text": "橋の上って言ったやん。",
           "confidence": 0.9
         },
         {
-          "start_time": 8.0,
+          "start_time": 8,
           "end_time": 10.8,
           "text": "知らねえよ、カス。お前どこが橋の上だよ。",
           "confidence": 0.9
         },
         {
           "start_time": 10.8,
-          "end_time": 12.0,
+          "end_time": 12,
           "text": "え、マジでどこにんの？",
           "confidence": 0.9
         },
         {
           "start_time": 12.4,
-          "end_time": 14.0,
+          "end_time": 14,
           "text": "いや、こちらよ、聞きたいのは。",
           "confidence": 0.9
         },
         {
-          "start_time": 14.0,
+          "start_time": 14,
           "end_time": 20.9,
           "text": "私はちゃんとさ、時間通りに、ま、時間通りに来てないけど、30分、30分過ぎて宮下パークに来たんだから。",
           "confidence": 0.9
         },
         {
           "start_time": 21.3,
-          "end_time": 22.0,
+          "end_time": 22,
           "text": "お前がな",
           "confidence": 0.9
         },
         {
-          "start_time": 22.0,
+          "start_time": 22,
           "end_time": 23.7,
           "text": "いや、とはいえマジ本当いないんだって。",
           "confidence": 0.9
@@ -164,25 +91,25 @@
         },
         {
           "start_time": 28.2,
-          "end_time": 30.0,
+          "end_time": 30,
           "text": "え、とりあえず叫んで、叫んで。",
           "confidence": 0.9
         },
         {
-          "start_time": 30.0,
+          "start_time": 30,
           "end_time": 30.5,
           "text": "わかんないから。",
           "confidence": 0.9
         },
         {
           "start_time": 30.5,
-          "end_time": 31.0,
+          "end_time": 31,
           "text": "何？",
           "confidence": 0.9
         },
         {
           "start_time": 31.2,
-          "end_time": 32.0,
+          "end_time": 32,
           "text": "ユニコーン？",
           "confidence": 0.9
         },
@@ -194,31 +121,31 @@
         },
         {
           "start_time": 35.4,
-          "end_time": 36.0,
+          "end_time": 36,
           "text": "どこにんの？",
           "confidence": 0.9
         },
         {
           "start_time": 36.1,
-          "end_time": 38.0,
+          "end_time": 38,
           "text": "ユニコーン！",
           "confidence": 0.9
         },
         {
           "start_time": 39.2,
-          "end_time": 40.0,
+          "end_time": 40,
           "text": "あ、いたいたいたいた。",
           "confidence": 0.9
         },
         {
           "start_time": 40.2,
-          "end_time": 41.0,
+          "end_time": 41,
           "text": "ここここ。",
           "confidence": 0.9
         },
         {
           "start_time": 42.2,
-          "end_time": 43.0,
+          "end_time": 43,
           "text": "おったおったおった。",
           "confidence": 0.9
         },
@@ -229,7 +156,177 @@
           "confidence": 0.9
         },
         {
-          "start_time": 44.0,
+          "start_time": 44,
+          "end_time": 44.7,
+          "text": "行くで。",
+          "confidence": 0.9
+        },
+        {
+          "start_time": 44.7,
+          "end_time": 45.8,
+          "text": "ああ。",
+          "confidence": 0.9
+        },
+        {
+          "start_time": 46.4,
+          "end_time": 48.4,
+          "text": "お前早くしろよな、そういうの。な。",
+          "confidence": 0.9
+        }
+      ]
+    },
+    {
+      "id": "gemini-25-flash-audio-only",
+      "label": "Gemini 2.5 Flash audio-only",
+      "source": "Audio-only prompt; no video frames or hardsubs provided",
+      "kind": "audio-stt",
+      "segments": [
+        {
+          "start_time": 0,
+          "end_time": 0.8,
+          "text": "えね、さ、",
+          "confidence": 0.9
+        },
+        {
+          "start_time": 0.8,
+          "end_time": 2.9,
+          "text": "宮下パーク集合ってどこにんの？",
+          "confidence": 0.9
+        },
+        {
+          "start_time": 3,
+          "end_time": 6,
+          "text": "いや、だからお前がよくわかんねえ、お前抽象的なさ、",
+          "confidence": 0.9
+        },
+        {
+          "start_time": 6,
+          "end_time": 7.9,
+          "text": "橋の上って言ったやん。",
+          "confidence": 0.9
+        },
+        {
+          "start_time": 8,
+          "end_time": 10.8,
+          "text": "知らねえよ、カス。お前どこが橋の上だよ。",
+          "confidence": 0.9
+        },
+        {
+          "start_time": 10.8,
+          "end_time": 12,
+          "text": "え、マジでどこにんの？",
+          "confidence": 0.9
+        },
+        {
+          "start_time": 12.4,
+          "end_time": 14,
+          "text": "いや、こちらよ、聞きたいのは。",
+          "confidence": 0.9
+        },
+        {
+          "start_time": 14,
+          "end_time": 20.9,
+          "text": "私はちゃんとさ、時間通りに、ま、時間通りに来てないけど、30分、30分過ぎて宮下パークに来たんだから。",
+          "confidence": 0.9
+        },
+        {
+          "start_time": 21.3,
+          "end_time": 22,
+          "text": "お前がな",
+          "confidence": 0.9
+        },
+        {
+          "start_time": 22,
+          "end_time": 23.7,
+          "text": "いや、とはいえマジ本当いないんだって。",
+          "confidence": 0.9
+        },
+        {
+          "start_time": 23.7,
+          "end_time": 24.2,
+          "text": "どこにんの？",
+          "confidence": 0.9
+        },
+        {
+          "start_time": 24.3,
+          "end_time": 25.4,
+          "text": "いや、こちらこそ、こちらこそ。",
+          "confidence": 0.9
+        },
+        {
+          "start_time": 25.4,
+          "end_time": 28.2,
+          "text": "橋の上って言ったらここかあっちか2つしかないんだから。",
+          "confidence": 0.9
+        },
+        {
+          "start_time": 28.2,
+          "end_time": 30,
+          "text": "え、とりあえず叫んで、叫んで。",
+          "confidence": 0.9
+        },
+        {
+          "start_time": 30,
+          "end_time": 30.5,
+          "text": "わかんないから。",
+          "confidence": 0.9
+        },
+        {
+          "start_time": 30.5,
+          "end_time": 31,
+          "text": "何？",
+          "confidence": 0.9
+        },
+        {
+          "start_time": 31.2,
+          "end_time": 32,
+          "text": "ユニコーン？",
+          "confidence": 0.9
+        },
+        {
+          "start_time": 32.2,
+          "end_time": 33.5,
+          "text": "ああ、ユニコーン。ああ、オッケーオッケーオッケー。",
+          "confidence": 0.9
+        },
+        {
+          "start_time": 35.4,
+          "end_time": 36,
+          "text": "どこにんの？",
+          "confidence": 0.9
+        },
+        {
+          "start_time": 36.1,
+          "end_time": 38,
+          "text": "ユニコーン！",
+          "confidence": 0.9
+        },
+        {
+          "start_time": 39.2,
+          "end_time": 40,
+          "text": "あ、いたいたいたいた。",
+          "confidence": 0.9
+        },
+        {
+          "start_time": 40.2,
+          "end_time": 41,
+          "text": "ここここ。",
+          "confidence": 0.9
+        },
+        {
+          "start_time": 42.2,
+          "end_time": 43,
+          "text": "おったおったおった。",
+          "confidence": 0.9
+        },
+        {
+          "start_time": 43.2,
+          "end_time": 43.9,
+          "text": "あ、ここここ。",
+          "confidence": 0.9
+        },
+        {
+          "start_time": 44,
           "end_time": 44.7,
           "text": "行くで。",
           "confidence": 0.9
@@ -256,175 +353,175 @@
       "segments": [
         {
           "start_time": 0.7,
-          "end_time": 2.0,
+          "end_time": 2,
           "text": "え、ねえさ、宮下パーク集合ってさ、どこに",
           "confidence": 0.9
         },
         {
-          "start_time": 2.0,
-          "end_time": 3.0,
+          "start_time": 2,
+          "end_time": 3,
           "text": "いんの？",
           "confidence": 0.9
         },
         {
-          "start_time": 3.0,
-          "end_time": 4.0,
+          "start_time": 3,
+          "end_time": 4,
           "text": "いや、だからお前がよく分かんねえ、お前",
           "confidence": 0.9
         },
         {
-          "start_time": 4.0,
-          "end_time": 6.0,
+          "start_time": 4,
+          "end_time": 6,
           "text": "抽象的なさ、橋の上つったやん。",
           "confidence": 0.9
         },
         {
-          "start_time": 6.0,
-          "end_time": 7.0,
+          "start_time": 6,
+          "end_time": 7,
           "text": "知らねえよ、カス、お前どこが橋の上でよ。",
           "confidence": 0.9
         },
         {
-          "start_time": 7.0,
-          "end_time": 8.0,
+          "start_time": 7,
+          "end_time": 8,
           "text": "え、マジでどこにいんの？",
           "confidence": 0.9
         },
         {
-          "start_time": 8.0,
-          "end_time": 10.0,
+          "start_time": 8,
+          "end_time": 10,
           "text": "いや、こっちやん、聞きたいなのは。",
           "confidence": 0.9
         },
         {
-          "start_time": 10.0,
-          "end_time": 12.0,
+          "start_time": 10,
+          "end_time": 12,
           "text": "私はちゃんとさ、時間どおり、ま、時間通りに来てないけど",
           "confidence": 0.9
         },
         {
-          "start_time": 12.0,
-          "end_time": 14.0,
+          "start_time": 12,
+          "end_time": 14,
           "text": "30分、30分過ぎて宮下パークに来たんだから",
           "confidence": 0.9
         },
         {
-          "start_time": 14.0,
-          "end_time": 15.0,
+          "start_time": 14,
+          "end_time": 15,
           "text": "お前がなんか",
           "confidence": 0.9
         },
         {
-          "start_time": 15.0,
-          "end_time": 16.0,
+          "start_time": 15,
+          "end_time": 16,
           "text": "いや、とはいえマジ本当いねえんだって。",
           "confidence": 0.9
         },
         {
-          "start_time": 16.0,
-          "end_time": 17.0,
+          "start_time": 16,
+          "end_time": 17,
           "text": "どこにいんの？",
           "confidence": 0.9
         },
         {
-          "start_time": 17.0,
-          "end_time": 18.0,
+          "start_time": 17,
+          "end_time": 18,
           "text": "いや、こっちこそ、こっちこそ。",
           "confidence": 0.9
         },
         {
-          "start_time": 18.0,
-          "end_time": 19.0,
+          "start_time": 18,
+          "end_time": 19,
           "text": "橋の上って言ったらここかあっちか",
           "confidence": 0.9
         },
         {
-          "start_time": 19.0,
-          "end_time": 20.0,
+          "start_time": 19,
+          "end_time": 20,
           "text": "二つしかないんだから。",
           "confidence": 0.9
         },
         {
-          "start_time": 20.0,
-          "end_time": 21.0,
+          "start_time": 20,
+          "end_time": 21,
           "text": "え、とりあえず叫んで、叫んで",
           "confidence": 0.9
         },
         {
-          "start_time": 21.0,
-          "end_time": 22.0,
+          "start_time": 21,
+          "end_time": 22,
           "text": "わかんないから。",
           "confidence": 0.9
         },
         {
-          "start_time": 22.0,
-          "end_time": 23.0,
+          "start_time": 22,
+          "end_time": 23,
           "text": "何？",
           "confidence": 0.9
         },
         {
-          "start_time": 23.0,
-          "end_time": 24.0,
+          "start_time": 23,
+          "end_time": 24,
           "text": "ユニコーン？",
           "confidence": 0.9
         },
         {
-          "start_time": 24.0,
-          "end_time": 25.0,
+          "start_time": 24,
+          "end_time": 25,
           "text": "あ、ユニコーン。",
           "confidence": 0.9
         },
         {
-          "start_time": 25.0,
-          "end_time": 26.0,
+          "start_time": 25,
+          "end_time": 26,
           "text": "あ、オッケーオッケー。",
           "confidence": 0.9
         },
         {
-          "start_time": 26.0,
-          "end_time": 27.0,
+          "start_time": 26,
+          "end_time": 27,
           "text": "どこにいんの？",
           "confidence": 0.9
         },
         {
-          "start_time": 27.0,
-          "end_time": 28.0,
+          "start_time": 27,
+          "end_time": 28,
           "text": "ユニコーン！",
           "confidence": 0.9
         },
         {
-          "start_time": 29.0,
-          "end_time": 30.0,
+          "start_time": 29,
+          "end_time": 30,
           "text": "あ、痛い痛い痛い。",
           "confidence": 0.9
         },
         {
-          "start_time": 30.0,
-          "end_time": 31.0,
+          "start_time": 30,
+          "end_time": 31,
           "text": "ここここ。",
           "confidence": 0.9
         },
         {
-          "start_time": 31.0,
-          "end_time": 32.0,
+          "start_time": 31,
+          "end_time": 32,
           "text": "おったおったおった。",
           "confidence": 0.9
         },
         {
-          "start_time": 32.0,
-          "end_time": 33.0,
+          "start_time": 32,
+          "end_time": 33,
           "text": "あ、ここここ。",
           "confidence": 0.9
         },
         {
-          "start_time": 33.0,
-          "end_time": 34.0,
+          "start_time": 33,
+          "end_time": 34,
           "text": "行くで。",
           "confidence": 0.9
         },
         {
-          "start_time": 35.0,
-          "end_time": 36.0,
+          "start_time": 35,
+          "end_time": 36,
           "text": "お前早くしろよな、そういうのな。",
           "confidence": 0.9
         }
@@ -505,31 +602,31 @@
       "kind": "local-ocr",
       "segments": [
         {
-          "start_time": 0.0,
+          "start_time": 0,
           "end_time": 0.25,
           "text": "ゆ言ちやん\n集合場所に来たのに\nいないから叫ばせてみたら..",
           "confidence": 0.8999
         },
         {
           "start_time": 0.25,
-          "end_time": 1.0,
+          "end_time": 1,
           "text": "48净\n集合場所に来たのに\nいないから叫ばせてみたら..",
           "confidence": 0.9648
         },
         {
-          "start_time": 1.0,
+          "start_time": 1,
           "end_time": 1.25,
           "text": "7:48办\nゆ吉ちやん\n集合場所に来たのに\nいないから叫ばせてみたら.",
           "confidence": 0.8557
         },
         {
           "start_time": 1.25,
-          "end_time": 2.0,
+          "end_time": 2,
           "text": "集合場所に来たのに\nいないから叫ばせてみたら..",
           "confidence": 0.9758
         },
         {
-          "start_time": 2.0,
+          "start_time": 2,
           "end_time": 2.25,
           "text": "集合場所に来たのに\nいないから叫ばせてみたら",
           "confidence": 0.9776
@@ -560,12 +657,12 @@
         },
         {
           "start_time": 9.5,
-          "end_time": 11.0,
+          "end_time": 11,
           "text": "お前どこが橋の上だよ",
           "confidence": 0.9934
         },
         {
-          "start_time": 11.0,
+          "start_time": 11,
           "end_time": 12.5,
           "text": "え、マジでどこにいんの",
           "confidence": 0.9638
@@ -620,12 +717,12 @@
         },
         {
           "start_time": 24.5,
-          "end_time": 25.0,
+          "end_time": 25,
           "text": "こちらこそ(?)",
           "confidence": 0.8607
         },
         {
-          "start_time": 25.0,
+          "start_time": 25,
           "end_time": 25.75,
           "text": "こちらこそ(?)(?)",
           "confidence": 0.7751
@@ -674,12 +771,12 @@
         },
         {
           "start_time": 30.75,
-          "end_time": 31.0,
+          "end_time": 31,
           "text": "なに？",
           "confidence": 0.8541
         },
         {
-          "start_time": 31.0,
+          "start_time": 31,
           "end_time": 31.25,
           "text": "なに?",
           "confidence": 0.7932
@@ -692,24 +789,24 @@
         },
         {
           "start_time": 31.75,
-          "end_time": 32.0,
+          "end_time": 32,
           "text": "ユニコーン",
           "confidence": 0.851
         },
         {
-          "start_time": 32.0,
+          "start_time": 32,
           "end_time": 32.5,
           "text": "ああ",
           "confidence": 0.8413
         },
         {
           "start_time": 32.75,
-          "end_time": 33.0,
+          "end_time": 33,
           "text": "ユニオーん\n(大事なとこむな)",
           "confidence": 0.9626
         },
         {
-          "start_time": 33.0,
+          "start_time": 33,
           "end_time": 35.25,
           "text": "ああおけおけおけ",
           "confidence": 0.9851
@@ -740,12 +837,12 @@
         },
         {
           "start_time": 36.75,
-          "end_time": 37.0,
+          "end_time": 37,
           "text": "ユニコーン!ト",
           "confidence": 0.7936
         },
         {
-          "start_time": 37.0,
+          "start_time": 37,
           "end_time": 37.25,
           "text": "ユニコーン!!",
           "confidence": 0.836
@@ -763,7 +860,7 @@
           "confidence": 0.8722
         },
         {
-          "start_time": 38.0,
+          "start_time": 38,
           "end_time": 39.25,
           "text": "ユニコーン!!!",
           "confidence": 0.8342
@@ -776,7 +873,7 @@
         },
         {
           "start_time": 40.75,
-          "end_time": 41.0,
+          "end_time": 41,
           "text": "ここ!zこ",
           "confidence": 0.705
         },
@@ -793,7 +890,7 @@
           "confidence": 0.7428
         },
         {
-          "start_time": 44.0,
+          "start_time": 44,
           "end_time": 44.25,
           "text": "ここ!こZ!",
           "confidence": 0.7549
@@ -829,8 +926,8 @@
           "confidence": 0.9757
         },
         {
-          "start_time": 49.0,
-          "end_time": 54.0,
+          "start_time": 49,
+          "end_time": 54,
           "text": "遅刻したのお前だろ",
           "confidence": 0.9554
         }
@@ -843,184 +940,184 @@
       "kind": "video-llm",
       "segments": [
         {
-          "start_time": 0.0,
+          "start_time": 0,
           "end_time": 0.6,
           "text": "集合場所に来たのに",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
           "start_time": 0.6,
-          "end_time": 3.0,
+          "end_time": 3,
           "text": "いないから叫ばせてみたら...",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 3.0,
-          "end_time": 6.0,
+          "start_time": 3,
+          "end_time": 6,
           "text": "いないから叫ばせてみたら...",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 6.0,
-          "end_time": 8.0,
+          "start_time": 6,
+          "end_time": 8,
           "text": "橋の上って言ったやん",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 8.0,
-          "end_time": 9.0,
+          "start_time": 8,
+          "end_time": 9,
           "text": "知らねえよカス",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 9.0,
-          "end_time": 11.0,
+          "start_time": 9,
+          "end_time": 11,
           "text": "お前どこが橋の上だよ",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 11.0,
-          "end_time": 12.0,
+          "start_time": 11,
+          "end_time": 12,
           "text": "え、マジでどこにいの",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 12.0,
-          "end_time": 13.0,
+          "start_time": 12,
+          "end_time": 13,
           "text": "いやこちらだよ",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 13.0,
-          "end_time": 14.0,
+          "start_time": 13,
+          "end_time": 14,
           "text": "聞きたいのは",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 14.0,
-          "end_time": 17.0,
+          "start_time": 14,
+          "end_time": 17,
           "text": "私はちゃんと時間通り？",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 17.0,
-          "end_time": 18.0,
+          "start_time": 17,
+          "end_time": 18,
           "text": "時間通りに来てないけど",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 18.0,
-          "end_time": 21.0,
+          "start_time": 18,
+          "end_time": 21,
           "text": "※30分遅刻してます\n宮下パーク来たんだから",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 21.0,
-          "end_time": 23.0,
+          "start_time": 21,
+          "end_time": 23,
           "text": "マジ本当いないんだって",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 23.0,
-          "end_time": 25.0,
+          "start_time": 23,
+          "end_time": 25,
           "text": "こちらこそ(？)(？)",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 25.0,
-          "end_time": 28.0,
+          "start_time": 25,
+          "end_time": 28,
           "text": "ここかあっちか\n2つしかないんだから",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 28.0,
-          "end_time": 30.0,
+          "start_time": 28,
+          "end_time": 30,
           "text": "とりあえず叫んで？",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 30.0,
-          "end_time": 31.0,
+          "start_time": 30,
+          "end_time": 31,
           "text": "叫んでわかんないから",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 31.0,
-          "end_time": 32.0,
+          "start_time": 31,
+          "end_time": 32,
           "text": "ユニコーン？",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 32.0,
-          "end_time": 34.0,
+          "start_time": 32,
+          "end_time": 34,
           "text": "あ、おけおけおけ",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 34.0,
-          "end_time": 36.0,
+          "start_time": 34,
+          "end_time": 36,
           "text": "どこにいの？",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 36.0,
-          "end_time": 39.0,
+          "start_time": 36,
+          "end_time": 39,
           "text": "ユニコーン！！",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 39.0,
-          "end_time": 41.0,
+          "start_time": 39,
+          "end_time": 41,
           "text": "あ、いたいた！",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 41.0,
-          "end_time": 42.0,
+          "start_time": 41,
+          "end_time": 42,
           "text": "ここここ",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 42.0,
-          "end_time": 43.0,
+          "start_time": 42,
+          "end_time": 43,
           "text": "おったおったおった...",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 43.0,
-          "end_time": 44.0,
+          "start_time": 43,
+          "end_time": 44,
           "text": "ここここ",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 44.0,
-          "end_time": 45.0,
+          "start_time": 44,
+          "end_time": 45,
           "text": "行くでぃ☆",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 45.0,
-          "end_time": 48.0,
+          "start_time": 45,
+          "end_time": 48,
           "text": "お前早くしろよな？",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 48.0,
-          "end_time": 49.0,
+          "start_time": 48,
+          "end_time": 49,
           "text": "な？",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 49.0,
-          "end_time": 51.0,
+          "start_time": 49,
+          "end_time": 51,
           "text": "※遅刻したのお前だろ",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 51.0,
-          "end_time": 53.0,
+          "start_time": 51,
+          "end_time": 53,
           "text": "※遅刻したのお前だろ",
-          "confidence": 1.0
+          "confidence": 1
         }
       ]
     },
@@ -1031,10 +1128,10 @@
       "kind": "video-llm",
       "segments": [
         {
-          "start_time": 0.0,
-          "end_time": 6.0,
+          "start_time": 0,
+          "end_time": 6,
           "text": "集合場所に来たのに いないから叫ばせてみたら...",
-          "confidence": 1.0,
+          "confidence": 1,
           "notes": "Narrative hardsub overlay."
         },
         {
@@ -1046,207 +1143,207 @@
         },
         {
           "start_time": 2.9,
-          "end_time": 6.0,
+          "end_time": 6,
           "text": "いやだからお前がよくわかんないお前抽象的なさ",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 6.0,
-          "end_time": 7.0,
+          "start_time": 6,
+          "end_time": 7,
           "text": "橋の上って言ったやん",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 7.0,
-          "end_time": 8.0,
+          "start_time": 7,
+          "end_time": 8,
           "text": "知らねえよカス",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 8.0,
-          "end_time": 10.0,
+          "start_time": 8,
+          "end_time": 10,
           "text": "お前どこが橋の上だよ",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 10.0,
-          "end_time": 12.0,
+          "start_time": 10,
+          "end_time": 12,
           "text": "え、マジでどこにいるの？",
           "confidence": 0.9,
           "notes": "Audio uses 'いんの', hardsub uses 'いるの'. Prefer hardsub for standard form and punctuation."
         },
         {
-          "start_time": 12.0,
-          "end_time": 13.0,
+          "start_time": 12,
+          "end_time": 13,
           "text": "いやこっちだよ",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 13.0,
-          "end_time": 14.0,
+          "start_time": 13,
+          "end_time": 14,
           "text": "聞きたいのは",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 14.0,
-          "end_time": 15.0,
+          "start_time": 14,
+          "end_time": 15,
           "text": "私はちゃんと時間通り？",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 15.0,
-          "end_time": 17.0,
+          "start_time": 15,
+          "end_time": 17,
           "text": "時間通りに来てないけど",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
           "start_time": 17.8,
-          "end_time": 21.0,
+          "end_time": 21,
           "text": "30分、30分過ぎて宮下パーク来たんだから",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 18.0,
-          "end_time": 21.0,
+          "start_time": 18,
+          "end_time": 21,
           "text": "※30分遅刻してます",
-          "confidence": 1.0,
+          "confidence": 1,
           "notes": "Visual note from hardsub."
         },
         {
-          "start_time": 21.0,
-          "end_time": 22.0,
+          "start_time": 21,
+          "end_time": 22,
           "text": "お前がな",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 22.0,
-          "end_time": 24.0,
+          "start_time": 22,
+          "end_time": 24,
           "text": "とはいえマジ本当いないんだって",
           "confidence": 0.9,
           "notes": "Hardsub: 'マジ本当いないんだって'. Audio adds 'とはいえ'."
         },
         {
-          "start_time": 24.0,
-          "end_time": 25.0,
+          "start_time": 24,
+          "end_time": 25,
           "text": "どこにいるの？",
           "confidence": 0.9,
           "notes": "Audio uses 'いんの', hardsub uses 'いるの'. Prefer hardsub for standard form and punctuation."
         },
         {
-          "start_time": 25.0,
-          "end_time": 26.0,
+          "start_time": 25,
+          "end_time": 26,
           "text": "いやこちらこそ、こちらこそ",
           "confidence": 0.9,
           "notes": "Hardsub: 'こちらこそ(？)(？)'. Audio is clearer."
         },
         {
-          "start_time": 26.0,
-          "end_time": 28.0,
+          "start_time": 26,
+          "end_time": 28,
           "text": "橋の上って言ったらここかあっちか2つしかないんだから",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 28.0,
-          "end_time": 29.0,
+          "start_time": 28,
+          "end_time": 29,
           "text": "とりあえず叫んで？",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 29.0,
-          "end_time": 30.0,
+          "start_time": 29,
+          "end_time": 30,
           "text": "叫んでわかんないから",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 30.0,
-          "end_time": 31.0,
+          "start_time": 30,
+          "end_time": 31,
           "text": "何？",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 31.0,
-          "end_time": 32.0,
+          "start_time": 31,
+          "end_time": 32,
           "text": "ユニコーン？",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 32.0,
-          "end_time": 33.0,
+          "start_time": 32,
+          "end_time": 33,
           "text": "あー",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 33.0,
-          "end_time": 34.0,
+          "start_time": 33,
+          "end_time": 34,
           "text": "あーおけおけおけ",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 35.0,
-          "end_time": 36.0,
+          "start_time": 35,
+          "end_time": 36,
           "text": "どこにいるの？",
           "confidence": 0.9,
           "notes": "Audio uses 'いんの', hardsub uses 'いるの'. Prefer hardsub for standard form and punctuation."
         },
         {
-          "start_time": 36.0,
-          "end_time": 38.0,
+          "start_time": 36,
+          "end_time": 38,
           "text": "ユニコーン！！",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 39.0,
-          "end_time": 40.0,
+          "start_time": 39,
+          "end_time": 40,
           "text": "あ、いたいた！",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 40.0,
-          "end_time": 41.0,
+          "start_time": 40,
+          "end_time": 41,
           "text": "ここここ",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 42.0,
-          "end_time": 43.0,
+          "start_time": 42,
+          "end_time": 43,
           "text": "おったおったおった...",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 43.0,
-          "end_time": 44.0,
+          "start_time": 43,
+          "end_time": 44,
           "text": "ここここ",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 44.0,
-          "end_time": 45.0,
+          "start_time": 44,
+          "end_time": 45,
           "text": "行くでぃ☆",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 45.0,
-          "end_time": 46.0,
+          "start_time": 45,
+          "end_time": 46,
           "text": "あー",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 46.0,
-          "end_time": 48.0,
+          "start_time": 46,
+          "end_time": 48,
           "text": "お前早くしろよな？",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 48.0,
-          "end_time": 49.0,
+          "start_time": 48,
+          "end_time": 49,
           "text": "な？",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 49.0,
-          "end_time": 53.0,
+          "start_time": 49,
+          "end_time": 53,
           "text": "※遅刻したのお前だろ",
-          "confidence": 1.0,
+          "confidence": 1,
           "notes": "Visual note from hardsub."
         }
       ]
@@ -1258,266 +1355,266 @@
       "kind": "video-llm",
       "segments": [
         {
-          "start_time": 0.0,
+          "start_time": 0,
           "end_time": 1.2,
           "text": "集合場所に来たのに\nいないから呼ぼうとしてみたら…",
           "confidence": 0.99
         },
         {
           "start_time": 1.2,
-          "end_time": 3.0,
+          "end_time": 3,
           "text": "え、ねさ、宮下パーク集合って\nどこにいるの？",
           "confidence": 0.99
         },
         {
-          "start_time": 3.0,
-          "end_time": 5.0,
+          "start_time": 3,
+          "end_time": 5,
           "text": "いやだからお前がよくわかんない\nお前中の上だよ",
           "confidence": 0.99
         },
         {
-          "start_time": 5.0,
-          "end_time": 6.0,
+          "start_time": 5,
+          "end_time": 6,
           "text": "え、マジでどこにいるの",
           "confidence": 0.99
         },
         {
-          "start_time": 6.0,
-          "end_time": 7.0,
+          "start_time": 6,
+          "end_time": 7,
           "text": "いや、こっちだよ",
           "confidence": 0.99
         },
         {
-          "start_time": 7.0,
-          "end_time": 8.0,
+          "start_time": 7,
+          "end_time": 8,
           "text": "聞きたいのは",
           "confidence": 0.99
         },
         {
-          "start_time": 8.0,
-          "end_time": 10.0,
+          "start_time": 8,
+          "end_time": 10,
           "text": "私はちゃんと時間通り？\n時間通りに来てないけど",
           "confidence": 0.99
         },
         {
-          "start_time": 10.0,
-          "end_time": 12.0,
+          "start_time": 10,
+          "end_time": 12,
           "text": "30分\n30分過ぎて宮下パーク来たんだから",
           "confidence": 0.99
         },
         {
-          "start_time": 12.0,
-          "end_time": 13.0,
+          "start_time": 12,
+          "end_time": 13,
           "text": "いや、?",
           "confidence": 0.99
         },
         {
-          "start_time": 13.0,
-          "end_time": 14.0,
+          "start_time": 13,
+          "end_time": 14,
           "text": "?",
           "confidence": 0.99
         },
         {
-          "start_time": 14.0,
-          "end_time": 15.0,
+          "start_time": 14,
+          "end_time": 15,
           "text": "?",
           "confidence": 0.99
         },
         {
-          "start_time": 15.0,
-          "end_time": 16.0,
+          "start_time": 15,
+          "end_time": 16,
           "text": "?",
           "confidence": 0.99
         },
         {
-          "start_time": 16.0,
-          "end_time": 17.0,
+          "start_time": 16,
+          "end_time": 17,
           "text": "?",
           "confidence": 0.99
         },
         {
-          "start_time": 17.0,
-          "end_time": 18.0,
+          "start_time": 17,
+          "end_time": 18,
           "text": "?",
           "confidence": 0.99
         },
         {
-          "start_time": 18.0,
-          "end_time": 19.0,
+          "start_time": 18,
+          "end_time": 19,
           "text": "?",
           "confidence": 0.99
         },
         {
-          "start_time": 19.0,
-          "end_time": 20.0,
+          "start_time": 19,
+          "end_time": 20,
           "text": "?",
           "confidence": 0.99
         },
         {
-          "start_time": 20.0,
-          "end_time": 21.0,
+          "start_time": 20,
+          "end_time": 21,
           "text": "?",
           "confidence": 0.99
         },
         {
-          "start_time": 21.0,
-          "end_time": 22.0,
+          "start_time": 21,
+          "end_time": 22,
           "text": "?",
           "confidence": 0.99
         },
         {
-          "start_time": 22.0,
-          "end_time": 23.0,
+          "start_time": 22,
+          "end_time": 23,
           "text": "?",
           "confidence": 0.99
         },
         {
-          "start_time": 23.0,
-          "end_time": 24.0,
+          "start_time": 23,
+          "end_time": 24,
           "text": "?",
           "confidence": 0.99
         },
         {
-          "start_time": 24.0,
-          "end_time": 25.0,
+          "start_time": 24,
+          "end_time": 25,
           "text": "?",
           "confidence": 0.99
         },
         {
-          "start_time": 25.0,
-          "end_time": 26.0,
+          "start_time": 25,
+          "end_time": 26,
           "text": "?",
           "confidence": 0.99
         },
         {
-          "start_time": 26.0,
-          "end_time": 27.0,
+          "start_time": 26,
+          "end_time": 27,
           "text": "?",
           "confidence": 0.99
         },
         {
-          "start_time": 27.0,
-          "end_time": 28.0,
+          "start_time": 27,
+          "end_time": 28,
           "text": "?",
           "confidence": 0.99
         },
         {
-          "start_time": 28.0,
-          "end_time": 29.0,
+          "start_time": 28,
+          "end_time": 29,
           "text": "?",
           "confidence": 0.99
         },
         {
-          "start_time": 29.0,
-          "end_time": 30.0,
+          "start_time": 29,
+          "end_time": 30,
           "text": "?",
           "confidence": 0.99
         },
         {
-          "start_time": 30.0,
-          "end_time": 31.0,
+          "start_time": 30,
+          "end_time": 31,
           "text": "?",
           "confidence": 0.99
         },
         {
-          "start_time": 31.0,
-          "end_time": 32.0,
+          "start_time": 31,
+          "end_time": 32,
           "text": "ユニコーン？",
           "confidence": 0.99
         },
         {
-          "start_time": 32.0,
-          "end_time": 33.0,
+          "start_time": 32,
+          "end_time": 33,
           "text": "ああ",
           "confidence": 0.99
         },
         {
-          "start_time": 33.0,
-          "end_time": 34.0,
+          "start_time": 33,
+          "end_time": 34,
           "text": "ああああけけけ",
           "confidence": 0.99
         },
         {
-          "start_time": 34.0,
-          "end_time": 35.0,
+          "start_time": 34,
+          "end_time": 35,
           "text": "どこにいるの？",
           "confidence": 0.99
         },
         {
-          "start_time": 35.0,
-          "end_time": 36.0,
+          "start_time": 35,
+          "end_time": 36,
           "text": "ユニコーン",
           "confidence": 0.99
         },
         {
-          "start_time": 36.0,
-          "end_time": 37.0,
+          "start_time": 36,
+          "end_time": 37,
           "text": "ユニコーン！！",
           "confidence": 0.99
         },
         {
-          "start_time": 37.0,
-          "end_time": 38.0,
+          "start_time": 37,
+          "end_time": 38,
           "text": "ユニコーン！！",
           "confidence": 0.99
         },
         {
-          "start_time": 38.0,
-          "end_time": 39.0,
+          "start_time": 38,
+          "end_time": 39,
           "text": "ああ、いたいた！",
           "confidence": 0.99
         },
         {
-          "start_time": 39.0,
-          "end_time": 40.0,
+          "start_time": 39,
+          "end_time": 40,
           "text": "ここ、ここ",
           "confidence": 0.99
         },
         {
-          "start_time": 40.0,
-          "end_time": 41.0,
+          "start_time": 40,
+          "end_time": 41,
           "text": "zz!zz!",
           "confidence": 0.99
         },
         {
-          "start_time": 41.0,
-          "end_time": 42.0,
+          "start_time": 41,
+          "end_time": 42,
           "text": "おったおったおった…",
           "confidence": 0.99
         },
         {
-          "start_time": 42.0,
-          "end_time": 43.0,
+          "start_time": 42,
+          "end_time": 43,
           "text": "ああ、ここ",
           "confidence": 0.99
         },
         {
-          "start_time": 43.0,
-          "end_time": 44.0,
+          "start_time": 43,
+          "end_time": 44,
           "text": "行くで",
           "confidence": 0.99
         },
         {
-          "start_time": 44.0,
-          "end_time": 45.0,
+          "start_time": 44,
+          "end_time": 45,
           "text": "行くで",
           "confidence": 0.99
         },
         {
-          "start_time": 45.0,
-          "end_time": 46.0,
+          "start_time": 45,
+          "end_time": 46,
           "text": "お前早くしろよな？",
           "confidence": 0.99
         },
         {
-          "start_time": 46.0,
-          "end_time": 47.0,
+          "start_time": 46,
+          "end_time": 47,
           "text": "な？",
           "confidence": 0.99
         },
         {
-          "start_time": 47.0,
-          "end_time": 49.0,
+          "start_time": 47,
+          "end_time": 49,
           "text": "遅刻したのお前だろ",
           "confidence": 0.99
         }
@@ -1530,16 +1627,16 @@
       "kind": "video-llm",
       "segments": [
         {
-          "start_time": 0.0,
+          "start_time": 0,
           "end_time": 0.7,
           "text": "集合場所に来たのに",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
           "start_time": 0.7,
           "end_time": 1.5,
           "text": "いないから呼ぼうとしてみたら…",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
           "start_time": 1.5,
@@ -1550,19 +1647,19 @@
         },
         {
           "start_time": 2.1,
-          "end_time": 3.0,
+          "end_time": 3,
           "text": "宮下パーク集合ってさ、どこにいるの？",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 3.0,
-          "end_time": 4.0,
+          "start_time": 3,
+          "end_time": 4,
           "text": "いや、だからお前がよくわかんない",
           "confidence": 0.9,
           "notes": "Audio is slightly unclear, but this is the most likely reading."
         },
         {
-          "start_time": 4.0,
+          "start_time": 4,
           "end_time": 4.7,
           "text": "抽象的なさ",
           "confidence": 0.9,
@@ -1572,194 +1669,194 @@
           "start_time": 4.7,
           "end_time": 5.6,
           "text": "橋の上って言ったやん",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
           "start_time": 5.6,
           "end_time": 6.3,
           "text": "知らねえよカス",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
           "start_time": 6.3,
           "end_time": 7.3,
           "text": "お前どこが橋の上だよ",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
           "start_time": 7.3,
           "end_time": 8.2,
           "text": "え、マジでどこにいるの？",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
           "start_time": 8.2,
           "end_time": 9.1,
           "text": "いや、こっちだよ",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
           "start_time": 9.1,
-          "end_time": 10.0,
+          "end_time": 10,
           "text": "聞きたいのは",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 10.0,
-          "end_time": 11.0,
+          "start_time": 10,
+          "end_time": 11,
           "text": "私はちゃんと時間通り？",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 11.0,
-          "end_time": 12.0,
+          "start_time": 11,
+          "end_time": 12,
           "text": "時間通りに来てないけど",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 12.0,
-          "end_time": 13.0,
+          "start_time": 12,
+          "end_time": 13,
           "text": "30分",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 13.0,
-          "end_time": 14.0,
+          "start_time": 13,
+          "end_time": 14,
           "text": "30分遅刻して",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 14.0,
-          "end_time": 15.0,
+          "start_time": 14,
+          "end_time": 15,
           "text": "宮下パーク来たんだから",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 15.0,
-          "end_time": 16.0,
+          "start_time": 15,
+          "end_time": 16,
           "text": "マジ本当にいないんだって",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 16.0,
-          "end_time": 17.0,
+          "start_time": 16,
+          "end_time": 17,
           "text": "こっちこそ(?)",
           "confidence": 0.7,
           "notes": "Audio is unclear, hardsubs are also unclear. This is a best guess."
         },
         {
-          "start_time": 17.0,
-          "end_time": 18.0,
+          "start_time": 17,
+          "end_time": 18,
           "text": "こっちこそ、こっちこそ",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 18.0,
-          "end_time": 19.0,
+          "start_time": 18,
+          "end_time": 19,
           "text": "ここかあっちか",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 19.0,
-          "end_time": 20.0,
+          "start_time": 19,
+          "end_time": 20,
           "text": "2つしかないんだから",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 20.0,
-          "end_time": 21.0,
+          "start_time": 20,
+          "end_time": 21,
           "text": "とりあえず呼んで？",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 21.0,
-          "end_time": 22.0,
+          "start_time": 21,
+          "end_time": 22,
           "text": "呼んでわかんないから",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 22.0,
-          "end_time": 23.0,
+          "start_time": 22,
+          "end_time": 23,
           "text": "ユニコーン？",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 23.0,
-          "end_time": 24.0,
+          "start_time": 23,
+          "end_time": 24,
           "text": "ああ",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 24.0,
-          "end_time": 25.0,
+          "start_time": 24,
+          "end_time": 25,
           "text": "ああああけけけけ",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 25.0,
-          "end_time": 26.0,
+          "start_time": 25,
+          "end_time": 26,
           "text": "どこにいるの？",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 26.0,
-          "end_time": 27.0,
+          "start_time": 26,
+          "end_time": 27,
           "text": "ユニコーン！！",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 27.0,
-          "end_time": 28.0,
+          "start_time": 27,
+          "end_time": 28,
           "text": "ユニコーン！",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 28.0,
-          "end_time": 29.0,
+          "start_time": 28,
+          "end_time": 29,
           "text": "あ、いたいた！",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 29.0,
-          "end_time": 30.0,
+          "start_time": 29,
+          "end_time": 30,
           "text": "あ、いたいた",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 30.0,
-          "end_time": 31.0,
+          "start_time": 30,
+          "end_time": 31,
           "text": "ここここ",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 31.0,
-          "end_time": 32.0,
+          "start_time": 31,
+          "end_time": 32,
           "text": "行くで",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 32.0,
-          "end_time": 33.0,
+          "start_time": 32,
+          "end_time": 33,
           "text": "行くで",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 33.0,
-          "end_time": 34.0,
+          "start_time": 33,
+          "end_time": 34,
           "text": "お前早くしろよな？",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 34.0,
-          "end_time": 35.0,
+          "start_time": 34,
+          "end_time": 35,
           "text": "な？",
-          "confidence": 1.0
+          "confidence": 1
         },
         {
-          "start_time": 35.0,
-          "end_time": 36.0,
+          "start_time": 35,
+          "end_time": 36,
           "text": "※遅刻したのお前だろ",
-          "confidence": 1.0
+          "confidence": 1
         }
       ]
     }
