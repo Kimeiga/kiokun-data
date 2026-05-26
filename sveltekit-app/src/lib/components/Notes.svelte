@@ -26,6 +26,8 @@
 
 	let { character, compact = false }: Props = $props();
 
+	const showClaudeMnemonics = false;
+
 	const session = useSession();
 	let notes = $state<Note[]>([]);
 	let myNote = $state<Note | null>(null); // Current user's note
@@ -402,7 +404,7 @@
 		{/if}
 
 		<!-- Official mnemonic (admin note) — shown without attribution -->
-		{@const adminNote = otherNotes.find(n => n.isAdmin)}
+		{@const adminNote = showClaudeMnemonics ? otherNotes.find(n => n.isAdmin) : null}
 		{#if adminNote}
 			<div class="official-mnemonic">
 				<div class="markdown-content">
@@ -696,4 +698,3 @@
 		@apply opacity-50 cursor-not-allowed;
 	}
 </style>
-

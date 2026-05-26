@@ -36,6 +36,8 @@
 
 	let { data }: { data: PageData } = $props();
 
+	const showClaudeMnemonics = false;
+
 	// Async sentence components report whether they actually have content
 	let zhSentencesHaveContent = $state(false);
 	let krSentencesHaveContent = $state(false);
@@ -1367,7 +1369,7 @@
 					</div>
 
 					<!-- Mnemonic Hint (on its own line below header) -->
-					{#if data.data.chinese_char?.hint}
+					{#if showClaudeMnemonics && data.data.chinese_char?.hint}
 						<div
 							class="mb-3 p-2 rounded border-l-4 bg-hint-bg border-l-hint-border"
 						>
