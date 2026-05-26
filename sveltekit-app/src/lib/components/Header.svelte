@@ -137,6 +137,13 @@
 				🎓
 			</a>
 			<a
+				href="/game"
+				class="flex items-center justify-center w-9 h-9 md:w-10 md:h-10 rounded-full bg-bg-secondary border border-border text-lg md:text-xl no-underline transition-colors duration-150 hover:border-accent hover:text-accent"
+				title="Game — practice with sentence tiles"
+			>
+				🎮
+			</a>
+			<a
 				href="/blog"
 				class="flex items-center justify-center w-9 h-9 md:w-10 md:h-10 rounded-full bg-bg-secondary border border-border text-lg md:text-xl no-underline transition-colors duration-150 hover:border-accent hover:text-accent"
 				title="The Kiokun Notebook — engineering blog"
@@ -221,6 +228,15 @@
 				</a>
 
 				<a
+					href="/game"
+					class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-bg-secondary border border-border text-text-primary no-underline transition-colors duration-150 hover:border-accent hover:text-accent"
+					onclick={closeMobileMenu}
+				>
+					<span class="text-lg">🎮</span>
+					<span class="text-sm font-medium">Game</span>
+				</a>
+
+				<a
 					href="/blog"
 					class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-bg-secondary border border-border text-text-primary no-underline transition-colors duration-150 hover:border-accent hover:text-accent"
 					onclick={closeMobileMenu}
@@ -254,4 +270,3 @@
 		</div>
 	{/if}
 </header>
-
