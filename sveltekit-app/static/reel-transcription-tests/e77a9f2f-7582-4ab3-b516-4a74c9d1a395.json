@@ -346,6 +346,424 @@
       ]
     },
     {
+      "id": "mlx-whisper-large-v3-turbo",
+      "label": "MLX Whisper large-v3-turbo",
+      "source": "Local MLX Whisper on Apple Silicon",
+      "kind": "audio-stt",
+      "segments": [
+        {
+          "start_time": 0.74,
+          "end_time": 2.72,
+          "text": "宮下パーク集合ってたらどこにいんの?"
+        },
+        {
+          "start_time": 3.3,
+          "end_time": 5.88,
+          "text": "お前がよくわかんないよ。抽象的なさ。"
+        },
+        {
+          "start_time": 6.58,
+          "end_time": 7.9,
+          "text": "端の上に来たやん。"
+        },
+        {
+          "start_time": 8.12,
+          "end_time": 10.74,
+          "text": "知らねえよ、カス。どこが端の上だよ。"
+        },
+        {
+          "start_time": 11.06,
+          "end_time": 12.02,
+          "text": "マジでどこにいんの?"
+        },
+        {
+          "start_time": 12.64,
+          "end_time": 14.0,
+          "text": "こちらの方が聞きたいのは。"
+        },
+        {
+          "start_time": 14.32,
+          "end_time": 20.84,
+          "text": "私は時間通りに来てないけど、30分過ぎて宮下パークに来たんだから。"
+        },
+        {
+          "start_time": 21.86,
+          "end_time": 24.82,
+          "text": "怖い家本当にいないんだって。どこにいんの?"
+        },
+        {
+          "start_time": 25.34,
+          "end_time": 28.04,
+          "text": "端の上って言ったらここかあっちか二つしかないんだから。"
+        },
+        {
+          "start_time": 28.04,
+          "end_time": 30.46,
+          "text": "いや、それで叫んで。叫んでわかんないから。"
+        },
+        {
+          "start_time": 30.5,
+          "end_time": 31.62,
+          "text": "何?ユニコーン?"
+        },
+        {
+          "start_time": 31.98,
+          "end_time": 32.74,
+          "text": "うん、行くわん。"
+        },
+        {
+          "start_time": 32.78,
+          "end_time": 33.44,
+          "text": "あ、行くわん。"
+        },
+        {
+          "start_time": 35.0,
+          "end_time": 35.88,
+          "text": "どこにいんの?"
+        },
+        {
+          "start_time": 36.04,
+          "end_time": 37.56,
+          "text": "ユニコーン!"
+        },
+        {
+          "start_time": 38.92,
+          "end_time": 40.64,
+          "text": "あ、いたいたいたいた。ここここ。"
+        },
+        {
+          "start_time": 41.96,
+          "end_time": 42.62,
+          "text": "おったおった。"
+        },
+        {
+          "start_time": 43.0,
+          "end_time": 43.58,
+          "text": "ここここ。"
+        },
+        {
+          "start_time": 44.1,
+          "end_time": 44.44,
+          "text": "行くで?"
+        },
+        {
+          "start_time": 44.86,
+          "end_time": 45.46,
+          "text": "ああああ。"
+        },
+        {
+          "start_time": 46.38,
+          "end_time": 48.16,
+          "text": "お前はくしろよな、そういうのをな。"
+        },
+        {
+          "start_time": 48.44,
+          "end_time": 49.42,
+          "text": "ははははは。"
+        }
+      ]
+    },
+    {
+      "id": "hf-kotoba-whisper-v2",
+      "label": "Kotoba-Whisper v2.0",
+      "source": "Local Hugging Face Transformers ASR pipeline",
+      "kind": "audio-stt",
+      "segments": [
+        {
+          "start_time": 0.0,
+          "end_time": 3.0,
+          "text": "いやねえさあ、宮下パーク集合ってたね、"
+        },
+        {
+          "start_time": 3.0,
+          "end_time": 12.0,
+          "text": "お前がよく分かんないよ、マスの上だよ、マジでどこにいるの?"
+        },
+        {
+          "start_time": 12.0,
+          "end_time": 16.0,
+          "text": "こっちの上って、マジでどこに行ったんだから、マジョンの上って、"
+        },
+        {
+          "start_time": 16.0,
+          "end_time": 18.0,
+          "text": "時間取りに来てないけど"
+        },
+        {
+          "start_time": 18.0,
+          "end_time": 21.0,
+          "text": "ミヤスパークに来たんだって"
+        },
+        {
+          "start_time": 21.0,
+          "end_time": 24.0,
+          "text": "どこにいるの?"
+        },
+        {
+          "start_time": 24.0,
+          "end_time": 25.28,
+          "text": "どこにいるの?"
+        },
+        {
+          "start_time": 25.28,
+          "end_time": 28.0,
+          "text": "ここにいるの?"
+        },
+        {
+          "start_time": 28.0,
+          "end_time": 28.02,
+          "text": "ここにいたいた!ここここにいるの?"
+        },
+        {
+          "start_time": 28.02,
+          "end_time": 35.94,
+          "text": "ここにいるの?"
+        },
+        {
+          "start_time": 35.94,
+          "end_time": 36.0,
+          "text": "ここにいるの?"
+        },
+        {
+          "start_time": 36.0,
+          "end_time": 37.78,
+          "text": "イニコーン?"
+        },
+        {
+          "start_time": 37.78,
+          "end_time": 38.0,
+          "text": "いったいった!ここここにいるの?"
+        },
+        {
+          "start_time": 38.0,
+          "end_time": 40.9,
+          "text": "あいたいたいたここここ"
+        },
+        {
+          "start_time": 40.9,
+          "end_time": 43.72,
+          "text": "ここここ"
+        },
+        {
+          "start_time": 43.72,
+          "end_time": 44.8,
+          "text": "行くで"
+        },
+        {
+          "start_time": 44.8,
+          "end_time": 46.0,
+          "text": "お前"
+        },
+        {
+          "start_time": 46.0,
+          "end_time": 47.08,
+          "text": "お前"
+        },
+        {
+          "start_time": 47.08,
+          "end_time": 48.24,
+          "text": "おマハワークしろよな"
+        }
+      ]
+    },
+    {
+      "id": "reazonspeech-k2-v2",
+      "label": "ReazonSpeech k2 v2",
+      "source": "Local ReazonSpeech K2 ASR",
+      "kind": "audio-stt",
+      "segments": [
+        {
+          "start_time": 0.0,
+          "end_time": 0.0,
+          "text": "い"
+        },
+        {
+          "start_time": 12.96,
+          "end_time": 33.28,
+          "text": "やこちらだよ聞きたいのは私はちゃんとさ時間どおりにまあ時間どおりには行きたいけど三十分三十分過ぎて宮下パークせっかくに来たんだからマジとはいえマジホントいないんだってどこにいやこちらこそこちらこそ橋の上っていったらここかあっちか二つしかないんだからとりあえず叫んで叫んで分かんないから何ユニコーンああ行くよ"
+        },
+        {
+          "start_time": 35.48,
+          "end_time": 38.12,
+          "text": "どこにいんのユニコーン"
+        },
+        {
+          "start_time": 40.0,
+          "end_time": 40.0,
+          "text": "あ"
+        },
+        {
+          "start_time": 46.76,
+          "end_time": 53.988,
+          "text": "お前早くしろよなそういうのなハハ"
+        }
+      ]
+    },
+    {
+      "id": "openai-gpt-4o-transcribe",
+      "label": "OpenAI gpt-4o-transcribe",
+      "source": "OpenAI Audio Transcriptions API; Japanese language hint",
+      "kind": "audio-stt",
+      "segments": [
+        {
+          "start_time": 0,
+          "end_time": 53.988,
+          "text": "えねえさ、宮下パーク集合ってどこにいんの?いやだからお前がよくわかんないお前、中小的なさ。橋の上行ったやん。知らないよカスお前どこが橋の上だよ。え、マジでどこにいんの?いやこちらだよ。私さちゃんと時間通りに来てないけど、30分過ぎて宮下パークに来たんだから。いやとはいえマジでほんといないんだって。どこいんの?いやいやこちらこそこちらこそ。橋の上って言ったらここかあっちか二つしかないんだから。とりあえず叫んで。叫んでわかんないから。なに?ユニコーン?あーいくよ。どこいんの?ユニコーン!あ、いたいたいたいた。ここここ。おったおったおった。ここここ。行くで。お前早くしろよなそういうの。"
+        }
+      ]
+    },
+    {
+      "id": "openai-gpt-4o-mini-transcribe",
+      "label": "OpenAI gpt-4o-mini-transcribe",
+      "source": "OpenAI Audio Transcriptions API; Japanese language hint",
+      "kind": "audio-stt",
+      "segments": [
+        {
+          "start_time": 0,
+          "end_time": 53.988,
+          "text": "ねえねえさ、宮下パーク集合って言われてどこにいんの? いやだからお前がよくわかんない抽象的なさ、橋の上に来たよ。 知らないよ、カスお前、どこが橋の上だよ。 え、マジでどこにいんの? いや、こちらよ、聞きたいのは。私はちゃんと時間通りに、ま時間通りに来てないけど、30分過ぎて宮下パークに来たんだから。 いや、とはいえマジで本当いないんだって。どこにいんの? こちらこそ、こちらこそ。 橋の上って言ったらここかあっちか2つしかないんだから。 とりあえず叫んで、叫んでわかんないから。 何?ユニコーン? ああ、行くよ。 どこにいんの? ユニコーン! あ、いたいたいたいた。ここここ。 おったおった。 ここここ。 行くで。 お前は早くしろよな、そういうのな。"
+        }
+      ]
+    },
+    {
+      "id": "openai-gpt-4o-transcribe-diarize",
+      "label": "OpenAI gpt-4o-transcribe-diarize",
+      "source": "OpenAI Audio Transcriptions API; diarized JSON",
+      "kind": "audio-stt",
+      "segments": [
+        {
+          "start_time": 0.02,
+          "end_time": 2.62,
+          "text": "えねえさあ宮下パーク集合ってなに?どこにいんの?"
+        },
+        {
+          "start_time": 3.02,
+          "end_time": 5.72,
+          "text": "いや、だからお前がよくわかんねえお前抽象的なさ"
+        },
+        {
+          "start_time": 5.72,
+          "end_time": 7.62,
+          "text": "かいじゃあ端の上っつったよ"
+        },
+        {
+          "start_time": 7.67,
+          "end_time": 10.62,
+          "text": "知らねえよカスお前どこが橋の上だよ"
+        },
+        {
+          "start_time": 10.62,
+          "end_time": 12.02,
+          "text": "え?まじでどこにいんの?"
+        },
+        {
+          "start_time": 12.17,
+          "end_time": 21.47,
+          "text": "いやこちらに僕聞きたいのは私はちゃんとさ時間通り ま時間通りに来てないけど30分ぐ30分過ぎて宮下パークに来たんだからお前が"
+        },
+        {
+          "start_time": 21.47,
+          "end_time": 21.67,
+          "text": "いやとは"
+        },
+        {
+          "start_time": 21.67,
+          "end_time": 21.87,
+          "text": "なんで"
+        },
+        {
+          "start_time": 21.87,
+          "end_time": 24.12,
+          "text": "いえまじほんといないんだってどこいんの?"
+        },
+        {
+          "start_time": 24.12,
+          "end_time": 25.17,
+          "text": "いやこちらこそこちらこそ"
+        },
+        {
+          "start_time": 25.17,
+          "end_time": 26.57,
+          "text": "橋の上って言ったらここか?あ"
+        },
+        {
+          "start_time": 26.548,
+          "end_time": 27.948,
+          "text": "あっちから2つしかないんだから"
+        },
+        {
+          "start_time": 27.948,
+          "end_time": 28.148,
+          "text": "知"
+        },
+        {
+          "start_time": 28.148,
+          "end_time": 28.398,
+          "text": "え、とい"
+        },
+        {
+          "start_time": 28.398,
+          "end_time": 28.598,
+          "text": "らない"
+        },
+        {
+          "start_time": 28.598,
+          "end_time": 30.348,
+          "text": "えず叫んで叫んでわかんないから"
+        },
+        {
+          "start_time": 30.348,
+          "end_time": 31.598,
+          "text": "なに?ユニコン?"
+        },
+        {
+          "start_time": 31.948,
+          "end_time": 32.498,
+          "text": "あーいけよ"
+        },
+        {
+          "start_time": 32.498,
+          "end_time": 33.198,
+          "text": "あぁオッケオッケ"
+        },
+        {
+          "start_time": 35.098,
+          "end_time": 35.798,
+          "text": "どこにいるの?"
+        },
+        {
+          "start_time": 35.998,
+          "end_time": 36.748,
+          "text": "ユニコン!"
+        },
+        {
+          "start_time": 38.698,
+          "end_time": 40.648,
+          "text": "あ、いたいたいたいた!ここここ!"
+        },
+        {
+          "start_time": 41.848,
+          "end_time": 43.048,
+          "text": "おったおったおった お"
+        },
+        {
+          "start_time": 43.048,
+          "end_time": 43.498,
+          "text": "ここここ!"
+        },
+        {
+          "start_time": 43.498,
+          "end_time": 44.898,
+          "text": "前行くで あはは"
+        },
+        {
+          "start_time": 46.498,
+          "end_time": 47.998,
+          "text": "ははっくしろんなそういうのな"
+        }
+      ]
+    },
+    {
       "id": "gemini-25-flash-lite-audio-only",
       "label": "Gemini 2.5 Flash-Lite audio-only",
       "source": "Audio-only prompt; no video frames or hardsubs provided",
@@ -1857,6 +2275,211 @@
           "end_time": 36,
           "text": "※遅刻したのお前だろ",
           "confidence": 1
+        }
+      ]
+    },
+    {
+      "id": "openai-whisper-1",
+      "label": "OpenAI whisper-1",
+      "source": "OpenAI Audio Transcriptions API; verbose_json segments",
+      "kind": "audio-stt",
+      "segments": [
+        {
+          "start_time": 0.74,
+          "end_time": 32.72,
+          "text": "宮下パーク集合ってさ、どこにいんのいやだから、お前がよく分かんない。お前、抽象的なさ。いやいや、橋の上に来たやん。知らねえよ、カス。お前、どこが橋の上だよ。え、マジでどこにいんのいや、こちらこそ聞きたいの。私はちゃんとさ、時間通りに、ま、時間通りに来てないけど、30分、30分過ぎて、宮下パークに来たんだから、お前が何か知らない。いや、とはいえマジほんといないんだって。どこにいんのいやいや、こちらこそ、こちらこそ。橋の上って言ったら、ここか、あっちか、2つしかないんだから。え、とりあえず叫んで。叫んで分かんないから。なにユニコーンうん、行くよ。"
+        },
+        {
+          "start_time": 35.1,
+          "end_time": 37.98,
+          "text": "どこにいんのユニコーン"
+        },
+        {
+          "start_time": 39.22,
+          "end_time": 41.46,
+          "text": "あ、いたいたいたいた。ここここ。"
+        },
+        {
+          "start_time": 42.26,
+          "end_time": 44.5,
+          "text": "おったおったおった。あ、ここここ。行くで。"
+        },
+        {
+          "start_time": 46.2,
+          "end_time": 48.42,
+          "text": "お前、把握しろよな、そういうのをな。"
+        }
+      ]
+    },
+    {
+      "id": "elevenlabs-scribe-v2",
+      "label": "ElevenLabs Scribe v2",
+      "source": "ElevenLabs Speech-to-Text API; scribe_v2 with word timestamps",
+      "kind": "audio-stt",
+      "segments": [
+        {
+          "start_time": 0.34,
+          "end_time": 33.639,
+          "text": "ねえねえさ、宮下パーク集合ってどこいんの？いやだからお前がよくわかんない。お前中傷的なさ。違う違う、橋の上って言ったよ。知らないよ。お前どこの橋の上だよ。え、マジでどこにいんの？いやこちらにも聞きたいな。私はちゃんと時間通り、まあ時間通りに来てないけど、三時三分、三時過ぎて宮下パークに来たんだから。いや、具合がマジでほんといないんだって。どこいんの？こっちかそうっちら。橋の上って言ったら、ここかあっちか二つしかないんだから。とりあえず叫んで。叫んでわかんないから。なに？ユニコーン？ああ、ユニコーン。あーOKOK。",
+          "confidence": -0.162
+        },
+        {
+          "start_time": 35.34,
+          "end_time": 41.079,
+          "text": "どこにいんの？ユニコーン！あ、いたいたいたいた。ここここ。",
+          "confidence": -0.003
+        },
+        {
+          "start_time": 42.279,
+          "end_time": 45.439,
+          "text": "おったおった。ここここ。いくで。ああ。",
+          "confidence": -0.195
+        },
+        {
+          "start_time": 46.479,
+          "end_time": 50.279,
+          "text": "お前早くしろよな、そういうのな。",
+          "confidence": -0.079
+        }
+      ]
+    },
+    {
+      "id": "soniox-stt-async-v4",
+      "label": "Soniox STT Async v4",
+      "source": "Soniox async transcription API; Japanese language hint",
+      "kind": "audio-stt",
+      "segments": [
+        {
+          "start_time": 0.54,
+          "end_time": 33.84,
+          "text": "えねえさ、宮下パーク集合ってさ、どこにいんの？いや、だからお前がよくわかんないよ、ま、抽象的なさ。ちゃちゃ、橋の上行ったやん。知らねえよ、カスお前、どこが橋の上だよ。え、マジでどこにいんの？いや、こちらだよ、僕聞きたいのは。私はちゃんとさ、時間通に、ま、時間通りに来てないけど、30分、30分過ぎて宮下パークに来たんだから、お前がなんで。いや、とはいえマジほんといないんだって、どこにいんの？いやいや、こちらこそ、こちらこそ。橋の上って言ったらここかあっちか、2つしかないんだから。え、とりあえず叫んで、叫んでわかんないから。何？ユニコーン？ああ、ユニコーン。ああ、いやオッケーオッケーオッケー",
+          "confidence": 0.945
+        },
+        {
+          "start_time": 34.98,
+          "end_time": 37.38,
+          "text": "。どこにいんの？ユニコーン！",
+          "confidence": 0.985
+        },
+        {
+          "start_time": 39.12,
+          "end_time": 40.98,
+          "text": "あいたいたいたいた、ここここ。",
+          "confidence": 0.931
+        },
+        {
+          "start_time": 42.0,
+          "end_time": 45.6,
+          "text": "お、おったおったおった。あ、ここここ。行くで。ああああ。",
+          "confidence": 0.938
+        },
+        {
+          "start_time": 46.44,
+          "end_time": 48.42,
+          "text": "お前早くしろよな、そういうの、な。",
+          "confidence": 0.952
+        }
+      ]
+    },
+    {
+      "id": "google-chirp3",
+      "label": "Google Speech-to-Text Chirp 3",
+      "source": "Google Cloud Speech-to-Text V2 recognize; chirp_3 model",
+      "kind": "audio-stt",
+      "segments": [
+        {
+          "start_time": 0.0,
+          "end_time": 0.0,
+          "text": "えねさ、宮下パーク集合ってどこにいんの?いやだからお前がよくわかんないお前抽象的なさ。橋の上って言ったやん。知らねえよカスお前どこが橋の上だよ。えマジでどこにいんの?いやこちらよ聞きたいのは私はちゃんとさ時間どおりに、ま、時間どおりに来てないけど、30分、30分過ぎて宮下パークに来たんだから。お前がなんて言うの?いやとはいえマジ本当いないんだって。どこにいんの?いやこちらこそこちらこそ。橋の上って言ったらここかあっちか2つしかないんだから。え、とりあえずさ。ざけんだよざけんだよわかんないから。何?ユニコーン?ああ、ユニコーン。ああ、オッケーオッケーオッケー。どこにいんの?ユニコーン!あ、いたいたいたいた。ここここ。お、おったおったおった。あ、ここここ。あ、行くね。ああ。お前早くしろよなそういうのな。",
+          "language_code": "ja-JP"
+        }
+      ]
+    },
+    {
+      "id": "qwen3-asr-1.7b",
+      "label": "Qwen3-ASR-1.7B",
+      "source": "Local Qwen3-ASR with Qwen forced aligner timestamps",
+      "kind": "audio-stt",
+      "segments": [
+        {
+          "start_time": 0.48,
+          "end_time": 3.6,
+          "text": "えねさ宮下パーク集合ってどこにんのいやだからお前が"
+        },
+        {
+          "start_time": 4.0,
+          "end_time": 6.24,
+          "text": "よくわかんねよまあ中小的なさじゃ"
+        },
+        {
+          "start_time": 6.88,
+          "end_time": 10.0,
+          "text": "橋の上なんだよ知らないよ橋お前どこが"
+        },
+        {
+          "start_time": 10.16,
+          "end_time": 13.28,
+          "text": "橋の上だよえマジでどこにんのいやこちらね"
+        },
+        {
+          "start_time": 13.52,
+          "end_time": 16.72,
+          "text": "来たのは私はちゃんさ時間通りまあ時間通りに来"
+        },
+        {
+          "start_time": 16.72,
+          "end_time": 17.2,
+          "text": "たんだけど"
+        },
+        {
+          "start_time": 18.64,
+          "end_time": 21.76,
+          "text": "三十分三十分過ぎて宮下パークに来たんだからお前は"
+        },
+        {
+          "start_time": 21.76,
+          "end_time": 24.8,
+          "text": "ないや怖い家マジ本当いないんだってどこにんのいやこちら"
+        },
+        {
+          "start_time": 24.8,
+          "end_time": 27.92,
+          "text": "こそこちらこそ橋の上って言ったらここかあっちか二つしかないんだ"
+        },
+        {
+          "start_time": 27.92,
+          "end_time": 30.72,
+          "text": "からえこれで叫んで叫んでわかんないから何"
+        },
+        {
+          "start_time": 31.28,
+          "end_time": 33.28,
+          "text": "ユニコーンああ行けよああ行け行け"
+        },
+        {
+          "start_time": 35.2,
+          "end_time": 36.88,
+          "text": "どこにんのユニコーン"
+        },
+        {
+          "start_time": 39.2,
+          "end_time": 40.64,
+          "text": "あいたいたいたいたここここ"
+        },
+        {
+          "start_time": 42.24,
+          "end_time": 43.52,
+          "text": "おおたおたあここここ"
+        },
+        {
+          "start_time": 44.16,
+          "end_time": 45.44,
+          "text": "行くでああ"
+        },
+        {
+          "start_time": 46.4,
+          "end_time": 48.24,
+          "text": "お前ハマクシルなそういうのな"
         }
       ]
     }
