@@ -626,8 +626,8 @@
 
 	h1 {
 		margin: 0.8rem 0 0;
-		font-size: clamp(2.5rem, 7.5vw, 5.9rem);
-		line-height: 0.98;
+		font-size: clamp(2.05rem, 5.4vw, 4.25rem);
+		line-height: 1.06;
 		font-weight: 650;
 	}
 
