@@ -7,6 +7,15 @@
 
 	const posts = [
 		{
+			slug: 'japanese-reel-stt-benchmark',
+			kicker: 'Speech Recognition',
+			title: 'Japanese reel transcription is a timing problem',
+			deck:
+				'Twenty ASR, OCR, and multimodal runs on one noisy Japanese reel, with synced transcripts and the failure modes grouped by what broke.',
+			read: '18 min',
+			n: 2
+		},
+		{
 			slug: 'the-data-engine',
 			kicker: 'Infrastructure',
 			title: 'The dictionary that hosts itself',
