@@ -4,6 +4,7 @@
 
 	interface WordPreview {
 		w: string; // word
+		forms?: string[]; // variant display forms grouped into this card
 		p?: string; // pronunciation (Chinese pinyin)
 		ct?: string; // Cantonese pronunciation (Jyutping)
 		jp?: string; // Japanese pronunciation (kana reading)
@@ -11,15 +12,23 @@
 		d?: string; // definition
 	}
 
-	let { words = [] }: { words: WordPreview[] } = $props();
+	interface Props {
+		words?: WordPreview[];
+		wordForms?: string[];
+		charGlosses?: Record<string, string>;
+	}
+
+	let { words = [], wordForms = [], charGlosses = {} }: Props = $props();
 
 	// Pagination state - start with 10 items
 	let displayCount = $state(10);
 	const pageSize = 10;
 
+	let containsCards = $derived.by(() => buildContainsCards(words, wordForms));
+
 	// Computed slice
-	let displayedWords = $derived(words.slice(0, displayCount));
-	let hasMore = $derived(displayCount < words.length);
+	let displayedWords = $derived(containsCards.slice(0, displayCount));
+	let hasMore = $derived(displayCount < containsCards.length);
 
 	// Intersection observer element
 	let observerTarget: HTMLElement | null = $state(null);
@@ -27,7 +36,64 @@
 	// Load more items (just increment display count - no fetching!)
 	function loadMore() {
 		if (!hasMore) return;
-		displayCount = Math.min(displayCount + pageSize, words.length);
+		displayCount = Math.min(displayCount + pageSize, containsCards.length);
+	}
+
+	function buildContainsCards(previews: WordPreview[], forms: string[]): WordPreview[] {
+		const matchingForms = normalizedForms(forms);
+		if (matchingForms.length < 2) return previews;
+
+		const formChars = matchingForms.map((form) => [...form]);
+		const length = formChars[0]?.length ?? 0;
+		if (!length || formChars.some((chars) => chars.length !== length)) return previews;
+
+		const used = new Set<WordPreview>();
+		const cards: WordPreview[] = [];
+
+		for (let index = 0; index < length; index += 1) {
+			const variants = unique(formChars.map((chars) => chars[index]).filter(Boolean));
+			const matches = previews.filter((preview) => variants.includes(preview.w));
+			if (matches.length === 0) continue;
+
+			for (const match of matches) used.add(match);
+			cards.push({
+				...matches[0],
+				forms: variants
+			});
+		}
+
+		for (const preview of previews) {
+			if (!used.has(preview)) cards.push(preview);
+		}
+
+		return cards.length > 0 ? cards : previews;
+	}
+
+	function normalizedForms(forms: string[]): string[] {
+		return unique(forms.filter((form) => form && [...form].length > 0));
+	}
+
+	function unique<T>(items: T[]): T[] {
+		return [...new Set(items)];
+	}
+
+	function displayText(preview: WordPreview): string {
+		return preview.forms?.length ? preview.forms.join('/') : preview.w;
+	}
+
+	function displayDefinition(preview: WordPreview): string {
+		const candidates = unique([preview.w, ...(preview.forms ?? [])]);
+		for (const char of candidates) {
+			const gloss = charGlosses[char];
+			if (gloss) return cleanGloss(gloss);
+		}
+		return preview.d ?? '';
+	}
+
+	function cleanGloss(gloss: string): string {
+		return gloss
+			.replace(/\s*\((simp|trad\/jp|trad|jp)\)\s*$/i, '')
+			.trim();
 	}
 
 	// Set up intersection observer for infinite scroll
@@ -52,7 +118,7 @@
 	});
 </script>
 
-{#if words.length > 0}
+{#if containsCards.length > 0}
 	<SectionHeading id="contains">Contains</SectionHeading>
 
 	<div class="mb-4">
@@ -63,7 +129,7 @@
 				{@const showJapanese = preview.jp && languageStore.preferences.japanese}
 				{@const showKorean = preview.kr && languageStore.preferences.korean}
 				<a href="/{preview.w}" class="character-card">
-					<div class="character">{preview.w}</div>
+					<div class="character">{displayText(preview)}</div>
 					{#if showChinese || showCantonese || showJapanese || showKorean}
 						<div class="pronunciations">
 							{#if showChinese}
@@ -80,8 +146,8 @@
 							{/if}
 						</div>
 					{/if}
-					{#if preview.d}
-						<div class="definition">{preview.d}</div>
+					{#if displayDefinition(preview)}
+						<div class="definition">{displayDefinition(preview)}</div>
 					{/if}
 				</a>
 			{/each}
@@ -90,7 +156,7 @@
 		{#if hasMore}
 			<div class="observer-target" bind:this={observerTarget}>
 				<div class="remaining-count">
-					{words.length - displayCount} more
+					{containsCards.length - displayCount} more
 				</div>
 			</div>
 		{/if}

@@ -57,32 +57,18 @@
 	}
 
 	.word-ruby {
-		display: inline-grid;
-		grid-template-areas:
-			"reading"
-			"base";
-		grid-template-columns: max-content;
-		grid-template-rows: auto auto;
-		justify-items: center;
-		align-items: end;
 		margin-inline: 0.03em;
 		line-height: 1.05;
 		ruby-position: over;
+		ruby-align: center;
 		vertical-align: baseline;
 	}
 
 	rb {
-		display: block;
-		grid-area: base;
-		min-width: 100%;
-		text-align: center;
 		white-space: nowrap;
 	}
 
 	rt {
-		display: block;
-		grid-area: reading;
-		min-width: 100%;
 		font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 		font-size: 0.6em;
 		font-weight: 500;

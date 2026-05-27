@@ -49,6 +49,48 @@
 		|| (zhSentencesHaveContent && languageStore.preferences.chinese)
 		|| (krSentencesHaveContent && languageStore.preferences.korean)
 	);
+	let containsWordForms = $derived.by(() => buildContainsWordForms(data.data, data.word));
+	let sortedContainsWords = $derived.by(() => sortContainsWords(data.data.contains || [], data.word));
+
+	function sortContainsWords(words: any[], currentWord: string): any[] {
+		return [...words].sort((a, b) => {
+			const idxA = currentWord.indexOf(a.w);
+			const idxB = currentWord.indexOf(b.w);
+			// Characters found in the word sort first, by position; others go to end
+			if (idxA === -1 && idxB === -1) return 0;
+			if (idxA === -1) return 1;
+			if (idxB === -1) return -1;
+			return idxA - idxB;
+		});
+	}
+
+	function buildContainsWordForms(entry: any, currentWord: string): string[] {
+		const forms: string[] = [];
+		const add = (form: string | undefined | null) => {
+			if (form && !forms.includes(form)) forms.push(form);
+		};
+
+		for (const word of entry.chinese_words || []) {
+			add(word.simp);
+			add(word.trad);
+		}
+
+		for (const word of entry.japanese_words || []) {
+			for (const kanji of word.kanji || []) {
+				add(kanji.text);
+			}
+		}
+
+		for (const word of entry.korean_words || []) {
+			add(word.hanja);
+			add(word.hanjaForm);
+		}
+
+		add(currentWord);
+		add(entry.key);
+
+		return forms;
+	}
 
 	// Scroll to hash target on mount (for section permalinks)
 	onMount(() => {
@@ -1870,15 +1912,11 @@
 		{/if}
 
 		<!-- Contains Section (for multi-character words), sorted by position in word -->
-		<Contains words={[...(data.data.contains || [])].sort((a, b) => {
-			const idxA = data.word.indexOf(a.w);
-			const idxB = data.word.indexOf(b.w);
-			// Characters found in the word sort first, by position; others go to end
-			if (idxA === -1 && idxB === -1) return 0;
-			if (idxA === -1) return 1;
-			if (idxB === -1) return -1;
-			return idxA - idxB;
-		})} />
+		<Contains
+			words={sortedContainsWords}
+			wordForms={containsWordForms}
+			charGlosses={data.charGlosses}
+		/>
 
 		<!-- Appears In Section -->
 		<AppearsIn

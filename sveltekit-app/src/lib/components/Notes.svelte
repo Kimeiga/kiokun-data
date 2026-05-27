@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { dev } from "$app/environment";
 	import { useSession } from "$lib/auth-client";
 	import { marked } from "marked";
 	import DOMPurify from "dompurify";
@@ -55,6 +56,14 @@
 	}
 
 	async function loadNotes() {
+		if (dev && !$session.data?.user) {
+			notes = [];
+			myNote = null;
+			otherNotes = [];
+			error = "";
+			return;
+		}
+
 		try {
 			loading = true;
 			const response = await fetch(`/api/notes/${encodeURIComponent(character)}`);

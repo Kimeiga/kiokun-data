@@ -289,30 +289,16 @@
 		padding-top: 0.35em;
 	}
 	.sentence-text .token-ruby {
-		display: inline-grid;
-		grid-template-areas:
-			"reading"
-			"base";
-		grid-template-columns: max-content;
-		grid-template-rows: auto auto;
-		justify-items: center;
-		align-items: end;
 		margin-inline: 0.03em;
 		line-height: 1.05;
 		ruby-position: over;
+		ruby-align: center;
 		vertical-align: baseline;
 	}
 	.sentence-text rb {
-		display: block;
-		grid-area: base;
-		min-width: 100%;
-		text-align: center;
 		white-space: nowrap;
 	}
 	.sentence-text rt {
-		display: block;
-		grid-area: reading;
-		min-width: 100%;
 		font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 		font-size: 0.45em;
 		font-weight: 500;
