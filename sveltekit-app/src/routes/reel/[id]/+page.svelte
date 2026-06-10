@@ -812,31 +812,43 @@
 	@media (max-width: 768px) {
 		.reel-header { display: none; }
 
-		.layout {
-			max-width: none;
-			height: 100svh;
-			margin: 0;
-			padding: 0;
-			overflow: hidden;
-			background: #000;
-		}
+			.layout {
+				max-width: none;
+				height: 100vh;
+				min-height: 100vh;
+				height: 100dvh;
+				min-height: 100dvh;
+				height: 100svh;
+				min-height: 100svh;
+				margin: 0;
+				padding: 0;
+				overflow: hidden;
+				background: #000;
+			}
 
-		.main-content,
-		.reel-grid {
-			height: 100%;
-			min-height: 0;
-		}
+			.main-content,
+			.reel-grid {
+				height: 100vh;
+				min-height: 100vh;
+				height: 100dvh;
+				min-height: 100dvh;
+				height: 100svh;
+				min-height: 100svh;
+			}
 
 		.reel-grid {
 			display: block;
 			position: relative;
 		}
 
-		.video-col {
-			position: absolute;
-			inset: 0;
-			transform: none;
-		}
+			.video-col {
+				position: absolute;
+				inset: 0;
+				height: 100%;
+				min-height: 100%;
+				align-self: stretch;
+				transform: none;
+			}
 
 		.video-wrapper {
 			width: 100%;
