@@ -11,6 +11,7 @@ interface VideoOccurrence {
 
 interface VideoInfo {
 	url: string;
+	thumbnail?: string | null;
 	word_count: number;
 	source_url?: string;
 	author?: string;
@@ -33,6 +34,7 @@ interface TranscriptSegment {
 export interface ReelPageData {
 	videoId: string;
 	videoUrl: string;
+	posterUrl: string | null;
 	highlightWord: string | null;
 	startTime: number;
 	transcript: TranscriptSegment[];
@@ -109,6 +111,7 @@ export const load: PageLoad<ReelPageData> = async ({ params, url, fetch }) => {
 	return {
 		videoId,
 		videoUrl,
+		posterUrl: videoInfo?.thumbnail ?? null,
 		highlightWord,
 		startTime,
 		transcript,
@@ -119,4 +122,3 @@ export const load: PageLoad<ReelPageData> = async ({ params, url, fetch }) => {
 		duration: videoInfo?.duration ?? null
 	};
 };
-

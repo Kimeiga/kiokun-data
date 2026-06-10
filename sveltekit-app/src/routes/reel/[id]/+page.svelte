@@ -52,6 +52,11 @@
 		requestAnimationFrame(() => alignActiveSegment(index));
 	});
 
+	function setVideoInlineAttributes(node: HTMLVideoElement) {
+		node.setAttribute('playsinline', '');
+		node.setAttribute('webkit-playsinline', '');
+	}
+
 	function alignActiveSegment(index: number) {
 		const scroller = transcriptScroller;
 		const active = scroller?.querySelector<HTMLElement>(`[data-segment-index="${index}"]`);
@@ -371,8 +376,11 @@
 					<video
 						bind:this={videoElement}
 						src={data.videoUrl}
+						poster={data.posterUrl ?? undefined}
 						class="video-player"
+						use:setVideoInlineAttributes
 						controls
+						preload="metadata"
 						playsinline
 						onclick={preventVideoSurfaceToggle}
 						ontimeupdate={syncCurrentTime}
@@ -620,18 +628,23 @@
 	.video-wrapper {
 		width: min(100%, calc(var(--desktop-reel-max-height, calc(100vh - 150px)) * 9 / 16));
 		max-width: 520px;
+		aspect-ratio: 9 / 16;
 		margin-inline: auto;
 		border-radius: var(--radius-md);
-		overflow: hidden;
 		background: black;
 		box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18);
 	}
 	.video-player {
 		width: 100%;
+		height: 100%;
 		max-height: var(--desktop-reel-max-height, calc(100vh - 150px));
 		aspect-ratio: 9 / 16;
 		object-fit: cover;
+		background: black;
+		border-radius: var(--radius-md);
 		display: block;
+		transform: translateZ(0);
+		-webkit-transform: translateZ(0);
 	}
 
 	.video-meta {
@@ -837,6 +850,7 @@
 			width: 100%;
 			height: 100%;
 			max-height: none;
+			border-radius: 0;
 			object-fit: cover;
 		}
 
