@@ -16,6 +16,15 @@
 			n: 2
 		},
 		{
+			slug: 'translation-model-bakeoff',
+			kicker: 'Translation Quality',
+			title: 'The sentence translation bakeoff',
+			deck:
+				'GPT-5.5, Claude, Gemini, and Cloudflare models against the bad example sentences already hiding in Kiokun.',
+			read: '16 min',
+			n: 3
+		},
+		{
 			slug: 'the-data-engine',
 			kicker: 'Infrastructure',
 			title: 'The dictionary that hosts itself',

@@ -1,0 +1,18 @@
+{
+  "description": "Kiokun translation model evaluation artifacts. JSON detail files contain selected current-bad examples, candidate translations, and blind judge scores. CSV files contain consensus-current-bad rows for quick inspection.",
+  "files": [
+    "large-strict-summary.json",
+    "large-strict-details.json",
+    "large-strict-consensus-current-bad.csv",
+    "small-gpt-summary.json",
+    "small-gpt-details.json",
+    "small-gpt-consensus-current-bad.csv",
+    "exploratory-24-sentence-candidates.json",
+    "exploratory-24-sentence-judgments.json"
+  ],
+  "notes": [
+    "large-strict excludes GPT-5.5 because OpenAI quota was exhausted during the run; it compares Claude Sonnet 4.6, Gemini 3.1 Pro Preview, and Gemini 3.5 Flash.",
+    "small-gpt includes GPT-5.5 plus Claude/Gemini on a smaller consensus-current-bad sample.",
+    "Earlier Cloudflare Workers AI experiments are discussed qualitatively in the blog post; they were not included in the large blind judge dataset."
+  ]
+}

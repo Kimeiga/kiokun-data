@@ -1,0 +1,4304 @@
+{
+  "judgedAt": "2026-06-10T17:56:20.111Z",
+  "modelNames": {
+    "current": "Current deployed",
+    "gpt55": "GPT-5.5",
+    "claude-sonnet-4-6": "Claude Sonnet 4.6",
+    "gemini-31-pro": "Gemini 3.1 Pro Preview",
+    "gemini-35-flash": "Gemini 3.5 Flash"
+  },
+  "judges": {
+    "gpt55": {
+      "ja": {
+        "rows": [
+          {
+            "index": 1,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "gpt55",
+              "C": "current",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 2,
+            "rev": {
+              "A": "gpt55",
+              "B": "gemini-35-flash",
+              "C": "claude-sonnet-4-6",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 3,
+            "rev": {
+              "A": "current",
+              "B": "gemini-35-flash",
+              "C": "gpt55",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 4,
+            "rev": {
+              "A": "gpt55",
+              "B": "claude-sonnet-4-6",
+              "C": "gemini-35-flash",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 5,
+            "rev": {
+              "A": "gpt55",
+              "B": "current",
+              "C": "claude-sonnet-4-6",
+              "D": "gemini-35-flash",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 6,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "gemini-35-flash",
+              "C": "current",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 7,
+            "rev": {
+              "A": "gpt55",
+              "B": "current",
+              "C": "claude-sonnet-4-6",
+              "D": "gemini-35-flash",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 8,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "current",
+              "C": "gemini-35-flash",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 9,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "gpt55",
+              "C": "current",
+              "D": "gemini-35-flash",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 10,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "current",
+              "C": "claude-sonnet-4-6",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 11,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "claude-sonnet-4-6",
+              "C": "gpt55",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 12,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "gpt55",
+              "C": "current",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 13,
+            "rev": {
+              "A": "gpt55",
+              "B": "gemini-35-flash",
+              "C": "claude-sonnet-4-6",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 14,
+            "rev": {
+              "A": "current",
+              "B": "gemini-35-flash",
+              "C": "gpt55",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 15,
+            "rev": {
+              "A": "gpt55",
+              "B": "claude-sonnet-4-6",
+              "C": "gemini-35-flash",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 16,
+            "rev": {
+              "A": "gpt55",
+              "B": "current",
+              "C": "gemini-35-flash",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 17,
+            "rev": {
+              "A": "current",
+              "B": "claude-sonnet-4-6",
+              "C": "gemini-35-flash",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 18,
+            "rev": {
+              "A": "gpt55",
+              "B": "current",
+              "C": "claude-sonnet-4-6",
+              "D": "gemini-35-flash",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 19,
+            "rev": {
+              "A": "current",
+              "B": "claude-sonnet-4-6",
+              "C": "gemini-35-flash",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 20,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "gpt55",
+              "C": "current",
+              "D": "gemini-35-flash",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 21,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "current",
+              "C": "claude-sonnet-4-6",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 22,
+            "rev": {
+              "A": "current",
+              "B": "claude-sonnet-4-6",
+              "C": "gpt55",
+              "D": "gemini-31-pro",
+              "E": "gemini-35-flash"
+            }
+          },
+          {
+            "index": 23,
+            "rev": {
+              "A": "gpt55",
+              "B": "gemini-31-pro",
+              "C": "current",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-35-flash"
+            }
+          },
+          {
+            "index": 24,
+            "rev": {
+              "A": "gpt55",
+              "B": "gemini-31-pro",
+              "C": "claude-sonnet-4-6",
+              "D": "current",
+              "E": "gemini-35-flash"
+            }
+          }
+        ],
+        "result": {
+          "items": [
+            {
+              "index": 1,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 4,
+                "D": 4,
+                "E": 4
+              },
+              "winner": "A",
+              "note": "自然で正確。小道がpathに合う。"
+            },
+            {
+              "index": 2,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 5,
+                "D": 1,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "A/B/C/Eは正確。Dは誤字がある。"
+            },
+            {
+              "index": 3,
+              "scores": {
+                "A": 1,
+                "B": 5,
+                "C": 4,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "D",
+              "note": "見た目と価格の両方を自然に表現。Aは不自然で誤り。"
+            },
+            {
+              "index": 4,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 4,
+                "D": 2,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "趣旨のメモが自然で正確。Dは給食が誤訳。"
+            },
+            {
+              "index": 5,
+              "scores": {
+                "A": 4,
+                "B": 1,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "E",
+              "note": "当初がoriginallyに最も自然に対応。Bは意味がずれる。"
+            },
+            {
+              "index": 6,
+              "scores": {
+                "A": 4,
+                "B": 5,
+                "C": 3,
+                "D": 4,
+                "E": 5
+              },
+              "winner": "B",
+              "note": "自然で丁寧、old ladyをおばあさんと適切に表現。"
+            },
+            {
+              "index": 7,
+              "scores": {
+                "A": 4,
+                "B": 1,
+                "C": 4,
+                "D": 5,
+                "E": 4
+              },
+              "winner": "D",
+              "note": "テストに落ちることがありますかが自然で意味も合う。"
+            },
+            {
+              "index": 8,
+              "scores": {
+                "A": 5,
+                "B": 4,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "C",
+              "note": "正確で丁寧。Bは句点欠けと『こう』がやや不自然。"
+            },
+            {
+              "index": 9,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 2,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "身の危険を感じますが自然で、fear for my lifeの意味をよく表す。"
+            },
+            {
+              "index": 10,
+              "scores": {
+                "A": 5,
+                "B": 2,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "C",
+              "note": "give me a ringを自然な依頼として訳している。Bは待っているだけで依頼にならない。"
+            },
+            {
+              "index": 11,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 2,
+                "D": 2,
+                "E": 5
+              },
+              "winner": "E",
+              "note": "自然と馴染むニュアンスが最もよく出ている。"
+            },
+            {
+              "index": 12,
+              "scores": {
+                "A": 4,
+                "B": 5,
+                "C": 5,
+                "D": 4,
+                "E": 5
+              },
+              "winner": "B",
+              "note": "among themの寄ってたかってという感じを自然に表現。"
+            },
+            {
+              "index": 13,
+              "scores": {
+                "A": 5,
+                "B": 4,
+                "C": 5,
+                "D": 3,
+                "E": 4
+              },
+              "winner": "A",
+              "note": "まだ決めかねていますがmake up my mind yetに自然で丁寧。"
+            },
+            {
+              "index": 14,
+              "scores": {
+                "A": 3,
+                "B": 5,
+                "C": 5,
+                "D": 5,
+                "E": 4
+              },
+              "winner": "B",
+              "note": "主語を省いて自然で正確。Aは表記と語順がやや不自然。"
+            },
+            {
+              "index": 15,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 5,
+                "D": 3,
+                "E": 5
+              },
+              "winner": "E",
+              "note": "complainingを文句と訳して自然で口調も合う。Dはyourをきみたちにしている。"
+            },
+            {
+              "index": 16,
+              "scores": {
+                "A": 5,
+                "B": 4,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "E",
+              "note": "主語も含めて正確で自然。Bは継続の『ずっと』が弱い。"
+            },
+            {
+              "index": 17,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "簡潔で自然、意味も正確。"
+            },
+            {
+              "index": 18,
+              "scores": {
+                "A": 5,
+                "B": 4,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "音量を下げてくださいが最も正確で丁寧。"
+            },
+            {
+              "index": 19,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 5,
+                "D": 3,
+                "E": 5
+              },
+              "winner": "E",
+              "note": "ばったり会いましたがcame acrossの偶然性を自然に表す。Dは英字表記が不適切。"
+            },
+            {
+              "index": 20,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "収まるどころか、さらに激しくなったが正確で自然。"
+            },
+            {
+              "index": 21,
+              "scores": {
+                "A": 5,
+                "B": 3,
+                "C": 4,
+                "D": 3,
+                "E": 3
+              },
+              "winner": "A",
+              "note": "for goodを『もう戻ってきません』と自然に表現。永遠に去るは硬く不自然。"
+            },
+            {
+              "index": 22,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "B",
+              "note": "簡潔で自然、honest manを正直な人と適切に訳している。"
+            },
+            {
+              "index": 23,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 4,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "B",
+              "note": "悪い習慣がつくとなかなか抜けない、という定型的で自然な表現。"
+            },
+            {
+              "index": 24,
+              "scores": {
+                "A": 3,
+                "B": 5,
+                "C": 5,
+                "D": 1,
+                "E": 5
+              },
+              "winner": "B",
+              "note": "名前をカタカナにし、自然で正確。Dは文法的に破綻。"
+            }
+          ]
+        }
+      },
+      "zh": {
+        "rows": [
+          {
+            "index": 1,
+            "rev": {
+              "A": "gpt55",
+              "B": "claude-sonnet-4-6",
+              "C": "gemini-35-flash",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 2,
+            "rev": {
+              "A": "current",
+              "B": "gpt55",
+              "C": "gemini-35-flash",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 3,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "gemini-35-flash",
+              "C": "gpt55",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 4,
+            "rev": {
+              "A": "gpt55",
+              "B": "current",
+              "C": "gemini-35-flash",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 5,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "claude-sonnet-4-6",
+              "C": "gpt55",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 6,
+            "rev": {
+              "A": "gpt55",
+              "B": "claude-sonnet-4-6",
+              "C": "current",
+              "D": "gemini-35-flash",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 7,
+            "rev": {
+              "A": "current",
+              "B": "gemini-35-flash",
+              "C": "claude-sonnet-4-6",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 8,
+            "rev": {
+              "A": "current",
+              "B": "claude-sonnet-4-6",
+              "C": "gpt55",
+              "D": "gemini-35-flash",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 9,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "claude-sonnet-4-6",
+              "C": "current",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 10,
+            "rev": {
+              "A": "current",
+              "B": "gpt55",
+              "C": "claude-sonnet-4-6",
+              "D": "gemini-35-flash",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 11,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "current",
+              "C": "gemini-35-flash",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 12,
+            "rev": {
+              "A": "gpt55",
+              "B": "claude-sonnet-4-6",
+              "C": "gemini-35-flash",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 13,
+            "rev": {
+              "A": "current",
+              "B": "gpt55",
+              "C": "gemini-35-flash",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 14,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "gemini-35-flash",
+              "C": "gpt55",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 15,
+            "rev": {
+              "A": "gpt55",
+              "B": "gemini-35-flash",
+              "C": "current",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 16,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "claude-sonnet-4-6",
+              "C": "gpt55",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 17,
+            "rev": {
+              "A": "gpt55",
+              "B": "gemini-35-flash",
+              "C": "current",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 18,
+            "rev": {
+              "A": "current",
+              "B": "gemini-35-flash",
+              "C": "claude-sonnet-4-6",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 19,
+            "rev": {
+              "A": "current",
+              "B": "claude-sonnet-4-6",
+              "C": "gpt55",
+              "D": "gemini-35-flash",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 20,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "claude-sonnet-4-6",
+              "C": "current",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 21,
+            "rev": {
+              "A": "current",
+              "B": "gpt55",
+              "C": "claude-sonnet-4-6",
+              "D": "gemini-31-pro",
+              "E": "gemini-35-flash"
+            }
+          },
+          {
+            "index": 22,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "current",
+              "C": "gemini-31-pro",
+              "D": "gpt55",
+              "E": "gemini-35-flash"
+            }
+          },
+          {
+            "index": 23,
+            "rev": {
+              "A": "gpt55",
+              "B": "claude-sonnet-4-6",
+              "C": "current",
+              "D": "gemini-31-pro",
+              "E": "gemini-35-flash"
+            }
+          },
+          {
+            "index": 24,
+            "rev": {
+              "A": "current",
+              "B": "gpt55",
+              "C": "gemini-31-pro",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-35-flash"
+            }
+          }
+        ],
+        "result": {
+          "items": [
+            {
+              "index": 1,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 5,
+                "D": 5,
+                "E": 4
+              },
+              "winner": "A",
+              "note": "A-D准确自然；E更像secret passage，略窄。"
+            },
+            {
+              "index": 2,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "各项都准确自然；A口语且贴合by train/left。"
+            },
+            {
+              "index": 3,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "D",
+              "note": "都准确；D最自然口语，价格也挺合适贴切。"
+            },
+            {
+              "index": 4,
+              "scores": {
+                "A": 5,
+                "B": 4,
+                "C": 5,
+                "D": 4,
+                "E": 4
+              },
+              "winner": "A",
+              "note": "A准确表达to the effect that且时态合适；B/D/E暗示已出去。"
+            },
+            {
+              "index": 5,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "B",
+              "note": "都准确自然；B补出这次会议更完整。"
+            },
+            {
+              "index": 6,
+              "scores": {
+                "A": 3,
+                "B": 4,
+                "C": 4,
+                "D": 5,
+                "E": 4
+              },
+              "winner": "D",
+              "note": "D自然准确；A食品杂货生硬，B杂货泛化，C省略her car。"
+            },
+            {
+              "index": 7,
+              "scores": {
+                "A": 4,
+                "B": 5,
+                "C": 3,
+                "D": 5,
+                "E": 4
+              },
+              "winner": "B",
+              "note": "B准确自然；D也好但稍正式，C“做到的考试”不自然。"
+            },
+            {
+              "index": 8,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "各项均准确自然。"
+            },
+            {
+              "index": 9,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "D",
+              "note": "都准确；D简洁自然，贴合fear for my life。"
+            },
+            {
+              "index": 10,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "都正确；A带“吧”语气更自然。"
+            },
+            {
+              "index": 11,
+              "scores": {
+                "A": 4,
+                "B": 5,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "C",
+              "note": "C/D准确表达不知不觉进入新生活；A偏融入，B偏适应。"
+            },
+            {
+              "index": 12,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 4,
+                "D": 3,
+                "E": 5
+              },
+              "winner": "B",
+              "note": "B自然准确；C少了among them的合力感，D带贬义且不准。"
+            },
+            {
+              "index": 13,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "C",
+              "note": "都准确；C礼貌自然，拿定主意贴合。"
+            },
+            {
+              "index": 14,
+              "scores": {
+                "A": 5,
+                "B": 4,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "A准确自然；B“很大的噪音”搭配稍别扭。"
+            },
+            {
+              "index": 15,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "完全相同且准确自然。"
+            },
+            {
+              "index": 16,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "各项准确；A最简洁自然。"
+            },
+            {
+              "index": 17,
+              "scores": {
+                "A": 4,
+                "B": 4,
+                "C": 5,
+                "D": 4,
+                "E": 5
+              },
+              "winner": "C",
+              "note": "C自然表达好运终会耗尽；A略生硬，D“把运气用完”稍怪。"
+            },
+            {
+              "index": 18,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "B",
+              "note": "都准确；B“调小一点”最自然礼貌。"
+            },
+            {
+              "index": 19,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 5,
+                "D": 3,
+                "E": 5
+              },
+              "winner": "E",
+              "note": "E准确自然；D保留英文名且较混杂。"
+            },
+            {
+              "index": 20,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 4,
+                "D": 4,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "A准确自然；B较书面但好，C较口语粗略，D“猛烈得多”不太自然。"
+            },
+            {
+              "index": 21,
+              "scores": {
+                "A": 4,
+                "B": 4,
+                "C": 5,
+                "D": 4,
+                "E": 5
+              },
+              "winner": "C",
+              "note": "C准确表达regret to say和for good；A可能像去世，B不够自然。"
+            },
+            {
+              "index": 22,
+              "scores": {
+                "A": 5,
+                "B": 4,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "A/C/D/E准确；B“老实人”含义略偏。"
+            },
+            {
+              "index": 23,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 4,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "A等准确自然；C“去掉”搭配稍弱。"
+            },
+            {
+              "index": 24,
+              "scores": {
+                "A": 5,
+                "B": 3,
+                "C": 4,
+                "D": 4,
+                "E": 3
+              },
+              "winner": "A",
+              "note": "A准确自然；B/E保留英文名不宜，E只限长相；C/D暗示不像父亲过强。"
+            }
+          ]
+        }
+      },
+      "ko": {
+        "rows": [
+          {
+            "index": 1,
+            "rev": {
+              "A": "current",
+              "B": "gpt55",
+              "C": "gemini-35-flash",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 2,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "gemini-35-flash",
+              "C": "gpt55",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 3,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "gpt55",
+              "C": "current",
+              "D": "gemini-35-flash",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 4,
+            "rev": {
+              "A": "current",
+              "B": "gemini-35-flash",
+              "C": "claude-sonnet-4-6",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 5,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "current",
+              "C": "gpt55",
+              "D": "gemini-35-flash",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 6,
+            "rev": {
+              "A": "current",
+              "B": "gemini-35-flash",
+              "C": "claude-sonnet-4-6",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 7,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "current",
+              "C": "gpt55",
+              "D": "gemini-35-flash",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 8,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "claude-sonnet-4-6",
+              "C": "current",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 9,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "gpt55",
+              "C": "claude-sonnet-4-6",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 10,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "current",
+              "C": "gpt55",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 11,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "gpt55",
+              "C": "gemini-35-flash",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 12,
+            "rev": {
+              "A": "current",
+              "B": "gpt55",
+              "C": "gemini-35-flash",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 13,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "gemini-35-flash",
+              "C": "gpt55",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 14,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "gpt55",
+              "C": "current",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 15,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "current",
+              "C": "claude-sonnet-4-6",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 16,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "current",
+              "C": "gpt55",
+              "D": "gemini-35-flash",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 17,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "gemini-35-flash",
+              "C": "current",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 18,
+            "rev": {
+              "A": "gpt55",
+              "B": "current",
+              "C": "claude-sonnet-4-6",
+              "D": "gemini-35-flash",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 19,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "gemini-35-flash",
+              "C": "current",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 20,
+            "rev": {
+              "A": "current",
+              "B": "gpt55",
+              "C": "claude-sonnet-4-6",
+              "D": "gemini-35-flash",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 21,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "current",
+              "C": "gpt55",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 22,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "gpt55",
+              "C": "gemini-31-pro",
+              "D": "current",
+              "E": "gemini-35-flash"
+            }
+          },
+          {
+            "index": 23,
+            "rev": {
+              "A": "gpt55",
+              "B": "current",
+              "C": "gemini-31-pro",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-35-flash"
+            }
+          },
+          {
+            "index": 24,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "gemini-31-pro",
+              "C": "gpt55",
+              "D": "current",
+              "E": "gemini-35-flash"
+            }
+          }
+        ],
+        "result": {
+          "items": [
+            {
+              "index": 1,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 4,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "B",
+              "note": "정확하고 자연스러우며 '통로'가 secret path에 적절함"
+            },
+            {
+              "index": 2,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 5,
+                "D": 4,
+                "E": 5
+              },
+              "winner": "B",
+              "note": "의미가 정확하고 자연스러운 표준 표현"
+            },
+            {
+              "index": 3,
+              "scores": {
+                "A": 4,
+                "B": 5,
+                "C": 4,
+                "D": 4,
+                "E": 5
+              },
+              "winner": "B",
+              "note": "'looked good'와 'moreover'를 자연스럽게 반영함"
+            },
+            {
+              "index": 4,
+              "scores": {
+                "A": 4,
+                "B": 5,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "B",
+              "note": "'to the effect that'를 '내용의 메모'로 정확하고 자연스럽게 옮김"
+            },
+            {
+              "index": 5,
+              "scores": {
+                "A": 4,
+                "B": 4,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "C",
+              "note": "'예정되어 있었다'가 planned for의 뜻에 가장 자연스러움"
+            },
+            {
+              "index": 6,
+              "scores": {
+                "A": 4,
+                "B": 4,
+                "C": 4,
+                "D": 4,
+                "E": 5
+              },
+              "winner": "E",
+              "note": "돕는 대상에 대한 높임과 전체 의미가 자연스럽게 전달됨"
+            },
+            {
+              "index": 7,
+              "scores": {
+                "A": 3,
+                "B": 4,
+                "C": 3,
+                "D": 4,
+                "E": 3
+              },
+              "winner": "D",
+              "note": "capable of doing을 '충분히 합격할 수 있는'으로 가장 명확히 반영함"
+            },
+            {
+              "index": 8,
+              "scores": {
+                "A": 2,
+                "B": 2,
+                "C": 5,
+                "D": 5,
+                "E": 2
+              },
+              "winner": "D",
+              "note": "should를 추측이 아니라 당위로 정확히 번역함"
+            },
+            {
+              "index": 9,
+              "scores": {
+                "A": 5,
+                "B": 4,
+                "C": 5,
+                "D": 4,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "fear for my life를 간결하고 자연스럽게 표현함"
+            },
+            {
+              "index": 10,
+              "scores": {
+                "A": 5,
+                "B": 4,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "'Give me a ring'의 관용적 의미를 자연스럽고 정중하게 번역함"
+            },
+            {
+              "index": 11,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 5,
+                "D": 4,
+                "E": 5
+              },
+              "winner": "B",
+              "note": "slipped into의 '어느새 젖어 들다' 뉘앙스를 자연스럽게 살림"
+            },
+            {
+              "index": 12,
+              "scores": {
+                "A": 3,
+                "B": 5,
+                "C": 2,
+                "D": 4,
+                "E": 4
+              },
+              "winner": "B",
+              "note": "'among them'의 각자 한몫했다는 뉘앙스를 가장 잘 반영함"
+            },
+            {
+              "index": 13,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "make up my mind를 자연스럽게 '결정을 못 했다'로 표현함"
+            },
+            {
+              "index": 14,
+              "scores": {
+                "A": 4,
+                "B": 3,
+                "C": 5,
+                "D": 4,
+                "E": 5
+              },
+              "winner": "C",
+              "note": "put up with noise의 상황을 가장 자연스러운 한국어로 전달함"
+            },
+            {
+              "index": 15,
+              "scores": {
+                "A": 4,
+                "B": 5,
+                "C": 4,
+                "D": 5,
+                "E": 4
+              },
+              "winner": "B",
+              "note": "fed up with complaining을 구어체로 매우 자연스럽게 표현함"
+            },
+            {
+              "index": 16,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 3,
+                "D": 5,
+                "E": 4
+              },
+              "winner": "D",
+              "note": "look forward to를 '손꼽아 기다리다'로 자연스럽게 번역함"
+            },
+            {
+              "index": 17,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "E",
+              "note": "run out of luck을 '운도 다하다'로 자연스럽고 정확히 옮김"
+            },
+            {
+              "index": 18,
+              "scores": {
+                "A": 5,
+                "B": 4,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "D",
+              "note": "please의 정중함과 요청의 자연스러움이 가장 좋음"
+            },
+            {
+              "index": 19,
+              "scores": {
+                "A": 4,
+                "B": 5,
+                "C": 5,
+                "D": 4,
+                "E": 5
+              },
+              "winner": "B",
+              "note": "came across를 '우연히 마주쳤다'로 자연스럽게 번역하고 이름 표기도 적절함"
+            },
+            {
+              "index": 20,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 4,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "B",
+              "note": "far from stopping을 '멈추기는커녕'으로 정확하고 자연스럽게 표현함"
+            },
+            {
+              "index": 21,
+              "scores": {
+                "A": 5,
+                "B": 4,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "E",
+              "note": "I regret to say의 발화 태도를 가장 충실하게 반영함"
+            },
+            {
+              "index": 22,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 5,
+                "D": 4,
+                "E": 5
+              },
+              "winner": "B",
+              "note": "As far as I know에 해당하는 가장 정석적이고 자연스러운 표현"
+            },
+            {
+              "index": 23,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "C",
+              "note": "bad habit is formed와 hard to get rid of를 자연스럽게 '습관이 들다/고치기 어렵다'로 표현함"
+            },
+            {
+              "index": 24,
+              "scores": {
+                "A": 4,
+                "B": 5,
+                "C": 4,
+                "D": 4,
+                "E": 5
+              },
+              "winner": "B",
+              "note": "take after를 '닮았다'로 정확히 옮기고 이름 표기도 자연스러움"
+            }
+          ]
+        }
+      },
+      "tr": {
+        "rows": [
+          {
+            "index": 1,
+            "rev": {
+              "A": "current",
+              "B": "gpt55",
+              "C": "gemini-35-flash",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 2,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "claude-sonnet-4-6",
+              "C": "gpt55",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 3,
+            "rev": {
+              "A": "gpt55",
+              "B": "gemini-35-flash",
+              "C": "current",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 4,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "gpt55",
+              "C": "claude-sonnet-4-6",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 5,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "current",
+              "C": "gpt55",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 6,
+            "rev": {
+              "A": "gpt55",
+              "B": "claude-sonnet-4-6",
+              "C": "gemini-35-flash",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 7,
+            "rev": {
+              "A": "current",
+              "B": "gpt55",
+              "C": "claude-sonnet-4-6",
+              "D": "gemini-35-flash",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 8,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "current",
+              "C": "gemini-35-flash",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 9,
+            "rev": {
+              "A": "gpt55",
+              "B": "claude-sonnet-4-6",
+              "C": "current",
+              "D": "gemini-35-flash",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 10,
+            "rev": {
+              "A": "current",
+              "B": "gemini-35-flash",
+              "C": "claude-sonnet-4-6",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 11,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "current",
+              "C": "gpt55",
+              "D": "gemini-35-flash",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 12,
+            "rev": {
+              "A": "current",
+              "B": "gemini-35-flash",
+              "C": "claude-sonnet-4-6",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 13,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "claude-sonnet-4-6",
+              "C": "gpt55",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 14,
+            "rev": {
+              "A": "gpt55",
+              "B": "gemini-35-flash",
+              "C": "current",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 15,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "gpt55",
+              "C": "claude-sonnet-4-6",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 16,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "current",
+              "C": "gpt55",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 17,
+            "rev": {
+              "A": "gpt55",
+              "B": "claude-sonnet-4-6",
+              "C": "gemini-35-flash",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 18,
+            "rev": {
+              "A": "current",
+              "B": "gpt55",
+              "C": "gemini-35-flash",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 19,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "current",
+              "C": "gemini-35-flash",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 20,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "gpt55",
+              "C": "current",
+              "D": "gemini-35-flash",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 21,
+            "rev": {
+              "A": "current",
+              "B": "gemini-31-pro",
+              "C": "claude-sonnet-4-6",
+              "D": "gpt55",
+              "E": "gemini-35-flash"
+            }
+          },
+          {
+            "index": 22,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "current",
+              "C": "gpt55",
+              "D": "gemini-31-pro",
+              "E": "gemini-35-flash"
+            }
+          },
+          {
+            "index": 23,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "gemini-31-pro",
+              "C": "current",
+              "D": "gpt55",
+              "E": "gemini-35-flash"
+            }
+          },
+          {
+            "index": 24,
+            "rev": {
+              "A": "gpt55",
+              "B": "current",
+              "C": "claude-sonnet-4-6",
+              "D": "gemini-31-pro",
+              "E": "gemini-35-flash"
+            }
+          }
+        ],
+        "result": {
+          "items": [
+            {
+              "index": 1,
+              "scores": {
+                "A": 1,
+                "B": 5,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "B",
+              "note": "B/C are exact; D/E also good but 'patika' better for path."
+            },
+            {
+              "index": 2,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 5,
+                "D": 4,
+                "E": 4
+              },
+              "winner": "A",
+              "note": "A/B/C accurately express leaving by train."
+            },
+            {
+              "index": 3,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "B",
+              "note": "All are accurate; 'güzel görünüyordu' is most natural here."
+            },
+            {
+              "index": 4,
+              "scores": {
+                "A": 4,
+                "B": 5,
+                "C": 3,
+                "D": 2,
+                "E": 4
+              },
+              "winner": "B",
+              "note": "B naturally conveys that the note said he was going out for lunch."
+            },
+            {
+              "index": 5,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 5,
+                "D": 4,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "A is accurate and natural; D is slightly less idiomatic."
+            },
+            {
+              "index": 6,
+              "scores": {
+                "A": 4,
+                "B": 4,
+                "C": 4,
+                "D": 5,
+                "E": 4
+              },
+              "winner": "D",
+              "note": "'Market poşetlerini' most naturally captures groceries being loaded into the car."
+            },
+            {
+              "index": 7,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 4,
+                "D": 4,
+                "E": 5
+              },
+              "winner": "E",
+              "note": "E best conveys being capable of succeeding on the test."
+            },
+            {
+              "index": 8,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "All are accurate; 'böyle' is a natural rendering of 'that' in context."
+            },
+            {
+              "index": 9,
+              "scores": {
+                "A": 4,
+                "B": 4,
+                "C": 5,
+                "D": 4,
+                "E": 4
+              },
+              "winner": "C",
+              "note": "C is the most natural way to express fearing for one's life because of the words."
+            },
+            {
+              "index": 10,
+              "scores": {
+                "A": 1,
+                "B": 5,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "B",
+              "note": "B correctly renders the idiom as 'call me'; A is missing."
+            },
+            {
+              "index": 11,
+              "scores": {
+                "A": 4,
+                "B": 2,
+                "C": 5,
+                "D": 3,
+                "E": 4
+              },
+              "winner": "C",
+              "note": "C best captures gradually/unconsciously falling into a new way of life."
+            },
+            {
+              "index": 12,
+              "scores": {
+                "A": 2,
+                "B": 5,
+                "C": 5,
+                "D": 2,
+                "E": 5
+              },
+              "winner": "B",
+              "note": "'El birliğiyle' naturally captures 'among them' as collective responsibility."
+            },
+            {
+              "index": 13,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "All are accurate; A is direct and natural."
+            },
+            {
+              "index": 14,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "B",
+              "note": "All are accurate; B is very natural with 'çok fazla gürültü'."
+            },
+            {
+              "index": 15,
+              "scores": {
+                "A": 5,
+                "B": 4,
+                "C": 5,
+                "D": 4,
+                "E": 4
+              },
+              "winner": "A",
+              "note": "A best conveys being fed up with the ongoing complaining."
+            },
+            {
+              "index": 16,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 4,
+                "D": 4,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "A/B/E correctly use present expectation; C/D suggest past expectation."
+            },
+            {
+              "index": 17,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "D",
+              "note": "All are accurate; 'eninde sonunda' is especially idiomatic for sooner or later."
+            },
+            {
+              "index": 18,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "B",
+              "note": "All are natural; B is a clear neutral request."
+            },
+            {
+              "index": 19,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "B",
+              "note": "All are accurate; 'karşılaştı' is the most general natural equivalent."
+            },
+            {
+              "index": 20,
+              "scores": {
+                "A": 5,
+                "B": 4,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "C",
+              "note": "C most idiomatically renders 'far from stopping'."
+            },
+            {
+              "index": 21,
+              "scores": {
+                "A": 4,
+                "B": 5,
+                "C": 4,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "E",
+              "note": "E naturally conveys regret and that he has gone permanently."
+            },
+            {
+              "index": 22,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "C",
+              "note": "All are accurate; C explicitly includes 'he' and 'man'."
+            },
+            {
+              "index": 23,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "All are accurate and natural."
+            },
+            {
+              "index": 24,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "All are accurate; 'annesine çekmiş' idiomatically renders 'takes after his mother'."
+            }
+          ]
+        }
+      }
+    },
+    "claude-sonnet-4-6": {
+      "ja": {
+        "rows": [
+          {
+            "index": 1,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "gpt55",
+              "C": "current",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 2,
+            "rev": {
+              "A": "gpt55",
+              "B": "gemini-35-flash",
+              "C": "claude-sonnet-4-6",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 3,
+            "rev": {
+              "A": "current",
+              "B": "gemini-35-flash",
+              "C": "gpt55",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 4,
+            "rev": {
+              "A": "gpt55",
+              "B": "claude-sonnet-4-6",
+              "C": "gemini-35-flash",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 5,
+            "rev": {
+              "A": "gpt55",
+              "B": "current",
+              "C": "claude-sonnet-4-6",
+              "D": "gemini-35-flash",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 6,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "gemini-35-flash",
+              "C": "current",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 7,
+            "rev": {
+              "A": "gpt55",
+              "B": "current",
+              "C": "claude-sonnet-4-6",
+              "D": "gemini-35-flash",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 8,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "current",
+              "C": "gemini-35-flash",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 9,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "gpt55",
+              "C": "current",
+              "D": "gemini-35-flash",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 10,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "current",
+              "C": "claude-sonnet-4-6",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 11,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "claude-sonnet-4-6",
+              "C": "gpt55",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 12,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "gpt55",
+              "C": "current",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 13,
+            "rev": {
+              "A": "gpt55",
+              "B": "gemini-35-flash",
+              "C": "claude-sonnet-4-6",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 14,
+            "rev": {
+              "A": "current",
+              "B": "gemini-35-flash",
+              "C": "gpt55",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 15,
+            "rev": {
+              "A": "gpt55",
+              "B": "claude-sonnet-4-6",
+              "C": "gemini-35-flash",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 16,
+            "rev": {
+              "A": "gpt55",
+              "B": "current",
+              "C": "gemini-35-flash",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 17,
+            "rev": {
+              "A": "current",
+              "B": "claude-sonnet-4-6",
+              "C": "gemini-35-flash",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 18,
+            "rev": {
+              "A": "gpt55",
+              "B": "current",
+              "C": "claude-sonnet-4-6",
+              "D": "gemini-35-flash",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 19,
+            "rev": {
+              "A": "current",
+              "B": "claude-sonnet-4-6",
+              "C": "gemini-35-flash",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 20,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "gpt55",
+              "C": "current",
+              "D": "gemini-35-flash",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 21,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "current",
+              "C": "claude-sonnet-4-6",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 22,
+            "rev": {
+              "A": "current",
+              "B": "claude-sonnet-4-6",
+              "C": "gpt55",
+              "D": "gemini-31-pro",
+              "E": "gemini-35-flash"
+            }
+          },
+          {
+            "index": 23,
+            "rev": {
+              "A": "gpt55",
+              "B": "gemini-31-pro",
+              "C": "current",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-35-flash"
+            }
+          },
+          {
+            "index": 24,
+            "rev": {
+              "A": "gpt55",
+              "B": "gemini-31-pro",
+              "C": "claude-sonnet-4-6",
+              "D": "current",
+              "E": "gemini-35-flash"
+            }
+          }
+        ],
+        "result": {
+          "items": [
+            {
+              "index": 1,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 4,
+                "D": 4,
+                "E": 4
+              },
+              "winner": "A",
+              "note": "A and B are identical and excellent. C uses 通路 (passage/corridor) which is slightly less natural for an outdoor path. D and E omit 側 which is minor but A/B are most complete."
+            },
+            {
+              "index": 2,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 5,
+                "D": 1,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "A, B, C, E are identical and correct. D has a typo (出発しましました) making it malformed."
+            },
+            {
+              "index": 3,
+              "scores": {
+                "A": 2,
+                "B": 4,
+                "C": 5,
+                "D": 5,
+                "E": 4
+              },
+              "winner": "C",
+              "note": "A has an error: かなりに is unnatural/wrong for 'looked good'. C and D are both natural and accurate; C slightly more precise with 見た目がよかった and 適正. D is equally strong."
+            },
+            {
+              "index": 4,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 4,
+                "D": 2,
+                "E": 5
+              },
+              "winner": "B",
+              "note": "B is concise and natural using 旨 alone without redundant という. C has redundant という旨 which is slightly awkward. D mistranslates lunch as 給食 (school lunch). A and E are correct but slightly more verbose."
+            },
+            {
+              "index": 5,
+              "scores": {
+                "A": 4,
+                "B": 2,
+                "C": 4,
+                "D": 5,
+                "E": 4
+              },
+              "winner": "D",
+              "note": "D correctly uses 来週の土曜日 which is the most natural rendering of 'next Saturday'. B mistranslates 'originally' as まず第一に and changes meaning. A, C, E use 次の土曜日 which is acceptable but slightly less natural than 来週の土曜日."
+            },
+            {
+              "index": 6,
+              "scores": {
+                "A": 5,
+                "B": 4,
+                "C": 3,
+                "D": 5,
+                "E": 4
+              },
+              "winner": "A",
+              "note": "A uses 青年 matching 'young man' precisely and お年寄りの女性 is natural. D is also excellent with 老婦人. C is awkward with 買った食料 and 積むことを手伝った structure."
+            },
+            {
+              "index": 7,
+              "scores": {
+                "A": 5,
+                "B": 1,
+                "C": 4,
+                "D": 5,
+                "E": 4
+              },
+              "winner": "A",
+              "note": "A and D are both excellent. A uses 落ちる which is the natural colloquial term for failing a test. B completely mistranslates as 'ability test'. C and E use 失敗する which is slightly less idiomatic for test failure."
+            },
+            {
+              "index": 8,
+              "scores": {
+                "A": 5,
+                "B": 3,
+                "C": 5,
+                "D": 4,
+                "E": 4
+              },
+              "winner": "A",
+              "note": "A is natural and accurate. B changes 'most' to 大多数 and uses こう instead of そう, slightly altering meaning. C is equally good. D uses たいていの which is acceptable but slightly less precise than ほとんど."
+            },
+            {
+              "index": 9,
+              "scores": {
+                "A": 5,
+                "B": 4,
+                "C": 2,
+                "D": 5,
+                "E": 4
+              },
+              "winner": "A",
+              "note": "A naturally conveys the meaning with 身の危険 and adds 聞いて for naturalness. D is equally good. C mistranslates as 'I become afraid of dying' which misses the 'fear for my life' nuance. B and E are good but slightly less natural."
+            },
+            {
+              "index": 10,
+              "scores": {
+                "A": 5,
+                "B": 3,
+                "C": 5,
+                "D": 4,
+                "E": 4
+              },
+              "winner": "A",
+              "note": "A and C both naturally render the idiom 'give me a ring'. B changes to 'I'll be waiting for your call' which alters the imperative. C is equally natural and casual. A is slightly more polite and balanced."
+            },
+            {
+              "index": 11,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 4,
+                "D": 2,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "A, B, and E all excellently capture 'slipped into' with いつの間にか/自然と and 馴染んでいった. C uses 入っていきました which is less idiomatic for 'slip into'. D is too literal and loses the gradual/natural nuance."
+            },
+            {
+              "index": 12,
+              "scores": {
+                "A": 3,
+                "B": 5,
+                "C": 5,
+                "D": 4,
+                "E": 5
+              },
+              "winner": "B",
+              "note": "B, C, E all use 寄ってたかって which perfectly captures 'among them' as a collective action. A uses みんなで which is weaker and loses the conspiratorial nuance. D uses 結託して (conspired) which implies more deliberate scheming than the original."
+            },
+            {
+              "index": 13,
+              "scores": {
+                "A": 5,
+                "B": 4,
+                "C": 5,
+                "D": 3,
+                "E": 4
+              },
+              "winner": "A",
+              "note": "A uses 決めかねています which precisely captures 'haven't made up my mind' (still in the process of deciding). C is equally good but more casual. B and E use 決めていません which is slightly less nuanced. D mixes polite and casual registers."
+            },
+            {
+              "index": 14,
+              "scores": {
+                "A": 3,
+                "B": 4,
+                "C": 5,
+                "D": 4,
+                "E": 3
+              },
+              "winner": "C",
+              "note": "C is complete and natural with proper subject inclusion. B omits 私たちは but is still natural. A has awkward word order with はずい分. E uses ひどい which slightly overstates 'a lot of'."
+            },
+            {
+              "index": 15,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 4,
+                "D": 4,
+                "E": 4
+              },
+              "winner": "A",
+              "note": "A and B are both excellent. 不平 and 愚痴 both work well for 'complaining'. A's もううんざりです is natural. C omits もう which weakens the 'fed up' feeling. D adds 不満 unnecessarily and uses きみたち."
+            },
+            {
+              "index": 16,
+              "scores": {
+                "A": 5,
+                "B": 3,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "A, C, D, E are all excellent and nearly identical. B uses present tense 心待ちにしている which doesn't match the present perfect 'have been looking forward to'. A is chosen as representative of the best group."
+            },
+            {
+              "index": 17,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 4,
+                "D": 4,
+                "E": 4
+              },
+              "winner": "A",
+              "note": "A and B are both excellent. B's も adds a nuance of 'even he' which is a slight addition not in the original. C and E use でしょう which is slightly softer than だろう but acceptable. D is also good."
+            },
+            {
+              "index": 18,
+              "scores": {
+                "A": 5,
+                "B": 3,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "A, C, D, E are identical and excellent. B is too casual and omits 音量 making it less precise, though understandable."
+            },
+            {
+              "index": 19,
+              "scores": {
+                "A": 5,
+                "B": 4,
+                "C": 4,
+                "D": 3,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "A and E are both excellent. E uses ばったり which vividly captures the chance encounter. A is clean and natural. D uses the English 'Jack' in Roman letters which is inconsistent. B and C are good but slightly less vivid."
+            },
+            {
+              "index": 20,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 4,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "A, B, D, E are all excellent. C changes word order putting やむどころか first which is slightly less natural. A is chosen as representative."
+            },
+            {
+              "index": 21,
+              "scores": {
+                "A": 5,
+                "B": 4,
+                "C": 4,
+                "D": 4,
+                "E": 4
+              },
+              "winner": "A",
+              "note": "A best captures both 'I regret to say' and 'gone for good' naturally. B is accurate but plain. C is overly verbose with 言わざるを得ません. D and E use 永遠に去った which is accurate but slightly more dramatic than the original."
+            },
+            {
+              "index": 22,
+              "scores": {
+                "A": 4,
+                "B": 5,
+                "C": 5,
+                "D": 5,
+                "E": 4
+              },
+              "winner": "B",
+              "note": "B, C, D are identical and excellent using 私の知る限り which is the most natural rendering. A uses 私の知っている限りでは which is slightly verbose. E uses 誠実 (sincere) instead of 正直 (honest) which is a slight meaning shift."
+            },
+            {
+              "index": 23,
+              "scores": {
+                "A": 4,
+                "B": 5,
+                "C": 4,
+                "D": 5,
+                "E": 4
+              },
+              "winner": "B",
+              "note": "B is very natural and idiomatic with なかなか抜けません. D is also excellent. A and C use 直す which is slightly more about correcting than breaking a habit. E is good but slightly verbose."
+            },
+            {
+              "index": 24,
+              "scores": {
+                "A": 3,
+                "B": 5,
+                "C": 5,
+                "D": 1,
+                "E": 5
+              },
+              "winner": "B",
+              "note": "B, C, E are all excellent. A uses Roman letters for Peter which is inconsistent. D is incomplete/malformed (父より母にである makes no sense)."
+            }
+          ]
+        }
+      },
+      "zh": {
+        "rows": [
+          {
+            "index": 1,
+            "rev": {
+              "A": "gpt55",
+              "B": "claude-sonnet-4-6",
+              "C": "gemini-35-flash",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 2,
+            "rev": {
+              "A": "current",
+              "B": "gpt55",
+              "C": "gemini-35-flash",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 3,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "gemini-35-flash",
+              "C": "gpt55",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 4,
+            "rev": {
+              "A": "gpt55",
+              "B": "current",
+              "C": "gemini-35-flash",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 5,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "claude-sonnet-4-6",
+              "C": "gpt55",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 6,
+            "rev": {
+              "A": "gpt55",
+              "B": "claude-sonnet-4-6",
+              "C": "current",
+              "D": "gemini-35-flash",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 7,
+            "rev": {
+              "A": "current",
+              "B": "gemini-35-flash",
+              "C": "claude-sonnet-4-6",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 8,
+            "rev": {
+              "A": "current",
+              "B": "claude-sonnet-4-6",
+              "C": "gpt55",
+              "D": "gemini-35-flash",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 9,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "claude-sonnet-4-6",
+              "C": "current",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 10,
+            "rev": {
+              "A": "current",
+              "B": "gpt55",
+              "C": "claude-sonnet-4-6",
+              "D": "gemini-35-flash",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 11,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "current",
+              "C": "gemini-35-flash",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 12,
+            "rev": {
+              "A": "gpt55",
+              "B": "claude-sonnet-4-6",
+              "C": "gemini-35-flash",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 13,
+            "rev": {
+              "A": "current",
+              "B": "gpt55",
+              "C": "gemini-35-flash",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 14,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "gemini-35-flash",
+              "C": "gpt55",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 15,
+            "rev": {
+              "A": "gpt55",
+              "B": "gemini-35-flash",
+              "C": "current",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 16,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "claude-sonnet-4-6",
+              "C": "gpt55",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 17,
+            "rev": {
+              "A": "gpt55",
+              "B": "gemini-35-flash",
+              "C": "current",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 18,
+            "rev": {
+              "A": "current",
+              "B": "gemini-35-flash",
+              "C": "claude-sonnet-4-6",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 19,
+            "rev": {
+              "A": "current",
+              "B": "claude-sonnet-4-6",
+              "C": "gpt55",
+              "D": "gemini-35-flash",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 20,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "claude-sonnet-4-6",
+              "C": "current",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 21,
+            "rev": {
+              "A": "current",
+              "B": "gpt55",
+              "C": "claude-sonnet-4-6",
+              "D": "gemini-31-pro",
+              "E": "gemini-35-flash"
+            }
+          },
+          {
+            "index": 22,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "current",
+              "C": "gemini-31-pro",
+              "D": "gpt55",
+              "E": "gemini-35-flash"
+            }
+          },
+          {
+            "index": 23,
+            "rev": {
+              "A": "gpt55",
+              "B": "claude-sonnet-4-6",
+              "C": "current",
+              "D": "gemini-31-pro",
+              "E": "gemini-35-flash"
+            }
+          },
+          {
+            "index": 24,
+            "rev": {
+              "A": "current",
+              "B": "gpt55",
+              "C": "gemini-31-pro",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-35-flash"
+            }
+          }
+        ],
+        "result": {
+          "items": [
+            {
+              "index": 1,
+              "scores": {
+                "A": 4,
+                "B": 4,
+                "C": 4,
+                "D": 4,
+                "E": 5
+              },
+              "winner": "E",
+              "note": "密道 is the most natural and idiomatic term for a secret path; the others are accurate but slightly verbose."
+            },
+            {
+              "index": 2,
+              "scores": {
+                "A": 5,
+                "B": 4,
+                "C": 4,
+                "D": 4,
+                "E": 4
+              },
+              "winner": "A",
+              "note": "我们是坐火车走的 uses 走 which naturally echoes 'left/departed' and sounds most colloquial and idiomatic."
+            },
+            {
+              "index": 3,
+              "scores": {
+                "A": 4,
+                "B": 4,
+                "C": 3,
+                "D": 5,
+                "E": 4
+              },
+              "winner": "D",
+              "note": "D uses 看着 and 挺合适 which sound most natural and colloquial; C's semicolon is awkward in Chinese."
+            },
+            {
+              "index": 4,
+              "scores": {
+                "A": 5,
+                "B": 3,
+                "C": 4,
+                "D": 4,
+                "E": 4
+              },
+              "winner": "A",
+              "note": "A best captures 'to the effect that' with 大意是说 and keeps the tense natural; B omits 大意 losing the nuance."
+            },
+            {
+              "index": 5,
+              "scores": {
+                "A": 4,
+                "B": 4,
+                "C": 4,
+                "D": 4,
+                "E": 5
+              },
+              "winner": "E",
+              "note": "原计划 is the most concise and natural phrasing for planned schedules in Chinese; all others are fine but slightly wordy."
+            },
+            {
+              "index": 6,
+              "scores": {
+                "A": 3,
+                "B": 4,
+                "C": 5,
+                "D": 4,
+                "E": 3
+              },
+              "winner": "C",
+              "note": "C uses 老奶奶 (warmer, natural) and 买的东西 (natural for groceries); A and E keep 食品杂货/杂货 which is less natural in spoken Chinese."
+            },
+            {
+              "index": 7,
+              "scores": {
+                "A": 5,
+                "B": 3,
+                "C": 2,
+                "D": 3,
+                "E": 4
+              },
+              "winner": "A",
+              "note": "A is idiomatic and natural, capturing the rhetorical/incredulous tone well with 明明会做 and 考砸了; C and D are overly literal."
+            },
+            {
+              "index": 8,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 4,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "A, B, D, E are identical and excellent; C omits 都 which slightly weakens the universality. Picking A as representative winner."
+            },
+            {
+              "index": 9,
+              "scores": {
+                "A": 4,
+                "B": 4,
+                "C": 5,
+                "D": 4,
+                "E": 4
+              },
+              "winner": "C",
+              "note": "C captures the natural spoken register and emotional weight most vividly; others are accurate but more formal/flat."
+            },
+            {
+              "index": 10,
+              "scores": {
+                "A": 5,
+                "B": 4,
+                "C": 4,
+                "D": 4,
+                "E": 4
+              },
+              "winner": "A",
+              "note": "A adds 吧 which conveys the casual/friendly request tone of 'give me a ring'; others are slightly more abrupt."
+            },
+            {
+              "index": 11,
+              "scores": {
+                "A": 5,
+                "B": 4,
+                "C": 4,
+                "D": 4,
+                "E": 4
+              },
+              "winner": "A",
+              "note": "A's 悄然融入 best captures the gradual, unnoticed quality of 'slipped into'; B loses the subtlety with 慢慢适应."
+            },
+            {
+              "index": 12,
+              "scores": {
+                "A": 5,
+                "B": 4,
+                "C": 3,
+                "D": 3,
+                "E": 4
+              },
+              "winner": "A",
+              "note": "A best captures 'among them' (collectively/conspiring) with 合起伙来; C and D lose the collaborative nuance."
+            },
+            {
+              "index": 13,
+              "scores": {
+                "A": 4,
+                "B": 4,
+                "C": 5,
+                "D": 4,
+                "E": 4
+              },
+              "winner": "C",
+              "note": "C combines 稍等 (polite) with 拿定主意 (idiomatic for make up one's mind), making it the most natural and complete translation."
+            },
+            {
+              "index": 14,
+              "scores": {
+                "A": 3,
+                "B": 4,
+                "C": 5,
+                "D": 4,
+                "E": 5
+              },
+              "winner": "C",
+              "note": "C and E are both excellent; C uses 不得不 and 很多噪音 naturally. A uses 得 which is slightly weaker for 'have to'."
+            },
+            {
+              "index": 15,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "All translations are identical and excellent. A selected as representative winner."
+            },
+            {
+              "index": 16,
+              "scores": {
+                "A": 5,
+                "B": 4,
+                "C": 5,
+                "D": 5,
+                "E": 4
+              },
+              "winner": "A",
+              "note": "A, C, D are equally natural and idiomatic with 盼着他来; B and E are slightly more formal. A selected as representative."
+            },
+            {
+              "index": 17,
+              "scores": {
+                "A": 3,
+                "B": 3,
+                "C": 5,
+                "D": 3,
+                "E": 5
+              },
+              "winner": "C",
+              "note": "C and E naturally make 好运 the subject, which sounds more idiomatic in Chinese; A, B, D are grammatically awkward."
+            },
+            {
+              "index": 18,
+              "scores": {
+                "A": 4,
+                "B": 4,
+                "C": 5,
+                "D": 4,
+                "E": 4
+              },
+              "winner": "C",
+              "note": "调低 is more standard for volume (turn down = lower); 一点 adds natural softness to the request. C is the most natural."
+            },
+            {
+              "index": 19,
+              "scores": {
+                "A": 4,
+                "B": 5,
+                "C": 5,
+                "D": 3,
+                "E": 5
+              },
+              "winner": "B",
+              "note": "B, C, E all accurately convey 'came across' as an accidental encounter; D uses the English name Jack untransliterated which is inconsistent. B selected as representative."
+            },
+            {
+              "index": 20,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 4,
+                "D": 4,
+                "E": 5
+              },
+              "winner": "B",
+              "note": "B is the most elegant and idiomatic with 停歇 and 愈演愈烈, a natural Chinese four-character expression perfectly fitting the context."
+            },
+            {
+              "index": 21,
+              "scores": {
+                "A": 4,
+                "B": 4,
+                "C": 5,
+                "D": 4,
+                "E": 4
+              },
+              "winner": "C",
+              "note": "C adds 告诉你 which naturally reflects the speech-act of 'I regret to say' directed at a listener, making it most contextually complete."
+            },
+            {
+              "index": 22,
+              "scores": {
+                "A": 4,
+                "B": 5,
+                "C": 4,
+                "D": 4,
+                "E": 4
+              },
+              "winner": "B",
+              "note": "老实人 is a more natural and idiomatic Chinese expression for an honest person in everyday speech compared to the more literal 诚实的人."
+            },
+            {
+              "index": 23,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 3,
+                "D": 5,
+                "E": 4
+              },
+              "winner": "A",
+              "note": "A, B, D are all excellent and identical; C uses 坏毛病 and 去掉 which are slightly less standard. A selected as representative winner."
+            },
+            {
+              "index": 24,
+              "scores": {
+                "A": 5,
+                "B": 2,
+                "C": 4,
+                "D": 5,
+                "E": 3
+              },
+              "winner": "A",
+              "note": "A is natural and accurate; D is also good. B mixes English name with Chinese awkwardly and has unnatural structure; E keeps English name inconsistently."
+            }
+          ]
+        }
+      },
+      "ko": {
+        "rows": [
+          {
+            "index": 1,
+            "rev": {
+              "A": "current",
+              "B": "gpt55",
+              "C": "gemini-35-flash",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 2,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "gemini-35-flash",
+              "C": "gpt55",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 3,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "gpt55",
+              "C": "current",
+              "D": "gemini-35-flash",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 4,
+            "rev": {
+              "A": "current",
+              "B": "gemini-35-flash",
+              "C": "claude-sonnet-4-6",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 5,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "current",
+              "C": "gpt55",
+              "D": "gemini-35-flash",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 6,
+            "rev": {
+              "A": "current",
+              "B": "gemini-35-flash",
+              "C": "claude-sonnet-4-6",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 7,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "current",
+              "C": "gpt55",
+              "D": "gemini-35-flash",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 8,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "claude-sonnet-4-6",
+              "C": "current",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 9,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "gpt55",
+              "C": "claude-sonnet-4-6",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 10,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "current",
+              "C": "gpt55",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 11,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "gpt55",
+              "C": "gemini-35-flash",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 12,
+            "rev": {
+              "A": "current",
+              "B": "gpt55",
+              "C": "gemini-35-flash",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 13,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "gemini-35-flash",
+              "C": "gpt55",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 14,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "gpt55",
+              "C": "current",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 15,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "current",
+              "C": "claude-sonnet-4-6",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 16,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "current",
+              "C": "gpt55",
+              "D": "gemini-35-flash",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 17,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "gemini-35-flash",
+              "C": "current",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 18,
+            "rev": {
+              "A": "gpt55",
+              "B": "current",
+              "C": "claude-sonnet-4-6",
+              "D": "gemini-35-flash",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 19,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "gemini-35-flash",
+              "C": "current",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 20,
+            "rev": {
+              "A": "current",
+              "B": "gpt55",
+              "C": "claude-sonnet-4-6",
+              "D": "gemini-35-flash",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 21,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "current",
+              "C": "gpt55",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 22,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "gpt55",
+              "C": "gemini-31-pro",
+              "D": "current",
+              "E": "gemini-35-flash"
+            }
+          },
+          {
+            "index": 23,
+            "rev": {
+              "A": "gpt55",
+              "B": "current",
+              "C": "gemini-31-pro",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-35-flash"
+            }
+          },
+          {
+            "index": 24,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "gemini-31-pro",
+              "C": "gpt55",
+              "D": "current",
+              "E": "gemini-35-flash"
+            }
+          }
+        ],
+        "result": {
+          "items": [
+            {
+              "index": 1,
+              "scores": {
+                "A": 5,
+                "B": 4,
+                "C": 3,
+                "D": 4,
+                "E": 4
+              },
+              "winner": "A",
+              "note": "A uses casual register which is natural for this context; '통로' is more precise than '길' for 'path/secret passage'. B, D, E are identical polite forms, also fine."
+            },
+            {
+              "index": 2,
+              "scores": {
+                "A": 4,
+                "B": 5,
+                "C": 5,
+                "D": 3,
+                "E": 5
+              },
+              "winner": "B",
+              "note": "B, C, E are all natural and accurate. A is slightly more formal (습니다) but correct. D drops '는' subject marker awkwardly. B is chosen as natural polite form."
+            },
+            {
+              "index": 3,
+              "scores": {
+                "A": 4,
+                "B": 5,
+                "C": 4,
+                "D": 4,
+                "E": 5
+              },
+              "winner": "B",
+              "note": "B and E are identical and best capture 'looked good' with '좋아 보였고' and 'moreover' with '게다가'. C is natural but omits the 'looked' nuance. A uses 마음에 들었고 which shifts meaning slightly."
+            },
+            {
+              "index": 4,
+              "scores": {
+                "A": 4,
+                "B": 5,
+                "C": 4,
+                "D": 4,
+                "E": 5
+              },
+              "winner": "B",
+              "note": "B and E both accurately render 'to the effect that' as '내용의' and use natural phrasing. D uses '취지의' which is slightly formal/legal. A is casual and accurate but drops the subject."
+            },
+            {
+              "index": 5,
+              "scores": {
+                "A": 4,
+                "B": 4,
+                "C": 5,
+                "D": 4,
+                "E": 4
+              },
+              "winner": "C",
+              "note": "C adds '그' (the) which matches the English 'the meeting', uses '예정되어 있었어요' naturally, and is polite without being overly formal. D and E are also good but omit '그'."
+            },
+            {
+              "index": 6,
+              "scores": {
+                "A": 4,
+                "B": 3,
+                "C": 3,
+                "D": 4,
+                "E": 5
+              },
+              "winner": "E",
+              "note": "E is natural, uses '젊은이' (young man), '할머니' (culturally appropriate for old lady), '도와드렸어요' (respectful helping), and smooth word order. B has redundant '젊은 청년'. C uses '노부인' which sounds stiff."
+            },
+            {
+              "index": 7,
+              "scores": {
+                "A": 3,
+                "B": 4,
+                "C": 3,
+                "D": 4,
+                "E": 4
+              },
+              "winner": "D",
+              "note": "D captures the rhetorical/questioning nature well with '충분히 합격할 수 있는' and polite form. B is also good but '떨어져?' is very casual. A adds '어떡해요' which changes the meaning."
+            },
+            {
+              "index": 8,
+              "scores": {
+                "A": 5,
+                "B": 4,
+                "C": 1,
+                "D": 2,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "'Should' here expresses expectation/likelihood, not obligation. A and E correctly use '생각할 거예요'. C and D mistranslate 'should' as obligation ('해야 해')."
+            },
+            {
+              "index": 9,
+              "scores": {
+                "A": 3,
+                "B": 4,
+                "C": 4,
+                "D": 4,
+                "E": 3
+              },
+              "winner": "B",
+              "note": "B naturally conveys 'make me fear for my life' with '두려움을 느끼게 해'. C is also good. A and E use '생명의 위협이 느껴지네요' which is slightly off ('threat' vs 'fear for'). D is casual and natural."
+            },
+            {
+              "index": 10,
+              "scores": {
+                "A": 4,
+                "B": 4,
+                "C": 5,
+                "D": 5,
+                "E": 4
+              },
+              "winner": "C",
+              "note": "'Give me a ring' is an idiom for 'call me'. C and D both render it naturally as '전화해 줘' in casual register. A and E are polite but slightly more formal than the casual idiom suggests."
+            },
+            {
+              "index": 11,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 4,
+                "D": 4,
+                "E": 4
+              },
+              "winner": "A",
+              "note": "A and B both excellently capture 'slipped into' with '어느새 젖어들었습니다/어요'. '어느새' conveys the gradual, unnoticed nature of 'slipped into'. E omits '어느새'."
+            },
+            {
+              "index": 12,
+              "scores": {
+                "A": 2,
+                "B": 4,
+                "C": 3,
+                "D": 4,
+                "E": 5
+              },
+              "winner": "E",
+              "note": "'Among them' means collectively/together. E's '합세해서' (joining together) captures this well. D's '합심해서' is also good. B's '저마다 한몫해서' is acceptable. A's '어쩌다 보니' misses the collective meaning."
+            },
+            {
+              "index": 13,
+              "scores": {
+                "A": 5,
+                "B": 4,
+                "C": 4,
+                "D": 4,
+                "E": 4
+              },
+              "winner": "A",
+              "note": "All are accurate. A uses '결정을 못 했어요' which is slightly more natural and direct. B and C use '마음을 정하지 못했어요' which is also natural. E's '마음을 못 정했어요' is equally fine."
+            },
+            {
+              "index": 14,
+              "scores": {
+                "A": 5,
+                "B": 3,
+                "C": 4,
+                "D": 4,
+                "E": 4
+              },
+              "winner": "A",
+              "note": "A accurately conveys 'a lot of noise' with '시끄러운 소리를 많이' and is natural. B has awkward word order with '우리는' placed oddly. C softens 'a lot' too much. E's '심한 소음' changes the nuance slightly."
+            },
+            {
+              "index": 15,
+              "scores": {
+                "A": 4,
+                "B": 5,
+                "C": 3,
+                "D": 3,
+                "E": 4
+              },
+              "winner": "B",
+              "note": "B is the most natural and idiomatic rendering of 'fed up with your complaining' using '진짜 지긋지긋해'. A and E are polite and good. C's '진저리가 납니다' is stiff. D drops the 'we' subject."
+            },
+            {
+              "index": 16,
+              "scores": {
+                "A": 5,
+                "B": 4,
+                "C": 3,
+                "D": 4,
+                "E": 4
+              },
+              "winner": "A",
+              "note": "A best captures 'looking forward to' with '손꼽아 기다려 왔습니다' including the present perfect aspect '왔습니다'. D is also good but drops the subject. C uses '기대하고' which is weaker."
+            },
+            {
+              "index": 17,
+              "scores": {
+                "A": 4,
+                "B": 5,
+                "C": 4,
+                "D": 4,
+                "E": 4
+              },
+              "winner": "B",
+              "note": "B uses '머지않아' (sooner or later/before long) and '운이 바닥날' which is vivid and natural. '바닥나다' (run out) directly mirrors 'run out of luck'. Others use '다할' which is slightly less idiomatic."
+            },
+            {
+              "index": 18,
+              "scores": {
+                "A": 5,
+                "B": 4,
+                "C": 4,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "A uses '음량' (volume/sound level) which is precise. D adds '좀' making it more natural/polite. E uses '소리' which is colloquially natural. All are good; A is slightly more precise."
+            },
+            {
+              "index": 19,
+              "scores": {
+                "A": 4,
+                "B": 5,
+                "C": 4,
+                "D": 4,
+                "E": 5
+              },
+              "winner": "B",
+              "note": "B and E both use Korean name '잭' and natural phrasing. B uses '마주쳤어요' (ran into) which captures 'came across' well. C and D are also accurate. A keeps English name which is less learner-friendly."
+            },
+            {
+              "index": 20,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 4,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "A uses '그치기는커녕' which is natural for storms (그치다 = stop/cease for weather). B, D, E use '멈추기는커녕' which is also correct. C adds '기미는커녕' which is slightly awkward. A is most idiomatic for weather context."
+            },
+            {
+              "index": 21,
+              "scores": {
+                "A": 5,
+                "B": 4,
+                "C": 4,
+                "D": 4,
+                "E": 4
+              },
+              "winner": "A",
+              "note": "A naturally renders 'I regret to say' as '유감스럽게도' and 'gone for good' as '영영 떠나버렸어요'. The '버렸어요' adds the sense of finality. B adds unnecessary honorific '그분'. E is overly literal."
+            },
+            {
+              "index": 22,
+              "scores": {
+                "A": 5,
+                "B": 4,
+                "C": 4,
+                "D": 4,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "A and E both use '제가 알기로는' which is natural. B and C use '아는 한' which is also correct. A uses formal '입니다' matching the slightly formal English. All are good; A is chosen for precision."
+            },
+            {
+              "index": 23,
+              "scores": {
+                "A": 4,
+                "B": 4,
+                "C": 4,
+                "D": 4,
+                "E": 5
+              },
+              "winner": "E",
+              "note": "E is natural and concise: '나쁜 습관은 한번 들면 고치기 어려워요'. Uses '고치다' (fix/correct) which is idiomatic for habits. All options are reasonable; E balances naturalness and accuracy best."
+            },
+            {
+              "index": 24,
+              "scores": {
+                "A": 4,
+                "B": 5,
+                "C": 4,
+                "D": 4,
+                "E": 5
+              },
+              "winner": "B",
+              "note": "B uses Korean name '피터', natural '닮았어요', and polite register. E is identical in quality. A and C keep English name. D uses casual '아빠/엄마' which is fine but slightly too informal for a neutral statement."
+            }
+          ]
+        }
+      },
+      "tr": {
+        "rows": [
+          {
+            "index": 1,
+            "rev": {
+              "A": "current",
+              "B": "gpt55",
+              "C": "gemini-35-flash",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 2,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "claude-sonnet-4-6",
+              "C": "gpt55",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 3,
+            "rev": {
+              "A": "gpt55",
+              "B": "gemini-35-flash",
+              "C": "current",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 4,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "gpt55",
+              "C": "claude-sonnet-4-6",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 5,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "current",
+              "C": "gpt55",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 6,
+            "rev": {
+              "A": "gpt55",
+              "B": "claude-sonnet-4-6",
+              "C": "gemini-35-flash",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 7,
+            "rev": {
+              "A": "current",
+              "B": "gpt55",
+              "C": "claude-sonnet-4-6",
+              "D": "gemini-35-flash",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 8,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "current",
+              "C": "gemini-35-flash",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 9,
+            "rev": {
+              "A": "gpt55",
+              "B": "claude-sonnet-4-6",
+              "C": "current",
+              "D": "gemini-35-flash",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 10,
+            "rev": {
+              "A": "current",
+              "B": "gemini-35-flash",
+              "C": "claude-sonnet-4-6",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 11,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "current",
+              "C": "gpt55",
+              "D": "gemini-35-flash",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 12,
+            "rev": {
+              "A": "current",
+              "B": "gemini-35-flash",
+              "C": "claude-sonnet-4-6",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 13,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "claude-sonnet-4-6",
+              "C": "gpt55",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 14,
+            "rev": {
+              "A": "gpt55",
+              "B": "gemini-35-flash",
+              "C": "current",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 15,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "gpt55",
+              "C": "claude-sonnet-4-6",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 16,
+            "rev": {
+              "A": "gemini-35-flash",
+              "B": "current",
+              "C": "gpt55",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 17,
+            "rev": {
+              "A": "gpt55",
+              "B": "claude-sonnet-4-6",
+              "C": "gemini-35-flash",
+              "D": "current",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 18,
+            "rev": {
+              "A": "current",
+              "B": "gpt55",
+              "C": "gemini-35-flash",
+              "D": "claude-sonnet-4-6",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 19,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "current",
+              "C": "gemini-35-flash",
+              "D": "gpt55",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 20,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "gpt55",
+              "C": "current",
+              "D": "gemini-35-flash",
+              "E": "gemini-31-pro"
+            }
+          },
+          {
+            "index": 21,
+            "rev": {
+              "A": "current",
+              "B": "gemini-31-pro",
+              "C": "claude-sonnet-4-6",
+              "D": "gpt55",
+              "E": "gemini-35-flash"
+            }
+          },
+          {
+            "index": 22,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "current",
+              "C": "gpt55",
+              "D": "gemini-31-pro",
+              "E": "gemini-35-flash"
+            }
+          },
+          {
+            "index": 23,
+            "rev": {
+              "A": "claude-sonnet-4-6",
+              "B": "gemini-31-pro",
+              "C": "current",
+              "D": "gpt55",
+              "E": "gemini-35-flash"
+            }
+          },
+          {
+            "index": 24,
+            "rev": {
+              "A": "gpt55",
+              "B": "current",
+              "C": "claude-sonnet-4-6",
+              "D": "gemini-31-pro",
+              "E": "gemini-35-flash"
+            }
+          }
+        ],
+        "result": {
+          "items": [
+            {
+              "index": 1,
+              "scores": {
+                "A": 1,
+                "B": 5,
+                "C": 5,
+                "D": 4,
+                "E": 4
+              },
+              "winner": "B",
+              "note": "A is completely wrong (sleeping like a baby). B and C are identical and best: 'patika' (path/trail) is more precise than 'yol' (road/way)."
+            },
+            {
+              "index": 2,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 5,
+                "D": 4,
+                "E": 4
+              },
+              "winner": "A",
+              "note": "A/B/C are identical and most natural. D and E are acceptable alternatives but slightly less direct."
+            },
+            {
+              "index": 3,
+              "scores": {
+                "A": 4,
+                "B": 5,
+                "C": 4,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "B",
+              "note": "'güzel görünüyordu' is more natural than 'iyi görünüyordu' for 'looked good'. B/D/E are identical and best. C lacks semicolon matching the original punctuation."
+            },
+            {
+              "index": 4,
+              "scores": {
+                "A": 4,
+                "B": 5,
+                "C": 3,
+                "D": 3,
+                "E": 4
+              },
+              "winner": "B",
+              "note": "B uses 'öğle yemeğine çıkacağını belirten' which is the most natural rendering. C and D use past tense incorrectly ('çıktığına'/'çıktım'). A and E use 'dair' which is slightly more formal but acceptable."
+            },
+            {
+              "index": 5,
+              "scores": {
+                "A": 4,
+                "B": 4,
+                "C": 4,
+                "D": 4,
+                "E": 4
+              },
+              "winner": "D",
+              "note": "All are good. D uses 'planlanmıştı' and 'önümüzdeki cumartesiye' which is natural. E's 'İlk başta' is slightly more colloquial. All are essentially equivalent; D is slightly more idiomatic with the dative case."
+            },
+            {
+              "index": 6,
+              "scores": {
+                "A": 4,
+                "B": 4,
+                "C": 4,
+                "D": 5,
+                "E": 4
+              },
+              "winner": "D",
+              "note": "D uses 'market poşetleri' (grocery bags) which most precisely matches 'groceries' as physical items being loaded. Others use 'alışveriş' (shopping) which is slightly abstract for loading into a car."
+            },
+            {
+              "index": 7,
+              "scores": {
+                "A": 4,
+                "B": 4,
+                "C": 4,
+                "D": 4,
+                "E": 5
+              },
+              "winner": "E",
+              "note": "E uses 'başarabileceğin' (capable of passing/succeeding) which best captures the meaning of 'capable of doing' in the context of a test. Others use 'yapabileceğin' (capable of doing) which is acceptable but less idiomatic."
+            },
+            {
+              "index": 8,
+              "scores": {
+                "A": 4,
+                "B": 3,
+                "C": 4,
+                "D": 4,
+                "E": 4
+              },
+              "winner": "A",
+              "note": "A/C/D/E use 'böyle' (like this/such) which is more natural. B uses 'öyle' which is slightly less natural in this context. All are essentially equivalent; A is fine."
+            },
+            {
+              "index": 9,
+              "scores": {
+                "A": 2,
+                "B": 2,
+                "C": 4,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "E",
+              "note": "E is the most natural: 'beni hayatım için endişelendiriyor' directly conveys 'make me fear for my life'. D is also good. A and B use awkward reflexive constructions ('endişe etmeme/duymama neden oluyor'). C drops the causative structure."
+            },
+            {
+              "index": 10,
+              "scores": {
+                "A": 1,
+                "B": 5,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "B",
+              "note": "A is null/missing. B/C/D/E all correctly translate the idiom 'give me a ring' as 'beni ara' (call me)."
+            },
+            {
+              "index": 11,
+              "scores": {
+                "A": 4,
+                "B": 3,
+                "C": 4,
+                "D": 5,
+                "E": 4
+              },
+              "winner": "D",
+              "note": "'slip into' implies a gradual, almost effortless transition. D's 'geçiverdi' captures the sudden/easy aspect with the '-iver' suffix. A adds 'sessiz sedasız' (quietly) which is an interpretation. C and E are acceptable."
+            },
+            {
+              "index": 12,
+              "scores": {
+                "A": 2,
+                "B": 5,
+                "C": 4,
+                "D": 3,
+                "E": 5
+              },
+              "winner": "B",
+              "note": "'Among them' here means 'between them/together they managed to'. B and E use 'el birliğiyle' (in cooperation) which best captures this idiomatic meaning. A and D use 'aralarında' too literally."
+            },
+            {
+              "index": 13,
+              "scores": {
+                "A": 5,
+                "B": 4,
+                "C": 5,
+                "D": 4,
+                "E": 4
+              },
+              "winner": "A",
+              "note": "A and C are identical and excellent. 'Henüz kararımı vermedim' is the most natural. B's 'karar veremedim' implies inability rather than not yet deciding. E uses 'bir saniye' which is fine but less common."
+            },
+            {
+              "index": 14,
+              "scores": {
+                "A": 4,
+                "B": 5,
+                "C": 4,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "B",
+              "note": "B/D/E use 'çok fazla gürültü' which better matches 'a lot of noise'. A and C use just 'çok gürültü' which is slightly less emphatic. B/D/E are identical; B wins."
+            },
+            {
+              "index": 15,
+              "scores": {
+                "A": 5,
+                "B": 3,
+                "C": 4,
+                "D": 3,
+                "E": 3
+              },
+              "winner": "A",
+              "note": "A adds 'sürekli' (constantly) which captures the ongoing nature of complaining implied by 'your complaining', and 'artık' adds natural emphasis. B lacks 'artık'. D and E use 'şikayetlerinden' (complaints) which is slightly less natural than the gerund form."
+            },
+            {
+              "index": 16,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 3,
+                "D": 3,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "'I've been looking forward to' is present perfect continuous, so present tense 'bekliyorum' is correct. C and D use past tense 'bekliyordum' which is wrong. A/B/E are identical and correct."
+            },
+            {
+              "index": 17,
+              "scores": {
+                "A": 4,
+                "B": 4,
+                "C": 4,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "D",
+              "note": "'Eninde sonunda' is the most idiomatic Turkish equivalent of 'sooner or later'. D and E are identical and best. A/B/C use 'er ya da geç' which is a more literal translation."
+            },
+            {
+              "index": 18,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 4,
+                "D": 4,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "A uses informal imperative 'kıs' with 'lütfen' after, which is very natural. B and E are also excellent. C and D use formal 'kısın' which is fine but slightly more formal than needed."
+            },
+            {
+              "index": 19,
+              "scores": {
+                "A": 5,
+                "B": 4,
+                "C": 4,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "'Rastlamak' (to come across/encounter by chance) is slightly more idiomatic for 'came across' than 'karşılaşmak'. A/D/E are identical and best."
+            },
+            {
+              "index": 20,
+              "scores": {
+                "A": 5,
+                "B": 4,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "A/D/E use 'dinmek bir yana' (let alone stopping/calming) which is very natural for storms. C uses 'şöyle dursun' which is also idiomatic. B uses 'durmak' which is less natural for storms. A/C/D/E are all excellent."
+            },
+            {
+              "index": 21,
+              "scores": {
+                "A": 3,
+                "B": 4,
+                "C": 3,
+                "D": 4,
+                "E": 4
+              },
+              "winner": "B",
+              "note": "B and D both capture 'I regret to say' well. A is too brief and loses 'I regret to say'. C is overly verbose. E is good but B is slightly more natural with 'ki'."
+            },
+            {
+              "index": 22,
+              "scores": {
+                "A": 5,
+                "B": 4,
+                "C": 4,
+                "D": 4,
+                "E": 4
+              },
+              "winner": "A",
+              "note": "A is most concise and natural, dropping the redundant 'o' (he). B/C/D/E are all good but slightly more verbose."
+            },
+            {
+              "index": 23,
+              "scores": {
+                "A": 5,
+                "B": 5,
+                "C": 5,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "All translations are essentially identical and excellent. 'Bir kez' and 'bir kere' are both correct. A wins arbitrarily."
+            },
+            {
+              "index": 24,
+              "scores": {
+                "A": 5,
+                "B": 4,
+                "C": 3,
+                "D": 5,
+                "E": 5
+              },
+              "winner": "A",
+              "note": "A/D/E use 'çekmiş' which is the idiomatic Turkish for 'takes after' (resembles in character/appearance). B uses 'benziyor' which is more literal. C has awkward word order."
+            }
+          ]
+        }
+      }
+    }
+  }
+}

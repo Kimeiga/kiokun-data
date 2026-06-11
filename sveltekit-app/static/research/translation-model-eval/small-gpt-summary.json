@@ -1,0 +1,520 @@
+{
+  "generatedAt": "2026-06-11T17:34:03.602Z",
+  "methodology": "non-null current translations only; ~420 hard/suspicious/random candidates per language -> GPT-5.5 current-only triage -> compare replacement models on score<=2 current translations",
+  "selectedCounts": {
+    "ja": {
+      "count": 30,
+      "triageScoreDistribution": {
+        "1": 13,
+        "2": 17
+      }
+    },
+    "zh": {
+      "count": 7,
+      "triageScoreDistribution": {
+        "1": 6,
+        "2": 1
+      }
+    },
+    "ko": {
+      "count": 3,
+      "triageScoreDistribution": {
+        "1": 1,
+        "2": 2
+      }
+    },
+    "tr": {
+      "count": 10,
+      "triageScoreDistribution": {
+        "1": 5,
+        "2": 5
+      }
+    }
+  },
+  "allSelected": {
+    "rowCount": 50,
+    "models": {
+      "current": {
+        "label": "Current deployed",
+        "score": 189,
+        "n": 100,
+        "wins": 4,
+        "severe": 78,
+        "avgScore": 1.89
+      },
+      "gpt55": {
+        "label": "GPT-5.5",
+        "score": 447,
+        "n": 100,
+        "wins": 22,
+        "severe": 0,
+        "avgScore": 4.47
+      },
+      "claude-sonnet-4-6": {
+        "label": "Claude Sonnet 4.6",
+        "score": 441,
+        "n": 100,
+        "wins": 16,
+        "severe": 3,
+        "avgScore": 4.41
+      },
+      "gemini-31-pro": {
+        "label": "Gemini 3.1 Pro Preview",
+        "score": 452,
+        "n": 100,
+        "wins": 21,
+        "severe": 2,
+        "avgScore": 4.52
+      },
+      "gemini-35-flash": {
+        "label": "Gemini 3.5 Flash",
+        "score": 457,
+        "n": 100,
+        "wins": 37,
+        "severe": 0,
+        "avgScore": 4.57
+      }
+    }
+  },
+  "consensusCurrentBad": {
+    "rowCount": 34,
+    "models": {
+      "current": {
+        "label": "Current deployed",
+        "score": 93,
+        "n": 68,
+        "wins": 0,
+        "severe": 68,
+        "avgScore": 1.3676470588235294
+      },
+      "gpt55": {
+        "label": "GPT-5.5",
+        "score": 300,
+        "n": 68,
+        "wins": 13,
+        "severe": 0,
+        "avgScore": 4.411764705882353
+      },
+      "claude-sonnet-4-6": {
+        "label": "Claude Sonnet 4.6",
+        "score": 302,
+        "n": 68,
+        "wins": 14,
+        "severe": 2,
+        "avgScore": 4.4411764705882355
+      },
+      "gemini-31-pro": {
+        "label": "Gemini 3.1 Pro Preview",
+        "score": 307,
+        "n": 68,
+        "wins": 15,
+        "severe": 0,
+        "avgScore": 4.514705882352941
+      },
+      "gemini-35-flash": {
+        "label": "Gemini 3.5 Flash",
+        "score": 310,
+        "n": 68,
+        "wins": 26,
+        "severe": 0,
+        "avgScore": 4.5588235294117645
+      }
+    }
+  },
+  "perLanguage": {
+    "ja": {
+      "allSelected": {
+        "rowCount": 30,
+        "models": {
+          "current": {
+            "label": "Current deployed",
+            "score": 105,
+            "n": 60,
+            "wins": 1,
+            "severe": 51,
+            "avgScore": 1.75
+          },
+          "gpt55": {
+            "label": "GPT-5.5",
+            "score": 272,
+            "n": 60,
+            "wins": 19,
+            "severe": 0,
+            "avgScore": 4.533333333333333
+          },
+          "claude-sonnet-4-6": {
+            "label": "Claude Sonnet 4.6",
+            "score": 262,
+            "n": 60,
+            "wins": 15,
+            "severe": 3,
+            "avgScore": 4.366666666666666
+          },
+          "gemini-31-pro": {
+            "label": "Gemini 3.1 Pro Preview",
+            "score": 265,
+            "n": 60,
+            "wins": 10,
+            "severe": 2,
+            "avgScore": 4.416666666666667
+          },
+          "gemini-35-flash": {
+            "label": "Gemini 3.5 Flash",
+            "score": 265,
+            "n": 60,
+            "wins": 15,
+            "severe": 0,
+            "avgScore": 4.416666666666667
+          }
+        }
+      },
+      "consensusCurrentBad": {
+        "rowCount": 21,
+        "models": {
+          "current": {
+            "label": "Current deployed",
+            "score": 61,
+            "n": 42,
+            "wins": 0,
+            "severe": 42,
+            "avgScore": 1.4523809523809523
+          },
+          "gpt55": {
+            "label": "GPT-5.5",
+            "score": 189,
+            "n": 42,
+            "wins": 12,
+            "severe": 0,
+            "avgScore": 4.5
+          },
+          "claude-sonnet-4-6": {
+            "label": "Claude Sonnet 4.6",
+            "score": 189,
+            "n": 42,
+            "wins": 13,
+            "severe": 2,
+            "avgScore": 4.5
+          },
+          "gemini-31-pro": {
+            "label": "Gemini 3.1 Pro Preview",
+            "score": 188,
+            "n": 42,
+            "wins": 7,
+            "severe": 0,
+            "avgScore": 4.476190476190476
+          },
+          "gemini-35-flash": {
+            "label": "Gemini 3.5 Flash",
+            "score": 187,
+            "n": 42,
+            "wins": 10,
+            "severe": 0,
+            "avgScore": 4.4523809523809526
+          }
+        }
+      }
+    },
+    "zh": {
+      "allSelected": {
+        "rowCount": 7,
+        "models": {
+          "current": {
+            "label": "Current deployed",
+            "score": 22,
+            "n": 14,
+            "wins": 1,
+            "severe": 12,
+            "avgScore": 1.5714285714285714
+          },
+          "gpt55": {
+            "label": "GPT-5.5",
+            "score": 61,
+            "n": 14,
+            "wins": 0,
+            "severe": 0,
+            "avgScore": 4.357142857142857
+          },
+          "claude-sonnet-4-6": {
+            "label": "Claude Sonnet 4.6",
+            "score": 63,
+            "n": 14,
+            "wins": 0,
+            "severe": 0,
+            "avgScore": 4.5
+          },
+          "gemini-31-pro": {
+            "label": "Gemini 3.1 Pro Preview",
+            "score": 65,
+            "n": 14,
+            "wins": 2,
+            "severe": 0,
+            "avgScore": 4.642857142857143
+          },
+          "gemini-35-flash": {
+            "label": "Gemini 3.5 Flash",
+            "score": 66,
+            "n": 14,
+            "wins": 11,
+            "severe": 0,
+            "avgScore": 4.714285714285714
+          }
+        }
+      },
+      "consensusCurrentBad": {
+        "rowCount": 6,
+        "models": {
+          "current": {
+            "label": "Current deployed",
+            "score": 12,
+            "n": 12,
+            "wins": 0,
+            "severe": 12,
+            "avgScore": 1
+          },
+          "gpt55": {
+            "label": "GPT-5.5",
+            "score": 51,
+            "n": 12,
+            "wins": 0,
+            "severe": 0,
+            "avgScore": 4.25
+          },
+          "claude-sonnet-4-6": {
+            "label": "Claude Sonnet 4.6",
+            "score": 53,
+            "n": 12,
+            "wins": 0,
+            "severe": 0,
+            "avgScore": 4.416666666666667
+          },
+          "gemini-31-pro": {
+            "label": "Gemini 3.1 Pro Preview",
+            "score": 55,
+            "n": 12,
+            "wins": 2,
+            "severe": 0,
+            "avgScore": 4.583333333333333
+          },
+          "gemini-35-flash": {
+            "label": "Gemini 3.5 Flash",
+            "score": 56,
+            "n": 12,
+            "wins": 10,
+            "severe": 0,
+            "avgScore": 4.666666666666667
+          }
+        }
+      }
+    },
+    "ko": {
+      "allSelected": {
+        "rowCount": 3,
+        "models": {
+          "current": {
+            "label": "Current deployed",
+            "score": 19,
+            "n": 6,
+            "wins": 2,
+            "severe": 2,
+            "avgScore": 3.1666666666666665
+          },
+          "gpt55": {
+            "label": "GPT-5.5",
+            "score": 24,
+            "n": 6,
+            "wins": 0,
+            "severe": 0,
+            "avgScore": 4
+          },
+          "claude-sonnet-4-6": {
+            "label": "Claude Sonnet 4.6",
+            "score": 26,
+            "n": 6,
+            "wins": 1,
+            "severe": 0,
+            "avgScore": 4.333333333333333
+          },
+          "gemini-31-pro": {
+            "label": "Gemini 3.1 Pro Preview",
+            "score": 28,
+            "n": 6,
+            "wins": 0,
+            "severe": 0,
+            "avgScore": 4.666666666666667
+          },
+          "gemini-35-flash": {
+            "label": "Gemini 3.5 Flash",
+            "score": 28,
+            "n": 6,
+            "wins": 3,
+            "severe": 0,
+            "avgScore": 4.666666666666667
+          }
+        }
+      },
+      "consensusCurrentBad": {
+        "rowCount": 1,
+        "models": {
+          "current": {
+            "label": "Current deployed",
+            "score": 4,
+            "n": 2,
+            "wins": 0,
+            "severe": 2,
+            "avgScore": 2
+          },
+          "gpt55": {
+            "label": "GPT-5.5",
+            "score": 8,
+            "n": 2,
+            "wins": 0,
+            "severe": 0,
+            "avgScore": 4
+          },
+          "claude-sonnet-4-6": {
+            "label": "Claude Sonnet 4.6",
+            "score": 8,
+            "n": 2,
+            "wins": 1,
+            "severe": 0,
+            "avgScore": 4
+          },
+          "gemini-31-pro": {
+            "label": "Gemini 3.1 Pro Preview",
+            "score": 9,
+            "n": 2,
+            "wins": 0,
+            "severe": 0,
+            "avgScore": 4.5
+          },
+          "gemini-35-flash": {
+            "label": "Gemini 3.5 Flash",
+            "score": 9,
+            "n": 2,
+            "wins": 1,
+            "severe": 0,
+            "avgScore": 4.5
+          }
+        }
+      }
+    },
+    "tr": {
+      "allSelected": {
+        "rowCount": 10,
+        "models": {
+          "current": {
+            "label": "Current deployed",
+            "score": 43,
+            "n": 20,
+            "wins": 0,
+            "severe": 13,
+            "avgScore": 2.15
+          },
+          "gpt55": {
+            "label": "GPT-5.5",
+            "score": 90,
+            "n": 20,
+            "wins": 3,
+            "severe": 0,
+            "avgScore": 4.5
+          },
+          "claude-sonnet-4-6": {
+            "label": "Claude Sonnet 4.6",
+            "score": 90,
+            "n": 20,
+            "wins": 0,
+            "severe": 0,
+            "avgScore": 4.5
+          },
+          "gemini-31-pro": {
+            "label": "Gemini 3.1 Pro Preview",
+            "score": 94,
+            "n": 20,
+            "wins": 9,
+            "severe": 0,
+            "avgScore": 4.7
+          },
+          "gemini-35-flash": {
+            "label": "Gemini 3.5 Flash",
+            "score": 98,
+            "n": 20,
+            "wins": 8,
+            "severe": 0,
+            "avgScore": 4.9
+          }
+        }
+      },
+      "consensusCurrentBad": {
+        "rowCount": 6,
+        "models": {
+          "current": {
+            "label": "Current deployed",
+            "score": 16,
+            "n": 12,
+            "wins": 0,
+            "severe": 12,
+            "avgScore": 1.3333333333333333
+          },
+          "gpt55": {
+            "label": "GPT-5.5",
+            "score": 52,
+            "n": 12,
+            "wins": 1,
+            "severe": 0,
+            "avgScore": 4.333333333333333
+          },
+          "claude-sonnet-4-6": {
+            "label": "Claude Sonnet 4.6",
+            "score": 52,
+            "n": 12,
+            "wins": 0,
+            "severe": 0,
+            "avgScore": 4.333333333333333
+          },
+          "gemini-31-pro": {
+            "label": "Gemini 3.1 Pro Preview",
+            "score": 55,
+            "n": 12,
+            "wins": 6,
+            "severe": 0,
+            "avgScore": 4.583333333333333
+          },
+          "gemini-35-flash": {
+            "label": "Gemini 3.5 Flash",
+            "score": 58,
+            "n": 12,
+            "wins": 5,
+            "severe": 0,
+            "avgScore": 4.833333333333333
+          }
+        }
+      }
+    }
+  },
+  "judges": [
+    "gpt55",
+    "claude-sonnet-4-6"
+  ],
+  "models": [
+    {
+      "id": "current",
+      "label": "Current deployed"
+    },
+    {
+      "id": "gpt55",
+      "label": "GPT-5.5"
+    },
+    {
+      "id": "claude-sonnet-4-6",
+      "label": "Claude Sonnet 4.6"
+    },
+    {
+      "id": "gemini-31-pro",
+      "label": "Gemini 3.1 Pro Preview"
+    },
+    {
+      "id": "gemini-35-flash",
+      "label": "Gemini 3.5 Flash"
+    }
+  ]
+}
