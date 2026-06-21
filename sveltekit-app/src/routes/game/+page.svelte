@@ -1,8 +1,14 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { onMount, tick } from 'svelte';
 	import { fly } from 'svelte/transition';
-	import { flip } from 'svelte/animate';
-	import { dndzone } from 'svelte-dnd-action';
+	import Engine from '@snap-engine/asset-base-svelte/Engine.svelte';
+	import Item from '@snap-engine/snapsort-svelte/Item.svelte';
+	import Container from '@snap-engine/snapsort-svelte/ItemContainer.svelte';
+	import type {
+		ItemContainer as SnapSortItemContainer,
+		SnapSortDomInsertEvent,
+		SnapSortDomRemoveEvent
+	} from '@snap-engine/snapsort';
 	import { fetchUnifiedExercise, gradeUnifiedAnswer } from '$lib/game/api';
 	import { languageStore } from '$lib/game/stores/language.svelte';
 	import { chineseScriptStore } from '$lib/game/stores/chineseScript.svelte';
@@ -11,8 +17,15 @@
 	import DictionaryPopup from '$lib/game/DictionaryPopup.svelte';
 	import SpeakButton from '$lib/components/shared/SpeakButton.svelte';
 
-	// Animation duration for flip transitions
-	const FLIP_DURATION_MS = 200;
+	const snapSortAnimation = {
+		duration: 180,
+		timing_function: 'cubic-bezier(0.2, 0, 0, 1)'
+	};
+
+	type TileZone = 'answer' | 'bank';
+
+	let answerContainer: SnapSortItemContainer | undefined = $state();
+	let bankContainer: SnapSortItemContainer | undefined = $state();
 
 	// --- Tap-to-define (Kiokun integration) ------------------------------------
 	// Long-press a tile to look it up in the Kiokun dictionary; a short tap still
@@ -47,6 +60,7 @@
 		let current = opts;
 		let timer: ReturnType<typeof setTimeout> | null = null;
 		let fired = false;
+		let moved = false;
 		let sx = 0;
 		let sy = 0;
 		const HOLD_MS = 450;
@@ -60,6 +74,7 @@
 		};
 		const onDown = (e: PointerEvent) => {
 			fired = false;
+			moved = false;
 			sx = e.clientX;
 			sy = e.clientY;
 			clear();
@@ -70,14 +85,16 @@
 		};
 		const onMove = (e: PointerEvent) => {
 			if (timer && (Math.abs(e.clientX - sx) > MOVE_TOL || Math.abs(e.clientY - sy) > MOVE_TOL)) {
+				moved = true;
 				clear();
 			}
 		};
 		const onClickCapture = (e: MouseEvent) => {
-			if (fired) {
+			if (fired || moved) {
 				e.stopPropagation();
 				e.preventDefault();
 				fired = false;
+				moved = false;
 			}
 		};
 
@@ -274,34 +291,73 @@
 		syncUrl();
 	}
 
-	// Handle drag events for the answer zone
-	function handleAnswerConsider(e: CustomEvent<{ items: TileData[] }>) {
-		answerTiles = e.detail.items;
+	function containerForZone(zone: TileZone): SnapSortItemContainer | undefined {
+		return zone === 'answer' ? answerContainer : bankContainer;
 	}
 
-	function handleAnswerFinalize(e: CustomEvent<{ items: TileData[] }>) {
-		answerTiles = e.detail.items;
+	function updateTileZone(tileId: string, targetZone: TileZone, targetIndex: number) {
+		const allTiles = [...answerTiles, ...bankTiles];
+		const movedTile = allTiles.find((tile) => tile.id === tileId);
+		if (!movedTile) return;
+
+		const nextAnswerTiles = answerTiles.filter((tile) => tile.id !== tileId);
+		const nextBankTiles = bankTiles.filter((tile) => tile.id !== tileId);
+		const targetTiles = targetZone === 'answer' ? nextAnswerTiles : nextBankTiles;
+		const destinationIndex = Math.max(0, Math.min(targetIndex, targetTiles.length));
+
+		targetTiles.splice(destinationIndex, 0, movedTile);
+		answerTiles = nextAnswerTiles;
+		bankTiles = nextBankTiles;
 	}
 
-	// Handle drag events for the bank zone
-	function handleBankConsider(e: CustomEvent<{ items: TileData[] }>) {
-		bankTiles = e.detail.items;
+	function handleSnapSortDomInsert(event: SnapSortDomInsertEvent) {
+		const itemId = event.itemMetadata.itemId;
+		if (typeof itemId !== 'string') return;
+
+		const targetZone = event.containerMetadata.zone;
+		if (targetZone !== 'answer' && targetZone !== 'bank') return;
+
+		updateTileZone(itemId, targetZone, event.index);
 	}
 
-	function handleBankFinalize(e: CustomEvent<{ items: TileData[] }>) {
-		bankTiles = e.detail.items;
+	function handleSnapSortDomRemove(event: SnapSortDomRemoveEvent) {
+		const itemId = event.itemMetadata.itemId;
+		if (typeof itemId !== 'string') return;
+
+		answerTiles = answerTiles.filter((tile) => tile.id !== itemId);
+		bankTiles = bankTiles.filter((tile) => tile.id !== itemId);
+	}
+
+	function moveTileToZone(tile: TileData, targetZone: TileZone) {
+		const sourceZone: TileZone = answerTiles.some((candidate) => candidate.id === tile.id)
+			? 'answer'
+			: 'bank';
+		const sourceContainer = containerForZone(sourceZone);
+		const targetContainer = containerForZone(targetZone);
+		const fallbackIndex = targetZone === 'answer' ? answerTiles.length : bankTiles.length;
+
+		if (sourceContainer && targetContainer) {
+			const movedBySnapSort = sourceContainer.moveItem(tile.id, targetContainer, fallbackIndex);
+			if (movedBySnapSort) return;
+		}
+
+		updateTileZone(tile.id, targetZone, fallbackIndex);
 	}
 
 	// Click-to-move: bank → answer (append to end)
 	function selectTile(tile: TileData) {
-		answerTiles = [...answerTiles, tile];
-		bankTiles = bankTiles.filter((t) => t.id !== tile.id);
+		moveTileToZone(tile, 'answer');
 	}
 
 	// Click-to-move: answer → bank (return to bank)
 	function deselectTile(tile: TileData) {
-		bankTiles = [...bankTiles, tile];
-		answerTiles = answerTiles.filter((t) => t.id !== tile.id);
+		moveTileToZone(tile, 'bank');
+	}
+
+	function handleTileKeydown(event: KeyboardEvent, tile: TileData, targetZone: TileZone) {
+		if (event.key !== 'Enter' && event.key !== ' ') return;
+		event.preventDefault();
+		moveTileToZone(tile, targetZone);
 	}
 
 	// Reset: return all tiles to bank and clear saved state
@@ -479,62 +535,102 @@ ${questions}
 			</nav>
 		{/if}
 
-		<!-- Answer Area: Drop zone for building the sentence -->
-		<section class="answer-area" data-lang={languageStore.value}>
-			<div
-				class="answer-box"
-				use:dndzone={{
-					items: answerTiles,
-					flipDurationMs: FLIP_DURATION_MS,
-					dropTargetStyle: { outline: 'rgba(88, 204, 2, 0.5) solid 2px' }
-				}}
-				onconsider={handleAnswerConsider}
-				onfinalize={handleAnswerFinalize}
-			>
-				{#each answerTiles as tile (tile.id)}
-					<button
-						class="tile selected"
-						animate:flip={{ duration: FLIP_DURATION_MS }}
-						use:longpress={{ onfire: () => openLookup(tile.text) }}
-						onclick={() => deselectTile(tile)}
-						aria-label={displayText(tile.text)}
-						title="Tap to remove · hold to define"
+		<div class="snapsort-engine" data-lang={languageStore.value}>
+			<Engine id="sentence-builder-snapsort">
+				<Container
+					className="sentence-builder-root"
+					config={{ direction: 'column', name: 'sentence-builder-root', noDrop: true }}
+					locked={true}
+					metadata={{ purpose: 'sentence-builder' }}
+				>
+					<!-- Answer Area: Drop zone for building the sentence -->
+					<Container
+						className="answer-area answer-box"
+						bind:container={answerContainer}
+						config={{
+							direction: 'row',
+							name: 'sentence-answer',
+							groupID: 'sentence-builder',
+							dropArea: true,
+							animation: {
+								reorder: snapSortAnimation,
+								drop: snapSortAnimation,
+								clickMove: snapSortAnimation
+							},
+							callbacks: {
+								onDomInsert: handleSnapSortDomInsert,
+								onDomRemove: handleSnapSortDomRemove,
+								afterDomMutation: tick
+							}
+						}}
+						locked={true}
+						metadata={{ zone: 'answer' }}
 					>
-						{@html renderTileHtml(tile.text)}
-					</button>
-				{/each}
-				{#if answerTiles.length === 0}
-					<span class="placeholder">Drag tiles here or click to add</span>
-				{/if}
-			</div>
-		</section>
+						{#each answerTiles as tile (tile.id)}
+							<Item className="tile-wrapper" metadata={{ itemId: tile.id }}>
+								<div
+									role="button"
+									tabindex="0"
+									class="tile selected"
+									use:longpress={{ onfire: () => openLookup(tile.text) }}
+									onclick={() => deselectTile(tile)}
+									onkeydown={(event) => handleTileKeydown(event, tile, 'bank')}
+									aria-label={displayText(tile.text)}
+									title="Tap to remove · hold to define"
+								>
+									{@html renderTileHtml(tile.text)}
+								</div>
+							</Item>
+						{/each}
+						{#if answerTiles.length === 0}
+							<span class="placeholder">Drag tiles here or click to add</span>
+						{/if}
+					</Container>
 
-		<!-- Word Bank: Source tiles to pick from -->
-		<section class="tile-bank-container" data-lang={languageStore.value}>
-			<div
-				class="tile-bank"
-				use:dndzone={{
-					items: bankTiles,
-					flipDurationMs: FLIP_DURATION_MS,
-					dropTargetStyle: { outline: 'rgba(28, 176, 246, 0.5) solid 2px' }
-				}}
-				onconsider={handleBankConsider}
-				onfinalize={handleBankFinalize}
-			>
-				{#each bankTiles as tile (tile.id)}
-					<button
-						class="tile"
-						animate:flip={{ duration: FLIP_DURATION_MS }}
-						use:longpress={{ onfire: () => openLookup(tile.text) }}
-						onclick={() => selectTile(tile)}
-						aria-label={displayText(tile.text)}
-						title="Tap to add · hold to define"
+					<!-- Word Bank: Source tiles to pick from -->
+					<Container
+						className="tile-bank-container tile-bank"
+						bind:container={bankContainer}
+						config={{
+							direction: 'row',
+							mainAxisAlign: 'center',
+							name: 'sentence-bank',
+							groupID: 'sentence-builder',
+							dropArea: true,
+							animation: {
+								reorder: snapSortAnimation,
+								drop: snapSortAnimation,
+								clickMove: snapSortAnimation
+							},
+							callbacks: {
+								onDomInsert: handleSnapSortDomInsert,
+								onDomRemove: handleSnapSortDomRemove,
+								afterDomMutation: tick
+							}
+						}}
+						locked={true}
+						metadata={{ zone: 'bank' }}
 					>
-						{@html renderTileHtml(tile.text)}
-					</button>
-				{/each}
-			</div>
-		</section>
+						{#each bankTiles as tile (tile.id)}
+							<Item className="tile-wrapper" metadata={{ itemId: tile.id }}>
+								<div
+									role="button"
+									tabindex="0"
+									class="tile"
+									use:longpress={{ onfire: () => openLookup(tile.text) }}
+									onclick={() => selectTile(tile)}
+									onkeydown={(event) => handleTileKeydown(event, tile, 'answer')}
+									aria-label={displayText(tile.text)}
+									title="Tap to add · hold to define"
+								>
+									{@html renderTileHtml(tile.text)}
+								</div>
+							</Item>
+						{/each}
+					</Container>
+				</Container>
+			</Engine>
+		</div>
 
 		<section class="actions">
 			<button class="btn secondary" onclick={resetTiles} disabled={answerTiles.length === 0}>
@@ -668,46 +764,92 @@ ${questions}
 	}
 
 	/* Answer area - where user builds the sentence */
-	.answer-area {
+	.snapsort-engine {
+		position: relative;
+		width: 100%;
+		max-width: 100%;
+		min-width: 0;
+		box-sizing: border-box;
+	}
+
+	.snapsort-engine :global(.sentence-builder-root) {
+		width: 100%;
+		max-width: 100%;
+		min-width: 0;
+		box-sizing: border-box;
+		gap: 0;
+	}
+
+	.snapsort-engine :global(.answer-area) {
+		width: 100%;
+		max-width: 100%;
+		min-width: 0;
+		box-sizing: border-box;
 		margin-bottom: 1.5rem;
 	}
 
-	.answer-box {
-		min-height: 70px;
+	.snapsort-engine :global(.answer-box) {
+		position: relative;
+		width: 100%;
+		max-width: 100%;
+		min-width: 0;
+		min-height: 112px;
+		box-sizing: border-box;
 		background: var(--bg-secondary);
 		border: 2px dashed var(--border-dashed);
 		border-radius: 16px;
 		padding: 0.75rem;
 		display: flex;
 		flex-wrap: wrap;
-		align-items: center;
+		align-items: flex-start;
+		justify-content: flex-start;
 		align-content: flex-start;
 		gap: 0.25rem;
 		transition: border-color 0.2s, background-color 0.2s;
 	}
 
-	.answer-box:empty::before,
 	.placeholder {
+		position: absolute;
+		top: 1.25rem;
+		left: 1.25rem;
 		color: var(--text-muted);
 		font-style: italic;
 		padding: 0.5rem;
+		pointer-events: none;
 	}
 
 	/* Word bank - source tiles */
-	.tile-bank-container {
+	.snapsort-engine :global(.tile-bank-container) {
+		width: 100%;
 		background: var(--bg-tertiary);
 		border-radius: 16px;
 		padding: 0.75rem;
 		margin-bottom: 1rem;
+		box-sizing: border-box;
 	}
 
-	.tile-bank {
+	.snapsort-engine :global(.tile-bank) {
+		width: 100%;
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: center;
+		align-items: flex-start;
 		min-height: 60px;
 		gap: 0.25rem;
 		align-content: flex-start;
+	}
+
+	.snapsort-engine :global(.answer-box .tile-wrapper),
+	.snapsort-engine :global(.tile-bank .tile-wrapper) {
+		display: inline-flex;
+		padding: 0;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.snapsort-engine :global(.ghost) {
+		background: var(--border-color);
+		border-radius: 12px;
+		opacity: 0.55;
 	}
 
 	/* Tile styling - base */
