@@ -23,9 +23,99 @@
 	};
 
 	type TileZone = 'answer' | 'bank';
+	type TileSound = 'pickup' | 'drop';
 
 	let answerContainer: SnapSortItemContainer | undefined = $state();
 	let bankContainer: SnapSortItemContainer | undefined = $state();
+
+	const TILE_SOUND_PATHS: Record<TileSound, string> = {
+		pickup: '/sounds/se-pickup.mp3',
+		drop: '/sounds/se-drop.mp3'
+	};
+	const TILE_SOUND_VOLUME = 0.45;
+	const TILE_DRAG_SOUND_MOVE_TOL = 6;
+	let tileSoundPool: Record<TileSound, HTMLAudioElement[]> | null = null;
+
+	function getTileSoundPool() {
+		if (typeof Audio === 'undefined') return null;
+		tileSoundPool ??= {
+			pickup: createTileSoundPool('pickup'),
+			drop: createTileSoundPool('drop')
+		};
+		return tileSoundPool;
+	}
+
+	function createTileSoundPool(sound: TileSound) {
+		return Array.from({ length: 3 }, () => {
+			const audio = new Audio(TILE_SOUND_PATHS[sound]);
+			audio.preload = 'auto';
+			audio.volume = TILE_SOUND_VOLUME;
+			return audio;
+		});
+	}
+
+	function playTileSound(sound: TileSound) {
+		const pool = getTileSoundPool();
+		if (!pool) return;
+
+		const audio = pool[sound].find((candidate) => candidate.paused) ?? pool[sound][0];
+		audio.pause();
+		audio.currentTime = 0;
+		void audio.play().catch(() => {
+			// Browsers may reject audio before the first trusted interaction.
+		});
+	}
+
+	function tileDragSound(node: HTMLElement) {
+		let pointerId: number | null = null;
+		let dragging = false;
+		let startX = 0;
+		let startY = 0;
+
+		const cleanup = () => {
+			window.removeEventListener('pointermove', onMove);
+			window.removeEventListener('pointerup', onEnd);
+			window.removeEventListener('pointercancel', onEnd);
+		};
+
+		const onDown = (event: PointerEvent) => {
+			if (event.pointerType === 'mouse' && event.button !== 0) return;
+			cleanup();
+			pointerId = event.pointerId;
+			dragging = false;
+			startX = event.clientX;
+			startY = event.clientY;
+			window.addEventListener('pointermove', onMove);
+			window.addEventListener('pointerup', onEnd);
+			window.addEventListener('pointercancel', onEnd);
+		};
+
+		const onMove = (event: PointerEvent) => {
+			if (event.pointerId !== pointerId || dragging) return;
+			const distance = Math.hypot(event.clientX - startX, event.clientY - startY);
+			if (distance <= TILE_DRAG_SOUND_MOVE_TOL) return;
+
+			dragging = true;
+			playTileSound('pickup');
+		};
+
+		const onEnd = (event: PointerEvent) => {
+			if (event.pointerId !== pointerId) return;
+			if (dragging) playTileSound('drop');
+			pointerId = null;
+			dragging = false;
+			cleanup();
+		};
+
+		node.addEventListener('pointerdown', onDown);
+
+		return {
+			destroy() {
+				cleanup();
+				node.removeEventListener('pointerdown', onDown);
+			}
+		};
+	}
 
 	// --- Tap-to-define (Kiokun integration) ------------------------------------
 	// Long-press a tile to look it up in the Kiokun dictionary; a short tap still
@@ -475,6 +565,7 @@ ${questions}
 	});
 
 	onMount(() => {
+		getTileSoundPool();
 		// Resume a shared/reloaded question (?id=) in its shared language
 		// (?lang=) if present; otherwise random in the current language.
 		const params = new URLSearchParams(window.location.search);
@@ -572,6 +663,7 @@ ${questions}
 									role="button"
 									tabindex="0"
 									class="tile selected"
+									use:tileDragSound
 									use:longpress={{ onfire: () => openLookup(tile.text) }}
 									onclick={() => deselectTile(tile)}
 									onkeydown={(event) => handleTileKeydown(event, tile, 'bank')}
@@ -617,6 +709,7 @@ ${questions}
 									role="button"
 									tabindex="0"
 									class="tile"
+									use:tileDragSound
 									use:longpress={{ onfire: () => openLookup(tile.text) }}
 									onclick={() => selectTile(tile)}
 									onkeydown={(event) => handleTileKeydown(event, tile, 'answer')}
