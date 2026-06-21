@@ -723,6 +723,11 @@ ${questions}
 					</Container>
 				</Container>
 			</Engine>
+			<p class="snapengine-credit">
+				<a href="https://snap-engine-js.vercel.app/" target="_blank" rel="noreferrer">
+					Powered by SnapEngineJS
+				</a>
+			</p>
 		</div>
 
 		<section class="actions">
@@ -929,6 +934,23 @@ ${questions}
 		min-height: 60px;
 		gap: 0.25rem;
 		align-content: flex-start;
+	}
+
+	.snapengine-credit {
+		margin: 0.35rem 0 1rem;
+		color: var(--text-muted);
+		font-size: 0.8rem;
+		text-align: center;
+	}
+
+	.snapengine-credit a {
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.snapengine-credit a:hover,
+	.snapengine-credit a:focus-visible {
+		text-decoration: underline;
 	}
 
 	.snapsort-engine :global(.answer-box .tile-wrapper),
