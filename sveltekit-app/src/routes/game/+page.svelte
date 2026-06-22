@@ -91,11 +91,16 @@
 		};
 
 		const onMove = (event: PointerEvent) => {
-			if (event.pointerId !== pointerId || dragging) return;
+			if (event.pointerId !== pointerId) return;
+			if (dragging) {
+				event.preventDefault();
+				return;
+			}
 			const distance = Math.hypot(event.clientX - startX, event.clientY - startY);
 			if (distance <= TILE_DRAG_SOUND_MOVE_TOL) return;
 
 			dragging = true;
+			event.preventDefault();
 			playTileSound('pickup');
 		};
 
@@ -959,6 +964,7 @@ ${questions}
 		padding: 0;
 		align-items: center;
 		justify-content: center;
+		touch-action: none;
 	}
 
 	.snapsort-engine :global(.ghost) {
@@ -982,6 +988,8 @@ ${questions}
 		box-shadow: 0 2px 0 var(--tile-shadow);
 		font-family: 'Geist', sans-serif;
 		user-select: none;
+		-webkit-user-select: none;
+		touch-action: none;
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
