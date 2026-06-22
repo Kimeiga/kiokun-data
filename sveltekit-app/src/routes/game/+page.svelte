@@ -2,10 +2,10 @@
 	import { onMount, tick } from 'svelte';
 	import { fly } from 'svelte/transition';
 	import Engine from '@snap-engine/asset-base-svelte/Engine.svelte';
-	import Item from '@snap-engine/snapsort-svelte/Item.svelte';
-	import Container from '@snap-engine/snapsort-svelte/ItemContainer.svelte';
+	import Container from '@snap-engine/snapsort-svelte/ContainerProgressive.svelte';
+	import Item from '@snap-engine/snapsort-svelte/ItemProgressive.svelte';
 	import type {
-		ItemContainer as SnapSortItemContainer,
+		ContainerProgressive as SnapSortContainer,
 		SnapSortDomInsertEvent,
 		SnapSortDomRemoveEvent
 	} from '@snap-engine/snapsort';
@@ -25,8 +25,8 @@
 	type TileZone = 'answer' | 'bank';
 	type TileSound = 'pickup' | 'drop';
 
-	let answerContainer: SnapSortItemContainer | undefined = $state();
-	let bankContainer: SnapSortItemContainer | undefined = $state();
+	let answerContainer: SnapSortContainer | undefined = $state();
+	let bankContainer: SnapSortContainer | undefined = $state();
 
 	const TILE_SOUND_PATHS: Record<TileSound, string> = {
 		pickup: '/sounds/se-pickup.mp3',
@@ -381,7 +381,7 @@
 		syncUrl();
 	}
 
-	function containerForZone(zone: TileZone): SnapSortItemContainer | undefined {
+	function containerForZone(zone: TileZone): SnapSortContainer | undefined {
 		return zone === 'answer' ? answerContainer : bankContainer;
 	}
 
