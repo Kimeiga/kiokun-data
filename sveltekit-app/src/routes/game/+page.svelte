@@ -2,8 +2,10 @@
 	import { onMount, tick } from 'svelte';
 	import { fly } from 'svelte/transition';
 	import Engine from '@snap-engine/asset-base-svelte/Engine.svelte';
-	import Container from '@snap-engine/snapsort-svelte/ContainerProgressive.svelte';
-	import Item from '@snap-engine/snapsort-svelte/ItemProgressive.svelte';
+	import {
+		ContainerProgressive as Container,
+		ItemProgressive as Item
+	} from '@snap-engine/snapsort-svelte';
 	import type {
 		ContainerProgressive as SnapSortContainer,
 		SnapSortDomInsertEvent,
