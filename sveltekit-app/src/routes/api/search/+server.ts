@@ -1,5 +1,6 @@
 import { json, error } from "@sveltejs/kit";
 import type { RequestEvent } from "@sveltejs/kit";
+import { getCjkSearchTerms, getSearchTarget } from "$lib/search-aliases";
 
 /**
  * Search result from the dictionary_search FTS5 table
@@ -10,7 +11,7 @@ interface SearchResult {
 	definition: string;
 	pronunciation: string;
 	reading_search: string;
-	is_common: boolean;
+	is_common: boolean | number;
 }
 
 /**
@@ -18,11 +19,55 @@ interface SearchResult {
  */
 interface GroupedResult {
 	word: string;
+	targetWord: string;
 	language: string;
 	languages?: string[]; // all languages this word appears in
 	pronunciation: string;
 	definitions: string[];
 	is_common: boolean;
+}
+
+function buildCjkSearchSql(searchTerms: string[]) {
+	const whereClause = searchTerms.map(() => "word LIKE ? || '%'").join(" OR ");
+	const exactRank = searchTerms
+		.map((_, index) => `WHEN word = ? THEN ${index === 0 ? 1000 : 900}`)
+		.join("\n");
+	const prefixRank = searchTerms
+		.map((_, index) => `WHEN word LIKE ? || '%' THEN ${index === 0 ? 500 : 450}`)
+		.join("\n");
+
+	return `
+		SELECT
+			word,
+			language,
+			definition,
+			pronunciation,
+			reading_search,
+			is_common,
+			CASE
+				${exactRank}
+				${prefixRank}
+				ELSE 0
+			END as custom_rank
+		FROM dictionary_search
+		WHERE ${whereClause}
+		ORDER BY
+			custom_rank DESC,
+			is_common DESC,
+			LENGTH(word) ASC,
+			rowid ASC
+		LIMIT ?
+	`;
+}
+
+function displayScore(row: SearchResult, targetWord: string, query: string, searchTerms: string[]): number {
+	if (row.word === query) return 1000;
+	if (row.word === targetWord && targetWord === query) return 950;
+	if (row.word === targetWord && searchTerms.includes(row.word)) return 900;
+	if (searchTerms.includes(row.word)) return 850;
+	if (row.word === targetWord) return 700;
+	if (row.language === "japanese" && targetWord !== row.word) return 650;
+	return 500;
 }
 
 /**
@@ -57,31 +102,22 @@ export async function GET({ url, platform }: RequestEvent) {
 		let results;
 
 		if (isCJK) {
-			// CJK input: search by word prefix using LIKE
-			// This finds words starting with the input (e.g., 十 → 十月, 十分, etc.)
+			// CJK input: search the typed form plus canonical/script variants.
+			// Examples: 地図 ⇄ 地圖, 地图 → 地圖, 学 ⇄ 學.
+			const searchTerms = getCjkSearchTerms(query);
+			const cjkLimit = Math.min(
+				limit * Math.max(4, Math.min(searchTerms.length, 12)),
+				1000
+			);
+
 			results = await platform.env.DB
-				.prepare(`
-					SELECT
-						word,
-						language,
-						definition,
-						pronunciation,
-						reading_search,
-						is_common,
-						CASE
-							WHEN word = ? THEN 1000
-							WHEN word LIKE ? || '%' THEN 500
-							ELSE 0
-						END as custom_rank
-					FROM dictionary_search
-					WHERE word LIKE ? || '%'
-					ORDER BY
-						custom_rank DESC,
-						is_common DESC,
-						LENGTH(word) ASC
-					LIMIT ?
-				`)
-				.bind(query, query, query, limit * 3)
+				.prepare(buildCjkSearchSql(searchTerms))
+				.bind(
+					...searchTerms,
+					...searchTerms,
+					...searchTerms,
+					cjkLimit
+				)
 				.all();
 		} else {
 			// Latin/romaji/pinyin input: use FTS5 full-text search on definitions and readings
@@ -128,24 +164,37 @@ export async function GET({ url, platform }: RequestEvent) {
 		}
 		
 		// Group results by word (unified — same word across languages goes to one page)
-		const grouped = new Map<string, GroupedResult & { _pronunciations: Map<string, string> }>();
+		const searchTerms = isCJK ? getCjkSearchTerms(query) : [query];
+		const grouped = new Map<string, GroupedResult & {
+			_pronunciations: Map<string, string>;
+			_displayScore: number;
+		}>();
 
 		for (const row of results.results as SearchResult[]) {
-			const key = row.word;
+			const targetWord = getSearchTarget(row.word, row.language);
+			const key = targetWord;
+			const rowDisplayScore = displayScore(row, targetWord, query, searchTerms);
 
 			if (!grouped.has(key)) {
 				grouped.set(key, {
 					word: row.word,
+					targetWord,
 					language: row.language,
 					languages: [row.language],
 					pronunciation: '',
 					definitions: [],
-					is_common: row.is_common,
+					is_common: Boolean(row.is_common),
 					_pronunciations: new Map(),
+					_displayScore: rowDisplayScore,
 				});
 			}
 
 			const group = grouped.get(key)!;
+			if (rowDisplayScore > group._displayScore) {
+				group.word = row.word;
+				group.language = row.language;
+				group._displayScore = rowDisplayScore;
+			}
 			if (!group.definitions.includes(row.definition)) {
 				group.definitions.push(row.definition);
 			}
@@ -155,6 +204,7 @@ export async function GET({ url, platform }: RequestEvent) {
 			if (group.languages && !group.languages.includes(row.language)) {
 				group.languages.push(row.language);
 			}
+			group.is_common = Boolean(group.is_common || row.is_common);
 		}
 
 		// Build combined pronunciation strings
@@ -172,6 +222,7 @@ export async function GET({ url, platform }: RequestEvent) {
 		// Convert to array, strip internal fields, and limit
 		for (const group of grouped.values()) {
 			delete (group as any)._pronunciations;
+			delete (group as any)._displayScore;
 		}
 		const groupedResults = Array.from(grouped.values()).slice(0, limit);
 		
@@ -185,4 +236,3 @@ export async function GET({ url, platform }: RequestEvent) {
 		throw error(500, `Search failed: ${err instanceof Error ? err.message : "Unknown error"}`);
 	}
 }
-

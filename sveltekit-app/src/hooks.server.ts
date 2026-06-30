@@ -1,9 +1,10 @@
 import { createAuth } from "$lib/server/auth";
+import { building } from "$app/environment";
 import type { Handle } from "@sveltejs/kit";
 
 export const handle: Handle = async ({ event, resolve }) => {
 	// Skip auth in local dev when platform bindings are unavailable
-	if (!event.platform?.env?.GOOGLE_CLIENT_SECRET) {
+	if (building || !event.platform?.env?.GOOGLE_CLIENT_SECRET) {
 		event.locals.session = null;
 		event.locals.user = null;
 		event.locals.isAdmin = true;
@@ -35,4 +36,3 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	return resolve(event);
 };
-

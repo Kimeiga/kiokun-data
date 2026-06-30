@@ -7,7 +7,9 @@
 
 	interface SearchResult {
 		word: string;
+		targetWord?: string;
 		language: string;
+		languages?: string[];
 		pronunciation: string;
 		definitions: string[];
 		is_common: boolean;
@@ -94,7 +96,7 @@
 
 	// Fetch dictionary entries for Chinese results to get simplified forms
 	async function loadSimplifiedForms(chineseResults: SearchResult[]) {
-		const uniqueWords = [...new Set(chineseResults.map(r => r.word))];
+		const uniqueWords = [...new Set(chineseResults.map(r => r.targetWord || r.word))];
 		const forms: Record<string, string> = {};
 
 		await Promise.all(uniqueWords.map(async (word) => {
@@ -176,11 +178,12 @@
 					<h2 class="column-title">Chinese 🇨🇳</h2>
 					<div class="results-list">
 						{#each chineseResults as result}
-							<a href="/{result.word}" class="result-card">
+							{@const targetWord = result.targetWord || result.word}
+							<a href="/{targetWord}" class="result-card">
 								<div class="result-header">
 									<span class="word">
-										{#if simplifiedForms[result.word]}
-											{simplifiedForms[result.word]} / {result.word}
+										{#if simplifiedForms[targetWord]}
+											{simplifiedForms[targetWord]} / {targetWord}
 										{:else}
 											{result.word}
 										{/if}
@@ -215,7 +218,7 @@
 					<h2 class="column-title">Japanese 🇯🇵</h2>
 					<div class="results-list">
 						{#each japaneseResults as result}
-							<a href="/{result.word}" class="result-card">
+							<a href="/{result.targetWord || result.word}" class="result-card">
 								<div class="result-header">
 									<span class="word">{result.word}</span>
 									{#if result.pronunciation}
@@ -248,7 +251,7 @@
 					<h2 class="column-title">Korean 🇰🇷</h2>
 					<div class="results-list">
 						{#each koreanResults as result}
-							<a href="/{result.word}" class="result-card">
+							<a href="/{result.targetWord || result.word}" class="result-card">
 								<div class="result-header">
 									<span class="word">{result.word}</span>
 									{#if result.pronunciation}
@@ -531,4 +534,3 @@
 		}
 	}
 </style>
-

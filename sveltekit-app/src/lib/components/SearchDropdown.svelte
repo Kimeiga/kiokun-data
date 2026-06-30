@@ -10,6 +10,7 @@
 
 	interface SearchResult {
 		word: string;
+		targetWord?: string;
 		language: string;
 		languages?: string[];
 		pronunciation: string;
@@ -50,11 +51,11 @@
 		}, 200);
 	});
 
-	function navigateTo(word: string) {
+	function navigateTo(targetWord: string, displayWord = targetWord) {
 		showDropdown = false;
-		value = word;
+		value = displayWord;
 		onNavigate?.();
-		goto(`/${word}`);
+		goto(`/${targetWord}`);
 	}
 
 	function handleKeydown(event: KeyboardEvent) {
@@ -68,7 +69,8 @@
 			selectedIndex = Math.max(selectedIndex - 1, -1);
 		} else if (event.key === 'Enter' && selectedIndex >= 0) {
 			event.preventDefault();
-			navigateTo(results[selectedIndex].word);
+			const result = results[selectedIndex];
+			navigateTo(result.targetWord || result.word, result.word);
 		} else if (event.key === 'Escape') {
 			showDropdown = false;
 		}
@@ -110,7 +112,7 @@
 			<button
 				class="dropdown-item"
 				class:selected={i === selectedIndex}
-				onmousedown={() => navigateTo(r.word)}
+				onmousedown={() => navigateTo(r.targetWord || r.word, r.word)}
 			>
 				<span class="item-word">{r.word}</span>
 				<span class="item-lang">{(r.languages || [r.language]).map(langFlag).join('')}</span>
