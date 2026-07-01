@@ -1,8 +1,16 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { onMount, tick } from 'svelte';
 	import { fly } from 'svelte/transition';
-	import { flip } from 'svelte/animate';
-	import { dndzone } from 'svelte-dnd-action';
+	import Engine from '@snap-engine/asset-base-svelte/Engine.svelte';
+	import {
+		ContainerProgressive as Container,
+		ItemProgressive as Item
+	} from '@snap-engine/snapsort-svelte';
+	import type {
+		ContainerProgressive as SnapSortContainer,
+		SnapSortDomInsertEvent,
+		SnapSortDomRemoveEvent
+	} from '@snap-engine/snapsort';
 	import { fetchUnifiedExercise, gradeUnifiedAnswer } from '$lib/game/api';
 	import { languageStore } from '$lib/game/stores/language.svelte';
 	import { chineseScriptStore } from '$lib/game/stores/chineseScript.svelte';
@@ -11,8 +19,110 @@
 	import DictionaryPopup from '$lib/game/DictionaryPopup.svelte';
 	import SpeakButton from '$lib/components/shared/SpeakButton.svelte';
 
-	// Animation duration for flip transitions
-	const FLIP_DURATION_MS = 200;
+	const snapSortAnimation = {
+		duration: 180,
+		timing_function: 'cubic-bezier(0.2, 0, 0, 1)'
+	};
+
+	type TileZone = 'answer' | 'bank';
+	type TileSound = 'pickup' | 'drop';
+
+	let answerContainer: SnapSortContainer | undefined = $state();
+	let bankContainer: SnapSortContainer | undefined = $state();
+
+	const TILE_SOUND_PATHS: Record<TileSound, string> = {
+		pickup: '/sounds/se-pickup.mp3',
+		drop: '/sounds/se-drop.mp3'
+	};
+	const TILE_SOUND_VOLUME = 0.45;
+	const TILE_DRAG_SOUND_MOVE_TOL = 6;
+	let tileSoundPool: Record<TileSound, HTMLAudioElement[]> | null = null;
+
+	function getTileSoundPool() {
+		if (typeof Audio === 'undefined') return null;
+		tileSoundPool ??= {
+			pickup: createTileSoundPool('pickup'),
+			drop: createTileSoundPool('drop')
+		};
+		return tileSoundPool;
+	}
+
+	function createTileSoundPool(sound: TileSound) {
+		return Array.from({ length: 3 }, () => {
+			const audio = new Audio(TILE_SOUND_PATHS[sound]);
+			audio.preload = 'auto';
+			audio.volume = TILE_SOUND_VOLUME;
+			return audio;
+		});
+	}
+
+	function playTileSound(sound: TileSound) {
+		const pool = getTileSoundPool();
+		if (!pool) return;
+
+		const audio = pool[sound].find((candidate) => candidate.paused) ?? pool[sound][0];
+		audio.pause();
+		audio.currentTime = 0;
+		void audio.play().catch(() => {
+			// Browsers may reject audio before the first trusted interaction.
+		});
+	}
+
+	function tileDragSound(node: HTMLElement) {
+		let pointerId: number | null = null;
+		let dragging = false;
+		let startX = 0;
+		let startY = 0;
+
+		const cleanup = () => {
+			window.removeEventListener('pointermove', onMove);
+			window.removeEventListener('pointerup', onEnd);
+			window.removeEventListener('pointercancel', onEnd);
+		};
+
+		const onDown = (event: PointerEvent) => {
+			if (event.pointerType === 'mouse' && event.button !== 0) return;
+			cleanup();
+			pointerId = event.pointerId;
+			dragging = false;
+			startX = event.clientX;
+			startY = event.clientY;
+			window.addEventListener('pointermove', onMove);
+			window.addEventListener('pointerup', onEnd);
+			window.addEventListener('pointercancel', onEnd);
+		};
+
+		const onMove = (event: PointerEvent) => {
+			if (event.pointerId !== pointerId) return;
+			if (dragging) {
+				event.preventDefault();
+				return;
+			}
+			const distance = Math.hypot(event.clientX - startX, event.clientY - startY);
+			if (distance <= TILE_DRAG_SOUND_MOVE_TOL) return;
+
+			dragging = true;
+			event.preventDefault();
+			playTileSound('pickup');
+		};
+
+		const onEnd = (event: PointerEvent) => {
+			if (event.pointerId !== pointerId) return;
+			if (dragging) playTileSound('drop');
+			pointerId = null;
+			dragging = false;
+			cleanup();
+		};
+
+		node.addEventListener('pointerdown', onDown);
+
+		return {
+			destroy() {
+				cleanup();
+				node.removeEventListener('pointerdown', onDown);
+			}
+		};
+	}
 
 	// --- Tap-to-define (Kiokun integration) ------------------------------------
 	// Long-press a tile to look it up in the Kiokun dictionary; a short tap still
@@ -47,6 +157,7 @@
 		let current = opts;
 		let timer: ReturnType<typeof setTimeout> | null = null;
 		let fired = false;
+		let moved = false;
 		let sx = 0;
 		let sy = 0;
 		const HOLD_MS = 450;
@@ -60,6 +171,7 @@
 		};
 		const onDown = (e: PointerEvent) => {
 			fired = false;
+			moved = false;
 			sx = e.clientX;
 			sy = e.clientY;
 			clear();
@@ -70,14 +182,16 @@
 		};
 		const onMove = (e: PointerEvent) => {
 			if (timer && (Math.abs(e.clientX - sx) > MOVE_TOL || Math.abs(e.clientY - sy) > MOVE_TOL)) {
+				moved = true;
 				clear();
 			}
 		};
 		const onClickCapture = (e: MouseEvent) => {
-			if (fired) {
+			if (fired || moved) {
 				e.stopPropagation();
 				e.preventDefault();
 				fired = false;
+				moved = false;
 			}
 		};
 
@@ -274,34 +388,73 @@
 		syncUrl();
 	}
 
-	// Handle drag events for the answer zone
-	function handleAnswerConsider(e: CustomEvent<{ items: TileData[] }>) {
-		answerTiles = e.detail.items;
+	function containerForZone(zone: TileZone): SnapSortContainer | undefined {
+		return zone === 'answer' ? answerContainer : bankContainer;
 	}
 
-	function handleAnswerFinalize(e: CustomEvent<{ items: TileData[] }>) {
-		answerTiles = e.detail.items;
+	function updateTileZone(tileId: string, targetZone: TileZone, targetIndex: number) {
+		const allTiles = [...answerTiles, ...bankTiles];
+		const movedTile = allTiles.find((tile) => tile.id === tileId);
+		if (!movedTile) return;
+
+		const nextAnswerTiles = answerTiles.filter((tile) => tile.id !== tileId);
+		const nextBankTiles = bankTiles.filter((tile) => tile.id !== tileId);
+		const targetTiles = targetZone === 'answer' ? nextAnswerTiles : nextBankTiles;
+		const destinationIndex = Math.max(0, Math.min(targetIndex, targetTiles.length));
+
+		targetTiles.splice(destinationIndex, 0, movedTile);
+		answerTiles = nextAnswerTiles;
+		bankTiles = nextBankTiles;
 	}
 
-	// Handle drag events for the bank zone
-	function handleBankConsider(e: CustomEvent<{ items: TileData[] }>) {
-		bankTiles = e.detail.items;
+	function handleSnapSortDomInsert(event: SnapSortDomInsertEvent) {
+		const itemId = event.itemMetadata.itemId;
+		if (typeof itemId !== 'string') return;
+
+		const targetZone = event.containerMetadata.zone;
+		if (targetZone !== 'answer' && targetZone !== 'bank') return;
+
+		updateTileZone(itemId, targetZone, event.index);
 	}
 
-	function handleBankFinalize(e: CustomEvent<{ items: TileData[] }>) {
-		bankTiles = e.detail.items;
+	function handleSnapSortDomRemove(event: SnapSortDomRemoveEvent) {
+		const itemId = event.itemMetadata.itemId;
+		if (typeof itemId !== 'string') return;
+
+		answerTiles = answerTiles.filter((tile) => tile.id !== itemId);
+		bankTiles = bankTiles.filter((tile) => tile.id !== itemId);
+	}
+
+	function moveTileToZone(tile: TileData, targetZone: TileZone) {
+		const sourceZone: TileZone = answerTiles.some((candidate) => candidate.id === tile.id)
+			? 'answer'
+			: 'bank';
+		const sourceContainer = containerForZone(sourceZone);
+		const targetContainer = containerForZone(targetZone);
+		const fallbackIndex = targetZone === 'answer' ? answerTiles.length : bankTiles.length;
+
+		if (sourceContainer && targetContainer) {
+			const movedBySnapSort = sourceContainer.moveItem(tile.id, targetContainer, fallbackIndex);
+			if (movedBySnapSort) return;
+		}
+
+		updateTileZone(tile.id, targetZone, fallbackIndex);
 	}
 
 	// Click-to-move: bank → answer (append to end)
 	function selectTile(tile: TileData) {
-		answerTiles = [...answerTiles, tile];
-		bankTiles = bankTiles.filter((t) => t.id !== tile.id);
+		moveTileToZone(tile, 'answer');
 	}
 
 	// Click-to-move: answer → bank (return to bank)
 	function deselectTile(tile: TileData) {
-		bankTiles = [...bankTiles, tile];
-		answerTiles = answerTiles.filter((t) => t.id !== tile.id);
+		moveTileToZone(tile, 'bank');
+	}
+
+	function handleTileKeydown(event: KeyboardEvent, tile: TileData, targetZone: TileZone) {
+		if (event.key !== 'Enter' && event.key !== ' ') return;
+		event.preventDefault();
+		moveTileToZone(tile, targetZone);
 	}
 
 	// Reset: return all tiles to bank and clear saved state
@@ -419,6 +572,7 @@ ${questions}
 	});
 
 	onMount(() => {
+		getTileSoundPool();
 		// Resume a shared/reloaded question (?id=) in its shared language
 		// (?lang=) if present; otherwise random in the current language.
 		const params = new URLSearchParams(window.location.search);
@@ -479,62 +633,109 @@ ${questions}
 			</nav>
 		{/if}
 
-		<!-- Answer Area: Drop zone for building the sentence -->
-		<section class="answer-area" data-lang={languageStore.value}>
-			<div
-				class="answer-box"
-				use:dndzone={{
-					items: answerTiles,
-					flipDurationMs: FLIP_DURATION_MS,
-					dropTargetStyle: { outline: 'rgba(88, 204, 2, 0.5) solid 2px' }
-				}}
-				onconsider={handleAnswerConsider}
-				onfinalize={handleAnswerFinalize}
-			>
-				{#each answerTiles as tile (tile.id)}
-					<button
-						class="tile selected"
-						animate:flip={{ duration: FLIP_DURATION_MS }}
-						use:longpress={{ onfire: () => openLookup(tile.text) }}
-						onclick={() => deselectTile(tile)}
-						aria-label={displayText(tile.text)}
-						title="Tap to remove · hold to define"
+		<div class="snapsort-engine" data-lang={languageStore.value}>
+			<Engine id="sentence-builder-snapsort">
+				<Container
+					className="sentence-builder-root"
+					config={{ direction: 'column', name: 'sentence-builder-root', noDrop: true }}
+					locked={true}
+					metadata={{ purpose: 'sentence-builder' }}
+				>
+					<!-- Answer Area: Drop zone for building the sentence -->
+					<Container
+						className="answer-area answer-box"
+						bind:container={answerContainer}
+						config={{
+							direction: 'row',
+							name: 'sentence-answer',
+							groupID: 'sentence-builder',
+							dropArea: true,
+							animation: {
+								reorder: snapSortAnimation,
+								drop: snapSortAnimation,
+								clickMove: snapSortAnimation
+							},
+							callbacks: {
+								onDomInsert: handleSnapSortDomInsert,
+								onDomRemove: handleSnapSortDomRemove,
+								afterDomMutation: tick
+							}
+						}}
+						locked={true}
+						metadata={{ zone: 'answer' }}
 					>
-						{@html renderTileHtml(tile.text)}
-					</button>
-				{/each}
-				{#if answerTiles.length === 0}
-					<span class="placeholder">Drag tiles here or click to add</span>
-				{/if}
-			</div>
-		</section>
+						{#each answerTiles as tile (tile.id)}
+							<Item className="tile-wrapper" metadata={{ itemId: tile.id }}>
+								<div
+									role="button"
+									tabindex="0"
+									class="tile selected"
+									use:tileDragSound
+									use:longpress={{ onfire: () => openLookup(tile.text) }}
+									onclick={() => deselectTile(tile)}
+									onkeydown={(event) => handleTileKeydown(event, tile, 'bank')}
+									aria-label={displayText(tile.text)}
+									title="Tap to remove · hold to define"
+								>
+									{@html renderTileHtml(tile.text)}
+								</div>
+							</Item>
+						{/each}
+						{#if answerTiles.length === 0}
+							<span class="placeholder">Drag tiles here or click to add</span>
+						{/if}
+					</Container>
 
-		<!-- Word Bank: Source tiles to pick from -->
-		<section class="tile-bank-container" data-lang={languageStore.value}>
-			<div
-				class="tile-bank"
-				use:dndzone={{
-					items: bankTiles,
-					flipDurationMs: FLIP_DURATION_MS,
-					dropTargetStyle: { outline: 'rgba(28, 176, 246, 0.5) solid 2px' }
-				}}
-				onconsider={handleBankConsider}
-				onfinalize={handleBankFinalize}
-			>
-				{#each bankTiles as tile (tile.id)}
-					<button
-						class="tile"
-						animate:flip={{ duration: FLIP_DURATION_MS }}
-						use:longpress={{ onfire: () => openLookup(tile.text) }}
-						onclick={() => selectTile(tile)}
-						aria-label={displayText(tile.text)}
-						title="Tap to add · hold to define"
+					<!-- Word Bank: Source tiles to pick from -->
+					<Container
+						className="tile-bank-container tile-bank"
+						bind:container={bankContainer}
+						config={{
+							direction: 'row',
+							mainAxisAlign: 'center',
+							name: 'sentence-bank',
+							groupID: 'sentence-builder',
+							dropArea: true,
+							animation: {
+								reorder: snapSortAnimation,
+								drop: snapSortAnimation,
+								clickMove: snapSortAnimation
+							},
+							callbacks: {
+								onDomInsert: handleSnapSortDomInsert,
+								onDomRemove: handleSnapSortDomRemove,
+								afterDomMutation: tick
+							}
+						}}
+						locked={true}
+						metadata={{ zone: 'bank' }}
 					>
-						{@html renderTileHtml(tile.text)}
-					</button>
-				{/each}
-			</div>
-		</section>
+						{#each bankTiles as tile (tile.id)}
+							<Item className="tile-wrapper" metadata={{ itemId: tile.id }}>
+								<div
+									role="button"
+									tabindex="0"
+									class="tile"
+									use:tileDragSound
+									use:longpress={{ onfire: () => openLookup(tile.text) }}
+									onclick={() => selectTile(tile)}
+									onkeydown={(event) => handleTileKeydown(event, tile, 'answer')}
+									aria-label={displayText(tile.text)}
+									title="Tap to add · hold to define"
+								>
+									{@html renderTileHtml(tile.text)}
+								</div>
+							</Item>
+						{/each}
+					</Container>
+				</Container>
+			</Engine>
+			<p class="snapengine-credit">
+				<a href="https://snap-engine-js.vercel.app/" target="_blank" rel="noreferrer">
+					Powered by SnapEngineJS
+				</a>
+			</p>
+		</div>
 
 		<section class="actions">
 			<button class="btn secondary" onclick={resetTiles} disabled={answerTiles.length === 0}>
@@ -668,46 +869,110 @@ ${questions}
 	}
 
 	/* Answer area - where user builds the sentence */
-	.answer-area {
+	.snapsort-engine {
+		position: relative;
+		width: 100%;
+		max-width: 100%;
+		min-width: 0;
+		box-sizing: border-box;
+	}
+
+	.snapsort-engine :global(.sentence-builder-root) {
+		width: 100%;
+		max-width: 100%;
+		min-width: 0;
+		box-sizing: border-box;
+		gap: 0;
+	}
+
+	.snapsort-engine :global(.answer-area) {
+		width: 100%;
+		max-width: 100%;
+		min-width: 0;
+		box-sizing: border-box;
 		margin-bottom: 1.5rem;
 	}
 
-	.answer-box {
-		min-height: 70px;
+	.snapsort-engine :global(.answer-box) {
+		position: relative;
+		width: 100%;
+		max-width: 100%;
+		min-width: 0;
+		min-height: 112px;
+		box-sizing: border-box;
 		background: var(--bg-secondary);
 		border: 2px dashed var(--border-dashed);
 		border-radius: 16px;
 		padding: 0.75rem;
 		display: flex;
 		flex-wrap: wrap;
-		align-items: center;
+		align-items: flex-start;
+		justify-content: flex-start;
 		align-content: flex-start;
 		gap: 0.25rem;
 		transition: border-color 0.2s, background-color 0.2s;
 	}
 
-	.answer-box:empty::before,
 	.placeholder {
+		position: absolute;
+		top: 1.25rem;
+		left: 1.25rem;
 		color: var(--text-muted);
 		font-style: italic;
 		padding: 0.5rem;
+		pointer-events: none;
 	}
 
 	/* Word bank - source tiles */
-	.tile-bank-container {
+	.snapsort-engine :global(.tile-bank-container) {
+		width: 100%;
 		background: var(--bg-tertiary);
 		border-radius: 16px;
 		padding: 0.75rem;
 		margin-bottom: 1rem;
+		box-sizing: border-box;
 	}
 
-	.tile-bank {
+	.snapsort-engine :global(.tile-bank) {
+		width: 100%;
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: center;
+		align-items: flex-start;
 		min-height: 60px;
 		gap: 0.25rem;
 		align-content: flex-start;
+	}
+
+	.snapengine-credit {
+		margin: 0.35rem 0 1rem;
+		color: var(--text-muted);
+		font-size: 0.8rem;
+		text-align: center;
+	}
+
+	.snapengine-credit a {
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.snapengine-credit a:hover,
+	.snapengine-credit a:focus-visible {
+		text-decoration: underline;
+	}
+
+	.snapsort-engine :global(.answer-box .tile-wrapper),
+	.snapsort-engine :global(.tile-bank .tile-wrapper) {
+		display: inline-flex;
+		padding: 0;
+		align-items: center;
+		justify-content: center;
+		touch-action: none;
+	}
+
+	.snapsort-engine :global(.ghost) {
+		background: var(--border-color);
+		border-radius: 12px;
+		opacity: 0.55;
 	}
 
 	/* Tile styling - base */
@@ -725,6 +990,8 @@ ${questions}
 		box-shadow: 0 2px 0 var(--tile-shadow);
 		font-family: 'Geist', sans-serif;
 		user-select: none;
+		-webkit-user-select: none;
+		touch-action: none;
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
