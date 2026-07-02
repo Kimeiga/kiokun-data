@@ -53,10 +53,10 @@
 </script>
 
 <header
-	class="bg-bg-primary/95 backdrop-blur-md border-b border-border sticky top-0 z-[100]"
+	class="app-header bg-bg-primary/95 backdrop-blur-md border-b border-border sticky top-0 z-[100]"
 >
 	<div
-		class="max-w-[1400px] mx-auto px-3 py-2 md:px-5 md:py-3 flex items-center justify-between gap-2 md:gap-4"
+		class="app-header-inner max-w-[1400px] mx-auto px-3 py-2 md:px-5 md:py-3 flex items-center justify-between gap-2 md:gap-4"
 	>
 		<!-- Logo -->
 		<a
@@ -130,18 +130,18 @@
 				<LanguageToggle compact={true} />
 			{/if}
 			<a
+				href="/game"
+				class="flex items-center justify-center w-9 h-9 md:w-10 md:h-10 rounded-full bg-bg-secondary border border-border text-lg md:text-xl no-underline transition-colors duration-150 hover:border-accent hover:text-accent"
+				title="Sentence Game — build sentences in JA · ZH · KO · TR"
+			>
+				🎮
+			</a>
+			<a
 				href="/learning"
 				class="flex items-center justify-center w-9 h-9 md:w-10 md:h-10 rounded-full bg-bg-secondary border border-border text-lg md:text-xl no-underline transition-colors duration-150 hover:border-accent hover:text-accent"
 				title="Learning — resources, study, artifacts & community"
 			>
 				🎓
-			</a>
-			<a
-				href="/game"
-				class="flex items-center justify-center w-9 h-9 md:w-10 md:h-10 rounded-full bg-bg-secondary border border-border text-lg md:text-xl no-underline transition-colors duration-150 hover:border-accent hover:text-accent"
-				title="Game — practice with sentence tiles"
-			>
-				🎮
 			</a>
 			<a
 				href="/blog"
@@ -219,21 +219,21 @@
 			<div class="max-w-[1400px] mx-auto px-4 py-3 flex flex-col gap-3">
 				<!-- Navigation Links -->
 				<a
+					href="/game"
+					class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-bg-secondary border border-border text-text-primary no-underline transition-colors duration-150 hover:border-accent hover:text-accent"
+					onclick={closeMobileMenu}
+				>
+					<span class="text-lg">🎮</span>
+					<span class="text-sm font-medium">Sentence Game</span>
+				</a>
+
+				<a
 					href="/learning"
 					class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-bg-secondary border border-border text-text-primary no-underline transition-colors duration-150 hover:border-accent hover:text-accent"
 					onclick={closeMobileMenu}
 				>
 					<span class="text-lg">🎓</span>
 					<span class="text-sm font-medium">Learning</span>
-				</a>
-
-				<a
-					href="/game"
-					class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-bg-secondary border border-border text-text-primary no-underline transition-colors duration-150 hover:border-accent hover:text-accent"
-					onclick={closeMobileMenu}
-				>
-					<span class="text-lg">🎮</span>
-					<span class="text-sm font-medium">Game</span>
 				</a>
 
 				<a
@@ -270,3 +270,15 @@
 		</div>
 	{/if}
 </header>
+
+<style>
+	:global(html.capacitor-native) .app-header-inner {
+		padding-top: calc(var(--kiokun-safe-area-top) + 0.5rem);
+	}
+
+	@media (min-width: 768px) {
+		:global(html.capacitor-native) .app-header-inner {
+			padding-top: calc(var(--kiokun-safe-area-top) + 0.75rem);
+		}
+	}
+</style>

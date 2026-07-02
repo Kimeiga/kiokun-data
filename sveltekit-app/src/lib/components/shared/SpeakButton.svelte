@@ -17,9 +17,15 @@
 		lang: 'zh' | 'ja' | 'ko';
 		/** Optional: size of the icon (default: 16) */
 		size?: number;
+		/** Optional: visible text label rendered inside the button (e.g. "Listen").
+		 *  When set, the whole button — icon + label — is one click target. */
+		label?: string;
+		/** Optional: render as a bordered pill that matches themed pill buttons.
+		 *  Intended for use together with `label`. */
+		pill?: boolean;
 	}
 
-	let { text, lang, size = 16 }: Props = $props();
+	let { text, lang, size = 16, label, pill = false }: Props = $props();
 
 	let isSpeaking = $state(false);
 	let isSupported = $state(true);
@@ -238,6 +244,7 @@
 	<button
 		class="speak-button"
 		class:speaking={isSpeaking}
+		class:pill
 		onclick={speak}
 		title={lang === 'zh' ? 'Listen (Chinese)' : lang === 'ko' ? 'Listen (Korean)' : 'Listen (Japanese)'}
 		aria-label={lang === 'zh' ? 'Listen to Chinese pronunciation' : lang === 'ko' ? 'Listen to Korean pronunciation' : 'Listen to Japanese pronunciation'}
@@ -258,6 +265,7 @@
 			<path class="wave wave-1" d="M15.54 8.46a5 5 0 0 1 0 7.07" />
 			<path class="wave wave-2" d="M19.07 4.93a10 10 0 0 1 0 14.14" />
 		</svg>
+		{#if label}<span class="speak-button-label">{label}</span>{/if}
 	</button>
 {/if}
 
@@ -287,6 +295,43 @@
 
 	.speak-button.speaking {
 		color: var(--accent-color, #3b82f6);
+	}
+
+	.speak-button-label {
+		font-size: 1rem;
+		font-weight: 600;
+		line-height: 1;
+	}
+
+	/* Pill variant: matches the game's themed .btn pill buttons (same
+	   padding / font / shadow / press), so it lines up in size with the
+	   adjacent Continue button. The whole element is one click target. */
+	.speak-button.pill {
+		gap: 0.5rem;
+		padding: 0.75rem 2rem;
+		border: 2px solid var(--border-color, #ddd);
+		border-radius: 12px;
+		background: var(--bg-secondary, #f5f5f5);
+		color: var(--text-primary, #333);
+		box-shadow: 0 4px 0 var(--border-color, #ddd);
+		font-family: inherit;
+		transition: all 0.15s ease;
+	}
+
+	.speak-button.pill:hover {
+		background: var(--bg-tertiary, #eee);
+		color: var(--text-primary, #333);
+	}
+
+	.speak-button.pill:active {
+		transform: translateY(4px);
+		box-shadow: none;
+	}
+
+	.speak-button.pill.speaking {
+		border-color: var(--blue-primary, var(--accent-color, #3b82f6));
+		color: var(--blue-primary, var(--accent-color, #3b82f6));
+		background: var(--bg-secondary, #f5f5f5);
 	}
 
 	.wave {

@@ -757,13 +757,14 @@ ${questions}
 					<p class="expected">Expected: {displayText(result.expected)}</p>
 				{/if}
 				{#if currentExercise && answerSpeakLang}
-					<span class="speak-answer" title="Listen to the correct answer">
+					<span class="speak-answer-wrap">
 						<SpeakButton
 							text={displayText(currentExercise.text)}
 							lang={answerSpeakLang}
-							size={24}
+							size={20}
+							label="Listen"
+							pill={true}
 						/>
-						<span class="speak-answer-label">Listen</span>
 					</span>
 				{:else}
 					<button
@@ -1220,23 +1221,13 @@ ${questions}
 	}
 
 	/* Listen / TTS button */
-	/* Kiokun SpeakButton wrapper (JA/ZH/KO) — aligns with the pill buttons */
-	.speak-answer {
+	/* Kiokun SpeakButton (JA/ZH/KO): the shared component renders the whole
+	   pill (icon + "Listen" label) as one click target via its `pill`/`label`
+	   props. This wrapper only provides spacing from the Next button. */
+	.speak-answer-wrap {
 		display: inline-flex;
-		align-items: center;
-		gap: 0.4rem;
 		margin-right: 0.75rem;
-		padding: 0.4rem 0.9rem;
-		border: 2px solid var(--border-color);
-		border-radius: 12px;
-		background: var(--bg-secondary);
-		color: var(--text-secondary);
 		vertical-align: middle;
-	}
-
-	.speak-answer-label {
-		font-size: 0.95rem;
-		font-weight: 600;
 	}
 
 	.btn.speak {

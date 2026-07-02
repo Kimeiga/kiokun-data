@@ -26,6 +26,8 @@
 	let activeSegmentIndex = $derived(getActiveSegmentIndex(currentTime));
 	let activeWordIndex = $derived(getActiveWordIndex(activeSegmentIndex, currentTime));
 	let lastAutoScrolledIndex = -1;
+	let timeSyncFrame: number | null = null;
+	let pendingAlignFrame: number | null = null;
 
 	// Dictionary panel state
 	let selectedWord = $state<string | null>(null);
@@ -38,8 +40,10 @@
 	$effect(() => {
 		if (videoElement && initializedVideoId !== data.videoId) {
 			initializedVideoId = data.videoId;
+			lastAutoScrolledIndex = -1;
 			videoElement.currentTime = data.startTime;
 			currentTime = data.startTime;
+			alignSoon(getActiveSegmentIndex(data.startTime), 'auto');
 		}
 	});
 
@@ -48,8 +52,17 @@
 		const scroller = transcriptScroller;
 		if (!scroller || index < 0 || index === lastAutoScrolledIndex) return;
 
-		lastAutoScrolledIndex = index;
-		requestAnimationFrame(() => alignActiveSegment(index));
+		alignSoon(index);
+	});
+
+	$effect(() => {
+		return () => {
+			cancelTimeSync();
+			if (pendingAlignFrame !== null) {
+				cancelAnimationFrame(pendingAlignFrame);
+				pendingAlignFrame = null;
+			}
+		};
 	});
 
 	function setVideoInlineAttributes(node: HTMLVideoElement) {
@@ -57,7 +70,7 @@
 		node.setAttribute('webkit-playsinline', '');
 	}
 
-	function alignActiveSegment(index: number) {
+	function alignActiveSegment(index: number, behavior: ScrollBehavior = 'smooth') {
 		const scroller = transcriptScroller;
 		const active = scroller?.querySelector<HTMLElement>(`[data-segment-index="${index}"]`);
 		if (!scroller || !active) return;
@@ -73,7 +86,7 @@
 
 		scroller.scrollTo({
 			top: scroller.scrollTop + activeCenter - targetCenter,
-			behavior: 'smooth'
+			behavior
 		});
 	}
 
@@ -87,12 +100,86 @@
 		if (videoElement) {
 			videoElement.currentTime = time;
 			currentTime = time;
-			videoElement.play();
+			forceAlignCurrentSegment();
+			void videoElement.play().catch(() => {});
+		}
+	}
+
+	function seekToTranscriptSegment(time: number) {
+		if (window.matchMedia('(min-width: 769px)').matches) {
+			seekTo(time);
 		}
 	}
 
 	function syncCurrentTime() {
 		if (videoElement) currentTime = videoElement.currentTime;
+	}
+
+	function syncCurrentTimeAndAlign() {
+		syncCurrentTime();
+		alignCurrentSegmentIfChanged();
+	}
+
+	function forceSyncCurrentTimeAndAlign() {
+		syncCurrentTime();
+		forceAlignCurrentSegment();
+	}
+
+	function alignCurrentSegmentIfChanged() {
+		const index = getActiveSegmentIndex(currentTime);
+		if (index !== lastAutoScrolledIndex) alignSoon(index);
+	}
+
+	function forceAlignCurrentSegment() {
+		alignSoon(getActiveSegmentIndex(currentTime));
+	}
+
+	function alignSoon(index = getActiveSegmentIndex(currentTime), behavior: ScrollBehavior = 'smooth') {
+		if (index < 0) return;
+		lastAutoScrolledIndex = index;
+		if (pendingAlignFrame !== null) cancelAnimationFrame(pendingAlignFrame);
+		pendingAlignFrame = requestAnimationFrame(() => {
+			pendingAlignFrame = null;
+			alignActiveSegment(index, behavior);
+		});
+	}
+
+	function startTimeSync() {
+		if (timeSyncFrame !== null) return;
+		const tick = () => {
+			const previousIndex = getActiveSegmentIndex(currentTime);
+			syncCurrentTime();
+			const nextIndex = getActiveSegmentIndex(currentTime);
+			if (nextIndex !== previousIndex && nextIndex !== lastAutoScrolledIndex) {
+				alignSoon(nextIndex);
+			}
+			if (videoElement && !videoElement.paused && !videoElement.ended) {
+				timeSyncFrame = requestAnimationFrame(tick);
+			} else {
+				timeSyncFrame = null;
+			}
+		};
+		timeSyncFrame = requestAnimationFrame(tick);
+	}
+
+	function stopTimeSync() {
+		cancelTimeSync();
+		forceSyncCurrentTimeAndAlign();
+	}
+
+	function cancelTimeSync() {
+		if (timeSyncFrame !== null) {
+			cancelAnimationFrame(timeSyncFrame);
+			timeSyncFrame = null;
+		}
+	}
+
+	function goBack() {
+		if (window.history.length > 1) {
+			window.history.back();
+		} else {
+			goto('/');
+		}
 	}
 
 	function isNativeControlAreaClick(event: MouseEvent, video: HTMLVideoElement): boolean {
@@ -121,14 +208,16 @@
 	function getActiveSegmentIndex(time: number): number {
 		if (data.transcript.length === 0) return -1;
 
-		let latestStarted = 0;
+		let latestStarted = -1;
 		for (let i = 0; i < data.transcript.length; i++) {
 			const segment = data.transcript[i];
-			if (time >= segment.start_time && time <= segment.end_time) return i;
-			if (time >= segment.start_time) latestStarted = i;
+			if (time >= segment.start_time) {
+				latestStarted = i;
+				continue;
+			}
 			if (time < segment.start_time) break;
 		}
-		return latestStarted;
+		return latestStarted >= 0 ? latestStarted : 0;
 	}
 
 	function lookupWordsForSegment(index: number): string[] {
@@ -367,6 +456,11 @@
 </div>
 
 <main class="layout" class:panel-open={panelOpen}>
+	<button type="button" class="reel-back-button" aria-label="Back" onclick={goBack}>
+		<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+			<path d="m15 18-6-6 6-6" />
+		</svg>
+	</button>
 	<div class="main-content">
 		<div class="reel-grid">
 			<!-- Left: Video player -->
@@ -383,9 +477,14 @@
 						preload="metadata"
 						playsinline
 						onclick={preventVideoSurfaceToggle}
-						ontimeupdate={syncCurrentTime}
-						onseeking={syncCurrentTime}
-						onloadedmetadata={syncCurrentTime}
+						ontimeupdate={syncCurrentTimeAndAlign}
+						onplay={startTimeSync}
+						onplaying={startTimeSync}
+						onpause={stopTimeSync}
+						onended={stopTimeSync}
+						onseeking={forceSyncCurrentTimeAndAlign}
+						onseeked={forceSyncCurrentTimeAndAlign}
+						onloadedmetadata={forceSyncCurrentTimeAndAlign}
 					></video>
 				</div>
 
@@ -418,10 +517,10 @@
 									class:past={segmentIndex < activeSegmentIndex}
 									class:future={segmentIndex > activeSegmentIndex}
 									data-segment-index={segmentIndex}
-									onclick={() => seekTo(segment.start_time)}
+									onclick={() => seekToTranscriptSegment(segment.start_time)}
 									role="button"
 									tabindex="0"
-									onkeydown={(e) => e.key === 'Enter' && seekTo(segment.start_time)}
+									onkeydown={(e) => e.key === 'Enter' && seekToTranscriptSegment(segment.start_time)}
 								>
 									<span class="segment-time">{formatTime(segment.start_time)}</span>
 									<div class="segment-text">
@@ -809,13 +908,19 @@
 	.compound-part:last-child { border-bottom: none; margin-bottom: 0; }
 	.compound-word { font-size: var(--font-size-headline); font-family: var(--font-cjk); color: var(--accent); margin: 0 0 var(--spacing-xs); font-weight: 600; }
 
+	.reel-back-button {
+		display: none;
+	}
+
 	@media (max-width: 768px) {
 		.reel-header { display: none; }
 
-			.layout {
-				max-width: none;
-				height: 100vh;
-				min-height: 100vh;
+				.layout {
+					--reel-home-clearance: max(54px, calc(env(safe-area-inset-bottom) + 22px));
+					--reel-control-clearance: calc(var(--reel-home-clearance) + 96px);
+					max-width: none;
+					height: 100vh;
+					min-height: 100vh;
 				height: 100dvh;
 				min-height: 100dvh;
 				height: 100svh;
@@ -825,6 +930,24 @@
 				overflow: hidden;
 				background: #000;
 			}
+
+		.reel-back-button {
+			position: fixed;
+			top: calc(env(safe-area-inset-top) + 12px);
+			left: 12px;
+			z-index: 20;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 46px;
+			height: 46px;
+			border: 1px solid rgba(255, 255, 255, 0.16);
+			border-radius: 999px;
+			background: rgba(0, 0, 0, 0.48);
+			color: #fff;
+			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+			backdrop-filter: blur(10px);
+		}
 
 			.main-content,
 			.reel-grid {
@@ -841,14 +964,14 @@
 			position: relative;
 		}
 
-			.video-col {
-				position: absolute;
-				inset: 0;
-				height: 100%;
-				min-height: 100%;
-				align-self: stretch;
-				transform: none;
-			}
+				.video-col {
+					position: absolute;
+					inset: 0 0 var(--reel-home-clearance) 0;
+					height: auto;
+					min-height: 0;
+					align-self: stretch;
+					transform: none;
+				}
 
 		.video-wrapper {
 			width: 100%;
@@ -889,9 +1012,9 @@
 			top: auto;
 			left: 0;
 			right: 0;
-			bottom: calc(env(safe-area-inset-bottom) + 24px);
+			bottom: var(--reel-control-clearance);
 			z-index: 6;
-			height: min(42svh, 360px);
+			height: min(34svh, 300px);
 			padding: 0 16px;
 			pointer-events: none;
 			background: linear-gradient(

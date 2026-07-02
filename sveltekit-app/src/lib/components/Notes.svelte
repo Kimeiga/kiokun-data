@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { dev } from "$app/environment";
 	import { useSession } from "$lib/auth-client";
+	import { onMount } from "svelte";
 	import { marked } from "marked";
 	import DOMPurify from "dompurify";
 	import SectionHeading from "./shared/SectionHeading.svelte";
@@ -42,6 +43,14 @@
 	let fileInput = $state<HTMLInputElement>();
 	let hasAttemptedLoad = $state(false);
 	let isExpanded = $state(false); // Track if the note box is expanded
+	let isNativeRuntime = $state(typeof window !== "undefined" && window.location.protocol === "capacitor:");
+	const localUserId = "local-device";
+	let currentUserId = $derived($session.data?.user?.id ?? (isNativeRuntime ? localUserId : null));
+	let canEditNotes = $derived(Boolean($session.data?.user) || isNativeRuntime);
+
+	onMount(() => {
+		isNativeRuntime = window.location.protocol === "capacitor:";
+	});
 
 	// Configure marked for security
 	marked.setOptions({
@@ -56,7 +65,7 @@
 	}
 
 	async function loadNotes() {
-		if (dev && !$session.data?.user) {
+		if (dev && !isNativeRuntime && !$session.data?.user) {
 			notes = [];
 			myNote = null;
 			otherNotes = [];
@@ -71,8 +80,7 @@
 			notes = await response.json();
 
 			// Separate current user's note from others
-			if ($session.data?.user) {
-				const currentUserId = $session.data.user.id;
+			if (currentUserId) {
 				myNote = notes.find((n) => n.userId === currentUserId) || null;
 				otherNotes = notes.filter((n) => n.userId !== currentUserId);
 			} else {
@@ -169,6 +177,8 @@
 	}
 
 	async function uploadImage(file: File) {
+		if (isNativeRuntime) return null;
+
 		try {
 			uploadingImage = true;
 			error = "";
@@ -220,6 +230,8 @@
 
 	// Handle paste events for image upload
 	function handlePaste(event: ClipboardEvent) {
+		if (isNativeRuntime) return;
+
 		const items = event.clipboardData?.items;
 		if (!items) return;
 
@@ -252,6 +264,7 @@
 	function handleDrop(event: DragEvent) {
 		event.preventDefault();
 		isDragging = false;
+		if (isNativeRuntime) return;
 
 		const files = event.dataTransfer?.files;
 		if (!files || files.length === 0) return;
@@ -268,10 +281,12 @@
 	// Load notes when character changes or session becomes ready
 	$effect(() => {
 		const userId = $session.data?.user?.id;
+		const native = isNativeRuntime;
+		const readyToLoad = native || $session.data !== undefined;
 		// Track character to reload on client-side navigation
 		const currentChar = character;
 
-		if ($session.data !== undefined) {
+		if (readyToLoad) {
 			if (!hasAttemptedLoad || currentChar !== lastCharacter) {
 				// Reset state when navigating to a different word
 				if (currentChar !== lastCharacter) {
@@ -289,9 +304,10 @@
 				loadNotes();
 			} else if (notes.length > 0) {
 				// Session changed after initial load - re-separate notes
-				if (userId) {
-					myNote = notes.find((n) => n.userId === userId) || null;
-					otherNotes = notes.filter((n) => n.userId !== userId);
+				const activeUserId = userId ?? (native ? localUserId : null);
+				if (activeUserId) {
+					myNote = notes.find((n) => n.userId === activeUserId) || null;
+					otherNotes = notes.filter((n) => n.userId !== activeUserId);
 				} else {
 					myNote = null;
 					otherNotes = notes;
@@ -313,7 +329,7 @@
 		<p class="text-text-muted italic my-4">Loading notes...</p>
 	{:else}
 		<!-- Current User's Note -->
-		{#if $session.data?.user}
+		{#if canEditNotes}
 			{#if myNote && !isEditing}
 				<div class="mb-3">
 					<div class="flex justify-between items-center mb-2">
@@ -361,14 +377,16 @@
 									bind:this={fileInput}
 									style="display: none;"
 								/>
-								<button
-									onclick={triggerImageUpload}
-									disabled={uploadingImage}
-									class="image-btn"
-									title="Upload image"
-								>
-									{uploadingImage ? "..." : "📷"}
-								</button>
+								{#if $session.data?.user && !isNativeRuntime}
+									<button
+										onclick={triggerImageUpload}
+										disabled={uploadingImage}
+										class="image-btn"
+										title="Upload image"
+									>
+										{uploadingImage ? "..." : "📷"}
+									</button>
+								{/if}
 								<button onclick={saveNote} disabled={loading || !noteText.trim()} class="save-btn">
 									{loading ? "Saving..." : "Save"}
 								</button>

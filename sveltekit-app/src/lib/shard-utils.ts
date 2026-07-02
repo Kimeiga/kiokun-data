@@ -158,6 +158,10 @@ export function getRawGitHubUrl(word: string): string {
 // Cache for the CORS server port
 let cachedPort: number | null = null;
 
+function isCapacitorRuntime(): boolean {
+  return typeof window !== 'undefined' && window.location.protocol === 'capacitor:';
+}
+
 /**
  * Get the CORS server port by reading from the API endpoint
  * Includes retry logic to handle race conditions during startup
@@ -237,6 +241,10 @@ export async function getLocalUrl(word: string, fetchFn: typeof fetch = fetch): 
  * @returns Full URL to fetch the word's dictionary data
  */
 export async function getDictionaryUrl(word: string, dev: boolean = false, fetchFn: typeof fetch = fetch): Promise<string> {
+  if (!dev && isCapacitorRuntime()) {
+    return `/__kiokun_offline__/dictionary/${encodeURIComponent(word)}.json.deflate`;
+  }
+
   if (dev) {
     return await getLocalUrl(word, fetchFn);
   }

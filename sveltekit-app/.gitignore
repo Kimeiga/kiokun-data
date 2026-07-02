@@ -1,6 +1,7 @@
 .DS_Store
 node_modules
 /build
+/build-capacitor
 /.svelte-kit
 /package
 .env
@@ -15,3 +16,4 @@ wrangler.toml.backup
 
 .env.local
 /static/data-unified/
+/static/assets/databases/*.db

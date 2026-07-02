@@ -1,0 +1,92 @@
+{
+  "花": {
+    "Claude Sonnet 4": "When grass decides to CHANGE into something beautiful, it blooms into a flower - what a HUĀ-ge transformation that makes everyone go \"KA-wow!\"",
+    "Claude Haiku 4.5": "Grass transforms into a beautiful flower — nature's CHANGE-up! HUĀ those petals bloom and KA-pow, spring arrives.",
+    "Gemini 2.5 Flash": "Grass (艹) changes (化) into a",
+    "Gemini 3 Flash": "When grass undergoes a change to become a flower, say",
+    "GPT-4.1 Mini": "ERROR: HTTP Error 429: Too Many Requests",
+    "GPT-4.1 Nano": "ERROR: HTTP Error 429: Too Many Requests",
+    "GPT-5.4 Mini": "ERROR: HTTP Error 429: Too Many Requests"
+  },
+  "遠": {
+    "Claude Sonnet 4": "Walking in long robes makes you move so slowly that even close places seem YUǍN away - you'll never reach your destination, making everything feel ENdlessly distant!",
+    "Claude Haiku 4.5": "Walking in long robes takes forever—you're going FAR, and it's a YAWN-inducing journey. The further you walk in those dragging garments, the more distant you become.",
+    "Gemini 2.5 Flash": "You have to WALK a YUǍN-derfully",
+    "Gemini 3 Flash": "Walking in long robes makes your journey feel ENdless",
+    "GPT-4.1 Mini": "ERROR: HTTP Error 429: Too Many Requests",
+    "GPT-4.1 Nano": "ERROR: HTTP Error 429: Too Many Requests",
+    "GPT-5.4 Mini": "ERROR: HTTP Error 429: Too Many Requests"
+  },
+  "根": {
+    "Claude Sonnet 4": "A tree's tough roots GĒN-erally grow deep underground, and even the most stubborn lumberjack KON-cedes that cutting roots is the hardest part of removing a tree.",
+    "Claude Haiku 4.5": "A tree's stubborn GĒN-ius lies in its roots — they dig in tough and refuse to let go, anchoring everything above ground with KON-crete strength.",
+    "Gemini 2.5 Flash": "A tree (木) needs tough (艮) and",
+    "Gemini 3 Flash": "A tree's root is tough",
+    "GPT-4.1 Mini": "ERROR: HTTP Error 429: Too Many Requests",
+    "GPT-4.1 Nano": "ERROR: HTTP Error 429: Too Many Requests",
+    "GPT-5.4 Mini": "ERROR: HTTP Error 429: Too Many Requests"
+  },
+  "富": {
+    "Claude Sonnet 4": "Under a luxury roof, vast fields stretch endlessly - this landowner is so FÙ-bulously wealthy that abundance flows from every corner of his estate like a FU-ntain of gold.",
+    "Claude Haiku 4.5": "A roof sheltering abundant fields means FÙ-ll pockets of wealth — imagine a rich farmer's bountiful harvest stored safely under one enormous roof.",
+    "Gemini 2.5 Flash": "Under a ROOF, a FIELD that's",
+    "Gemini 3 Flash": "Under this roof, you have a jar",
+    "GPT-4.1 Mini": "ERROR: HTTP Error 429: Too Many Requests",
+    "GPT-4.1 Nano": "ERROR: HTTP Error 429: Too Many Requests",
+    "GPT-5.4 Mini": "ERROR: HTTP Error 429: Too Many Requests"
+  },
+  "印": {
+    "Claude Sonnet 4": "A claw grips a kneeling person, pressing them down like a stamp - leaving an YÌN-delible mark that's permanently printed IN their memory.",
+    "Claude Haiku 4.5": "A kneeling person's claw grips the seal—IN-PRINT it into your memory! The stamp's grip makes an impression, just like the character's meaning.",
+    "Gemini 2.5 Flash": "A kneeling person uses a claw to press down and ",
+    "Gemini 3 Flash": "Press a claw-like stamp INto the back of",
+    "GPT-4.1 Mini": "ERROR: HTTP Error 429: Too Many Requests",
+    "GPT-4.1 Nano": "ERROR: HTTP Error 429: Too Many Requests",
+    "GPT-5.4 Mini": "ERROR: HTTP Error 429: Too Many Requests"
+  },
+  "忘": {
+    "Claude Sonnet 4": "When your heart dies, you WÀNG-der aimlessly through life, forgetting everything that once mattered - it's like your memory went BŌNK and disappeared forever.",
+    "Claude Haiku 4.5": "Your heart dies and vanishes when you WÀNG (forget) — lose your mind and you lose your memories. Dead heart, gone thoughts.",
+    "Gemini 2.5 Flash": "When your heart has died (亡), you WÀNG",
+    "Gemini 3 Flash": "When your heart perishes, your memories WÀ",
+    "GPT-4.1 Mini": "ERROR: HTTP Error 429: Too Many Requests",
+    "GPT-4.1 Nano": "ERROR: HTTP Error 429: Too Many Requests",
+    "GPT-5.4 Mini": "ERROR: HTTP Error 429: Too Many Requests"
+  },
+  "海": {
+    "Claude Sonnet 4": "Water everywhere you look - that's the HAI-larious reality of the ocean, where KAI-otic waves stretch to every horizon.",
+    "Claude Haiku 4.5": "Every drop of water in the sea is HǍI-ly important — that's a lot of ocean! Picture waves crashing everywhere, because the sea touches every shore.",
+    "Gemini 2.5 Flash": "For every bit of water, the H",
+    "Gemini 3 Flash": "Every single drop of water flows to the sea, where you say HAI to the waves",
+    "GPT-4.1 Mini": "ERROR: HTTP Error 429: Too Many Requests",
+    "GPT-4.1 Nano": "ERROR: HTTP Error 429: Too Many Requests",
+    "GPT-5.4 Mini": "ERROR: HTTP Error 429: Too Many Requests"
+  },
+  "森": {
+    "Claude Sonnet 4": "Three trees standing together create a SĒN-sational forest where you can SHIN-e a light through the dense canopy. When trees triple up, they make a woodland so thick it's almost SIN-ister!",
+    "Claude Haiku 4.5": "Three trees standing together make a SĒN-sational forest — nature's crowd of green giants all huddled up for support.",
+    "Gemini 2.5 Flash": "Three trees standing together form a SĒN-sational forest, so vast and SHIN-y green.",
+    "Gemini 3 Flash": "Three trees stand together in a SĒN-s",
+    "GPT-4.1 Mini": "ERROR: HTTP Error 429: Too Many Requests",
+    "GPT-4.1 Nano": "ERROR: HTTP Error 429: Too Many Requests",
+    "GPT-5.4 Mini": "ERROR: HTTP Error 429: Too Many Requests"
+  },
+  "明": {
+    "Claude Sonnet 4": "When the sun and moon appear together in the sky, it's a MÍNG-nificent sight that's crystal clear and MEI-steriously bright!",
+    "Claude Haiku 4.5": "Sun and moon together make things MÍNG-ificently bright and clear — when both heavenly bodies shine, nothing stays hidden or unclear.",
+    "Gemini 2.5 Flash": "The sun and moon together create a BRIGHT, MÍ",
+    "Gemini 3 Flash": "When the sun and moon MÍNG",
+    "GPT-4.1 Mini": "ERROR: HTTP Error 429: Too Many Requests",
+    "GPT-4.1 Nano": "ERROR: HTTP Error 429: Too Many Requests",
+    "GPT-5.4 Mini": "ERROR: HTTP Error 429: Too Many Requests"
+  },
+  "安": {
+    "Claude Sonnet 4": "A woman under a roof feels ĀN-xiety free and safe - she's found her peaceful haven where she can finally relax.",
+    "Claude Haiku 4.5": "A woman under a roof feels safe and secure — that's the ĀN-swer to peace.",
+    "Gemini 2.5 Flash": "A woman under a roof feels ĀN-xiety free and safe, finding peace in her home.",
+    "Gemini 3 Flash": "A woman under a roof feels safe and peaceful",
+    "GPT-4.1 Mini": "ERROR: HTTP Error 429: Too Many Requests",
+    "GPT-4.1 Nano": "ERROR: HTTP Error 429: Too Many Requests",
+    "GPT-5.4 Mini": "ERROR: HTTP Error 429: Too Many Requests"
+  }
+}

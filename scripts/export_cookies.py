@@ -1,0 +1,186 @@
+#!/usr/bin/env python3
+"""
+Export YouTube cookies from your browser's cookie database.
+Works with Chrome, Brave, Edge on macOS.
+"""
+
+import os
+import sqlite3
+import json
+from pathlib import Path
+import shutil
+import subprocess
+import base64
+from Crypto.Cipher import AES
+from Crypto.Protocol.KDF import PBKDF2
+
+def get_chrome_encryption_key():
+    """Get Chrome's encryption key from macOS Keychain."""
+    try:
+        # Get the encryption key from macOS Keychain
+        command = ['security', 'find-generic-password', '-w', '-s', 'Chrome Safe Storage', '-a', 'Chrome']
+        result = subprocess.run(command, capture_output=True, text=True)
+
+        if result.returncode != 0:
+            print("❌ Could not retrieve Chrome encryption key from Keychain")
+            return None
+
+        # The key is base64 encoded
+        safe_storage_key = result.stdout.strip()
+
+        # Derive the encryption key using PBKDF2
+        salt = b'saltysalt'
+        iterations = 1003
+        key_length = 16
+
+        encryption_key = PBKDF2(safe_storage_key, salt, key_length, iterations)
+        return encryption_key
+
+    except Exception as e:
+        print(f"❌ Error getting encryption key: {e}")
+        return None
+
+def decrypt_chrome_cookie(encrypted_value, encryption_key):
+    """Decrypt Chrome cookie value."""
+    try:
+        # Chrome cookies are encrypted with AES-128-CBC
+        # The encrypted value starts with 'v10' or 'v11' prefix
+        if encrypted_value[:3] == b'v10' or encrypted_value[:3] == b'v11':
+            encrypted_value = encrypted_value[3:]  # Remove version prefix
+
+        # Extract IV (first 16 bytes) and encrypted data
+        iv = b' ' * 16  # Chrome uses 16 spaces as IV
+        cipher = AES.new(encryption_key, AES.MODE_CBC, iv)
+
+        # Decrypt and remove padding
+        decrypted = cipher.decrypt(encrypted_value)
+
+        # Remove PKCS7 padding
+        padding_length = decrypted[-1]
+        decrypted = decrypted[:-padding_length]
+
+        return decrypted.decode('utf-8')
+    except Exception as e:
+        print(f"⚠️  Could not decrypt cookie: {e}")
+        return ""
+
+def find_chrome_cookies():
+    """Find Chrome/Brave/Edge cookie database on macOS."""
+    possible_paths = [
+        Path.home() / "Library/Application Support/Google/Chrome/Default/Cookies",
+        Path.home() / "Library/Application Support/BraveSoftware/Brave-Browser/Default/Cookies",
+        Path.home() / "Library/Application Support/Microsoft Edge/Default/Cookies",
+    ]
+
+    for path in possible_paths:
+        if path.exists():
+            return path
+
+    return None
+
+def export_youtube_cookies():
+    """Export YouTube cookies to Netscape format."""
+
+    # Find cookie database
+    cookie_db = find_chrome_cookies()
+    if not cookie_db:
+        print("❌ Could not find Chrome/Brave/Edge cookie database")
+        print("📝 Please use the browser extension method instead:")
+        print("   https://chromewebstore.google.com/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc")
+        return False
+
+    print(f"✅ Found cookie database: {cookie_db}")
+
+    # Copy database to temp location (can't read while browser is open)
+    temp_db = Path("/tmp/cookies_temp.db")
+    try:
+        shutil.copy2(cookie_db, temp_db)
+    except Exception as e:
+        print(f"❌ Could not copy cookie database: {e}")
+        print("💡 Close your browser and try again, or use the extension method")
+        return False
+
+    # Get encryption key
+    print("🔑 Getting Chrome encryption key from Keychain...")
+    encryption_key = get_chrome_encryption_key()
+    if not encryption_key:
+        print("❌ Could not get encryption key")
+        print("💡 Please use the browser extension method instead:")
+        print("   https://chromewebstore.google.com/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc")
+        temp_db.unlink()
+        return False
+
+    # Read cookies from database
+    try:
+        conn = sqlite3.connect(temp_db)
+        cursor = conn.cursor()
+
+        # Query YouTube cookies - get encrypted_value instead of value
+        cursor.execute("""
+            SELECT host_key, name, encrypted_value, path, expires_utc, is_secure, is_httponly
+            FROM cookies
+            WHERE host_key LIKE '%youtube.com%' OR host_key LIKE '%google.com%'
+        """)
+
+        cookies = cursor.fetchall()
+        conn.close()
+
+        if not cookies:
+            print("❌ No YouTube cookies found")
+            print("💡 Make sure you're logged into YouTube in your browser")
+            return False
+
+        print(f"✅ Found {len(cookies)} YouTube cookies")
+        print("🔓 Decrypting cookies...")
+
+        # Write to Netscape format
+        output_path = Path(__file__).parent / "cookies.txt"
+        decrypted_count = 0
+
+        with open(output_path, 'w') as f:
+            f.write("# Netscape HTTP Cookie File\n")
+            f.write("# This file was generated by export_cookies.py\n")
+            f.write("\n")
+
+            for host, name, encrypted_value, path, expires, is_secure, is_httponly in cookies:
+                # Decrypt the cookie value
+                value = decrypt_chrome_cookie(encrypted_value, encryption_key)
+
+                if value:  # Only write cookies that were successfully decrypted
+                    decrypted_count += 1
+                    # Netscape format: domain flag path secure expiration name value
+                    domain = host if host.startswith('.') else f'.{host}'
+                    flag = 'TRUE'
+                    secure = 'TRUE' if is_secure else 'FALSE'
+                    expiration = expires if expires else '0'
+
+                    f.write(f"{domain}\t{flag}\t{path}\t{secure}\t{expiration}\t{name}\t{value}\n")
+
+        print(f"✅ Successfully decrypted {decrypted_count}/{len(cookies)} cookies")
+        print(f"✅ Cookies exported to: {output_path}")
+        print("\n🎉 Success! You can now run the automation script!")
+
+        # Clean up
+        temp_db.unlink()
+        return True
+
+    except Exception as e:
+        print(f"❌ Error reading cookies: {e}")
+        if temp_db.exists():
+            temp_db.unlink()
+        return False
+
+if __name__ == "__main__":
+    print("🍪 YouTube Cookie Exporter\n")
+    print("=" * 60)
+
+    success = export_youtube_cookies()
+
+    if not success:
+        print("\n" + "=" * 60)
+        print("📝 Alternative: Use Browser Extension")
+        print("=" * 60)
+        print("1. Install: https://chromewebstore.google.com/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc")
+        print("2. Go to YouTube.com (logged in)")
+        print("3. Click extension → Export")
+        print("4. Save to: scripts/cookies.txt")

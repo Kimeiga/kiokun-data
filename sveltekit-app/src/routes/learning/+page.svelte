@@ -124,5 +124,21 @@
 				</a>
 			</div>
 		</section>
+
+		<section>
+			<h2 class="text-2xl font-bold mb-4 text-text-primary">📓 Behind the scenes</h2>
+			<a href="/blog" class="block p-6 bg-bg-secondary border border-border rounded-lg hover:shadow-lg transition-shadow">
+				<div class="flex items-start gap-4">
+					<div class="text-4xl">📓</div>
+					<div class="flex-1">
+						<h3 class="text-xl font-bold mb-2 text-text-primary">The Kiokun Notebook</h3>
+						<p class="text-text-secondary">
+							The engineering blog — how Kiokun's cross-CJK dictionary data is built,
+							sharded and served, with diagrams throughout.
+						</p>
+					</div>
+				</div>
+			</a>
+		</section>
 	</div>
 </div>

@@ -13,6 +13,7 @@
 	let heroSearchInput: HTMLInputElement;
 	let heroSearchValue = $state('');
 	let handwritingOpen = $state(false);
+	let isNativeRuntime = $state(typeof window !== 'undefined' && window.location.protocol === 'capacitor:');
 
 	function handleHandwritingSelect(char: string) {
 		heroSearchValue += char;
@@ -54,7 +55,8 @@
 
 	// Programmatic focus to ensure it works on mobile browsers
 	onMount(() => {
-		if (heroSearchInput) {
+		isNativeRuntime = window.location.protocol === 'capacitor:';
+		if (!isNativeRuntime && heroSearchInput) {
 			// Small delay helps mobile browsers honor the focus
 			setTimeout(() => heroSearchInput.focus(), 100);
 		}
@@ -260,7 +262,7 @@
 					bind:value={heroSearchValue}
 					bind:this={heroSearchInput}
 					onkeydown={handleHeroSearch}
-					autofocus
+					autofocus={!isNativeRuntime}
 				/>
 				<div class="hero-search-actions">
 					<button
@@ -293,16 +295,20 @@
 			<div class="daily-row">
 				{#if cotdChar}
 					<a href="/{cotdChar}" class="daily-card">
-						<span class="daily-label">Character of the Day</span>
+						<span class="daily-text">
+							<span class="daily-label">Character of the Day</span>
+							{#if cotdGloss}<span class="daily-gloss">{cotdGloss}</span>{/if}
+						</span>
 						<span class="daily-main">{cotdChar}</span>
-						{#if cotdGloss}<span class="daily-gloss">{cotdGloss}</span>{/if}
 					</a>
 				{/if}
 				{#if wotdWord}
 					<a href="/{wotdWord}" class="daily-card">
-						<span class="daily-label">Word of the Day</span>
+						<span class="daily-text">
+							<span class="daily-label">Word of the Day</span>
+							{#if wotdGloss}<span class="daily-gloss">{wotdGloss}</span>{/if}
+						</span>
 						<span class="daily-main daily-word">{wotdWord}</span>
-						{#if wotdGloss}<span class="daily-gloss">{wotdGloss}</span>{/if}
 					</a>
 				{/if}
 			</div>
@@ -591,18 +597,24 @@
 	}
 	.daily-card {
 		display: flex;
-		flex-direction: column;
+		flex-direction: row;
 		align-items: center;
-		gap: 6px;
-		padding: 20px 16px;
+		justify-content: space-between;
+		gap: 12px;
+		padding: 12px 18px;
 		background: var(--bg-secondary);
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-lg, 12px);
 		text-decoration: none;
 		transition: border-color 0.15s;
-		text-align: center;
 	}
 	.daily-card:hover { border-color: var(--accent); }
+	.daily-text {
+		display: flex;
+		flex-direction: column;
+		gap: 3px;
+		min-width: 0;
+	}
 	.daily-label {
 		font-size: 11px;
 		text-transform: uppercase;
@@ -611,14 +623,15 @@
 		font-weight: 600;
 	}
 	.daily-main {
-		font-size: 52px;
+		font-size: 36px;
 		font-family: var(--font-cjk);
 		color: var(--text-primary);
 		line-height: 1;
+		flex-shrink: 0;
 	}
-	.daily-word { font-size: 36px; }
+	.daily-word { font-size: 28px; }
 	.daily-gloss {
-		font-size: var(--font-size-body);
+		font-size: var(--font-size-callout);
 		color: var(--text-secondary);
 		text-transform: capitalize;
 	}

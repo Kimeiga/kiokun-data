@@ -51,6 +51,10 @@ export interface BakeoffCharacter {
 	character: string;
 	meaning: string;
 	components: Array<{ character: string; gloss: string }>;
+	visual_components?: Array<{ character: string; gloss: string }>;
+	component_source?: string;
+	historical_components?: Array<{ character: string; gloss: string }>;
+	historical_component_source?: string;
 	gold_equation?: string;
 	gold_mnemonic?: string;
 }

@@ -49,6 +49,10 @@
 		|| (zhSentencesHaveContent && languageStore.preferences.chinese)
 		|| (krSentencesHaveContent && languageStore.preferences.korean)
 	);
+	let showChineseWords = $derived(!!data.data.chinese_words?.length && languageStore.preferences.chinese);
+	let showJapaneseWords = $derived(!!data.data.japanese_words?.length && languageStore.preferences.japanese);
+	let showKoreanWords = $derived(!!data.data.korean_words?.length && languageStore.preferences.korean);
+	let twoPrimaryWordColumns = $derived(showChineseWords && showJapaneseWords);
 	let containsWordForms = $derived.by(() => buildContainsWordForms(data.data, data.word));
 	let sortedContainsWords = $derived.by(() => sortContainsWords(data.data.contains || [], data.word));
 
@@ -1743,13 +1747,13 @@
 		{/if}
 
 		<!-- Chinese, Japanese, and Korean Words -->
-		{#if (data.data.chinese_words?.length && languageStore.preferences.chinese) || (data.data.japanese_words?.length && languageStore.preferences.japanese) || (data.data.korean_words?.length && languageStore.preferences.korean)}
+		{#if showChineseWords || showJapaneseWords || showKoreanWords}
 			<!-- svelte-ignore a11y_click_events_have_key_events -->
 			<!-- svelte-ignore a11y_no_static_element_interactions -->
-			<div class="word-sections-grid study-hide" onclick={handleStudyClick}>
+			<div class="word-sections-grid study-hide" class:two-primary-word-grid={twoPrimaryWordColumns} onclick={handleStudyClick}>
 				<!-- Chinese Words -->
 				{#if data.data.chinese_words?.length && languageStore.preferences.chinese}
-					<div>
+					<div class="word-section-chinese">
 						<SectionHeading id="chinese">Chinese</SectionHeading>
 						<div class="mb-4">
 							{#each data.data.chinese_words as word}
@@ -1808,7 +1812,7 @@
 
 				<!-- Japanese Words -->
 				{#if data.data.japanese_words?.length && languageStore.preferences.japanese}
-					<div>
+					<div class="word-section-japanese">
 						<SectionHeading id="japanese">Japanese</SectionHeading>
 						<div class="mb-4" lang="ja">
 							<WordTable
@@ -1821,7 +1825,7 @@
 
 				<!-- Korean Words -->
 				{#if data.data.korean_words?.length && languageStore.preferences.korean}
-					<div lang="ko">
+					<div class="word-section-korean" lang="ko">
 						<SectionHeading id="korean">Korean</SectionHeading>
 						<div class="mb-4">
 							{#each data.data.korean_words as word}
@@ -2003,6 +2007,15 @@
 		.word-sections-grid {
 			grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 			gap: var(--spacing-lg);
+		}
+
+		.word-sections-grid.two-primary-word-grid {
+			grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+			align-items: start;
+		}
+
+		.word-sections-grid.two-primary-word-grid .word-section-korean {
+			grid-column: 1 / -1;
 		}
 	}
 

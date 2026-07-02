@@ -4,6 +4,9 @@
 
 /* ===== DESIGN TOKENS ===== */
 :root {
+	--kiokun-safe-area-top: 0px;
+	--kiokun-safe-area-bottom: 0px;
+
 	/* ── Radius tokens ── */
 	--radius-sm: 6px;
 	--radius-md: 10px;
@@ -219,6 +222,17 @@ body {
 	transition: background-color 0.2s ease, color 0.2s ease;
 }
 
+html.capacitor-native {
+	--kiokun-safe-area-top: env(safe-area-inset-top, 0px);
+	--kiokun-safe-area-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+html.capacitor-native body {
+	min-height: 100vh;
+	min-height: 100dvh;
+	padding-bottom: var(--kiokun-safe-area-bottom);
+}
+
 /* Global focus-visible for keyboard accessibility */
 *:focus-visible {
 	outline: 2px solid var(--accent);
@@ -260,4 +274,3 @@ body {
 		font-size: 16px !important;
 	}
 }
-

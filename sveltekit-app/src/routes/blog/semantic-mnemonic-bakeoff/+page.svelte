@@ -62,54 +62,59 @@
 
 	const modelNotes: Record<string, { tag: string; note: string }> = {
 		'gemini-3.5-flash': {
-			tag: 'Fastest clean top tier',
+			tag: 'Strong, batch-sensitive',
 			note:
-				'Finished all 22 cards with zero validator problems in 33s. It did not win the combined score, but it was the fastest fully-valid top-tier run.'
+				'Scored well and stayed fast, but the 8-card benchmark batch had one strict component miss. A smaller-batch follow-up passed cleanly, so batch size matters.'
+		},
+		'gemini-3-pro-preview': {
+			tag: 'Unavailable',
+			note:
+				'The configured preview model ID returned 404 in this run, so it was not part of the quality comparison.'
 		},
 		'gemini-3-flash-preview': {
-			tag: 'Clean but slow',
+			tag: 'JSON failure',
 			note:
-				'Also produced 22/22 valid cards, but took about 134s on this benchmark, much slower than Gemini 3.5 Flash.'
+				'Started producing useful-looking cards, then broke the JSON contract. In a batch pipeline, that makes the run unusable without retry logic.'
 		},
 		'gemini-2.5-flash': {
-			tag: 'Broke on scale',
+			tag: 'Fastest clean run',
 			note:
-				'Looked fine on the two-card smoke test, but dropped to 14/22 valid here, mostly from equation/format drift on harder cards.'
+				'Finished the corrected 22-character run with zero validator problems and the fastest clean elapsed time, though its prose score trailed the leaders.'
 		},
 		'gemini-3.1-pro-preview': {
-			tag: 'Slow and uneven',
+			tag: 'Top corrected score',
 			note:
-				'Returned some strong cards, but only covered 19/22 validly and took about 134s. The wider set exposed format/coverage failures.'
+				'Won the corrected benchmark and passed all strict checks, but was slower than the Flash models and sits in a less practical tier for bulk generation.'
 		},
 		'gemini-3.1-flash-lite': {
 			tag: 'Fast but leaky',
 			note:
-				'Very fast at about 9s, but only 14/22 cards passed the strict component/gloss validator.'
+				'Very fast, but missed required component/gloss mentions often enough that it is not a safe default for mnemonic cards.'
 		},
 		'gemini-2.5-flash-lite': {
-			tag: 'Too brittle',
+			tag: 'Parser-clean, card-brittle',
 			note:
-				'Attractive latency, but it dropped required character/gloss mentions. For mnemonic cards, missing a component is a real failure.'
+				'Returned parseable card objects, but failed the strict mnemonic contract across the benchmark.'
 		},
 		'gemini-2.5-pro': {
-			tag: 'Best fully-valid score',
+			tag: 'Clean and strong',
 			note:
-				'Produced 22/22 valid cards and the best score among zero-problem models, though slower than Gemini 3.5 Flash.'
+				'Produced a zero-problem run with a high score. It remains a quality contender when cost and latency are less important.'
 		},
 		'claude-sonnet-5': {
-			tag: 'Highest combined score',
+			tag: 'High prose score',
 			note:
-				'Won the combined automated score. It missed one strict component mention on 稲, but its sentences scored well stylistically.'
+				'Scored near the top and tends to write good sentences, but missed one strict component mention in the corrected benchmark.'
 		},
 		'claude-opus-4-8': {
-			tag: 'Strong, one miss',
+			tag: 'Clean and concise',
 			note:
-				'Scored near the top and finished faster than Sonnet, but missed one required component mention on 真.'
+				'Passed all strict checks with a strong score and good elapsed time for a frontier model.'
 		},
 		'claude-haiku-4-5-20251001': {
-			tag: 'Wrong contract',
+			tag: 'Wrong card grammar',
 			note:
-				'Fast, but failed the strict output grammar across the benchmark. It did not preserve the equation/component format.'
+				'Fast and parseable, but it did not preserve the required equation/component grammar.'
 		},
 		'gemma-4-31b-it': {
 			tag: 'Format failure',
@@ -170,8 +175,14 @@
 		return provider;
 	}
 
+	function componentsText(components: Array<{ character: string; gloss: string }> | undefined): string {
+		return (components ?? [])
+			.map((component) => `${component.character} ${component.gloss}`)
+			.join(' + ');
+	}
+
 	function equationFor(item: BakeoffCharacter): string {
-		return `${item.components.map((component) => `${component.character} ${component.gloss}`).join(' + ')} = ${item.character} ${item.meaning}`;
+		return `${componentsText(item.components)} = ${item.character} ${item.meaning}`;
 	}
 
 	function outputFor(result: ModelResult, character: string): MnemonicOutput | undefined {
@@ -262,6 +273,13 @@
 				<code>憲</code>, awkward component data like <code>真</code> and <code>会</code>,
 				and the Japanese/traditional pair <code>稲</code>/<code>稻</code>.
 			</p>
+			<p>
+				The current data separates the visual decomposition used for the mnemonic from
+				historical or phonosemantic component notes. For example, <code>愛</code> is judged
+				from visible parts like <code>爫</code>, <code>冖</code>, <code>心</code>, and
+				<code>夂</code>; older dictionary analysis can still be shown separately when it
+				differs.
+			</p>
 
 			<div class="summary-strip" aria-label="Mnemonic bakeoff summary">
 				<div>
@@ -301,6 +319,12 @@
 							<span>{item.meaning}</span>
 						</div>
 						<p class="equation">{item.gold_equation ?? equationFor(item)}</p>
+						{#if item.historical_components?.length}
+							<p class="historical">
+								<span>historical</span>
+								{componentsText(item.historical_components)}
+							</p>
+						{/if}
 						{#if item.gold_mnemonic}
 							<p class="gold">{item.gold_mnemonic}</p>
 						{/if}
@@ -320,11 +344,12 @@
 		<Reveal as="section">
 			<h2><span class="num">II</span> The decision</h2>
 			<p>
-				The wider run changed the conclusion. <b>Claude Sonnet 5</b> had the highest
-				combined automated score, but missed one strict component mention. <b>Gemini 2.5
-				Pro</b> had the best score among zero-problem runs. <b>Gemini 3.5 Flash</b> was
-				the fastest zero-problem top-tier run and stayed close enough to the leaders to
-				remain the practical bulk-generation default.
+				The corrected visual-decomposition run made the conclusion more nuanced.
+				<b>Gemini 3.1 Pro Preview</b> had the highest combined score and passed every
+				strict check. <b>Gemini 2.5 Flash</b> was the fastest zero-problem run.
+				<b>Gemini 3.5 Flash</b> stayed close, but its 8-card batch had one strict miss,
+				so bulk generation should use smaller batches if we keep it as the practical
+				default.
 			</p>
 			<p class="decision">
 				<b>Best score:</b> {bestResult?.name ?? '—'} ({formatScore(bestResult?.score)}).
@@ -346,17 +371,17 @@
 				<div>
 					<h3>Bigger was not automatically cleaner</h3>
 					<p>
-						Gemini 2.5 Pro was excellent here, but Gemini 3.1 Pro Preview was slow and
-						uneven. The important skill was not model size by itself; it was obedience to
-						a narrow card grammar.
+						Gemini 3.1 Pro Preview won this corrected run, but Gemini 2.5 Flash was
+						faster and still clean. The important skill was not model size by itself; it
+						was obedience to a narrow card grammar.
 					</p>
 				</div>
 				<div>
 					<h3>The best prose was not always the best card</h3>
 					<p>
-						Claude Sonnet often wrote the strongest sentence, while Gemini 3.5 Flash was
-						faster and perfectly validator-clean. For production, that is a real tradeoff,
-						not a single obvious winner.
+						Claude Sonnet often wrote strong sentences, while the Gemini Flash models
+						were faster. For production, that is a real tradeoff, not a single obvious
+						winner.
 					</p>
 				</div>
 			</div>
@@ -473,6 +498,16 @@
 									{@const validation = validationFor(result, item.character)}
 									<div class="output-block">
 										<h4>{item.character} <span>{item.meaning}</span></h4>
+										<p class="input-components">
+											<span>visual input</span>
+											{componentsText(item.components)}
+										</p>
+										{#if item.historical_components?.length}
+											<p class="input-components muted">
+												<span>historical</span>
+												{componentsText(item.historical_components)}
+											</p>
+										{/if}
 										{#if output}
 											<p class="equation">{output.equation}</p>
 											<p class="mnemonic">{output.mnemonic}</p>
@@ -732,6 +767,28 @@
 		font-size: 0.9rem !important;
 		line-height: 1.55 !important;
 		color: var(--shu) !important;
+	}
+	.historical,
+	.input-components {
+		margin-bottom: 0.55rem;
+		font-family: var(--mono);
+		font-size: 0.78rem !important;
+		line-height: 1.5 !important;
+		color: var(--ink-faint) !important;
+	}
+	.historical span,
+	.input-components span {
+		display: inline-block;
+		margin-right: 0.45rem;
+		font-family: var(--label);
+		font-size: 0.68rem;
+		font-weight: 600;
+		letter-spacing: 0.11em;
+		text-transform: uppercase;
+		color: var(--shu);
+	}
+	.input-components.muted span {
+		color: var(--ink-faint);
 	}
 	.gold,
 	.mnemonic {

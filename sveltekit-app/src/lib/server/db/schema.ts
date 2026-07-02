@@ -267,3 +267,18 @@ export const sentenceWords = sqliteTable("sentence_words", {
 	conjugation: text("conjugation"), // Conjugation form label (e.g., 連用形, 未然形)
 	createdAt: integer("createdAt", { mode: "timestamp" }).notNull(),
 });
+
+// Mobile/offline sync tombstones.
+// Rows deleted from the primary tables need a durable marker so other clients
+// can pull and apply the deletion after they come back online.
+export const syncTombstones = sqliteTable("sync_tombstones", {
+	id: text("id").primaryKey(),
+	userId: text("userId")
+		.notNull()
+		.references(() => user.id, { onDelete: "cascade" }),
+	entity: text("entity").notNull(),
+	entityId: text("entityId").notNull(),
+	deletedAt: integer("deletedAt", { mode: "timestamp" }).notNull(),
+}, (table) => ({
+	userEntityUnique: unique().on(table.userId, table.entity, table.entityId),
+}));

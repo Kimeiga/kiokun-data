@@ -1,0 +1,877 @@
+{
+  "created_at": "2026-07-01T23:13:39.233742+00:00",
+  "prompt_note": "Fair semantic-only prompt. The exact user-provided 連/憂 answer examples were not included in the model prompt.",
+  "characters": [
+    {
+      "character": "連",
+      "meaning": "connect",
+      "components": [
+        {
+          "character": "辶",
+          "gloss": "movement"
+        },
+        {
+          "character": "車",
+          "gloss": "vehicle"
+        }
+      ],
+      "gold_equation": "辶 movement + 車 vehicle = 連 connect",
+      "gold_mnemonic": "A 車 vehicle drives on a 辶 movement road, creating 連 connect between places."
+    },
+    {
+      "character": "憂",
+      "meaning": "worry",
+      "components": [
+        {
+          "character": "頁",
+          "gloss": "head"
+        },
+        {
+          "character": "心",
+          "gloss": "heart"
+        },
+        {
+          "character": "夂",
+          "gloss": "walk"
+        }
+      ],
+      "gold_equation": "頁 head + 心 heart + 夂 walk = 憂 worry",
+      "gold_mnemonic": "A 頁 head heavy with thoughts and a 心 heart follow every 夂 walk, forming 憂 worry."
+    }
+  ],
+  "results": [
+    {
+      "name": "Gemini 3.5 Flash",
+      "provider": "google",
+      "model": "gemini-3.5-flash",
+      "started_at": "2026-07-01T23:09:22.506211+00:00",
+      "ok": true,
+      "elapsed_seconds": 4.44,
+      "score": 8.758,
+      "outputs": [
+        {
+          "character": "連",
+          "meaning": "connect",
+          "equation": "辶 movement + 車 vehicle = 連 connect",
+          "mnemonic": "A 車 vehicle drives on a 辶 movement road, creating 連 connect between places.",
+          "hero_image_prompt": "A stylized vehicle driving along a winding road, leaving a glowing trail that connects two distant cities, minimalist vector art."
+        },
+        {
+          "character": "憂",
+          "meaning": "worry",
+          "equation": "頁 head + 心 heart + 夂 walk = 憂 worry",
+          "mnemonic": "A 頁 head heavy with thoughts and a 心 heart follow every 夂 walk, forming 憂 worry.",
+          "hero_image_prompt": "A person walking with a heavy head and a glowing, anxious heart, casting a long shadow, minimalist and expressive illustration."
+        }
+      ],
+      "validations": [
+        {
+          "problems": [],
+          "valid": true,
+          "heuristic_score": 10.0,
+          "style_score": 6.3,
+          "combined_score": 8.705,
+          "card": {
+            "character": "連",
+            "meaning": "connect",
+            "equation": "辶 movement + 車 vehicle = 連 connect",
+            "mnemonic": "A 車 vehicle drives on a 辶 movement road, creating 連 connect between places.",
+            "hero_image_prompt": "A stylized vehicle driving along a winding road, leaving a glowing trail that connects two distant cities, minimalist vector art."
+          }
+        },
+        {
+          "problems": [],
+          "valid": true,
+          "heuristic_score": 10.0,
+          "style_score": 6.6,
+          "combined_score": 8.809999999999999,
+          "card": {
+            "character": "憂",
+            "meaning": "worry",
+            "equation": "頁 head + 心 heart + 夂 walk = 憂 worry",
+            "mnemonic": "A 頁 head heavy with thoughts and a 心 heart follow every 夂 walk, forming 憂 worry.",
+            "hero_image_prompt": "A person walking with a heavy head and a glowing, anxious heart, casting a long shadow, minimalist and expressive illustration."
+          }
+        }
+      ],
+      "meta": {
+        "usage": {
+          "promptTokenCount": 593,
+          "candidatesTokenCount": 201,
+          "totalTokenCount": 1407,
+          "promptTokensDetails": [
+            {
+              "modality": "TEXT",
+              "tokenCount": 593
+            }
+          ],
+          "thoughtsTokenCount": 613,
+          "serviceTier": "standard"
+        },
+        "finish_reason": "STOP"
+      }
+    },
+    {
+      "name": "Gemini 3 Pro Preview",
+      "provider": "google",
+      "model": "gemini-3-pro-preview",
+      "started_at": "2026-07-01T23:09:27.448314+00:00",
+      "ok": false,
+      "elapsed_seconds": 0.19,
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "name": "Gemini 3.1 Pro Preview",
+      "provider": "google",
+      "model": "gemini-3.1-pro-preview",
+      "started_at": "2026-07-01T23:09:28.149622+00:00",
+      "ok": true,
+      "elapsed_seconds": 6.78,
+      "score": 8.705,
+      "outputs": [
+        {
+          "character": "連",
+          "meaning": "connect",
+          "equation": "辶 movement + 車 vehicle = 連 connect",
+          "mnemonic": "The steady 辶 movement of a transport 車 vehicle serves to 連 connect two distant cities.",
+          "hero_image_prompt": "A transport vehicle driving along a winding road connecting two distant cities in a stylized landscape."
+        },
+        {
+          "character": "憂",
+          "meaning": "worry",
+          "equation": "頁 head + 心 heart + 夂 walk = 憂 worry",
+          "mnemonic": "With a bowed 頁 head and a heavy 心 heart, a slow 夂 walk through the dark woods brings about deep 憂 worry.",
+          "hero_image_prompt": "A silhouette of a person walking slowly with a bowed head and a glowing heavy heart through a dark, misty forest."
+        }
+      ],
+      "validations": [
+        {
+          "problems": [],
+          "valid": true,
+          "heuristic_score": 10.0,
+          "style_score": 6.3,
+          "combined_score": 8.705,
+          "card": {
+            "character": "連",
+            "meaning": "connect",
+            "equation": "辶 movement + 車 vehicle = 連 connect",
+            "mnemonic": "The steady 辶 movement of a transport 車 vehicle serves to 連 connect two distant cities.",
+            "hero_image_prompt": "A transport vehicle driving along a winding road connecting two distant cities in a stylized landscape."
+          }
+        },
+        {
+          "problems": [],
+          "valid": true,
+          "heuristic_score": 10.0,
+          "style_score": 6.3,
+          "combined_score": 8.705,
+          "card": {
+            "character": "憂",
+            "meaning": "worry",
+            "equation": "頁 head + 心 heart + 夂 walk = 憂 worry",
+            "mnemonic": "With a bowed 頁 head and a heavy 心 heart, a slow 夂 walk through the dark woods brings about deep 憂 worry.",
+            "hero_image_prompt": "A silhouette of a person walking slowly with a bowed head and a glowing heavy heart through a dark, misty forest."
+          }
+        }
+      ],
+      "meta": {
+        "usage": {
+          "promptTokenCount": 593,
+          "candidatesTokenCount": 201,
+          "totalTokenCount": 1356,
+          "promptTokensDetails": [
+            {
+              "modality": "TEXT",
+              "tokenCount": 593
+            }
+          ],
+          "thoughtsTokenCount": 562,
+          "serviceTier": "standard"
+        },
+        "finish_reason": "STOP"
+      }
+    },
+    {
+      "name": "Gemini 3 Flash Preview",
+      "provider": "google",
+      "model": "gemini-3-flash-preview",
+      "started_at": "2026-07-01T23:09:35.429987+00:00",
+      "ok": true,
+      "elapsed_seconds": 8.29,
+      "score": 8.758,
+      "outputs": [
+        {
+          "character": "連",
+          "meaning": "connect",
+          "equation": "辶 movement + 車 vehicle = 連 connect",
+          "mnemonic": "A 車 vehicle drives on a 辶 movement road, creating 連 connect between places.",
+          "hero_image_prompt": "A simple illustration of a vehicle on a road connecting two distant points."
+        },
+        {
+          "character": "憂",
+          "meaning": "worry",
+          "equation": "頁 head + 心 heart + 夂 walk = 憂 worry",
+          "mnemonic": "A 頁 head heavy with thoughts and a 心 heart follow every 夂 walk, forming 憂 worry.",
+          "hero_image_prompt": "A minimalist drawing of a person walking with a heavy head and a glowing heart symbol."
+        }
+      ],
+      "validations": [
+        {
+          "problems": [],
+          "valid": true,
+          "heuristic_score": 10.0,
+          "style_score": 6.3,
+          "combined_score": 8.705,
+          "card": {
+            "character": "連",
+            "meaning": "connect",
+            "equation": "辶 movement + 車 vehicle = 連 connect",
+            "mnemonic": "A 車 vehicle drives on a 辶 movement road, creating 連 connect between places.",
+            "hero_image_prompt": "A simple illustration of a vehicle on a road connecting two distant points."
+          }
+        },
+        {
+          "problems": [],
+          "valid": true,
+          "heuristic_score": 10.0,
+          "style_score": 6.6,
+          "combined_score": 8.809999999999999,
+          "card": {
+            "character": "憂",
+            "meaning": "worry",
+            "equation": "頁 head + 心 heart + 夂 walk = 憂 worry",
+            "mnemonic": "A 頁 head heavy with thoughts and a 心 heart follow every 夂 walk, forming 憂 worry.",
+            "hero_image_prompt": "A minimalist drawing of a person walking with a heavy head and a glowing heart symbol."
+          }
+        }
+      ],
+      "meta": {
+        "usage": {
+          "promptTokenCount": 593,
+          "candidatesTokenCount": 186,
+          "totalTokenCount": 2219,
+          "promptTokensDetails": [
+            {
+              "modality": "TEXT",
+              "tokenCount": 593
+            }
+          ],
+          "thoughtsTokenCount": 1440,
+          "serviceTier": "standard"
+        },
+        "finish_reason": "STOP"
+      }
+    },
+    {
+      "name": "Gemini 3.1 Flash Lite",
+      "provider": "google",
+      "model": "gemini-3.1-flash-lite",
+      "started_at": "2026-07-01T23:09:44.221648+00:00",
+      "ok": true,
+      "elapsed_seconds": 1.16,
+      "score": 8.582,
+      "outputs": [
+        {
+          "character": "連",
+          "meaning": "connect",
+          "equation": "辶 movement + 車 vehicle = 連 connect",
+          "mnemonic": "A 車 vehicle follows a 辶 movement path to 連 connect distant locations.",
+          "hero_image_prompt": "A car driving along a long, winding road connecting two distant mountains."
+        },
+        {
+          "character": "憂",
+          "meaning": "worry",
+          "equation": "頁 head + 心 heart + 夂 walk = 憂 worry",
+          "mnemonic": "A heavy 頁 head and a troubled 心 heart weigh down every 夂 walk, resulting in 憂 worry.",
+          "hero_image_prompt": "A person walking slowly with their head bowed and hand over their heart, looking distressed."
+        }
+      ],
+      "validations": [
+        {
+          "problems": [],
+          "valid": true,
+          "heuristic_score": 10.0,
+          "style_score": 5.3,
+          "combined_score": 8.355,
+          "card": {
+            "character": "連",
+            "meaning": "connect",
+            "equation": "辶 movement + 車 vehicle = 連 connect",
+            "mnemonic": "A 車 vehicle follows a 辶 movement path to 連 connect distant locations.",
+            "hero_image_prompt": "A car driving along a long, winding road connecting two distant mountains."
+          }
+        },
+        {
+          "problems": [],
+          "valid": true,
+          "heuristic_score": 10.0,
+          "style_score": 6.6,
+          "combined_score": 8.809999999999999,
+          "card": {
+            "character": "憂",
+            "meaning": "worry",
+            "equation": "頁 head + 心 heart + 夂 walk = 憂 worry",
+            "mnemonic": "A heavy 頁 head and a troubled 心 heart weigh down every 夂 walk, resulting in 憂 worry.",
+            "hero_image_prompt": "A person walking slowly with their head bowed and hand over their heart, looking distressed."
+          }
+        }
+      ],
+      "meta": {
+        "usage": {
+          "promptTokenCount": 593,
+          "candidatesTokenCount": 184,
+          "totalTokenCount": 777,
+          "promptTokensDetails": [
+            {
+              "modality": "TEXT",
+              "tokenCount": 593
+            }
+          ],
+          "serviceTier": "standard"
+        },
+        "finish_reason": "STOP"
+      }
+    },
+    {
+      "name": "Gemini 2.5 Flash",
+      "provider": "google",
+      "model": "gemini-2.5-flash",
+      "started_at": "2026-07-01T23:09:45.891913+00:00",
+      "ok": true,
+      "elapsed_seconds": 5.73,
+      "score": 8.758,
+      "outputs": [
+        {
+          "character": "連",
+          "meaning": "connect",
+          "equation": "辶 movement + 車 vehicle = 連 connect",
+          "mnemonic": "A 車 vehicle drives on a 辶 movement road, creating 連 connect between places.",
+          "hero_image_prompt": "A vehicle driving on a road, connecting two places."
+        },
+        {
+          "character": "憂",
+          "meaning": "worry",
+          "equation": "頁 head + 心 heart + 夂 walk = 憂 worry",
+          "mnemonic": "A 頁 head heavy with thoughts and a 心 heart follow every 夂 walk, forming 憂 worry.",
+          "hero_image_prompt": "A person with a heavy head and heart, walking slowly, expressing worry."
+        }
+      ],
+      "validations": [
+        {
+          "problems": [],
+          "valid": true,
+          "heuristic_score": 10.0,
+          "style_score": 6.3,
+          "combined_score": 8.705,
+          "card": {
+            "character": "連",
+            "meaning": "connect",
+            "equation": "辶 movement + 車 vehicle = 連 connect",
+            "mnemonic": "A 車 vehicle drives on a 辶 movement road, creating 連 connect between places.",
+            "hero_image_prompt": "A vehicle driving on a road, connecting two places."
+          }
+        },
+        {
+          "problems": [],
+          "valid": true,
+          "heuristic_score": 10.0,
+          "style_score": 6.6,
+          "combined_score": 8.809999999999999,
+          "card": {
+            "character": "憂",
+            "meaning": "worry",
+            "equation": "頁 head + 心 heart + 夂 walk = 憂 worry",
+            "mnemonic": "A 頁 head heavy with thoughts and a 心 heart follow every 夂 walk, forming 憂 worry.",
+            "hero_image_prompt": "A person with a heavy head and heart, walking slowly, expressing worry."
+          }
+        }
+      ],
+      "meta": {
+        "usage": {
+          "promptTokenCount": 593,
+          "candidatesTokenCount": 180,
+          "totalTokenCount": 1765,
+          "promptTokensDetails": [
+            {
+              "modality": "TEXT",
+              "tokenCount": 593
+            }
+          ],
+          "thoughtsTokenCount": 992,
+          "serviceTier": "standard"
+        },
+        "finish_reason": "STOP"
+      }
+    },
+    {
+      "name": "Gemini 2.5 Flash Lite",
+      "provider": "google",
+      "model": "gemini-2.5-flash-lite",
+      "started_at": "2026-07-01T23:09:52.128321+00:00",
+      "ok": true,
+      "elapsed_seconds": 1.03,
+      "score": 7.433,
+      "outputs": [
+        {
+          "character": "連",
+          "meaning": "connect",
+          "equation": "辶 movement + 車 vehicle = 連 connect",
+          "mnemonic": "A 車 vehicle on a 辶 movement path connects two points.",
+          "hero_image_prompt": "A stylized vehicle moving along a winding path, symbolizing connection."
+        },
+        {
+          "character": "憂",
+          "meaning": "worry",
+          "equation": "頁 head + 心 heart + 夂 walk = 憂 worry",
+          "mnemonic": "A 頁 head and a 心 heart walk slowly, showing 憂 worry.",
+          "hero_image_prompt": "A person with a heavy head and heart walking slowly, conveying worry."
+        }
+      ],
+      "validations": [
+        {
+          "problems": [
+            "mnemonic missing 連 connect"
+          ],
+          "valid": false,
+          "heuristic_score": 8.5,
+          "style_score": 5.3,
+          "combined_score": 7.38,
+          "card": {
+            "character": "連",
+            "meaning": "connect",
+            "equation": "辶 movement + 車 vehicle = 連 connect",
+            "mnemonic": "A 車 vehicle on a 辶 movement path connects two points.",
+            "hero_image_prompt": "A stylized vehicle moving along a winding path, symbolizing connection."
+          }
+        },
+        {
+          "problems": [
+            "mnemonic missing 夂 walk"
+          ],
+          "valid": false,
+          "heuristic_score": 8.5,
+          "style_score": 5.6,
+          "combined_score": 7.485,
+          "card": {
+            "character": "憂",
+            "meaning": "worry",
+            "equation": "頁 head + 心 heart + 夂 walk = 憂 worry",
+            "mnemonic": "A 頁 head and a 心 heart walk slowly, showing 憂 worry.",
+            "hero_image_prompt": "A person with a heavy head and heart walking slowly, conveying worry."
+          }
+        }
+      ],
+      "meta": {
+        "usage": {
+          "promptTokenCount": 593,
+          "candidatesTokenCount": 170,
+          "totalTokenCount": 763,
+          "promptTokensDetails": [
+            {
+              "modality": "TEXT",
+              "tokenCount": 593
+            }
+          ],
+          "serviceTier": "standard"
+        },
+        "finish_reason": "STOP"
+      }
+    },
+    {
+      "name": "Gemini 2.5 Pro",
+      "provider": "google",
+      "model": "gemini-2.5-pro",
+      "started_at": "2026-07-01T23:09:53.665937+00:00",
+      "ok": true,
+      "elapsed_seconds": 6.1,
+      "score": 8.27,
+      "outputs": [
+        {
+          "character": "連",
+          "meaning": "connect",
+          "equation": "辶 movement + 車 vehicle = 連 connect",
+          "mnemonic": "The 辶 movement of a 車 vehicle is used to 連 connect two distant places.",
+          "hero_image_prompt": "A simple vehicle driving along a winding road, connecting a city on a hill to a town in a valley, minimalist line art."
+        },
+        {
+          "character": "憂",
+          "meaning": "worry",
+          "equation": "頁 head + 心 heart + 夂 walk = 憂 worry",
+          "mnemonic": "A heavy 頁 head and a troubled 心 heart follow you as you 夂 walk, creating 憂 worry.",
+          "hero_image_prompt": "A stylized figure walks with a large, heavy head and a glowing, anxious heart, casting a long shadow."
+        }
+      ],
+      "validations": [
+        {
+          "problems": [],
+          "valid": true,
+          "heuristic_score": 10.0,
+          "style_score": 6.3,
+          "combined_score": 8.705,
+          "card": {
+            "character": "連",
+            "meaning": "connect",
+            "equation": "辶 movement + 車 vehicle = 連 connect",
+            "mnemonic": "The 辶 movement of a 車 vehicle is used to 連 connect two distant places.",
+            "hero_image_prompt": "A simple vehicle driving along a winding road, connecting a city on a hill to a town in a valley, minimalist line art."
+          }
+        },
+        {
+          "problems": [
+            "contains pronunciation hook"
+          ],
+          "valid": false,
+          "heuristic_score": 8.5,
+          "style_score": 6.6,
+          "combined_score": 7.835,
+          "card": {
+            "character": "憂",
+            "meaning": "worry",
+            "equation": "頁 head + 心 heart + 夂 walk = 憂 worry",
+            "mnemonic": "A heavy 頁 head and a troubled 心 heart follow you as you 夂 walk, creating 憂 worry.",
+            "hero_image_prompt": "A stylized figure walks with a large, heavy head and a glowing, anxious heart, casting a long shadow."
+          }
+        }
+      ],
+      "meta": {
+        "usage": {
+          "promptTokenCount": 593,
+          "candidatesTokenCount": 203,
+          "totalTokenCount": 1222,
+          "promptTokensDetails": [
+            {
+              "modality": "TEXT",
+              "tokenCount": 593
+            }
+          ],
+          "thoughtsTokenCount": 426,
+          "serviceTier": "standard"
+        },
+        "finish_reason": "STOP"
+      }
+    },
+    {
+      "name": "Gemma 4 31B",
+      "provider": "google",
+      "model": "gemma-4-31b-it",
+      "started_at": "2026-07-01T23:11:47.170870+00:00",
+      "ok": false,
+      "elapsed_seconds": 27.72,
+      "error": "invalid JSON from gemma-4-31b-it: '*   Task: Generate semantic mnemonic card data for Kiokun.\\n    *   Input: A JSON structure containing characters, meanings, and components.\\n    *   Constraints:\\n        *   Valid, parseable JSON only.\\n        *   No comments, no extra text.\\n        *   Strict gloss discipline: Use provided glosses exactly.\\n        *   Format: `character gloss`.\\n        *   Mnemonic: One sentence, include all components and final character as `char gloss`.\\n        *   No pronunciation, puns, jokes, or meta-commentary.\\n        *   Concrete, short, visual.\\n        *   Output schema: `character`, `meaning`, `equation`, `mnemonic`, `hero_image_prompt`.\\n\\n    *   Card 1: 連 (connect)\\n        *   Components: 辶 (movem'"
+    },
+    {
+      "name": "Gemma 4 26B A4B",
+      "provider": "google",
+      "model": "gemma-4-26b-a4b-it",
+      "started_at": "2026-07-01T23:12:15.400641+00:00",
+      "ok": false,
+      "elapsed_seconds": 53.65,
+      "error": "invalid JSON from gemma-4-26b-a4b-it: '*   Task: Generate semantic mnemonic cards for Kiokun.\\n    *   Input: A JSON containing two characters (`連` and `憂`) with their components, meanings, and \"gold\" versions (which serve as examples/reference).\\n    *   Output Format: A single parseable JSON array of objects following a specific schema.\\n    *   Constraints:\\n        *   Strict JSON only.\\n        *   No comments.\\n        *   No extra text.\\n        *   No pronunciation, readings, puns, jokes, word anchors, or meta-commentary.\\n        *   Canonical gloss discipline: Use provided gloss exactly.\\n        *   Format: `character gloss`.\\n        *   Mnemonic: One sentence, include every component + gloss, include final character + gloss, c'"
+    },
+    {
+      "name": "Claude Sonnet 5",
+      "provider": "anthropic",
+      "model": "claude-sonnet-5",
+      "started_at": "2026-07-01T23:13:09.552779+00:00",
+      "ok": true,
+      "elapsed_seconds": 5.13,
+      "score": 8.758,
+      "outputs": [
+        {
+          "character": "連",
+          "meaning": "connect",
+          "equation": "辶 movement + 車 vehicle = 連 connect",
+          "mnemonic": "A 車 vehicle rolls forward along the 辶 movement path, linking one place to the next as 連 connect.",
+          "hero_image_prompt": "A single-track road stretching between two hills, a small cart rolling along it, dust trail linking start to end."
+        },
+        {
+          "character": "憂",
+          "meaning": "worry",
+          "equation": "頁 head + 心 heart + 夂 walk = 憂 worry",
+          "mnemonic": "A bowed 頁 head carries a heavy 心 heart through every slow 夂 walk, and this constant weight is 憂 worry.",
+          "hero_image_prompt": "A figure walking slowly with head bowed low, a glowing heart visible inside the chest, heavy steps dragging forward."
+        }
+      ],
+      "validations": [
+        {
+          "problems": [],
+          "valid": true,
+          "heuristic_score": 10.0,
+          "style_score": 6.3,
+          "combined_score": 8.705,
+          "card": {
+            "character": "連",
+            "meaning": "connect",
+            "equation": "辶 movement + 車 vehicle = 連 connect",
+            "mnemonic": "A 車 vehicle rolls forward along the 辶 movement path, linking one place to the next as 連 connect.",
+            "hero_image_prompt": "A single-track road stretching between two hills, a small cart rolling along it, dust trail linking start to end."
+          }
+        },
+        {
+          "problems": [],
+          "valid": true,
+          "heuristic_score": 10.0,
+          "style_score": 6.6,
+          "combined_score": 8.809999999999999,
+          "card": {
+            "character": "憂",
+            "meaning": "worry",
+            "equation": "頁 head + 心 heart + 夂 walk = 憂 worry",
+            "mnemonic": "A bowed 頁 head carries a heavy 心 heart through every slow 夂 walk, and this constant weight is 憂 worry.",
+            "hero_image_prompt": "A figure walking slowly with head bowed low, a glowing heart visible inside the chest, heavy steps dragging forward."
+          }
+        }
+      ],
+      "meta": {
+        "usage": {
+          "input_tokens": 862,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "output_tokens": 348,
+          "output_tokens_details": {
+            "thinking_tokens": 14
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+        }
+      }
+    },
+    {
+      "name": "Claude Opus 4.8",
+      "provider": "anthropic",
+      "model": "claude-opus-4-8",
+      "started_at": "2026-07-01T23:13:15.189847+00:00",
+      "ok": true,
+      "elapsed_seconds": 4.61,
+      "score": 8.53,
+      "outputs": [
+        {
+          "character": "連",
+          "meaning": "connect",
+          "equation": "辶 movement + 車 vehicle = 連 connect",
+          "mnemonic": "A 車 vehicle rolls along a 辶 movement road to 連 connect two towns.",
+          "hero_image_prompt": "A single vehicle driving along a curving road linking two distant villages"
+        },
+        {
+          "character": "憂",
+          "meaning": "worry",
+          "equation": "頁 head + 心 heart + 夂 walk = 憂 worry",
+          "mnemonic": "A bowed 頁 head over a heavy 心 heart drags each slow 夂 walk into deep 憂 worry.",
+          "hero_image_prompt": "A person with lowered head and heavy heart trudging slowly with a burdened, anxious posture"
+        }
+      ],
+      "validations": [
+        {
+          "problems": [],
+          "valid": true,
+          "heuristic_score": 10.0,
+          "style_score": 5.3,
+          "combined_score": 8.355,
+          "card": {
+            "character": "連",
+            "meaning": "connect",
+            "equation": "辶 movement + 車 vehicle = 連 connect",
+            "mnemonic": "A 車 vehicle rolls along a 辶 movement road to 連 connect two towns.",
+            "hero_image_prompt": "A single vehicle driving along a curving road linking two distant villages"
+          }
+        },
+        {
+          "problems": [],
+          "valid": true,
+          "heuristic_score": 10.0,
+          "style_score": 6.3,
+          "combined_score": 8.705,
+          "card": {
+            "character": "憂",
+            "meaning": "worry",
+            "equation": "頁 head + 心 heart + 夂 walk = 憂 worry",
+            "mnemonic": "A bowed 頁 head over a heavy 心 heart drags each slow 夂 walk into deep 憂 worry.",
+            "hero_image_prompt": "A person with lowered head and heavy heart trudging slowly with a burdened, anxious posture"
+          }
+        }
+      ],
+      "meta": {
+        "usage": {
+          "input_tokens": 862,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "output_tokens": 290,
+          "output_tokens_details": {
+            "thinking_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+        }
+      }
+    },
+    {
+      "name": "Claude Haiku 4.5",
+      "provider": "anthropic",
+      "model": "claude-haiku-4-5-20251001",
+      "started_at": "2026-07-01T23:11:22.305032+00:00",
+      "ok": true,
+      "elapsed_seconds": 1.9,
+      "score": 8.758,
+      "outputs": [
+        {
+          "character": "連",
+          "meaning": "connect",
+          "equation": "辶 movement + 車 vehicle = 連 connect",
+          "mnemonic": "A 車 vehicle follows a 辶 movement path, creating 連 connect between destinations.",
+          "hero_image_prompt": "A vehicle traveling along a winding path, leaving a trail of connection behind it."
+        },
+        {
+          "character": "憂",
+          "meaning": "worry",
+          "equation": "頁 head + 心 heart + 夂 walk = 憂 worry",
+          "mnemonic": "A 頁 head burdened with thought, a 心 heart that aches, and feet that 夂 walk in circles form 憂 worry.",
+          "hero_image_prompt": "A figure with a heavy head and troubled heart, pacing back and forth restlessly."
+        }
+      ],
+      "validations": [
+        {
+          "problems": [],
+          "valid": true,
+          "heuristic_score": 10.0,
+          "style_score": 6.3,
+          "combined_score": 8.705,
+          "card": {
+            "character": "連",
+            "meaning": "connect",
+            "equation": "辶 movement + 車 vehicle = 連 connect",
+            "mnemonic": "A 車 vehicle follows a 辶 movement path, creating 連 connect between destinations.",
+            "hero_image_prompt": "A vehicle traveling along a winding path, leaving a trail of connection behind it."
+          }
+        },
+        {
+          "problems": [],
+          "valid": true,
+          "heuristic_score": 10.0,
+          "style_score": 6.6,
+          "combined_score": 8.809999999999999,
+          "card": {
+            "character": "憂",
+            "meaning": "worry",
+            "equation": "頁 head + 心 heart + 夂 walk = 憂 worry",
+            "mnemonic": "A 頁 head burdened with thought, a 心 heart that aches, and feet that 夂 walk in circles form 憂 worry.",
+            "hero_image_prompt": "A figure with a heavy head and troubled heart, pacing back and forth restlessly."
+          }
+        }
+      ],
+      "meta": {
+        "usage": {
+          "input_tokens": 669,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "output_tokens": 236,
+          "service_tier": "standard",
+          "inference_geo": "not_available"
+        }
+      }
+    },
+    {
+      "name": "OpenAI models",
+      "provider": "openai",
+      "model": "gpt-5.5/gpt-5.4 family",
+      "ok": false,
+      "elapsed_seconds": 2.0,
+      "error": "Local OPENAI_API_KEY is present, but API returned insufficient_quota on gpt-5.4-nano smoke test; skipped all OpenAI candidates."
+    },
+    {
+      "name": "Cloudflare Workers AI",
+      "provider": "cloudflare",
+      "model": "Workers AI text-generation models",
+      "ok": false,
+      "elapsed_seconds": 0.9,
+      "error": "Local CLOUDFLARE_API_TOKEN/CLOUDFLARE_ACCOUNT_ID are present, but models/search returned HTTP 403 authentication error."
+    }
+  ],
+  "ranked": [
+    {
+      "name": "Claude Haiku 4.5",
+      "provider": "anthropic",
+      "model": "claude-haiku-4-5-20251001",
+      "score": 8.758,
+      "elapsed_seconds": 1.9
+    },
+    {
+      "name": "Gemini 3.5 Flash",
+      "provider": "google",
+      "model": "gemini-3.5-flash",
+      "score": 8.758,
+      "elapsed_seconds": 4.44
+    },
+    {
+      "name": "Claude Sonnet 5",
+      "provider": "anthropic",
+      "model": "claude-sonnet-5",
+      "score": 8.758,
+      "elapsed_seconds": 5.13
+    },
+    {
+      "name": "Gemini 2.5 Flash",
+      "provider": "google",
+      "model": "gemini-2.5-flash",
+      "score": 8.758,
+      "elapsed_seconds": 5.73
+    },
+    {
+      "name": "Gemini 3 Flash Preview",
+      "provider": "google",
+      "model": "gemini-3-flash-preview",
+      "score": 8.758,
+      "elapsed_seconds": 8.29
+    },
+    {
+      "name": "Gemini 3.1 Pro Preview",
+      "provider": "google",
+      "model": "gemini-3.1-pro-preview",
+      "score": 8.705,
+      "elapsed_seconds": 6.78
+    },
+    {
+      "name": "Gemini 3.1 Flash Lite",
+      "provider": "google",
+      "model": "gemini-3.1-flash-lite",
+      "score": 8.582,
+      "elapsed_seconds": 1.16
+    },
+    {
+      "name": "Claude Opus 4.8",
+      "provider": "anthropic",
+      "model": "claude-opus-4-8",
+      "score": 8.53,
+      "elapsed_seconds": 4.61
+    },
+    {
+      "name": "Gemini 2.5 Pro",
+      "provider": "google",
+      "model": "gemini-2.5-pro",
+      "score": 8.27,
+      "elapsed_seconds": 6.1
+    },
+    {
+      "name": "Gemini 2.5 Flash Lite",
+      "provider": "google",
+      "model": "gemini-2.5-flash-lite",
+      "score": 7.433,
+      "elapsed_seconds": 1.03
+    }
+  ],
+  "recommendation": {
+    "model": "gemini-3.5-flash",
+    "reason": "It tied the top semantic score, returned clean JSON reliably, is current, and is more appropriate for a 1000-card batch than Pro/Opus tiers. Claude Haiku was fastest and also tied, but its 憂 output introduced feet not present in the canonical components; Gemini 3.5 Flash followed the exact supplied style more closely."
+  }
+}
