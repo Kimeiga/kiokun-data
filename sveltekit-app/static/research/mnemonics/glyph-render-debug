@@ -1,0 +1,614 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Kiokun Glyph Render Debug</title>
+		<style>
+			:root {
+				color-scheme: light;
+				--bg: #f8f9fa;
+				--surface: #ffffff;
+				--surface-alt: #f0f1f3;
+				--text: #1a1a1a;
+				--muted: #555555;
+				--border: #e2e4e8;
+				--accent: #2563eb;
+				--danger: #b91c1c;
+				--font-cjk: "Noto Sans", "Noto Sans TC", "Noto Sans SC", "Noto Sans JP",
+					"Noto Sans KR", "PingFang TC", "PingFang SC", "Hiragino Sans",
+					"Microsoft YaHei", sans-serif;
+			}
+
+			* {
+				box-sizing: border-box;
+			}
+
+			body {
+				margin: 0;
+				background: var(--bg);
+				color: var(--text);
+				font-family:
+					Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+					sans-serif;
+			}
+
+			main {
+				width: min(1180px, calc(100vw - 32px));
+				margin: 0 auto;
+				padding: 28px 0 56px;
+			}
+
+			h1 {
+				margin: 0;
+				font-size: 28px;
+				line-height: 1.15;
+				letter-spacing: 0;
+			}
+
+			p {
+				margin: 8px 0 0;
+				color: var(--muted);
+				line-height: 1.5;
+			}
+
+			button,
+			select,
+			input {
+				font: inherit;
+			}
+
+			button {
+				border: 1px solid var(--border);
+				border-radius: 6px;
+				background: var(--surface);
+				color: var(--text);
+				min-height: 36px;
+				padding: 0 12px;
+				cursor: pointer;
+			}
+
+			button.primary {
+				background: var(--accent);
+				border-color: var(--accent);
+				color: white;
+			}
+
+			button:disabled {
+				opacity: 0.55;
+				cursor: not-allowed;
+			}
+
+			.toolbar,
+			.stats,
+			.filters {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 10px;
+				align-items: center;
+			}
+
+			.toolbar {
+				margin-top: 20px;
+			}
+
+			.filters {
+				margin-top: 14px;
+			}
+
+			.stats {
+				margin-top: 18px;
+			}
+
+			.stat {
+				min-width: 128px;
+				padding: 10px 12px;
+				background: var(--surface);
+				border: 1px solid var(--border);
+				border-radius: 8px;
+			}
+
+			.stat strong {
+				display: block;
+				font-size: 20px;
+				line-height: 1.1;
+			}
+
+			.stat span {
+				display: block;
+				margin-top: 4px;
+				color: var(--muted);
+				font-size: 12px;
+			}
+
+			.panel {
+				margin-top: 18px;
+				background: var(--surface);
+				border: 1px solid var(--border);
+				border-radius: 8px;
+				overflow: hidden;
+			}
+
+			.panel-header {
+				display: flex;
+				justify-content: space-between;
+				gap: 12px;
+				align-items: center;
+				padding: 12px 14px;
+				border-bottom: 1px solid var(--border);
+			}
+
+			.panel-header h2 {
+				margin: 0;
+				font-size: 15px;
+				letter-spacing: 0;
+			}
+
+			.table-wrap {
+				overflow: auto;
+				max-height: 70vh;
+			}
+
+			table {
+				width: 100%;
+				border-collapse: collapse;
+				font-size: 13px;
+			}
+
+			th,
+			td {
+				padding: 10px 12px;
+				border-bottom: 1px solid var(--border);
+				text-align: left;
+				vertical-align: middle;
+				white-space: nowrap;
+			}
+
+			th {
+				position: sticky;
+				top: 0;
+				z-index: 1;
+				background: var(--surface-alt);
+				font-size: 12px;
+				color: var(--muted);
+			}
+
+			td.wrap {
+				white-space: normal;
+				min-width: 240px;
+			}
+
+			.glyph {
+				display: inline-grid;
+				place-items: center;
+				width: 44px;
+				height: 44px;
+				border: 1px solid var(--border);
+				border-radius: 6px;
+				background: white;
+				font-family: var(--font-cjk);
+				font-size: 30px;
+				line-height: 1;
+			}
+
+			.ids {
+				font-family: var(--font-cjk);
+				font-size: 18px;
+			}
+
+			.badge {
+				display: inline-flex;
+				align-items: center;
+				min-height: 22px;
+				padding: 0 8px;
+				border-radius: 999px;
+				background: var(--surface-alt);
+				color: var(--muted);
+				font-size: 12px;
+			}
+
+			.badge.danger {
+				background: #fee2e2;
+				color: var(--danger);
+			}
+
+			.mono {
+				font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+			}
+
+			.note {
+				margin-top: 18px;
+				padding: 12px 14px;
+				background: var(--surface);
+				border: 1px solid var(--border);
+				border-radius: 8px;
+				color: var(--muted);
+				line-height: 1.5;
+			}
+
+			.progress {
+				width: min(560px, 100%);
+				height: 8px;
+				overflow: hidden;
+				background: var(--surface-alt);
+				border-radius: 999px;
+			}
+
+			.progress span {
+				display: block;
+				width: 0%;
+				height: 100%;
+				background: var(--accent);
+			}
+
+			.hidden {
+				display: none;
+			}
+
+			@media (max-width: 720px) {
+				main {
+					width: min(100vw - 20px, 1180px);
+					padding-top: 18px;
+				}
+
+				h1 {
+					font-size: 23px;
+				}
+
+				.panel-header {
+					align-items: flex-start;
+					flex-direction: column;
+				}
+
+				th,
+				td {
+					padding: 8px 10px;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<main>
+			<h1>Glyph Render Debug</h1>
+			<p>
+				Scans Kiokun CJK candidates in this browser and flags characters that render like the
+				browser's missing-glyph box. Use Safari on the target device for the most relevant result.
+			</p>
+
+			<div class="toolbar">
+				<button id="scanImportant" class="primary">Scan app-critical glyphs</button>
+				<button id="scanAll">Scan all candidates</button>
+				<button id="stopScan" disabled>Stop</button>
+				<button id="download" disabled>Download flagged JSON</button>
+			</div>
+
+			<div class="filters">
+				<label>
+					View
+					<select id="viewMode">
+						<option value="missing">Flagged missing</option>
+						<option value="all-scanned">All scanned</option>
+						<option value="known-expansion">Known IDS expansions</option>
+					</select>
+				</label>
+				<label>
+					Search
+					<input id="search" type="search" placeholder="character, codepoint, IDS, source" />
+				</label>
+			</div>
+
+			<div class="stats">
+				<div class="stat"><strong id="candidateCount">0</strong><span>candidates loaded</span></div>
+				<div class="stat"><strong id="scannedCount">0</strong><span>scanned</span></div>
+				<div class="stat"><strong id="missingCount">0</strong><span>flagged missing</span></div>
+				<div class="stat"><strong id="expansionCount">0</strong><span>with IDS expansion</span></div>
+			</div>
+
+			<div class="note">
+				<div id="status">Loading candidates...</div>
+				<div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+			</div>
+
+			<section class="panel">
+				<div class="panel-header">
+					<h2 id="tableTitle">Flagged Missing Glyphs</h2>
+					<span class="badge" id="fontStatus">Waiting for fonts</span>
+				</div>
+				<div class="table-wrap">
+					<table>
+						<thead>
+							<tr>
+								<th>Glyph</th>
+								<th>Codepoint</th>
+								<th>Status</th>
+								<th>IDS</th>
+								<th>Gloss</th>
+								<th class="wrap">Sources</th>
+							</tr>
+						</thead>
+						<tbody id="rows"></tbody>
+					</table>
+				</div>
+			</section>
+
+			<canvas id="probe" width="96" height="96" class="hidden"></canvas>
+		</main>
+
+		<script>
+			const DATA_URL = './glyph-render-candidates.json';
+			const FONT_STACK =
+				'"Noto Sans", "Noto Sans TC", "Noto Sans SC", "Noto Sans JP", "Noto Sans KR", "PingFang TC", "PingFang SC", "Hiragino Sans", "Microsoft YaHei", sans-serif';
+			const MISSING_REFERENCES = [
+				'\uFFFD',
+				'\u{10FFFF}',
+				'\u{2FFFF}',
+				'\u{E000}',
+				'\u{FDD0}',
+				'\u{0378}'
+			];
+			const IMPORTANT_PRIORITIES = new Set([0, 1, 2]);
+
+			const canvas = document.getElementById('probe');
+			const ctx = canvas.getContext('2d', { willReadFrequently: true });
+			const els = {
+				candidateCount: document.getElementById('candidateCount'),
+				scannedCount: document.getElementById('scannedCount'),
+				missingCount: document.getElementById('missingCount'),
+				expansionCount: document.getElementById('expansionCount'),
+				status: document.getElementById('status'),
+				progressBar: document.getElementById('progressBar'),
+				rows: document.getElementById('rows'),
+				tableTitle: document.getElementById('tableTitle'),
+				fontStatus: document.getElementById('fontStatus'),
+				scanImportant: document.getElementById('scanImportant'),
+				scanAll: document.getElementById('scanAll'),
+				stopScan: document.getElementById('stopScan'),
+				download: document.getElementById('download'),
+				viewMode: document.getElementById('viewMode'),
+				search: document.getElementById('search')
+			};
+
+			let candidates = [];
+			let scanned = new Map();
+			let missingRefs = [];
+			let stopRequested = false;
+			let activeScanTotal = 0;
+
+			function renderSignature(char) {
+				ctx.clearRect(0, 0, canvas.width, canvas.height);
+				ctx.fillStyle = '#000';
+				ctx.textAlign = 'center';
+				ctx.textBaseline = 'middle';
+				ctx.font = `64px ${FONT_STACK}`;
+				ctx.fillText(char, canvas.width / 2, 53);
+
+				const image = ctx.getImageData(0, 0, canvas.width, canvas.height);
+				const data = image.data;
+				let minX = canvas.width;
+				let minY = canvas.height;
+				let maxX = -1;
+				let maxY = -1;
+				let count = 0;
+				let hash = 2166136261;
+				const alphaBytes = new Uint8Array(canvas.width * canvas.height);
+
+				for (let i = 0, p = 0; i < data.length; i += 4, p += 1) {
+					const alpha = data[i + 3];
+					alphaBytes[p] = alpha;
+					if (alpha > 12) {
+						const x = p % canvas.width;
+						const y = Math.floor(p / canvas.width);
+						minX = Math.min(minX, x);
+						minY = Math.min(minY, y);
+						maxX = Math.max(maxX, x);
+						maxY = Math.max(maxY, y);
+						count += 1;
+					}
+					hash ^= alpha;
+					hash = Math.imul(hash, 16777619);
+				}
+
+				return {
+					hash: hash >>> 0,
+					count,
+					box: count ? [minX, minY, maxX, maxY] : [],
+					alphaBytes
+				};
+			}
+
+			function exactSignatureMatch(a, b) {
+				if (a.hash !== b.hash || a.count !== b.count || a.box.join(',') !== b.box.join(',')) {
+					return false;
+				}
+				if (a.alphaBytes.length !== b.alphaBytes.length) {
+					return false;
+				}
+				for (let i = 0; i < a.alphaBytes.length; i += 1) {
+					if (a.alphaBytes[i] !== b.alphaBytes[i]) {
+						return false;
+					}
+				}
+				return true;
+			}
+
+			function looksMissing(signature) {
+				return missingRefs.some((ref) => exactSignatureMatch(signature, ref));
+			}
+
+			function setRunning(running) {
+				els.scanImportant.disabled = running;
+				els.scanAll.disabled = running;
+				els.stopScan.disabled = !running;
+			}
+
+			function updateStats() {
+				const scannedRows = [...scanned.values()];
+				const missingRows = scannedRows.filter((row) => row.missing);
+				els.scannedCount.textContent = scannedRows.length.toLocaleString();
+				els.missingCount.textContent = missingRows.length.toLocaleString();
+				els.expansionCount.textContent = missingRows
+					.filter((row) => row.ids || row.ids_components?.length)
+					.length.toLocaleString();
+				els.download.disabled = missingRows.length === 0;
+			}
+
+			function rowMatchesSearch(row, query) {
+				if (!query) return true;
+				const haystack = [
+					row.character,
+					row.codepoint,
+					row.ids,
+					row.gloss,
+					...(row.ids_components || []),
+					...(row.sources || [])
+				]
+					.filter(Boolean)
+					.join(' ')
+					.toLowerCase();
+				return haystack.includes(query);
+			}
+
+			function visibleRows() {
+				const mode = els.viewMode.value;
+				const query = els.search.value.trim().toLowerCase();
+				let rows = [];
+				if (mode === 'all-scanned') {
+					rows = [...scanned.values()];
+					els.tableTitle.textContent = 'All Scanned Glyphs';
+				} else if (mode === 'known-expansion') {
+					rows = [...scanned.values()].filter((row) => row.ids || row.ids_components?.length);
+					els.tableTitle.textContent = 'Scanned Glyphs With IDS Expansions';
+				} else {
+					rows = [...scanned.values()].filter((row) => row.missing);
+					els.tableTitle.textContent = 'Flagged Missing Glyphs';
+				}
+				return rows.filter((row) => rowMatchesSearch(row, query)).slice(0, 500);
+			}
+
+			function renderRows() {
+				const rows = visibleRows();
+				els.rows.innerHTML = rows
+					.map((row) => {
+						const ids = row.ids
+							? `<span class="ids">${escapeHtml(row.ids)}</span><br><span class="mono">${escapeHtml((row.ids_components || []).join(' + '))}</span>`
+							: '<span class="badge">none</span>';
+						const status = row.missing
+							? '<span class="badge danger">missing-like</span>'
+							: '<span class="badge">rendered</span>';
+						return `<tr>
+							<td><span class="glyph">${escapeHtml(row.character)}</span></td>
+							<td class="mono">${escapeHtml(row.codepoint)}</td>
+							<td>${status}</td>
+							<td>${ids}</td>
+							<td>${escapeHtml(row.gloss || '')}</td>
+							<td class="wrap">${escapeHtml((row.sources || []).join(', '))}</td>
+						</tr>`;
+					})
+					.join('');
+			}
+
+			function escapeHtml(value) {
+				return String(value ?? '')
+					.replaceAll('&', '&amp;')
+					.replaceAll('<', '&lt;')
+					.replaceAll('>', '&gt;')
+					.replaceAll('"', '&quot;')
+					.replaceAll("'", '&#039;');
+			}
+
+			async function scan(scope) {
+				if (!candidates.length) return;
+				stopRequested = false;
+				setRunning(true);
+
+				const queue =
+					scope === 'important'
+						? candidates.filter((row) => IMPORTANT_PRIORITIES.has(row.priority))
+						: candidates;
+				activeScanTotal = queue.length;
+				let processed = 0;
+
+				for (const row of queue) {
+					if (stopRequested) break;
+					if (!scanned.has(row.character)) {
+						const signature = renderSignature(row.character);
+						scanned.set(row.character, {
+							...row,
+							missing: looksMissing(signature),
+							render_hash: signature.hash,
+							render_box: signature.box
+						});
+					}
+					processed += 1;
+					if (processed % 40 === 0) {
+						els.status.textContent = `Scanned ${processed.toLocaleString()} of ${activeScanTotal.toLocaleString()} selected candidates.`;
+						els.progressBar.style.width = `${Math.round((processed / activeScanTotal) * 100)}%`;
+						updateStats();
+						renderRows();
+						await new Promise((resolve) => requestAnimationFrame(resolve));
+					}
+				}
+
+				els.progressBar.style.width = stopRequested ? els.progressBar.style.width : '100%';
+				els.status.textContent = stopRequested
+					? `Stopped after ${processed.toLocaleString()} selected candidates.`
+					: `Finished scanning ${processed.toLocaleString()} selected candidates.`;
+				updateStats();
+				renderRows();
+				setRunning(false);
+			}
+
+			function downloadFlagged() {
+				const rows = [...scanned.values()].filter((row) => row.missing);
+				const payload = {
+					created_at: new Date().toISOString(),
+					user_agent: navigator.userAgent,
+					font_stack: FONT_STACK,
+					count: rows.length,
+					missing: rows
+				};
+				const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+				const url = URL.createObjectURL(blob);
+				const a = document.createElement('a');
+				a.href = url;
+				a.download = 'kiokun-missing-glyphs.json';
+				a.click();
+				URL.revokeObjectURL(url);
+			}
+
+			async function init() {
+				try {
+					if (document.fonts?.ready) {
+						await document.fonts.ready;
+					}
+					els.fontStatus.textContent = 'Fonts ready';
+					missingRefs = MISSING_REFERENCES.map(renderSignature);
+
+					const response = await fetch(DATA_URL);
+					if (!response.ok) {
+						throw new Error(`HTTP ${response.status}`);
+					}
+					const data = await response.json();
+					candidates = data.candidates || [];
+					els.candidateCount.textContent = candidates.length.toLocaleString();
+					els.status.textContent = `Loaded ${candidates.length.toLocaleString()} candidates.`;
+					renderRows();
+				} catch (error) {
+					els.fontStatus.textContent = 'Load failed';
+					els.status.textContent = `Could not load candidates from ${DATA_URL}: ${error.message}`;
+				}
+			}
+
+			els.scanImportant.addEventListener('click', () => scan('important'));
+			els.scanAll.addEventListener('click', () => scan('all'));
+			els.stopScan.addEventListener('click', () => {
+				stopRequested = true;
+			});
+			els.download.addEventListener('click', downloadFlagged);
+			els.viewMode.addEventListener('change', renderRows);
+			els.search.addEventListener('input', renderRows);
+
+			init();
+		</script>
+	</body>
+</html>
