@@ -25,6 +25,15 @@
 			n: 3
 		},
 		{
+			slug: 'semantic-mnemonic-bakeoff',
+			kicker: 'Mnemonic Research',
+			title: 'The mnemonic model bakeoff',
+			deck:
+				'Gemini, Claude, Gemma, OpenAI, and Cloudflare attempts at writing Kiokun-style kanji mnemonics, with every output published.',
+			read: '14 min',
+			n: 4
+		},
+		{
 			slug: 'the-data-engine',
 			kicker: 'Infrastructure',
 			title: 'The dictionary that hosts itself',
@@ -124,10 +133,10 @@
 		padding: clamp(1.6rem, 4vw, 2.4rem) 0.4rem;
 		text-decoration: none;
 		color: inherit;
-		transition: padding-left 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+		transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 	}
 	.list a:hover {
-		padding-left: 1.1rem;
+		transform: translateX(0.7rem);
 	}
 	.idx {
 		font-family: var(--display);
