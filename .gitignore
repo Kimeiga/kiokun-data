@@ -91,11 +91,14 @@ cookies.txt
 .playwright-mcp/
 .wrangler/
 
-# Separate native SwiftUI prototype with a generated 873 MiB offline bundle.
-# The committed Capacitor app lives under sveltekit-app/ios.
-ios/
+# Native iOS local/build artifacts
+ios/**/xcuserdata/
+ios/**/DerivedData/
+ios/**/build/
+ios/Kiokun/Resources/KiokunDictionary.sqlite
+ios/Kiokun/Resources/*.sqlite-*
 
-# Large generated native database payloads
+# Large generated Capacitor database payloads
 sveltekit-app/ios/App/App/public/assets/databases/*.db
 
 # Local scratch/debug captures
