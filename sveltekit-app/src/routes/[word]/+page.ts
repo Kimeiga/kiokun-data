@@ -36,18 +36,36 @@ async function fetchDictionaryEntry(word: string, fetchFn: typeof fetch): Promis
 	return decompressAndParse(await response.arrayBuffer());
 }
 
+function isCompatibilityIdeograph(char: string): boolean {
+	const codepoint = char.codePointAt(0) ?? 0;
+	return (codepoint >= 0xF900 && codepoint <= 0xFAFF) ||
+		(codepoint >= 0x2F800 && codepoint <= 0x2FA1F);
+}
+
+const MNEMONIC_CANDIDATE_DENYLIST: Record<string, Set<string>> = {
+	里: new Set(['裡']),
+};
+
 function addEntryMnemonicCandidates(entry: DictionaryEntry | null | undefined, candidates: Set<string>) {
 	if (!entry) return;
+	const denied = MNEMONIC_CANDIDATE_DENYLIST[entry.key];
 	const add = (char: unknown) => {
-		if (typeof char === 'string' && [...char].length === 1) candidates.add(char);
+		if (
+			typeof char === 'string' &&
+			[...char].length === 1 &&
+			!isCompatibilityIdeograph(char) &&
+			!denied?.has(char)
+		) {
+			candidates.add(char);
+		}
 	};
 
 	add(entry.key);
 	add(entry.redirect);
-	add(entry.simplified_form_of);
 	add(entry.chinese_char?.char);
 	add(entry.chinese_char?.hkChar);
 	add(entry.chinese_char?.simpVariants?.[0]);
+	add(entry.chinese_char?.tradVariants?.[0]);
 	add(entry.japanese_char?.literal);
 	add(entry.korean_char?.character);
 	add(entry.korean_char?.hanjaForm);

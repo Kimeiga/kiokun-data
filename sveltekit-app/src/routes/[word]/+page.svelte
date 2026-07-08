@@ -280,6 +280,9 @@
 				.trim()
 				.toLowerCase();
 
+		const isSelfShape = components.length === 1 && components[0]?.character === card.character;
+		if (isSelfShape) return `${card.character}|${normalize(components[0])}`;
+
 		return components
 			.map(normalize)
 			.filter(Boolean)
@@ -291,6 +294,8 @@
 		const labels: string[] = [];
 		if (card.character === traditionalChar) labels.push("Traditional");
 		if (card.character === simplifiedChar) labels.push("Simplified");
+		if (data.data.chinese_char?.tradVariants?.includes(card.character) && !labels.includes("Traditional")) labels.push("Traditional");
+		if (data.data.chinese_char?.simpVariants?.includes(card.character) && !labels.includes("Simplified")) labels.push("Simplified");
 		if (card.character === japaneseChar && !labels.includes("Japanese")) labels.push("Japanese");
 		if (koreanChar?.character === card.character && !labels.includes("Korean")) labels.push("Korean");
 		if (hkChar === card.character && !labels.includes("Hong Kong")) labels.push("Hong Kong");
@@ -305,6 +310,7 @@
 
 		const order = new Map<string, number>();
 		[
+			[...data.word].length === 1 ? data.word : undefined,
 			traditionalChar,
 			simplifiedChar,
 			japaneseChar,
