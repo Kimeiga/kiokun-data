@@ -266,7 +266,7 @@ export async function getDictionaryUrl(word: string, dev: boolean = false, fetch
   }
 
   if (!dev) {
-    return `/api/dictionary/${encodeURIComponent(word)}.json.deflate`;
+    return `/api/dictionary?word=${encodeURIComponent(word)}`;
   }
 
   if (dev) {

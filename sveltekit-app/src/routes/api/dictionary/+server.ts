@@ -1,14 +1,8 @@
 import { proxyDictionaryBytes } from '$lib/server/dictionary-proxy';
 import type { RequestHandler } from './$types';
 
-const SUFFIX = '.json.deflate';
-
-function wordFromParam(param: string): string {
-	return param.endsWith(SUFFIX) ? param.slice(0, -SUFFIX.length) : param;
-}
-
-export const GET: RequestHandler = async ({ params, fetch, platform, request }) => {
-	const word = wordFromParam(params.word);
+export const GET: RequestHandler = async ({ url, fetch, platform, request }) => {
+	const word = url.searchParams.get('word')?.trim() ?? '';
 	return proxyDictionaryBytes({ word, fetchFn: fetch, platform, request });
 };
 
