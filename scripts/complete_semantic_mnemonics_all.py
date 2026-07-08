@@ -366,6 +366,7 @@ TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
     "臺": "吉 lucky under 冖 cover reaches 至 until the structure becomes 臺 platform.",
     "裡": "衤 clothing (side) wraps 里 li so the contents stay 裡 inside.",
     "萬": "艹 grass (top) spreads over 禺 district until the count reaches 萬 ten thousand.",
+    "万": "A 一 one line above a 人 person marks a huge 万 ten thousand count.",
     "與": "臼 mortar holds 一 one offering divided into 八 eight parts by 丿 slash, ready to 與 offer.",
     "为": "又 hand guides a 象 elephant by the lead to 为 handle.",
     "為": "又 hand guides a 象 elephant through each motion to 為 act.",
@@ -384,6 +385,7 @@ TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
     "貝": "The hard shell shape of 貝 shellfish holds value as 貝 shellfish.",
     "贝": "The simplified 贝 shell keeps the curve of a 贝 shell.",
     "后": "A 丿 slash and 一 one line crown the 口 mouth giving commands as 后 queen.",
+    "么": "A 丿 slash points into a 厶 secret, forming 么 interrogative.",
 }
 
 
