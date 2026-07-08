@@ -43,11 +43,11 @@ function addEntryMnemonicCandidates(entry: DictionaryEntry | null | undefined, c
 	};
 
 	add(entry.key);
+	add(entry.redirect);
 	add(entry.simplified_form_of);
 	add(entry.chinese_char?.char);
 	add(entry.chinese_char?.hkChar);
-	for (const char of entry.chinese_char?.simpVariants || []) add(char);
-	for (const char of entry.chinese_char?.tradVariants || []) add(char);
+	add(entry.chinese_char?.simpVariants?.[0]);
 	add(entry.japanese_char?.literal);
 	add(entry.korean_char?.character);
 	add(entry.korean_char?.hanjaForm);
