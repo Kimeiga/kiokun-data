@@ -41,6 +41,13 @@ function decompressAndParse(compressedData: ArrayBuffer): DictionaryEntry {
 	return JSON.parse(jsonString) as DictionaryEntry;
 }
 
+function fetchDictionaryBytes(url: string, fetchFn: typeof fetch): Promise<Response> {
+	if (typeof window !== 'undefined' || url.startsWith('http')) {
+		return globalThis.fetch(url);
+	}
+	return fetchFn(url);
+}
+
 export const load: PageLoad<PhoneticPageData> = async ({ params, fetch, depends }) => {
 	const { char } = params;
 	depends(`phonetic:${char}`);
@@ -69,13 +76,13 @@ export const load: PageLoad<PhoneticPageData> = async ({ params, fetch, depends 
 			const gloss = charGlosses[c] || '';
 			try {
 				const dictUrl = await getDictionaryUrl(c, dev, fetch);
-				const response = await fetch(dictUrl);
+				const response = await fetchDictionaryBytes(dictUrl, fetch);
 				if (response.ok) {
 					const compressedData = await response.arrayBuffer();
 					let data = decompressAndParse(compressedData);
 					if (data.redirect) {
 						const redirectUrl = await getDictionaryUrl(data.redirect, dev, fetch);
-						const redirectResponse = await fetch(redirectUrl);
+						const redirectResponse = await fetchDictionaryBytes(redirectUrl, fetch);
 						if (redirectResponse.ok) {
 							const redirectCompressed = await redirectResponse.arrayBuffer();
 							data = decompressAndParse(redirectCompressed);

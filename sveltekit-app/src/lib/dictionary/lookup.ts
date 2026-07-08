@@ -36,6 +36,13 @@ function decompressAndParse(buf: ArrayBuffer): DictionaryEntry {
 	return inflateJson<DictionaryEntry>(buf);
 }
 
+function fetchDictionaryBytes(url: string, fetchFn: typeof fetch): Promise<Response> {
+	if (typeof window !== 'undefined' || url.startsWith('http')) {
+		return globalThis.fetch(url);
+	}
+	return fetchFn(url);
+}
+
 // --- Turkish (ozcuk) -------------------------------------------------------
 // Kiokun has no Turkish dictionary. ozcuk publishes its dictionary as a public
 // GitHub CDN of deflate-compressed per-word JSON — same model as Kiokun's
@@ -96,10 +103,7 @@ export async function lookupWord(
 
 	try {
 		const url = await getDictionaryUrl(trimmed, dev, fetchFn);
-		// External (GitHub raw) URLs: use global fetch to avoid SvelteKit's
-		// wrapper, matching the [word] route's handling of binary payloads.
-		const doFetch = url.startsWith('http') ? globalThis.fetch : fetchFn;
-		const res = await doFetch(url);
+		const res = await fetchDictionaryBytes(url, fetchFn);
 
 		if (!res.ok) {
 			const deinflection = await findWordsWithDeinflection(trimmed, fetchFn);
@@ -119,8 +123,7 @@ export async function lookupWord(
 		// Follow a redirect entry to the canonical record.
 		if (data.redirect) {
 			const rUrl = await getDictionaryUrl(data.redirect, dev, fetchFn);
-			const rFetch = rUrl.startsWith('http') ? globalThis.fetch : fetchFn;
-			const rRes = await rFetch(rUrl);
+			const rRes = await fetchDictionaryBytes(rUrl, fetchFn);
 			if (rRes.ok) data = decompressAndParse(await rRes.arrayBuffer());
 		}
 

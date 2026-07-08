@@ -1,5 +1,5 @@
 import type { PageLoad } from './$types';
-import { error, redirect } from '@sveltejs/kit';
+import { error, isHttpError, isRedirect, redirect } from '@sveltejs/kit';
 import { getDictionaryUrl } from '$lib/shard-utils';
 import { dev } from '$app/environment';
 import { decompressSync, strFromU8 } from 'fflate';
@@ -28,12 +28,31 @@ function decompressAndParse(compressedData: ArrayBuffer): DictionaryEntry {
 	return JSON.parse(jsonString) as DictionaryEntry;
 }
 
+function fetchDictionaryBytes(url: string, fetchFn: typeof fetch): Promise<Response> {
+	if (typeof window !== 'undefined' || url.startsWith('http')) {
+		return globalThis.fetch(url);
+	}
+	return fetchFn(url);
+}
+
 async function fetchDictionaryEntry(word: string, fetchFn: typeof fetch): Promise<DictionaryEntry | null> {
 	const dictUrl = await getDictionaryUrl(word, dev, fetchFn);
-	const dictFetch = dictUrl.startsWith('http') ? globalThis.fetch : fetchFn;
-	const response = await dictFetch(dictUrl);
+	const response = await fetchDictionaryBytes(dictUrl, fetchFn);
 	if (!response.ok) return null;
 	return decompressAndParse(await response.arrayBuffer());
+}
+
+function unavailableDictionaryStatus(status: number): number {
+	if (status === 429) return 503;
+	if (status >= 500) return 502;
+	return status;
+}
+
+function throwDictionaryUnavailable(word: string, status: number): never {
+	throw error(
+		unavailableDictionaryStatus(status),
+		`Dictionary source unavailable for "${word}" (${status})`
+	);
 }
 
 function isCompatibilityIdeograph(char: string): boolean {
@@ -159,11 +178,14 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 	// which can corrupt ArrayBuffer data during client-side navigation (popstate)
 	const dictUrl = await getDictionaryUrl(word, dev, fetch);
 	console.log('[LOAD] Fetching URL:', dictUrl);
-	const dictFetch = dictUrl.startsWith('http') ? globalThis.fetch : fetch;
-	const response = await dictFetch(dictUrl);
+	const response = await fetchDictionaryBytes(dictUrl, fetch);
 	console.log('[LOAD] Response status:', response.status);
 
 	if (!response.ok) {
+		if (response.status !== 404) {
+			throwDictionaryUnavailable(word, response.status);
+		}
+
 		console.log(`[LOAD] Word "${word}" not found directly, trying deinflection...`);
 
 		// Try deinflection (handles Japanese conjugation and Korean particles)
@@ -244,8 +266,7 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 			redirectOriginal = original;
 			const originalMnemonic = original.semantic_mnemonic;
 			const redirectUrl = await getDictionaryUrl(data.redirect, dev, fetch);
-			const redirectFetch = redirectUrl.startsWith('http') ? globalThis.fetch : fetch;
-			const redirectResponse = await redirectFetch(redirectUrl);
+			const redirectResponse = await fetchDictionaryBytes(redirectUrl, fetch);
 			if (redirectResponse.ok) {
 				const redirectCompressed = await redirectResponse.arrayBuffer();
 				data = decompressAndParse(redirectCompressed);
@@ -269,8 +290,7 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 					if (v === data.redirect) continue; // already loaded as the base
 					try {
 						const vUrl = await getDictionaryUrl(v, dev, fetch);
-						const vFetch = vUrl.startsWith('http') ? globalThis.fetch : fetch;
-						const vResp = await vFetch(vUrl);
+						const vResp = await fetchDictionaryBytes(vUrl, fetch);
 						if (!vResp.ok) continue;
 						const vData = decompressAndParse(await vResp.arrayBuffer());
 						for (const w of (vData.chinese_words ?? []) as any[]) {
@@ -298,8 +318,7 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 		if (simpChar && tradCharField && simpChar !== tradCharField) {
 			try {
 				const simpUrl = await getDictionaryUrl(simpChar, dev, fetch);
-				const simpFetch = simpUrl.startsWith('http') ? globalThis.fetch : fetch;
-				const simpResponse = await simpFetch(simpUrl);
+				const simpResponse = await fetchDictionaryBytes(simpUrl, fetch);
 				if (simpResponse.ok) {
 					const simpCompressed = await simpResponse.arrayBuffer();
 					const simpData = decompressAndParse(simpCompressed);
@@ -439,6 +458,9 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 			conjugationAlternatives
 		};
 	} catch (err) {
+		if (isHttpError(err) || isRedirect(err)) {
+			throw err;
+		}
 		console.error(`Failed to load dictionary entry for "${word}":`, err);
 		throw error(404, `Character "${word}" not found`);
 	}

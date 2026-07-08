@@ -239,8 +239,7 @@ async function loadDictionaryEntry(word: string, fetchFn: typeof fetch, redirect
 	try {
 		const { inflateSync } = await import('fflate');
 		const url = await getDictionaryUrl(word, dev, fetchFn);
-		const dictFetch = url.startsWith('http') ? globalThis.fetch : fetchFn;
-		const response = await dictFetch(url);
+		const response = await fetchDictionaryBytes(url, fetchFn);
 		if (!response.ok) return null;
 
 		const data = JSON.parse(
@@ -255,6 +254,13 @@ async function loadDictionaryEntry(word: string, fetchFn: typeof fetch, redirect
 	} catch {
 		return null;
 	}
+}
+
+function fetchDictionaryBytes(url: string, fetchFn: typeof fetch): Promise<Response> {
+	if (typeof window !== 'undefined' || url.startsWith('http')) {
+		return globalThis.fetch(url);
+	}
+	return fetchFn(url);
 }
 
 function extractJapaneseReading(entry: DictionaryEntry | null, surface: string, dictionaryForm: string): string | null {

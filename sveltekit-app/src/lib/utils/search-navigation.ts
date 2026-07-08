@@ -140,7 +140,7 @@ async function fetchDictionaryEntry(
 ): Promise<DictionaryEntry | null> {
 	try {
 		const url = await getDictionaryUrl(word, dev, fetchFn);
-		const response = await fetchFn(url);
+		const response = await fetchDictionaryBytes(url, fetchFn);
 		if (!response.ok) return null;
 
 		// Decompress the deflated response
@@ -160,6 +160,13 @@ async function fetchDictionaryEntry(
 	} catch {
 		return null;
 	}
+}
+
+function fetchDictionaryBytes(url: string, fetchFn: typeof fetch): Promise<Response> {
+	if (typeof window !== 'undefined' || url.startsWith('http')) {
+		return globalThis.fetch(url);
+	}
+	return fetchFn(url);
 }
 
 /**
@@ -591,4 +598,3 @@ export async function navigateOrSearch(word: string, fetchFn: typeof fetch = fet
 		await goto(`/search?q=${encodeURIComponent(trimmedWord)}`);
 	}
 }
-

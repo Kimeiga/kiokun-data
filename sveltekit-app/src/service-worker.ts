@@ -41,6 +41,24 @@ self.addEventListener('fetch', (event: FetchEvent) => {
 	// Skip non-GET requests
 	if (event.request.method !== 'GET') return;
 
+	// Dictionary API: cache-first by app version. Dictionary bytes are large and
+	// route navigation should not depend on the browser reaching GitHub raw.
+	if (url.pathname.startsWith('/api/dictionary/')) {
+		event.respondWith(
+			caches.match(event.request).then(cached => {
+				if (cached) return cached;
+				return fetch(event.request).then(response => {
+					if (response.ok) {
+						const clone = response.clone();
+						caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
+					}
+					return response;
+				});
+			})
+		);
+		return;
+	}
+
 	// API calls: network-first with cache fallback
 	if (url.pathname.startsWith('/api/')) {
 		event.respondWith(

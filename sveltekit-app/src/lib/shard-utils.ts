@@ -161,6 +161,20 @@ export function getRawGitHubUrl(word: string): string {
   return `https://raw.githubusercontent.com/Kimeiga/kiokun2-dict-${shard}/main/${subdir}/${encodedWord}.json.deflate`;
 }
 
+/**
+ * Get the jsDelivr URL for a dictionary word.
+ *
+ * This is useful as a fallback when GitHub raw temporarily rate-limits browser
+ * or edge requests. Raw GitHub remains the freshest source; jsDelivr gives us a
+ * globally cached backup with permissive CORS.
+ */
+export function getJsDelivrUrl(word: string): string {
+  const shard = getShardName(word);
+  const subdir = getSubdir(word);
+  const encodedWord = encodeURIComponent(word);
+  return `https://cdn.jsdelivr.net/gh/Kimeiga/kiokun2-dict-${shard}@main/${subdir}/${encodedWord}.json.deflate`;
+}
+
 // Cache for the CORS server port
 let cachedPort: number | null = null;
 
@@ -249,6 +263,10 @@ export async function getLocalUrl(word: string, fetchFn: typeof fetch = fetch): 
 export async function getDictionaryUrl(word: string, dev: boolean = false, fetchFn: typeof fetch = fetch): Promise<string> {
   if (!dev && isCapacitorRuntime()) {
     return `/__kiokun_offline__/dictionary/${encodeURIComponent(word)}.json.deflate`;
+  }
+
+  if (!dev) {
+    return `/api/dictionary/${encodeURIComponent(word)}.json.deflate`;
   }
 
   if (dev) {
