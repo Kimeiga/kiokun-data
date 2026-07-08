@@ -1,10 +1,9 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import AnnotatedSentence from '$lib/components/AnnotatedSentence.svelte';
 	import { buildChineseRubySegments } from '$lib/utils/sentence-ruby';
 
-	interface Props { word: string; hasContent?: boolean; }
-	let { word, hasContent = $bindable(false) }: Props = $props();
+	interface Props { word: string; words?: string[]; hasContent?: boolean; }
+	let { word, words = [], hasContent = $bindable(false) }: Props = $props();
 
 	interface Sentence { simp: string; trad: string; en: string; py: string; }
 
@@ -12,8 +11,19 @@
 	let loaded = $state(false);
 	let showTraditional = $state(false);
 	let expanded = $state(false);
+	let requestId = 0;
 
 	$effect(() => { hasContent = loaded && sentences.length > 0; });
+
+	let lookupWords = $derived.by(() => {
+		const forms: string[] = [];
+		const add = (form: string | undefined | null) => {
+			if (form && !forms.includes(form)) forms.push(form);
+		};
+		add(word);
+		for (const form of words || []) add(form);
+		return forms;
+	});
 
 	function simpleHash(str: string): number {
 		let h = 0;
@@ -21,16 +31,40 @@
 		return h;
 	}
 
-	onMount(async () => {
-		if (!word) return;
-		try {
-			const indexShard = (simpleHash(word) & 0xFF).toString(16).padStart(2, '0');
-			const indexResp = await fetch(`/zh_sentences/idx/${indexShard}.json`);
-			if (!indexResp.ok) { loaded = true; return; }
+	async function loadSentences(forms: string[]) {
+		const currentRequest = ++requestId;
+		if (!forms.length) {
+			sentences = [];
+			loaded = true;
+			return;
+		}
 
-			const index = await indexResp.json();
-			const refs = index[word];
-			if (!refs?.length) { loaded = true; return; }
+		loaded = false;
+		sentences = [];
+		try {
+			const refs: Array<[number, number]> = [];
+			const seenRefs = new Set<string>();
+			const indexCache = new Map<string, any>();
+
+			for (const form of forms) {
+				const indexShard = (simpleHash(form) & 0xFF).toString(16).padStart(2, '0');
+				let index = indexCache.get(indexShard);
+				if (!index) {
+					const indexResp = await fetch(`/zh_sentences/idx/${indexShard}.json`);
+					if (!indexResp.ok) continue;
+					index = await indexResp.json();
+					indexCache.set(indexShard, index);
+				}
+
+				for (const ref of index[form] || []) {
+					const key = `${ref[0]}:${ref[1]}`;
+					if (seenRefs.has(key)) continue;
+					seenRefs.add(key);
+					refs.push(ref);
+				}
+			}
+
+			if (!refs.length) return;
 
 			const shardGroups: Record<number, number[]> = {};
 			for (const [shardNum, idx] of refs) {
@@ -39,6 +73,7 @@
 			}
 
 			const results: Sentence[] = [];
+			const seenSentences = new Set<string>();
 			for (const [shardNum, indices] of Object.entries(shardGroups)) {
 				const shardResp = await fetch(`/zh_sentences/${parseInt(shardNum).toString(16)}.json`);
 				if (!shardResp.ok) continue;
@@ -46,13 +81,22 @@
 				for (const idx of indices) {
 					if (shardData[idx]) {
 						const [simp, trad, en, py] = shardData[idx];
+						const sentenceKey = `${simp}\n${trad}\n${en}`;
+						if (seenSentences.has(sentenceKey)) continue;
+						seenSentences.add(sentenceKey);
 						results.push({ simp, trad, en, py });
 					}
 				}
 			}
-			sentences = results;
+			if (currentRequest === requestId) sentences = results;
 		} catch {}
-		finally { loaded = true; }
+		finally {
+			if (currentRequest === requestId) loaded = true;
+		}
+	}
+
+	$effect(() => {
+		loadSentences(lookupWords);
 	});
 </script>
 

@@ -64,6 +64,20 @@
 		return DOMPurify.sanitize(html);
 	}
 
+	function isLegacyClaudeNote(note: Note): boolean {
+		const name = note.user?.name?.trim().toLowerCase() || "";
+		const userId = note.userId?.trim().toLowerCase() || "";
+		return note.isAdmin || name === "claude" || userId === "claude" || userId.includes("claude");
+	}
+
+	let visibleCommunityNotes = $derived(otherNotes.filter((note) => !isLegacyClaudeNote(note)));
+	let adminNote = $derived(
+		showClaudeMnemonics ? otherNotes.find((note) => note.isAdmin) || null : null
+	);
+	let shouldRenderNotes = $derived(
+		canEditNotes || loading || Boolean(error) || Boolean(adminNote) || visibleCommunityNotes.length > 0
+	);
+
 	async function loadNotes() {
 		if (dev && !isNativeRuntime && !$session.data?.user) {
 			notes = [];
@@ -317,156 +331,156 @@
 	});
 </script>
 
-<div class:notes-compact={compact}>
-<SectionHeading id="notes">Notes</SectionHeading>
+{#if shouldRenderNotes}
+	<div class:notes-compact={compact}>
+	<SectionHeading id="notes">Notes</SectionHeading>
 
-<div class="mb-2">
-	{#if error}
-		<div class="p-3 bg-red-50 text-red-700 rounded mb-4">{error}</div>
-	{/if}
+	<div class="mb-2">
+		{#if error}
+			<div class="p-3 bg-red-50 text-red-700 rounded mb-4">{error}</div>
+		{/if}
 
-	{#if loading && notes.length === 0}
-		<p class="text-text-muted italic my-4">Loading notes...</p>
-	{:else}
-		<!-- Current User's Note -->
-		{#if canEditNotes}
-			{#if myNote && !isEditing}
-				<div class="mb-3">
-					<div class="flex justify-between items-center mb-2">
-						<span class="font-semibold text-text-secondary text-xs">Your Note</span>
-						<div class="note-actions">
-							<button onclick={startEditing} class="edit-btn" title="Edit">Edit</button>
-							<button onclick={deleteNote} class="delete-btn" title="Delete">Delete</button>
+		{#if loading && notes.length === 0}
+			<p class="text-text-muted italic my-4">Loading notes...</p>
+		{:else}
+			<!-- Current User's Note -->
+			{#if canEditNotes}
+				{#if myNote && !isEditing}
+					<div class="mb-3">
+						<div class="flex justify-between items-center mb-2">
+							<span class="font-semibold text-text-secondary text-xs">Your Note</span>
+							<div class="note-actions">
+								<button onclick={startEditing} class="edit-btn" title="Edit">Edit</button>
+								<button onclick={deleteNote} class="delete-btn" title="Delete">Delete</button>
+							</div>
+						</div>
+						<div class="text-text-primary leading-relaxed markdown-content">
+							{@html renderMarkdown(myNote.noteText)}
 						</div>
 					</div>
-					<div class="text-text-primary leading-relaxed markdown-content">
-						{@html renderMarkdown(myNote.noteText)}
-					</div>
-				</div>
-			{:else if isEditing || !myNote}
-				<div class="mb-3 note-editor" class:expanded={isExpanded}>
-					<div class="flex justify-between items-center mb-3">
-						<div class="flex items-center gap-3">
-							<span class="font-medium text-text-tertiary text-xs">{myNote ? "Edit Your Note" : "Add Your Note"}</span>
+				{:else if isEditing || !myNote}
+					<div class="mb-3 note-editor" class:expanded={isExpanded}>
+						<div class="flex justify-between items-center mb-3">
+							<div class="flex items-center gap-3">
+								<span class="font-medium text-text-tertiary text-xs">{myNote ? "Edit Your Note" : "Add Your Note"}</span>
+								{#if isExpanded}
+									<div class="editor-tabs">
+										<button
+											class="tab"
+											class:active={!showPreview}
+											onclick={() => (showPreview = false)}
+										>
+											Write
+										</button>
+										<button
+											class="tab"
+											class:active={showPreview}
+											onclick={() => (showPreview = true)}
+											disabled={!noteText.trim()}
+										>
+											Preview
+										</button>
+									</div>
+								{/if}
+							</div>
 							{#if isExpanded}
-								<div class="editor-tabs">
-									<button
-										class="tab"
-										class:active={!showPreview}
-										onclick={() => (showPreview = false)}
-									>
-										Write
+								<div class="editor-actions">
+									<input
+										type="file"
+										accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
+										onchange={handleImageSelect}
+										bind:this={fileInput}
+										style="display: none;"
+									/>
+									{#if $session.data?.user && !isNativeRuntime}
+										<button
+											onclick={triggerImageUpload}
+											disabled={uploadingImage}
+											class="image-btn"
+											title="Upload image"
+										>
+											{uploadingImage ? "..." : "📷"}
+										</button>
+									{/if}
+									<button onclick={saveNote} disabled={loading || !noteText.trim()} class="save-btn">
+										{loading ? "Saving..." : "Save"}
 									</button>
-									<button
-										class="tab"
-										class:active={showPreview}
-										onclick={() => (showPreview = true)}
-										disabled={!noteText.trim()}
-									>
-										Preview
-									</button>
+									{#if myNote}
+										<button onclick={cancelEditing} class="cancel-btn">Cancel</button>
+									{/if}
 								</div>
 							{/if}
 						</div>
-						{#if isExpanded}
-							<div class="editor-actions">
-								<input
-									type="file"
-									accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
-									onchange={handleImageSelect}
-									bind:this={fileInput}
-									style="display: none;"
-								/>
-								{#if $session.data?.user && !isNativeRuntime}
-									<button
-										onclick={triggerImageUpload}
-										disabled={uploadingImage}
-										class="image-btn"
-										title="Upload image"
-									>
-										{uploadingImage ? "..." : "📷"}
-									</button>
+
+						{#if !showPreview}
+							<div
+								class="textarea-wrapper"
+								class:dragging={isDragging}
+								role="group"
+								aria-label="Note editor image drop zone"
+								ondragover={handleDragOver}
+								ondragleave={handleDragLeave}
+								ondrop={handleDrop}
+							>
+								<textarea
+									bind:value={noteText}
+									placeholder="Write your note here... (Markdown supported)"
+									rows={isExpanded ? 8 : 2}
+									onfocus={handleFocus}
+									onblur={handleBlur}
+									onpaste={handlePaste}
+								></textarea>
+								{#if isDragging}
+									<div class="drag-overlay">
+										📷 Drop image here
+									</div>
 								{/if}
-								<button onclick={saveNote} disabled={loading || !noteText.trim()} class="save-btn">
-									{loading ? "Saving..." : "Save"}
-								</button>
-								{#if myNote}
-									<button onclick={cancelEditing} class="cancel-btn">Cancel</button>
-								{/if}
+							</div>
+						{:else}
+							<div class="preview-content markdown-content">
+								{@html renderMarkdown(noteText)}
 							</div>
 						{/if}
 					</div>
+				{/if}
+			{/if}
 
-					{#if !showPreview}
-						<div
-							class="textarea-wrapper"
-							class:dragging={isDragging}
-							ondragover={handleDragOver}
-							ondragleave={handleDragLeave}
-							ondrop={handleDrop}
-						>
-							<textarea
-								bind:value={noteText}
-								placeholder="Write your note here... (Markdown supported)"
-								rows={isExpanded ? 8 : 2}
-								onfocus={handleFocus}
-								onblur={handleBlur}
-								onpaste={handlePaste}
-							></textarea>
-							{#if isDragging}
-								<div class="drag-overlay">
-									📷 Drop image here
-								</div>
-							{/if}
-						</div>
-					{:else}
-						<div class="preview-content markdown-content">
-							{@html renderMarkdown(noteText)}
-						</div>
-					{/if}
+			<!-- Official mnemonic (admin note) — shown without attribution -->
+			{#if adminNote}
+				<div class="official-mnemonic">
+					<div class="markdown-content">
+						{@html renderMarkdown(adminNote.noteText)}
+					</div>
 				</div>
 			{/if}
-		{:else}
-			<p class="sign-in-prompt" style="font-size: var(--font-size-caption1); color: var(--text-muted); margin: var(--spacing-xs) 0;">Sign in to add your own note</p>
-		{/if}
 
-		<!-- Official mnemonic (admin note) — shown without attribution -->
-		{@const adminNote = showClaudeMnemonics ? otherNotes.find(n => n.isAdmin) : null}
-		{#if adminNote}
-			<div class="official-mnemonic">
-				<div class="markdown-content">
-					{@html renderMarkdown(adminNote.noteText)}
+			<!-- Community Notes (non-admin, excluding legacy generated notes) -->
+			{#if visibleCommunityNotes.length > 0}
+				<div class="notes-list">
+					{#each visibleCommunityNotes as note (note.id)}
+						<div class="note mb-3">
+							<div class="note-header-with-avatar">
+								<a href="/users/{note.userId}" class="user-avatar-link">
+									{#if note.user?.image}
+										<img src={note.user.image} alt={note.user.name} class="user-avatar" />
+									{:else}
+										<div class="user-avatar-placeholder">
+											{note.user?.name?.charAt(0).toUpperCase() || '?'}
+										</div>
+									{/if}
+								</a>
+							</div>
+							<div class="note-content markdown-content">
+								{@html renderMarkdown(note.noteText)}
+							</div>
+						</div>
+					{/each}
 				</div>
-			</div>
+			{/if}
 		{/if}
-
-		<!-- Community Notes (non-admin) -->
-		{@const communityNotes = otherNotes.filter(n => !n.isAdmin)}
-		{#if communityNotes.length > 0}
-			<div class="notes-list">
-				{#each communityNotes as note (note.id)}
-					<div class="note mb-3">
-						<div class="note-header-with-avatar">
-							<a href="/users/{note.userId}" class="user-avatar-link">
-								{#if note.user?.image}
-									<img src={note.user.image} alt={note.user.name} class="user-avatar" />
-								{:else}
-									<div class="user-avatar-placeholder">
-										{note.user?.name?.charAt(0).toUpperCase() || '?'}
-									</div>
-								{/if}
-							</a>
-						</div>
-						<div class="note-content markdown-content">
-							{@html renderMarkdown(note.noteText)}
-						</div>
-					</div>
-				{/each}
-			</div>
-		{/if}
-	{/if}
-</div>
-</div>
+	</div>
+	</div>
+{/if}
 
 <style>
 	.notes-compact {
@@ -477,10 +491,6 @@
 		border-top: none;
 		padding-top: 0;
 	}
-	.note-editor {
-		transition: max-height 0.3s ease-in-out;
-	}
-
 	.note-editor:not(.expanded) {
 		cursor: text;
 	}
@@ -491,15 +501,6 @@
 
 	.editor-tabs {
 		@apply flex gap-2;
-		opacity: 0;
-		max-height: 0;
-		overflow: hidden;
-		transition: opacity 0.3s ease-in-out, max-height 0.3s ease-in-out;
-	}
-
-	.note-editor.expanded .editor-tabs {
-		opacity: 1;
-		max-height: 50px;
 	}
 
 	.tab {
@@ -521,15 +522,6 @@
 
 	.editor-actions {
 		@apply flex gap-2 items-center;
-		opacity: 0;
-		max-height: 0;
-		overflow: hidden;
-		transition: opacity 0.3s ease-in-out, max-height 0.3s ease-in-out;
-	}
-
-	.note-editor.expanded .editor-actions {
-		opacity: 1;
-		max-height: 50px;
 	}
 
 	.save-btn {
@@ -604,10 +596,6 @@
 		@apply border-accent;
 	}
 
-	.admin-badge {
-		@apply inline-block px-2 py-1 bg-[#4285f4] text-white text-xs rounded font-semibold;
-	}
-
 	.note-actions {
 		@apply flex gap-2;
 	}
@@ -678,7 +666,7 @@
 	}
 
 	.markdown-content :global(blockquote) {
-		@apply border-l-4 border-border pl-4 my-2 text-text-secondary;
+		@apply border border-border rounded px-4 py-3 my-2 text-text-secondary bg-primary-secondary;
 	}
 
 	.markdown-content :global(a) {
@@ -714,7 +702,6 @@
 		/* 16px while editing so iOS Safari doesn't auto-zoom on focus
 		   (it zooms any focused field below 16px). Display is 14px. */
 		font-size: 16px;
-		transition: max-height 0.3s ease-in-out;
 	}
 
 	textarea:focus {

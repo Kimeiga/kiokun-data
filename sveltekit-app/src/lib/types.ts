@@ -168,6 +168,11 @@ export interface ChineseComponent {
   gloss?: string;
   visualGloss?: string;
   visualMnemonic?: boolean;
+  originalCharacter?: string;
+  originalGloss?: string;
+  originalPinyin?: string;
+  originalHint?: string;
+  originalType?: string[];
 }
 
 export interface OldPronunciation {

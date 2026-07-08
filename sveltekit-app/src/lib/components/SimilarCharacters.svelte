@@ -79,23 +79,12 @@
 
 	.similar-scroll {
 		display: flex;
+		flex-wrap: wrap;
 		gap: var(--spacing-sm);
-		overflow-x: auto;
+		max-width: 100%;
+		min-width: 0;
+		overflow-x: visible;
 		padding-bottom: var(--spacing-sm);
-		scrollbar-width: thin;
-		scrollbar-color: var(--border-color) transparent;
-		-webkit-overflow-scrolling: touch;
-	}
-
-	.similar-scroll::-webkit-scrollbar {
-		height: 4px;
-	}
-	.similar-scroll::-webkit-scrollbar-track {
-		background: transparent;
-	}
-	.similar-scroll::-webkit-scrollbar-thumb {
-		background: var(--border-color);
-		border-radius: 2px;
 	}
 
 	.similar-chip {

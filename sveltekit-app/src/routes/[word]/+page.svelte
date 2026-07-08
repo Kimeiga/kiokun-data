@@ -1,7 +1,11 @@
 <script lang="ts">
 	import { onMount } from "svelte";
 	import type { PageData } from "./$types";
-	import type { ChineseComponent, SemanticMnemonicCard as SemanticMnemonicCardType } from "$lib/types";
+	import type {
+		ChineseComponent,
+		SemanticMnemonicCard as SemanticMnemonicCardType,
+		SemanticMnemonicComponent,
+	} from "$lib/types";
 	import Header from "$lib/components/Header.svelte";
 	import Contains from "$lib/Contains.svelte";
 	import AppearsIn from "$lib/AppearsIn.svelte";
@@ -57,6 +61,7 @@
 	let twoPrimaryWordColumns = $derived(showChineseWords && showJapaneseWords);
 	let containsWordForms = $derived.by(() => buildContainsWordForms(data.data, data.word));
 	let sortedContainsWords = $derived.by(() => sortContainsWords(data.data.contains || [], data.word));
+	let chineseSentenceLookupWords = $derived.by(() => buildChineseSentenceLookupWords(data.data, data.word));
 
 	function sortContainsWords(words: any[], currentWord: string): any[] {
 		return [...words].sort((a, b) => {
@@ -98,6 +103,29 @@
 		return forms;
 	}
 
+	function buildChineseSentenceLookupWords(entry: any, currentWord: string): string[] {
+		const forms: string[] = [];
+		const add = (form: string | undefined | null) => {
+			if (form && !forms.includes(form)) forms.push(form);
+		};
+
+		add(currentWord);
+
+		for (const word of entry.chinese_words || []) {
+			add(word.simp);
+			add(word.trad);
+		}
+
+		if ([...currentWord].length === 1) {
+			add(entry.chinese_char?.char);
+			for (const variant of entry.chinese_char?.simpVariants || []) add(variant);
+			for (const variant of entry.chinese_char?.tradVariants || []) add(variant);
+			add(entry.chinese_char?.hkChar);
+		}
+
+		return forms;
+	}
+
 	function componentChar(component: string | ChineseComponent): string | null {
 		if (typeof component === "string") return component;
 		return component.character || component.char || null;
@@ -112,10 +140,43 @@
 	function componentGloss(component: any, glossesMap: Record<string, string>): string {
 		const char = componentChar(component);
 		const types = typeof component === "string" ? [] : component.componentType || component.type || [];
-		if (types.includes("visual") && typeof component !== "string") {
-			return component.meaning || component.gloss || "";
+		if (typeof component !== "string" && (component.visualMnemonic || types.includes("visual"))) {
+			return component.visualGloss || component.gloss || component.meaning || "";
 		}
 		return char ? glossesMap?.[char] || component.meaning || component.gloss || "" : "";
+	}
+
+	function normalizedComponentChar(character: string): string {
+		return character === "辶" ? "⻌" : character;
+	}
+
+	function semanticComponentSignature(components: SemanticMnemonicComponent[] | undefined): string {
+		return (components || [])
+			.map((component) =>
+				`${normalizedComponentChar(component.character)}:${cleanComponentGloss(component.gloss || "").toLowerCase()}`
+			)
+			.sort()
+			.join("|");
+	}
+
+	function isLikelyRenderableMnemonicComponent(component: SemanticMnemonicComponent): boolean {
+		const character = component.character.trim();
+		if (!character || character === "◎" || character.startsWith("&")) return false;
+		return [...character].every((char) => (char.codePointAt(0) || 0) <= 0xffff);
+	}
+
+	function visibleHistoricalComponentsForCard(card: SemanticMnemonicCardType | undefined): SemanticMnemonicComponent[] {
+		const historicalComponents = card?.historical_components || [];
+		if (!historicalComponents.length) return [];
+		if (historicalComponents.some((component) => !isLikelyRenderableMnemonicComponent(component))) return [];
+
+		const visualComponents = card?.visual_components?.length
+			? card.visual_components
+			: card?.components || [];
+
+		return semanticComponentSignature(historicalComponents) === semanticComponentSignature(visualComponents)
+			? []
+			: historicalComponents;
 	}
 
 	// Scroll to hash target on mount (for section permalinks)
@@ -176,6 +237,14 @@
 		const lower = dictMeaning.trim().toLowerCase();
 		if (/^radical number \d+/.test(lower)) return false;
 		if (curatedGloss && lower === curatedGloss.trim().toLowerCase()) return false;
+		return true;
+	}
+
+	function shouldShowComponentHint(hint: string | undefined, component: ChineseComponent): boolean {
+		if (!hint) return false;
+		if (component.visualMnemonic && /\b(shorthand|traditional character|simplified character|variant of)\b/i.test(hint)) {
+			return false;
+		}
 		return true;
 	}
 
@@ -279,9 +348,10 @@
 	function mnemonicComponentSignature(card: SemanticMnemonicCardType): string {
 		const components = card.visual_components?.length ? card.visual_components : card.components || [];
 		if (components.length === 0) return card.equation;
+		const glossesMap = data.charGlosses as Record<string, string>;
 
 		const normalize = (component: { character: string; gloss: string }) =>
-			cleanComponentGloss(data.charGlosses?.[component.character] || component.gloss || '')
+			cleanComponentGloss(glossesMap?.[component.character] || component.gloss || '')
 				.trim()
 				.toLowerCase();
 
@@ -365,24 +435,66 @@
 		return semanticMnemonicCards.find(({ card }) => card.character === char)?.card;
 	}
 
-	function componentsFromMnemonicCard(card: SemanticMnemonicCardType | undefined): ChineseComponent[] | undefined {
+	function componentsFromMnemonicCard(
+		card: SemanticMnemonicCardType | undefined,
+		fallbackComponents: ChineseComponent[] | undefined,
+	): ChineseComponent[] | undefined {
 		const components = card?.visual_components?.length ? card.visual_components : card?.components || [];
 		if (!components.length) return undefined;
+		const historicalComponents = visibleHistoricalComponentsForCard(card);
 
-		return components.map((component) => ({
-			character: component.character,
-			meaning: component.gloss,
-			componentType: ["visual"],
-			visualMnemonic: true,
-		}));
+		return components.map((component, index) => {
+			const fallback = fallbackComponents?.[index];
+			const fallbackTypes =
+				typeof fallback === "string" || !fallback
+					? []
+					: fallback.componentType || fallback.type || [];
+			const historical = historicalComponents[index];
+			const fallbackChar = fallback ? componentChar(fallback) : null;
+			const historicalChar = historical?.character || fallbackChar || "";
+			const historicalGloss =
+				historical?.gloss ||
+				(typeof fallback === "string" || !fallback ? "" : fallback.meaning || fallback.gloss || "");
+			const visualChar = component.character;
+			const visualGloss = component.gloss;
+			const hasOriginalContext =
+				historicalChar &&
+				(
+					normalizedComponentChar(historicalChar) !== normalizedComponentChar(visualChar) ||
+					cleanComponentGloss(historicalGloss).toLowerCase() !== cleanComponentGloss(visualGloss).toLowerCase()
+				);
+			const pinyin =
+				typeof fallback === "string" || !fallback || hasOriginalContext
+					? undefined
+					: fallback.pinyin;
+
+			return {
+				character: visualChar,
+				meaning: visualGloss,
+				gloss: visualGloss,
+				visualGloss,
+				componentType: fallbackTypes,
+				type: fallbackTypes,
+				hint: typeof fallback === "string" || hasOriginalContext ? undefined : fallback?.hint,
+				pinyin,
+				phonetic: typeof fallback === "string" ? undefined : fallback?.phonetic,
+				visualMnemonic: true,
+				originalCharacter: hasOriginalContext ? historicalChar : undefined,
+				originalGloss: hasOriginalContext ? historicalGloss : undefined,
+				originalPinyin:
+					hasOriginalContext && typeof fallback !== "string" ? fallback?.pinyin : undefined,
+				originalHint:
+					hasOriginalContext && typeof fallback !== "string" ? fallback?.hint : undefined,
+				originalType: fallbackTypes,
+			};
+		});
 	}
 
 	function componentsForVariant(
 		char: string | undefined | null,
 		fallbackComponents: ChineseComponent[] | undefined,
 	): ChineseComponent[] | undefined {
-		if (!fallbackComponents?.length) return fallbackComponents;
-		return componentsFromMnemonicCard(mnemonicCardForCharacter(char)) || fallbackComponents;
+		return componentsFromMnemonicCard(mnemonicCardForCharacter(char), fallbackComponents) || fallbackComponents;
 	}
 
 	let tradDisplayComponents = $derived.by(() =>
@@ -1409,13 +1521,18 @@
 							<!-- Main Meaning (Gloss) + Pronunciations -->
 							{#if uniqueGloss || data.data.chinese_char?.gloss}
 								<div class="min-w-0">
-									<div class="flex items-center gap-2 mb-1 md:mb-2">
-										<h1
-											class="text-xl md:text-4xl font-bold text-accent leading-tight flex-1 study-hide"
-											onclick={handleStudyClick}
-										>
-											{uniqueGloss || stripVariantIndicator(data.data.chinese_char?.gloss || '')}
-										</h1>
+										<div class="character-title-row flex items-center gap-2 mb-1 md:mb-2">
+											<h1
+												class="text-xl md:text-4xl font-bold text-accent leading-tight flex-1 min-w-0"
+											>
+												<button
+													type="button"
+													class="character-title-button study-hide"
+													onclick={handleStudyClick}
+												>
+													{uniqueGloss || stripVariantIndicator(data.data.chinese_char?.gloss || '')}
+												</button>
+											</h1>
 										{#if data.data.chinese_char?.statistics?.hskLevel}
 											<span class="level-badge hsk">HSK {data.data.chinese_char.statistics.hskLevel}</span>
 										{/if}
@@ -1546,14 +1663,18 @@
 						</div>
 					{/if}
 
-					{#each semanticMnemonicCards as mnemonicItem, i}
-						<SemanticMnemonicCard
-							card={mnemonicItem.card}
-							label={semanticMnemonicCards.length > 1 ? mnemonicItem.label : undefined}
-							heading={semanticMnemonicCards.length > 1 ? "Mnemonics" : "Mnemonic"}
-							showHeading={i === 0}
-						/>
-					{/each}
+					{#if semanticMnemonicCards.length > 0}
+						<SectionHeading id="mnemonic">{semanticMnemonicCards.length > 1 ? "Mnemonics" : "Mnemonic"}</SectionHeading>
+						<div class="semantic-mnemonic-grid" class:multi-mnemonic-grid={semanticMnemonicCards.length > 1}>
+							{#each semanticMnemonicCards as mnemonicItem}
+								<SemanticMnemonicCard
+									card={mnemonicItem.card}
+									label={semanticMnemonicCards.length > 1 ? mnemonicItem.label : undefined}
+									showHeading={false}
+								/>
+							{/each}
+						</div>
+					{/if}
 
 					<!-- Unified Components + Equation Section -->
 					{#if (tradDisplayComponents && tradDisplayComponents.length > 0) || (simpDisplayComponents && simpDisplayComponents.length > 0) || jpDisplayComponents}
@@ -1597,13 +1718,14 @@
 												Traditional ({traditionalChar})
 											</div>
 										{/if}
-										<!-- Mini-equation at top of column -->
-										<CharacterEquation
-											components={tradDisplayComponents}
-											targetChar={traditionalChar}
-											targetGloss={uniqueGloss || data.data.chinese_char?.gloss}
-											charGlosses={data.charGlosses}
-										/>
+										{#if !mnemonicCardForCharacter(traditionalChar)}
+											<CharacterEquation
+												components={tradDisplayComponents}
+												targetChar={traditionalChar}
+												targetGloss={uniqueGloss || data.data.chinese_char?.gloss}
+												charGlosses={data.charGlosses}
+											/>
+										{/if}
 										<!-- Detailed component cards -->
 										{#each tradDisplayComponents as comp}
 											{@const char = componentChar(comp) || ""}
@@ -1612,6 +1734,8 @@
 											{@const pinyin = comp.pinyin}
 											{@const dictMeaning = comp.meaning}
 											{@const curatedGloss = cleanComponentGloss(componentGloss(comp, data.charGlosses))}
+											{@const originalChar = comp.originalCharacter || ""}
+											{@const originalGloss = cleanComponentGloss(comp.originalGloss || "")}
 											{@const isMeaning = types.includes("meaning")}
 											{@const isPhonetic = types.includes("phonetic") || types.includes("sound")}
 											{@const isIconic = types.includes("iconic")}
@@ -1635,8 +1759,13 @@
 													{/if}
 												</div>
 												<div class="flex flex-col justify-center min-w-0">
-													<div class="flex items-center gap-2 mb-1">
+													<div class="component-title-row">
 														<a href="/{char}" class="text-2xl font-serif text-text-primary hover:text-accent-primary transition-colors">{char}</a>
+														{#if originalChar}
+															<span class="component-origin-inline">
+																(originally <a href="/{originalChar}">{originalChar}</a>{#if originalGloss}{' '}<span class="component-origin-gloss">{originalGloss}</span>{/if})
+															</span>
+														{/if}
 														{#if typeLabel}
 															<span class="text-xs px-2 py-0.5 rounded-full" style="background-color: {highlightColor}20; color: {highlightColor}; border: 1px solid {highlightColor}40;">
 																{typeLabel} component
@@ -1652,7 +1781,7 @@
 													{#if dictMeaning && isUsefulMeaning(dictMeaning, curatedGloss)}
 														<div class="text-xs text-text-tertiary">{dictMeaning}</div>
 													{/if}
-													{#if hint}
+													{#if shouldShowComponentHint(hint, comp)}
 														<div class="text-xs text-text-tertiary mt-1 italic">{hint}</div>
 													{/if}
 													{#if isPhonetic}
@@ -1674,12 +1803,14 @@
 												Simplified ({simplifiedChar})
 											</div>
 										{/if}
-										<CharacterEquation
-											components={simpDisplayComponents}
-											targetChar={simplifiedChar}
-											targetGloss={simplifiedCharData.gloss || uniqueGloss}
-											charGlosses={data.charGlosses}
-										/>
+										{#if !mnemonicCardForCharacter(simplifiedChar)}
+											<CharacterEquation
+												components={simpDisplayComponents}
+												targetChar={simplifiedChar}
+												targetGloss={simplifiedCharData.gloss || uniqueGloss}
+												charGlosses={data.charGlosses}
+											/>
+										{/if}
 										{#each simpDisplayComponents as comp}
 											{@const char = componentChar(comp) || ""}
 											{@const types = comp.componentType || comp.type || []}
@@ -1687,6 +1818,8 @@
 											{@const pinyin = comp.pinyin}
 											{@const dictMeaning = comp.meaning}
 											{@const curatedGloss = cleanComponentGloss(componentGloss(comp, data.charGlosses))}
+											{@const originalChar = comp.originalCharacter || ""}
+											{@const originalGloss = cleanComponentGloss(comp.originalGloss || "")}
 											{@const isMeaning = types.includes("meaning")}
 											{@const isPhonetic = types.includes("phonetic") || types.includes("sound")}
 											{@const isIconic = types.includes("iconic")}
@@ -1711,8 +1844,13 @@
 													{/if}
 												</div>
 												<div class="flex flex-col justify-center min-w-0">
-													<div class="flex items-center gap-2 mb-1">
+													<div class="component-title-row">
 														<a href="/{char}" class="text-2xl font-serif text-text-primary hover:text-accent-primary transition-colors">{char}</a>
+														{#if originalChar}
+															<span class="component-origin-inline">
+																(originally <a href="/{originalChar}">{originalChar}</a>{#if originalGloss}{' '}<span class="component-origin-gloss">{originalGloss}</span>{/if})
+															</span>
+														{/if}
 														{#if typeLabel}
 															<span class="text-xs px-2 py-0.5 rounded-full" style="background-color: {highlightColor}20; color: {highlightColor}; border: 1px solid {highlightColor}40;">
 																{typeLabel} component
@@ -1728,7 +1866,7 @@
 													{#if dictMeaning && isUsefulMeaning(dictMeaning, curatedGloss)}
 														<div class="text-xs text-text-tertiary">{dictMeaning}</div>
 													{/if}
-													{#if hint}
+													{#if shouldShowComponentHint(hint, comp)}
 														<div class="text-xs text-text-tertiary mt-1 italic">{hint}</div>
 													{/if}
 													{#if isPhonetic}
@@ -1750,23 +1888,32 @@
 												Japanese ({japaneseChar})
 											</div>
 										{/if}
-										<CharacterEquation
-											components={jpDisplayComponents}
-											targetChar={japaneseChar}
-											targetGloss={uniqueGloss || data.data.chinese_char?.gloss}
-											charGlosses={data.charGlosses}
-										/>
+										{#if !mnemonicCardForCharacter(japaneseChar)}
+											<CharacterEquation
+												components={jpDisplayComponents}
+												targetChar={japaneseChar}
+												targetGloss={uniqueGloss || data.data.chinese_char?.gloss}
+												charGlosses={data.charGlosses}
+											/>
+										{/if}
 										{#each jpDisplayComponents as comp}
 											{@const char = comp.character}
 											{@const curatedGloss = cleanComponentGloss(componentGloss(comp, data.charGlosses))}
+											{@const originalChar = comp.originalCharacter || ""}
+											{@const originalGloss = cleanComponentGloss(comp.originalGloss || "")}
 
 											<div class="component-card flex items-start gap-2 py-2 px-3 rounded-lg w-full">
 												<div class="relative w-[60px] h-[60px] flex-shrink-0">
 													<div class="w-full h-full flex items-center justify-center text-3xl font-serif text-text-primary">{char}</div>
 												</div>
 												<div class="flex flex-col justify-center min-w-0">
-													<div class="flex items-center gap-2 mb-1">
+													<div class="component-title-row">
 														<a href="/{char}" class="text-2xl font-serif text-text-primary hover:text-accent-primary transition-colors">{char}</a>
+														{#if originalChar}
+															<span class="component-origin-inline">
+																(originally <a href="/{originalChar}">{originalChar}</a>{#if originalGloss}{' '}<span class="component-origin-gloss">{originalGloss}</span>{/if})
+															</span>
+														{/if}
 													</div>
 													{#if curatedGloss}
 														<div class="text-sm text-text-secondary">{curatedGloss}</div>
@@ -1808,7 +1955,7 @@
 				{@const historicalImages = data.data.chinese_char.images.filter((img: { url?: string }) => img.url)}
 				<div class="mb-3">
 					<SectionHeading id="history">Historical Evolution</SectionHeading>
-					<div class="flex gap-2 overflow-x-auto pb-2">
+					<div class="historical-scroll flex gap-2 overflow-x-auto pb-2">
 						{#each historicalImages as image}
 							{#if image.url}
 								<div class="historical-card">
@@ -2027,7 +2174,11 @@
 			{/if}
 
 			{#if data.data.chinese_words?.length && languageStore.preferences.chinese}
-				<ChineseSentenceExamples word={data.word} bind:hasContent={zhSentencesHaveContent} />
+				<ChineseSentenceExamples
+					word={data.word}
+					words={chineseSentenceLookupWords}
+					bind:hasContent={zhSentencesHaveContent}
+				/>
 			{/if}
 
 			{#if (data.data.korean_words?.length || data.data.korean_char || data.data.contained_in_korean?.length) && languageStore.preferences.korean}
@@ -2075,6 +2226,65 @@
 <style>
 	/* Homophones */
 	.homophones-section { margin-bottom: var(--spacing-lg); }
+
+	.semantic-mnemonic-grid {
+		display: grid;
+		gap: var(--spacing-md);
+		margin-bottom: var(--spacing-lg);
+	}
+
+	.semantic-mnemonic-grid.multi-mnemonic-grid {
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+		gap: var(--spacing-lg);
+	}
+
+	.component-title-row {
+		display: flex;
+		align-items: baseline;
+		flex-wrap: wrap;
+		gap: 0.35rem 0.5rem;
+		margin-bottom: 0.125rem;
+	}
+
+	.component-origin-inline {
+		color: var(--text-tertiary);
+		font-size: var(--font-size-caption1);
+		line-height: 1.35;
+	}
+
+	.component-origin-inline a {
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.component-origin-inline a:hover {
+		color: var(--accent);
+		text-decoration: underline;
+	}
+
+	.component-origin-gloss {
+		margin-left: 0.2em;
+	}
+
+	.character-title-button {
+		display: inline;
+		max-width: 100%;
+		padding: 0;
+		border: 0;
+		background: transparent;
+		color: inherit;
+		font: inherit;
+		line-height: inherit;
+		text-align: left;
+		cursor: pointer;
+	}
+
+	.character-title-button:focus-visible {
+		outline: 2px solid var(--accent);
+		outline-offset: 3px;
+		border-radius: var(--radius-sm);
+	}
+
 	.homophone-group { margin-bottom: var(--spacing-sm); }
 	.homophone-reading {
 		font-size: var(--font-size-caption1);
@@ -2223,6 +2433,11 @@
 	}
 
 	/* Historical evolution cards */
+	.historical-scroll {
+		max-width: 100%;
+		min-width: 0;
+	}
+
 	.historical-card {
 		flex-shrink: 0;
 		text-align: center;
@@ -2255,7 +2470,21 @@
 
 	/* Mobile typography adjustments */
 	@media (max-width: 768px) {
+		.character-title-row {
+			flex-wrap: wrap;
+		}
+
+		.character-title-row h1 {
+			flex-basis: 100%;
+		}
+
+		.historical-scroll {
+			flex-wrap: wrap;
+			overflow-x: visible;
+		}
+
 		.historical-card {
+			flex: 1 1 68px;
 			padding: var(--spacing-sm);
 			min-width: 60px;
 		}
