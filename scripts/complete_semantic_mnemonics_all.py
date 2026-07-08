@@ -60,6 +60,77 @@ LOCAL_GLOSS_OVERRIDES = {
     "𰀡": "firm grip",
     "娲": "Nuwa",
     "媧": "Nuwa",
+    "叱": "scold",
+    "𠮟": "scold",
+    "澪": "water route",
+    "椙": "Japanese cedar",
+    "礒": "rocky shore",
+    "笘": "writing slate",
+    "鯵": "horse mackerel",
+    "鰺": "horse mackerel",
+    "鲹": "horse mackerel",
+    "梛": "nagi tree",
+    "俥": "rickshaw",
+    "溂": "lively",
+    "鳰": "grebe",
+    "﨟": "court rank",
+}
+
+
+EXTRA_LEARNER_TARGETS: dict[str, dict[str, str]] = {
+    "𠮟": {
+        "evidence": "Joyo exact glyph and JPDB top 100k word coverage",
+        "alias_of": "叱",
+        "alias_reason": "Unicode Z-variant of 叱; keep exact glyph for Japanese learner searches",
+    },
+    "澪": {"evidence": "JPDB top 100k and jinmeiyo/name coverage"},
+    "椙": {"evidence": "KANJIDIC frequency-ranked exact glyph coverage"},
+    "礒": {
+        "evidence": "KANJIDIC frequency-ranked exact glyph coverage",
+        "alias_of": "磯",
+        "alias_reason": "Japanese place/name spelling near 磯; keep exact glyph because shape differs",
+    },
+    "笘": {"evidence": "KANJIDIC frequency-ranked exact glyph coverage"},
+    "鯵": {
+        "evidence": "JPDB top 100k exact glyph coverage",
+        "alias_of": "鰺",
+        "alias_reason": "Common Japanese spelling variant of 鰺; keep exact glyph for learner searches",
+    },
+    "梛": {"evidence": "jinmeiyo/name coverage"},
+    "俥": {"evidence": "JPDB top 100k exact glyph coverage"},
+    "溂": {"evidence": "JPDB top 100k exact glyph coverage, especially 溌溂"},
+    "鳰": {"evidence": "JPDB top 100k exact glyph coverage"},
+}
+
+
+VARIANT_ALIAS_TARGETS: dict[str, dict[str, str]] = {
+    "﨑": {"alias_of": "崎", "reason": "Japanese compatibility glyph used in names"},
+    "﨟": {
+        "alias_of": "臘",
+        "meaning": "court rank",
+        "reason": "Japanese compatibility glyph seen in JPDB words such as 上﨟 and 中﨟",
+    },
+    "侮": {"alias_of": "侮", "reason": "Japanese compatibility glyph"},
+    "勤": {"alias_of": "勤", "reason": "Japanese compatibility glyph"},
+    "卑": {"alias_of": "卑", "reason": "Japanese compatibility glyph"},
+    "墨": {"alias_of": "墨", "reason": "Japanese compatibility glyph"},
+    "層": {"alias_of": "層", "reason": "Japanese compatibility glyph"},
+    "悔": {"alias_of": "悔", "reason": "Japanese compatibility glyph"},
+    "梅": {"alias_of": "梅", "reason": "Japanese compatibility glyph"},
+    "煮": {"alias_of": "煮", "reason": "Japanese compatibility glyph"},
+    "琢": {"alias_of": "琢", "reason": "Japanese compatibility glyph"},
+    "碑": {"alias_of": "碑", "reason": "Japanese compatibility glyph"},
+    "祐": {"alias_of": "祐", "reason": "Japanese compatibility glyph"},
+    "祖": {"alias_of": "祖", "reason": "Japanese compatibility glyph"},
+    "禍": {"alias_of": "禍", "reason": "Japanese compatibility glyph"},
+    "穀": {"alias_of": "穀", "reason": "Japanese compatibility glyph"},
+    "練": {"alias_of": "練", "reason": "Japanese compatibility glyph"},
+    "署": {"alias_of": "署", "reason": "Japanese compatibility glyph"},
+    "者": {"alias_of": "者", "reason": "Japanese compatibility glyph"},
+    "臭": {"alias_of": "臭", "reason": "Japanese compatibility glyph"},
+    "賓": {"alias_of": "賓", "reason": "Japanese compatibility glyph"},
+    "贈": {"alias_of": "贈", "reason": "Japanese compatibility glyph"},
+    "響": {"alias_of": "響", "reason": "Japanese compatibility glyph"},
 }
 
 
@@ -380,6 +451,80 @@ def local_card(prepared: dict[str, Any], source: str, replaced_reason: str | Non
     return record
 
 
+def attach_coverage_metadata(record: dict[str, Any], metadata: dict[str, str]) -> dict[str, Any]:
+    if metadata.get("evidence"):
+        record["coverage_evidence"] = metadata["evidence"]
+    if metadata.get("alias_of"):
+        record["alias_of"] = metadata["alias_of"]
+    if metadata.get("alias_reason"):
+        record["alias_reason"] = metadata["alias_reason"]
+    return record
+
+
+def alias_card(alias_char: str, base_record: dict[str, Any], metadata: dict[str, str]) -> dict[str, Any]:
+    components = [
+        {"character": component["character"], "gloss": component["gloss"]}
+        for component in base_record.get("components") or []
+    ]
+    meaning = safe_gloss(alias_char, metadata.get("meaning") or str(base_record.get("meaning") or "form"))
+    if not components:
+        components = [{"character": alias_char, "gloss": meaning}]
+    prepared = {
+        "character": alias_char,
+        "meaning": meaning,
+        "components": components,
+        "visual_components": components,
+        "component_source": f"variant_alias:{metadata['alias_of']}",
+        "source_meaning": f"alias of {metadata['alias_of']}",
+    }
+    record = local_card(prepared, "codex_local_variant_alias")
+    record["alias_of"] = metadata["alias_of"]
+    record["alias_reason"] = metadata.get("reason", "")
+    return record
+
+
+def add_learner_gap_cards(
+    cards: list[dict[str, Any]],
+    prepared: dict[str, dict[str, Any]],
+) -> list[dict[str, Any]]:
+    by_char = {card["character"]: card for card in cards}
+
+    for char, metadata in EXTRA_LEARNER_TARGETS.items():
+        if char in by_char:
+            attach_coverage_metadata(by_char[char], metadata)
+            continue
+        prepared_card = prepared.get(char) or prepare_card(char)
+        record = local_card(prepared_card, "codex_local_learner_gap")
+        attach_coverage_metadata(record, metadata)
+        by_char[char] = record
+        cards.append(record)
+
+    for alias_char, metadata in VARIANT_ALIAS_TARGETS.items():
+        if alias_char in by_char:
+            by_char[alias_char]["alias_of"] = metadata["alias_of"]
+            by_char[alias_char]["alias_reason"] = metadata.get("reason", "")
+            continue
+        base = by_char.get(metadata["alias_of"])
+        if base is None:
+            base_prepared = prepared.get(metadata["alias_of"]) or prepare_card(metadata["alias_of"])
+            base = local_card(base_prepared, "codex_local_completion")
+            by_char[metadata["alias_of"]] = base
+            cards.append(base)
+        record = alias_card(alias_char, base, metadata)
+        by_char[alias_char] = record
+        cards.append(record)
+
+    return sorted(cards, key=lambda card: (ord(card["character"]), card["character"]))
+
+
+def count_sources(cards: list[dict[str, Any]]) -> dict[str, int]:
+    source_counts: dict[str, int] = {}
+    for card in cards:
+        source = str(card.get("generation_source") or "unknown")
+        source_counts[source] = source_counts.get(source, 0) + 1
+    return source_counts
+
+
 def normalize_existing(card: dict[str, Any], source: str) -> dict[str, Any]:
     record = dict(card)
     record["generation_source"] = source
@@ -462,22 +607,30 @@ def main() -> None:
         source_counts[source] = source_counts.get(source, 0) + 1
         cards.append(card)
 
+    cards = add_learner_gap_cards(cards, prepared)
+    source_counts = count_sources(cards)
+
     artifact = {
         "created_at": datetime.now(timezone.utc).isoformat(),
         "model": {
             "name": "codex-authored-complete-semantic-mnemonics",
             "provider": "mixed",
-            "id": "reviewed-1000+codex-reauthored-paid-9000+codex-local-completion",
+            "id": "reviewed-1000+codex-reauthored-paid-9000+codex-local-completion+learner-gap-aliases",
         },
         "count": len(cards),
         "coverage_note": (
             "The reviewed first 1000 cards are preserved. The other paid 9000 Gemini cards "
             "are re-authored locally, and the remaining characters are completed locally, "
-            "using canonical visual component glosses and validation for every card."
+            "using canonical visual component glosses and validation for every card. "
+            "Extra learner-gap glyphs and Japanese compatibility forms are added explicitly "
+            "when frequency/name/JPDB heuristics showed useful exact glyphs outside the "
+            "original component-gloss and taxonomy target set."
         ),
         "card_input_cache_version": sm.CARD_INPUT_CACHE_VERSION,
         "manual_gloss_overrides_used": sm.MANUAL_GLOSS_OVERRIDES,
         "manual_component_gloss_overrides_used": sm.MANUAL_COMPONENT_GLOSS_OVERRIDES,
+        "extra_learner_targets_used": EXTRA_LEARNER_TARGETS,
+        "variant_alias_targets_used": VARIANT_ALIAS_TARGETS,
         "source_counts": source_counts,
         "mnemonics": cards,
     }

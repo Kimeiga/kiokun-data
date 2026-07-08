@@ -118,6 +118,20 @@ MANUAL_GLOSS_OVERRIDES: dict[str, str] = {
     "𰀡": "firm grip",
     "娲": "Nuwa",
     "媧": "Nuwa",
+    "叱": "scold",
+    "𠮟": "scold",
+    "澪": "water route",
+    "椙": "Japanese cedar",
+    "礒": "rocky shore",
+    "笘": "writing slate",
+    "鯵": "horse mackerel",
+    "鰺": "horse mackerel",
+    "鲹": "horse mackerel",
+    "梛": "nagi tree",
+    "俥": "rickshaw",
+    "溂": "lively",
+    "鳰": "grebe",
+    "﨟": "court rank",
 }
 
 
@@ -154,6 +168,7 @@ MANUAL_COMPONENT_GLOSS_OVERRIDES: dict[str, str] = {
     "𦣻": "head",
     "离": "netted beast",
     "𭔰": "beans measure",
+    "鱼": "fish",
 }
 
 
@@ -164,6 +179,7 @@ MANUAL_IDS_OVERRIDES: dict[str, str] = {
     "𱬹": "⿱爫旧",
     "𰕎": "⿰育攵",
     "𭔰": "⿱豆寸",
+    "𠮟": "⿰口七",
 }
 
 
