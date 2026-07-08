@@ -43,6 +43,14 @@ final class AppModel: ObservableObject {
     @Published private(set) var db: LocalDatabase?
     private var syncEngine: SyncEngine?
 
+    var shouldShowStatusToast: Bool {
+        let normalized = statusMessage.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        guard !normalized.isEmpty else { return false }
+        return normalized.contains("failed") ||
+            normalized.contains("error") ||
+            normalized.contains("before syncing")
+    }
+
     init() {
         network.onChange = { [weak self] isOnline in
             Task { @MainActor in
@@ -118,7 +126,7 @@ final class AppModel: ObservableObject {
         do {
             try db.upsertNote(character: character, text: text)
             try refreshAll()
-            statusMessage = "Saved note locally"
+            statusMessage = ""
         } catch {
             statusMessage = "Note save failed: \(error.localizedDescription)"
         }
@@ -128,7 +136,7 @@ final class AppModel: ObservableObject {
         guard let db else { return nil }
         do {
             let markdown = try db.storeNoteImage(character: character, imageData: data)
-            statusMessage = "Saved note image locally"
+            statusMessage = ""
             return markdown
         } catch {
             statusMessage = "Note image save failed: \(error.localizedDescription)"
@@ -141,7 +149,7 @@ final class AppModel: ObservableObject {
         do {
             try db.markNoteDeleted(id: note.id)
             try refreshAll()
-            statusMessage = "Deleted note locally"
+            statusMessage = ""
         } catch {
             statusMessage = "Delete failed: \(error.localizedDescription)"
         }
@@ -177,7 +185,7 @@ final class AppModel: ObservableObject {
         do {
             try db.addStudyCard(word: word, language: language)
             try refreshAll()
-            statusMessage = "Added to study"
+            statusMessage = ""
         } catch {
             statusMessage = "Study save failed: \(error.localizedDescription)"
         }
@@ -188,7 +196,7 @@ final class AppModel: ObservableObject {
         do {
             try db.review(card: card, rating: rating)
             try refreshAll()
-            statusMessage = "Review saved"
+            statusMessage = ""
         } catch {
             statusMessage = "Review failed: \(error.localizedDescription)"
         }
@@ -219,7 +227,7 @@ final class AppModel: ObservableObject {
         do {
             try db.upsertCustomWord(customWord)
             try refreshAll()
-            statusMessage = "Saved custom word"
+            statusMessage = ""
         } catch {
             statusMessage = "Custom word save failed: \(error.localizedDescription)"
         }
@@ -230,7 +238,7 @@ final class AppModel: ObservableObject {
         do {
             try db.createArtifact(draft)
             try refreshAll()
-            statusMessage = "Saved artifact"
+            statusMessage = ""
         } catch {
             statusMessage = "Artifact save failed: \(error.localizedDescription)"
         }
@@ -241,7 +249,7 @@ final class AppModel: ObservableObject {
         do {
             try db.addArtifactSentence(artifactId: artifact.id, original: original, translation: translation)
             try refreshAll()
-            statusMessage = "Saved sentence"
+            statusMessage = ""
         } catch {
             statusMessage = "Sentence save failed: \(error.localizedDescription)"
         }
@@ -252,7 +260,7 @@ final class AppModel: ObservableObject {
         do {
             try db.addArtifactImage(artifactId: artifact.id, imageData: data)
             try refreshAll()
-            statusMessage = "Saved image locally"
+            statusMessage = ""
         } catch {
             statusMessage = "Image save failed: \(error.localizedDescription)"
         }
@@ -7948,7 +7956,7 @@ struct RootView: View {
                 .tabItem { Label("More", systemImage: "ellipsis.circle") }
         }
         .overlay(alignment: .bottom) {
-            if !model.statusMessage.isEmpty {
+            if model.shouldShowStatusToast {
                 StatusToast(message: model.statusMessage)
                     .padding(.bottom, 52)
                     .transition(.move(edge: .bottom).combined(with: .opacity))
@@ -12000,10 +12008,10 @@ struct JapaneseSenseRow: View {
         let kanjiScope = meaningfulScopeValues(sense.appliesToKanji)
         let kanaScope = meaningfulScopeValues(sense.appliesToKana)
         if !kanjiScope.isEmpty {
-            values.append("Kanji: \(kanjiScope.joined(separator: ", "))")
+            values.append("Only written as \(kanjiScope.joined(separator: ", "))")
         }
         if !kanaScope.isEmpty {
-            values.append("Kana: \(kanaScope.joined(separator: ", "))")
+            values.append("Only read as \(kanaScope.joined(separator: ", "))")
         }
         return values.joined(separator: " · ")
     }
