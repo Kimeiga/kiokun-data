@@ -679,10 +679,33 @@ def clean_free_text(text: str) -> str:
 
 
 def clean_card_free_text(record: dict[str, Any]) -> dict[str, Any]:
+    updated = False
+    for key in ("historical_components",):
+        components = record.get(key)
+        if isinstance(components, list):
+            cleaned_components = []
+            for component in components:
+                if not isinstance(component, dict):
+                    cleaned_components.append(component)
+                    continue
+                char = str(component.get("character") or component.get("char") or "")
+                gloss = safe_gloss(char, str(component.get("gloss") or ""), component_mode=True)
+                cleaned = dict(component)
+                cleaned["gloss"] = gloss
+                cleaned_components.append(cleaned)
+            if cleaned_components != components:
+                if not updated:
+                    record = dict(record)
+                    updated = True
+                record[key] = cleaned_components
+
     hero = record.get("hero_image_prompt")
     if isinstance(hero, str):
-        record = dict(record)
-        record["hero_image_prompt"] = clean_free_text(hero)
+        cleaned_hero = clean_free_text(hero)
+        if cleaned_hero != hero:
+            if not updated:
+                record = dict(record)
+            record["hero_image_prompt"] = cleaned_hero
     return record
 
 
