@@ -26,9 +26,16 @@
 			.join("|");
 	}
 
+	function isLikelyRenderableComponent(component: SemanticMnemonicComponent): boolean {
+		return [...component.character].every((char) => (char.codePointAt(0) || 0) <= 0xffff);
+	}
+
 	let visibleHistoricalComponents = $derived.by(() => {
 		const historicalComponents = card?.historical_components || [];
 		if (!historicalComponents.length) return [];
+		if (historicalComponents.some((component) => !isLikelyRenderableComponent(component))) {
+			return [];
+		}
 
 		const visualComponents = card?.visual_components?.length
 			? card.visual_components

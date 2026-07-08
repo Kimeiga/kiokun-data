@@ -72,6 +72,7 @@ LOCAL_GLOSS_OVERRIDES = {
     "幺": "thread",
     "乛": "hook mark",
     "乚": "turning hook",
+    "丨": "line",
     "㐬": "stream",
     "𫶧": "flow tail",
     "氏": "clan",
@@ -211,6 +212,11 @@ TARGETED_COMPONENT_OVERRIDES: dict[str, list[dict[str, str]]] = {
         {"character": "网", "gloss": "net"},
         {"character": "貝", "gloss": "shellfish"},
     ],
+    "发": [
+        {"character": "又", "gloss": "hand"},
+        {"character": "丿", "gloss": "slash"},
+        {"character": "丶", "gloss": "dot"},
+    ],
     "發": [
         {"character": "癶", "gloss": "legs"},
         {"character": "弓", "gloss": "bow"},
@@ -261,13 +267,40 @@ TARGETED_COMPONENT_OVERRIDES: dict[str, list[dict[str, str]]] = {
         {"character": "夫", "gloss": "husband"},
         {"character": "曰", "gloss": "speech"},
     ],
+    "会": [
+        {"character": "人", "gloss": "person"},
+        {"character": "云", "gloss": "utter"},
+    ],
+    "與": [
+        {"character": "臼", "gloss": "mortar"},
+        {"character": "一", "gloss": "one"},
+        {"character": "八", "gloss": "eight"},
+        {"character": "丿", "gloss": "slash"},
+    ],
+    "紧": [
+        {"character": "丨", "gloss": "line"},
+        {"character": "丨", "gloss": "line"},
+        {"character": "又", "gloss": "hand"},
+        {"character": "糸", "gloss": "silk"},
+    ],
+    "曷": [
+        {"character": "曰", "gloss": "speech"},
+        {"character": "勹", "gloss": "wrap"},
+        {"character": "乚", "gloss": "turning hook"},
+        {"character": "人", "gloss": "person"},
+    ],
+    "后": [
+        {"character": "丿", "gloss": "slash"},
+        {"character": "一", "gloss": "one"},
+        {"character": "口", "gloss": "mouth"},
+    ],
 }
 
 
 TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
     "买": "A 网 net gathers the 头 head count of goods you 买 buy.",
     "買": "A 网 net full of 貝 shellfish money is ready for 買 buy.",
-    "发": "A 𠃋 arm marked by 丿 slash and 丶 dot reaches with 又 hand to 发 emit.",
+    "发": "A 又 hand makes a 丿 slash and sends out a 丶 dot to 发 emit.",
     "發": "癶 legs carry a 弓 bow and 殳 hand tool forward, ready to 發 send out.",
     "発": "癶 legs push 二 two lines above 儿 human legs forward, making 発 send out.",
     "連": "A 車 vehicle drives along 辶 movement to 連 connect places together.",
@@ -316,6 +349,7 @@ TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
     "幼": "A 幺 thread with little 力 power remains 幼 young.",
     "躍": "A 𧾷 foot (side) springs like 翟 pheasant into 躍 leap.",
     "會": "亼 assemble gathers 口 mouth voices beneath ⺌ small (top) marks on a 日 day, making 會 meet.",
+    "会": "A 人 person gathers to 云 utter words, making 会 meet.",
     "見": "A 目 eye on 儿 human legs moves around to 見 see.",
     "见": "A 目 eye on 儿 human legs moves forward to 见 observe.",
     "观": "A 又 hand frames 见 observe so you 观 see.",
@@ -332,7 +366,7 @@ TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
     "臺": "吉 lucky under 冖 cover reaches 至 until the structure becomes 臺 platform.",
     "裡": "衤 clothing (side) wraps 里 li so the contents stay 裡 inside.",
     "萬": "艹 grass (top) spreads over 禺 district until the count reaches 萬 ten thousand.",
-    "與": "𦥑 mortar holds 一 one offering divided into 八 eight parts by 丿 slash, ready to 與 offer.",
+    "與": "臼 mortar holds 一 one offering divided into 八 eight parts by 丿 slash, ready to 與 offer.",
     "为": "又 hand guides a 象 elephant by the lead to 为 handle.",
     "為": "又 hand guides a 象 elephant through each motion to 為 act.",
     "問": "Standing at the 門 gate, you open your 口 mouth to 問 ask.",
@@ -341,13 +375,15 @@ TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
     "语": "讠 speech carries what 吾 I say, forming 语 words.",
     "稲": "禾 standing grain under 爫 reaching hand beside 旧 old fields becomes 稲 rice growing in field.",
     "稻": "禾 standing grain bends as 舀 dip gathers water, becoming 稻 unhulled rice.",
+    "紧": "A 丨 line and another 丨 line brace a 又 hand pulling 糸 silk until it becomes 紧 tense.",
+    "曷": "曰 speech inside 勹 wrap turns around a 乚 turning hook and 人 person, leaving 曷 question.",
     "門": "The two leaves of 門 gate frame an opening, making 門 gate.",
     "门": "The simplified 门 gate still frames a doorway as 门 gate.",
     "東": "日 day rises through 木 tree branches, marking 東 east.",
     "东": "The compact 东 east mark holds the idea of sunrise in the 东 east.",
     "貝": "The hard shell shape of 貝 shellfish holds value as 貝 shellfish.",
     "贝": "The simplified 贝 shell keeps the curve of a 贝 shell.",
-    "后": "A 𠂋 dot stroke crowns a 口 mouth giving commands as 后 queen.",
+    "后": "A 丿 slash and 一 one line crown the 口 mouth giving commands as 后 queen.",
 }
 
 
