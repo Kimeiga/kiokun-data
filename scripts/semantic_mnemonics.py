@@ -132,6 +132,14 @@ MANUAL_GLOSS_OVERRIDES: dict[str, str] = {
     "溂": "lively",
     "鳰": "grebe",
     "﨟": "court rank",
+    "欌": "cabinet",
+    "慓": "nimble",
+    "摋": "strike",
+    "蹸": "trample",
+    "笒": "bamboo flute",
+    "倧": "progenitor",
+    "栮": "mushroom",
+    "堗": "heated floor",
 }
 
 
@@ -169,6 +177,12 @@ MANUAL_COMPONENT_GLOSS_OVERRIDES: dict[str, str] = {
     "离": "netted beast",
     "𭔰": "beans measure",
     "鱼": "fish",
+    "𧾷": "foot (side)",
+    "钅": "metal (side)",
+    "纟": "silk (side)",
+    "贝": "shell",
+    "马": "horse",
+    "饣": "food (side)",
 }
 
 

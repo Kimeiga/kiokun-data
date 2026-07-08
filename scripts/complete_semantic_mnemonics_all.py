@@ -74,6 +74,14 @@ LOCAL_GLOSS_OVERRIDES = {
     "溂": "lively",
     "鳰": "grebe",
     "﨟": "court rank",
+    "欌": "cabinet",
+    "慓": "nimble",
+    "摋": "strike",
+    "蹸": "trample",
+    "笒": "bamboo flute",
+    "倧": "progenitor",
+    "栮": "mushroom",
+    "堗": "heated floor",
 }
 
 
@@ -100,6 +108,14 @@ EXTRA_LEARNER_TARGETS: dict[str, dict[str, str]] = {
     "俥": {"evidence": "JPDB top 100k exact glyph coverage"},
     "溂": {"evidence": "JPDB top 100k exact glyph coverage, especially 溌溂"},
     "鳰": {"evidence": "JPDB top 100k exact glyph coverage"},
+    "欌": {"evidence": "KRDICT Hanja headword coverage, especially 欌籠 and 陳列欌"},
+    "慓": {"evidence": "KRDICT Hanja headword coverage in 慓毒 compounds"},
+    "摋": {"evidence": "KRDICT Hanja variant coverage in 抹殺/抹摋 compounds"},
+    "蹸": {"evidence": "KRDICT Hanja variant coverage in 蹂躪/蹂躙/蹂蹸 compounds"},
+    "笒": {"evidence": "KRDICT Hanja headword coverage in 大笒"},
+    "倧": {"evidence": "KRDICT Hanja headword coverage in 大倧敎"},
+    "栮": {"evidence": "KRDICT Hanja headword coverage in 洋松栮"},
+    "堗": {"evidence": "KRDICT Hanja variant coverage in 溫突/溫堗"},
 }
 
 
@@ -359,6 +375,11 @@ def phrase_components(components: list[dict[str, str]], char: str) -> str:
 
 def meaning_style(meaning: str) -> tuple[str, str]:
     lower = meaning.lower()
+
+    def has_keyword(needle: str) -> bool:
+        escaped = re.escape(needle)
+        return bool(re.search(rf"(?<![a-z]){escaped}(?![a-z])", lower))
+
     classes = [
         (("water", "river", "sea", "lake", "spring", "tide", "liquid", "rain", "pond", "swamp", "stream"),
          "flowing image",
@@ -407,7 +428,7 @@ def meaning_style(meaning: str) -> tuple[str, str]:
          "identifies"),
     ]
     for needles, subject, verb in classes:
-        if any(needle in lower for needle in needles):
+        if any(has_keyword(needle) for needle in needles):
             return subject, verb
     return "visual image", ("reveals" if len(lower) < 14 else "points toward")
 
