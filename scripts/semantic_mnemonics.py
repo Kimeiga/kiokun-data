@@ -36,7 +36,7 @@ BAKEOFF_PATH = SCRIPTS_DIR / "semantic_mnemonic_bakeoff.json"
 OUTPUT_PATH = RESEARCH_DIR / "semantic_mnemonics_1000.json"
 PROGRESS_PATH = SCRIPTS_DIR / "semantic_mnemonic_progress.json"
 CARD_INPUT_CACHE_PATH = SCRIPTS_DIR / "semantic_mnemonic_card_inputs.json"
-CARD_INPUT_CACHE_VERSION = 4
+CARD_INPUT_CACHE_VERSION = 9
 IDS_FORWARD_PATHS = [
     ROOT / "game-concepts" / "kanji-game" / "data" / "ids_forward.json",
     ROOT / "game-concepts" / "hanzi-quiz" / "data" / "ids_forward.json",
@@ -117,11 +117,49 @@ MANUAL_GLOSS_OVERRIDES: dict[str, str] = {
 }
 
 
+MANUAL_COMPONENT_GLOSS_OVERRIDES: dict[str, str] = {
+    # Visual/component-mode glosses. These intentionally differ from the
+    # lexical gloss for some characters, e.g. 又 is "again" as a character but
+    # usually a hand-shaped component inside larger forms.
+    "囗": "enclosure",
+    "又": "hand",
+    "臣": "watchful eye",
+    "臤": "grasp",
+    "夊": "trailing foot",
+    "幺": "tiny thread",
+    "髟": "long hair",
+    "曷": "question",
+    "丷": "split horns",
+    "龰": "foot",
+    "𠔼": "cover",
+    "直": "straight",
+    "𦥑": "mortar",
+    "殳": "hand tool",
+    "杀": "cut mark",
+    "龹": "raised hands",
+    "䒑": "grass top",
+    "𦍌": "sheep",
+    "氺": "water",
+    "㐅": "cross",
+    "亽": "person mark",
+    "龴": "top hook",
+    "㔾": "seal",
+    "劦": "triple power",
+    "𠮛": "mouth",
+    "𧘇": "garment hem",
+    "𦣻": "head",
+    "离": "netted beast",
+    "𭔰": "beans measure",
+}
+
+
 MANUAL_IDS_OVERRIDES: dict[str, str] = {
     # Upstream CHISE IDS-UCS-Ext-H has this decomposition, but the local IDS
     # subset only contains Basic/Ext-A/JIS. Do not surface 𱬹 directly in
     # learner-facing cards; many fonts render it as missing-glyph tofu.
     "𱬹": "⿱爫旧",
+    "𰕎": "⿰育攵",
+    "𭔰": "⿱豆寸",
 }
 
 
@@ -201,21 +239,29 @@ SYSTEM_PROMPT = """You write polished semantic mnemonic cards for Kiokun, a seri
 Create short visual mnemonics that teach character meaning from components.
 Do not include pronunciation, readings, puns, jokes, word anchors, or meta-commentary.
 
-Canonical gloss discipline:
-- Every component has one fixed English gloss.
-- Use the provided gloss exactly every time the component appears.
-- In the equation and mnemonic, write each character immediately followed by its gloss, like 車 vehicle.
-- The final character must also appear immediately followed by its gloss, like 連 connect.
-- Do not rename a component to make the story easier.
+Two gloss layers:
+- Lexical gloss is the real word/character meaning when the character is studied by itself.
+- Visual component gloss is the shape meaning to use when that character acts inside another character.
+- Use the provided component glosses exactly in the equation and mnemonic.
+- Do not force lexical meanings into component stories when a visual gloss is provided.
+
+Opaque components:
+- Some components are not useful modern words but are reusable visual chunks.
+- Use their provided mnemonic component gloss as the learner-facing component gloss.
+- If an opaque component has visual expansion notes, use them only to make the story logical.
+- Do not use old bad glosses such as gouge out an eye, KangXi radical, obscure component, variant, same, or Non-Classical.
 
 Mnemonic requirements:
 - One sentence only.
-- Include every component exactly as character + gloss.
+- Include every main component exactly as character + gloss.
 - Include the final character exactly as character + gloss.
 - Be concrete, short, internally consistent, and easy to picture.
 - Avoid extra visual objects unless needed for the logic.
 - The story should make the final meaning feel inevitable, not clever.
 - No English pronunciation puns.
+- No meta descriptions: do not say "the character combines", "this character", "component", "radical", or "represents".
+- Never use the word "represents" in the mnemonic. Make the components directly cause, create, become, bring, mark, hold, carry, cover, cut, bind, or reveal the final meaning.
+- Avoid filler words such as proudly, always, society, polite, poor, beautiful, magical, ancient, mystical, and glowing.
 
 Return strict JSON only."""
 
@@ -226,17 +272,31 @@ def build_semantic_prompt(cards: list[dict[str, Any]]) -> str:
             "character": card["character"],
             "meaning": card["meaning"],
             "components": card["components"],
+            "required_pairs": [
+                *(f"{component['character']} {component['gloss']}" for component in card["components"]),
+                f"{card['character']} {card['meaning']}",
+            ],
+            "required_equation": (
+                " + ".join(f"{component['character']} {component['gloss']}" for component in card["components"])
+                + f" = {card['character']} {card['meaning']}"
+            ),
         }
         for card in cards
     ]
     payload = {
         "task": "Generate semantic mnemonic card data.",
+        "critical_contract": [
+            "Copy required_equation exactly into the equation field.",
+            "The mnemonic field must include every string in required_pairs exactly as written.",
+            "Never write gloss (character) or character (gloss); write character space gloss.",
+            "Never parenthesize the required character/gloss pairs.",
+        ],
         "output_schema": [
             {
                 "character": "string",
                 "meaning": "string",
-                "equation": "component gloss + component gloss = character meaning",
-                "mnemonic": "one sentence",
+                "equation": "copy required_equation exactly",
+                "mnemonic": "one sentence containing every exact required_pairs string",
                 "hero_image_prompt": "concise illustration prompt, not a UI",
             }
         ],
@@ -265,6 +325,9 @@ def extract_json_text(text: str) -> Any:
     try:
         return json.loads(cleaned)
     except json.JSONDecodeError:
+        pass
+
+    try:
         start_array = cleaned.find("[")
         start_obj = cleaned.find("{")
         starts = [i for i in (start_array, start_obj) if i >= 0]
@@ -275,6 +338,30 @@ def extract_json_text(text: str) -> Any:
         if end <= start:
             raise
         return json.loads(cleaned[start : end + 1])
+    except Exception:
+        pass
+
+    # Gemini occasionally returns valid card objects wrapped in a malformed
+    # array tail, e.g. `[{"character": ...}}\n]`. Recover any complete card
+    # objects before treating the response as unusable.
+    decoder = json.JSONDecoder()
+    items: list[dict[str, Any]] = []
+    index = 0
+    while index < len(cleaned):
+        start = cleaned.find("{", index)
+        if start < 0:
+            break
+        try:
+            item, end = decoder.raw_decode(cleaned, start)
+        except json.JSONDecodeError:
+            index = start + 1
+            continue
+        if isinstance(item, dict) and {"character", "meaning", "equation", "mnemonic"}.issubset(item):
+            items.append(item)
+        index = max(end, start + 1)
+    if items:
+        return items
+    raise json.JSONDecodeError("could not recover JSON card data", cleaned, 0)
 
 
 def normalize_model_output(data: Any) -> list[dict[str, Any]]:
@@ -421,6 +508,8 @@ def validate_card(card: dict[str, Any], expected: dict[str, Any]) -> dict[str, A
 
     for comp in components:
         pair = f"{comp['character']} {comp['gloss']}"
+        if is_bad_component_gloss(comp["gloss"]):
+            problems.append(f"bad component gloss {pair}")
         if pair not in equation:
             problems.append(f"equation missing {pair}")
         if pair not in mnemonic:
@@ -440,6 +529,8 @@ def validate_card(card: dict[str, Any], expected: dict[str, Any]) -> dict[str, A
         problems.append("mnemonic has multiple sentences")
     if any(token in mnemonic.lower() for token in ("sounds like", "pronounced", "on'yomi", "pinyin")):
         problems.append("contains pronunciation hook")
+    if META_PHRASE_RE.search(mnemonic):
+        problems.append("contains meta phrasing")
     if not hero:
         problems.append("missing hero image prompt")
 
@@ -457,8 +548,10 @@ def cheap_style_score(card: dict[str, Any]) -> float:
         score += 1.0
     if any(word in mnemonic.lower() for word in ("because", "so that", "therefore")):
         score -= 0.4
-    if any(word in mnemonic.lower() for word in ("magical", "glowing", "dragon", "ancient", "mystical", "neon")):
+    if FILLER_STYLE_RE.search(mnemonic) or any(word in mnemonic.lower() for word in ("dragon", "neon")):
         score -= 1.0
+    if META_PHRASE_RE.search(mnemonic):
+        score -= 2.0
     if " and " in mnemonic:
         score += 0.3
     if mnemonic.startswith(("A ", "An ", "The ")):
@@ -569,6 +662,15 @@ def subdir(word: str) -> str:
 
 
 def fetch_char_data(char: str) -> dict[str, Any] | None:
+    local_path = ROOT / "output_dictionary" / subdir(char) / f"{char}.json.deflate"
+    if local_path.exists():
+        try:
+            return json.loads(zlib.decompress(local_path.read_bytes(), -15))
+        except Exception:
+            return None
+    if (ROOT / "output_dictionary").exists():
+        return None
+
     encoded = urllib.parse.quote(char)
     url = f"https://raw.githubusercontent.com/Kimeiga/kiokun2-dict-{shard_name(char)}/main/{subdir(char)}/{encoded}.json.deflate"
     try:
@@ -600,6 +702,36 @@ def canonical_gloss(char: str, fallback: str = "") -> str:
     return MANUAL_GLOSS_OVERRIDES.get(char) or clean_gloss(GLOSSES.get(char)) or clean_gloss(fallback)
 
 
+BAD_COMPONENT_GLOSS_RE = re.compile(
+    r"\b(?:kangxi|non-classical|variant|radical|same|obscure|unknown|archaic|rare)\b|"
+    r"gouge out an eye|why\? what\? where\?",
+    re.IGNORECASE,
+)
+
+
+META_PHRASE_RE = re.compile(
+    r"\b(?:the character combines|this character|component|radical|represents|depicts)\b",
+    re.IGNORECASE,
+)
+
+
+FILLER_STYLE_RE = re.compile(
+    r"\b(?:proudly|always|society|polite|poor|beautiful|magical|ancient|mystical|glowing)\b",
+    re.IGNORECASE,
+)
+
+
+def is_bad_component_gloss(gloss: str) -> bool:
+    return bool(BAD_COMPONENT_GLOSS_RE.search(gloss))
+
+
+def canonical_component_gloss(char: str, fallback: str = "") -> str:
+    override = MANUAL_COMPONENT_GLOSS_OVERRIDES.get(char)
+    if override:
+        return override
+    return canonical_gloss(char, fallback)
+
+
 def normalize_components(components: list[dict[str, Any]] | None) -> list[dict[str, str]]:
     normalized: list[dict[str, str]] = []
     seen: set[str] = set()
@@ -607,7 +739,7 @@ def normalize_components(components: list[dict[str, Any]] | None) -> list[dict[s
         comp_char = str(component.get("character") or component.get("char") or "")
         if not comp_char or comp_char in seen:
             continue
-        gloss = canonical_gloss(comp_char, str(component.get("gloss") or component.get("meaning") or ""))
+        gloss = canonical_component_gloss(comp_char, str(component.get("gloss") or component.get("meaning") or ""))
         if not gloss:
             continue
         normalized.append({"character": comp_char, "gloss": gloss})
@@ -733,7 +865,8 @@ def expand_ids_component(char: str, depth: int = 0) -> list[str]:
         # Keep renderable/glossed components as units. Expand unglossed pieces
         # such as 𱬹, plus entity references such as &CDP-8BB8;, so cards do
         # not show tofu, entity text, or empty glosses.
-        if canonical_gloss(child) and not is_entity_ref(child):
+        child_gloss = canonical_component_gloss(child)
+        if child_gloss and not is_bad_component_gloss(child_gloss) and not is_entity_ref(child):
             expanded.append(child)
         else:
             expanded.extend(expand_ids_component(child, depth + 1))
@@ -744,15 +877,19 @@ def components_from_chars(chars: list[str]) -> list[dict[str, str]]:
     components: list[dict[str, str]] = []
     seen: set[str] = set()
     for comp_char in chars:
-        gloss = canonical_gloss(comp_char)
-        expanded_chars = [comp_char] if gloss and not is_entity_ref(comp_char) else expand_ids_component(comp_char)
+        gloss = canonical_component_gloss(comp_char)
+        expanded_chars = (
+            [comp_char]
+            if gloss and not is_bad_component_gloss(gloss) and not is_entity_ref(comp_char)
+            else expand_ids_component(comp_char)
+        )
         for expanded_char in expanded_chars:
             if is_entity_ref(expanded_char):
                 continue
             if expanded_char in seen:
                 continue
-            gloss = canonical_gloss(expanded_char)
-            if not gloss:
+            gloss = canonical_component_gloss(expanded_char)
+            if not gloss or is_bad_component_gloss(gloss):
                 continue
             components.append({"character": expanded_char, "gloss": gloss})
             seen.add(expanded_char)
@@ -777,13 +914,13 @@ def components_from_raw_component_items(raw_components: list[Any]) -> list[dict[
             continue
         if not comp_char or comp_char in seen:
             continue
-        gloss = canonical_gloss(comp_char, fallback)
-        if not gloss or is_entity_ref(comp_char):
+        gloss = canonical_component_gloss(comp_char, fallback)
+        if not gloss or is_bad_component_gloss(gloss) or is_entity_ref(comp_char):
             for expanded_char in expand_ids_component(comp_char):
                 if expanded_char in seen:
                     continue
-                expanded_gloss = canonical_gloss(expanded_char)
-                if expanded_gloss:
+                expanded_gloss = canonical_component_gloss(expanded_char)
+                if expanded_gloss and not is_bad_component_gloss(expanded_gloss):
                     components.append({"character": expanded_char, "gloss": expanded_gloss})
                     seen.add(expanded_char)
             continue
@@ -896,6 +1033,7 @@ def extract_meaning(data: dict[str, Any], char: str) -> str:
 
 
 def ranked_characters(limit: int, include_examples: bool = True) -> list[str]:
+    candidate_target = max(limit, limit * 3)
     candidates: list[tuple[int, str]] = []
     kanji_path = GAME_DATA_DIR / "kanji_details.json"
     if kanji_path.exists():
@@ -915,8 +1053,23 @@ def ranked_characters(limit: int, include_examples: bool = True) -> list[str]:
         if char not in seen:
             chars.append(char)
             seen.add(char)
-        if len(chars) >= limit * 2:
+        if len(chars) >= candidate_target:
             break
+    if len(chars) < limit:
+        fallback_chars = set()
+        fallback_chars.update(ch for ch in GLOSSES if len(ch) == 1 and is_han(ch))
+        taxonomy_path = GAME_DATA_DIR / "char_taxonomy.json"
+        if taxonomy_path.exists():
+            fallback_chars.update(
+                ch for ch in json.loads(taxonomy_path.read_text())
+                if len(ch) == 1 and is_han(ch)
+            )
+        for char in sorted(fallback_chars, key=lambda ch: (ord(ch), ch)):
+            if char not in seen:
+                chars.append(char)
+                seen.add(char)
+            if len(chars) >= candidate_target:
+                break
     return chars
 
 
@@ -988,14 +1141,14 @@ def prepare_batch_cards(limit: int, workers: int = 20) -> tuple[list[dict[str, A
     return cards, skipped
 
 
-def load_progress() -> dict[str, Any]:
-    if PROGRESS_PATH.exists():
-        return json.loads(PROGRESS_PATH.read_text())
+def load_progress(progress_path: Path = PROGRESS_PATH) -> dict[str, Any]:
+    if progress_path.exists():
+        return json.loads(progress_path.read_text())
     return {"generated": {}, "failures": [], "skipped": {}, "gloss_issues": []}
 
 
-def save_progress(progress: dict[str, Any]) -> None:
-    PROGRESS_PATH.write_text(json.dumps(progress, ensure_ascii=False, indent=2))
+def save_progress(progress: dict[str, Any], progress_path: Path = PROGRESS_PATH) -> None:
+    progress_path.write_text(json.dumps(progress, ensure_ascii=False, indent=2))
 
 
 def maybe_repair_card(card: dict[str, Any], expected: dict[str, Any]) -> dict[str, Any]:
@@ -1028,76 +1181,134 @@ def generated_record(output: dict[str, Any], expected: dict[str, Any], validatio
     return record
 
 
+def records_from_outputs(
+    model: ModelSpec,
+    outputs: list[dict[str, Any]],
+    expected_cards: list[dict[str, Any]],
+) -> tuple[dict[str, dict[str, Any]], list[dict[str, Any]]]:
+    by_char = {str(item.get("character")): item for item in outputs}
+    records: dict[str, dict[str, Any]] = {}
+    failures: list[dict[str, Any]] = []
+    for expected in expected_cards:
+        char = expected["character"]
+        output = maybe_repair_card(by_char.get(char, {}), expected)
+        validation = validate_card(output, expected)
+        records[char] = generated_record(output, expected, validation)
+        if not validation["valid"]:
+            failures.append({
+                "character": char,
+                "problems": validation["problems"],
+                "model": model.model,
+                "at": datetime.now(timezone.utc).isoformat(),
+            })
+    return records, failures
+
+
+def generate_chunk(model: ModelSpec, chunk: list[dict[str, Any]]) -> dict[str, Any]:
+    try:
+        outputs, meta = call_model(model, chunk)
+        records, failures = records_from_outputs(model, outputs, chunk)
+        return {
+            "records": records,
+            "failures": failures,
+            "meta": meta,
+            "error": None,
+            "retried": False,
+        }
+    except Exception as exc:
+        if len(chunk) <= 1:
+            return {
+                "records": {},
+                "failures": [{
+                    "character": chunk[0]["character"],
+                    "error": str(exc),
+                    "model": model.model,
+                    "at": datetime.now(timezone.utc).isoformat(),
+                }],
+                "meta": {},
+                "error": str(exc),
+                "retried": False,
+            }
+
+        records: dict[str, dict[str, Any]] = {}
+        failures: list[dict[str, Any]] = []
+        meta: dict[str, Any] = {}
+        for single in chunk:
+            try:
+                outputs, single_meta = call_model(model, [single])
+                single_records, single_failures = records_from_outputs(model, outputs, [single])
+                records.update(single_records)
+                failures.extend(single_failures)
+                meta = single_meta
+            except Exception as single_exc:
+                failures.append({
+                    "character": single["character"],
+                    "error": str(single_exc),
+                    "model": model.model,
+                    "at": datetime.now(timezone.utc).isoformat(),
+                })
+        return {
+            "records": records,
+            "failures": failures,
+            "meta": meta,
+            "error": str(exc),
+            "retried": True,
+        }
+
+
 def generate_many(
     model: ModelSpec,
     limit: int,
     batch_size: int,
     workers: int,
+    output_path: Path = OUTPUT_PATH,
+    progress_path: Path = PROGRESS_PATH,
     reset_progress: bool = False,
+    api_workers: int = 1,
 ) -> dict[str, Any]:
     RESEARCH_DIR.mkdir(parents=True, exist_ok=True)
     cards, skipped = prepare_batch_cards(limit, workers=workers)
-    if reset_progress and PROGRESS_PATH.exists():
-        PROGRESS_PATH.unlink()
-    progress = load_progress()
+    if reset_progress and progress_path.exists():
+        progress_path.unlink()
+    progress = load_progress(progress_path)
     progress.setdefault("generated", {})
     progress.setdefault("failures", [])
     progress.setdefault("skipped", {}).update(skipped)
-    save_progress(progress)
+    save_progress(progress, progress_path)
 
     generated: dict[str, Any] = dict(progress["generated"])
     todo = [card for card in cards if card["character"] not in generated]
     print(f"Prepared {len(cards)} cards, {len(generated)} already generated, {len(todo)} remaining")
 
-    i = 0
-    while i < len(todo):
-        chunk = todo[i : i + batch_size]
+    chunks = [todo[i : i + batch_size] for i in range(0, len(todo), batch_size)]
+
+    def persist_result(chunk: list[dict[str, Any]], result: dict[str, Any]) -> None:
+        generated.update(result["records"])
+        progress["generated"] = generated
+        progress["failures"].extend(result["failures"])
+        if result.get("meta"):
+            progress["last_meta"] = result["meta"]
+        save_progress(progress, progress_path)
         chars = "".join(card["character"] for card in chunk)
-        print(f"[{len(generated) + 1}-{len(generated) + len(chunk)}/{len(cards)}] {chars}")
-        try:
-            outputs, meta = call_model(model, chunk)
-            by_char = {str(item.get("character")): item for item in outputs}
-            for expected in chunk:
-                char = expected["character"]
-                output = maybe_repair_card(by_char.get(char, {}), expected)
-                validation = validate_card(output, expected)
-                generated[char] = generated_record(output, expected, validation)
-                if not validation["valid"]:
-                    progress["failures"].append({
-                        "character": char,
-                        "problems": validation["problems"],
-                        "model": model.model,
-                        "at": datetime.now(timezone.utc).isoformat(),
-                    })
-            progress["generated"] = generated
-            progress["last_meta"] = meta
-            save_progress(progress)
-            i += batch_size
+        status = f"{len(result['records'])}/{len(chunk)} saved"
+        if result.get("retried"):
+            status += " after retry"
+        if result.get("error"):
+            status += f"; initial error: {result['error'][:180]}"
+        print(f"[{len(generated)}/{len(cards)}] {chars} -> {status}")
+
+    if api_workers <= 1:
+        for chunk in chunks:
+            chars = "".join(card["character"] for card in chunk)
+            print(f"[{len(generated) + 1}-{len(generated) + len(chunk)}/{len(cards)}] {chars}")
+            persist_result(chunk, generate_chunk(model, chunk))
             time.sleep(0.4)
-        except Exception as exc:
-            print(f"  chunk failed: {exc}")
-            if batch_size > 1:
-                print("  retrying this chunk one card at a time")
-                for single in chunk:
-                    try:
-                        outputs, meta = call_model(model, [single])
-                        output = maybe_repair_card(outputs[0] if outputs else {}, single)
-                        validation = validate_card(output, single)
-                        generated[single["character"]] = generated_record(output, single, validation)
-                        progress["generated"] = generated
-                        progress["last_meta"] = meta
-                        save_progress(progress)
-                    except Exception as single_exc:
-                        progress["failures"].append({
-                            "character": single["character"],
-                            "error": str(single_exc),
-                            "model": model.model,
-                            "at": datetime.now(timezone.utc).isoformat(),
-                        })
-                        save_progress(progress)
-                i += batch_size
-            else:
-                raise
+    else:
+        print(f"Using {api_workers} parallel API workers")
+        with ThreadPoolExecutor(max_workers=api_workers) as executor:
+            future_to_chunk = {executor.submit(generate_chunk, model, chunk): chunk for chunk in chunks}
+            for future in as_completed(future_to_chunk):
+                persist_result(future_to_chunk[future], future.result())
 
     ordered = [generated[card["character"]] for card in cards if card["character"] in generated]
     gloss_issues = find_gloss_issues(ordered)
@@ -1112,12 +1323,14 @@ def generate_many(
         },
         "count": len(ordered),
         "manual_gloss_overrides_used": MANUAL_GLOSS_OVERRIDES,
+        "manual_component_gloss_overrides_used": MANUAL_COMPONENT_GLOSS_OVERRIDES,
         "gloss_issues": gloss_issues,
         "skipped": progress.get("skipped", {}),
         "mnemonics": ordered,
     }
-    OUTPUT_PATH.write_text(json.dumps(artifact, ensure_ascii=False, indent=2))
-    print(f"Wrote {OUTPUT_PATH}")
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(json.dumps(artifact, ensure_ascii=False, indent=2))
+    print(f"Wrote {output_path}")
     return artifact
 
 
@@ -1187,7 +1400,10 @@ def main() -> None:
     generate.add_argument("--model", default="gemini-3.5-flash")
     generate.add_argument("--limit", type=int, default=1000)
     generate.add_argument("--batch-size", type=int, default=12)
+    generate.add_argument("--api-workers", type=int, default=1)
     generate.add_argument("--prepare-workers", type=int, default=20)
+    generate.add_argument("--output", type=Path, default=OUTPUT_PATH)
+    generate.add_argument("--progress", type=Path, default=PROGRESS_PATH)
     generate.add_argument("--reset-progress", action="store_true")
     args = parser.parse_args()
 
@@ -1211,7 +1427,16 @@ def main() -> None:
         return
     if args.command == "generate":
         model = parse_model_arg(args.model)
-        generate_many(model, args.limit, args.batch_size, args.prepare_workers, reset_progress=args.reset_progress)
+        generate_many(
+            model,
+            args.limit,
+            args.batch_size,
+            args.prepare_workers,
+            output_path=args.output,
+            progress_path=args.progress,
+            reset_progress=args.reset_progress,
+            api_workers=args.api_workers,
+        )
         return
 
 
