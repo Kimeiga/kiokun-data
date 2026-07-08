@@ -140,6 +140,11 @@ MANUAL_GLOSS_OVERRIDES: dict[str, str] = {
     "倧": "progenitor",
     "栮": "mushroom",
     "堗": "heated floor",
+    "辡": "dispute",
+    "㚻": "sexual misconduct",
+    "㓺": "cut punishment",
+    "㔀": "branding punishment",
+    "黥": "tattoo punishment",
 }
 
 
@@ -151,8 +156,19 @@ MANUAL_COMPONENT_GLOSS_OVERRIDES: dict[str, str] = {
     "又": "hand",
     "臣": "watchful eye",
     "臤": "firm grip",
+    "爫": "reaching hand",
+    "⺤": "grasping hand",
+    "亽": "food cover",
+    "乛": "hook mark",
+    "乚": "turning hook",
+    "㐬": "stream",
+    "𫶧": "flow tail",
+    "氏": "clan",
+    "旡": "choked breath",
+    "亀": "turtle",
+    "龟": "turtle",
     "夊": "trailing foot",
-    "幺": "tiny thread",
+    "幺": "thread",
     "髟": "long hair",
     "曷": "question",
     "丷": "split horns",
@@ -167,7 +183,6 @@ MANUAL_COMPONENT_GLOSS_OVERRIDES: dict[str, str] = {
     "𦍌": "sheep",
     "氺": "water",
     "㐅": "cross",
-    "亽": "person mark",
     "龴": "top hook",
     "㔾": "seal",
     "劦": "triple power",
@@ -178,11 +193,12 @@ MANUAL_COMPONENT_GLOSS_OVERRIDES: dict[str, str] = {
     "𭔰": "beans measure",
     "鱼": "fish",
     "𧾷": "foot (side)",
-    "钅": "metal (side)",
-    "纟": "silk (side)",
+    "钅": "metal",
+    "纟": "silk",
     "贝": "shell",
     "马": "horse",
     "饣": "food (side)",
+    "辡": "dispute",
 }
 
 
@@ -194,6 +210,7 @@ MANUAL_IDS_OVERRIDES: dict[str, str] = {
     "𰕎": "⿰育攵",
     "𭔰": "⿱豆寸",
     "𠮟": "⿰口七",
+    "𫲸": "⿱宀丰",
 }
 
 

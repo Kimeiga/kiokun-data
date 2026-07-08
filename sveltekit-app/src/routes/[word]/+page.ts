@@ -196,12 +196,16 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 		// If this is a redirect entry, fetch the actual data
 		if (data.redirect) {
 			const original = data;
+			const originalMnemonic = original.semantic_mnemonic;
 			const redirectUrl = await getDictionaryUrl(data.redirect, dev, fetch);
 			const redirectFetch = redirectUrl.startsWith('http') ? globalThis.fetch : fetch;
 			const redirectResponse = await redirectFetch(redirectUrl);
 			if (redirectResponse.ok) {
 				const redirectCompressed = await redirectResponse.arrayBuffer();
 				data = decompressAndParse(redirectCompressed);
+				if (originalMnemonic) {
+					data.semantic_mnemonic = originalMnemonic;
+				}
 			}
 
 			// A simplified character can map to several traditional variants
@@ -348,4 +352,3 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 		throw error(404, `Character "${word}" not found`);
 	}
 };
-

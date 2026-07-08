@@ -10,18 +10,40 @@
 export interface DictionaryEntry {
   key: string;
   redirect?: string;
+  simplified_form_of?: string;
   chinese_words: ChineseWord[];
   chinese_char?: ChineseCharacter;
   japanese_words: JapaneseWord[];
   japanese_char?: JapaneseCharacter;
   korean_words?: KoreanWord[];
   korean_char?: KoreanCharacter;
+  semantic_mnemonic?: SemanticMnemonicCard;
   related_japanese_words: string[];
   japanese_names: JapaneseNameEntry[];
   contains: WordPreview[];
   contained_in_chinese: WordPreview[];
   contained_in_japanese: WordPreview[];
   contained_in_korean?: WordPreview[];
+}
+
+export interface SemanticMnemonicComponent {
+  character: string;
+  gloss: string;
+}
+
+export interface SemanticMnemonicCard {
+  character: string;
+  meaning: string;
+  equation: string;
+  mnemonic: string;
+  components?: SemanticMnemonicComponent[];
+  visual_components?: SemanticMnemonicComponent[];
+  component_source?: string;
+  historical_components?: SemanticMnemonicComponent[];
+  historical_component_source?: string;
+  alias_of?: string;
+  alias_kind?: string;
+  alias_reason?: string;
 }
 
 // ============================================================================
@@ -134,8 +156,13 @@ export interface PinyinFrequency {
 }
 
 export interface ChineseComponent {
-  char: string;
+  char?: string;
+  character?: string;
   meaning?: string;
+  type?: string[];
+  componentType?: string[];
+  hint?: string;
+  pinyin?: string;
   phonetic?: boolean;
 }
 

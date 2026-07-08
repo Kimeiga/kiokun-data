@@ -11,6 +11,7 @@ mod analysis;
 mod simple_output_types;
 mod word_preview_types;
 mod search_index_builder;
+mod semantic_mnemonic_types;
 mod romaji;
 mod pinyin;
 mod jyutping;
@@ -46,6 +47,7 @@ use combined_types::{
     MergeStatistics, DictionaryMetadata
 };
 use legacy_unification::semantic_unification_engine::SemanticUnificationEngine;
+use semantic_mnemonic_types::{SemanticMnemonicArtifact, SemanticMnemonicCard};
 
 /// Determines which shard a key belongs to based on Han character count and hash
 /// This creates 30 shards optimized for GitHub deployment (~10K-15K files each)
@@ -260,8 +262,50 @@ fn is_han_character(c: char) -> bool {
         '\u{2B740}'..='\u{2B81F}' | // CJK Unified Ideographs Extension D
         '\u{2B820}'..='\u{2CEAF}' | // CJK Unified Ideographs Extension E
         '\u{2CEB0}'..='\u{2EBEF}' | // CJK Unified Ideographs Extension F
-        '\u{30000}'..='\u{3134F}'   // CJK Unified Ideographs Extension G
+        '\u{2EBF0}'..='\u{2EE5F}' | // CJK Unified Ideographs Extension I
+        '\u{30000}'..='\u{3134F}' | // CJK Unified Ideographs Extension G
+        '\u{31350}'..='\u{323AF}' | // CJK Unified Ideographs Extension H
+        '\u{F900}'..='\u{FAFF}'   | // CJK Compatibility Ideographs
+        '\u{2F800}'..='\u{2FA1F}'   // CJK Compatibility Ideographs Supplement
     )
+}
+
+const SEMANTIC_MNEMONICS_PATH: &str =
+    "sveltekit-app/static/research/mnemonics/semantic_mnemonics_all_best_available.json";
+
+fn load_semantic_mnemonics() -> Result<HashMap<String, SemanticMnemonicCard>> {
+    let path = std::path::Path::new(SEMANTIC_MNEMONICS_PATH);
+    if !path.exists() {
+        println!("  ℹ️  Semantic mnemonic artifact not found at {}, skipping", SEMANTIC_MNEMONICS_PATH);
+        return Ok(HashMap::new());
+    }
+
+    let file = File::open(path)
+        .with_context(|| format!("Failed to open semantic mnemonic artifact: {}", path.display()))?;
+    let artifact: SemanticMnemonicArtifact = serde_json::from_reader(BufReader::new(file))
+        .with_context(|| format!("Failed to parse semantic mnemonic artifact: {}", path.display()))?;
+
+    let mut by_character = HashMap::new();
+    let mut skipped = 0usize;
+    for card in artifact.mnemonics {
+        if card.character.chars().count() == 1 {
+            by_character.insert(card.character.clone(), card);
+        } else {
+            skipped += 1;
+        }
+    }
+
+    println!(
+        "  ✅ Loaded {} semantic mnemonic cards{}",
+        by_character.len(),
+        if skipped > 0 {
+            format!(" (skipped {} non-single-character cards)", skipped)
+        } else {
+            String::new()
+        }
+    );
+
+    Ok(by_character)
 }
 
 #[tokio::main]
@@ -2587,6 +2631,10 @@ async fn generate_simple_output_files(
         println!("  ℹ️  Directory exists, will overwrite files (faster than deleting)");
     }
 
+    println!("🧠 Loading semantic mnemonic cards...");
+    let semantic_mnemonics = load_semantic_mnemonics()
+        .context("Failed to load semantic mnemonic cards")?;
+
     // Index Chinese characters by character string
     // When there are duplicates (e.g., U+50CF and U+2F80B for 像), prefer the entry with more sources
     let mut chinese_char_by_key: StdHashMap<String, &ChineseCharacter> = StdHashMap::new();
@@ -2674,6 +2722,7 @@ async fn generate_simple_output_files(
             contained_in_japanese: Vec::new(),
             korean_words: Vec::new(),
             korean_char: None,
+            semantic_mnemonic: None,
             contained_in_korean: Vec::new(),
         });
 
@@ -2738,6 +2787,7 @@ async fn generate_simple_output_files(
                             contained_in_japanese: Vec::new(),
                             korean_words: Vec::new(),
                             korean_char: None,
+                            semantic_mnemonic: None,
                             contained_in_korean: Vec::new(),
                         });
 
@@ -2780,6 +2830,7 @@ async fn generate_simple_output_files(
                 contained_in_japanese: Vec::new(),
                 korean_words: Vec::new(),
                 korean_char: None,
+                semantic_mnemonic: None,
                 contained_in_korean: Vec::new(),
             };
             outputs.insert(key.clone(), redirect_entry);
@@ -2818,6 +2869,7 @@ async fn generate_simple_output_files(
                         contained_in_japanese: Vec::new(),
                         korean_words: Vec::new(),
                         korean_char: None,
+                        semantic_mnemonic: None,
                         contained_in_korean: Vec::new(),
                     });
                     output.chinese_char = Some(char_entry.clone());
@@ -2842,6 +2894,7 @@ async fn generate_simple_output_files(
                         contained_in_japanese: Vec::new(),
                         korean_words: Vec::new(),
                         korean_char: None,
+                        semantic_mnemonic: None,
                         contained_in_korean: Vec::new(),
                     };
                     outputs.insert(key.clone(), redirect_entry);
@@ -2865,6 +2918,7 @@ async fn generate_simple_output_files(
                 contained_in_japanese: Vec::new(),
                 korean_words: Vec::new(),
                 korean_char: None,
+                semantic_mnemonic: None,
                 contained_in_korean: Vec::new(),
             });
             output.chinese_char = Some(char_entry.clone());
@@ -2903,6 +2957,7 @@ async fn generate_simple_output_files(
                 contained_in_japanese: Vec::new(),
                 korean_words: Vec::new(),
                 korean_char: None,
+                semantic_mnemonic: None,
                 contained_in_korean: Vec::new(),
             });
             output.japanese_char = Some(kanji_entry.clone());
@@ -2928,6 +2983,7 @@ async fn generate_simple_output_files(
                 contained_in_japanese: Vec::new(),
                 korean_words: Vec::new(),
                 korean_char: None,
+                semantic_mnemonic: None,
                 contained_in_korean: Vec::new(),
             });
             output.japanese_char = Some(kanji_entry.clone());
@@ -2980,6 +3036,7 @@ async fn generate_simple_output_files(
                 contained_in_japanese: Vec::new(),
                 korean_words: Vec::new(),
                 korean_char: None,
+                semantic_mnemonic: None,
                 contained_in_korean: Vec::new(),
             });
 
@@ -3087,6 +3144,7 @@ async fn generate_simple_output_files(
                 contained_in_japanese: Vec::new(),
                 korean_words: vec![korean_word.clone()],
                 korean_char: None,
+                semantic_mnemonic: None,
                 contained_in_korean: Vec::new(),
             };
 
@@ -3123,6 +3181,7 @@ async fn generate_simple_output_files(
                 contained_in_japanese: Vec::new(),
                 korean_words: Vec::new(),
                 korean_char: None,
+                semantic_mnemonic: None,
                 contained_in_korean: Vec::new(),
             };
 
@@ -3161,6 +3220,7 @@ async fn generate_simple_output_files(
                 contained_in_japanese: Vec::new(),
                 korean_words: vec![korean_word.clone()],
                 korean_char: None,
+                semantic_mnemonic: None,
                 contained_in_korean: Vec::new(),
             };
 
@@ -3869,6 +3929,7 @@ async fn generate_simple_output_files(
                         contained_in_japanese: Vec::new(),
                         korean_words: Vec::new(),
                         korean_char: None,
+                        semantic_mnemonic: None,
                         contained_in_korean: Vec::new(),
                     };
 
@@ -3902,6 +3963,7 @@ async fn generate_simple_output_files(
                         contained_in_japanese: Vec::new(),
                         korean_words: Vec::new(),
                         korean_char: None,
+                        semantic_mnemonic: None,
                         contained_in_korean: Vec::new(),
                     };
 
@@ -3960,6 +4022,7 @@ async fn generate_simple_output_files(
                         contained_in_japanese: Vec::new(),
                         korean_words: Vec::new(),
                         korean_char: None,
+                        semantic_mnemonic: None,
                         contained_in_korean: Vec::new(),
                     };
 
@@ -3971,6 +4034,31 @@ async fn generate_simple_output_files(
     }
 
     println!("  ✅ Created {} redirect entries", redirect_count);
+
+    if !semantic_mnemonics.is_empty() {
+        println!("🧠 Attaching semantic mnemonic cards...");
+        let mut attached_count = 0usize;
+        let mut created_entry_count = 0usize;
+
+        for (character, mnemonic) in &semantic_mnemonics {
+            let had_entry = outputs.contains_key(character);
+            let output = outputs
+                .entry(character.clone())
+                .or_insert_with(|| SimpleOutput::empty(character.clone()));
+
+            output.semantic_mnemonic = Some(mnemonic.clone());
+            attached_count += 1;
+            if !had_entry {
+                created_entry_count += 1;
+            }
+        }
+
+        println!(
+            "  ✅ Attached {} mnemonic cards ({} mnemonic-only character entries)",
+            attached_count,
+            created_entry_count
+        );
+    }
 
     // Count redirects before filtering
     let redirect_count_before = outputs.values().filter(|o| o.redirect.is_some()).count();
@@ -4542,4 +4630,3 @@ fn create_safe_filename(word: &str) -> String {
         })
         .collect()
 }
-

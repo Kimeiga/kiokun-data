@@ -5,6 +5,7 @@ use crate::chinese_char_types::ChineseCharacter;
 use crate::japanese_types::Word;
 use crate::japanese_char_types::KanjiCharacter;
 use crate::korean_types::{KoreanWord, KoreanCharacter};
+use crate::semantic_mnemonic_types::SemanticMnemonicCard;
 use crate::word_preview_types::WordPreview;
 
 /// Simple output structure with no unification - just raw data from each source
@@ -73,9 +74,35 @@ pub struct SimpleOutput {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub korean_char: Option<KoreanCharacter>,
 
+    /// Curated semantic mnemonic card for single-character entries.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub semantic_mnemonic: Option<SemanticMnemonicCard>,
+
     /// Korean words that contain this word/character
     /// Limited to 100 entries, includes preview data
     #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub contained_in_korean: Vec<WordPreview>,
 }
 
+impl SimpleOutput {
+    pub fn empty(key: String) -> Self {
+        Self {
+            key,
+            redirect: None,
+            simplified_form_of: None,
+            chinese_words: Vec::new(),
+            chinese_char: None,
+            japanese_words: Vec::new(),
+            japanese_char: None,
+            related_japanese_words: Vec::new(),
+            japanese_names: Vec::new(),
+            contains: Vec::new(),
+            contained_in_chinese: Vec::new(),
+            contained_in_japanese: Vec::new(),
+            korean_words: Vec::new(),
+            korean_char: None,
+            semantic_mnemonic: None,
+            contained_in_korean: Vec::new(),
+        }
+    }
+}

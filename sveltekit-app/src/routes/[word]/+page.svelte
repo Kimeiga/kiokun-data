@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from "svelte";
 	import type { PageData } from "./$types";
+	import type { ChineseComponent } from "$lib/types";
 	import Header from "$lib/components/Header.svelte";
 	import Contains from "$lib/Contains.svelte";
 	import AppearsIn from "$lib/AppearsIn.svelte";
@@ -23,6 +24,7 @@
 	import ArtifactMentions from "$lib/components/ArtifactMentions.svelte";
 	import ChineseSentenceExamples from "$lib/components/ChineseSentenceExamples.svelte";
 	import KoreanSentenceExamples from "$lib/components/KoreanSentenceExamples.svelte";
+	import SemanticMnemonicCard from "$lib/components/SemanticMnemonicCard.svelte";
 	import ShareButton from "$lib/components/ShareButton.svelte";
 	import StudyModeToggle from "$lib/components/StudyModeToggle.svelte";
 
@@ -94,6 +96,17 @@
 		add(entry.key);
 
 		return forms;
+	}
+
+	function componentChar(component: string | ChineseComponent): string | null {
+		if (typeof component === "string") return component;
+		return component.character || component.char || null;
+	}
+
+	function componentChars(components: Array<string | ChineseComponent> | undefined): string[] {
+		return (components || [])
+			.map(componentChar)
+			.filter((char): char is string => Boolean(char));
 	}
 
 	// Scroll to hash target on mount (for section permalinks)
@@ -1417,7 +1430,8 @@
 					<!-- Mnemonic Hint (on its own line below header) -->
 					{#if showClaudeMnemonics && data.data.chinese_char?.hint}
 						<div
-							class="mb-3 p-2 rounded border-l-4 bg-hint-bg border-l-hint-border"
+							class="mb-3 p-2 rounded border"
+							style="background: var(--color-hint-bg); border-color: var(--color-hint-border);"
 						>
 							<div class="text-sm leading-relaxed text-hint-text">
 								{data.data.chinese_char.hint}
@@ -1649,14 +1663,13 @@
 					{/if}
 					{/if}
 
+					<SemanticMnemonicCard card={data.data.semantic_mnemonic} />
+
 					<!-- Statistics section removed - data overlaps with word views -->
 
-						<!-- Similar Characters -->
+					<!-- Similar Characters -->
 					{#if data.data.chinese_char?.components}
-						{@const compChars = data.data.chinese_char.components
-							.filter(c => typeof c !== 'string')
-							.map(c => c.character || c.char || c)
-							.filter(Boolean)}
+						{@const compChars = componentChars(data.data.chinese_char.components)}
 
 						<!-- Notes above similar characters -->
 						<Notes character={traditionalChar} />
@@ -1730,8 +1743,8 @@
 					{#each data.data.chinese_char.comments as comment}
 						{#if comment && comment.source && comment.comment}
 							<div
-								class="p-2.5 rounded border-l-4 mb-2"
-								style="background: var(--bg-tertiary); border-left-color: var(--border-light);"
+								class="p-2.5 rounded border mb-2"
+								style="background: var(--bg-tertiary); border-color: var(--border-light);"
 							>
 								<div class="text-xs text-tertiary font-semibold mb-1">
 									{comment.source}

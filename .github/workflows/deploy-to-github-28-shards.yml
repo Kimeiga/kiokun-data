@@ -6,6 +6,7 @@ on:
     paths:
       - 'src/**'
       - 'data/**'
+      - 'sveltekit-app/static/research/mnemonics/semantic_mnemonics_all_best_available.json'
       - 'Cargo.toml'
       - '.github/workflows/deploy-to-github-28-shards.yml'
   workflow_dispatch:  # Manual trigger also available
@@ -178,4 +179,3 @@ jobs:
           git push -f origin main
           
           echo "✓ Pushed to kiokun2-dict-${{ matrix.shard }}"
-

@@ -53,30 +53,36 @@
 // MUST match the Rust implementation in src/main.rs exactly!
 function simpleHash(str: string): number {
   let hash = 0;
-  for (let i = 0; i < str.length; i++) {
-    const char = str.charCodeAt(i);
+  for (const char of str) {
+    const codepoint = char.codePointAt(0) ?? 0;
     // Use wrapping multiplication and addition to match Rust's wrapping_mul and wrapping_add
-    hash = (hash * 31 + char) >>> 0; // >>> 0 converts to unsigned 32-bit integer
+    hash = (hash * 31 + codepoint) >>> 0; // >>> 0 converts to unsigned 32-bit integer
   }
   return hash;
 }
 
 // Check if a character is a Han character (Chinese/Japanese kanji)
 function isHanCharacter(char: string): boolean {
-  const code = char.charCodeAt(0);
+  const code = char.codePointAt(0) ?? 0;
   return (code >= 0x4E00 && code <= 0x9FFF) || // CJK Unified Ideographs
          (code >= 0x3400 && code <= 0x4DBF) || // CJK Extension A
          (code >= 0x20000 && code <= 0x2A6DF) || // CJK Extension B
          (code >= 0x2A700 && code <= 0x2B73F) || // CJK Extension C
          (code >= 0x2B740 && code <= 0x2B81F) || // CJK Extension D
-         (code >= 0x2B820 && code <= 0x2CEAF); // CJK Extension E
+         (code >= 0x2B820 && code <= 0x2CEAF) || // CJK Extension E
+         (code >= 0x2CEB0 && code <= 0x2EBEF) || // CJK Extension F
+         (code >= 0x2EBF0 && code <= 0x2EE5F) || // CJK Extension I
+         (code >= 0x30000 && code <= 0x3134F) || // CJK Extension G
+         (code >= 0x31350 && code <= 0x323AF) || // CJK Extension H
+         (code >= 0xF900 && code <= 0xFAFF) || // CJK Compatibility Ideographs
+         (code >= 0x2F800 && code <= 0x2FA1F); // CJK Compatibility Ideographs Supplement
 }
 
 // Count Han characters in a string
 function countHanCharacters(word: string): number {
   let count = 0;
-  for (let i = 0; i < word.length; i++) {
-    if (isHanCharacter(word[i])) {
+  for (const char of word) {
+    if (isHanCharacter(char)) {
       count++;
     }
   }

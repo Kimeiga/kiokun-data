@@ -36,6 +36,7 @@ EVAL_PATH = RESEARCH_DIR / "semantic_mnemonics_all_best_available_eval.json"
 AWKWARD_RE = re.compile(
     r"\b(?:"
     r"the character combines|this character|component|radical|represents|depicts|"
+    r"in one visual image|one visual image|"
     r"perfect|hardworking|wise|brave|lazy|properly|exactly|sacred|mysterious|"
     r"magical|ghostly|terrifying|creepy|spies|spy|criminal|prisoner|slave|"
     r"butcher|battlefield|enemy|warrior|commander|soldier|"
@@ -45,6 +46,13 @@ AWKWARD_RE = re.compile(
     r")\b",
     re.IGNORECASE,
 )
+
+GENERIC_MNEMONIC_RE = re.compile(
+    r"\b(?:in one [a-z -]*image|reveals|points toward)\b",
+    re.IGNORECASE,
+)
+
+MANUAL_QUALITY_SOURCE = "codex_manual_quality_patch_2026_07_08"
 
 BAD_STYLE_RE = re.compile(
     r"\b(?:serves as|symbolizes|teaches us|reminds us|society|polite|poor|"
@@ -57,8 +65,22 @@ LOCAL_GLOSS_OVERRIDES = {
     "髟": "long hair",
     "女": "woman",
     "𥩲": "raise",
+    "爫": "reaching hand",
+    "⺤": "grasping hand",
+    "亽": "food cover",
+    "幺": "thread",
+    "乛": "hook mark",
+    "乚": "turning hook",
+    "㐬": "stream",
+    "𫶧": "flow tail",
+    "氏": "clan",
+    "旡": "choked breath",
+    "亀": "turtle",
+    "龟": "turtle",
     "臤": "firm grip",
     "𰀡": "firm grip",
+    "钅": "metal",
+    "纟": "silk",
     "娲": "Nuwa",
     "媧": "Nuwa",
     "叱": "scold",
@@ -83,6 +105,11 @@ LOCAL_GLOSS_OVERRIDES = {
     "倧": "progenitor",
     "栮": "mushroom",
     "堗": "heated floor",
+    "辡": "dispute",
+    "㚻": "sexual misconduct",
+    "㓺": "cut punishment",
+    "㔀": "branding punishment",
+    "黥": "tattoo punishment",
 }
 
 
@@ -245,6 +272,8 @@ def safe_gloss(char: str, gloss: str, *, component_mode: bool = False) -> str:
 
     cleaned = sm.clean_gloss(gloss) or ""
     lowered = cleaned.lower()
+    if "kwukyel" in lowered:
+        return "rank mark" if "rank" in lowered else "reading mark"
     if "what?" in lowered or "why?" in lowered or "where?" in lowered:
         return "question"
 
@@ -380,7 +409,7 @@ def phrase_components(components: list[dict[str, str]], char: str) -> str:
     return ", ".join(article_pairs[:-1]) + f", and {article_pairs[-1]}"
 
 
-def meaning_style(meaning: str) -> tuple[str, str]:
+def meaning_action(meaning: str, plural: bool) -> str:
     lower = meaning.lower()
 
     def has_keyword(needle: str) -> bool:
@@ -389,55 +418,40 @@ def meaning_style(meaning: str) -> tuple[str, str]:
 
     classes = [
         (("water", "river", "sea", "lake", "spring", "tide", "liquid", "rain", "pond", "swamp", "stream"),
-         "flowing image",
-         "gathers into"),
+         "flow into" if plural else "flows into"),
         (("fire", "heat", "warm", "hot", "burn", "light", "bright", "shine", "sun", "ray", "lamp"),
-         "lit image",
-         "shines toward"),
+         "light up into" if plural else "lights up into"),
         (("say", "speak", "talk", "ask", "call", "read", "write", "word", "sound", "voice", "name", "language"),
-         "spoken image",
-         "carries words into"),
+         "carry words into" if plural else "carries words into"),
         (("heart", "feel", "worry", "sad", "anger", "fear", "love", "desire", "wish", "think", "recall"),
-         "inner image",
-         "presses inward as"),
+         "press inward into" if plural else "presses inward into"),
         (("go", "walk", "run", "move", "enter", "exit", "return", "cross", "reach", "arrive", "advance", "retreat", "follow"),
-         "moving image",
-         "travels toward"),
+         "move toward" if plural else "moves toward"),
         (("protect", "guard", "hide", "cover", "surround", "enclose", "safe", "secure", "keep"),
-         "sheltering image",
-         "closes around"),
+         "close around" if plural else "closes around"),
         (("tight", "bind", "bound", "knot", "rope", "thread", "string", "silk"),
-         "binding image",
-         "pulls tight into"),
+         "pull tight into" if plural else "pulls tight into"),
         (("grip", "grasp", "hold", "seize", "catch"),
-         "holding image",
-         "closes around"),
+         "close around" if plural else "closes around"),
         (("cut", "divide", "break", "split", "sever", "hew", "stab", "strike", "beat", "grind"),
-         "sharp image",
-         "cuts toward"),
+         "cut toward" if plural else "cuts toward"),
         (("count", "number", "measure", "order", "rank", "line", "list", "record", "copy"),
-         "ordered image",
-         "lines up as"),
+         "line up as" if plural else "lines up as"),
         (("make", "build", "create", "form", "shape", "construct", "establish", "set", "frame"),
-         "making image",
-         "sets the shape of"),
+         "take shape as" if plural else "takes shape as"),
         (("tree", "grass", "flower", "plant", "grain", "leaf", "root", "branch", "bamboo", "crop"),
-         "growing image",
-         "grows into"),
+         "grow into" if plural else "grows into"),
         (("bird", "fish", "horse", "dog", "ox", "cow", "sheep", "insect", "animal", "pooch"),
-         "living image",
-         "takes the body of"),
+         "take living shape as" if plural else "takes living shape as"),
         (("house", "room", "city", "country", "village", "temple", "store", "gate", "place", "street", "building"),
-         "place image",
-         "marks the site of"),
+         "mark the site of" if plural else "marks the site of"),
         (("person", "woman", "man", "child", "mother", "father", "official", "teacher", "king", "monarch"),
-         "human image",
-         "identifies"),
+         "identify" if plural else "identifies"),
     ]
-    for needles, subject, verb in classes:
+    for needles, action in classes:
         if any(has_keyword(needle) for needle in needles):
-            return subject, verb
-    return "visual image", ("reveals" if len(lower) < 14 else "points toward")
+            return action
+    return "come together as" if plural else "comes together as"
 
 
 def local_mnemonic(prepared: dict[str, Any]) -> str:
@@ -449,8 +463,7 @@ def local_mnemonic(prepared: dict[str, Any]) -> str:
         component_text = "A " + component_text[2:]
     if len(components) == 1 and components[0]["character"] == char:
         return f"{component_text} stands alone as {final_pair}."
-    subject, verb = meaning_style(prepared["meaning"])
-    return f"{component_text} in one {subject} {verb} {final_pair}."
+    return f"{component_text} {meaning_action(prepared['meaning'], len(components) > 2)} {final_pair}."
 
 
 def local_hero_prompt(prepared: dict[str, Any]) -> str:
@@ -591,6 +604,88 @@ def normalize_existing(card: dict[str, Any], source: str) -> dict[str, Any]:
     return record
 
 
+def prepared_from_record(record: dict[str, Any]) -> dict[str, Any]:
+    components = [
+        {
+            "character": str(component.get("character") or component.get("char") or ""),
+            "gloss": str(component.get("gloss") or ""),
+        }
+        for component in (record.get("components") or [])
+        if component.get("character") or component.get("char")
+    ]
+    if not components:
+        char = str(record["character"])
+        meaning = str(record.get("meaning") or "form")
+        components = [{"character": char, "gloss": meaning}]
+    return sanitize_prepared_card({
+        "character": str(record["character"]),
+        "meaning": str(record.get("meaning") or "form"),
+        "components": components,
+        "visual_components": components,
+    })
+
+
+def refresh_validation(record: dict[str, Any], prepared: dict[str, Any]) -> dict[str, Any]:
+    validation = sm.validate_card(record, prepared)
+    record["validation"] = validation
+    record["heuristic_score"] = validation["heuristic_score"]
+    record["style_score"] = sm.cheap_style_score(record)
+    record["combined_score"] = validation["heuristic_score"] * 0.65 + record["style_score"] * 0.35
+    return record
+
+
+def restyle_generic_mnemonic(record: dict[str, Any]) -> dict[str, Any]:
+    prepared = prepared_from_record(record)
+    expected_pairs = [f"{component['character']} {component['gloss']}" for component in prepared["components"]]
+    final_pair = f"{prepared['character']} {prepared['meaning']}"
+    equation = str(record.get("equation") or "")
+    mnemonic = str(record.get("mnemonic") or "")
+    stale_pairs = any(pair not in equation or pair not in mnemonic for pair in expected_pairs)
+    stale_final = final_pair not in equation or final_pair not in mnemonic
+    validation = record.get("validation") or {}
+    if (
+        not GENERIC_MNEMONIC_RE.search(mnemonic)
+        and validation.get("valid", True)
+        and not stale_pairs
+        and not stale_final
+    ):
+        return record
+    record = dict(record)
+    record["meaning"] = prepared["meaning"]
+    record["components"] = prepared["components"]
+    record["visual_components"] = prepared["visual_components"]
+    record["equation"] = " + ".join(
+        f"{component['character']} {component['gloss']}"
+        for component in prepared["components"]
+    ) + f" = {prepared['character']} {prepared['meaning']}"
+    record["mnemonic"] = local_mnemonic(prepared)
+    record["style_patch"] = "removed_generic_visual_image_phrase"
+    return refresh_validation(record, prepared)
+
+
+def clean_free_text(text: str) -> str:
+    replacements = {
+        "tiny thread": "thread",
+        "metal (side)": "metal",
+        "silk (side)": "silk",
+        "kwukyel: rank": "rank mark",
+        "kwukyel (alt)": "reading mark",
+        "kwukyel": "reading mark",
+        "person mark": "food cover",
+    }
+    for before, after in replacements.items():
+        text = text.replace(before, after)
+    return text
+
+
+def clean_card_free_text(record: dict[str, Any]) -> dict[str, Any]:
+    hero = record.get("hero_image_prompt")
+    if isinstance(hero, str):
+        record = dict(record)
+        record["hero_image_prompt"] = clean_free_text(hero)
+    return record
+
+
 def build_prepared_map(chars: list[str], workers: int = 24) -> dict[str, dict[str, Any]]:
     prepared: dict[str, dict[str, Any]] = {}
     with ThreadPoolExecutor(max_workers=workers) as executor:
@@ -651,12 +746,20 @@ def main() -> None:
     targets = all_target_characters()
     paid_10k = load_artifact(PAID_10K_PATH)
     reviewed_1000 = load_artifact(REVIEWED_1000_PATH)
+    existing_best = load_artifact(OUTPUT_PATH)
+    manual_quality = {
+        char: card
+        for char, card in existing_best.items()
+        if card.get("generation_source") == MANUAL_QUALITY_SOURCE
+    }
     prepared = build_prepared_map(targets)
 
     cards: list[dict[str, Any]] = []
     source_counts: dict[str, int] = {}
     for char in targets:
-        if char in reviewed_1000:
+        if char in manual_quality:
+            card = normalize_existing(manual_quality[char], MANUAL_QUALITY_SOURCE)
+        elif char in reviewed_1000:
             card = normalize_existing(reviewed_1000[char], "gemini35_reviewed_1000")
         elif char in paid_10k:
             reason = None if card_is_clean(paid_10k[char]) else "paid_10k_failed_style_scan"
@@ -668,6 +771,8 @@ def main() -> None:
         cards.append(card)
 
     cards = add_learner_gap_cards(cards, prepared)
+    cards = [restyle_generic_mnemonic(card) for card in cards]
+    cards = [clean_card_free_text(card) for card in cards]
     source_counts = count_sources(cards)
 
     artifact = {
@@ -693,6 +798,13 @@ def main() -> None:
         "variant_alias_targets_used": VARIANT_ALIAS_TARGETS,
         "source_counts": source_counts,
         "mnemonics": cards,
+        "quality_patch_note": (
+            "Hand-audited cards from the prior artifact are preserved when present; "
+            "generic fallback wording is restyled through the deterministic local builder."
+        ),
+        "quality_patch_at": datetime.now(timezone.utc).isoformat(),
+        "quality_patch_reviewed_characters": sorted(manual_quality, key=lambda ch: (ord(ch), ch)),
+        "quality_patch_reviewed_count": len(manual_quality),
     }
     OUTPUT_PATH.write_text(json.dumps(artifact, ensure_ascii=False, separators=(",", ":")))
     evaluation = validate_artifact(cards)

@@ -1,21 +1,26 @@
 {
-  "created_at": "2026-07-08T15:18:36.395129+00:00",
+  "created_at": "2026-07-08T18:42:12.281922+00:00",
   "count": 24037,
   "invalid_count": 0,
   "invalid": [],
   "source_counts": {
-    "codex_local_completion": 13484,
-    "codex_local_reauthor_paid_9000": 9000,
-    "gemini35_reviewed_1000": 1000,
+    "codex_local_completion": 13406,
+    "codex_manual_quality_patch_2026_07_08": 171,
+    "codex_local_reauthor_paid_9000": 8940,
+    "gemini35_reviewed_1000": 967,
     "codex_local_learner_gap": 18,
     "codex_local_variant_alias": 23,
     "codex_local_nfkc_variant_alias": 512
   },
   "component_source_counts": {
-    "self_fallback": 2827,
-    "resolved_ids_forward": 20503,
-    "chinese_char.components": 164,
-    "ids": 7,
+    "self_fallback": 2813,
+    "manual_quality_patch": 75,
+    "resolved_ids_forward": 20408,
+    "manual_stream_family": 20,
+    "chinese_char.components": 163,
+    "manual_pictograph": 10,
+    "ids": 6,
+    "manual_visual_decomposition": 5,
     "manual_component_override": 1,
     "variant_alias:崎": 1,
     "variant_alias:臘": 1,
@@ -158,6 +163,7 @@
     "variant_alias:䀘": 1,
     "variant_alias:䀹": 2,
     "variant_alias:龎": 1,
+    "manual_ids_override": 1,
     "variant_alias:丽": 1,
     "variant_alias:丸": 1,
     "variant_alias:你": 1,
@@ -490,9 +496,9 @@
   },
   "mnemonic_length": {
     "min": 26,
-    "p50": 69,
-    "p90": 86,
-    "p95": 91,
-    "max": 133
+    "p50": 58,
+    "p90": 71,
+    "p95": 77,
+    "max": 131
   }
 }

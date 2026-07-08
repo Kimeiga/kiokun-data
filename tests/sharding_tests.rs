@@ -21,7 +21,11 @@ mod tests {
             '\u{2B740}'..='\u{2B81F}' | // CJK Unified Ideographs Extension D
             '\u{2B820}'..='\u{2CEAF}' | // CJK Unified Ideographs Extension E
             '\u{2CEB0}'..='\u{2EBEF}' | // CJK Unified Ideographs Extension F
-            '\u{30000}'..='\u{3134F}'   // CJK Unified Ideographs Extension G
+            '\u{2EBF0}'..='\u{2EE5F}' | // CJK Unified Ideographs Extension I
+            '\u{30000}'..='\u{3134F}' | // CJK Unified Ideographs Extension G
+            '\u{31350}'..='\u{323AF}' | // CJK Unified Ideographs Extension H
+            '\u{F900}'..='\u{FAFF}'   | // CJK Compatibility Ideographs
+            '\u{2F800}'..='\u{2FA1F}'   // CJK Compatibility Ideographs Supplement
         )
     }
 
@@ -81,6 +85,11 @@ mod tests {
         // Test CJK Extension B (U+20000-U+2A6DF)
         assert!(is_han_character('\u{20000}')); // First char in Extension B
         assert!(is_han_character('\u{2A6DF}')); // Last char in Extension B
+
+        // Test compatibility and supplementary extension characters
+        assert!(is_han_character('\u{F900}')); // CJK Compatibility Ideographs
+        assert!(is_han_character('\u{2F800}')); // CJK Compatibility Ideographs Supplement
+        assert!(is_han_character('\u{31350}')); // Extension H
     }
 
     #[test]
@@ -228,6 +237,23 @@ mod tests {
         assert!(is_han_character('\u{2A6DF}')); // Last
         assert!(!is_han_character('\u{1FFFF}')); // Just before
         assert!(!is_han_character('\u{2A6E0}')); // Just after
+
+        // CJK Compatibility Ideographs (U+F900-U+FAFF)
+        assert!(is_han_character('\u{F900}')); // First
+        assert!(is_han_character('\u{FAFF}')); // Last
+        assert!(!is_han_character('\u{F8FF}')); // Just before
+        assert!(!is_han_character('\u{FB00}')); // Just after
+
+        // CJK Compatibility Ideographs Supplement (U+2F800-U+2FA1F)
+        assert!(is_han_character('\u{2F800}')); // First
+        assert!(is_han_character('\u{2FA1F}')); // Last
+        assert!(!is_han_character('\u{2F7FF}')); // Just before
+        assert!(!is_han_character('\u{2FA20}')); // Just after
+
+        // CJK Extension H (U+31350-U+323AF)
+        assert!(is_han_character('\u{31350}')); // First
+        assert!(is_han_character('\u{323AF}')); // Last
+        assert!(!is_han_character('\u{323B0}')); // Just after
     }
 
     #[test]
@@ -248,4 +274,3 @@ mod tests {
         }
     }
 }
-
