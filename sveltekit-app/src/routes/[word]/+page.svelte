@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from "svelte";
 	import type { PageData } from "./$types";
-	import type { ChineseComponent } from "$lib/types";
+	import type { ChineseComponent, SemanticMnemonicCard as SemanticMnemonicCardType } from "$lib/types";
 	import Header from "$lib/components/Header.svelte";
 	import Contains from "$lib/Contains.svelte";
 	import AppearsIn from "$lib/AppearsIn.svelte";
@@ -270,6 +270,72 @@
 		if (glossesA.length !== glossesB.length) return false;
 		return glossesA.every((g, i) => g === glossesB[i]);
 	}
+
+	function mnemonicComponentSignature(card: SemanticMnemonicCardType): string {
+		const components = card.visual_components?.length ? card.visual_components : card.components || [];
+		if (components.length === 0) return card.equation;
+
+		const normalize = (component: { character: string; gloss: string }) =>
+			cleanComponentGloss(data.charGlosses?.[component.character] || component.gloss || '')
+				.trim()
+				.toLowerCase();
+
+		return components
+			.map(normalize)
+			.filter(Boolean)
+			.sort()
+			.join("|");
+	}
+
+	function mnemonicVariantLabel(card: SemanticMnemonicCardType): string {
+		const labels: string[] = [];
+		if (card.character === traditionalChar) labels.push("Traditional");
+		if (card.character === simplifiedChar) labels.push("Simplified");
+		if (card.character === japaneseChar && !labels.includes("Japanese")) labels.push("Japanese");
+		if (koreanChar?.character === card.character && !labels.includes("Korean")) labels.push("Korean");
+		if (hkChar === card.character && !labels.includes("Hong Kong")) labels.push("Hong Kong");
+		return labels.length > 0 ? `${labels.join(" / ")} (${card.character})` : card.character;
+	}
+
+	let semanticMnemonicCards = $derived.by(() => {
+		const cards = [
+			data.data.semantic_mnemonic,
+			...(data.data.semantic_mnemonic_variants || []),
+		].filter((card): card is SemanticMnemonicCardType => Boolean(card));
+
+		const order = new Map<string, number>();
+		[
+			traditionalChar,
+			simplifiedChar,
+			japaneseChar,
+			koreanChar?.character,
+			hkChar,
+		].forEach((char, index) => {
+			if (char && !order.has(char)) order.set(char, index);
+		});
+
+		const seenChars = new Set<string>();
+		const sortedCards = cards
+			.filter((card) => {
+				if (seenChars.has(card.character)) return false;
+				seenChars.add(card.character);
+				return true;
+			})
+			.sort((a, b) => (order.get(a.character) ?? 99) - (order.get(b.character) ?? 99));
+
+		const seenSignatures = new Set<string>();
+		return sortedCards
+			.map((card) => ({
+				card,
+				label: mnemonicVariantLabel(card),
+				signature: mnemonicComponentSignature(card),
+			}))
+			.filter(({ signature }) => {
+				if (seenSignatures.has(signature)) return false;
+				seenSignatures.add(signature);
+				return true;
+			});
+	});
 
 	// Japanese components from the trad entry's japanese_char.ids field
 	let japaneseComponents = $derived.by(() => {
@@ -1439,7 +1505,14 @@
 						</div>
 					{/if}
 
-					<SemanticMnemonicCard card={data.data.semantic_mnemonic} />
+					{#each semanticMnemonicCards as mnemonicItem, i}
+						<SemanticMnemonicCard
+							card={mnemonicItem.card}
+							label={semanticMnemonicCards.length > 1 ? mnemonicItem.label : undefined}
+							heading={semanticMnemonicCards.length > 1 ? "Mnemonics" : "Mnemonic"}
+							showHeading={i === 0}
+						/>
+					{/each}
 
 					<!-- Unified Components + Equation Section -->
 					{#if (data.data.chinese_char?.components && data.data.chinese_char.components.length > 0) || (simplifiedCharData?.components && simplifiedCharData.components.length > 0) || japaneseComponents}

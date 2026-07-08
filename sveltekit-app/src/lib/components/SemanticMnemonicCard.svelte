@@ -2,14 +2,29 @@
 	import SectionHeading from "$lib/components/shared/SectionHeading.svelte";
 	import type { SemanticMnemonicCard as SemanticMnemonicCardType } from "$lib/types";
 
-	let { card }: { card?: SemanticMnemonicCardType | null } = $props();
+	let {
+		card,
+		label,
+		heading = "Mnemonic",
+		showHeading = true,
+	}: {
+		card?: SemanticMnemonicCardType | null;
+		label?: string;
+		heading?: string;
+		showHeading?: boolean;
+	} = $props();
 </script>
 
 {#if card}
 	<div class="semantic-mnemonic-section">
-		<SectionHeading id="mnemonic">Mnemonic</SectionHeading>
+		{#if showHeading}
+			<SectionHeading id="mnemonic">{heading}</SectionHeading>
+		{/if}
 
 		<div class="semantic-mnemonic">
+			{#if label}
+				<div class="variant-label">{label}</div>
+			{/if}
 			<div class="mnemonic-equation" lang="zh">{card.equation}</div>
 			<p class="mnemonic-text">{card.mnemonic}</p>
 
@@ -46,6 +61,15 @@
 		border-radius: 8px;
 		padding: var(--spacing-sm) var(--spacing-md);
 		background: color-mix(in srgb, var(--accent-light) 42%, transparent);
+	}
+
+	.variant-label {
+		color: var(--text-tertiary);
+		font-size: var(--font-size-caption2);
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.3px;
+		margin-bottom: var(--spacing-xs);
 	}
 
 	.mnemonic-equation {

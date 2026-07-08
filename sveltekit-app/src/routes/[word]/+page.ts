@@ -3,7 +3,7 @@ import { error, redirect } from '@sveltejs/kit';
 import { getDictionaryUrl } from '$lib/shard-utils';
 import { dev } from '$app/environment';
 import { decompressSync, strFromU8 } from 'fflate';
-import type { DictionaryEntry } from '$lib/types';
+import type { DictionaryEntry, SemanticMnemonicCard } from '$lib/types';
 import { findWordsWithDeinflection } from '$lib/utils/search-navigation';
 
 // SSR works in production (fetches GitHub CDN) but can cause issues in dev
@@ -26,6 +26,31 @@ function decompressAndParse(compressedData: ArrayBuffer): DictionaryEntry {
 
 	// Parse JSON and return as DictionaryEntry
 	return JSON.parse(jsonString) as DictionaryEntry;
+}
+
+async function fetchDictionaryEntry(word: string, fetchFn: typeof fetch): Promise<DictionaryEntry | null> {
+	const dictUrl = await getDictionaryUrl(word, dev, fetchFn);
+	const dictFetch = dictUrl.startsWith('http') ? globalThis.fetch : fetchFn;
+	const response = await dictFetch(dictUrl);
+	if (!response.ok) return null;
+	return decompressAndParse(await response.arrayBuffer());
+}
+
+function addEntryMnemonicCandidates(entry: DictionaryEntry | null | undefined, candidates: Set<string>) {
+	if (!entry) return;
+	const add = (char: unknown) => {
+		if (typeof char === 'string' && [...char].length === 1) candidates.add(char);
+	};
+
+	add(entry.key);
+	add(entry.simplified_form_of);
+	add(entry.chinese_char?.char);
+	add(entry.chinese_char?.hkChar);
+	for (const char of entry.chinese_char?.simpVariants || []) add(char);
+	for (const char of entry.chinese_char?.tradVariants || []) add(char);
+	add(entry.japanese_char?.literal);
+	add(entry.korean_char?.character);
+	add(entry.korean_char?.hanjaForm);
 }
 
 /**
@@ -194,8 +219,11 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 
 
 		// If this is a redirect entry, fetch the actual data
+		let redirectOriginal: DictionaryEntry | null = null;
+		let redirectTargetMnemonic: SemanticMnemonicCard | null = null;
 		if (data.redirect) {
 			const original = data;
+			redirectOriginal = original;
 			const originalMnemonic = original.semantic_mnemonic;
 			const redirectUrl = await getDictionaryUrl(data.redirect, dev, fetch);
 			const redirectFetch = redirectUrl.startsWith('http') ? globalThis.fetch : fetch;
@@ -203,6 +231,7 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 			if (redirectResponse.ok) {
 				const redirectCompressed = await redirectResponse.arrayBuffer();
 				data = decompressAndParse(redirectCompressed);
+				redirectTargetMnemonic = data.semantic_mnemonic || null;
 				if (originalMnemonic) {
 					data.semantic_mnemonic = originalMnemonic;
 				}
@@ -290,6 +319,50 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 				console.error(`[LOAD] Failed to fetch simplified char ${simpChar}:`, err);
 			}
 		}
+
+		// Collect mnemonic cards for visually different character variants. The exact
+		// dictionary entry only carries one card, but merged entries like 买/買 need
+		// separate learner stories when the written forms decompose differently.
+		const mnemonicCandidates = new Set<string>();
+		addEntryMnemonicCandidates(data, mnemonicCandidates);
+		addEntryMnemonicCandidates(redirectOriginal, mnemonicCandidates);
+		if (simplifiedCharData?.char) {
+			mnemonicCandidates.add(simplifiedCharData.char);
+		}
+
+		const variantMnemonicCards: SemanticMnemonicCard[] = [];
+		const seenMnemonicChars = new Set<string>();
+		const addMnemonicCard = (card: SemanticMnemonicCard | null | undefined) => {
+			if (!card || seenMnemonicChars.has(card.character)) return;
+			seenMnemonicChars.add(card.character);
+			variantMnemonicCards.push(card);
+		};
+
+		addMnemonicCard(data.semantic_mnemonic);
+		addMnemonicCard(redirectOriginal?.semantic_mnemonic);
+		addMnemonicCard(redirectTargetMnemonic);
+
+		for (const candidate of mnemonicCandidates) {
+			if (seenMnemonicChars.has(candidate)) continue;
+			try {
+				const candidateEntry =
+					candidate === data.key
+						? data
+						: candidate === redirectOriginal?.key
+							? redirectOriginal
+							: await fetchDictionaryEntry(candidate, fetch);
+				addMnemonicCard(candidateEntry?.semantic_mnemonic);
+			} catch {
+				// Variant entries are helpful but not required for the page.
+			}
+		}
+
+		if (!data.semantic_mnemonic && variantMnemonicCards.length > 0) {
+			data.semantic_mnemonic = variantMnemonicCards[0];
+		}
+		data.semantic_mnemonic_variants = variantMnemonicCards.filter(
+			(card) => card.character !== data.semantic_mnemonic?.character
+		);
 
 		// Load Japanese labels
 		let labels: JapaneseLabels = {};

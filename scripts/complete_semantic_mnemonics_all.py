@@ -118,6 +118,9 @@ LOCAL_GLOSS_OVERRIDES = {
     "整": "arrange",
     "跡": "trace",
     "阪": "slope",
+    "图": "map",
+    "圖": "map",
+    "図": "map",
 }
 
 
@@ -193,6 +196,23 @@ AUTO_COMPATIBILITY_ALIAS_RANGES = (
 
 
 TARGETED_COMPONENT_OVERRIDES: dict[str, list[dict[str, str]]] = {
+    "买": [
+        {"character": "网", "gloss": "net"},
+        {"character": "头", "gloss": "head"},
+    ],
+    "買": [
+        {"character": "网", "gloss": "net"},
+        {"character": "貝", "gloss": "shellfish"},
+    ],
+    "發": [
+        {"character": "癶", "gloss": "legs"},
+        {"character": "弓", "gloss": "bow"},
+        {"character": "殳", "gloss": "hand tool"},
+    ],
+    "図": [
+        {"character": "囗", "gloss": "enclosure"},
+        {"character": "㐅", "gloss": "cross"},
+    ],
     "能": [
         {"character": "䏍", "gloss": "small worm"},
         {"character": "𫧇", "gloss": "seal form"},
@@ -221,6 +241,14 @@ TARGETED_COMPONENT_OVERRIDES: dict[str, list[dict[str, str]]] = {
 
 
 TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
+    "买": "A 网 net gathers the 头 head count of goods you 买 buy.",
+    "買": "A 网 net full of 貝 shellfish money is ready for 買 buy.",
+    "发": "A 𠃋 arm marked by 丿 slash and 丶 dot reaches with 又 hand to 发 emit.",
+    "發": "癶 legs carry a 弓 bow and 殳 hand tool forward, ready to 發 send out.",
+    "発": "癶 legs push 二 two lines above 儿 human legs forward, making 発 send out.",
+    "图": "A 囗 enclosure marks 冬 winter territory on a 图 map.",
+    "圖": "A 囗 enclosure marks a 啚 remote place, making 圖 map.",
+    "図": "A 囗 enclosure with a 㐅 cross marks the spot on 図 map.",
     "地": "土 earth is 也 also the place under each step, forming 地 ground.",
     "後": "A 彳 step leaves a 幺 thread behind a 夊 trailing foot, marking 後 after.",
     "物": "A 牜 ox marked 勿 not merely alive becomes one 物 thing.",

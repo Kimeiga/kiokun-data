@@ -18,6 +18,7 @@ export interface DictionaryEntry {
   korean_words?: KoreanWord[];
   korean_char?: KoreanCharacter;
   semantic_mnemonic?: SemanticMnemonicCard;
+  semantic_mnemonic_variants?: SemanticMnemonicCard[];
   related_japanese_words: string[];
   japanese_names: JapaneseNameEntry[];
   contains: WordPreview[];
