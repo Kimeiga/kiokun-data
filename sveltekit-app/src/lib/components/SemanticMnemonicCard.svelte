@@ -1,6 +1,9 @@
 <script lang="ts">
 	import SectionHeading from "$lib/components/shared/SectionHeading.svelte";
-	import type { SemanticMnemonicCard as SemanticMnemonicCardType } from "$lib/types";
+	import type {
+		SemanticMnemonicCard as SemanticMnemonicCardType,
+		SemanticMnemonicComponent,
+	} from "$lib/types";
 
 	let {
 		card,
@@ -13,6 +16,28 @@
 		heading?: string;
 		showHeading?: boolean;
 	} = $props();
+
+	function componentSignature(components: SemanticMnemonicComponent[] | undefined): string {
+		return (components || [])
+			.map((component) =>
+				`${component.character}:${(component.gloss || "").trim().toLowerCase()}`
+			)
+			.sort()
+			.join("|");
+	}
+
+	let visibleHistoricalComponents = $derived.by(() => {
+		const historicalComponents = card?.historical_components || [];
+		if (!historicalComponents.length) return [];
+
+		const visualComponents = card?.visual_components?.length
+			? card.visual_components
+			: card?.components || [];
+
+		return componentSignature(historicalComponents) === componentSignature(visualComponents)
+			? []
+			: historicalComponents;
+	});
 </script>
 
 {#if card}
@@ -34,11 +59,11 @@
 				</a>
 			{/if}
 
-			{#if card.historical_components?.length}
+			{#if visibleHistoricalComponents.length}
 				<div class="historical-mnemonic">
 					<div class="historical-label">Historical components</div>
 					<div class="historical-row" lang="zh">
-						{#each card.historical_components as component}
+						{#each visibleHistoricalComponents as component}
 							<span class="historical-part">
 								<span class="historical-char">{component.character}</span>
 								<span class="historical-gloss">{component.gloss}</span>

@@ -68,6 +68,7 @@ LOCAL_GLOSS_OVERRIDES = {
     "爫": "reaching hand",
     "⺤": "grasping hand",
     "亽": "food cover",
+    "车": "vehicle",
     "幺": "thread",
     "乛": "hook mark",
     "乚": "turning hook",
@@ -215,6 +216,10 @@ TARGETED_COMPONENT_OVERRIDES: dict[str, list[dict[str, str]]] = {
         {"character": "弓", "gloss": "bow"},
         {"character": "殳", "gloss": "hand tool"},
     ],
+    "连": [
+        {"character": "辶", "gloss": "movement"},
+        {"character": "车", "gloss": "vehicle"},
+    ],
     "樂": [
         {"character": "幺", "gloss": "thread"},
         {"character": "白", "gloss": "white"},
@@ -265,6 +270,8 @@ TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
     "发": "A 𠃋 arm marked by 丿 slash and 丶 dot reaches with 又 hand to 发 emit.",
     "發": "癶 legs carry a 弓 bow and 殳 hand tool forward, ready to 發 send out.",
     "発": "癶 legs push 二 two lines above 儿 human legs forward, making 発 send out.",
+    "連": "A 車 vehicle drives along 辶 movement to 連 connect places together.",
+    "连": "A 车 vehicle follows 辶 movement between places to 连 connect them.",
     "图": "A 囗 enclosure marks 冬 winter territory on a 图 map.",
     "圖": "A 囗 enclosure marks a 啚 remote place, making 圖 map.",
     "図": "A 囗 enclosure with a 㐅 cross marks the spot on 図 map.",
@@ -758,6 +765,21 @@ def count_sources(cards: list[dict[str, Any]]) -> dict[str, int]:
     return source_counts
 
 
+def append_source_marker_once(source: str, marker: str) -> str:
+    parts = [part for part in source.split("+") if part]
+    cleaned: list[str] = []
+    marker_seen = False
+    for part in parts:
+        if part == marker:
+            if marker_seen:
+                continue
+            marker_seen = True
+        cleaned.append(part)
+    if not marker_seen:
+        cleaned.append(marker)
+    return "+".join(cleaned) or marker
+
+
 def normalize_existing(card: dict[str, Any], source: str) -> dict[str, Any]:
     record = dict(card)
     record["generation_source"] = source
@@ -896,7 +918,10 @@ def apply_targeted_quality_overrides(card: dict[str, Any]) -> dict[str, Any]:
     record["meaning"] = prepared["meaning"]
     record["components"] = prepared["components"]
     record["visual_components"] = prepared["visual_components"]
-    record["component_source"] = f"{record.get('component_source') or 'unknown'}+manual_quality_override"
+    record["component_source"] = append_source_marker_once(
+        str(record.get("component_source") or "unknown"),
+        "manual_quality_override",
+    )
     record["equation"] = " + ".join(
         f"{component['character']} {component['gloss']}"
         for component in prepared["components"]
