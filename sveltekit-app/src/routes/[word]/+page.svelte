@@ -109,6 +109,15 @@
 			.filter((char): char is string => Boolean(char));
 	}
 
+	function componentGloss(component: any, glossesMap: Record<string, string>): string {
+		const char = componentChar(component);
+		const types = typeof component === "string" ? [] : component.componentType || component.type || [];
+		if (types.includes("visual") && typeof component !== "string") {
+			return component.meaning || component.gloss || "";
+		}
+		return char ? glossesMap?.[char] || component.meaning || component.gloss || "" : "";
+	}
+
 	// Scroll to hash target on mount (for section permalinks)
 	onMount(() => {
 		const hash = window.location.hash?.slice(1);
@@ -258,11 +267,7 @@
 			 .trim()
 			 .toLowerCase();
 
-		const getChar = (c: any) => typeof c === 'string' ? c : (c.character || c.char || '');
-		const getGloss = (c: any) => {
-			const char = getChar(c);
-			return normalize(glossesMap?.[char] || c.meaning || '');
-		};
+		const getGloss = (c: any) => normalize(componentGloss(c, glossesMap));
 
 		const glossesA = compsA.map(getGloss).filter(Boolean).sort();
 		const glossesB = compsB.map(getGloss).filter(Boolean).sort();
@@ -355,6 +360,41 @@
 	// Initialized from server-preloaded data; reset via $effect when navigating to a new word.
 	let simplifiedCharData: any = $state(data.simplifiedCharData || null);
 
+	function mnemonicCardForCharacter(char: string | undefined | null): SemanticMnemonicCardType | undefined {
+		if (!char) return undefined;
+		return semanticMnemonicCards.find(({ card }) => card.character === char)?.card;
+	}
+
+	function componentsFromMnemonicCard(card: SemanticMnemonicCardType | undefined): ChineseComponent[] | undefined {
+		const components = card?.visual_components?.length ? card.visual_components : card?.components || [];
+		if (!components.length) return undefined;
+
+		return components.map((component) => ({
+			character: component.character,
+			meaning: component.gloss,
+			componentType: ["visual"],
+			visualMnemonic: true,
+		}));
+	}
+
+	function componentsForVariant(
+		char: string | undefined | null,
+		fallbackComponents: ChineseComponent[] | undefined,
+	): ChineseComponent[] | undefined {
+		if (!fallbackComponents?.length) return fallbackComponents;
+		return componentsFromMnemonicCard(mnemonicCardForCharacter(char)) || fallbackComponents;
+	}
+
+	let tradDisplayComponents = $derived.by(() =>
+		componentsForVariant(traditionalChar, data.data.chinese_char?.components)
+	);
+	let simpDisplayComponents = $derived.by(() =>
+		componentsForVariant(simplifiedChar, simplifiedCharData?.components)
+	);
+	let jpDisplayComponents = $derived.by(() =>
+		componentsForVariant(japaneseChar, japaneseComponents)
+	);
+
 	// Reset ALL page-level state when navigating to a new character (client-side navigation).
 	// Without this, previous page data leaks into the new page (stale simp data, stroke maps, etc.)
 	$effect(() => {
@@ -406,24 +446,24 @@
 	// Equivalence states (declared after simplifiedCharData since they read from it)
 	let tradSimpEquivalent = $derived(
 		componentsAreEquivalent(
-			data.data.chinese_char?.components,
-			simplifiedCharData?.components,
+			tradDisplayComponents,
+			simpDisplayComponents,
 			data.charGlosses
 		)
 	);
 
 	let tradJpEquivalent = $derived.by(() =>
 		componentsAreEquivalent(
-			data.data.chinese_char?.components,
-			japaneseComponents,
+			tradDisplayComponents,
+			jpDisplayComponents,
 			data.charGlosses
 		)
 	);
 
 	let simpJpEquivalent = $derived.by(() =>
 		componentsAreEquivalent(
-			simplifiedCharData?.components,
-			japaneseComponents,
+			simpDisplayComponents,
+			jpDisplayComponents,
 			data.charGlosses
 		)
 	);
@@ -450,8 +490,8 @@
 
 		// Get our components list
 		const components = targetMap === "trad"
-			? data.data.chinese_char?.components
-			: simplifiedCharData?.components;
+			? tradDisplayComponents
+			: simpDisplayComponents;
 
 		if (!components || components.length === 0) {
 			console.log(`[MAKEMEAHANZI] No components in our data for ${char}`);
@@ -501,7 +541,8 @@
 
 			if (ourComponentCount === 1) {
 				// Simple case: assign all strokes to our single component
-				const compChar = typeof components[0] === 'string' ? components[0] : components[0].character || components[0].char || components[0];
+				const compChar = componentChar(components[0]);
+				if (!compChar) return false;
 				newMap.set(compChar, allStrokes);
 				console.log(`[MAKEMEAHANZI] ✓ Single component "${compChar}" gets ALL strokes (makemeahanzi has ${makemeahanziComponentCount} components) → strokes ${allStrokes.join(', ')}`);
 			} else {
@@ -511,7 +552,8 @@
 				let strokeIndex = 0;
 
 				components.forEach((comp: any) => {
-					const compChar = typeof comp === 'string' ? comp : comp.character || comp.char || comp;
+					const compChar = componentChar(comp);
+					if (!compChar) return;
 					const endIndex = Math.min(strokeIndex + strokesPerComponent, allStrokes.length);
 					const assignedStrokes = allStrokes.slice(strokeIndex, endIndex);
 
@@ -525,7 +567,8 @@
 		} else {
 			// Normal case: component counts match or we have more - use index-based mapping
 			components.forEach((comp: any, index: number) => {
-				const compChar = typeof comp === 'string' ? comp : comp.character || comp.char || comp;
+				const compChar = componentChar(comp);
+				if (!compChar) return;
 				const strokes = componentToStrokes.get(index) || [];
 				if (strokes.length > 0) {
 					newMap.set(compChar, strokes);
@@ -656,8 +699,8 @@
 						// Get our data's components to check if all are mapped
 						const ourComponents =
 							targetMap === "trad"
-								? data.data.chinese_char?.components
-								: simplifiedCharData?.components;
+								? tradDisplayComponents
+								: simpDisplayComponents;
 
 						const ourComponentChars = ourComponents?.map((comp: any) =>
 							typeof comp === "string"
@@ -669,10 +712,8 @@
 						if (ourComponents && ourComponents.length > 0) {
 							// Check if any of our components are missing from KanjiVG
 							for (const comp of ourComponents) {
-								const compChar =
-									typeof comp === "string"
-										? comp
-										: comp.character || comp.char || comp;
+								const compChar = componentChar(comp);
+								if (!compChar) continue;
 
 								if (!newMap.has(compChar)) {
 									console.log(`[COMPONENT-MAP] ⚠️ Component "${compChar}" NOT found in KanjiVG - calculating complement`);
@@ -680,12 +721,8 @@
 									// Find all strokes NOT assigned to other known components
 									const assignedStrokes = new Set<number>();
 									for (const otherComp of ourComponents) {
-										const otherChar =
-											typeof otherComp === "string"
-												? otherComp
-												: otherComp.character ||
-													otherComp.char ||
-													otherComp;
+										const otherChar = componentChar(otherComp);
+										if (!otherChar) continue;
 										if (
 											otherChar !== compChar &&
 											newMap.has(otherChar)
@@ -764,8 +801,8 @@
 			// Note: This assumes components are listed in writing order, which is often but not always true
 			const components =
 				targetMap === "trad"
-					? data.data.chinese_char?.components
-					: simplifiedCharData?.components;
+					? tradDisplayComponents
+					: simpDisplayComponents;
 
 			if (!components || components.length === 0) {
 				console.log(`[SEQUENTIAL] No components found in data`);
@@ -777,10 +814,8 @@
 
 			for (const comp of components) {
 				// Extract character string if comp is an object
-				const compChar =
-					typeof comp === "string"
-						? comp
-						: comp.char || comp.character || comp;
+				const compChar = componentChar(comp);
+				if (!compChar) continue;
 
 				// Fetch stroke count for component
 				try {
@@ -1110,7 +1145,7 @@
 		// Load component stroke mappings for the simplified character.
 		// simplifiedCharData is already preloaded by the +page.ts load function,
 		// so we just need to compute the stroke-to-component mapping from its images.
-		if (simplifiedChar && simplifiedChar !== traditionalChar && simplifiedCharData?.components?.length) {
+		if (simplifiedChar && simplifiedChar !== traditionalChar && simpDisplayComponents?.length) {
 			simpUsedSequentialFallback = false;
 			loadComponentMappings(simplifiedChar, "simp");
 		}
@@ -1521,25 +1556,25 @@
 					{/each}
 
 					<!-- Unified Components + Equation Section -->
-					{#if (data.data.chinese_char?.components && data.data.chinese_char.components.length > 0) || (simplifiedCharData?.components && simplifiedCharData.components.length > 0) || japaneseComponents}
+					{#if (tradDisplayComponents && tradDisplayComponents.length > 0) || (simpDisplayComponents && simpDisplayComponents.length > 0) || jpDisplayComponents}
 						{@const tradMakemeahanziImage =
-							data.data.chinese_char?.images?.find(
+							(data.data.chinese_char?.images as any[] | undefined)?.find(
 								(img: any) =>
 									img &&
 									img.source === "makemeahanzi" &&
 									img.data,
 							)}
 						{@const simpMakemeahanziImage =
-							simplifiedCharData?.images?.find(
+							(simplifiedCharData?.images as any[] | undefined)?.find(
 								(img: any) =>
 									img &&
 									img.source === "makemeahanzi" &&
 									img.data,
 							)}
-						{@const hasTradComponents = data.data.chinese_char?.components && data.data.chinese_char.components.length > 0}
-						{@const hasSimpComponents = simplifiedCharData?.components && simplifiedCharData.components.length > 0 && simplifiedChar}
+						{@const hasTradComponents = tradDisplayComponents && tradDisplayComponents.length > 0}
+						{@const hasSimpComponents = simpDisplayComponents && simpDisplayComponents.length > 0 && simplifiedChar}
 						{@const showSimpColumn = hasSimpComponents && traditionalChar !== simplifiedChar && !tradSimpEquivalent}
-						{@const hasJpComponents = japaneseComponents && japaneseComponents.length > 0}
+						{@const hasJpComponents = jpDisplayComponents && jpDisplayComponents.length > 0}
 						{@const showJpColumn = hasJpComponents && japaneseChar && japaneseChar !== traditionalChar && !tradJpEquivalent && (!showSimpColumn || !simpJpEquivalent)}
 						{@const columnCount = (hasTradComponents ? 1 : 0) + (showSimpColumn ? 1 : 0) + (showJpColumn ? 1 : 0)}
 						{@const showLabels = columnCount > 1}
@@ -1564,24 +1599,25 @@
 										{/if}
 										<!-- Mini-equation at top of column -->
 										<CharacterEquation
-											components={data.data.chinese_char.components}
+											components={tradDisplayComponents}
 											targetChar={traditionalChar}
 											targetGloss={uniqueGloss || data.data.chinese_char?.gloss}
 											charGlosses={data.charGlosses}
 										/>
 										<!-- Detailed component cards -->
-										{#each data.data.chinese_char.components as comp}
-											{@const char = typeof comp === "string" ? comp : comp.character || comp.char || comp}
+										{#each tradDisplayComponents as comp}
+											{@const char = componentChar(comp) || ""}
 											{@const types = comp.componentType || comp.type || []}
 											{@const hint = comp.hint}
 											{@const pinyin = comp.pinyin}
 											{@const dictMeaning = comp.meaning}
-											{@const curatedGloss = cleanComponentGloss(data.charGlosses?.[char] || '')}
+											{@const curatedGloss = cleanComponentGloss(componentGloss(comp, data.charGlosses))}
 											{@const isMeaning = types.includes("meaning")}
 											{@const isPhonetic = types.includes("phonetic") || types.includes("sound")}
 											{@const isIconic = types.includes("iconic")}
-											{@const highlightColor = isMeaning ? "#27ae60" : isPhonetic ? "#e74c3c" : isIconic ? "#3498db" : "#95a5a6"}
-											{@const typeLabel = isMeaning ? "Meaning" : isPhonetic ? "Phonetic" : isIconic ? "Iconic" : ""}
+											{@const isVisual = types.includes("visual")}
+											{@const highlightColor = isMeaning ? "#27ae60" : isPhonetic ? "#e74c3c" : isIconic ? "#3498db" : isVisual ? "#7c5cff" : "#95a5a6"}
+											{@const typeLabel = isMeaning ? "Meaning" : isPhonetic ? "Phonetic" : isIconic ? "Iconic" : isVisual ? "Visual" : ""}
 
 											<div class="component-card flex items-start gap-2 py-2 px-3 rounded-lg w-full">
 												<div class="relative w-[60px] h-[60px] flex-shrink-0">
@@ -1639,24 +1675,25 @@
 											</div>
 										{/if}
 										<CharacterEquation
-											components={simplifiedCharData.components}
+											components={simpDisplayComponents}
 											targetChar={simplifiedChar}
 											targetGloss={simplifiedCharData.gloss || uniqueGloss}
 											charGlosses={data.charGlosses}
 										/>
-										{#each simplifiedCharData.components as comp}
-											{@const char = typeof comp === "string" ? comp : comp.character || comp.char || comp}
+										{#each simpDisplayComponents as comp}
+											{@const char = componentChar(comp) || ""}
 											{@const types = comp.componentType || comp.type || []}
 											{@const hint = comp.hint}
 											{@const pinyin = comp.pinyin}
 											{@const dictMeaning = comp.meaning}
-											{@const curatedGloss = cleanComponentGloss(data.charGlosses?.[char] || '')}
+											{@const curatedGloss = cleanComponentGloss(componentGloss(comp, data.charGlosses))}
 											{@const isMeaning = types.includes("meaning")}
 											{@const isPhonetic = types.includes("phonetic") || types.includes("sound")}
 											{@const isIconic = types.includes("iconic")}
 											{@const isSimplified = types.includes("simplified")}
-											{@const highlightColor = isMeaning ? "#27ae60" : isPhonetic ? "#e74c3c" : isIconic ? "#3498db" : isSimplified ? "#9b59b6" : "#95a5a6"}
-											{@const typeLabel = isMeaning ? "Meaning" : isPhonetic ? "Phonetic" : isIconic ? "Iconic" : isSimplified ? "Simplified" : ""}
+											{@const isVisual = types.includes("visual")}
+											{@const highlightColor = isMeaning ? "#27ae60" : isPhonetic ? "#e74c3c" : isIconic ? "#3498db" : isSimplified ? "#9b59b6" : isVisual ? "#7c5cff" : "#95a5a6"}
+											{@const typeLabel = isMeaning ? "Meaning" : isPhonetic ? "Phonetic" : isIconic ? "Iconic" : isSimplified ? "Simplified" : isVisual ? "Visual" : ""}
 
 											<div class="component-card flex items-start gap-2 py-2 px-3 rounded-lg w-full">
 												<div class="relative w-[60px] h-[60px] flex-shrink-0">
@@ -1706,7 +1743,7 @@
 								{/if}
 
 								<!-- Japanese column (IDS-derived components, simpler cards) -->
-								{#if showJpColumn && hasJpComponents && japaneseComponents}
+								{#if showJpColumn && hasJpComponents && jpDisplayComponents}
 									<div class="flex flex-col gap-3">
 										{#if showLabels}
 											<div class="text-xs font-medium text-text-muted uppercase tracking-wider">
@@ -1714,14 +1751,14 @@
 											</div>
 										{/if}
 										<CharacterEquation
-											components={japaneseComponents}
+											components={jpDisplayComponents}
 											targetChar={japaneseChar}
 											targetGloss={uniqueGloss || data.data.chinese_char?.gloss}
 											charGlosses={data.charGlosses}
 										/>
-										{#each japaneseComponents as comp}
+										{#each jpDisplayComponents as comp}
 											{@const char = comp.character}
-											{@const curatedGloss = cleanComponentGloss(data.charGlosses?.[char] || comp.meaning || '')}
+											{@const curatedGloss = cleanComponentGloss(componentGloss(comp, data.charGlosses))}
 
 											<div class="component-card flex items-start gap-2 py-2 px-3 rounded-lg w-full">
 												<div class="relative w-[60px] h-[60px] flex-shrink-0">

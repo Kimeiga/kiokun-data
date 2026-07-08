@@ -165,6 +165,9 @@ export interface ChineseComponent {
   hint?: string;
   pinyin?: string;
   phonetic?: boolean;
+  gloss?: string;
+  visualGloss?: string;
+  visualMnemonic?: boolean;
 }
 
 export interface OldPronunciation {
