@@ -205,11 +205,11 @@ AUTO_COMPATIBILITY_ALIAS_RANGES = (
 
 TARGETED_COMPONENT_OVERRIDES: dict[str, list[dict[str, str]]] = {
     "买": [
-        {"character": "网", "gloss": "net"},
+        {"character": "乛", "gloss": "hook mark"},
         {"character": "头", "gloss": "head"},
     ],
     "買": [
-        {"character": "网", "gloss": "net"},
+        {"character": "罒", "gloss": "net (top)"},
         {"character": "貝", "gloss": "shellfish"},
     ],
     "发": [
@@ -298,8 +298,8 @@ TARGETED_COMPONENT_OVERRIDES: dict[str, list[dict[str, str]]] = {
 
 
 TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
-    "买": "A 网 net gathers the 头 head count of goods you 买 buy.",
-    "買": "A 网 net full of 貝 shellfish money is ready for 買 buy.",
+    "买": "A 乛 hook mark over 头 head tags the item you 买 buy.",
+    "買": "A 罒 net (top) gathers 貝 shellfish valuables so you can 買 buy.",
     "发": "A 又 hand makes a 丿 slash and sends out a 丶 dot to 发 emit.",
     "發": "癶 legs carry a 弓 bow and 殳 hand tool forward, ready to 發 send out.",
     "発": "癶 legs push 二 two lines above 儿 human legs forward, making 発 send out.",
