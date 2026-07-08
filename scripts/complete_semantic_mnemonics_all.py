@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import json
 import re
+import unicodedata
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from pathlib import Path
@@ -148,6 +149,12 @@ VARIANT_ALIAS_TARGETS: dict[str, dict[str, str]] = {
     "贈": {"alias_of": "贈", "reason": "Japanese compatibility glyph"},
     "響": {"alias_of": "響", "reason": "Japanese compatibility glyph"},
 }
+
+
+AUTO_COMPATIBILITY_ALIAS_RANGES = (
+    (0xF900, 0xFAFF),
+    (0x2F800, 0x2FA1F),
+)
 
 
 def collapse_repeated_words(text: str) -> str:
@@ -498,10 +505,33 @@ def alias_card(alias_char: str, base_record: dict[str, Any], metadata: dict[str,
         "component_source": f"variant_alias:{metadata['alias_of']}",
         "source_meaning": f"alias of {metadata['alias_of']}",
     }
-    record = local_card(prepared, "codex_local_variant_alias")
+    record = local_card(prepared, metadata.get("generation_source", "codex_local_variant_alias"))
     record["alias_of"] = metadata["alias_of"]
     record["alias_reason"] = metadata.get("reason", "")
+    if metadata.get("alias_kind"):
+        record["alias_kind"] = metadata["alias_kind"]
     return record
+
+
+def automatic_nfkc_alias_targets(covered_chars: set[str]) -> dict[str, dict[str, str]]:
+    targets: dict[str, dict[str, str]] = {}
+    for start, end in AUTO_COMPATIBILITY_ALIAS_RANGES:
+        for codepoint in range(start, end + 1):
+            alias_char = chr(codepoint)
+            normalized = unicodedata.normalize("NFKC", alias_char)
+            if alias_char in covered_chars or normalized == alias_char:
+                continue
+            if len(normalized) != 1 or not is_han_string(normalized):
+                continue
+            if normalized not in covered_chars:
+                continue
+            targets[alias_char] = {
+                "alias_of": normalized,
+                "alias_kind": "nfkc_compatibility",
+                "generation_source": "codex_local_nfkc_variant_alias",
+                "reason": "Unicode NFKC compatibility ideograph",
+            }
+    return dict(sorted(targets.items(), key=lambda item: (ord(item[0]), item[0])))
 
 
 def add_learner_gap_cards(
@@ -531,6 +561,15 @@ def add_learner_gap_cards(
             base = local_card(base_prepared, "codex_local_completion")
             by_char[metadata["alias_of"]] = base
             cards.append(base)
+        record = alias_card(alias_char, base, metadata)
+        by_char[alias_char] = record
+        cards.append(record)
+
+    auto_aliases = automatic_nfkc_alias_targets(set(by_char))
+    for alias_char, metadata in auto_aliases.items():
+        base = by_char.get(metadata["alias_of"])
+        if base is None:
+            continue
         record = alias_card(alias_char, base, metadata)
         by_char[alias_char] = record
         cards.append(record)
