@@ -110,6 +110,14 @@ LOCAL_GLOSS_OVERRIDES = {
     "㓺": "cut punishment",
     "㔀": "branding punishment",
     "黥": "tattoo punishment",
+    "津": "ferry",
+    "犯": "offense",
+    "温": "warm",
+    "焼": "roast",
+    "陽": "sunlight",
+    "整": "arrange",
+    "跡": "trace",
+    "阪": "slope",
 }
 
 
@@ -182,6 +190,74 @@ AUTO_COMPATIBILITY_ALIAS_RANGES = (
     (0xF900, 0xFAFF),
     (0x2F800, 0x2FA1F),
 )
+
+
+TARGETED_COMPONENT_OVERRIDES: dict[str, list[dict[str, str]]] = {
+    "能": [
+        {"character": "䏍", "gloss": "small worm"},
+        {"character": "𫧇", "gloss": "seal form"},
+    ],
+    "質": [
+        {"character": "斤", "gloss": "axe"},
+        {"character": "斤", "gloss": "axe"},
+        {"character": "貝", "gloss": "shellfish"},
+    ],
+    "温": [
+        {"character": "氵", "gloss": "water (drops)"},
+        {"character": "日", "gloss": "day"},
+        {"character": "皿", "gloss": "dish"},
+    ],
+    "整": [
+        {"character": "束", "gloss": "bundle"},
+        {"character": "攵", "gloss": "tap"},
+        {"character": "正", "gloss": "correct"},
+    ],
+    "替": [
+        {"character": "夫", "gloss": "husband"},
+        {"character": "夫", "gloss": "husband"},
+        {"character": "曰", "gloss": "speech"},
+    ],
+}
+
+
+TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
+    "地": "土 earth is 也 also the place under each step, forming 地 ground.",
+    "後": "A 彳 step leaves a 幺 thread behind a 夊 trailing foot, marking 後 after.",
+    "物": "A 牜 ox marked 勿 not merely alive becomes one 物 thing.",
+    "彼": "A 彳 step moves toward a separate 皮 covering, pointing to 彼 the other.",
+    "面": "A 丆 reading mark above 囬 return to or from faces forward as 面 face-to-face.",
+    "味": "A 口 mouth tasting what is 未 not yet known discovers 味 flavor.",
+    "死": "A 歹 harmful mark beside a 匕 ancient spoon leaves only 死 death.",
+    "能": "A 䏍 small worm survives under a 𫧇 seal form, showing 能 ability.",
+    "特": "A 牜 ox kept at a 寺 temple is set apart as 特 special.",
+    "藤": "艹 grass (top) growing from the 滕 ancient state becomes 藤 rattan.",
+    "悪": "A 亜 Asia shape presses on the 心 heart, turning into 悪 harmful.",
+    "状": "A 丬 piece of wood beside a 犬 dog marks the visible 状 state of affairs.",
+    "残": "A 歹 harmful break leaves 戋 tiny remains as 残 incomplete.",
+    "質": "A 斤 axe and another 斤 axe test a 貝 shellfish, proving 質 quality.",
+    "路": "A 𧾷 foot (side) reaches 各 each stop along 路 path.",
+    "景": "日 day lights the 京 capital, creating 景 scenery.",
+    "津": "氵 water (drops) beside 聿 writing marks a 津 ferry.",
+    "域": "土 earth bounded by 或 form becomes 域 domain.",
+    "犯": "A 犭 dog (side) breaks a 㔾 seal, making 犯 offense.",
+    "陸": "A ⻖ mound (left) beside 坴 clod of earth rises into 陸 land.",
+    "温": "氵 water (drops) warmed by 日 day over a 皿 dish becomes 温 warm.",
+    "焼": "火 fire around a 尭 legendary ancient makes 焼 roast.",
+    "陽": "A ⻖ mound (left) receives 昜 out light, becoming 陽 sunlight.",
+    "整": "A 束 bundle struck by 攵 tap becomes 正 correct, so 整 arrange follows.",
+    "跡": "A 𧾷 foot (side) repeated 亦 likewise leaves 跡 trace.",
+    "阪": "A ⻖ mound (left) turned by 反 against becomes 阪 slope.",
+    "講": "言 say fills a 冓 secluded place, becoming 講 lecture.",
+    "微": "A 彳 step touched by 攵 tap becomes barely felt as 微 tiny.",
+    "替": "A 夫 husband and another 夫 husband exchange 曰 speech, making 替 replace.",
+    "踏": "A 𧾷 foot (side) landing on 沓 crowded steps becomes 踏 trample.",
+    "融": "A 鬲 cauldron warms until 虫 insects soften into 融 melt.",
+    "惑": "An 或 form unsettles the 心 heart, making 惑 be bewildered.",
+    "荒": "艹 grass (top) overtakes 巟 watery waste, creating 荒 wasteland.",
+    "鏡": "金 gold polished under 竟 unexpectedly reflects as 鏡 mirror.",
+    "幼": "A 幺 thread with little 力 power remains 幼 young.",
+    "躍": "A 𧾷 foot (side) springs like 翟 pheasant into 躍 leap.",
+}
 
 
 def collapse_repeated_words(text: str) -> str:
@@ -709,6 +785,45 @@ def clean_card_free_text(record: dict[str, Any]) -> dict[str, Any]:
     return record
 
 
+def apply_targeted_quality_overrides(card: dict[str, Any]) -> dict[str, Any]:
+    char = str(card.get("character") or "")
+    mnemonic = TARGETED_MNEMONIC_OVERRIDES.get(char)
+    if not mnemonic:
+        return card
+
+    prepared = prepared_from_record(card)
+    if char in TARGETED_COMPONENT_OVERRIDES:
+        components = [
+            {
+                "character": component["character"],
+                "gloss": safe_gloss(
+                    component["character"],
+                    component["gloss"],
+                    component_mode=True,
+                ),
+            }
+            for component in TARGETED_COMPONENT_OVERRIDES[char]
+        ]
+        prepared["components"] = components
+        prepared["visual_components"] = components
+    prepared["meaning"] = safe_gloss(char, str(prepared.get("meaning") or ""), component_mode=False)
+
+    record = dict(card)
+    record["meaning"] = prepared["meaning"]
+    record["components"] = prepared["components"]
+    record["visual_components"] = prepared["visual_components"]
+    record["component_source"] = f"{record.get('component_source') or 'unknown'}+manual_quality_override"
+    record["equation"] = " + ".join(
+        f"{component['character']} {component['gloss']}"
+        for component in prepared["components"]
+    ) + f" = {prepared['character']} {prepared['meaning']}"
+    record["mnemonic"] = mnemonic
+    record["hero_image_prompt"] = local_hero_prompt(prepared)
+    record["generation_source"] = MANUAL_QUALITY_SOURCE
+    record["style_patch"] = "targeted_top_1000_quality_override"
+    return refresh_validation(record, prepared)
+
+
 def build_prepared_map(chars: list[str], workers: int = 24) -> dict[str, dict[str, Any]]:
     prepared: dict[str, dict[str, Any]] = {}
     with ThreadPoolExecutor(max_workers=workers) as executor:
@@ -796,6 +911,7 @@ def main() -> None:
     cards = add_learner_gap_cards(cards, prepared)
     cards = [restyle_generic_mnemonic(card) for card in cards]
     cards = [clean_card_free_text(card) for card in cards]
+    cards = [apply_targeted_quality_overrides(card) for card in cards]
     source_counts = count_sources(cards)
 
     artifact = {
