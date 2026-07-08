@@ -17,17 +17,23 @@
 		showHeading?: boolean;
 	} = $props();
 
+	function normalizedHistoricalChar(character: string): string {
+		return character === "辶" ? "⻌" : character;
+	}
+
 	function componentSignature(components: SemanticMnemonicComponent[] | undefined): string {
 		return (components || [])
 			.map((component) =>
-				`${component.character}:${(component.gloss || "").trim().toLowerCase()}`
+				`${normalizedHistoricalChar(component.character)}:${(component.gloss || "").trim().toLowerCase()}`
 			)
 			.sort()
 			.join("|");
 	}
 
 	function isLikelyRenderableComponent(component: SemanticMnemonicComponent): boolean {
-		return [...component.character].every((char) => (char.codePointAt(0) || 0) <= 0xffff);
+		const character = component.character.trim();
+		if (!character || character === "◎" || character.startsWith("&")) return false;
+		return [...character].every((char) => (char.codePointAt(0) || 0) <= 0xffff);
 	}
 
 	let visibleHistoricalComponents = $derived.by(() => {
@@ -67,8 +73,8 @@
 			{/if}
 
 			{#if visibleHistoricalComponents.length}
-				<div class="historical-mnemonic">
-					<div class="historical-label">Historical components</div>
+				<details class="historical-mnemonic">
+					<summary class="historical-label">Historical note</summary>
 					<div class="historical-row" lang="zh">
 						{#each visibleHistoricalComponents as component}
 							<span class="historical-part">
@@ -77,7 +83,7 @@
 							</span>
 						{/each}
 					</div>
-				</div>
+				</details>
 			{/if}
 		</div>
 	</div>
@@ -141,11 +147,16 @@
 	}
 
 	.historical-label {
+		width: max-content;
 		color: var(--text-tertiary);
 		font-size: var(--font-size-caption2);
-		font-weight: 700;
-		text-transform: uppercase;
-		letter-spacing: 0.3px;
+		font-weight: 600;
+		letter-spacing: 0;
+		cursor: pointer;
+		list-style-position: outside;
+	}
+
+	.historical-mnemonic[open] .historical-label {
 		margin-bottom: var(--spacing-xs);
 	}
 

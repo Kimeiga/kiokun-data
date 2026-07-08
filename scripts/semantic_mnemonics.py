@@ -81,6 +81,8 @@ MANUAL_GLOSS_OVERRIDES: dict[str, str] = {
     # existing glosses are still preserved in source data.
     "連": "connect",
     "憂": "worry",
+    "买": "buy",
+    "爱": "love",
     "車": "vehicle",
     "辶": "movement",
     "頁": "head",
@@ -161,6 +163,9 @@ MANUAL_COMPONENT_GLOSS_OVERRIDES: dict[str, str] = {
     "亽": "food cover",
     "乛": "hook mark",
     "乚": "turning hook",
+    "曰": "speech",
+    "犬": "dog",
+    "头": "head",
     "㐬": "stream",
     "𫶧": "flow tail",
     "氏": "clan",
@@ -199,6 +204,7 @@ MANUAL_COMPONENT_GLOSS_OVERRIDES: dict[str, str] = {
     "马": "horse",
     "饣": "food (side)",
     "辡": "dispute",
+    "⻌": "movement",
 }
 
 

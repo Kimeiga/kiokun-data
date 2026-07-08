@@ -61,6 +61,8 @@ BAD_STYLE_RE = re.compile(
 )
 
 LOCAL_GLOSS_OVERRIDES = {
+    "买": "buy",
+    "爱": "love",
     "訁": "speech",
     "髟": "long hair",
     "女": "woman",
@@ -72,6 +74,10 @@ LOCAL_GLOSS_OVERRIDES = {
     "幺": "thread",
     "乛": "hook mark",
     "乚": "turning hook",
+    "曰": "speech",
+    "犬": "dog",
+    "头": "head",
+    "⻌": "movement",
     "丨": "line",
     "㐬": "stream",
     "𫶧": "flow tail",
@@ -204,58 +210,60 @@ AUTO_COMPATIBILITY_ALIAS_RANGES = (
 
 
 TARGETED_COMPONENT_OVERRIDES: dict[str, list[dict[str, str]]] = {
-    "买": [
-        {"character": "乛", "gloss": "hook mark"},
-        {"character": "头", "gloss": "head"},
+    # These are learner-facing visual repairs, not historical-etymology swaps.
+    # The default source remains IDS. Entries here either expand an IDS component
+    # into its IDS children, repair an unresolved IDS entity, or avoid surfacing
+    # a likely-missing glyph where a render-safe visual equivalent is clearer.
+    "㐬": [
+        {"character": "𠫓", "gloss": "newborn"},
+        {"character": "川", "gloss": "river"},
     ],
-    "買": [
-        {"character": "罒", "gloss": "net (top)"},
-        {"character": "貝", "gloss": "shellfish"},
+    "㠩": [
+        {"character": "𠃊", "gloss": "hidden area"},
+        {"character": "人", "gloss": "person"},
+        {"character": "川", "gloss": "river"},
+    ],
+    "亀": [
+        {"character": "亀", "gloss": "turtle"},
+    ],
+    "侃": [
+        {"character": "亻", "gloss": "person (side)"},
+        {"character": "口", "gloss": "mouth"},
+        {"character": "川", "gloss": "river"},
     ],
     "发": [
-        {"character": "又", "gloss": "hand"},
+        {"character": "𠃋", "gloss": "arm"},
         {"character": "丿", "gloss": "slash"},
         {"character": "丶", "gloss": "dot"},
+        {"character": "又", "gloss": "hand"},
     ],
-    "發": [
-        {"character": "癶", "gloss": "legs"},
-        {"character": "弓", "gloss": "bow"},
-        {"character": "殳", "gloss": "hand tool"},
-    ],
-    "连": [
-        {"character": "辶", "gloss": "movement"},
-        {"character": "车", "gloss": "vehicle"},
-    ],
-    "樂": [
-        {"character": "幺", "gloss": "thread"},
-        {"character": "白", "gloss": "white"},
-        {"character": "幺", "gloss": "thread"},
-        {"character": "木", "gloss": "tree"},
-    ],
-    "气": [
-        {"character": "气", "gloss": "steam"},
-    ],
-    "東": [
-        {"character": "日", "gloss": "day"},
-        {"character": "木", "gloss": "tree"},
+    "后": [
+        {"character": "丿", "gloss": "slash"},
+        {"character": "一", "gloss": "one"},
+        {"character": "口", "gloss": "mouth"},
     ],
     "図": [
         {"character": "囗", "gloss": "enclosure"},
         {"character": "㐅", "gloss": "cross"},
     ],
-    "能": [
-        {"character": "䏍", "gloss": "small worm"},
-        {"character": "𫧇", "gloss": "seal form"},
+    "姦": [
+        {"character": "女", "gloss": "woman"},
+        {"character": "女", "gloss": "woman"},
+        {"character": "女", "gloss": "woman"},
     ],
-    "質": [
-        {"character": "斤", "gloss": "axe"},
-        {"character": "斤", "gloss": "axe"},
-        {"character": "貝", "gloss": "shellfish"},
+    "学": [
+        {"character": "⺍", "gloss": "small"},
+        {"character": "冖", "gloss": "cover"},
+        {"character": "子", "gloss": "child"},
     ],
-    "温": [
-        {"character": "氵", "gloss": "water (drops)"},
-        {"character": "日", "gloss": "day"},
-        {"character": "皿", "gloss": "dish"},
+    "害": [
+        {"character": "宀", "gloss": "roof"},
+        {"character": "丰", "gloss": "abundant"},
+        {"character": "口", "gloss": "mouth"},
+    ],
+    "巟": [
+        {"character": "亡", "gloss": "deceased"},
+        {"character": "川", "gloss": "river"},
     ],
     "整": [
         {"character": "束", "gloss": "bundle"},
@@ -267,15 +275,32 @@ TARGETED_COMPONENT_OVERRIDES: dict[str, list[dict[str, str]]] = {
         {"character": "夫", "gloss": "husband"},
         {"character": "曰", "gloss": "speech"},
     ],
-    "会": [
-        {"character": "人", "gloss": "person"},
-        {"character": "云", "gloss": "utter"},
+    "東": [
+        {"character": "日", "gloss": "day"},
+        {"character": "木", "gloss": "tree"},
     ],
-    "與": [
-        {"character": "臼", "gloss": "mortar"},
-        {"character": "一", "gloss": "one"},
-        {"character": "八", "gloss": "eight"},
-        {"character": "丿", "gloss": "slash"},
+    "樂": [
+        {"character": "幺", "gloss": "thread"},
+        {"character": "白", "gloss": "white"},
+        {"character": "幺", "gloss": "thread"},
+        {"character": "木", "gloss": "tree"},
+    ],
+    "气": [
+        {"character": "气", "gloss": "steam"},
+    ],
+    "温": [
+        {"character": "氵", "gloss": "water (drops)"},
+        {"character": "日", "gloss": "day"},
+        {"character": "皿", "gloss": "dish"},
+    ],
+    "當": [
+        {"character": "尚", "gloss": "esteem"},
+        {"character": "田", "gloss": "rice field"},
+    ],
+    "發": [
+        {"character": "癶", "gloss": "legs"},
+        {"character": "弓", "gloss": "bow"},
+        {"character": "殳", "gloss": "hand tool"},
     ],
     "紧": [
         {"character": "丨", "gloss": "line"},
@@ -283,28 +308,35 @@ TARGETED_COMPONENT_OVERRIDES: dict[str, list[dict[str, str]]] = {
         {"character": "又", "gloss": "hand"},
         {"character": "糸", "gloss": "silk"},
     ],
-    "曷": [
-        {"character": "曰", "gloss": "speech"},
-        {"character": "勹", "gloss": "wrap"},
-        {"character": "乚", "gloss": "turning hook"},
-        {"character": "人", "gloss": "person"},
+    "質": [
+        {"character": "斤", "gloss": "axe"},
+        {"character": "斤", "gloss": "axe"},
+        {"character": "貝", "gloss": "shellfish"},
     ],
-    "后": [
-        {"character": "丿", "gloss": "slash"},
-        {"character": "一", "gloss": "one"},
-        {"character": "口", "gloss": "mouth"},
+    "鳥": [
+        {"character": "鳥", "gloss": "bird"},
+    ],
+    "龍": [
+        {"character": "龍", "gloss": "dragon"},
+    ],
+    "𫶧": [
+        {"character": "川", "gloss": "river"},
     ],
 }
 
 
 TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
+    "㐬": "A 𠫓 newborn sign flows into a 川 river tail, forming 㐬 stream.",
+    "㠩": "A 人 person in a 𠃊 hidden area beside a 川 river faces 㠩 vast space.",
+    "亀": "The shell and head of 亀 turtle curl into the old shape of 亀 turtle.",
+    "侃": "A 亻 person (side) keeps a steady 口 mouth and 川 river stance, becoming 侃 upright and strong.",
     "买": "A 乛 hook mark over 头 head tags the item you 买 buy.",
-    "買": "A 罒 net (top) gathers 貝 shellfish valuables so you can 買 buy.",
-    "发": "A 又 hand makes a 丿 slash and sends out a 丶 dot to 发 emit.",
+    "買": "An ⺫ eye (side) looks over 貝 shellfish money before 買 buy.",
+    "发": "A 𠃋 arm with 又 hand flicks a 丿 slash and 丶 dot outward to 发 emit.",
     "發": "癶 legs carry a 弓 bow and 殳 hand tool forward, ready to 發 send out.",
     "発": "癶 legs push 二 two lines above 儿 human legs forward, making 発 send out.",
     "連": "A 車 vehicle drives along 辶 movement to 連 connect places together.",
-    "连": "A 车 vehicle follows 辶 movement between places to 连 connect them.",
+    "连": "A 车 vehicle follows ⻌ movement between places to 连 connect them.",
     "图": "A 囗 enclosure marks 冬 winter territory on a 图 map.",
     "圖": "A 囗 enclosure marks a 啚 remote place, making 圖 map.",
     "図": "A 囗 enclosure with a 㐅 cross marks the spot on 図 map.",
@@ -324,6 +356,9 @@ TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
     "恶": "亚 second presses down on 心 heart, turning 恶 bad.",
     "惡": "亞 Asia presses down on 心 heart, turning 惡 harmful.",
     "状": "A 丬 piece of wood beside a 犬 dog marks the visible 状 state of affairs.",
+    "姦": "A 女 woman, another 女 woman, and a third 女 woman crowd together into 姦 adultery.",
+    "学": "A ⺍ small lesson under a 冖 cover guides a 子 child as they 学 study.",
+    "害": "Under a 宀 roof, an 丰 abundant 口 mouth spreads words that cause 害 harm.",
     "残": "A 歹 harmful break leaves 戋 tiny remains as 残 incomplete.",
     "質": "A 斤 axe and another 斤 axe test a 貝 shellfish, proving 質 quality.",
     "路": "A 𧾷 foot (side) reaches 各 each stop along 路 path.",
@@ -348,8 +383,9 @@ TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
     "鏡": "金 gold polished under 竟 unexpectedly reflects as 鏡 mirror.",
     "幼": "A 幺 thread with little 力 power remains 幼 young.",
     "躍": "A 𧾷 foot (side) springs like 翟 pheasant into 躍 leap.",
+    "巟": "A 亡 deceased sign drains into a 川 river, leaving 巟 watery waste.",
     "會": "亼 assemble gathers 口 mouth voices beneath ⺌ small (top) marks on a 日 day, making 會 meet.",
-    "会": "A 人 person gathers to 云 utter words, making 会 meet.",
+    "会": "A 𠆢 person roof shelters 云 utter words as people 会 meet.",
     "見": "A 目 eye on 儿 human legs moves around to 見 see.",
     "见": "A 目 eye on 儿 human legs moves forward to 见 observe.",
     "观": "A 又 hand frames 见 observe so you 观 see.",
@@ -367,7 +403,7 @@ TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
     "裡": "衤 clothing (side) wraps 里 li so the contents stay 裡 inside.",
     "萬": "艹 grass (top) spreads over 禺 district until the count reaches 萬 ten thousand.",
     "万": "A 一 one line above a 人 person marks a huge 万 ten thousand count.",
-    "與": "臼 mortar holds 一 one offering divided into 八 eight parts by 丿 slash, ready to 與 offer.",
+    "與": "𦥑 mortar holds 一 one offering divided into 八 eight parts by 丿 slash, ready to 與 offer.",
     "为": "又 hand guides a 象 elephant by the lead to 为 handle.",
     "為": "又 hand guides a 象 elephant through each motion to 為 act.",
     "問": "Standing at the 門 gate, you open your 口 mouth to 問 ask.",
@@ -377,7 +413,7 @@ TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
     "稲": "禾 standing grain under 爫 reaching hand beside 旧 old fields becomes 稲 rice growing in field.",
     "稻": "禾 standing grain bends as 舀 dip gathers water, becoming 稻 unhulled rice.",
     "紧": "A 丨 line and another 丨 line brace a 又 hand pulling 糸 silk until it becomes 紧 tense.",
-    "曷": "曰 speech inside 勹 wrap turns around a 乚 turning hook and 人 person, leaving 曷 question.",
+    "曷": "曰 speech inside 勹 wrap surrounds a 𠃊 hidden area and 人 person, leaving 曷 question.",
     "門": "The two leaves of 門 gate frame an opening, making 門 gate.",
     "门": "The simplified 门 gate still frames a doorway as 门 gate.",
     "東": "日 day rises through 木 tree branches, marking 東 east.",
@@ -386,6 +422,9 @@ TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
     "贝": "The simplified 贝 shell keeps the curve of a 贝 shell.",
     "后": "A 丿 slash and 一 one line crown the 口 mouth giving commands as 后 queen.",
     "么": "A 丿 slash points into a 厶 secret, forming 么 interrogative.",
+    "當": "A 尚 esteem marker over a 田 rice field shows which role will 當 work as the main one.",
+    "鳥": "The perched shape of 鳥 bird shows head, wing, and tail as 鳥 bird.",
+    "𫶧": "A 川 river drawn as a trailing lower form becomes 𫶧 flow tail.",
 }
 
 
@@ -581,6 +620,13 @@ def sanitize_prepared_card(card: dict[str, Any]) -> dict[str, Any]:
         clean_component(component)
         for component in (card.get("visual_components") or card.get("components") or [])
     ]
+    if card.get("historical_components"):
+        sanitized["historical_components"] = [
+            clean_component(component)
+            for component in card.get("historical_components") or []
+        ]
+    if card.get("historical_component_source"):
+        sanitized["historical_component_source"] = card.get("historical_component_source")
     return sanitized
 
 
@@ -935,7 +981,7 @@ def apply_targeted_quality_overrides(card: dict[str, Any]) -> dict[str, Any]:
     if not mnemonic:
         return card
 
-    prepared = prepared_from_record(card)
+    prepared = prepare_card(char)
     if char in TARGETED_COMPONENT_OVERRIDES:
         components = [
             {
@@ -950,16 +996,32 @@ def apply_targeted_quality_overrides(card: dict[str, Any]) -> dict[str, Any]:
         ]
         prepared["components"] = components
         prepared["visual_components"] = components
-    prepared["meaning"] = safe_gloss(char, str(prepared.get("meaning") or ""), component_mode=False)
+    prepared["meaning"] = safe_gloss(
+        char,
+        str(card.get("meaning") or prepared.get("meaning") or ""),
+        component_mode=False,
+    )
 
     record = dict(card)
     record["meaning"] = prepared["meaning"]
     record["components"] = prepared["components"]
     record["visual_components"] = prepared["visual_components"]
     record["component_source"] = append_source_marker_once(
-        str(record.get("component_source") or "unknown"),
-        "manual_quality_override",
+        str(prepared.get("component_source") or record.get("component_source") or "unknown"),
+        "manual_visual_repair" if char in TARGETED_COMPONENT_OVERRIDES else "manual_quality_override",
     )
+    if char in TARGETED_COMPONENT_OVERRIDES:
+        record["component_source"] = append_source_marker_once(
+            record["component_source"],
+            "manual_quality_override",
+        )
+    historical_components = prepared.get("historical_components") or []
+    if historical_components and not sm.component_sets_equivalent(prepared["components"], historical_components):
+        record["historical_components"] = historical_components
+        record["historical_component_source"] = prepared.get("historical_component_source")
+    else:
+        record.pop("historical_components", None)
+        record.pop("historical_component_source", None)
     record["equation"] = " + ".join(
         f"{component['character']} {component['gloss']}"
         for component in prepared["components"]
