@@ -1439,6 +1439,8 @@
 						</div>
 					{/if}
 
+					<SemanticMnemonicCard card={data.data.semantic_mnemonic} />
+
 					<!-- Unified Components + Equation Section -->
 					{#if (data.data.chinese_char?.components && data.data.chinese_char.components.length > 0) || (simplifiedCharData?.components && simplifiedCharData.components.length > 0) || japaneseComponents}
 						{@const tradMakemeahanziImage =
@@ -1662,8 +1664,6 @@
 						</div>
 					{/if}
 					{/if}
-
-					<SemanticMnemonicCard card={data.data.semantic_mnemonic} />
 
 					<!-- Statistics section removed - data overlaps with word views -->
 
