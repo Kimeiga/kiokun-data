@@ -694,7 +694,7 @@ def main() -> None:
         "source_counts": source_counts,
         "mnemonics": cards,
     }
-    OUTPUT_PATH.write_text(json.dumps(artifact, ensure_ascii=False, indent=2))
+    OUTPUT_PATH.write_text(json.dumps(artifact, ensure_ascii=False, separators=(",", ":")))
     evaluation = validate_artifact(cards)
     EVAL_PATH.write_text(json.dumps(evaluation, ensure_ascii=False, indent=2))
     print(json.dumps({
