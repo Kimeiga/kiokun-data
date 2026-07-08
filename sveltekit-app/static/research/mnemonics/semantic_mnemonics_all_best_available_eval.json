@@ -1,26 +1,25 @@
 {
-  "created_at": "2026-07-08T05:43:09.294503+00:00",
+  "created_at": "2026-07-08T06:29:29.548068+00:00",
   "count": 23484,
   "invalid_count": 0,
   "invalid": [],
   "source_counts": {
     "codex_local_completion": 13484,
-    "gemini35_paid_10000": 7903,
-    "codex_local_repair": 1097,
+    "codex_local_reauthor_paid_9000": 9000,
     "gemini35_reviewed_1000": 1000
   },
   "component_source_counts": {
-    "self_fallback": 2824,
-    "resolved_ids_forward": 20488,
-    "chinese_char.components": 165,
+    "self_fallback": 2827,
+    "resolved_ids_forward": 20486,
+    "chinese_char.components": 164,
     "ids": 6,
     "manual_component_override": 1
   },
   "mnemonic_length": {
     "min": 26,
-    "p50": 63,
-    "p90": 100,
-    "p95": 108,
-    "max": 183
+    "p50": 69,
+    "p90": 86,
+    "p95": 91,
+    "max": 133
   }
 }

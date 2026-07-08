@@ -114,6 +114,10 @@ MANUAL_GLOSS_OVERRIDES: dict[str, str] = {
     "対": "opposite",
     "荷": "load",
     "忩": "hasty",
+    "臤": "firm grip",
+    "𰀡": "firm grip",
+    "娲": "Nuwa",
+    "媧": "Nuwa",
 }
 
 
@@ -124,7 +128,7 @@ MANUAL_COMPONENT_GLOSS_OVERRIDES: dict[str, str] = {
     "囗": "enclosure",
     "又": "hand",
     "臣": "watchful eye",
-    "臤": "grasp",
+    "臤": "firm grip",
     "夊": "trailing foot",
     "幺": "tiny thread",
     "髟": "long hair",

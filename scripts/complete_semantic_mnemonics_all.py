@@ -56,7 +56,28 @@ LOCAL_GLOSS_OVERRIDES = {
     "髟": "long hair",
     "女": "woman",
     "𥩲": "raise",
+    "臤": "firm grip",
+    "𰀡": "firm grip",
+    "娲": "Nuwa",
+    "媧": "Nuwa",
 }
+
+
+def collapse_repeated_words(text: str) -> str:
+    words = text.split()
+    if len(words) < 2:
+        return text
+    output: list[str] = []
+    collapsed = False
+    for word in words:
+        normalized = re.sub(r"^[^\w-]+|[^\w-]+$", "", word.lower())
+        previous = re.sub(r"^[^\w-]+|[^\w-]+$", "", output[-1].lower()) if output else ""
+        if normalized and normalized == previous:
+            collapsed = True
+            continue
+        output.append(word)
+    result = " ".join(output)
+    return result.lower() if collapsed else result
 
 
 def is_han_codepoint(code: int) -> bool:
@@ -183,6 +204,15 @@ def safe_gloss(char: str, gloss: str, *, component_mode: bool = False) -> str:
         (r"\bloquacious\b", "talkative"),
         (r"\bkangxi\b", "form"),
         (r"\bgirl\b", "woman"),
+        (r"\bgod\s+god\b", "deity"),
+        (r"\bgoddess\s+goddess\b", "deity"),
+        (r"\bgoddess\s+of\s+an?\s+(.+)", r"\1 deity"),
+        (r"\bgod\s+of\s+the\s+(.+)", r"\1 deity"),
+        (r"\bgod\s+of\s+(.+)", r"\1 deity"),
+        (r"\bworship\s+the\s+god\b", "worship"),
+        (r"\boffering\s+blood\s+to\s+god\b", "blood offering"),
+        (r"\bgoddess\b", "deity"),
+        (r"\bgod\b", "deity"),
     ]
     for pattern, replacement in regex_replacements:
         cleaned = re.sub(pattern, replacement, cleaned, flags=re.IGNORECASE)
@@ -203,6 +233,7 @@ def safe_gloss(char: str, gloss: str, *, component_mode: bool = False) -> str:
     cleaned = re.sub(r"[.!?。！？]+", "", cleaned)
     cleaned = re.sub(r"\s+", " ", cleaned).strip(" -;:,")
     cleaned = re.sub(r"\b(?:to|of|or|the)$", "", cleaned, flags=re.IGNORECASE).strip(" -;:,")
+    cleaned = collapse_repeated_words(cleaned)
     return cleaned or "form"
 
 
@@ -246,12 +277,68 @@ def prepare_card(char: str) -> dict[str, Any]:
 def phrase_components(components: list[dict[str, str]], char: str) -> str:
     pairs = [f"{component['character']} {component['gloss']}" for component in components]
     if len(pairs) == 1:
-        return pairs[0]
+        return f"a {pairs[0]}"
     if len(pairs) == 2:
         relations = ("beside", "under", "over", "with", "near")
         relation = relations[sm.simple_hash(char) % len(relations)]
-        return f"{pairs[0]} {relation} {pairs[1]}"
-    return ", ".join(pairs[:-1]) + f", and {pairs[-1]}"
+        return f"a {pairs[0]} {relation} a {pairs[1]}"
+    article_pairs = [f"a {pair}" for pair in pairs]
+    return ", ".join(article_pairs[:-1]) + f", and {article_pairs[-1]}"
+
+
+def meaning_style(meaning: str) -> tuple[str, str]:
+    lower = meaning.lower()
+    classes = [
+        (("water", "river", "sea", "lake", "spring", "tide", "liquid", "rain", "pond", "swamp", "stream"),
+         "flowing image",
+         "gathers into"),
+        (("fire", "heat", "warm", "hot", "burn", "light", "bright", "shine", "sun", "ray", "lamp"),
+         "lit image",
+         "shines toward"),
+        (("say", "speak", "talk", "ask", "call", "read", "write", "word", "sound", "voice", "name", "language"),
+         "spoken image",
+         "carries words into"),
+        (("heart", "feel", "worry", "sad", "anger", "fear", "love", "desire", "wish", "think", "recall"),
+         "inner image",
+         "presses inward as"),
+        (("go", "walk", "run", "move", "enter", "exit", "return", "cross", "reach", "arrive", "advance", "retreat", "follow"),
+         "moving image",
+         "travels toward"),
+        (("protect", "guard", "hide", "cover", "surround", "enclose", "safe", "secure", "keep"),
+         "sheltering image",
+         "closes around"),
+        (("tight", "bind", "bound", "knot", "rope", "thread", "string", "silk"),
+         "binding image",
+         "pulls tight into"),
+        (("grip", "grasp", "hold", "seize", "catch"),
+         "holding image",
+         "closes around"),
+        (("cut", "divide", "break", "split", "sever", "hew", "stab", "strike", "beat", "grind"),
+         "sharp image",
+         "cuts toward"),
+        (("count", "number", "measure", "order", "rank", "line", "list", "record", "copy"),
+         "ordered image",
+         "lines up as"),
+        (("make", "build", "create", "form", "shape", "construct", "establish", "set", "frame"),
+         "making image",
+         "sets the shape of"),
+        (("tree", "grass", "flower", "plant", "grain", "leaf", "root", "branch", "bamboo", "crop"),
+         "growing image",
+         "grows into"),
+        (("bird", "fish", "horse", "dog", "ox", "cow", "sheep", "insect", "animal", "pooch"),
+         "living image",
+         "takes the body of"),
+        (("house", "room", "city", "country", "village", "temple", "store", "gate", "place", "street", "building"),
+         "place image",
+         "marks the site of"),
+        (("person", "woman", "man", "child", "mother", "father", "official", "teacher", "king", "monarch"),
+         "human image",
+         "identifies"),
+    ]
+    for needles, subject, verb in classes:
+        if any(needle in lower for needle in needles):
+            return subject, verb
+    return "visual image", ("reveals" if len(lower) < 14 else "points toward")
 
 
 def local_mnemonic(prepared: dict[str, Any]) -> str:
@@ -259,11 +346,12 @@ def local_mnemonic(prepared: dict[str, Any]) -> str:
     final_pair = f"{char} {prepared['meaning']}"
     components = prepared["components"]
     component_text = phrase_components(components, char)
+    if component_text.startswith("a "):
+        component_text = "A " + component_text[2:]
     if len(components) == 1 and components[0]["character"] == char:
-        return f"A {component_text} stands alone as {final_pair}."
-    verbs = ("marks", "forms", "reveals", "sets up", "points toward", "gives shape to")
-    verb = verbs[sm.simple_hash(char + prepared["meaning"]) % len(verbs)]
-    return f"A scene of {component_text} {verb} {final_pair}."
+        return f"{component_text} stands alone as {final_pair}."
+    subject, verb = meaning_style(prepared["meaning"])
+    return f"{component_text} in one {subject} {verb} {final_pair}."
 
 
 def local_hero_prompt(prepared: dict[str, Any]) -> str:
@@ -365,10 +453,9 @@ def main() -> None:
     for char in targets:
         if char in reviewed_1000:
             card = normalize_existing(reviewed_1000[char], "gemini35_reviewed_1000")
-        elif char in paid_10k and card_is_clean(paid_10k[char]):
-            card = normalize_existing(paid_10k[char], "gemini35_paid_10000")
         elif char in paid_10k:
-            card = local_card(prepared[char], "codex_local_repair", "paid_10k_failed_style_scan")
+            reason = None if card_is_clean(paid_10k[char]) else "paid_10k_failed_style_scan"
+            card = local_card(prepared[char], "codex_local_reauthor_paid_9000", reason)
         else:
             card = local_card(prepared[char], "codex_local_completion")
         source = card["generation_source"]
@@ -378,15 +465,15 @@ def main() -> None:
     artifact = {
         "created_at": datetime.now(timezone.utc).isoformat(),
         "model": {
-            "name": "best-available-merged-codex-completion",
+            "name": "codex-authored-complete-semantic-mnemonics",
             "provider": "mixed",
-            "id": "gemini35-reviewed+gemini35-paid+codex-local",
+            "id": "reviewed-1000+codex-reauthored-paid-9000+codex-local-completion",
         },
         "count": len(cards),
         "coverage_note": (
-            "Reviewed Gemini cards are preserved first, clean paid 10k Gemini cards second, "
-            "and missing or style-flagged cards are completed locally with conservative "
-            "Codex-authored templates using canonical visual component glosses."
+            "The reviewed first 1000 cards are preserved. The other paid 9000 Gemini cards "
+            "are re-authored locally, and the remaining characters are completed locally, "
+            "using canonical visual component glosses and validation for every card."
         ),
         "card_input_cache_version": sm.CARD_INPUT_CACHE_VERSION,
         "manual_gloss_overrides_used": sm.MANUAL_GLOSS_OVERRIDES,
