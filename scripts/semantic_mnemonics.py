@@ -563,19 +563,41 @@ def validate_card(card: dict[str, Any], expected: dict[str, Any]) -> dict[str, A
     if str(card.get("meaning", "")).strip().lower() != meaning.lower():
         problems.append("wrong meaning")
 
+    def prose_pair(comp: dict[str, str]) -> str:
+        if comp["gloss"].strip().lower() == "(alt)":
+            return f"{comp['character']} alternate form"
+        prose_gloss = re.sub(
+            r"\s+\((?:side|top|bottom|left|right|drops|alt)\)",
+            "",
+            comp["gloss"],
+            flags=re.IGNORECASE,
+        ).strip()
+        return f"{comp['character']} {prose_gloss}"
+
+    def prose_final_pair(character: str, meaning: str) -> str:
+        if meaning.strip().lower() == "(alt)":
+            return f"{character} alternate form"
+        prose_meaning = re.sub(
+            r"\s+\((?:side|top|bottom|left|right|drops|alt)\)",
+            "",
+            meaning,
+            flags=re.IGNORECASE,
+        ).strip()
+        return f"{character} {prose_meaning}"
+
     for comp in components:
         pair = f"{comp['character']} {comp['gloss']}"
         if is_bad_component_gloss(comp["gloss"]):
             problems.append(f"bad component gloss {pair}")
         if pair not in equation:
             problems.append(f"equation missing {pair}")
-        if pair not in mnemonic:
+        if pair not in mnemonic and prose_pair(comp) not in mnemonic:
             problems.append(f"mnemonic missing {pair}")
 
     final_pair = f"{character} {meaning}"
     if final_pair not in equation:
         problems.append(f"equation missing {final_pair}")
-    if final_pair not in mnemonic:
+    if final_pair not in mnemonic and prose_final_pair(character, meaning) not in mnemonic:
         problems.append(f"mnemonic missing {final_pair}")
 
     if not equation.count("=") == 1:

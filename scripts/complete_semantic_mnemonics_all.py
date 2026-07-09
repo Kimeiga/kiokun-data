@@ -332,6 +332,7 @@ TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
     "侃": "A 亻 person (side) keeps a steady 口 mouth and 川 river stance, becoming 侃 upright and strong.",
     "买": "A 乛 hook mark over 头 head tags the item you 买 buy.",
     "買": "An ⺫ eye (side) looks over 貝 shellfish money before 買 buy.",
+    "易": "A 日 day that is 勿 not harsh makes work 易 easy.",
     "发": "A 𠃋 arm with 又 hand flicks a 丿 slash and 丶 dot outward to 发 emit.",
     "發": "癶 legs carry a 弓 bow and 殳 hand tool forward, ready to 發 send out.",
     "発": "癶 legs push 二 two lines above 儿 human legs forward, making 発 send out.",
@@ -362,6 +363,7 @@ TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
     "残": "A 歹 harmful break leaves 戋 tiny remains as 残 incomplete.",
     "質": "A 斤 axe and another 斤 axe test a 貝 shellfish, proving 質 quality.",
     "路": "A 𧾷 foot (side) reaches 各 each stop along 路 path.",
+    "踢": "A 𧾷 foot finds an 易 easy opening and snaps into 踢 kick.",
     "景": "日 day lights the 京 capital, creating 景 scenery.",
     "津": "氵 water (drops) beside 聿 writing marks a 津 ferry.",
     "域": "土 earth bounded by 或 form becomes 域 domain.",
@@ -798,6 +800,24 @@ def automatic_nfkc_alias_targets(covered_chars: set[str]) -> dict[str, dict[str,
     return dict(sorted(targets.items(), key=lambda item: (ord(item[0]), item[0])))
 
 
+def existing_nfkc_alias_targets(covered_chars: set[str]) -> dict[str, dict[str, str]]:
+    targets: dict[str, dict[str, str]] = {}
+    for alias_char in covered_chars:
+        codepoint = ord(alias_char)
+        if not any(start <= codepoint <= end for start, end in AUTO_COMPATIBILITY_ALIAS_RANGES):
+            continue
+        normalized = unicodedata.normalize("NFKC", alias_char)
+        if normalized == alias_char or len(normalized) != 1 or normalized not in covered_chars:
+            continue
+        targets[alias_char] = {
+            "alias_of": normalized,
+            "alias_kind": "nfkc_compatibility",
+            "generation_source": "codex_local_nfkc_variant_alias",
+            "reason": "Unicode NFKC compatibility ideograph",
+        }
+    return dict(sorted(targets.items(), key=lambda item: (ord(item[0]), item[0])))
+
+
 def add_learner_gap_cards(
     cards: list[dict[str, Any]],
     prepared: dict[str, dict[str, Any]],
@@ -815,10 +835,6 @@ def add_learner_gap_cards(
         cards.append(record)
 
     for alias_char, metadata in VARIANT_ALIAS_TARGETS.items():
-        if alias_char in by_char:
-            by_char[alias_char]["alias_of"] = metadata["alias_of"]
-            by_char[alias_char]["alias_reason"] = metadata.get("reason", "")
-            continue
         base = by_char.get(metadata["alias_of"])
         if base is None:
             base_prepared = prepared.get(metadata["alias_of"]) or prepare_card(metadata["alias_of"])
@@ -827,18 +843,21 @@ def add_learner_gap_cards(
             cards.append(base)
         record = alias_card(alias_char, base, metadata)
         by_char[alias_char] = record
-        cards.append(record)
 
-    auto_aliases = automatic_nfkc_alias_targets(set(by_char))
-    for alias_char, metadata in auto_aliases.items():
+    all_nfkc_aliases = {
+        **existing_nfkc_alias_targets(set(by_char)),
+        **automatic_nfkc_alias_targets(set(by_char)),
+    }
+    for alias_char, metadata in all_nfkc_aliases.items():
+        if alias_char in VARIANT_ALIAS_TARGETS:
+            continue
         base = by_char.get(metadata["alias_of"])
         if base is None:
             continue
         record = alias_card(alias_char, base, metadata)
         by_char[alias_char] = record
-        cards.append(record)
 
-    return sorted(cards, key=lambda card: (ord(card["character"]), card["character"]))
+    return sorted(by_char.values(), key=lambda card: (ord(card["character"]), card["character"]))
 
 
 def count_sources(cards: list[dict[str, Any]]) -> dict[str, int]:
@@ -944,8 +963,52 @@ def clean_free_text(text: str) -> str:
     return text
 
 
+POSITIONAL_GLOSS_RE = re.compile(
+    r"\s+\((?:side|top|bottom|left|right|drops|alt)\)",
+    re.IGNORECASE,
+)
+BARE_ALT_MEANING_RE = re.compile(
+    r"([\u2e80-\u2eff\u2f00-\u2fdf\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff])\s+\(alt\)",
+    re.IGNORECASE,
+)
+
+
+def clean_mnemonic_prose(text: str) -> str:
+    text = BARE_ALT_MEANING_RE.sub(r"\1 alternate form", text)
+    text = POSITIONAL_GLOSS_RE.sub("", text)
+    text = re.sub(r"\s+", " ", text).strip()
+    return text
+
+
+def validation_expected_from_record(record: dict[str, Any]) -> dict[str, Any]:
+    components = [
+        {
+            "character": str(component.get("character") or component.get("char") or ""),
+            "gloss": str(component.get("gloss") or ""),
+        }
+        for component in (record.get("components") or [])
+        if component.get("character") or component.get("char")
+    ]
+    if not components:
+        components = [{"character": str(record["character"]), "gloss": str(record.get("meaning") or "form")}]
+    return {
+        "character": str(record["character"]),
+        "meaning": str(record.get("meaning") or "form"),
+        "components": components,
+    }
+
+
 def clean_card_free_text(record: dict[str, Any]) -> dict[str, Any]:
     updated = False
+    mnemonic = record.get("mnemonic")
+    if isinstance(mnemonic, str):
+        cleaned_mnemonic = clean_mnemonic_prose(mnemonic)
+        if cleaned_mnemonic != mnemonic:
+            if not updated:
+                record = dict(record)
+                updated = True
+            record["mnemonic"] = cleaned_mnemonic
+
     for key in ("historical_components",):
         components = record.get(key)
         if isinstance(components, list):
@@ -971,7 +1034,10 @@ def clean_card_free_text(record: dict[str, Any]) -> dict[str, Any]:
         if cleaned_hero != hero:
             if not updated:
                 record = dict(record)
+                updated = True
             record["hero_image_prompt"] = cleaned_hero
+    if updated:
+        record = refresh_validation(record, validation_expected_from_record(record))
     return record
 
 
@@ -1121,6 +1187,7 @@ def main() -> None:
     cards = [restyle_generic_mnemonic(card) for card in cards]
     cards = [clean_card_free_text(card) for card in cards]
     cards = [apply_targeted_quality_overrides(card) for card in cards]
+    cards = [clean_card_free_text(card) for card in cards]
     source_counts = count_sources(cards)
 
     artifact = {
