@@ -1,13 +1,13 @@
 {
-  "created_at": "2026-07-09T04:56:11.246215+00:00",
+  "created_at": "2026-07-09T06:16:58.609828+00:00",
   "count": 24037,
   "invalid_count": 0,
   "invalid": [],
   "source_counts": {
     "codex_local_completion": 13076,
-    "codex_manual_quality_patch_2026_07_08": 273,
+    "codex_manual_quality_patch_2026_07_08": 274,
     "codex_local_reauthor_paid_9000": 8923,
-    "gemini35_reviewed_1000": 918,
+    "gemini35_reviewed_1000": 917,
     "codex_local_learner_gap": 18,
     "codex_local_nfkc_variant_alias": 806,
     "codex_local_variant_alias": 23
@@ -17,7 +17,7 @@
     "manual_quality_patch": 69,
     "resolved_ids_forward": 20319,
     "resolved_ids_forward+manual_visual_repair+manual_quality_override": 22,
-    "chinese_char.components": 158,
+    "chinese_char.components": 157,
     "manual_stream_family": 15,
     "chinese_char.components+manual_quality_override": 5,
     "self_fallback+manual_quality_override": 7,
@@ -27,6 +27,7 @@
     "manual_component_override": 1,
     "self_fallback+manual_visual_repair+manual_quality_override": 2,
     "manual_pictograph": 7,
+    "chinese_char.components+manual_visual_repair+manual_quality_override": 1,
     "ids+manual_visual_repair+manual_quality_override": 1,
     "variant_alias:豈": 1,
     "variant_alias:更": 1,
@@ -764,8 +765,8 @@
   },
   "mnemonic_length": {
     "min": 26,
-    "p50": 56,
-    "p90": 69,
+    "p50": 57,
+    "p90": 70,
     "p95": 74,
     "max": 131
   }

@@ -603,7 +603,11 @@ def validate_card(card: dict[str, Any], expected: dict[str, Any]) -> dict[str, A
     if final_pair not in mnemonic and prose_final_pair(character, meaning) not in mnemonic:
         problems.append(f"mnemonic missing {final_pair}")
 
-    if not equation.count("=") == 1:
+    is_self_component_card = len(components) == 1 and components[0]["character"] == character
+    if is_self_component_card:
+        if "=" in equation:
+            problems.append("self component card should use a visual form line, not an equation")
+    elif not equation.count("=") == 1:
         problems.append("equation should have one equals sign")
     if len(mnemonic) > 190:
         problems.append("mnemonic too long")
@@ -1237,8 +1241,17 @@ def maybe_repair_card(card: dict[str, Any], expected: dict[str, Any]) -> dict[st
     repaired = dict(card)
     repaired.setdefault("character", expected["character"])
     repaired.setdefault("meaning", expected["meaning"])
-    expected_equation = " + ".join(f"{c['character']} {c['gloss']}" for c in expected["components"])
-    expected_equation += f" = {expected['character']} {expected['meaning']}"
+    expected_components = expected["components"]
+    expected_final_pair = f"{expected['character']} {expected['meaning']}"
+    if len(expected_components) == 1 and expected_components[0]["character"] == expected["character"]:
+        expected_component_pair = f"{expected_components[0]['character']} {expected_components[0]['gloss']}"
+        if expected_component_pair == expected_final_pair:
+            expected_equation = f"Visual form: {expected_final_pair}"
+        else:
+            expected_equation = f"Visual form: {expected_component_pair}; meaning {expected_final_pair}"
+    else:
+        expected_equation = " + ".join(f"{c['character']} {c['gloss']}" for c in expected_components)
+        expected_equation += f" = {expected_final_pair}"
     if validate_card({**repaired, "equation": repaired.get("equation") or expected_equation}, expected)["problems"]:
         # Only repair the equation. The mnemonic is model-authored and should fail
         # validation if it ignores the canonical pair contract.

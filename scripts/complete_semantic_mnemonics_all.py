@@ -311,6 +311,12 @@ TARGETED_COMPONENT_OVERRIDES: dict[str, list[dict[str, str]]] = {
         {"character": "又", "gloss": "hand"},
         {"character": "糸", "gloss": "silk"},
     ],
+    "金": [
+        {"character": "𠆢", "gloss": "person roof"},
+        {"character": "土", "gloss": "earth"},
+        {"character": "丶", "gloss": "dot"},
+        {"character": "丶", "gloss": "dot"},
+    ],
     "質": [
         {"character": "斤", "gloss": "axe"},
         {"character": "斤", "gloss": "axe"},
@@ -424,6 +430,7 @@ TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
     "稻": "禾 standing grain bends as 舀 dip gathers water, becoming 稻 unhulled rice.",
     "紧": "A 丨 line and another 丨 line brace a 又 hand pulling 糸 silk until it becomes 紧 tense.",
     "曷": "曰 speech inside 勹 wrap surrounds a 𠃊 hidden area and 人 person, leaving 曷 question.",
+    "金": "A 𠆢 person roof covers 土 earth with a 丶 dot and another 丶 dot of ore, revealing 金 gold.",
     "釘": "金 gold shaped like a 丁 fourth mark becomes 釘 nail.",
     "針": "金 gold drawn to a sharp point on a 十 ten guide becomes 針 needle.",
     "鈴": "金 gold struck by 令 orders rings out as 鈴 small bell.",
@@ -741,7 +748,10 @@ def local_mnemonic(prepared: dict[str, Any]) -> str:
     if component_text.startswith("a "):
         component_text = "A " + component_text[2:]
     if len(components) == 1 and components[0]["character"] == char:
-        return f"{component_text} stands alone as {final_pair}."
+        component_pair = f"{components[0]['character']} {components[0]['gloss']}"
+        if component_pair == final_pair:
+            return f"The visible form of {final_pair} carries its meaning directly."
+        return f"The visible form {component_pair} carries the meaning {final_pair} directly."
     return f"{component_text} {meaning_action(prepared['meaning'], len(components) > 2)} {final_pair}."
 
 
@@ -753,13 +763,28 @@ def local_hero_prompt(prepared: dict[str, Any]) -> str:
     )
 
 
+def is_self_component_card(prepared: dict[str, Any]) -> bool:
+    components = prepared.get("components") or []
+    return len(components) == 1 and components[0].get("character") == prepared.get("character")
+
+
+def equation_for_prepared(prepared: dict[str, Any]) -> str:
+    components = prepared["components"]
+    final_pair = f"{prepared['character']} {prepared['meaning']}"
+    if is_self_component_card(prepared):
+        component_pair = f"{components[0]['character']} {components[0]['gloss']}"
+        if component_pair == final_pair:
+            return f"Visual form: {final_pair}"
+        return f"Visual form: {component_pair}; meaning {final_pair}"
+    expected_equation = " + ".join(f"{c['character']} {c['gloss']}" for c in components)
+    return f"{expected_equation} = {final_pair}"
+
+
 def local_card(prepared: dict[str, Any], source: str, replaced_reason: str | None = None) -> dict[str, Any]:
-    expected_equation = " + ".join(f"{c['character']} {c['gloss']}" for c in prepared["components"])
-    expected_equation += f" = {prepared['character']} {prepared['meaning']}"
     output = {
         "character": prepared["character"],
         "meaning": prepared["meaning"],
-        "equation": expected_equation,
+        "equation": equation_for_prepared(prepared),
         "mnemonic": local_mnemonic(prepared),
         "hero_image_prompt": local_hero_prompt(prepared),
     }
@@ -951,11 +976,13 @@ def restyle_generic_mnemonic(record: dict[str, Any]) -> dict[str, Any]:
     final_pair = f"{prepared['character']} {prepared['meaning']}"
     equation = str(record.get("equation") or "")
     mnemonic = str(record.get("mnemonic") or "")
+    self_component_equation = is_self_component_card(prepared) and "=" in equation
     stale_pairs = any(pair not in equation or pair not in mnemonic for pair in expected_pairs)
     stale_final = final_pair not in equation or final_pair not in mnemonic
     validation = record.get("validation") or {}
     if (
         not GENERIC_MNEMONIC_RE.search(mnemonic)
+        and not self_component_equation
         and validation.get("valid", True)
         and not stale_pairs
         and not stale_final
@@ -965,10 +992,7 @@ def restyle_generic_mnemonic(record: dict[str, Any]) -> dict[str, Any]:
     record["meaning"] = prepared["meaning"]
     record["components"] = prepared["components"]
     record["visual_components"] = prepared["visual_components"]
-    record["equation"] = " + ".join(
-        f"{component['character']} {component['gloss']}"
-        for component in prepared["components"]
-    ) + f" = {prepared['character']} {prepared['meaning']}"
+    record["equation"] = equation_for_prepared(prepared)
     record["mnemonic"] = local_mnemonic(prepared)
     record["style_patch"] = "removed_generic_visual_image_phrase"
     return refresh_validation(record, prepared)
@@ -1114,10 +1138,7 @@ def apply_targeted_quality_overrides(card: dict[str, Any]) -> dict[str, Any]:
     else:
         record.pop("historical_components", None)
         record.pop("historical_component_source", None)
-    record["equation"] = " + ".join(
-        f"{component['character']} {component['gloss']}"
-        for component in prepared["components"]
-    ) + f" = {prepared['character']} {prepared['meaning']}"
+    record["equation"] = equation_for_prepared(prepared)
     record["mnemonic"] = mnemonic
     record["hero_image_prompt"] = local_hero_prompt(prepared)
     record["generation_source"] = MANUAL_QUALITY_SOURCE
@@ -1215,6 +1236,14 @@ def main() -> None:
     cards = [apply_targeted_quality_overrides(card) for card in cards]
     cards = [clean_card_free_text(card) for card in cards]
     source_counts = count_sources(cards)
+    final_manual_quality_chars = sorted(
+        {
+            str(card.get("character") or "")
+            for card in cards
+            if card.get("generation_source") == MANUAL_QUALITY_SOURCE
+        },
+        key=lambda ch: (ord(ch), ch),
+    )
 
     artifact = {
         "created_at": datetime.now(timezone.utc).isoformat(),
@@ -1244,8 +1273,8 @@ def main() -> None:
             "generic fallback wording is restyled through the deterministic local builder."
         ),
         "quality_patch_at": datetime.now(timezone.utc).isoformat(),
-        "quality_patch_reviewed_characters": sorted(manual_quality, key=lambda ch: (ord(ch), ch)),
-        "quality_patch_reviewed_count": len(manual_quality),
+        "quality_patch_reviewed_characters": final_manual_quality_chars,
+        "quality_patch_reviewed_count": len(final_manual_quality_chars),
     }
     OUTPUT_PATH.write_text(json.dumps(artifact, ensure_ascii=False, separators=(",", ":")))
     evaluation = validate_artifact(cards)
