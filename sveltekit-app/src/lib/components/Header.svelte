@@ -6,7 +6,6 @@
 	import LanguageToggle from "./LanguageToggle.svelte";
 	import HandwritingInput from "./HandwritingInput.svelte";
 	import { useSession } from "$lib/auth-client";
-	import { navigateOrSearch } from "$lib/utils/search-navigation";
 	import SearchDropdown from "./SearchDropdown.svelte";
 
 	let handwritingInput: HandwritingInput;
@@ -19,11 +18,16 @@
 	let mobileMenuOpen = $state(false);
 	const session = useSession();
 
+	async function navigateSearch(word: string) {
+		const { navigateOrSearch } = await import("$lib/utils/search-navigation");
+		await navigateOrSearch(word);
+	}
+
 	async function handleSearch(event: KeyboardEvent) {
 		if (event.key === "Enter") {
 			const word = internalSearchValue.trim();
 			if (word) {
-				await navigateOrSearch(word);
+				await navigateSearch(word);
 			}
 		}
 	}
@@ -31,7 +35,7 @@
 	async function doSearch() {
 		const word = internalSearchValue.trim();
 		if (word) {
-			await navigateOrSearch(word);
+			await navigateSearch(word);
 		}
 	}
 

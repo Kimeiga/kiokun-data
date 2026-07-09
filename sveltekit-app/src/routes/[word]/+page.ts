@@ -4,12 +4,7 @@ import { getDictionaryUrl } from '$lib/shard-utils';
 import { dev } from '$app/environment';
 import { decompressSync, strFromU8 } from 'fflate';
 import type { DictionaryEntry, SemanticMnemonicCard } from '$lib/types';
-import { findWordsWithDeinflection } from '$lib/utils/search-navigation';
-import {
-	buildCharacterSupportData,
-	type CharacterSupportData,
-	type CharacterSupportSource
-} from '$lib/character-support';
+import type { CharacterLearningData } from '$lib/word-character-learning';
 
 // SSR works in production (fetches GitHub CDN) but can cause issues in dev
 // where the CORS proxy may not be reachable from the server process.
@@ -40,153 +35,6 @@ function fetchDictionaryBytes(url: string, fetchFn: typeof fetch): Promise<Respo
 	return fetchFn(url);
 }
 
-async function fetchDictionaryEntry(word: string, fetchFn: typeof fetch): Promise<DictionaryEntry | null> {
-	const dictUrl = await getDictionaryUrl(word, dev, fetchFn);
-	const response = await fetchDictionaryBytes(dictUrl, fetchFn);
-	if (!response.ok) return null;
-	return decompressAndParse(await response.arrayBuffer());
-}
-
-function isCapacitorRuntime(): boolean {
-	return typeof window !== 'undefined' && window.location.protocol === 'capacitor:';
-}
-
-let staticSupportSourcePromise: Promise<CharacterSupportSource> | null = null;
-
-async function fetchStaticJson<T>(path: string, pageUrl: URL): Promise<T> {
-	const response = await globalThis.fetch(new URL(path, pageUrl.origin));
-	if (!response.ok) throw new Error(`Failed to load ${path}: ${response.status}`);
-	return response.json() as Promise<T>;
-}
-
-async function getStaticSupportSource(pageUrl: URL): Promise<CharacterSupportSource> {
-	staticSupportSourcePromise ??= Promise.all([
-		fetchStaticJson<Record<string, string>>('/game_data/component_glosses.json', pageUrl),
-		fetchStaticJson<Record<string, string[]>>('/game_data/char_taxonomy.json', pageUrl),
-		fetchStaticJson<CharacterSupportSource['componentUses']>('/game_data/component_uses.json', pageUrl)
-	]).then(([charGlosses, charTaxonomy, componentUses]) => ({
-		charGlosses,
-		charTaxonomy,
-		componentUses
-	}));
-
-	return staticSupportSourcePromise;
-}
-
-async function fetchCharacterSupport(
-	chars: Set<string>,
-	components: Set<string>,
-	fetchFn: typeof fetch,
-	pageUrl: URL
-): Promise<CharacterSupportData> {
-	if (!isCapacitorRuntime()) {
-		try {
-			const params = new URLSearchParams();
-			for (const char of [...chars].filter(Boolean).sort()) params.append('char', char);
-			for (const component of [...components].filter(Boolean).sort()) params.append('component', component);
-			const response = await fetchFn(`/api/character-support?${params.toString()}`);
-			if (response.ok) return response.json();
-		} catch (err) {
-			console.error('Failed to load character support API:', err);
-		}
-	}
-
-	const source = await getStaticSupportSource(pageUrl);
-	return buildCharacterSupportData(source, { chars, components });
-}
-
-function componentChar(component: any): string | null {
-	if (!component) return null;
-	if (typeof component === 'string') return component;
-	return component.character || component.char || null;
-}
-
-function addSupportChar(chars: Set<string>, value: unknown): void {
-	if (typeof value === 'string' && value) chars.add(value);
-}
-
-function addGlyphs(chars: Set<string>, value: unknown): void {
-	if (typeof value !== 'string') return;
-	for (const char of value) {
-		if (char.trim()) chars.add(char);
-	}
-}
-
-function addSupportComponent(chars: Set<string>, components: Set<string>, component: any): void {
-	const char = componentChar(component);
-	if (char) {
-		chars.add(char);
-		components.add(char);
-	}
-	addSupportChar(chars, component?.originalCharacter);
-}
-
-function addComponents(chars: Set<string>, components: Set<string>, values: any[] | undefined | null): void {
-	for (const component of values || []) {
-		addSupportComponent(chars, components, component);
-	}
-}
-
-function addMnemonicSupport(chars: Set<string>, components: Set<string>, card: SemanticMnemonicCard | null | undefined): void {
-	if (!card) return;
-	addSupportChar(chars, card.character);
-	addComponents(chars, components, card.components as any[]);
-	addComponents(chars, components, card.visual_components as any[]);
-	addComponents(chars, components, card.historical_components as any[]);
-}
-
-function parseIdsComponents(ids: string | undefined | null): string[] {
-	if (!ids) return [];
-	const cleaned = ids.replace(/&[^;]+;/g, '');
-	const chars: string[] = [];
-	for (const ch of cleaned) {
-		const code = ch.codePointAt(0) || 0;
-		if (code >= 0x2ff0 && code <= 0x2ffb) continue;
-		if (ch.trim()) chars.push(ch);
-	}
-	return chars;
-}
-
-function collectSupportKeys(
-	word: string,
-	data: DictionaryEntry,
-	simplifiedCharData: any,
-	redirectOriginal: DictionaryEntry | null,
-	mnemonicCards: SemanticMnemonicCard[]
-): { chars: Set<string>; components: Set<string> } {
-	const chars = new Set<string>();
-	const components = new Set<string>();
-
-	addGlyphs(chars, word);
-	addSupportChar(chars, data.key);
-	addSupportChar(chars, data.redirect);
-	addSupportChar(chars, data.chinese_char?.char);
-	addSupportChar(chars, data.chinese_char?.hkChar);
-	for (const variant of data.chinese_char?.simpVariants || []) addSupportChar(chars, variant);
-	for (const variant of data.chinese_char?.tradVariants || []) addSupportChar(chars, variant);
-	addSupportChar(chars, data.japanese_char?.literal);
-	addSupportChar(chars, data.korean_char?.character);
-	addSupportChar(chars, data.korean_char?.hanjaForm);
-
-	addSupportChar(chars, redirectOriginal?.key);
-	addSupportChar(chars, redirectOriginal?.chinese_char?.char);
-	for (const variant of redirectOriginal?.chinese_char?.simpVariants || []) addSupportChar(chars, variant);
-	for (const variant of redirectOriginal?.chinese_char?.tradVariants || []) addSupportChar(chars, variant);
-
-	addComponents(chars, components, data.chinese_char?.components as any[]);
-	addComponents(chars, components, simplifiedCharData?.components as any[]);
-	for (const char of parseIdsComponents((data.japanese_char as any)?.ids)) chars.add(char);
-
-	for (const card of mnemonicCards) addMnemonicSupport(chars, components, card);
-
-	for (const preview of data.contains || []) {
-		addSupportChar(chars, (preview as any).w);
-		for (const form of (preview as any).forms || []) addSupportChar(chars, form);
-	}
-
-	return { chars, components };
-}
-
 function unavailableDictionaryStatus(status: number): number {
 	if (status === 429) return 503;
 	if (status >= 500) return 502;
@@ -198,48 +46,6 @@ function throwDictionaryUnavailable(word: string, status: number): never {
 		unavailableDictionaryStatus(status),
 		`Dictionary source unavailable for "${word}" (${status})`
 	);
-}
-
-function isCompatibilityIdeograph(char: string): boolean {
-	const codepoint = char.codePointAt(0) ?? 0;
-	return (codepoint >= 0xF900 && codepoint <= 0xFAFF) ||
-		(codepoint >= 0x2F800 && codepoint <= 0x2FA1F);
-}
-
-const MNEMONIC_CANDIDATE_DENYLIST: Record<string, Set<string>> = {
-	里: new Set(['裡']),
-};
-
-function addEntryMnemonicCandidates(entry: DictionaryEntry | null | undefined, candidates: Set<string>) {
-	if (!entry) return;
-	const denied = MNEMONIC_CANDIDATE_DENYLIST[entry.key];
-	const add = (char: unknown) => {
-		if (
-			typeof char === 'string' &&
-			[...char].length === 1 &&
-			!isCompatibilityIdeograph(char) &&
-			!denied?.has(char)
-		) {
-			candidates.add(char);
-		}
-	};
-
-	add(entry.key);
-	add(entry.redirect);
-	add(entry.chinese_char?.char);
-	add(entry.chinese_char?.hkChar);
-	add(entry.chinese_char?.simpVariants?.[0]);
-	add(entry.chinese_char?.tradVariants?.[0]);
-	add(entry.japanese_char?.literal);
-	add(entry.korean_char?.character);
-	add(entry.korean_char?.hanjaForm);
-}
-
-/**
- * Japanese labels mapping (tag codes to full text)
- */
-interface JapaneseLabels {
-	[key: string]: string;
 }
 
 /**
@@ -271,6 +77,18 @@ interface ComponentUsesMap {
 	};
 }
 
+function emptyCharacterLearningData(): CharacterLearningData {
+	return {
+		simplifiedCharData: null,
+		mnemonicCards: [],
+		support: {
+			charGlosses: {},
+			charTaxonomy: {},
+			componentUses: {}
+		}
+	};
+}
+
 /**
  * Page data returned by the load function
  */
@@ -286,10 +104,10 @@ export interface PageData {
 	word: string;
 	data: DictionaryEntry;
 	simplifiedCharData?: any; // Preloaded simplified variant's chinese_char data (for equation comparison)
-	labels: JapaneseLabels;
 	charGlosses: CharGlosses;
 	charTaxonomy: CharTaxonomy;
 	componentUses: ComponentUsesMap;
+	characterLearningData: Promise<CharacterLearningData>;
 	// Conjugation info (passed via URL params when arriving from deinflection)
 	conjugatedFrom?: string;  // The original conjugated word
 	conjugationInfo?: string; // Human-readable conjugation description
@@ -334,6 +152,7 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 		if (dev) console.log(`[LOAD] Word "${word}" not found directly, trying deinflection...`);
 
 		// Try deinflection (handles Japanese conjugation and Korean particles)
+		const { findWordsWithDeinflection } = await import('$lib/utils/search-navigation');
 		const deinflectionResults = await findWordsWithDeinflection(word, fetch);
 
 		if (deinflectionResults?.primary) {
@@ -368,10 +187,10 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 				return {
 					word,
 					data: {} as DictionaryEntry,
-					labels: {},
 					charGlosses: {},
 					charTaxonomy: {},
 					componentUses: {},
+					characterLearningData: Promise.resolve(emptyCharacterLearningData()),
 					customWord,
 					conjugatedFrom,
 					conjugationInfo,
@@ -452,137 +271,30 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 			}
 		}
 
-		// Preload simplified character data if different from traditional, so the page
-		// can show separate character equations when components differ. This runs on
-		// both server and client, ensuring the data is available during the initial render.
-		// If the simplified entry has no chinese_char components of its own, fall back to
-		// parsing its japanese_char.ids (IDS) as a synthetic component list.
-		let simplifiedCharData: any = null;
-		let simplifiedEntry: DictionaryEntry | null = null;
-		const simpChar = (data.chinese_char as any)?.simpVariants?.[0];
-		const tradCharField = (data.chinese_char as any)?.char;
-		if (simpChar && tradCharField && simpChar !== tradCharField) {
-			try {
-				const simpUrl = await getDictionaryUrl(simpChar, dev, fetch);
-				const simpResponse = await fetchDictionaryBytes(simpUrl, fetch);
-				if (simpResponse.ok) {
-					const simpCompressed = await simpResponse.arrayBuffer();
-					const simpData = decompressAndParse(simpCompressed);
-					simplifiedEntry = simpData;
-					simplifiedCharData = simpData.chinese_char || null;
-
-					// Fallback: if the simp entry has no chinese_char components of
-					// its own (common for simplified chars that redirect, e.g. 发),
-					// derive synthetic components from an IDS string. Prefer the
-					// simplified char's OWN chinese_char.ids, then japanese_char.ids.
-					if (!simplifiedCharData || !simplifiedCharData.components || simplifiedCharData.components.length === 0) {
-						const ids =
-							(simpData.chinese_char as any)?.ids ||
-							(simpData.japanese_char as any)?.ids;
-						if (ids) {
-							// Strip entity refs (&CDP-…;, &GT-…;, &U+…;) and IDC
-							// description operators (U+2FF0–U+2FFB); keep real glyphs.
-							const cleaned = ids.replace(/&[^;]+;/g, '');
-							const chars: string[] = [];
-							for (const ch of cleaned) {
-								const code = ch.codePointAt(0) || 0;
-								if (code >= 0x2FF0 && code <= 0x2FFB) continue;
-								if (ch.trim()) chars.push(ch);
-							}
-							if (chars.length > 0) {
-								simplifiedCharData = {
-									...(simplifiedCharData || {}),
-									char: simpChar,
-									components: chars.map(c => ({ character: c, type: [] })),
-								};
-							}
-						}
-					}
-				}
-			} catch (err) {
-				console.error(`[LOAD] Failed to fetch simplified char ${simpChar}:`, err);
-			}
-		}
-
-		// Collect mnemonic cards for visually different character variants. The exact
-		// dictionary entry only carries one card, but merged entries like 买/買 need
-		// separate learner stories when the written forms decompose differently.
-		const mnemonicCandidates = new Set<string>();
-		addEntryMnemonicCandidates(data, mnemonicCandidates);
-		addEntryMnemonicCandidates(redirectOriginal, mnemonicCandidates);
-		if (simplifiedCharData?.char) {
-			mnemonicCandidates.add(simplifiedCharData.char);
-		}
-
-		const variantMnemonicCards: SemanticMnemonicCard[] = [];
-		const seenMnemonicChars = new Set<string>();
-		const addMnemonicCard = (card: SemanticMnemonicCard | null | undefined) => {
-			if (!card || seenMnemonicChars.has(card.character)) return;
-			seenMnemonicChars.add(card.character);
-			variantMnemonicCards.push(card);
-		};
-
-		addMnemonicCard(data.semantic_mnemonic);
-		addMnemonicCard(redirectOriginal?.semantic_mnemonic);
-		addMnemonicCard(redirectTargetMnemonic);
-
-		for (const candidate of mnemonicCandidates) {
-			if (seenMnemonicChars.has(candidate)) continue;
-			try {
-				const candidateEntry =
-					candidate === data.key
-						? data
-						: candidate === redirectOriginal?.key
-							? redirectOriginal
-							: candidate === simplifiedEntry?.key
-								? simplifiedEntry
-								: await fetchDictionaryEntry(candidate, fetch);
-				addMnemonicCard(candidateEntry?.semantic_mnemonic);
-			} catch {
-				// Variant entries are helpful but not required for the page.
-			}
-		}
-
-		if (!data.semantic_mnemonic && variantMnemonicCards.length > 0) {
-			data.semantic_mnemonic = variantMnemonicCards[0];
-		}
-		data.semantic_mnemonic_variants = variantMnemonicCards.filter(
-			(card) => card.character !== data.semantic_mnemonic?.character
-		);
-
-		const supportKeys = collectSupportKeys(
-			word,
-			data,
-			simplifiedCharData,
-			redirectOriginal,
-			variantMnemonicCards
-		);
-		const { charGlosses, charTaxonomy, componentUses } = await fetchCharacterSupport(
-			supportKeys.chars,
-			supportKeys.components,
-			fetch,
-			url
-		);
-
-		// Load Japanese labels
-		let labels: JapaneseLabels = {};
-		try {
-			const labelsResponse = await fetch('/japanese_labels.json');
-			if (labelsResponse.ok) {
-				labels = await labelsResponse.json();
-			}
-		} catch (err) {
-			console.error('Failed to load labels:', err);
-		}
+		const characterLearningData = import('$lib/word-character-learning')
+			.then(({ buildCharacterLearningData }) =>
+				buildCharacterLearningData({
+					word,
+					data,
+					redirectOriginal,
+					redirectTargetMnemonic,
+					fetchFn: fetch,
+					pageUrl: url
+				})
+			)
+			.catch((err) => {
+				console.error('[LOAD] Failed to start character learning data load:', err);
+				return emptyCharacterLearningData();
+			});
 
 		return {
 			word,
 			data,
-			simplifiedCharData,
-			labels,
-			charGlosses,
-			charTaxonomy,
-			componentUses,
+			simplifiedCharData: null,
+			charGlosses: {},
+			charTaxonomy: {},
+			componentUses: {},
+			characterLearningData,
 			conjugatedFrom,
 			conjugationInfo,
 			conjugationAlternatives
