@@ -138,6 +138,17 @@ LOCAL_GLOSS_OVERRIDES = {
     "问": "ask",
     "東": "east",
     "东": "east",
+    "同": "same",
+    "身": "body",
+    "両": "both",
+    "予": "beforehand",
+    "向": "toward",
+    "奥": "interior",
+    "類": "kind",
+    "珍": "precious",
+    "昧": "dark",
+    "寍": "calm base",
+    "𫲽": "quiet heart",
 }
 
 
@@ -336,10 +347,14 @@ TARGETED_COMPONENT_OVERRIDES: dict[str, list[dict[str, str]]] = {
 TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
     "㐬": "A 𠫓 newborn sign flows into a 川 river tail, forming 㐬 stream.",
     "㠩": "A 人 person in a 𠃊 hidden area beside a 川 river faces 㠩 vast space.",
+    "㝕": "A 𫲽 quiet heart receives a 又 hand gently, becoming 㝕 peace.",
+    "囚": "A 囗 enclosure locks around a 人 person, making 囚 confined person.",
     "亀": "The shell and head of 亀 turtle curl into the old shape of 亀 turtle.",
     "侃": "A 亻 person (side) keeps a steady 口 mouth and 川 river stance, becoming 侃 upright and strong.",
-    "买": "A 乛 hook mark over 头 head tags the item you 买 buy.",
-    "買": "An ⺫ eye (side) looks over 貝 shellfish money before 買 buy.",
+    "买": "A 乛 hook mark above a 头 head-count mark tags what you 买 buy.",
+    "買": "An ⺫ eye checks 貝 shellfish used as money before 買 buy.",
+    "愛": "A 爫 reaching hand under a 冖 cover protects a 心 heart through every 夂 walk, becoming 愛 love.",
+    "爱": "A 爫 reaching hand under a 冖 cover holds a 友 friend close, becoming 爱 love.",
     "易": "A 日 day that is 勿 not harsh makes work 易 easy.",
     "发": "A 𠃋 arm with 又 hand flicks a 丿 slash and 丶 dot outward to 发 emit.",
     "發": "癶 legs carry a 弓 bow and 殳 hand tool forward, ready to 發 send out.",
@@ -358,7 +373,7 @@ TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
     "面": "A 丆 reading mark above 囬 return to or from faces forward as 面 face-to-face.",
     "味": "A 口 mouth tasting what is 未 not yet known discovers 味 flavor.",
     "死": "A 歹 harmful mark beside a 匕 ancient spoon leaves only 死 death.",
-    "能": "A 䏍 small worm survives under a 𫧇 seal form, showing 能 ability.",
+    "能": "A 䏍 small worm survives under a 𫧇 seal mark, showing 能 ability.",
     "特": "A 牜 ox kept at a 寺 temple is set apart as 特 special.",
     "藤": "艹 grass (top) growing from the 滕 ancient state becomes 藤 rattan.",
     "悪": "A 亜 Asia shape presses on the 心 heart, turning into 悪 harmful.",
@@ -374,7 +389,7 @@ TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
     "踢": "A 𧾷 foot finds an 易 easy opening and snaps into 踢 kick.",
     "景": "日 day lights the 京 capital, creating 景 scenery.",
     "津": "氵 water (drops) beside 聿 writing marks a 津 ferry.",
-    "域": "土 earth bounded by 或 form becomes 域 domain.",
+    "域": "土 earth bounds an 或 uncertain area until it becomes 域 domain.",
     "犯": "A 犭 dog (side) breaks a 㔾 seal, making 犯 offense.",
     "陸": "A ⻖ mound (left) beside 坴 clod of earth rises into 陸 land.",
     "温": "氵 water (drops) warmed by 日 day over a 皿 dish becomes 温 warm.",
@@ -388,7 +403,7 @@ TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
     "替": "A 夫 husband and another 夫 husband exchange 曰 speech, making 替 replace.",
     "踏": "A 𧾷 foot (side) landing on 沓 crowded steps becomes 踏 trample.",
     "融": "A 鬲 cauldron warms until 虫 insects soften into 融 melt.",
-    "惑": "An 或 form unsettles the 心 heart, making 惑 be bewildered.",
+    "惑": "An 或 uncertain area unsettles the 心 heart, making 惑 be bewildered.",
     "荒": "艹 grass (top) overtakes 巟 watery waste, creating 荒 wasteland.",
     "鏡": "金 gold polished under 竟 unexpectedly reflects as 鏡 mirror.",
     "幼": "A 幺 thread with little 力 power remains 幼 young.",
@@ -421,6 +436,7 @@ TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
     "稲": "禾 standing grain under 爫 reaching hand beside 旧 old fields becomes 稲 rice growing in field.",
     "稻": "禾 standing grain bends as 舀 dip gathers water, becoming 稻 unhulled rice.",
     "紧": "A 丨 line and another 丨 line brace a 又 hand pulling 糸 silk until it becomes 紧 tense.",
+    "緊": "A 臤 firm grip pulls 糸 silk tight until it becomes 緊 tight.",
     "曷": "曰 speech inside 勹 wrap surrounds a 𠃊 hidden area and 人 person, leaving 曷 question.",
     "金": "The cast-metal shape of 金 gold carries its meaning directly.",
     "釘": "金 gold shaped like a 丁 fourth mark becomes 釘 nail.",
@@ -452,6 +468,19 @@ TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
     "當": "A 尚 esteem marker over a 田 rice field shows which role will 當 work as the main one.",
     "鳥": "The perched shape of 鳥 bird shows head, wing, and tail as 鳥 bird.",
     "𫶧": "A 川 river drawn as a trailing lower form becomes 𫶧 flow tail.",
+    "同": "A 𠔼 cover and 口 mouth gather voices into the 同 same answer.",
+    "身": "The torso and limbs of 身 body curve into the shape of 身 body.",
+    "両": "The balanced shape of 両 both holds one side and the other as 両 both.",
+    "予": "The forward-hooked shape of 予 beforehand points to what is prepared 予 beforehand.",
+    "向": "A 𰃦 window frame with a 口 mouth opening faces 向 toward the light.",
+    "奥": "A 大 big figure tucked deep inside the roofed shape gives 奥 interior.",
+    "類": "A 类 group organized under a 頁 head becomes a 類 kind.",
+    "珍": "A 𤣩 jade beside 㐱 thick hair marks 珍 precious fineness.",
+    "昧": "A 日 day still 未 not yet clear leaves 昧 dark.",
+    "寍": "A 𫲽 quiet heart rests over a 皿 dish, settling into 寍 calm base.",
+    "寧": "A 寍 calm base steadied by 丁 fourth settles into 寧 calm.",
+    "甯": "A 𫲽 quiet heart put to 用 utilize stays 甯 serene.",
+    "𫲽": "The roofed-heart shape of 𫲽 quiet heart holds the idea of a 𫲽 quiet heart.",
 }
 
 
@@ -547,6 +576,10 @@ def safe_gloss(char: str, gloss: str, *, component_mode: bool = False) -> str:
         return "rank mark" if "rank" in lowered else "reading mark"
     if "what?" in lowered or "why?" in lowered or "where?" in lowered:
         return "question"
+    if lowered == "cant" or lowered.startswith("cant "):
+        cleaned = re.sub(r"^cant\.?\s*", "Cantonese ", cleaned, flags=re.IGNORECASE).strip()
+        if cleaned.lower() == "cantonese":
+            cleaned = "Cantonese sound" if component_mode else "Cantonese word"
 
     regex_replacements = [
         (r"\bnon[- ]?classical\b", ""),
@@ -561,7 +594,6 @@ def safe_gloss(char: str, gloss: str, *, component_mode: bool = False) -> str:
         (r"\bvariant\b", "alternate form"),
         (r"\bsame\s+as\b", "related form"),
         (r"\bsame\s+a\b", "related form"),
-        (r"\bsame\b", "related form"),
         (r"\barchaic\s+a\b", "old form"),
         (r"\barchaic\b", ""),
         (r"\brare\b", ""),
@@ -626,7 +658,8 @@ def safe_gloss(char: str, gloss: str, *, component_mode: bool = False) -> str:
         cleaned = "related form"
     cleaned = re.sub(r"[.!?。！？]+", "", cleaned)
     cleaned = re.sub(r"\s+", " ", cleaned).strip(" -;:,")
-    cleaned = re.sub(r"\b(?:to|of|or|the)$", "", cleaned, flags=re.IGNORECASE).strip(" -;:,")
+    if len(cleaned.split()) > 1:
+        cleaned = re.sub(r"\b(?:to|of|or|the)$", "", cleaned, flags=re.IGNORECASE).strip(" -;:,")
     cleaned = collapse_repeated_words(cleaned)
     return cleaned or "form"
 
@@ -670,9 +703,42 @@ def fallback_card(char: str) -> dict[str, Any]:
     }
 
 
+def apply_targeted_component_override_to_prepared(prepared: dict[str, Any]) -> dict[str, Any]:
+    char = str(prepared.get("character") or "")
+    override = TARGETED_COMPONENT_OVERRIDES.get(char)
+    if not override:
+        return prepared
+
+    components = [
+        {
+            "character": str(component.get("character") or component.get("char") or ""),
+            "gloss": safe_gloss(
+                str(component.get("character") or component.get("char") or ""),
+                str(component.get("gloss") or component.get("meaning") or ""),
+                component_mode=True,
+            ),
+        }
+        for component in override
+        if component.get("character") or component.get("char")
+    ]
+    components = [component for component in components if component["character"] and component["gloss"]]
+    if not components:
+        return prepared
+
+    updated = dict(prepared)
+    updated["components"] = components
+    updated["visual_components"] = components
+    updated["component_source"] = append_source_marker_once(
+        str(prepared.get("component_source") or "ids"),
+        "manual_ids_override",
+    )
+    return updated
+
+
 def prepare_card(char: str) -> dict[str, Any]:
     _, card, _ = sm.prepare_one_card(char)
-    return sanitize_prepared_card(card) if card else fallback_card(char)
+    prepared = sanitize_prepared_card(card) if card else fallback_card(char)
+    return apply_targeted_component_override_to_prepared(prepared)
 
 
 def phrase_components(components: list[dict[str, str]], char: str) -> str:

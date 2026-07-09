@@ -36,7 +36,7 @@ BAKEOFF_PATH = SCRIPTS_DIR / "semantic_mnemonic_bakeoff.json"
 OUTPUT_PATH = RESEARCH_DIR / "semantic_mnemonics_1000.json"
 PROGRESS_PATH = SCRIPTS_DIR / "semantic_mnemonic_progress.json"
 CARD_INPUT_CACHE_PATH = SCRIPTS_DIR / "semantic_mnemonic_card_inputs.json"
-CARD_INPUT_CACHE_VERSION = 10
+CARD_INPUT_CACHE_VERSION = 11
 IDS_FORWARD_PATHS = [
     ROOT / "game-concepts" / "kanji-game" / "data" / "ids_forward.json",
     ROOT / "game-concepts" / "hanzi-quiz" / "data" / "ids_forward.json",
@@ -150,6 +150,17 @@ MANUAL_GLOSS_OVERRIDES: dict[str, str] = {
     "㓺": "cut punishment",
     "㔀": "branding punishment",
     "黥": "tattoo punishment",
+    "同": "same",
+    "身": "body",
+    "両": "both",
+    "予": "beforehand",
+    "向": "toward",
+    "奥": "interior",
+    "類": "kind",
+    "珍": "precious",
+    "昧": "dark",
+    "寍": "calm base",
+    "𫲽": "quiet heart",
 }
 
 
@@ -208,6 +219,12 @@ MANUAL_COMPONENT_GLOSS_OVERRIDES: dict[str, str] = {
     "饣": "food (side)",
     "辡": "dispute",
     "⻌": "movement",
+    "𰃦": "window frame",
+    "或": "uncertain area",
+    "𠀁": "old mark",
+    "𫵖": "official mark",
+    "𫧇": "seal mark",
+    "𫲽": "quiet heart",
 }
 
 
@@ -783,8 +800,9 @@ def canonical_gloss(char: str, fallback: str = "") -> str:
 
 
 BAD_COMPONENT_GLOSS_RE = re.compile(
-    r"\b(?:kangxi|non-classical|variant|radical|same|obscure|unknown|archaic|rare)\b|"
-    r"gouge out an eye|why\? what\? where\?",
+    r"\b(?:kangxi|non-classical|variant|radical|obscure|unknown|archaic|rare)\b|"
+    r"\b(?:same\s+as|same\s+a|phonetic\s+form|extended\s+char|meaning\s+form|original\s+form)\b|"
+    r"feed a prisoner|feed a confined person|gouge out an eye|why\? what\? where\?",
     re.IGNORECASE,
 )
 
