@@ -178,8 +178,15 @@ export function getJsDelivrUrl(word: string): string {
 // Cache for the CORS server port
 let cachedPort: number | null = null;
 
+declare const __KIOKUN_BUILD_ID__: string;
+
 function isCapacitorRuntime(): boolean {
   return typeof window !== 'undefined' && window.location.protocol === 'capacitor:';
+}
+
+function getDictionaryCacheVersion(dev: boolean): string {
+  if (dev || isCapacitorRuntime()) return '';
+  return typeof __KIOKUN_BUILD_ID__ === 'string' ? __KIOKUN_BUILD_ID__ : 'local';
 }
 
 /**
@@ -266,7 +273,10 @@ export async function getDictionaryUrl(word: string, dev: boolean = false, fetch
   }
 
   if (!dev) {
-    return `/api/dictionary?word=${encodeURIComponent(word)}`;
+    const params = new URLSearchParams({ word });
+    const cacheVersion = getDictionaryCacheVersion(dev);
+    if (cacheVersion) params.set('v', cacheVersion);
+    return `/api/dictionary?${params.toString()}`;
   }
 
   if (dev) {
