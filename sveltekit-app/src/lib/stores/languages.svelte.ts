@@ -13,7 +13,7 @@ export interface LanguagePreferences {
 // Check if device is mobile (used for default Korean setting)
 const isMobile = (): boolean => {
 	if (!browser) return false;
-	return window.innerWidth < 768;
+	return window.matchMedia('(max-width: 767px)').matches;
 };
 
 // Initialize preferences from localStorage or defaults
@@ -48,15 +48,15 @@ const getInitialPreferences = (): LanguagePreferences => {
 };
 
 class LanguageStore {
-	preferences = $state<LanguagePreferences>(getInitialPreferences());
+	preferences = $state<LanguagePreferences>({
+		chinese: true,
+		japanese: true,
+		korean: true,
+		cantonese: true
+	});
 
 	constructor() {
-		// Listen for window resize to potentially update mobile status
-		if (browser) {
-			// Re-check on mount in case SSR had wrong value
-			const initial = getInitialPreferences();
-			this.preferences = initial;
-		}
+		this.preferences = getInitialPreferences();
 	}
 
 	toggle(lang: Language) {
@@ -95,4 +95,3 @@ class LanguageStore {
 }
 
 export const languageStore = new LanguageStore();
-
