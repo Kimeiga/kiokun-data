@@ -27,7 +27,9 @@ const japaneseReadingCache = new Map<string, Promise<string | null>>();
 
 export function buildChineseRubySegments(text: string, pinyin: string): RubySegment[] {
 	const pinyinTokens = tokenizePinyin(pinyin);
-	const textSegments = segmentText(text, 'zh').flatMap(splitMixedSegment);
+	const textSegments = segmentText(text, 'zh')
+		.flatMap(splitMixedSegment)
+		.flatMap(splitShortHanSentenceSegment);
 	let pinyinIndex = 0;
 
 	return textSegments.map((segment) => {
@@ -114,6 +116,18 @@ function splitMixedSegment(segment: string): string[] {
 
 	if (current) parts.push(current);
 	return parts;
+}
+
+function splitShortHanSentenceSegment(segment: string): string[] {
+	if (!/^[\u4e00-\u9fff]+$/.test(segment)) return [segment];
+
+	const chars = Array.from(segment);
+	if (chars.length < 3) return [segment];
+	if (/^[我你他她它您咱]/.test(segment) || /[吗嗎呢吧啊呀嘛么麼]/.test(segment)) {
+		return chars;
+	}
+
+	return [segment];
 }
 
 function splitPunctuation(segment: string): string[] {

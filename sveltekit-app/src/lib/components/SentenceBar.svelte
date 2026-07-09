@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
-	import { parseSentenceFromURL, buildSentenceWordURL } from '$lib/stores/sentence.svelte';
+	import { parseSentenceFromURL } from '$lib/stores/sentence.svelte';
+	import { resolveWordNavigationUrl } from '$lib/utils/search-navigation';
 
 	interface Props {
 		/** The currently displayed word (to highlight in the sentence) */
@@ -21,6 +22,7 @@
 
 	// Check if we're in character-by-character mode
 	let isCharMode = $derived($page.url.searchParams.get('c') === '1');
+	let pendingToken = $state<string | null>(null);
 
 	// Find the index of the current word in the words array
 	let currentWordIndex = $derived.by(() => {
@@ -28,14 +30,18 @@
 		return words.findIndex(w => w.segment === currentWord);
 	});
 
-	function handleWordClick(word: string, index: number) {
-		// Build URL with sentence context preserved
-		const params: Record<string, string> = {};
-		if (isCharMode) {
-			params.c = '1';
+	async function handleWordClick(word: string, index: number, tokenStart: number) {
+		pendingToken = `${word}:${tokenStart}`;
+		try {
+			const url = await resolveWordNavigationUrl(word, fetch, {
+				sentence,
+				wordIndex: index,
+				charMode: isCharMode
+			});
+			await goto(url);
+		} finally {
+			pendingToken = null;
 		}
-		const url = buildSentenceWordURL(word, sentence, index, params);
-		goto(url);
 	}
 
 	function handleClose() {
@@ -70,7 +76,8 @@
 							class="word-token"
 							class:active={token.segment === currentWord}
 							class:visited={wordIndex < currentWordIndex && currentWordIndex >= 0}
-							onclick={() => handleWordClick(token.segment, wordIndex)}
+							class:pending={pendingToken === `${token.segment}:${token.index}`}
+							onclick={() => handleWordClick(token.segment, wordIndex, token.index)}
 							title="Click to look up: {token.segment}"
 						>
 							{token.segment}
@@ -150,6 +157,12 @@
 		box-shadow: 0 0 0 2px var(--accent, #4a9eff), 0 0 0 4px rgba(74, 158, 255, 0.3);
 	}
 
+	.word-token.pending {
+		color: var(--accent, #4a9eff);
+		cursor: wait;
+		opacity: 0.72;
+	}
+
 	.word-token.visited {
 		color: var(--text-tertiary, #888);
 	}
@@ -196,4 +209,3 @@
 		}
 	}
 </style>
-

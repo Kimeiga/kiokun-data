@@ -55,7 +55,7 @@
 		showDropdown = false;
 		value = displayWord;
 		onNavigate?.();
-		goto(`/${targetWord}`);
+		goto(`/${encodeURIComponent(targetWord)}`);
 	}
 
 	function handleKeydown(event: KeyboardEvent) {

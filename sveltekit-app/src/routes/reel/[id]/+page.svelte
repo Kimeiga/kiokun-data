@@ -439,7 +439,10 @@
 
 	function navigateToWord() {
 		const word = panelLookupWord ?? selectedWord;
-		if (word) goto(`/${word}`);
+		if (word) {
+			if (panelData) goto(`/${encodeURIComponent(word)}`);
+			else goto(`/search?q=${encodeURIComponent(word)}`);
+		}
 	}
 
 	function isSelectedToken(word: string): boolean {
@@ -553,7 +556,9 @@
 			<div class="panel-header">
 				<h3 class="panel-word">{selectedWord}</h3>
 				<div class="panel-actions">
-					<button class="panel-open-btn" onclick={navigateToWord}>Open →</button>
+					{#if panelData}
+						<button class="panel-open-btn" onclick={navigateToWord}>Open →</button>
+					{/if}
 					<button class="panel-close-btn" onclick={closePanel}>×</button>
 				</div>
 			</div>

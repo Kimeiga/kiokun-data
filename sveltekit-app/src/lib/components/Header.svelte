@@ -7,6 +7,7 @@
 	import HandwritingInput from "./HandwritingInput.svelte";
 	import { useSession } from "$lib/auth-client";
 	import SearchDropdown from "./SearchDropdown.svelte";
+	import { navigateOrSearch } from "$lib/utils/search-navigation";
 
 	let handwritingInput: HandwritingInput;
 	let handwritingOpen = $state(false);
@@ -19,7 +20,6 @@
 	const session = useSession();
 
 	async function navigateSearch(word: string) {
-		const { navigateOrSearch } = await import("$lib/utils/search-navigation");
 		await navigateOrSearch(word);
 	}
 

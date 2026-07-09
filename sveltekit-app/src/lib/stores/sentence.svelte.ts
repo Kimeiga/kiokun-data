@@ -117,6 +117,32 @@ export function buildSentenceWordURL(
 }
 
 /**
+ * Build the standalone sentence-reader URL.
+ *
+ * This route can render immediately without waiting for a dictionary entry, so
+ * it is the right target for pasted full sentences from search boxes.
+ */
+export function buildSentenceReaderURL(
+	sentence: string,
+	options?: {
+		language?: SupportedLanguage;
+		translation?: string;
+		pinyin?: string;
+		from?: string;
+	}
+): string {
+	const params = new URLSearchParams();
+	params.set('text', sentence);
+	params.set('lang', options?.language ?? tokenizeSentence(sentence).language);
+
+	if (options?.translation) params.set('en', options.translation);
+	if (options?.pinyin) params.set('py', options.pinyin);
+	if (options?.from) params.set('from', options.from);
+
+	return `/sentence?${params.toString()}`;
+}
+
+/**
  * Get words from a sentence (helper for navigation)
  */
 export function getSentenceWords(sentence: string): Array<{ segment: string; index: number }> {
@@ -133,4 +159,3 @@ export function getSentenceLanguage(sentence: string): SupportedLanguage {
 	const tokenized = tokenizeSentence(sentence);
 	return tokenized.language;
 }
-

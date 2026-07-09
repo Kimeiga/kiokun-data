@@ -5,7 +5,7 @@ import { deinflect, formatReasonChains, WordType, posToWordType } from '$lib/uti
 import { koreanDeinflect, formatKoreanReasons, isHangulOnly } from '$lib/utils/korean-deinflect';
 import type { DictionaryEntry } from '$lib/types';
 import { tokenizeSentence } from '$lib/utils/sentence-tokenizer';
-import { buildSentenceWordURL, getSentenceWords } from '$lib/stores/sentence.svelte';
+import { buildSentenceReaderURL, buildSentenceWordURL } from '$lib/stores/sentence.svelte';
 
 export interface DeinflectionResult {
 	originalWord: string;
@@ -374,7 +374,7 @@ export function isSentence(input: string): boolean {
 }
 
 /**
- * Handle sentence input: tokenize and navigate to first word with sentence in URL
+ * Handle sentence input by navigating straight to the standalone reader.
  */
 export async function handleSentenceInput(
 	sentence: string,
@@ -383,31 +383,134 @@ export async function handleSentenceInput(
 	const trimmed = sentence.trim();
 	if (!trimmed) return;
 
-	// Get the words from the sentence
-	const words = getSentenceWords(trimmed);
-	if (words.length === 0) return;
+	// Full pasted sentences should render immediately. Dictionary lookup moves to
+	// token taps inside the reader, which avoids a visible pre-navigation stall.
+	await goto(buildSentenceReaderURL(trimmed));
+}
 
-	const firstWord = words[0].segment;
+interface SentenceNavigationContext {
+	sentence: string;
+	wordIndex: number;
+	charMode?: boolean;
+}
 
-	// Try to find the word in dictionary (with deinflection)
-	const results = await findWordsWithDeinflection(firstWord, fetchFn);
+function buildDictionaryPath(word: string, params?: URLSearchParams): string {
+	const query = params?.toString();
+	return `/${encodeURIComponent(word)}${query ? `?${query}` : ''}`;
+}
 
+function deinflectionParams(result: DeinflectionResult, originalWord: string): URLSearchParams {
+	const params = new URLSearchParams();
+	if (result.conjugationInfo && originalWord !== result.dictionaryForm) {
+		params.set('from', originalWord);
+		params.set('conj', result.conjugationInfo);
+	}
+	return params;
+}
+
+function buildResolvedWordUrl(
+	word: string,
+	context?: SentenceNavigationContext,
+	params?: URLSearchParams
+): string {
+	if (!context) return buildDictionaryPath(word, params);
+
+	const additionalParams: Record<string, string> = {};
+	if (context.charMode) additionalParams.c = '1';
+	if (params) {
+		for (const [key, value] of params.entries()) {
+			additionalParams[key] = value;
+		}
+	}
+
+	return buildSentenceWordURL(word, context.sentence, context.wordIndex, additionalParams);
+}
+
+function hasCJK(input: string): boolean {
+	return /[\u4e00-\u9fff\u3040-\u309f\u30a0-\u30ff\uac00-\ud7af]/.test(input);
+}
+
+function isSingleCJKChar(input: string): boolean {
+	const chars = Array.from(input);
+	return chars.length === 1 && isCJKText(chars[0]);
+}
+
+function shouldGoStraightToSearch(input: string): boolean {
+	if (hasCJK(input)) return false;
+	if (/[.!?]/.test(input) || /\s/.test(input)) return false;
+	return true;
+}
+
+function looksLikeHanSentence(input: string): boolean {
+	if (!/^[\u4e00-\u9fff]+$/.test(input)) return false;
+
+	const length = Array.from(input).length;
+	if (length < 3) return false;
+
+	// Chrome's Intl.Segmenter often keeps very short Chinese sentences like
+	// "我爱你" as one segment, so use a few sentence-shaped signals before
+	// falling back to token count.
+	if (length >= 5) return true;
+	if (/^[我你他她它您咱]/.test(input)) return true;
+	if (/[吗嗎呢吧啊呀嘛么麼]/.test(input)) return true;
+
+	return isSentence(input);
+}
+
+/**
+ * Resolve a user/token string into a URL that should not 404 in normal cases.
+ *
+ * This is intentionally separate from `goto()` so sentence bars can show a
+ * pending state while a token is being resolved.
+ */
+export async function resolveWordNavigationUrl(
+	word: string,
+	fetchFn: typeof fetch = fetch,
+	context?: SentenceNavigationContext
+): Promise<string> {
+	const trimmedWord = word.trim();
+	if (!trimmedWord) return '/';
+
+	if (isSingleCJKChar(trimmedWord)) {
+		return buildResolvedWordUrl(trimmedWord, context);
+	}
+
+	const results = await findWordsWithDeinflection(trimmedWord, fetchFn);
 	if (results) {
-		const { primary } = results;
-		const additionalParams: Record<string, string> = {};
+		const { primary, alternatives } = results;
+		const params = deinflectionParams(primary, trimmedWord);
 
-		if (primary.conjugationInfo && primary.originalWord !== primary.dictionaryForm) {
-			additionalParams.from = primary.originalWord;
-			additionalParams.conj = primary.conjugationInfo;
+		if (!context && alternatives.length > 0) {
+			const altData = alternatives.map(a => ({
+				word: a.dictionaryForm,
+				conj: a.conjugationInfo,
+			}));
+			params.set('alt', JSON.stringify(altData));
 		}
 
-		const url = buildSentenceWordURL(primary.dictionaryForm, trimmed, 0, additionalParams);
-		await goto(url);
-	} else {
-		// Word not in dictionary, still navigate to show the word page
-		const url = buildSentenceWordURL(firstWord, trimmed, 0);
-		await goto(url);
+		return buildResolvedWordUrl(primary.dictionaryForm, context, params);
 	}
+
+	if (isCJKText(trimmedWord) && Array.from(trimmedWord).length >= 2 && Array.from(trimmedWord).length <= 8) {
+		const traditionalForm = await lookupSimplifiedAsTraditional(trimmedWord, fetchFn);
+		if (traditionalForm) {
+			return buildResolvedWordUrl(traditionalForm, context);
+		}
+	}
+
+	if (context && isCJKText(trimmedWord) && Array.from(trimmedWord).length >= 2) {
+		return buildSentenceReaderURL(context.sentence);
+	}
+
+	if (!context && isSentence(trimmedWord)) {
+		return buildSentenceReaderURL(trimmedWord);
+	}
+
+	if (!context && isCJKText(trimmedWord) && Array.from(trimmedWord).length >= 2) {
+		return buildSentenceReaderURL(trimmedWord);
+	}
+
+	return `/search?q=${encodeURIComponent(trimmedWord)}`;
 }
 
 /**
@@ -449,46 +552,8 @@ async function lookupSimplifiedAsTraditional(
 	return null;
 }
 
-/**
- * Check if input is CJK text that could be split into characters
- */
 function isCJKText(input: string): boolean {
 	return /^[\u4e00-\u9fff\u3040-\u309f\u30a0-\u30ff\uac00-\ud7af]+$/.test(input);
-}
-
-/**
- * Handle character-by-character sentence mode for CJK text
- * Used when a phrase like "我爱你" isn't in the dictionary but we want to show each character
- *
- * For character-by-character mode, we use `c=1` flag to indicate the sentence
- * should be split into individual characters rather than word-tokenized
- */
-async function handleCharacterSplit(text: string, fetchFn: typeof fetch = fetch): Promise<void> {
-	// Create character-by-character "sentence"
-	// The sentence is the original text, but we'll add a flag to indicate char-by-char mode
-	const characters = Array.from(text);
-	if (characters.length === 0) return;
-
-	const firstChar = characters[0];
-
-	// Try to find the character in dictionary
-	const results = await findWordsWithDeinflection(firstChar, fetchFn);
-
-	// Build URL with character-split flag
-	const params = new URLSearchParams();
-	params.set('s', text);
-	params.set('c', '1'); // char-by-char mode flag
-
-	if (results) {
-		const { primary } = results;
-		if (primary.conjugationInfo && primary.originalWord !== primary.dictionaryForm) {
-			params.set('from', primary.originalWord);
-			params.set('conj', primary.conjugationInfo);
-		}
-		await goto(`/${encodeURIComponent(primary.dictionaryForm)}?${params.toString()}`);
-	} else {
-		await goto(`/${encodeURIComponent(firstChar)}?${params.toString()}`);
-	}
 }
 
 /**
@@ -512,7 +577,7 @@ function isClearlySentence(input: string): boolean {
  * 1. First tries deinflection for short CJK inputs without spaces (to handle conjugated words)
  * 2. If deinflection succeeds, navigates to the dictionary form
  * 3. If deinflection fails and input looks like a sentence, tokenizes and shows sentence bar
- * 4. If not found and is CJK text with multiple characters, splits into characters
+ * 4. If not found and is multi-character CJK text, opens the sentence reader
  * 5. Otherwise, redirects to /search?q={word}
  *
  * @param word - The word or sentence to search for
@@ -533,65 +598,18 @@ export async function navigateOrSearch(word: string, fetchFn: typeof fetch = fet
 		}
 	}
 
+	if (looksLikeHanSentence(trimmedWord)) {
+		await handleSentenceInput(trimmedWord, fetchFn);
+		return;
+	}
+
+	if (shouldGoStraightToSearch(trimmedWord)) {
+		await goto(`/search?q=${encodeURIComponent(trimmedWord)}`);
+		return;
+	}
+
 	try {
-		// Try deinflection first - this handles conjugated words like 食べている → 食べる
-		const results = await findWordsWithDeinflection(trimmedWord, fetchFn);
-
-		if (results) {
-			const { primary, alternatives } = results;
-
-			// Build URL with primary match
-			let url = `/${primary.dictionaryForm}`;
-			const params = new URLSearchParams();
-
-			if (primary.conjugationInfo && primary.originalWord !== primary.dictionaryForm) {
-				params.set('from', primary.originalWord);
-				params.set('conj', primary.conjugationInfo);
-			}
-
-			// Add alternatives as JSON-encoded param
-			if (alternatives.length > 0) {
-				const altData = alternatives.map(a => ({
-					word: a.dictionaryForm,
-					conj: a.conjugationInfo,
-				}));
-				params.set('alt', JSON.stringify(altData));
-			}
-
-			const queryString = params.toString();
-			if (queryString) {
-				url += '?' + queryString;
-			}
-
-			await goto(url);
-		} else {
-			// Word not found via direct dictionary lookup.
-			// For short CJK text (likely a word, not a sentence), try converting
-			// simplified Chinese to traditional before falling back to sentence mode.
-			// This handles cases like 重来 → 重來 where the simplified form has no
-			// direct dictionary entry but the traditional form does.
-			if (isCJKText(trimmedWord) && trimmedWord.length >= 2 && trimmedWord.length <= 8) {
-				const traditionalForm = await lookupSimplifiedAsTraditional(trimmedWord, fetchFn);
-				if (traditionalForm) {
-					await goto(`/${encodeURIComponent(traditionalForm)}`);
-					return;
-				}
-			}
-
-			// Now check if it could be a sentence (multiple tokens)
-			if (isSentence(trimmedWord)) {
-				await handleSentenceInput(trimmedWord, fetchFn);
-				return;
-			}
-
-			// Not a sentence either - try character split for CJK
-			if (isCJKText(trimmedWord) && trimmedWord.length >= 2) {
-				await handleCharacterSplit(trimmedWord, fetchFn);
-			} else {
-				// Not CJK or single character, redirect to search
-				await goto(`/search?q=${encodeURIComponent(trimmedWord)}`);
-			}
-		}
+		await goto(await resolveWordNavigationUrl(trimmedWord, fetchFn));
 	} catch (error) {
 		// On error, redirect to search as fallback
 		console.error('Error checking word existence:', error);

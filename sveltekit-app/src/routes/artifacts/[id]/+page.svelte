@@ -387,7 +387,8 @@
 
 	function navigateToWord() {
 		if (selectedWord) {
-			goto(`/${selectedWord}`);
+			if (panelData) goto(`/${encodeURIComponent(selectedWord)}`);
+			else goto(`/search?q=${encodeURIComponent(selectedWord)}`);
 		}
 	}
 
@@ -815,7 +816,9 @@
 			<div class="panel-header">
 				<h3 class="panel-word">{selectedWord}</h3>
 				<div class="panel-header-actions">
-					<button class="panel-navigate" onclick={navigateToWord} title="Open full word page">Open →</button>
+					{#if panelData}
+						<button class="panel-navigate" onclick={navigateToWord} title="Open full word page">Open →</button>
+					{/if}
 					<button class="panel-close" onclick={closePanel}>×</button>
 				</div>
 			</div>

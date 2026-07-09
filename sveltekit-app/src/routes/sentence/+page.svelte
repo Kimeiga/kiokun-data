@@ -54,9 +54,16 @@
 	let panelOpen = $state(false);
 	let panelData = $state<any>(null);
 	let panelLoading = $state(false);
+	let panelFallbackChars = $state<string[]>([]);
 
 	function cleanWord(w: string): string {
 		return w.replace(/[。、，！？「」『』“”‘’（）…・〜.,;:!?\s]/g, '');
+	}
+
+	function cjkChars(w: string): string[] {
+		return Array.from(w).filter((char) =>
+			/^[\u4e00-\u9fff\u3040-\u309f\u30a0-\u30ff\uac00-\ud7af]$/.test(char)
+		);
 	}
 
 	let panelDeinflectInfo = $state<string | null>(null);
@@ -68,6 +75,7 @@
 		panelOpen = true;
 		panelData = null;
 		panelLoading = true;
+		panelFallbackChars = [];
 		panelDeinflectInfo = null;
 		try {
 			const { inflateSync } = await import('fflate');
@@ -104,10 +112,18 @@
 					}
 				}
 			}
+			if (!panelData) {
+				const chars = cjkChars(clean);
+				if (chars.length > 1) panelFallbackChars = chars;
+			}
 		} catch {} finally { panelLoading = false; }
 	}
 
 	function closePanel() { panelOpen = false; selectedWord = null; }
+
+	function openSelectedWord() {
+		if (selectedWord && panelData) goto(`/${encodeURIComponent(selectedWord)}`);
+	}
 
 	function isClickableToken(token: { text: string; isWord: boolean }): boolean {
 		return token.isWord;
@@ -177,7 +193,9 @@
 				<div class="panel-header">
 					<h3 class="panel-word">{selectedWord}</h3>
 					<div class="panel-actions">
-						<button class="panel-open-btn" onclick={() => { if(selectedWord) goto(`/${selectedWord}`); }}>Open →</button>
+						{#if panelData}
+							<button class="panel-open-btn" onclick={openSelectedWord}>Open →</button>
+						{/if}
 						<button class="panel-close-btn" onclick={closePanel}>×</button>
 					</div>
 				</div>
@@ -224,7 +242,18 @@
 						{/each}
 					{:else}
 						<p class="panel-status">No entry found</p>
-						<a href="/{selectedWord}" class="panel-search-link">Search for {selectedWord} →</a>
+						{#if panelFallbackChars.length > 0}
+							<div class="panel-fallback">
+								<div class="panel-fallback-label">Try characters</div>
+								<div class="panel-fallback-chips">
+									{#each panelFallbackChars as char}
+										<button class="panel-char-chip" onclick={() => openPanel(char)}>{char}</button>
+									{/each}
+								</div>
+							</div>
+						{:else if selectedWord}
+							<a href="/search?q={encodeURIComponent(selectedWord)}" class="panel-search-link">Search for {selectedWord} →</a>
+						{/if}
 					{/if}
 				</div>
 			</div>
@@ -425,4 +454,32 @@
 	.panel-status { color: var(--text-muted); font-size: var(--font-size-caption1); }
 	.panel-deinflect { color: var(--text-tertiary); font-size: var(--font-size-caption1); margin-bottom: var(--spacing-xs); }
 	.panel-search-link { font-size: var(--font-size-caption1); color: var(--accent); }
+	.panel-fallback {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-sm);
+		align-items: flex-start;
+	}
+	.panel-fallback-label {
+		font-size: var(--font-size-caption1);
+		color: var(--text-tertiary);
+	}
+	.panel-fallback-chips {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--spacing-sm);
+	}
+	.panel-char-chip {
+		min-width: 2.25rem;
+		height: 2.25rem;
+		padding: 0 var(--spacing-sm);
+		border: 1px solid var(--border-light);
+		border-radius: var(--radius-sm);
+		background: var(--bg-tertiary);
+		color: var(--text-primary);
+		font-family: var(--font-cjk);
+		font-size: var(--font-size-headline);
+		cursor: pointer;
+	}
+	.panel-char-chip:hover { border-color: var(--accent); color: var(--accent); }
 </style>
