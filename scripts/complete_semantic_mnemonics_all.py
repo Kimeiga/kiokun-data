@@ -311,12 +311,6 @@ TARGETED_COMPONENT_OVERRIDES: dict[str, list[dict[str, str]]] = {
         {"character": "又", "gloss": "hand"},
         {"character": "糸", "gloss": "silk"},
     ],
-    "金": [
-        {"character": "𠆢", "gloss": "person roof"},
-        {"character": "土", "gloss": "earth"},
-        {"character": "丶", "gloss": "dot"},
-        {"character": "丶", "gloss": "dot"},
-    ],
     "質": [
         {"character": "斤", "gloss": "axe"},
         {"character": "斤", "gloss": "axe"},
@@ -418,9 +412,7 @@ TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
     "臺": "吉 lucky under 冖 cover reaches 至 until the structure becomes 臺 platform.",
     "裡": "衤 clothing (side) wraps 里 li so the contents stay 裡 inside.",
     "萬": "艹 grass (top) spreads over 禺 district until the count reaches 萬 ten thousand.",
-    "万": "A 一 one line above a 人 person marks a huge 万 ten thousand count.",
     "與": "𦥑 mortar holds 一 one offering divided into 八 eight parts by 丿 slash, ready to 與 offer.",
-    "为": "又 hand guides a 象 elephant by the lead to 为 handle.",
     "為": "又 hand guides a 象 elephant through each motion to 為 act.",
     "問": "Standing at the 門 gate, you open your 口 mouth to 問 ask.",
     "问": "A 门 gate with a 口 mouth at it gives a place to 问 ask.",
@@ -430,7 +422,7 @@ TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
     "稻": "禾 standing grain bends as 舀 dip gathers water, becoming 稻 unhulled rice.",
     "紧": "A 丨 line and another 丨 line brace a 又 hand pulling 糸 silk until it becomes 紧 tense.",
     "曷": "曰 speech inside 勹 wrap surrounds a 𠃊 hidden area and 人 person, leaving 曷 question.",
-    "金": "A 𠆢 person roof covers 土 earth with a 丶 dot and another 丶 dot of ore, revealing 金 gold.",
+    "金": "The cast-metal shape of 金 gold carries its meaning directly.",
     "釘": "金 gold shaped like a 丁 fourth mark becomes 釘 nail.",
     "針": "金 gold drawn to a sharp point on a 十 ten guide becomes 針 needle.",
     "鈴": "金 gold struck by 令 orders rings out as 鈴 small bell.",
@@ -940,6 +932,82 @@ def normalize_existing(card: dict[str, Any], source: str) -> dict[str, Any]:
     return record
 
 
+def component_source_is_ids_allowed(source: str) -> bool:
+    base = source.split("+", 1)[0]
+    return base in {
+        "ids",
+        "resolved_ids_forward",
+        "self_fallback",
+        "manual_ids_override",
+    } or base.startswith("variant_alias:")
+
+
+def uses_non_ids_component_source(record: dict[str, Any]) -> bool:
+    source = str(record.get("component_source") or "")
+    historical_source = str(record.get("historical_component_source") or "")
+    dictionary_source = (
+        "chinese_char.components" in source
+        or "japanese_char.components" in source
+        or "chinese_char.components" in historical_source
+        or "japanese_char.components" in historical_source
+    )
+    return dictionary_source or not component_source_is_ids_allowed(source)
+
+
+def strip_dictionary_component_history(record: dict[str, Any]) -> dict[str, Any]:
+    historical_source = str(record.get("historical_component_source") or "")
+    if "chinese_char.components" not in historical_source and "japanese_char.components" not in historical_source:
+        return record
+    record = dict(record)
+    record.pop("historical_components", None)
+    record.pop("historical_component_source", None)
+    return record
+
+
+def component_signature(components: list[dict[str, Any]] | None) -> tuple[tuple[str, str], ...]:
+    return tuple(
+        (str(component.get("character") or component.get("char") or ""), str(component.get("gloss") or ""))
+        for component in (components or [])
+        if component.get("character") or component.get("char")
+    )
+
+
+def card_matches_prepared_components(record: dict[str, Any], prepared: dict[str, Any]) -> bool:
+    return component_signature(record.get("components")) == component_signature(prepared.get("components"))
+
+
+def realign_dictionary_component_card(record: dict[str, Any], prepared: dict[str, Any]) -> dict[str, Any]:
+    if (
+        not uses_non_ids_component_source(record)
+        and card_matches_prepared_components(record, prepared)
+        and not mnemonic_mentions_non_ids_component_pair(str(record.get("mnemonic") or ""), prepared)
+    ):
+        return strip_dictionary_component_history(record)
+    reason = "replaced_dictionary_component_source_with_ids"
+    return local_card(prepared, "codex_local_ids_realign", reason)
+
+
+def mnemonic_mentions_non_ids_component_pair(mnemonic: str, prepared: dict[str, Any]) -> bool:
+    allowed_chars = {
+        str(component.get("character") or "")
+        for component in prepared.get("components") or []
+    }
+    allowed_chars.add(str(prepared.get("character") or ""))
+    for match in re.finditer(r"([^\x00-\x7F])\s+[A-Za-z]", mnemonic):
+        char = match.group(1)
+        if char in allowed_chars:
+            continue
+        if sm.canonical_component_gloss(char, ""):
+            return True
+    for char in {ch for ch in mnemonic if ord(ch) > 127}:
+        if char in allowed_chars:
+            continue
+        gloss = safe_gloss(char, sm.canonical_component_gloss(char, ""), component_mode=True)
+        if gloss and f"{char} {gloss}" in mnemonic:
+            return True
+    return False
+
+
 def prepared_from_record(record: dict[str, Any]) -> dict[str, Any]:
     components = [
         {
@@ -1098,20 +1166,12 @@ def apply_targeted_quality_overrides(card: dict[str, Any]) -> dict[str, Any]:
         return card
 
     prepared = prepare_card(char)
-    if char in TARGETED_COMPONENT_OVERRIDES:
-        components = [
-            {
-                "character": component["character"],
-                "gloss": safe_gloss(
-                    component["character"],
-                    component["gloss"],
-                    component_mode=True,
-                ),
-            }
-            for component in TARGETED_COMPONENT_OVERRIDES[char]
-        ]
-        prepared["components"] = components
-        prepared["visual_components"] = components
+    if char in TARGETED_COMPONENT_OVERRIDES and component_signature(
+        TARGETED_COMPONENT_OVERRIDES[char]
+    ) != component_signature(prepared.get("components")):
+        return card
+    if mnemonic_mentions_non_ids_component_pair(mnemonic, prepared):
+        return card
     prepared["meaning"] = safe_gloss(
         char,
         str(card.get("meaning") or prepared.get("meaning") or ""),
@@ -1124,13 +1184,8 @@ def apply_targeted_quality_overrides(card: dict[str, Any]) -> dict[str, Any]:
     record["visual_components"] = prepared["visual_components"]
     record["component_source"] = append_source_marker_once(
         str(prepared.get("component_source") or record.get("component_source") or "unknown"),
-        "manual_visual_repair" if char in TARGETED_COMPONENT_OVERRIDES else "manual_quality_override",
+        "manual_quality_override",
     )
-    if char in TARGETED_COMPONENT_OVERRIDES:
-        record["component_source"] = append_source_marker_once(
-            record["component_source"],
-            "manual_quality_override",
-        )
     historical_components = prepared.get("historical_components") or []
     if historical_components and not sm.component_sets_equivalent(prepared["components"], historical_components):
         record["historical_components"] = historical_components
@@ -1226,6 +1281,7 @@ def main() -> None:
             card = local_card(prepared[char], "codex_local_reauthor_paid_9000", reason)
         else:
             card = local_card(prepared[char], "codex_local_completion")
+        card = realign_dictionary_component_card(card, prepared[char])
         source = card["generation_source"]
         source_counts[source] = source_counts.get(source, 0) + 1
         cards.append(card)

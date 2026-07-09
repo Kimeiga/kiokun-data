@@ -36,7 +36,7 @@ BAKEOFF_PATH = SCRIPTS_DIR / "semantic_mnemonic_bakeoff.json"
 OUTPUT_PATH = RESEARCH_DIR / "semantic_mnemonics_1000.json"
 PROGRESS_PATH = SCRIPTS_DIR / "semantic_mnemonic_progress.json"
 CARD_INPUT_CACHE_PATH = SCRIPTS_DIR / "semantic_mnemonic_card_inputs.json"
-CARD_INPUT_CACHE_VERSION = 9
+CARD_INPUT_CACHE_VERSION = 10
 IDS_FORWARD_PATHS = [
     ROOT / "game-concepts" / "kanji-game" / "data" / "ids_forward.json",
     ROOT / "game-concepts" / "hanzi-quiz" / "data" / "ids_forward.json",
@@ -223,13 +223,7 @@ MANUAL_IDS_OVERRIDES: dict[str, str] = {
 }
 
 
-MANUAL_COMPONENT_OVERRIDES: dict[str, list[dict[str, str]]] = {
-    "憂": [
-        {"character": "頁", "gloss": "head"},
-        {"character": "心", "gloss": "heart"},
-        {"character": "夂", "gloss": "walk"},
-    ],
-}
+MANUAL_COMPONENT_OVERRIDES: dict[str, list[dict[str, str]]] = {}
 
 
 IDS_OPERATORS = set("⿰⿱⿲⿳⿴⿵⿶⿷⿸⿹⿺⿻⿼⿽⿾⿿")
@@ -893,7 +887,7 @@ def load_ids_cache() -> dict[str, str]:
                 if not line or line.startswith(";;"):
                     continue
                 parts = line.split("\t")
-                if len(parts) >= 3 and parts[1] and parts[2] and parts[1] != parts[2]:
+                if len(parts) >= 3 and parts[1] and parts[2]:
                     apparent = next((p.removeprefix("@apparent=") for p in parts[3:] if p.startswith("@apparent=")), "")
                     ids_map[parts[1]] = apparent or parts[2]
         except OSError:
@@ -907,12 +901,15 @@ def load_ids_cache() -> dict[str, str]:
 def ids_for_char(data: dict[str, Any], char: str) -> str:
     if char in MANUAL_IDS_OVERRIDES:
         return MANUAL_IDS_OVERRIDES[char]
+    local_ids = load_ids_cache().get(char, "")
+    if local_ids:
+        return local_ids
     for key in ("japanese_char", "chinese_char"):
         char_data = data.get(key) or {}
         ids = char_data.get("ids_apparent") or char_data.get("ids")
         if ids and ids != char:
             return str(ids)
-    return load_ids_cache().get(char, "")
+    return ""
 
 
 def ids_component_chars(ids: str) -> list[str]:
@@ -1067,8 +1064,6 @@ def component_sets_equivalent(
 
 
 def extract_component_bundle(data: dict[str, Any], char: str) -> dict[str, Any]:
-    historical, historical_source = dictionary_components(data)
-
     if char in MANUAL_COMPONENT_OVERRIDES:
         visual = normalize_components(MANUAL_COMPONENT_OVERRIDES[char])
         visual_source = "manual_component_override"
@@ -1081,18 +1076,11 @@ def extract_component_bundle(data: dict[str, Any], char: str) -> dict[str, Any]:
         visual = components_from_ids(ids) if ids else []
         visual_source = "ids" if visual else ""
 
-    if not visual and historical:
-        visual = historical
-        visual_source = historical_source
-
     bundle: dict[str, Any] = {
         "components": visual,
         "visual_components": visual,
         "component_source": visual_source,
     }
-    if historical and not component_sets_equivalent(visual, historical):
-        bundle["historical_components"] = historical
-        bundle["historical_component_source"] = historical_source
     return bundle
 
 
