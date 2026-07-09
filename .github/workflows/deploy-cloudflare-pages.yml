@@ -41,5 +41,4 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy sveltekit-app/.svelte-kit/cloudflare --project-name=kiokun
-
+          command: pages deploy sveltekit-app/.svelte-kit/cloudflare --project-name=kiokun --branch=main --commit-dirty=true
