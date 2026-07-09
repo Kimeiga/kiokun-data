@@ -260,6 +260,10 @@ TARGETED_COMPONENT_OVERRIDES: dict[str, list[dict[str, str]]] = {
         {"character": "囗", "gloss": "enclosure"},
         {"character": "㐅", "gloss": "cross"},
     ],
+    "吕": [
+        {"character": "口", "gloss": "mouth"},
+        {"character": "口", "gloss": "mouth"},
+    ],
     "姦": [
         {"character": "女", "gloss": "woman"},
         {"character": "女", "gloss": "woman"},
@@ -364,6 +368,7 @@ TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
     "图": "A 囗 enclosure marks 冬 winter territory on a 图 map.",
     "圖": "A 囗 enclosure marks a 啚 remote place, making 圖 map.",
     "図": "A 囗 enclosure with a 㐅 cross marks the spot on 図 map.",
+    "吕": "A 口 mouth stacked over another 口 mouth creates the paired openings of 吕 pitchpipe.",
     "边": "辶 movement driven by 力 power reaches the outer 边 edge.",
     "邊": "辶 movement follows 自 oneself through a 穴 hole toward 方 direction, arriving at 邊 border.",
     "地": "土 earth is 也 also the place under each step, forming 地 ground.",
@@ -438,7 +443,7 @@ TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
     "紧": "A 丨 line and another 丨 line brace a 又 hand pulling 糸 silk until it becomes 紧 tense.",
     "緊": "A 臤 firm grip pulls 糸 silk tight until it becomes 緊 tight.",
     "曷": "曰 speech inside 勹 wrap surrounds a 𠃊 hidden area and 人 person, leaving 曷 question.",
-    "金": "The cast-metal shape of 金 gold carries its meaning directly.",
+    "金": "A 今 now sound remnant crowns a 王 king axe and 吕 pitchpipe plates, forming 金 gold.",
     "釘": "金 gold shaped like a 丁 fourth mark becomes 釘 nail.",
     "針": "金 gold drawn to a sharp point on a 十 ten guide becomes 針 needle.",
     "鈴": "金 gold struck by 令 orders rings out as 鈴 small bell.",
@@ -471,7 +476,7 @@ TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
     "同": "A 𠔼 cover and 口 mouth gather voices into the 同 same answer.",
     "身": "The torso and limbs of 身 body curve into the shape of 身 body.",
     "両": "The balanced shape of 両 both holds one side and the other as 両 both.",
-    "予": "The forward-hooked shape of 予 beforehand points to what is prepared 予 beforehand.",
+    "予": "A ㇚ vertical line with a hook catches the 呂 spine before it slips away, marking 予 beforehand.",
     "向": "A 𰃦 window frame with a 口 mouth opening faces 向 toward the light.",
     "奥": "A 大 big figure tucked deep inside the roofed shape gives 奥 interior.",
     "類": "A 类 group organized under a 頁 head becomes a 類 kind.",
@@ -1005,6 +1010,7 @@ def component_source_is_ids_allowed(source: str) -> bool:
         "resolved_ids_forward",
         "self_fallback",
         "manual_ids_override",
+        "dictionary_component_fallback",
     } or base.startswith("variant_alias:")
 
 

@@ -4189,6 +4189,9 @@ async fn generate_simple_output_files(
                     continue;
                 }
                 if let Some(card) = semantic_mnemonics.get(&candidate) {
+                    if card.alias_kind.as_deref() == Some("nfkc_compatibility") {
+                        continue;
+                    }
                     output.semantic_mnemonic_variants.push(card.clone());
                 }
             }

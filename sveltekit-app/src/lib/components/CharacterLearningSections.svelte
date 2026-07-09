@@ -351,11 +351,8 @@
 			const visualChar = component.character;
 			const visualGloss = component.gloss;
 			const hasOriginalContext =
-				historicalChar &&
-				(
-					normalizedComponentChar(historicalChar) !== normalizedComponentChar(visualChar) ||
-					cleanComponentGloss(historicalGloss).toLowerCase() !== cleanComponentGloss(visualGloss).toLowerCase()
-				);
+				Boolean(historicalChar) &&
+				normalizedComponentChar(historicalChar) !== normalizedComponentChar(visualChar);
 			const pinyin =
 				typeof fallback === "string" || !fallback || hasOriginalContext
 					? undefined

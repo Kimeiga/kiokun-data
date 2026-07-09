@@ -1042,6 +1042,10 @@ def dictionary_components(data: dict[str, Any]) -> tuple[list[dict[str, str]], s
     return [], ""
 
 
+def is_self_component_result(char: str, components: list[dict[str, Any]]) -> bool:
+    return len(components) == 1 and str(components[0].get("character") or "") == char
+
+
 def visual_components_from_lookup(char: str) -> list[dict[str, str]]:
     return components_from_chars(visual_lookup_component_chars(char))
 
@@ -1089,10 +1093,30 @@ def extract_component_bundle(data: dict[str, Any], char: str) -> dict[str, Any]:
         visual = visual_components_from_lookup(char)
         visual_source = "resolved_ids_forward" if visual else ""
 
+    if visual and is_self_component_result(char, visual):
+        visual = []
+        visual_source = ""
+
     if not visual:
         ids = ids_for_char(data, char)
-        visual = components_from_ids(ids) if ids else []
-        visual_source = "ids" if visual else ""
+        ids_components = components_from_ids(ids) if ids else []
+        if ids_components and not is_self_component_result(char, ids_components):
+            visual = ids_components
+            visual_source = "ids"
+        elif ids_components:
+            dictionary_visual, _dictionary_source = dictionary_components(data)
+            if dictionary_visual and not is_self_component_result(char, dictionary_visual):
+                visual = dictionary_visual
+                visual_source = "ids+dictionary_component_fallback"
+            else:
+                visual = ids_components
+                visual_source = "ids"
+
+    if not visual:
+        dictionary_visual, _dictionary_source = dictionary_components(data)
+        if dictionary_visual and not is_self_component_result(char, dictionary_visual):
+            visual = dictionary_visual
+            visual_source = "dictionary_component_fallback"
 
     bundle: dict[str, Any] = {
         "components": visual,
