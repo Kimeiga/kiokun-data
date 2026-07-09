@@ -308,6 +308,96 @@ fn load_semantic_mnemonics() -> Result<HashMap<String, SemanticMnemonicCard>> {
     Ok(by_character)
 }
 
+fn add_single_character_candidate(
+    candidates: &mut Vec<String>,
+    seen: &mut std::collections::HashSet<String>,
+    value: Option<&str>,
+) {
+    let Some(value) = value else {
+        return;
+    };
+
+    if value.chars().count() == 1 && seen.insert(value.to_string()) {
+        candidates.push(value.to_string());
+    }
+}
+
+fn semantic_mnemonic_variant_candidates(
+    key: &str,
+    output: &simple_output_types::SimpleOutput,
+) -> Vec<String> {
+    let mut candidates = Vec::new();
+    let mut seen = std::collections::HashSet::new();
+
+    add_single_character_candidate(&mut candidates, &mut seen, Some(key));
+    add_single_character_candidate(&mut candidates, &mut seen, output.redirect.as_deref());
+    add_single_character_candidate(
+        &mut candidates,
+        &mut seen,
+        output.simplified_form_of.as_deref(),
+    );
+
+    if let Some(card) = output.semantic_mnemonic.as_ref() {
+        add_single_character_candidate(&mut candidates, &mut seen, Some(&card.character));
+    }
+
+    if let Some(chinese_char) = output.chinese_char.as_ref() {
+        add_single_character_candidate(&mut candidates, &mut seen, Some(&chinese_char.char));
+        add_single_character_candidate(&mut candidates, &mut seen, chinese_char.hk_char.as_deref());
+        for variant in chinese_char.simp_variants.as_deref().unwrap_or_default() {
+            add_single_character_candidate(&mut candidates, &mut seen, Some(variant));
+        }
+        for variant in chinese_char.trad_variants.as_deref().unwrap_or_default() {
+            add_single_character_candidate(&mut candidates, &mut seen, Some(variant));
+        }
+    }
+
+    if let Some(japanese_char) = output.japanese_char.as_ref() {
+        add_single_character_candidate(&mut candidates, &mut seen, Some(&japanese_char.literal));
+    }
+
+    if let Some(korean_char) = output.korean_char.as_ref() {
+        add_single_character_candidate(&mut candidates, &mut seen, Some(&korean_char.character));
+        add_single_character_candidate(&mut candidates, &mut seen, korean_char.hanja_form.as_deref());
+    }
+
+    candidates
+}
+
+fn has_learner_relevant_variant_data(output: &simple_output_types::SimpleOutput) -> bool {
+    if !output.chinese_words.is_empty()
+        || !output.japanese_words.is_empty()
+        || output.japanese_char.is_some()
+        || !output.japanese_names.is_empty()
+        || !output.korean_words.is_empty()
+        || output.korean_char.is_some()
+    {
+        return true;
+    }
+
+    let has_substantive_chinese_char = output.chinese_char.as_ref().is_some_and(|chinese_char| {
+        let has_non_unicode_source = chinese_char.sources.iter().any(|source| source != "unicode");
+        has_non_unicode_source
+            && (chinese_char.statistics.is_some()
+                || chinese_char
+                    .pinyin_frequencies
+                    .as_ref()
+                    .is_some_and(|frequencies| !frequencies.is_empty()))
+    });
+
+    if has_substantive_chinese_char {
+        return true;
+    }
+
+    if output.redirect.is_some() || output.simplified_form_of.is_some() {
+        return output.chinese_char.as_ref().is_none_or(|chinese_char| {
+            chinese_char.sources.iter().any(|source| source != "unicode")
+        });
+    }
+
+    false
+}
+
 #[tokio::main]
 async fn main() -> Result<()> {
     let matches = Command::new("Dictionary Merger")
@@ -2723,6 +2813,7 @@ async fn generate_simple_output_files(
             korean_words: Vec::new(),
             korean_char: None,
             semantic_mnemonic: None,
+            semantic_mnemonic_variants: Vec::new(),
             contained_in_korean: Vec::new(),
         });
 
@@ -2788,6 +2879,7 @@ async fn generate_simple_output_files(
                             korean_words: Vec::new(),
                             korean_char: None,
                             semantic_mnemonic: None,
+                            semantic_mnemonic_variants: Vec::new(),
                             contained_in_korean: Vec::new(),
                         });
 
@@ -2831,6 +2923,7 @@ async fn generate_simple_output_files(
                 korean_words: Vec::new(),
                 korean_char: None,
                 semantic_mnemonic: None,
+                semantic_mnemonic_variants: Vec::new(),
                 contained_in_korean: Vec::new(),
             };
             outputs.insert(key.clone(), redirect_entry);
@@ -2870,6 +2963,7 @@ async fn generate_simple_output_files(
                         korean_words: Vec::new(),
                         korean_char: None,
                         semantic_mnemonic: None,
+                        semantic_mnemonic_variants: Vec::new(),
                         contained_in_korean: Vec::new(),
                     });
                     output.chinese_char = Some(char_entry.clone());
@@ -2895,6 +2989,7 @@ async fn generate_simple_output_files(
                         korean_words: Vec::new(),
                         korean_char: None,
                         semantic_mnemonic: None,
+                        semantic_mnemonic_variants: Vec::new(),
                         contained_in_korean: Vec::new(),
                     };
                     outputs.insert(key.clone(), redirect_entry);
@@ -2919,6 +3014,7 @@ async fn generate_simple_output_files(
                 korean_words: Vec::new(),
                 korean_char: None,
                 semantic_mnemonic: None,
+                semantic_mnemonic_variants: Vec::new(),
                 contained_in_korean: Vec::new(),
             });
             output.chinese_char = Some(char_entry.clone());
@@ -2958,6 +3054,7 @@ async fn generate_simple_output_files(
                 korean_words: Vec::new(),
                 korean_char: None,
                 semantic_mnemonic: None,
+                semantic_mnemonic_variants: Vec::new(),
                 contained_in_korean: Vec::new(),
             });
             output.japanese_char = Some(kanji_entry.clone());
@@ -2984,6 +3081,7 @@ async fn generate_simple_output_files(
                 korean_words: Vec::new(),
                 korean_char: None,
                 semantic_mnemonic: None,
+                semantic_mnemonic_variants: Vec::new(),
                 contained_in_korean: Vec::new(),
             });
             output.japanese_char = Some(kanji_entry.clone());
@@ -3037,6 +3135,7 @@ async fn generate_simple_output_files(
                 korean_words: Vec::new(),
                 korean_char: None,
                 semantic_mnemonic: None,
+                semantic_mnemonic_variants: Vec::new(),
                 contained_in_korean: Vec::new(),
             });
 
@@ -3145,6 +3244,7 @@ async fn generate_simple_output_files(
                 korean_words: vec![korean_word.clone()],
                 korean_char: None,
                 semantic_mnemonic: None,
+                semantic_mnemonic_variants: Vec::new(),
                 contained_in_korean: Vec::new(),
             };
 
@@ -3182,6 +3282,7 @@ async fn generate_simple_output_files(
                 korean_words: Vec::new(),
                 korean_char: None,
                 semantic_mnemonic: None,
+                semantic_mnemonic_variants: Vec::new(),
                 contained_in_korean: Vec::new(),
             };
 
@@ -3221,6 +3322,7 @@ async fn generate_simple_output_files(
                 korean_words: vec![korean_word.clone()],
                 korean_char: None,
                 semantic_mnemonic: None,
+                semantic_mnemonic_variants: Vec::new(),
                 contained_in_korean: Vec::new(),
             };
 
@@ -3930,6 +4032,7 @@ async fn generate_simple_output_files(
                         korean_words: Vec::new(),
                         korean_char: None,
                         semantic_mnemonic: None,
+                        semantic_mnemonic_variants: Vec::new(),
                         contained_in_korean: Vec::new(),
                     };
 
@@ -3964,6 +4067,7 @@ async fn generate_simple_output_files(
                         korean_words: Vec::new(),
                         korean_char: None,
                         semantic_mnemonic: None,
+                        semantic_mnemonic_variants: Vec::new(),
                         contained_in_korean: Vec::new(),
                     };
 
@@ -4023,6 +4127,7 @@ async fn generate_simple_output_files(
                         korean_words: Vec::new(),
                         korean_char: None,
                         semantic_mnemonic: None,
+                        semantic_mnemonic_variants: Vec::new(),
                         contained_in_korean: Vec::new(),
                     };
 
@@ -4057,6 +4162,47 @@ async fn generate_simple_output_files(
             "  ✅ Attached {} mnemonic cards ({} mnemonic-only character entries)",
             attached_count,
             created_entry_count
+        );
+
+        let mut entries_with_variants = 0usize;
+        let mut variant_count = 0usize;
+        let learner_relevant_variant_entries: std::collections::HashSet<String> = outputs
+            .iter()
+            .filter_map(|(key, output)| {
+                has_learner_relevant_variant_data(output).then(|| key.clone())
+            })
+            .collect();
+
+        for (key, output) in outputs.iter_mut() {
+            let mut seen_card_chars = std::collections::HashSet::new();
+            if let Some(primary) = output.semantic_mnemonic.as_ref() {
+                seen_card_chars.insert(primary.character.clone());
+            }
+
+            let candidates = semantic_mnemonic_variant_candidates(key, output);
+            output.semantic_mnemonic_variants.clear();
+            for candidate in candidates {
+                if !seen_card_chars.insert(candidate.clone()) {
+                    continue;
+                }
+                if !learner_relevant_variant_entries.contains(&candidate) {
+                    continue;
+                }
+                if let Some(card) = semantic_mnemonics.get(&candidate) {
+                    output.semantic_mnemonic_variants.push(card.clone());
+                }
+            }
+
+            if !output.semantic_mnemonic_variants.is_empty() {
+                entries_with_variants += 1;
+                variant_count += output.semantic_mnemonic_variants.len();
+            }
+        }
+
+        println!(
+            "  ✅ Attached {} variant mnemonic cards across {} entries",
+            variant_count,
+            entries_with_variants
         );
     }
 

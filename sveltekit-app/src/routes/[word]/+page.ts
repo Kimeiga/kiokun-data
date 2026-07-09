@@ -89,6 +89,22 @@ function emptyCharacterLearningData(): CharacterLearningData {
 	};
 }
 
+function mergeSemanticMnemonicVariants(
+	cards: Array<SemanticMnemonicCard | null | undefined>,
+	primary: SemanticMnemonicCard | null | undefined
+): SemanticMnemonicCard[] {
+	const seen = new Set<string>();
+	if (primary) seen.add(primary.character);
+
+	const variants: SemanticMnemonicCard[] = [];
+	for (const card of cards) {
+		if (!card || seen.has(card.character)) continue;
+		seen.add(card.character);
+		variants.push(card);
+	}
+	return variants;
+}
+
 /**
  * Page data returned by the load function
  */
@@ -224,20 +240,29 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 
 		// If this is a redirect entry, fetch the actual data
 		let redirectOriginal: DictionaryEntry | null = null;
-		let redirectTargetMnemonic: SemanticMnemonicCard | null = null;
 		if (data.redirect) {
 			const original = data;
 			redirectOriginal = original;
-			const originalMnemonic = original.semantic_mnemonic;
+			const originalMnemonic = original.semantic_mnemonic || null;
+			const originalMnemonicVariants = original.semantic_mnemonic_variants || [];
 			const redirectUrl = await getDictionaryUrl(data.redirect, dev, fetch);
 			const redirectResponse = await fetchDictionaryBytes(redirectUrl, fetch);
 			if (redirectResponse.ok) {
 				const redirectCompressed = await redirectResponse.arrayBuffer();
 				data = decompressAndParse(redirectCompressed);
-				redirectTargetMnemonic = data.semantic_mnemonic || null;
-				if (originalMnemonic) {
-					data.semantic_mnemonic = originalMnemonic;
-				}
+				const redirectTargetMnemonic = data.semantic_mnemonic || null;
+				const redirectTargetVariants = data.semantic_mnemonic_variants || [];
+				const primaryMnemonic = originalMnemonic || redirectTargetMnemonic;
+
+				if (primaryMnemonic) data.semantic_mnemonic = primaryMnemonic;
+				data.semantic_mnemonic_variants = mergeSemanticMnemonicVariants(
+					[
+						redirectTargetMnemonic,
+						...redirectTargetVariants,
+						...originalMnemonicVariants
+					],
+					primaryMnemonic
+				);
 			}
 
 			// A simplified character can map to several traditional variants
@@ -277,7 +302,6 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 					word,
 					data,
 					redirectOriginal,
-					redirectTargetMnemonic,
 					fetchFn: fetch,
 					pageUrl: url
 				})

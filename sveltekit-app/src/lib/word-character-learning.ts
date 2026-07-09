@@ -185,57 +185,20 @@ function collectSupportKeys(
 	return { chars, components };
 }
 
-function isCompatibilityIdeograph(char: string): boolean {
-	const codepoint = char.codePointAt(0) ?? 0;
-	return (codepoint >= 0xf900 && codepoint <= 0xfaff) ||
-		(codepoint >= 0x2f800 && codepoint <= 0x2fa1f);
-}
-
-const MNEMONIC_CANDIDATE_DENYLIST: Record<string, Set<string>> = {
-	里: new Set(['裡'])
-};
-
-function addEntryMnemonicCandidates(entry: DictionaryEntry | null | undefined, candidates: Set<string>) {
-	if (!entry) return;
-	const denied = MNEMONIC_CANDIDATE_DENYLIST[entry.key];
-	const add = (char: unknown) => {
-		if (
-			typeof char === 'string' &&
-			[...char].length === 1 &&
-			!isCompatibilityIdeograph(char) &&
-			!denied?.has(char)
-		) {
-			candidates.add(char);
-		}
-	};
-
-	add(entry.key);
-	add(entry.redirect);
-	add(entry.chinese_char?.char);
-	add(entry.chinese_char?.hkChar);
-	add(entry.chinese_char?.simpVariants?.[0]);
-	add(entry.chinese_char?.tradVariants?.[0]);
-	add(entry.japanese_char?.literal);
-	add(entry.korean_char?.character);
-	add(entry.korean_char?.hanjaForm);
-}
-
 async function fetchSimplifiedCharacterData(
 	data: DictionaryEntry,
 	fetchFn: typeof fetch
-): Promise<{ simplifiedCharData: any; simplifiedEntry: DictionaryEntry | null }> {
+): Promise<any> {
 	let simplifiedCharData: any = null;
-	let simplifiedEntry: DictionaryEntry | null = null;
 	const simpChar = (data.chinese_char as any)?.simpVariants?.[0];
 	const tradCharField = (data.chinese_char as any)?.char;
 	if (!simpChar || !tradCharField || simpChar === tradCharField) {
-		return { simplifiedCharData, simplifiedEntry };
+		return simplifiedCharData;
 	}
 
 	const simpEntry = await fetchDictionaryEntry(simpChar, fetchFn);
-	if (!simpEntry) return { simplifiedCharData, simplifiedEntry };
+	if (!simpEntry) return simplifiedCharData;
 
-	simplifiedEntry = simpEntry;
 	simplifiedCharData = simpEntry.chinese_char || null;
 
 	if (!simplifiedCharData?.components?.length) {
@@ -250,22 +213,13 @@ async function fetchSimplifiedCharacterData(
 		}
 	}
 
-	return { simplifiedCharData, simplifiedEntry };
+	return simplifiedCharData;
 }
 
-async function buildVariantMnemonicCards(
+function collectMnemonicCards(
 	data: DictionaryEntry,
-	redirectOriginal: DictionaryEntry | null,
-	redirectTargetMnemonic: SemanticMnemonicCard | null,
-	simplifiedCharData: any,
-	simplifiedEntry: DictionaryEntry | null,
-	fetchFn: typeof fetch
-): Promise<SemanticMnemonicCard[]> {
-	const mnemonicCandidates = new Set<string>();
-	addEntryMnemonicCandidates(data, mnemonicCandidates);
-	addEntryMnemonicCandidates(redirectOriginal, mnemonicCandidates);
-	if (simplifiedCharData?.char) mnemonicCandidates.add(simplifiedCharData.char);
-
+	redirectOriginal: DictionaryEntry | null
+): SemanticMnemonicCard[] {
 	const variantMnemonicCards: SemanticMnemonicCard[] = [];
 	const seenMnemonicChars = new Set<string>();
 	const addMnemonicCard = (card: SemanticMnemonicCard | null | undefined) => {
@@ -277,24 +231,7 @@ async function buildVariantMnemonicCards(
 	addMnemonicCard(data.semantic_mnemonic);
 	for (const card of data.semantic_mnemonic_variants || []) addMnemonicCard(card);
 	addMnemonicCard(redirectOriginal?.semantic_mnemonic);
-	addMnemonicCard(redirectTargetMnemonic);
-
-	for (const candidate of mnemonicCandidates) {
-		if (seenMnemonicChars.has(candidate)) continue;
-		try {
-			const candidateEntry =
-				candidate === data.key
-					? data
-					: candidate === redirectOriginal?.key
-						? redirectOriginal
-						: candidate === simplifiedEntry?.key
-							? simplifiedEntry
-							: await fetchDictionaryEntry(candidate, fetchFn);
-			addMnemonicCard(candidateEntry?.semantic_mnemonic);
-		} catch {
-			// Variant entries are helpful but not required for the page.
-		}
-	}
+	for (const card of redirectOriginal?.semantic_mnemonic_variants || []) addMnemonicCard(card);
 
 	return variantMnemonicCards;
 }
@@ -303,39 +240,24 @@ export async function buildCharacterLearningData({
 	word,
 	data,
 	redirectOriginal,
-	redirectTargetMnemonic,
 	fetchFn,
 	pageUrl
 }: {
 	word: string;
 	data: DictionaryEntry;
 	redirectOriginal: DictionaryEntry | null;
-	redirectTargetMnemonic: SemanticMnemonicCard | null;
 	fetchFn: typeof fetch;
 	pageUrl: URL;
 }): Promise<CharacterLearningData> {
 	let simplifiedCharData: any = null;
-	let simplifiedEntry: DictionaryEntry | null = null;
 
 	try {
-		({ simplifiedCharData, simplifiedEntry } = await fetchSimplifiedCharacterData(data, fetchFn));
+		simplifiedCharData = await fetchSimplifiedCharacterData(data, fetchFn);
 	} catch (err) {
 		console.error('[LOAD] Failed to load simplified character learning data:', err);
 	}
 
-	let mnemonicCards: SemanticMnemonicCard[] = [];
-	try {
-		mnemonicCards = await buildVariantMnemonicCards(
-			data,
-			redirectOriginal,
-			redirectTargetMnemonic,
-			simplifiedCharData,
-			simplifiedEntry,
-			fetchFn
-		);
-	} catch (err) {
-		console.error('[LOAD] Failed to load mnemonic variants:', err);
-	}
+	const mnemonicCards = collectMnemonicCards(data, redirectOriginal);
 
 	try {
 		const supportKeys = collectSupportKeys(

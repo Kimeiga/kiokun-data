@@ -78,6 +78,10 @@ pub struct SimpleOutput {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub semantic_mnemonic: Option<SemanticMnemonicCard>,
 
+    /// Other mnemonic cards for learner-relevant written variants of this character.
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub semantic_mnemonic_variants: Vec<SemanticMnemonicCard>,
+
     /// Korean words that contain this word/character
     /// Limited to 100 entries, includes preview data
     #[serde(skip_serializing_if = "Vec::is_empty", default)]
@@ -102,6 +106,7 @@ impl SimpleOutput {
             korean_words: Vec::new(),
             korean_char: None,
             semantic_mnemonic: None,
+            semantic_mnemonic_variants: Vec::new(),
             contained_in_korean: Vec::new(),
         }
     }
