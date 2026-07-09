@@ -587,7 +587,7 @@
 		char: string,
 		targetMap: "trad" | "simp",
 	): boolean {
-		console.log(`[MAKEMEAHANZI] Checking for matches data for ${char} (${targetMap})`);
+		if (dev) console.log(`[MAKEMEAHANZI] Checking for matches data for ${char} (${targetMap})`);
 
 		// Get the makemeahanzi image data
 		const makemeahanziImage = targetMap === "trad"
@@ -596,7 +596,7 @@
 
 		const matches = makemeahanziImage?.data?.matches;
 		if (!matches || !Array.isArray(matches)) {
-			console.log(`[MAKEMEAHANZI] No matches field found for ${char}`);
+			if (dev) console.log(`[MAKEMEAHANZI] No matches field found for ${char}`);
 			return false;
 		}
 
@@ -606,12 +606,12 @@
 			: simpDisplayComponents;
 
 		if (!components || components.length === 0) {
-			console.log(`[MAKEMEAHANZI] No components in our data for ${char}`);
+			if (dev) console.log(`[MAKEMEAHANZI] No components in our data for ${char}`);
 			return false;
 		}
 
-		console.log(`[MAKEMEAHANZI] Found matches for ${char}:`, matches);
-		console.log(`[MAKEMEAHANZI] Components:`, components.map((c: any) => typeof c === 'string' ? c : c.character || c.char));
+		if (dev) console.log(`[MAKEMEAHANZI] Found matches for ${char}:`, matches);
+		if (dev) console.log(`[MAKEMEAHANZI] Components:`, components.map((c: any) => typeof c === 'string' ? c : c.character || c.char));
 
 		// Build component index -> stroke indices mapping
 		const componentToStrokes = new Map<number, number[]>();
@@ -629,7 +629,7 @@
 			}
 		});
 
-		console.log(`[MAKEMEAHANZI] Component index -> strokes:`, Object.fromEntries(componentToStrokes));
+		if (dev) console.log(`[MAKEMEAHANZI] Component index -> strokes:`, Object.fromEntries(componentToStrokes));
 
 		// Now map component characters to their stroke indices
 		const newMap = new Map<string, number[]>();
@@ -638,7 +638,7 @@
 		const makemeahanziComponentCount = componentToStrokes.size;
 		const ourComponentCount = components.length;
 
-		console.log(`[MAKEMEAHANZI] Component count comparison: ours=${ourComponentCount}, makemeahanzi=${makemeahanziComponentCount}`);
+		if (dev) console.log(`[MAKEMEAHANZI] Component count comparison: ours=${ourComponentCount}, makemeahanzi=${makemeahanziComponentCount}`);
 
 		// Handle mismatch: our data has fewer components than makemeahanzi's decomposition
 		// This happens when our components are "higher-level" abstractions (e.g., 子 instead of 乛+亅)
@@ -656,7 +656,7 @@
 				const compChar = componentChar(components[0]);
 				if (!compChar) return false;
 				newMap.set(compChar, allStrokes);
-				console.log(`[MAKEMEAHANZI] ✓ Single component "${compChar}" gets ALL strokes (makemeahanzi has ${makemeahanziComponentCount} components) → strokes ${allStrokes.join(', ')}`);
+				if (dev) console.log(`[MAKEMEAHANZI] ✓ Single component "${compChar}" gets ALL strokes (makemeahanzi has ${makemeahanziComponentCount} components) → strokes ${allStrokes.join(', ')}`);
 			} else {
 				// Multiple components but fewer than makemeahanzi: distribute strokes proportionally
 				// This is a heuristic - we divide strokes roughly evenly among our components
@@ -671,7 +671,7 @@
 
 					if (assignedStrokes.length > 0) {
 						newMap.set(compChar, assignedStrokes);
-						console.log(`[MAKEMEAHANZI] ✓ Component "${compChar}" (proportional distribution) → strokes ${assignedStrokes.join(', ')}`);
+						if (dev) console.log(`[MAKEMEAHANZI] ✓ Component "${compChar}" (proportional distribution) → strokes ${assignedStrokes.join(', ')}`);
 					}
 					strokeIndex = endIndex;
 				});
@@ -684,9 +684,9 @@
 				const strokes = componentToStrokes.get(index) || [];
 				if (strokes.length > 0) {
 					newMap.set(compChar, strokes);
-					console.log(`[MAKEMEAHANZI] ✓ Component "${compChar}" (index ${index}) → strokes ${strokes.join(', ')}`);
+					if (dev) console.log(`[MAKEMEAHANZI] ✓ Component "${compChar}" (index ${index}) → strokes ${strokes.join(', ')}`);
 				} else {
-					console.log(`[MAKEMEAHANZI] ⚠️ Component "${compChar}" (index ${index}) has no strokes mapped`);
+					if (dev) console.log(`[MAKEMEAHANZI] ⚠️ Component "${compChar}" (index ${index}) has no strokes mapped`);
 				}
 			});
 		}
@@ -700,7 +700,7 @@
 				simpUsedSequentialFallback = false;
 				simpComponentStrokeMap = newMap;
 			}
-			console.log(`[MAKEMEAHANZI] Successfully loaded mappings from matches field`);
+			if (dev) console.log(`[MAKEMEAHANZI] Successfully loaded mappings from matches field`);
 			return true;
 		}
 

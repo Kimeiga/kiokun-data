@@ -5,6 +5,11 @@ import { dev } from '$app/environment';
 import { decompressSync, strFromU8 } from 'fflate';
 import type { DictionaryEntry, SemanticMnemonicCard } from '$lib/types';
 import { findWordsWithDeinflection } from '$lib/utils/search-navigation';
+import {
+	buildCharacterSupportData,
+	type CharacterSupportData,
+	type CharacterSupportSource
+} from '$lib/character-support';
 
 // SSR works in production (fetches GitHub CDN) but can cause issues in dev
 // where the CORS proxy may not be reachable from the server process.
@@ -40,6 +45,146 @@ async function fetchDictionaryEntry(word: string, fetchFn: typeof fetch): Promis
 	const response = await fetchDictionaryBytes(dictUrl, fetchFn);
 	if (!response.ok) return null;
 	return decompressAndParse(await response.arrayBuffer());
+}
+
+function isCapacitorRuntime(): boolean {
+	return typeof window !== 'undefined' && window.location.protocol === 'capacitor:';
+}
+
+let staticSupportSourcePromise: Promise<CharacterSupportSource> | null = null;
+
+async function fetchStaticJson<T>(path: string, pageUrl: URL): Promise<T> {
+	const response = await globalThis.fetch(new URL(path, pageUrl.origin));
+	if (!response.ok) throw new Error(`Failed to load ${path}: ${response.status}`);
+	return response.json() as Promise<T>;
+}
+
+async function getStaticSupportSource(pageUrl: URL): Promise<CharacterSupportSource> {
+	staticSupportSourcePromise ??= Promise.all([
+		fetchStaticJson<Record<string, string>>('/game_data/component_glosses.json', pageUrl),
+		fetchStaticJson<Record<string, string[]>>('/game_data/char_taxonomy.json', pageUrl),
+		fetchStaticJson<CharacterSupportSource['componentUses']>('/game_data/component_uses.json', pageUrl)
+	]).then(([charGlosses, charTaxonomy, componentUses]) => ({
+		charGlosses,
+		charTaxonomy,
+		componentUses
+	}));
+
+	return staticSupportSourcePromise;
+}
+
+async function fetchCharacterSupport(
+	chars: Set<string>,
+	components: Set<string>,
+	fetchFn: typeof fetch,
+	pageUrl: URL
+): Promise<CharacterSupportData> {
+	if (!isCapacitorRuntime()) {
+		try {
+			const params = new URLSearchParams();
+			for (const char of [...chars].filter(Boolean).sort()) params.append('char', char);
+			for (const component of [...components].filter(Boolean).sort()) params.append('component', component);
+			const response = await fetchFn(`/api/character-support?${params.toString()}`);
+			if (response.ok) return response.json();
+		} catch (err) {
+			console.error('Failed to load character support API:', err);
+		}
+	}
+
+	const source = await getStaticSupportSource(pageUrl);
+	return buildCharacterSupportData(source, { chars, components });
+}
+
+function componentChar(component: any): string | null {
+	if (!component) return null;
+	if (typeof component === 'string') return component;
+	return component.character || component.char || null;
+}
+
+function addSupportChar(chars: Set<string>, value: unknown): void {
+	if (typeof value === 'string' && value) chars.add(value);
+}
+
+function addGlyphs(chars: Set<string>, value: unknown): void {
+	if (typeof value !== 'string') return;
+	for (const char of value) {
+		if (char.trim()) chars.add(char);
+	}
+}
+
+function addSupportComponent(chars: Set<string>, components: Set<string>, component: any): void {
+	const char = componentChar(component);
+	if (char) {
+		chars.add(char);
+		components.add(char);
+	}
+	addSupportChar(chars, component?.originalCharacter);
+}
+
+function addComponents(chars: Set<string>, components: Set<string>, values: any[] | undefined | null): void {
+	for (const component of values || []) {
+		addSupportComponent(chars, components, component);
+	}
+}
+
+function addMnemonicSupport(chars: Set<string>, components: Set<string>, card: SemanticMnemonicCard | null | undefined): void {
+	if (!card) return;
+	addSupportChar(chars, card.character);
+	addComponents(chars, components, card.components as any[]);
+	addComponents(chars, components, card.visual_components as any[]);
+	addComponents(chars, components, card.historical_components as any[]);
+}
+
+function parseIdsComponents(ids: string | undefined | null): string[] {
+	if (!ids) return [];
+	const cleaned = ids.replace(/&[^;]+;/g, '');
+	const chars: string[] = [];
+	for (const ch of cleaned) {
+		const code = ch.codePointAt(0) || 0;
+		if (code >= 0x2ff0 && code <= 0x2ffb) continue;
+		if (ch.trim()) chars.push(ch);
+	}
+	return chars;
+}
+
+function collectSupportKeys(
+	word: string,
+	data: DictionaryEntry,
+	simplifiedCharData: any,
+	redirectOriginal: DictionaryEntry | null,
+	mnemonicCards: SemanticMnemonicCard[]
+): { chars: Set<string>; components: Set<string> } {
+	const chars = new Set<string>();
+	const components = new Set<string>();
+
+	addGlyphs(chars, word);
+	addSupportChar(chars, data.key);
+	addSupportChar(chars, data.redirect);
+	addSupportChar(chars, data.chinese_char?.char);
+	addSupportChar(chars, data.chinese_char?.hkChar);
+	for (const variant of data.chinese_char?.simpVariants || []) addSupportChar(chars, variant);
+	for (const variant of data.chinese_char?.tradVariants || []) addSupportChar(chars, variant);
+	addSupportChar(chars, data.japanese_char?.literal);
+	addSupportChar(chars, data.korean_char?.character);
+	addSupportChar(chars, data.korean_char?.hanjaForm);
+
+	addSupportChar(chars, redirectOriginal?.key);
+	addSupportChar(chars, redirectOriginal?.chinese_char?.char);
+	for (const variant of redirectOriginal?.chinese_char?.simpVariants || []) addSupportChar(chars, variant);
+	for (const variant of redirectOriginal?.chinese_char?.tradVariants || []) addSupportChar(chars, variant);
+
+	addComponents(chars, components, data.chinese_char?.components as any[]);
+	addComponents(chars, components, simplifiedCharData?.components as any[]);
+	for (const char of parseIdsComponents((data.japanese_char as any)?.ids)) chars.add(char);
+
+	for (const card of mnemonicCards) addMnemonicSupport(chars, components, card);
+
+	for (const preview of data.contains || []) {
+		addSupportChar(chars, (preview as any).w);
+		for (const form of (preview as any).forms || []) addSupportChar(chars, form);
+	}
+
+	return { chars, components };
 }
 
 function unavailableDictionaryStatus(status: number): number {
@@ -171,29 +316,29 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 		}
 	}
 
-	console.log('[LOAD] Starting load for word:', word);
+	if (dev) console.log('[LOAD] Starting load for word:', word);
 
 	// Fetch the compressed dictionary data
 	// Use globalThis.fetch for external binary URLs to avoid SvelteKit's fetch wrapper
 	// which can corrupt ArrayBuffer data during client-side navigation (popstate)
 	const dictUrl = await getDictionaryUrl(word, dev, fetch);
-	console.log('[LOAD] Fetching URL:', dictUrl);
+	if (dev) console.log('[LOAD] Fetching URL:', dictUrl);
 	const response = await fetchDictionaryBytes(dictUrl, fetch);
-	console.log('[LOAD] Response status:', response.status);
+	if (dev) console.log('[LOAD] Response status:', response.status);
 
 	if (!response.ok) {
 		if (response.status !== 404) {
 			throwDictionaryUnavailable(word, response.status);
 		}
 
-		console.log(`[LOAD] Word "${word}" not found directly, trying deinflection...`);
+		if (dev) console.log(`[LOAD] Word "${word}" not found directly, trying deinflection...`);
 
 		// Try deinflection (handles Japanese conjugation and Korean particles)
 		const deinflectionResults = await findWordsWithDeinflection(word, fetch);
 
 		if (deinflectionResults?.primary) {
 			const { dictionaryForm, conjugationInfo } = deinflectionResults.primary;
-			console.log(`[LOAD] Found deinflected form: "${dictionaryForm}" (${conjugationInfo})`);
+			if (dev) console.log(`[LOAD] Found deinflected form: "${dictionaryForm}" (${conjugationInfo})`);
 
 			// Redirect to the dictionary form with conjugation info
 			const redirectUrl = new URL(`/${encodeURIComponent(dictionaryForm)}`, url.origin);
@@ -214,12 +359,12 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 		}
 
 		// Try custom word lookup as last resort
-		console.log(`[LOAD] Trying custom word lookup for "${word}"...`);
+		if (dev) console.log(`[LOAD] Trying custom word lookup for "${word}"...`);
 		try {
 			const customResp = await fetch(`/api/custom-words/by-word/${encodeURIComponent(word)}`);
 			if (customResp.ok) {
 				const customWord = await customResp.json();
-				console.log(`[LOAD] Found custom word: "${word}"`);
+				if (dev) console.log(`[LOAD] Found custom word: "${word}"`);
 				return {
 					word,
 					data: {} as DictionaryEntry,
@@ -251,9 +396,9 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 		if (data.chinese_char?.images) {
 			// Filter out any undefined/null images
 			data.chinese_char.images = data.chinese_char.images.filter((img: any) => img != null);
-			console.log(`[IMAGES] Found ${data.chinese_char.images.length} images for "${word}":`, data.chinese_char.images);
+			if (dev) console.log(`[IMAGES] Found ${data.chinese_char.images.length} images for "${word}":`, data.chinese_char.images);
 		} else {
-			console.log(`[IMAGES] No images found for "${word}"`);
+			if (dev) console.log(`[IMAGES] No images found for "${word}"`);
 		}
 
 
@@ -313,6 +458,7 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 		// If the simplified entry has no chinese_char components of its own, fall back to
 		// parsing its japanese_char.ids (IDS) as a synthetic component list.
 		let simplifiedCharData: any = null;
+		let simplifiedEntry: DictionaryEntry | null = null;
 		const simpChar = (data.chinese_char as any)?.simpVariants?.[0];
 		const tradCharField = (data.chinese_char as any)?.char;
 		if (simpChar && tradCharField && simpChar !== tradCharField) {
@@ -322,6 +468,7 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 				if (simpResponse.ok) {
 					const simpCompressed = await simpResponse.arrayBuffer();
 					const simpData = decompressAndParse(simpCompressed);
+					simplifiedEntry = simpData;
 					simplifiedCharData = simpData.chinese_char || null;
 
 					// Fallback: if the simp entry has no chinese_char components of
@@ -387,7 +534,9 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 						? data
 						: candidate === redirectOriginal?.key
 							? redirectOriginal
-							: await fetchDictionaryEntry(candidate, fetch);
+							: candidate === simplifiedEntry?.key
+								? simplifiedEntry
+								: await fetchDictionaryEntry(candidate, fetch);
 				addMnemonicCard(candidateEntry?.semantic_mnemonic);
 			} catch {
 				// Variant entries are helpful but not required for the page.
@@ -401,6 +550,20 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 			(card) => card.character !== data.semantic_mnemonic?.character
 		);
 
+		const supportKeys = collectSupportKeys(
+			word,
+			data,
+			simplifiedCharData,
+			redirectOriginal,
+			variantMnemonicCards
+		);
+		const { charGlosses, charTaxonomy, componentUses } = await fetchCharacterSupport(
+			supportKeys.chars,
+			supportKeys.components,
+			fetch,
+			url
+		);
+
 		// Load Japanese labels
 		let labels: JapaneseLabels = {};
 		try {
@@ -410,39 +573,6 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 			}
 		} catch (err) {
 			console.error('Failed to load labels:', err);
-		}
-
-		// Load character glosses (unique English keywords from chinese-word-game)
-		let charGlosses: CharGlosses = {};
-		try {
-			const glossesResponse = await fetch('/game_data/component_glosses.json');
-			if (glossesResponse.ok) {
-				charGlosses = await glossesResponse.json();
-			}
-		} catch (err) {
-			console.error('Failed to load character glosses:', err);
-		}
-
-		// Load character taxonomy (category hierarchy from chinese-word-game)
-		let charTaxonomy: CharTaxonomy = {};
-		try {
-			const taxonomyResponse = await fetch('/game_data/char_taxonomy.json');
-			if (taxonomyResponse.ok) {
-				charTaxonomy = await taxonomyResponse.json();
-			}
-		} catch (err) {
-			console.error('Failed to load character taxonomy:', err);
-		}
-
-		// Load component uses data (shows which characters use this one as a component)
-		let componentUses: ComponentUsesMap = {};
-		try {
-			const componentUsesResponse = await fetch('/game_data/component_uses.json');
-			if (componentUsesResponse.ok) {
-				componentUses = await componentUsesResponse.json();
-			}
-		} catch (err) {
-			console.error('Failed to load component uses:', err);
 		}
 
 		return {

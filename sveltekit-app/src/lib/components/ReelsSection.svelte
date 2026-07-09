@@ -1,6 +1,4 @@
-<script lang="ts">
-	import SectionHeading from './shared/SectionHeading.svelte';
-
+<script module lang="ts">
 	interface VideoOccurrence {
 		video_id: string;
 		start_time: number;
@@ -19,14 +17,22 @@
 		words: Record<string, VideoOccurrence[]>;
 	}
 
+	const videoDataCache: Record<string, VideoData> = {};
+</script>
+
+<script lang="ts">
+	import SectionHeading from './shared/SectionHeading.svelte';
+
 	let { word, language = 'ja', id }: { word: string; language?: 'ja' | 'zh'; id?: string } = $props();
 
 	const BATCH_SIZE = 10;
 
 	let videoData: VideoData | null = $state(null);
 	let occurrences: VideoOccurrence[] = $state([]);
-	let loading = $state(true);
+	let loading = $state(false);
 	let visibleCount = $state(BATCH_SIZE);
+	let shouldLoad = $state(false);
+	let sectionEl: HTMLDivElement | null = $state(null);
 
 	function loadMore() {
 		visibleCount = Math.min(visibleCount + BATCH_SIZE, occurrences.length);
@@ -39,9 +45,6 @@
 	let dataFile = $derived(language === 'zh' ? '/chinese_video_data.json' : '/video_data.json');
 	let languageFlag = $derived(language === 'zh' ? '🇨🇳' : '🇯🇵');
 	let languageLabel = $derived(language === 'zh' ? 'Chinese' : 'Japanese');
-
-	// Cache video data per language to avoid refetching on navigation
-	const videoDataCache: Record<string, VideoData> = {};
 
 	async function loadVideoData() {
 		loading = true;
@@ -64,9 +67,36 @@
 		}
 	}
 
-	// Reload when word or language changes (handles client-side navigation)
+	// Reset when word or language changes. The data itself loads lazily below.
 	$effect(() => {
-		// Track word and dataFile to re-run on changes
+		const _word = word;
+		const _dataFile = dataFile;
+		occurrences = [];
+		visibleCount = BATCH_SIZE;
+		loading = false;
+		shouldLoad = false;
+	});
+
+	$effect(() => {
+		const el = sectionEl;
+		if (!el || shouldLoad) return;
+
+		const observer = new IntersectionObserver(
+			(entries) => {
+				if (entries[0]?.isIntersecting) {
+					shouldLoad = true;
+					observer.disconnect();
+				}
+			},
+			{ rootMargin: '800px 0px' }
+		);
+
+		observer.observe(el);
+		return () => observer.disconnect();
+	});
+
+	$effect(() => {
+		if (!shouldLoad) return;
 		const _word = word;
 		const _dataFile = dataFile;
 		loadVideoData();
@@ -82,6 +112,8 @@
 		return `${mins}:${secs.toString().padStart(2, '0')}`;
 	}
 </script>
+
+<div bind:this={sectionEl} class="reels-section-anchor" aria-hidden="true"></div>
 
 {#if !loading && occurrences.length > 0}
 	<div class="mb-6">
@@ -146,3 +178,9 @@
 	</div>
 {/if}
 
+<style>
+	.reels-section-anchor {
+		width: 100%;
+		height: 1px;
+	}
+</style>

@@ -41,6 +41,10 @@ self.addEventListener('fetch', (event: FetchEvent) => {
 	// Skip non-GET requests
 	if (event.request.method !== 'GET') return;
 
+	// Let SSR document navigations go straight to the network. The service worker
+	// does not cache HTML pages, so intercepting them only adds latency/staleness risk.
+	if (event.request.mode === 'navigate') return;
+
 	// Dictionary API: cache-first by app version. Dictionary bytes are large and
 	// route navigation should not depend on the browser reaching GitHub raw.
 	if (url.pathname === '/api/dictionary' || url.pathname.startsWith('/api/dictionary/')) {

@@ -2,19 +2,23 @@
 	import type { LayoutData } from './$types';
 	import '../app.css';
 	import { onMount } from 'svelte';
-	import { registerWebMCPTools } from '$lib/webmcp-tools';
-	import { installCapacitorOfflineBridge } from '$lib/native/capacitor-offline';
 	import KeyboardShortcuts from '$lib/components/KeyboardShortcuts.svelte';
 
 	let { children, data }: { children: any; data: LayoutData } = $props();
 
-	// Register WebMCP tools for AI assistant integration
-	onMount(() => {
+	onMount(async () => {
 		const isCapacitor = window.location.protocol === 'capacitor:';
 		document.documentElement.classList.toggle('capacitor-native', isCapacitor);
-		void installCapacitorOfflineBridge();
-		if (!isCapacitor) {
-			registerWebMCPTools();
+
+		if (isCapacitor) {
+			const { installCapacitorOfflineBridge } = await import('$lib/native/capacitor-offline');
+			void installCapacitorOfflineBridge();
+			return;
+		}
+
+		if ('modelContext' in navigator) {
+			const { registerWebMCPTools } = await import('$lib/webmcp-tools');
+			void registerWebMCPTools();
 		}
 	});
 </script>
