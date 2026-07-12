@@ -36,7 +36,7 @@ BAKEOFF_PATH = SCRIPTS_DIR / "semantic_mnemonic_bakeoff.json"
 OUTPUT_PATH = RESEARCH_DIR / "semantic_mnemonics_1000.json"
 PROGRESS_PATH = SCRIPTS_DIR / "semantic_mnemonic_progress.json"
 CARD_INPUT_CACHE_PATH = SCRIPTS_DIR / "semantic_mnemonic_card_inputs.json"
-CARD_INPUT_CACHE_VERSION = 11
+CARD_INPUT_CACHE_VERSION = 12
 IDS_FORWARD_PATHS = [
     ROOT / "game-concepts" / "kanji-game" / "data" / "ids_forward.json",
     ROOT / "game-concepts" / "hanzi-quiz" / "data" / "ids_forward.json",
@@ -175,6 +175,7 @@ MANUAL_COMPONENT_GLOSS_OVERRIDES: dict[str, str] = {
     "爫": "reaching hand",
     "⺤": "grasping hand",
     "亽": "food cover",
+    "斤": "axe",
     "乛": "hook mark",
     "乚": "turning hook",
     "曰": "speech",
@@ -192,6 +193,7 @@ MANUAL_COMPONENT_GLOSS_OVERRIDES: dict[str, str] = {
     "曷": "question",
     "丷": "split horns",
     "龰": "foot",
+    "𤴓": "straight foot",
     "𠔼": "cover",
     "直": "straight",
     "𦥑": "mortar",
@@ -215,6 +217,7 @@ MANUAL_COMPONENT_GLOSS_OVERRIDES: dict[str, str] = {
     "钅": "metal",
     "纟": "silk",
     "贝": "shell",
+    "𰀁": "inner line",
     "马": "horse",
     "饣": "food (side)",
     "辡": "dispute",

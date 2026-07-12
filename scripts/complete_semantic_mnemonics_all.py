@@ -36,7 +36,7 @@ EVAL_PATH = RESEARCH_DIR / "semantic_mnemonics_all_best_available_eval.json"
 AWKWARD_RE = re.compile(
     r"\b(?:"
     r"the character combines|this character|component|radical|represents|depicts|"
-    r"in one visual image|one visual image|"
+    r"in one visual image|one visual image|comes? together as|"
     r"perfect|hardworking|wise|brave|lazy|properly|exactly|sacred|mysterious|"
     r"magical|ghostly|terrifying|creepy|spies|spy|criminal|prisoner|slave|"
     r"butcher|battlefield|enemy|warrior|commander|soldier|"
@@ -48,7 +48,7 @@ AWKWARD_RE = re.compile(
 )
 
 GENERIC_MNEMONIC_RE = re.compile(
-    r"\b(?:in one [a-z -]*image|reveals|points toward)\b",
+    r"\b(?:in one [a-z -]*image|reveals|points toward|comes? together as)\b",
     re.IGNORECASE,
 )
 
@@ -149,6 +149,7 @@ LOCAL_GLOSS_OVERRIDES = {
     "昧": "dark",
     "寍": "calm base",
     "𫲽": "quiet heart",
+    "𤴓": "straight foot",
 }
 
 
@@ -345,6 +346,11 @@ TARGETED_COMPONENT_OVERRIDES: dict[str, list[dict[str, str]]] = {
         {"character": "十", "gloss": "ten"},
         {"character": "戜", "gloss": "scrape"},
     ],
+    "金": [
+        {"character": "今", "gloss": "sound mark", "preserve_gloss": "true"},
+        {"character": "王", "gloss": "metal axe", "preserve_gloss": "true"},
+        {"character": "吕", "gloss": "metal plates", "preserve_gloss": "true"},
+    ],
 }
 
 
@@ -357,6 +363,91 @@ TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
     "侃": "A 亻 person (side) keeps a steady 口 mouth and 川 river stance, becoming 侃 upright and strong.",
     "买": "A 乛 hook mark above a 头 head-count mark tags what you 买 buy.",
     "買": "An ⺫ eye checks 貝 shellfish used as money before 買 buy.",
+    "年": "A 人 person carries 禾 standing grain through the harvest cycle of 年 year.",
+    "本": "A ◎ marker at the base of a 木 tree labels the source of a 本 book.",
+    "生": "A 屮 sprout pushing through 一 one ground line bursts into 生 life.",
+    "事": "A 又 hand grips the ◎ marker for the 事 matter at hand.",
+    "前": "A 刂 knife clears the 䒑 grass top ahead, opening the 前 front.",
+    "方": "A 刀 sword set against 一 one line points in a clear 方 direction.",
+    "合": "A 亼 assemble roof closes over a 口 mouth so separate parts 合 fit.",
+    "社": "示 show signs on 土 earth mark the shared ground of a 社 company.",
+    "内": "A 人 person inside a 冂 large room marks 内 inside.",
+    "当": "The 彐 snout sits under a ⺌ small sign to show what will 当 work as the match.",
+    "新": "A 斤 axe cuts 亲 parents stock into something 新 new.",
+    "度": "A 又 hand counts 廿 twenty marks under a 广 roof to measure 度 degree.",
+    "用": "A 𰀁 inner line inside a 冂 large room shows the space ready to 用 utilize.",
+    "屋": "A 尸 sitting person reaches 至 until sheltered space becomes 屋 habitation.",
+    "業": "业 business grows past a 䒑 grass top while 未 not yet finished, becoming 業 profession.",
+    "定": "A 宀 roof over a 𤴓 straight foot gives a place to 定 settle on.",
+    "外": "A 卜 divination mark at 夕 dusk points beyond the house to 外 outside.",
+    "最": "On a 日 day, the 取 take hand reaches for 最 most.",
+    "先": "A ⺧ cow steps on 儿 human legs and moves 先 ahead.",
+    "民": "A 目 eye marked by ◎ marker stands for 民 people.",
+    "多": "One 夕 dusk after another piles up into 多 many.",
+    "全": "A 𠆢 person roof shelters a 王 king whole, making 全 whole.",
+    "野": "A 里 li village left 予 beforehand outside the walls becomes 野 wild.",
+    "平": "A 丂 axe handle balanced by an ◎ marker lies 平 even.",
+    "軍": "A 冖 cover over a 車 vehicle turns movement into 軍 army.",
+    "開": "廾 two hands lift the 閂 latch until the way can 開 open.",
+    "教": "孝 filial piety guided by 攵 tap becomes 教 teach.",
+    "以": "A 人 person becomes the means of action in 以 by means.",
+    "原": "A 厂 cliff, 白 white spring, and 小 small stream open into 原 flatlands.",
+    "正": "A 一 one line above 止 stop keeps the stance 正 correct.",
+    "次": "冫 ice beside a 欠 deficient gap leaves the 次 next place waiting.",
+    "美": "A 大 big figure wearing 𦍌 sheep fleece appears 美 beautiful.",
+    "食": "A 亽 food cover over 艮 stubborn grain preserves 食 food.",
+    "表": "龶 growth pushing through a 𧘇 garment hem reaches the 表 surface.",
+    "報": "幸 good fortune delivered through 𠬝 submit becomes 報 newspaper.",
+    "真": "十 ten marks over 具 tool verify what is 真 true.",
+    "要": "A 女 woman under 覀 west (cover) reaches for what she 要 want.",
+    "結": "糸 silk tied around 吉 lucky words makes 結 tie.",
+    "重": "A 亻 person carrying 東 east loads becomes 重 heavy.",
+    "天": "一 one sky line above 大 big space becomes 天 heaven.",
+    "神": "示 show signs beside 申 express reveal 神 gods.",
+    "引": "A 丨 line pulled by 弓 bow shows 引 draw.",
+    "公": "八 eight open paths leave no 厶 secret, making 公 public.",
+    "太": "A 丶 dot added to 大 big makes it 太 overly.",
+    "強": "A 弓 bow held under strain shows 強 strong.",
+    "朝": "A 𠦝 sunrise measured by 月 month opens 朝 dynasty.",
+    "受": "A 爫 reaching hand under 冖 cover meets 又 hand to 受 accept.",
+    "島": "A 山 mountain rising from water becomes 島 island.",
+    "解": "A 角 angle pried apart shows how to 解 untie.",
+    "市": "A 巾 towel hung under a 亠 lid marks 市 market.",
+    "活": "氵 water (drops) on 舌 tongue keeps speech 活 lively.",
+    "組": "糸 silk binding 且 moreover strands makes 組 group.",
+    "流": "氵 water (drops) following 㐬 stream begins to 流 flow.",
+    "足": "A 口 mouth-shaped opening above 龰 foot forms 足 lower leg.",
+    "在": "土 earth under a marked place shows where something 在 at.",
+    "笑": "竹 bamboo bends over 夭 die young until the face starts to 笑 laugh.",
+    "電": "雨 rain around 日 day and a 乚 turning hook sparks 電 electricity.",
+    "直": "十 ten straight guide marks keep 直 straight.",
+    "保": "A 亻 person beside 呆 dim-witted innocence stays close to 保 safeguard.",
+    "別": "A 刂 knife cuts away the extra part so 別 don't separates it.",
+    "夫": "一 one line across 大 big shoulders marks 夫 husband.",
+    "義": "A 𦍌 sheep offering held by 我 I becomes 義 righteousness.",
+    "制": "A 刂 knife manages 牛 cow strength inside a 冂 large room to make 制 system.",
+    "風": "凡 ordinary air stirred by 鳳 male phoenix wings becomes 風 wind.",
+    "北": "A 匕 ancient spoon turns away, pointing to 北 north.",
+    "番": "釆 distinguish marks spread across a 田 rice field make 番 try.",
+    "得": "A 彳 step reaches 㝵 ancient rule and 得 must follow.",
+    "有": "A 𠂇 left hand holding 月 month light shows what you 有 possess.",
+    "起": "A 走 walk beginning at 巳 the hours from 9 to 11 makes 起 begin.",
+    "際": "A ⻖ mound beside 祭 offer sacrifice marks a formal 際 occasion.",
+    "色": "爪 claw lifts 卩 person kneeling to reveal 色 color.",
+    "反": "A 又 hand pushes against 𠂆 stretch, making 反 against.",
+    "古": "十 ten generations pass through 口 mouth stories, becoming 古 ancient.",
+    "配": "A 酉 vessel assigned to 己 self shows 配 distribute.",
+    "終": "糸 silk reaching 冬 winter comes to 終 end.",
+    "常": "A 巾 towel kept ready every day becomes 常 often.",
+    "果": "A 木 tree with an ◎ marker on its branch bears 果 fruit.",
+    "武": "弋 catch, 一 one line, and 止 stop hold force in 武 military order.",
+    "共": "卄 twentieth hands over 一 one shared line make 共 together.",
+    "役": "A 彳 step guided by 殳 hand tool performs 役 service.",
+    "術": "行 go guided by 术 skill becomes 術 art.",
+    "支": "A 又 hand holding 十 ten branches makes 支 offshoot.",
+    "送": "辶 movement carries 关 close things outward to 送 deliver.",
+    "右": "A 𠂇 left hand reaches toward 口 mouth on the 右 right.",
+    "是": "日 day shines over a 𤴓 straight foot standing plainly as 是 be.",
     "愛": "A 爫 reaching hand under a 冖 cover protects a 心 heart through every 夂 walk, becoming 愛 love.",
     "爱": "A 爫 reaching hand under a 冖 cover holds a 友 friend close, becoming 爱 love.",
     "易": "A 日 day that is 勿 not harsh makes work 易 easy.",
@@ -443,7 +534,7 @@ TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
     "紧": "A 丨 line and another 丨 line brace a 又 hand pulling 糸 silk until it becomes 紧 tense.",
     "緊": "A 臤 firm grip pulls 糸 silk tight until it becomes 緊 tight.",
     "曷": "曰 speech inside 勹 wrap surrounds a 𠃊 hidden area and 人 person, leaving 曷 question.",
-    "金": "A 今 now sound remnant crowns a 王 king axe and 吕 pitchpipe plates, forming 金 gold.",
+    "金": "A 今 sound mark sits above a 王 metal axe and 吕 metal plates, the metal shapes that make 金 gold.",
     "釘": "金 gold shaped like a 丁 fourth mark becomes 釘 nail.",
     "針": "金 gold drawn to a sharp point on a 十 ten guide becomes 針 needle.",
     "鈴": "金 gold struck by 令 orders rings out as 鈴 small bell.",
@@ -717,10 +808,14 @@ def apply_targeted_component_override_to_prepared(prepared: dict[str, Any]) -> d
     components = [
         {
             "character": str(component.get("character") or component.get("char") or ""),
-            "gloss": safe_gloss(
-                str(component.get("character") or component.get("char") or ""),
-                str(component.get("gloss") or component.get("meaning") or ""),
-                component_mode=True,
+            "gloss": (
+                str(component.get("gloss") or component.get("meaning") or "").strip()
+                if component.get("preserve_gloss")
+                else safe_gloss(
+                    str(component.get("character") or component.get("char") or ""),
+                    str(component.get("gloss") or component.get("meaning") or ""),
+                    component_mode=True,
+                )
             ),
         }
         for component in override
@@ -766,6 +861,22 @@ def meaning_action(meaning: str, plural: bool) -> str:
         return bool(re.search(rf"(?<![a-z]){escaped}(?![a-z])", lower))
 
     classes = [
+        (("year", "month", "season", "morning", "night", "dawn", "dusk", "early", "late", "time"),
+         "mark time as" if plural else "marks time as"),
+        (("book", "record", "newspaper", "drawing", "document", "text", "sentence", "law", "matter", "story"),
+         "record" if plural else "records"),
+        (("true", "correct", "right", "straight", "proper", "exact", "whole", "same", "fit", "even"),
+         "align into" if plural else "aligns into"),
+        (("new", "old", "ancient", "young", "fresh"),
+         "change into" if plural else "changes into"),
+        (("many", "most", "much", "few", "half", "both", "all", "ten thousand", "thousand"),
+         "count out" if plural else "counts out"),
+        (("front", "back", "inside", "outside", "direction", "edge", "border", "north", "east", "west", "south", "ahead"),
+         "point toward" if plural else "points toward"),
+        (("people", "person", "company", "army", "troops", "tribe", "family", "employee", "bureaucrat"),
+         "gather into" if plural else "gathers into"),
+        (("be", "at", "exist", "stay", "settle", "remain"),
+         "stand as" if plural else "stands as"),
         (("water", "river", "sea", "lake", "spring", "tide", "liquid", "rain", "pond", "swamp", "stream"),
          "flow into" if plural else "flows into"),
         (("fire", "heat", "warm", "hot", "burn", "light", "bright", "shine", "sun", "ray", "lamp"),
@@ -800,7 +911,7 @@ def meaning_action(meaning: str, plural: bool) -> str:
     for needles, action in classes:
         if any(has_keyword(needle) for needle in needles):
             return action
-    return "come together as" if plural else "comes together as"
+    return "mark" if plural else "marks"
 
 
 def local_mnemonic(prepared: dict[str, Any]) -> str:
@@ -814,7 +925,7 @@ def local_mnemonic(prepared: dict[str, Any]) -> str:
         component_pair = f"{components[0]['character']} {components[0]['gloss']}"
         if component_pair == final_pair:
             return f"The visible form of {final_pair} carries its meaning directly."
-        return f"The visible form {component_pair} carries the meaning {final_pair} directly."
+        return f"The {component_pair} shape became the written form for {final_pair}."
     return f"{component_text} {meaning_action(prepared['meaning'], len(components) > 2)} {final_pair}."
 
 
