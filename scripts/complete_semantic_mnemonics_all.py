@@ -447,7 +447,7 @@ TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
     "支": "A 又 hand holding 十 ten branches makes 支 offshoot.",
     "送": "辶 movement carries 关 close things outward to 送 deliver.",
     "右": "A 𠂇 left hand reaches toward 口 mouth on the 右 right.",
-    "是": "日 day shines over a 𤴓 straight foot standing plainly as 是 be.",
+    "是": "A 𤴓 straight foot planted under 日 day shows what is present: 是 be.",
     "愛": "A 爫 reaching hand under a 冖 cover protects a 心 heart through every 夂 walk, becoming 愛 love.",
     "爱": "A 爫 reaching hand under a 冖 cover holds a 友 friend close, becoming 爱 love.",
     "易": "A 日 day that is 勿 not harsh makes work 易 easy.",
