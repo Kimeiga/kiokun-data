@@ -1,28 +1,29 @@
 {
-  "created_at": "2026-07-14T06:02:44.008909+00:00",
+  "created_at": "2026-07-14T06:26:06.700054+00:00",
   "count": 24037,
   "invalid_count": 0,
   "invalid": [],
   "source_counts": {
-    "codex_local_completion": 13118,
-    "codex_local_reauthor_paid_9000": 8946,
-    "codex_manual_quality_patch_2026_07_08": 265,
-    "codex_local_ids_realign": 264,
-    "gemini35_reviewed_1000": 597,
+    "codex_local_completion": 12995,
+    "codex_local_reauthor_paid_9000": 8889,
+    "codex_manual_quality_patch_2026_07_08": 493,
+    "codex_local_ids_realign": 239,
+    "gemini35_reviewed_1000": 574,
     "codex_local_learner_gap": 18,
     "codex_local_nfkc_variant_alias": 806,
     "codex_local_variant_alias": 23
   },
   "component_source_counts": {
     "self_fallback": 2219,
-    "resolved_ids_forward": 20314,
-    "ids": 306,
+    "resolved_ids_forward": 20151,
+    "ids": 250,
     "resolved_ids_forward+manual_ids_override+manual_quality_override": 23,
-    "resolved_ids_forward+manual_quality_override": 167,
-    "ids+dictionary_component_fallback": 88,
-    "ids+manual_quality_override": 9,
-    "dictionary_component_fallback": 59,
-    "ids+dictionary_component_fallback+manual_quality_override": 17,
+    "resolved_ids_forward+manual_quality_override": 330,
+    "ids+dictionary_component_fallback": 79,
+    "ids+manual_quality_override": 65,
+    "dictionary_component_fallback": 58,
+    "ids+dictionary_component_fallback+manual_quality_override": 26,
+    "dictionary_component_fallback+manual_quality_override": 1,
     "ids+manual_ids_override+manual_quality_override": 2,
     "ids+dictionary_component_fallback+manual_ids_override+manual_quality_override": 1,
     "variant_alias:豈": 1,
@@ -762,10 +763,10 @@
     "variant_alias:鼻": 1
   },
   "mnemonic_length": {
-    "min": 18,
-    "p50": 48,
-    "p90": 64,
-    "p95": 69,
+    "min": 22,
+    "p50": 59,
+    "p90": 71,
+    "p95": 75,
     "max": 124
   }
 }
