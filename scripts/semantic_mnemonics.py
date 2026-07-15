@@ -81,6 +81,19 @@ MANUAL_GLOSS_OVERRIDES: dict[str, str] = {
     # existing glosses are still preserved in source data.
     "連": "connect",
     "憂": "worry",
+    "綿": "cotton",
+    "帛": "silk cloth",
+    "約": "promise",
+    "约": "promise",
+    "線": "line",
+    "线": "line",
+    "紀": "chronicle",
+    "纪": "chronicle",
+    "編": "compile",
+    "编": "compile",
+    "統": "unite",
+    "统": "unite",
+    "素": "plain",
     "买": "buy",
     "爱": "love",
     "車": "vehicle",
@@ -161,6 +174,27 @@ MANUAL_GLOSS_OVERRIDES: dict[str, str] = {
     "昧": "dark",
     "寍": "calm base",
     "𫲽": "quiet heart",
+    "性": "nature",
+    "首": "head",
+    "闭": "close",
+    "閑": "idle",
+    "闲": "idle",
+    "閲": "inspect",
+    "闻": "hear",
+    "兑": "exchange",
+    "吗": "question particle",
+    "嗎": "question particle",
+    "吧": "suggestion particle",
+    "呢": "follow-up particle",
+    "啊": "exclamation",
+    "种": "species",
+    "远": "far",
+    "进": "enter",
+    "钢": "steel",
+    "银": "silver",
+    "眼": "eye",
+    "束": "bundle",
+    "缶": "jar",
 }
 
 
@@ -169,6 +203,13 @@ MANUAL_COMPONENT_GLOSS_OVERRIDES: dict[str, str] = {
     # lexical gloss for some characters, e.g. 又 is "again" as a character but
     # usually a hand-shaped component inside larger forms.
     "囗": "enclosure",
+    # Textile shapes need broader visual glosses than their standalone lexical
+    # meanings. 糸/纟 can be any thread, not necessarily silk, while 帛 is most
+    # useful inside compounds as the visibly white cloth made from 白 + 巾.
+    "糸": "thread",
+    "纟": "thread",
+    "巾": "cloth",
+    "帛": "white cloth",
     "又": "hand",
     "臣": "watchful eye",
     "臤": "firm grip",
@@ -215,7 +256,7 @@ MANUAL_COMPONENT_GLOSS_OVERRIDES: dict[str, str] = {
     "鱼": "fish",
     "𧾷": "foot (side)",
     "钅": "metal",
-    "纟": "silk",
+    "纟": "thread",
     "贝": "shell",
     "𰀁": "inner line",
     "马": "horse",
@@ -228,6 +269,8 @@ MANUAL_COMPONENT_GLOSS_OVERRIDES: dict[str, str] = {
     "𫵖": "official mark",
     "𫧇": "seal mark",
     "𫲽": "quiet heart",
+    "才": "crossbar",
+    "朩": "tree",
 }
 
 
@@ -332,10 +375,16 @@ Mnemonic requirements:
 - Be concrete, short, internally consistent, and easy to picture.
 - Avoid extra visual objects unless needed for the logic.
 - The story should make the final meaning feel inevitable, not clever.
+- Give each component a visible job in one tiny scene; merely listing the pieces is a failed mnemonic.
+- If the final meaning is abstract, show a concrete action or consequence that makes it memorable.
+- If two component glosses overlap, stop and request better component-mode glosses instead of hiding the collision in prose.
 - No English pronunciation puns.
 - No meta descriptions: do not say "the character combines", "this character", "component", "radical", or "represents".
 - Never use the word "represents" in the mnemonic. Make the components directly cause, create, become, bring, mark, hold, carry, cover, cut, bind, or reveal the final meaning.
+- Never say "joined with", "gives shape to", "supplies the image", "the visible form", or "the written shape".
 - Avoid filler words such as proudly, always, society, polite, poor, beautiful, magical, ancient, mystical, and glowing.
+
+Before returning a card, apply a counterfactual check: if the component pairs could be swapped for unrelated pairs without changing the sentence, rewrite it.
 
 Return strict JSON only."""
 
@@ -650,6 +699,8 @@ def cheap_style_score(card: dict[str, Any]) -> float:
         score -= 0.4
     if FILLER_STYLE_RE.search(mnemonic) or any(word in mnemonic.lower() for word in ("dragon", "neon")):
         score -= 1.0
+    if GENERIC_QUALITY_RE.search(mnemonic):
+        score -= 2.5
     if META_PHRASE_RE.search(mnemonic):
         score -= 2.0
     if " and " in mnemonic:
@@ -818,6 +869,13 @@ META_PHRASE_RE = re.compile(
 
 FILLER_STYLE_RE = re.compile(
     r"\b(?:proudly|always|society|polite|poor|beautiful|magical|ancient|mystical|glowing)\b",
+    re.IGNORECASE,
+)
+
+
+GENERIC_QUALITY_RE = re.compile(
+    r"\b(?:joined with|gives? shape to|supplies the image for|the visible form of|"
+    r"the written shape of|comes? together as|in one (?:visual )?image)\b",
     re.IGNORECASE,
 )
 

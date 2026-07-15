@@ -1,30 +1,31 @@
 {
-  "created_at": "2026-07-14T06:26:06.700054+00:00",
+  "created_at": "2026-07-15T19:57:46.924307+00:00",
   "count": 24037,
   "invalid_count": 0,
   "invalid": [],
   "source_counts": {
-    "codex_local_completion": 12995,
-    "codex_local_reauthor_paid_9000": 8889,
-    "codex_manual_quality_patch_2026_07_08": 493,
-    "codex_local_ids_realign": 239,
-    "gemini35_reviewed_1000": 574,
+    "codex_local_completion": 12901,
+    "codex_local_reauthor_paid_9000": 8873,
+    "codex_manual_quality_patch_2026_07_08": 626,
+    "codex_local_ids_realign": 232,
+    "gemini35_reviewed_1000": 558,
     "codex_local_learner_gap": 18,
     "codex_local_nfkc_variant_alias": 806,
     "codex_local_variant_alias": 23
   },
   "component_source_counts": {
-    "self_fallback": 2219,
-    "resolved_ids_forward": 20151,
-    "ids": 250,
+    "self_fallback": 2216,
+    "resolved_ids_forward": 20095,
+    "ids": 172,
     "resolved_ids_forward+manual_ids_override+manual_quality_override": 23,
-    "resolved_ids_forward+manual_quality_override": 330,
+    "resolved_ids_forward+manual_quality_override": 386,
     "ids+dictionary_component_fallback": 79,
-    "ids+manual_quality_override": 65,
+    "ids+manual_quality_override": 144,
     "dictionary_component_fallback": 58,
     "ids+dictionary_component_fallback+manual_quality_override": 26,
     "dictionary_component_fallback+manual_quality_override": 1,
     "ids+manual_ids_override+manual_quality_override": 2,
+    "self_fallback+manual_quality_override": 3,
     "ids+dictionary_component_fallback+manual_ids_override+manual_quality_override": 1,
     "variant_alias:豈": 1,
     "variant_alias:更": 1,
@@ -436,7 +437,6 @@
     "variant_alias:䀹": 2,
     "variant_alias:龎": 1,
     "manual_ids_override": 1,
-    "self_fallback+manual_quality_override": 1,
     "self_fallback+manual_ids_override+manual_quality_override": 1,
     "variant_alias:丽": 1,
     "variant_alias:丸": 1,
@@ -767,6 +767,1067 @@
     "p50": 59,
     "p90": 71,
     "p95": 75,
-    "max": 124
+    "max": 117
+  },
+  "quality_review": {
+    "methodology": "Formal validity and learning quality are separate. Flags are deterministic review signals; abstract meanings and variant forms are not automatically bad, while generic filler is a rewrite signal.",
+    "flagged_count": 23210,
+    "quality_status_counts": {
+      "pass": 827,
+      "review": 294,
+      "rewrite": 22916
+    },
+    "flag_counts": {
+      "generic_filler": 22912,
+      "tautological_self_form": 2400,
+      "variant_form_needs_review": 832,
+      "abstract_final_meaning": 765,
+      "unhelpful_final_gloss": 639,
+      "weak_causal_link": 282,
+      "learner_facing_weirdness": 142,
+      "opaque_component_gloss": 59,
+      "duplicated_component_meaning": 23
+    },
+    "top_suspicious": [
+      {
+        "character": "粛",
+        "meaning": "pay respects",
+        "frequency_rank": 2061,
+        "quality_status": "rewrite",
+        "quality_score": 11.0,
+        "review_priority": 19.924,
+        "flags": [
+          {
+            "code": "generic_filler",
+            "severity": 6.0,
+            "evidence": "The written shape of"
+          },
+          {
+            "code": "tautological_self_form",
+            "severity": 5.0,
+            "evidence": "written shape of 粛 pay respects is the memory image"
+          }
+        ],
+        "equation": "Visual form: 粛 pay respects",
+        "mnemonic": "The written shape of 粛 pay respects is the memory image.",
+        "components": [
+          {
+            "character": "粛",
+            "gloss": "pay respects"
+          }
+        ],
+        "component_source": "ids",
+        "generation_source": "codex_local_completion"
+      },
+      {
+        "character": "棰",
+        "meaning": "form",
+        "frequency_rank": null,
+        "quality_status": "rewrite",
+        "quality_score": 19.0,
+        "review_priority": 19.0,
+        "flags": [
+          {
+            "code": "generic_filler",
+            "severity": 6.0,
+            "evidence": "The written shape of"
+          },
+          {
+            "code": "tautological_self_form",
+            "severity": 5.0,
+            "evidence": "written shape of 棰 form is the memory image"
+          },
+          {
+            "code": "opaque_component_gloss",
+            "severity": 4.0,
+            "evidence": [
+              "棰 form"
+            ]
+          },
+          {
+            "code": "unhelpful_final_gloss",
+            "severity": 4.0,
+            "evidence": "form"
+          }
+        ],
+        "equation": "Visual form: 棰 form",
+        "mnemonic": "The written shape of 棰 form is the memory image.",
+        "components": [
+          {
+            "character": "棰",
+            "gloss": "form"
+          }
+        ],
+        "component_source": "self_fallback",
+        "generation_source": "codex_local_completion"
+      },
+      {
+        "character": "𠀅",
+        "meaning": "alternate form",
+        "frequency_rank": null,
+        "quality_status": "rewrite",
+        "quality_score": 19.0,
+        "review_priority": 19.0,
+        "flags": [
+          {
+            "code": "generic_filler",
+            "severity": 6.0,
+            "evidence": "The written shape of"
+          },
+          {
+            "code": "tautological_self_form",
+            "severity": 5.0,
+            "evidence": "written shape of 𠀅 alternate form is the memory image"
+          },
+          {
+            "code": "opaque_component_gloss",
+            "severity": 4.0,
+            "evidence": [
+              "𠀅 alternate form"
+            ]
+          },
+          {
+            "code": "unhelpful_final_gloss",
+            "severity": 4.0,
+            "evidence": "alternate form"
+          }
+        ],
+        "equation": "Visual form: 𠀅 alternate form",
+        "mnemonic": "The written shape of 𠀅 alternate form is the memory image.",
+        "components": [
+          {
+            "character": "𠀅",
+            "gloss": "alternate form"
+          }
+        ],
+        "component_source": "self_fallback",
+        "generation_source": "codex_local_completion"
+      },
+      {
+        "character": "𠧩",
+        "meaning": "form",
+        "frequency_rank": null,
+        "quality_status": "rewrite",
+        "quality_score": 19.0,
+        "review_priority": 19.0,
+        "flags": [
+          {
+            "code": "generic_filler",
+            "severity": 6.0,
+            "evidence": "The written shape of"
+          },
+          {
+            "code": "tautological_self_form",
+            "severity": 5.0,
+            "evidence": "written shape of 𠧩 form is the memory image"
+          },
+          {
+            "code": "opaque_component_gloss",
+            "severity": 4.0,
+            "evidence": [
+              "𠧩 form"
+            ]
+          },
+          {
+            "code": "unhelpful_final_gloss",
+            "severity": 4.0,
+            "evidence": "form"
+          }
+        ],
+        "equation": "Visual form: 𠧩 form",
+        "mnemonic": "The written shape of 𠧩 form is the memory image.",
+        "components": [
+          {
+            "character": "𠧩",
+            "gloss": "form"
+          }
+        ],
+        "component_source": "self_fallback",
+        "generation_source": "codex_local_completion"
+      },
+      {
+        "character": "𠯮",
+        "meaning": "alternate form",
+        "frequency_rank": null,
+        "quality_status": "rewrite",
+        "quality_score": 19.0,
+        "review_priority": 19.0,
+        "flags": [
+          {
+            "code": "generic_filler",
+            "severity": 6.0,
+            "evidence": "The written shape of"
+          },
+          {
+            "code": "tautological_self_form",
+            "severity": 5.0,
+            "evidence": "written shape of 𠯮 alternate form is the memory image"
+          },
+          {
+            "code": "opaque_component_gloss",
+            "severity": 4.0,
+            "evidence": [
+              "𠯮 alternate form"
+            ]
+          },
+          {
+            "code": "unhelpful_final_gloss",
+            "severity": 4.0,
+            "evidence": "alternate form"
+          }
+        ],
+        "equation": "Visual form: 𠯮 alternate form",
+        "mnemonic": "The written shape of 𠯮 alternate form is the memory image.",
+        "components": [
+          {
+            "character": "𠯮",
+            "gloss": "alternate form"
+          }
+        ],
+        "component_source": "self_fallback",
+        "generation_source": "codex_local_completion"
+      },
+      {
+        "character": "𡀔",
+        "meaning": "form",
+        "frequency_rank": null,
+        "quality_status": "rewrite",
+        "quality_score": 19.0,
+        "review_priority": 19.0,
+        "flags": [
+          {
+            "code": "generic_filler",
+            "severity": 6.0,
+            "evidence": "The written shape of"
+          },
+          {
+            "code": "tautological_self_form",
+            "severity": 5.0,
+            "evidence": "written shape of 𡀔 form is the memory image"
+          },
+          {
+            "code": "opaque_component_gloss",
+            "severity": 4.0,
+            "evidence": [
+              "𡀔 form"
+            ]
+          },
+          {
+            "code": "unhelpful_final_gloss",
+            "severity": 4.0,
+            "evidence": "form"
+          }
+        ],
+        "equation": "Visual form: 𡀔 form",
+        "mnemonic": "The written shape of 𡀔 form is the memory image.",
+        "components": [
+          {
+            "character": "𡀔",
+            "gloss": "form"
+          }
+        ],
+        "component_source": "self_fallback",
+        "generation_source": "codex_local_completion"
+      },
+      {
+        "character": "𡈽",
+        "meaning": "alternate form",
+        "frequency_rank": null,
+        "quality_status": "rewrite",
+        "quality_score": 19.0,
+        "review_priority": 19.0,
+        "flags": [
+          {
+            "code": "generic_filler",
+            "severity": 6.0,
+            "evidence": "The written shape of"
+          },
+          {
+            "code": "tautological_self_form",
+            "severity": 5.0,
+            "evidence": "written shape of 𡈽 alternate form is the memory image"
+          },
+          {
+            "code": "opaque_component_gloss",
+            "severity": 4.0,
+            "evidence": [
+              "𡈽 alternate form"
+            ]
+          },
+          {
+            "code": "unhelpful_final_gloss",
+            "severity": 4.0,
+            "evidence": "alternate form"
+          }
+        ],
+        "equation": "Visual form: 𡈽 alternate form",
+        "mnemonic": "The written shape of 𡈽 alternate form is the memory image.",
+        "components": [
+          {
+            "character": "𡈽",
+            "gloss": "alternate form"
+          }
+        ],
+        "component_source": "self_fallback",
+        "generation_source": "codex_local_completion"
+      },
+      {
+        "character": "𢝵",
+        "meaning": "form",
+        "frequency_rank": null,
+        "quality_status": "rewrite",
+        "quality_score": 19.0,
+        "review_priority": 19.0,
+        "flags": [
+          {
+            "code": "generic_filler",
+            "severity": 6.0,
+            "evidence": "The written shape of"
+          },
+          {
+            "code": "tautological_self_form",
+            "severity": 5.0,
+            "evidence": "written shape of 𢝵 form is the memory image"
+          },
+          {
+            "code": "opaque_component_gloss",
+            "severity": 4.0,
+            "evidence": [
+              "𢝵 form"
+            ]
+          },
+          {
+            "code": "unhelpful_final_gloss",
+            "severity": 4.0,
+            "evidence": "form"
+          }
+        ],
+        "equation": "Visual form: 𢝵 form",
+        "mnemonic": "The written shape of 𢝵 form is the memory image.",
+        "components": [
+          {
+            "character": "𢝵",
+            "gloss": "form"
+          }
+        ],
+        "component_source": "self_fallback",
+        "generation_source": "codex_local_completion"
+      },
+      {
+        "character": "𢥞",
+        "meaning": "related form",
+        "frequency_rank": null,
+        "quality_status": "rewrite",
+        "quality_score": 19.0,
+        "review_priority": 19.0,
+        "flags": [
+          {
+            "code": "generic_filler",
+            "severity": 6.0,
+            "evidence": "The written shape of"
+          },
+          {
+            "code": "tautological_self_form",
+            "severity": 5.0,
+            "evidence": "written shape of 𢥞 related form is the memory image"
+          },
+          {
+            "code": "opaque_component_gloss",
+            "severity": 4.0,
+            "evidence": [
+              "𢥞 related form"
+            ]
+          },
+          {
+            "code": "unhelpful_final_gloss",
+            "severity": 4.0,
+            "evidence": "related form"
+          }
+        ],
+        "equation": "Visual form: 𢥞 related form",
+        "mnemonic": "The written shape of 𢥞 related form is the memory image.",
+        "components": [
+          {
+            "character": "𢥞",
+            "gloss": "related form"
+          }
+        ],
+        "component_source": "self_fallback",
+        "generation_source": "codex_local_completion"
+      },
+      {
+        "character": "𣏾",
+        "meaning": "alternate form",
+        "frequency_rank": null,
+        "quality_status": "rewrite",
+        "quality_score": 19.0,
+        "review_priority": 19.0,
+        "flags": [
+          {
+            "code": "generic_filler",
+            "severity": 6.0,
+            "evidence": "The written shape of"
+          },
+          {
+            "code": "tautological_self_form",
+            "severity": 5.0,
+            "evidence": "written shape of 𣏾 alternate form is the memory image"
+          },
+          {
+            "code": "opaque_component_gloss",
+            "severity": 4.0,
+            "evidence": [
+              "𣏾 alternate form"
+            ]
+          },
+          {
+            "code": "unhelpful_final_gloss",
+            "severity": 4.0,
+            "evidence": "alternate form"
+          }
+        ],
+        "equation": "Visual form: 𣏾 alternate form",
+        "mnemonic": "The written shape of 𣏾 alternate form is the memory image.",
+        "components": [
+          {
+            "character": "𣏾",
+            "gloss": "alternate form"
+          }
+        ],
+        "component_source": "self_fallback",
+        "generation_source": "codex_local_completion"
+      },
+      {
+        "character": "𣟬",
+        "meaning": "related form",
+        "frequency_rank": null,
+        "quality_status": "rewrite",
+        "quality_score": 19.0,
+        "review_priority": 19.0,
+        "flags": [
+          {
+            "code": "generic_filler",
+            "severity": 6.0,
+            "evidence": "The written shape of"
+          },
+          {
+            "code": "tautological_self_form",
+            "severity": 5.0,
+            "evidence": "written shape of 𣟬 related form is the memory image"
+          },
+          {
+            "code": "opaque_component_gloss",
+            "severity": 4.0,
+            "evidence": [
+              "𣟬 related form"
+            ]
+          },
+          {
+            "code": "unhelpful_final_gloss",
+            "severity": 4.0,
+            "evidence": "related form"
+          }
+        ],
+        "equation": "Visual form: 𣟬 related form",
+        "mnemonic": "The written shape of 𣟬 related form is the memory image.",
+        "components": [
+          {
+            "character": "𣟬",
+            "gloss": "related form"
+          }
+        ],
+        "component_source": "self_fallback",
+        "generation_source": "codex_local_completion"
+      },
+      {
+        "character": "𣠽",
+        "meaning": "related form",
+        "frequency_rank": null,
+        "quality_status": "rewrite",
+        "quality_score": 19.0,
+        "review_priority": 19.0,
+        "flags": [
+          {
+            "code": "generic_filler",
+            "severity": 6.0,
+            "evidence": "The written shape of"
+          },
+          {
+            "code": "tautological_self_form",
+            "severity": 5.0,
+            "evidence": "written shape of 𣠽 related form is the memory image"
+          },
+          {
+            "code": "opaque_component_gloss",
+            "severity": 4.0,
+            "evidence": [
+              "𣠽 related form"
+            ]
+          },
+          {
+            "code": "unhelpful_final_gloss",
+            "severity": 4.0,
+            "evidence": "related form"
+          }
+        ],
+        "equation": "Visual form: 𣠽 related form",
+        "mnemonic": "The written shape of 𣠽 related form is the memory image.",
+        "components": [
+          {
+            "character": "𣠽",
+            "gloss": "related form"
+          }
+        ],
+        "component_source": "self_fallback",
+        "generation_source": "codex_local_completion"
+      },
+      {
+        "character": "𣴓",
+        "meaning": "form",
+        "frequency_rank": null,
+        "quality_status": "rewrite",
+        "quality_score": 19.0,
+        "review_priority": 19.0,
+        "flags": [
+          {
+            "code": "generic_filler",
+            "severity": 6.0,
+            "evidence": "The written shape of"
+          },
+          {
+            "code": "tautological_self_form",
+            "severity": 5.0,
+            "evidence": "written shape of 𣴓 form is the memory image"
+          },
+          {
+            "code": "opaque_component_gloss",
+            "severity": 4.0,
+            "evidence": [
+              "𣴓 form"
+            ]
+          },
+          {
+            "code": "unhelpful_final_gloss",
+            "severity": 4.0,
+            "evidence": "form"
+          }
+        ],
+        "equation": "Visual form: 𣴓 form",
+        "mnemonic": "The written shape of 𣴓 form is the memory image.",
+        "components": [
+          {
+            "character": "𣴓",
+            "gloss": "form"
+          }
+        ],
+        "component_source": "self_fallback",
+        "generation_source": "codex_local_completion"
+      },
+      {
+        "character": "𥔵",
+        "meaning": "alternate form",
+        "frequency_rank": null,
+        "quality_status": "rewrite",
+        "quality_score": 19.0,
+        "review_priority": 19.0,
+        "flags": [
+          {
+            "code": "generic_filler",
+            "severity": 6.0,
+            "evidence": "The written shape of"
+          },
+          {
+            "code": "tautological_self_form",
+            "severity": 5.0,
+            "evidence": "written shape of 𥔵 alternate form is the memory image"
+          },
+          {
+            "code": "opaque_component_gloss",
+            "severity": 4.0,
+            "evidence": [
+              "𥔵 alternate form"
+            ]
+          },
+          {
+            "code": "unhelpful_final_gloss",
+            "severity": 4.0,
+            "evidence": "alternate form"
+          }
+        ],
+        "equation": "Visual form: 𥔵 alternate form",
+        "mnemonic": "The written shape of 𥔵 alternate form is the memory image.",
+        "components": [
+          {
+            "character": "𥔵",
+            "gloss": "alternate form"
+          }
+        ],
+        "component_source": "self_fallback",
+        "generation_source": "codex_local_completion"
+      },
+      {
+        "character": "𥢢",
+        "meaning": "form",
+        "frequency_rank": null,
+        "quality_status": "rewrite",
+        "quality_score": 19.0,
+        "review_priority": 19.0,
+        "flags": [
+          {
+            "code": "generic_filler",
+            "severity": 6.0,
+            "evidence": "The written shape of"
+          },
+          {
+            "code": "tautological_self_form",
+            "severity": 5.0,
+            "evidence": "written shape of 𥢢 form is the memory image"
+          },
+          {
+            "code": "opaque_component_gloss",
+            "severity": 4.0,
+            "evidence": [
+              "𥢢 form"
+            ]
+          },
+          {
+            "code": "unhelpful_final_gloss",
+            "severity": 4.0,
+            "evidence": "form"
+          }
+        ],
+        "equation": "Visual form: 𥢢 form",
+        "mnemonic": "The written shape of 𥢢 form is the memory image.",
+        "components": [
+          {
+            "character": "𥢢",
+            "gloss": "form"
+          }
+        ],
+        "component_source": "self_fallback",
+        "generation_source": "codex_local_completion"
+      },
+      {
+        "character": "𧉞",
+        "meaning": "form",
+        "frequency_rank": null,
+        "quality_status": "rewrite",
+        "quality_score": 19.0,
+        "review_priority": 19.0,
+        "flags": [
+          {
+            "code": "generic_filler",
+            "severity": 6.0,
+            "evidence": "The written shape of"
+          },
+          {
+            "code": "tautological_self_form",
+            "severity": 5.0,
+            "evidence": "written shape of 𧉞 form is the memory image"
+          },
+          {
+            "code": "opaque_component_gloss",
+            "severity": 4.0,
+            "evidence": [
+              "𧉞 form"
+            ]
+          },
+          {
+            "code": "unhelpful_final_gloss",
+            "severity": 4.0,
+            "evidence": "form"
+          }
+        ],
+        "equation": "Visual form: 𧉞 form",
+        "mnemonic": "The written shape of 𧉞 form is the memory image.",
+        "components": [
+          {
+            "character": "𧉞",
+            "gloss": "form"
+          }
+        ],
+        "component_source": "self_fallback",
+        "generation_source": "codex_local_completion"
+      },
+      {
+        "character": "𧗗",
+        "meaning": "related form",
+        "frequency_rank": null,
+        "quality_status": "rewrite",
+        "quality_score": 19.0,
+        "review_priority": 19.0,
+        "flags": [
+          {
+            "code": "generic_filler",
+            "severity": 6.0,
+            "evidence": "The written shape of"
+          },
+          {
+            "code": "tautological_self_form",
+            "severity": 5.0,
+            "evidence": "written shape of 𧗗 related form is the memory image"
+          },
+          {
+            "code": "opaque_component_gloss",
+            "severity": 4.0,
+            "evidence": [
+              "𧗗 related form"
+            ]
+          },
+          {
+            "code": "unhelpful_final_gloss",
+            "severity": 4.0,
+            "evidence": "related form"
+          }
+        ],
+        "equation": "Visual form: 𧗗 related form",
+        "mnemonic": "The written shape of 𧗗 related form is the memory image.",
+        "components": [
+          {
+            "character": "𧗗",
+            "gloss": "related form"
+          }
+        ],
+        "component_source": "self_fallback",
+        "generation_source": "codex_local_completion"
+      },
+      {
+        "character": "𨸄",
+        "meaning": "related form",
+        "frequency_rank": null,
+        "quality_status": "rewrite",
+        "quality_score": 19.0,
+        "review_priority": 19.0,
+        "flags": [
+          {
+            "code": "generic_filler",
+            "severity": 6.0,
+            "evidence": "The written shape of"
+          },
+          {
+            "code": "tautological_self_form",
+            "severity": 5.0,
+            "evidence": "written shape of 𨸄 related form is the memory image"
+          },
+          {
+            "code": "opaque_component_gloss",
+            "severity": 4.0,
+            "evidence": [
+              "𨸄 related form"
+            ]
+          },
+          {
+            "code": "unhelpful_final_gloss",
+            "severity": 4.0,
+            "evidence": "related form"
+          }
+        ],
+        "equation": "Visual form: 𨸄 related form",
+        "mnemonic": "The written shape of 𨸄 related form is the memory image.",
+        "components": [
+          {
+            "character": "𨸄",
+            "gloss": "related form"
+          }
+        ],
+        "component_source": "self_fallback",
+        "generation_source": "codex_local_completion"
+      },
+      {
+        "character": "𩂳",
+        "meaning": "alternate form",
+        "frequency_rank": null,
+        "quality_status": "rewrite",
+        "quality_score": 19.0,
+        "review_priority": 19.0,
+        "flags": [
+          {
+            "code": "generic_filler",
+            "severity": 6.0,
+            "evidence": "The written shape of"
+          },
+          {
+            "code": "tautological_self_form",
+            "severity": 5.0,
+            "evidence": "written shape of 𩂳 alternate form is the memory image"
+          },
+          {
+            "code": "opaque_component_gloss",
+            "severity": 4.0,
+            "evidence": [
+              "𩂳 alternate form"
+            ]
+          },
+          {
+            "code": "unhelpful_final_gloss",
+            "severity": 4.0,
+            "evidence": "alternate form"
+          }
+        ],
+        "equation": "Visual form: 𩂳 alternate form",
+        "mnemonic": "The written shape of 𩂳 alternate form is the memory image.",
+        "components": [
+          {
+            "character": "𩂳",
+            "gloss": "alternate form"
+          }
+        ],
+        "component_source": "self_fallback",
+        "generation_source": "codex_local_completion"
+      },
+      {
+        "character": "𩧿",
+        "meaning": "form",
+        "frequency_rank": null,
+        "quality_status": "rewrite",
+        "quality_score": 19.0,
+        "review_priority": 19.0,
+        "flags": [
+          {
+            "code": "generic_filler",
+            "severity": 6.0,
+            "evidence": "The written shape of"
+          },
+          {
+            "code": "tautological_self_form",
+            "severity": 5.0,
+            "evidence": "written shape of 𩧿 form is the memory image"
+          },
+          {
+            "code": "opaque_component_gloss",
+            "severity": 4.0,
+            "evidence": [
+              "𩧿 form"
+            ]
+          },
+          {
+            "code": "unhelpful_final_gloss",
+            "severity": 4.0,
+            "evidence": "form"
+          }
+        ],
+        "equation": "Visual form: 𩧿 form",
+        "mnemonic": "The written shape of 𩧿 form is the memory image.",
+        "components": [
+          {
+            "character": "𩧿",
+            "gloss": "form"
+          }
+        ],
+        "component_source": "self_fallback",
+        "generation_source": "codex_local_completion"
+      },
+      {
+        "character": "𩵋",
+        "meaning": "alternate form",
+        "frequency_rank": null,
+        "quality_status": "rewrite",
+        "quality_score": 19.0,
+        "review_priority": 19.0,
+        "flags": [
+          {
+            "code": "generic_filler",
+            "severity": 6.0,
+            "evidence": "The written shape of"
+          },
+          {
+            "code": "tautological_self_form",
+            "severity": 5.0,
+            "evidence": "written shape of 𩵋 alternate form is the memory image"
+          },
+          {
+            "code": "opaque_component_gloss",
+            "severity": 4.0,
+            "evidence": [
+              "𩵋 alternate form"
+            ]
+          },
+          {
+            "code": "unhelpful_final_gloss",
+            "severity": 4.0,
+            "evidence": "alternate form"
+          }
+        ],
+        "equation": "Visual form: 𩵋 alternate form",
+        "mnemonic": "The written shape of 𩵋 alternate form is the memory image.",
+        "components": [
+          {
+            "character": "𩵋",
+            "gloss": "alternate form"
+          }
+        ],
+        "component_source": "self_fallback",
+        "generation_source": "codex_local_completion"
+      },
+      {
+        "character": "𩶘",
+        "meaning": "form",
+        "frequency_rank": null,
+        "quality_status": "rewrite",
+        "quality_score": 19.0,
+        "review_priority": 19.0,
+        "flags": [
+          {
+            "code": "generic_filler",
+            "severity": 6.0,
+            "evidence": "The written shape of"
+          },
+          {
+            "code": "tautological_self_form",
+            "severity": 5.0,
+            "evidence": "written shape of 𩶘 form is the memory image"
+          },
+          {
+            "code": "opaque_component_gloss",
+            "severity": 4.0,
+            "evidence": [
+              "𩶘 form"
+            ]
+          },
+          {
+            "code": "unhelpful_final_gloss",
+            "severity": 4.0,
+            "evidence": "form"
+          }
+        ],
+        "equation": "Visual form: 𩶘 form",
+        "mnemonic": "The written shape of 𩶘 form is the memory image.",
+        "components": [
+          {
+            "character": "𩶘",
+            "gloss": "form"
+          }
+        ],
+        "component_source": "self_fallback",
+        "generation_source": "codex_local_completion"
+      },
+      {
+        "character": "𩾈",
+        "meaning": "related form",
+        "frequency_rank": null,
+        "quality_status": "rewrite",
+        "quality_score": 19.0,
+        "review_priority": 19.0,
+        "flags": [
+          {
+            "code": "generic_filler",
+            "severity": 6.0,
+            "evidence": "The written shape of"
+          },
+          {
+            "code": "tautological_self_form",
+            "severity": 5.0,
+            "evidence": "written shape of 𩾈 related form is the memory image"
+          },
+          {
+            "code": "opaque_component_gloss",
+            "severity": 4.0,
+            "evidence": [
+              "𩾈 related form"
+            ]
+          },
+          {
+            "code": "unhelpful_final_gloss",
+            "severity": 4.0,
+            "evidence": "related form"
+          }
+        ],
+        "equation": "Visual form: 𩾈 related form",
+        "mnemonic": "The written shape of 𩾈 related form is the memory image.",
+        "components": [
+          {
+            "character": "𩾈",
+            "gloss": "related form"
+          }
+        ],
+        "component_source": "self_fallback",
+        "generation_source": "codex_local_completion"
+      },
+      {
+        "character": "𪠵",
+        "meaning": "form",
+        "frequency_rank": null,
+        "quality_status": "rewrite",
+        "quality_score": 19.0,
+        "review_priority": 19.0,
+        "flags": [
+          {
+            "code": "generic_filler",
+            "severity": 6.0,
+            "evidence": "The written shape of"
+          },
+          {
+            "code": "tautological_self_form",
+            "severity": 5.0,
+            "evidence": "written shape of 𪠵 form is the memory image"
+          },
+          {
+            "code": "opaque_component_gloss",
+            "severity": 4.0,
+            "evidence": [
+              "𪠵 form"
+            ]
+          },
+          {
+            "code": "unhelpful_final_gloss",
+            "severity": 4.0,
+            "evidence": "form"
+          }
+        ],
+        "equation": "Visual form: 𪠵 form",
+        "mnemonic": "The written shape of 𪠵 form is the memory image.",
+        "components": [
+          {
+            "character": "𪠵",
+            "gloss": "form"
+          }
+        ],
+        "component_source": "self_fallback",
+        "generation_source": "codex_local_completion"
+      },
+      {
+        "character": "𫛬",
+        "meaning": "form",
+        "frequency_rank": null,
+        "quality_status": "rewrite",
+        "quality_score": 19.0,
+        "review_priority": 19.0,
+        "flags": [
+          {
+            "code": "generic_filler",
+            "severity": 6.0,
+            "evidence": "The written shape of"
+          },
+          {
+            "code": "tautological_self_form",
+            "severity": 5.0,
+            "evidence": "written shape of 𫛬 form is the memory image"
+          },
+          {
+            "code": "opaque_component_gloss",
+            "severity": 4.0,
+            "evidence": [
+              "𫛬 form"
+            ]
+          },
+          {
+            "code": "unhelpful_final_gloss",
+            "severity": 4.0,
+            "evidence": "form"
+          }
+        ],
+        "equation": "Visual form: 𫛬 form",
+        "mnemonic": "The written shape of 𫛬 form is the memory image.",
+        "components": [
+          {
+            "character": "𫛬",
+            "gloss": "form"
+          }
+        ],
+        "component_source": "self_fallback",
+        "generation_source": "codex_local_completion"
+      }
+    ],
+    "full_report": "sveltekit-app/static/research/mnemonics/semantic_mnemonics_all_best_available_quality_audit.json"
   }
 }

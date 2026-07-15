@@ -21,6 +21,7 @@ from pathlib import Path
 from typing import Any
 
 import semantic_mnemonics as sm
+import audit_semantic_mnemonics as quality_audit
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -31,6 +32,7 @@ PAID_10K_PATH = RESEARCH_DIR / "semantic_mnemonics_10000.json"
 REVIEWED_1000_PATH = RESEARCH_DIR / "semantic_mnemonics_1000_refined_pairs_gemini35.json"
 OUTPUT_PATH = RESEARCH_DIR / "semantic_mnemonics_all_best_available.json"
 EVAL_PATH = RESEARCH_DIR / "semantic_mnemonics_all_best_available_eval.json"
+QUALITY_AUDIT_PATH = RESEARCH_DIR / "semantic_mnemonics_all_best_available_quality_audit.json"
 
 
 AWKWARD_RE = re.compile(
@@ -67,6 +69,28 @@ BAD_STYLE_RE = re.compile(
 )
 
 LOCAL_GLOSS_OVERRIDES = {
+    "綿": "cotton",
+    "帛": "silk cloth",
+    "約": "promise",
+    "约": "promise",
+    "線": "line",
+    "线": "line",
+    "紀": "chronicle",
+    "纪": "chronicle",
+    "編": "compile",
+    "编": "compile",
+    "統": "unite",
+    "统": "unite",
+    "素": "plain",
+    "性": "nature",
+    "首": "head",
+    "束": "bundle",
+    "缶": "jar",
+    "闭": "close",
+    "閑": "idle",
+    "闲": "idle",
+    "閲": "inspect",
+    "闻": "hear",
     "买": "buy",
     "爱": "love",
     "訁": "speech",
@@ -99,6 +123,7 @@ LOCAL_GLOSS_OVERRIDES = {
     "兑": "exchange",
     "阿": "slope",
     "吗": "question particle",
+    "嗎": "question particle",
     "吧": "suggestion particle",
     "呢": "follow-up particle",
     "啊": "exclamation",
@@ -350,7 +375,7 @@ TARGETED_COMPONENT_OVERRIDES: dict[str, list[dict[str, str]]] = {
         {"character": "丨", "gloss": "line"},
         {"character": "丨", "gloss": "line"},
         {"character": "又", "gloss": "hand"},
-        {"character": "糸", "gloss": "silk"},
+        {"character": "糸", "gloss": "thread"},
     ],
     "質": [
         {"character": "斤", "gloss": "axe"},
@@ -379,7 +404,7 @@ TARGETED_COMPONENT_OVERRIDES: dict[str, list[dict[str, str]]] = {
 }
 
 
-TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
+TARGETED_MNEMONIC_OVERRIDES: dict[str, str | dict[str, Any]] = {
     "㐬": "A 𠫓 newborn sign flows into a 川 river tail, forming 㐬 stream.",
     "㠩": "A 人 person in a 𠃊 hidden area beside a 川 river faces 㠩 vast space.",
     "㝕": "A 𫲽 quiet heart receives a 又 hand gently, becoming 㝕 peace.",
@@ -425,7 +450,7 @@ TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
     "報": "幸 good fortune delivered through 𠬝 submit becomes 報 newspaper.",
     "真": "十 ten checks with 具 tool verify what is 真 true.",
     "要": "A 女 woman under 覀 west (cover) reaches for what she 要 want.",
-    "結": "糸 silk tied around 吉 lucky words makes 結 tie.",
+    "結": "糸 thread tied around 吉 lucky words makes 結 tie.",
     "重": "A 亻 person carrying 東 east loads becomes 重 heavy.",
     "天": "一 one sky line above 大 big space becomes 天 heaven.",
     "神": "示 show signs beside 申 express reveal 神 gods.",
@@ -437,9 +462,9 @@ TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
     "受": "A 爫 reaching hand under 冖 cover meets 又 hand to 受 accept.",
     "島": "A 山 mountain rising from water becomes 島 island.",
     "解": "A 角 angle pried apart shows how to 解 untie.",
-    "市": "A 巾 towel hung under a 亠 lid defines 市 market.",
+    "市": "A 巾 cloth hung under a 亠 lid defines 市 market.",
     "活": "氵 water (drops) on 舌 tongue keeps speech 活 lively.",
-    "組": "糸 silk binding 且 moreover strands makes 組 group.",
+    "組": "糸 thread binding 且 moreover strands makes 組 group.",
     "流": "氵 water (drops) following 㐬 stream begins to 流 flow.",
     "足": "A 口 mouth-shaped opening above 龰 foot forms 足 lower leg.",
     "在": "土 earth beneath a fixed place shows where something 在 at.",
@@ -462,8 +487,8 @@ TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
     "反": "A 又 hand pushes against 𠂆 stretch, making 反 against.",
     "古": "十 ten generations pass through 口 mouth stories, becoming 古 ancient.",
     "配": "A 酉 vessel assigned to 己 self shows 配 distribute.",
-    "終": "糸 silk reaching 冬 winter comes to 終 end.",
-    "常": "A 巾 towel kept ready every day becomes 常 often.",
+    "終": "糸 thread reaching 冬 winter comes to 終 end.",
+    "常": "A 巾 cloth kept ready every day becomes 常 often.",
     "果": "A 木 tree with an ◎ marker on its branch bears 果 fruit.",
     "武": "弋 catch, 一 one line, and 止 stop hold force in 武 military order.",
     "共": "卄 twentieth hands over 一 one shared line make 共 together.",
@@ -476,6 +501,163 @@ TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
     "愛": "A 爫 reaching hand under a 冖 cover protects a 心 heart through every 夂 walk, becoming 愛 love.",
     "爱": "A 爫 reaching hand under a 冖 cover holds a 友 friend close, becoming 爱 love.",
     "易": "A 日 day that is 勿 not harsh makes work 易 easy.",
+    # Structured entries document why a hand-authored repair exists.  Plain
+    # string entries remain supported so the existing review table stays easy
+    # to maintain while high-risk decisions carry review metadata.
+    "綿": {
+        "mnemonic": "Pull a 糸 thread from 帛 white cloth and its soft, continuous fiber reveals 綿 cotton.",
+        "rationale": "Use the Japanese/common lexical meaning cotton, distinguish the two textile components, and retain continuous as the bridge image.",
+        "quality_tags": ["wrong_final_gloss", "duplicated_component_meaning", "generic_filler"],
+    },
+    "帛": {
+        "mnemonic": "白 white fibers woven into 巾 cloth produce a smooth bolt of 帛 silk cloth.",
+        "rationale": "The component-mode gloss white cloth is more visual inside compounds than the old plural silks gloss.",
+        "quality_tags": ["component_gloss_policy", "generic_filler"],
+    },
+    "錦": "金 gold threads stitched across 帛 white cloth turn it into shimmering 錦 brocade.",
+    "棉": "A 木 tree covered in soft bolls supplies the fiber for 帛 white cloth, revealing 棉 cotton.",
+    "绵": "A 纟 thread pulled loose from 帛 white cloth gathers into a soft 绵 cotton wad.",
+    "锦": "钅 metal-colored threads glint across 帛 white cloth to make 锦 tapestry.",
+
+    # Common pictographs and self-form cards need a visible feature, never a
+    # tautological assertion that their written shape is itself the mnemonic.
+    "入": "The two strokes of 入 enter funnel inward like a doorway drawing you inside.",
+    "長": "The tall body and trailing stroke of 長 long stretch from top to bottom.",
+    "田": "Four square plots fill 田 rice field like farmland seen from above.",
+    "文": "Crossed decorative lines turn the compact shape of 文 writing into a visible pattern.",
+    "川": "Three flowing channels of 川 river run side by side.",
+    "円": "The framed curve of 円 yen looks like a round coin held inside its border.",
+    "石": "The block of 石 stone rests like a boulder tucked below a cliff.",
+    "車": "The central axle and spokes of 車 vehicle make a cart seen from above.",
+    "戸": "The single hinged panel of 戸 door swings from its top rail.",
+    "井": "The crossed beams of 井 well frame the opening down to water.",
+    "首": "A face, hair, and neck stack into the upright shape of 首 head.",
+    "必": "A decisive slash pins the crossing strokes of 必 certainly so none can slip away.",
+    "土": "A vertical shoot rises from the ground line of 土 earth.",
+    "馬": "The mane, four legs, and tail of 馬 horse hold a horse in profile.",
+    "米": "Four grains scatter around the central stalk of 米 rice.",
+    "乗": "A rider perched above a branching frame gives 乗 ride its mounted shape.",
+    "飛": "Two wings spread around the rising body of 飛 fly.",
+    "止": "The planted footprint of 止 stop braces against the ground and goes no farther.",
+    "示": "An offering table with drops below is lifted up to 示 show.",
+    "象": "The long trunk, broad body, and legs of 象 elephant fill its profile.",
+    "久": "One trailing stroke pulls far behind the other in 久 long time.",
+    "末": "The long top bar of 末 last marks the farthest end of the shape.",
+    "肉": "Two ribbed cuts hang inside the butcher's frame of 肉 meat.",
+    "州": "Three river channels divide the islands of 州 state into separate regions.",
+    "未": "The upper branch of 未 not yet has not grown past the tree's crown.",
+    "氏": "The hooked lines of 氏 clan curl like a family seal passed down.",
+    "士": "Broad shoulders and grounded feet hold 士 soldier at attention.",
+    "率": "A central line holds four measured strokes at a fixed 率 rate.",
+    "丸": "A final dot rounds off the compact body of 丸 pill.",
+    "革": "The broad hide of 革 leather is stretched flat on a frame.",
+    "角": "The pointed horn shape of 角 angle opens into a sharp corner.",
+    "曲": "The boxed sides of 曲 bent bow away from a straight path.",
+    "耳": "The inner folds of 耳 ear trace the ridges of an ear.",
+    "臣": "The open pupil inside 臣 watchful eye stays fixed on everything before it.",
+    "羽": "Two feathered wings sit side by side in 羽 feathers.",
+    "玄": "A twisting thread vanishes under the lid into 玄 mysterious darkness.",
+    "竹": "Two jointed stalks with split leaves stand together as 竹 bamboo.",
+    "毛": "Four bristling strokes curl outward like 毛 fur.",
+    "刀": "The long blade and short handle cut the profile of 刀 sword.",
+    "雨": "Four drops fall beneath the cloud frame of 雨 rain.",
+    "犬": "A raised head and sweeping tail give 犬 dog its lively stance.",
+    "夕": "A thin crescent hangs in the fading light of 夕 dusk.",
+    "巨": "The wide jaws of a 巨 gigantic clamp stretch far apart.",
+    "束": "A tight band around the middle pulls every stalk into 束 bundle.",
+    "衣": "A crossed collar opens into the two sleeves of 衣 clothing.",
+    "甲": "The hard shell of 甲 first leads the sequence like armor at the front.",
+    "郷": "Winding paths between clustered villages create the 郷 rural landscape.",
+    "魚": "Head, scales, fins, and tail stack into 魚 fish.",
+    "矢": "A pointed tip, straight shaft, and fletching form 矢 dart.",
+    "丁": "The single peg of 丁 fourth stands as the fourth tally in a row.",
+    "黄": "Light filling the broad center of 黄 yellow glows like ripe grain.",
+    "鹿": "Antlers, long legs, and a spotted back fill the outline of 鹿 deer.",
+    "互": "Two opposing hooks catch each other in 互 mutual support.",
+    "牛": "Two horns rise above the head and body of 牛 cow.",
+    "虫": "A curled body and feelers wriggle through the shape of 虫 insects.",
+    "舟": "A long hull with ribs and pointed ends forms 舟 boat.",
+    "亜": "The boxed center of 亜 Asia sits between four surrounding regions.",
+    "兆": "Cracks split outward from the center of 兆 portent like an omen read in bone.",
+    "冊": "Vertical writing slips tied by a cross-string make one 冊 volume.",
+    "糸": "Fine fibers twist into the 糸 thread shape, the raw strand of 糸 silk.",
+    "丘": "A long ridge rises from the ground line of 丘 hill.",
+    "寸": "The short measuring tick beneath the hook marks 寸 inch.",
+    "皿": "Raised sides and a flat base hold food inside 皿 dish.",
+    "尺": "The long angled stroke of 尺 ruler stretches out to measure length.",
+    "弓": "The curved limbs and taut middle of 弓 bow bend under tension.",
+    "羊": "Two horns rise over the face and woolly body of 羊 sheep.",
+    "爪": "Four hooked fingers reach downward as 爪 claw.",
+    "矛": "A sharp head tops the long shaft and crosspiece of 矛 spear.",
+    "瓦": "The interlocking curve of 瓦 tile hooks over the next roof tile.",
+    "缶": "A narrow neck opens over the round earthen body of 缶 jar.",
+    "乙": "One bent stroke waits behind the first as 乙 second.",
+    "斗": "A square bowl and long handle map the stars of 斗 big dipper.",
+    "巾": "A hanging rectangle of 巾 cloth folds into 巾 towel.",
+    "阜": "Stacked ledges rise one above another into 阜 mound.",
+    "且": "One shelf stacked on another adds another point with 且 moreover.",
+    "臼": "Two thick walls surround the pounding hollow of 臼 mortar.",
+    "屯": "A bent shoot is tied down over a swelling 屯 stockpile.",
+    "串": "A single skewer pierces two blocks so you can 串 string together objects.",
+    "凸": "The center of 凸 convex rises above both sides.",
+    "凹": "The center of 凹 concave sinks below both sides.",
+    "斤": "A 斤 axe rests on a balance calibrated to one 斤 catty.",
+    "茶": "艹 grass dries under a 𠆢 person roof on a 朩 tree tray before brewing 茶 tea.",
+    "余": "A 亼 assemble roof holds more goods above a 朩 tree stand, leaving 余 excess.",
+
+    # Textile families use thread as the reusable visual object and give it a
+    # different concrete job in every card.
+    "約": "A 糸 thread ties a 勺 ladle to its promised place, sealing 約 promise.",
+    "線": "A 糸 thread runs beside 泉 spring in one uninterrupted course, tracing 線 line.",
+    "素": "龶 growth stripped back to bare 糸 thread leaves the material 素 plain.",
+    "細": "A 糸 thread divides 田 rice field into a 細 fine grid.",
+    "紀": "A 糸 thread knotted by 己 self counts each event in 紀 chronicle.",
+    "統": "A 糸 thread pulls 充 sufficient strands into one cord so they 統 unite.",
+    "紙": "糸 thread fibers bearing a 氏 clan mark are pressed flat into 紙 paper.",
+    "編": "糸 thread weaves 扁 flat strips into ordered rows to 編 compile them.",
+    "系": "A 丿 slash hooks 糸 thread into a descending family line, forming 系 lineage.",
+    "織": "糸 thread crosses a 戠 sword like the shuttle of a loom to 織 weave.",
+    "緒": "Follow 糸 thread to 者 person holding its loose end to find 緒 inception.",
+    "級": "Knots along 糸 thread 及 catch up with one another, each step becoming 級 rank.",
+    "约": "A 纟 thread ties a 勺 ladle to its promised place, sealing 约 promise.",
+    "线": "A 纟 thread scored by 戋 tiny marks traces a precise 线 line.",
+    "纪": "A 纟 thread knotted by 己 self records each event in 纪 chronicle.",
+    "纸": "纟 thread fibers bearing a 氏 clan mark are pressed flat into 纸 paper.",
+    "细": "A 纟 thread divides 田 rice field into a 细 fine grid.",
+    "统": "A 纟 thread pulls 充 sufficient strands into one cord so they 统 unite.",
+    "编": "纟 thread weaves 扁 flat strips into ordered rows to 编 compile them.",
+
+    # Heart, movement, and gate families make their semantic component perform
+    # the action that causes the final meaning.
+    "性": "忄 heart (side) beating beside 生 life reveals the inborn 性 nature within a person.",
+    "怒": "Being treated as 奴 attendant sets the 心 heart burning with 怒 anger.",
+    "悲": "A crushing 非 non presses on 心 heart until it turns 悲 sad.",
+    "怪": "When 忄 heart (side) distrusts even a 圣 sage, everything feels 怪 peculiar.",
+    "忍": "A 刃 blade held just above 心 heart demands the control to 忍 endure.",
+    "慢": "A 曼 drawn out feeling slows 忄 heart (side) into 慢 slow.",
+    "恥": "What 耳 ear hears burns into 心 heart as 恥 shame.",
+    "悟": "忄 heart (side) turns inward to 吾 I and suddenly reaches 悟 realize.",
+    "悶": "A 心 heart shut behind 門 gate cannot breathe, making 悶 stuffy.",
+    "闷": "A 心 heart trapped behind 门 gate sinks into 闷 depressed.",
+    "嗎": "A 口 mouth adds 馬 horse as the sound shape for 嗎 question particle.",
+    "建": "A 廴 long stride follows 聿 writing plans across the site to 建 build.",
+    "退": "辶 movement pulls back from 艮 stubborn resistance in 退 retreat.",
+    "適": "辶 movement carries 啇 stalk to the place where it fits, making 適 suitable.",
+    "遣": "辶 movement carries a 𠳋 send order outward to 遣 dispatch it.",
+    "延": "A 廴 long stride crosses a 丿 slash beyond 止 stop to 延 prolong the path.",
+    "還": "辶 movement circles back under a 睘 stare to 還 give back what was watched.",
+    "巡": "辶 movement follows the bends of 巛 river on a 巡 patrol.",
+    "透": "辶 movement slips through a 秀 elegant narrow opening to 透 penetrate it.",
+    "逮": "辶 movement closes in on someone made 隶 subservient to 逮 arrest them.",
+    "遇": "辶 movement enters 禺 district and brings travelers together in 遇 encounter.",
+    "閉": "A 才 crossbar dropped across 門 gate forces it to 閉 close.",
+    "閑": "A 木 tree laid across 門 gate leaves the courtyard 閑 idle.",
+    "閲": "At 門 gate, a clerk checks every 兑 exchange ledger to 閲 inspect it.",
+    "闇": "Behind a shut 門 gate, only 音 sound remains in the 闇 dark.",
+    "闭": "A 才 crossbar dropped across 门 gate forces it to 闭 close.",
+    "闲": "A 木 tree resting inside 门 gate leaves the courtyard 闲 idle.",
+    "阅": "At 门 gate, a clerk checks every 兑 exchange ledger to 阅 inspect it.",
+    "闻": "An 耳 ear pressed to 门 gate strains to 闻 hear what is inside.",
     "发": "A 𠃋 arm with 又 hand flicks a 丿 slash and 丶 dot outward to 发 emit.",
     "發": "癶 legs carry a 弓 bow and 殳 hand tool forward, ready to 發 send out.",
     "発": "癶 legs push 二 two lines above 儿 human legs forward, making 発 send out.",
@@ -556,8 +738,8 @@ TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
     "语": "讠 speech carries what 吾 I say, forming 语 words.",
     "稲": "禾 standing grain under 爫 reaching hand beside 旧 old fields becomes 稲 rice growing in field.",
     "稻": "禾 standing grain bends as 舀 dip gathers water, becoming 稻 unhulled rice.",
-    "紧": "A 丨 line and another 丨 line brace a 又 hand pulling 糸 silk until it becomes 紧 tense.",
-    "緊": "A 臤 firm grip pulls 糸 silk tight until it becomes 緊 tight.",
+    "紧": "A 丨 line and another 丨 line brace a 又 hand pulling 糸 thread until it becomes 紧 tense.",
+    "緊": "A 臤 firm grip pulls 糸 thread tight until it becomes 緊 tight.",
     "曷": "曰 speech inside 勹 wrap surrounds a 𠃊 hidden area and 人 person, leaving 曷 question.",
     "金": "A 今 sound mark sits above a 王 metal axe and 吕 metal plates, the metal shapes that make 金 gold.",
     "釘": "金 gold shaped like a 丁 fourth mark becomes 釘 nail.",
@@ -635,8 +817,8 @@ TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
     "九": "The hooked turning stroke of 九 nine bends back on itself.",
     "我": "The crossed strokes of 我 I point back to the self.",
     "你": "A 亻 person facing 尔 those people singles out 你 you.",
-    "他": "A 亻 person joined with 也 also identifies 他 he.",
-    "她": "A 女 woman joined with 也 also identifies 她 she.",
+    "他": "A 亻 person standing beside 也 also points to another person, 他 he.",
+    "她": "A 女 woman standing beside 也 also points to another woman, 她 she.",
     "它": "Under 宀 roof, 匕 ancient spoon hides as 它 it.",
     "们": "A 亻 person gathered at 门 gate becomes 们 plural.",
     "的": "A 白 white spot on a 勺 ladle aims at 的 target.",
@@ -674,7 +856,7 @@ TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
     "掉": "扌 hand lets 卓 eminent height fall, making 掉 drop.",
     "搞": "扌 hand works at a 高 tall task to 搞 engage in.",
     "挺": "扌 hand holds 廷 royal court upright as 挺 erect.",
-    "给": "纟 silk ties 合 fit parts together so they can 给 give.",
+    "给": "纟 thread ties 合 fit parts together so they can 给 give.",
     "钱": "钅 metal cut into 戋 tiny pieces becomes 钱 money.",
     "错": "钅 metal mixed with 昔 times past becomes the wrong piece: 错 blunder.",
     "现": "𤣩 jade brought before 见 observe makes 现 appear.",
@@ -698,9 +880,9 @@ TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
     "头": "A 大 big top becomes 头 head.",
     "买": "A 乛 hook mark above 头 head-count mark tags what you 买 buy.",
     "爱": "A 爫 reaching hand under 冖 cover holds 友 friend close, becoming 爱 love.",
-    "帮": "邦 nation wrapped with 巾 towel stands ready to 帮 defend.",
-    "带": "冖 cover holds 巾 towel like a 带 girdle.",
-    "常": "巾 towel kept ready every day becomes 常 often.",
+    "帮": "邦 nation wrapped with 巾 cloth stands ready to 帮 defend.",
+    "带": "冖 cover holds 巾 cloth like a 带 girdle.",
+    "常": "巾 cloth kept ready every day becomes 常 often.",
     "别": "刂 knife cuts 另 another path apart, making 别 other.",
     "只": "One 口 mouth alone leaves 只 only.",
     "可": "A 口 mouth opening for permission gives 可 can.",
@@ -750,7 +932,7 @@ TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
     "己": "The bent self-contained line of 己 self curls inward.",
     "已": "The closed curling line of 已 already has finished its turn.",
     "干": "The barred shape of 干 offend blocks the path.",
-    "才": "The spare angled stroke of 才 genius suggests raw talent.",
+    "才": "A spare angled 才 crossbar is the first raw stroke of 才 genius.",
     "而": "The hanging-line shape of 而 and links two parts.",
     "比": "Two 匕 ancient spoon shapes face off to 比 compare.",
     "朋": "A 月 month beside another moon shape becomes 朋 companion.",
@@ -820,7 +1002,7 @@ TARGETED_MNEMONIC_OVERRIDES: dict[str, str] = {
     "机": "木 tree shaped into 几 small table becomes 机 desk.",
     "棒": "木 tree shaped by 奉 proffer becomes 棒 cudgel.",
     "楚": "林 woods beside 疋 roll-of-cloth opens into 楚 clear.",
-    "森": "林 woods joined with 木 tree grows into 森 forest.",
+    "森": "林 woods thickened by one more 木 tree grows into 森 forest.",
     "林": "木 tree beside 木 tree becomes 林 woods.",
     "国": "囗 enclosure around 玉 jade protects 国 country.",
     "园": "囗 enclosure around 元 beginning becomes 园 park.",
@@ -948,10 +1130,13 @@ def card_is_clean(card: dict[str, Any]) -> bool:
 
 
 def safe_gloss(char: str, gloss: str, *, component_mode: bool = False) -> str:
-    if char in LOCAL_GLOSS_OVERRIDES:
-        return LOCAL_GLOSS_OVERRIDES[char]
+    # Component-mode glosses take precedence over lexical overrides.  A shape
+    # can be 糸 thread inside a compound while the standalone card remains 糸
+    # silk; reversing this order silently defeated that two-layer policy.
     if component_mode and char in sm.MANUAL_COMPONENT_GLOSS_OVERRIDES:
         return sm.MANUAL_COMPONENT_GLOSS_OVERRIDES[char]
+    if char in LOCAL_GLOSS_OVERRIDES:
+        return LOCAL_GLOSS_OVERRIDES[char]
 
     cleaned = sm.clean_gloss(gloss) or ""
     lowered = cleaned.lower()
@@ -1250,6 +1435,10 @@ def local_card(prepared: dict[str, Any], source: str, replaced_reason: str | Non
     validation = sm.validate_card(output, prepared)
     record = sm.generated_record(output, prepared, validation)
     record["generation_source"] = source
+    # Deterministic prose preserves coverage and the component-pair contract,
+    # but it is never evidence of learning quality.  The separate quality
+    # audit must promote a card through review or a hand-authored override.
+    record["quality_provenance"] = "coverage_fallback_needs_review"
     if replaced_reason:
         record["replaced_reason"] = replaced_reason
     return record
@@ -1628,11 +1817,29 @@ def clean_card_free_text(record: dict[str, Any]) -> dict[str, Any]:
     return record
 
 
+def targeted_quality_override(char: str) -> tuple[str, dict[str, Any]] | None:
+    override = TARGETED_MNEMONIC_OVERRIDES.get(char)
+    if isinstance(override, str):
+        return override, {}
+    if not isinstance(override, dict):
+        return None
+    mnemonic = str(override.get("mnemonic") or "").strip()
+    if not mnemonic:
+        return None
+    review = {
+        key: value
+        for key, value in override.items()
+        if key != "mnemonic"
+    }
+    return mnemonic, review
+
+
 def apply_targeted_quality_overrides(card: dict[str, Any]) -> dict[str, Any]:
     char = str(card.get("character") or "")
-    mnemonic = TARGETED_MNEMONIC_OVERRIDES.get(char)
-    if not mnemonic:
+    override = targeted_quality_override(char)
+    if not override:
         return card
+    mnemonic, review = override
 
     prepared = prepare_card(char)
     if char in TARGETED_COMPONENT_OVERRIDES and component_signature(
@@ -1666,7 +1873,10 @@ def apply_targeted_quality_overrides(card: dict[str, Any]) -> dict[str, Any]:
     record["mnemonic"] = mnemonic
     record["hero_image_prompt"] = local_hero_prompt(prepared)
     record["generation_source"] = MANUAL_QUALITY_SOURCE
+    record["quality_provenance"] = "hand_reviewed"
     record["style_patch"] = "targeted_top_1000_quality_override"
+    if review:
+        record["manual_quality_review"] = review
     return refresh_validation(record, prepared)
 
 
@@ -1781,7 +1991,9 @@ def main() -> None:
         "coverage_note": (
             "The reviewed first 1000 cards are preserved. The other paid 9000 Gemini cards "
             "are re-authored locally, and the remaining characters are completed locally, "
-            "using canonical visual component glosses and validation for every card. "
+            "using canonical visual component glosses and formal validation for every card. "
+            "Deterministic completions are coverage drafts, not quality-approved mnemonics; "
+            "the companion quality audit ranks them for replacement. "
             "Extra learner-gap glyphs and Japanese compatibility forms are added explicitly "
             "when frequency/name/JPDB heuristics showed useful exact glyphs outside the "
             "original component-gloss and taxonomy target set."
@@ -1795,21 +2007,34 @@ def main() -> None:
         "mnemonics": cards,
         "quality_patch_note": (
             "Hand-audited cards from the prior artifact are preserved when present; "
-            "generic fallback wording is restyled through the deterministic local builder."
+            "new hand reviews use structured rationale metadata, while deterministic fallback "
+            "cards remain explicitly marked as coverage drafts and are ranked in the companion audit."
         ),
         "quality_patch_at": datetime.now(timezone.utc).isoformat(),
         "quality_patch_reviewed_characters": final_manual_quality_chars,
         "quality_patch_reviewed_count": len(final_manual_quality_chars),
     }
     OUTPUT_PATH.write_text(json.dumps(artifact, ensure_ascii=False, separators=(",", ":")))
+    quality_report = quality_audit.build_report(artifact, limit=1000)
+    QUALITY_AUDIT_PATH.write_text(json.dumps(quality_report, ensure_ascii=False, indent=2) + "\n")
     evaluation = validate_artifact(cards)
+    evaluation["quality_review"] = {
+        "methodology": quality_report["methodology"],
+        "flagged_count": quality_report["flagged_count"],
+        "quality_status_counts": quality_report["quality_status_counts"],
+        "flag_counts": quality_report["flag_counts"],
+        "top_suspicious": quality_report["ranked"][:25],
+        "full_report": str(QUALITY_AUDIT_PATH.relative_to(ROOT)),
+    }
     EVAL_PATH.write_text(json.dumps(evaluation, ensure_ascii=False, indent=2))
     print(json.dumps({
         "output": str(OUTPUT_PATH),
         "eval": str(EVAL_PATH),
+        "quality_audit": str(QUALITY_AUDIT_PATH),
         "count": len(cards),
         "source_counts": source_counts,
         "invalid_count": evaluation["invalid_count"],
+        "quality_status_counts": quality_report["quality_status_counts"],
         "mnemonic_length": evaluation["mnemonic_length"],
     }, ensure_ascii=False, indent=2))
 
