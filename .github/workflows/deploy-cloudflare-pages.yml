@@ -35,6 +35,10 @@ jobs:
       - name: Build
         working-directory: sveltekit-app
         run: npm run build
+
+      - name: Prune source-only assets from Pages output
+        working-directory: sveltekit-app
+        run: node scripts/prune-cloudflare-output.js
       
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
