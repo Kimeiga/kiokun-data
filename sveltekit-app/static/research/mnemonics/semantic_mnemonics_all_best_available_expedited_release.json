@@ -1,0 +1,3085 @@
+{
+  "created_at": "2026-07-19T13:18:50.967515+00:00",
+  "gpt56_expedited_release": {
+    "contract_version": "2026-07-19.1",
+    "certification_status": "expedited_non_certified",
+    "user_authorized_policy": "explicit expedited best-available release",
+    "full_corpus_qa_certified": false,
+    "independent_verifier_run": false,
+    "broad_19537_reauthoring_started": false,
+    "broad_19537_reauthoring_note": "Not started: it is a slower second-pass certification queue, not missing first-pass authorship.",
+    "quality_mandatory_scope": {
+      "target_count": 416,
+      "content_frozen_exact_keep_count": 340,
+      "protected_gate_promoted_mnemonic_count": 38,
+      "gate_restored_focused_label_repair_count": 38,
+      "gate_restored_focused_label_repair_characters": [
+        "㩦",
+        "㸪",
+        "䎢",
+        "䎦",
+        "䎧",
+        "䎨",
+        "䎩",
+        "䎪",
+        "䙕",
+        "䣂",
+        "䪔",
+        "䪢",
+        "䯊",
+        "哕",
+        "唉",
+        "噙",
+        "噦",
+        "検",
+        "殓",
+        "殮",
+        "氝",
+        "煠",
+        "熥",
+        "犲",
+        "琄",
+        "羅",
+        "耧",
+        "耨",
+        "耰",
+        "膫",
+        "蔸",
+        "誄",
+        "诔",
+        "較",
+        "较",
+        "驂",
+        "驟",
+        "骤"
+      ],
+      "gate_decision_counts": {
+        "promote_candidate": 38,
+        "restore_source": 38
+      },
+      "selection_audit": {
+        "㑍": {
+          "selected_origin": "gate_promoted_candidate",
+          "protected_gate_decision": "promote_candidate",
+          "protected_gate_decision_reason": "candidate_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:790d3a1f8050eede9e733ffb634e4f1e3c2b5a3e370344a312a2f75c67f3bbb5",
+          "second_pass_record_hash": "sha256:1fac8fd0a5ba109bd6856a14fca2e3ab6f5078eae926b8b87d1529effed030aa"
+        },
+        "㩦": {
+          "selected_origin": "gate_restored_required_rewrite_source",
+          "protected_gate_decision": "restore_source",
+          "protected_gate_decision_reason": "source_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:f2e8c5252ea202501388f58dc874e177a080202d873ab2688e315abe72d54e71",
+          "second_pass_record_hash": "sha256:65f78c1f57e9173ee10a30a6adca7e687f8e5f91b8d75d364c2455743b91e865",
+          "focused_restore_repair_record_hash": "sha256:a10d197efb80959dbb4bea43ed277e215b86e2e7f46345f7e500a3d3d9adf2ff"
+        },
+        "㪎": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:6a3ea6762a2f5b36628cd1e91a4aaae21b47093d669f46a8552d5a4a7f620ba3"
+        },
+        "㯄": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:35a34829976db9e202abcf2a8f6502391d18d53d3237236884a14d88c234cace"
+        },
+        "㲶": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:6a99237111571e878c648a2a1b4cd0a59aa5cb19e5d643b6647b8cfbb974aac9"
+        },
+        "㶻": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:bd9a5049607dfd7f4c617269a4de7856bc22489fdf8f90a0100fa202715bcf97"
+        },
+        "㷈": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:e7af774a850a02b257073914c9f0e870b93d107db086c1d7eb7104194e3bf997"
+        },
+        "㷦": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:a7d4212ee1b190c2d2aab1e67c8e56c1ff7f22d2c33e46f74b862c1ff8c1cc69"
+        },
+        "㷭": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:a0fecd9be783f42f202cad07a068fb7048f5c287823d78ee1ed32a38179e073a"
+        },
+        "㸋": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:d13b0ccbd04984d6cc6fe4ecd0f978a84c5ec1173a42c8351ae1c04ae940f256"
+        },
+        "㸙": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:7ba5b43b9356f3c1c84d0665dfd3801236d352a37231dee5e4ac620b58651fa0"
+        },
+        "㸪": {
+          "selected_origin": "gate_restored_required_rewrite_source",
+          "protected_gate_decision": "restore_source",
+          "protected_gate_decision_reason": "at_least_one_blind_judgment_tied",
+          "protected_gate_record_hash": "sha256:de21e2ecc0b131677e051711260b785376ad7fa2cf7d627d8bed7bffb1628fa0",
+          "second_pass_record_hash": "sha256:0634fce1d6af0b46dc728157b71969626db0f56adbd5695fa8a900ac9c0fd6ca",
+          "focused_restore_repair_record_hash": "sha256:8d97a845965a144cf2ff6fc8d7fb8992495a3e3541b42201db74ecb2a4403c18"
+        },
+        "㹌": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:570b365389be6d5167016ae60bdab051e8d74e92c17e0dc00eec81f4eda7f7d1"
+        },
+        "㹑": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:29aee5156e284a7a03e7672423750f94d59726e92b4d0581a08739bd7ec76640"
+        },
+        "㹔": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:5aa6ec4654a627f053d0eb6d4b1fb4d2b39ce24ae26e77aab92aa8a99ec3f2ff"
+        },
+        "㹞": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:fa64ce56c66b852ae9b59bd5a0f21b67f5cd8dc0c037fa3550e9f0569c835a1c"
+        },
+        "㼌": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:05929f15685a4cf8f46747f7a5acc0e71afeae0d14082fe873a44e66a68100cc"
+        },
+        "㼍": {
+          "selected_origin": "gate_promoted_candidate",
+          "protected_gate_decision": "promote_candidate",
+          "protected_gate_decision_reason": "candidate_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:86a78230ce91c66a2721d7f8b4f3a5eec8844da8de284423e68a1d11d1dc9eb2",
+          "second_pass_record_hash": "sha256:16e6b8da60d3ce86f17f37d0e7679fdaa445c6e61dc313ef80fa0260589ab659"
+        },
+        "㼥": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:ebb53f26450169971861ae376d018b2ea4996f691f004614c14b40497052d0ef"
+        },
+        "㼦": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:e5a9b98f65ecf2fb7b45c897116bb075fd4b6a9c9e86bffdd42523877ad0eefd"
+        },
+        "㽡": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:b45d473f3cc5027e3a922392794e1e23b46bdea4cf130a4ccc879f32342069e8"
+        },
+        "㾍": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:c3a120bf604e4607eefd321409925952f41b1acdeffb6518aaecf6a47246d5f2"
+        },
+        "㾑": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:736e06f2498940b2c23c4f736976d8f5cf38c44ee4a0b0d213be403ac63a97c8"
+        },
+        "㾒": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:1a93a886df8bf724fdd1758908e3afda560fd3b8e5113deb366d8a43d605dc9f"
+        },
+        "㾨": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:33fe23345cd232b6235aa9f797fe8d0237d5a35e4d3c6614ee544898a6626f53"
+        },
+        "䋘": {
+          "selected_origin": "gate_promoted_candidate",
+          "protected_gate_decision": "promote_candidate",
+          "protected_gate_decision_reason": "candidate_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:183ce8596978ce0df960c926d439cd946376d9ff0542f27889eba7382d0850a9",
+          "second_pass_record_hash": "sha256:8140ad2aa82f7c802cbfa71c2f334a36f6fef467ccf8dee4300de95d39acde82"
+        },
+        "䎢": {
+          "selected_origin": "gate_restored_required_rewrite_source",
+          "protected_gate_decision": "restore_source",
+          "protected_gate_decision_reason": "at_least_one_blind_judgment_tied",
+          "protected_gate_record_hash": "sha256:466f9922711193ca6ab8354895b1ff07e984e083fa4c2ed3e0ed77b27b3fffe4",
+          "second_pass_record_hash": "sha256:58e40591fbfdab15340d9f8d11242e7f3c62c7ca38950e27bc8369f38d5b8719",
+          "focused_restore_repair_record_hash": "sha256:2526eb63ea934ccfb9a03217725a349dc446c17cbba8b102a88ca5c86a6f8f6f"
+        },
+        "䎣": {
+          "selected_origin": "gate_promoted_candidate",
+          "protected_gate_decision": "promote_candidate",
+          "protected_gate_decision_reason": "candidate_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:32468a86ce7f1d7e7beddf333df28feb8804ba0bf5a3e194be62d8e2bb79a22f",
+          "second_pass_record_hash": "sha256:08b3313c6fd4b420013a648b2feeda394e60df7bb4c3379e3e2bf6d25efc2819"
+        },
+        "䎤": {
+          "selected_origin": "gate_promoted_candidate",
+          "protected_gate_decision": "promote_candidate",
+          "protected_gate_decision_reason": "candidate_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:73dc3808694e57b2ed45ea08de41608886945eee8dc75c6e20a6790e59bf0424",
+          "second_pass_record_hash": "sha256:a681f07f039c4f83c0f7fa4e064334db5bfb832e3aa71f9a0a3f1e4bc0f5e779"
+        },
+        "䎦": {
+          "selected_origin": "gate_restored_required_rewrite_source",
+          "protected_gate_decision": "restore_source",
+          "protected_gate_decision_reason": "at_least_one_blind_judgment_tied",
+          "protected_gate_record_hash": "sha256:498f52baf028f653ba55dc215bbbe8cd5dacee7d46b151e55d243f96fdb10966",
+          "second_pass_record_hash": "sha256:f0c44202a93f45c74e855a2ae04f01a110039ca6094b97e5b2ad57415f2c93e8",
+          "focused_restore_repair_record_hash": "sha256:eafc71eda53d00ec0e71f544c2ec28724d66b036c03f764288c17a45cf17155f"
+        },
+        "䎧": {
+          "selected_origin": "gate_restored_required_rewrite_source",
+          "protected_gate_decision": "restore_source",
+          "protected_gate_decision_reason": "candidate_flagged_with_disqualifying_concern",
+          "protected_gate_record_hash": "sha256:d2c0fe0fe6cbfb2923b9ab8786f2ec73c2657d6af27a82f1db243f7b9cc8c64a",
+          "second_pass_record_hash": "sha256:9251b8c01ea9e42498b9f80a191bc01bc0f7a919d61df385265b1da4616bab46",
+          "focused_restore_repair_record_hash": "sha256:0970f496a2ed270c75f5742077c29559bb97cd71735ba03e7f6289a773fe6153"
+        },
+        "䎨": {
+          "selected_origin": "gate_restored_required_rewrite_source",
+          "protected_gate_decision": "restore_source",
+          "protected_gate_decision_reason": "candidate_flagged_with_disqualifying_concern",
+          "protected_gate_record_hash": "sha256:c7c0f9c465ffe5db7a465341ef76b48e4f0e6a983a8616c0a30abdd3387f512f",
+          "second_pass_record_hash": "sha256:cca18b6100d2d1636ef7e72e4c9ff10add7e5340e85fc9f62341c5ebc5e5afe6",
+          "focused_restore_repair_record_hash": "sha256:83d7917f3464c30c1d88f57daa2709482ad8a2e8abff94d76fe95c1e62d05740"
+        },
+        "䎩": {
+          "selected_origin": "gate_restored_required_rewrite_source",
+          "protected_gate_decision": "restore_source",
+          "protected_gate_decision_reason": "candidate_flagged_with_disqualifying_concern",
+          "protected_gate_record_hash": "sha256:c13d35e992b18bda428c4b6ac99ffc8e4d46c397d0a94293a1e2a63093cd8dd9",
+          "second_pass_record_hash": "sha256:5c6ff1ad42e20573597c64b62b4fa4cd3b1658a24308914b8f8c5f6c799bc9fd",
+          "focused_restore_repair_record_hash": "sha256:f774ac303144f553ac252beb4240f7a7502317c35c5d42adc81af6fd82645cd7"
+        },
+        "䎪": {
+          "selected_origin": "gate_restored_required_rewrite_source",
+          "protected_gate_decision": "restore_source",
+          "protected_gate_decision_reason": "candidate_flagged_with_disqualifying_concern",
+          "protected_gate_record_hash": "sha256:28d11b031854cb87f1879580e48a96dbf1b4405f1df1bd6dcb392e9ad43c0a78",
+          "second_pass_record_hash": "sha256:8e81635015716d1a36b445c7dc768bc1ac9ecfe8dce372900ac9b75ec55ad3b7",
+          "focused_restore_repair_record_hash": "sha256:f441f1476f71c488950d5aca7f2a8965ccd1fc2ac46eb9c4c0c6db9d508c01a3"
+        },
+        "䎫": {
+          "selected_origin": "gate_promoted_candidate",
+          "protected_gate_decision": "promote_candidate",
+          "protected_gate_decision_reason": "candidate_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:7c2e6626c8c104211843933b6c91169b6874e915f0b13fa1fea57ed6a972246c",
+          "second_pass_record_hash": "sha256:b491f7dff57585a624dd1e330ddb9bafa4eab37dc28525d4aabaa32deda1cc2f"
+        },
+        "䎭": {
+          "selected_origin": "gate_promoted_candidate",
+          "protected_gate_decision": "promote_candidate",
+          "protected_gate_decision_reason": "candidate_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:e48182693dba52875b3c9e31688d7ead523cd395665e61ead6c372053fd02c78",
+          "second_pass_record_hash": "sha256:2bfbc232952e5e911786b6c7a5e4b46ce41d09ac23604773635dd9a57ada973d"
+        },
+        "䎮": {
+          "selected_origin": "gate_promoted_candidate",
+          "protected_gate_decision": "promote_candidate",
+          "protected_gate_decision_reason": "candidate_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:462fd87748fa086bae20ed57db23e0dec2ec13d05ba243749dd4af41f1e3ed37",
+          "second_pass_record_hash": "sha256:a7fd591f1becf864f5fc0fa8d7d49b7965da43399928a555131033ebb26df94e"
+        },
+        "䎯": {
+          "selected_origin": "gate_promoted_candidate",
+          "protected_gate_decision": "promote_candidate",
+          "protected_gate_decision_reason": "candidate_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:2a2420e6623ec67f7c07548c5e178cb8e1d81f94997fc71a64cba9ac88de9418",
+          "second_pass_record_hash": "sha256:9504d1a93fdae1eba9afa4d7119edf41bc447c050e27c5976e9162f98ff10ad5"
+        },
+        "䎰": {
+          "selected_origin": "gate_promoted_candidate",
+          "protected_gate_decision": "promote_candidate",
+          "protected_gate_decision_reason": "candidate_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:08520c88cf3c8d73c16f70f2535df62809353f8e0a3ed41c4fe84ac7c86c3553",
+          "second_pass_record_hash": "sha256:4a10d3eeaf4da249f3686de1ccfbbabc4f80ff4224e15a12ada1ece311ef99a3"
+        },
+        "䎱": {
+          "selected_origin": "gate_promoted_candidate",
+          "protected_gate_decision": "promote_candidate",
+          "protected_gate_decision_reason": "candidate_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:b70dbf915e6f042ae663edc136cd07d35390c685fed0a408001e6b4d0695572e",
+          "second_pass_record_hash": "sha256:ce4069f6cdf3b1f807ac568f9f5a845c8e2f0831c3058022469d65a171d20d08"
+        },
+        "䒹": {
+          "selected_origin": "gate_promoted_candidate",
+          "protected_gate_decision": "promote_candidate",
+          "protected_gate_decision_reason": "candidate_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:3909ee217a9d48517d92fe44d3408d7012cf2b512f89225986aed68cd23059ab",
+          "second_pass_record_hash": "sha256:9230b01d79689018f43fa4080643cf3c544e3a9f3cc95e44701ecf8598fec506"
+        },
+        "䘷": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:dcbf5a882ba57fe3227f4d782fb053f88d0eb0def2c030ce385f87799e16440b"
+        },
+        "䙎": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:291322ff52aaca832ecfe15b2b833f3c7095828e6cf7d119a43f9391adcd67f2"
+        },
+        "䙕": {
+          "selected_origin": "gate_restored_required_rewrite_source",
+          "protected_gate_decision": "restore_source",
+          "protected_gate_decision_reason": "at_least_one_blind_judgment_tied",
+          "protected_gate_record_hash": "sha256:9684359921f977ecdcca931dba46cbb49473171511f01a02657767bd70875a21",
+          "second_pass_record_hash": "sha256:ef1490a4f2b671e569da9600dfc6033e8797f1980f2a999d6c0ee0661ede2831",
+          "focused_restore_repair_record_hash": "sha256:b634fb6d80318a1e8befe9d0e2edc08c6b3b585d2419277544a3b410bc84b95d"
+        },
+        "䚒": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:e2e91d5f27a09618d17dbba456faac73b4421f5112e08659a11ba730bbcdaeeb"
+        },
+        "䟺": {
+          "selected_origin": "gate_promoted_candidate",
+          "protected_gate_decision": "promote_candidate",
+          "protected_gate_decision_reason": "candidate_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:4833228c6d797960e3cb031f491cc345fe7df6a7a844c3541fa63848fb3a1f00",
+          "second_pass_record_hash": "sha256:ff4b68863940a4a86aa2d1d059c01be33fb8307791f67476dc9d68fdff720683"
+        },
+        "䡦": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:ae0660390f8c204a05407055d6951f9057195cdd0f130344505b6c24bf58b07d"
+        },
+        "䢇": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:6e97816d7fe7f7eb345872b44be2d63ab4ae248eff3d83bb022fd0df9f702ebd"
+        },
+        "䣂": {
+          "selected_origin": "gate_restored_required_rewrite_source",
+          "protected_gate_decision": "restore_source",
+          "protected_gate_decision_reason": "candidate_flagged_with_disqualifying_concern",
+          "protected_gate_record_hash": "sha256:e813f0da2e166c8ce62850835d68e97b206a4082abfc87ce0a208e89985c7840",
+          "second_pass_record_hash": "sha256:abc7509b149487be266f69157a033222abbd9f50538f516ce8d78692aa54198e",
+          "focused_restore_repair_record_hash": "sha256:d1b449b154914ebfbd5f7d11ff7ec9efd28b42bef1f089e5f58fa4e9c151ec91"
+        },
+        "䤄": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:d069f5df1737ae814a75718a82f709838f78a2311f84e63fc3cbfa4a827c45fc"
+        },
+        "䤠": {
+          "selected_origin": "gate_promoted_candidate",
+          "protected_gate_decision": "promote_candidate",
+          "protected_gate_decision_reason": "candidate_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:bf3dc69215c52cfc5730f30f5daedf843162cc2d5eb24a745b7faac33492c232",
+          "second_pass_record_hash": "sha256:587ea26b7bdbb8eb3d5e3fdcbfd46b3e47e5bd21366b8cf4ff87734f27923178"
+        },
+        "䥊": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:3901671f162c8bf3936d8332974814981ca41cb50bc5b4c0c35a6b862bc9a253"
+        },
+        "䥋": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:bea90733f591ab414aa7c02113648c415b89a54bdcbd40ab2b3d65466a416d1b"
+        },
+        "䥟": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:e38039ac1db4432167918794bbcfa48d1de904fda01a4aa5fa2cac6729d58407"
+        },
+        "䥱": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:28badf45414f7548a9db57af5749a7d54bb597b395715d22d29a48dccaa8b188"
+        },
+        "䥾": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:f6bba7cb5ede9d85e9fc69edff72d6271137732bab6bce7e5bf8e6b1609570dc"
+        },
+        "䦢": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:7c462d5dfc1a43a25a06e2b34c03c24e2b390e14e4bcd79ba2502fda202b5add"
+        },
+        "䧍": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:5aff217ee0bbccf7f772a0418565f2ce742dd30330806e94a99c12e44f265a5a"
+        },
+        "䧻": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:fb73a98dcafa022fa47b0526376c14fe9e07057e2854fa6eb76cb046d9f46bbe"
+        },
+        "䨁": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:3680648ae3ff2217b0509faa1f5f05c70a7d46a9290f88b757f80c8b0a8c795d"
+        },
+        "䨖": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:a48f4e9c790935ba54be16a8eee28c1ec2262d93257545e4db00f5a9a1c6814b"
+        },
+        "䨟": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:35b84f6b5c6c9b098aeb61868c6fd8417d4a8ed13a8748f42b1031fb7333d627"
+        },
+        "䨻": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:83faf6a78acb4a12f55d700ae947939dc885518d225db087f77017f4d1b6a998"
+        },
+        "䩨": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:d85e6f47ca3ac2936a49b4e974d44b18842604c36d267d0c6064e8e9b56beddb"
+        },
+        "䪔": {
+          "selected_origin": "gate_restored_required_rewrite_source",
+          "protected_gate_decision": "restore_source",
+          "protected_gate_decision_reason": "at_least_one_blind_judgment_tied",
+          "protected_gate_record_hash": "sha256:eb1aea1b3ba7733e543c38c5055093b0401e0f546b4517a0472623c7ead9a98e",
+          "second_pass_record_hash": "sha256:7aad43cded5e4aee4f5e498e1ae0caf61aadf59101ea7f62aef8ef0e82bb2ad9",
+          "focused_restore_repair_record_hash": "sha256:a74602fb0c25ef55f12c965a6692da43db808a678c03499ca9a6fb4c3098e68d"
+        },
+        "䪖": {
+          "selected_origin": "gate_promoted_candidate",
+          "protected_gate_decision": "promote_candidate",
+          "protected_gate_decision_reason": "candidate_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:fe1f367f108ea247d39261e06cadbbd8f4afc7aabc11464c0551d8a4cd4eec79",
+          "second_pass_record_hash": "sha256:02ca56cd3fd5cc3fe69ce0aa65904c6e019e8859ae0dc3304c0e95298c5c7cee"
+        },
+        "䪙": {
+          "selected_origin": "gate_promoted_candidate",
+          "protected_gate_decision": "promote_candidate",
+          "protected_gate_decision_reason": "candidate_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:43f212427602fea3d0d9a4f16ab750e31ab237bcab89387a74b2ccd76e4b2640",
+          "second_pass_record_hash": "sha256:9cbbc7df313c4801a5b41708d82247b77052c61bb24eba3ebca8143909382ee8"
+        },
+        "䪝": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:af4397202f749b93d7345bf96063f6d622d03fdf0c00ec1bbb9a5817b86db470"
+        },
+        "䪢": {
+          "selected_origin": "gate_restored_required_rewrite_source",
+          "protected_gate_decision": "restore_source",
+          "protected_gate_decision_reason": "at_least_one_blind_judgment_tied",
+          "protected_gate_record_hash": "sha256:d403dce3d1db2f11349f593733bca8fd729f680d5ef2410890d04520fa27aae8",
+          "second_pass_record_hash": "sha256:73f41d86699e630b57912fb2a781bbd1fe6b638eca256b344acb1480d864b269",
+          "focused_restore_repair_record_hash": "sha256:5498a9524c9db09d03ca46f4fca23368015e15975c82d96d38db9e43d3542c9e"
+        },
+        "䫈": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:18c8769034bb2638f2a6171f32f6f222dbc4be1d9fcc83306b25acde0fc75852"
+        },
+        "䫖": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:dd1ff3ef6cc6eb3536e27f1d3188084f9006911cee6ec58f98fb16c697fba118"
+        },
+        "䫘": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:ef4c15a0cbcacc71eddd48a3d71f83ff2c80c482c06b4646ce5186ad78adfd54"
+        },
+        "䫜": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:6119bc1ddddb4ba241462c3c82fe45b642fc169072a067f6f576f0dce2a98acc"
+        },
+        "䫞": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:c1dadfe49801a1da7c52e5d35f697cb85febd83c9a6b88bf8f21d1631bbd025f"
+        },
+        "䫸": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:7f1b154296c5fcd28e61d83910eb4f7e849ce8b473e6aa7739f16e607d3401a4"
+        },
+        "䬡": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:49dbe9ca6a92178fe52716b97726e7c59f4679f33f6de3b4e7d0ba99dd09a1fa"
+        },
+        "䬫": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:ebf0268d3eb101b325d08f3267f451450a780e4778722f75faee7d274d482aac"
+        },
+        "䬭": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:66a533c82575721bbfc180d805a30260a600e7fe0a56f1cd3ac25b5a85517a2b"
+        },
+        "䭀": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:90d153c85fafd33a832daca492d07cca63824eb56f946d2400006c631b36e08f"
+        },
+        "䭄": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:b31093d514a429e79a9cab655578a7d15cd7485f5a079dd178a145097b0f7dff"
+        },
+        "䭕": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:532d58b28ebb6ce758dae0187cefaf26be72b416442740e4282893ab059fdc5c"
+        },
+        "䭿": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:cda62484a4313eb1d01d651f4dea47003ad89a5624bf028a0a61e952b8a59fd9"
+        },
+        "䮋": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:b888768fd635c2fd36d930c06b0f88892ef245aa5612abe477d5dfd65d88a7f1"
+        },
+        "䮬": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:087b124136718811094323dc342034cc7b860ce3ee84d7376b6fbedceb927c72"
+        },
+        "䮰": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:5ef6952d1d851626b6bd08c5d47dc288316ec409b795cc7d38c9af193322b99b"
+        },
+        "䯊": {
+          "selected_origin": "gate_restored_required_rewrite_source",
+          "protected_gate_decision": "restore_source",
+          "protected_gate_decision_reason": "at_least_one_blind_judgment_tied",
+          "protected_gate_record_hash": "sha256:5eba4e5b6716b5e9c3aba2de66f7d1afe8c378544051e04c14ed5fe0952928c0",
+          "second_pass_record_hash": "sha256:d571c68a95f41506c5a496b3cd56e01913286e914f429600bd16de7ffd191e03",
+          "focused_restore_repair_record_hash": "sha256:3733b0d4e4a1c13d4bb62a6aa0a8b27ff1f1db57963aca480492676936c4ddcf"
+        },
+        "䯑": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:cc3b7b4e22d22693ab9c76c552fce1e439dc8b3c456abcf508b63b6f7776bb6c"
+        },
+        "䯜": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:f5e4e574dc31349b43fc7bedf07c9e49528af7b475da12517887555534c7fb23"
+        },
+        "䯟": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:803d4eb3775aa15239789d61ddb6c6232aff5907cae9ced478fb8b6cacafefd4"
+        },
+        "䰑": {
+          "selected_origin": "gate_promoted_candidate",
+          "protected_gate_decision": "promote_candidate",
+          "protected_gate_decision_reason": "candidate_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:5ba98adc82f29e030e9dd1e95726cbf1f371963f9b213aa7f9417d41923c37f9",
+          "second_pass_record_hash": "sha256:4c0e494b16a004fa4f050a6aceca3bccc6f5460fbe5dcfda8f9bc8485c26e75b"
+        },
+        "䰓": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:00651344bb9e68c6549d41cd44aae6c66797900ba1f945dfbf9d8240b5874a92"
+        },
+        "仅": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:7406e43fdfc650cb6eb012c43d0e6b95157407574f5ee5287db11df8f878cf97"
+        },
+        "侉": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:fdc97f115fab79f12e4ba7af84bafa35d3cacc863a56e6198fc0f26aa3b0a0ef"
+        },
+        "俦": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:8ad6663dd4afd3c8676ae3732e6f69ea3655f0b30b9382036eab58861dcaf5ce"
+        },
+        "停": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:eb5fc25a49be84cdb6d0271bc1575e389e5919ead9adb2a0c5d34732ccf134ad"
+        },
+        "僅": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:b5df12ca4adf272a2a5abc53c6c3aec0f64fbae62ee2fe73cd804852b34193ea"
+        },
+        "儔": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:9d3c77af239f45a5dd0659afafe6fab868dcca035a910e9a12a31bae31a28764"
+        },
+        "刭": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:f7be4e650a96e8c01cfb525324631c75c31fa5d41f7114b4999d1a26e7e333d9"
+        },
+        "剄": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:26f78fc1ad2f7dc2addb23350bcbff42f0b27bcb684a37e4e0f7d1a66e1dc919"
+        },
+        "卅": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:44ec1357020f620156b9ea07733c50ff44c721b56b8bfb026775883f28b7cfe3"
+        },
+        "卖": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:24c2dfc01e7359f9ba5e81691e4726915e2a9d45cffa4c61671061092a45858d"
+        },
+        "咼": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:c8feab5edfc78c5ab8a3e7000e5200e7321fef510d6307db2c05a817a55836ed"
+        },
+        "哕": {
+          "selected_origin": "gate_restored_required_rewrite_source",
+          "protected_gate_decision": "restore_source",
+          "protected_gate_decision_reason": "at_least_one_blind_judgment_tied",
+          "protected_gate_record_hash": "sha256:ddc493b9f8bdb403bee1e5007dc10b537fae1a5bb22130abde9adaacc6200165",
+          "second_pass_record_hash": "sha256:64f04fbff0894890d11b7d70d04ad8f8ea6db078639c835d1c81031c09a1cb6f",
+          "focused_restore_repair_record_hash": "sha256:706961f51c2d1c15c475637819492a8b0805532eb736228db50c3adf8e7773a2"
+        },
+        "唉": {
+          "selected_origin": "gate_restored_required_rewrite_source",
+          "protected_gate_decision": "restore_source",
+          "protected_gate_decision_reason": "at_least_one_blind_judgment_tied",
+          "protected_gate_record_hash": "sha256:7ebaa47feb8a3dbf1a9fc89e2315536be19bd5c7ca6c0029233d1a632c6dd6a3",
+          "second_pass_record_hash": "sha256:6c54a1f42d1683b5e219c55352bf0e07a60bc1e0c45654f67c6e0ac0d45a84fd",
+          "focused_restore_repair_record_hash": "sha256:099df7ebea78f54b8bc570bf367ec48ce247ff13a7183394936e461d642dd65e"
+        },
+        "啦": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:f9409a4bd590d813ddb564797aad523dfdc1e12ccc05531a7ae1977119c28621"
+        },
+        "喟": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:4a042789384339736567c094a6cc7ab9e8a3a365235ecfd0e1df2e7c132fc25e"
+        },
+        "喽": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:c217e864d4ed13e84d9a67e8f6133b7913ab31df9ac5871d789d9b4777965556"
+        },
+        "嘍": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:1a3d0661d9803c99c87281b718ebbc6f0af0951ba5140b4a9e23a06d4c2fd22a"
+        },
+        "噙": {
+          "selected_origin": "gate_restored_required_rewrite_source",
+          "protected_gate_decision": "restore_source",
+          "protected_gate_decision_reason": "at_least_one_blind_judgment_tied",
+          "protected_gate_record_hash": "sha256:888702072a9b581ab2a3bf749bda0d2910733266561df5459353fca194204aad",
+          "second_pass_record_hash": "sha256:5712084088db46fc4c2913f90d5edb09d1d5ae6d0e121aa6e8b51cb2a15bb165",
+          "focused_restore_repair_record_hash": "sha256:689195db01ff24d0196cc6fd342037b1cee982e0a7bb7d1689471b7dd481092a"
+        },
+        "噦": {
+          "selected_origin": "gate_restored_required_rewrite_source",
+          "protected_gate_decision": "restore_source",
+          "protected_gate_decision_reason": "source_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:9f8b260d1f1b576c9f01d0a8e8741a6580f7e6b5e07f6dc6814e1c0e0e52b96e",
+          "second_pass_record_hash": "sha256:81fa4a04c7e7d86c599ac8dd2d7e0530b0c5ba26906661428052c62e6bd8ff00",
+          "focused_restore_repair_record_hash": "sha256:e51701fc89477d58e59dabb176887bf2151cc9680c6d403529334580a00f10aa"
+        },
+        "团": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:e64ce59683bfeb24049d8c6209c2f32e3f7c4930cac2886c0791db3e83f58fff"
+        },
+        "團": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:3c1b7e458431a7177feaa50d42ab90ca94c30728d91ef9a90f288b853ca946c9"
+        },
+        "圬": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:e1e2343b31057d0407f84847bb2002173a395b95c0361650e24df58bc63579b0"
+        },
+        "坟": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:4233715fdc4144a2b0afa2b0632b7064be0e92674d3e90685228b1ca8862e1f3"
+        },
+        "外": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:ef3db8435b5ed6880f8c1a990d67c80b16a1d22e79826e0cfebc8c06b8139bdf"
+        },
+        "娅": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:4d8a29b342afa2c5cf8dabde6e202273ab6dbb3d86f101f83b0eecb65d065a1c"
+        },
+        "屺": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:29a8c8eb3ad12a6bfc774cccc58659c5d1bc5c90fb7ce2d7f0752f0c62bf296f"
+        },
+        "岁": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:a4ae05de4849a73dddfd8f1fa0a08f45779ca21ec4d75eb1afcc85af06151464"
+        },
+        "岅": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:d5cdd80cc697c6f2955b2338815cf75bce57d65fd38e41e7bb822b8e823cd558"
+        },
+        "帼": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:43a935290526f02b63a95aff968b91b09135e35c7f4485bfe528976ebbb36c97"
+        },
+        "怵": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:641836107662187c3ffa49440f02ac662d2819c8110ff80389ece5a75062dc09"
+        },
+        "恸": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:0b27056d07eb7d56db298daf372636daf0f451964a4d41e1e331b904ba29af39"
+        },
+        "慟": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:7d2a68eff414650da72721eee99956e0be9ce2d2531751e66c4b117b51ff2c40"
+        },
+        "扻": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:943abe6822b9c7172b5979b1c99be725fdf3971c83b7ba23aa8d59773eb9b012"
+        },
+        "捺": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:e40814a45298c216850076ce7014ab898a1fe27e58454997ec7f37fd11c4601e"
+        },
+        "摊": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:7e5e16fc08ad6349370883334c9f06dccea1351fb4dfe504bba42843a7f15307"
+        },
+        "攤": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:380e364458617c70f2b34c46e83c94edf3f57be61864ee712f85e6869281dc25"
+        },
+        "显": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:7b27006796130f293092c83f2f523ff8d95e49b70e5dd784e2fe6b126eee7996"
+        },
+        "曈": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:d1c82d93485230f5f9da95d99016c069e275097bec77ac72fdb1bb230ea3df74"
+        },
+        "杈": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:6f71adc426d664b5c9add111ace0662874017dd56a7273cbdf9c7e87e2b96c3d"
+        },
+        "材": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:d72537cb0d00ef6fce5636202720bb82f6f11ae0a6498cc449c09def38e527fe"
+        },
+        "栃": {
+          "selected_origin": "gate_promoted_candidate",
+          "protected_gate_decision": "promote_candidate",
+          "protected_gate_decision_reason": "candidate_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:6865e2cebab0a068571a2c392878259d6c60db3511d16938c4fa4b06626cee2c",
+          "second_pass_record_hash": "sha256:c26e025867c4549aa24d19a47492f5f125cd3e9fe19e75c8def197b2bb214dbb"
+        },
+        "标": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:05a5ca4003fb864440f16dc25166290fa0ca6ddfe2ed8f9349ccfc55262bb906"
+        },
+        "梦": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:25556f859cb094aad0edd0fcd9e92bc86dc2faca1d6ec87587ed0bcea12c3459"
+        },
+        "検": {
+          "selected_origin": "gate_restored_required_rewrite_source",
+          "protected_gate_decision": "restore_source",
+          "protected_gate_decision_reason": "reversed_blind_judgments_disagreed",
+          "protected_gate_record_hash": "sha256:ac73dfa9cf2550bebcb8d77e63e75621432e1457a6d3845d671c55410b577da8",
+          "second_pass_record_hash": "sha256:e487224ff44458cc750eb19a0121f5431cea332b985dbd0b3d74aa88c39d058e",
+          "focused_restore_repair_record_hash": "sha256:4583703ddbb0ea2565705e58cd67a0869f6d19346cfdf1f68d1c7f6d87d33f98"
+        },
+        "標": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:62ff47e33255a7f5996094e76e5f04370f32632e50e2281a9c75fc621559f012"
+        },
+        "樽": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:a6d6ad3fea267797d700717bd0ace67d999f36f303c878bcafc0aff1a8bf05f0"
+        },
+        "橡": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:4606e0d033747b898f9a13aec85602a7baafb6ddec965c2ed960af21ee4fe6bc"
+        },
+        "橱": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:547e7f3ce4d0cfa30cd33de718145bfa4a9dfd73ec095963836c995b29dc3afe"
+        },
+        "橵": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:10abe31cf779cc11c76e60c5594e839e0e606eafa0b5b2935d5530fc593b1e1d"
+        },
+        "檬": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:5062d94c7377f94aac4a6ab30e6f974cc88832b0d8715d8dca7f4d1cc9f294c0"
+        },
+        "櫥": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:151d33558000c82dff59855a7e641311e050ad3f46b66c2dceffb1ac601a9d06"
+        },
+        "欽": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:b635acde3e69ae550f79131db0c5430359d29856fa9336f3242a3a25ab9404d2"
+        },
+        "殁": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:38d19a1cb28ed036edad2574b0ebfd2d80af7987f6988e372a63c1499aa550a7"
+        },
+        "殓": {
+          "selected_origin": "gate_restored_required_rewrite_source",
+          "protected_gate_decision": "restore_source",
+          "protected_gate_decision_reason": "at_least_one_blind_judgment_tied",
+          "protected_gate_record_hash": "sha256:16e14728986e49c2cad61bc63b0794d93084779eba66a6d85acfe2a59c61b0b8",
+          "second_pass_record_hash": "sha256:144171298e09974d692787735c6819d55f9c57d35b0f418e4fee1f2d091d6473",
+          "focused_restore_repair_record_hash": "sha256:6aa5ef6d006a53a3e1eef91518fd3ea87ee693c20091ec75d4d0d12cb464f842"
+        },
+        "殪": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:de3990b88aff17f62a6123dd7a5db32dda5ff98aefa19f7e798cb290717b9e05"
+        },
+        "殮": {
+          "selected_origin": "gate_restored_required_rewrite_source",
+          "protected_gate_decision": "restore_source",
+          "protected_gate_decision_reason": "at_least_one_blind_judgment_tied",
+          "protected_gate_record_hash": "sha256:30e720e8ebb00102bc2216c3f2e465e4503a0442a44ee76d1b627c321ba89907",
+          "second_pass_record_hash": "sha256:20f71edd9a757acf74b510f622c98595ecdb71551c77283a06b1acdee44d90d8",
+          "focused_restore_repair_record_hash": "sha256:7ac410948a61fb1a819cb4f549cd9c9f3f428752012e385f0ae202d3ce93b9b3"
+        },
+        "氌": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:b88cc84fd99070245a8ec5d9c90bed27687cad476a2cf2691f202b3099229624"
+        },
+        "氝": {
+          "selected_origin": "gate_restored_required_rewrite_source",
+          "protected_gate_decision": "restore_source",
+          "protected_gate_decision_reason": "source_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:953767f22ee4712c657a8480448eb84f9d88412f2451e31c9354972b5fa8150e",
+          "second_pass_record_hash": "sha256:11de536ffcff697e3f5cd9c6a67811a10a9bda25a798e7a7686610f66c31a24c",
+          "focused_restore_repair_record_hash": "sha256:399434a61abed69cee64053859a8378be73b58dab2f6301bb79304953f1bf9d0"
+        },
+        "沚": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:cad0555c840c19c5d8c7074496e9e34b7e8e5c07e78ccd09a325a28c2a06438d"
+        },
+        "泅": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:c637acfa06fef2f6aae9c5c21cb8233041badc298d9f2dc4faa1d89d5fc49201"
+        },
+        "涞": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:29b49adeaf0aa8e8d85aaf1250d83dd75b1d4ae63ce021d068c9663027dfa009"
+        },
+        "淶": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:cc3b5a8266b4205eaf80e10429cd03b7020484c6d5c2fab786a1c83383057b96"
+        },
+        "潨": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:bf3130f6dc3971708f94e4dba41f843ccc2fef21b6ad0d61c7577c5a9513ebd9"
+        },
+        "烨": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:e99ef64532fd85396049ebeb647b5a4f72b37635fcffb993de0bd282d1c0ae4a"
+        },
+        "烫": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:02c3efbf88a7d77f18a99030a2a3126910a59399f9d1a7c6473b028355d7cb44"
+        },
+        "烺": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:05c3ffc0b73c56bef84aa03bd58ddc2ba5ed13f458bb49d7e7ff54ba87a23472"
+        },
+        "焗": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:e5a75c21e87274820365ae3087deb36407592acd7e1f7ec777b1ff1a5dbc146a"
+        },
+        "煠": {
+          "selected_origin": "gate_restored_required_rewrite_source",
+          "protected_gate_decision": "restore_source",
+          "protected_gate_decision_reason": "source_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:c7e8a0559e97e40e990ec0e6cd374470631857d3e17935005765858651de16df",
+          "second_pass_record_hash": "sha256:b85a74ebc2aa93a39494b0eed86d992872b03645797b65af58d1a25d9d935da7",
+          "focused_restore_repair_record_hash": "sha256:adaa0b3cd41eb37d1011cc665e17461e778f4e2e958ed43cc7c8150c6f9b0ca8"
+        },
+        "熜": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:57823dcf2101b9a68016d18617fb720a43a034d9c4622ea26b5704006c473f6e"
+        },
+        "熥": {
+          "selected_origin": "gate_restored_required_rewrite_source",
+          "protected_gate_decision": "restore_source",
+          "protected_gate_decision_reason": "source_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:a0e258885e52e4f146072e344c96a3d57c8c66189e42f2742c45196a07164e5a",
+          "second_pass_record_hash": "sha256:11d997dc97ef404bb00f77dadf112d1fab64322ef8108ea244d8f33116e89ff0",
+          "focused_restore_repair_record_hash": "sha256:2e54771110a13f7b5f55530325135aa628977b4423fc467a09541e293ffc7182"
+        },
+        "熰": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:04f84999b6f4e1beb86c6d1485e60198054a8b3a4ef814b9736602b619f049b4"
+        },
+        "燁": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:f5b2d5423360cef86f261dd33e6d73b63efdf4dea16c2e4acf975eddae8e5a4b"
+        },
+        "燙": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:1ecdbf64c6a47366470825249b429ec582f318912443618ee3e825f9f8e9c394"
+        },
+        "犠": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:491f3f5808f1ac4026982183674dbb8e4be6817b74770861b33f807a6f43568b"
+        },
+        "犲": {
+          "selected_origin": "gate_restored_required_rewrite_source",
+          "protected_gate_decision": "restore_source",
+          "protected_gate_decision_reason": "candidate_vote_below_minimum_confidence",
+          "protected_gate_record_hash": "sha256:350b6d3eb128378308faadcf6b327c1c1e6e79b338fa904cf4d639277e04e937",
+          "second_pass_record_hash": "sha256:b0351b16e1451a4b0fac1908d4385d8b3997026e04458523a8f90978d339ca2b",
+          "focused_restore_repair_record_hash": "sha256:a28fdcec8354523ce27f000f87e60eb42b8afc4d16a092c586b632421c76048a"
+        },
+        "狼": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:35b8cb9f86c4e979cd950f841f58c9d75c055a1db4741b29039d2ed3c0e36e7f"
+        },
+        "猘": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:72dd477ffeb9bec86fa8cf1970dbd17d85be1a48396efefb65c005d8cf1561d4"
+        },
+        "猹": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:84440d4e580e9b82e4d74027e96f82ee8318ebe768d93a2dacff2fe7b3719785"
+        },
+        "珹": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:44b8b48694fc9c503eba11d47628eb1a61270df44e237b343777795e5bb6aac3"
+        },
+        "琄": {
+          "selected_origin": "gate_restored_required_rewrite_source",
+          "protected_gate_decision": "restore_source",
+          "protected_gate_decision_reason": "source_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:602b68d31d2f2152f6b62ff922371abb147cb99250ff4b108d6ec22bc99b0cc1",
+          "second_pass_record_hash": "sha256:4655a42d1d3721899e7e4d0e7d1b58c4667c8e8dbe97db8a9a99a51acd69fcb3",
+          "focused_restore_repair_record_hash": "sha256:9e20bf8f706c063e10f2d518f6b87ab6e6189ca63faed6a84f585b0d70003f17"
+        },
+        "琥": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:9f80d8a89b2545fdb722e80ad5649a41bd96b37be9d74fcd7a061646d493dc37"
+        },
+        "琨": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:4ef12865911314ac9d070932fc326ecf4268e745efb9353a77466a7ef5f7dc8e"
+        },
+        "璧": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:d302a9bdfcc390b84d9ef09928e92bd60bd96c947d65442dad53e9e726a5b89f"
+        },
+        "瓏": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:914957451fc1f9d01af3e64f4ecec9536ee9bbe4b7cbff6913e5334aed6deb39"
+        },
+        "疚": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:d10d08a3f10e3fbec27b9c70fd24f281bf9c3cf90e6c32be1644c0035ebe7e59"
+        },
+        "疟": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:dd02b0c801cdca1d0b36d7569acea86cba8de55683931ccc026d4b3fca151cee"
+        },
+        "痲": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:dd7857eba7101167e99811bead3acb4f246297f41622ea9ae5218118060d16bf"
+        },
+        "瘨": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:6f3346018aa30e0d62aa2b9e21c3baf64096a89e6a56e453036f89a99f803023"
+        },
+        "盃": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:a2e03cce617ffdd3c1a19a341ffb36d3add5d3905e6d020a4dd214a9f141090f"
+        },
+        "盔": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:0d468373170035fbb6790ac32137b143364ef6df0c6129d0e4ef57a60b041ca2"
+        },
+        "睡": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:c292fcc842bf992e77f0ab8834332e4ba01a68e79968af686531261f70e0d483"
+        },
+        "瞳": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:163eea808a8e08822f182053425403fe47543dbaca7c14ae52a4d2be7674224b"
+        },
+        "矈": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:d282b1c3e55cd32c8640faaee219f9c7554976cc799ff3ebcf4ebae67b33a0dd"
+        },
+        "祥": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:a8ebea58fff797d97610fd2a0ff84874a49176ca2848f7b337f36b94ed36dee5"
+        },
+        "窄": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:88bb21450d71dc590fc7a99de0537a20ce2bd4b09537356e5b06f2f122f0aff8"
+        },
+        "窑": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:e70484267cfb7a8ccab5889d6478f74e1677d79340a2e37c99c9b710bbd19039"
+        },
+        "筵": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:61a944cf213ac934b3bc214bd36bbdd13264027465b64b7fa9d4fdbbc9ec88f1"
+        },
+        "箇": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:342461e51b8f74b393a6e1e8ae7e2a0a5a975e2b713ec6b82a44de87cf2dcba5"
+        },
+        "節": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:bcc0f87a5e06fd81cc0335673e9cbe5386b2e1b48c74d580e0bd0329ed39bee1"
+        },
+        "粘": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:17d4e3ccdb2cd3e485e70f61259e950c696cef9db45613d6077799f6297df3d4"
+        },
+        "紳": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:140ea2c17922a81ceb91beab27b1433b7b1e34d4de1ee6546afb4af2a7eaf7be"
+        },
+        "絰": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:b09c78d6e2a18850f51ef9aec2ff391ffe83083a065ce6299dbfb638785b02ac"
+        },
+        "綣": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:d9b13d0aeee64ddb9a47f3a4585c111c50df189f02d648b66b0877b6ce10d9f5"
+        },
+        "綹": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:a46068ad26f49042fad23f443af1308e5f9460d9a1036538130a7b059d3cd716"
+        },
+        "緲": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:49d915cdece736becb2e56f5d136cea99a071a9028b1681a8fbb6b20fe482400"
+        },
+        "纖": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:b21210d507f941c37765093238eb74c1f32d6f2a183da9f6a302f98cd240047f"
+        },
+        "红": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:82cb6470f4fb10a245df9a5098eacc468d960d39f4cd0d654a0f45eb4d9621dc"
+        },
+        "纤": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:a8343228ce4788d5aa2a610fe96408fe01e1e02e3987ae8e58a0f086e353136f"
+        },
+        "绅": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:32bf2b90d8cc1e412dce3693df222122056b2e343bb0f09a9c4212e7d8fbf997"
+        },
+        "绖": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:e9eba305d6636bce77d0a78fdd3cfc52dea8e8eabe1120be5640ea9a53a69edd"
+        },
+        "绺": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:7c74b8c9cc2aab62ad936811fb1e2c541363f889c01dedb33ae6a3de255227d3"
+        },
+        "绻": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:06906193fb57fd28d491127506d71edbe1515a7e77024036e13dc0959eaf22e1"
+        },
+        "缈": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:65565aec3dc05f5d9afe29432e53fcded9f89310f0ad281f5a53538a3ed078a0"
+        },
+        "罇": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:987abd2415ee03c25e10df1eb70cf021fdfd9f3f6aafbf162a544b4e9f10a848"
+        },
+        "罗": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:5be6ace9e4bbc6a3d649b44dda160dace31b60b4d9bd2f97fe8dbeb624462042"
+        },
+        "羅": {
+          "selected_origin": "gate_restored_required_rewrite_source",
+          "protected_gate_decision": "restore_source",
+          "protected_gate_decision_reason": "candidate_flagged_with_disqualifying_concern",
+          "protected_gate_record_hash": "sha256:04ad7e0c87da37b7cc7f895e4979a4a4a41b391d84c5416087666cc009ede424",
+          "second_pass_record_hash": "sha256:41dd211317acfa1826156f4d11b691ceb9760fc9c08fb1c41eb78e7cfe19c9dc",
+          "focused_restore_repair_record_hash": "sha256:c2e3fc921f087fb7e9f80dc5fbc894b4e1eff091892ebb320700d8fec1235ae8"
+        },
+        "耒": {
+          "selected_origin": "gate_promoted_candidate",
+          "protected_gate_decision": "promote_candidate",
+          "protected_gate_decision_reason": "candidate_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:2005c0f0829cc146922be18a9e71655f5e8833097ec382c5f28ed06a507c4932",
+          "second_pass_record_hash": "sha256:6b4e6915353ad41f60a0d23b9df081e45321d1276b7fe161f7028ec0519e1d40"
+        },
+        "耔": {
+          "selected_origin": "gate_promoted_candidate",
+          "protected_gate_decision": "promote_candidate",
+          "protected_gate_decision_reason": "candidate_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:2132900c7b28a246ebef33de00a449f30a24316b9318b831cd6a207a628ab877",
+          "second_pass_record_hash": "sha256:fe9f10c71f2fa8adde20dae9a27a43f54846cb4b3bb60ffc8d8a53b2bd3cb3f3"
+        },
+        "耕": {
+          "selected_origin": "gate_promoted_candidate",
+          "protected_gate_decision": "promote_candidate",
+          "protected_gate_decision_reason": "candidate_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:8b00d35fadcfaf2730edd284405ea445fac91095dbb70706e34b94baff367ef7",
+          "second_pass_record_hash": "sha256:35ce3bbb81ca494ce717643e76c9eadc9e57e92e711f10de05e7ed6c15dde301"
+        },
+        "耗": {
+          "selected_origin": "gate_promoted_candidate",
+          "protected_gate_decision": "promote_candidate",
+          "protected_gate_decision_reason": "candidate_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:9e0612eb22febc818644352ab83fdfca6bc1a823d1e1772bc364ecc0fa38d83c",
+          "second_pass_record_hash": "sha256:4bc535b25a41573802efc04fd8a846cde35e2c8bfd62efaa9da757592297b5f0"
+        },
+        "耘": {
+          "selected_origin": "gate_promoted_candidate",
+          "protected_gate_decision": "promote_candidate",
+          "protected_gate_decision_reason": "candidate_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:2e8e605f6e1d8548eec35603abac140ff8a50740652b87a328c36aaa8bebf441",
+          "second_pass_record_hash": "sha256:1631888f27dcfc7f252597fc274c1d14c1bf829b2a5ecfaba662ed808894cd07"
+        },
+        "耙": {
+          "selected_origin": "gate_promoted_candidate",
+          "protected_gate_decision": "promote_candidate",
+          "protected_gate_decision_reason": "candidate_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:945a18e6692d8d00ad4565c74efced4501e40a5b7f919c4b663712d763cf593d",
+          "second_pass_record_hash": "sha256:7df6ae5b7646770305429d81f5b2b8c4063cf122d8adbb08a40681ad19cd930b"
+        },
+        "耜": {
+          "selected_origin": "gate_promoted_candidate",
+          "protected_gate_decision": "promote_candidate",
+          "protected_gate_decision_reason": "candidate_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:f4e1c3ba23383732452b65c6ff5396a960ba4b425fbabc7f0fe7db92be0714b4",
+          "second_pass_record_hash": "sha256:a678f6d871061d881ffb7fb1d001ffda9cb503655ae9b60e462523e0ca0cd768"
+        },
+        "耞": {
+          "selected_origin": "gate_promoted_candidate",
+          "protected_gate_decision": "promote_candidate",
+          "protected_gate_decision_reason": "candidate_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:90082900b14a32ac88a1750feb1a59ef609f271d0854a7e7513463381120fddc",
+          "second_pass_record_hash": "sha256:5d62d633cd54415d99e98d6eb0db300450ece9af95c8d2487764209fa03aa469"
+        },
+        "耠": {
+          "selected_origin": "gate_promoted_candidate",
+          "protected_gate_decision": "promote_candidate",
+          "protected_gate_decision_reason": "candidate_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:89ddc02f4afad2889de1bd49100456eb5fc71a6901907ee0e71c3311569b6181",
+          "second_pass_record_hash": "sha256:756ca4ff6716d8d4b0ba2803f9707a63fb02db3f0ce0054b23d391e0865047ad"
+        },
+        "耡": {
+          "selected_origin": "gate_promoted_candidate",
+          "protected_gate_decision": "promote_candidate",
+          "protected_gate_decision_reason": "candidate_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:39af2c6efda3848ef34a9951c1184a7367d67962c07485c9dffdec8cf5becee0",
+          "second_pass_record_hash": "sha256:cf12c353cca5529eceeda1f6e790362d9ec0630a3499d67852d13359dbf66405"
+        },
+        "耢": {
+          "selected_origin": "gate_promoted_candidate",
+          "protected_gate_decision": "promote_candidate",
+          "protected_gate_decision_reason": "candidate_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:e675f66f790642aa13e4e55f441b4cf0f0ea4ca80576de9785d536913c711ce4",
+          "second_pass_record_hash": "sha256:0fa00f29bcd6050c25b239f796c812ebdc5ec221f60f3cb2b545b4934ce55e09"
+        },
+        "耤": {
+          "selected_origin": "gate_promoted_candidate",
+          "protected_gate_decision": "promote_candidate",
+          "protected_gate_decision_reason": "candidate_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:b82b976d1ca1105c7956cbbf66b4af2bb996bab439d8d1b5482f91cd0e1507a5",
+          "second_pass_record_hash": "sha256:e27aaae95e82db59faba11087ac2cae67636291eb7aac4a428ec9331f1a973fb"
+        },
+        "耥": {
+          "selected_origin": "gate_promoted_candidate",
+          "protected_gate_decision": "promote_candidate",
+          "protected_gate_decision_reason": "candidate_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:2bd124589ccdf07e929abf70aa4a39be14d4b91a245c5ccf3415da8ae7ae21c7",
+          "second_pass_record_hash": "sha256:935d83e5faeee813ec7adfaf5601faaebfed9360f88eb3fa0818908f83e53937"
+        },
+        "耦": {
+          "selected_origin": "gate_promoted_candidate",
+          "protected_gate_decision": "promote_candidate",
+          "protected_gate_decision_reason": "candidate_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:df8c35fd395a457de3558e141eda9453ad9285cde528f6c1fdeaa58fe373bd8a",
+          "second_pass_record_hash": "sha256:da844deecafe3ea207bec7c9aeae154aba313a2bc0598bad11f8e262141b9a31"
+        },
+        "耧": {
+          "selected_origin": "gate_restored_required_rewrite_source",
+          "protected_gate_decision": "restore_source",
+          "protected_gate_decision_reason": "candidate_flagged_with_disqualifying_concern",
+          "protected_gate_record_hash": "sha256:124ab20e15e1764fd45e4df5bc3d439fe3a6e873028f8373f29addba8071a791",
+          "second_pass_record_hash": "sha256:0ddcb88a47c6f3d19d5ad4f231812e63fa87b3fa124659102f14ed805f71fb92",
+          "focused_restore_repair_record_hash": "sha256:02a2e8e685cf4920903c19a8af075b1abb5da91cfb5832546c004c000966de6d"
+        },
+        "耨": {
+          "selected_origin": "gate_restored_required_rewrite_source",
+          "protected_gate_decision": "restore_source",
+          "protected_gate_decision_reason": "at_least_one_blind_judgment_tied",
+          "protected_gate_record_hash": "sha256:f4da3cba08a80f5fdb50478844669eb861935705b5651b6358582b26100ebdbc",
+          "second_pass_record_hash": "sha256:d16c2a0967ca29968fe3ccdcaba4c5b49abed5b0683f9f62c3e36a0f4374335e",
+          "focused_restore_repair_record_hash": "sha256:c7b8b5c15b132f383704d49d81c4abf3b817b92b78acbdb59a2df5cacbd1aaed"
+        },
+        "耩": {
+          "selected_origin": "gate_promoted_candidate",
+          "protected_gate_decision": "promote_candidate",
+          "protected_gate_decision_reason": "candidate_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:5bf3cc1ea4aac5d3d133162703c579ca49cbe27ec3e85ec2b654fb59cfb884ba",
+          "second_pass_record_hash": "sha256:2728ca0f63a83605cfb09baaf99ff77220a912f71134d40ae6f67a4c49801d6c"
+        },
+        "耪": {
+          "selected_origin": "gate_promoted_candidate",
+          "protected_gate_decision": "promote_candidate",
+          "protected_gate_decision_reason": "candidate_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:bd95ead0ace2994b6622a9215c115b599d49b1acdb0626991873550c5b5d24e2",
+          "second_pass_record_hash": "sha256:b856053eff741607d3ade11f0078dfb52e52c648b11edd0cae4f7fe3fbaef53d"
+        },
+        "耬": {
+          "selected_origin": "gate_promoted_candidate",
+          "protected_gate_decision": "promote_candidate",
+          "protected_gate_decision_reason": "candidate_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:b32b0fd0ea2f9f35d29adddfe4257d26962d941282ae55d02b72bee92e745cf3",
+          "second_pass_record_hash": "sha256:503bf4e6fe7644fbc640bf9d6ebcec6861f5823398b3022acaa4b11db9640b7b"
+        },
+        "耭": {
+          "selected_origin": "gate_promoted_candidate",
+          "protected_gate_decision": "promote_candidate",
+          "protected_gate_decision_reason": "candidate_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:4b4498ca914afcffb61b5d3a4e2cdd2089c40bf949c0baae894e3e85d03ea9e6",
+          "second_pass_record_hash": "sha256:090dad5cb5df03bacbb016ec734af72aa2f456fd259ceac705186b62337c41de"
+        },
+        "耮": {
+          "selected_origin": "gate_promoted_candidate",
+          "protected_gate_decision": "promote_candidate",
+          "protected_gate_decision_reason": "candidate_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:e5e1ac8623f366d5557d445fe7dc75a6c1b8f01305495ebc6ba84f34c9f60f35",
+          "second_pass_record_hash": "sha256:7b356046a1d69d38419df785edf25e1eddf8925d599fec3b7885dcf72d490841"
+        },
+        "耰": {
+          "selected_origin": "gate_restored_required_rewrite_source",
+          "protected_gate_decision": "restore_source",
+          "protected_gate_decision_reason": "candidate_flagged_with_disqualifying_concern",
+          "protected_gate_record_hash": "sha256:8744434e61f45e01ad35fa2dfa1851036ca5e3e4811066ea71c32aa00c5763d0",
+          "second_pass_record_hash": "sha256:f0433cea36bf3468c9d1855006a2d202a702ed0fa98b7042bd73da304f1bf0b7",
+          "focused_restore_repair_record_hash": "sha256:17c559a7b279769051a60c70507d3ccb1053ffe2b9c4b2b6ae1dac0cb2160963"
+        },
+        "耱": {
+          "selected_origin": "gate_promoted_candidate",
+          "protected_gate_decision": "promote_candidate",
+          "protected_gate_decision_reason": "candidate_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:ab802346f4aa4a33c57e133a310e0f40dcd420603d32337fcea92fc1089f310c",
+          "second_pass_record_hash": "sha256:dfdd9f26b0eb6986ca599d8a9de3d96a694b696151a990a509e4e9fe88f9f89b"
+        },
+        "胀": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:48126ae450be605d459854de399159a2768c5cbf717b42fed14d946327704d91"
+        },
+        "脑": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:7a8c18d5f9ba9eebfc1f995ce5ddbc1d1f67276aa8f058114732df3010fc357c"
+        },
+        "脸": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:f9c242352108aa11b48122e3f18682c0ba2e336ae59a5b27114c00c860138ba6"
+        },
+        "脹": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:0cadd4c0154adba7e0e56b70542f1b502a8da15bb82880ee603d22822844cfc4"
+        },
+        "腦": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:19e8c536a17620126f96715d50ccfbf5a7a49be088e242d280a882c4027f554f"
+        },
+        "膫": {
+          "selected_origin": "gate_restored_required_rewrite_source",
+          "protected_gate_decision": "restore_source",
+          "protected_gate_decision_reason": "source_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:44efe0c8e5ffb147b3bc702aeb888d2677e3a174093ec1bf6cc473be818d4a33",
+          "second_pass_record_hash": "sha256:79029e210375e360739c3185fdd67448790c1d59fd409fd657678340e70c7763",
+          "focused_restore_repair_record_hash": "sha256:f90d3fbee80693fa795b60721e8e0ff60f27ca3e970d18e681e45b53e85193ba"
+        },
+        "艜": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:cb2ac8c737f428b344f5a3408946bfb5acc897ff45ff900ae6d2f0ef95e5df77"
+        },
+        "节": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:ef30d864cf57c6ad06f22f17efaed0e1a3c805d0cff9f4b01f86602a867829e6"
+        },
+        "药": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:4f4767b005790a80a8301f13c6a7db7540047d6f984202cdace9950f90162cec"
+        },
+        "蔗": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:82ef24eb19120eff8b4dfd153cf6a94305dd70c048e0df4bac278b9901fc5b74"
+        },
+        "蔸": {
+          "selected_origin": "gate_restored_required_rewrite_source",
+          "protected_gate_decision": "restore_source",
+          "protected_gate_decision_reason": "at_least_one_blind_judgment_tied",
+          "protected_gate_record_hash": "sha256:7ab146b98aba923635d09d6db826a7087cf15f7c737ca27ebb16f11caa94f699",
+          "second_pass_record_hash": "sha256:a1a0a7bbbccb6cee988074d8c5e3773a782f068122fce4efef4664fbc99dc125",
+          "focused_restore_repair_record_hash": "sha256:7f0bae13bf1515955d9c7aeefbbdaead2dcc8d4ca69b016cea5bdf7ba251e6d7"
+        },
+        "虬": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:eb70ed0ed0efe017e8d70056a5cea99ab5681215c333f686ee4d18fd9db76b07"
+        },
+        "虾": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:33e3eec27fbfb9d84978862f45e11f9d61aef898259e5ea9d37d48c2ce0c6255"
+        },
+        "蚓": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:00c2badd6523fd37259918f790f286c1a03b58a873f36cf93d8095c9af853988"
+        },
+        "蚵": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:3021b03b96437bd5ed773d1a4ec942d86473fec3386cb61ee14aa4b7e9c52ee4"
+        },
+        "蛳": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:d652f39073ea4b981877203bc9bda9377b39da9a251a9edd8e42973c3fc9fb13"
+        },
+        "蜘": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:564e966b967b817175717cb58965340375df346bbdc29337e1ceed59d7b5648c"
+        },
+        "蝦": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:e6f51ae46de3ca325e6ad1b1c8280ee38ee441187c1ac0d2071ea495fb6cd503"
+        },
+        "蝶": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:67552a69ae33df66b29aa2cc7f2882f4100a9a8a04ff6b38e172d12374dd1535"
+        },
+        "螄": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:8b085536fdddadc5e172dd159fc89527b30727c7f93776704113e06d2c8dad7b"
+        },
+        "螵": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:7be53bb99a9021deac1fd236b53622b713d5ea0a8507de830bbe4576625998ed"
+        },
+        "蟮": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:fc275da79c282b43879ed9d6a4e26b26584ba94040e4912d069e67b8954fbe1f"
+        },
+        "袂": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:ec55e6ba21e276813272b2057bee44872ab6fe55b8726673c9c0d40671204a6a"
+        },
+        "袜": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:03d16b17fb4064dd56e725f4831e9b80a7ba4b30ee3d1a62635764ad34dc5280"
+        },
+        "襪": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:13b11d43d5938fa32cf20cd599bf852cafb188351352ba51632449c34cac4867"
+        },
+        "覦": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:da48957141cf22d2b9d41e3c55f4775ea59cd75e2f99b936c4fd00722d0e8d7d"
+        },
+        "覬": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:07b2e7bb0ce4001e41b84630751122f2f93ebb2688d59088a329950820bdf2f3"
+        },
+        "覲": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:befedcbcced5c47e7e2615df3e69e9d1cb76768d7ad31c612548b6eca30d38a7"
+        },
+        "觊": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:13b9597f4f6020525d4b56ccfa5af0d3ec73ec6f3dbb55857d586521250b85dd"
+        },
+        "觎": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:464b8598baa4ce7fa78e1a3dd8fe6f5e836de3b0f5017cf1290bcca9e685df73"
+        },
+        "訄": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:b44ae1c91be73a15cda42a06c436334c6ec0cf42557ba39952ac65a8902bb517"
+        },
+        "討": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:63c8bc3eed963775f56470a3c70ab3b32b85eae6956161718f3ca4c7a12dbff4"
+        },
+        "訖": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:4a831392189ac9f69cbb029427a10fdb7b229afb22b7df8ef575b31808aa742a"
+        },
+        "詒": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:14ca813fa1f739069686499e48d3a1633264d6726bb8479cca286974129e4f4c"
+        },
+        "詛": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:61b6e577b5d7f5779df3c41a7867321c1b276653c508a63f2ee6fa7aa9027824"
+        },
+        "誄": {
+          "selected_origin": "gate_restored_required_rewrite_source",
+          "protected_gate_decision": "restore_source",
+          "protected_gate_decision_reason": "reversed_blind_judgments_disagreed",
+          "protected_gate_record_hash": "sha256:1212588ab21cd524205fa3e96d893dee00169a8c12ed319a732190af05747c36",
+          "second_pass_record_hash": "sha256:08122974f99f074167d9e0c14f032c528b58e7347785fe684b406156ca543b0a",
+          "focused_restore_repair_record_hash": "sha256:b0a8ae40606cbb5177b18daa5e5f68899cf25a70cf60104e6f445c9df86d3d33"
+        },
+        "誚": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:712307767997ad785e7946720484511f9d1d36baad8c0fb26af7af9aaaf2574e"
+        },
+        "諼": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:9f17426e19fc8c59e2d4c7af9311e11f181b2c27dec9c6c1da14988b32c67980"
+        },
+        "讫": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:9fc41fdc597da597f449f2239cce4caa7b35a8329d53f69159158c063b40a5cc"
+        },
+        "诅": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:136d470b6a94bd1dc49c8f1fb45c84cea28be9c831a504113c76f3b029816f98"
+        },
+        "诔": {
+          "selected_origin": "gate_restored_required_rewrite_source",
+          "protected_gate_decision": "restore_source",
+          "protected_gate_decision_reason": "reversed_blind_judgments_disagreed",
+          "protected_gate_record_hash": "sha256:d7fa46aaa21fd54ee69183d24fb7fb536e0ec5134954aeaf179cf7652cc69f3e",
+          "second_pass_record_hash": "sha256:aaaf0ec078198525a0d68b809f70a2eef7105ce116ea0722d2780f9cd7ee34cb",
+          "focused_restore_repair_record_hash": "sha256:7b87e8bd81e786814a29e6ee92e0e41f8089692d8fe89550c788df7cbdbb92ad"
+        },
+        "诨": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:0506ad0ba14583405f967373b646f4021047fdd2dc557137dfd41fc5a0cf7a96"
+        },
+        "诮": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:e1375044d261f893c3a16cd1fa101536a936484a1a12c5da84db270ac46d2e46"
+        },
+        "谖": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:259a826faa07adf023ce3341d3a9c660ed6e5eb7248743bd51c10f0f2366740d"
+        },
+        "谭": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:019b719f5f81cbc1835ba16252749cd97bc312e73fd9660c61b2341fa0dee402"
+        },
+        "貝": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:d22568b1aa5c4daf9659ee49d140a514370788abd1c1cab82a969f588f04bc7e"
+        },
+        "贈": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:6443b311c452eeb02525dc5ac575b5c2445751ba8995daa16d379d4819f168b6"
+        },
+        "贝": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:17aed307445115604f1e0d07ca3e8179651402b9a8280fd88cf24a430fc7facf"
+        },
+        "赠": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:04fa5156662ddd79468b9d41c8f971b0bb140c9a431251208e05fd44ae760a38"
+        },
+        "赢": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:23c4b4f90dfb2416e913338d38d108a1a93c0524cdcd69f1cd9b6eac5aeceb24"
+        },
+        "躪": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:d0355723c815ec25f325be58e8263d9f836969530672e270495d6497e930b133"
+        },
+        "軆": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:fcc22bda89467d80d18e7a48d6f74d3a1fab76dc3fb5f544a810d6cfa93cd358"
+        },
+        "転": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:55095cc89e07c17026264ce6f01d47efe53cfe6cbf233fd3755ecb24dc2b5c23"
+        },
+        "軹": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:196c413b35b6b766d2d2ab6c856ad33ff6e8ca6d9ebe2339b22ae77b0e4e8e10"
+        },
+        "較": {
+          "selected_origin": "gate_restored_required_rewrite_source",
+          "protected_gate_decision": "restore_source",
+          "protected_gate_decision_reason": "at_least_one_blind_judgment_tied",
+          "protected_gate_record_hash": "sha256:efa7b8220316814c73317a6c0d6f4cb2bd1743371cfe7e6375db1579f00ff165",
+          "second_pass_record_hash": "sha256:b4592454dcd9b358c1906bc882e084d7b75ae1f663e07639310a2111a94f2f3e",
+          "focused_restore_repair_record_hash": "sha256:6ab16bd104adb079c8144f58f396e7116f2b406e0ad2889486fbb705c74eb845"
+        },
+        "輕": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:795839a7ba16900b63475f48b83381af44f149fcc20191ad63662d064f2f9f1b"
+        },
+        "輳": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:a1ef1da1a88248c065c5bc31869da7db650d8fa96ced1be5d22ec4a3b60279dd"
+        },
+        "轉": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:4a0e8c4f8d01b545603945397f9f66c530d905c3e8d4930a6e705786a6594054"
+        },
+        "轝": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:45635f84a20d7643c2c7faf1c87b6eef1ac234427f1328a7864215752015b77a"
+        },
+        "轡": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:82022600f3d3940c909fb0a4ff5d4e4df9e0174034480c2b45d03bf1cb2f13c4"
+        },
+        "转": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:b20231b6460f57b0297e1134c84cc389e53ea61553fad8592d5fc7ba46078d82"
+        },
+        "轵": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:9bb60cc43cd9a60e207961b9d779a7edfb49ca2b59d8b09b2d4e210949f90372"
+        },
+        "轻": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:6de06b6ae6826b272d524121bdac44c856827e6c713517511aa179ec858663ab"
+        },
+        "较": {
+          "selected_origin": "gate_restored_required_rewrite_source",
+          "protected_gate_decision": "restore_source",
+          "protected_gate_decision_reason": "at_least_one_blind_judgment_tied",
+          "protected_gate_record_hash": "sha256:e0b5871386ad02710ba3e1960e29dbed0c92fbd8bfda45fd97f05a3b25e2e179",
+          "second_pass_record_hash": "sha256:d7740cc76e8e07ff807fd6776e426341ea6f4158e45a25d0bd0aa19a5a5d8b03",
+          "focused_restore_repair_record_hash": "sha256:60b5b6bba8c342f195a919d2cc60db5b8feb6ad2bf480d1641f12debfc04288f"
+        },
+        "辏": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:109bf13c4dbfcde2cc18654ce870fe47a7f61d4585c51948f08a052834503e77"
+        },
+        "辔": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:ed8569872240b858acafdad4e6d6e8d15363f134eba5510a9581338c384eafea"
+        },
+        "适": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:e13c83588d07f89c135a95c3961544f8f902d67b45a83ce1a49d808caadf864f"
+        },
+        "郕": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:3008bcb823beecac3d9ae6c77e025af7140f48e8fcc6141d9df631e832c14586"
+        },
+        "酂": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:337ef801100de89061a5090089a446568f1ea84e2fa89b852c62dbd2ad24f0cf"
+        },
+        "酇": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:67083a019a61548e4ea693e7bb3e19eb63c688ad649a3f908e2955d2c50ad14b"
+        },
+        "鈥": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:32497971a1122cd7519fa4765f3a46c80b5af101de56e0fad2dac5f29945cc92"
+        },
+        "鉅": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:bcb321b709e1c709653e580f9d1060b0395af6c6e0fc4bfd94d1440e9f3c1fa3"
+        },
+        "銬": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:26c02107a59c87cfb8589c038037351b809a0da08f39fcc49c46d6a7fb31a4c0"
+        },
+        "鋩": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:779c981ebd599f33d606adb60bef78bcec16b0660b28224ac7dd312be06eadd2"
+        },
+        "錏": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:644560195fa8fd333046cdd21456c632b8779a89df63c9bd0b449ae0abfdeb76"
+        },
+        "鍋": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:55b227d34b59c157740e6af5e57837983bbf5920c273b037c920902a7f6b3422"
+        },
+        "鎩": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:da352f36b3cbf6bd4bf4d36971e80017170a585d9418f51e89d8a168745946f0"
+        },
+        "鏤": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:e74fa23ed093a1859058cc220d1f333e7b50056b8429fbfa5f23cb58a3f76fc4"
+        },
+        "鐃": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:967669929e5368acd8d8042f68f7fb4e2745f54b91e2a3a762625f1b90da5318"
+        },
+        "鐘": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:58e11c1415ca3c0416661e3ded2f67170c6c4be9a8cfa0ce133c3bca325b4549"
+        },
+        "鑌": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:85ad08d927c5bd5161b77c3c849d2e6c130250ce0e47e23ef2491136efcb7ac2"
+        },
+        "钜": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:c0b226a3d04d1a3ecda983c026c2b65b60cf6870f22ec9ef0487514b5d13e34d"
+        },
+        "钟": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:91f7aabbad4c4f9513ef17f96e5446a82c82aa5f0309a154689af1b7c5558826"
+        },
+        "钦": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:a1a5178876c4ecd772f0d16355f455743090d25433677f0a9b1cdbf886bd022a"
+        },
+        "钬": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:3f662ba7874ad8f3cbb577a18a70e4523ee59cd3bc526f0112da69f1d24de0f2"
+        },
+        "铐": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:908a15f0217275fe50c3b4f2f8d55d7f9b5927af415adb55007c69e3de4d4166"
+        },
+        "铔": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:0837460d82f05c3a6bfee5a95d9fa245a9736fdc6dbfd5efb0acbf707f3598f5"
+        },
+        "铙": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:953fdd6d40d70c2c5072882541a85fc41a93e879a35d8d27d6be1a5c54bc527a"
+        },
+        "铩": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:f39c8aedebdf610f85a129483924676d7c2c7f7f4f3fc7782000881b36e5e7bb"
+        },
+        "锅": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:3ddf7ae6168c56cab944ea8ba03193a4a9c7baa791201e13a121d6e5eb54edda"
+        },
+        "閔": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:a3f4896962f9c1f2a10610d6e412ffaccb75d41aea3f3519351d5a5562fb5ffe"
+        },
+        "闈": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:8c988ea4e9ecdde99402a19f14416f15bdcaee3b92d13e7a8b5610caaa88d52a"
+        },
+        "闢": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:8976ecf60e3537678c2a6ecc2a32138896cf27f2a7f327bd5d33aea428a33c25"
+        },
+        "闱": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:11a5dfc9adc76af63646303049158c1b0dffb4fb92213c23c407ddafe43db8cb"
+        },
+        "阜": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:deda9a4822d7a74792a87433893d26283a0c0a929ca6a9f78c01da8d402a46ff"
+        },
+        "鞯": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:f83cbec49110cd162531d66e6f0eeedd81070ff719c4f3dc0a4642f67ab28a5a"
+        },
+        "韉": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:a3a5b66b75f91e97bb9dc67c8198dac321fa03c3bb53191cf2ccb6b6b7e9b648"
+        },
+        "顛": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:b5c3fa79b84be7d976e2e0dec0275db12817d8447d4fbc468dd2f50e0aa6da34"
+        },
+        "顯": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:67dc7bbc34732cf80be18773949ee2b176e100c68820c7ac5b882590236b3188"
+        },
+        "顴": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:f341f3579c2728ef2b2efaad6a87a4d90ef6fc9ed90023dc3dc8045f8a8c9d95"
+        },
+        "颇": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:a56c5cfd370384c7e935b3abaef79b7f21270eea53c8da9395a4d62b6ceb7c66"
+        },
+        "颠": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:c118546787c95d0f91d408b3082ab8b107a91b0138846dc0cc799516dd4cb441"
+        },
+        "颧": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:f82d422aaecb6770a51029d8160f2d45bf837dc2812d6a5e7e7d7c8e01e61e00"
+        },
+        "颻": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:2afea14401bf6d9576756fe0a31dd65625ce2bfd2803b503fc448afe700d9300"
+        },
+        "飖": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:04b1ef99baaf0ae99e6ae30da6684103a8dd6b8c6a0fd7523408c082763395dc"
+        },
+        "飛": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:a6c0e4321baf576a7284a7cdd3d22796ac8325509fe3426a60ef70a6ac368533"
+        },
+        "飨": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:698a3ac6a59a063e0bbf0a161c08273fa58e754c1dced629d187c7134975bc34"
+        },
+        "飯": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:74bca638918e591d5619bb6675f257c6419bf3857abe9c2a313ac96eed247e95"
+        },
+        "餡": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:5c6ae0e7894361cd54bec64f54df8ed9c1e62366e282b645e2c6331eac8805b5"
+        },
+        "饢": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:d63e8dd42d21598c97c5ba246c74575a43b5d53078dc38f52b4f6c1f4fec0fe6"
+        },
+        "饯": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:29f5eac504ef14090aa22a462657facb9f6415c9dcb5444157bb4d5afaa422f0"
+        },
+        "馅": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:d87450169804d15cf84933062d55b9aaeadf8b9ccd1414b21ccb29680c4f1ab2"
+        },
+        "馕": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:3cabd9fdaecb0fa4ac6ba1e486d32d8334c04c268b0235769649cdbf37a618e5"
+        },
+        "馳": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:36a2f5b74a73ab8f8dd6b05e784eafddb4f492a1a0b024e843f5b33742cb9270"
+        },
+        "駢": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:a9c5846eef6716ee446ab5945ebbfc3975f8cc4fed5d88537ac8e96928c84389"
+        },
+        "騐": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:3dd99c3ad6a5c51fcb2f5a2a31ff21035060997efc3dec4bd5cc9f391b9fbf86"
+        },
+        "騸": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:ec56d9d8ca3485d257e0835325457f1fc6604bbe3eec4960dc1b30508db26221"
+        },
+        "驂": {
+          "selected_origin": "gate_restored_required_rewrite_source",
+          "protected_gate_decision": "restore_source",
+          "protected_gate_decision_reason": "at_least_one_blind_judgment_tied",
+          "protected_gate_record_hash": "sha256:ec522fe181ad956df744db6b60785623d0c48e7a0a9f465c231d6e2446d606ea",
+          "second_pass_record_hash": "sha256:7115e5dd146ca1fdf6dbf590e711fe66e8b2d81dfbf445619dd3d89cd61162e9",
+          "focused_restore_repair_record_hash": "sha256:5780485dac2ad686d45bb43845a81296e36ae3f967f43dc3b2a5434b293f6d46"
+        },
+        "驍": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:9666a55fb4ca875a518f5f23efad694c3fbec751f66a972ab98c863a8f811280"
+        },
+        "驟": {
+          "selected_origin": "gate_restored_required_rewrite_source",
+          "protected_gate_decision": "restore_source",
+          "protected_gate_decision_reason": "source_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:27c86faa81118b37691f8ff59c322855494e18b4fdf6217c8c705fb504d53c1a",
+          "second_pass_record_hash": "sha256:eb1e99decbf74da6086da4ff0dfcdfc1703d03e3ff3ce9cc030138c40bf06f25",
+          "focused_restore_repair_record_hash": "sha256:f9866965259641a2ba39a1d9fd289a9e13bd7e6d55d390c73db3ccef71fd95d7"
+        },
+        "驤": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:78a1e24b5ce1625e9bd93138859acef47b9e22687d63143ab9daf099c3faf27f"
+        },
+        "驰": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:227151e906c65f2b9eb35c12a3d17fd5a08da639d1d7e06eedf71cad1759c1d0"
+        },
+        "骁": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:025cbf5151b4586b8d0b5caf09cf782fbf781360067b193ffefabcb9ee27a16d"
+        },
+        "骈": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:791dad57af6a7f5b90a461418dc6723821256b6b068794b8f40c97b677a7df72"
+        },
+        "骟": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:5d35cc830b88f03ecf116a736de20f0e3d858829bfe2a8cfbbcda7ccf0eb4ff4"
+        },
+        "骤": {
+          "selected_origin": "gate_restored_required_rewrite_source",
+          "protected_gate_decision": "restore_source",
+          "protected_gate_decision_reason": "source_won_both_reversed_blind_judgments",
+          "protected_gate_record_hash": "sha256:4b7335e226ffddc0e530638d51c91699a84c17b03051c9c58c6a91c2c32c8d50",
+          "second_pass_record_hash": "sha256:d208a83264f57f0e50625803dc7af62c5da85c93f8f503f4545b8423526a646a",
+          "focused_restore_repair_record_hash": "sha256:fcfcdb3b473a99a81971528f954aca01557948c46dc89f99ee9032f9e88e55d6"
+        },
+        "骧": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:789a5d9e870d9a9887965609a6ecae8833998de7490a90b3258d3895c5ed43d8"
+        },
+        "骸": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:d46320aa4688d2690422da20b5852f158749d3eb6402530e4fdda455b5dfc2cb"
+        },
+        "鰹": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:fe7b3866034c2b14b21756d1a48300cf9b2668c9091878817160d67fd765cd85"
+        },
+        "鲣": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:93a9117b7edea1bd666d81e894498174cba3132870fc8951608252b7ff0aa3fd"
+        },
+        "鶲": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:2b8494409937d94dfe7d1fa636242a8c5c68f76ff9f27c11d184f39fc192ed3a"
+        },
+        "鷲": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:99842e3c990da16b9332630f2cc065f7068a22d92d424562e3a8c35c0017efa3"
+        },
+        "鹟": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:ca93f3b0fb380dcb0aad0359e70a565ffead996847d1485354f01530829da3cf"
+        },
+        "鹫": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:534bee07b0891cad4d80ac236e690f18323d07ddaf748764985f3f7d3fde5a3e"
+        },
+        "麓": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:264eeb63732b9d06a24f0e30f39a2856c9a87fcf839819fba8fab9bdc4ee52bd"
+        },
+        "黥": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:c2cd8f727fdd137ca2571d7ee82e4406ac790a7e122f554073c7e2c48cc05ced"
+        },
+        "黪": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:7adae1cfb9cf75ad218c7482320326e3e04d839ceea304d92f8bcba881415cc3"
+        },
+        "黲": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:33169a6e6a2f7c92620300bc0870c7cee471efa14050ff98aa767908ae262414"
+        },
+        "鼢": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:069fe543173923bf4ba0c06acb3516491bc1602eebec3d4aac4fd3bc1252dfbb"
+        },
+        "鼯": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:408149c90a3a381bef5c5e6c55cbe66908653f80eeaef7d7b8a5de9b18ba169e"
+        },
+        "鼱": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:9125459b2cc6fd4ffc61a1366e16665d9ef08f2afa6fbbd99005a76e13333c85"
+        },
+        "漣": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:3d67057d55c46b5294e066c9f3edaba98bf728ce9042c9d96d816a8cd01e45bd"
+        },
+        "𣳆": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:4c14a546cc7954c99c17a10caf99d9771228a932ed38ba074530187e864694bf"
+        },
+        "𤇾": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:a47d22362de330a8752908133c4143f4d753920e9eab7b169eebf0963d0617a2"
+        },
+        "𥥅": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:49b251c51fc85affd946c885655180f7257c9bf76c95ba826618a6b975d983a7"
+        },
+        "𦌁": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:de0c1236b4318bcd33a36387cb5f83b6ed71eed9f0accec7d162b0acfaecdc13"
+        },
+        "𧍕": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:43aa73ee436444b925645eaba34555c82c35df885e102a76b0e60c5c6f029f96"
+        },
+        "𧞪": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:bddb5fc9855982336ddcf36fe5257c0236a8527dd25e7f6422f5d5d50eb28ed8"
+        },
+        "𧽒": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:d034264cebf5cc0e06de3868a1d0e8ea851d40c5cc0da713d5744d1a2c51c064"
+        },
+        "𧿹": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:c26c8b0c43e4980f4ca076ffbfa207e5e317c36c297f1c988924aefb61b6b998"
+        },
+        "𨃟": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:adf13294931365783c0f28341d4aedabf08ba6448eecbaeffe95cce0a5d62fdf"
+        },
+        "𩜠": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:15dfd7dcb525775738cf7f51d64672b18034b60a694dd5239041adcc99b0a75f"
+        },
+        "𪡋": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:b0a356d978a917a8fb39f2b68f068e7f8e1a86c50c81d850557d41d7070cbd46"
+        },
+        "𪫺": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:eecba247514f2ce1d26fa7f510afae95ef3a606297e279f489a15896581439f5"
+        },
+        "𪭢": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:5132592dd9b3f2e05473955a949c55d9f4b554f2c3e85bef8dc0890fb7988eaa"
+        },
+        "𪮳": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:8f9e9a33e0c74f4dbd935318f19800c2c6e063e39a75e789fe3621f5e9b23ef5"
+        },
+        "𪯋": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:0507b1d8bb3e058b9cbed1cd4026f8c329f70ac897f4bd459dce8c985571de85"
+        },
+        "𫁲": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:fa040e18c7ea2d8302acfd253f7c550a7f8fbd56f587ddc02ee8d34e1716d1dc"
+        },
+        "𫂈": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:a6dd45d44836afa474b925879f66deddea922d6d52e4766a971809ff33a1b575"
+        },
+        "𫄞": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:d7a3713a2a822fb6453bcf16257690dae9f0f9ac3434dd9c7a3d78af2a199cf6"
+        },
+        "𫄟": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:630104105c076917fe4b54197bfe86652151cfdcc2f8dd70a9b780a104d5d94a"
+        },
+        "𫄥": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:bd0073a80d7ffbba4ac7f79f6caaa9586e75ae6024b745ee8d85800d878168a1"
+        },
+        "𫉁": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:2226ee3d41b44f385e6f1e13d512373683c9798ee08c04f0d25b2112daf65619"
+        },
+        "𫉄": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:e61e2c0228948a2a13d19ac3f2c9b8d346e6f180ee12bd6d690450926ebfbbac"
+        },
+        "𫊪": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:0b7ae7eb695b51bf29d787b08959984495c72495c64ed540e610f0cff771050e"
+        },
+        "𫌯": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:b8f1757530677f4ec3a72b5a48bacab8e62ecdf8859a599e3fc9e916ada9eb39"
+        },
+        "𫎱": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:c23d3d8ce04336d2757ba7c7f3e9555a6a8dd200b42bdac78a0c276f3a4bf12b"
+        },
+        "𫗠": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:805e3788bf2b47958a7dddbfc42ae55db483ad6eba90e62188108a6598ebf2c3"
+        },
+        "𫗥": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:fcb30b98509778110741a65d009d21465de9fae792933608cdd740ece7a35619"
+        },
+        "𫚒": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:10dac51d26fc9d0c0c134a5a912422d8a1fe5eb057514cd8ce9fd3090402f749"
+        },
+        "𫠈": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:fb3fa403bca664cfb515ed2fbd9ae6756ba6ea4b6e9e6a4ec06c8eb2ab182edc"
+        },
+        "𫠊": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:3eacfde0e25c73250be39259855ae39d0892879783f2e277f2b3751c830badb3"
+        },
+        "𫮃": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:b2b96724ae52bc5e60880a293c7def6d5adf66659bf06c78be6dd5148058d2a3"
+        },
+        "𫷷": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:688c42e689349e784ded664465f0cb5f96bd182e319a51d246dfa4c07b965f2d"
+        },
+        "𬅫": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:7df87881292f9c860b17808e9f8b04b08a0cd3c06db97e0e339d0913226d55bb"
+        },
+        "𬋍": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:e52f0d570499ca91d763258969e59f914f9f2ea6bbf3a107a761907d8a86c198"
+        },
+        "𬏦": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:655ca134bf62ce5d7c7e5737c6a37b95c773e901867a6a7ccb6b4bbe87a8e3da"
+        },
+        "𬓸": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:ae33af094a24b286b6c7dc3a32b0bd33c9f7c9700c19c233ed761f1d619cdb70"
+        },
+        "𬛼": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:f7d26b9b417822d8131599afd799aee99a613524abd34dc29bda2f4d87cfffde"
+        },
+        "𬜨": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:3612087103db96edb72ac2d2bd784b1c3c35bca4763e5d9069cd2aa76772370b"
+        },
+        "𬞕": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:9fd8cbc7b2ac611176f0b4f3b8ba2792b34f38a4d7bdf12b13ee803836973e0f"
+        },
+        "𬣪": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:32b07304f47ed7186116a2002440224fcb191f2f3eb3ee4ce8aff8eb0f50b126"
+        },
+        "𬤐": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:27d922f2aa83505216db39bf1b541f25057b5429240c75b1d6c3447102ab21c4"
+        },
+        "𬥄": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:d7029059fdb285122b4142be45d730acd22ea229f61bd09d9b605f78d30c786d"
+        },
+        "𬧀": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:eb0153505b5ce8574b6668b837749666ecc9f2afb86cde3cf5ccf99104522e52"
+        },
+        "𬨈": {
+          "selected_origin": "second_pass_keep",
+          "protected_gate_decision": null,
+          "protected_gate_decision_reason": null,
+          "protected_gate_record_hash": null,
+          "second_pass_record_hash": "sha256:cc73703be90ac74ce018672580623dd7fd81c08b095b05b3105960f54cc6544c"
+        }
+      }
+    },
+    "base_quality_applied_artifact": {
+      "path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality/quality-applied.json",
+      "sha256": "sha256:9bd0cee35b7f6adc6fd720d73c336865ee58ef8e61e4aaa3ce49a40a092914bd"
+    },
+    "merged_author_reviews": {
+      "path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/first-pass/merged-author-reviews.json",
+      "sha256": "sha256:d90cea2397af6a7b1c6b60cf05cecf31f324ceb10234448d82fb98b0ab1e8065"
+    },
+    "quality_mandatory_manifest": {
+      "path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality-mandatory-v3/locked-run-20260718-recovery7/quality-mandatory-manifest.json",
+      "sha256": "sha256:4ec22f4e0edc36edfa66de1499224bb503d65af8c0e9d9c20a53d8fde422d0ba"
+    },
+    "recovery7_execution_lock": {
+      "path": "tmp/semantic-mnemonic-gpt56-v6/POST_AUTHOR_EXECUTION_LOCK.quality-mandatory-v3-recovery7.json",
+      "sha256": "sha256:84c0a2440d4562e196a64deec518ecfe7aacda9fbc2ed62c2fdd41556e59c2de"
+    },
+    "protected_gate": {
+      "path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality-mandatory-v3/locked-run-20260718-recovery7/gate/protected-gate.json",
+      "sha256": "sha256:8d677f19ae153ef01334ba761428b87ee1f29d1331acbe112a9b307670837ede"
+    },
+    "focused_restore_repairs": {
+      "path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/expedited-restored-label-repair/reviews.json",
+      "sha256": "sha256:3244057665895fbb1f004674067dda81789ad79fd89fb81ddb7db15510466ba3"
+    },
+    "second_pass_author_artifacts": [
+      {
+        "path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality-mandatory-v3/locked-run-20260718-recovery7/reauthor/shard-0.json",
+        "sha256": "sha256:6129d54b6bf1b88968362a64e2627ab0753fdbf51d79c3414a0914fbe68d0f05"
+      },
+      {
+        "path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality-mandatory-v3/locked-run-20260718-recovery7/reauthor/shard-1.json",
+        "sha256": "sha256:3b677c3de71277820de6dc430e5953741330501a9f73ee01edd03dde8cda92bd"
+      },
+      {
+        "path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality-mandatory-v3/locked-run-20260718-recovery7/reauthor/shard-2.json",
+        "sha256": "sha256:4c361f0d0fc8c832d1845ae93d5372b08c343e051ebb593ac44cb0fb2cb14efe"
+      },
+      {
+        "path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality-mandatory-v3/locked-run-20260718-recovery7/reauthor/shard-3.json",
+        "sha256": "sha256:726ae9aa9248afd3b809c874dd7e124ad980e5af8766b2cd8ab0b62c6b1544aa"
+      },
+      {
+        "path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality-mandatory-v3/locked-run-20260718-recovery7/reauthor/shard-4.json",
+        "sha256": "sha256:25cf780ebfbb70ab7c480f6ece6ffcf01fd3005de08a9e6f66085662fe423f40"
+      },
+      {
+        "path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality-mandatory-v3/locked-run-20260718-recovery7/reauthor/shard-5.json",
+        "sha256": "sha256:0e0e1a3fd69b109fb65902b6be859a37a4f795e94157cf4456fc21b8cca8387d"
+      },
+      {
+        "path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality-mandatory-v3/locked-run-20260718-recovery7/reauthor/shard-6.json",
+        "sha256": "sha256:e622f4f5e5d227b7448012ff88708503b4347d93d995fb18322f8cdf68942e63"
+      },
+      {
+        "path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality-mandatory-v3/locked-run-20260718-recovery7/reauthor/shard-7.json",
+        "sha256": "sha256:ec2ed946f1c656456503241d057e6bf92ff8ae6a433ef2e397a5d8bfbed069f4"
+      }
+    ],
+    "base_card_projection_hash": "sha256:73360fe09861b6f2d2a0c137916c06420861786deab921730abeb22f349eaacb",
+    "materialized_card_projection_hash": "sha256:3cb3fa833f6dc22dea46c4d159a191c35ae5ac507800488a06fc1b2ca2b27df8",
+    "formal_validation": {
+      "count": 24037,
+      "invalid_count": 0
+    },
+    "materialization_rule": "Start from quality-applied; retain all 340 frozen cards exactly; use the 38 protected-gate promotions; and repair only exact labels on the 38 gate-restored source stories so every published card remains formally valid.",
+    "certification_note": "This is an expedited, explicitly non-certified publication. It is not a substitute for the 19,537-card second-pass promotion queue or whole-corpus independent QA."
+  },
+  "static_artifact": {
+    "count": 24037,
+    "materialized_card_projection_hash": "sha256:3cb3fa833f6dc22dea46c4d159a191c35ae5ac507800488a06fc1b2ca2b27df8",
+    "component_index_source_corpus_hash": "sha256:b2649837b4d7e8497488aa198e10fa99c99d88891455dcbc199a23b00ff48922"
+  }
+}

@@ -1,32 +1,29 @@
 {
-  "created_at": "2026-07-15T19:57:46.924307+00:00",
+  "created_at": "2026-07-19T13:18:50.967477+00:00",
   "count": 24037,
   "invalid_count": 0,
   "invalid": [],
   "source_counts": {
-    "codex_local_completion": 12901,
-    "codex_local_reauthor_paid_9000": 8873,
-    "codex_manual_quality_patch_2026_07_08": 626,
-    "codex_local_ids_realign": 232,
-    "gemini35_reviewed_1000": 558,
-    "codex_local_learner_gap": 18,
-    "codex_local_nfkc_variant_alias": 806,
-    "codex_local_variant_alias": 23
+    "gpt56_sol_bespoke_full_corpus_2026_07": 22907,
+    "gpt56_expedited_gate_promoted": 38,
+    "codex_manual_quality_patch_2026_07_08": 388,
+    "gpt56_expedited_gate_restore_label_repair": 38,
+    "gpt56_quality_ledger_interim_candidate": 340,
+    "gemini35_reviewed_1000": 326
   },
   "component_source_counts": {
-    "self_fallback": 2216,
-    "resolved_ids_forward": 20095,
-    "ids": 172,
-    "resolved_ids_forward+manual_ids_override+manual_quality_override": 23,
-    "resolved_ids_forward+manual_quality_override": 386,
-    "ids+dictionary_component_fallback": 79,
-    "ids+manual_quality_override": 144,
+    "self_fallback": 2212,
+    "resolved_ids_forward": 20077,
+    "ids": 175,
+    "resolved_ids_forward+manual_ids_override+manual_quality_override": 31,
+    "resolved_ids_forward+manual_quality_override": 399,
+    "ids+dictionary_component_fallback": 78,
+    "ids+manual_quality_override": 145,
     "dictionary_component_fallback": 58,
-    "ids+dictionary_component_fallback+manual_quality_override": 26,
+    "ids+dictionary_component_fallback+manual_quality_override": 25,
+    "ids+dictionary_component_fallback+manual_ids_override+manual_quality_override": 3,
     "dictionary_component_fallback+manual_quality_override": 1,
     "ids+manual_ids_override+manual_quality_override": 2,
-    "self_fallback+manual_quality_override": 3,
-    "ids+dictionary_component_fallback+manual_ids_override+manual_quality_override": 1,
     "variant_alias:豈": 1,
     "variant_alias:更": 1,
     "variant_alias:車": 1,
@@ -436,7 +433,7 @@
     "variant_alias:䀘": 1,
     "variant_alias:䀹": 2,
     "variant_alias:龎": 1,
-    "manual_ids_override": 1,
+    "self_fallback+manual_quality_override": 1,
     "self_fallback+manual_ids_override+manual_quality_override": 1,
     "variant_alias:丽": 1,
     "variant_alias:丸": 1,
@@ -763,122 +760,419 @@
     "variant_alias:鼻": 1
   },
   "mnemonic_length": {
-    "min": 22,
-    "p50": 59,
-    "p90": 71,
-    "p95": 75,
-    "max": 117
+    "min": 34,
+    "p50": 79,
+    "p90": 98,
+    "p95": 104,
+    "max": 164
   },
   "quality_review": {
     "methodology": "Formal validity and learning quality are separate. Flags are deterministic review signals; abstract meanings and variant forms are not automatically bad, while generic filler is a rewrite signal.",
-    "flagged_count": 23210,
+    "flagged_count": 1440,
     "quality_status_counts": {
-      "pass": 827,
-      "review": 294,
-      "rewrite": 22916
+      "pass": 22597,
+      "review": 1407,
+      "rewrite": 33
     },
     "flag_counts": {
-      "generic_filler": 22912,
-      "tautological_self_form": 2400,
       "variant_form_needs_review": 832,
-      "abstract_final_meaning": 765,
-      "unhelpful_final_gloss": 639,
-      "weak_causal_link": 282,
-      "learner_facing_weirdness": 142,
-      "opaque_component_gloss": 59,
-      "duplicated_component_meaning": 23
+      "abstract_final_meaning": 377,
+      "duplicated_component_meaning": 237,
+      "opaque_component_gloss": 21,
+      "unhelpful_final_gloss": 14,
+      "generic_filler": 9,
+      "learner_facing_weirdness": 8,
+      "tautological_self_form": 1
     },
     "top_suspicious": [
       {
-        "character": "粛",
-        "meaning": "pay respects",
-        "frequency_rank": 2061,
+        "character": "歳",
+        "meaning": "years of age",
+        "frequency_rank": 268,
         "quality_status": "rewrite",
-        "quality_score": 11.0,
-        "review_priority": 19.924,
+        "quality_score": 6.0,
+        "review_priority": 12.126,
         "flags": [
           {
             "code": "generic_filler",
             "severity": 6.0,
-            "evidence": "The written shape of"
-          },
-          {
-            "code": "tautological_self_form",
-            "severity": 5.0,
-            "evidence": "written shape of 粛 pay respects is the memory image"
+            "evidence": "give shape to"
           }
         ],
-        "equation": "Visual form: 粛 pay respects",
-        "mnemonic": "The written shape of 粛 pay respects is the memory image.",
+        "equation": "止 stop + 戌 11th terrestrial branch + 小 small = 歳 years of age",
+        "mnemonic": "A 止 stop, a 戌 11th terrestrial branch, and a 小 small give shape to 歳 years of age.",
         "components": [
           {
-            "character": "粛",
-            "gloss": "pay respects"
+            "character": "止",
+            "gloss": "stop"
+          },
+          {
+            "character": "戌",
+            "gloss": "11th terrestrial branch"
+          },
+          {
+            "character": "小",
+            "gloss": "small"
           }
         ],
-        "component_source": "ids",
-        "generation_source": "codex_local_completion"
+        "component_source": "resolved_ids_forward",
+        "generation_source": "gemini35_reviewed_1000"
       },
       {
-        "character": "棰",
-        "meaning": "form",
-        "frequency_rank": null,
+        "character": "江",
+        "meaning": "Yangtze",
+        "frequency_rank": 290,
         "quality_status": "rewrite",
-        "quality_score": 19.0,
-        "review_priority": 19.0,
+        "quality_score": 6.0,
+        "review_priority": 12.065,
         "flags": [
           {
             "code": "generic_filler",
             "severity": 6.0,
-            "evidence": "The written shape of"
+            "evidence": "joined with"
+          }
+        ],
+        "equation": "氵 water (drops) + 工 work = 江 Yangtze",
+        "mnemonic": "A 氵 water joined with a 工 work gives shape to 江 Yangtze.",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
           },
           {
-            "code": "tautological_self_form",
-            "severity": 5.0,
-            "evidence": "written shape of 棰 form is the memory image"
+            "character": "工",
+            "gloss": "work"
+          }
+        ],
+        "component_source": "resolved_ids_forward",
+        "generation_source": "gemini35_reviewed_1000"
+      },
+      {
+        "character": "療",
+        "meaning": "cure",
+        "frequency_rank": 644,
+        "quality_status": "rewrite",
+        "quality_score": 6.0,
+        "review_priority": 11.513,
+        "flags": [
+          {
+            "code": "generic_filler",
+            "severity": 6.0,
+            "evidence": "joined with"
+          }
+        ],
+        "equation": "疒 sickness + 尞 burnt offering = 療 cure",
+        "mnemonic": "A 疒 sickness joined with a 尞 burnt offering gives shape to 療 cure.",
+        "components": [
+          {
+            "character": "疒",
+            "gloss": "sickness"
           },
           {
-            "code": "opaque_component_gloss",
+            "character": "尞",
+            "gloss": "burnt offering"
+          }
+        ],
+        "component_source": "resolved_ids_forward",
+        "generation_source": "gemini35_reviewed_1000"
+      },
+      {
+        "character": "弾",
+        "meaning": "bullet",
+        "frequency_rank": 781,
+        "quality_status": "rewrite",
+        "quality_score": 6.0,
+        "review_priority": 11.395,
+        "flags": [
+          {
+            "code": "generic_filler",
+            "severity": 6.0,
+            "evidence": "joined with"
+          }
+        ],
+        "equation": "弓 bow + 単 list = 弾 bullet",
+        "mnemonic": "A 弓 bow joined with a 単 list gives shape to 弾 bullet.",
+        "components": [
+          {
+            "character": "弓",
+            "gloss": "bow"
+          },
+          {
+            "character": "単",
+            "gloss": "list"
+          }
+        ],
+        "component_source": "resolved_ids_forward",
+        "generation_source": "gemini35_reviewed_1000"
+      },
+      {
+        "character": "姉",
+        "meaning": "elder sister",
+        "frequency_rank": 998,
+        "quality_status": "rewrite",
+        "quality_score": 6.0,
+        "review_priority": 11.251,
+        "flags": [
+          {
+            "code": "generic_filler",
+            "severity": 6.0,
+            "evidence": "joined with"
+          }
+        ],
+        "equation": "女 woman + 市 market = 姉 elder sister",
+        "mnemonic": "A 女 woman joined with a 市 market gives shape to 姉 elder sister.",
+        "components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "市",
+            "gloss": "market"
+          }
+        ],
+        "component_source": "resolved_ids_forward",
+        "generation_source": "gemini35_reviewed_1000"
+      },
+      {
+        "character": "核",
+        "meaning": "nucleus",
+        "frequency_rank": 1016,
+        "quality_status": "rewrite",
+        "quality_score": 6.0,
+        "review_priority": 11.241,
+        "flags": [
+          {
+            "code": "generic_filler",
+            "severity": 6.0,
+            "evidence": "joined with"
+          }
+        ],
+        "equation": "木 tree + 亥 sign of the hog = 核 nucleus",
+        "mnemonic": "A 木 tree joined with a 亥 sign of the hog gives shape to 核 nucleus.",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "亥",
+            "gloss": "sign of the hog"
+          }
+        ],
+        "component_source": "resolved_ids_forward",
+        "generation_source": "gemini35_reviewed_1000"
+      },
+      {
+        "character": "欧",
+        "meaning": "Europe",
+        "frequency_rank": 1054,
+        "quality_status": "rewrite",
+        "quality_score": 6.0,
+        "review_priority": 11.22,
+        "flags": [
+          {
+            "code": "generic_filler",
+            "severity": 6.0,
+            "evidence": "joined with"
+          }
+        ],
+        "equation": "区 region + 欠 deficient = 欧 Europe",
+        "mnemonic": "A 区 region joined with a 欠 deficient gives shape to 欧 Europe.",
+        "components": [
+          {
+            "character": "区",
+            "gloss": "region"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "component_source": "resolved_ids_forward",
+        "generation_source": "gemini35_reviewed_1000"
+      },
+      {
+        "character": "漢",
+        "meaning": "Han",
+        "frequency_rank": 1063,
+        "quality_status": "rewrite",
+        "quality_score": 6.0,
+        "review_priority": 11.215,
+        "flags": [
+          {
+            "code": "generic_filler",
+            "severity": 6.0,
+            "evidence": "joined with"
+          }
+        ],
+        "equation": "氵 water (drops) + 𦰩 sigh = 漢 Han",
+        "mnemonic": "A 氵 water joined with a 𦰩 sigh gives shape to 漢 Han.",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "𦰩",
+            "gloss": "sigh"
+          }
+        ],
+        "component_source": "resolved_ids_forward",
+        "generation_source": "gemini35_reviewed_1000"
+      },
+      {
+        "character": "質",
+        "meaning": "quality",
+        "frequency_rank": 352,
+        "quality_status": "review",
+        "quality_score": 5.5,
+        "review_priority": 10.928,
+        "flags": [
+          {
+            "code": "duplicated_component_meaning",
             "severity": 4.0,
             "evidence": [
-              "棰 form"
+              [
+                "斤",
+                "斤"
+              ]
             ]
           },
           {
-            "code": "unhelpful_final_gloss",
-            "severity": 4.0,
-            "evidence": "form"
+            "code": "abstract_final_meaning",
+            "severity": 1.5,
+            "evidence": "quality"
           }
         ],
-        "equation": "Visual form: 棰 form",
-        "mnemonic": "The written shape of 棰 form is the memory image.",
+        "equation": "斤 axe + 斤 axe + 貝 shell = 質 quality",
+        "mnemonic": "A buyer compares a 斤 axe with another 斤 axe before paying a 貝 shell for proven 質 quality.",
         "components": [
           {
-            "character": "棰",
-            "gloss": "form"
+            "character": "斤",
+            "gloss": "axe"
+          },
+          {
+            "character": "斤",
+            "gloss": "axe"
+          },
+          {
+            "character": "貝",
+            "gloss": "shell"
           }
         ],
-        "component_source": "self_fallback",
-        "generation_source": "codex_local_completion"
+        "component_source": "resolved_ids_forward+manual_ids_override+manual_quality_override",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
+      },
+      {
+        "character": "工",
+        "meaning": "work",
+        "frequency_rank": 402,
+        "quality_status": "review",
+        "quality_score": 5.0,
+        "review_priority": 9.855,
+        "flags": [
+          {
+            "code": "tautological_self_form",
+            "severity": 5.0,
+            "evidence": "is the memory image"
+          }
+        ],
+        "equation": "Visual form: 工 work",
+        "mnemonic": "The straight workbench shape of 工 work is the memory image.",
+        "components": [
+          {
+            "character": "工",
+            "gloss": "work"
+          }
+        ],
+        "component_source": "ids+manual_quality_override",
+        "generation_source": "codex_manual_quality_patch_2026_07_08"
+      },
+      {
+        "character": "高",
+        "meaning": "tall",
+        "frequency_rank": 65,
+        "quality_status": "review",
+        "quality_score": 4.0,
+        "review_priority": 8.977,
+        "flags": [
+          {
+            "code": "duplicated_component_meaning",
+            "severity": 4.0,
+            "evidence": [
+              [
+                "口",
+                "口"
+              ]
+            ]
+          }
+        ],
+        "equation": "亠 lid + 口 mouth + 冂 large room + 口 mouth = 高 tall",
+        "mnemonic": "Under a 亠 lid, one 口 mouth calls from the top of a 冂 large room to another 口 mouth far below, revealing the room is 高 tall.",
+        "components": [
+          {
+            "character": "亠",
+            "gloss": "lid"
+          },
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "冂",
+            "gloss": "large room"
+          },
+          {
+            "character": "口",
+            "gloss": "mouth"
+          }
+        ],
+        "component_source": "resolved_ids_forward+manual_quality_override",
+        "generation_source": "codex_manual_quality_patch_2026_07_08"
+      },
+      {
+        "character": "多",
+        "meaning": "many",
+        "frequency_rank": 112,
+        "quality_status": "review",
+        "quality_score": 4.0,
+        "review_priority": 8.591,
+        "flags": [
+          {
+            "code": "duplicated_component_meaning",
+            "severity": 4.0,
+            "evidence": [
+              [
+                "夕",
+                "夕"
+              ]
+            ]
+          }
+        ],
+        "equation": "夕 dusk + 夕 dusk = 多 many",
+        "mnemonic": "One 夕 dusk follows another 夕 dusk, and the accumulating evenings become 多 many.",
+        "components": [
+          {
+            "character": "夕",
+            "gloss": "dusk"
+          },
+          {
+            "character": "夕",
+            "gloss": "dusk"
+          }
+        ],
+        "component_source": "resolved_ids_forward+manual_quality_override",
+        "generation_source": "codex_manual_quality_patch_2026_07_08"
       },
       {
         "character": "𠀅",
         "meaning": "alternate form",
         "frequency_rank": null,
         "quality_status": "rewrite",
-        "quality_score": 19.0,
-        "review_priority": 19.0,
+        "quality_score": 8.0,
+        "review_priority": 8.0,
         "flags": [
-          {
-            "code": "generic_filler",
-            "severity": 6.0,
-            "evidence": "The written shape of"
-          },
-          {
-            "code": "tautological_self_form",
-            "severity": 5.0,
-            "evidence": "written shape of 𠀅 alternate form is the memory image"
-          },
           {
             "code": "opaque_component_gloss",
             "severity": 4.0,
@@ -893,7 +1187,7 @@
           }
         ],
         "equation": "Visual form: 𠀅 alternate form",
-        "mnemonic": "The written shape of 𠀅 alternate form is the memory image.",
+        "mnemonic": "The slightly reshaped 𠀅 alternate form stands beside its standard twin, differing by one old pen stroke.",
         "components": [
           {
             "character": "𠀅",
@@ -901,26 +1195,16 @@
           }
         ],
         "component_source": "self_fallback",
-        "generation_source": "codex_local_completion"
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
       },
       {
         "character": "𠧩",
         "meaning": "form",
         "frequency_rank": null,
         "quality_status": "rewrite",
-        "quality_score": 19.0,
-        "review_priority": 19.0,
+        "quality_score": 8.0,
+        "review_priority": 8.0,
         "flags": [
-          {
-            "code": "generic_filler",
-            "severity": 6.0,
-            "evidence": "The written shape of"
-          },
-          {
-            "code": "tautological_self_form",
-            "severity": 5.0,
-            "evidence": "written shape of 𠧩 form is the memory image"
-          },
           {
             "code": "opaque_component_gloss",
             "severity": 4.0,
@@ -935,7 +1219,7 @@
           }
         ],
         "equation": "Visual form: 𠧩 form",
-        "mnemonic": "The written shape of 𠧩 form is the memory image.",
+        "mnemonic": "The 𠧩 form holds its inner strokes inside a fixed, mold-like outline.",
         "components": [
           {
             "character": "𠧩",
@@ -943,31 +1227,85 @@
           }
         ],
         "component_source": "self_fallback",
-        "generation_source": "codex_local_completion"
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
       },
       {
-        "character": "𠯮",
-        "meaning": "alternate form",
+        "character": "𫜹",
+        "meaning": "form",
         "frequency_rank": null,
         "quality_status": "rewrite",
-        "quality_score": 19.0,
-        "review_priority": 19.0,
+        "quality_score": 8.0,
+        "review_priority": 8.0,
         "flags": [
-          {
-            "code": "generic_filler",
-            "severity": 6.0,
-            "evidence": "The written shape of"
-          },
-          {
-            "code": "tautological_self_form",
-            "severity": 5.0,
-            "evidence": "written shape of 𠯮 alternate form is the memory image"
-          },
           {
             "code": "opaque_component_gloss",
             "severity": 4.0,
             "evidence": [
-              "𠯮 alternate form"
+              "𫜹 form"
+            ]
+          },
+          {
+            "code": "unhelpful_final_gloss",
+            "severity": 4.0,
+            "evidence": "form"
+          }
+        ],
+        "equation": "Visual form: 𫜹 form",
+        "mnemonic": "Pressing soft clay into a rigid mold fixes its 𫜹 form on every side.",
+        "components": [
+          {
+            "character": "𫜹",
+            "gloss": "form"
+          }
+        ],
+        "component_source": "self_fallback",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
+      },
+      {
+        "character": "𫝀",
+        "meaning": "form",
+        "frequency_rank": null,
+        "quality_status": "rewrite",
+        "quality_score": 8.0,
+        "review_priority": 8.0,
+        "flags": [
+          {
+            "code": "opaque_component_gloss",
+            "severity": 4.0,
+            "evidence": [
+              "𫝀 form"
+            ]
+          },
+          {
+            "code": "unhelpful_final_gloss",
+            "severity": 4.0,
+            "evidence": "form"
+          }
+        ],
+        "equation": "Visual form: 𫝀 form",
+        "mnemonic": "A backlit silhouette reveals the 𫝀 form of a figure while concealing every detail.",
+        "components": [
+          {
+            "character": "𫝀",
+            "gloss": "form"
+          }
+        ],
+        "component_source": "self_fallback",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
+      },
+      {
+        "character": "𫩠",
+        "meaning": "alternate form",
+        "frequency_rank": null,
+        "quality_status": "rewrite",
+        "quality_score": 8.0,
+        "review_priority": 8.0,
+        "flags": [
+          {
+            "code": "opaque_component_gloss",
+            "severity": 4.0,
+            "evidence": [
+              "𫩠 alternate form"
             ]
           },
           {
@@ -976,40 +1314,30 @@
             "evidence": "alternate form"
           }
         ],
-        "equation": "Visual form: 𠯮 alternate form",
-        "mnemonic": "The written shape of 𠯮 alternate form is the memory image.",
+        "equation": "Visual form: 𫩠 alternate form",
+        "mnemonic": "𫩠 alternate form keeps the square mouth while rearranging the surrounding strokes into a changed outline.",
         "components": [
           {
-            "character": "𠯮",
+            "character": "𫩠",
             "gloss": "alternate form"
           }
         ],
         "component_source": "self_fallback",
-        "generation_source": "codex_local_completion"
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
       },
       {
-        "character": "𡀔",
+        "character": "𭤨",
         "meaning": "form",
         "frequency_rank": null,
         "quality_status": "rewrite",
-        "quality_score": 19.0,
-        "review_priority": 19.0,
+        "quality_score": 8.0,
+        "review_priority": 8.0,
         "flags": [
-          {
-            "code": "generic_filler",
-            "severity": 6.0,
-            "evidence": "The written shape of"
-          },
-          {
-            "code": "tautological_self_form",
-            "severity": 5.0,
-            "evidence": "written shape of 𡀔 form is the memory image"
-          },
           {
             "code": "opaque_component_gloss",
             "severity": 4.0,
             "evidence": [
-              "𡀔 form"
+              "𭤨 form"
             ]
           },
           {
@@ -1018,40 +1346,30 @@
             "evidence": "form"
           }
         ],
-        "equation": "Visual form: 𡀔 form",
-        "mnemonic": "The written shape of 𡀔 form is the memory image.",
+        "equation": "Visual form: 𭤨 form",
+        "mnemonic": "The enclosing bends of 𭤨 form trace a firm outline around an open center.",
         "components": [
           {
-            "character": "𡀔",
+            "character": "𭤨",
             "gloss": "form"
           }
         ],
         "component_source": "self_fallback",
-        "generation_source": "codex_local_completion"
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
       },
       {
-        "character": "𡈽",
+        "character": "𭥍",
         "meaning": "alternate form",
         "frequency_rank": null,
         "quality_status": "rewrite",
-        "quality_score": 19.0,
-        "review_priority": 19.0,
+        "quality_score": 8.0,
+        "review_priority": 8.0,
         "flags": [
-          {
-            "code": "generic_filler",
-            "severity": 6.0,
-            "evidence": "The written shape of"
-          },
-          {
-            "code": "tautological_self_form",
-            "severity": 5.0,
-            "evidence": "written shape of 𡈽 alternate form is the memory image"
-          },
           {
             "code": "opaque_component_gloss",
             "severity": 4.0,
             "evidence": [
-              "𡈽 alternate form"
+              "𭥍 alternate form"
             ]
           },
           {
@@ -1060,40 +1378,30 @@
             "evidence": "alternate form"
           }
         ],
-        "equation": "Visual form: 𡈽 alternate form",
-        "mnemonic": "The written shape of 𡈽 alternate form is the memory image.",
+        "equation": "Visual form: 𭥍 alternate form",
+        "mnemonic": "Two offset paths in 𭥍 alternate form suggest the same outline redrawn by a different route.",
         "components": [
           {
-            "character": "𡈽",
+            "character": "𭥍",
             "gloss": "alternate form"
           }
         ],
         "component_source": "self_fallback",
-        "generation_source": "codex_local_completion"
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
       },
       {
-        "character": "𢝵",
+        "character": "𰮤",
         "meaning": "form",
         "frequency_rank": null,
         "quality_status": "rewrite",
-        "quality_score": 19.0,
-        "review_priority": 19.0,
+        "quality_score": 8.0,
+        "review_priority": 8.0,
         "flags": [
-          {
-            "code": "generic_filler",
-            "severity": 6.0,
-            "evidence": "The written shape of"
-          },
-          {
-            "code": "tautological_self_form",
-            "severity": 5.0,
-            "evidence": "written shape of 𢝵 form is the memory image"
-          },
           {
             "code": "opaque_component_gloss",
             "severity": 4.0,
             "evidence": [
-              "𢝵 form"
+              "𰮤 form"
             ]
           },
           {
@@ -1102,208 +1410,30 @@
             "evidence": "form"
           }
         ],
-        "equation": "Visual form: 𢝵 form",
-        "mnemonic": "The written shape of 𢝵 form is the memory image.",
+        "equation": "Visual form: 𰮤 form",
+        "mnemonic": "Wet clay pressed into a mold begins to 𰮤 form along its walls.",
         "components": [
           {
-            "character": "𢝵",
+            "character": "𰮤",
             "gloss": "form"
           }
         ],
         "component_source": "self_fallback",
-        "generation_source": "codex_local_completion"
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
       },
       {
-        "character": "𢥞",
-        "meaning": "related form",
-        "frequency_rank": null,
-        "quality_status": "rewrite",
-        "quality_score": 19.0,
-        "review_priority": 19.0,
-        "flags": [
-          {
-            "code": "generic_filler",
-            "severity": 6.0,
-            "evidence": "The written shape of"
-          },
-          {
-            "code": "tautological_self_form",
-            "severity": 5.0,
-            "evidence": "written shape of 𢥞 related form is the memory image"
-          },
-          {
-            "code": "opaque_component_gloss",
-            "severity": 4.0,
-            "evidence": [
-              "𢥞 related form"
-            ]
-          },
-          {
-            "code": "unhelpful_final_gloss",
-            "severity": 4.0,
-            "evidence": "related form"
-          }
-        ],
-        "equation": "Visual form: 𢥞 related form",
-        "mnemonic": "The written shape of 𢥞 related form is the memory image.",
-        "components": [
-          {
-            "character": "𢥞",
-            "gloss": "related form"
-          }
-        ],
-        "component_source": "self_fallback",
-        "generation_source": "codex_local_completion"
-      },
-      {
-        "character": "𣏾",
-        "meaning": "alternate form",
-        "frequency_rank": null,
-        "quality_status": "rewrite",
-        "quality_score": 19.0,
-        "review_priority": 19.0,
-        "flags": [
-          {
-            "code": "generic_filler",
-            "severity": 6.0,
-            "evidence": "The written shape of"
-          },
-          {
-            "code": "tautological_self_form",
-            "severity": 5.0,
-            "evidence": "written shape of 𣏾 alternate form is the memory image"
-          },
-          {
-            "code": "opaque_component_gloss",
-            "severity": 4.0,
-            "evidence": [
-              "𣏾 alternate form"
-            ]
-          },
-          {
-            "code": "unhelpful_final_gloss",
-            "severity": 4.0,
-            "evidence": "alternate form"
-          }
-        ],
-        "equation": "Visual form: 𣏾 alternate form",
-        "mnemonic": "The written shape of 𣏾 alternate form is the memory image.",
-        "components": [
-          {
-            "character": "𣏾",
-            "gloss": "alternate form"
-          }
-        ],
-        "component_source": "self_fallback",
-        "generation_source": "codex_local_completion"
-      },
-      {
-        "character": "𣟬",
-        "meaning": "related form",
-        "frequency_rank": null,
-        "quality_status": "rewrite",
-        "quality_score": 19.0,
-        "review_priority": 19.0,
-        "flags": [
-          {
-            "code": "generic_filler",
-            "severity": 6.0,
-            "evidence": "The written shape of"
-          },
-          {
-            "code": "tautological_self_form",
-            "severity": 5.0,
-            "evidence": "written shape of 𣟬 related form is the memory image"
-          },
-          {
-            "code": "opaque_component_gloss",
-            "severity": 4.0,
-            "evidence": [
-              "𣟬 related form"
-            ]
-          },
-          {
-            "code": "unhelpful_final_gloss",
-            "severity": 4.0,
-            "evidence": "related form"
-          }
-        ],
-        "equation": "Visual form: 𣟬 related form",
-        "mnemonic": "The written shape of 𣟬 related form is the memory image.",
-        "components": [
-          {
-            "character": "𣟬",
-            "gloss": "related form"
-          }
-        ],
-        "component_source": "self_fallback",
-        "generation_source": "codex_local_completion"
-      },
-      {
-        "character": "𣠽",
-        "meaning": "related form",
-        "frequency_rank": null,
-        "quality_status": "rewrite",
-        "quality_score": 19.0,
-        "review_priority": 19.0,
-        "flags": [
-          {
-            "code": "generic_filler",
-            "severity": 6.0,
-            "evidence": "The written shape of"
-          },
-          {
-            "code": "tautological_self_form",
-            "severity": 5.0,
-            "evidence": "written shape of 𣠽 related form is the memory image"
-          },
-          {
-            "code": "opaque_component_gloss",
-            "severity": 4.0,
-            "evidence": [
-              "𣠽 related form"
-            ]
-          },
-          {
-            "code": "unhelpful_final_gloss",
-            "severity": 4.0,
-            "evidence": "related form"
-          }
-        ],
-        "equation": "Visual form: 𣠽 related form",
-        "mnemonic": "The written shape of 𣠽 related form is the memory image.",
-        "components": [
-          {
-            "character": "𣠽",
-            "gloss": "related form"
-          }
-        ],
-        "component_source": "self_fallback",
-        "generation_source": "codex_local_completion"
-      },
-      {
-        "character": "𣴓",
+        "character": "𱋁",
         "meaning": "form",
         "frequency_rank": null,
         "quality_status": "rewrite",
-        "quality_score": 19.0,
-        "review_priority": 19.0,
+        "quality_score": 8.0,
+        "review_priority": 8.0,
         "flags": [
-          {
-            "code": "generic_filler",
-            "severity": 6.0,
-            "evidence": "The written shape of"
-          },
-          {
-            "code": "tautological_self_form",
-            "severity": 5.0,
-            "evidence": "written shape of 𣴓 form is the memory image"
-          },
           {
             "code": "opaque_component_gloss",
             "severity": 4.0,
             "evidence": [
-              "𣴓 form"
+              "𱋁 form"
             ]
           },
           {
@@ -1312,522 +1442,164 @@
             "evidence": "form"
           }
         ],
-        "equation": "Visual form: 𣴓 form",
-        "mnemonic": "The written shape of 𣴓 form is the memory image.",
+        "equation": "Visual form: 𱋁 form",
+        "mnemonic": "Soft clay pressed between two palms begins to 𱋁 form a smooth bowl.",
         "components": [
           {
-            "character": "𣴓",
+            "character": "𱋁",
             "gloss": "form"
           }
         ],
         "component_source": "self_fallback",
-        "generation_source": "codex_local_completion"
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
       },
       {
-        "character": "𥔵",
-        "meaning": "alternate form",
+        "character": "𱥯",
+        "meaning": "old form",
         "frequency_rank": null,
         "quality_status": "rewrite",
-        "quality_score": 19.0,
-        "review_priority": 19.0,
+        "quality_score": 8.0,
+        "review_priority": 8.0,
         "flags": [
-          {
-            "code": "generic_filler",
-            "severity": 6.0,
-            "evidence": "The written shape of"
-          },
-          {
-            "code": "tautological_self_form",
-            "severity": 5.0,
-            "evidence": "written shape of 𥔵 alternate form is the memory image"
-          },
           {
             "code": "opaque_component_gloss",
             "severity": 4.0,
             "evidence": [
-              "𥔵 alternate form"
+              "𱥯 old form"
             ]
           },
           {
             "code": "unhelpful_final_gloss",
             "severity": 4.0,
-            "evidence": "alternate form"
+            "evidence": "old form"
           }
         ],
-        "equation": "Visual form: 𥔵 alternate form",
-        "mnemonic": "The written shape of 𥔵 alternate form is the memory image.",
+        "equation": "Visual form: 𱥯 old form",
+        "mnemonic": "A chipped tablet preserves the 𱥯 old form in worn, uneven strokes from an earlier script.",
         "components": [
           {
-            "character": "𥔵",
-            "gloss": "alternate form"
+            "character": "𱥯",
+            "gloss": "old form"
           }
         ],
         "component_source": "self_fallback",
-        "generation_source": "codex_local_completion"
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
       },
       {
-        "character": "𥢢",
-        "meaning": "form",
-        "frequency_rank": null,
-        "quality_status": "rewrite",
-        "quality_score": 19.0,
-        "review_priority": 19.0,
+        "character": "旅",
+        "meaning": "travel",
+        "frequency_rank": 509,
+        "quality_status": "review",
+        "quality_score": 4.0,
+        "review_priority": 7.777,
         "flags": [
           {
-            "code": "generic_filler",
-            "severity": 6.0,
-            "evidence": "The written shape of"
-          },
-          {
-            "code": "tautological_self_form",
-            "severity": 5.0,
-            "evidence": "written shape of 𥢢 form is the memory image"
-          },
-          {
-            "code": "opaque_component_gloss",
+            "code": "duplicated_component_meaning",
             "severity": 4.0,
             "evidence": [
-              "𥢢 form"
+              [
+                "人",
+                "人"
+              ]
             ]
-          },
-          {
-            "code": "unhelpful_final_gloss",
-            "severity": 4.0,
-            "evidence": "form"
           }
         ],
-        "equation": "Visual form: 𥢢 form",
-        "mnemonic": "The written shape of 𥢢 form is the memory image.",
+        "equation": "㫃 flags flying + 人 person + 人 person = 旅 travel",
+        "mnemonic": "Beneath 㫃 flags flying, one 人 person follows another 人 person as they 旅 travel.",
         "components": [
           {
-            "character": "𥢢",
-            "gloss": "form"
+            "character": "㫃",
+            "gloss": "flags flying"
+          },
+          {
+            "character": "人",
+            "gloss": "person"
+          },
+          {
+            "character": "人",
+            "gloss": "person"
           }
         ],
-        "component_source": "self_fallback",
-        "generation_source": "codex_local_completion"
+        "component_source": "dictionary_component_fallback",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
       },
       {
-        "character": "𧉞",
-        "meaning": "form",
-        "frequency_rank": null,
-        "quality_status": "rewrite",
-        "quality_score": 19.0,
-        "review_priority": 19.0,
+        "character": "比",
+        "meaning": "compare",
+        "frequency_rank": 585,
+        "quality_status": "review",
+        "quality_score": 4.0,
+        "review_priority": 7.716,
         "flags": [
           {
-            "code": "generic_filler",
-            "severity": 6.0,
-            "evidence": "The written shape of"
-          },
-          {
-            "code": "tautological_self_form",
-            "severity": 5.0,
-            "evidence": "written shape of 𧉞 form is the memory image"
-          },
-          {
-            "code": "opaque_component_gloss",
+            "code": "duplicated_component_meaning",
             "severity": 4.0,
             "evidence": [
-              "𧉞 form"
+              [
+                "匕",
+                "匕"
+              ]
             ]
-          },
-          {
-            "code": "unhelpful_final_gloss",
-            "severity": 4.0,
-            "evidence": "form"
           }
         ],
-        "equation": "Visual form: 𧉞 form",
-        "mnemonic": "The written shape of 𧉞 form is the memory image.",
+        "equation": "匕 ancient spoon + 匕 ancient spoon = 比 compare",
+        "mnemonic": "One 匕 ancient spoon faces another 匕 ancient spoon so you can 比 compare them.",
         "components": [
           {
-            "character": "𧉞",
-            "gloss": "form"
+            "character": "匕",
+            "gloss": "ancient spoon"
+          },
+          {
+            "character": "匕",
+            "gloss": "ancient spoon"
           }
         ],
-        "component_source": "self_fallback",
-        "generation_source": "codex_local_completion"
+        "component_source": "ids+dictionary_component_fallback+manual_quality_override",
+        "generation_source": "codex_manual_quality_patch_2026_07_08"
       },
       {
-        "character": "𧗗",
-        "meaning": "related form",
-        "frequency_rank": null,
-        "quality_status": "rewrite",
-        "quality_score": 19.0,
-        "review_priority": 19.0,
+        "character": "競",
+        "meaning": "compete",
+        "frequency_rank": 599,
+        "quality_status": "review",
+        "quality_score": 4.0,
+        "review_priority": 7.706,
         "flags": [
           {
-            "code": "generic_filler",
-            "severity": 6.0,
-            "evidence": "The written shape of"
-          },
-          {
-            "code": "tautological_self_form",
-            "severity": 5.0,
-            "evidence": "written shape of 𧗗 related form is the memory image"
-          },
-          {
-            "code": "opaque_component_gloss",
+            "code": "duplicated_component_meaning",
             "severity": 4.0,
             "evidence": [
-              "𧗗 related form"
+              [
+                "竞",
+                "竞"
+              ]
             ]
-          },
-          {
-            "code": "unhelpful_final_gloss",
-            "severity": 4.0,
-            "evidence": "related form"
           }
         ],
-        "equation": "Visual form: 𧗗 related form",
-        "mnemonic": "The written shape of 𧗗 related form is the memory image.",
+        "equation": "竞 contend + 竞 contend = 競 compete",
+        "mnemonic": "One rival begins to 竞 contend as another begins to 竞 contend, so the two 競 compete face-to-face.",
         "components": [
           {
-            "character": "𧗗",
-            "gloss": "related form"
+            "character": "竞",
+            "gloss": "contend"
+          },
+          {
+            "character": "竞",
+            "gloss": "contend"
           }
         ],
-        "component_source": "self_fallback",
-        "generation_source": "codex_local_completion"
-      },
-      {
-        "character": "𨸄",
-        "meaning": "related form",
-        "frequency_rank": null,
-        "quality_status": "rewrite",
-        "quality_score": 19.0,
-        "review_priority": 19.0,
-        "flags": [
-          {
-            "code": "generic_filler",
-            "severity": 6.0,
-            "evidence": "The written shape of"
-          },
-          {
-            "code": "tautological_self_form",
-            "severity": 5.0,
-            "evidence": "written shape of 𨸄 related form is the memory image"
-          },
-          {
-            "code": "opaque_component_gloss",
-            "severity": 4.0,
-            "evidence": [
-              "𨸄 related form"
-            ]
-          },
-          {
-            "code": "unhelpful_final_gloss",
-            "severity": 4.0,
-            "evidence": "related form"
-          }
-        ],
-        "equation": "Visual form: 𨸄 related form",
-        "mnemonic": "The written shape of 𨸄 related form is the memory image.",
-        "components": [
-          {
-            "character": "𨸄",
-            "gloss": "related form"
-          }
-        ],
-        "component_source": "self_fallback",
-        "generation_source": "codex_local_completion"
-      },
-      {
-        "character": "𩂳",
-        "meaning": "alternate form",
-        "frequency_rank": null,
-        "quality_status": "rewrite",
-        "quality_score": 19.0,
-        "review_priority": 19.0,
-        "flags": [
-          {
-            "code": "generic_filler",
-            "severity": 6.0,
-            "evidence": "The written shape of"
-          },
-          {
-            "code": "tautological_self_form",
-            "severity": 5.0,
-            "evidence": "written shape of 𩂳 alternate form is the memory image"
-          },
-          {
-            "code": "opaque_component_gloss",
-            "severity": 4.0,
-            "evidence": [
-              "𩂳 alternate form"
-            ]
-          },
-          {
-            "code": "unhelpful_final_gloss",
-            "severity": 4.0,
-            "evidence": "alternate form"
-          }
-        ],
-        "equation": "Visual form: 𩂳 alternate form",
-        "mnemonic": "The written shape of 𩂳 alternate form is the memory image.",
-        "components": [
-          {
-            "character": "𩂳",
-            "gloss": "alternate form"
-          }
-        ],
-        "component_source": "self_fallback",
-        "generation_source": "codex_local_completion"
-      },
-      {
-        "character": "𩧿",
-        "meaning": "form",
-        "frequency_rank": null,
-        "quality_status": "rewrite",
-        "quality_score": 19.0,
-        "review_priority": 19.0,
-        "flags": [
-          {
-            "code": "generic_filler",
-            "severity": 6.0,
-            "evidence": "The written shape of"
-          },
-          {
-            "code": "tautological_self_form",
-            "severity": 5.0,
-            "evidence": "written shape of 𩧿 form is the memory image"
-          },
-          {
-            "code": "opaque_component_gloss",
-            "severity": 4.0,
-            "evidence": [
-              "𩧿 form"
-            ]
-          },
-          {
-            "code": "unhelpful_final_gloss",
-            "severity": 4.0,
-            "evidence": "form"
-          }
-        ],
-        "equation": "Visual form: 𩧿 form",
-        "mnemonic": "The written shape of 𩧿 form is the memory image.",
-        "components": [
-          {
-            "character": "𩧿",
-            "gloss": "form"
-          }
-        ],
-        "component_source": "self_fallback",
-        "generation_source": "codex_local_completion"
-      },
-      {
-        "character": "𩵋",
-        "meaning": "alternate form",
-        "frequency_rank": null,
-        "quality_status": "rewrite",
-        "quality_score": 19.0,
-        "review_priority": 19.0,
-        "flags": [
-          {
-            "code": "generic_filler",
-            "severity": 6.0,
-            "evidence": "The written shape of"
-          },
-          {
-            "code": "tautological_self_form",
-            "severity": 5.0,
-            "evidence": "written shape of 𩵋 alternate form is the memory image"
-          },
-          {
-            "code": "opaque_component_gloss",
-            "severity": 4.0,
-            "evidence": [
-              "𩵋 alternate form"
-            ]
-          },
-          {
-            "code": "unhelpful_final_gloss",
-            "severity": 4.0,
-            "evidence": "alternate form"
-          }
-        ],
-        "equation": "Visual form: 𩵋 alternate form",
-        "mnemonic": "The written shape of 𩵋 alternate form is the memory image.",
-        "components": [
-          {
-            "character": "𩵋",
-            "gloss": "alternate form"
-          }
-        ],
-        "component_source": "self_fallback",
-        "generation_source": "codex_local_completion"
-      },
-      {
-        "character": "𩶘",
-        "meaning": "form",
-        "frequency_rank": null,
-        "quality_status": "rewrite",
-        "quality_score": 19.0,
-        "review_priority": 19.0,
-        "flags": [
-          {
-            "code": "generic_filler",
-            "severity": 6.0,
-            "evidence": "The written shape of"
-          },
-          {
-            "code": "tautological_self_form",
-            "severity": 5.0,
-            "evidence": "written shape of 𩶘 form is the memory image"
-          },
-          {
-            "code": "opaque_component_gloss",
-            "severity": 4.0,
-            "evidence": [
-              "𩶘 form"
-            ]
-          },
-          {
-            "code": "unhelpful_final_gloss",
-            "severity": 4.0,
-            "evidence": "form"
-          }
-        ],
-        "equation": "Visual form: 𩶘 form",
-        "mnemonic": "The written shape of 𩶘 form is the memory image.",
-        "components": [
-          {
-            "character": "𩶘",
-            "gloss": "form"
-          }
-        ],
-        "component_source": "self_fallback",
-        "generation_source": "codex_local_completion"
-      },
-      {
-        "character": "𩾈",
-        "meaning": "related form",
-        "frequency_rank": null,
-        "quality_status": "rewrite",
-        "quality_score": 19.0,
-        "review_priority": 19.0,
-        "flags": [
-          {
-            "code": "generic_filler",
-            "severity": 6.0,
-            "evidence": "The written shape of"
-          },
-          {
-            "code": "tautological_self_form",
-            "severity": 5.0,
-            "evidence": "written shape of 𩾈 related form is the memory image"
-          },
-          {
-            "code": "opaque_component_gloss",
-            "severity": 4.0,
-            "evidence": [
-              "𩾈 related form"
-            ]
-          },
-          {
-            "code": "unhelpful_final_gloss",
-            "severity": 4.0,
-            "evidence": "related form"
-          }
-        ],
-        "equation": "Visual form: 𩾈 related form",
-        "mnemonic": "The written shape of 𩾈 related form is the memory image.",
-        "components": [
-          {
-            "character": "𩾈",
-            "gloss": "related form"
-          }
-        ],
-        "component_source": "self_fallback",
-        "generation_source": "codex_local_completion"
-      },
-      {
-        "character": "𪠵",
-        "meaning": "form",
-        "frequency_rank": null,
-        "quality_status": "rewrite",
-        "quality_score": 19.0,
-        "review_priority": 19.0,
-        "flags": [
-          {
-            "code": "generic_filler",
-            "severity": 6.0,
-            "evidence": "The written shape of"
-          },
-          {
-            "code": "tautological_self_form",
-            "severity": 5.0,
-            "evidence": "written shape of 𪠵 form is the memory image"
-          },
-          {
-            "code": "opaque_component_gloss",
-            "severity": 4.0,
-            "evidence": [
-              "𪠵 form"
-            ]
-          },
-          {
-            "code": "unhelpful_final_gloss",
-            "severity": 4.0,
-            "evidence": "form"
-          }
-        ],
-        "equation": "Visual form: 𪠵 form",
-        "mnemonic": "The written shape of 𪠵 form is the memory image.",
-        "components": [
-          {
-            "character": "𪠵",
-            "gloss": "form"
-          }
-        ],
-        "component_source": "self_fallback",
-        "generation_source": "codex_local_completion"
-      },
-      {
-        "character": "𫛬",
-        "meaning": "form",
-        "frequency_rank": null,
-        "quality_status": "rewrite",
-        "quality_score": 19.0,
-        "review_priority": 19.0,
-        "flags": [
-          {
-            "code": "generic_filler",
-            "severity": 6.0,
-            "evidence": "The written shape of"
-          },
-          {
-            "code": "tautological_self_form",
-            "severity": 5.0,
-            "evidence": "written shape of 𫛬 form is the memory image"
-          },
-          {
-            "code": "opaque_component_gloss",
-            "severity": 4.0,
-            "evidence": [
-              "𫛬 form"
-            ]
-          },
-          {
-            "code": "unhelpful_final_gloss",
-            "severity": 4.0,
-            "evidence": "form"
-          }
-        ],
-        "equation": "Visual form: 𫛬 form",
-        "mnemonic": "The written shape of 𫛬 form is the memory image.",
-        "components": [
-          {
-            "character": "𫛬",
-            "gloss": "form"
-          }
-        ],
-        "component_source": "self_fallback",
-        "generation_source": "codex_local_completion"
+        "component_source": "resolved_ids_forward",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
       }
     ],
-    "full_report": "sveltekit-app/static/research/mnemonics/semantic_mnemonics_all_best_available_quality_audit.json"
+    "full_review_count": 0,
+    "certification_status": "expedited_non_certified"
+  },
+  "gpt56_expedited_release": {
+    "materialized_card_projection_hash": "sha256:3cb3fa833f6dc22dea46c4d159a191c35ae5ac507800488a06fc1b2ca2b27df8",
+    "formal_validation": {
+      "count": 24037,
+      "invalid_count": 0
+    }
   }
 }
