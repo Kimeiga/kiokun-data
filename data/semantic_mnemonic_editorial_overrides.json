@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "overrides": [
+    {
+      "character": "処",
+      "status": "approved",
+      "base_card_hash": "sha256:c3fb0a82cf366d6a9a3d202d64e7dcbf3ce35c580c72b5c793b6971a5e684158",
+      "expected": {
+        "meaning": "location",
+        "equation": "夂 walk + 几 small table = 処 location",
+        "components": [
+          {
+            "character": "夂",
+            "gloss": "walk"
+          },
+          {
+            "character": "几",
+            "gloss": "small table"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "夂",
+            "gloss": "walk"
+          },
+          {
+            "character": "几",
+            "gloss": "small table"
+          }
+        ]
+      },
+      "mnemonic": "After a 夂 walk, you rest at a 几 small table; that resting spot is your 処 location.",
+      "confidence": 0.93,
+      "rationale": "Makes the destination explicitly a resting place while retaining the learner-facing component gloss walk.",
+      "source": "user-requested editorial revision",
+      "recorded_at": "2026-07-19"
+    }
+  ]
+}

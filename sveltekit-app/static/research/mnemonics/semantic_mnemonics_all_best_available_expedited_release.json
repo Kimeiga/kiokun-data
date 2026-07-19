@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-07-19T13:18:50.967515+00:00",
+  "created_at": "2026-07-19T14:22:54.142148+00:00",
   "gpt56_expedited_release": {
     "contract_version": "2026-07-19.1",
     "certification_status": "expedited_non_certified",
@@ -3069,17 +3069,35 @@
       }
     ],
     "base_card_projection_hash": "sha256:73360fe09861b6f2d2a0c137916c06420861786deab921730abeb22f349eaacb",
-    "materialized_card_projection_hash": "sha256:3cb3fa833f6dc22dea46c4d159a191c35ae5ac507800488a06fc1b2ca2b27df8",
+    "materialized_card_projection_hash": "sha256:073825674f845f7ba6cffe2a2dcdfae893d9975ca9ca2530099f477aa4a70776",
     "formal_validation": {
       "count": 24037,
       "invalid_count": 0
     },
     "materialization_rule": "Start from quality-applied; retain all 340 frozen cards exactly; use the 38 protected-gate promotions; and repair only exact labels on the 38 gate-restored source stories so every published card remains formally valid.",
-    "certification_note": "This is an expedited, explicitly non-certified publication. It is not a substitute for the 19,537-card second-pass promotion queue or whole-corpus independent QA."
+    "certification_note": "This is an expedited, explicitly non-certified publication. It is not a substitute for the 19,537-card second-pass promotion queue or whole-corpus independent QA.",
+    "editorial_patch_history": [
+      {
+        "applied_at": "2026-07-19T14:22:54.142148+00:00",
+        "ledger_path": "data/semantic_mnemonic_editorial_overrides.json",
+        "ledger_sha256": "sha256:5bab8d681ebecd2a5be09a49cb1f73664bbd50e4ea3b93ebd90e62e30f2019a4",
+        "characters": [
+          "処"
+        ],
+        "count": 1
+      }
+    ]
   },
   "static_artifact": {
     "count": 24037,
-    "materialized_card_projection_hash": "sha256:3cb3fa833f6dc22dea46c4d159a191c35ae5ac507800488a06fc1b2ca2b27df8",
-    "component_index_source_corpus_hash": "sha256:b2649837b4d7e8497488aa198e10fa99c99d88891455dcbc199a23b00ff48922"
+    "materialized_card_projection_hash": "sha256:073825674f845f7ba6cffe2a2dcdfae893d9975ca9ca2530099f477aa4a70776",
+    "component_index_source_corpus_hash": "sha256:683cf600a648cd5bfe76038885a1a83c7b977ac6dbb0340c1ca3f7a79faa90ed"
+  },
+  "editorial_overrides": {
+    "ledger_path": "data/semantic_mnemonic_editorial_overrides.json",
+    "ledger_sha256": "sha256:5bab8d681ebecd2a5be09a49cb1f73664bbd50e4ea3b93ebd90e62e30f2019a4",
+    "characters": [
+      "処"
+    ]
   }
 }

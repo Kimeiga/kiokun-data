@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-07-19T13:18:50.967477+00:00",
+  "created_at": "2026-07-19T14:22:54.141774+00:00",
   "count": 24037,
   "invalid_count": 0,
   "invalid": [],
@@ -1596,10 +1596,11 @@
     "certification_status": "expedited_non_certified"
   },
   "gpt56_expedited_release": {
-    "materialized_card_projection_hash": "sha256:3cb3fa833f6dc22dea46c4d159a191c35ae5ac507800488a06fc1b2ca2b27df8",
+    "materialized_card_projection_hash": "sha256:073825674f845f7ba6cffe2a2dcdfae893d9975ca9ca2530099f477aa4a70776",
     "formal_validation": {
       "count": 24037,
       "invalid_count": 0
-    }
+    },
+    "editorial_ledger_sha256": "sha256:5bab8d681ebecd2a5be09a49cb1f73664bbd50e4ea3b93ebd90e62e30f2019a4"
   }
 }

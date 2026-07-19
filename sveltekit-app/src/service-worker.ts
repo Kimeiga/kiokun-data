@@ -3,18 +3,15 @@
 /// <reference lib="esnext" />
 /// <reference lib="webworker" />
 
-import { build, files, version } from '$service-worker';
+import { build, version } from '$service-worker';
 
 const CACHE_NAME = `kiokun-v${version}`;
 
-// Static assets to cache immediately
-const PRECACHE = [
-	...build,  // JS/CSS bundles
-	...files.filter(f =>
-		f.endsWith('.json') && !f.includes('zh_sentences') && !f.includes('kr_sentences') && !f.includes('pitch/') &&
-		!f.includes('homophones_') && !f.includes('video_data') && !f.includes('reel_transcripts')
-	),
-];
+// Only immutable, versioned build assets are safe to precache. Static JSON is
+// request-driven: some files are intentionally omitted from the Pages output,
+// while others are large, route-specific datasets that should not consume the
+// install-time cache. The fetch handler below retains its runtime behavior.
+const PRECACHE = [...build];
 
 // Install: precache static assets
 self.addEventListener('install', (event: ExtendableEvent) => {
