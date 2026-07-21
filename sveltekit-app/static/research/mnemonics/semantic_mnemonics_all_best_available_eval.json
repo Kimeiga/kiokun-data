@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-07-19T14:22:54.141774+00:00",
+  "created_at": "2026-07-21T00:43:22.494665+00:00",
   "count": 24037,
   "invalid_count": 0,
   "invalid": [],
@@ -768,11 +768,11 @@
   },
   "quality_review": {
     "methodology": "Formal validity and learning quality are separate. Flags are deterministic review signals; abstract meanings and variant forms are not automatically bad, while generic filler is a rewrite signal.",
-    "flagged_count": 1440,
+    "flagged_count": 1435,
     "quality_status_counts": {
-      "pass": 22597,
-      "review": 1407,
-      "rewrite": 33
+      "pass": 22602,
+      "review": 1406,
+      "rewrite": 29
     },
     "flag_counts": {
       "variant_form_needs_review": 832,
@@ -780,102 +780,10 @@
       "duplicated_component_meaning": 237,
       "opaque_component_gloss": 21,
       "unhelpful_final_gloss": 14,
-      "generic_filler": 9,
       "learner_facing_weirdness": 8,
-      "tautological_self_form": 1
+      "generic_filler": 5
     },
     "top_suspicious": [
-      {
-        "character": "歳",
-        "meaning": "years of age",
-        "frequency_rank": 268,
-        "quality_status": "rewrite",
-        "quality_score": 6.0,
-        "review_priority": 12.126,
-        "flags": [
-          {
-            "code": "generic_filler",
-            "severity": 6.0,
-            "evidence": "give shape to"
-          }
-        ],
-        "equation": "止 stop + 戌 11th terrestrial branch + 小 small = 歳 years of age",
-        "mnemonic": "A 止 stop, a 戌 11th terrestrial branch, and a 小 small give shape to 歳 years of age.",
-        "components": [
-          {
-            "character": "止",
-            "gloss": "stop"
-          },
-          {
-            "character": "戌",
-            "gloss": "11th terrestrial branch"
-          },
-          {
-            "character": "小",
-            "gloss": "small"
-          }
-        ],
-        "component_source": "resolved_ids_forward",
-        "generation_source": "gemini35_reviewed_1000"
-      },
-      {
-        "character": "江",
-        "meaning": "Yangtze",
-        "frequency_rank": 290,
-        "quality_status": "rewrite",
-        "quality_score": 6.0,
-        "review_priority": 12.065,
-        "flags": [
-          {
-            "code": "generic_filler",
-            "severity": 6.0,
-            "evidence": "joined with"
-          }
-        ],
-        "equation": "氵 water (drops) + 工 work = 江 Yangtze",
-        "mnemonic": "A 氵 water joined with a 工 work gives shape to 江 Yangtze.",
-        "components": [
-          {
-            "character": "氵",
-            "gloss": "water (drops)"
-          },
-          {
-            "character": "工",
-            "gloss": "work"
-          }
-        ],
-        "component_source": "resolved_ids_forward",
-        "generation_source": "gemini35_reviewed_1000"
-      },
-      {
-        "character": "療",
-        "meaning": "cure",
-        "frequency_rank": 644,
-        "quality_status": "rewrite",
-        "quality_score": 6.0,
-        "review_priority": 11.513,
-        "flags": [
-          {
-            "code": "generic_filler",
-            "severity": 6.0,
-            "evidence": "joined with"
-          }
-        ],
-        "equation": "疒 sickness + 尞 burnt offering = 療 cure",
-        "mnemonic": "A 疒 sickness joined with a 尞 burnt offering gives shape to 療 cure.",
-        "components": [
-          {
-            "character": "疒",
-            "gloss": "sickness"
-          },
-          {
-            "character": "尞",
-            "gloss": "burnt offering"
-          }
-        ],
-        "component_source": "resolved_ids_forward",
-        "generation_source": "gemini35_reviewed_1000"
-      },
       {
         "character": "弾",
         "meaning": "bullet",
@@ -964,35 +872,6 @@
         "generation_source": "gemini35_reviewed_1000"
       },
       {
-        "character": "欧",
-        "meaning": "Europe",
-        "frequency_rank": 1054,
-        "quality_status": "rewrite",
-        "quality_score": 6.0,
-        "review_priority": 11.22,
-        "flags": [
-          {
-            "code": "generic_filler",
-            "severity": 6.0,
-            "evidence": "joined with"
-          }
-        ],
-        "equation": "区 region + 欠 deficient = 欧 Europe",
-        "mnemonic": "A 区 region joined with a 欠 deficient gives shape to 欧 Europe.",
-        "components": [
-          {
-            "character": "区",
-            "gloss": "region"
-          },
-          {
-            "character": "欠",
-            "gloss": "deficient"
-          }
-        ],
-        "component_source": "resolved_ids_forward",
-        "generation_source": "gemini35_reviewed_1000"
-      },
-      {
         "character": "漢",
         "meaning": "Han",
         "frequency_rank": 1063,
@@ -1063,31 +942,6 @@
         ],
         "component_source": "resolved_ids_forward+manual_ids_override+manual_quality_override",
         "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-      },
-      {
-        "character": "工",
-        "meaning": "work",
-        "frequency_rank": 402,
-        "quality_status": "review",
-        "quality_score": 5.0,
-        "review_priority": 9.855,
-        "flags": [
-          {
-            "code": "tautological_self_form",
-            "severity": 5.0,
-            "evidence": "is the memory image"
-          }
-        ],
-        "equation": "Visual form: 工 work",
-        "mnemonic": "The straight workbench shape of 工 work is the memory image.",
-        "components": [
-          {
-            "character": "工",
-            "gloss": "work"
-          }
-        ],
-        "component_source": "ids+manual_quality_override",
-        "generation_source": "codex_manual_quality_patch_2026_07_08"
       },
       {
         "character": "高",
@@ -1590,17 +1444,206 @@
         ],
         "component_source": "resolved_ids_forward",
         "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
+      },
+      {
+        "character": "林",
+        "meaning": "woods",
+        "frequency_rank": 624,
+        "quality_status": "review",
+        "quality_score": 4.0,
+        "review_priority": 7.689,
+        "flags": [
+          {
+            "code": "duplicated_component_meaning",
+            "severity": 4.0,
+            "evidence": [
+              [
+                "木",
+                "木"
+              ]
+            ]
+          }
+        ],
+        "equation": "木 tree + 木 tree = 林 woods",
+        "mnemonic": "木 tree beside 木 tree becomes 林 woods.",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "木",
+            "gloss": "tree"
+          }
+        ],
+        "component_source": "resolved_ids_forward+manual_quality_override",
+        "generation_source": "codex_manual_quality_patch_2026_07_08"
+      },
+      {
+        "character": "替",
+        "meaning": "replace",
+        "frequency_rank": 880,
+        "quality_status": "review",
+        "quality_score": 4.0,
+        "review_priority": 7.549,
+        "flags": [
+          {
+            "code": "duplicated_component_meaning",
+            "severity": 4.0,
+            "evidence": [
+              [
+                "夫",
+                "夫"
+              ]
+            ]
+          }
+        ],
+        "equation": "夫 husband + 夫 husband + 曰 speech = 替 replace",
+        "mnemonic": "One 夫 husband finishes the 曰 speech when another 夫 husband must 替 replace him.",
+        "components": [
+          {
+            "character": "夫",
+            "gloss": "husband"
+          },
+          {
+            "character": "夫",
+            "gloss": "husband"
+          },
+          {
+            "character": "曰",
+            "gloss": "speech"
+          }
+        ],
+        "component_source": "resolved_ids_forward+manual_ids_override+manual_quality_override",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
+      },
+      {
+        "character": "弱",
+        "meaning": "weak",
+        "frequency_rank": 895,
+        "quality_status": "review",
+        "quality_score": 4.0,
+        "review_priority": 7.543,
+        "flags": [
+          {
+            "code": "duplicated_component_meaning",
+            "severity": 4.0,
+            "evidence": [
+              [
+                "尿",
+                "尿"
+              ]
+            ]
+          }
+        ],
+        "equation": "尿 urine + 尿 urine = 弱 weak",
+        "mnemonic": "Two streams—one of 尿 urine and another of 尿 urine—dwindle until both are 弱 weak.",
+        "components": [
+          {
+            "character": "尿",
+            "gloss": "urine"
+          },
+          {
+            "character": "尿",
+            "gloss": "urine"
+          }
+        ],
+        "component_source": "dictionary_component_fallback",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
+      },
+      {
+        "character": "縄",
+        "meaning": "rope",
+        "frequency_rank": 1072,
+        "quality_status": "review",
+        "quality_score": 4.0,
+        "review_priority": 7.474,
+        "flags": [
+          {
+            "code": "duplicated_component_meaning",
+            "severity": 4.0,
+            "evidence": [
+              [
+                "日",
+                "日"
+              ]
+            ]
+          }
+        ],
+        "equation": "糸 thread + 日 day + 乚 turning hook + 日 day = 縄 rope",
+        "mnemonic": "From one 日 day to the next 日 day, a 乚 turning hook twists 糸 thread into sturdy 縄 rope.",
+        "components": [
+          {
+            "character": "糸",
+            "gloss": "thread"
+          },
+          {
+            "character": "日",
+            "gloss": "day"
+          },
+          {
+            "character": "乚",
+            "gloss": "turning hook"
+          },
+          {
+            "character": "日",
+            "gloss": "day"
+          }
+        ],
+        "component_source": "resolved_ids_forward",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
+      },
+      {
+        "character": "呂",
+        "meaning": "spine",
+        "frequency_rank": 1207,
+        "quality_status": "review",
+        "quality_score": 4.0,
+        "review_priority": 7.43,
+        "flags": [
+          {
+            "code": "duplicated_component_meaning",
+            "severity": 4.0,
+            "evidence": [
+              [
+                "口",
+                "口"
+              ]
+            ]
+          }
+        ],
+        "equation": "口 mouth + 丿 slash + 口 mouth = 呂 spine",
+        "mnemonic": "A 丿 slash links one 口 mouth above another 口 mouth along a segmented 呂 spine.",
+        "components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "丿",
+            "gloss": "slash"
+          },
+          {
+            "character": "口",
+            "gloss": "mouth"
+          }
+        ],
+        "component_source": "resolved_ids_forward",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
       }
     ],
     "full_review_count": 0,
     "certification_status": "expedited_non_certified"
   },
   "gpt56_expedited_release": {
-    "materialized_card_projection_hash": "sha256:073825674f845f7ba6cffe2a2dcdfae893d9975ca9ca2530099f477aa4a70776",
+    "certification_status": "expedited_non_certified",
+    "materialized_card_projection_hash": "sha256:1e263b0744cc65ebb20217abba1190115621d29ea85dce1f8dfd23fd6643f99a",
     "formal_validation": {
       "count": 24037,
       "invalid_count": 0
     },
-    "editorial_ledger_sha256": "sha256:5bab8d681ebecd2a5be09a49cb1f73664bbd50e4ea3b93ebd90e62e30f2019a4"
+    "source_candidate_sha256": "sha256:28e5dace4a376d0c341f626e9127fdb24e70181cae6d3d90a2f14d42131becdc",
+    "promoted_rewrite_count": 1007,
+    "unfinished_484_card_repair_drafts_merged": false
   }
 }

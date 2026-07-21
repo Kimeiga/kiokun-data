@@ -1,6 +1,6 @@
 {
-  "created_at": "2026-07-19T14:22:55.757185+00:00",
-  "artifact_created_at": "2026-07-19T14:22:54.142148+00:00",
+  "created_at": "2026-07-21T00:43:23.362252+00:00",
+  "artifact_created_at": "2026-07-21T00:43:22.495194+00:00",
   "methodology": "Formal validity and learning quality are separate. Flags are deterministic review signals; abstract meanings and variant forms are not automatically bad, while generic filler is a rewrite signal.",
   "taxonomy": {
     "generic_filler": {
@@ -2083,9 +2083,9 @@
   },
   "count": 24037,
   "quality_status_counts": {
-    "pass": 22597,
-    "review": 1407,
-    "rewrite": 33
+    "pass": 22602,
+    "review": 1406,
+    "rewrite": 29
   },
   "flag_counts": {
     "variant_form_needs_review": 832,
@@ -2093,104 +2093,12 @@
     "duplicated_component_meaning": 237,
     "opaque_component_gloss": 21,
     "unhelpful_final_gloss": 14,
-    "generic_filler": 9,
     "learner_facing_weirdness": 8,
-    "tautological_self_form": 1
+    "generic_filler": 5
   },
-  "flagged_count": 1440,
-  "ranked_count": 1440,
+  "flagged_count": 1435,
+  "ranked_count": 1435,
   "ranked": [
-    {
-      "character": "歳",
-      "meaning": "years of age",
-      "frequency_rank": 268,
-      "quality_status": "rewrite",
-      "quality_score": 6.0,
-      "review_priority": 12.126,
-      "flags": [
-        {
-          "code": "generic_filler",
-          "severity": 6.0,
-          "evidence": "give shape to"
-        }
-      ],
-      "equation": "止 stop + 戌 11th terrestrial branch + 小 small = 歳 years of age",
-      "mnemonic": "A 止 stop, a 戌 11th terrestrial branch, and a 小 small give shape to 歳 years of age.",
-      "components": [
-        {
-          "character": "止",
-          "gloss": "stop"
-        },
-        {
-          "character": "戌",
-          "gloss": "11th terrestrial branch"
-        },
-        {
-          "character": "小",
-          "gloss": "small"
-        }
-      ],
-      "component_source": "resolved_ids_forward",
-      "generation_source": "gemini35_reviewed_1000"
-    },
-    {
-      "character": "江",
-      "meaning": "Yangtze",
-      "frequency_rank": 290,
-      "quality_status": "rewrite",
-      "quality_score": 6.0,
-      "review_priority": 12.065,
-      "flags": [
-        {
-          "code": "generic_filler",
-          "severity": 6.0,
-          "evidence": "joined with"
-        }
-      ],
-      "equation": "氵 water (drops) + 工 work = 江 Yangtze",
-      "mnemonic": "A 氵 water joined with a 工 work gives shape to 江 Yangtze.",
-      "components": [
-        {
-          "character": "氵",
-          "gloss": "water (drops)"
-        },
-        {
-          "character": "工",
-          "gloss": "work"
-        }
-      ],
-      "component_source": "resolved_ids_forward",
-      "generation_source": "gemini35_reviewed_1000"
-    },
-    {
-      "character": "療",
-      "meaning": "cure",
-      "frequency_rank": 644,
-      "quality_status": "rewrite",
-      "quality_score": 6.0,
-      "review_priority": 11.513,
-      "flags": [
-        {
-          "code": "generic_filler",
-          "severity": 6.0,
-          "evidence": "joined with"
-        }
-      ],
-      "equation": "疒 sickness + 尞 burnt offering = 療 cure",
-      "mnemonic": "A 疒 sickness joined with a 尞 burnt offering gives shape to 療 cure.",
-      "components": [
-        {
-          "character": "疒",
-          "gloss": "sickness"
-        },
-        {
-          "character": "尞",
-          "gloss": "burnt offering"
-        }
-      ],
-      "component_source": "resolved_ids_forward",
-      "generation_source": "gemini35_reviewed_1000"
-    },
     {
       "character": "弾",
       "meaning": "bullet",
@@ -2279,35 +2187,6 @@
       "generation_source": "gemini35_reviewed_1000"
     },
     {
-      "character": "欧",
-      "meaning": "Europe",
-      "frequency_rank": 1054,
-      "quality_status": "rewrite",
-      "quality_score": 6.0,
-      "review_priority": 11.22,
-      "flags": [
-        {
-          "code": "generic_filler",
-          "severity": 6.0,
-          "evidence": "joined with"
-        }
-      ],
-      "equation": "区 region + 欠 deficient = 欧 Europe",
-      "mnemonic": "A 区 region joined with a 欠 deficient gives shape to 欧 Europe.",
-      "components": [
-        {
-          "character": "区",
-          "gloss": "region"
-        },
-        {
-          "character": "欠",
-          "gloss": "deficient"
-        }
-      ],
-      "component_source": "resolved_ids_forward",
-      "generation_source": "gemini35_reviewed_1000"
-    },
-    {
       "character": "漢",
       "meaning": "Han",
       "frequency_rank": 1063,
@@ -2378,31 +2257,6 @@
       ],
       "component_source": "resolved_ids_forward+manual_ids_override+manual_quality_override",
       "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-    },
-    {
-      "character": "工",
-      "meaning": "work",
-      "frequency_rank": 402,
-      "quality_status": "review",
-      "quality_score": 5.0,
-      "review_priority": 9.855,
-      "flags": [
-        {
-          "code": "tautological_self_form",
-          "severity": 5.0,
-          "evidence": "is the memory image"
-        }
-      ],
-      "equation": "Visual form: 工 work",
-      "mnemonic": "The straight workbench shape of 工 work is the memory image.",
-      "components": [
-        {
-          "character": "工",
-          "gloss": "work"
-        }
-      ],
-      "component_source": "ids+manual_quality_override",
-      "generation_source": "codex_manual_quality_patch_2026_07_08"
     },
     {
       "character": "高",
@@ -2998,7 +2852,7 @@
         }
       ],
       "equation": "尿 urine + 尿 urine = 弱 weak",
-      "mnemonic": "Two arcs—one 尿 urine and another 尿 urine—droop instead of holding firm, so both look 弱 weak.",
+      "mnemonic": "Two streams—one of 尿 urine and another of 尿 urine—dwindle until both are 弱 weak.",
       "components": [
         {
           "character": "尿",
@@ -4458,7 +4312,7 @@
         }
       ],
       "equation": "井 well + 井 well = 㐩 wine",
-      "mnemonic": "At a feast, one 井 well chills the jars while another 井 well supplies water beside the 㐩 wine.",
+      "mnemonic": "At one 井 well, guests lower empty cups; at the other 井 well, they raise them brimming with 㐩 wine.",
       "components": [
         {
           "character": "井",
@@ -5293,7 +5147,7 @@
         }
       ],
       "equation": "辛 peppery + 心 heart + 辛 peppery = 㦚 grievous",
-      "mnemonic": "A 心 heart finds sorrow 㦚 grievous when one 辛 peppery sting is doubled by another 辛 peppery sting.",
+      "mnemonic": "One 辛 peppery sting after another 辛 peppery sting weighs upon the 心 heart as a 㦚 grievous burden.",
       "components": [
         {
           "character": "辛",
@@ -6798,7 +6652,7 @@
         }
       ],
       "equation": "者 person + 虫 insects + 虫 insects = 䘄 cicada family",
-      "mnemonic": "A 者 person hears one chorus of 虫 insects answer another as the 䘄 cicada family fills the trees with 虫 insects.",
+      "mnemonic": "A 者 person hears 虫 insects answer 虫 insects in the treetop chorus of the 䘄 cicada family.",
       "components": [
         {
           "character": "者",
@@ -7072,7 +6926,7 @@
         }
       ],
       "equation": "文 writing + 文 writing + 貝 shell = 䝺 Pierce Through",
-      "mnemonic": "Guided by 文 writing and more 文 writing, a needle enters one side of a 貝 shell and exits the other to 䝺 Pierce Through it.",
+      "mnemonic": "A stylus traces one 文 writing over another 文 writing until it can 䝺 Pierce Through the 貝 shell.",
       "components": [
         {
           "character": "文",
@@ -8227,7 +8081,7 @@
         }
       ],
       "equation": "可 can + 可 can = 哥 older brother",
-      "mnemonic": "As the 哥 older brother, a boy reassures two younger siblings: one 可 can climb and the other 可 can follow.",
+      "mnemonic": "The boy who 可 can guide and 可 can protect his younger siblings is the 哥 older brother.",
       "components": [
         {
           "character": "可",
@@ -9161,7 +9015,7 @@
         }
       ],
       "equation": "◎ marker + ◎ marker = 弗 negative",
-      "mnemonic": "The second ◎ marker reverses the first ◎ marker, making the verdict 弗 negative.",
+      "mnemonic": "One ◎ marker fixes zero on a thermometer; the other ◎ marker falls below it into 弗 negative territory.",
       "components": [
         {
           "character": "◎",
@@ -9915,7 +9769,7 @@
         }
       ],
       "equation": "幺 thread + 白 white + 幺 thread + 木 tree = 樂 music",
-      "mnemonic": "A 幺 thread and another 幺 thread flank 白 white notes on a 木 tree frame, becoming 樂 music.",
+      "mnemonic": "A 白 white instrument carved from a 木 tree sends 樂 music through one 幺 thread and another 幺 thread.",
       "components": [
         {
           "character": "幺",
@@ -10444,7 +10298,7 @@
         }
       ],
       "equation": "一 one + 田 rice field + 一 one + 田 rice field + 一 one = 畺 border",
-      "mnemonic": "The 畺 border places 一 one above a 田 rice field, 一 one between it and another 田 rice field, and 一 one below.",
+      "mnemonic": "一 one line tops a 田 rice field, 一 one divides it from another 田 rice field, and 一 one closes the 畺 border below.",
       "components": [
         {
           "character": "一",
@@ -10899,7 +10753,7 @@
         }
       ],
       "equation": "丨 line + 丨 line + 又 hand + 糸 thread = 紧 tense",
-      "mnemonic": "A 丨 line and another 丨 line brace a 又 hand pulling 糸 thread until it becomes 紧 tense.",
+      "mnemonic": "A 又 hand stretches 糸 thread between one 丨 line and another 丨 line until it is 紧 tense.",
       "components": [
         {
           "character": "丨",
@@ -11952,7 +11806,7 @@
         }
       ],
       "equation": "丆 reading mark + 回 return = 靣 face",
-      "mnemonic": "A 丆 reading mark serves as the brow above 回 return, which encloses the eyes and mouth of a 靣 face.",
+      "mnemonic": "Beneath a 丆 reading mark, two enclosed eyes 回 return your gaze from a 靣 face.",
       "components": [
         {
           "character": "丆",
@@ -13003,7 +12857,7 @@
         }
       ],
       "equation": "木 tree + 彝 ancient wine vessel = 㰘 kind of tree",
-      "mnemonic": "Woodworkers choose a 木 tree to carve a 彝 ancient wine vessel, seeking the workable 㰘 kind of tree.",
+      "mnemonic": "Artisans inspect each 木 tree for the 㰘 kind of tree whose wood makes instruments for rites using a 彝 ancient wine vessel.",
       "components": [
         {
           "character": "木",
@@ -13193,7 +13047,7 @@
         }
       ],
       "equation": "牜 ox + 勿 not = 物 thing",
-      "mnemonic": "A 牜 ox marked 勿 not merely alive becomes one 物 thing.",
+      "mnemonic": "Whether the shape ahead is a 牜 ox or 勿 not, it is still a 物 thing.",
       "components": [
         {
           "character": "牜",
@@ -13487,7 +13341,7 @@
         }
       ],
       "equation": "一 one + 止 stop = 正 correct",
-      "mnemonic": "A 一 one line above 止 stop keeps the stance 正 correct.",
+      "mnemonic": "Make 一 one final check, then 止 stop when every answer is 正 correct.",
       "components": [
         {
           "character": "一",
@@ -13545,7 +13399,7 @@
         }
       ],
       "equation": "䏍 small worm + 𫧇 seal mark = 能 ability",
-      "mnemonic": "A 䏍 small worm survives under a 𫧇 seal mark, showing 能 ability.",
+      "mnemonic": "A 䏍 small worm traces every curve of a 𫧇 seal mark, demonstrating 能 ability.",
       "components": [
         {
           "character": "䏍",
@@ -13636,7 +13490,7 @@
         }
       ],
       "equation": "丬 piece of wood + 犬 dog = 状 state of affairs",
-      "mnemonic": "A 丬 piece of wood beside a 犬 dog marks the visible 状 state of affairs.",
+      "mnemonic": "A chewed 丬 piece of wood beside the 犬 dog reveals a messy 状 state of affairs.",
       "components": [
         {
           "character": "丬",
@@ -13893,7 +13747,7 @@
         }
       ],
       "equation": "𦰩 sigh + 隹 short-tailed bird = 難 difficult",
-      "mnemonic": "A faint 𦰩 sigh is the only clue to a hidden 隹 short-tailed bird, making the search 難 difficult.",
+      "mnemonic": "You 𦰩 sigh while a 隹 short-tailed bird keeps darting away, making it 難 difficult to catch.",
       "components": [
         {
           "character": "𦰩",
@@ -13951,7 +13805,7 @@
         }
       ],
       "equation": "Visual form: 州 state",
-      "mnemonic": "Three river channels divide the islands of 州 state into separate regions.",
+      "mnemonic": "Dry islands amid branching river channels become settled regions of a 州 state.",
       "components": [
         {
           "character": "州",
@@ -14059,7 +13913,7 @@
         }
       ],
       "equation": "亦 likewise + 心 heart = 恋 be enamored of",
-      "mnemonic": "If you feel affection, my 心 heart is 亦 likewise moved to 恋 be enamored of you.",
+      "mnemonic": "One person's 心 heart leans toward another; theirs 亦 likewise leans back, so both begin to 恋 be enamored of each other.",
       "components": [
         {
           "character": "亦",
@@ -14146,7 +14000,7 @@
         }
       ],
       "equation": "或 uncertain area + 心 heart = 惑 be bewildered",
-      "mnemonic": "An 或 uncertain area unsettles the 心 heart, making 惑 be bewildered.",
+      "mnemonic": "The 心 heart can 惑 be bewildered when every direction leads through an 或 uncertain area.",
       "components": [
         {
           "character": "或",
@@ -14175,7 +14029,7 @@
         }
       ],
       "equation": "忄 heart (side) + 布 cloth = 怖 be scared of",
-      "mnemonic": "You wrap your trembling 忄 heart in a protective 布 cloth when you 怖 be scared of the dark.",
+      "mnemonic": "A hanging 布 cloth billows like a figure, startling your 忄 heart so you 怖 be scared of what hides behind it.",
       "components": [
         {
           "character": "忄",
@@ -14742,7 +14596,7 @@
         }
       ],
       "equation": "覀 west (cover) + 貝 shell = 賈 merchant",
-      "mnemonic": "A 賈 merchant keeps every 貝 shell payment safe beneath a 覀 west (cover).",
+      "mnemonic": "A 賈 merchant counts 貝 shell payments beneath the 覀 west (cover) over his stall.",
       "components": [
         {
           "character": "覀",
@@ -15256,7 +15110,7 @@
         }
       ],
       "equation": "火 fire + 各 each = 烙 branding",
-      "mnemonic": "Applying 火 fire to 各 each item leaves distinctive 烙 branding.",
+      "mnemonic": "A metal stamp heated in 火 fire marks 各 each crate with distinctive 烙 branding.",
       "components": [
         {
           "character": "火",
@@ -19379,7 +19233,7 @@
         }
       ],
       "equation": "𤣩 jade (alt) + 令 orders = 玲 exquisite",
-      "mnemonic": "Strict 令 orders require every 𤣩 jade pendant to be 玲 exquisite.",
+      "mnemonic": "Under 令 orders, a jeweler carves 𤣩 jade into lace-fine detail, making it 玲 exquisite.",
       "components": [
         {
           "character": "𤣩",
@@ -19926,7 +19780,7 @@
         }
       ],
       "equation": "疒 sickness + 尞 burnt offering = 療 cure",
-      "mnemonic": "A 療 cure ends 疒 sickness while a 尞 burnt offering merely burns beside the hope.",
+      "mnemonic": "To 療 cure 疒 sickness, seek treatment rather than a 尞 burnt offering.",
       "components": [
         {
           "character": "疒",
@@ -23004,7 +22858,7 @@
         }
       ],
       "equation": "忄 heart (side) + 既 already = 慨 incensed",
-      "mnemonic": "A 忄 heart grows 慨 incensed when 既 already settled unfairness is dismissed again.",
+      "mnemonic": "A 忄 heart is 慨 incensed when injustice 既 already condemned is repeated.",
       "components": [
         {
           "character": "忄",
@@ -23344,7 +23198,7 @@
         }
       ],
       "equation": "𤣩 jade (alt) + 豖 shackled pig = 琢 chisel",
-      "mnemonic": "The care used to free a 豖 shackled pig is also needed to 琢 chisel 𤣩 jade without cracking it.",
+      "mnemonic": "An artisan can 琢 chisel a tiny 豖 shackled pig from 𤣩 jade.",
       "components": [
         {
           "character": "𤣩",
@@ -23688,7 +23542,7 @@
         }
       ],
       "equation": "竹 bamboo + 即 immediately = 節 holiday",
-      "mnemonic": "At the 節 holiday signal, 竹 bamboo flutes begin playing 即 immediately.",
+      "mnemonic": "When 竹 bamboo decorations go up, work stops 即 immediately for the 節 holiday.",
       "components": [
         {
           "character": "竹",
@@ -23775,7 +23629,7 @@
         }
       ],
       "equation": "敏 quick-witted + 糸 thread = 繁 numerous",
-      "mnemonic": "A 敏 quick-witted weaver can turn 糸 thread into 繁 numerous intricate patterns.",
+      "mnemonic": "A 敏 quick-witted weaver counts the 繁 numerous strands of 糸 thread without losing track.",
       "components": [
         {
           "character": "敏",
@@ -26236,7 +26090,7 @@
         }
       ],
       "equation": "言 speech + 青 blue or green = 請 invite",
-      "mnemonic": "Polite 言 speech paints the doorway 青 blue or green as it opens to 請 invite a guest inside.",
+      "mnemonic": "Write 言 speech asking guests to attend on a 青 blue or green card to 請 invite them.",
       "components": [
         {
           "character": "言",
@@ -26783,7 +26637,7 @@
         }
       ],
       "equation": "目 eye + 开 initiate = 䀘 block the line of sight",
-      "mnemonic": "A shutter closes as the 目 eye tries to 开 initiate a glance and begins to 䀘 block the line of sight.",
+      "mnemonic": "Closing the 目 eye can 开 initiate darkness and 䀘 block the line of sight.",
       "components": [
         {
           "character": "目",
@@ -27193,7 +27047,7 @@
         }
       ],
       "equation": "免 avoid + 丶 dot = 兔 rabbit",
-      "mnemonic": "A 丶 dot marks the tail of the 兔 rabbit, helping it 免 avoid being mistaken for the tailless form.",
+      "mnemonic": "The 丶 dot marks the bobtail of a 兔 rabbit darting away to 免 avoid capture.",
       "components": [
         {
           "character": "免",
@@ -28221,7 +28075,7 @@
         }
       ],
       "equation": "口 mouth + 王 king = 呈 submit",
-      "mnemonic": "A 口 mouth delivers a formal statement to the 王 king, beginning to 呈 submit it.",
+      "mnemonic": "A 口 mouth must respectfully address the 王 king to 呈 submit a formal petition.",
       "components": [
         {
           "character": "口",
@@ -28515,7 +28369,7 @@
         }
       ],
       "equation": "口 mouth + 契 contract = 喫 eat",
-      "mnemonic": "Hunger presents a 契 contract, and the 口 mouth signs it by beginning to 喫 eat.",
+      "mnemonic": "A meal is promised in a 契 contract, giving the hungry 口 mouth something to 喫 eat.",
       "components": [
         {
           "character": "口",
@@ -28631,7 +28485,7 @@
         }
       ],
       "equation": "囗 enclosure + 厶 secret + 十 ten + 囬 return to or from = 圗 diagram",
-      "mnemonic": "A 圗 diagram seals a 厶 secret route inside a 囗 enclosure, with 十 ten arrows marking points to 囬 return to or from.",
+      "mnemonic": "Within a 囗 enclosure, a 圗 diagram marks 十 ten points on a 厶 secret route to 囬 return to or from.",
       "components": [
         {
           "character": "囗",
@@ -28900,7 +28754,7 @@
         }
       ],
       "equation": "即 immediately + 土 earth = 堲 hate",
-      "mnemonic": "A conqueror demanding your 土 earth 即 immediately can make opposition harden into lasting 堲 hate.",
+      "mnemonic": "Seizing someone's 土 earth 即 immediately provokes 堲 hate.",
       "components": [
         {
           "character": "即",
@@ -28987,7 +28841,7 @@
         }
       ],
       "equation": "士 soldier + 冗 business = 売 sell",
-      "mnemonic": "A 士 soldier turns surplus gear into 冗 business by offering it to 売 sell.",
+      "mnemonic": "A 士 soldier opens a 冗 business to 売 sell surplus gear.",
       "components": [
         {
           "character": "士",
@@ -29252,7 +29106,7 @@
         }
       ],
       "equation": "女 woman + 叜 old = 㛮 elder brother's wife",
-      "mnemonic": "The 女 woman married to the brother who is 叜 old is the 㛮 elder brother's wife.",
+      "mnemonic": "Of two brothers, the 女 woman married to the 叜 old one is your 㛮 elder brother's wife.",
       "components": [
         {
           "character": "女",
@@ -30607,7 +30461,7 @@
         }
       ],
       "equation": "忄 heart (side) + 曾 formerly = 憎 loathe",
-      "mnemonic": "A 忄 heart still recoils from what it 曾 formerly endured, unable not to 憎 loathe it.",
+      "mnemonic": "A 忄 heart remembering what it 曾 formerly endured may 憎 loathe facing it again.",
       "components": [
         {
           "character": "忄",
@@ -30690,7 +30544,7 @@
         }
       ],
       "equation": "忄 heart (side) + 朁 nevertheless = 憯 sad",
-      "mnemonic": "Though loss weighs on a 忄 heart, it says 朁 nevertheless and carries on while 憯 sad.",
+      "mnemonic": "A 忄 heart remains 憯 sad after loss; 朁 nevertheless, it keeps moving forward.",
       "components": [
         {
           "character": "忄",
@@ -30719,7 +30573,7 @@
         }
       ],
       "equation": "忄 heart (side) + 蒙 Mongolia = 懞 cover",
-      "mnemonic": "Broad 蒙 Mongolia spreads over a 忄 heart until it can 懞 cover it.",
+      "mnemonic": "Spread a map of 蒙 Mongolia over a 忄 heart to 懞 cover it.",
       "components": [
         {
           "character": "忄",
@@ -33490,7 +33344,7 @@
         }
       ],
       "equation": "𤣩 jade (alt) + 敻 faraway = 瓊 fine jade",
-      "mnemonic": "瓊 fine jade from a 敻 faraway mine keeps its 𤣩 jade luster even after the long journey.",
+      "mnemonic": "Only 瓊 fine jade is worth carrying from a 敻 faraway mine when nearby 𤣩 jade is plentiful.",
       "components": [
         {
           "character": "𤣩",
@@ -34596,7 +34450,7 @@
         }
       ],
       "equation": "糸 thread + 羸 lean = 䌴 uneven",
-      "mnemonic": "Knots make a 糸 thread 羸 lean at irregular angles, leaving the strand 䌴 uneven.",
+      "mnemonic": "A 羸 lean section narrows the 糸 thread beside thicker sections, leaving it 䌴 uneven.",
       "components": [
         {
           "character": "糸",
@@ -34679,7 +34533,7 @@
         }
       ],
       "equation": "臯 praise + 羽 feathers = 翺 roam",
-      "mnemonic": "With 羽 feathers carrying it from place to place, a song of 臯 praise can 翺 roam across the sky.",
+      "mnemonic": "Onlookers 臯 praise the 羽 feathers carrying a bird beyond each horizon as it continues to 翺 roam.",
       "components": [
         {
           "character": "臯",
@@ -35955,7 +35809,7 @@
         }
       ],
       "equation": "虫 insects + 茲 herein = 螆 hairy and poisonous",
-      "mnemonic": "The bristling 虫 insects gathered 茲 herein stay inside a warning ring because they are 螆 hairy and poisonous.",
+      "mnemonic": "Because the bristling 虫 insects gathered 茲 herein are 螆 hairy and poisonous, observers keep their distance.",
       "components": [
         {
           "character": "虫",
@@ -36042,7 +35896,7 @@
         }
       ],
       "equation": "虫 insects + 慈 kindhearted = 䗹 hairy caterpillar",
-      "mnemonic": "A 慈 kindhearted member of the 虫 insects wears a dense fuzzy coat as a 䗹 hairy caterpillar.",
+      "mnemonic": "A 慈 kindhearted gardener gently moves a 䗹 hairy caterpillar, one of the fuzzy 虫 insects, off the path.",
       "components": [
         {
           "character": "虫",
@@ -36701,7 +36555,7 @@
         }
       ],
       "equation": "金 metal + 强 strong = 鏹 coins",
-      "mnemonic": "Only 强 strong 金 metal survives countless exchanges as durable 鏹 coins.",
+      "mnemonic": "A 强 strong stamp presses matching 鏹 coins from 金 metal blanks.",
       "components": [
         {
           "character": "金",
@@ -37078,7 +36932,7 @@
         }
       ],
       "equation": "飠 food + 半 half = 䬳 cakes made of rice flour",
-      "mnemonic": "Each 半 half scoop of rice-flour batter becomes one round of 飠 food in a batch of 䬳 cakes made of rice flour.",
+      "mnemonic": "Divide rice-flour 飠 food into 半 half portions, shaping each into one of the 䬳 cakes made of rice flour.",
       "components": [
         {
           "character": "飠",
@@ -37455,7 +37309,7 @@
         }
       ],
       "equation": "知 know + 黽 toad = 鼅 spider",
-      "mnemonic": "A 黽 toad comes to 知 know the eight-legged web-weaver as a 鼅 spider.",
+      "mnemonic": "When a 黽 toad sees eight legs on a silken web, it can 知 know a 鼅 spider is near.",
       "components": [
         {
           "character": "知",
@@ -38408,7 +38262,7 @@
         }
       ],
       "equation": "日 day + 半 half = 㫠 kind of water",
-      "mnemonic": "Fold the reflection of one 日 day in 半 half, and it pours out as a 㫠 kind of water.",
+      "mnemonic": "A 日 day glitters across 半 half the surface of a 㫠 kind of water.",
       "components": [
         {
           "character": "日",
@@ -40331,7 +40185,7 @@
         }
       ],
       "equation": "亻 person (side) + 又 hand = 仅 only",
-      "mnemonic": "The 亻 person gives the task to a 又 hand, relying 仅 only on it.",
+      "mnemonic": "A 亻 person (side) obeys a commanding 又 hand and can 仅 only go where it points.",
       "components": [
         {
           "character": "亻",
@@ -41371,7 +41225,7 @@
         }
       ],
       "equation": "女 woman + 勺 ladle = 妁 act as go-between",
-      "mnemonic": "A 女 woman carries a 勺 ladle between two negotiating tables to 妁 act as go-between.",
+      "mnemonic": "At a shared meal, a 女 woman passes the 勺 ladle between two families to 妁 act as go-between.",
       "components": [
         {
           "character": "女",
@@ -43492,7 +43346,7 @@
         }
       ],
       "equation": "艹 grass (top) + 𥝢 take advantage + 木 tree = 蔾 kind of bramble",
-      "mnemonic": "A 蔾 kind of bramble lets thorny 艹 grass 𥝢 take advantage of a 木 tree as climbing support.",
+      "mnemonic": "Thorny stems 𥝢 take advantage of a 木 tree, climbing from 艹 grass as a 蔾 kind of bramble.",
       "components": [
         {
           "character": "艹",
@@ -45862,7 +45716,7 @@
         }
       ],
       "equation": "Visual form: 𣔨 be entangled",
-      "mnemonic": "The crossing inner strokes of 𣔨 be entangled like vines twisting tightly around one another.",
+      "mnemonic": "Crossing inner strokes resemble vines beginning to 𣔨 be entangled tightly around one another.",
       "components": [
         {
           "character": "𣔨",
@@ -46150,11 +46004,13 @@
   ],
   "gpt56_expedited_release": {
     "certification_status": "expedited_non_certified",
-    "materialized_card_projection_hash": "sha256:073825674f845f7ba6cffe2a2dcdfae893d9975ca9ca2530099f477aa4a70776",
+    "materialized_card_projection_hash": "sha256:1e263b0744cc65ebb20217abba1190115621d29ea85dce1f8dfd23fd6643f99a",
     "formal_validation": {
       "count": 24037,
       "invalid_count": 0
     },
-    "editorial_ledger_sha256": "sha256:5bab8d681ebecd2a5be09a49cb1f73664bbd50e4ea3b93ebd90e62e30f2019a4"
+    "source_candidate_sha256": "sha256:28e5dace4a376d0c341f626e9127fdb24e70181cae6d3d90a2f14d42131becdc",
+    "promoted_rewrite_count": 1007,
+    "unfinished_484_card_repair_drafts_merged": false
   }
 }
