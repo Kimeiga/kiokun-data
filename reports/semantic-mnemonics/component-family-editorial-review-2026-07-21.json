@@ -1,0 +1,1064 @@
+{
+  "schema_version": 1,
+  "review_id": "component-family-editorial-review-2026-07-21",
+  "policy_version": "2026-07-21.2",
+  "source_risk_report": "reports/semantic-mnemonics/component-family-risk-review-2026-07-21.json",
+  "reviewed_finding_count": 150,
+  "decision_counts": {
+    "keep": 125,
+    "repair": 25
+  },
+  "method": "Manual disposition of each ranked finding; source-string heuristics never authorize a change by themselves.",
+  "decisions": [
+    {
+      "family": "頁",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 234,
+      "decision": "keep",
+      "reason": "Already correctly separates 页 page as a lexical target from 頁/页 head as the reusable component image."
+    },
+    {
+      "family": "廣",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 174,
+      "decision": "repair",
+      "reason": "Clear local source evidence and meaningful learner impact; included in the bounded family overlay."
+    },
+    {
+      "family": "屍",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 79,
+      "decision": "repair",
+      "reason": "Clear local source evidence and meaningful learner impact; included in the bounded family overlay."
+    },
+    {
+      "family": "廠",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 73,
+      "decision": "repair",
+      "reason": "Clear local source evidence and meaningful learner impact; included in the bounded family overlay."
+    },
+    {
+      "family": "幾",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 59,
+      "decision": "repair",
+      "reason": "Clear local source evidence and meaningful learner impact; included in the bounded family overlay."
+    },
+    {
+      "family": "兒",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 57,
+      "decision": "repair",
+      "reason": "Clear local source evidence and meaningful learner impact; included in the bounded family overlay."
+    },
+    {
+      "family": "幹",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 57,
+      "decision": "repair",
+      "reason": "Clear local source evidence and meaningful learner impact; included in the bounded family overlay."
+    },
+    {
+      "family": "乾",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 56,
+      "decision": "repair",
+      "reason": "Clear local source evidence and meaningful learner impact; included in the bounded family overlay."
+    },
+    {
+      "family": "乹",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 54,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "亁",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 54,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "堯",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 48,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "鬥",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 48,
+      "decision": "repair",
+      "reason": "Clear local source evidence and meaningful learner impact; included in the bounded family overlay."
+    },
+    {
+      "family": "齊",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 43,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "檯",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 40,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "颱",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 40,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "於",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 38,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "穀",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 38,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "衕",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 37,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "侖",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 34,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "裡",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 33,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "豐",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 30,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "麵",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 30,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "幺",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 27,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "齣",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 27,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "樂",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 26,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "耑",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 26,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "鹹",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 24,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "歷",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 23,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "韆",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 23,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "𱁶",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 23,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "唸",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 22,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "醜",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 22,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "復",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 21,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "纍",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 21,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "耑",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 20,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "衚",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 20,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "鬍",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 20,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "埰",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 18,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "嬰",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 18,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "採",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 18,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "誇",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 18,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "閒",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 18,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "發",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 17,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "後",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 16,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "習",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 16,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "複",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 15,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "覆",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 15,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "盡",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 13,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "術",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 13,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "麯",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 13,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "剋",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 12,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "鞏",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 12,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "捨",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 11,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "曏",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 11,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "係",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 10,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "佈",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 9,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "侷",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 9,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "噹",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 9,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "睏",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 9,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "繫",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 9,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "慄",
+      "kind": "simplification_collision",
+      "downstream_occurrences": 8,
+      "decision": "keep",
+      "reason": "The merged simplified graph genuinely carries distinct lineages or the current labels are transparent near-synonyms; no forced normalization."
+    },
+    {
+      "family": "月",
+      "kind": "context_contradiction_anatomy",
+      "downstream_occurrences": 1,
+      "decision": "repair",
+      "reason": "Clear local source evidence and meaningful learner impact; included in the bounded family overlay."
+    },
+    {
+      "family": "月",
+      "kind": "context_contradiction_anatomy",
+      "downstream_occurrences": 1,
+      "decision": "repair",
+      "reason": "Clear local source evidence and meaningful learner impact; included in the bounded family overlay."
+    },
+    {
+      "family": "月",
+      "kind": "context_contradiction_anatomy",
+      "downstream_occurrences": 1,
+      "decision": "repair",
+      "reason": "Clear local source evidence and meaningful learner impact; included in the bounded family overlay."
+    },
+    {
+      "family": "月",
+      "kind": "context_contradiction_anatomy",
+      "downstream_occurrences": 1,
+      "decision": "repair",
+      "reason": "Clear local source evidence and meaningful learner impact; included in the bounded family overlay."
+    },
+    {
+      "family": "月",
+      "kind": "context_contradiction_anatomy",
+      "downstream_occurrences": 1,
+      "decision": "repair",
+      "reason": "Clear local source evidence and meaningful learner impact; included in the bounded family overlay."
+    },
+    {
+      "family": "月",
+      "kind": "context_contradiction_anatomy",
+      "downstream_occurrences": 1,
+      "decision": "repair",
+      "reason": "Clear local source evidence and meaningful learner impact; included in the bounded family overlay."
+    },
+    {
+      "family": "氵",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 929,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "艹",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 886,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "扌",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 714,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "亻",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 558,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "金",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 532,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "言",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 432,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "言",
+      "kind": "variant_or_archaic_primitive",
+      "downstream_occurrences": 432,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "虫",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 422,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "忄",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 413,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "⺼",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 363,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "日",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 348,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "疒",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 287,
+      "decision": "keep",
+      "reason": "The broad source-string signal is not sufficient evidence of a learner-facing error after manual context review."
+    },
+    {
+      "family": "𤣩",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 270,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "𧾷",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 261,
+      "decision": "repair",
+      "reason": "Clear local source evidence and meaningful learner impact; included in the bounded family overlay."
+    },
+    {
+      "family": "禾",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 245,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "辶",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 213,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "衤",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 211,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "飠",
+      "kind": "variant_concept_drift",
+      "downstream_occurrences": 209,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "犭",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 206,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "頁",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 181,
+      "decision": "keep",
+      "reason": "Already correctly separates 页 page as a lexical target from 頁/页 head as the reusable component image."
+    },
+    {
+      "family": "頁",
+      "kind": "variant_or_archaic_primitive",
+      "downstream_occurrences": 181,
+      "decision": "keep",
+      "reason": "Already correctly separates 页 page as a lexical target from 頁/页 head as the reusable component image."
+    },
+    {
+      "family": "刂",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 179,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "⻏",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 175,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "貝",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 164,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "貝",
+      "kind": "variant_or_archaic_primitive",
+      "downstream_occurrences": 164,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "广",
+      "kind": "variant_or_archaic_primitive",
+      "downstream_occurrences": 161,
+      "decision": "repair",
+      "reason": "Clear local source evidence and meaningful learner impact; included in the bounded family overlay."
+    },
+    {
+      "family": "飠",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 160,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "酉",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 157,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "巾",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 154,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "纟",
+      "kind": "variant_or_archaic_primitive",
+      "downstream_occurrences": 151,
+      "decision": "keep",
+      "reason": "The broad source-string signal is not sufficient evidence of a learner-facing error after manual context review."
+    },
+    {
+      "family": "穴",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 137,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "田",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 128,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "門",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 128,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "欠",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 120,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "攵",
+      "kind": "apparent_ids_high_impact",
+      "downstream_occurrences": 114,
+      "decision": "keep",
+      "reason": "The apparent split remains a stable, useful visual analysis and does not create a misleading downstream primitive."
+    },
+    {
+      "family": "隹",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 111,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "鱼",
+      "kind": "variant_or_archaic_primitive",
+      "downstream_occurrences": 103,
+      "decision": "keep",
+      "reason": "The broad source-string signal is not sufficient evidence of a learner-facing error after manual context review."
+    },
+    {
+      "family": "又",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 95,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "彳",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 95,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "瓦",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 95,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "鸟",
+      "kind": "variant_or_archaic_primitive",
+      "downstream_occurrences": 93,
+      "decision": "keep",
+      "reason": "The broad source-string signal is not sufficient evidence of a learner-facing error after manual context review."
+    },
+    {
+      "family": "毛",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 90,
+      "decision": "keep",
+      "reason": "The broad source-string signal is not sufficient evidence of a learner-facing error after manual context review."
+    },
+    {
+      "family": "贝",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 86,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "贝",
+      "kind": "variant_or_archaic_primitive",
+      "downstream_occurrences": 86,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "羽",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 83,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "骨",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 83,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "歹",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 82,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "歹",
+      "kind": "variant_or_archaic_primitive",
+      "downstream_occurrences": 82,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "立",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 81,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "十",
+      "kind": "variant_or_archaic_primitive",
+      "downstream_occurrences": 78,
+      "decision": "keep",
+      "reason": "The broad source-string signal is not sufficient evidence of a learner-facing error after manual context review."
+    },
+    {
+      "family": "马",
+      "kind": "variant_or_archaic_primitive",
+      "downstream_occurrences": 77,
+      "decision": "repair",
+      "reason": "Clear local source evidence and meaningful learner impact; included in the bounded family overlay."
+    },
+    {
+      "family": "囗",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 76,
+      "decision": "repair",
+      "reason": "Clear local source evidence and meaningful learner impact; included in the bounded family overlay."
+    },
+    {
+      "family": "牜",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 76,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "囗",
+      "kind": "variant_or_archaic_primitive",
+      "downstream_occurrences": 76,
+      "decision": "repair",
+      "reason": "Clear local source evidence and meaningful learner impact; included in the bounded family overlay."
+    },
+    {
+      "family": "月",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 74,
+      "decision": "repair",
+      "reason": "Clear local source evidence and meaningful learner impact; included in the bounded family overlay."
+    },
+    {
+      "family": "厂",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 73,
+      "decision": "repair",
+      "reason": "Clear local source evidence and meaningful learner impact; included in the bounded family overlay."
+    },
+    {
+      "family": "厂",
+      "kind": "variant_or_archaic_primitive",
+      "downstream_occurrences": 73,
+      "decision": "repair",
+      "reason": "Clear local source evidence and meaningful learner impact; included in the bounded family overlay."
+    },
+    {
+      "family": "丿",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 69,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "衣",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 69,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "齒",
+      "kind": "variant_concept_drift",
+      "downstream_occurrences": 68,
+      "decision": "repair",
+      "reason": "Clear local source evidence and meaningful learner impact; included in the bounded family overlay."
+    },
+    {
+      "family": "厶",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 67,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "戈",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 64,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "者",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 64,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "婁",
+      "kind": "variant_concept_drift",
+      "downstream_occurrences": 63,
+      "decision": "repair",
+      "reason": "Clear local source evidence and meaningful learner impact; included in the bounded family overlay."
+    },
+    {
+      "family": "车",
+      "kind": "variant_or_archaic_primitive",
+      "downstream_occurrences": 63,
+      "decision": "keep",
+      "reason": "The broad source-string signal is not sufficient evidence of a learner-facing error after manual context review."
+    },
+    {
+      "family": "黑",
+      "kind": "variant_or_archaic_primitive",
+      "downstream_occurrences": 63,
+      "decision": "keep",
+      "reason": "The broad source-string signal is not sufficient evidence of a learner-facing error after manual context review."
+    },
+    {
+      "family": "占",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 58,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "合",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 58,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "斤",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 58,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "方",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 58,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "灬",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 58,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "门",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 58,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "占",
+      "kind": "variant_or_archaic_primitive",
+      "downstream_occurrences": 58,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "门",
+      "kind": "variant_or_archaic_primitive",
+      "downstream_occurrences": 58,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "攴",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 57,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "皮",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 57,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "罒",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 57,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "寸",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 56,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "角",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 56,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "韋",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 56,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "寸",
+      "kind": "variant_or_archaic_primitive",
+      "downstream_occurrences": 56,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "止",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 55,
+      "decision": "keep",
+      "reason": "The reported source/target difference is an intentional concrete or positional component-mode gloss, not drift."
+    },
+    {
+      "family": "干",
+      "kind": "source_target_gloss_drift",
+      "downstream_occurrences": 54,
+      "decision": "repair",
+      "reason": "Clear local source evidence and meaningful learner impact; included in the bounded family overlay."
+    }
+  ]
+}

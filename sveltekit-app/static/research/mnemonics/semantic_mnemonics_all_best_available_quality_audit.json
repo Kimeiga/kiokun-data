@@ -1,6 +1,6 @@
 {
-  "created_at": "2026-07-21T00:43:23.362252+00:00",
-  "artifact_created_at": "2026-07-21T00:43:22.495194+00:00",
+  "created_at": "2026-07-21T06:35:39.921332+00:00",
+  "artifact_created_at": "2026-07-21T06:35:37.472873+00:00",
   "methodology": "Formal validity and learning quality are separate. Flags are deterministic review signals; abstract meanings and variant forms are not automatically bad, while generic filler is a rewrite signal.",
   "taxonomy": {
     "generic_filler": {
@@ -2277,8 +2277,8 @@
           ]
         }
       ],
-      "equation": "亠 lid + 口 mouth + 冂 large room + 口 mouth = 高 tall",
-      "mnemonic": "Under a 亠 lid, one 口 mouth calls from the top of a 冂 large room to another 口 mouth far below, revealing the room is 高 tall.",
+      "equation": "亠 lid + 口 mouth + 冂 outer frame + 口 mouth = 高 tall",
+      "mnemonic": "Under a 亠 lid, one 口 mouth calls across a 冂 outer frame to another 口 mouth far below, showing it is 高 tall.",
       "components": [
         {
           "character": "亠",
@@ -2290,7 +2290,7 @@
         },
         {
           "character": "冂",
-          "gloss": "large room"
+          "gloss": "outer frame"
         },
         {
           "character": "口",
@@ -3490,8 +3490,8 @@
           "evidence": "丽"
         }
       ],
-      "equation": "一 one + 冂 large room + 丶 dot + 冂 large room + 丶 dot = 丽 magnificent",
-      "mnemonic": "A single 一 one beam crowns a 冂 large room with a 丶 dot and another 冂 large room with a 丶 dot; their symmetry looks 丽 magnificent.",
+      "equation": "一 one + 冂 outer frame + 丶 dot + 冂 outer frame + 丶 dot = 丽 magnificent",
+      "mnemonic": "一 one beam crowns a 丶 dot in one 冂 outer frame and another 丶 dot in a second 冂 outer frame, making 丽 magnificent symmetry.",
       "components": [
         {
           "character": "一",
@@ -3499,7 +3499,7 @@
         },
         {
           "character": "冂",
-          "gloss": "large room"
+          "gloss": "outer frame"
         },
         {
           "character": "丶",
@@ -3507,7 +3507,7 @@
         },
         {
           "character": "冂",
-          "gloss": "large room"
+          "gloss": "outer frame"
         },
         {
           "character": "丶",
@@ -7458,8 +7458,8 @@
           ]
         }
       ],
-      "equation": "一 one + 冂 large room + 丶 dot + 冂 large room + 丶 dot = 丽 magnificent",
-      "mnemonic": "一 one roof spans a 冂 large room with a jeweled 丶 dot and another 冂 large room with a jeweled 丶 dot, making it 丽 magnificent.",
+      "equation": "一 one + 冂 outer frame + 丶 dot + 冂 outer frame + 丶 dot = 丽 magnificent",
+      "mnemonic": "一 one beam crowns a jeweled 丶 dot in one 冂 outer frame and another 丶 dot in a second 冂 outer frame, making 丽 magnificent symmetry.",
       "components": [
         {
           "character": "一",
@@ -7467,7 +7467,7 @@
         },
         {
           "character": "冂",
-          "gloss": "large room"
+          "gloss": "outer frame"
         },
         {
           "character": "丶",
@@ -7475,7 +7475,7 @@
         },
         {
           "character": "冂",
-          "gloss": "large room"
+          "gloss": "outer frame"
         },
         {
           "character": "丶",
@@ -9069,7 +9069,7 @@
     },
     {
       "character": "彗",
-      "meaning": "broomstick",
+      "meaning": "broom",
       "frequency_rank": null,
       "quality_status": "review",
       "quality_score": 4.0,
@@ -9086,8 +9086,8 @@
           ]
         }
       ],
-      "equation": "丰 abundant + 丰 abundant + 彐 snout = 彗 broomstick",
-      "mnemonic": "A 彐 snout grips a 彗 broomstick packed with one 丰 abundant bristle bundle beside another 丰 abundant bristle bundle.",
+      "equation": "丰 abundant + 丰 abundant + 彐 hand = 彗 broom",
+      "mnemonic": "A 彐 hand grips one 丰 abundant bristle bundle beside another 丰 abundant bundle to hold a 彗 broom.",
       "components": [
         {
           "character": "丰",
@@ -9099,7 +9099,7 @@
         },
         {
           "character": "彐",
-          "gloss": "snout"
+          "gloss": "hand"
         }
       ],
       "component_source": "resolved_ids_forward",
@@ -13427,8 +13427,8 @@
           "evidence": "system"
         }
       ],
-      "equation": "牛 cow + 冂 large room + 刂 knife (side) = 制 system",
-      "mnemonic": "Inside a 冂 large room, workers use a 刂 knife to divide feed equally for every 牛 cow, establishing a 制 system.",
+      "equation": "牛 cow + 冂 outer frame + 刂 knife (side) = 制 system",
+      "mnemonic": "A 冂 outer frame organizes each 牛 cow stall while a 刂 knife portions feed, establishing a 制 system.",
       "components": [
         {
           "character": "牛",
@@ -13436,7 +13436,7 @@
         },
         {
           "character": "冂",
-          "gloss": "large room"
+          "gloss": "outer frame"
         },
         {
           "character": "刂",
@@ -16580,8 +16580,8 @@
           "evidence": "屢"
         }
       ],
-      "equation": "尸 sitting person + 婁 wear = 屢 time and again",
-      "mnemonic": "A 尸 sitting person stands to 婁 wear the same coat, then sits and repeats it 屢 time and again.",
+      "equation": "尸 sitting person + 婁 embrace = 屢 time and again",
+      "mnemonic": "A 尸 sitting person must 婁 embrace the same task 屢 time and again.",
       "components": [
         {
           "character": "尸",
@@ -16589,7 +16589,7 @@
         },
         {
           "character": "婁",
-          "gloss": "wear"
+          "gloss": "embrace"
         }
       ],
       "component_source": "variant_alias:屢",
@@ -16609,8 +16609,8 @@
           "evidence": "樓"
         }
       ],
-      "equation": "木 tree + 婁 wear = 樓 multistory building",
-      "mnemonic": "A 木 tree seems to 婁 wear floor upon floor, towering like a 樓 multistory building.",
+      "equation": "木 tree + 婁 embrace = 樓 multistory building",
+      "mnemonic": "A frame of 木 tree beams lets each floor 婁 embrace the next in a 樓 multistory building.",
       "components": [
         {
           "character": "木",
@@ -16618,7 +16618,7 @@
         },
         {
           "character": "婁",
-          "gloss": "wear"
+          "gloss": "embrace"
         }
       ],
       "component_source": "variant_alias:樓",
@@ -16725,8 +16725,8 @@
           "evidence": "縷"
         }
       ],
-      "equation": "糸 thread + 婁 wear = 縷 strand",
-      "mnemonic": "As fabric begins to 婁 wear, one loose 糸 thread pulls free as a 縷 strand.",
+      "equation": "糸 thread + 婁 embrace = 縷 strand",
+      "mnemonic": "One 縷 strand lets 糸 thread 婁 embrace the edge of a seam.",
       "components": [
         {
           "character": "糸",
@@ -16734,7 +16734,7 @@
         },
         {
           "character": "婁",
-          "gloss": "wear"
+          "gloss": "embrace"
         }
       ],
       "component_source": "variant_alias:縷",
@@ -17380,12 +17380,12 @@
           "evidence": "數"
         }
       ],
-      "equation": "婁 wear + 攵 tap = 數 number",
-      "mnemonic": "To count a wardrobe, 攵 tap each item you 婁 wear and assign it a 數 number.",
+      "equation": "婁 embrace + 攵 tap = 數 number",
+      "mnemonic": "Let a loop 婁 embrace each item, then give it one 攵 tap and a 數 number.",
       "components": [
         {
           "character": "婁",
-          "gloss": "wear"
+          "gloss": "embrace"
         },
         {
           "character": "攵",
@@ -17546,8 +17546,8 @@
           "evidence": "說"
         }
       ],
-      "equation": "言 speech + 兌 convert = 說 speak",
-      "mnemonic": "We 說 speak to 兌 convert silent thoughts into 言 speech.",
+      "equation": "言 speech + 兌 exchange = 說 speak",
+      "mnemonic": "We 說 speak to 兌 exchange silent thoughts for 言 speech.",
       "components": [
         {
           "character": "言",
@@ -17555,7 +17555,7 @@
         },
         {
           "character": "兌",
-          "gloss": "convert"
+          "gloss": "exchange"
         }
       ],
       "component_source": "variant_alias:說",
@@ -18884,8 +18884,8 @@
           "evidence": "說"
         }
       ],
-      "equation": "言 speech + 兌 convert = 說 speak",
-      "mnemonic": "To 說 speak is to 兌 convert a thought into 言 speech another person can hear.",
+      "equation": "言 speech + 兌 exchange = 說 speak",
+      "mnemonic": "To 說 speak is to 兌 exchange a thought for 言 speech another person can hear.",
       "components": [
         {
           "character": "言",
@@ -18893,7 +18893,7 @@
         },
         {
           "character": "兌",
-          "gloss": "convert"
+          "gloss": "exchange"
         }
       ],
       "component_source": "variant_alias:說",
@@ -27104,8 +27104,8 @@
           "evidence": "內"
         }
       ],
-      "equation": "入 enter + 冂 large room = 內 internal",
-      "mnemonic": "To reach the 內 internal space, 入 enter the enclosing 冂 large room.",
+      "equation": "入 enter + 冂 outer frame = 內 internal",
+      "mnemonic": "To reach the 內 internal space, 入 enter the enclosing 冂 outer frame.",
       "components": [
         {
           "character": "入",
@@ -27113,7 +27113,7 @@
         },
         {
           "character": "冂",
-          "gloss": "large room"
+          "gloss": "outer frame"
         }
       ],
       "component_source": "variant_alias:內",
@@ -30431,8 +30431,8 @@
           "evidence": "慺"
         }
       ],
-      "equation": "忄 heart (side) + 婁 wear = 慺 diligent",
-      "mnemonic": "A 慺 diligent 忄 heart keeps working even as the task begins to 婁 wear it down.",
+      "equation": "忄 heart (side) + 婁 embrace = 慺 diligent",
+      "mnemonic": "A 慺 diligent 忄 heart will 婁 embrace even the hardest work.",
       "components": [
         {
           "character": "忄",
@@ -30440,7 +30440,7 @@
         },
         {
           "character": "婁",
-          "gloss": "wear"
+          "gloss": "embrace"
         }
       ],
       "component_source": "variant_alias:慺",
@@ -40387,8 +40387,8 @@
           "evidence": "have not"
         }
       ],
-      "equation": "𠂇 left hand + 冂 large room = 冇 have not",
-      "mnemonic": "After the 𠂇 left hand searches every corner of the 冂 large room, you 冇 have not found anything.",
+      "equation": "𠂇 left hand + 冂 outer frame = 冇 have not",
+      "mnemonic": "After a 𠂇 left hand searches inside the 冂 outer frame, you 冇 have not found anything.",
       "components": [
         {
           "character": "𠂇",
@@ -40396,7 +40396,7 @@
         },
         {
           "character": "冂",
-          "gloss": "large room"
+          "gloss": "outer frame"
         }
       ],
       "component_source": "resolved_ids_forward",
@@ -41398,8 +41398,8 @@
           "evidence": "even"
         }
       ],
-      "equation": "口 mouth + 乚 turning hook + 䖵 insects + 冋 desert = 尙 even",
-      "mnemonic": "In the 冋 desert, a 乚 turning hook balances a 口 mouth against 䖵 insects until both sides are 尙 even.",
+      "equation": "口 mouth + 乚 turning hook + 䖵 insects + 冋 outskirts = 尙 even",
+      "mnemonic": "In the 冋 outskirts, a 乚 turning hook balances a 口 mouth against 䖵 insects until both sides are 尙 even.",
       "components": [
         {
           "character": "口",
@@ -41415,7 +41415,7 @@
         },
         {
           "character": "冋",
-          "gloss": "desert"
+          "gloss": "outskirts"
         }
       ],
       "component_source": "resolved_ids_forward",
@@ -44045,8 +44045,8 @@
           "evidence": "different"
         }
       ],
-      "equation": "辶 movement + 冋 desert = 迥 different",
-      "mnemonic": "The track of 辶 movement looks 迥 different as it stands alone across an empty 冋 desert.",
+      "equation": "辶 movement + 冋 outskirts = 迥 different",
+      "mnemonic": "A route of 辶 movement beyond the 冋 outskirts looks 迥 different from the city streets.",
       "components": [
         {
           "character": "辶",
@@ -44054,7 +44054,7 @@
         },
         {
           "character": "冋",
-          "gloss": "desert"
+          "gloss": "outskirts"
         }
       ],
       "component_source": "resolved_ids_forward",
@@ -46004,13 +46004,11 @@
   ],
   "gpt56_expedited_release": {
     "certification_status": "expedited_non_certified",
-    "materialized_card_projection_hash": "sha256:1e263b0744cc65ebb20217abba1190115621d29ea85dce1f8dfd23fd6643f99a",
+    "materialized_card_projection_hash": "sha256:96a5f1c495f81035286bb6fc27749fd1eeaea5e13eb815d18eece44ac1abdef8",
     "formal_validation": {
       "count": 24037,
       "invalid_count": 0
     },
-    "source_candidate_sha256": "sha256:28e5dace4a376d0c341f626e9127fdb24e70181cae6d3d90a2f14d42131becdc",
-    "promoted_rewrite_count": 1007,
-    "unfinished_484_card_repair_drafts_merged": false
+    "editorial_ledger_sha256": "sha256:e436c958c3c642e658dbdf19d2854d3574c6fe34d477b57e2a76ce9835b73a8a"
   }
 }

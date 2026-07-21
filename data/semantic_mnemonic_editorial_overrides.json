@@ -34,6 +34,490 @@
       "rationale": "Makes the destination explicitly a resting place while retaining the learner-facing component gloss walk.",
       "source": "user-requested editorial revision",
       "recorded_at": "2026-07-19"
+    },
+    {
+      "character": "洛",
+      "status": "approved",
+      "base_card_hash": "sha256:29da25043e5dd00f63636d6d4cdc45f29939264d1a3f7e6fe3397d4de005cb07",
+      "expected": {
+        "meaning": "Luo River",
+        "equation": "氵 water (drops) + 各 each = 洛 Luo River",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "各",
+            "gloss": "each"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "各",
+            "gloss": "each"
+          }
+        ]
+      },
+      "mnemonic": "The 洛 Luo River gathers 氵 water from 各 each tributary.",
+      "confidence": 0.95,
+      "rationale": "Each tributary naturally supplies water to the named river, replacing the generic sequence of riverside towns.",
+      "source": "terra_v3 via reports/semantic-mnemonics/abandoned-salvage-review-2026-07-21.json",
+      "recorded_at": "2026-07-21"
+    },
+    {
+      "character": "喬",
+      "status": "superseded",
+      "base_card_hash": "sha256:31c2ce1a096899da408b2cabe145922381601ccc1a8b594937234e512e939dab",
+      "expected": {
+        "meaning": "pretend",
+        "equation": "呑 absorb + 冋 desert = 喬 pretend",
+        "components": [
+          {
+            "character": "呑",
+            "gloss": "absorb"
+          },
+          {
+            "character": "冋",
+            "gloss": "desert"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "呑",
+            "gloss": "absorb"
+          },
+          {
+            "character": "冋",
+            "gloss": "desert"
+          }
+        ]
+      },
+      "mnemonic": "In a 冋 desert, a mirage can 喬 pretend to 呑 absorb the sky.",
+      "confidence": 0.96,
+      "rationale": "The abandoned mirage idea is promising, but both drafts remain awkward; this version makes the apparent absorption and pretense one direct scene.",
+      "source": "bespoke_manual via reports/semantic-mnemonics/abandoned-salvage-review-2026-07-21.json",
+      "recorded_at": "2026-07-21"
+    },
+    {
+      "character": "娜",
+      "status": "approved",
+      "base_card_hash": "sha256:4ec955ec02bf471ca5c43b9792cb9003c297d33a90e5780a6fb9f9f6130e0133",
+      "expected": {
+        "meaning": "na",
+        "equation": "女 woman + 那 that = 娜 na",
+        "components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "那",
+            "gloss": "that"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "那",
+            "gloss": "that"
+          }
+        ]
+      },
+      "mnemonic": "A 女 woman greets 那 that arriving guest named 娜 na.",
+      "confidence": 0.92,
+      "rationale": "The greeting scene makes 女 woman and 那 that person concrete while attaching 娜 na naturally as a name.",
+      "source": "terra_v2 via reports/semantic-mnemonics/abandoned-salvage-review-2026-07-21.json",
+      "recorded_at": "2026-07-21"
+    },
+    {
+      "character": "岳",
+      "status": "approved",
+      "base_card_hash": "sha256:a122de918ecd04f23d830bffdd1e81695b150ff982027266f9ffae2330009332",
+      "expected": {
+        "meaning": "Yue",
+        "equation": "丘 hill + 山 mountain = 岳 Yue",
+        "components": [
+          {
+            "character": "丘",
+            "gloss": "hill"
+          },
+          {
+            "character": "山",
+            "gloss": "mountain"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "丘",
+            "gloss": "hill"
+          },
+          {
+            "character": "山",
+            "gloss": "mountain"
+          }
+        ]
+      },
+      "mnemonic": "岳 Yue is a 山 mountain rising above each surrounding 丘 hill.",
+      "confidence": 0.96,
+      "rationale": "The mountain rising above surrounding hills is a direct visual scene supported by the dictionary hint and removes the invented family.",
+      "source": "terra_v3 via reports/semantic-mnemonics/abandoned-salvage-review-2026-07-21.json",
+      "recorded_at": "2026-07-21"
+    },
+    {
+      "character": "旤",
+      "status": "approved",
+      "base_card_hash": "sha256:d55be38d0e9ac76ac86e3ba2ffea37870f9df8f256d7418222a3a7ab12e17538",
+      "expected": {
+        "meaning": "disaster",
+        "equation": "咼 jaw + 旡 choked breath = 旤 disaster",
+        "components": [
+          {
+            "character": "咼",
+            "gloss": "jaw"
+          },
+          {
+            "character": "旡",
+            "gloss": "choked breath"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "咼",
+            "gloss": "jaw"
+          },
+          {
+            "character": "旡",
+            "gloss": "choked breath"
+          }
+        ]
+      },
+      "mnemonic": "A 旤 disaster silences a 咼 jaw, leaving only a 旡 choked breath.",
+      "confidence": 0.94,
+      "rationale": "A disaster silencing the jaw and leaving choked breath is a cleaner causal sequence than the live static pose.",
+      "source": "terra_v3 via reports/semantic-mnemonics/abandoned-salvage-review-2026-07-21.json",
+      "recorded_at": "2026-07-21"
+    },
+    {
+      "character": "鄧",
+      "status": "approved",
+      "base_card_hash": "sha256:5258ee2c09ede9e66e618c32006ab3748c73aa55f1d8b95f2dc569c0e411cec7",
+      "expected": {
+        "meaning": "Deng",
+        "equation": "登 ascend + ⻏ city (right) = 鄧 Deng",
+        "components": [
+          {
+            "character": "登",
+            "gloss": "ascend"
+          },
+          {
+            "character": "⻏",
+            "gloss": "city (right)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "登",
+            "gloss": "ascend"
+          },
+          {
+            "character": "⻏",
+            "gloss": "city (right)"
+          }
+        ]
+      },
+      "mnemonic": "Travelers 登 ascend a ridge and see the ⻏ city of 鄧 Deng below.",
+      "confidence": 0.94,
+      "rationale": "Ascending a ridge to see Deng below directly joins ascend, city, and the place name without inventing a surname-bearing family.",
+      "source": "terra_v3 via reports/semantic-mnemonics/abandoned-salvage-review-2026-07-21.json",
+      "recorded_at": "2026-07-21"
+    },
+    {
+      "character": "癌",
+      "status": "approved",
+      "base_card_hash": "sha256:867e6989b41d6194463a49c9d43d07d38a9cd1ee33eb59f79d1d925f12f857c6",
+      "expected": {
+        "meaning": "cancer",
+        "equation": "疒 sickness + 嵒 rocky-cliff = 癌 cancer",
+        "components": [
+          {
+            "character": "疒",
+            "gloss": "sickness"
+          },
+          {
+            "character": "嵒",
+            "gloss": "rocky-cliff"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "疒",
+            "gloss": "sickness"
+          },
+          {
+            "character": "嵒",
+            "gloss": "rocky-cliff"
+          }
+        ]
+      },
+      "mnemonic": "For 癌 cancer, the burden of 疒 sickness rises like an immovable 嵒 rocky-cliff.",
+      "confidence": 0.95,
+      "rationale": "The sickness burden rising like an immovable rocky cliff is shorter and removes the extra fight, road, and blockage plot.",
+      "source": "terra_v3 via reports/semantic-mnemonics/abandoned-salvage-review-2026-07-21.json",
+      "recorded_at": "2026-07-21"
+    },
+    {
+      "character": "馮",
+      "status": "approved",
+      "base_card_hash": "sha256:b9a4729bf6329449bd7f7ed99656419443c5653586d749d00f64b4ec7d78cb5d",
+      "expected": {
+        "meaning": "Feng",
+        "equation": "冫 ice + 馬 horse = 馮 Feng",
+        "components": [
+          {
+            "character": "冫",
+            "gloss": "ice"
+          },
+          {
+            "character": "馬",
+            "gloss": "horse"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "冫",
+            "gloss": "ice"
+          },
+          {
+            "character": "馬",
+            "gloss": "horse"
+          }
+        ]
+      },
+      "mnemonic": "馮 Feng steers a 馬 horse carefully across shining 冫 ice.",
+      "confidence": 0.94,
+      "rationale": "A horse carefully crossing ice is one concrete component-complete scene, clearer than explaining an obsolete sense and a sound marker.",
+      "source": "terra_v3 via reports/semantic-mnemonics/abandoned-salvage-review-2026-07-21.json",
+      "recorded_at": "2026-07-21"
+    },
+    {
+      "character": "苍",
+      "status": "approved",
+      "base_card_hash": "sha256:db9bf3fab99a8c3ded07cc3e1e887b65637ea728192ca0b8deebd59c159735b0",
+      "expected": {
+        "meaning": "blue",
+        "equation": "艹 grass (top) + 仓 berth = 苍 blue",
+        "components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "仓",
+            "gloss": "berth"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "仓",
+            "gloss": "berth"
+          }
+        ]
+      },
+      "mnemonic": "Moonlight turns 艹 grass beside a ship's 仓 berth 苍 blue.",
+      "confidence": 0.93,
+      "rationale": "Moonlight turning grass by a ship berth blue is a compact visible color scene without the live mnemonic’s extra wave.",
+      "source": "terra_v3 via reports/semantic-mnemonics/abandoned-salvage-review-2026-07-21.json",
+      "recorded_at": "2026-07-21"
+    },
+    {
+      "character": "郁",
+      "status": "approved",
+      "base_card_hash": "sha256:60b0593f3c97de03c37e6b3d988adb4a33ee9cdda1d49d49a21f0a64123c7c01",
+      "expected": {
+        "meaning": "Yu-2",
+        "equation": "有 possess + ⻏ city (right) = 郁 Yu-2",
+        "components": [
+          {
+            "character": "有",
+            "gloss": "possess"
+          },
+          {
+            "character": "⻏",
+            "gloss": "city (right)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "有",
+            "gloss": "possess"
+          },
+          {
+            "character": "⻏",
+            "gloss": "city (right)"
+          }
+        ]
+      },
+      "mnemonic": "In a ⻏ city, elders 有 possess records tracing the family of 郁 Yu-2.",
+      "confidence": 0.9,
+      "rationale": "City elders possessing family records is a natural surname scene and avoids the live claim that one family owns every deed.",
+      "source": "terra_v3 via reports/semantic-mnemonics/abandoned-salvage-review-2026-07-21.json",
+      "recorded_at": "2026-07-21"
+    },
+    {
+      "character": "柟",
+      "status": "approved",
+      "base_card_hash": "sha256:883c70097ea2a0981d026219cdc6302abab940e4d309ee9f85c1fd5c77ac9ada",
+      "expected": {
+        "meaning": "machilus",
+        "equation": "木 tree + 冉 drooping = 柟 machilus",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "冉",
+            "gloss": "drooping"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "冉",
+            "gloss": "drooping"
+          }
+        ]
+      },
+      "mnemonic": "A 柟 machilus is the 木 tree whose crown falls in a curtain of 冉 drooping branches.",
+      "confidence": 0.92,
+      "rationale": "The machilus crown falling in a curtain of drooping branches is more direct and vivid than an instruction to imagine rare leaves.",
+      "source": "terra_v3 via reports/semantic-mnemonics/abandoned-salvage-review-2026-07-21.json",
+      "recorded_at": "2026-07-21"
+    },
+    {
+      "character": "㼍",
+      "status": "approved",
+      "base_card_hash": "sha256:de10b1a16f752e3bc81c7ad47b77a6957328685d127e131e8120efc3b7083ec8",
+      "expected": {
+        "meaning": "pulp of a melon",
+        "equation": "耒 plow handle + 瓜 melon = 㼍 pulp of a melon",
+        "components": [
+          {
+            "character": "耒",
+            "gloss": "plow handle"
+          },
+          {
+            "character": "瓜",
+            "gloss": "melon"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "耒",
+            "gloss": "plow handle"
+          },
+          {
+            "character": "瓜",
+            "gloss": "melon"
+          }
+        ]
+      },
+      "mnemonic": "A 耒 plow handle holds open a split 瓜 melon, revealing the soft 㼍 pulp of a melon.",
+      "confidence": 0.96,
+      "rationale": "Using the plow handle to hold a split melon open reveals pulp naturally; pressing it into the melon is needlessly destructive.",
+      "source": "recovery5 via reports/semantic-mnemonics/abandoned-salvage-review-2026-07-21.json",
+      "recorded_at": "2026-07-21"
+    },
+    {
+      "character": "哕",
+      "status": "approved",
+      "base_card_hash": "sha256:dd1c9d469c386ebc9dbcda7282b4a3340812ab7a3cb389a87d0fbc5f64c00c01",
+      "expected": {
+        "meaning": "belch/vomit",
+        "equation": "口 mouth + 岁 harvest = 哕 belch/vomit",
+        "components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "岁",
+            "gloss": "harvest"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "岁",
+            "gloss": "harvest"
+          }
+        ]
+      },
+      "mnemonic": "After a 岁 harvest feast, a 口 mouth suddenly begins to 哕 belch/vomit.",
+      "confidence": 0.98,
+      "rationale": "A mouth belching or vomiting after a harvest feast is direct and plausible, unlike the live sack with a painted mouth.",
+      "source": "recovery5 via reports/semantic-mnemonics/abandoned-salvage-review-2026-07-21.json",
+      "recorded_at": "2026-07-21"
+    },
+    {
+      "character": "検",
+      "status": "approved",
+      "base_card_hash": "sha256:67564bb44977b743e6c8ca8970cdc4f267efed952dc84a2ebc53f68b1ae940b0",
+      "expected": {
+        "meaning": "check",
+        "equation": "木 tree + 口 mouth + 人 person = 検 check",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "人",
+            "gloss": "person"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "人",
+            "gloss": "person"
+          }
+        ]
+      },
+      "mnemonic": "A 人 person calls through their 口 mouth into a hollow 木 tree to 検 check for an echo.",
+      "confidence": 0.95,
+      "rationale": "A person calling into a hollow tree to check for an echo is a single concrete test, simpler than measuring twice and comparing spoken numbers.",
+      "source": "recovery5 via reports/semantic-mnemonics/abandoned-salvage-review-2026-07-21.json",
+      "recorded_at": "2026-07-21"
     }
   ]
 }

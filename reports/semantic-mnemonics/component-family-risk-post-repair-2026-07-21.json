@@ -1,0 +1,4034 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-07-21T06:41:38.121874+00:00",
+  "source_corpus": "sveltekit-app/static/research/mnemonics/semantic_mnemonics_all_best_available.json",
+  "source_count": 24037,
+  "methodology": {
+    "purpose": "Rank upstream component-family policy risks; never auto-apply changes.",
+    "signals": [
+      "source/target gloss drift on reused primitives",
+      "traditional/simplified concept drift and simplification collisions",
+      "variant/archaic dictionary evidence on reused primitives",
+      "high-impact @apparent IDS boundaries",
+      "anatomical targets using 月 month",
+      "source-described pictographs split into multiple unrelated components"
+    ],
+    "human_review_required": true
+  },
+  "counts": {
+    "all_findings": 1390,
+    "reported_findings": 150,
+    "by_kind": {
+      "apparent_ids_high_impact": 51,
+      "pictograph_overdecomposed": 247,
+      "simplification_collision": 57,
+      "source_target_gloss_drift": 611,
+      "variant_concept_drift": 97,
+      "variant_or_archaic_primitive": 327
+    }
+  },
+  "findings": [
+    {
+      "family": "頁",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 234,
+      "score": 5234,
+      "evidence": {
+        "traditional": "頁",
+        "simplified": "页",
+        "traditional_target": "head",
+        "simplified_target": "page",
+        "source_gloss": "(head), page",
+        "simplified_source_gloss": "page",
+        "simplified_traditional_variants": [
+          "頁"
+        ],
+        "traditional_component_glosses": {
+          "head": 181
+        },
+        "simplified_component_glosses": {
+          "head": 53
+        }
+      }
+    },
+    {
+      "family": "廣",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 174,
+      "score": 5174,
+      "evidence": {
+        "traditional": "廣",
+        "simplified": "广",
+        "traditional_target": "extensive",
+        "simplified_target": "wide",
+        "source_gloss": "wide",
+        "simplified_source_gloss": "roof",
+        "simplified_traditional_variants": [
+          "廣"
+        ],
+        "traditional_component_glosses": {
+          "extensive": 13
+        },
+        "simplified_component_glosses": {
+          "roof": 153,
+          "extensive": 8
+        }
+      }
+    },
+    {
+      "family": "幾",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 59,
+      "score": 5059,
+      "evidence": {
+        "traditional": "幾",
+        "simplified": "几",
+        "traditional_target": "how many",
+        "simplified_target": "how many",
+        "source_gloss": "how much",
+        "simplified_source_gloss": "small table",
+        "simplified_traditional_variants": [
+          "幾"
+        ],
+        "traditional_component_glosses": {
+          "how many": 14
+        },
+        "simplified_component_glosses": {
+          "small table": 45
+        }
+      }
+    },
+    {
+      "family": "兒",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 57,
+      "score": 5057,
+      "evidence": {
+        "traditional": "兒",
+        "simplified": "儿",
+        "traditional_target": "youngster",
+        "simplified_target": "child",
+        "source_gloss": "son",
+        "simplified_source_gloss": "child",
+        "simplified_traditional_variants": [
+          "兒"
+        ],
+        "traditional_component_glosses": {
+          "youngster": 26
+        },
+        "simplified_component_glosses": {
+          "human legs": 31
+        }
+      }
+    },
+    {
+      "family": "幹",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 57,
+      "score": 5057,
+      "evidence": {
+        "traditional": "幹",
+        "simplified": "干",
+        "traditional_target": "trunk",
+        "simplified_target": "dry",
+        "source_gloss": "trunk",
+        "simplified_source_gloss": "interfere",
+        "simplified_traditional_variants": [
+          "乾",
+          "幹",
+          "乹"
+        ],
+        "traditional_component_glosses": {
+          "trunk": 3
+        },
+        "simplified_component_glosses": {
+          "offend": 54
+        }
+      }
+    },
+    {
+      "family": "乾",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 56,
+      "score": 5056,
+      "evidence": {
+        "traditional": "乾",
+        "simplified": "干",
+        "traditional_target": "dry",
+        "simplified_target": "dry",
+        "source_gloss": "dry",
+        "simplified_source_gloss": "interfere",
+        "simplified_traditional_variants": [
+          "乾",
+          "幹",
+          "乹"
+        ],
+        "traditional_component_glosses": {
+          "dry": 2
+        },
+        "simplified_component_glosses": {
+          "offend": 54
+        }
+      }
+    },
+    {
+      "family": "堯",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 48,
+      "score": 5048,
+      "evidence": {
+        "traditional": "堯",
+        "simplified": "尧",
+        "traditional_target": "Yao",
+        "simplified_target": "legendary emperor Yao",
+        "source_gloss": "legendary ancient emperor-sage",
+        "simplified_source_gloss": "a legendary ancient emperor-sage",
+        "simplified_traditional_variants": [
+          "堯"
+        ],
+        "traditional_component_glosses": {
+          "Yao": 30
+        },
+        "simplified_component_glosses": {
+          "legendary emperor Yao": 18
+        }
+      }
+    },
+    {
+      "family": "鬥",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 48,
+      "score": 5048,
+      "evidence": {
+        "traditional": "鬥",
+        "simplified": "斗",
+        "traditional_target": "fight",
+        "simplified_target": "fight",
+        "source_gloss": "fight",
+        "simplified_source_gloss": "ladle",
+        "simplified_traditional_variants": [
+          "鬥"
+        ],
+        "traditional_component_glosses": {
+          "fight": 10
+        },
+        "simplified_component_glosses": {
+          "big dipper": 38
+        }
+      }
+    },
+    {
+      "family": "齊",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 43,
+      "score": 5043,
+      "evidence": {
+        "traditional": "齊",
+        "simplified": "齐",
+        "traditional_target": "identical",
+        "simplified_target": "equal",
+        "source_gloss": "even, uniform",
+        "simplified_source_gloss": "even",
+        "simplified_traditional_variants": [
+          "齊"
+        ],
+        "traditional_component_glosses": {
+          "identical": 30
+        },
+        "simplified_component_glosses": {
+          "equal": 13
+        }
+      }
+    },
+    {
+      "family": "檯",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 40,
+      "score": 5040,
+      "evidence": {
+        "traditional": "檯",
+        "simplified": "台",
+        "traditional_target": "table",
+        "simplified_target": "platform",
+        "source_gloss": "table, desk, counter",
+        "simplified_source_gloss": "platform",
+        "simplified_traditional_variants": [
+          "台",
+          "檯",
+          "臺",
+          "颱"
+        ],
+        "traditional_component_glosses": {},
+        "simplified_component_glosses": {
+          "platform": 40
+        }
+      }
+    },
+    {
+      "family": "颱",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 40,
+      "score": 5040,
+      "evidence": {
+        "traditional": "颱",
+        "simplified": "台",
+        "traditional_target": "typhoon",
+        "simplified_target": "platform",
+        "source_gloss": "typhoon",
+        "simplified_source_gloss": "platform",
+        "simplified_traditional_variants": [
+          "台",
+          "檯",
+          "臺",
+          "颱"
+        ],
+        "traditional_component_glosses": {},
+        "simplified_component_glosses": {
+          "platform": 40
+        }
+      }
+    },
+    {
+      "family": "於",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 38,
+      "score": 5038,
+      "evidence": {
+        "traditional": "於",
+        "simplified": "于",
+        "traditional_target": "at",
+        "simplified_target": "Yu",
+        "source_gloss": "in",
+        "simplified_source_gloss": "at",
+        "simplified_traditional_variants": [
+          "於"
+        ],
+        "traditional_component_glosses": {
+          "at": 8
+        },
+        "simplified_component_glosses": {
+          "Yu": 30
+        }
+      }
+    },
+    {
+      "family": "穀",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 38,
+      "score": 5038,
+      "evidence": {
+        "traditional": "穀",
+        "simplified": "谷",
+        "traditional_target": "cereal",
+        "simplified_target": "valley",
+        "source_gloss": "corn",
+        "simplified_source_gloss": "valley, ravine",
+        "simplified_traditional_variants": [
+          "穀"
+        ],
+        "traditional_component_glosses": {
+          "cereal": 1
+        },
+        "simplified_component_glosses": {
+          "valley": 37
+        }
+      }
+    },
+    {
+      "family": "衕",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 37,
+      "score": 5037,
+      "evidence": {
+        "traditional": "衕",
+        "simplified": "同",
+        "traditional_target": "alley",
+        "simplified_target": "same",
+        "source_gloss": "lane",
+        "simplified_source_gloss": "together",
+        "simplified_traditional_variants": [
+          "同",
+          "衕"
+        ],
+        "traditional_component_glosses": {},
+        "simplified_component_glosses": {
+          "same": 37
+        }
+      }
+    },
+    {
+      "family": "侖",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 34,
+      "score": 5034,
+      "evidence": {
+        "traditional": "侖",
+        "simplified": "仑",
+        "traditional_target": "logical",
+        "simplified_target": "logical reasons",
+        "source_gloss": "arrange",
+        "simplified_source_gloss": "logical reasons",
+        "simplified_traditional_variants": [
+          "侖"
+        ],
+        "traditional_component_glosses": {
+          "logical": 24
+        },
+        "simplified_component_glosses": {
+          "logical reasons": 10
+        }
+      }
+    },
+    {
+      "family": "裡",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 33,
+      "score": 5033,
+      "evidence": {
+        "traditional": "裡",
+        "simplified": "里",
+        "traditional_target": "inside",
+        "simplified_target": "li",
+        "source_gloss": "inside",
+        "simplified_source_gloss": "village",
+        "simplified_traditional_variants": [
+          "裡"
+        ],
+        "traditional_component_glosses": {},
+        "simplified_component_glosses": {
+          "li": 33
+        }
+      }
+    },
+    {
+      "family": "豐",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 30,
+      "score": 5030,
+      "evidence": {
+        "traditional": "豐",
+        "simplified": "丰",
+        "traditional_target": "plentiful",
+        "simplified_target": "abundant",
+        "source_gloss": "abundant",
+        "simplified_source_gloss": "luxuriant",
+        "simplified_traditional_variants": [
+          "豐"
+        ],
+        "traditional_component_glosses": {
+          "plentiful": 8
+        },
+        "simplified_component_glosses": {
+          "abundant": 22
+        }
+      }
+    },
+    {
+      "family": "麵",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 30,
+      "score": 5030,
+      "evidence": {
+        "traditional": "麵",
+        "simplified": "面",
+        "traditional_target": "noodles",
+        "simplified_target": "face",
+        "source_gloss": "flour",
+        "simplified_source_gloss": "face",
+        "simplified_traditional_variants": [
+          "面",
+          "麵"
+        ],
+        "traditional_component_glosses": {},
+        "simplified_component_glosses": {
+          "face": 30
+        }
+      }
+    },
+    {
+      "family": "幺",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 27,
+      "score": 5027,
+      "evidence": {
+        "traditional": "幺",
+        "simplified": "么",
+        "traditional_target": "thread",
+        "simplified_target": "interrogative",
+        "source_gloss": "tiny",
+        "simplified_source_gloss": "[question particle]",
+        "simplified_traditional_variants": [
+          "幺",
+          "麼",
+          "麽"
+        ],
+        "traditional_component_glosses": {
+          "thread": 23
+        },
+        "simplified_component_glosses": {
+          "interrogative": 4
+        }
+      }
+    },
+    {
+      "family": "齣",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 27,
+      "score": 5027,
+      "evidence": {
+        "traditional": "齣",
+        "simplified": "出",
+        "traditional_target": "shows",
+        "simplified_target": "exit",
+        "source_gloss": "stanza",
+        "simplified_source_gloss": "go out",
+        "simplified_traditional_variants": [
+          "出",
+          "齣"
+        ],
+        "traditional_component_glosses": {},
+        "simplified_component_glosses": {
+          "exit": 27
+        }
+      }
+    },
+    {
+      "family": "樂",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 26,
+      "score": 5026,
+      "evidence": {
+        "traditional": "樂",
+        "simplified": "乐",
+        "traditional_target": "music",
+        "simplified_target": "happy",
+        "source_gloss": "happy, music",
+        "simplified_source_gloss": "happy",
+        "simplified_traditional_variants": [
+          "樂"
+        ],
+        "traditional_component_glosses": {
+          "music": 17
+        },
+        "simplified_component_glosses": {
+          "happy": 9
+        }
+      }
+    },
+    {
+      "family": "耑",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 26,
+      "score": 5026,
+      "evidence": {
+        "traditional": "耑",
+        "simplified": "专",
+        "traditional_target": "specialized",
+        "simplified_target": "take sole possession",
+        "source_gloss": "tip, start, extremity",
+        "simplified_source_gloss": "monopolize",
+        "simplified_traditional_variants": [
+          "專"
+        ],
+        "traditional_component_glosses": {
+          "specialized": 20
+        },
+        "simplified_component_glosses": {
+          "turn": 6
+        }
+      }
+    },
+    {
+      "family": "鹹",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 24,
+      "score": 5024,
+      "evidence": {
+        "traditional": "鹹",
+        "simplified": "咸",
+        "traditional_target": "salty",
+        "simplified_target": "everybody",
+        "source_gloss": "salty",
+        "simplified_source_gloss": "all",
+        "simplified_traditional_variants": [
+          "鹹"
+        ],
+        "traditional_component_glosses": {},
+        "simplified_component_glosses": {
+          "everybody": 24
+        }
+      }
+    },
+    {
+      "family": "歷",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 23,
+      "score": 5023,
+      "evidence": {
+        "traditional": "歷",
+        "simplified": "历",
+        "traditional_target": "experience",
+        "simplified_target": "calendar",
+        "source_gloss": "experience, history",
+        "simplified_source_gloss": "history",
+        "simplified_traditional_variants": [
+          "曆",
+          "歷"
+        ],
+        "traditional_component_glosses": {
+          "experience": 16
+        },
+        "simplified_component_glosses": {
+          "calendar": 7
+        }
+      }
+    },
+    {
+      "family": "韆",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 23,
+      "score": 5023,
+      "evidence": {
+        "traditional": "韆",
+        "simplified": "千",
+        "traditional_target": "swing",
+        "simplified_target": "thousand",
+        "source_gloss": "swing",
+        "simplified_source_gloss": "thousand",
+        "simplified_traditional_variants": [],
+        "traditional_component_glosses": {},
+        "simplified_component_glosses": {
+          "thousand": 23
+        }
+      }
+    },
+    {
+      "family": "𱁶",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 23,
+      "score": 5023,
+      "evidence": {
+        "traditional": "𱁶",
+        "simplified": "千",
+        "traditional_target": "swing",
+        "simplified_target": "thousand",
+        "source_gloss": "swing",
+        "simplified_source_gloss": "thousand",
+        "simplified_traditional_variants": [],
+        "traditional_component_glosses": {},
+        "simplified_component_glosses": {
+          "thousand": 23
+        }
+      }
+    },
+    {
+      "family": "唸",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 22,
+      "score": 5022,
+      "evidence": {
+        "traditional": "唸",
+        "simplified": "念",
+        "traditional_target": "recite",
+        "simplified_target": "miss",
+        "source_gloss": "recite",
+        "simplified_source_gloss": "think of, ready",
+        "simplified_traditional_variants": [],
+        "traditional_component_glosses": {},
+        "simplified_component_glosses": {
+          "miss": 22
+        }
+      }
+    },
+    {
+      "family": "醜",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 22,
+      "score": 5022,
+      "evidence": {
+        "traditional": "醜",
+        "simplified": "丑",
+        "traditional_target": "ugly",
+        "simplified_target": "clown",
+        "source_gloss": "clown",
+        "simplified_source_gloss": "second earthly branch; (simp.) ugly",
+        "simplified_traditional_variants": [
+          "醜"
+        ],
+        "traditional_component_glosses": {},
+        "simplified_component_glosses": {
+          "clown": 22
+        }
+      }
+    },
+    {
+      "family": "復",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 21,
+      "score": 5021,
+      "evidence": {
+        "traditional": "復",
+        "simplified": "复",
+        "traditional_target": "recover",
+        "simplified_target": "return",
+        "source_gloss": "return",
+        "simplified_source_gloss": "return",
+        "simplified_traditional_variants": [
+          "復",
+          "複",
+          "覆"
+        ],
+        "traditional_component_glosses": {
+          "recover": 6
+        },
+        "simplified_component_glosses": {
+          "repeatedly": 15
+        }
+      }
+    },
+    {
+      "family": "纍",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 21,
+      "score": 5021,
+      "evidence": {
+        "traditional": "纍",
+        "simplified": "累",
+        "traditional_target": "wind around",
+        "simplified_target": "tired",
+        "source_gloss": "to wind around, bind",
+        "simplified_source_gloss": "tired",
+        "simplified_traditional_variants": [
+          "纍"
+        ],
+        "traditional_component_glosses": {
+          "wind around": 4
+        },
+        "simplified_component_glosses": {
+          "tired": 17
+        }
+      }
+    },
+    {
+      "family": "耑",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 20,
+      "score": 5020,
+      "evidence": {
+        "traditional": "耑",
+        "simplified": "端",
+        "traditional_target": "specialized",
+        "simplified_target": "upright",
+        "source_gloss": "tip, start, extremity",
+        "simplified_source_gloss": "end, hold with both hands",
+        "simplified_traditional_variants": [],
+        "traditional_component_glosses": {
+          "specialized": 20
+        },
+        "simplified_component_glosses": {}
+      }
+    },
+    {
+      "family": "衚",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 20,
+      "score": 5020,
+      "evidence": {
+        "traditional": "衚",
+        "simplified": "胡",
+        "traditional_target": "alley",
+        "simplified_target": "recklessly",
+        "source_gloss": "alley, side street",
+        "simplified_source_gloss": "beard",
+        "simplified_traditional_variants": [
+          "衚",
+          "鬍"
+        ],
+        "traditional_component_glosses": {},
+        "simplified_component_glosses": {
+          "recklessly": 20
+        }
+      }
+    },
+    {
+      "family": "鬍",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 20,
+      "score": 5020,
+      "evidence": {
+        "traditional": "鬍",
+        "simplified": "胡",
+        "traditional_target": "beard",
+        "simplified_target": "recklessly",
+        "source_gloss": "beard",
+        "simplified_source_gloss": "beard",
+        "simplified_traditional_variants": [
+          "衚",
+          "鬍"
+        ],
+        "traditional_component_glosses": {},
+        "simplified_component_glosses": {
+          "recklessly": 20
+        }
+      }
+    },
+    {
+      "family": "埰",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 18,
+      "score": 5018,
+      "evidence": {
+        "traditional": "埰",
+        "simplified": "采",
+        "traditional_target": "fief",
+        "simplified_target": "pluck",
+        "source_gloss": "fief",
+        "simplified_source_gloss": "gather, pick",
+        "simplified_traditional_variants": [
+          "埰",
+          "採"
+        ],
+        "traditional_component_glosses": {},
+        "simplified_component_glosses": {
+          "pluck": 18
+        }
+      }
+    },
+    {
+      "family": "嬰",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 18,
+      "score": 5018,
+      "evidence": {
+        "traditional": "嬰",
+        "simplified": "婴",
+        "traditional_target": "baby",
+        "simplified_target": "bother",
+        "source_gloss": "infant",
+        "simplified_source_gloss": "baby",
+        "simplified_traditional_variants": [
+          "嬰"
+        ],
+        "traditional_component_glosses": {
+          "baby": 11
+        },
+        "simplified_component_glosses": {
+          "bother": 7
+        }
+      }
+    },
+    {
+      "family": "採",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 18,
+      "score": 5018,
+      "evidence": {
+        "traditional": "採",
+        "simplified": "采",
+        "traditional_target": "pick",
+        "simplified_target": "pluck",
+        "source_gloss": "gather",
+        "simplified_source_gloss": "gather, pick",
+        "simplified_traditional_variants": [
+          "埰",
+          "採"
+        ],
+        "traditional_component_glosses": {},
+        "simplified_component_glosses": {
+          "pluck": 18
+        }
+      }
+    },
+    {
+      "family": "誇",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 18,
+      "score": 5018,
+      "evidence": {
+        "traditional": "誇",
+        "simplified": "夸",
+        "traditional_target": "brag",
+        "simplified_target": "extravagant",
+        "source_gloss": "extravagant",
+        "simplified_source_gloss": "see 夸克[kuā​kè]",
+        "simplified_traditional_variants": [
+          "誇"
+        ],
+        "traditional_component_glosses": {},
+        "simplified_component_glosses": {
+          "extravagant": 18
+        }
+      }
+    },
+    {
+      "family": "閒",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 18,
+      "score": 5018,
+      "evidence": {
+        "traditional": "閒",
+        "simplified": "闲",
+        "traditional_target": "leisure",
+        "simplified_target": "idle",
+        "source_gloss": "liesure",
+        "simplified_source_gloss": "fence",
+        "simplified_traditional_variants": [
+          "閑",
+          "閒"
+        ],
+        "traditional_component_glosses": {
+          "leisure": 15
+        },
+        "simplified_component_glosses": {
+          "idle": 3
+        }
+      }
+    },
+    {
+      "family": "發",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 17,
+      "score": 5017,
+      "evidence": {
+        "traditional": "發",
+        "simplified": "发",
+        "traditional_target": "send out",
+        "simplified_target": "emit",
+        "source_gloss": "send out",
+        "simplified_source_gloss": "issue",
+        "simplified_traditional_variants": [
+          "發",
+          "髮"
+        ],
+        "traditional_component_glosses": {
+          "send out": 11
+        },
+        "simplified_component_glosses": {
+          "emit": 6
+        }
+      }
+    },
+    {
+      "family": "後",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 16,
+      "score": 5016,
+      "evidence": {
+        "traditional": "後",
+        "simplified": "后",
+        "traditional_target": "after",
+        "simplified_target": "queen",
+        "source_gloss": "behind",
+        "simplified_source_gloss": "queen, after",
+        "simplified_traditional_variants": [
+          "后",
+          "後"
+        ],
+        "traditional_component_glosses": {
+          "after": 1
+        },
+        "simplified_component_glosses": {
+          "queen": 15
+        }
+      }
+    },
+    {
+      "family": "習",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 16,
+      "score": 5016,
+      "evidence": {
+        "traditional": "習",
+        "simplified": "习",
+        "traditional_target": "learn",
+        "simplified_target": "flapping",
+        "source_gloss": "to practice",
+        "simplified_source_gloss": "practice",
+        "simplified_traditional_variants": [
+          "習"
+        ],
+        "traditional_component_glosses": {
+          "learn": 16
+        },
+        "simplified_component_glosses": {}
+      }
+    },
+    {
+      "family": "複",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 15,
+      "score": 5015,
+      "evidence": {
+        "traditional": "複",
+        "simplified": "复",
+        "traditional_target": "duplicate",
+        "simplified_target": "return",
+        "source_gloss": "double, lined (garment)",
+        "simplified_source_gloss": "return",
+        "simplified_traditional_variants": [
+          "復",
+          "複",
+          "覆"
+        ],
+        "traditional_component_glosses": {},
+        "simplified_component_glosses": {
+          "repeatedly": 15
+        }
+      }
+    },
+    {
+      "family": "覆",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 15,
+      "score": 5015,
+      "evidence": {
+        "traditional": "覆",
+        "simplified": "复",
+        "traditional_target": "overturn",
+        "simplified_target": "return",
+        "source_gloss": "cover, turn over",
+        "simplified_source_gloss": "return",
+        "simplified_traditional_variants": [
+          "復",
+          "複",
+          "覆"
+        ],
+        "traditional_component_glosses": {},
+        "simplified_component_glosses": {
+          "repeatedly": 15
+        }
+      }
+    },
+    {
+      "family": "盡",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 13,
+      "score": 5013,
+      "evidence": {
+        "traditional": "盡",
+        "simplified": "尽",
+        "traditional_target": "exhausted",
+        "simplified_target": "exhaust",
+        "source_gloss": "finish, exhaust",
+        "simplified_source_gloss": "utmost",
+        "simplified_traditional_variants": [
+          "盡"
+        ],
+        "traditional_component_glosses": {
+          "exhausted": 7
+        },
+        "simplified_component_glosses": {
+          "exhaust": 6
+        }
+      }
+    },
+    {
+      "family": "術",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 13,
+      "score": 5013,
+      "evidence": {
+        "traditional": "術",
+        "simplified": "术",
+        "traditional_target": "art",
+        "simplified_target": "skill",
+        "source_gloss": "art, skill",
+        "simplified_source_gloss": "art",
+        "simplified_traditional_variants": [
+          "術"
+        ],
+        "traditional_component_glosses": {},
+        "simplified_component_glosses": {
+          "skill": 13
+        }
+      }
+    },
+    {
+      "family": "麯",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 13,
+      "score": 5013,
+      "evidence": {
+        "traditional": "麯",
+        "simplified": "曲",
+        "traditional_target": "yeast",
+        "simplified_target": "bent",
+        "source_gloss": "yeast, leaven",
+        "simplified_source_gloss": "bent, crooked",
+        "simplified_traditional_variants": [
+          "曲",
+          "麯"
+        ],
+        "traditional_component_glosses": {},
+        "simplified_component_glosses": {
+          "bent": 13
+        }
+      }
+    },
+    {
+      "family": "剋",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 12,
+      "score": 5012,
+      "evidence": {
+        "traditional": "剋",
+        "simplified": "克",
+        "traditional_target": "subdue",
+        "simplified_target": "overcome",
+        "source_gloss": "to beat",
+        "simplified_source_gloss": "subdue",
+        "simplified_traditional_variants": [
+          "剋"
+        ],
+        "traditional_component_glosses": {},
+        "simplified_component_glosses": {
+          "overcome": 12
+        }
+      }
+    },
+    {
+      "family": "鞏",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 12,
+      "score": 5012,
+      "evidence": {
+        "traditional": "鞏",
+        "simplified": "巩",
+        "traditional_target": "strengthen",
+        "simplified_target": "secure",
+        "source_gloss": "bind, secure",
+        "simplified_source_gloss": "secure, bind",
+        "simplified_traditional_variants": [
+          "鞏"
+        ],
+        "traditional_component_glosses": {},
+        "simplified_component_glosses": {
+          "secure": 12
+        }
+      }
+    },
+    {
+      "family": "捨",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 11,
+      "score": 5011,
+      "evidence": {
+        "traditional": "捨",
+        "simplified": "舍",
+        "traditional_target": "discard",
+        "simplified_target": "abode",
+        "source_gloss": "discard",
+        "simplified_source_gloss": "residence",
+        "simplified_traditional_variants": [
+          "捨"
+        ],
+        "traditional_component_glosses": {},
+        "simplified_component_glosses": {
+          "abode": 11
+        }
+      }
+    },
+    {
+      "family": "曏",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 11,
+      "score": 5011,
+      "evidence": {
+        "traditional": "曏",
+        "simplified": "向",
+        "traditional_target": "once",
+        "simplified_target": "toward",
+        "source_gloss": "toward",
+        "simplified_source_gloss": "toward",
+        "simplified_traditional_variants": [
+          "向",
+          "曏"
+        ],
+        "traditional_component_glosses": {},
+        "simplified_component_glosses": {
+          "toward": 11
+        }
+      }
+    },
+    {
+      "family": "係",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 10,
+      "score": 5010,
+      "evidence": {
+        "traditional": "係",
+        "simplified": "系",
+        "traditional_target": "relate to",
+        "simplified_target": "lineage",
+        "source_gloss": "bind",
+        "simplified_source_gloss": "system",
+        "simplified_traditional_variants": [
+          "係",
+          "繫"
+        ],
+        "traditional_component_glosses": {
+          "relate": 1
+        },
+        "simplified_component_glosses": {
+          "lineage": 9
+        }
+      }
+    },
+    {
+      "family": "佈",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 9,
+      "score": 5009,
+      "evidence": {
+        "traditional": "佈",
+        "simplified": "布",
+        "traditional_target": "announce",
+        "simplified_target": "cloth",
+        "source_gloss": "announce, spread",
+        "simplified_source_gloss": "cotton cloth",
+        "simplified_traditional_variants": [],
+        "traditional_component_glosses": {},
+        "simplified_component_glosses": {
+          "cloth": 9
+        }
+      }
+    },
+    {
+      "family": "侷",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 9,
+      "score": 5009,
+      "evidence": {
+        "traditional": "侷",
+        "simplified": "局",
+        "traditional_target": "cramped",
+        "simplified_target": "bureau",
+        "source_gloss": "narrow, cramped",
+        "simplified_source_gloss": "bureau",
+        "simplified_traditional_variants": [],
+        "traditional_component_glosses": {},
+        "simplified_component_glosses": {
+          "bureau": 9
+        }
+      }
+    },
+    {
+      "family": "噹",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 9,
+      "score": 5009,
+      "evidence": {
+        "traditional": "噹",
+        "simplified": "当",
+        "traditional_target": "sound",
+        "simplified_target": "work as",
+        "source_gloss": "sound of bells",
+        "simplified_source_gloss": "to match",
+        "simplified_traditional_variants": [
+          "噹",
+          "當"
+        ],
+        "traditional_component_glosses": {},
+        "simplified_component_glosses": {
+          "work as": 9
+        }
+      }
+    },
+    {
+      "family": "睏",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 9,
+      "score": 5009,
+      "evidence": {
+        "traditional": "睏",
+        "simplified": "困",
+        "traditional_target": "sleepy",
+        "simplified_target": "trapped",
+        "source_gloss": "sleepy, tired",
+        "simplified_source_gloss": "to trap, surround",
+        "simplified_traditional_variants": [
+          "睏"
+        ],
+        "traditional_component_glosses": {},
+        "simplified_component_glosses": {
+          "trapped": 9
+        }
+      }
+    },
+    {
+      "family": "繫",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 9,
+      "score": 5009,
+      "evidence": {
+        "traditional": "繫",
+        "simplified": "系",
+        "traditional_target": "fasten",
+        "simplified_target": "lineage",
+        "source_gloss": "to tie",
+        "simplified_source_gloss": "system",
+        "simplified_traditional_variants": [
+          "係",
+          "繫"
+        ],
+        "traditional_component_glosses": {},
+        "simplified_component_glosses": {
+          "lineage": 9
+        }
+      }
+    },
+    {
+      "family": "慄",
+      "kind": "simplification_collision",
+      "severity": 5,
+      "downstream_occurrences": 8,
+      "score": 5008,
+      "evidence": {
+        "traditional": "慄",
+        "simplified": "栗",
+        "traditional_target": "shiver",
+        "simplified_target": "chestnut",
+        "source_gloss": "shiver",
+        "simplified_source_gloss": "chestnut tree, chestnuts",
+        "simplified_traditional_variants": [
+          "慄"
+        ],
+        "traditional_component_glosses": {},
+        "simplified_component_glosses": {
+          "chestnut": 8
+        }
+      }
+    },
+    {
+      "family": "氵",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 929,
+      "score": 4929,
+      "evidence": {
+        "target_gloss": "water (drops)",
+        "source_gloss": "water",
+        "source_hint": "氵 is a component form of 水. ",
+        "component_glosses": {
+          "water (drops)": 929
+        },
+        "sample_parents": [
+          "㙙",
+          "㲸",
+          "㲹",
+          "㲺",
+          "㲼",
+          "㲽",
+          "㲿",
+          "㳀",
+          "㳁",
+          "㳂",
+          "㳃",
+          "㳄"
+        ]
+      }
+    },
+    {
+      "family": "艹",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 886,
+      "score": 4886,
+      "evidence": {
+        "target_gloss": "grass (top)",
+        "source_gloss": "grass",
+        "source_hint": "艹 is a component form of 艸, which depicts of blades of grass.",
+        "component_glosses": {
+          "grass (top)": 886
+        },
+        "sample_parents": [
+          "㨲",
+          "㩰",
+          "㭉",
+          "㮱",
+          "㴀",
+          "㴕",
+          "㵁",
+          "㷹",
+          "䄏",
+          "䒒",
+          "䒓",
+          "䒔"
+        ]
+      }
+    },
+    {
+      "family": "扌",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 714,
+      "score": 4714,
+      "evidence": {
+        "target_gloss": "hand (side)",
+        "source_gloss": "hand",
+        "source_hint": "扌 is a component form of 手, which is a pictograph of a hand.",
+        "component_glosses": {
+          "hand (side)": 714
+        },
+        "sample_parents": [
+          "㧃",
+          "㧄",
+          "㧅",
+          "㧆",
+          "㧇",
+          "㧈",
+          "㧉",
+          "㧊",
+          "㧋",
+          "㧌",
+          "㧍",
+          "㧎"
+        ]
+      }
+    },
+    {
+      "family": "亻",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 558,
+      "score": 4558,
+      "evidence": {
+        "target_gloss": "person (side)",
+        "source_gloss": "person",
+        "source_hint": "亻 is a component form of 人, which depicts a person. ",
+        "component_glosses": {
+          "person (side)": 558
+        },
+        "sample_parents": [
+          "㐰",
+          "㐲",
+          "㐳",
+          "㐴",
+          "㐵",
+          "㐷",
+          "㐸",
+          "㐹",
+          "㐺",
+          "㐻",
+          "㐼",
+          "㐽"
+        ]
+      }
+    },
+    {
+      "family": "金",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 532,
+      "score": 4532,
+      "evidence": {
+        "target_gloss": "gold",
+        "source_gloss": "metal",
+        "source_hint": "Phonosemantic compound. 王 and 吕 represent the meaning and 今 represents the sound. 王 depicts a metal axe and 吕 depicts two metal plates.",
+        "component_glosses": {
+          "metal": 532
+        },
+        "sample_parents": [
+          "㕋",
+          "㾣",
+          "䋮",
+          "䘳",
+          "䤛",
+          "䤜",
+          "䤝",
+          "䤞",
+          "䤟",
+          "䤠",
+          "䤡",
+          "䤢"
+        ]
+      }
+    },
+    {
+      "family": "言",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 432,
+      "score": 4432,
+      "evidence": {
+        "target_gloss": "say",
+        "source_gloss": "speech",
+        "source_hint": "Pictograph of a tongue (舌) sticking out of a mouth. In old scripts 言 was written the same as 舌 but with an extra line.",
+        "component_glosses": {
+          "speech": 432
+        },
+        "sample_parents": [
+          "㝘",
+          "㯎",
+          "䂴",
+          "䇾",
+          "䌛",
+          "䓂",
+          "䕶",
+          "䚮",
+          "䚯",
+          "䚰",
+          "䚱",
+          "䚲"
+        ]
+      }
+    },
+    {
+      "family": "言",
+      "kind": "variant_or_archaic_primitive",
+      "severity": 4,
+      "downstream_occurrences": 432,
+      "score": 4432,
+      "evidence": {
+        "source_gloss": "speech",
+        "source_hint": "Pictograph of a tongue (舌) sticking out of a mouth. In old scripts 言 was written the same as 舌 but with an extra line.",
+        "component_glosses": {
+          "speech": 432
+        },
+        "sample_parents": [
+          "㝘",
+          "㯎",
+          "䂴",
+          "䇾",
+          "䌛",
+          "䓂",
+          "䕶",
+          "䚮",
+          "䚯",
+          "䚰",
+          "䚱",
+          "䚲"
+        ]
+      }
+    },
+    {
+      "family": "虫",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 422,
+      "score": 4422,
+      "evidence": {
+        "target_gloss": "insects",
+        "source_gloss": "bug, insect",
+        "source_hint": "Pictograph of a snake.",
+        "component_glosses": {
+          "insects": 422
+        },
+        "sample_parents": [
+          "㰩",
+          "䂈",
+          "䖝",
+          "䖞",
+          "䖟",
+          "䖠",
+          "䖡",
+          "䖢",
+          "䖣",
+          "䖤",
+          "䖥",
+          "䖦"
+        ]
+      }
+    },
+    {
+      "family": "忄",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 413,
+      "score": 4413,
+      "evidence": {
+        "target_gloss": "heart (side)",
+        "source_gloss": "heart",
+        "source_hint": "忄 is a component form of 心. ",
+        "component_glosses": {
+          "heart (side)": 413
+        },
+        "sample_parents": [
+          "㣺",
+          "㣼",
+          "㣾",
+          "㣿",
+          "㤃",
+          "㤄",
+          "㤆",
+          "㤇",
+          "㤈",
+          "㤉",
+          "㤊",
+          "㤋"
+        ]
+      }
+    },
+    {
+      "family": "⺼",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 363,
+      "score": 4363,
+      "evidence": {
+        "target_gloss": "meat (side)",
+        "source_gloss": "meat, flesh",
+        "source_hint": "⺼ is a component form of 肉, which depicts a piece of meat.",
+        "component_glosses": {
+          "meat (side)": 363
+        },
+        "sample_parents": [
+          "㱚",
+          "䏎",
+          "䏏",
+          "䏐",
+          "䏒",
+          "䏓",
+          "䏔",
+          "䏕",
+          "䏖",
+          "䏗",
+          "䏘",
+          "䏙"
+        ]
+      }
+    },
+    {
+      "family": "日",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 348,
+      "score": 4348,
+      "evidence": {
+        "target_gloss": "day",
+        "source_gloss": "sun",
+        "source_hint": "Pictograph of the sun.",
+        "component_glosses": {
+          "day": 348
+        },
+        "sample_parents": [
+          "㒲",
+          "㖏",
+          "㘿",
+          "㝠",
+          "㞱",
+          "㤤",
+          "㫐",
+          "㫑",
+          "㫒",
+          "㫓",
+          "㫔",
+          "㫕"
+        ]
+      }
+    },
+    {
+      "family": "疒",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 287,
+      "score": 4287,
+      "evidence": {
+        "target_gloss": "sickness",
+        "source_gloss": "sick",
+        "source_hint": "Depicts a sick person (人) lying in bed (爿).",
+        "component_glosses": {
+          "sickness": 287
+        },
+        "sample_parents": [
+          "㽱",
+          "㽲",
+          "㽳",
+          "㽴",
+          "㽵",
+          "㽷",
+          "㽸",
+          "㽹",
+          "㽺",
+          "㽻",
+          "㽽",
+          "㽾"
+        ]
+      }
+    },
+    {
+      "family": "𤣩",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 270,
+      "score": 4270,
+      "evidence": {
+        "target_gloss": "jade (alt)",
+        "source_gloss": "jade",
+        "source_hint": "𤣩 is a component form of 玉. Pictograph of a ritual object made out of several pieces of jade joined together by a string.",
+        "component_glosses": {
+          "jade (alt)": 270
+        },
+        "sample_parents": [
+          "㺨",
+          "㺩",
+          "㺪",
+          "㺫",
+          "㺬",
+          "㺭",
+          "㺮",
+          "㺰",
+          "㺲",
+          "㺳",
+          "㺴",
+          "㺵"
+        ]
+      }
+    },
+    {
+      "family": "禾",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 245,
+      "score": 4245,
+      "evidence": {
+        "target_gloss": "standing grain",
+        "source_gloss": "grain stalk",
+        "source_hint": "Pictograph of a stalk of millet grain.",
+        "component_glosses": {
+          "standing grain": 245
+        },
+        "sample_parents": [
+          "㟀",
+          "㢉",
+          "㴕",
+          "㿆",
+          "䄦",
+          "䄧",
+          "䄨",
+          "䄩",
+          "䄪",
+          "䄫",
+          "䄬",
+          "䄭"
+        ]
+      }
+    },
+    {
+      "family": "辶",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 213,
+      "score": 4213,
+      "evidence": {
+        "target_gloss": "movement",
+        "source_gloss": "walk",
+        "source_hint": "辶 is a component form of 辵, which depicts a foot walking in a street. ",
+        "component_glosses": {
+          "movement": 213
+        },
+        "sample_parents": [
+          "㵦",
+          "䜔",
+          "䢊",
+          "䢋",
+          "䢌",
+          "䢍",
+          "䢎",
+          "䢐",
+          "䢑",
+          "䢒",
+          "䢓",
+          "䢔"
+        ]
+      }
+    },
+    {
+      "family": "衤",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 211,
+      "score": 4211,
+      "evidence": {
+        "target_gloss": "clothing (side)",
+        "source_gloss": "clothes",
+        "source_hint": "衤 is a component form of 衣, which is a pictograph of a shirt or coat.",
+        "component_glosses": {
+          "clothing (side)": 211
+        },
+        "sample_parents": [
+          "䘛",
+          "䘜",
+          "䘝",
+          "䘟",
+          "䘠",
+          "䘢",
+          "䘣",
+          "䘤",
+          "䘥",
+          "䘦",
+          "䘨",
+          "䘩"
+        ]
+      }
+    },
+    {
+      "family": "飠",
+      "kind": "variant_concept_drift",
+      "severity": 4,
+      "downstream_occurrences": 209,
+      "score": 4209,
+      "evidence": {
+        "traditional": "飠",
+        "simplified": "饣",
+        "traditional_target": "food",
+        "simplified_target": "food",
+        "source_gloss": "eat",
+        "simplified_source_gloss": "eat",
+        "simplified_traditional_variants": [
+          "飠"
+        ],
+        "traditional_component_glosses": {
+          "food": 160
+        },
+        "simplified_component_glosses": {
+          "food (side)": 49
+        }
+      }
+    },
+    {
+      "family": "犭",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 206,
+      "score": 4206,
+      "evidence": {
+        "target_gloss": "dog (side)",
+        "source_gloss": "dog",
+        "source_hint": "犭 is a component form of 犬, which is a pictograph of a dog.",
+        "component_glosses": {
+          "dog (side)": 206
+        },
+        "sample_parents": [
+          "㹝",
+          "㹞",
+          "㹟",
+          "㹠",
+          "㹡",
+          "㹢",
+          "㹣",
+          "㹤",
+          "㹥",
+          "㹦",
+          "㹧",
+          "㹨"
+        ]
+      }
+    },
+    {
+      "family": "頁",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 181,
+      "score": 4181,
+      "evidence": {
+        "target_gloss": "head",
+        "source_gloss": "(head), page",
+        "source_hint": "Pictograph of a head (首) on top of a person (卩). Means \"head\" when pronounced xié. Has unrelated meaning \"leaf\" when pronounced yè, due to this character being adopted as a variant form of 葉.",
+        "component_glosses": {
+          "head": 181
+        },
+        "sample_parents": [
+          "㑯",
+          "㖽",
+          "㛲",
+          "㥧",
+          "㯋",
+          "㹛",
+          "䅡",
+          "䋶",
+          "䐓",
+          "䪱",
+          "䪲",
+          "䪳"
+        ]
+      }
+    },
+    {
+      "family": "頁",
+      "kind": "variant_or_archaic_primitive",
+      "severity": 4,
+      "downstream_occurrences": 181,
+      "score": 4181,
+      "evidence": {
+        "source_gloss": "(head), page",
+        "source_hint": "Pictograph of a head (首) on top of a person (卩). Means \"head\" when pronounced xié. Has unrelated meaning \"leaf\" when pronounced yè, due to this character being adopted as a variant form of 葉.",
+        "component_glosses": {
+          "head": 181
+        },
+        "sample_parents": [
+          "㑯",
+          "㖽",
+          "㛲",
+          "㥧",
+          "㯋",
+          "㹛",
+          "䅡",
+          "䋶",
+          "䐓",
+          "䪱",
+          "䪲",
+          "䪳"
+        ]
+      }
+    },
+    {
+      "family": "刂",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 179,
+      "score": 4179,
+      "evidence": {
+        "target_gloss": "knife (side)",
+        "source_gloss": "knife",
+        "source_hint": "刂 is a component form of 刀, which depicts a knife. ",
+        "component_glosses": {
+          "knife (side)": 179
+        },
+        "sample_parents": [
+          "㓚",
+          "㓝",
+          "㓟",
+          "㓠",
+          "㓡",
+          "㓢",
+          "㓣",
+          "㓤",
+          "㓥",
+          "㓦",
+          "㓧",
+          "㓨"
+        ]
+      }
+    },
+    {
+      "family": "⻏",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 175,
+      "score": 4175,
+      "evidence": {
+        "target_gloss": "city (right)",
+        "source_gloss": "city",
+        "source_hint": "⻏ is a component form of 邑, which depicts a person outside a city wall.",
+        "component_glosses": {
+          "city (right)": 175
+        },
+        "sample_parents": [
+          "䘏",
+          "䢳",
+          "䢴",
+          "䢵",
+          "䢶",
+          "䢸",
+          "䢹",
+          "䢺",
+          "䢻",
+          "䢼",
+          "䢾",
+          "䢿"
+        ]
+      }
+    },
+    {
+      "family": "貝",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 164,
+      "score": 4164,
+      "evidence": {
+        "target_gloss": "shell",
+        "source_gloss": "sea shell",
+        "source_hint": "Pictograph of a cowrie shell. In ancient China such shells were used as currency.",
+        "component_glosses": {
+          "shell": 164
+        },
+        "sample_parents": [
+          "㕢",
+          "㛝",
+          "㦐",
+          "㲘",
+          "㸽",
+          "䝧",
+          "䝨",
+          "䝩",
+          "䝪",
+          "䝫",
+          "䝬",
+          "䝭"
+        ]
+      }
+    },
+    {
+      "family": "貝",
+      "kind": "variant_or_archaic_primitive",
+      "severity": 4,
+      "downstream_occurrences": 164,
+      "score": 4164,
+      "evidence": {
+        "source_gloss": "sea shell",
+        "source_hint": "Pictograph of a cowrie shell. In ancient China such shells were used as currency.",
+        "component_glosses": {
+          "shell": 164
+        },
+        "sample_parents": [
+          "㕢",
+          "㛝",
+          "㦐",
+          "㲘",
+          "㸽",
+          "䝧",
+          "䝨",
+          "䝩",
+          "䝪",
+          "䝫",
+          "䝬",
+          "䝭"
+        ]
+      }
+    },
+    {
+      "family": "广",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 161,
+      "score": 4161,
+      "evidence": {
+        "target_gloss": "wide",
+        "source_gloss": "roof",
+        "source_hint": "Variant form of 宀 (roof). In simplified Chinese 广 is also used to mean \"wide\", while in traditional Chinese this meaning is written with a separate character 廣. Sometimes used interchangeably with 厂.",
+        "component_glosses": {
+          "roof": 153,
+          "extensive": 8
+        },
+        "sample_parents": [
+          "㖢",
+          "㚧",
+          "㡯",
+          "㡰",
+          "㡱",
+          "㡲",
+          "㡳",
+          "㡴",
+          "㡵",
+          "㡶",
+          "㡷",
+          "㡸"
+        ]
+      }
+    },
+    {
+      "family": "广",
+      "kind": "variant_or_archaic_primitive",
+      "severity": 4,
+      "downstream_occurrences": 161,
+      "score": 4161,
+      "evidence": {
+        "source_gloss": "roof",
+        "source_hint": "Variant form of 宀 (roof). In simplified Chinese 广 is also used to mean \"wide\", while in traditional Chinese this meaning is written with a separate character 廣. Sometimes used interchangeably with 厂.",
+        "component_glosses": {
+          "roof": 153,
+          "extensive": 8
+        },
+        "sample_parents": [
+          "㖢",
+          "㚧",
+          "㡯",
+          "㡰",
+          "㡱",
+          "㡲",
+          "㡳",
+          "㡴",
+          "㡵",
+          "㡶",
+          "㡷",
+          "㡸"
+        ]
+      }
+    },
+    {
+      "family": "飠",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 160,
+      "score": 4160,
+      "evidence": {
+        "target_gloss": "food",
+        "source_gloss": "eat",
+        "source_hint": "飠 is a component form of 食, which depicts a mouth (口) eating from a food vessel (皀).",
+        "component_glosses": {
+          "food": 160
+        },
+        "sample_parents": [
+          "䬢",
+          "䬣",
+          "䬦",
+          "䬧",
+          "䬨",
+          "䬪",
+          "䬫",
+          "䬬",
+          "䬮",
+          "䬯",
+          "䬰",
+          "䬱"
+        ]
+      }
+    },
+    {
+      "family": "酉",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 157,
+      "score": 4157,
+      "evidence": {
+        "target_gloss": "vessel",
+        "source_gloss": "wine",
+        "source_hint": "Pictograph of a container for wine.",
+        "component_glosses": {
+          "vessel": 157
+        },
+        "sample_parents": [
+          "㜝",
+          "㱃",
+          "㾞",
+          "䣥",
+          "䣦",
+          "䣧",
+          "䣨",
+          "䣩",
+          "䣪",
+          "䣫",
+          "䣬",
+          "䣭"
+        ]
+      }
+    },
+    {
+      "family": "巾",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 153,
+      "score": 4153,
+      "evidence": {
+        "target_gloss": "towel",
+        "source_gloss": "cloth",
+        "source_hint": "Pictograph of a cloth hanging downwards.",
+        "component_glosses": {
+          "cloth": 153
+        },
+        "sample_parents": [
+          "㒼",
+          "㠲",
+          "㠴",
+          "㠵",
+          "㠶",
+          "㠷",
+          "㠸",
+          "㠹",
+          "㠺",
+          "㠻",
+          "㠽",
+          "㠾"
+        ]
+      }
+    },
+    {
+      "family": "纟",
+      "kind": "variant_or_archaic_primitive",
+      "severity": 4,
+      "downstream_occurrences": 151,
+      "score": 4151,
+      "evidence": {
+        "source_gloss": "silk",
+        "source_hint": "纟 is a simplified component form of 糸, which is a pictograph of silk threads. ",
+        "component_glosses": {
+          "thread": 151
+        },
+        "sample_parents": [
+          "纠",
+          "纡",
+          "红",
+          "纣",
+          "纤",
+          "纥",
+          "约",
+          "级",
+          "纨",
+          "纩",
+          "纪",
+          "纫"
+        ]
+      }
+    },
+    {
+      "family": "穴",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 137,
+      "score": 4137,
+      "evidence": {
+        "target_gloss": "hole",
+        "source_gloss": "cave",
+        "source_hint": "Depicts a cave opening.",
+        "component_glosses": {
+          "hole": 137
+        },
+        "sample_parents": [
+          "㝐",
+          "㝰",
+          "㧒",
+          "㴏",
+          "㴱",
+          "䆑",
+          "䆒",
+          "䆓",
+          "䆔",
+          "䆕",
+          "䆖",
+          "䆗"
+        ]
+      }
+    },
+    {
+      "family": "田",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 128,
+      "score": 4128,
+      "evidence": {
+        "target_gloss": "rice field",
+        "source_gloss": "field",
+        "source_hint": "Pictograph of a field.",
+        "component_glosses": {
+          "rice field": 128
+        },
+        "sample_parents": [
+          "㚻",
+          "㚼",
+          "㧂",
+          "㽖",
+          "㽘",
+          "㽙",
+          "㽚",
+          "㽛",
+          "㽝",
+          "㽞",
+          "㽟",
+          "㽠"
+        ]
+      }
+    },
+    {
+      "family": "門",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 128,
+      "score": 4128,
+      "evidence": {
+        "target_gloss": "gate",
+        "source_gloss": "door",
+        "source_hint": "Pictograph of a gate.",
+        "component_glosses": {
+          "gate": 128
+        },
+        "sample_parents": [
+          "㗿",
+          "㥃",
+          "䉮",
+          "䦌",
+          "䦍",
+          "䦎",
+          "䦏",
+          "䦐",
+          "䦑",
+          "䦒",
+          "䦓",
+          "䦔"
+        ]
+      }
+    },
+    {
+      "family": "欠",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 120,
+      "score": 4120,
+      "evidence": {
+        "target_gloss": "deficient",
+        "source_gloss": "yawn, deficient",
+        "source_hint": "Pictograph of a person (人) opening their mouth to yawn.",
+        "component_glosses": {
+          "deficient": 120
+        },
+        "sample_parents": [
+          "㐸",
+          "㦤",
+          "㰝",
+          "㰞",
+          "㰟",
+          "㰠",
+          "㰡",
+          "㰢",
+          "㰣",
+          "㰤",
+          "㰥",
+          "㰦"
+        ]
+      }
+    },
+    {
+      "family": "攵",
+      "kind": "apparent_ids_high_impact",
+      "severity": 4,
+      "downstream_occurrences": 114,
+      "score": 4114,
+      "evidence": {
+        "apparent_ids": "⿱𠂉乂",
+        "active_equation": "𠂉 hair tuft + 乂 mow grass = 攵 tap",
+        "active_components": [
+          {
+            "character": "𠂉",
+            "gloss": "hair tuft"
+          },
+          {
+            "character": "乂",
+            "gloss": "mow grass"
+          }
+        ],
+        "sample_parents": [
+          "㩿",
+          "㪀",
+          "㪄",
+          "㪇",
+          "㪉",
+          "㪍",
+          "㪘",
+          "㪙",
+          "㪚",
+          "㪟",
+          "㪣",
+          "㪤"
+        ]
+      }
+    },
+    {
+      "family": "隹",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 111,
+      "score": 4111,
+      "evidence": {
+        "target_gloss": "short-tailed bird",
+        "source_gloss": "bird",
+        "source_hint": "Pictograph of a bird.",
+        "component_glosses": {
+          "short-tailed bird": 111
+        },
+        "sample_parents": [
+          "㕍",
+          "㢈",
+          "㨤",
+          "㩦",
+          "㮅",
+          "㲝",
+          "䉮",
+          "䊒",
+          "䍜",
+          "䧱",
+          "䧲",
+          "䧳"
+        ]
+      }
+    },
+    {
+      "family": "鱼",
+      "kind": "variant_or_archaic_primitive",
+      "severity": 4,
+      "downstream_occurrences": 103,
+      "score": 4103,
+      "evidence": {
+        "source_gloss": "fish",
+        "source_hint": "Simplified form of 魚.  Pictograph of a fish.",
+        "component_glosses": {
+          "fish": 103
+        },
+        "sample_parents": [
+          "䲟",
+          "䲠",
+          "䲡",
+          "䲢",
+          "䲣",
+          "渔",
+          "稣",
+          "鱽",
+          "鱾",
+          "鱿",
+          "鲀",
+          "鲁"
+        ]
+      }
+    },
+    {
+      "family": "又",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 95,
+      "score": 4095,
+      "evidence": {
+        "target_gloss": "again",
+        "source_gloss": "(hand), again",
+        "source_hint": "Pictograph of a hand. The character is based on the original meaning \"hand\". The current meaning \"again\" is a phonetic loan.",
+        "component_glosses": {
+          "hand": 95
+        },
+        "sample_parents": [
+          "㕛",
+          "㕜",
+          "㕞",
+          "㕟",
+          "㕠",
+          "㘝",
+          "㝊",
+          "㝕",
+          "㞋",
+          "䀾",
+          "䅓",
+          "䈛"
+        ]
+      }
+    },
+    {
+      "family": "彳",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 95,
+      "score": 4095,
+      "evidence": {
+        "target_gloss": "step",
+        "source_gloss": "walk",
+        "source_hint": "彳 is the left half of 行, which depicts a street intersection.",
+        "component_glosses": {
+          "step": 95
+        },
+        "sample_parents": [
+          "㞛",
+          "㣔",
+          "㣘",
+          "㣙",
+          "㣚",
+          "㣛",
+          "㣜",
+          "㣝",
+          "㣞",
+          "㣟",
+          "㣠",
+          "㣢"
+        ]
+      }
+    },
+    {
+      "family": "瓦",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 95,
+      "score": 4095,
+      "evidence": {
+        "target_gloss": "tile",
+        "source_gloss": "earthenware",
+        "source_hint": "Pictograph of an object related to pottery.",
+        "component_glosses": {
+          "tile": 95
+        },
+        "sample_parents": [
+          "㧚",
+          "㼗",
+          "㼘",
+          "㼙",
+          "㼚",
+          "㼛",
+          "㼜",
+          "㼝",
+          "㼞",
+          "㼟",
+          "㼠",
+          "㼡"
+        ]
+      }
+    },
+    {
+      "family": "鸟",
+      "kind": "variant_or_archaic_primitive",
+      "severity": 4,
+      "downstream_occurrences": 93,
+      "score": 4093,
+      "evidence": {
+        "source_gloss": "bird",
+        "source_hint": "Simplified form of 鳥.  Pictograph of a bird.",
+        "component_glosses": {
+          "bird": 93
+        },
+        "sample_parents": [
+          "㭤",
+          "㶉",
+          "䴓",
+          "䴔",
+          "䴕",
+          "䴖",
+          "䴗",
+          "䴘",
+          "䴙",
+          "窎",
+          "茑",
+          "莺"
+        ]
+      }
+    },
+    {
+      "family": "毛",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 90,
+      "score": 4090,
+      "evidence": {
+        "target_gloss": "fur",
+        "source_gloss": "hair",
+        "source_hint": "Pictograph of a feather.",
+        "component_glosses": {
+          "fur": 90
+        },
+        "sample_parents": [
+          "㕰",
+          "㘪",
+          "㚪",
+          "㧌",
+          "㲌",
+          "㲍",
+          "㲎",
+          "㲏",
+          "㲒",
+          "㲓",
+          "㲔",
+          "㲕"
+        ]
+      }
+    },
+    {
+      "family": "贝",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 86,
+      "score": 4086,
+      "evidence": {
+        "target_gloss": "shell",
+        "source_gloss": "sea shell",
+        "source_hint": "Simplified form of 貝.  Pictograph of a cowrie shell. In ancient China such shells were used as currency.",
+        "component_glosses": {
+          "shell": 86
+        },
+        "sample_parents": [
+          "㗷",
+          "䞌",
+          "䞍",
+          "䞐",
+          "则",
+          "呗",
+          "员",
+          "坝",
+          "婴",
+          "屃",
+          "狈",
+          "罂"
+        ]
+      }
+    },
+    {
+      "family": "贝",
+      "kind": "variant_or_archaic_primitive",
+      "severity": 4,
+      "downstream_occurrences": 86,
+      "score": 4086,
+      "evidence": {
+        "source_gloss": "sea shell",
+        "source_hint": "Simplified form of 貝.  Pictograph of a cowrie shell. In ancient China such shells were used as currency.",
+        "component_glosses": {
+          "shell": 86
+        },
+        "sample_parents": [
+          "㗷",
+          "䞌",
+          "䞍",
+          "䞐",
+          "则",
+          "呗",
+          "员",
+          "坝",
+          "婴",
+          "屃",
+          "狈",
+          "罂"
+        ]
+      }
+    },
+    {
+      "family": "羽",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 83,
+      "score": 4083,
+      "evidence": {
+        "target_gloss": "feathers",
+        "source_gloss": "feather",
+        "source_hint": "Pictograph of feathers.",
+        "component_glosses": {
+          "feathers": 83
+        },
+        "sample_parents": [
+          "㵤",
+          "䋚",
+          "䌻",
+          "䍾",
+          "䍿",
+          "䎀",
+          "䎁",
+          "䎂",
+          "䎃",
+          "䎄",
+          "䎅",
+          "䎆"
+        ]
+      }
+    },
+    {
+      "family": "骨",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 83,
+      "score": 4083,
+      "evidence": {
+        "target_gloss": "skeleton",
+        "source_gloss": "bone",
+        "source_hint": "Pictograph of a bone (冎) with muscle (肉) attached to it.",
+        "component_glosses": {
+          "skeleton": 83
+        },
+        "sample_parents": [
+          "㾶",
+          "䮩",
+          "䯆",
+          "䯇",
+          "䯈",
+          "䯉",
+          "䯊",
+          "䯋",
+          "䯌",
+          "䯍",
+          "䯎",
+          "䯏"
+        ]
+      }
+    },
+    {
+      "family": "歹",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 82,
+      "score": 4082,
+      "evidence": {
+        "target_gloss": "harmful",
+        "source_gloss": "evil, bad",
+        "source_hint": "Variant of 歺. Depicts skeletal remains from a carcass. The meaning later shifted to \"bad\" and \"evil\".",
+        "component_glosses": {
+          "harmful": 82
+        },
+        "sample_parents": [
+          "㱙",
+          "㱚",
+          "㱛",
+          "㱜",
+          "㱞",
+          "㱟",
+          "㱠",
+          "㱡",
+          "㱢",
+          "㱣",
+          "㱤",
+          "㱥"
+        ]
+      }
+    },
+    {
+      "family": "歹",
+      "kind": "variant_or_archaic_primitive",
+      "severity": 4,
+      "downstream_occurrences": 82,
+      "score": 4082,
+      "evidence": {
+        "source_gloss": "evil, bad",
+        "source_hint": "Variant of 歺. Depicts skeletal remains from a carcass. The meaning later shifted to \"bad\" and \"evil\".",
+        "component_glosses": {
+          "harmful": 82
+        },
+        "sample_parents": [
+          "㱙",
+          "㱚",
+          "㱛",
+          "㱜",
+          "㱞",
+          "㱟",
+          "㱠",
+          "㱡",
+          "㱢",
+          "㱣",
+          "㱤",
+          "㱥"
+        ]
+      }
+    },
+    {
+      "family": "立",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 81,
+      "score": 4081,
+      "evidence": {
+        "target_gloss": "standing up",
+        "source_gloss": "stand",
+        "source_hint": "Pictograph of a person standing on the ground.",
+        "component_glosses": {
+          "standing up": 81
+        },
+        "sample_parents": [
+          "㕇",
+          "㕸",
+          "㞐",
+          "㡴",
+          "㱞",
+          "䇃",
+          "䇅",
+          "䇆",
+          "䇇",
+          "䇈",
+          "䇉",
+          "䇋"
+        ]
+      }
+    },
+    {
+      "family": "尸",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 79,
+      "score": 4079,
+      "evidence": {
+        "target_gloss": "corpse",
+        "source_gloss": "sitting person",
+        "source_hint": "Depicts a person with their knees bent to sit or squat.",
+        "component_glosses": {
+          "sitting person": 79
+        },
+        "sample_parents": [
+          "㕧",
+          "㞋",
+          "㞌",
+          "㞎",
+          "㞏",
+          "㞐",
+          "㞑",
+          "㞒",
+          "㞓",
+          "㞔",
+          "㞕",
+          "㞖"
+        ]
+      }
+    },
+    {
+      "family": "十",
+      "kind": "variant_or_archaic_primitive",
+      "severity": 4,
+      "downstream_occurrences": 78,
+      "score": 4078,
+      "evidence": {
+        "source_gloss": "ten",
+        "source_hint": "A single vertical line, representing one set of ten. Analagous to the archaic characters 廿 (twenty) and 卅 (thirty). Possibly originally a picture of a needle, now written as 針.",
+        "component_glosses": {
+          "ten": 78
+        },
+        "sample_parents": [
+          "㔹",
+          "㔺",
+          "㔻",
+          "㔼",
+          "㥁",
+          "㱩",
+          "䘚",
+          "䥅",
+          "䦹",
+          "䭴",
+          "丈",
+          "亁"
+        ]
+      }
+    },
+    {
+      "family": "马",
+      "kind": "variant_or_archaic_primitive",
+      "severity": 4,
+      "downstream_occurrences": 77,
+      "score": 4077,
+      "evidence": {
+        "source_gloss": "horse",
+        "source_hint": "Simplified form of 馬.  Pictograph of a horse.",
+        "component_glosses": {
+          "horse": 77
+        },
+        "sample_parents": [
+          "㐷",
+          "冯",
+          "吗",
+          "妈",
+          "杩",
+          "犸",
+          "玛",
+          "码",
+          "祃",
+          "笃",
+          "羁",
+          "腾"
+        ]
+      }
+    },
+    {
+      "family": "囗",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 76,
+      "score": 4076,
+      "evidence": {
+        "target_gloss": "enclosure",
+        "source_gloss": "surround",
+        "source_hint": "Pictograph of a wall surrounding an area. Component form of 围 (traditional 圍).",
+        "component_glosses": {
+          "enclosure": 76
+        },
+        "sample_parents": [
+          "㘝",
+          "㘞",
+          "㘠",
+          "㘡",
+          "㘢",
+          "㘣",
+          "㘤",
+          "㘥",
+          "㢴",
+          "㴅",
+          "䇱",
+          "占"
+        ]
+      }
+    },
+    {
+      "family": "牜",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 76,
+      "score": 4076,
+      "evidence": {
+        "target_gloss": "ox",
+        "source_gloss": "an ox",
+        "source_hint": null,
+        "component_glosses": {
+          "ox": 76
+        },
+        "sample_parents": [
+          "㸨",
+          "㸩",
+          "㸪",
+          "㸫",
+          "㸬",
+          "㸭",
+          "㸮",
+          "㸯",
+          "㸰",
+          "㸱",
+          "㸲",
+          "㸳"
+        ]
+      }
+    },
+    {
+      "family": "囗",
+      "kind": "variant_or_archaic_primitive",
+      "severity": 4,
+      "downstream_occurrences": 76,
+      "score": 4076,
+      "evidence": {
+        "source_gloss": "surround",
+        "source_hint": "Pictograph of a wall surrounding an area. Component form of 围 (traditional 圍).",
+        "component_glosses": {
+          "enclosure": 76
+        },
+        "sample_parents": [
+          "㘝",
+          "㘞",
+          "㘠",
+          "㘡",
+          "㘢",
+          "㘣",
+          "㘤",
+          "㘥",
+          "㢴",
+          "㴅",
+          "䇱",
+          "占"
+        ]
+      }
+    },
+    {
+      "family": "月",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 74,
+      "score": 4074,
+      "evidence": {
+        "target_gloss": "month",
+        "source_gloss": "moon",
+        "source_hint": "Pictograph of the moon.",
+        "component_glosses": {
+          "month": 68,
+          "flesh": 6
+        },
+        "sample_parents": [
+          "㞕",
+          "㨊",
+          "㬳",
+          "㬴",
+          "㬵",
+          "㬶",
+          "㬸",
+          "㬹",
+          "㬻",
+          "㬿",
+          "㵦",
+          "㵬"
+        ]
+      }
+    },
+    {
+      "family": "厂",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 73,
+      "score": 4073,
+      "evidence": {
+        "target_gloss": "factory",
+        "source_gloss": "cliff, (roof)",
+        "source_hint": "Pictograph of a cliff or similarly shaped object. Sometimes used interchangeably with 广 to depict a roof. In simplified Chinese 厂 is also used to mean \"factory\", while in traditional Chinese this meaning is written with a separate character 廠.",
+        "component_glosses": {
+          "cliff": 73
+        },
+        "sample_parents": [
+          "㓹",
+          "㕂",
+          "㕃",
+          "㕄",
+          "㕅",
+          "㕆",
+          "㕇",
+          "㕈",
+          "㕉",
+          "㕊",
+          "㕋",
+          "㕌"
+        ]
+      }
+    },
+    {
+      "family": "厂",
+      "kind": "variant_or_archaic_primitive",
+      "severity": 4,
+      "downstream_occurrences": 73,
+      "score": 4073,
+      "evidence": {
+        "source_gloss": "cliff, (roof)",
+        "source_hint": "Pictograph of a cliff or similarly shaped object. Sometimes used interchangeably with 广 to depict a roof. In simplified Chinese 厂 is also used to mean \"factory\", while in traditional Chinese this meaning is written with a separate character 廠.",
+        "component_glosses": {
+          "cliff": 73
+        },
+        "sample_parents": [
+          "㓹",
+          "㕂",
+          "㕃",
+          "㕄",
+          "㕅",
+          "㕆",
+          "㕇",
+          "㕈",
+          "㕉",
+          "㕊",
+          "㕋",
+          "㕌"
+        ]
+      }
+    },
+    {
+      "family": "丿",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 69,
+      "score": 4069,
+      "evidence": {
+        "target_gloss": "slash",
+        "source_gloss": "line",
+        "source_hint": "Line curving downwards to the left.",
+        "component_glosses": {
+          "slash": 69
+        },
+        "sample_parents": [
+          "㦲",
+          "㷗",
+          "㻄",
+          "㼂",
+          "䖝",
+          "䘮",
+          "丆",
+          "丢",
+          "丧",
+          "丷",
+          "乇",
+          "么"
+        ]
+      }
+    },
+    {
+      "family": "衣",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 69,
+      "score": 4069,
+      "evidence": {
+        "target_gloss": "clothing",
+        "source_gloss": "clothes",
+        "source_hint": "Pictograph of a shirt or coat.",
+        "component_glosses": {
+          "clothing": 69
+        },
+        "sample_parents": [
+          "㕈",
+          "㛄",
+          "㠢",
+          "㳖",
+          "㿆",
+          "䘚",
+          "䘡",
+          "䘫",
+          "䘱",
+          "䙚",
+          "䙝",
+          "䙪"
+        ]
+      }
+    },
+    {
+      "family": "厶",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 67,
+      "score": 4067,
+      "evidence": {
+        "target_gloss": "secret",
+        "source_gloss": "private, selfish",
+        "source_hint": "A small circle depicting personal space or things revolving around oneself. Original form of 私.",
+        "component_glosses": {
+          "secret": 67
+        },
+        "sample_parents": [
+          "㕕",
+          "㕖",
+          "㕗",
+          "㕘",
+          "㝐",
+          "㦯",
+          "㴉",
+          "㺨",
+          "㿝",
+          "䏍",
+          "䨶",
+          "么"
+        ]
+      }
+    },
+    {
+      "family": "戈",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 64,
+      "score": 4064,
+      "evidence": {
+        "target_gloss": "halberd",
+        "source_gloss": "spear",
+        "source_hint": "Pictograph of a weapon with a long shaft and horizontal blade.",
+        "component_glosses": {
+          "halberd": 64
+        },
+        "sample_parents": [
+          "㡲",
+          "㦯",
+          "㦰",
+          "㦴",
+          "㦵",
+          "㦶",
+          "㦷",
+          "㦸",
+          "㦹",
+          "㦺",
+          "㦻",
+          "㦼"
+        ]
+      }
+    },
+    {
+      "family": "者",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 64,
+      "score": 4064,
+      "evidence": {
+        "target_gloss": "person",
+        "source_gloss": "one who...",
+        "source_hint": "Origin unclear. 耂, which is a pictograph of a tree with paper mulberry leaves (original form of 楮), represents the sound.",
+        "component_glosses": {
+          "person": 64
+        },
+        "sample_parents": [
+          "㥩",
+          "㨋",
+          "㸙",
+          "䐗",
+          "䘄",
+          "䡤",
+          "䬡",
+          "䰇",
+          "䰞",
+          "䰩",
+          "䵭",
+          "书"
+        ]
+      }
+    },
+    {
+      "family": "车",
+      "kind": "variant_or_archaic_primitive",
+      "severity": 4,
+      "downstream_occurrences": 63,
+      "score": 4063,
+      "evidence": {
+        "source_gloss": "vehicle",
+        "source_hint": "Pictograph of a war chariot. The simplified character 车 was adapted from the cursive form of the traditional character 車.",
+        "component_glosses": {
+          "vehicle": 63
+        },
+        "sample_parents": [
+          "䢀",
+          "䢁",
+          "䢂",
+          "军",
+          "厍",
+          "库",
+          "斩",
+          "毂",
+          "砗",
+          "舆",
+          "荤",
+          "轧"
+        ]
+      }
+    },
+    {
+      "family": "黑",
+      "kind": "variant_or_archaic_primitive",
+      "severity": 4,
+      "downstream_occurrences": 63,
+      "score": 4063,
+      "evidence": {
+        "source_gloss": "black",
+        "source_hint": "Pictograph of a person whose face has been tattooed. In ancient China criminals were punished by having their faces permanently marked. Later writers reanalyzed the character as a chimney being blackened by fire, so the bottom component was written to look like 炎 (flame).",
+        "component_glosses": {
+          "black": 63
+        },
+        "sample_parents": [
+          "㱄",
+          "㷵",
+          "㸃",
+          "䁫",
+          "䆀",
+          "䵝",
+          "䵞",
+          "䵟",
+          "䵠",
+          "䵡",
+          "䵢",
+          "䵣"
+        ]
+      }
+    },
+    {
+      "family": "占",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 58,
+      "score": 4058,
+      "evidence": {
+        "target_gloss": "tell fortunes",
+        "source_gloss": "divine",
+        "source_hint": "In ancient China fortune-tellers analyzed cracks (卜) and holes (口) in shells and bones for the purpose of divination.",
+        "component_glosses": {
+          "tell fortunes": 58
+        },
+        "sample_parents": [
+          "㓠",
+          "㚲",
+          "㣌",
+          "㤐",
+          "㸃",
+          "䀡",
+          "䍄",
+          "䦓",
+          "䩇",
+          "䩞",
+          "䪓",
+          "䬯"
+        ]
+      }
+    },
+    {
+      "family": "合",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 58,
+      "score": 4058,
+      "evidence": {
+        "target_gloss": "fit",
+        "source_gloss": "to join",
+        "source_hint": "Depicts two mouths talking to each other.",
+        "component_glosses": {
+          "fit": 58
+        },
+        "sample_parents": [
+          "㓣",
+          "㕉",
+          "㝓",
+          "㢵",
+          "㣛",
+          "㧱",
+          "㪉",
+          "㭘",
+          "㾑",
+          "㿯",
+          "䀫",
+          "䆟"
+        ]
+      }
+    },
+    {
+      "family": "斤",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 58,
+      "score": 4058,
+      "evidence": {
+        "target_gloss": "catty",
+        "source_gloss": "axe",
+        "source_hint": "Pictograph of an adze for carving wood.",
+        "component_glosses": {
+          "axe": 58
+        },
+        "sample_parents": [
+          "㪼",
+          "㪾",
+          "㪿",
+          "㫀",
+          "㫁",
+          "㫂",
+          "㸫",
+          "㹞",
+          "䉼",
+          "䖐",
+          "䜣",
+          "䰺"
+        ]
+      }
+    },
+    {
+      "family": "方",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 58,
+      "score": 4058,
+      "evidence": {
+        "target_gloss": "direction",
+        "source_gloss": "square",
+        "source_hint": "Depicts the cutting edge (一) of a knife blade (刀). Similar in origin to 亡. Based on the original meaning \"cutting edge\". The meaning later expanded to \"perimeter\", \"area\", and \"square\".",
+        "component_glosses": {
+          "direction": 58
+        },
+        "sample_parents": [
+          "㕫",
+          "㝑",
+          "㝰",
+          "㤃",
+          "㧍",
+          "㫃",
+          "㫄",
+          "㫎",
+          "㰾",
+          "䄱",
+          "䟍",
+          "䡻"
+        ]
+      }
+    },
+    {
+      "family": "灬",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 58,
+      "score": 4058,
+      "evidence": {
+        "target_gloss": "fire (bottom)",
+        "source_gloss": "fire",
+        "source_hint": "灬 is a component form of 火, which is a pictograph of fire.",
+        "component_glosses": {
+          "fire (bottom)": 58
+        },
+        "sample_parents": [
+          "㶨",
+          "㶵",
+          "㶻",
+          "㷊",
+          "㷛",
+          "㷦",
+          "㷶",
+          "㸐",
+          "勲",
+          "喣",
+          "庶",
+          "廌"
+        ]
+      }
+    },
+    {
+      "family": "门",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 58,
+      "score": 4058,
+      "evidence": {
+        "target_gloss": "gate",
+        "source_gloss": "door",
+        "source_hint": "Simplified form of 門.  Pictograph of a gate.",
+        "component_glosses": {
+          "gate": 58
+        },
+        "sample_parents": [
+          "䦶",
+          "䦷",
+          "们",
+          "扪",
+          "訚",
+          "钔",
+          "闩",
+          "闪",
+          "闫",
+          "闬",
+          "闭",
+          "问"
+        ]
+      }
+    },
+    {
+      "family": "占",
+      "kind": "variant_or_archaic_primitive",
+      "severity": 4,
+      "downstream_occurrences": 58,
+      "score": 4058,
+      "evidence": {
+        "source_gloss": "divine",
+        "source_hint": "In ancient China fortune-tellers analyzed cracks (卜) and holes (口) in shells and bones for the purpose of divination.",
+        "component_glosses": {
+          "tell fortunes": 58
+        },
+        "sample_parents": [
+          "㓠",
+          "㚲",
+          "㣌",
+          "㤐",
+          "㸃",
+          "䀡",
+          "䍄",
+          "䦓",
+          "䩇",
+          "䩞",
+          "䪓",
+          "䬯"
+        ]
+      }
+    },
+    {
+      "family": "门",
+      "kind": "variant_or_archaic_primitive",
+      "severity": 4,
+      "downstream_occurrences": 58,
+      "score": 4058,
+      "evidence": {
+        "source_gloss": "door",
+        "source_hint": "Simplified form of 門.  Pictograph of a gate.",
+        "component_glosses": {
+          "gate": 58
+        },
+        "sample_parents": [
+          "䦶",
+          "䦷",
+          "们",
+          "扪",
+          "訚",
+          "钔",
+          "闩",
+          "闪",
+          "闫",
+          "闬",
+          "闭",
+          "问"
+        ]
+      }
+    },
+    {
+      "family": "攴",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 57,
+      "score": 4057,
+      "evidence": {
+        "target_gloss": "rap",
+        "source_gloss": "tap",
+        "source_hint": "Depicts a hand (又) holding a whip or a staff. The whip or staff was later reanalyzed into the sound component 卜.",
+        "component_glosses": {
+          "rap": 57
+        },
+        "sample_parents": [
+          "㢭",
+          "㪁",
+          "㪂",
+          "㪃",
+          "㪅",
+          "㪆",
+          "㪈",
+          "㪊",
+          "㪋",
+          "㪌",
+          "㪎",
+          "㪏"
+        ]
+      }
+    },
+    {
+      "family": "皮",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 57,
+      "score": 4057,
+      "evidence": {
+        "target_gloss": "covering",
+        "source_gloss": "skin",
+        "source_hint": "Pictograph of a hand (又) peeling off the skin from an animal.",
+        "component_glosses": {
+          "covering": 57
+        },
+        "sample_parents": [
+          "㓟",
+          "㝿",
+          "㢰",
+          "㱟",
+          "㿪",
+          "㿫",
+          "㿬",
+          "㿭",
+          "㿮",
+          "㿯",
+          "㿰",
+          "㿱"
+        ]
+      }
+    },
+    {
+      "family": "罒",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 57,
+      "score": 4057,
+      "evidence": {
+        "target_gloss": "net (top)",
+        "source_gloss": "Radical 122",
+        "source_hint": null,
+        "component_glosses": {
+          "net (top)": 57
+        },
+        "sample_parents": [
+          "㝲",
+          "㸘",
+          "䠢",
+          "擥",
+          "曼",
+          "爵",
+          "甍",
+          "瞢",
+          "罖",
+          "罗",
+          "罘",
+          "罚"
+        ]
+      }
+    },
+    {
+      "family": "寸",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 56,
+      "score": 4056,
+      "evidence": {
+        "target_gloss": "inch",
+        "source_gloss": "(hand), inch",
+        "source_hint": "Pictograph of a hand with a line marking a spot on the wrist. In traditional Chinese medicine this spot on the wrist where the pulse can be taken is called the 寸口. ",
+        "component_glosses": {
+          "inch": 56
+        },
+        "sample_parents": [
+          "㝴",
+          "㝵",
+          "㝶",
+          "㵱",
+          "㷉",
+          "䅶",
+          "䒭",
+          "䖞",
+          "䙷",
+          "䙸",
+          "䢇",
+          "专"
+        ]
+      }
+    },
+    {
+      "family": "角",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 56,
+      "score": 4056,
+      "evidence": {
+        "target_gloss": "angle",
+        "source_gloss": "horn",
+        "source_hint": "Pictograph of a horn.",
+        "component_glosses": {
+          "angle": 56
+        },
+        "sample_parents": [
+          "㓩",
+          "䇶",
+          "䚗",
+          "䚘",
+          "䚙",
+          "䚚",
+          "䚛",
+          "䚜",
+          "䚝",
+          "䚞",
+          "䚟",
+          "䚠"
+        ]
+      }
+    },
+    {
+      "family": "韋",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 56,
+      "score": 4056,
+      "evidence": {
+        "target_gloss": "tanned hide",
+        "source_gloss": "(surround a city), tanned leather",
+        "source_hint": "Pictograph of feet walking around city walls. The character is based on the original meaning \"to surround\". The \"leather\" meaning is a phonetic loan.",
+        "component_glosses": {
+          "tanned hide": 56
+        },
+        "sample_parents": [
+          "㙔",
+          "䍷",
+          "䘙",
+          "䪏",
+          "䪐",
+          "䪑",
+          "䪒",
+          "䪓",
+          "䪔",
+          "䪕",
+          "䪖",
+          "䪗"
+        ]
+      }
+    },
+    {
+      "family": "寸",
+      "kind": "variant_or_archaic_primitive",
+      "severity": 4,
+      "downstream_occurrences": 56,
+      "score": 4056,
+      "evidence": {
+        "source_gloss": "(hand), inch",
+        "source_hint": "Pictograph of a hand with a line marking a spot on the wrist. In traditional Chinese medicine this spot on the wrist where the pulse can be taken is called the 寸口. ",
+        "component_glosses": {
+          "inch": 56
+        },
+        "sample_parents": [
+          "㝴",
+          "㝵",
+          "㝶",
+          "㵱",
+          "㷉",
+          "䅶",
+          "䒭",
+          "䖞",
+          "䙷",
+          "䙸",
+          "䢇",
+          "专"
+        ]
+      }
+    },
+    {
+      "family": "干",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 54,
+      "score": 4054,
+      "evidence": {
+        "target_gloss": "dry",
+        "source_gloss": "interfere",
+        "source_hint": "Pictograph of a type of hunting or military tool.",
+        "component_glosses": {
+          "offend": 54
+        },
+        "sample_parents": [
+          "㟁",
+          "㢨",
+          "㶣",
+          "㸩",
+          "㿻",
+          "䍐",
+          "䍑",
+          "䖫",
+          "䢴",
+          "䧲",
+          "䵟",
+          "刊"
+        ]
+      }
+    },
+    {
+      "family": "夾",
+      "kind": "variant_concept_drift",
+      "severity": 4,
+      "downstream_occurrences": 54,
+      "score": 4054,
+      "evidence": {
+        "traditional": "夾",
+        "simplified": "夹",
+        "traditional_target": "press from both sides",
+        "simplified_target": "be wedged or inserted between",
+        "source_gloss": "be wedged or inserted between, pressed from two sides",
+        "simplified_source_gloss": "be wedged or inserted between, pressed from two sides",
+        "simplified_traditional_variants": [
+          "夾"
+        ],
+        "traditional_component_glosses": {
+          "press from both sides": 36
+        },
+        "simplified_component_glosses": {
+          "be wedged or inserted between": 18
+        }
+      }
+    },
+    {
+      "family": "豕",
+      "kind": "apparent_ids_high_impact",
+      "severity": 4,
+      "downstream_occurrences": 53,
+      "score": 4053,
+      "evidence": {
+        "apparent_ids": "⿱一𧰨",
+        "active_equation": "一 one + 𧰨 pig alternate form = 豕 boar",
+        "active_components": [
+          {
+            "character": "一",
+            "gloss": "one"
+          },
+          {
+            "character": "𧰨",
+            "gloss": "pig alternate form"
+          }
+        ],
+        "sample_parents": [
+          "㒪",
+          "㒸",
+          "㭬",
+          "㯻",
+          "㻹",
+          "䀃",
+          "䆥",
+          "䖶",
+          "䝅",
+          "䝆",
+          "䝇",
+          "䝈"
+        ]
+      }
+    },
+    {
+      "family": "林",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 53,
+      "score": 4053,
+      "evidence": {
+        "target_gloss": "woods",
+        "source_gloss": "forest",
+        "source_hint": "Combination of two trees (木).",
+        "component_glosses": {
+          "woods": 53
+        },
+        "sample_parents": [
+          "㑣",
+          "㚞",
+          "㛦",
+          "㝝",
+          "㨆",
+          "㪔",
+          "㭝",
+          "㯄",
+          "㯟",
+          "㯬",
+          "㰈",
+          "㷊"
+        ]
+      }
+    },
+    {
+      "family": "止",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 53,
+      "score": 4053,
+      "evidence": {
+        "target_gloss": "stop",
+        "source_gloss": "(foot), stop",
+        "source_hint": "Pictograph of a foot. The meaning of this character has shifted over time and now means \"stop\". ",
+        "component_glosses": {
+          "stop": 53
+        },
+        "sample_parents": [
+          "㢟",
+          "㱒",
+          "㱕",
+          "㱖",
+          "㱗",
+          "㱘",
+          "㹛",
+          "䇛",
+          "䊼",
+          "䕫",
+          "䜀",
+          "䜧"
+        ]
+      }
+    },
+    {
+      "family": "豕",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 53,
+      "score": 4053,
+      "evidence": {
+        "target_gloss": "boar",
+        "source_gloss": "pig",
+        "source_hint": "Pictograph of a pig.",
+        "component_glosses": {
+          "boar": 53
+        },
+        "sample_parents": [
+          "㒪",
+          "㒸",
+          "㭬",
+          "㯻",
+          "㻹",
+          "䀃",
+          "䆥",
+          "䖶",
+          "䝅",
+          "䝆",
+          "䝇",
+          "䝈"
+        ]
+      }
+    },
+    {
+      "family": "页",
+      "kind": "variant_or_archaic_primitive",
+      "severity": 4,
+      "downstream_occurrences": 53,
+      "score": 4053,
+      "evidence": {
+        "source_gloss": "page",
+        "source_hint": "Simplified form of 頁.  Pictograph of a head (首) on top of a person (卩). Means \"head\" when pronounced xié. Has unrelated meaning \"leaf\" when pronounced yè, due to this character being adopted as a variant form of 葉.",
+        "component_glosses": {
+          "head": 53
+        },
+        "sample_parents": [
+          "㑔",
+          "䂵",
+          "嚣",
+          "灏",
+          "烦",
+          "硕",
+          "顶",
+          "顷",
+          "顸",
+          "项",
+          "顺",
+          "须"
+        ]
+      }
+    },
+    {
+      "family": "令",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 52,
+      "score": 4052,
+      "evidence": {
+        "target_gloss": "orders",
+        "source_gloss": "command",
+        "source_hint": "Depicts a person (卩) receiving commands from a mouth (口) above them. ",
+        "component_glosses": {
+          "orders": 52
+        },
+        "sample_parents": [
+          "㡵",
+          "㲆",
+          "㸳",
+          "㾉",
+          "䍅",
+          "䎆",
+          "䠲",
+          "䨧",
+          "䯍",
+          "伶",
+          "冷",
+          "呤"
+        ]
+      }
+    },
+    {
+      "family": "亠",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 51,
+      "score": 4051,
+      "evidence": {
+        "target_gloss": "lid",
+        "source_gloss": "head",
+        "source_hint": null,
+        "component_glosses": {
+          "lid": 51
+        },
+        "sample_parents": [
+          "㐫",
+          "㐭",
+          "㐯",
+          "㙶",
+          "㬌",
+          "䇂",
+          "䐡",
+          "䥆",
+          "䯧",
+          "亢",
+          "交",
+          "亥"
+        ]
+      }
+    },
+    {
+      "family": "氣",
+      "kind": "variant_concept_drift",
+      "severity": 4,
+      "downstream_occurrences": 51,
+      "score": 4051,
+      "evidence": {
+        "traditional": "氣",
+        "simplified": "气",
+        "traditional_target": "spirit",
+        "simplified_target": "steam",
+        "source_gloss": "air",
+        "simplified_source_gloss": "air",
+        "simplified_traditional_variants": [
+          "氣"
+        ],
+        "traditional_component_glosses": {
+          "spirit": 5
+        },
+        "simplified_component_glosses": {
+          "steam": 46
+        }
+      }
+    },
+    {
+      "family": "非",
+      "kind": "source_target_gloss_drift",
+      "severity": 4,
+      "downstream_occurrences": 50,
+      "score": 4050,
+      "evidence": {
+        "target_gloss": "non",
+        "source_gloss": "not",
+        "source_hint": "Depicts two people facing opposite directions.",
+        "component_glosses": {
+          "non": 50
+        },
+        "sample_parents": [
+          "㫵",
+          "㰆",
+          "㹃",
+          "㻗",
+          "䠊",
+          "䤏",
+          "䤵",
+          "䥆",
+          "䨽",
+          "䨾",
+          "䨿",
+          "䩁"
+        ]
+      }
+    },
+    {
+      "family": "單",
+      "kind": "variant_concept_drift",
+      "severity": 4,
+      "downstream_occurrences": 50,
+      "score": 4050,
+      "evidence": {
+        "traditional": "單",
+        "simplified": "单",
+        "traditional_target": "list",
+        "simplified_target": "single",
+        "source_gloss": "single",
+        "simplified_source_gloss": "single",
+        "simplified_traditional_variants": [
+          "單"
+        ],
+        "traditional_component_glosses": {
+          "list": 34
+        },
+        "simplified_component_glosses": {
+          "single": 16
+        }
+      }
+    },
+    {
+      "family": "豆",
+      "kind": "apparent_ids_high_impact",
+      "severity": 4,
+      "downstream_occurrences": 49,
+      "score": 4049,
+      "evidence": {
+        "apparent_ids": "⿱&GT-04098;䒑",
+        "active_equation": "䒑 grass top = 豆 beans",
+        "active_components": [
+          {
+            "character": "䒑",
+            "gloss": "grass top"
+          }
+        ],
+        "sample_parents": [
+          "㕏",
+          "㛒",
+          "㢄",
+          "㤱",
+          "㰯",
+          "䄈",
+          "䇺",
+          "䖒",
+          "䛠",
+          "䜴",
+          "䜵",
+          "䜶"
+        ]
+      }
+    }
+  ]
+}

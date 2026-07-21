@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-07-21T00:43:22.494665+00:00",
+  "created_at": "2026-07-21T06:35:36.841819+00:00",
   "count": 24037,
   "invalid_count": 0,
   "invalid": [],
@@ -962,8 +962,8 @@
             ]
           }
         ],
-        "equation": "亠 lid + 口 mouth + 冂 large room + 口 mouth = 高 tall",
-        "mnemonic": "Under a 亠 lid, one 口 mouth calls from the top of a 冂 large room to another 口 mouth far below, revealing the room is 高 tall.",
+        "equation": "亠 lid + 口 mouth + 冂 outer frame + 口 mouth = 高 tall",
+        "mnemonic": "Under a 亠 lid, one 口 mouth calls across a 冂 outer frame to another 口 mouth far below, showing it is 高 tall.",
         "components": [
           {
             "character": "亠",
@@ -975,7 +975,7 @@
           },
           {
             "character": "冂",
-            "gloss": "large room"
+            "gloss": "outer frame"
           },
           {
             "character": "口",
@@ -1636,14 +1636,11 @@
     "certification_status": "expedited_non_certified"
   },
   "gpt56_expedited_release": {
-    "certification_status": "expedited_non_certified",
-    "materialized_card_projection_hash": "sha256:1e263b0744cc65ebb20217abba1190115621d29ea85dce1f8dfd23fd6643f99a",
+    "materialized_card_projection_hash": "sha256:96a5f1c495f81035286bb6fc27749fd1eeaea5e13eb815d18eece44ac1abdef8",
     "formal_validation": {
       "count": 24037,
       "invalid_count": 0
     },
-    "source_candidate_sha256": "sha256:28e5dace4a376d0c341f626e9127fdb24e70181cae6d3d90a2f14d42131becdc",
-    "promoted_rewrite_count": 1007,
-    "unfinished_484_card_repair_drafts_merged": false
+    "editorial_ledger_sha256": "sha256:e436c958c3c642e658dbdf19d2854d3574c6fe34d477b57e2a76ce9835b73a8a"
   }
 }

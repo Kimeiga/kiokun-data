@@ -1,0 +1,216 @@
+{
+  "schema_version": 1,
+  "policy_version": "2026-07-21.2",
+  "purpose": "Separate standalone lexical targets, reusable component images, scoped roles, preferred decomposition boundaries, and learning priority.",
+  "selection_rule": "Repair a family when local source evidence is clear and the change either corrects a common standalone target, removes a misleading reusable primitive, normalizes a real variant family, or replaces an apparent decomposition with a more useful stable boundary.",
+  "fields": {
+    "lexical_gloss": "The primary standalone meaning the learner should retrieve.",
+    "component_gloss": "The stable image reused inside larger characters.",
+    "scoped_roles": "Source-backed target-specific roles that never become global definitions.",
+    "preferred_structure": "The learner-facing decomposition boundary, which may differ from an apparent IDS split.",
+    "learning_priority": "Whether the graph is important lexically, structurally, both, or only for coverage."
+  },
+  "families": {
+    "喬": {
+      "lexical_gloss": "lofty",
+      "component_gloss": "lofty",
+      "preferred_structure": [
+        {"character": "夭", "gloss": "die young"},
+        {"character": "高", "gloss": "tall", "note": "altered historical form"}
+      ],
+      "learning_priority": "lexical_and_high_reuse_component",
+      "reason": "The local character source gives tall/high and the apparent 呑+冋 split produced an unsupported pretend primitive across 31 parents."
+    },
+    "冋": {
+      "lexical_gloss": "outskirts",
+      "component_gloss": "outskirts",
+      "preferred_structure": [
+        {"character": "冂", "gloss": "outer frame"},
+        {"character": "口", "gloss": "plot of land", "scoped": true}
+      ],
+      "learning_priority": "high_reuse_component_rare_lexical",
+      "reason": "The local Shuowen note links the graph to land beyond the city boundary; desert was an overnarrow dictionary rendering."
+    },
+    "冂": {
+      "lexical_gloss": "outer boundary",
+      "component_gloss": "outer frame",
+      "learning_priority": "structural_primitive",
+      "reason": "The source describes a distant boundary; outer frame remains the reusable visible role without pretending every occurrence is a room."
+    },
+    "帚": {
+      "lexical_gloss": "broom",
+      "component_gloss": "broom",
+      "preferred_structure": [{"character": "帚", "gloss": "broom"}],
+      "learning_priority": "lexical_and_component",
+      "reason": "The local source explicitly identifies 帚 as a broom pictograph, so the 彐 snout split is actively misleading."
+    },
+    "广": {
+      "lexical_gloss": "wide",
+      "component_gloss": "roof",
+      "learning_priority": "lexical_and_structural_collision",
+      "reason": "In Simplified Chinese 广 is the common form of 廣 wide but remains the roof radical in unrelated structures."
+    },
+    "厂": {
+      "lexical_gloss": "factory",
+      "component_gloss": "cliff",
+      "learning_priority": "lexical_and_structural_collision"
+    },
+    "几": {
+      "lexical_gloss": "how many",
+      "component_gloss": "small table",
+      "learning_priority": "lexical_and_structural_collision"
+    },
+    "儿": {
+      "lexical_gloss": "child",
+      "component_gloss": "human legs",
+      "learning_priority": "lexical_and_structural_collision"
+    },
+    "尸": {
+      "lexical_gloss": "corpse",
+      "component_gloss": "sitting person",
+      "learning_priority": "lexical_and_structural_collision"
+    },
+    "干": {
+      "lexical_gloss": "dry",
+      "component_gloss": "offend",
+      "learning_priority": "polysemous_simplification_collision"
+    },
+    "斗": {
+      "lexical_gloss": "fight",
+      "component_gloss": "big dipper",
+      "learning_priority": "lexical_and_component_polysemy"
+    },
+    "复": {
+      "lexical_gloss": "return",
+      "component_gloss": "repeatedly",
+      "learning_priority": "lexical_and_component_polysemy"
+    },
+    "囗": {
+      "lexical_gloss": "enclosure",
+      "component_gloss": "enclosure",
+      "learning_priority": "structural_primitive"
+    },
+    "𧾷": {
+      "lexical_gloss": "foot",
+      "component_gloss": "foot",
+      "preferred_structure": [{"character": "𧾷", "gloss": "foot"}],
+      "learning_priority": "high_reuse_positional_form"
+    },
+    "見/见": {
+      "lexical_gloss": "see",
+      "component_gloss": "see",
+      "learning_priority": "variant_family"
+    },
+    "風/风": {
+      "lexical_gloss": "wind",
+      "component_gloss": "wind",
+      "learning_priority": "variant_family"
+    },
+    "兌/兑": {
+      "lexical_gloss": "exchange",
+      "component_gloss": "exchange",
+      "learning_priority": "variant_family"
+    },
+    "馬/马": {
+      "lexical_gloss": "horse",
+      "component_gloss": "horse",
+      "learning_priority": "variant_family"
+    },
+    "齒/齿": {
+      "lexical_gloss": "teeth",
+      "component_gloss": "teeth",
+      "learning_priority": "variant_family",
+      "reason": "The simplified family was incorrectly taught as gears despite the exact source gloss and pictographic evidence for teeth."
+    },
+    "婁/娄": {
+      "lexical_gloss": "surname",
+      "component_gloss": "embrace",
+      "learning_priority": "high_reuse_rare_lexical",
+      "reason": "The exact source describes hands holding a woman's waist; embrace is a concrete shared component image, unlike the divergent wear/constellation labels."
+    },
+    "圹": {
+      "lexical_gloss": "grave",
+      "learning_priority": "simplification_lineage_target"
+    },
+    "纩": {
+      "lexical_gloss": "cotton",
+      "learning_priority": "simplification_lineage_target"
+    },
+    "妇": {
+      "lexical_gloss": "married woman",
+      "learning_priority": "common_lexical_target"
+    },
+    "扫": {
+      "lexical_gloss": "sweep",
+      "learning_priority": "common_lexical_target"
+    },
+    "寻": {
+      "lexical_gloss": "seek",
+      "component_gloss": "seek",
+      "learning_priority": "common_lexical_target"
+    },
+    "彗": {
+      "lexical_gloss": "broom",
+      "component_gloss": "broom",
+      "learning_priority": "lexical_target"
+    },
+    "嘍": {
+      "lexical_gloss": "sentence-final particle",
+      "learning_priority": "lexical_target"
+    },
+    "觊": {
+      "lexical_gloss": "covet",
+      "learning_priority": "lexical_target"
+    },
+    "耒": {
+      "lexical_gloss": "plow handle",
+      "component_gloss": "plow handle",
+      "learning_priority": "structural_primitive"
+    }
+  },
+  "variant_aliases": {
+    "屢": {"alias_of": "屢", "reason": "Unicode compatibility glyph"},
+    "樓": {"alias_of": "樓", "reason": "Unicode compatibility glyph"},
+    "縷": {"alias_of": "縷", "reason": "Unicode compatibility glyph"},
+    "數": {"alias_of": "數", "reason": "Unicode compatibility glyph"},
+    "說": {"alias_of": "說", "reason": "Unicode compatibility glyph"},
+    "說": {"alias_of": "說", "reason": "Unicode compatibility glyph"},
+    "丽": {"alias_of": "丽", "reason": "Unicode compatibility glyph"},
+    "內": {"alias_of": "內", "reason": "Unicode compatibility glyph"},
+    "慺": {"alias_of": "慺", "reason": "Unicode compatibility glyph"}
+  },
+  "scoped_roles": {
+    "广_extensive_lineage": {
+      "targets": ["㲿", "圹", "扩", "旷", "犷", "矿", "纩", "邝"],
+      "component": "广",
+      "gloss": "extensive",
+      "role": "simplified_lineage",
+      "reason": "Each target is the recorded simplified counterpart of a form containing 廣."
+    },
+    "month_shaped_flesh": {
+      "targets": ["㬵", "㬶", "㬹", "㬻", "䯝", "髓"],
+      "component": "月",
+      "gloss": "flesh",
+      "role": "shape_disambiguation",
+      "reason": "The target is anatomical and the 月-shaped component represents flesh rather than month."
+    },
+    "broom_abbreviation": {
+      "targets": ["妇", "归", "扫"],
+      "component": "彐",
+      "gloss": "broom",
+      "role": "simplified_lineage"
+    },
+    "hand_shape": {
+      "targets": ["彗", "寻", "录"],
+      "component": "彐",
+      "gloss": "hand",
+      "role": "historical_shape"
+    },
+    "outskirts_plot": {
+      "targets": ["冋"],
+      "component": "口",
+      "gloss": "plot of land",
+      "role": "historical_shape"
+    }
+  }
+}

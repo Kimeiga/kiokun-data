@@ -1,0 +1,3924 @@
+{
+  "schema_version": 1,
+  "review_id": "abandoned-mnemonic-salvage-2026-07-21",
+  "reviewed_at": "2026-07-21",
+  "scope": {
+    "description": "Final bounded manual salvage review of abandoned Terra V3, first-batch Terra V2, and differing approved Recovery5 alternatives.",
+    "reviewed_character_count": 89,
+    "terra_v3_successful_unique_count": 60,
+    "terra_v2_successful_unique_count": 10,
+    "recovery5_approved_count": 105,
+    "recovery5_differing_live_count": 29,
+    "old_484_queue_not_resumed": true,
+    "broad_19537_queue_not_started": true,
+    "full_corpus_reaudit_not_run": true
+  },
+  "baseline": {
+    "release_commit": "f8fcf238256a8bb9fd5afc5929cf0b571d2faaaf",
+    "corpus_path": "sveltekit-app/static/research/mnemonics/semantic_mnemonics_all_best_available.json",
+    "corpus_sha256": "sha256:ecb326b7f41d8b1146061c8be2ac2ff9a77af0a81430974aa0864af03ce19aa2",
+    "card_count": 24037,
+    "unique_character_count": 24037,
+    "promoted_rewrite_count": 1007,
+    "restored_rewrite_count": 2203,
+    "abandoned_484_card_drafts_merged": false
+  },
+  "sources": {
+    "terra_v3_attempt_directory": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts",
+    "terra_v2_attempt_directory": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v2/author-attempts",
+    "recovery5_verification_path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality-mandatory-v3/locked-run-20260718-recovery5/verify/merged.json",
+    "recovery5_verification_sha256": "sha256:b818524f75b23986d9ec600f7157b955ab487195a50870b1e131744157f91d8c",
+    "originating_queue_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/protected-keep-needs-rewrite.queue.json",
+    "originating_queue_used_for_metadata": false,
+    "dictionary_path": "data/chinese_dictionary_char_2025-06-25.jsonl",
+    "dictionary_sha256": "sha256:655b2ad7d9422190c56d5a364a589d020014b97a8dd71029cd71671ba59cfc1c"
+  },
+  "decision_policy": "Preserve live unless an alternative is an unequivocal learner-facing improvement; personally judge every record without relying on prior approval labels.",
+  "decision_counts": {
+    "keep_live": 75,
+    "promote_abandoned": 13,
+    "rewrite_bespoke": 1
+  },
+  "superseded_review_decisions": {
+    "喬": {
+      "superseded_by": "component-family-repair-2026-07-21",
+      "reason": "The later family review established lofty as the supported lexical and reusable component gloss and rejected the apparent 呑 absorb + 冋 desert analysis."
+    }
+  },
+  "changed_characters": [
+    "洛",
+    "喬",
+    "娜",
+    "岳",
+    "旤",
+    "鄧",
+    "癌",
+    "馮",
+    "苍",
+    "郁",
+    "柟",
+    "㼍",
+    "哕",
+    "検"
+  ],
+  "reviews": [
+    {
+      "character": "于",
+      "target_gloss": "Yu",
+      "equation": "Visual form: 于 Yu",
+      "visual_components": [
+        {
+          "character": "于",
+          "gloss": "Yu"
+        }
+      ],
+      "live": {
+        "mnemonic": "The three strokes of 于 Yu echo an ancient reed instrument, with a long pipe crossed near the top.",
+        "card_hash": "sha256:ad2020518cf73f16b85c2eb39e31cca077c183d01c8e7393d53f947fc715cdc5",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:327351dc8232a4194ebd521844470c1ec45fb0d01c6e94da26f97de0c584e6f5"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "For 于 Yu, picture an upright reed pipe crossed near its top and repeat 于 Yu while tracing it.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-000.attempt-002.json",
+            "attempt_hash": "sha256:e9c900847388bdeefdd0d7c750156d26da1dd9c0c75604441bd79084f5a2381f",
+            "record_hash": "sha256:651bdc287dc91a0189e4125c265f407142a7e5af01150f6829b952514ff7b8c1",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        },
+        {
+          "mnemonic": "Picture 于 Yu as a slender reed pipe crossed near its top.",
+          "provenance": {
+            "source": "terra_v2",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v2/author-attempts/batch-000.attempt-001.json",
+            "attempt_hash": "sha256:aad573ae48d56bf17358f8b59c64e655ecba6b2dfee15046e7356518daeb23ca",
+            "record_hash": "sha256:323a75a9906eca94af5e2d6f1e1f7d8229194cad498038ce41c4d0f17e9fe9af",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.2"
+          }
+        }
+      ],
+      "dictionary_hint": "Pictograph of a musical wind instrument with a reed, which is now written as 竽. The current meaning is a phonetic loan.",
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "The three strokes of 于 Yu echo an ancient reed instrument, with a long pipe crossed near the top.",
+      "reason": "The live sentence already gives the historical reed-instrument silhouette; the drafts add circular name repetition or tracing without a stronger cue."
+    },
+    {
+      "character": "亞",
+      "target_gloss": "Asia",
+      "equation": "Visual form: 亞 Asia",
+      "visual_components": [
+        {
+          "character": "亞",
+          "gloss": "Asia"
+        }
+      ],
+      "live": {
+        "mnemonic": "A blocky map of 亞 Asia places four outer regions around a central crossroads.",
+        "card_hash": "sha256:c45891b46eda5c6d183101c90fbdfac923c074579babd37faa2bc8e5551aa1f9",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:c705132894bd826f15e3e3c35d5f69cab13ce1c8591604ac8d4057ef94e96ac5"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "The four blocky outer corners of 亞 Asia surround a central opening, like the edge of a compact map of 亞 Asia.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-000.attempt-002.json",
+            "attempt_hash": "sha256:e9c900847388bdeefdd0d7c750156d26da1dd9c0c75604441bd79084f5a2381f",
+            "record_hash": "sha256:0ccc64bd5fc791103b681f16472bd65c5ded0c8423de674121056e6d677ff05d",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        },
+        {
+          "mnemonic": "Picture 亞 Asia as four broad blocks surrounding a hollow center.",
+          "provenance": {
+            "source": "terra_v2",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v2/author-attempts/batch-000.attempt-001.json",
+            "attempt_hash": "sha256:aad573ae48d56bf17358f8b59c64e655ecba6b2dfee15046e7356518daeb23ca",
+            "record_hash": "sha256:e6516b309781a76a93633f27c66af8f7673999dce6fc9b42e7886f6c8204ed11",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.2"
+          }
+        }
+      ],
+      "dictionary_hint": "Depicts a wooden structure where coffins are placed. Based on the original meaning \"tomb\". The current meaning \"Asia\" is a phonetic loan.",
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "A blocky map of 亞 Asia places four outer regions around a central crossroads.",
+      "reason": "The phonetic-loan target remains underdetermined, and the hollow-center variants are not clearer than the live compact map image."
+    },
+    {
+      "character": "洛",
+      "target_gloss": "Luo River",
+      "equation": "氵 water (drops) + 各 each = 洛 Luo River",
+      "visual_components": [
+        {
+          "character": "氵",
+          "gloss": "water (drops)"
+        },
+        {
+          "character": "各",
+          "gloss": "each"
+        }
+      ],
+      "live": {
+        "mnemonic": "The 洛 Luo River carries 氵 water past 各 each riverside town.",
+        "card_hash": "sha256:29da25043e5dd00f63636d6d4cdc45f29939264d1a3f7e6fe3397d4de005cb07",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:9dd5b53c8b3375c13ac95a264daeb11a77344ffa7b7f3249c58d72533cab2062"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "The 洛 Luo River gathers 氵 water from 各 each tributary.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-000.attempt-002.json",
+            "attempt_hash": "sha256:e9c900847388bdeefdd0d7c750156d26da1dd9c0c75604441bd79084f5a2381f",
+            "record_hash": "sha256:c4730b4ecdef453c984eee1ee5cae26244b11b05d9b81169ff0e09d771041dc6",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        },
+        {
+          "mnemonic": "Let 各 each tributary pour its 氵 water into the 洛 Luo River.",
+          "provenance": {
+            "source": "terra_v2",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v2/author-attempts/batch-000.attempt-001.json",
+            "attempt_hash": "sha256:aad573ae48d56bf17358f8b59c64e655ecba6b2dfee15046e7356518daeb23ca",
+            "record_hash": "sha256:474583e362dd52126064c43037652ba424cd0573c7d9eed424734af9cde06e1d",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.2"
+          }
+        }
+      ],
+      "dictionary_hint": "Phonosemantic compound. 氵 represents the meaning and 各 represents the sound. ",
+      "decision": "promote_abandoned",
+      "confidence": 95,
+      "selected_source": "terra_v3",
+      "selected_mnemonic": "The 洛 Luo River gathers 氵 water from 各 each tributary.",
+      "reason": "Each tributary naturally supplies water to the named river, replacing the generic sequence of riverside towns."
+    },
+    {
+      "character": "胜",
+      "target_gloss": "excel",
+      "equation": "⺼ meat (side) + 生 life = 胜 excel",
+      "visual_components": [
+        {
+          "character": "⺼",
+          "gloss": "meat (side)"
+        },
+        {
+          "character": "生",
+          "gloss": "life"
+        }
+      ],
+      "live": {
+        "mnemonic": "A cook brings 生 life to every ⺼ meat dish and begins to 胜 excel.",
+        "card_hash": "sha256:95c2645aad96471068ec72429822fceb4a552a78b94c11deb76c3f97a2475dc5",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:90538872597ab4eeaaf63916b5d8df02868c6aa212129de80314e8bbb993a25c"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "A cook can 胜 excel by bringing 生 life to humble ⺼ meat.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-000.attempt-002.json",
+            "attempt_hash": "sha256:e9c900847388bdeefdd0d7c750156d26da1dd9c0c75604441bd79084f5a2381f",
+            "record_hash": "sha256:85155694c433da2eee0f4651759c698c7275d4402a23d645eeb7723d5a5a48c0",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        },
+        {
+          "mnemonic": "A sculptor can 胜 excel at realism by making ⺼ meat appear full of 生 life.",
+          "provenance": {
+            "source": "terra_v2",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v2/author-attempts/batch-000.attempt-001.json",
+            "attempt_hash": "sha256:aad573ae48d56bf17358f8b59c64e655ecba6b2dfee15046e7356518daeb23ca",
+            "record_hash": "sha256:6dcdf3e4f6bd95978c5b5511544c6941d75a4b11600b8b00ab8fde55f4b6f328",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.2"
+          }
+        }
+      ],
+      "dictionary_hint": "Simplified form of 勝. Remnant of 朕, the sound component in 勝, with an added sound component 生.",
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "A cook brings 生 life to every ⺼ meat dish and begins to 胜 excel.",
+      "reason": "The drafts retain an invented profession or an awkward living-meat bridge, so neither clearly beats the live cooking scene."
+    },
+    {
+      "character": "耶",
+      "target_gloss": "ye (sound)",
+      "equation": "耳 ear + ⻏ city (right) = 耶 ye (sound)",
+      "visual_components": [
+        {
+          "character": "耳",
+          "gloss": "ear"
+        },
+        {
+          "character": "⻏",
+          "gloss": "city (right)"
+        }
+      ],
+      "live": {
+        "mnemonic": "The whole ⻏ city shouts 耶 ye (sound), and every 耳 ear catches the echo.",
+        "card_hash": "sha256:91cf16d15d6565ea0d05223b601ab587cfc0b287653f41174478778ddbcec175",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:0c3064f4a1ffa692065734b611cc1f9d2e3af23d834f562667ac2da563a27619"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "In a silent ⻏ city, a single 耶 ye (sound) finds every 耳 ear.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-000.attempt-002.json",
+            "attempt_hash": "sha256:e9c900847388bdeefdd0d7c750156d26da1dd9c0c75604441bd79084f5a2381f",
+            "record_hash": "sha256:63bcc7af0c352a61165e273ac08847fe201a758b9b376eb8b86b3cab5f4fc8ea",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        },
+        {
+          "mnemonic": "An 耳 ear recognizes the lively call from a ⻏ city as 耶 ye (sound).",
+          "provenance": {
+            "source": "terra_v2",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v2/author-attempts/batch-000.attempt-001.json",
+            "attempt_hash": "sha256:aad573ae48d56bf17358f8b59c64e655ecba6b2dfee15046e7356518daeb23ca",
+            "record_hash": "sha256:0e1a19a4c410a6a38fd88352aedcc84cc27b6b397f94d2689ba5134008077c72",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.2"
+          }
+        }
+      ],
+      "dictionary_hint": "Corruption of 邪, with the 牙 component replaced with 耳.",
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "The whole ⻏ city shouts 耶 ye (sound), and every 耳 ear catches the echo.",
+      "reason": "The live citywide shout reaching every ear is simpler and more vivid than a silent city or a generic city call."
+    },
+    {
+      "character": "喬",
+      "target_gloss": "pretend",
+      "equation": "呑 absorb + 冋 desert = 喬 pretend",
+      "visual_components": [
+        {
+          "character": "呑",
+          "gloss": "absorb"
+        },
+        {
+          "character": "冋",
+          "gloss": "desert"
+        }
+      ],
+      "live": {
+        "mnemonic": "Actors 喬 pretend they can 呑 absorb an entire 冋 desert.",
+        "card_hash": "sha256:31c2ce1a096899da408b2cabe145922381601ccc1a8b594937234e512e939dab",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:03eec8f67b54daa0479cf468e70b7cfeae4fae612fd2a97711185b27f1363d37"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "A performer can 喬 pretend by invoking “呑 absorb” to hide a whole 冋 desert.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-000.attempt-002.json",
+            "attempt_hash": "sha256:e9c900847388bdeefdd0d7c750156d26da1dd9c0c75604441bd79084f5a2381f",
+            "record_hash": "sha256:aaee180310567d99c281c84f199b08107531baeef8c660e57a4f8c1b09096c94",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        },
+        {
+          "mnemonic": "A mirage can 喬 pretend to 呑 absorb the sky over a 冋 desert.",
+          "provenance": {
+            "source": "terra_v2",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v2/author-attempts/batch-000.attempt-001.json",
+            "attempt_hash": "sha256:aad573ae48d56bf17358f8b59c64e655ecba6b2dfee15046e7356518daeb23ca",
+            "record_hash": "sha256:452a3b68398e73e6e6770f39ca396b8b4a713e730e327b02230cf62c6ac1ee75",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.2"
+          }
+        }
+      ],
+      "dictionary_hint": "Originally written the same as 高 (tall). The top part of the character was altered to distinguish 喬 from 高.",
+      "decision": "rewrite_bespoke",
+      "confidence": 96,
+      "selected_source": "bespoke_manual",
+      "selected_mnemonic": "In a 冋 desert, a mirage can 喬 pretend to 呑 absorb the sky.",
+      "reason": "The abandoned mirage idea is promising, but both drafts remain awkward; this version makes the apparent absorption and pretense one direct scene.",
+      "superseded_by": "component-family-repair-2026-07-21",
+      "superseded_reason": "The later family review established lofty as the supported lexical and reusable component gloss and rejected the apparent 呑 absorb + 冋 desert analysis."
+    },
+    {
+      "character": "劒",
+      "target_gloss": "blade",
+      "equation": "僉 unanimous + 刃 blade = 劒 blade",
+      "visual_components": [
+        {
+          "character": "僉",
+          "gloss": "unanimous"
+        },
+        {
+          "character": "刃",
+          "gloss": "blade"
+        }
+      ],
+      "live": {
+        "mnemonic": "Smiths are 僉 unanimous that a sharpened 刃 blade makes a fine 劒 blade.",
+        "card_hash": "sha256:afa02d60a610dc070f0ac3de6ce3f3197d7998f60eec042f5c9f34ebcdddea82",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:0404de0042f2e8a47cf80dee04a315fcb9b5cab823fa762c03937628280bba81"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "A council is 僉 unanimous in raising a single 刃 blade as its ceremonial 劒 blade.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-000.attempt-002.json",
+            "attempt_hash": "sha256:e9c900847388bdeefdd0d7c750156d26da1dd9c0c75604441bd79084f5a2381f",
+            "record_hash": "sha256:249a676ebf4866a876339609d5d24c5bc0509b8b698b1f69d70b3ad88f23a375",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        },
+        {
+          "mnemonic": "A council's 僉 unanimous choice raises one ceremonial 刃 blade as the honored 劒 blade.",
+          "provenance": {
+            "source": "terra_v2",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v2/author-attempts/batch-000.attempt-001.json",
+            "attempt_hash": "sha256:aad573ae48d56bf17358f8b59c64e655ecba6b2dfee15046e7356518daeb23ca",
+            "record_hash": "sha256:07a38e837b9d2c03c032de5572a6ef3d37ac1751701e211fb6c459c3ab3360fb",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.2"
+          }
+        }
+      ],
+      "dictionary_hint": "Variant of 劍.",
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "Smiths are 僉 unanimous that a sharpened 刃 blade makes a fine 劒 blade.",
+      "reason": "The live smiths’ unanimous judgment uses both components naturally; the ceremonial alternatives mostly relabel one blade as another."
+    },
+    {
+      "character": "娜",
+      "target_gloss": "na",
+      "equation": "女 woman + 那 that = 娜 na",
+      "visual_components": [
+        {
+          "character": "女",
+          "gloss": "woman"
+        },
+        {
+          "character": "那",
+          "gloss": "that"
+        }
+      ],
+      "live": {
+        "mnemonic": "A 女 woman points to 那 that and repeats its sound as 娜 na in a name.",
+        "card_hash": "sha256:4ec955ec02bf471ca5c43b9792cb9003c297d33a90e5780a6fb9f9f6130e0133",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:adda2e432edbc5f976b8618e4cb929b862df0dcd3b9c437a3e191aa46878f398"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "At roll call, a 女 woman indicates 那 that person when 娜 na is called.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-000.attempt-002.json",
+            "attempt_hash": "sha256:e9c900847388bdeefdd0d7c750156d26da1dd9c0c75604441bd79084f5a2381f",
+            "record_hash": "sha256:f6cb37385cd7954f672a901fe3a68033a30d08535be4056c2cf10e7c18a9fdb2",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        },
+        {
+          "mnemonic": "A 女 woman greets 那 that arriving guest named 娜 na.",
+          "provenance": {
+            "source": "terra_v2",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v2/author-attempts/batch-000.attempt-001.json",
+            "attempt_hash": "sha256:aad573ae48d56bf17358f8b59c64e655ecba6b2dfee15046e7356518daeb23ca",
+            "record_hash": "sha256:2418140952de3860c8a9387107d784a3750ca9a9ba2c3ec1a573bbee4b99f8ba",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.2"
+          }
+        }
+      ],
+      "dictionary_hint": "Phonosemantic compound. 女 represents the meaning and 那 represents the sound. ",
+      "decision": "promote_abandoned",
+      "confidence": 92,
+      "selected_source": "terra_v2",
+      "selected_mnemonic": "A 女 woman greets 那 that arriving guest named 娜 na.",
+      "reason": "The greeting scene makes 女 woman and 那 that person concrete while attaching 娜 na naturally as a name."
+    },
+    {
+      "character": "趙",
+      "target_gloss": "Zhao",
+      "equation": "走 walk + 肖 resemble = 趙 Zhao",
+      "visual_components": [
+        {
+          "character": "走",
+          "gloss": "walk"
+        },
+        {
+          "character": "肖",
+          "gloss": "resemble"
+        }
+      ],
+      "live": {
+        "mnemonic": "In the 趙 Zhao family, relatives 走 walk alike because they 肖 resemble one another.",
+        "card_hash": "sha256:2e3494de1e7ef80204959319aebffdab39fe199bc8d3d020d6fd4aea66eb0184",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:cc7ba5318efb4ad9cab8eae80753944564519d4c36a73103bf509fdea02b9714"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "At the 趙 Zhao gate, matching guards 走 walk in step because they 肖 resemble each other.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-000.attempt-002.json",
+            "attempt_hash": "sha256:e9c900847388bdeefdd0d7c750156d26da1dd9c0c75604441bd79084f5a2381f",
+            "record_hash": "sha256:60f3077c3e23b65b8d5af9e1142bc97c6390c5825a88fc06f28b72ecc6dae3ce",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        },
+        {
+          "mnemonic": "When two travelers 走 walk in mirrored strides, they 肖 resemble the figures in a 趙 Zhao portrait.",
+          "provenance": {
+            "source": "terra_v2",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v2/author-attempts/batch-000.attempt-001.json",
+            "attempt_hash": "sha256:aad573ae48d56bf17358f8b59c64e655ecba6b2dfee15046e7356518daeb23ca",
+            "record_hash": "sha256:48e23f0b4b4881a4612997dfc219a6eaaf2d6e98dd079a2f1d12bb39490e7276",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.2"
+          }
+        }
+      ],
+      "dictionary_hint": "Phonosemantic compound. 走 represents the meaning and 肖 represents the sound. ",
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "In the 趙 Zhao family, relatives 走 walk alike because they 肖 resemble one another.",
+      "reason": "The live family resemblance expressed through matching gait is direct; the gate guards and portrait add needless framing."
+    },
+    {
+      "character": "蒋",
+      "target_gloss": "hydropyrum",
+      "equation": "艹 grass (top) + 将 commander = 蒋 hydropyrum",
+      "visual_components": [
+        {
+          "character": "艹",
+          "gloss": "grass (top)"
+        },
+        {
+          "character": "将",
+          "gloss": "commander"
+        }
+      ],
+      "live": {
+        "mnemonic": "A 将 commander parts tall wetland 艹 grass, exposing a stand of 蒋 hydropyrum.",
+        "card_hash": "sha256:124a3cdb2650ef89f2a18135d4bdfccf210d5a9a76d72fa61eabe4ec3be10bd6",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:d912df735f4ca803a33b5c7f684b1c51d613d17f25167f1fb8df188c4dfd51ea"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "In a marsh, a 将 commander uses a tall stand of 艹 grass, 蒋 hydropyrum, as a screen.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-000.attempt-002.json",
+            "attempt_hash": "sha256:e9c900847388bdeefdd0d7c750156d26da1dd9c0c75604441bd79084f5a2381f",
+            "record_hash": "sha256:569a95ff197aea15d02faf25030da8a3583e207cb874429e24efc33e370ece9f",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        },
+        {
+          "mnemonic": "A 将 commander wades through marshy 艹 grass to harvest 蒋 hydropyrum.",
+          "provenance": {
+            "source": "terra_v2",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v2/author-attempts/batch-000.attempt-001.json",
+            "attempt_hash": "sha256:aad573ae48d56bf17358f8b59c64e655ecba6b2dfee15046e7356518daeb23ca",
+            "record_hash": "sha256:dbc51372a19617ed7a47780e07d96414c56fe6433337eaa11c4e5e033e8128dc",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.2"
+          }
+        }
+      ],
+      "dictionary_hint": "Phonosemantic compound. 艹 represents the meaning and 将 represents the sound. Simplified form of 蔣. ",
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "A 将 commander parts tall wetland 艹 grass, exposing a stand of 蒋 hydropyrum.",
+      "reason": "The live mnemonic directly identifies hydropyrum as wetland grass; harvesting it or using it as a screen is different, not better."
+    },
+    {
+      "character": "曹",
+      "target_gloss": "Cao",
+      "equation": "一 one + 曲 bent + 曰 speech = 曹 Cao",
+      "visual_components": [
+        {
+          "character": "一",
+          "gloss": "one"
+        },
+        {
+          "character": "曲",
+          "gloss": "bent"
+        },
+        {
+          "character": "曰",
+          "gloss": "speech"
+        }
+      ],
+      "live": {
+        "mnemonic": "In court, 曹 Cao hears 一 one 曰 speech from each side of a 曲 bent dispute.",
+        "card_hash": "sha256:16916164cf1f2df4abfc9ad825e410db0bedef78439379f1b625f00da067fbad",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:453dcb1dddd8cada58aed09e2fb564ecdf0344a48b7e0571619ab0cc77634931"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "At a 曹 Cao court, 一 one 曲 bent barrier separates two sides of 曰 speech.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-001.attempt-001.json",
+            "attempt_hash": "sha256:bad08c4b918e27eea3965a616fb3434aeccb81dbd576edf624b77544bdc8d848",
+            "record_hash": "sha256:5724629cb75a041617a805f7856cea8ba71b981503af53773981b246f4025211",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": "Phonosemantic compound. 㯥 represents the sound and 曰 represents the meaning. Depicts a pair (㯥) of people speaking (曰) against each other, i.e. a plaintiff and a defendant. The meaning later expanded to \"of the same generation\".",
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "In court, 曹 Cao hears 一 one 曰 speech from each side of a 曲 bent dispute.",
+      "reason": "The live court dispute already joins one, bent, and speech coherently; the bent-barrier wording is less natural."
+    },
+    {
+      "character": "舍",
+      "target_gloss": "abode",
+      "equation": "𫢉 stroke form + 口 mouth = 舍 abode",
+      "visual_components": [
+        {
+          "character": "𫢉",
+          "gloss": "stroke form"
+        },
+        {
+          "character": "口",
+          "gloss": "mouth"
+        }
+      ],
+      "live": {
+        "mnemonic": "A 𫢉 stroke form bends over a speaking 口 mouth like the roof of a 舍 abode.",
+        "card_hash": "sha256:9498610e9fae8c0d3db7ee2876ddb315045f60fa75155bca2dc1e7c69b22a6c2",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:d126ab25eba4d394c09a96afb9167b5b7c1d25f4a75a4f4b0656c50ffe3d573f"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "Inside a 舍 abode, a 口 mouth calls beneath the sheltering 𫢉 stroke form.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-001.attempt-001.json",
+            "attempt_hash": "sha256:bad08c4b918e27eea3965a616fb3434aeccb81dbd576edf624b77544bdc8d848",
+            "record_hash": "sha256:1f2dfd10c43f0a86a2854f0028f08e3bf5d3cbaeba0d2da36050ead50ea623e7",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": "Phonosemantic compound. 口 represents the meaning and 余 represents the sound. 口 (mouth) indicates that the character is only \"mouthed\", i.e. only used for its phonetic value.",
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "A 𫢉 stroke form bends over a speaking 口 mouth like the roof of a 舍 abode.",
+      "reason": "The live roof-like stroke sheltering a mouth is a clearer form image; the draft circularly places the mouth inside the target abode."
+    },
+    {
+      "character": "彭",
+      "target_gloss": "Peng",
+      "equation": "壴 drum + 彡 hair = 彭 Peng",
+      "visual_components": [
+        {
+          "character": "壴",
+          "gloss": "drum"
+        },
+        {
+          "character": "彡",
+          "gloss": "hair"
+        }
+      ],
+      "live": {
+        "mnemonic": "彭 Peng is the drummer whose 壴 drum makes every strand of 彡 hair bounce.",
+        "card_hash": "sha256:016f500b0ce43251f4106409bd66f092a466b1cc6670c9184b2653ad5d255fbb",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:f6dd4f78d44cfa1961ef5dcd15bc15a550965ce51a7e8a3085d8c180413fafeb"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "彭 Peng strikes a 壴 drum, and the vibration lifts nearby 彡 hair.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-001.attempt-001.json",
+            "attempt_hash": "sha256:bad08c4b918e27eea3965a616fb3434aeccb81dbd576edf624b77544bdc8d848",
+            "record_hash": "sha256:d6a1e838c88cf6780467d6fa93edf2b5fe481d842cd7c82ae1d4b62d21d585ff",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": "Depicts the sound (彡) coming from a drum (壴). Based on the original meaning \"sound of a drum\". The current meaning is a phonetic loan.",
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "彭 Peng is the drummer whose 壴 drum makes every strand of 彡 hair bounce.",
+      "reason": "Bouncing hair from the drumbeat is more vivid than merely saying vibration lifts hair."
+    },
+    {
+      "character": "呉",
+      "target_gloss": "state of Wu",
+      "equation": "口 mouth + 一 one = 呉 state of Wu",
+      "visual_components": [
+        {
+          "character": "口",
+          "gloss": "mouth"
+        },
+        {
+          "character": "一",
+          "gloss": "one"
+        }
+      ],
+      "live": {
+        "mnemonic": "一 one envoy serves as the 口 mouth of the 呉 state of Wu.",
+        "card_hash": "sha256:d3fc1e9db394b4fa71f11318f69e7b5ca6634236a87c0f7fd47afe8fa96109ec",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:67e4f11fa0f01aa51a96e7339727d83cd7434fd5357d8d94d60a500ea34e166c"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "At a ceremonial gate, a 口 mouth proclaims 一 one decree from the 呉 state of Wu.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-001.attempt-001.json",
+            "attempt_hash": "sha256:bad08c4b918e27eea3965a616fb3434aeccb81dbd576edf624b77544bdc8d848",
+            "record_hash": "sha256:dfc5cf377917153368cbcd4d7d289f5d514b42c22eadce4b68d5e574505ebed2",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "一 one envoy serves as the 口 mouth of the 呉 state of Wu.",
+      "reason": "One envoy serving as Wu’s mouth is concise; the ceremonial gate and decree add plot without improving recall."
+    },
+    {
+      "character": "岳",
+      "target_gloss": "Yue",
+      "equation": "丘 hill + 山 mountain = 岳 Yue",
+      "visual_components": [
+        {
+          "character": "丘",
+          "gloss": "hill"
+        },
+        {
+          "character": "山",
+          "gloss": "mountain"
+        }
+      ],
+      "live": {
+        "mnemonic": "A family named 岳 Yue settles where a 丘 hill rises toward a 山 mountain.",
+        "card_hash": "sha256:a122de918ecd04f23d830bffdd1e81695b150ff982027266f9ffae2330009332",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:d051fc15f6200f6a5c8ca6acbd47381ca29ad873fdcc660524351b6ba0f44739"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "岳 Yue is a 山 mountain rising above each surrounding 丘 hill.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-001.attempt-001.json",
+            "attempt_hash": "sha256:bad08c4b918e27eea3965a616fb3434aeccb81dbd576edf624b77544bdc8d848",
+            "record_hash": "sha256:66ac6258f44112819506fa8383f55fc3d3c5f35fd321e92efafab2d2e253a1a8",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": "A mountain 山 range surrounded by hills 丘",
+      "decision": "promote_abandoned",
+      "confidence": 96,
+      "selected_source": "terra_v3",
+      "selected_mnemonic": "岳 Yue is a 山 mountain rising above each surrounding 丘 hill.",
+      "reason": "The mountain rising above surrounding hills is a direct visual scene supported by the dictionary hint and removes the invented family."
+    },
+    {
+      "character": "旤",
+      "target_gloss": "disaster",
+      "equation": "咼 jaw + 旡 choked breath = 旤 disaster",
+      "visual_components": [
+        {
+          "character": "咼",
+          "gloss": "jaw"
+        },
+        {
+          "character": "旡",
+          "gloss": "choked breath"
+        }
+      ],
+      "live": {
+        "mnemonic": "Amid a 旤 disaster, a clenched 咼 jaw holds back a 旡 choked breath.",
+        "card_hash": "sha256:d55be38d0e9ac76ac86e3ba2ffea37870f9df8f256d7418222a3a7ab12e17538",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:be1d47449196ee6e61f3c398a33b53aa0cc38b4f1d0fda710f7ce46190f0f3ae"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "A 旤 disaster silences a 咼 jaw, leaving only a 旡 choked breath.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-001.attempt-001.json",
+            "attempt_hash": "sha256:bad08c4b918e27eea3965a616fb3434aeccb81dbd576edf624b77544bdc8d848",
+            "record_hash": "sha256:8949086b10d71454dd7f1a0bc0da412f8518eef097e7a74ae32028fa49901345",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "promote_abandoned",
+      "confidence": 94,
+      "selected_source": "terra_v3",
+      "selected_mnemonic": "A 旤 disaster silences a 咼 jaw, leaving only a 旡 choked breath.",
+      "reason": "A disaster silencing the jaw and leaving choked breath is a cleaner causal sequence than the live static pose."
+    },
+    {
+      "character": "妓",
+      "target_gloss": "prostitute",
+      "equation": "女 woman + 支 offshoot = 妓 prostitute",
+      "visual_components": [
+        {
+          "character": "女",
+          "gloss": "woman"
+        },
+        {
+          "character": "支",
+          "gloss": "offshoot"
+        }
+      ],
+      "live": {
+        "mnemonic": "At a 支 offshoot of the nightlife district, a 女 woman offers paid sexual services as a 妓 prostitute.",
+        "card_hash": "sha256:b7ecbe8c1be830503e13f02313fc430e0fe839e7fe00d7ea69a7141e026a3de1",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:db690aea974fe0bbb4e66b86696579eba34076d3fb7e1b755de4c3d1e74a27b2"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "Traditionally, at a 支 offshoot of a market, a 女 woman earns her living as a 妓 prostitute.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-001.attempt-001.json",
+            "attempt_hash": "sha256:bad08c4b918e27eea3965a616fb3434aeccb81dbd576edf624b77544bdc8d848",
+            "record_hash": "sha256:2f788f756c59fc1c3a867f9cdbb66b8dd6e8b891571a6d480973c6302e02c9e1",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": "A working 支 woman 女; 支 also provides the pronunciation",
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "At a 支 offshoot of the nightlife district, a 女 woman offers paid sexual services as a 妓 prostitute.",
+      "reason": "The live mnemonic states the selected meaning candidly and uses both components; the draft adds a market and euphemizes the sense."
+    },
+    {
+      "character": "鄧",
+      "target_gloss": "Deng",
+      "equation": "登 ascend + ⻏ city (right) = 鄧 Deng",
+      "visual_components": [
+        {
+          "character": "登",
+          "gloss": "ascend"
+        },
+        {
+          "character": "⻏",
+          "gloss": "city (right)"
+        }
+      ],
+      "live": {
+        "mnemonic": "Families who 登 ascend the hill overlooking the ⻏ city carry the 鄧 Deng name.",
+        "card_hash": "sha256:5258ee2c09ede9e66e618c32006ab3748c73aa55f1d8b95f2dc569c0e411cec7",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:a62aa54f424057b85123a05a257d658828583908c743e6a3d4fe03c182f5991b"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "Travelers 登 ascend a ridge and see the ⻏ city of 鄧 Deng below.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-001.attempt-001.json",
+            "attempt_hash": "sha256:bad08c4b918e27eea3965a616fb3434aeccb81dbd576edf624b77544bdc8d848",
+            "record_hash": "sha256:0222527dc68045c03b00eb3911836c3d9ddb5e56dfeb808573d2e8edbefbce16",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": "Phonosemantic compound. 阝 represents the meaning and 登 represents the sound. ",
+      "decision": "promote_abandoned",
+      "confidence": 94,
+      "selected_source": "terra_v3",
+      "selected_mnemonic": "Travelers 登 ascend a ridge and see the ⻏ city of 鄧 Deng below.",
+      "reason": "Ascending a ridge to see Deng below directly joins ascend, city, and the place name without inventing a surname-bearing family."
+    },
+    {
+      "character": "棋",
+      "target_gloss": "chess",
+      "equation": "木 tree + 其 his-hers-its-theirs = 棋 chess",
+      "visual_components": [
+        {
+          "character": "木",
+          "gloss": "tree"
+        },
+        {
+          "character": "其",
+          "gloss": "his-hers-its-theirs"
+        }
+      ],
+      "live": {
+        "mnemonic": "On a board carved from a 木 tree, 其 his-hers-its-theirs sorts the pieces by owner for 棋 chess.",
+        "card_hash": "sha256:816451a919186b8d31ae4e7a42cc2341287ca410e66beea8be076221176cebf2",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:05e43ed4228fa5b4a481c36ef3760c686fe5f14bf1493fc0fa168837bef228c4"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "In 棋 chess, 其 his-hers-its-theirs tells which pieces belong on each side of a 木 tree board.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-001.attempt-001.json",
+            "attempt_hash": "sha256:bad08c4b918e27eea3965a616fb3434aeccb81dbd576edf624b77544bdc8d848",
+            "record_hash": "sha256:f082ddbdce8c1e3382a98dbf2cd7c51be4e28d52742850d163b05161997ec4c1",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": "Phonosemantic compound. 木 represents the meaning and 其 represents the sound. Simplified form of 碁. ",
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "On a board carved from a 木 tree, 其 his-hers-its-theirs sorts the pieces by owner for 棋 chess.",
+      "reason": "The live ownership sorting on a wooden board is already natural; the draft only rearranges the same idea."
+    },
+    {
+      "character": "魏",
+      "target_gloss": "Wei",
+      "equation": "委 committee + 鬼 ghost = 魏 Wei",
+      "visual_components": [
+        {
+          "character": "委",
+          "gloss": "committee"
+        },
+        {
+          "character": "鬼",
+          "gloss": "ghost"
+        }
+      ],
+      "live": {
+        "mnemonic": "A towering 鬼 ghost guards the 委 committee at the palace gate of 魏 Wei.",
+        "card_hash": "sha256:4fe8452c354278dba305df716ce8785f9ae19fd99c68336d73b0fa325bfc4f33",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:6f93ee85e8d3fe564941003ab7614b7a70d3a8f3120545b5934f49c462f483c1"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "A 鬼 ghost sits on the 委 committee that governs 魏 Wei.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-001.attempt-001.json",
+            "attempt_hash": "sha256:bad08c4b918e27eea3965a616fb3434aeccb81dbd576edf624b77544bdc8d848",
+            "record_hash": "sha256:ab4f14c9f8a1339eb1052c9f5cbeeeee4e1f8a4b2b59360cb57761aa89df40ee",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": "Phonosemantic compound. 鬼 represents the meaning and 委 represents the sound. ",
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "A towering 鬼 ghost guards the 委 committee at the palace gate of 魏 Wei.",
+      "reason": "The live palace scene is more memorable; putting a ghost on a governing committee is shorter but more arbitrary."
+    },
+    {
+      "character": "癌",
+      "target_gloss": "cancer",
+      "equation": "疒 sickness + 嵒 rocky-cliff = 癌 cancer",
+      "visual_components": [
+        {
+          "character": "疒",
+          "gloss": "sickness"
+        },
+        {
+          "character": "嵒",
+          "gloss": "rocky-cliff"
+        }
+      ],
+      "live": {
+        "mnemonic": "The fight with 癌 cancer makes 疒 sickness loom like an immovable 嵒 rocky-cliff blocking the road ahead.",
+        "card_hash": "sha256:867e6989b41d6194463a49c9d43d07d38a9cd1ee33eb59f79d1d925f12f857c6",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:eb663a7396562cd4caa5896a5619c57a9828a8cf45592309bd066020e765dda4"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "For 癌 cancer, the burden of 疒 sickness rises like an immovable 嵒 rocky-cliff.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-002.attempt-001.json",
+            "attempt_hash": "sha256:02be4189994940c853747e40b1060f4e2fc008119e7fb00d2bbcd4ce03792502",
+            "record_hash": "sha256:db0f784a59bedf6a9e6a668cce88caca2b65cac26be353785d4f47232154f72f",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": "Phonosemantic compound. 疒 represents the meaning and 嵒 represents the sound. ",
+      "decision": "promote_abandoned",
+      "confidence": 95,
+      "selected_source": "terra_v3",
+      "selected_mnemonic": "For 癌 cancer, the burden of 疒 sickness rises like an immovable 嵒 rocky-cliff.",
+      "reason": "The sickness burden rising like an immovable rocky cliff is shorter and removes the extra fight, road, and blockage plot."
+    },
+    {
+      "character": "馮",
+      "target_gloss": "Feng",
+      "equation": "冫 ice + 馬 horse = 馮 Feng",
+      "visual_components": [
+        {
+          "character": "冫",
+          "gloss": "ice"
+        },
+        {
+          "character": "馬",
+          "gloss": "horse"
+        }
+      ],
+      "live": {
+        "mnemonic": "The surname 馮 Feng uses 馬 horse for its older galloping sense and 冫 ice only as a sound marker.",
+        "card_hash": "sha256:b9a4729bf6329449bd7f7ed99656419443c5653586d749d00f64b4ec7d78cb5d",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:f8b98f7aed3be928e538a203c8997eb83a7e15625572b4a661df7a9a711d2071"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "馮 Feng steers a 馬 horse carefully across shining 冫 ice.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-002.attempt-001.json",
+            "attempt_hash": "sha256:02be4189994940c853747e40b1060f4e2fc008119e7fb00d2bbcd4ce03792502",
+            "record_hash": "sha256:c4bec9169cd8a7b7a0d8c2b5dfedc792f1cd3b21a9f7cfe3c31786ba134891aa",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": "Phonosemantic compound. 馬 represents the meaning and 冫 represents the sound. ",
+      "decision": "promote_abandoned",
+      "confidence": 94,
+      "selected_source": "terra_v3",
+      "selected_mnemonic": "馮 Feng steers a 馬 horse carefully across shining 冫 ice.",
+      "reason": "A horse carefully crossing ice is one concrete component-complete scene, clearer than explaining an obsolete sense and a sound marker."
+    },
+    {
+      "character": "苍",
+      "target_gloss": "blue",
+      "equation": "艹 grass (top) + 仓 berth = 苍 blue",
+      "visual_components": [
+        {
+          "character": "艹",
+          "gloss": "grass (top)"
+        },
+        {
+          "character": "仓",
+          "gloss": "berth"
+        }
+      ],
+      "live": {
+        "mnemonic": "A wave of 苍 blue water carries 艹 grass past the ship's 仓 berth.",
+        "card_hash": "sha256:db9bf3fab99a8c3ded07cc3e1e887b65637ea728192ca0b8deebd59c159735b0",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:1291e04ac7243dc33ed9c56abc8ff86613db5c30e0622920b985d78c46732634"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "Moonlight turns 艹 grass beside a ship's 仓 berth 苍 blue.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-002.attempt-001.json",
+            "attempt_hash": "sha256:02be4189994940c853747e40b1060f4e2fc008119e7fb00d2bbcd4ce03792502",
+            "record_hash": "sha256:c76b9fa8bfe4c3ef8380636208e3fb503b22f189d1260856895b91e88c01ed47",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": "Phonosemantic compound. 艹 represents the meaning and 仓 represents the sound. Simplified form of 蒼. ",
+      "decision": "promote_abandoned",
+      "confidence": 93,
+      "selected_source": "terra_v3",
+      "selected_mnemonic": "Moonlight turns 艹 grass beside a ship's 仓 berth 苍 blue.",
+      "reason": "Moonlight turning grass by a ship berth blue is a compact visible color scene without the live mnemonic’s extra wave."
+    },
+    {
+      "character": "崐",
+      "target_gloss": "Kunlun mountains in Jiangsu",
+      "equation": "山 mountain + 昆 descendants = 崐 Kunlun mountains in Jiangsu",
+      "visual_components": [
+        {
+          "character": "山",
+          "gloss": "mountain"
+        },
+        {
+          "character": "昆",
+          "gloss": "descendants"
+        }
+      ],
+      "live": {
+        "mnemonic": "昆 descendants preserve the name of each 山 mountain in the 崐 Kunlun mountains in Jiangsu.",
+        "card_hash": "sha256:69e11d79b2df7c05276b4216dc70bdf9e46de7df4eeafcb1cff8eb0cefa6497d",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:b4741516ac3aa1da4a2c04e4435971d6529cc9046da7c0be72fce519ce9fb2a6"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "昆 descendants lead a pilgrimage up a 山 mountain in 崐 Kunlun mountains in Jiangsu.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-002.attempt-001.json",
+            "attempt_hash": "sha256:02be4189994940c853747e40b1060f4e2fc008119e7fb00d2bbcd4ce03792502",
+            "record_hash": "sha256:fa50f1bb3d38913a0fef79a73cf9f55c89a5338ee4292968b64ddc9b775614bf",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "昆 descendants preserve the name of each 山 mountain in the 崐 Kunlun mountains in Jiangsu.",
+      "reason": "The pilgrimage is an invented action and does not distinguish the place better than the live descendant-name scene."
+    },
+    {
+      "character": "郁",
+      "target_gloss": "Yu-2",
+      "equation": "有 possess + ⻏ city (right) = 郁 Yu-2",
+      "visual_components": [
+        {
+          "character": "有",
+          "gloss": "possess"
+        },
+        {
+          "character": "⻏",
+          "gloss": "city (right)"
+        }
+      ],
+      "live": {
+        "mnemonic": "In the ⻏ city, one family 有 possess every deed bearing the surname 郁 Yu-2.",
+        "card_hash": "sha256:60b0593f3c97de03c37e6b3d988adb4a33ee9cdda1d49d49a21f0a64123c7c01",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:977a4bacfe2366d633a783559b9535391bd7b35c33a7d47d1c6c86e610c7588c"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "In a ⻏ city, elders 有 possess records tracing the family of 郁 Yu-2.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-002.attempt-001.json",
+            "attempt_hash": "sha256:02be4189994940c853747e40b1060f4e2fc008119e7fb00d2bbcd4ce03792502",
+            "record_hash": "sha256:cf2e79946438bf7dbdb05f3da3e967c36debdefb86ee88519662ecd400666983",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": "Phonosemantic compound. 阝 represents the meaning and 有 represents the sound. Simplified form of 鬱. ",
+      "decision": "promote_abandoned",
+      "confidence": 90,
+      "selected_source": "terra_v3",
+      "selected_mnemonic": "In a ⻏ city, elders 有 possess records tracing the family of 郁 Yu-2.",
+      "reason": "City elders possessing family records is a natural surname scene and avoids the live claim that one family owns every deed."
+    },
+    {
+      "character": "毯",
+      "target_gloss": "blanket",
+      "equation": "毛 fur + 炎 inflammation = 毯 blanket",
+      "visual_components": [
+        {
+          "character": "毛",
+          "gloss": "fur"
+        },
+        {
+          "character": "炎",
+          "gloss": "inflammation"
+        }
+      ],
+      "live": {
+        "mnemonic": "毛 fur supplies the meaning of 毯 blanket, while 炎 inflammation supplies its sound.",
+        "card_hash": "sha256:4143bf03c01a8bb36aeb1e3766b7bdea2a5d1d243a85c08e3f393297894befcd",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:27cb6d210a2f7c291ce52a7dcd0d587501217be67e3efafe258d1fe2cfc75494"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "An artist drapes a 毛 fur 毯 blanket around an abstract sculpture evoking 炎 inflammation.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-002.attempt-001.json",
+            "attempt_hash": "sha256:02be4189994940c853747e40b1060f4e2fc008119e7fb00d2bbcd4ce03792502",
+            "record_hash": "sha256:d12022ba414657a038a352dbf48baed8c178ea6c481f59389cbc999b10cb8cf0",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": "Phonosemantic compound. 毛 represents the meaning and 炎 represents the sound. ",
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "毛 fur supplies the meaning of 毯 blanket, while 炎 inflammation supplies its sound.",
+      "reason": "The live phonosemantic explanation is honest; the abstract inflammation sculpture is an arbitrary intermediate object."
+    },
+    {
+      "character": "氧",
+      "target_gloss": "oxygen",
+      "equation": "气 steam + 羊 sheep = 氧 oxygen",
+      "visual_components": [
+        {
+          "character": "气",
+          "gloss": "steam"
+        },
+        {
+          "character": "羊",
+          "gloss": "sheep"
+        }
+      ],
+      "live": {
+        "mnemonic": "气 steam places 氧 oxygen among gases, while 羊 sheep supplies its sound.",
+        "card_hash": "sha256:f416a2f23072b65b8ddf7a3eed6fa21a93767b64ba7f7d46b5a9c4bdda87464d",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:cbc033378f079157953a92f536a6c0dc49c966aa60fdcd7b7eb56c2a82c535a4"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "A 羊 sheep grazes where 气 steam disperses into air containing 氧 oxygen.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-002.attempt-001.json",
+            "attempt_hash": "sha256:02be4189994940c853747e40b1060f4e2fc008119e7fb00d2bbcd4ce03792502",
+            "record_hash": "sha256:2b22b2d4345c53f8eb1460793c14f6708465f366c1d93bb030e495c0ad5e05f3",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": "Phonosemantic compound. 气 represents the meaning and 羊 represents the sound. ",
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "气 steam places 氧 oxygen among gases, while 羊 sheep supplies its sound.",
+      "reason": "The live phonosemantic explanation is clearer than adding a sheep grazing near steam that happens to contain oxygen."
+    },
+    {
+      "character": "狄",
+      "target_gloss": "tribe from northern china",
+      "equation": "犭 dog (side) + 火 fire = 狄 tribe from northern china",
+      "visual_components": [
+        {
+          "character": "犭",
+          "gloss": "dog (side)"
+        },
+        {
+          "character": "火",
+          "gloss": "fire"
+        }
+      ],
+      "live": {
+        "mnemonic": "At an ancient northern camp, a 犭 dog circles the 火 fire while a 狄 tribe from northern china gathers.",
+        "card_hash": "sha256:a779bb30accc47db623ae4079eb19c5723927060159f5aa2e7dab72e5fc1dac9",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:c631c8ab15c0c874b6278b0a4b1344e153d99c0186cf676cc45c6dc46e69c9d1"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "At a traditional northern gathering, a 犭 dog guards a 火 fire for a 狄 tribe from northern china.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-002.attempt-001.json",
+            "attempt_hash": "sha256:02be4189994940c853747e40b1060f4e2fc008119e7fb00d2bbcd4ce03792502",
+            "record_hash": "sha256:93b52f2fabfe2673968a7edd36de4faf964e8b1945d5eb2c2a786d0d9a32198f",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": "Phonosemantic compound. 犭 represents the meaning and 火 represents the sound. ",
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "At an ancient northern camp, a 犭 dog circles the 火 fire while a 狄 tribe from northern china gathers.",
+      "reason": "The two northern gathering scenes are effectively equivalent, so the strong live version stays."
+    },
+    {
+      "character": "崔",
+      "target_gloss": "Cui",
+      "equation": "山 mountain + 隹 short-tailed bird = 崔 Cui",
+      "visual_components": [
+        {
+          "character": "山",
+          "gloss": "mountain"
+        },
+        {
+          "character": "隹",
+          "gloss": "short-tailed bird"
+        }
+      ],
+      "live": {
+        "mnemonic": "A traveler named 崔 Cui follows a 隹 short-tailed bird up a 山 mountain.",
+        "card_hash": "sha256:a5c0ad52ae6077a19362682c42024016db0940926399c761dc94d6d4aa110ed8",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:c9fd710da7d24e62db98b19c20e81f279f54f37d83d0205559171910908fd636"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "A 隹 short-tailed bird perches on a 山 mountain above the homestead of 崔 Cui.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-002.attempt-001.json",
+            "attempt_hash": "sha256:02be4189994940c853747e40b1060f4e2fc008119e7fb00d2bbcd4ce03792502",
+            "record_hash": "sha256:70825be48c4937ea4516be18d7517e56d25623c40f47b9217445fe80ee75d379",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": "A bird 隹 faced with a mountain 山",
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "A traveler named 崔 Cui follows a 隹 short-tailed bird up a 山 mountain.",
+      "reason": "Following the bird up the mountain attaches Cui directly to the action; the homestead in the draft is extra scenery."
+    },
+    {
+      "character": "薛",
+      "target_gloss": "Xue",
+      "equation": "艹 grass (top) + 𠂤 store + 辛 peppery = 薛 Xue",
+      "visual_components": [
+        {
+          "character": "艹",
+          "gloss": "grass (top)"
+        },
+        {
+          "character": "𠂤",
+          "gloss": "store"
+        },
+        {
+          "character": "辛",
+          "gloss": "peppery"
+        }
+      ],
+      "live": {
+        "mnemonic": "薛 Xue owns a 𠂤 store where 艹 grass herbs add a 辛 peppery flavor to every dish.",
+        "card_hash": "sha256:ed6d6584e1e702525dc4ef67b81d0dfbf3b84470dd1ff642c03b59d8582d7f09",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:30600925d5a712246846f5c6b41726a32fee242fe0249878a18af350e172c350"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "薛 Xue chooses 艹 grass with a 辛 peppery scent from a 𠂤 store.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-002.attempt-001.json",
+            "attempt_hash": "sha256:02be4189994940c853747e40b1060f4e2fc008119e7fb00d2bbcd4ce03792502",
+            "record_hash": "sha256:5ad6ce1fb740d6b9f6c382a3697658fbdd7abd5c121272322ff579907c8be35e",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": "A kind of bitter 辛 grass 艹",
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "薛 Xue owns a 𠂤 store where 艹 grass herbs add a 辛 peppery flavor to every dish.",
+      "reason": "The live herb-store scene gives every component a useful role; choosing peppery grass is only a modest rearrangement."
+    },
+    {
+      "character": "姬",
+      "target_gloss": "imperial concubine",
+      "equation": "女 woman + 𦣞 chin = 姬 imperial concubine",
+      "visual_components": [
+        {
+          "character": "女",
+          "gloss": "woman"
+        },
+        {
+          "character": "𦣞",
+          "gloss": "chin"
+        }
+      ],
+      "live": {
+        "mnemonic": "In a palace portrait, an 姬 imperial concubine appears as a 女 woman in court dress, her 𦣞 chin shown in profile.",
+        "card_hash": "sha256:d46ba0a138c1a3dcc68a8a97239704af715aa35b359bc643a74ee0e68ff6c411",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:215f6f077e4875cdbd13300914a76853a5bcf785ce8ea4385efb9215ca960453"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "In a palace audience, a 女 woman raises her 𦣞 chin as an 姬 imperial concubine accepts a ceremonial gift.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-003.attempt-001.json",
+            "attempt_hash": "sha256:a18b04f76cbbd7590abee942c583e5d936d25d419974c5416deff449366fba2f",
+            "record_hash": "sha256:942365e0918a707ebe55f84d07f1352833c89f493651d1ffa1e2d1a88e548582",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": "Phonosemantic compound. 女 represents the meaning and 𦣞 represents the sound.",
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "In a palace portrait, an 姬 imperial concubine appears as a 女 woman in court dress, her 𦣞 chin shown in profile.",
+      "reason": "The live palace portrait naturally makes the chin visible; the ceremonial gift is an unnecessary subplot."
+    },
+    {
+      "character": "苹",
+      "target_gloss": "artemisia",
+      "equation": "艹 grass (top) + 平 even = 苹 artemisia",
+      "visual_components": [
+        {
+          "character": "艹",
+          "gloss": "grass (top)"
+        },
+        {
+          "character": "平",
+          "gloss": "even"
+        }
+      ],
+      "live": {
+        "mnemonic": "Harvested 苹 artemisia lies among 艹 grass in a 平 even layer to dry.",
+        "card_hash": "sha256:18ca953eedfd40de7148ec28e26aa6095220ae3a295d9002f8907f5e5f7c1aac",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:29e3d66fbfed642daea0f53bfd2d98bd82989556d2365dc212bc97616ac38f43"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "In a 平 even herb bed, the soft gray leaves of 苹 artemisia rise above 艹 grass.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-003.attempt-001.json",
+            "attempt_hash": "sha256:a18b04f76cbbd7590abee942c583e5d936d25d419974c5416deff449366fba2f",
+            "record_hash": "sha256:6fc5b8274b5124dfa40815fdc78bbfbc4ad66b7df420240e96687f03b8d4da74",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": "Phonosemantic compound. 艹 represents the meaning and 平 represents the sound. Simplified form of 蘋. ",
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "Harvested 苹 artemisia lies among 艹 grass in a 平 even layer to dry.",
+      "reason": "The live even drying layer gives 平 a precise visual job; the herb-bed alternative is no clearer."
+    },
+    {
+      "character": "蘋",
+      "target_gloss": "apple",
+      "equation": "艹 grass (top) + 頻 repeatedly = 蘋 apple",
+      "visual_components": [
+        {
+          "character": "艹",
+          "gloss": "grass (top)"
+        },
+        {
+          "character": "頻",
+          "gloss": "repeatedly"
+        }
+      ],
+      "live": {
+        "mnemonic": "From a laden branch, one 蘋 apple after another falls onto 艹 grass, dropping 頻 repeatedly through the harvest.",
+        "card_hash": "sha256:087e1d9ae1bb98ee833434597e95d3cb2a661265cba56813b7d7acff81139e16",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:2d26271b3369112e8cb77ff2d73f569477eeaa42962e5a7341539800bbc13c55"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "Across 艹 grass, a child returns 頻 repeatedly for a ripe 蘋 apple.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-003.attempt-001.json",
+            "attempt_hash": "sha256:a18b04f76cbbd7590abee942c583e5d936d25d419974c5416deff449366fba2f",
+            "record_hash": "sha256:d01bd4cb4d23d71a96871b9221e30c4310f817f8b2fba72b15bf8cbefb5c26bf",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": "Phonosemantic compound. 艹 represents the meaning and 頻 represents the sound. ",
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "From a laden branch, one 蘋 apple after another falls onto 艹 grass, dropping 頻 repeatedly through the harvest.",
+      "reason": "Repeated apples falling onto grass uses 頻 directly; repeated trips by a child add an actor without improving the image."
+    },
+    {
+      "character": "譚",
+      "target_gloss": "Tan",
+      "equation": "言 speech + 覃 reach = 譚 Tan",
+      "visual_components": [
+        {
+          "character": "言",
+          "gloss": "speech"
+        },
+        {
+          "character": "覃",
+          "gloss": "reach"
+        }
+      ],
+      "live": {
+        "mnemonic": "To introduce the surname 譚 Tan, let 言 speech 覃 reach everyone in the room.",
+        "card_hash": "sha256:d81bf6854b9dc146f0679529a32adbaf351e851159f14b8b4930826a3a1708ea",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:95c003931b7087d4ab8e012510881ed01a1b1afb9fb069c3bd0b581a18a31820"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "When 言 speech can 覃 reach the farthest listener, the caller asks for 譚 Tan.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-003.attempt-001.json",
+            "attempt_hash": "sha256:a18b04f76cbbd7590abee942c583e5d936d25d419974c5416deff449366fba2f",
+            "record_hash": "sha256:a50e97d9a0d421e93f7bcc4910d8228fb1eb2f94113dc49369e02808c79cab06",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "To introduce the surname 譚 Tan, let 言 speech 覃 reach everyone in the room.",
+      "reason": "The live speech reaching the room is concise; the caller asking for Tan is a weaker extra action."
+    },
+    {
+      "character": "琪",
+      "target_gloss": "jade",
+      "equation": "𤣩 jade (alt) + 其 his-hers-its-theirs = 琪 jade",
+      "visual_components": [
+        {
+          "character": "𤣩",
+          "gloss": "jade (alt)"
+        },
+        {
+          "character": "其",
+          "gloss": "his-hers-its-theirs"
+        }
+      ],
+      "live": {
+        "mnemonic": "The jeweler sorts 其 his-hers-its-theirs 𤣩 jade, reserving the finest pieces as 琪 jade.",
+        "card_hash": "sha256:7f041937d28412f5d3d9f90872097afb1055265b6816983a5611812833ad5c38",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:b8469eebd188d99d63bdaae94e90ee5b231f72c0922b0005d51279170ea5b2b7"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "The label 其 his-hers-its-theirs assigns a luminous 琪 jade of 𤣩 jade to its owner.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-003.attempt-001.json",
+            "attempt_hash": "sha256:a18b04f76cbbd7590abee942c583e5d936d25d419974c5416deff449366fba2f",
+            "record_hash": "sha256:e7b6162074d232eceeae1d5239bb0558b984becc90688527acc11c1d76a1bb4e",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": "Phonosemantic compound. 王 represents the meaning and 其 represents the sound. ",
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "The jeweler sorts 其 his-hers-its-theirs 𤣩 jade, reserving the finest pieces as 琪 jade.",
+      "reason": "The live jeweler sorting owners’ jade is grammatical and concrete; the label-based draft is awkward."
+    },
+    {
+      "character": "阬",
+      "target_gloss": "ravine",
+      "equation": "⻖ mound (left) + 亢 proud = 阬 ravine",
+      "visual_components": [
+        {
+          "character": "⻖",
+          "gloss": "mound (left)"
+        },
+        {
+          "character": "亢",
+          "gloss": "proud"
+        }
+      ],
+      "live": {
+        "mnemonic": "A 亢 proud ridge towers over the ⻖ mound that slopes into a 阬 ravine.",
+        "card_hash": "sha256:1d96b85471c603bcf2fe891e11c4cc2bb61d2c40565486fd7794a5e0041960b2",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:96755d18592de75cc43a0d0445e0cd8d3592fb20d73419749afd0573143fa85b"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "A 亢 proud peak rises above a ⻖ mound split by a 阬 ravine.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-003.attempt-001.json",
+            "attempt_hash": "sha256:a18b04f76cbbd7590abee942c583e5d936d25d419974c5416deff449366fba2f",
+            "record_hash": "sha256:3e5bc76abee54b0d279806c8210a05623479a878c780a37fc634a1b4678f2a4e",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "A 亢 proud ridge towers over the ⻖ mound that slopes into a 阬 ravine.",
+      "reason": "Both scenes are sound, but the live ridge sloping into the ravine is already the simpler spatial bridge."
+    },
+    {
+      "character": "貍",
+      "target_gloss": "fox-like animal",
+      "equation": "豸 worm-like invertebrate + 里 li = 貍 fox-like animal",
+      "visual_components": [
+        {
+          "character": "豸",
+          "gloss": "worm-like invertebrate"
+        },
+        {
+          "character": "里",
+          "gloss": "li"
+        }
+      ],
+      "live": {
+        "mnemonic": "A 貍 fox-like animal prowls one 里 li with its nose near a 豸 worm-like invertebrate.",
+        "card_hash": "sha256:7c120a0e03963f042a6d583aeb3e96a1c46552b6cf42cdf48f9818c81c97bb26",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:a1348155a74bd07a359fa392cf311f4d984cc161edd5183a39e818e170bc3493"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "A 貍 fox-like animal trails a 豸 worm-like invertebrate for one 里 li through the forest.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-003.attempt-001.json",
+            "attempt_hash": "sha256:a18b04f76cbbd7590abee942c583e5d936d25d419974c5416deff449366fba2f",
+            "record_hash": "sha256:596be04256ebd13dd2ba437daf42e6d69e48d3e3311d2276fffaeb1d79b557bf",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": "Phonosemantic compound. 豸 represents the meaning and 里 represents the sound. ",
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "A 貍 fox-like animal prowls one 里 li with its nose near a 豸 worm-like invertebrate.",
+      "reason": "Trailing a worm for one li and prowling one li near it are equivalent; there is no clear reason to displace live wording."
+    },
+    {
+      "character": "陋",
+      "target_gloss": "undesirable",
+      "equation": "⻖ mound (left) + 𫠥 retire into obscurity = 陋 undesirable",
+      "visual_components": [
+        {
+          "character": "⻖",
+          "gloss": "mound (left)"
+        },
+        {
+          "character": "𫠥",
+          "gloss": "retire into obscurity"
+        }
+      ],
+      "live": {
+        "mnemonic": "A barren ⻖ mound where one must 𫠥 retire into obscurity feels 陋 undesirable.",
+        "card_hash": "sha256:48b051b9851cff72c80a6f1b8d6b8e2f9cea9d76638e833f78207b48669cc28a",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:cd91b03c3b3754aaae05bc849651b30df1f630af92bb6b0cd6c174bacc00f3e3"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "The ⻖ mound passage is 陋 undesirable because its dead-end shadows make visitors 𫠥 retire into obscurity.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-003.attempt-001.json",
+            "attempt_hash": "sha256:a18b04f76cbbd7590abee942c583e5d936d25d419974c5416deff449366fba2f",
+            "record_hash": "sha256:da4a70af20843e938bfa561448f91fc7db80e30d2159d3d115fb9eeccd3a8ae5",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "A barren ⻖ mound where one must 𫠥 retire into obscurity feels 陋 undesirable.",
+      "reason": "The live barren mound and retreat are direct; the draft adds a passage, dead end, shadows, and visitors."
+    },
+    {
+      "character": "痢",
+      "target_gloss": "dysentery",
+      "equation": "疒 sickness + 利 profit = 痢 dysentery",
+      "visual_components": [
+        {
+          "character": "疒",
+          "gloss": "sickness"
+        },
+        {
+          "character": "利",
+          "gloss": "profit"
+        }
+      ],
+      "live": {
+        "mnemonic": "During 痢 dysentery, widespread 疒 sickness closes the market, so its empty stalls earn no 利 profit.",
+        "card_hash": "sha256:0259711bd91e91c21eb46e08297fa2fb8f913b4ab5cf6b636c916a694c36874f",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:54c90d1d4404ae0fa9b879f309a0827aa1b83bd792453d846e951054fc34d8e2"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "A charitable fund turns 利 profit into aid for 疒 sickness, including 痢 dysentery.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-003.attempt-001.json",
+            "attempt_hash": "sha256:a18b04f76cbbd7590abee942c583e5d936d25d419974c5416deff449366fba2f",
+            "record_hash": "sha256:070dcea1fe056095672a6e1a2a2059aab0175124a7a003fb04991172f52e130a",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": "Phonosemantic compound. 疒 represents the meaning and 利 represents the sound. ",
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "During 痢 dysentery, widespread 疒 sickness closes the market, so its empty stalls earn no 利 profit.",
+      "reason": "The live closed-market loss gives 利 profit a causal job; the charitable-fund draft is arbitrary."
+    },
+    {
+      "character": "蹏",
+      "target_gloss": "horse",
+      "equation": "𧾷 foot + 虒 amphibious beast = 蹏 horse",
+      "visual_components": [
+        {
+          "character": "𧾷",
+          "gloss": "foot"
+        },
+        {
+          "character": "虒",
+          "gloss": "amphibious beast"
+        }
+      ],
+      "live": {
+        "mnemonic": "Four pounding 𧾷 foot beats send a 虒 amphibious beast diving as a 蹏 horse crosses the marsh.",
+        "card_hash": "sha256:acee281537decccd1cd93ee7b0fe7699bd60d46f9278f305441d4e2543ad23e3",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:e213a38ac2f20df348cb3ed3da4fb1247d587080f5ad7725b4ec40155458c060"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "A 蹏 horse lifts a 𧾷 foot at the pond edge, letting a 虒 amphibious beast slip beneath.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-003.attempt-001.json",
+            "attempt_hash": "sha256:a18b04f76cbbd7590abee942c583e5d936d25d419974c5416deff449366fba2f",
+            "record_hash": "sha256:b25a1bd2e456da5c233509515eef756e9ef5271d8107df6bfa82009d636d8dc6",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "Four pounding 𧾷 foot beats send a 虒 amphibious beast diving as a 蹏 horse crosses the marsh.",
+      "reason": "The live hoofbeat crossing drives the amphibious beast into the marsh and is more vivid than the pond-edge pose."
+    },
+    {
+      "character": "睾",
+      "target_gloss": "testicle",
+      "equation": "丿 slash + ⺫ eye (side) + 幸 good fortune = 睾 testicle",
+      "visual_components": [
+        {
+          "character": "丿",
+          "gloss": "slash"
+        },
+        {
+          "character": "⺫",
+          "gloss": "eye (side)"
+        },
+        {
+          "character": "幸",
+          "gloss": "good fortune"
+        }
+      ],
+      "live": {
+        "mnemonic": "幸 good fortune shelters the body's paired oval while a 丿 slash directs the ⺫ eye there, revealing a 睾 testicle.",
+        "card_hash": "sha256:51998107039b8ba17a16a4eaf766802c791700e3b0acc0537dbf75d0e6e5ec51",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:944e4c0fbffb3cbadb3ad20015b6bf67801f34f3854b91ece1d674a6bfaececc"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "幸 good fortune guards a 睾 testicle, shown as a paired oval in an ⺫ eye crossed by a 丿 slash.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-004.attempt-001.json",
+            "attempt_hash": "sha256:ea01ede5f849047cd6a5e2d654923713a5634bc3ae9dfbc935faf6db02e6957e",
+            "record_hash": "sha256:0d37f28b96b52b01440f72d0554d02dc20c324b94ad79c1837dd62063134dfac",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "幸 good fortune shelters the body's paired oval while a 丿 slash directs the ⺫ eye there, revealing a 睾 testicle.",
+      "reason": "The decomposition is intrinsically awkward, and the draft is more circular and glyph-descriptive than the live sentence."
+    },
+    {
+      "character": "麐",
+      "target_gloss": "female of Chinese unicorn",
+      "equation": "鹿 deer + 吝 stingy = 麐 female of Chinese unicorn",
+      "visual_components": [
+        {
+          "character": "鹿",
+          "gloss": "deer"
+        },
+        {
+          "character": "吝",
+          "gloss": "stingy"
+        }
+      ],
+      "live": {
+        "mnemonic": "In legend, a 鹿 deer is 吝 stingy with her appearances, surfacing only as the 麐 female of Chinese unicorn.",
+        "card_hash": "sha256:14d933d61db773f415c774f76a02dee1a8336a4483cf655c96c0c66cafe4d85f",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:b4cd523bba78420be6b278cca2f3b4bccf68def356002d4a04b244790e4be4fc"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "A 鹿 deer is so 吝 stingy with female appearances that legends call the rare one a 麐 female of Chinese unicorn.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-004.attempt-001.json",
+            "attempt_hash": "sha256:ea01ede5f849047cd6a5e2d654923713a5634bc3ae9dfbc935faf6db02e6957e",
+            "record_hash": "sha256:038fd8d9b3aa0c8d3cba5f0f9a563c5bdd29faec3216cf190e59dff41d3bf5b6",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "In legend, a 鹿 deer is 吝 stingy with her appearances, surfacing only as the 麐 female of Chinese unicorn.",
+      "reason": "The live rare-appearance legend is concise; the draft’s “stingy with female appearances” is grammatically overloaded."
+    },
+    {
+      "character": "痫",
+      "target_gloss": "epilepsy",
+      "equation": "疒 sickness + 闲 idle = 痫 epilepsy",
+      "visual_components": [
+        {
+          "character": "疒",
+          "gloss": "sickness"
+        },
+        {
+          "character": "闲",
+          "gloss": "idle"
+        }
+      ],
+      "live": {
+        "mnemonic": "痫 epilepsy is a 疒 sickness, never evidence that someone is 闲 idle.",
+        "card_hash": "sha256:c866256de2fb347c5e76aa124169c533d5238cde40a6239cb888215f4e26f85f",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:64ae12ed855be4ea88a630980ef5951f6a6ff1df15d19ff8d2cf6d4576e26740"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "During 闲 idle time, a support group learns that 疒 sickness can include 痫 epilepsy.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-004.attempt-001.json",
+            "attempt_hash": "sha256:ea01ede5f849047cd6a5e2d654923713a5634bc3ae9dfbc935faf6db02e6957e",
+            "record_hash": "sha256:31bc60acc6eed3ecc253f2e8b556bf36c5c1a71ac9cee9e60c68bc37d1cec1ee",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "痫 epilepsy is a 疒 sickness, never evidence that someone is 闲 idle.",
+      "reason": "The live sentence is accurate, respectful, and concise; the support-group setting adds no mnemonic value."
+    },
+    {
+      "character": "癇",
+      "target_gloss": "epilepsy",
+      "equation": "疒 sickness + 閒 leisure = 癇 epilepsy",
+      "visual_components": [
+        {
+          "character": "疒",
+          "gloss": "sickness"
+        },
+        {
+          "character": "閒",
+          "gloss": "leisure"
+        }
+      ],
+      "live": {
+        "mnemonic": "癇 epilepsy is a 疒 sickness, not a reason to deny anyone 閒 leisure.",
+        "card_hash": "sha256:38f756436870ccf7229d36d96bf1d0a48de5f20f7e4b5384773ee76e312a3232",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:5ec94eb1f4f4087cd8204929eb8197c8a5df260f66b8e45540ce9cafd0fe75ad"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "At a peaceful 閒 leisure gathering, a neurologist explains that 疒 sickness can include 癇 epilepsy.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-004.attempt-001.json",
+            "attempt_hash": "sha256:ea01ede5f849047cd6a5e2d654923713a5634bc3ae9dfbc935faf6db02e6957e",
+            "record_hash": "sha256:ac92085f9088b0814399e98ffe8db293cf54441bb39afdfd7fb28779fd5bb290",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "癇 epilepsy is a 疒 sickness, not a reason to deny anyone 閒 leisure.",
+      "reason": "The live sentence is accurate, respectful, and concise; the neurologist and leisure gathering are extra plot."
+    },
+    {
+      "character": "郝",
+      "target_gloss": "surname Hao",
+      "equation": "赤 crimson + ⻏ city (right) = 郝 surname Hao",
+      "visual_components": [
+        {
+          "character": "赤",
+          "gloss": "crimson"
+        },
+        {
+          "character": "⻏",
+          "gloss": "city (right)"
+        }
+      ],
+      "live": {
+        "mnemonic": "The founding family of a 赤 crimson ⻏ city all bear the 郝 surname Hao.",
+        "card_hash": "sha256:f01ad0757e47ea3527da9e4db0c6abcf6f044cb87396f7b6a20f5d9f23451ed0",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:628c848d90fbf7d5f7790eddf4e6dac5da4c53d3cdd4308fda424a397c8137c8"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "A ⻏ city remembers its 赤 crimson ancestral banner at reunions of the 郝 surname Hao.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-004.attempt-001.json",
+            "attempt_hash": "sha256:ea01ede5f849047cd6a5e2d654923713a5634bc3ae9dfbc935faf6db02e6957e",
+            "record_hash": "sha256:2aa16bd1d6c49bc58812e29804c46082c253046ced6695ca62e0b20a8fe5d761",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "The founding family of a 赤 crimson ⻏ city all bear the 郝 surname Hao.",
+      "reason": "The live crimson-city founding family is direct; ancestral banners and reunions add a second story."
+    },
+    {
+      "character": "虱",
+      "target_gloss": "bug",
+      "equation": "⺄ second stroke + 䖝 insects = 虱 bug",
+      "visual_components": [
+        {
+          "character": "⺄",
+          "gloss": "second stroke"
+        },
+        {
+          "character": "䖝",
+          "gloss": "insects"
+        }
+      ],
+      "live": {
+        "mnemonic": "A tiny 虱 bug hides beneath the ⺄ second stroke amid crawling 䖝 insects.",
+        "card_hash": "sha256:620ace46500ae1c1803ba7e937d7cdbd32eb6cd1c1420f12ed0e334533aecba1",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:a6773d800158a626a8860c38dce8d868cb97bb1140fcc2bc44c2176712aa92b9"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "From a crowd of 䖝 insects, a tiny 虱 bug slips under a bent ⺄ second stroke.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-004.attempt-001.json",
+            "attempt_hash": "sha256:ea01ede5f849047cd6a5e2d654923713a5634bc3ae9dfbc935faf6db02e6957e",
+            "record_hash": "sha256:764dabed0bd9fd764fd9fd855a494046a3ae7aa888253c012c06e5ad060c316a",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "A tiny 虱 bug hides beneath the ⺄ second stroke amid crawling 䖝 insects.",
+      "reason": "The draft and live sentence give the tiny bug the same hiding action, so the existing wording remains."
+    },
+    {
+      "character": "鄂",
+      "target_gloss": "Hubei province",
+      "equation": "咢 drumming + ⻏ city (right) = 鄂 Hubei province",
+      "visual_components": [
+        {
+          "character": "咢",
+          "gloss": "drumming"
+        },
+        {
+          "character": "⻏",
+          "gloss": "city (right)"
+        }
+      ],
+      "live": {
+        "mnemonic": "In 鄂 Hubei province, 咢 drumming echoes through a ⻏ city during a river festival.",
+        "card_hash": "sha256:cdd51e9074bca8a33ad69dad2e778c89f67c068cdb494ad5350781bd093814e9",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:eeb64aac5f4a53cb37644ea2a0925aa2a8aac6be2f20f91b9f9834a67a20bfd7"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "At the ⻏ city gate, 咢 drumming opens the ceremonial road into 鄂 Hubei province.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-004.attempt-001.json",
+            "attempt_hash": "sha256:ea01ede5f849047cd6a5e2d654923713a5634bc3ae9dfbc935faf6db02e6957e",
+            "record_hash": "sha256:4e6893b26694acd4fbe891e1ba2ddd530204b1bb70a08db1f4ef41d092406551",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "In 鄂 Hubei province, 咢 drumming echoes through a ⻏ city during a river festival.",
+      "reason": "The live Hubei river festival makes city drumming plausible; the ceremonial road is less direct."
+    },
+    {
+      "character": "疙",
+      "target_gloss": "boil",
+      "equation": "疒 sickness + 乞 beg = 疙 boil",
+      "visual_components": [
+        {
+          "character": "疒",
+          "gloss": "sickness"
+        },
+        {
+          "character": "乞",
+          "gloss": "beg"
+        }
+      ],
+      "live": {
+        "mnemonic": "With 疒 sickness, a patient may 乞 beg for treatment of one swollen 疙 boil.",
+        "card_hash": "sha256:b7981420e3b33219eb4536f678607af2da8b1abda6a27b7ca1e0c3c486ee6059",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:2bd4e373a13e12c2fda3dc2a846b275d98953b44fe7429dae0d73a86371b0bb5"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "A 乞 beg for help is made at the 疒 sickness desk over one round 疙 boil.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-004.attempt-001.json",
+            "attempt_hash": "sha256:ea01ede5f849047cd6a5e2d654923713a5634bc3ae9dfbc935faf6db02e6957e",
+            "record_hash": "sha256:49818e6727b13f0dcd4b2e50b3d3e1cc6f1b0ab8930de5c5afcbdb08f2b77eec",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": "Phonosemantic compound. 疒 represents the meaning and 乞 represents the sound. ",
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "With 疒 sickness, a patient may 乞 beg for treatment of one swollen 疙 boil.",
+      "reason": "Begging for treatment of a boil is direct; a “sickness desk” is an invented and awkward setting."
+    },
+    {
+      "character": "痰",
+      "target_gloss": "phlegm",
+      "equation": "疒 sickness + 炎 inflammation = 痰 phlegm",
+      "visual_components": [
+        {
+          "character": "疒",
+          "gloss": "sickness"
+        },
+        {
+          "character": "炎",
+          "gloss": "inflammation"
+        }
+      ],
+      "live": {
+        "mnemonic": "A clinic file groups 痰 phlegm with 疒 sickness and notes 炎 inflammation beside the sample.",
+        "card_hash": "sha256:6c7b67b1f675c4f5fe4eb2094efbabdea5c5bea251e06cadab7f8656da536a5c",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:2fb862badc71cfadca3eaff8a06e45a5117b1e86a6a353e9095bee79ee8a598e"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "A vial of 痰 phlegm rests between a 疒 sickness file and an 炎 inflammation illustration.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-004.attempt-001.json",
+            "attempt_hash": "sha256:ea01ede5f849047cd6a5e2d654923713a5634bc3ae9dfbc935faf6db02e6957e",
+            "record_hash": "sha256:3cbbe0ae624d98a8a1fab5941a331c2da4ca95758fe7f09d8205e23a43136706",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": "Phonosemantic compound. 疒 represents the meaning and 炎 represents the sound. ",
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "A clinic file groups 痰 phlegm with 疒 sickness and notes 炎 inflammation beside the sample.",
+      "reason": "The draft adds a vial and illustration but gives no better bridge than the live clinic record."
+    },
+    {
+      "character": "咔",
+      "target_gloss": "transliteration syllable ka",
+      "equation": "口 mouth + 卡 card = 咔 transliteration syllable ka",
+      "visual_components": [
+        {
+          "character": "口",
+          "gloss": "mouth"
+        },
+        {
+          "character": "卡",
+          "gloss": "card"
+        }
+      ],
+      "live": {
+        "mnemonic": "A 口 mouth voices 咔 transliteration syllable ka from a foreign name printed on a 卡 card.",
+        "card_hash": "sha256:539489b5597d68717fef0db1f113e4a18554fb92267bfb1785abbb9160595021",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:ad0f55ac787e8b5c2a239be344d9018159e3f1b48b2dd96e99a9fe04fcfafb51"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "A speaker opens a 口 mouth to say 咔 transliteration syllable ka while matching the sound to a 卡 card.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-004.attempt-001.json",
+            "attempt_hash": "sha256:ea01ede5f849047cd6a5e2d654923713a5634bc3ae9dfbc935faf6db02e6957e",
+            "record_hash": "sha256:a836567ac320bbe96270bcbbfc56e738b1fd8ea905aea194cc77189690ccdebb",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": "Phonosemantic compound. 口 represents the meaning and 卡 represents the sound. ",
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "A 口 mouth voices 咔 transliteration syllable ka from a foreign name printed on a 卡 card.",
+      "reason": "A foreign name printed on a card naturally motivates the transliteration syllable; matching sound to a card is vaguer."
+    },
+    {
+      "character": "攸",
+      "target_gloss": "adverbial",
+      "equation": "亻 person (side) + 丨 line + 攵 tap = 攸 adverbial",
+      "visual_components": [
+        {
+          "character": "亻",
+          "gloss": "person (side)"
+        },
+        {
+          "character": "丨",
+          "gloss": "line"
+        },
+        {
+          "character": "攵",
+          "gloss": "tap"
+        }
+      ],
+      "live": {
+        "mnemonic": "A 亻 person draws a 丨 line, then gives an 攵 tap to mark an 攸 adverbial phrase modifying an action.",
+        "card_hash": "sha256:9a76c7057fc8ed530f937e285a230585322132e9a2d216e2b18b189ac4c55bfe",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:568d31079b0c0bf8df4eb41e8f4ccc77dd677325e3cb6a0385cbdab7e1c1f414"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "A 亻 person draws a 丨 line, then uses an 攵 tap to move an 攸 adverbial beside the action it modifies.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-005.attempt-001.json",
+            "attempt_hash": "sha256:e7ff1c34264a181aa81c90d27a2ea501ad8d535fd20d4e20fe3b8c031b016d54",
+            "record_hash": "sha256:9978fa506d7a25fb7fb3d8e675df5c4bd41673d4f7ea3aa8fca0e57cedfc4bf0",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": "Depicts a hand holding a stick (攵) beating up a person (亻). Based on the original meaning \"to hit someone\". The current meaning is a phonetic loan.",
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "A 亻 person draws a 丨 line, then gives an 攵 tap to mark an 攸 adverbial phrase modifying an action.",
+      "reason": "The live line and tap mark an adverbial phrase; physically moving an adverbial is a less concrete bridge."
+    },
+    {
+      "character": "疽",
+      "target_gloss": "carbuncle",
+      "equation": "疒 sickness + 且 moreover = 疽 carbuncle",
+      "visual_components": [
+        {
+          "character": "疒",
+          "gloss": "sickness"
+        },
+        {
+          "character": "且",
+          "gloss": "moreover"
+        }
+      ],
+      "live": {
+        "mnemonic": "疒 sickness supplies the medical category, while 且 moreover lends its sound to 疽 carbuncle.",
+        "card_hash": "sha256:f5c2fdfe5d14639b902ae1225894b91f097abc3819e08b77dbbb79ca83b01340",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:b1cbf6158252bea497ae9a1fae7a8b05389ec8d63f4d417d282913667101d487"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "The 疒 sickness ledger adds one more entry—且 moreover—for a 疽 carbuncle.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-005.attempt-001.json",
+            "attempt_hash": "sha256:e7ff1c34264a181aa81c90d27a2ea501ad8d535fd20d4e20fe3b8c031b016d54",
+            "record_hash": "sha256:5ae1f67c2e0b3f662d951780641f0fd1172bfcb636493005e838afa9f7fc9d24",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": "Phonosemantic compound. 疒 represents the meaning and 且 represents the sound. ",
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "疒 sickness supplies the medical category, while 且 moreover lends its sound to 疽 carbuncle.",
+      "reason": "The live phonosemantic explanation is honest; the ledger entry pun on moreover is forced."
+    },
+    {
+      "character": "柟",
+      "target_gloss": "machilus",
+      "equation": "木 tree + 冉 drooping = 柟 machilus",
+      "visual_components": [
+        {
+          "character": "木",
+          "gloss": "tree"
+        },
+        {
+          "character": "冉",
+          "gloss": "drooping"
+        }
+      ],
+      "live": {
+        "mnemonic": "Imagine the rare 柟 machilus as a 木 tree with long, 冉 drooping evergreen leaves.",
+        "card_hash": "sha256:883c70097ea2a0981d026219cdc6302abab940e4d309ee9f85c1fd5c77ac9ada",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:7ba7a8802c1e56ff3c70918f7a0993e9dca21ce0fd9a55402ff0d4bd14234270"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "A 柟 machilus is the 木 tree whose crown falls in a curtain of 冉 drooping branches.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-005.attempt-001.json",
+            "attempt_hash": "sha256:e7ff1c34264a181aa81c90d27a2ea501ad8d535fd20d4e20fe3b8c031b016d54",
+            "record_hash": "sha256:67f015c42601ed320a43b938e2869c013df1d71bfab3736fbbbaf1601dc1d180",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "promote_abandoned",
+      "confidence": 92,
+      "selected_source": "terra_v3",
+      "selected_mnemonic": "A 柟 machilus is the 木 tree whose crown falls in a curtain of 冉 drooping branches.",
+      "reason": "The machilus crown falling in a curtain of drooping branches is more direct and vivid than an instruction to imagine rare leaves."
+    },
+    {
+      "character": "癄",
+      "target_gloss": "Worn-Out Be Worn-Out",
+      "equation": "疒 sickness + 焦 apprehensive = 癄 Worn-Out Be Worn-Out",
+      "visual_components": [
+        {
+          "character": "疒",
+          "gloss": "sickness"
+        },
+        {
+          "character": "焦",
+          "gloss": "apprehensive"
+        }
+      ],
+      "live": {
+        "mnemonic": "癄 Worn-Out Be Worn-Out describes a 焦 apprehensive patient left drained by prolonged 疒 sickness.",
+        "card_hash": "sha256:3802301689ba6d5bd5b0923ac11ffe8e1dde3fa82457611e5afd84d5526609bb",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:5435a0a5f937db971f35ba69541f1acd6cd75b6c5647dfced970233d215e3809"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "A 疒 sickness ward shelters a 焦 apprehensive figure who is 癄 Worn-Out Be Worn-Out.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-005.attempt-001.json",
+            "attempt_hash": "sha256:e7ff1c34264a181aa81c90d27a2ea501ad8d535fd20d4e20fe3b8c031b016d54",
+            "record_hash": "sha256:00f220a9e0da93e86534d5d0fb6a67df3a8d198eb4c7ea947d59545bcc9b4f5f",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "癄 Worn-Out Be Worn-Out describes a 焦 apprehensive patient left drained by prolonged 疒 sickness.",
+      "reason": "The live sentence causally connects prolonged sickness and apprehension to being worn out; the ward scene merely restates them."
+    },
+    {
+      "character": "琅",
+      "target_gloss": "white carnelian",
+      "equation": "𤣩 jade (alt) + 良 high-quality = 琅 white carnelian",
+      "visual_components": [
+        {
+          "character": "𤣩",
+          "gloss": "jade (alt)"
+        },
+        {
+          "character": "良",
+          "gloss": "high-quality"
+        }
+      ],
+      "live": {
+        "mnemonic": "Clean, pale 琅 white carnelian rests beside 良 high-quality 𤣩 jade in a gem tray.",
+        "card_hash": "sha256:1d345e137507640b7387717365c607ae74391f4774d5fe760c3cbc7f98a3d9a4",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:9f86ad1e1722d648842bf10e105433cfca48620cb9e812445202efbf5d9f5f5d"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "A 良 high-quality gem tray sets pale 琅 white carnelian apart from green 𤣩 jade.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-005.attempt-001.json",
+            "attempt_hash": "sha256:e7ff1c34264a181aa81c90d27a2ea501ad8d535fd20d4e20fe3b8c031b016d54",
+            "record_hash": "sha256:eee93c153ccf6956dc460f0261a07e4029a37b77614c4064109706bbd2533283",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": "Phonosemantic compound. 王 represents the meaning and 良 represents the sound. Simplified form of 瑯. ",
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "Clean, pale 琅 white carnelian rests beside 良 high-quality 𤣩 jade in a gem tray.",
+      "reason": "The live gem tray correctly treats jade as high-quality; the draft misdirects 良 toward the tray."
+    },
+    {
+      "character": "瑯",
+      "target_gloss": "kind of white cornelian",
+      "equation": "𤣩 jade (alt) + 郎 gentleman = 瑯 kind of white cornelian",
+      "visual_components": [
+        {
+          "character": "𤣩",
+          "gloss": "jade (alt)"
+        },
+        {
+          "character": "郎",
+          "gloss": "gentleman"
+        }
+      ],
+      "live": {
+        "mnemonic": "A 郎 gentleman strings pale 瑯 kind of white cornelian beside polished 𤣩 jade on a pendant.",
+        "card_hash": "sha256:733296e5312dd2aeb90da2de923731810483874f4d259f3e32cdc06e54d4081b",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:cc8123597fe9add8b0edf933eae3c676111bdb1670fb2af25ba462d7b5f50d8b"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "A 郎 gentleman chooses pale 瑯 kind of white cornelian to contrast with dark 𤣩 jade.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-005.attempt-001.json",
+            "attempt_hash": "sha256:e7ff1c34264a181aa81c90d27a2ea501ad8d535fd20d4e20fe3b8c031b016d54",
+            "record_hash": "sha256:1f8bcc8710ae943447496d01242f7d58249f9262f681ee91a8ed2703eae53c75",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": "Phonosemantic compound. 王 represents the meaning and 郎 represents the sound. ",
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "A 郎 gentleman strings pale 瑯 kind of white cornelian beside polished 𤣩 jade on a pendant.",
+      "reason": "The live pendant-stringing scene is natural and vivid; choosing color contrast is different but not clearly better."
+    },
+    {
+      "character": "螅",
+      "target_gloss": "intestinal worm",
+      "equation": "虫 insects + 息 breath = 螅 intestinal worm",
+      "visual_components": [
+        {
+          "character": "虫",
+          "gloss": "insects"
+        },
+        {
+          "character": "息",
+          "gloss": "breath"
+        }
+      ],
+      "live": {
+        "mnemonic": "While sorting 虫 insects, a biologist holds her 息 breath upon finding a threadlike 螅 intestinal worm.",
+        "card_hash": "sha256:07afb6f8c973a576091ee439ea38d097aa77c266499240e16e6e17213978b599",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:4df4bfdce88aace51bf47753808151645bf880753b399e721300e5401165f7ee"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "In a cabinet for 虫 insects, a sealed jar holds a 螅 intestinal worm while an 息 breath fogs the glass.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-005.attempt-001.json",
+            "attempt_hash": "sha256:e7ff1c34264a181aa81c90d27a2ea501ad8d535fd20d4e20fe3b8c031b016d54",
+            "record_hash": "sha256:9bff0682581e602a7396827989a102d8d6717afaca4f42b7de02643397ef96ed",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": "Phonosemantic compound. 虫 represents the meaning and 息 represents the sound. ",
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "While sorting 虫 insects, a biologist holds her 息 breath upon finding a threadlike 螅 intestinal worm.",
+      "reason": "Holding one’s breath on finding a worm is a clear reaction; unexplained breath fogging a specimen jar is weaker."
+    },
+    {
+      "character": "痔",
+      "target_gloss": "hemorrhoids",
+      "equation": "疒 sickness + 寺 temple = 痔 hemorrhoids",
+      "visual_components": [
+        {
+          "character": "疒",
+          "gloss": "sickness"
+        },
+        {
+          "character": "寺",
+          "gloss": "temple"
+        }
+      ],
+      "live": {
+        "mnemonic": "A 寺 temple infirmary discreetly enters 痔 hemorrhoids in its 疒 sickness register.",
+        "card_hash": "sha256:d0f9bcc85745708140aa507b1ff44c0170a96f10cd5a3a9df141063b31ade418",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:fedbb63a6f6c45b92bfb7775019a9768a091db9f612526db321e57b9dac0962a"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "A 寺 temple clinic keeps a folded privacy screen beside its 疒 sickness sign for 痔 hemorrhoids.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-005.attempt-001.json",
+            "attempt_hash": "sha256:e7ff1c34264a181aa81c90d27a2ea501ad8d535fd20d4e20fe3b8c031b016d54",
+            "record_hash": "sha256:986443d9dde84b7b8df1315aa17adf447620c1477a06054d630019908c00e7e8",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": "Phonosemantic compound. 疒 represents the meaning and 寺 represents the sound. ",
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "A 寺 temple infirmary discreetly enters 痔 hemorrhoids in its 疒 sickness register.",
+      "reason": "The live temple infirmary register is discreet and compact; the privacy screen is an extra prop."
+    },
+    {
+      "character": "漳",
+      "target_gloss": "Zhang river in Fujian",
+      "equation": "氵 water (drops) + 章 chapter = 漳 Zhang river in Fujian",
+      "visual_components": [
+        {
+          "character": "氵",
+          "gloss": "water (drops)"
+        },
+        {
+          "character": "章",
+          "gloss": "chapter"
+        }
+      ],
+      "live": {
+        "mnemonic": "A 章 chapter in a Fujian atlas traces the course of 氵 water along the 漳 Zhang river in Fujian.",
+        "card_hash": "sha256:0fbd13104d3f2b03c0ae2882f538f6fd86bcea57a4661fe411da1bf635f6a8e5",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:846e61f87dae5350d657b43361662938ec30051f92a10dec0295d32c002cdb07"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "At the start of a 章 chapter, three 氵 water channels merge into the 漳 Zhang river in Fujian.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-005.attempt-001.json",
+            "attempt_hash": "sha256:e7ff1c34264a181aa81c90d27a2ea501ad8d535fd20d4e20fe3b8c031b016d54",
+            "record_hash": "sha256:44e35d5f71eb469146cf8e8ddebd2636a31dd4ed293c9f2113a2df0bfe97c58f",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": "Phonosemantic compound. 氵 represents the meaning and 章 represents the sound. ",
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "A 章 chapter in a Fujian atlas traces the course of 氵 water along the 漳 Zhang river in Fujian.",
+      "reason": "The live atlas chapter tracing the river gives chapter and water natural roles; three merging channels are arbitrary."
+    },
+    {
+      "character": "杞",
+      "target_gloss": "medlar",
+      "equation": "木 tree + 己 self = 杞 medlar",
+      "visual_components": [
+        {
+          "character": "木",
+          "gloss": "tree"
+        },
+        {
+          "character": "己",
+          "gloss": "self"
+        }
+      ],
+      "live": {
+        "mnemonic": "Small red berries crowd the 木 tree of a 杞 medlar, clustering as if they kept to 己 self.",
+        "card_hash": "sha256:fb540dd0689519d2c676e10226a21b3b99cea4181d63d97da4885e04a29ef0b0",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07",
+        "quality_provenance": "gpt56_sol_reviewed",
+        "final_selection": "fresh_authored",
+        "author_record_hash": "sha256:5a86695831511e3d87b194c77ad6b9eaf2fd39643fec7943b9223ae04768f731"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "A 己 self gathers red berries beneath a 木 tree that is a 杞 medlar.",
+          "provenance": {
+            "source": "terra_v3",
+            "attempt_path": "tmp/semantic-mnemonic-complete-v1/work/post-author/quality-mandatory/repairs-terra-v3/author-attempts/batch-005.attempt-001.json",
+            "attempt_hash": "sha256:e7ff1c34264a181aa81c90d27a2ea501ad8d535fd20d4e20fe3b8c031b016d54",
+            "record_hash": "sha256:11152d8d1cfcaee280050a4f8f487de161c8c72f9b698613084675b42e7c0e1d",
+            "model": "codex:gpt-5.6-terra",
+            "contract_version": "2026-07-20.3"
+          }
+        }
+      ],
+      "dictionary_hint": "Phonosemantic compound. 木 represents the meaning and 己 represents the sound. ",
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "Small red berries crowd the 木 tree of a 杞 medlar, clustering as if they kept to 己 self.",
+      "reason": "The live clustering berries make the self gloss usable; “a self gathers” is ungrammatical."
+    },
+    {
+      "character": "㼍",
+      "target_gloss": "pulp of a melon",
+      "equation": "耒 plow handle + 瓜 melon = 㼍 pulp of a melon",
+      "visual_components": [
+        {
+          "character": "耒",
+          "gloss": "plow handle"
+        },
+        {
+          "character": "瓜",
+          "gloss": "melon"
+        }
+      ],
+      "live": {
+        "mnemonic": "Press a 耒 plow handle into a split 瓜 melon to expose the 㼍 pulp of a melon.",
+        "card_hash": "sha256:de10b1a16f752e3bc81c7ad47b77a6957328685d127e131e8120efc3b7083ec8",
+        "generation_source": "gpt56_expedited_gate_promoted",
+        "quality_provenance": "gpt56_expedited_gate_promoted_noncertified",
+        "final_selection": "quality_ledger_interim_candidate",
+        "author_record_hash": "sha256:da9a52e72651d2bc16b7c9f18f63164e9c302e2d9c50e3d6f866c23b0c931506"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "A 耒 plow handle holds open a split 瓜 melon, revealing the soft 㼍 pulp of a melon.",
+          "provenance": {
+            "source": "recovery5",
+            "verification_path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality-mandatory-v3/locked-run-20260718-recovery5/verify/merged.json",
+            "record_hash": "sha256:9af9ae810c697391a04f88301f98700d04dff6322928c5bc89771b1dcff2ffb3",
+            "selected_origin": "gate_promoted_candidate",
+            "verifier_contract_hash": "sha256:b48c8994d3187487d51ebce87e91eacdd3b948cfcc6faf422559274d7642b71c",
+            "model": "codex:gpt-5.6-sol"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "promote_abandoned",
+      "confidence": 96,
+      "selected_source": "recovery5",
+      "selected_mnemonic": "A 耒 plow handle holds open a split 瓜 melon, revealing the soft 㼍 pulp of a melon.",
+      "reason": "Using the plow handle to hold a split melon open reveals pulp naturally; pressing it into the melon is needlessly destructive."
+    },
+    {
+      "character": "䎢",
+      "target_gloss": "measure",
+      "equation": "耒 plow handle + 乞 beg = 䎢 measure",
+      "visual_components": [
+        {
+          "character": "耒",
+          "gloss": "plow handle"
+        },
+        {
+          "character": "乞",
+          "gloss": "beg"
+        }
+      ],
+      "live": {
+        "mnemonic": "A farmer uses a 耒 plow handle to 䎢 measure grain for those who 乞 beg for a fair share.",
+        "card_hash": "sha256:06774e73a9085a22efd9bdc15415b313b4a06f65847f43c5551344c0597b86bd",
+        "generation_source": "gpt56_expedited_gate_restore_label_repair",
+        "quality_provenance": "gpt56_expedited_gate_restore_label_repair",
+        "final_selection": "quality_ledger_interim_candidate",
+        "author_record_hash": "sha256:4d16760d5d8f9495a2cc389b0a8aedd93ec59ce4f973485875db0a1903af43f7"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "Those who 乞 beg for grain watch a farmer use a 耒 plow handle to 䎢 measure each share.",
+          "provenance": {
+            "source": "recovery5",
+            "verification_path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality-mandatory-v3/locked-run-20260718-recovery5/verify/merged.json",
+            "record_hash": "sha256:7528d7af31ea60c8233b87af83a3be550ec3b72cf7739054f0fce1b75935fdad",
+            "selected_origin": "gate_promoted_candidate",
+            "verifier_contract_hash": "sha256:b48c8994d3187487d51ebce87e91eacdd3b948cfcc6faf422559274d7642b71c",
+            "model": "codex:gpt-5.6-sol"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "A farmer uses a 耒 plow handle to 䎢 measure grain for those who 乞 beg for a fair share.",
+      "reason": "The live fair-share context directly motivates measuring; the alternative only reorders the observers."
+    },
+    {
+      "character": "䎣",
+      "target_gloss": "plough",
+      "equation": "耒 plow handle + 以 carry = 䎣 plough",
+      "visual_components": [
+        {
+          "character": "耒",
+          "gloss": "plow handle"
+        },
+        {
+          "character": "以",
+          "gloss": "carry"
+        }
+      ],
+      "live": {
+        "mnemonic": "A farmer grips the 耒 plow handle to 以 carry the entire 䎣 plough into the field.",
+        "card_hash": "sha256:66991b61e90333fb800c7c35b37f9167cbb62f01530ffa981753c48420b86558",
+        "generation_source": "gpt56_expedited_gate_promoted",
+        "quality_provenance": "gpt56_expedited_gate_promoted_noncertified",
+        "final_selection": "quality_ledger_interim_candidate",
+        "author_record_hash": "sha256:ac76b4633c6d68950a7512601aa21c92857cb0715a6dd77e9485e0b5f46cb65c"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "A farmer can 以 carry the whole 䎣 plough by gripping its 耒 plow handle.",
+          "provenance": {
+            "source": "recovery5",
+            "verification_path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality-mandatory-v3/locked-run-20260718-recovery5/verify/merged.json",
+            "record_hash": "sha256:dab62e4c0a4d5e01e6282fc4fd2b297ef7a11fa215852eafd088604ea8487ad9",
+            "selected_origin": "gate_promoted_candidate",
+            "verifier_contract_hash": "sha256:b48c8994d3187487d51ebce87e91eacdd3b948cfcc6faf422559274d7642b71c",
+            "model": "codex:gpt-5.6-sol"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "A farmer grips the 耒 plow handle to 以 carry the entire 䎣 plough into the field.",
+      "reason": "Both sentences express carrying the plough by its handle, so the alternative is not a substantive gain."
+    },
+    {
+      "character": "䎤",
+      "target_gloss": "till",
+      "equation": "耒 plow handle + 局 bureau = 䎤 till",
+      "visual_components": [
+        {
+          "character": "耒",
+          "gloss": "plow handle"
+        },
+        {
+          "character": "局",
+          "gloss": "bureau"
+        }
+      ],
+      "live": {
+        "mnemonic": "The 局 bureau maps public fields, then sends crews gripping each 耒 plow handle to 䎤 till them.",
+        "card_hash": "sha256:ecee55ca2828db0ba7085fa0627fc5f4b582e119689f692eda0575e490f94f98",
+        "generation_source": "gpt56_expedited_gate_promoted",
+        "quality_provenance": "gpt56_expedited_gate_promoted_noncertified",
+        "final_selection": "quality_ledger_interim_candidate",
+        "author_record_hash": "sha256:c67ab7428e7f3726cdc4d8d4b06977051ff34d146d4953984f7a068401f5f6d0"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "The 局 bureau marks each plot, then farmers grip a 耒 plow handle to 䎤 till it.",
+          "provenance": {
+            "source": "recovery5",
+            "verification_path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality-mandatory-v3/locked-run-20260718-recovery5/verify/merged.json",
+            "record_hash": "sha256:4a34fbc33e9be97898743567dd6ecd493a253afd522ca361e9394816ca4e389b",
+            "selected_origin": "gate_promoted_candidate",
+            "verifier_contract_hash": "sha256:b48c8994d3187487d51ebce87e91eacdd3b948cfcc6faf422559274d7642b71c",
+            "model": "codex:gpt-5.6-sol"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "The 局 bureau maps public fields, then sends crews gripping each 耒 plow handle to 䎤 till them.",
+      "reason": "The live bureau mapping fields and sending crews is coherent; marking plots is only a slight shortening."
+    },
+    {
+      "character": "䎭",
+      "target_gloss": "land-leveling farm tool",
+      "equation": "耒 plow handle + 造 create = 䎭 land-leveling farm tool",
+      "visual_components": [
+        {
+          "character": "耒",
+          "gloss": "plow handle"
+        },
+        {
+          "character": "造",
+          "gloss": "create"
+        }
+      ],
+      "live": {
+        "mnemonic": "A 耒 plow handle guides a 䎭 land-leveling farm tool to 造 create a flat field.",
+        "card_hash": "sha256:747e47e486fba8c23b9cd28d50feb9374027f27ac14692d8dede02ff3049d042",
+        "generation_source": "gpt56_expedited_gate_promoted",
+        "quality_provenance": "gpt56_expedited_gate_promoted_noncertified",
+        "final_selection": "quality_ledger_interim_candidate",
+        "author_record_hash": "sha256:5189a601fe16b59d0b807dea622421f7c3bf9230c991c14d4d8c907a0d5a610f"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "The 耒 plow handle guides a 䎭 land-leveling farm tool to 造 create a flat field.",
+          "provenance": {
+            "source": "recovery5",
+            "verification_path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality-mandatory-v3/locked-run-20260718-recovery5/verify/merged.json",
+            "record_hash": "sha256:1806bcea9dbf92238b029320678e1455016953c014216b7af2cd7cc033924d5a",
+            "selected_origin": "gate_promoted_candidate",
+            "verifier_contract_hash": "sha256:b48c8994d3187487d51ebce87e91eacdd3b948cfcc6faf422559274d7642b71c",
+            "model": "codex:gpt-5.6-sol"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "A 耒 plow handle guides a 䎭 land-leveling farm tool to 造 create a flat field.",
+      "reason": "The only difference is the article before plow handle, which is not a learner-facing improvement."
+    },
+    {
+      "character": "䎮",
+      "target_gloss": "plant",
+      "equation": "耒 plow handle + 啇 stalk = 䎮 plant",
+      "visual_components": [
+        {
+          "character": "耒",
+          "gloss": "plow handle"
+        },
+        {
+          "character": "啇",
+          "gloss": "stalk"
+        }
+      ],
+      "live": {
+        "mnemonic": "A 耒 plow handle opens the next furrow beside each 啇 stalk so farmers can 䎮 plant another row.",
+        "card_hash": "sha256:93709c5ba5c956fb38053a6b94dbc221abcf6d66c50c1d0ef852acebde2462c3",
+        "generation_source": "gpt56_expedited_gate_promoted",
+        "quality_provenance": "gpt56_expedited_gate_promoted_noncertified",
+        "final_selection": "quality_ledger_interim_candidate",
+        "author_record_hash": "sha256:3f26da8f8cca486eedafa5c8725d9058d7a16e5711ea7d0693e54c1efc2077c7"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "The 耒 plow handle opens soil beside each 啇 stalk so farmers can 䎮 plant the next row.",
+          "provenance": {
+            "source": "recovery5",
+            "verification_path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality-mandatory-v3/locked-run-20260718-recovery5/verify/merged.json",
+            "record_hash": "sha256:23deaaa80870d64823071d4c065c8fdeb43b0889e796a5a4f92f38d8374d66e1",
+            "selected_origin": "gate_promoted_candidate",
+            "verifier_contract_hash": "sha256:b48c8994d3187487d51ebce87e91eacdd3b948cfcc6faf422559274d7642b71c",
+            "model": "codex:gpt-5.6-sol"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "A 耒 plow handle opens the next furrow beside each 啇 stalk so farmers can 䎮 plant another row.",
+      "reason": "Both versions open soil beside stalks to plant the next row; the live wording is already clear."
+    },
+    {
+      "character": "䎱",
+      "target_gloss": "rake",
+      "equation": "耒 plow handle + 罷 cease = 䎱 rake",
+      "visual_components": [
+        {
+          "character": "耒",
+          "gloss": "plow handle"
+        },
+        {
+          "character": "罷",
+          "gloss": "cease"
+        }
+      ],
+      "live": {
+        "mnemonic": "When the 耒 plow handle can 罷 cease turning soil, a 䎱 rake takes over to smooth it.",
+        "card_hash": "sha256:0f6f3c45003f0fc817caa48611bb7797e9dfae1bba17b48a7210738cac462335",
+        "generation_source": "gpt56_expedited_gate_promoted",
+        "quality_provenance": "gpt56_expedited_gate_promoted_noncertified",
+        "final_selection": "quality_ledger_interim_candidate",
+        "author_record_hash": "sha256:e2d39997b761a649be4929cc80cda37a0673d6d71973caede1e14c7b6d215710"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "When the 耒 plow handle can 罷 cease turning earth, the 䎱 rake smooths the loosened soil.",
+          "provenance": {
+            "source": "recovery5",
+            "verification_path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality-mandatory-v3/locked-run-20260718-recovery5/verify/merged.json",
+            "record_hash": "sha256:7bc63b63e14c36c4c8fafc32407ec972e84132bed0f7f31f01163ee884c97995",
+            "selected_origin": "gate_promoted_candidate",
+            "verifier_contract_hash": "sha256:b48c8994d3187487d51ebce87e91eacdd3b948cfcc6faf422559274d7642b71c",
+            "model": "codex:gpt-5.6-sol"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "When the 耒 plow handle can 罷 cease turning soil, a 䎱 rake takes over to smooth it.",
+      "reason": "The live handoff from plow to rake gives cease a stronger causal role than the alternative."
+    },
+    {
+      "character": "䪖",
+      "target_gloss": "leather-wrapped collar for a carriage's draft animal",
+      "equation": "韋 tanned hide + 复 repeatedly = 䪖 leather-wrapped collar for a carriage's draft animal",
+      "visual_components": [
+        {
+          "character": "韋",
+          "gloss": "tanned hide"
+        },
+        {
+          "character": "复",
+          "gloss": "repeatedly"
+        }
+      ],
+      "live": {
+        "mnemonic": "韋 tanned hide wraps 复 repeatedly around the neck, forming a 䪖 leather-wrapped collar for a carriage's draft animal.",
+        "card_hash": "sha256:4fcb56b836d4bee1fd613875036158f75725565785b719c9d977609378db3ce4",
+        "generation_source": "gpt56_expedited_gate_promoted",
+        "quality_provenance": "gpt56_expedited_gate_promoted_noncertified",
+        "final_selection": "quality_ledger_interim_candidate",
+        "author_record_hash": "sha256:4c7cfe7071a144f64fa098ec7805807d39769ab6a414bce0f2fc766065eb3966"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "韋 tanned hide wraps 复 repeatedly around the neck to form a 䪖 leather-wrapped collar for a carriage's draft animal.",
+          "provenance": {
+            "source": "recovery5",
+            "verification_path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality-mandatory-v3/locked-run-20260718-recovery5/verify/merged.json",
+            "record_hash": "sha256:8beabdaae24d09dfef9244ab1a084e503d5829e1a0fbe3f603c0b8cb9e1825b2",
+            "selected_origin": "gate_promoted_candidate",
+            "verifier_contract_hash": "sha256:b48c8994d3187487d51ebce87e91eacdd3b948cfcc6faf422559274d7642b71c",
+            "model": "codex:gpt-5.6-sol"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "韋 tanned hide wraps 复 repeatedly around the neck, forming a 䪖 leather-wrapped collar for a carriage's draft animal.",
+      "reason": "Changing “forming” to “to form” does not improve the already direct wrapping scene."
+    },
+    {
+      "character": "哕",
+      "target_gloss": "belch/vomit",
+      "equation": "口 mouth + 岁 harvest = 哕 belch/vomit",
+      "visual_components": [
+        {
+          "character": "口",
+          "gloss": "mouth"
+        },
+        {
+          "character": "岁",
+          "gloss": "harvest"
+        }
+      ],
+      "live": {
+        "mnemonic": "A sack packed with the 岁 harvest ejects produce through its painted 口 mouth in a comic 哕 belch/vomit.",
+        "card_hash": "sha256:dd1c9d469c386ebc9dbcda7282b4a3340812ab7a3cb389a87d0fbc5f64c00c01",
+        "generation_source": "gpt56_expedited_gate_restore_label_repair",
+        "quality_provenance": "gpt56_expedited_gate_restore_label_repair",
+        "final_selection": "quality_ledger_interim_candidate",
+        "author_record_hash": "sha256:13c340e354f119da9652a3443a2a0135d916df7dd33b7352a5ecb6d69ca1100b"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "After a 岁 harvest feast, a 口 mouth suddenly begins to 哕 belch/vomit.",
+          "provenance": {
+            "source": "recovery5",
+            "verification_path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality-mandatory-v3/locked-run-20260718-recovery5/verify/merged.json",
+            "record_hash": "sha256:0c17aecd9154518475726e80862e960e68dc7c36ee5386a850ee7517b098490c",
+            "selected_origin": "gate_promoted_candidate",
+            "verifier_contract_hash": "sha256:b48c8994d3187487d51ebce87e91eacdd3b948cfcc6faf422559274d7642b71c",
+            "model": "codex:gpt-5.6-sol"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "promote_abandoned",
+      "confidence": 98,
+      "selected_source": "recovery5",
+      "selected_mnemonic": "After a 岁 harvest feast, a 口 mouth suddenly begins to 哕 belch/vomit.",
+      "reason": "A mouth belching or vomiting after a harvest feast is direct and plausible, unlike the live sack with a painted mouth."
+    },
+    {
+      "character": "検",
+      "target_gloss": "check",
+      "equation": "木 tree + 口 mouth + 人 person = 検 check",
+      "visual_components": [
+        {
+          "character": "木",
+          "gloss": "tree"
+        },
+        {
+          "character": "口",
+          "gloss": "mouth"
+        },
+        {
+          "character": "人",
+          "gloss": "person"
+        }
+      ],
+      "live": {
+        "mnemonic": "A 人 person measures a 木 tree twice, speaking each result through their 口 mouth to 検 check that the numbers match.",
+        "card_hash": "sha256:67564bb44977b743e6c8ca8970cdc4f267efed952dc84a2ebc53f68b1ae940b0",
+        "generation_source": "gpt56_expedited_gate_restore_label_repair",
+        "quality_provenance": "gpt56_expedited_gate_restore_label_repair",
+        "final_selection": "quality_ledger_interim_candidate",
+        "author_record_hash": "sha256:10df7909ebc001a9de84be82eab58f3bf158e3faf0ba1cb8edf2f6350061d3a6"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "A 人 person calls through their 口 mouth into a hollow 木 tree to 検 check for an echo.",
+          "provenance": {
+            "source": "recovery5",
+            "verification_path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality-mandatory-v3/locked-run-20260718-recovery5/verify/merged.json",
+            "record_hash": "sha256:5a69880fdfd1fa112c4327c574d60561c2b3388eadc345605e618922e807c917",
+            "selected_origin": "gate_promoted_candidate",
+            "verifier_contract_hash": "sha256:b48c8994d3187487d51ebce87e91eacdd3b948cfcc6faf422559274d7642b71c",
+            "model": "codex:gpt-5.6-sol"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "promote_abandoned",
+      "confidence": 95,
+      "selected_source": "recovery5",
+      "selected_mnemonic": "A 人 person calls through their 口 mouth into a hollow 木 tree to 検 check for an echo.",
+      "reason": "A person calling into a hollow tree to check for an echo is a single concrete test, simpler than measuring twice and comparing spoken numbers."
+    },
+    {
+      "character": "耒",
+      "target_gloss": "plow handle",
+      "equation": "Visual form: 耒 plow handle",
+      "visual_components": [
+        {
+          "character": "耒",
+          "gloss": "plow handle"
+        }
+      ],
+      "live": {
+        "mnemonic": "Its vertical shaft and cross-grips let both hands steer the 耒 plow handle along a furrow.",
+        "card_hash": "sha256:3003e5f665aba1a82e6c774142e3c40248e5e053b79b53c777e80dab9d4760ad",
+        "generation_source": "gpt56_expedited_gate_promoted",
+        "quality_provenance": "gpt56_expedited_gate_promoted_noncertified",
+        "final_selection": "quality_ledger_interim_candidate",
+        "author_record_hash": "sha256:993a72467b150c3cb84708d878fc1169c6afd8bc217e3f5e352ad59e5def758f"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "The vertical shaft and cross-grips are the 耒 plow handle held with both hands at the furrow.",
+          "provenance": {
+            "source": "recovery5",
+            "verification_path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality-mandatory-v3/locked-run-20260718-recovery5/verify/merged.json",
+            "record_hash": "sha256:8b6ffb07cf3d0441908f3813b19b98099c8f9950ca2b20781adf507e775f9b84",
+            "selected_origin": "gate_promoted_candidate",
+            "verifier_contract_hash": "sha256:b48c8994d3187487d51ebce87e91eacdd3b948cfcc6faf422559274d7642b71c",
+            "model": "codex:gpt-5.6-sol"
+          }
+        }
+      ],
+      "dictionary_hint": "Pictograph of a farming tool used to make furrows in the ground.",
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "Its vertical shaft and cross-grips let both hands steer the 耒 plow handle along a furrow.",
+      "reason": "The live pictographic sentence is grammatical and dynamic; the alternative is an awkward nominal restatement."
+    },
+    {
+      "character": "耗",
+      "target_gloss": "consume",
+      "equation": "耒 plow handle + 毛 fur = 耗 consume",
+      "visual_components": [
+        {
+          "character": "耒",
+          "gloss": "plow handle"
+        },
+        {
+          "character": "毛",
+          "gloss": "fur"
+        }
+      ],
+      "live": {
+        "mnemonic": "Pushing a 耒 plow handle through snagging 毛 fur would 耗 consume all your strength.",
+        "card_hash": "sha256:1976c17ebab2de41b3432e3a91b4654f490ca237714bbe04bcafac58b5c167a9",
+        "generation_source": "gpt56_expedited_gate_promoted",
+        "quality_provenance": "gpt56_expedited_gate_promoted_noncertified",
+        "final_selection": "quality_ledger_interim_candidate",
+        "author_record_hash": "sha256:706dcebbe727cdcfe2790295eb4ff2c04cdc1db65d85a8e5652114c0c4fa8046"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "Dragging a 耒 plow handle through snagging 毛 fur will 耗 consume the worker’s strength.",
+          "provenance": {
+            "source": "recovery5",
+            "verification_path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality-mandatory-v3/locked-run-20260718-recovery5/verify/merged.json",
+            "record_hash": "sha256:e88599501ff618b1067f9aeb54afe0e0fdb3b32e7282c85dc636a7d7481dd29a",
+            "selected_origin": "gate_promoted_candidate",
+            "verifier_contract_hash": "sha256:b48c8994d3187487d51ebce87e91eacdd3b948cfcc6faf422559274d7642b71c",
+            "model": "codex:gpt-5.6-sol"
+          }
+        }
+      ],
+      "dictionary_hint": "Phonosemantic compound. 耒 represents the meaning and 毛 represents the sound. ",
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "Pushing a 耒 plow handle through snagging 毛 fur would 耗 consume all your strength.",
+      "reason": "The alternative changes viewpoint and pronoun but leaves the same plow-handle/fur scene."
+    },
+    {
+      "character": "耜",
+      "target_gloss": "spade-shaped tool",
+      "equation": "耒 plow handle + 㠯 carry = 耜 spade-shaped tool",
+      "visual_components": [
+        {
+          "character": "耒",
+          "gloss": "plow handle"
+        },
+        {
+          "character": "㠯",
+          "gloss": "carry"
+        }
+      ],
+      "live": {
+        "mnemonic": "With a broad blade on a 耒 plow handle, the 耜 spade-shaped tool can 㠯 carry loosened soil.",
+        "card_hash": "sha256:81adc3ec3ce90e6e14c7091b2a7bd07e613e27690db0dd901fb51ca13a1bbbb0",
+        "generation_source": "gpt56_expedited_gate_promoted",
+        "quality_provenance": "gpt56_expedited_gate_promoted_noncertified",
+        "final_selection": "quality_ledger_interim_candidate",
+        "author_record_hash": "sha256:c983229e3fda96745898f3e04cd7e09bf267200668da8a4a1e85eb6e082b0e66"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "With a broad blade on a 耒 plow handle, the 耜 spade-shaped tool can 㠯 carry a scoop of soil.",
+          "provenance": {
+            "source": "recovery5",
+            "verification_path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality-mandatory-v3/locked-run-20260718-recovery5/verify/merged.json",
+            "record_hash": "sha256:8781ed8203dcd421cd07c0252ff789440d3c1fe8b6192b2eb90b977ac1fd2c53",
+            "selected_origin": "gate_promoted_candidate",
+            "verifier_contract_hash": "sha256:b48c8994d3187487d51ebce87e91eacdd3b948cfcc6faf422559274d7642b71c",
+            "model": "codex:gpt-5.6-sol"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "With a broad blade on a 耒 plow handle, the 耜 spade-shaped tool can 㠯 carry loosened soil.",
+      "reason": "A scoop of soil is only a minor specificity change; the live tool action is already clear."
+    },
+    {
+      "character": "耠",
+      "target_gloss": "dig",
+      "equation": "耒 plow handle + 合 fit = 耠 dig",
+      "visual_components": [
+        {
+          "character": "耒",
+          "gloss": "plow handle"
+        },
+        {
+          "character": "合",
+          "gloss": "fit"
+        }
+      ],
+      "live": {
+        "mnemonic": "合 fit a broad blade to the 耒 plow handle so the resulting tool can 耠 dig packed soil.",
+        "card_hash": "sha256:d54266b2f4c695611422ebb5feff2b3b56f6f458cb457fc791322fed87731acc",
+        "generation_source": "gpt56_expedited_gate_promoted",
+        "quality_provenance": "gpt56_expedited_gate_promoted_noncertified",
+        "final_selection": "quality_ledger_interim_candidate",
+        "author_record_hash": "sha256:bbfec0b0e6915cf524e157b2170577127fa74ac73e0c8cc19f32ffbe5bc55c68"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "合 fit a digging blade onto a 耒 plow handle so a farmer can 耠 dig packed soil.",
+          "provenance": {
+            "source": "recovery5",
+            "verification_path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality-mandatory-v3/locked-run-20260718-recovery5/verify/merged.json",
+            "record_hash": "sha256:451cf703d817b5349951fe39246e2bf40c4d7a1754ec3538acb08cf910d574d7",
+            "selected_origin": "gate_promoted_candidate",
+            "verifier_contract_hash": "sha256:b48c8994d3187487d51ebce87e91eacdd3b948cfcc6faf422559274d7642b71c",
+            "model": "codex:gpt-5.6-sol"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "合 fit a broad blade to the 耒 plow handle so the resulting tool can 耠 dig packed soil.",
+      "reason": "The live imperative is more concise and needs no extra farmer actor."
+    },
+    {
+      "character": "耡",
+      "target_gloss": "hoe",
+      "equation": "耒 plow handle + 助 assist = 耡 hoe",
+      "visual_components": [
+        {
+          "character": "耒",
+          "gloss": "plow handle"
+        },
+        {
+          "character": "助",
+          "gloss": "assist"
+        }
+      ],
+      "live": {
+        "mnemonic": "With a small blade on a 耒 plow handle, the 耡 hoe can 助 assist with weeding.",
+        "card_hash": "sha256:01e26a199e2a53222d0f4c2310cd8993cede287398587d8e6f8ab7246b02b70c",
+        "generation_source": "gpt56_expedited_gate_promoted",
+        "quality_provenance": "gpt56_expedited_gate_promoted_noncertified",
+        "final_selection": "quality_ledger_interim_candidate",
+        "author_record_hash": "sha256:767cc7e48751ecd76e1878b0ea80c966437c19788ac0ae00b55a9c81d866211d"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "A small blade on a 耒 plow handle can 助 assist a farmer to 耡 hoe between crops.",
+          "provenance": {
+            "source": "recovery5",
+            "verification_path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality-mandatory-v3/locked-run-20260718-recovery5/verify/merged.json",
+            "record_hash": "sha256:1c3657fcf0cfd368226a5091ec8dc2380e7883f98024f281a343f2125d1c6525",
+            "selected_origin": "gate_promoted_candidate",
+            "verifier_contract_hash": "sha256:b48c8994d3187487d51ebce87e91eacdd3b948cfcc6faf422559274d7642b71c",
+            "model": "codex:gpt-5.6-sol"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "With a small blade on a 耒 plow handle, the 耡 hoe can 助 assist with weeding.",
+      "reason": "The live hoe assisting with weeding preserves the noun sense; “assist a farmer to hoe” is awkward."
+    },
+    {
+      "character": "耢",
+      "target_gloss": "farm tool",
+      "equation": "耒 plow handle + 劳 manual = 耢 farm tool",
+      "visual_components": [
+        {
+          "character": "耒",
+          "gloss": "plow handle"
+        },
+        {
+          "character": "劳",
+          "gloss": "manual"
+        }
+      ],
+      "live": {
+        "mnemonic": "A farmer grips the 耒 plow handle and supplies 劳 manual effort to drag the 耢 farm tool across tilled earth.",
+        "card_hash": "sha256:675ebad18ed4323cc85c00c3624f184cc58652a7bf7a5cfe77e8e5b1728baca1",
+        "generation_source": "gpt56_expedited_gate_promoted",
+        "quality_provenance": "gpt56_expedited_gate_promoted_noncertified",
+        "final_selection": "quality_ledger_interim_candidate",
+        "author_record_hash": "sha256:fc56687728b3f6fc61878c8e35657a3108f4f6b581cb1202458db65f39171595"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "During 劳 manual fieldwork, a long 耒 plow handle gives leverage to drag a 耢 farm tool over tilled soil.",
+          "provenance": {
+            "source": "recovery5",
+            "verification_path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality-mandatory-v3/locked-run-20260718-recovery5/verify/merged.json",
+            "record_hash": "sha256:a41296da1740816ee7a7e618b6d6d5ad5487c7e0154e58434446ce6a950c6bd0",
+            "selected_origin": "gate_promoted_candidate",
+            "verifier_contract_hash": "sha256:b48c8994d3187487d51ebce87e91eacdd3b948cfcc6faf422559274d7642b71c",
+            "model": "codex:gpt-5.6-sol"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "A farmer grips the 耒 plow handle and supplies 劳 manual effort to drag the 耢 farm tool across tilled earth.",
+      "reason": "The live manual effort directly powers the farm tool; adding leverage is plausible but not unequivocally better."
+    },
+    {
+      "character": "耤",
+      "target_gloss": "plough",
+      "equation": "耒 plow handle + 昔 times past = 耤 plough",
+      "visual_components": [
+        {
+          "character": "耒",
+          "gloss": "plow handle"
+        },
+        {
+          "character": "昔",
+          "gloss": "times past"
+        }
+      ],
+      "live": {
+        "mnemonic": "Since 昔 times past, farmers have gripped the 耒 plow handle to guide the 耤 plough through fields.",
+        "card_hash": "sha256:7a775e44bc3408b0063c1e5a0548c95d8b21ff93f5e67804df9eb7797015bac3",
+        "generation_source": "gpt56_expedited_gate_promoted",
+        "quality_provenance": "gpt56_expedited_gate_promoted_noncertified",
+        "final_selection": "quality_ledger_interim_candidate",
+        "author_record_hash": "sha256:eed0dc2360197ee258f36ec326c998bf1507d3c03f4f6e9384e1148a6089041b"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "Since 昔 times past, farmers have held a 耒 plow handle to 耤 plough long furrows.",
+          "provenance": {
+            "source": "recovery5",
+            "verification_path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality-mandatory-v3/locked-run-20260718-recovery5/verify/merged.json",
+            "record_hash": "sha256:ff0c6a12c0f5c708978498f187122fc153b398a9e6b4d68ad33c89f841f0d72d",
+            "selected_origin": "gate_promoted_candidate",
+            "verifier_contract_hash": "sha256:b48c8994d3187487d51ebce87e91eacdd3b948cfcc6faf422559274d7642b71c",
+            "model": "codex:gpt-5.6-sol"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "Since 昔 times past, farmers have gripped the 耒 plow handle to guide the 耤 plough through fields.",
+      "reason": "The live sentence preserves the target’s noun sense; the alternative shifts it into a verb without a clear gain."
+    },
+    {
+      "character": "耥",
+      "target_gloss": "farm tool",
+      "equation": "耒 plow handle + 尚 esteem = 耥 farm tool",
+      "visual_components": [
+        {
+          "character": "耒",
+          "gloss": "plow handle"
+        },
+        {
+          "character": "尚",
+          "gloss": "esteem"
+        }
+      ],
+      "live": {
+        "mnemonic": "Farmers 尚 esteem a sturdy 耒 plow handle that keeps the 耥 farm tool steady across rough soil.",
+        "card_hash": "sha256:2c72b657667a9963cd170b649aa765b185bb7db7b07397b4013bfe30227cb263",
+        "generation_source": "gpt56_expedited_gate_promoted",
+        "quality_provenance": "gpt56_expedited_gate_promoted_noncertified",
+        "final_selection": "quality_ledger_interim_candidate",
+        "author_record_hash": "sha256:1215405ef7bd7a77f17b664f28af239bb4bdfbfa2b92b32f4c760bad249705e7"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "Farmers 尚 esteem a sturdy 耒 plow handle because it makes a 耥 farm tool easy to guide.",
+          "provenance": {
+            "source": "recovery5",
+            "verification_path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality-mandatory-v3/locked-run-20260718-recovery5/verify/merged.json",
+            "record_hash": "sha256:1b15a10a6c76908700a1736cc00391ee74abc3ac27317b807d8c4c8aae99428e",
+            "selected_origin": "gate_promoted_candidate",
+            "verifier_contract_hash": "sha256:b48c8994d3187487d51ebce87e91eacdd3b948cfcc6faf422559274d7642b71c",
+            "model": "codex:gpt-5.6-sol"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "Farmers 尚 esteem a sturdy 耒 plow handle that keeps the 耥 farm tool steady across rough soil.",
+      "reason": "Keeping the tool steady over rough soil is more concrete than saying it is easy to guide."
+    },
+    {
+      "character": "耪",
+      "target_gloss": "plow",
+      "equation": "耒 plow handle + 旁 side = 耪 plow",
+      "visual_components": [
+        {
+          "character": "耒",
+          "gloss": "plow handle"
+        },
+        {
+          "character": "旁",
+          "gloss": "side"
+        }
+      ],
+      "live": {
+        "mnemonic": "Guiding the 耒 plow handle along the 旁 side of each crop row lets a farmer 耪 plow straight furrows.",
+        "card_hash": "sha256:dc7ea23dc1533879dcb392819e3ec31d9f43378e5782b1ec1bab70996c513893",
+        "generation_source": "gpt56_expedited_gate_promoted",
+        "quality_provenance": "gpt56_expedited_gate_promoted_noncertified",
+        "final_selection": "quality_ledger_interim_candidate",
+        "author_record_hash": "sha256:727bc908d897371a56d68388f910f9ea455183acc93d4ab034626f4a25c193c8"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "Along the 旁 side of each crop row, a farmer guides the 耒 plow handle to 耪 plow without crushing plants.",
+          "provenance": {
+            "source": "recovery5",
+            "verification_path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality-mandatory-v3/locked-run-20260718-recovery5/verify/merged.json",
+            "record_hash": "sha256:3da4beeb1ad0c8aa9d6c53eb4e46492c85714c3ce5d6bb964ea68b30378386ca",
+            "selected_origin": "gate_promoted_candidate",
+            "verifier_contract_hash": "sha256:b48c8994d3187487d51ebce87e91eacdd3b948cfcc6faf422559274d7642b71c",
+            "model": "codex:gpt-5.6-sol"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "Guiding the 耒 plow handle along the 旁 side of each crop row lets a farmer 耪 plow straight furrows.",
+      "reason": "The live side-of-row image already motivates straight furrows; avoiding crushed plants adds plot."
+    },
+    {
+      "character": "耬",
+      "target_gloss": "drill for sowing grain",
+      "equation": "耒 plow handle + 婁 wear = 耬 drill for sowing grain",
+      "visual_components": [
+        {
+          "character": "耒",
+          "gloss": "plow handle"
+        },
+        {
+          "character": "婁",
+          "gloss": "wear"
+        }
+      ],
+      "live": {
+        "mnemonic": "Row after row, the 耬 drill for sowing grain makes the 耒 plow handle 婁 wear from constant steering.",
+        "card_hash": "sha256:dda931a518763ddeb3d2627b6610bf55521d61cbf40d247f9cb7cfbc9ab9e903",
+        "generation_source": "gpt56_expedited_gate_promoted",
+        "quality_provenance": "gpt56_expedited_gate_promoted_noncertified",
+        "final_selection": "quality_ledger_interim_candidate",
+        "author_record_hash": "sha256:1da32c88ee5feb4fbfe9a6e6a53ba8441cc2703b8dc5924268c5e7d6df44ad27"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "Row after seeded row makes the 耒 plow handle 婁 wear smooth on a 耬 drill for sowing grain.",
+          "provenance": {
+            "source": "recovery5",
+            "verification_path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality-mandatory-v3/locked-run-20260718-recovery5/verify/merged.json",
+            "record_hash": "sha256:42286fd606eabf92458e5a679d35f81516180c5da6daaeec3476dd001a37a6a6",
+            "selected_origin": "gate_promoted_candidate",
+            "verifier_contract_hash": "sha256:b48c8994d3187487d51ebce87e91eacdd3b948cfcc6faf422559274d7642b71c",
+            "model": "codex:gpt-5.6-sol"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "Row after row, the 耬 drill for sowing grain makes the 耒 plow handle 婁 wear from constant steering.",
+      "reason": "The live constant steering clearly causes wear; “wear smooth” is only a small stylistic variation."
+    },
+    {
+      "character": "耭",
+      "target_gloss": "cultivate",
+      "equation": "耒 plow handle + 幾 how many = 耭 cultivate",
+      "visual_components": [
+        {
+          "character": "耒",
+          "gloss": "plow handle"
+        },
+        {
+          "character": "幾",
+          "gloss": "how many"
+        }
+      ],
+      "live": {
+        "mnemonic": "幾 how many furrows can a farmer turn with one 耒 plow handle while working to 耭 cultivate the entire field?",
+        "card_hash": "sha256:bdaa9b3ab490ce2234176d8eabea01ca6dfa9ea0929ddf7b97a912c57c235c30",
+        "generation_source": "gpt56_expedited_gate_promoted",
+        "quality_provenance": "gpt56_expedited_gate_promoted_noncertified",
+        "final_selection": "quality_ledger_interim_candidate",
+        "author_record_hash": "sha256:fc1555463c43aabc71052a6dd885039f26f2b51ffac5669b8d433308eae25528"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "幾 how many furrows must a farmer turn with the 耒 plow handle to 耭 cultivate the whole field?",
+          "provenance": {
+            "source": "recovery5",
+            "verification_path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality-mandatory-v3/locked-run-20260718-recovery5/verify/merged.json",
+            "record_hash": "sha256:deca1fe92a4fa5c421fc6652606a14d668c12be7e971fc0c272c1b01507625ed",
+            "selected_origin": "gate_promoted_candidate",
+            "verifier_contract_hash": "sha256:b48c8994d3187487d51ebce87e91eacdd3b948cfcc6faf422559274d7642b71c",
+            "model": "codex:gpt-5.6-sol"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "幾 how many furrows can a farmer turn with one 耒 plow handle while working to 耭 cultivate the entire field?",
+      "reason": "The two questions differ only in modal wording and carry the same image."
+    },
+    {
+      "character": "耮",
+      "target_gloss": "farm tool",
+      "equation": "耒 plow handle + 勞 labor = 耮 farm tool",
+      "visual_components": [
+        {
+          "character": "耒",
+          "gloss": "plow handle"
+        },
+        {
+          "character": "勞",
+          "gloss": "labor"
+        }
+      ],
+      "live": {
+        "mnemonic": "A farmer applies 勞 labor through the 耒 plow handle to drag the 耮 farm tool steadily across tilled earth.",
+        "card_hash": "sha256:d65f346a7e2c5bd32bf5542905b52cc0a53863058533a272c6c4543eb2fdebc1",
+        "generation_source": "gpt56_expedited_gate_promoted",
+        "quality_provenance": "gpt56_expedited_gate_promoted_noncertified",
+        "final_selection": "quality_ledger_interim_candidate",
+        "author_record_hash": "sha256:6b7599125bb457476618e487aa65c2361a4940130d9bea0f6a2e8662cde3e4cd"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "勞 labor becomes easier when the 耒 plow handle gives leverage to drag a 耮 farm tool across tilled earth.",
+          "provenance": {
+            "source": "recovery5",
+            "verification_path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality-mandatory-v3/locked-run-20260718-recovery5/verify/merged.json",
+            "record_hash": "sha256:20b85345373de65ef05720cb628971e6fb2ca6d3050d1bcb47dcd6e801561c74",
+            "selected_origin": "gate_promoted_candidate",
+            "verifier_contract_hash": "sha256:b48c8994d3187487d51ebce87e91eacdd3b948cfcc6faf422559274d7642b71c",
+            "model": "codex:gpt-5.6-sol"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "A farmer applies 勞 labor through the 耒 plow handle to drag the 耮 farm tool steadily across tilled earth.",
+      "reason": "The live labor-through-handle sentence is direct; claiming labor becomes easier changes emphasis but not learner value."
+    },
+    {
+      "character": "耱",
+      "target_gloss": "farm tool",
+      "equation": "耒 plow handle + 磨 grind = 耱 farm tool",
+      "visual_components": [
+        {
+          "character": "耒",
+          "gloss": "plow handle"
+        },
+        {
+          "character": "磨",
+          "gloss": "grind"
+        }
+      ],
+      "live": {
+        "mnemonic": "With a 耒 plow handle, the 耱 farm tool crushes clods to 磨 grind the field smooth.",
+        "card_hash": "sha256:7ac26621932b4a1ae5348144c6fcb243e3832105e3380d41b7d72ad7d18a3638",
+        "generation_source": "gpt56_expedited_gate_promoted",
+        "quality_provenance": "gpt56_expedited_gate_promoted_noncertified",
+        "final_selection": "quality_ledger_interim_candidate",
+        "author_record_hash": "sha256:8dea817f7b3e1f63aead8ce071747fc29a8cbea660fa52d2cac3ad27d247c834"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "With a 耒 plow handle, the 耱 farm tool can 磨 grind rough soil clods smooth.",
+          "provenance": {
+            "source": "recovery5",
+            "verification_path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality-mandatory-v3/locked-run-20260718-recovery5/verify/merged.json",
+            "record_hash": "sha256:dfe11f91b3d902ea20765387242c66fecd268db5fa7b632e5d0f11a400cb8980",
+            "selected_origin": "gate_promoted_candidate",
+            "verifier_contract_hash": "sha256:b48c8994d3187487d51ebce87e91eacdd3b948cfcc6faf422559274d7642b71c",
+            "model": "codex:gpt-5.6-sol"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "With a 耒 plow handle, the 耱 farm tool crushes clods to 磨 grind the field smooth.",
+      "reason": "Both versions grind clods smooth with the handled tool; the wording change is too slight to displace live text."
+    },
+    {
+      "character": "誄",
+      "target_gloss": "eulogize",
+      "equation": "言 speech + 耒 plow handle = 誄 eulogize",
+      "visual_components": [
+        {
+          "character": "言",
+          "gloss": "speech"
+        },
+        {
+          "character": "耒",
+          "gloss": "plow handle"
+        }
+      ],
+      "live": {
+        "mnemonic": "At a farmer’s grave, 言 speech honors the life behind his worn 耒 plow handle as mourners 誄 eulogize him.",
+        "card_hash": "sha256:e307167383142131de648fbc5b8e6cd78d430e3ff14ceacd82a6905174f304cf",
+        "generation_source": "gpt56_expedited_gate_restore_label_repair",
+        "quality_provenance": "gpt56_expedited_gate_restore_label_repair",
+        "final_selection": "quality_ledger_interim_candidate",
+        "author_record_hash": "sha256:bcd49904fd981eb608a3a1dd6e342c18531c7d4324e1a51ed3ab405dbdcb9e93"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "At the farmer’s graveside, 言 speech beside his worn 耒 plow handle can 誄 eulogize his life’s work.",
+          "provenance": {
+            "source": "recovery5",
+            "verification_path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality-mandatory-v3/locked-run-20260718-recovery5/verify/merged.json",
+            "record_hash": "sha256:e4cc22af8870eaab544b87ebed4be7af023820e549b98ed73fed5549a58fef99",
+            "selected_origin": "gate_promoted_candidate",
+            "verifier_contract_hash": "sha256:b48c8994d3187487d51ebce87e91eacdd3b948cfcc6faf422559274d7642b71c",
+            "model": "codex:gpt-5.6-sol"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "At a farmer’s grave, 言 speech honors the life behind his worn 耒 plow handle as mourners 誄 eulogize him.",
+      "reason": "The live speech eulogizes the farmer himself; the alternative’s “can eulogize his life’s work” is weaker."
+    },
+    {
+      "character": "诔",
+      "target_gloss": "praise",
+      "equation": "讠 speech + 耒 plow handle = 诔 praise",
+      "visual_components": [
+        {
+          "character": "讠",
+          "gloss": "speech"
+        },
+        {
+          "character": "耒",
+          "gloss": "plow handle"
+        }
+      ],
+      "live": {
+        "mnemonic": "At a farmer’s grave, 讠 speech honors the life behind his worn 耒 plow handle as mourners 诔 praise him.",
+        "card_hash": "sha256:1a8f29228c553fc389ecb0354337ad86f648fe63040dc98f4bdb3f75faea3cc6",
+        "generation_source": "gpt56_expedited_gate_restore_label_repair",
+        "quality_provenance": "gpt56_expedited_gate_restore_label_repair",
+        "final_selection": "quality_ledger_interim_candidate",
+        "author_record_hash": "sha256:2e184c34629362331152f75fdde3089b907d9c10ce6560e323c9f2560bafeb8b"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "At the farmer’s graveside, 讠 speech beside his worn 耒 plow handle can 诔 praise his life’s work.",
+          "provenance": {
+            "source": "recovery5",
+            "verification_path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality-mandatory-v3/locked-run-20260718-recovery5/verify/merged.json",
+            "record_hash": "sha256:d0ecf1d66ad9e9972185a417cac7d4b272d5d42f710303bb240773da1eb88593",
+            "selected_origin": "gate_promoted_candidate",
+            "verifier_contract_hash": "sha256:b48c8994d3187487d51ebce87e91eacdd3b948cfcc6faf422559274d7642b71c",
+            "model": "codex:gpt-5.6-sol"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "At a farmer’s grave, 讠 speech honors the life behind his worn 耒 plow handle as mourners 诔 praise him.",
+      "reason": "The live speech praises the farmer himself; the alternative’s “can praise his life’s work” is weaker."
+    },
+    {
+      "character": "鍋",
+      "target_gloss": "cooking pot",
+      "equation": "金 metal + 咼 jaw = 鍋 cooking pot",
+      "visual_components": [
+        {
+          "character": "金",
+          "gloss": "metal"
+        },
+        {
+          "character": "咼",
+          "gloss": "jaw"
+        }
+      ],
+      "live": {
+        "mnemonic": "A 鍋 cooking pot is 金 metal with a rim opening wide like a 咼 jaw.",
+        "card_hash": "sha256:fa7971a10d765473108f4910e2c5ffdc7b79c969fcf1ae814d956d2e9b0234d4",
+        "generation_source": "gpt56_quality_ledger_interim_candidate",
+        "quality_provenance": "gpt56_expedited_quality_ledger_content_frozen",
+        "final_selection": "quality_ledger_interim_candidate",
+        "author_record_hash": "sha256:e978baef8e055e89b18f178ccf6f09960299bbbcf1b9e443f69b376f4f955961"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "A smith curves 金 metal around the open shape of a 咼 jaw to form a 鍋 cooking pot.",
+          "provenance": {
+            "source": "recovery5",
+            "verification_path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality-mandatory-v3/locked-run-20260718-recovery5/verify/merged.json",
+            "record_hash": "sha256:f5a577abe1df98fdc1b841637dca57f0dd027fccbdd165065eb96d64477b69ad",
+            "selected_origin": "second_pass_keep",
+            "verifier_contract_hash": "sha256:b48c8994d3187487d51ebce87e91eacdd3b948cfcc6faf422559274d7642b71c",
+            "model": "codex:gpt-5.6-sol"
+          }
+        }
+      ],
+      "dictionary_hint": "Phonosemantic compound. 釒 represents the meaning and 咼 represents the sound. ",
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "A 鍋 cooking pot is 金 metal with a rim opening wide like a 咼 jaw.",
+      "reason": "The live metal rim opening like a jaw is a direct form analogy; adding a smith is unnecessary."
+    },
+    {
+      "character": "闈",
+      "target_gloss": "gate",
+      "equation": "門 gate + 韋 tanned hide = 闈 gate",
+      "visual_components": [
+        {
+          "character": "門",
+          "gloss": "gate"
+        },
+        {
+          "character": "韋",
+          "gloss": "tanned hide"
+        }
+      ],
+      "live": {
+        "mnemonic": "韋 tanned hide curtains a 門 gate, making the 闈 gate private.",
+        "card_hash": "sha256:cc839649bac030bdc566ef9399f0a561d0b4b4df14f57a13c1ddffa8c84ef95c",
+        "generation_source": "gpt56_quality_ledger_interim_candidate",
+        "quality_provenance": "gpt56_expedited_quality_ledger_content_frozen",
+        "final_selection": "quality_ledger_interim_candidate",
+        "author_record_hash": "sha256:3eca4dde0921e8a1d2f228c480da0b600f33988660d680e176d69d86b2e020db"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "Stretch 韋 tanned hide across a 門 gate to form the inner 闈 gate.",
+          "provenance": {
+            "source": "recovery5",
+            "verification_path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality-mandatory-v3/locked-run-20260718-recovery5/verify/merged.json",
+            "record_hash": "sha256:bd835bd88b2769965e2bb4479d19b4e031d3ac7fa4fa67ddf5cd3ee37fc21dfd",
+            "selected_origin": "second_pass_keep",
+            "verifier_contract_hash": "sha256:b48c8994d3187487d51ebce87e91eacdd3b948cfcc6faf422559274d7642b71c",
+            "model": "codex:gpt-5.6-sol"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "韋 tanned hide curtains a 門 gate, making the 闈 gate private.",
+      "reason": "The live hide curtain gives the gate a clear privacy function; “inner gate” is not explained by the alternative."
+    },
+    {
+      "character": "闱",
+      "target_gloss": "gate",
+      "equation": "门 gate + 韦 tanned leather = 闱 gate",
+      "visual_components": [
+        {
+          "character": "门",
+          "gloss": "gate"
+        },
+        {
+          "character": "韦",
+          "gloss": "tanned leather"
+        }
+      ],
+      "live": {
+        "mnemonic": "韦 tanned leather curtains a 门 gate, making the 闱 gate private.",
+        "card_hash": "sha256:7184c20816324596064d95aca50ad263f6f5f86377d6d994c747f17862ae5b95",
+        "generation_source": "gpt56_quality_ledger_interim_candidate",
+        "quality_provenance": "gpt56_expedited_quality_ledger_content_frozen",
+        "final_selection": "quality_ledger_interim_candidate",
+        "author_record_hash": "sha256:f0804f37fe1df876ce1eb3a69f95dfbd04d4db6e90994cdaaad1f5aaccc76ceb"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "Stretch 韦 tanned leather across a 门 gate to form the inner 闱 gate.",
+          "provenance": {
+            "source": "recovery5",
+            "verification_path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality-mandatory-v3/locked-run-20260718-recovery5/verify/merged.json",
+            "record_hash": "sha256:7b87861efb9757b238d746213c7531c30d0a8c41fe6a07ae2d824a4e2476b54f",
+            "selected_origin": "second_pass_keep",
+            "verifier_contract_hash": "sha256:b48c8994d3187487d51ebce87e91eacdd3b948cfcc6faf422559274d7642b71c",
+            "model": "codex:gpt-5.6-sol"
+          }
+        }
+      ],
+      "dictionary_hint": null,
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "韦 tanned leather curtains a 门 gate, making the 闱 gate private.",
+      "reason": "The live leather curtain gives the gate a clear privacy function; “inner gate” is not explained by the alternative."
+    },
+    {
+      "character": "飨",
+      "target_gloss": "host a banquet",
+      "equation": "乡 hometown + 食 food = 飨 host a banquet",
+      "visual_components": [
+        {
+          "character": "乡",
+          "gloss": "hometown"
+        },
+        {
+          "character": "食",
+          "gloss": "food"
+        }
+      ],
+      "live": {
+        "mnemonic": "Share 食 food with everyone from your 乡 hometown when you 飨 host a banquet.",
+        "card_hash": "sha256:529177cc3f4a3e0548348b0a5644c5599878d558ed127324376d45bcb60e1c14",
+        "generation_source": "gpt56_quality_ledger_interim_candidate",
+        "quality_provenance": "gpt56_expedited_quality_ledger_content_frozen",
+        "final_selection": "quality_ledger_interim_candidate",
+        "author_record_hash": "sha256:e60e5e89cdca00cca8a7a194bc3bd123ef5f430858148ff27cb42d38f4c93e54"
+      },
+      "alternatives": [
+        {
+          "mnemonic": "Bring 乡 hometown hospitality and 食 food together to 飨 host a banquet.",
+          "provenance": {
+            "source": "recovery5",
+            "verification_path": "tmp/semantic-mnemonic-gpt56-v6/post-author-production-v6/quality-mandatory-v3/locked-run-20260718-recovery5/verify/merged.json",
+            "record_hash": "sha256:e7e70821effcc4e75aeba7de7d125cd20e0e53f22291fdf3ac4ce9e9b5f3ccdb",
+            "selected_origin": "second_pass_keep",
+            "verifier_contract_hash": "sha256:b48c8994d3187487d51ebce87e91eacdd3b948cfcc6faf422559274d7642b71c",
+            "model": "codex:gpt-5.6-sol"
+          }
+        }
+      ],
+      "dictionary_hint": "Phonosemantic compound. 食 represents the meaning and 乡 represents the sound. Simplified form of 饗. ",
+      "decision": "keep_live",
+      "confidence": 90,
+      "selected_source": "live",
+      "selected_mnemonic": "Share 食 food with everyone from your 乡 hometown when you 飨 host a banquet.",
+      "reason": "Sharing food with one’s hometown community is concrete; “hometown hospitality” is more abstract."
+    }
+  ]
+}
