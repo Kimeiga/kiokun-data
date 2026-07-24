@@ -1,0 +1,5085 @@
+{
+  "schema_version": 1,
+  "policy_version": "2026-07-24.1",
+  "policy_path": "data/semantic_mnemonic_all_second_variant_policy.json",
+  "base_projection_hash": "sha256:c9d564876ac3259fcde7a02d333444dd20f9f29632789add4f4d4f241d534400",
+  "candidate_projection_hash": "sha256:bda1e4e707c71f0dbeefbbaf265b5ab4bc685387e2c40188caa620630784c7ed",
+  "card_count": 24037,
+  "invalid_count": 0,
+  "changed_count": 88,
+  "already_applied_count": 0,
+  "component_occurrences": {
+    "亞 second": 21,
+    "亚 second": 16,
+    "僉 all": 34,
+    "佥 all": 17
+  },
+  "changed_characters": [
+    "㝞",
+    "㢛",
+    "㫫",
+    "㰳",
+    "㷿",
+    "㿌",
+    "䃁",
+    "䅉",
+    "䌞",
+    "䛩",
+    "䢝",
+    "䲓",
+    "䶨",
+    "亚",
+    "亞",
+    "佥",
+    "俭",
+    "僉",
+    "儉",
+    "剑",
+    "劍",
+    "劎",
+    "劒",
+    "劔",
+    "匳",
+    "哑",
+    "啞",
+    "噞",
+    "垩",
+    "垭",
+    "埡",
+    "堊",
+    "壸",
+    "壼",
+    "娅",
+    "婭",
+    "崄",
+    "嶮",
+    "恶",
+    "惡",
+    "憸",
+    "挜",
+    "捡",
+    "掗",
+    "撿",
+    "敛",
+    "斂",
+    "斵",
+    "晋",
+    "桠",
+    "检",
+    "椏",
+    "檢",
+    "歛",
+    "殓",
+    "殮",
+    "氩",
+    "氬",
+    "澰",
+    "猃",
+    "獫",
+    "痖",
+    "瘂",
+    "睑",
+    "瞼",
+    "硷",
+    "礆",
+    "稏",
+    "签",
+    "簽",
+    "脸",
+    "臉",
+    "莶",
+    "薟",
+    "裣",
+    "襝",
+    "錏",
+    "鐱",
+    "铔",
+    "险",
+    "險",
+    "霊",
+    "驗",
+    "验",
+    "鵶",
+    "鹼",
+    "殮",
+    "惡"
+  ],
+  "changes": [
+    {
+      "character": "㝞",
+      "base_card_hash": "sha256:8c873c90075963f467ca493052e136a89090833b3d038e6f87a8d18a400f8461",
+      "before": {
+        "meaning": "pretend to be",
+        "equation": "宀 roof + 亞 Asia = 㝞 pretend to be",
+        "components": [
+          {
+            "character": "宀",
+            "gloss": "roof"
+          },
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "宀",
+            "gloss": "roof"
+          },
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "pretend to be",
+        "equation": "宀 roof + 亞 second = 㝞 pretend to be",
+        "components": [
+          {
+            "character": "宀",
+            "gloss": "roof"
+          },
+          {
+            "character": "亞",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "宀",
+            "gloss": "roof"
+          },
+          {
+            "character": "亞",
+            "gloss": "second"
+          }
+        ]
+      },
+      "before_mnemonic": "Painted scenery of 亞 Asia beneath a theater’s 宀 roof lets the stage 㝞 pretend to be another land.",
+      "after_mnemonic": "Beneath a 宀 roof, a 亞 second stage set lets the theater 㝞 pretend to be another place.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㢛",
+      "base_card_hash": "sha256:f12aadfd1711c1763d6f800d8cb30731f945f0b373870a94ebe627975e642dc2",
+      "before": {
+        "meaning": "cabinet",
+        "equation": "广 roof + 僉 unanimous = 㢛 cabinet",
+        "components": [
+          {
+            "character": "广",
+            "gloss": "roof"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "广",
+            "gloss": "roof"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "cabinet",
+        "equation": "广 roof + 僉 all = 㢛 cabinet",
+        "components": [
+          {
+            "character": "广",
+            "gloss": "roof"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "广",
+            "gloss": "roof"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "The household is 僉 unanimous that cups belong under the small 广 roof of the 㢛 cabinet.",
+      "after_mnemonic": "Put 僉 all the dishes beneath a 广 roof inside the 㢛 cabinet.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㫫",
+      "base_card_hash": "sha256:c75371136fec04c62e2fd304315e0b038cf6d53631eb536f061eaa8a3e3a6aab",
+      "before": {
+        "meaning": "clear",
+        "equation": "日 sun + 亚 second = 㫫 clear",
+        "components": [
+          {
+            "character": "日",
+            "gloss": "sun"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "日",
+            "gloss": "sun"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "clear",
+        "equation": "日 sun + 亚 second = 㫫 clear",
+        "components": [
+          {
+            "character": "日",
+            "gloss": "sun"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "日",
+            "gloss": "sun"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ]
+      },
+      "before_mnemonic": "After the 亚 second bank of clouds parts, the 日 sun makes the sky 㫫 clear.",
+      "after_mnemonic": "After the 亚 second bank of clouds parts, the 日 sun makes the sky 㫫 clear.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㰳",
+      "base_card_hash": "sha256:804f1ac9e7f3b6efd3c04c60403c63eb495af0afe798fe2aea3d22ad74fdb5dd",
+      "before": {
+        "meaning": "braying",
+        "equation": "亞 Asia + 欠 yawn = 㰳 braying",
+        "components": [
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "braying",
+        "equation": "亞 second + 欠 yawn = 㰳 braying",
+        "components": [
+          {
+            "character": "亞",
+            "gloss": "second"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亞",
+            "gloss": "second"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "Across 亞 Asia, a donkey's wide 欠 yawn grows into loud 㰳 braying.",
+      "after_mnemonic": "After one 欠 yawn, a donkey gives a 亞 second, louder call—㰳 braying.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㷿",
+      "base_card_hash": "sha256:74cb5f3928b56285c53d8b2dde0faf602c25bfba96ea2dce95c22215f80c8414",
+      "before": {
+        "meaning": "fire",
+        "equation": "火 fire + 僉 unanimous = 㷿 fire",
+        "components": [
+          {
+            "character": "火",
+            "gloss": "fire"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "火",
+            "gloss": "fire"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "flame",
+        "equation": "火 fire + 僉 all = 㷿 flame",
+        "components": [
+          {
+            "character": "火",
+            "gloss": "fire"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "火",
+            "gloss": "fire"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "A 僉 unanimous crowd keeps feeding 火 fire so the shared 㷿 fire burns steadily.",
+      "after_mnemonic": "Feed 僉 all the fuel into 火 fire to keep the 㷿 flame burning.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㿌",
+      "base_card_hash": "sha256:44bc0097c424473a5c08ab9d928d996b0438f49c87db10679e41b1f919830e50",
+      "before": {
+        "meaning": "lump in the throat",
+        "equation": "疒 sickness + 僉 unanimous = 㿌 lump in the throat",
+        "components": [
+          {
+            "character": "疒",
+            "gloss": "sickness"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "疒",
+            "gloss": "sickness"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "lump in the throat",
+        "equation": "疒 sickness + 僉 all = 㿌 lump in the throat",
+        "components": [
+          {
+            "character": "疒",
+            "gloss": "sickness"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "疒",
+            "gloss": "sickness"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "During 疒 sickness, a choir becomes 僉 unanimous when every voice catches on the same 㿌 lump in the throat.",
+      "after_mnemonic": "During 疒 sickness, swallowing 僉 all the food at once leaves a 㿌 lump in the throat.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䃁",
+      "base_card_hash": "sha256:2600647626fa4d9db39336aa9af3de2aaed84a62454cf2d79f72478105c31d2a",
+      "before": {
+        "meaning": "uneven or rugged terrains",
+        "equation": "石 stone + 亞 Asia = 䃁 uneven or rugged terrains",
+        "components": [
+          {
+            "character": "石",
+            "gloss": "stone"
+          },
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "石",
+            "gloss": "stone"
+          },
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "rugged terrain",
+        "equation": "石 stone + 亞 second = 䃁 rugged terrain",
+        "components": [
+          {
+            "character": "石",
+            "gloss": "stone"
+          },
+          {
+            "character": "亞",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "石",
+            "gloss": "stone"
+          },
+          {
+            "character": "亞",
+            "gloss": "second"
+          }
+        ]
+      },
+      "before_mnemonic": "On a relief map of 亞 Asia, each raised 石 stone marks 䃁 uneven or rugged terrains.",
+      "after_mnemonic": "A 亞 second layer of 石 stone rises unevenly across 䃁 rugged terrain.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䅉",
+      "base_card_hash": "sha256:f17481cea7e2dce5a81738e394cf3f877afd547ded868199dde6660aa2e1e138",
+      "before": {
+        "meaning": "rice plant",
+        "equation": "禾 standing grain + 亚 second = 䅉 rice plant",
+        "components": [
+          {
+            "character": "禾",
+            "gloss": "standing grain"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "禾",
+            "gloss": "standing grain"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "rice plant",
+        "equation": "禾 standing grain + 亚 second = 䅉 rice plant",
+        "components": [
+          {
+            "character": "禾",
+            "gloss": "standing grain"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "禾",
+            "gloss": "standing grain"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ]
+      },
+      "before_mnemonic": "After the first crop, a 亚 second shoot of 禾 standing grain rises as a fresh 䅉 rice plant.",
+      "after_mnemonic": "A 亚 second shoot of 禾 standing grain rises as a fresh 䅉 rice plant.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䌞",
+      "base_card_hash": "sha256:6a7f78681bd87f4d7804a005ca96c097c97519179314dd9d651b4879dd91c336",
+      "before": {
+        "meaning": "silkworm-rack hanging knot",
+        "equation": "糸 thread + 僉 unanimous = 䌞 silkworm-rack hanging knot",
+        "components": [
+          {
+            "character": "糸",
+            "gloss": "thread"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "糸",
+            "gloss": "thread"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "silkworm-rack knot",
+        "equation": "糸 thread + 僉 all = 䌞 silkworm-rack knot",
+        "components": [
+          {
+            "character": "糸",
+            "gloss": "thread"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "糸",
+            "gloss": "thread"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "Workers are 僉 unanimous that 糸 thread must be tied into a 䌞 silkworm-rack hanging knot before suspending the reed rack.",
+      "after_mnemonic": "Tie 僉 all the 糸 thread into a 䌞 silkworm-rack knot.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䛩",
+      "base_card_hash": "sha256:6937f283d789c774bf381025e0d6e5a5adeaca42c80217306a86ec8313782f08",
+      "before": {
+        "meaning": "defame",
+        "equation": "言 speech + 亞 Asia = 䛩 defame",
+        "components": [
+          {
+            "character": "言",
+            "gloss": "speech"
+          },
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "言",
+            "gloss": "speech"
+          },
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "defame",
+        "equation": "言 speech + 亞 second = 䛩 defame",
+        "components": [
+          {
+            "character": "言",
+            "gloss": "speech"
+          },
+          {
+            "character": "亞",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "言",
+            "gloss": "speech"
+          },
+          {
+            "character": "亞",
+            "gloss": "second"
+          }
+        ]
+      },
+      "before_mnemonic": "Across a map of 亞 Asia, false 言 speech is smeared over an innocent person’s portrait to 䛩 defame them.",
+      "after_mnemonic": "A 亞 second version of a lie spread as 言 speech can 䛩 defame someone.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䢝",
+      "base_card_hash": "sha256:0e3c415ece73b564ffa0181404cc0436c6519870f6a5efd0d3a37072b920fcb7",
+      "before": {
+        "meaning": "the next in order",
+        "equation": "辶 movement + 亞 Asia = 䢝 the next in order",
+        "components": [
+          {
+            "character": "辶",
+            "gloss": "movement"
+          },
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "辶",
+            "gloss": "movement"
+          },
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "the next in order",
+        "equation": "辶 movement + 亞 second = 䢝 the next in order",
+        "components": [
+          {
+            "character": "辶",
+            "gloss": "movement"
+          },
+          {
+            "character": "亞",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "辶",
+            "gloss": "movement"
+          },
+          {
+            "character": "亞",
+            "gloss": "second"
+          }
+        ]
+      },
+      "before_mnemonic": "A relay crossing 亞 Asia passes 辶 movement from one runner to 䢝 the next in order.",
+      "after_mnemonic": "After the first runner's 辶 movement, the 亞 second runner is 䢝 the next in order.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䲓",
+      "base_card_hash": "sha256:5252e17abadbe739cfa0887a47c15b8f2ed6ff260cc5366c6487cf2b4c46e7d1",
+      "before": {
+        "meaning": "fish",
+        "equation": "魚 fish + 僉 unanimous = 䲓 fish",
+        "components": [
+          {
+            "character": "魚",
+            "gloss": "fish"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "魚",
+            "gloss": "fish"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "fish",
+        "equation": "魚 fish + 僉 all = 䲓 fish",
+        "components": [
+          {
+            "character": "魚",
+            "gloss": "fish"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "魚",
+            "gloss": "fish"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "A school of 魚 fish becomes 僉 unanimous as each 䲓 fish opens its mouth at the surface.",
+      "after_mnemonic": "Count 僉 all the 魚 fish in the school, including each rare 䲓 fish.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䶨",
+      "base_card_hash": "sha256:e1e5a2e4fc429f5a4d8e54a286ee70925a6ca8307a9480552caf821445592bd4",
+      "before": {
+        "meaning": "chewing like a toothless person",
+        "equation": "齒 teeth + 僉 unanimous = 䶨 chewing like a toothless person",
+        "components": [
+          {
+            "character": "齒",
+            "gloss": "teeth"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "齒",
+            "gloss": "teeth"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "toothless chewing",
+        "equation": "齒 teeth + 僉 all = 䶨 toothless chewing",
+        "components": [
+          {
+            "character": "齒",
+            "gloss": "teeth"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "齒",
+            "gloss": "teeth"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "Without working 齒 teeth, the whole mouth moves in 僉 unanimous rhythm while 䶨 chewing like a toothless person.",
+      "after_mnemonic": "After losing 僉 all the 齒 teeth, the jaw resorts to 䶨 toothless chewing.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "亚",
+      "base_card_hash": "sha256:cd0059be6b63d85696e3a61c29133140461898317694d1def2a6da16217adbfd",
+      "before": {
+        "meaning": "second",
+        "equation": "一 one + 业 business = 亚 second",
+        "components": [
+          {
+            "character": "一",
+            "gloss": "one"
+          },
+          {
+            "character": "业",
+            "gloss": "business"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "一",
+            "gloss": "one"
+          },
+          {
+            "character": "业",
+            "gloss": "business"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "second",
+        "equation": "Visual form: 亚 second",
+        "components": [
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ]
+      },
+      "before_mnemonic": "If 一 one 业 business ranks first, its closest rival finishes 亚 second.",
+      "after_mnemonic": "In a ranking, 亚 second comes immediately below first.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "亞",
+      "base_card_hash": "sha256:c45891b46eda5c6d183101c90fbdfac923c074579babd37faa2bc8e5551aa1f9",
+      "before": {
+        "meaning": "Asia",
+        "equation": "Visual form: 亞 Asia",
+        "components": [
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "second",
+        "equation": "Visual form: 亞 second",
+        "components": [
+          {
+            "character": "亞",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亞",
+            "gloss": "second"
+          }
+        ]
+      },
+      "before_mnemonic": "A blocky map of 亞 Asia places four outer regions around a central crossroads.",
+      "after_mnemonic": "In a ranking, 亞 second comes immediately below first.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "佥",
+      "base_card_hash": "sha256:4a96927238b33ac3466a4cc7e2153b4bbe3e4b520ecf9d8d8c40984abf19e01f",
+      "before": {
+        "meaning": "all",
+        "equation": "亼 assemble + 一 one = 佥 all",
+        "components": [
+          {
+            "character": "亼",
+            "gloss": "assemble"
+          },
+          {
+            "character": "一",
+            "gloss": "one"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亼",
+            "gloss": "assemble"
+          },
+          {
+            "character": "一",
+            "gloss": "one"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "all",
+        "equation": "Visual form: 佥 all",
+        "components": [
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "亼 assemble a scattered crowd into 一 one circle, bringing 佥 all inside.",
+      "after_mnemonic": "When every person is counted, 佥 all are included.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "俭",
+      "base_card_hash": "sha256:6253d495731f444d6ade89e2e4f03ecd99057e6a595ccf1b702c85a7a3384db5",
+      "before": {
+        "meaning": "temperate",
+        "equation": "亻 person (side) + 佥 all = 俭 temperate",
+        "components": [
+          {
+            "character": "亻",
+            "gloss": "person (side)"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亻",
+            "gloss": "person (side)"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "thrifty",
+        "equation": "亻 person (side) + 佥 all = 俭 thrifty",
+        "components": [
+          {
+            "character": "亻",
+            "gloss": "person (side)"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亻",
+            "gloss": "person (side)"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "A 亻 person who keeps 佥 all appetites within limits stays 俭 temperate.",
+      "after_mnemonic": "A 亻 person (side) saves 佥 all spare coins and stays 俭 thrifty.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "僉",
+      "base_card_hash": "sha256:042f32bdfdd357a0d4edeaca4eec22cdb2305eac35893d70fbc6c50e26afa975",
+      "before": {
+        "meaning": "unanimous",
+        "equation": "亼 assemble + 吅 noise + 从 people following = 僉 unanimous",
+        "components": [
+          {
+            "character": "亼",
+            "gloss": "assemble"
+          },
+          {
+            "character": "吅",
+            "gloss": "noise"
+          },
+          {
+            "character": "从",
+            "gloss": "people following"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亼",
+            "gloss": "assemble"
+          },
+          {
+            "character": "吅",
+            "gloss": "noise"
+          },
+          {
+            "character": "从",
+            "gloss": "people following"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "all",
+        "equation": "Visual form: 僉 all",
+        "components": [
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "At the call to 亼 assemble, 吅 noise from 从 people following merges into one voice as they become 僉 unanimous.",
+      "after_mnemonic": "When every person is counted, 僉 all are included.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "儉",
+      "base_card_hash": "sha256:36f29c6993677c7738852f326a5f29d9b5f11eb888fbb160831d1529ec917707",
+      "before": {
+        "meaning": "thrifty",
+        "equation": "亻 person (side) + 僉 unanimous = 儉 thrifty",
+        "components": [
+          {
+            "character": "亻",
+            "gloss": "person (side)"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亻",
+            "gloss": "person (side)"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "thrifty",
+        "equation": "亻 person (side) + 僉 all = 儉 thrifty",
+        "components": [
+          {
+            "character": "亻",
+            "gloss": "person (side)"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亻",
+            "gloss": "person (side)"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "A 亻 person is 儉 thrifty when every expense wins 僉 unanimous household approval.",
+      "after_mnemonic": "A 亻 person (side) saves 僉 all spare coins and stays 儉 thrifty.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "剑",
+      "base_card_hash": "sha256:1fd606d48caffb5ac5cbb8cd3869f2890a752b3c1d827f3ddb7b382109754645",
+      "before": {
+        "meaning": "sword",
+        "equation": "佥 all + 刂 knife (side) = 剑 sword",
+        "components": [
+          {
+            "character": "佥",
+            "gloss": "all"
+          },
+          {
+            "character": "刂",
+            "gloss": "knife (side)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "佥",
+            "gloss": "all"
+          },
+          {
+            "character": "刂",
+            "gloss": "knife (side)"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sword",
+        "equation": "佥 all + 刂 knife (side) = 剑 sword",
+        "components": [
+          {
+            "character": "佥",
+            "gloss": "all"
+          },
+          {
+            "character": "刂",
+            "gloss": "knife (side)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "佥",
+            "gloss": "all"
+          },
+          {
+            "character": "刂",
+            "gloss": "knife (side)"
+          }
+        ]
+      },
+      "before_mnemonic": "To meet 佥 all challengers, smiths lengthen a 刂 knife into a 剑 sword.",
+      "after_mnemonic": "Sharpen 佥 all of the long 刂 knife (side) edge to forge a 剑 sword.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "劍",
+      "base_card_hash": "sha256:b209c5f09dda8341940bbd79371c71a98c51a64fada1bbeb2fe228e35c0acedc",
+      "before": {
+        "meaning": "saber",
+        "equation": "僉 unanimous + 刂 knife (side) = 劍 saber",
+        "components": [
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          },
+          {
+            "character": "刂",
+            "gloss": "knife (side)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          },
+          {
+            "character": "刂",
+            "gloss": "knife (side)"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sword",
+        "equation": "僉 all + 刂 knife (side) = 劍 sword",
+        "components": [
+          {
+            "character": "僉",
+            "gloss": "all"
+          },
+          {
+            "character": "刂",
+            "gloss": "knife (side)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "僉",
+            "gloss": "all"
+          },
+          {
+            "character": "刂",
+            "gloss": "knife (side)"
+          }
+        ]
+      },
+      "before_mnemonic": "By 僉 unanimous agreement, smiths lengthen and curve a 刂 knife into a 劍 saber.",
+      "after_mnemonic": "Sharpen 僉 all of the long 刂 knife (side) edge to forge a 劍 sword.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "劎",
+      "base_card_hash": "sha256:1ae7e0eddbc27249b1da64712b64a319a3ae5886273f5245ae6ca44b61372e6b",
+      "before": {
+        "meaning": "dagger",
+        "equation": "僉 unanimous + 刀 knife = 劎 dagger",
+        "components": [
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          },
+          {
+            "character": "刀",
+            "gloss": "knife"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          },
+          {
+            "character": "刀",
+            "gloss": "knife"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sword",
+        "equation": "僉 all + 刀 knife = 劎 sword",
+        "components": [
+          {
+            "character": "僉",
+            "gloss": "all"
+          },
+          {
+            "character": "刀",
+            "gloss": "knife"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "僉",
+            "gloss": "all"
+          },
+          {
+            "character": "刀",
+            "gloss": "knife"
+          }
+        ]
+      },
+      "before_mnemonic": "A group is 僉 unanimous that a shortened 刀 knife is compact enough to serve as an 劎 dagger.",
+      "after_mnemonic": "Lengthen a compact 刀 knife across 僉 all the grip to forge an 劎 sword.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "劒",
+      "base_card_hash": "sha256:afa02d60a610dc070f0ac3de6ce3f3197d7998f60eec042f5c9f34ebcdddea82",
+      "before": {
+        "meaning": "blade",
+        "equation": "僉 unanimous + 刃 blade = 劒 blade",
+        "components": [
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          },
+          {
+            "character": "刃",
+            "gloss": "blade"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          },
+          {
+            "character": "刃",
+            "gloss": "blade"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sword",
+        "equation": "僉 all + 刃 blade = 劒 sword",
+        "components": [
+          {
+            "character": "僉",
+            "gloss": "all"
+          },
+          {
+            "character": "刃",
+            "gloss": "blade"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "僉",
+            "gloss": "all"
+          },
+          {
+            "character": "刃",
+            "gloss": "blade"
+          }
+        ]
+      },
+      "before_mnemonic": "Smiths are 僉 unanimous that a sharpened 刃 blade makes a fine 劒 blade.",
+      "after_mnemonic": "A 刃 blade sharpened along 僉 all its length becomes an 劒 sword.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "劔",
+      "base_card_hash": "sha256:aa6327538e8184c1972ac41f40b83c94ad0c78f3aecbf676bf5b94e5ef897237",
+      "before": {
+        "meaning": "saber",
+        "equation": "僉 unanimous + 刄 edged tool = 劔 saber",
+        "components": [
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          },
+          {
+            "character": "刄",
+            "gloss": "edged tool"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          },
+          {
+            "character": "刄",
+            "gloss": "edged tool"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sword",
+        "equation": "僉 all + 刄 edged tool = 劔 sword",
+        "components": [
+          {
+            "character": "僉",
+            "gloss": "all"
+          },
+          {
+            "character": "刄",
+            "gloss": "edged tool"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "僉",
+            "gloss": "all"
+          },
+          {
+            "character": "刄",
+            "gloss": "edged tool"
+          }
+        ]
+      },
+      "before_mnemonic": "The cavalry is 僉 unanimous that its curved 刄 edged tool should be carried as an 劔 saber.",
+      "after_mnemonic": "Extend a 刄 edged tool through 僉 all the metal to forge an 劔 sword.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "匳",
+      "base_card_hash": "sha256:7f0e0c47a35af07fdc483c87d57c253e5c329cd094c1a57df723e5e4a35ea472",
+      "before": {
+        "meaning": "ladies toilet case",
+        "equation": "匚 box (open) + 僉 unanimous = 匳 ladies toilet case",
+        "components": [
+          {
+            "character": "匚",
+            "gloss": "box (open)"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "匚",
+            "gloss": "box (open)"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "women's toiletry case",
+        "equation": "匚 box (open) + 僉 all = 匳 women's toiletry case",
+        "components": [
+          {
+            "character": "匚",
+            "gloss": "box (open)"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "匚",
+            "gloss": "box (open)"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "Comb, mirror, and powder are 僉 unanimous about returning to the 匚 box (open) of the 匳 ladies toilet case.",
+      "after_mnemonic": "The 匳 women's toiletry case is an 匚 box (open) holding 僉 all the combs and cosmetics.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "哑",
+      "base_card_hash": "sha256:68325ec3b95288053e89b70a8bcf26b081adae9bfe374ec5608e7d9c88dce198",
+      "before": {
+        "meaning": "dumb",
+        "equation": "口 mouth + 亚 second = 哑 dumb",
+        "components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "mute",
+        "equation": "口 mouth + 亚 second = 哑 mute",
+        "components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ]
+      },
+      "before_mnemonic": "A 口 mouth that cannot produce an 亚 second sound is 哑 dumb.",
+      "after_mnemonic": "A 口 mouth that cannot make even a 亚 second sound is 哑 mute.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "啞",
+      "base_card_hash": "sha256:ed515aec73985d2f07465d804703a3641d2892857dbb5762b93b725a85f1e4f6",
+      "before": {
+        "meaning": "mute",
+        "equation": "口 mouth + 亞 Asia = 啞 mute",
+        "components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "mute",
+        "equation": "口 mouth + 亞 second = 啞 mute",
+        "components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "亞",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "亞",
+            "gloss": "second"
+          }
+        ]
+      },
+      "before_mnemonic": "A traveler crossing 亞 Asia cannot voice words through the 口 mouth because they are 啞 mute.",
+      "after_mnemonic": "A 口 mouth that cannot make even a 亞 second sound is 啞 mute.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "噞",
+      "base_card_hash": "sha256:f4f432a481939d5ae0160e393513bdc5be4d5d5ee1b660a258f08f8197186856",
+      "before": {
+        "meaning": "fish gulping at the surface",
+        "equation": "口 mouth + 僉 unanimous = 噞 fish gulping at the surface",
+        "components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "fish gulping at the surface",
+        "equation": "口 mouth + 僉 all = 噞 fish gulping at the surface",
+        "components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "噞 fish gulping at the surface shows each 口 mouth opening in 僉 unanimous rhythm.",
+      "after_mnemonic": "At the surface, 僉 all the fish open each 口 mouth; this is 噞 fish gulping at the surface.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "垩",
+      "base_card_hash": "sha256:4b5465ecb2302a6fd101aa22cb3c4050b2064f2aef91b1bcadfa9546e7588a38",
+      "before": {
+        "meaning": "sacred",
+        "equation": "亚 second + 土 earth = 垩 sacred",
+        "components": [
+          {
+            "character": "亚",
+            "gloss": "second"
+          },
+          {
+            "character": "土",
+            "gloss": "earth"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亚",
+            "gloss": "second"
+          },
+          {
+            "character": "土",
+            "gloss": "earth"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "white clay",
+        "equation": "亚 second + 土 earth = 垩 white clay",
+        "components": [
+          {
+            "character": "亚",
+            "gloss": "second"
+          },
+          {
+            "character": "土",
+            "gloss": "earth"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亚",
+            "gloss": "second"
+          },
+          {
+            "character": "土",
+            "gloss": "earth"
+          }
+        ]
+      },
+      "before_mnemonic": "The 亚 second mound of 土 earth is set apart as 垩 sacred ground for a ceremony.",
+      "after_mnemonic": "Mix 土 earth with a 亚 second pale mineral to make 垩 white clay.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "垭",
+      "base_card_hash": "sha256:c4853f631774e71c6b69ba3b8003c7494d9387ac88500d0a2da0fcb95eec70aa",
+      "before": {
+        "meaning": "(dialect) strip of land between hills",
+        "equation": "土 earth + 亚 second = 垭 (dialect) strip of land between hills",
+        "components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "mountain saddle",
+        "equation": "土 earth + 亚 second = 垭 mountain saddle",
+        "components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ]
+      },
+      "before_mnemonic": "The 亚 second hill faces the first across a narrow ribbon of 土 earth, the 垭 (dialect) strip of land between hills.",
+      "after_mnemonic": "Where a 亚 second ridge meets the first, the 土 earth between them forms a 垭 mountain saddle.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "埡",
+      "base_card_hash": "sha256:889d1194ffebb971b578bb97e484dbbfd20c4c59691ae01e808fb0fb0323febe",
+      "before": {
+        "meaning": "(dialect) strip of land between hills",
+        "equation": "土 earth + 亞 Asia = 埡 (dialect) strip of land between hills",
+        "components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "mountain saddle",
+        "equation": "土 earth + 亞 second = 埡 mountain saddle",
+        "components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "亞",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "亞",
+            "gloss": "second"
+          }
+        ]
+      },
+      "before_mnemonic": "Two hills in 亞 Asia enclose a narrow ribbon of 土 earth, an 埡 (dialect) strip of land between hills.",
+      "after_mnemonic": "Where a 亞 second ridge meets the first, the 土 earth between them forms an 埡 mountain saddle.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "堊",
+      "base_card_hash": "sha256:8327dc87a399a474a84a8295154af1df5b8c7bbf76d4ef7b8b62b431be0bfcdd",
+      "before": {
+        "meaning": "white",
+        "equation": "亞 Asia + 土 earth = 堊 white",
+        "components": [
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          },
+          {
+            "character": "土",
+            "gloss": "earth"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          },
+          {
+            "character": "土",
+            "gloss": "earth"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "white clay",
+        "equation": "亞 second + 土 earth = 堊 white clay",
+        "components": [
+          {
+            "character": "亞",
+            "gloss": "second"
+          },
+          {
+            "character": "土",
+            "gloss": "earth"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亞",
+            "gloss": "second"
+          },
+          {
+            "character": "土",
+            "gloss": "earth"
+          }
+        ]
+      },
+      "before_mnemonic": "On a mural of 亞 Asia, fine 土 earth dries into 堊 white plaster.",
+      "after_mnemonic": "Mix 土 earth with a 亞 second pale mineral to make 堊 white clay.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "壸",
+      "base_card_hash": "sha256:abdea2f65d9802a5fc2c3ec37d01d98b9375ad361e0ec7eddf65563801668176",
+      "before": {
+        "meaning": "palace corridor or passageway",
+        "equation": "士 soldier + 冖 cover + 亚 second = 壸 palace corridor or passageway",
+        "components": [
+          {
+            "character": "士",
+            "gloss": "soldier"
+          },
+          {
+            "character": "冖",
+            "gloss": "cover"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "士",
+            "gloss": "soldier"
+          },
+          {
+            "character": "冖",
+            "gloss": "cover"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "palace corridor",
+        "equation": "士 soldier + 冖 cover + 亚 second = 壸 palace corridor",
+        "components": [
+          {
+            "character": "士",
+            "gloss": "soldier"
+          },
+          {
+            "character": "冖",
+            "gloss": "cover"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "士",
+            "gloss": "soldier"
+          },
+          {
+            "character": "冖",
+            "gloss": "cover"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ]
+      },
+      "before_mnemonic": "Under a 冖 cover, a 士 soldier patrols the 亚 second turn of a 壸 palace corridor or passageway.",
+      "after_mnemonic": "A 士 soldier guards the 亚 second turn beneath a 冖 cover in a 壸 palace corridor.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "壼",
+      "base_card_hash": "sha256:0c6c8ca41de82b95e45f0ed043176af014d75a30ddb3b920e82b91fcf75389ed",
+      "before": {
+        "meaning": "palace",
+        "equation": "士 soldier + 冖 cover + 亞 Asia = 壼 palace",
+        "components": [
+          {
+            "character": "士",
+            "gloss": "soldier"
+          },
+          {
+            "character": "冖",
+            "gloss": "cover"
+          },
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "士",
+            "gloss": "soldier"
+          },
+          {
+            "character": "冖",
+            "gloss": "cover"
+          },
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "palace corridor",
+        "equation": "士 soldier + 冖 cover + 亞 second = 壼 palace corridor",
+        "components": [
+          {
+            "character": "士",
+            "gloss": "soldier"
+          },
+          {
+            "character": "冖",
+            "gloss": "cover"
+          },
+          {
+            "character": "亞",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "士",
+            "gloss": "soldier"
+          },
+          {
+            "character": "冖",
+            "gloss": "cover"
+          },
+          {
+            "character": "亞",
+            "gloss": "second"
+          }
+        ]
+      },
+      "before_mnemonic": "Under a 冖 cover, a 士 soldier guards an 壼 palace receiving envoys from 亞 Asia.",
+      "after_mnemonic": "A 士 soldier guards the 亞 second turn beneath a 冖 cover in an 壼 palace corridor.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "娅",
+      "base_card_hash": "sha256:de592ba1791b0ea69db3c55491d84f7427548be3d2ae7b6814c762219ecfc586",
+      "before": {
+        "meaning": "mutual term of address used by sons-in-law",
+        "equation": "女 woman + 亚 second = 娅 mutual term of address used by sons-in-law",
+        "components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "term between brothers-in-law",
+        "equation": "女 woman + 亚 second = 娅 term between brothers-in-law",
+        "components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ]
+      },
+      "before_mnemonic": "A 女 woman introduces her 亚 second son-in-law, and both sons-in-law exchange the 娅 mutual term of address used by sons-in-law.",
+      "after_mnemonic": "A 女 woman introduces her 亚 second sister's husband using the 娅 term between brothers-in-law.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "婭",
+      "base_card_hash": "sha256:ca8edddda9a960d354e17fcd6b0b7d50000ea173fedb6c47ee8955bed331c2f3",
+      "before": {
+        "meaning": "mutual term of address",
+        "equation": "女 woman + 亞 Asia = 婭 mutual term of address",
+        "components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "term between brothers-in-law",
+        "equation": "女 woman + 亞 second = 婭 term between brothers-in-law",
+        "components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "亞",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "亞",
+            "gloss": "second"
+          }
+        ]
+      },
+      "before_mnemonic": "A 女 woman and her counterpart in 亞 Asia exchange a 婭 mutual term of address.",
+      "after_mnemonic": "A 女 woman introduces her 亞 second sister's husband using the 婭 term between brothers-in-law.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "崄",
+      "base_card_hash": "sha256:c89cb9b375b9ee7084889b6b89cf6ada50a3a9b7f07d1ada809d6cfa7c42dfc0",
+      "before": {
+        "meaning": "high",
+        "equation": "山 mountain + 佥 all = 崄 high",
+        "components": [
+          {
+            "character": "山",
+            "gloss": "mountain"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "山",
+            "gloss": "mountain"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "precipitous",
+        "equation": "山 mountain + 佥 all = 崄 precipitous",
+        "components": [
+          {
+            "character": "山",
+            "gloss": "mountain"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "山",
+            "gloss": "mountain"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "From a 山 mountain, 佥 all below looks tiny because the ridge is 崄 high.",
+      "after_mnemonic": "On a 山 mountain so 崄 precipitous, 佥 all climbers turn back.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "嶮",
+      "base_card_hash": "sha256:2c4ee68769b4f06a676e54423d360d9a8237677be43103ee5e36311438a638d4",
+      "before": {
+        "meaning": "precipitous",
+        "equation": "山 mountain + 僉 unanimous = 嶮 precipitous",
+        "components": [
+          {
+            "character": "山",
+            "gloss": "mountain"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "山",
+            "gloss": "mountain"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "precipitous",
+        "equation": "山 mountain + 僉 all = 嶮 precipitous",
+        "components": [
+          {
+            "character": "山",
+            "gloss": "mountain"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "山",
+            "gloss": "mountain"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "The 山 mountain forces a 僉 unanimous retreat where its 嶮 precipitous face drops almost vertically.",
+      "after_mnemonic": "On a 山 mountain so 嶮 precipitous, 僉 all climbers turn back.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "恶",
+      "base_card_hash": "sha256:14bd0af07f0dba0487cddd149cc45a2199b40b24ff27a9de1a53a33558351642",
+      "before": {
+        "meaning": "bad",
+        "equation": "亚 second + 心 heart = 恶 bad",
+        "components": [
+          {
+            "character": "亚",
+            "gloss": "second"
+          },
+          {
+            "character": "心",
+            "gloss": "heart"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亚",
+            "gloss": "second"
+          },
+          {
+            "character": "心",
+            "gloss": "heart"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "bad",
+        "equation": "亚 second + 心 heart = 恶 bad",
+        "components": [
+          {
+            "character": "亚",
+            "gloss": "second"
+          },
+          {
+            "character": "心",
+            "gloss": "heart"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亚",
+            "gloss": "second"
+          },
+          {
+            "character": "心",
+            "gloss": "heart"
+          }
+        ]
+      },
+      "before_mnemonic": "Putting 亚 second place above 心 heart can lead to an 恶 bad choice.",
+      "after_mnemonic": "Putting 亚 second place above 心 heart can lead to an 恶 bad choice.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "惡",
+      "base_card_hash": "sha256:c3d46d5587bd11d52d4a3dba7410a5c82aed17cdfd11f237384608a6b7edddbd",
+      "before": {
+        "meaning": "harmful",
+        "equation": "亞 Asia + 心 heart = 惡 harmful",
+        "components": [
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          },
+          {
+            "character": "心",
+            "gloss": "heart"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          },
+          {
+            "character": "心",
+            "gloss": "heart"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "bad",
+        "equation": "亞 second + 心 heart = 惡 bad",
+        "components": [
+          {
+            "character": "亞",
+            "gloss": "second"
+          },
+          {
+            "character": "心",
+            "gloss": "heart"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亞",
+            "gloss": "second"
+          },
+          {
+            "character": "心",
+            "gloss": "heart"
+          }
+        ]
+      },
+      "before_mnemonic": "亞 Asia presses down on 心 heart, turning 惡 harmful.",
+      "after_mnemonic": "Putting 亞 second place above 心 heart can lead to an 惡 bad choice.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "憸",
+      "base_card_hash": "sha256:589656a5a5f71539fecb55ca13fca0ff7dff7f328a89a68164591ffa3e63f0e5",
+      "before": {
+        "meaning": "flatter",
+        "equation": "忄 heart (side) + 僉 unanimous = 憸 flatter",
+        "components": [
+          {
+            "character": "忄",
+            "gloss": "heart (side)"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "忄",
+            "gloss": "heart (side)"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "flatter",
+        "equation": "忄 heart (side) + 僉 all = 憸 flatter",
+        "components": [
+          {
+            "character": "忄",
+            "gloss": "heart (side)"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "忄",
+            "gloss": "heart (side)"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "An insincere 忄 heart will 憸 flatter the group by declaring every decision 僉 unanimous.",
+      "after_mnemonic": "An insincere 忄 heart (side) will 憸 flatter 僉 all who listen.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "挜",
+      "base_card_hash": "sha256:d5a24aa97d244552f34368f74668dc24a50603b5a9c78582deca758c8107b8a5",
+      "before": {
+        "meaning": "give",
+        "equation": "扌 hand (side) + 亚 second = 挜 give",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "take",
+        "equation": "扌 hand (side) + 亚 second = 挜 take",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ]
+      },
+      "before_mnemonic": "亚 second in line extends a 扌 hand to 挜 give the parcel to the next person.",
+      "after_mnemonic": "A 扌 hand (side) reaches for the 亚 second item to 挜 take it.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "捡",
+      "base_card_hash": "sha256:a574c495c7ef949bffed4f01b6566b2d7cd4acf3e4542e731313a40ea44518a3",
+      "before": {
+        "meaning": "pick up",
+        "equation": "扌 hand (side) + 佥 all = 捡 pick up",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "pick up",
+        "equation": "扌 hand (side) + 佥 all = 捡 pick up",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "A 扌 hand can 捡 pick up 佥 all the scattered pieces before anyone steps on them.",
+      "after_mnemonic": "A 扌 hand (side) must 捡 pick up 佥 all the dropped pieces.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "掗",
+      "base_card_hash": "sha256:6da2ffff38610563881caf1c9350aef6ce431d7d8ffd45b563cc573c523176f3",
+      "before": {
+        "meaning": "hold",
+        "equation": "扌 hand (side) + 亞 Asia = 掗 hold",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "take",
+        "equation": "扌 hand (side) + 亞 second = 掗 take",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "亞",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "亞",
+            "gloss": "second"
+          }
+        ]
+      },
+      "before_mnemonic": "A 扌 hand spreads across the center crease to 掗 hold a folding map of 亞 Asia open.",
+      "after_mnemonic": "A 扌 hand (side) reaches for the 亞 second item to 掗 take it.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "撿",
+      "base_card_hash": "sha256:8e007dec1649aea906df6b0105953b112dd21c8acfa66bf00e44d62c6375a361",
+      "before": {
+        "meaning": "pick up",
+        "equation": "扌 hand (side) + 僉 unanimous = 撿 pick up",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "pick up",
+        "equation": "扌 hand (side) + 僉 all = 撿 pick up",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "With 僉 unanimous agreement, every 扌 hand helps 撿 pick up the litter.",
+      "after_mnemonic": "A 扌 hand (side) must 撿 pick up 僉 all the dropped pieces.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "敛",
+      "base_card_hash": "sha256:2efe341f245625113a4001cfa89811f47e12e08a6872646d2b1d3a82e8fefb9b",
+      "before": {
+        "meaning": "draw back",
+        "equation": "佥 all + 攵 tap = 敛 draw back",
+        "components": [
+          {
+            "character": "佥",
+            "gloss": "all"
+          },
+          {
+            "character": "攵",
+            "gloss": "tap"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "佥",
+            "gloss": "all"
+          },
+          {
+            "character": "攵",
+            "gloss": "tap"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "restrain",
+        "equation": "佥 all + 攵 tap = 敛 restrain",
+        "components": [
+          {
+            "character": "佥",
+            "gloss": "all"
+          },
+          {
+            "character": "攵",
+            "gloss": "tap"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "佥",
+            "gloss": "all"
+          },
+          {
+            "character": "攵",
+            "gloss": "tap"
+          }
+        ]
+      },
+      "before_mnemonic": "At one warning 攵 tap, 佥 all the reaching hands 敛 draw back together.",
+      "after_mnemonic": "One 攵 tap warns 佥 all the reaching hands to 敛 restrain themselves.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "斂",
+      "base_card_hash": "sha256:067d1b4ac87131989838c87df3753b2a14025f59b6ea6af53204ef11294af2d1",
+      "before": {
+        "meaning": "restrain",
+        "equation": "僉 unanimous + 攵 tap = 斂 restrain",
+        "components": [
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          },
+          {
+            "character": "攵",
+            "gloss": "tap"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          },
+          {
+            "character": "攵",
+            "gloss": "tap"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "restrain",
+        "equation": "僉 all + 攵 tap = 斂 restrain",
+        "components": [
+          {
+            "character": "僉",
+            "gloss": "all"
+          },
+          {
+            "character": "攵",
+            "gloss": "tap"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "僉",
+            "gloss": "all"
+          },
+          {
+            "character": "攵",
+            "gloss": "tap"
+          }
+        ]
+      },
+      "before_mnemonic": "One 攵 tap signals a 僉 unanimous crowd to 斂 restrain its forward surge.",
+      "after_mnemonic": "One 攵 tap warns 僉 all the reaching hands to 斂 restrain themselves.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "斵",
+      "base_card_hash": "sha256:00dcffa114e32af31eb1c11e46f20c9ad74544ee16b317f5db42c3abff523946",
+      "before": {
+        "meaning": "cut to pieces",
+        "equation": "𠂎 bend stroke + 刀 knife + 亞 Asia + 斤 axe = 斵 cut to pieces",
+        "components": [
+          {
+            "character": "𠂎",
+            "gloss": "bend stroke"
+          },
+          {
+            "character": "刀",
+            "gloss": "knife"
+          },
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          },
+          {
+            "character": "斤",
+            "gloss": "axe"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𠂎",
+            "gloss": "bend stroke"
+          },
+          {
+            "character": "刀",
+            "gloss": "knife"
+          },
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          },
+          {
+            "character": "斤",
+            "gloss": "axe"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "cut to pieces",
+        "equation": "𠂎 bend stroke + 刀 knife + 亞 second + 斤 axe = 斵 cut to pieces",
+        "components": [
+          {
+            "character": "𠂎",
+            "gloss": "bend stroke"
+          },
+          {
+            "character": "刀",
+            "gloss": "knife"
+          },
+          {
+            "character": "亞",
+            "gloss": "second"
+          },
+          {
+            "character": "斤",
+            "gloss": "axe"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𠂎",
+            "gloss": "bend stroke"
+          },
+          {
+            "character": "刀",
+            "gloss": "knife"
+          },
+          {
+            "character": "亞",
+            "gloss": "second"
+          },
+          {
+            "character": "斤",
+            "gloss": "axe"
+          }
+        ]
+      },
+      "before_mnemonic": "A 𠂎 bend stroke guides a 刀 knife and 斤 axe as they 斵 cut to pieces a map of 亞 Asia.",
+      "after_mnemonic": "Use a 𠂎 bend stroke to mark the 亞 second cut; then a 刀 knife and 斤 axe 斵 cut to pieces the block.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "晋",
+      "base_card_hash": "sha256:187b02abd3c72a5b16063622eb4c229fd9d794ec80effbfc3c6af7a11d4a2d5d",
+      "before": {
+        "meaning": "increase",
+        "equation": "亚 second + 日 sun = 晋 increase",
+        "components": [
+          {
+            "character": "亚",
+            "gloss": "second"
+          },
+          {
+            "character": "日",
+            "gloss": "sun"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亚",
+            "gloss": "second"
+          },
+          {
+            "character": "日",
+            "gloss": "sun"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "advance",
+        "equation": "亚 second + 日 sun = 晋 advance",
+        "components": [
+          {
+            "character": "亚",
+            "gloss": "second"
+          },
+          {
+            "character": "日",
+            "gloss": "sun"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亚",
+            "gloss": "second"
+          },
+          {
+            "character": "日",
+            "gloss": "sun"
+          }
+        ]
+      },
+      "before_mnemonic": "Adding an 亚 second 日 sun makes the total 晋 increase.",
+      "after_mnemonic": "As the 日 sun rises, 亚 second place steps forward to 晋 advance.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "桠",
+      "base_card_hash": "sha256:410a9d5683b00dd364aaf39e9edcefd95cabeac6ab4973622324f5ed06d7cd95",
+      "before": {
+        "meaning": "the forking branch",
+        "equation": "木 tree + 亚 second = 桠 the forking branch",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "forking branch",
+        "equation": "木 tree + 亚 second = 桠 forking branch",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ]
+      },
+      "before_mnemonic": "On a 木 tree, a 亚 second limb splits from the first at 桠 the forking branch.",
+      "after_mnemonic": "A 亚 second limb splits from the first on a 木 tree at the 桠 forking branch.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "检",
+      "base_card_hash": "sha256:dfb8c5af531771f2f6c0f6eb096627685a0805c605f62a5ac6a8179df9328fdd",
+      "before": {
+        "meaning": "check",
+        "equation": "木 tree + 佥 all = 检 check",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "inspect",
+        "equation": "木 tree + 佥 all = 检 inspect",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "Before climbing a 木 tree, 检 check that 佥 all branches are sound.",
+      "after_mnemonic": "检 inspect 佥 all the boards from a 木 tree before building.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "椏",
+      "base_card_hash": "sha256:7cf0f1cd1b4961973997ca9bed1f5d3b4ba261c91a36b59ad9994fc17ed9f0ac",
+      "before": {
+        "meaning": "forking",
+        "equation": "木 tree + 亞 Asia = 椏 forking",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "forking branch",
+        "equation": "木 tree + 亞 second = 椏 forking branch",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "亞",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "亞",
+            "gloss": "second"
+          }
+        ]
+      },
+      "before_mnemonic": "A 木 tree spanning 亞 Asia has 椏 forking boughs, each splitting cleanly into two.",
+      "after_mnemonic": "A 亞 second limb splits from the first on a 木 tree at the 椏 forking branch.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "檢",
+      "base_card_hash": "sha256:e319e97a23a79f360faf65a4b131a26fe5797c817ed4cd61d3f269ecdf1169a8",
+      "before": {
+        "meaning": "examine",
+        "equation": "木 tree + 僉 unanimous = 檢 examine",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "inspect",
+        "equation": "木 tree + 僉 all = 檢 inspect",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "Inspectors 檢 examine a 木 tree until their verdict is 僉 unanimous.",
+      "after_mnemonic": "檢 inspect 僉 all the boards from a 木 tree before building.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "歛",
+      "base_card_hash": "sha256:58cdd8c84c68fae37c34667e9c626a0f2100d9551967116984c9edee7c979934",
+      "before": {
+        "meaning": "draw",
+        "equation": "僉 unanimous + 欠 yawn = 歛 draw",
+        "components": [
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "draw",
+        "equation": "僉 all + 欠 yawn = 歛 draw",
+        "components": [
+          {
+            "character": "僉",
+            "gloss": "all"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "僉",
+            "gloss": "all"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A 僉 unanimous crowd gives a warning 欠 yawn and begins to 歛 draw back from the bridge.",
+      "after_mnemonic": "After a warning 欠 yawn, 僉 all the onlookers 歛 draw back.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "殓",
+      "base_card_hash": "sha256:391ce471caa462de9b45e8280866cf56caca5dfdd4607ef5bbff6159a8a7bf57",
+      "before": {
+        "meaning": "dress a corpse for burial",
+        "equation": "歹 death + 佥 all = 殓 dress a corpse for burial",
+        "components": [
+          {
+            "character": "歹",
+            "gloss": "death"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "歹",
+            "gloss": "death"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "dress a corpse for burial",
+        "equation": "歹 death + 佥 all = 殓 dress a corpse for burial",
+        "components": [
+          {
+            "character": "歹",
+            "gloss": "death"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "歹",
+            "gloss": "death"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "Gather 佥 all the burial clothes after 歹 death to 殓 dress a corpse for burial.",
+      "after_mnemonic": "Gather 佥 all the clothing after 歹 death to 殓 dress a corpse for burial.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "殮",
+      "base_card_hash": "sha256:04578c5b4fbeab553aaba911cbb887fba92569dc62b160f0d6340363cff6c701",
+      "before": {
+        "meaning": "dress a corpse for burial",
+        "equation": "歹 death + 僉 unanimous = 殮 dress a corpse for burial",
+        "components": [
+          {
+            "character": "歹",
+            "gloss": "death"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "歹",
+            "gloss": "death"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "dress a corpse for burial",
+        "equation": "歹 death + 僉 all = 殮 dress a corpse for burial",
+        "components": [
+          {
+            "character": "歹",
+            "gloss": "death"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "歹",
+            "gloss": "death"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "With 僉 unanimous care after 歹 death, relatives gather clothes to 殮 dress a corpse for burial.",
+      "after_mnemonic": "Gather 僉 all the clothing after 歹 death to 殮 dress a corpse for burial.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "氩",
+      "base_card_hash": "sha256:7c350544e982a3d0ebed10fff4083cdf0fbbeea0a7e6a3f65fc5bba36803010a",
+      "before": {
+        "meaning": "argon",
+        "equation": "气 air + 亚 second = 氩 argon",
+        "components": [
+          {
+            "character": "气",
+            "gloss": "air"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "气",
+            "gloss": "air"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "argon",
+        "equation": "气 air + 亚 second = 氩 argon",
+        "components": [
+          {
+            "character": "气",
+            "gloss": "air"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "气",
+            "gloss": "air"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ]
+      },
+      "before_mnemonic": "The 亚 second sealed tube, cleared of 气 air, glows violet with 氩 argon.",
+      "after_mnemonic": "Fill the 亚 second tube with 氩 argon after pumping out its 气 air.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "氬",
+      "base_card_hash": "sha256:afaebb9091478e735bca15106bd75338abdab1068cdf55d1a1fb61dc17fc2265",
+      "before": {
+        "meaning": "argon",
+        "equation": "气 air + 亞 Asia = 氬 argon",
+        "components": [
+          {
+            "character": "气",
+            "gloss": "air"
+          },
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "气",
+            "gloss": "air"
+          },
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "argon",
+        "equation": "气 air + 亞 second = 氬 argon",
+        "components": [
+          {
+            "character": "气",
+            "gloss": "air"
+          },
+          {
+            "character": "亞",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "气",
+            "gloss": "air"
+          },
+          {
+            "character": "亞",
+            "gloss": "second"
+          }
+        ]
+      },
+      "before_mnemonic": "A violet tube over 亞 Asia, cleared of 气 air, glows with 氬 argon.",
+      "after_mnemonic": "Fill the 亞 second tube with 氬 argon after pumping out its 气 air.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "澰",
+      "base_card_hash": "sha256:bc6b64d1c1829d5960f53d45166c48bfbbce26ff3b1a13272eb332a058baf1cd",
+      "before": {
+        "meaning": "overflowing",
+        "equation": "氵 water (drops) + 僉 unanimous = 澰 overflowing",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "overflowing",
+        "equation": "氵 water (drops) + 僉 all = 澰 overflowing",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "The vessels are 僉 unanimous that their rising 氵 water is 澰 overflowing every rim.",
+      "after_mnemonic": "When 僉 all the vessels spill 氵 water (drops), the room is 澰 overflowing.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "猃",
+      "base_card_hash": "sha256:ab394664e4cf4cbce1aeda64b69f68d413898d26ca6dab6d1bad5a8cb6ed244d",
+      "before": {
+        "meaning": "dog",
+        "equation": "犭 dog (side) + 佥 all = 猃 dog",
+        "components": [
+          {
+            "character": "犭",
+            "gloss": "dog (side)"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "犭",
+            "gloss": "dog (side)"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "dog",
+        "equation": "犭 dog (side) + 佥 all = 猃 dog",
+        "components": [
+          {
+            "character": "犭",
+            "gloss": "dog (side)"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "犭",
+            "gloss": "dog (side)"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "One 犭 dog circles the flock until 佥 all the sheep are together, working as an 猃 dog.",
+      "after_mnemonic": "From 佥 all the hounds, choose the long-snouted 犭 dog (side) called an 猃 dog.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "獫",
+      "base_card_hash": "sha256:c10452eb9436632622add275529753cef62d1bf4c2ce334e2275b5769575b961",
+      "before": {
+        "meaning": "dog (alt)",
+        "equation": "犭 dog (side) + 僉 unanimous = 獫 dog (alt)",
+        "components": [
+          {
+            "character": "犭",
+            "gloss": "dog (side)"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "犭",
+            "gloss": "dog (side)"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "dog",
+        "equation": "犭 dog (side) + 僉 all = 獫 dog",
+        "components": [
+          {
+            "character": "犭",
+            "gloss": "dog (side)"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "犭",
+            "gloss": "dog (side)"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "The pack is 僉 unanimous in choosing the long-snouted 犭 dog as its lead 獫 dog.",
+      "after_mnemonic": "From 僉 all the hounds, choose the long-snouted 犭 dog (side) called an 獫 dog.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "痖",
+      "base_card_hash": "sha256:b6841416a4090d5c1d91ba3e6c626af624d28d6103bf54963dfd3226106c331e",
+      "before": {
+        "meaning": "dumb",
+        "equation": "疒 sickness + 亚 second = 痖 dumb",
+        "components": [
+          {
+            "character": "疒",
+            "gloss": "sickness"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "疒",
+            "gloss": "sickness"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "mute",
+        "equation": "疒 sickness + 亚 second = 痖 mute",
+        "components": [
+          {
+            "character": "疒",
+            "gloss": "sickness"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "疒",
+            "gloss": "sickness"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ]
+      },
+      "before_mnemonic": "In a charade, one performer acts 疒 sickness; the 亚 second performer remains 痖 dumb.",
+      "after_mnemonic": "After 疒 sickness, a singer cannot produce a 亚 second note and remains 痖 mute.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "瘂",
+      "base_card_hash": "sha256:af86d1d4d74d21a8503cb4e8584a646f8792d8beaedc0a20e3b2734a01805d8c",
+      "before": {
+        "meaning": "dumb",
+        "equation": "疒 sickness + 亞 Asia = 瘂 dumb",
+        "components": [
+          {
+            "character": "疒",
+            "gloss": "sickness"
+          },
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "疒",
+            "gloss": "sickness"
+          },
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "mute",
+        "equation": "疒 sickness + 亞 second = 瘂 mute",
+        "components": [
+          {
+            "character": "疒",
+            "gloss": "sickness"
+          },
+          {
+            "character": "亞",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "疒",
+            "gloss": "sickness"
+          },
+          {
+            "character": "亞",
+            "gloss": "second"
+          }
+        ]
+      },
+      "before_mnemonic": "In a charade, one performer acts 疒 sickness and another acts 亞 Asia; both remain 瘂 dumb.",
+      "after_mnemonic": "After 疒 sickness, a singer cannot produce a 亞 second note and remains 瘂 mute.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "睑",
+      "base_card_hash": "sha256:7a7552aab5287e38aba7d4bde948a534446ccc7b9b8fb4224e5dc2730d8b211d",
+      "before": {
+        "meaning": "eyelid",
+        "equation": "目 eye + 佥 all = 睑 eyelid",
+        "components": [
+          {
+            "character": "目",
+            "gloss": "eye"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "目",
+            "gloss": "eye"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "eyelid",
+        "equation": "目 eye + 佥 all = 睑 eyelid",
+        "components": [
+          {
+            "character": "目",
+            "gloss": "eye"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "目",
+            "gloss": "eye"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "When the 睑 eyelid closes, it covers 佥 all of the 目 eye.",
+      "after_mnemonic": "The 睑 eyelid closes over 佥 all of the 目 eye.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "瞼",
+      "base_card_hash": "sha256:2d47aad4a94c61ddc0b67b32e3423c109b79993def58f7be4fe44fb97400d7b6",
+      "before": {
+        "meaning": "eyelid",
+        "equation": "目 eye + 僉 unanimous = 瞼 eyelid",
+        "components": [
+          {
+            "character": "目",
+            "gloss": "eye"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "目",
+            "gloss": "eye"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "eyelid",
+        "equation": "目 eye + 僉 all = 瞼 eyelid",
+        "components": [
+          {
+            "character": "目",
+            "gloss": "eye"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "目",
+            "gloss": "eye"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "Each 瞼 eyelid closes over the 目 eye in a 僉 unanimous blink with its partner.",
+      "after_mnemonic": "The 瞼 eyelid closes over 僉 all of the 目 eye.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "硷",
+      "base_card_hash": "sha256:b9625733f66365414eb82773f95deec6fa4ed8939c4f0b8a31ec662e61204a5a",
+      "before": {
+        "meaning": "alkaline",
+        "equation": "石 stone + 佥 all = 硷 alkaline",
+        "components": [
+          {
+            "character": "石",
+            "gloss": "stone"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "石",
+            "gloss": "stone"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "alkaline",
+        "equation": "石 stone + 佥 all = 硷 alkaline",
+        "components": [
+          {
+            "character": "石",
+            "gloss": "stone"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "石",
+            "gloss": "stone"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "In 佥 all the 石 stone basins, red litmus turns blue because the water is 硷 alkaline.",
+      "after_mnemonic": "Test 佥 all the 石 stone basins; red litmus turns blue because their water is 硷 alkaline.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "礆",
+      "base_card_hash": "sha256:fce3855ddf5083ea35da8561a516e9ecb7a41dd7bb6a7294db8f17fb312284ad",
+      "before": {
+        "meaning": "salt",
+        "equation": "石 stone + 僉 unanimous = 礆 salt",
+        "components": [
+          {
+            "character": "石",
+            "gloss": "stone"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "石",
+            "gloss": "stone"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "alkaline",
+        "equation": "石 stone + 僉 all = 礆 alkaline",
+        "components": [
+          {
+            "character": "石",
+            "gloss": "stone"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "石",
+            "gloss": "stone"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "Cooks are 僉 unanimous that the white 礆 salt should be ground with a 石 stone.",
+      "after_mnemonic": "Test 僉 all the 石 stone basins; red litmus turns blue because their water is 礆 alkaline.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "稏",
+      "base_card_hash": "sha256:d44b416275185480664f8be51a8f23e204eb77eb58811855bb7d62c11f5588fe",
+      "before": {
+        "meaning": "rice plant",
+        "equation": "禾 standing grain + 亞 Asia = 稏 rice plant",
+        "components": [
+          {
+            "character": "禾",
+            "gloss": "standing grain"
+          },
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "禾",
+            "gloss": "standing grain"
+          },
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "rice plant",
+        "equation": "禾 standing grain + 亞 second = 稏 rice plant",
+        "components": [
+          {
+            "character": "禾",
+            "gloss": "standing grain"
+          },
+          {
+            "character": "亞",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "禾",
+            "gloss": "standing grain"
+          },
+          {
+            "character": "亞",
+            "gloss": "second"
+          }
+        ]
+      },
+      "before_mnemonic": "In a flooded field in 亞 Asia, each stalk of 禾 standing grain grows as a swaying 稏 rice plant.",
+      "after_mnemonic": "A 亞 second shoot rises beside each stalk of 禾 standing grain in a 稏 rice plant.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "签",
+      "base_card_hash": "sha256:fbde03d4cf1197f9de0234450727caa5f80af46c9345fda8433a4d7283cd56f4",
+      "before": {
+        "meaning": "endorse",
+        "equation": "竹 bamboo + 佥 all = 签 endorse",
+        "components": [
+          {
+            "character": "竹",
+            "gloss": "bamboo"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "竹",
+            "gloss": "bamboo"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sign",
+        "equation": "竹 bamboo + 佥 all = 签 sign",
+        "components": [
+          {
+            "character": "竹",
+            "gloss": "bamboo"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "竹",
+            "gloss": "bamboo"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "When 佥 all officials mark the same 竹 bamboo document, they 签 endorse its decree.",
+      "after_mnemonic": "Let 佥 all officials use a 竹 bamboo brush to 签 sign.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "簽",
+      "base_card_hash": "sha256:837eaf37d68196f7f975e5997a706826c5056c24fd80f97d940c25983625d268",
+      "before": {
+        "meaning": "sign",
+        "equation": "竹 bamboo + 僉 unanimous = 簽 sign",
+        "components": [
+          {
+            "character": "竹",
+            "gloss": "bamboo"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "竹",
+            "gloss": "bamboo"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sign",
+        "equation": "竹 bamboo + 僉 all = 簽 sign",
+        "components": [
+          {
+            "character": "竹",
+            "gloss": "bamboo"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "竹",
+            "gloss": "bamboo"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "With 僉 unanimous approval, every official uses a 竹 bamboo brush to 簽 sign the decree.",
+      "after_mnemonic": "Let 僉 all officials use a 竹 bamboo brush to 簽 sign.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "脸",
+      "base_card_hash": "sha256:c0e0f0e05b396e4acac34687f9a7ffdaba6d9dcc0d7d2b62e345390263fb2690",
+      "before": {
+        "meaning": "face",
+        "equation": "⺼ meat (side) + 佥 all = 脸 face",
+        "components": [
+          {
+            "character": "⺼",
+            "gloss": "meat (side)"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⺼",
+            "gloss": "meat (side)"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "face",
+        "equation": "⺼ meat (side) + 佥 all = 脸 face",
+        "components": [
+          {
+            "character": "⺼",
+            "gloss": "meat (side)"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⺼",
+            "gloss": "meat (side)"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "佥 all the eyes, nose, and mouth sit in the ⺼ meat (side) of the 脸 face.",
+      "after_mnemonic": "佥 all the features set in ⺼ meat (side) form one 脸 face.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "臉",
+      "base_card_hash": "sha256:999a17c2c03388575576f9d79001912ddae07f5c8236b37c8556fec51f001733",
+      "before": {
+        "meaning": "face",
+        "equation": "⺼ meat (side) + 僉 unanimous = 臉 face",
+        "components": [
+          {
+            "character": "⺼",
+            "gloss": "meat (side)"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⺼",
+            "gloss": "meat (side)"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "face",
+        "equation": "⺼ meat (side) + 僉 all = 臉 face",
+        "components": [
+          {
+            "character": "⺼",
+            "gloss": "meat (side)"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⺼",
+            "gloss": "meat (side)"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "The features set in ⺼ meat are 僉 unanimous that they belong to one 臉 face.",
+      "after_mnemonic": "僉 all the features set in ⺼ meat (side) form one 臉 face.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "莶",
+      "base_card_hash": "sha256:88e7b5b97e894cff566ab32d89a67cd6c37b8702c2285ec2f948489cb85ee1a6",
+      "before": {
+        "meaning": "vine",
+        "equation": "艹 grass (top) + 佥 all = 莶 vine",
+        "components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "vine",
+        "equation": "艹 grass (top) + 佥 all = 莶 vine",
+        "components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "A 莶 vine climbs from the 艹 grass to cover 佥 all the fence posts.",
+      "after_mnemonic": "A 莶 vine climbs from 艹 grass (top) to cover 佥 all the fence posts.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "薟",
+      "base_card_hash": "sha256:bf84ea44f0454a0647f00f95286e2ff5e7a9728d69d5ff1c93eaaabbe4c659e4",
+      "before": {
+        "meaning": "vine",
+        "equation": "艹 grass (top) + 僉 unanimous = 薟 vine",
+        "components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "vine",
+        "equation": "艹 grass (top) + 僉 all = 薟 vine",
+        "components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "The stems of a 薟 vine are 僉 unanimous: all climb above the surrounding 艹 grass.",
+      "after_mnemonic": "A 薟 vine climbs from 艹 grass (top) to cover 僉 all the fence posts.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "裣",
+      "base_card_hash": "sha256:c6e7ab0d4f1e4854e2d966854377edcdf83f5823271b165ed25a9b80a689e30d",
+      "before": {
+        "meaning": "draw hands into sleeves",
+        "equation": "衤 clothing (side) + 佥 all = 裣 draw hands into sleeves",
+        "components": [
+          {
+            "character": "衤",
+            "gloss": "clothing (side)"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "衤",
+            "gloss": "clothing (side)"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "draw hands into sleeves",
+        "equation": "衤 clothing (side) + 佥 all = 裣 draw hands into sleeves",
+        "components": [
+          {
+            "character": "衤",
+            "gloss": "clothing (side)"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "衤",
+            "gloss": "clothing (side)"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "Pull 衤 clothing over 佥 all your fingers to 裣 draw hands into sleeves.",
+      "after_mnemonic": "Pull 衤 clothing (side) over 佥 all the fingers to 裣 draw hands into sleeves.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "襝",
+      "base_card_hash": "sha256:bd8ea787c610607a6f37cc68c9592af3722159c8c6437090831cf9ad16ed8611",
+      "before": {
+        "meaning": "draw one's hands",
+        "equation": "衤 clothing (side) + 僉 unanimous = 襝 draw one's hands",
+        "components": [
+          {
+            "character": "衤",
+            "gloss": "clothing (side)"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "衤",
+            "gloss": "clothing (side)"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "draw hands into sleeves",
+        "equation": "衤 clothing (side) + 僉 all = 襝 draw hands into sleeves",
+        "components": [
+          {
+            "character": "衤",
+            "gloss": "clothing (side)"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "衤",
+            "gloss": "clothing (side)"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "A 僉 unanimous retreat of both hands beneath 衤 clothing lets one 襝 draw one's hands into sleeves.",
+      "after_mnemonic": "Pull 衤 clothing (side) over 僉 all the fingers to 襝 draw hands into sleeves.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "錏",
+      "base_card_hash": "sha256:30b3e1e31effc8b9071f81f19e25204f2d9e1424e23f406d328249bad0fa68e5",
+      "before": {
+        "meaning": "soft steel",
+        "equation": "金 metal + 亞 Asia = 錏 soft steel",
+        "components": [
+          {
+            "character": "金",
+            "gloss": "metal"
+          },
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "金",
+            "gloss": "metal"
+          },
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "soft steel",
+        "equation": "金 metal + 亞 second = 錏 soft steel",
+        "components": [
+          {
+            "character": "金",
+            "gloss": "metal"
+          },
+          {
+            "character": "亞",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "金",
+            "gloss": "metal"
+          },
+          {
+            "character": "亞",
+            "gloss": "second"
+          }
+        ]
+      },
+      "before_mnemonic": "A smith in 亞 Asia bends 金 metal easily because it is 錏 soft steel.",
+      "after_mnemonic": "The 亞 second sample of 金 metal bends more easily because it is 錏 soft steel.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "鐱",
+      "base_card_hash": "sha256:f9c203ec5deb3867c94dd00d8d6340ee2c3629173caf377d9a845d6f55608754",
+      "before": {
+        "meaning": "double-edged sword",
+        "equation": "金 metal + 僉 unanimous = 鐱 double-edged sword",
+        "components": [
+          {
+            "character": "金",
+            "gloss": "metal"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "金",
+            "gloss": "metal"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "double-edged sword",
+        "equation": "金 metal + 僉 all = 鐱 double-edged sword",
+        "components": [
+          {
+            "character": "金",
+            "gloss": "metal"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "金",
+            "gloss": "metal"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "By 僉 unanimous agreement, both edges of the 金 metal blade are sharpened into an 鐱 double-edged sword.",
+      "after_mnemonic": "Sharpen 僉 all along both edges of a 金 metal blade to make an 鐱 double-edged sword.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "铔",
+      "base_card_hash": "sha256:66784868e044f5fb155d6d6ed2ea5ea279825ee4861bb291e78061acff68ac7f",
+      "before": {
+        "meaning": "soft steel",
+        "equation": "钅 metal + 亚 second = 铔 soft steel",
+        "components": [
+          {
+            "character": "钅",
+            "gloss": "metal"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "钅",
+            "gloss": "metal"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "soft steel",
+        "equation": "钅 metal + 亚 second = 铔 soft steel",
+        "components": [
+          {
+            "character": "钅",
+            "gloss": "metal"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "钅",
+            "gloss": "metal"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ]
+      },
+      "before_mnemonic": "A smith chooses the 亚 second 钅 metal bar because its 铔 soft steel bends easily.",
+      "after_mnemonic": "The 亚 second sample of 钅 metal bends more easily because it is 铔 soft steel.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "险",
+      "base_card_hash": "sha256:3b0fdc7013907c8cefadb7966dc25ef5c6b3de54740a80bd89930812119ca5cc",
+      "before": {
+        "meaning": "narrow",
+        "equation": "⻖ mound (left) + 佥 all = 险 narrow",
+        "components": [
+          {
+            "character": "⻖",
+            "gloss": "mound (left)"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⻖",
+            "gloss": "mound (left)"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "dangerous",
+        "equation": "⻖ mound (left) + 佥 all = 险 dangerous",
+        "components": [
+          {
+            "character": "⻖",
+            "gloss": "mound (left)"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⻖",
+            "gloss": "mound (left)"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "Across the ⻖ mound, 佥 all paths pinch into one 险 narrow pass.",
+      "after_mnemonic": "A narrow path on a ⻖ mound (left) looks 险 dangerous to 佥 all travelers.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "險",
+      "base_card_hash": "sha256:2fa0587b0348bec8557a8c2fce9b019db99ddcd902bc19afc0b8a3f73e5794fc",
+      "before": {
+        "meaning": "perilous",
+        "equation": "⻖ mound (left) + 僉 unanimous = 險 perilous",
+        "components": [
+          {
+            "character": "⻖",
+            "gloss": "mound (left)"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⻖",
+            "gloss": "mound (left)"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "dangerous",
+        "equation": "⻖ mound (left) + 僉 all = 險 dangerous",
+        "components": [
+          {
+            "character": "⻖",
+            "gloss": "mound (left)"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⻖",
+            "gloss": "mound (left)"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "On the steep ⻖ mound, the 僉 unanimous verdict is that the route is 險 perilous.",
+      "after_mnemonic": "A narrow path on a ⻖ mound (left) looks 險 dangerous to 僉 all travelers.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "霊",
+      "base_card_hash": "sha256:cf3479629c26368be9b55089a176228b86db79026d47ac279542e938a2b2282c",
+      "before": {
+        "meaning": "soul",
+        "equation": "雨 rain + 一 one + 亚 second = 霊 soul",
+        "components": [
+          {
+            "character": "雨",
+            "gloss": "rain"
+          },
+          {
+            "character": "一",
+            "gloss": "one"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "雨",
+            "gloss": "rain"
+          },
+          {
+            "character": "一",
+            "gloss": "one"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "soul",
+        "equation": "雨 rain + 一 one + 亚 second = 霊 soul",
+        "components": [
+          {
+            "character": "雨",
+            "gloss": "rain"
+          },
+          {
+            "character": "一",
+            "gloss": "one"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "雨",
+            "gloss": "rain"
+          },
+          {
+            "character": "一",
+            "gloss": "one"
+          },
+          {
+            "character": "亚",
+            "gloss": "second"
+          }
+        ]
+      },
+      "before_mnemonic": "In 雨 rain, 一 one traveler finds their 亚 second shadow walking independently as a 霊 soul.",
+      "after_mnemonic": "In 雨 rain, 一 one traveler meets a 亚 second shadow—their 霊 soul.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "驗",
+      "base_card_hash": "sha256:4a395c4a1ec4430dc8a9de597c6df8a332f74d706396ce60299234e2c9133e8d",
+      "before": {
+        "meaning": "check",
+        "equation": "馬 horse + 僉 unanimous = 驗 check",
+        "components": [
+          {
+            "character": "馬",
+            "gloss": "horse"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "馬",
+            "gloss": "horse"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "inspect",
+        "equation": "馬 horse + 僉 all = 驗 inspect",
+        "components": [
+          {
+            "character": "馬",
+            "gloss": "horse"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "馬",
+            "gloss": "horse"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "Before buying the 馬 horse, inspectors must 驗 check it until their verdict is 僉 unanimous.",
+      "after_mnemonic": "驗 inspect 僉 all parts of the 馬 horse before buying it.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "验",
+      "base_card_hash": "sha256:3e1c7661fc0bdd11453cdee4cc5b499d3c679969242be7387349526a042be681",
+      "before": {
+        "meaning": "inspect",
+        "equation": "马 horse + 佥 all = 验 inspect",
+        "components": [
+          {
+            "character": "马",
+            "gloss": "horse"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "马",
+            "gloss": "horse"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "inspect",
+        "equation": "马 horse + 佥 all = 验 inspect",
+        "components": [
+          {
+            "character": "马",
+            "gloss": "horse"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "马",
+            "gloss": "horse"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "Inspectors 验 inspect the 马 horse from every angle until 佥 all agree.",
+      "after_mnemonic": "验 inspect 佥 all parts of the 马 horse before buying it.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "鵶",
+      "base_card_hash": "sha256:b7a8e882ed766ca2ac95d3f8160ba14a7161662f187ef58c55a4c06cb6fc5656",
+      "before": {
+        "meaning": "crow",
+        "equation": "亞 Asia + 鳥 bird = 鵶 crow",
+        "components": [
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          },
+          {
+            "character": "鳥",
+            "gloss": "bird"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          },
+          {
+            "character": "鳥",
+            "gloss": "bird"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "crow",
+        "equation": "亞 second + 鳥 bird = 鵶 crow",
+        "components": [
+          {
+            "character": "亞",
+            "gloss": "second"
+          },
+          {
+            "character": "鳥",
+            "gloss": "bird"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亞",
+            "gloss": "second"
+          },
+          {
+            "character": "鳥",
+            "gloss": "bird"
+          }
+        ]
+      },
+      "before_mnemonic": "The familiar 鵶 crow is the black 鳥 bird calling from rooftops across 亞 Asia.",
+      "after_mnemonic": "A 亞 second 鳥 bird arrives, black and cawing: an 鵶 crow.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "鹼",
+      "base_card_hash": "sha256:47f8f733b4287f740f4e9705861d1d45d93837d9a41787a5a67a44defb5090dd",
+      "before": {
+        "meaning": "alkali",
+        "equation": "鹵 brine + 僉 unanimous = 鹼 alkali",
+        "components": [
+          {
+            "character": "鹵",
+            "gloss": "brine"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "鹵",
+            "gloss": "brine"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "alkali",
+        "equation": "鹵 brine + 僉 all = 鹼 alkali",
+        "components": [
+          {
+            "character": "鹵",
+            "gloss": "brine"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "鹵",
+            "gloss": "brine"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "鹵 brine leaves a mineral crust that turns an indicator blue, making chemists 僉 unanimous that it is 鹼 alkali.",
+      "after_mnemonic": "Evaporate 鹵 brine; the residue turns 僉 all test strips blue, revealing 鹼 alkali.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "殮",
+      "base_card_hash": "sha256:2d577a1535fb881cd156333d32f6d38eae28f24b53edfd323cb58664c649fc7c",
+      "before": {
+        "meaning": "dress corpse for burial",
+        "equation": "歹 death + 僉 unanimous = 殮 dress corpse for burial",
+        "components": [
+          {
+            "character": "歹",
+            "gloss": "death"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "歹",
+            "gloss": "death"
+          },
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "dress a corpse for burial",
+        "equation": "歹 death + 僉 all = 殮 dress a corpse for burial",
+        "components": [
+          {
+            "character": "歹",
+            "gloss": "death"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "歹",
+            "gloss": "death"
+          },
+          {
+            "character": "僉",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "After 歹 death, let 僉 unanimous relatives gather clothes to 殮 dress corpse for burial.",
+      "after_mnemonic": "Gather 僉 all the clothing after 歹 death to 殮 dress a corpse for burial.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "惡",
+      "base_card_hash": "sha256:d79488aee62a8cb4e979532761b327c2e3d7c80dda05cff26983310a99fa8a70",
+      "before": {
+        "meaning": "harmful",
+        "equation": "亞 Asia + 心 heart = 惡 harmful",
+        "components": [
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          },
+          {
+            "character": "心",
+            "gloss": "heart"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          },
+          {
+            "character": "心",
+            "gloss": "heart"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "bad",
+        "equation": "亞 second + 心 heart = 惡 bad",
+        "components": [
+          {
+            "character": "亞",
+            "gloss": "second"
+          },
+          {
+            "character": "心",
+            "gloss": "heart"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亞",
+            "gloss": "second"
+          },
+          {
+            "character": "心",
+            "gloss": "heart"
+          }
+        ]
+      },
+      "before_mnemonic": "A plan strips forests across 亞 Asia; the 心 heart condemns it as 惡 harmful.",
+      "after_mnemonic": "Putting 亞 second place above 心 heart can lead to a 惡 bad choice.",
+      "valid": true,
+      "problems": []
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "policy_version": "2026-07-24.1",
+  "family": "all-second-variant",
+  "root_decisions": {
+    "亞": {
+      "decision": "restore_common_lexical_gloss_and_atomize",
+      "lexical_gloss": "second",
+      "component_gloss": "second",
+      "reason": "Second is the common lexical value and gives the recurring family one stable, useful unit. The modern abbreviation Asia forced unrelated geography into every descendant."
+    },
+    "亚": {
+      "decision": "preserve_lexical_gloss_and_atomize",
+      "lexical_gloss": "second",
+      "component_gloss": "second",
+      "reason": "The recurring simplified form is easier to retain as the same atomic second unit as traditional 亞 than as a one-plus-business decomposition."
+    },
+    "僉": {
+      "decision": "align_variant_gloss_and_atomize",
+      "lexical_gloss": "all",
+      "component_gloss": "all",
+      "reason": "All is the direct, reusable lexical value and aligns with simplified 佥. Unanimous was related but forced an agreement plot into every descendant."
+    },
+    "佥": {
+      "decision": "preserve_lexical_gloss_and_atomize",
+      "lexical_gloss": "all",
+      "component_gloss": "all",
+      "reason": "The recurring simplified form is easier to retain as the same atomic all unit as traditional 僉 than as an assemble-plus-one decomposition."
+    }
+  },
+  "target_cleanup": {
+    "䃁": "rugged terrain",
+    "啞": "mute",
+    "哑": "mute",
+    "埡": "mountain saddle",
+    "垭": "mountain saddle",
+    "堊": "white clay",
+    "垩": "white clay",
+    "壼": "palace corridor",
+    "壸": "palace corridor",
+    "婭": "term between brothers-in-law",
+    "娅": "term between brothers-in-law",
+    "惡": "bad",
+    "恶": "bad",
+    "掗": "take",
+    "挜": "take",
+    "椏": "forking branch",
+    "桠": "forking branch",
+    "瘂": "mute",
+    "痖": "mute",
+    "晋": "advance",
+    "惡": "bad",
+    "㷿": "flame",
+    "䌞": "silkworm-rack knot",
+    "䶨": "toothless chewing",
+    "儉": "thrifty",
+    "俭": "thrifty",
+    "劍": "sword",
+    "剑": "sword",
+    "劎": "sword",
+    "劒": "sword",
+    "劔": "sword",
+    "匳": "women's toiletry case",
+    "嶮": "precipitous",
+    "崄": "precipitous",
+    "斂": "restrain",
+    "敛": "restrain",
+    "檢": "inspect",
+    "检": "inspect",
+    "獫": "dog",
+    "猃": "dog",
+    "礆": "alkaline",
+    "硷": "alkaline",
+    "簽": "sign",
+    "签": "sign",
+    "襝": "draw hands into sleeves",
+    "裣": "draw hands into sleeves",
+    "險": "dangerous",
+    "险": "dangerous",
+    "驗": "inspect",
+    "验": "inspect",
+    "殮": "dress a corpse for burial"
+  },
+  "expected_changed_card_count": 88,
+  "expected_component_occurrences": {
+    "亞 second": 21,
+    "亚 second": 16,
+    "僉 all": 34,
+    "佥 all": 17
+  },
+  "evidence": [
+    {
+      "source": "Ministry of Education Concised Mandarin Dictionary",
+      "url": "https://dict.concised.moe.edu.tw/dictView.jsp?ID=39423&la=0&powerMode=0",
+      "supports": "堊 denotes white earth."
+    },
+    {
+      "source": "Repository Chinese dictionary",
+      "path": "data/chinese_dictionary_char_2025-06-25.jsonl",
+      "supports": "Variant links and concise lexical senses for the reviewed descendants."
+    }
+  ]
+}

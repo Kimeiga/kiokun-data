@@ -1,6 +1,6 @@
 {
-  "created_at": "2026-07-24T07:42:31.866494+00:00",
-  "artifact_created_at": "2026-07-24T07:42:30.225635+00:00",
+  "created_at": "2026-07-24T07:54:19.945609+00:00",
+  "artifact_created_at": "2026-07-24T07:54:18.286260+00:00",
   "methodology": "Formal validity and learning quality are separate. Flags are deterministic review signals; abstract meanings and variant forms are not automatically bad, while generic filler is a rewrite signal.",
   "taxonomy": {
     "generic_filler": {
@@ -18852,7 +18852,7 @@
     },
     {
       "character": "殮",
-      "meaning": "dress corpse for burial",
+      "meaning": "dress a corpse for burial",
       "frequency_rank": null,
       "quality_status": "review",
       "quality_score": 2.5,
@@ -18864,8 +18864,8 @@
           "evidence": "殮"
         }
       ],
-      "equation": "歹 death + 僉 unanimous = 殮 dress corpse for burial",
-      "mnemonic": "After 歹 death, let 僉 unanimous relatives gather clothes to 殮 dress corpse for burial.",
+      "equation": "歹 death + 僉 all = 殮 dress a corpse for burial",
+      "mnemonic": "Gather 僉 all the clothing after 歹 death to 殮 dress a corpse for burial.",
       "components": [
         {
           "character": "歹",
@@ -18873,7 +18873,7 @@
         },
         {
           "character": "僉",
-          "gloss": "unanimous"
+          "gloss": "all"
         }
       ],
       "component_source": "variant_alias:殮",
@@ -19432,7 +19432,7 @@
     },
     {
       "character": "惡",
-      "meaning": "harmful",
+      "meaning": "bad",
       "frequency_rank": null,
       "quality_status": "review",
       "quality_score": 2.5,
@@ -19444,12 +19444,12 @@
           "evidence": "惡"
         }
       ],
-      "equation": "亞 Asia + 心 heart = 惡 harmful",
-      "mnemonic": "A plan strips forests across 亞 Asia; the 心 heart condemns it as 惡 harmful.",
+      "equation": "亞 second + 心 heart = 惡 bad",
+      "mnemonic": "Putting 亞 second place above 心 heart can lead to a 惡 bad choice.",
       "components": [
         {
           "character": "亞",
-          "gloss": "Asia"
+          "gloss": "second"
         },
         {
           "character": "心",
@@ -37429,8 +37429,8 @@
           "evidence": "pretend to be"
         }
       ],
-      "equation": "宀 roof + 亞 Asia = 㝞 pretend to be",
-      "mnemonic": "Painted scenery of 亞 Asia beneath a theater’s 宀 roof lets the stage 㝞 pretend to be another land.",
+      "equation": "宀 roof + 亞 second = 㝞 pretend to be",
+      "mnemonic": "Beneath a 宀 roof, a 亞 second stage set lets the theater 㝞 pretend to be another place.",
       "components": [
         {
           "character": "宀",
@@ -37438,7 +37438,7 @@
         },
         {
           "character": "亞",
-          "gloss": "Asia"
+          "gloss": "second"
         }
       ],
       "component_source": "resolved_ids_forward",
@@ -45814,11 +45814,11 @@
   ],
   "gpt56_expedited_release": {
     "certification_status": "expedited_non_certified",
-    "materialized_card_projection_hash": "sha256:ceb8e6e43e2997a8f4cf7948930e3f9816e081b3d7af7cd46bd86a3093fc3d31",
+    "materialized_card_projection_hash": "sha256:9a94b6f844d70f6007bea956164219c7099192b2c1b9fe13e2e06ad7160ee118",
     "formal_validation": {
       "count": 24037,
       "invalid_count": 0
     },
-    "editorial_ledger_sha256": "sha256:8259e40cbc72b9b1eb9601bbc589496897e559577081abcb5e14e4c9320c3e0f"
+    "editorial_ledger_sha256": "sha256:499627f3de8b6d5e9082a5d7b7abf71bfe1655670cff7c92a4fba9a671e8fdde"
   }
 }
