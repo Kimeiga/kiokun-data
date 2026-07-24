@@ -1,0 +1,1562 @@
+{
+  "schema_version": 1,
+  "policy_version": "2026-07-24.1",
+  "policy_path": "data/semantic_mnemonic_variant_alignment_policy.json",
+  "base_projection_hash": "sha256:ef68d18a701c8b7d1f8fb3a416b5aa944c581c2a93b266daec625a882a705328",
+  "candidate_projection_hash": "sha256:1b878042984fb683008cb503fd64f6a6f9824ae2f0c3e51c26c3ee8152263289",
+  "card_count": 24037,
+  "invalid_count": 0,
+  "changed_count": 27,
+  "already_applied_count": 0,
+  "changed_characters": [
+    "䃅",
+    "亸",
+    "冁",
+    "单",
+    "単",
+    "啴",
+    "姉",
+    "婵",
+    "弹",
+    "弾",
+    "惮",
+    "戦",
+    "掸",
+    "核",
+    "殚",
+    "漢",
+    "瘅",
+    "禅",
+    "箪",
+    "脸",
+    "蕲",
+    "蝉",
+    "褝",
+    "觯",
+    "郸",
+    "阐",
+    "騨"
+  ],
+  "changes": [
+    {
+      "character": "䃅",
+      "base_card_hash": "sha256:79f17684a3068082e8703eb8036014900f412b7b9661d967c1662d5c118f54d2",
+      "before": {
+        "meaning": "black mineral dye",
+        "equation": "石 stone + 单 single = 䃅 black mineral dye",
+        "components": [
+          {
+            "character": "石",
+            "gloss": "stone"
+          },
+          {
+            "character": "单",
+            "gloss": "single"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "石",
+            "gloss": "stone"
+          },
+          {
+            "character": "单",
+            "gloss": "single"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "black mineral dye",
+        "equation": "石 stone + 单 trap = 䃅 black mineral dye",
+        "components": [
+          {
+            "character": "石",
+            "gloss": "stone"
+          },
+          {
+            "character": "单",
+            "gloss": "trap"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "石",
+            "gloss": "stone"
+          },
+          {
+            "character": "单",
+            "gloss": "trap"
+          }
+        ]
+      },
+      "before_mnemonic": "A 单 single 石 stone is ground into enough 䃅 black mineral dye to color a whole cloth.",
+      "after_mnemonic": "A 石 stone crushed in a press shaped like a 单 trap yields 䃅 black mineral dye.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "亸",
+      "base_card_hash": "sha256:6e71e1ebb41059fb52831e513ad64df7de71cf34ef3a4781988cd28a67884be3",
+      "before": {
+        "meaning": "aloud",
+        "equation": "亨 go smoothly + 单 single = 亸 aloud",
+        "components": [
+          {
+            "character": "亨",
+            "gloss": "go smoothly"
+          },
+          {
+            "character": "单",
+            "gloss": "single"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亨",
+            "gloss": "go smoothly"
+          },
+          {
+            "character": "单",
+            "gloss": "single"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "hang down",
+        "equation": "亨 go smoothly + 单 trap = 亸 hang down",
+        "components": [
+          {
+            "character": "亨",
+            "gloss": "go smoothly"
+          },
+          {
+            "character": "单",
+            "gloss": "trap"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亨",
+            "gloss": "go smoothly"
+          },
+          {
+            "character": "单",
+            "gloss": "trap"
+          }
+        ]
+      },
+      "before_mnemonic": "Each 单 single syllable can 亨 go smoothly when the reader says it 亸 aloud on one full breath.",
+      "after_mnemonic": "Once the release mechanism can 亨 go smoothly, the net of a 单 trap will 亸 hang down.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "冁",
+      "base_card_hash": "sha256:297398887e3ea3ac3a465cd1ced603126aac7785e61f6feb42c33730989b696f",
+      "before": {
+        "meaning": "smile",
+        "equation": "单 single + 展 unfold = 冁 smile",
+        "components": [
+          {
+            "character": "单",
+            "gloss": "single"
+          },
+          {
+            "character": "展",
+            "gloss": "unfold"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "单",
+            "gloss": "single"
+          },
+          {
+            "character": "展",
+            "gloss": "unfold"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "smile",
+        "equation": "单 trap + 展 unfold = 冁 smile",
+        "components": [
+          {
+            "character": "单",
+            "gloss": "trap"
+          },
+          {
+            "character": "展",
+            "gloss": "unfold"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "单",
+            "gloss": "trap"
+          },
+          {
+            "character": "展",
+            "gloss": "unfold"
+          }
+        ]
+      },
+      "before_mnemonic": "A 单 single face begins to 冁 smile as its tight expression starts to 展 unfold.",
+      "after_mnemonic": "As workers 展 unfold a 单 trap for a safe demonstration, the relieved crowd can 冁 smile.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "单",
+      "base_card_hash": "sha256:337a41590123f3339c303ceeb3b124219ecbb6fa14a79618d6909fd6abf61beb",
+      "before": {
+        "meaning": "single",
+        "equation": "丷 split horns + 甲 first + 一 one = 单 single",
+        "components": [
+          {
+            "character": "丷",
+            "gloss": "split horns"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          },
+          {
+            "character": "一",
+            "gloss": "one"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "丷",
+            "gloss": "split horns"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          },
+          {
+            "character": "一",
+            "gloss": "one"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "single",
+        "equation": "Visual form: 单 trap; meaning 单 single",
+        "components": [
+          {
+            "character": "单",
+            "gloss": "trap"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "单",
+            "gloss": "trap"
+          }
+        ]
+      },
+      "before_mnemonic": "A 单 single horn remains when you take the 甲 first from the 丷 split horns and count 一 one.",
+      "after_mnemonic": "A 单 trap catches just one quarry, reinforcing the lexical meaning 单 single.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "単",
+      "base_card_hash": "sha256:aacc7eed2dadbaed9060ca186700ece11d80101563380224f882bbc5894099d4",
+      "before": {
+        "meaning": "list",
+        "equation": "甲 first + 一 one = 単 list",
+        "components": [
+          {
+            "character": "甲",
+            "gloss": "first"
+          },
+          {
+            "character": "一",
+            "gloss": "one"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "甲",
+            "gloss": "first"
+          },
+          {
+            "character": "一",
+            "gloss": "one"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "single",
+        "equation": "Visual form: 単 trap; meaning 単 single",
+        "components": [
+          {
+            "character": "単",
+            "gloss": "trap"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "単",
+            "gloss": "trap"
+          }
+        ]
+      },
+      "before_mnemonic": "Starting with the 甲 first entry, add 一 one item per line to build a 単 list.",
+      "after_mnemonic": "A 単 trap catches just one quarry, reinforcing the lexical meaning 単 single.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "啴",
+      "base_card_hash": "sha256:46f2c0bb2b4b42c48cb52ae63bee51c67bda94ea7575d23624ec1ea8d951edd9",
+      "before": {
+        "meaning": "many",
+        "equation": "口 mouth + 单 single = 啴 many",
+        "components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "单",
+            "gloss": "single"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "单",
+            "gloss": "single"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "many",
+        "equation": "口 mouth + 单 trap = 啴 many",
+        "components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "单",
+            "gloss": "trap"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "单",
+            "gloss": "trap"
+          }
+        ]
+      },
+      "before_mnemonic": "From a 单 single singer's 口 mouth, echoes multiply into 啴 many voices.",
+      "after_mnemonic": "A 单 trap releases so many echoes from one 口 mouth that they become 啴 many.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "姉",
+      "base_card_hash": "sha256:ae48187b88eefdfbcaf62b5db34bb00da2b8a04a4e10795b3dd8ab72fec8dce9",
+      "before": {
+        "meaning": "elder sister",
+        "equation": "女 woman + 市 market = 姉 elder sister",
+        "components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "市",
+            "gloss": "market"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "市",
+            "gloss": "market"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "elder sister",
+        "equation": "女 woman + 市 market = 姉 elder sister",
+        "components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "市",
+            "gloss": "market"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "市",
+            "gloss": "market"
+          }
+        ]
+      },
+      "before_mnemonic": "A 女 woman joined with a 市 market gives shape to 姉 elder sister.",
+      "after_mnemonic": "At the 市 market, a 女 woman guides the younger children as their 姉 elder sister.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "婵",
+      "base_card_hash": "sha256:8e89f13adbaefbc0ce4fe46ab4a012de771e7c38114437c01ec98eb28aefd504",
+      "before": {
+        "meaning": "lovely",
+        "equation": "女 woman + 单 single = 婵 lovely",
+        "components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "单",
+            "gloss": "single"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "单",
+            "gloss": "single"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "lovely",
+        "equation": "女 woman + 单 trap = 婵 lovely",
+        "components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "单",
+            "gloss": "trap"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "单",
+            "gloss": "trap"
+          }
+        ]
+      },
+      "before_mnemonic": "A 女 woman arranges a 单 single flower until the whole alcove looks 婵 lovely.",
+      "after_mnemonic": "A 女 woman decorates a crude 单 trap until even it looks 婵 lovely.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "弹",
+      "base_card_hash": "sha256:edd2989260335c73abc02cc325d599854ee84adf59fb3bd9400af1e24f144441",
+      "before": {
+        "meaning": "pellet",
+        "equation": "弓 bow + 单 single = 弹 pellet",
+        "components": [
+          {
+            "character": "弓",
+            "gloss": "bow"
+          },
+          {
+            "character": "单",
+            "gloss": "single"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "弓",
+            "gloss": "bow"
+          },
+          {
+            "character": "单",
+            "gloss": "single"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "pellet",
+        "equation": "弓 bow + 单 trap = 弹 pellet",
+        "components": [
+          {
+            "character": "弓",
+            "gloss": "bow"
+          },
+          {
+            "character": "单",
+            "gloss": "trap"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "弓",
+            "gloss": "bow"
+          },
+          {
+            "character": "单",
+            "gloss": "trap"
+          }
+        ]
+      },
+      "before_mnemonic": "A 弓 bow releases a 单 single 弹 pellet toward the target.",
+      "after_mnemonic": "A 弓 bow built into a 单 trap fires a 弹 pellet.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "弾",
+      "base_card_hash": "sha256:0f1dddb747655b188340e4a98ac46b770643f76f8a8a3fe111b79a1a939478a2",
+      "before": {
+        "meaning": "bullet",
+        "equation": "弓 bow + 単 list = 弾 bullet",
+        "components": [
+          {
+            "character": "弓",
+            "gloss": "bow"
+          },
+          {
+            "character": "単",
+            "gloss": "list"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "弓",
+            "gloss": "bow"
+          },
+          {
+            "character": "単",
+            "gloss": "list"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "bullet",
+        "equation": "弓 bow + 単 trap = 弾 bullet",
+        "components": [
+          {
+            "character": "弓",
+            "gloss": "bow"
+          },
+          {
+            "character": "単",
+            "gloss": "trap"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "弓",
+            "gloss": "bow"
+          },
+          {
+            "character": "単",
+            "gloss": "trap"
+          }
+        ]
+      },
+      "before_mnemonic": "A 弓 bow joined with a 単 list gives shape to 弾 bullet.",
+      "after_mnemonic": "A 弓 bow built into a 単 trap fires a 弾 bullet.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "惮",
+      "base_card_hash": "sha256:7754a85ddc88cd6792eecf9fbcd68e03fb681b8084ce5f5d605ee62da11f930c",
+      "before": {
+        "meaning": "dread",
+        "equation": "忄 heart (side) + 单 single = 惮 dread",
+        "components": [
+          {
+            "character": "忄",
+            "gloss": "heart (side)"
+          },
+          {
+            "character": "单",
+            "gloss": "single"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "忄",
+            "gloss": "heart (side)"
+          },
+          {
+            "character": "单",
+            "gloss": "single"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "dread",
+        "equation": "忄 heart (side) + 单 trap = 惮 dread",
+        "components": [
+          {
+            "character": "忄",
+            "gloss": "heart (side)"
+          },
+          {
+            "character": "单",
+            "gloss": "trap"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "忄",
+            "gloss": "heart (side)"
+          },
+          {
+            "character": "单",
+            "gloss": "trap"
+          }
+        ]
+      },
+      "before_mnemonic": "Facing danger with only a 单 single ally makes the 忄 heart fill with 惮 dread.",
+      "after_mnemonic": "The 忄 heart (side) learns to 惮 dread every path after finding a hidden 单 trap.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "戦",
+      "base_card_hash": "sha256:3244a205999ea924dd4681e1aaa813d1953ee14584762a3947449c8694154f90",
+      "before": {
+        "meaning": "war",
+        "equation": "単 list + 戈 halberd = 戦 war",
+        "components": [
+          {
+            "character": "単",
+            "gloss": "list"
+          },
+          {
+            "character": "戈",
+            "gloss": "halberd"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "単",
+            "gloss": "list"
+          },
+          {
+            "character": "戈",
+            "gloss": "halberd"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "war",
+        "equation": "単 trap + 戈 halberd = 戦 war",
+        "components": [
+          {
+            "character": "単",
+            "gloss": "trap"
+          },
+          {
+            "character": "戈",
+            "gloss": "halberd"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "単",
+            "gloss": "trap"
+          },
+          {
+            "character": "戈",
+            "gloss": "halberd"
+          }
+        ]
+      },
+      "before_mnemonic": "A 単 list assigns each 戈 halberd before soldiers enter 戦 war.",
+      "after_mnemonic": "A battlefield filled with 単 trap devices and 戈 halberd weapons means 戦 war.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "掸",
+      "base_card_hash": "sha256:1e7c7613b8afb66d6e7b5ed4d519e14c86ad43b74efcd387f1e73a3ccc13cd72",
+      "before": {
+        "meaning": "duster",
+        "equation": "扌 hand (side) + 单 single = 掸 duster",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "单",
+            "gloss": "single"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "单",
+            "gloss": "single"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "duster",
+        "equation": "扌 hand (side) + 单 trap = 掸 duster",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "单",
+            "gloss": "trap"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "单",
+            "gloss": "trap"
+          }
+        ]
+      },
+      "before_mnemonic": "A 扌 hand uses a 单 single 掸 duster to sweep loose powder from the shelf.",
+      "after_mnemonic": "A 扌 hand (side) uses a brush shaped like a 单 trap as a 掸 duster.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "核",
+      "base_card_hash": "sha256:db6c370898c27d24916ef3ee20893d7e1d4172aee41ed49035d8e14f66539bb8",
+      "before": {
+        "meaning": "nucleus",
+        "equation": "木 tree + 亥 sign of the hog = 核 nucleus",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "亥",
+            "gloss": "sign of the hog"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "亥",
+            "gloss": "sign of the hog"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "nucleus",
+        "equation": "木 tree + 亥 sign of the hog = 核 nucleus",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "亥",
+            "gloss": "sign of the hog"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "亥",
+            "gloss": "sign of the hog"
+          }
+        ]
+      },
+      "before_mnemonic": "A 木 tree joined with a 亥 sign of the hog gives shape to 核 nucleus.",
+      "after_mnemonic": "Inside the seed of a 木 tree, a tiny 亥 sign of the hog stamps the 核 nucleus.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "殚",
+      "base_card_hash": "sha256:d277d448f0b33163f1ddacbb9e7123f3f235a8f00b51e8f6cde273d4160a8d8c",
+      "before": {
+        "meaning": "exhaust",
+        "equation": "歹 death + 单 single = 殚 exhaust",
+        "components": [
+          {
+            "character": "歹",
+            "gloss": "death"
+          },
+          {
+            "character": "单",
+            "gloss": "single"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "歹",
+            "gloss": "death"
+          },
+          {
+            "character": "单",
+            "gloss": "single"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "exhaust",
+        "equation": "歹 death + 单 trap = 殚 exhaust",
+        "components": [
+          {
+            "character": "歹",
+            "gloss": "death"
+          },
+          {
+            "character": "单",
+            "gloss": "trap"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "歹",
+            "gloss": "death"
+          },
+          {
+            "character": "单",
+            "gloss": "trap"
+          }
+        ]
+      },
+      "before_mnemonic": "A 单 single endless duty can 殚 exhaust someone nearly to 歹 death.",
+      "after_mnemonic": "Struggling against a 单 trap until near 歹 death will 殚 exhaust anyone.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "漢",
+      "base_card_hash": "sha256:3da754c014444e8f229dcbeeaf6544c6c311836661358cf592a76c1bd7b493a4",
+      "before": {
+        "meaning": "Han",
+        "equation": "氵 water (drops) + 𦰩 sigh = 漢 Han",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "𦰩",
+            "gloss": "sigh"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "𦰩",
+            "gloss": "sigh"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "Han",
+        "equation": "氵 water (drops) + 𦰩 sigh = 漢 Han",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "𦰩",
+            "gloss": "sigh"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "𦰩",
+            "gloss": "sigh"
+          }
+        ]
+      },
+      "before_mnemonic": "A 氵 water joined with a 𦰩 sigh gives shape to 漢 Han.",
+      "after_mnemonic": "A weary traveler lets out a 𦰩 sigh beside the 氵 water (drops) of the great 漢 Han river.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "瘅",
+      "base_card_hash": "sha256:e43e82b5b925b33708099c7e6e1e1b471f39dfbdaa025eabc86b446d130c757e",
+      "before": {
+        "meaning": "hate bitterly",
+        "equation": "疒 sickness + 单 single = 瘅 hate bitterly",
+        "components": [
+          {
+            "character": "疒",
+            "gloss": "sickness"
+          },
+          {
+            "character": "单",
+            "gloss": "single"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "疒",
+            "gloss": "sickness"
+          },
+          {
+            "character": "单",
+            "gloss": "single"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "hate bitterly",
+        "equation": "疒 sickness + 单 trap = 瘅 hate bitterly",
+        "components": [
+          {
+            "character": "疒",
+            "gloss": "sickness"
+          },
+          {
+            "character": "单",
+            "gloss": "trap"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "疒",
+            "gloss": "sickness"
+          },
+          {
+            "character": "单",
+            "gloss": "trap"
+          }
+        ]
+      },
+      "before_mnemonic": "A 单 single betrayal can make resentment feel like 疒 sickness until you 瘅 hate bitterly.",
+      "after_mnemonic": "A painful 单 trap injury feels like 疒 sickness and makes its victim 瘅 hate bitterly.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "禅",
+      "base_card_hash": "sha256:0753e5eb4dcfedc5e17038eaf5bd2a616a7aa68f4148a59739ffec96ec1c051b",
+      "before": {
+        "meaning": "meditation",
+        "equation": "示 show + 単 list = 禅 meditation",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "単",
+            "gloss": "list"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "単",
+            "gloss": "list"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "meditation",
+        "equation": "示 show + 単 trap = 禅 meditation",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "単",
+            "gloss": "trap"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "単",
+            "gloss": "trap"
+          }
+        ]
+      },
+      "before_mnemonic": "As thoughts 示 show themselves one by one, 禅 meditation lets each leave the 単 list without pursuit.",
+      "after_mnemonic": "At an altar marked 示 show, empty the mind of every 単 trap during 禅 meditation.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "箪",
+      "base_card_hash": "sha256:2c42ec20a90a10d1c5381f678240beac239d866e45d6ed5a0a5e464a20b6b38c",
+      "before": {
+        "meaning": "small bamboo basket",
+        "equation": "竹 bamboo + 单 single = 箪 small bamboo basket",
+        "components": [
+          {
+            "character": "竹",
+            "gloss": "bamboo"
+          },
+          {
+            "character": "单",
+            "gloss": "single"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "竹",
+            "gloss": "bamboo"
+          },
+          {
+            "character": "单",
+            "gloss": "single"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "small bamboo basket",
+        "equation": "竹 bamboo + 单 trap = 箪 small bamboo basket",
+        "components": [
+          {
+            "character": "竹",
+            "gloss": "bamboo"
+          },
+          {
+            "character": "单",
+            "gloss": "trap"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "竹",
+            "gloss": "bamboo"
+          },
+          {
+            "character": "单",
+            "gloss": "trap"
+          }
+        ]
+      },
+      "before_mnemonic": "Weave 竹 bamboo around a 单 single serving to make a 箪 small bamboo basket.",
+      "after_mnemonic": "Weave 竹 bamboo into the shape of a small 单 trap to make a 箪 small bamboo basket.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "脸",
+      "base_card_hash": "sha256:f2eb30ab3793e795ff470056e88eb5ad92552df4795ecd35d4d00d03b1af744f",
+      "before": {
+        "meaning": "face",
+        "equation": "⺼ meat (side) + 佥 all = 脸 face",
+        "components": [
+          {
+            "character": "⺼",
+            "gloss": "meat (side)"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⺼",
+            "gloss": "meat (side)"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "face",
+        "equation": "⺼ meat (side) + 佥 all = 脸 face",
+        "components": [
+          {
+            "character": "⺼",
+            "gloss": "meat (side)"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⺼",
+            "gloss": "meat (side)"
+          },
+          {
+            "character": "佥",
+            "gloss": "all"
+          }
+        ]
+      },
+      "before_mnemonic": "佥 all the features set in the ⺼ meat come together as one 脸 face.",
+      "after_mnemonic": "佥 all the eyes, nose, and mouth sit in the ⺼ meat (side) of the 脸 face.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "蕲",
+      "base_card_hash": "sha256:ea05dcc71725c82cada8ec2976925004194e63e4cba15d5b6e9a2d120b7cb78d",
+      "before": {
+        "meaning": "artemisia variety",
+        "equation": "艹 grass (top) + 单 single + 斤 axe = 蕲 artemisia variety",
+        "components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "单",
+            "gloss": "single"
+          },
+          {
+            "character": "斤",
+            "gloss": "axe"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "单",
+            "gloss": "single"
+          },
+          {
+            "character": "斤",
+            "gloss": "axe"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "artemisia variety",
+        "equation": "艹 grass (top) + 单 trap + 斤 axe = 蕲 artemisia variety",
+        "components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "单",
+            "gloss": "trap"
+          },
+          {
+            "character": "斤",
+            "gloss": "axe"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "单",
+            "gloss": "trap"
+          },
+          {
+            "character": "斤",
+            "gloss": "axe"
+          }
+        ]
+      },
+      "before_mnemonic": "A 单 single 斤 axe stroke separates a silvery 蕲 artemisia variety from the surrounding 艹 grass.",
+      "after_mnemonic": "A 斤 axe cuts through 艹 grass (top) near a 单 trap to harvest a 蕲 artemisia variety.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "蝉",
+      "base_card_hash": "sha256:e0a61744d739ff7337d5ed18ace9f3584d8881b77b81bc55bd74c66706b25cbf",
+      "before": {
+        "meaning": "continuous",
+        "equation": "虫 insects + 单 single = 蝉 continuous",
+        "components": [
+          {
+            "character": "虫",
+            "gloss": "insects"
+          },
+          {
+            "character": "单",
+            "gloss": "single"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "虫",
+            "gloss": "insects"
+          },
+          {
+            "character": "单",
+            "gloss": "single"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "cicada",
+        "equation": "虫 insects + 单 trap = 蝉 cicada",
+        "components": [
+          {
+            "character": "虫",
+            "gloss": "insects"
+          },
+          {
+            "character": "单",
+            "gloss": "trap"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "虫",
+            "gloss": "insects"
+          },
+          {
+            "character": "单",
+            "gloss": "trap"
+          }
+        ]
+      },
+      "before_mnemonic": "A chorus of 虫 insects sustains one 单 single note until the sound seems 蝉 continuous.",
+      "after_mnemonic": "One of the 虫 insects chirps from inside a 单 trap: a 蝉 cicada.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "褝",
+      "base_card_hash": "sha256:9d2c870ed144388227ea29329c78b94719a39334f50177276e67c3d6bad1a0a4",
+      "before": {
+        "meaning": "unlined",
+        "equation": "衤 clothing (side) + 単 list = 褝 unlined",
+        "components": [
+          {
+            "character": "衤",
+            "gloss": "clothing (side)"
+          },
+          {
+            "character": "単",
+            "gloss": "list"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "衤",
+            "gloss": "clothing (side)"
+          },
+          {
+            "character": "単",
+            "gloss": "list"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "unlined",
+        "equation": "衤 clothing (side) + 単 trap = 褝 unlined",
+        "components": [
+          {
+            "character": "衤",
+            "gloss": "clothing (side)"
+          },
+          {
+            "character": "単",
+            "gloss": "trap"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "衤",
+            "gloss": "clothing (side)"
+          },
+          {
+            "character": "単",
+            "gloss": "trap"
+          }
+        ]
+      },
+      "before_mnemonic": "A 単 list containing only outer fabric describes 衤 clothing that is 褝 unlined.",
+      "after_mnemonic": "Open a 単 trap flat and cover it with 衤 clothing (side) to cut a 褝 unlined garment.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "觯",
+      "base_card_hash": "sha256:d974b22623109f8522e0b20eb9086dd4f936fbd7b56524d0db3427530ec6d3fa",
+      "before": {
+        "meaning": "wine goblet",
+        "equation": "角 horn + 单 single = 觯 wine goblet",
+        "components": [
+          {
+            "character": "角",
+            "gloss": "horn"
+          },
+          {
+            "character": "单",
+            "gloss": "single"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "角",
+            "gloss": "horn"
+          },
+          {
+            "character": "单",
+            "gloss": "single"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "wine goblet",
+        "equation": "角 horn + 单 trap = 觯 wine goblet",
+        "components": [
+          {
+            "character": "角",
+            "gloss": "horn"
+          },
+          {
+            "character": "单",
+            "gloss": "trap"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "角",
+            "gloss": "horn"
+          },
+          {
+            "character": "单",
+            "gloss": "trap"
+          }
+        ]
+      },
+      "before_mnemonic": "A 单 single hollow 角 horn becomes an 觯 wine goblet.",
+      "after_mnemonic": "A hollow 角 horn fitted into a 单 trap frame becomes an 觯 wine goblet.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "郸",
+      "base_card_hash": "sha256:7ebb39662a98d5b8ec6084fb57a5f8a45c4bb02442c9b7a399df32572a0ba136",
+      "before": {
+        "meaning": "county",
+        "equation": "单 single + ⻏ city (right) = 郸 county",
+        "components": [
+          {
+            "character": "单",
+            "gloss": "single"
+          },
+          {
+            "character": "⻏",
+            "gloss": "city (right)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "单",
+            "gloss": "single"
+          },
+          {
+            "character": "⻏",
+            "gloss": "city (right)"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "county",
+        "equation": "单 trap + ⻏ city (right) = 郸 county",
+        "components": [
+          {
+            "character": "单",
+            "gloss": "trap"
+          },
+          {
+            "character": "⻏",
+            "gloss": "city (right)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "单",
+            "gloss": "trap"
+          },
+          {
+            "character": "⻏",
+            "gloss": "city (right)"
+          }
+        ]
+      },
+      "before_mnemonic": "A 单 single ⻏ city administers its surrounding 郸 county.",
+      "after_mnemonic": "A 单 trap emblem beside the ⻏ city (right) marks 郸 county.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "阐",
+      "base_card_hash": "sha256:1faeca7c9298a9835af67f38dc412b413b6da2b8d3da79713d21d704b4228372",
+      "before": {
+        "meaning": "clarify",
+        "equation": "门 gate + 单 single = 阐 clarify",
+        "components": [
+          {
+            "character": "门",
+            "gloss": "gate"
+          },
+          {
+            "character": "单",
+            "gloss": "single"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "门",
+            "gloss": "gate"
+          },
+          {
+            "character": "单",
+            "gloss": "single"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "clarify",
+        "equation": "门 gate + 单 trap = 阐 clarify",
+        "components": [
+          {
+            "character": "门",
+            "gloss": "gate"
+          },
+          {
+            "character": "单",
+            "gloss": "trap"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "门",
+            "gloss": "gate"
+          },
+          {
+            "character": "单",
+            "gloss": "trap"
+          }
+        ]
+      },
+      "before_mnemonic": "At the 门 gate, admit a 单 single explanation at a time to 阐 clarify the issue.",
+      "after_mnemonic": "Open the 门 gate, display the 单 trap mechanism, and 阐 clarify how it works.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "騨",
+      "base_card_hash": "sha256:8bf188322dbff07c597bd442e1b661b83213e033cd9a7399db76deae5301a319",
+      "before": {
+        "meaning": "dappled",
+        "equation": "馬 horse + 単 list = 騨 dappled",
+        "components": [
+          {
+            "character": "馬",
+            "gloss": "horse"
+          },
+          {
+            "character": "単",
+            "gloss": "list"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "馬",
+            "gloss": "horse"
+          },
+          {
+            "character": "単",
+            "gloss": "list"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "dappled",
+        "equation": "馬 horse + 単 trap = 騨 dappled",
+        "components": [
+          {
+            "character": "馬",
+            "gloss": "horse"
+          },
+          {
+            "character": "単",
+            "gloss": "trap"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "馬",
+            "gloss": "horse"
+          },
+          {
+            "character": "単",
+            "gloss": "trap"
+          }
+        ]
+      },
+      "before_mnemonic": "A 単 list catalogs every pale spot on a 馬 horse until its coat looks 騨 dappled.",
+      "after_mnemonic": "A 馬 horse with markings like the net of a 単 trap looks 騨 dappled.",
+      "valid": true,
+      "problems": []
+    }
+  ]
+}

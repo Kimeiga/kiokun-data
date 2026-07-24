@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "policy_version": "2026-07-24.1",
+  "purpose": "Align simplified and Japanese forms of 單 with the reviewed single/trap policy and replace the remaining genuinely generic high-frequency prose mnemonics.",
+  "lexical_glosses": {
+    "单": "single",
+    "単": "single"
+  },
+  "component_glosses": {
+    "单": "trap",
+    "単": "trap"
+  },
+  "root_decisions": {
+    "单": {
+      "decision": "variant_aligned_atomic_split",
+      "reason": "The simplified Chinese form inherits 單's common lexical meaning single and its concrete historical trap image."
+    },
+    "単": {
+      "decision": "variant_aligned_atomic_split",
+      "reason": "The Japanese simplified form inherits 單's lexical meaning single and is best reused as the same concrete trap image."
+    }
+  },
+  "prose_cleanup_characters": [
+    "姉",
+    "核",
+    "漢",
+    "脸"
+  ]
+}

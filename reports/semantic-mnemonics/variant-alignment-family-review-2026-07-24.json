@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "review_id": "variant-alignment-family-review-2026-07-24",
+  "policy_version": "2026-07-24.1",
+  "reviewed_root_count": 2,
+  "prose_cleanup_count": 4,
+  "changed_card_count": 27,
+  "method": "Manual review of every simplified-variant descendant plus all remaining high-frequency generic-filler findings.",
+  "roots": [
+    {
+      "character": "单",
+      "decision": "variant_aligned_atomic_split",
+      "reason": "The simplified Chinese form inherits 單's common lexical meaning single and its concrete historical trap image.",
+      "lexical_gloss": "single",
+      "component_gloss": "trap",
+      "changed_cards_with_component": 17
+    },
+    {
+      "character": "単",
+      "decision": "variant_aligned_atomic_split",
+      "reason": "The Japanese simplified form inherits 單's lexical meaning single and is best reused as the same concrete trap image.",
+      "lexical_gloss": "single",
+      "component_gloss": "trap",
+      "changed_cards_with_component": 6
+    }
+  ],
+  "prose_cleanup_characters": [
+    "姉",
+    "核",
+    "漢",
+    "脸"
+  ]
+}

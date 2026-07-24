@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-07-24T06:20:10.310701+00:00",
+  "created_at": "2026-07-24T06:26:39.609785+00:00",
   "count": 24037,
   "invalid_count": 0,
   "invalid": [],
@@ -768,138 +768,21 @@
   },
   "quality_review": {
     "methodology": "Formal validity and learning quality are separate. Flags are deterministic review signals; abstract meanings and variant forms are not automatically bad, while generic filler is a rewrite signal.",
-    "flagged_count": 1436,
+    "flagged_count": 1430,
     "quality_status_counts": {
-      "pass": 22601,
-      "review": 1407,
-      "rewrite": 29
+      "pass": 22607,
+      "review": 1406,
+      "rewrite": 24
     },
     "flag_counts": {
       "variant_form_needs_review": 832,
-      "abstract_final_meaning": 376,
+      "abstract_final_meaning": 375,
       "duplicated_component_meaning": 239,
       "opaque_component_gloss": 21,
       "unhelpful_final_gloss": 14,
-      "learner_facing_weirdness": 8,
-      "generic_filler": 5
+      "learner_facing_weirdness": 8
     },
     "top_suspicious": [
-      {
-        "character": "弾",
-        "meaning": "bullet",
-        "frequency_rank": 781,
-        "quality_status": "rewrite",
-        "quality_score": 6.0,
-        "review_priority": 11.395,
-        "flags": [
-          {
-            "code": "generic_filler",
-            "severity": 6.0,
-            "evidence": "joined with"
-          }
-        ],
-        "equation": "弓 bow + 単 list = 弾 bullet",
-        "mnemonic": "A 弓 bow joined with a 単 list gives shape to 弾 bullet.",
-        "components": [
-          {
-            "character": "弓",
-            "gloss": "bow"
-          },
-          {
-            "character": "単",
-            "gloss": "list"
-          }
-        ],
-        "component_source": "resolved_ids_forward",
-        "generation_source": "gemini35_reviewed_1000"
-      },
-      {
-        "character": "姉",
-        "meaning": "elder sister",
-        "frequency_rank": 998,
-        "quality_status": "rewrite",
-        "quality_score": 6.0,
-        "review_priority": 11.251,
-        "flags": [
-          {
-            "code": "generic_filler",
-            "severity": 6.0,
-            "evidence": "joined with"
-          }
-        ],
-        "equation": "女 woman + 市 market = 姉 elder sister",
-        "mnemonic": "A 女 woman joined with a 市 market gives shape to 姉 elder sister.",
-        "components": [
-          {
-            "character": "女",
-            "gloss": "woman"
-          },
-          {
-            "character": "市",
-            "gloss": "market"
-          }
-        ],
-        "component_source": "resolved_ids_forward",
-        "generation_source": "gemini35_reviewed_1000"
-      },
-      {
-        "character": "核",
-        "meaning": "nucleus",
-        "frequency_rank": 1016,
-        "quality_status": "rewrite",
-        "quality_score": 6.0,
-        "review_priority": 11.241,
-        "flags": [
-          {
-            "code": "generic_filler",
-            "severity": 6.0,
-            "evidence": "joined with"
-          }
-        ],
-        "equation": "木 tree + 亥 sign of the hog = 核 nucleus",
-        "mnemonic": "A 木 tree joined with a 亥 sign of the hog gives shape to 核 nucleus.",
-        "components": [
-          {
-            "character": "木",
-            "gloss": "tree"
-          },
-          {
-            "character": "亥",
-            "gloss": "sign of the hog"
-          }
-        ],
-        "component_source": "resolved_ids_forward",
-        "generation_source": "gemini35_reviewed_1000"
-      },
-      {
-        "character": "漢",
-        "meaning": "Han",
-        "frequency_rank": 1063,
-        "quality_status": "rewrite",
-        "quality_score": 6.0,
-        "review_priority": 11.215,
-        "flags": [
-          {
-            "code": "generic_filler",
-            "severity": 6.0,
-            "evidence": "joined with"
-          }
-        ],
-        "equation": "氵 water (drops) + 𦰩 sigh = 漢 Han",
-        "mnemonic": "A 氵 water joined with a 𦰩 sigh gives shape to 漢 Han.",
-        "components": [
-          {
-            "character": "氵",
-            "gloss": "water (drops)"
-          },
-          {
-            "character": "𦰩",
-            "gloss": "sigh"
-          }
-        ],
-        "component_source": "resolved_ids_forward",
-        "generation_source": "gemini35_reviewed_1000"
-      },
       {
         "character": "質",
         "meaning": "quality",
@@ -1630,17 +1513,154 @@
         ],
         "component_source": "resolved_ids_forward",
         "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
+      },
+      {
+        "character": "双",
+        "meaning": "pair",
+        "frequency_rank": 1240,
+        "quality_status": "review",
+        "quality_score": 4.0,
+        "review_priority": 7.42,
+        "flags": [
+          {
+            "code": "duplicated_component_meaning",
+            "severity": 4.0,
+            "evidence": [
+              [
+                "又",
+                "又"
+              ]
+            ]
+          }
+        ],
+        "equation": "又 hand + 又 hand = 双 pair",
+        "mnemonic": "One 又 hand clasps another 又 hand, making a 双 pair.",
+        "components": [
+          {
+            "character": "又",
+            "gloss": "hand"
+          },
+          {
+            "character": "又",
+            "gloss": "hand"
+          }
+        ],
+        "component_source": "resolved_ids_forward",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
+      },
+      {
+        "character": "炎",
+        "meaning": "inflammation",
+        "frequency_rank": 1343,
+        "quality_status": "review",
+        "quality_score": 4.0,
+        "review_priority": 7.391,
+        "flags": [
+          {
+            "code": "duplicated_component_meaning",
+            "severity": 4.0,
+            "evidence": [
+              [
+                "火",
+                "火"
+              ]
+            ]
+          }
+        ],
+        "equation": "火 fire + 火 fire = 炎 inflammation",
+        "mnemonic": "In 炎 inflammation, one 火 fire burns above another 火 fire, doubling the sense of heat.",
+        "components": [
+          {
+            "character": "火",
+            "gloss": "fire"
+          },
+          {
+            "character": "火",
+            "gloss": "fire"
+          }
+        ],
+        "component_source": "resolved_ids_forward",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
+      },
+      {
+        "character": "獄",
+        "meaning": "prison",
+        "frequency_rank": 1428,
+        "quality_status": "review",
+        "quality_score": 4.0,
+        "review_priority": 7.37,
+        "flags": [
+          {
+            "code": "duplicated_component_meaning",
+            "severity": 4.0,
+            "evidence": [
+              [
+                "犭",
+                "犬"
+              ]
+            ]
+          }
+        ],
+        "equation": "犭 dog (side) + 犬 dog + 言 speech = 獄 prison",
+        "mnemonic": "A 犭 dog and a 犬 dog trade accusations in 言 speech, so both are locked in 獄 prison.",
+        "components": [
+          {
+            "character": "犭",
+            "gloss": "dog (side)"
+          },
+          {
+            "character": "犬",
+            "gloss": "dog"
+          },
+          {
+            "character": "言",
+            "gloss": "speech"
+          }
+        ],
+        "component_source": "resolved_ids_forward",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
+      },
+      {
+        "character": "卵",
+        "meaning": "nest eggs",
+        "frequency_rank": 1507,
+        "quality_status": "review",
+        "quality_score": 4.0,
+        "review_priority": 7.351,
+        "flags": [
+          {
+            "code": "opaque_component_gloss",
+            "severity": 4.0,
+            "evidence": [
+              "卪 reading mark"
+            ]
+          }
+        ],
+        "equation": "𠂑 hook stroke + 卪 reading mark = 卵 nest eggs",
+        "mnemonic": "A 𠂑 hook stroke and a 卪 reading mark curve like shell halves around paired 卵 nest eggs.",
+        "components": [
+          {
+            "character": "𠂑",
+            "gloss": "hook stroke"
+          },
+          {
+            "character": "卪",
+            "gloss": "reading mark"
+          }
+        ],
+        "component_source": "resolved_ids_forward",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
       }
     ],
     "full_review_count": 0,
     "certification_status": "expedited_non_certified"
   },
   "gpt56_expedited_release": {
-    "materialized_card_projection_hash": "sha256:fa3697725a216215b769461edd20ae338fa2947f9e69f1fbc20d02c1ad54d5e9",
+    "materialized_card_projection_hash": "sha256:038051ea4e5407d2c16c9376a43ca41c7c56fdd2db9b7b61f7618fd3dbe9db29",
     "formal_validation": {
       "count": 24037,
       "invalid_count": 0
     },
-    "editorial_ledger_sha256": "sha256:b59844197dc9c29364d614ff7f5f0657e785d05cd3e687aed9c4a6e36901967e"
+    "editorial_ledger_sha256": "sha256:5c137e8ead0ef5dab848330e9433964cf0f7c003f8f0413e7190b2ef6f363eb5"
   }
 }

@@ -1,6 +1,6 @@
 {
-  "created_at": "2026-07-24T06:20:12.334893+00:00",
-  "artifact_created_at": "2026-07-24T06:20:10.671057+00:00",
+  "created_at": "2026-07-24T06:26:41.978458+00:00",
+  "artifact_created_at": "2026-07-24T06:26:39.989069+00:00",
   "methodology": "Formal validity and learning quality are separate. Flags are deterministic review signals; abstract meanings and variant forms are not automatically bad, while generic filler is a rewrite signal.",
   "taxonomy": {
     "generic_filler": {
@@ -2083,138 +2083,21 @@
   },
   "count": 24037,
   "quality_status_counts": {
-    "pass": 22601,
-    "review": 1407,
-    "rewrite": 29
+    "pass": 22607,
+    "review": 1406,
+    "rewrite": 24
   },
   "flag_counts": {
     "variant_form_needs_review": 832,
-    "abstract_final_meaning": 376,
+    "abstract_final_meaning": 375,
     "duplicated_component_meaning": 239,
     "opaque_component_gloss": 21,
     "unhelpful_final_gloss": 14,
-    "learner_facing_weirdness": 8,
-    "generic_filler": 5
+    "learner_facing_weirdness": 8
   },
-  "flagged_count": 1436,
-  "ranked_count": 1436,
+  "flagged_count": 1430,
+  "ranked_count": 1430,
   "ranked": [
-    {
-      "character": "弾",
-      "meaning": "bullet",
-      "frequency_rank": 781,
-      "quality_status": "rewrite",
-      "quality_score": 6.0,
-      "review_priority": 11.395,
-      "flags": [
-        {
-          "code": "generic_filler",
-          "severity": 6.0,
-          "evidence": "joined with"
-        }
-      ],
-      "equation": "弓 bow + 単 list = 弾 bullet",
-      "mnemonic": "A 弓 bow joined with a 単 list gives shape to 弾 bullet.",
-      "components": [
-        {
-          "character": "弓",
-          "gloss": "bow"
-        },
-        {
-          "character": "単",
-          "gloss": "list"
-        }
-      ],
-      "component_source": "resolved_ids_forward",
-      "generation_source": "gemini35_reviewed_1000"
-    },
-    {
-      "character": "姉",
-      "meaning": "elder sister",
-      "frequency_rank": 998,
-      "quality_status": "rewrite",
-      "quality_score": 6.0,
-      "review_priority": 11.251,
-      "flags": [
-        {
-          "code": "generic_filler",
-          "severity": 6.0,
-          "evidence": "joined with"
-        }
-      ],
-      "equation": "女 woman + 市 market = 姉 elder sister",
-      "mnemonic": "A 女 woman joined with a 市 market gives shape to 姉 elder sister.",
-      "components": [
-        {
-          "character": "女",
-          "gloss": "woman"
-        },
-        {
-          "character": "市",
-          "gloss": "market"
-        }
-      ],
-      "component_source": "resolved_ids_forward",
-      "generation_source": "gemini35_reviewed_1000"
-    },
-    {
-      "character": "核",
-      "meaning": "nucleus",
-      "frequency_rank": 1016,
-      "quality_status": "rewrite",
-      "quality_score": 6.0,
-      "review_priority": 11.241,
-      "flags": [
-        {
-          "code": "generic_filler",
-          "severity": 6.0,
-          "evidence": "joined with"
-        }
-      ],
-      "equation": "木 tree + 亥 sign of the hog = 核 nucleus",
-      "mnemonic": "A 木 tree joined with a 亥 sign of the hog gives shape to 核 nucleus.",
-      "components": [
-        {
-          "character": "木",
-          "gloss": "tree"
-        },
-        {
-          "character": "亥",
-          "gloss": "sign of the hog"
-        }
-      ],
-      "component_source": "resolved_ids_forward",
-      "generation_source": "gemini35_reviewed_1000"
-    },
-    {
-      "character": "漢",
-      "meaning": "Han",
-      "frequency_rank": 1063,
-      "quality_status": "rewrite",
-      "quality_score": 6.0,
-      "review_priority": 11.215,
-      "flags": [
-        {
-          "code": "generic_filler",
-          "severity": 6.0,
-          "evidence": "joined with"
-        }
-      ],
-      "equation": "氵 water (drops) + 𦰩 sigh = 漢 Han",
-      "mnemonic": "A 氵 water joined with a 𦰩 sigh gives shape to 漢 Han.",
-      "components": [
-        {
-          "character": "氵",
-          "gloss": "water (drops)"
-        },
-        {
-          "character": "𦰩",
-          "gloss": "sigh"
-        }
-      ],
-      "component_source": "resolved_ids_forward",
-      "generation_source": "gemini35_reviewed_1000"
-    },
     {
       "character": "質",
       "meaning": "quality",
@@ -3774,35 +3657,6 @@
       ],
       "component_source": "variant_alias:㬈",
       "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-    },
-    {
-      "character": "脸",
-      "meaning": "face",
-      "frequency_rank": null,
-      "quality_status": "rewrite",
-      "quality_score": 6.0,
-      "review_priority": 6.0,
-      "flags": [
-        {
-          "code": "generic_filler",
-          "severity": 6.0,
-          "evidence": "come together as"
-        }
-      ],
-      "equation": "⺼ meat (side) + 佥 all = 脸 face",
-      "mnemonic": "佥 all the features set in the ⺼ meat come together as one 脸 face.",
-      "components": [
-        {
-          "character": "⺼",
-          "gloss": "meat (side)"
-        },
-        {
-          "character": "佥",
-          "gloss": "all"
-        }
-      ],
-      "component_source": "resolved_ids_forward",
-      "generation_source": "gpt56_quality_ledger_interim_candidate"
     },
     {
       "character": "句",
@@ -43578,35 +43432,6 @@
       "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
     },
     {
-      "character": "蝉",
-      "meaning": "continuous",
-      "frequency_rank": null,
-      "quality_status": "review",
-      "quality_score": 1.5,
-      "review_priority": 1.5,
-      "flags": [
-        {
-          "code": "abstract_final_meaning",
-          "severity": 1.5,
-          "evidence": "continuous"
-        }
-      ],
-      "equation": "虫 insects + 单 single = 蝉 continuous",
-      "mnemonic": "A chorus of 虫 insects sustains one 单 single note until the sound seems 蝉 continuous.",
-      "components": [
-        {
-          "character": "虫",
-          "gloss": "insects"
-        },
-        {
-          "character": "单",
-          "gloss": "single"
-        }
-      ],
-      "component_source": "resolved_ids_forward",
-      "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-    },
-    {
       "character": "螟",
       "meaning": "kind of caterpillar",
       "frequency_rank": null,
@@ -46043,11 +45868,11 @@
   ],
   "gpt56_expedited_release": {
     "certification_status": "expedited_non_certified",
-    "materialized_card_projection_hash": "sha256:fa3697725a216215b769461edd20ae338fa2947f9e69f1fbc20d02c1ad54d5e9",
+    "materialized_card_projection_hash": "sha256:038051ea4e5407d2c16c9376a43ca41c7c56fdd2db9b7b61f7618fd3dbe9db29",
     "formal_validation": {
       "count": 24037,
       "invalid_count": 0
     },
-    "editorial_ledger_sha256": "sha256:b59844197dc9c29364d614ff7f5f0657e785d05cd3e687aed9c4a6e36901967e"
+    "editorial_ledger_sha256": "sha256:5c137e8ead0ef5dab848330e9433964cf0f7c003f8f0413e7190b2ef6f363eb5"
   }
 }
