@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "review_id": "concrete-variant-gloss-family-review-2026-07-24",
+  "policy_version": "2026-07-24.1",
+  "reviewed_root_count": 10,
+  "changed_card_count": 57,
+  "target_cleanup_count": 11,
+  "method": "Manual review and rewrite of the complete affected boundaries for five dictionary-backed traditional/simplified concepts.",
+  "roots": [
+    {
+      "character": "晉",
+      "decision": "align_lexical_and_component_gloss_and_atomize",
+      "lexical_gloss": "advance",
+      "component_gloss": "advance",
+      "reason": "Advance is the dictionary gloss and unifies the traditional and simplified recurring unit. Promote and increase were narrower story choices that drifted apart."
+    },
+    {
+      "character": "晋",
+      "decision": "align_component_gloss_and_atomize",
+      "lexical_gloss": "advance",
+      "component_gloss": "advance",
+      "reason": "Advance is the dictionary gloss and the useful recurring unit across eleven descendants."
+    },
+    {
+      "character": "烏",
+      "decision": "preserve_pictographic_gloss_and_atomize",
+      "lexical_gloss": "crow",
+      "component_gloss": "crow",
+      "reason": "烏 is a crow pictograph. Keeping the whole bird image is more useful than decomposing its black lower strokes as fire."
+    },
+    {
+      "character": "乌",
+      "decision": "correct_species_gloss_and_atomize",
+      "lexical_gloss": "crow",
+      "component_gloss": "crow",
+      "reason": "乌 is the simplified form of the crow pictograph 烏; rook was an unjustified narrowing."
+    },
+    {
+      "character": "兩",
+      "decision": "preserve_lexical_gloss_and_atomize",
+      "lexical_gloss": "two",
+      "component_gloss": "two",
+      "reason": "Two is the direct dictionary gloss and the stable concept used by the family."
+    },
+    {
+      "character": "两",
+      "decision": "align_variant_gloss_and_atomize",
+      "lexical_gloss": "two",
+      "component_gloss": "two",
+      "reason": "两 is the simplified form of 兩 and means two; pair was a related but unnecessarily different gloss."
+    },
+    {
+      "character": "袞",
+      "decision": "restore_nominal_gloss_and_atomize",
+      "lexical_gloss": "imperial robe",
+      "component_gloss": "imperial robe",
+      "reason": "袞 names an imperial robe. The adjective ceremonial was incomplete and forced vague scenes."
+    },
+    {
+      "character": "衮",
+      "decision": "preserve_lexical_gloss_and_atomize",
+      "lexical_gloss": "imperial robe",
+      "component_gloss": "imperial robe",
+      "reason": "The root should match the coherent imperial-robe unit already used by its descendants."
+    },
+    {
+      "character": "帶",
+      "decision": "restore_common_gloss_and_atomize",
+      "lexical_gloss": "belt",
+      "component_gloss": "belt",
+      "reason": "帶 is a pictograph of a woven belt. Belt is more common and direct than sash."
+    },
+    {
+      "character": "带",
+      "decision": "restore_common_gloss_and_atomize",
+      "lexical_gloss": "belt",
+      "component_gloss": "belt",
+      "reason": "带 is the simplified form of 帶; belt is more common and direct than girdle."
+    }
+  ],
+  "final_component_occurrences": {
+    "晉 advance": 2,
+    "晋 advance": 12,
+    "烏 crow": 13,
+    "乌 crow": 5,
+    "兩 two": 11,
+    "两 two": 6,
+    "袞 imperial robe": 5,
+    "衮 imperial robe": 5,
+    "帶 belt": 14,
+    "带 belt": 5
+  },
+  "target_cleanup": {
+    "鄔": "place name",
+    "邬": "place name",
+    "䙛": "imperial ceremonial dress",
+    "滾": "roll",
+    "滚": "roll",
+    "蔉": "bank up earth",
+    "䜇": "remain silent",
+    "㯂": "post",
+    "䐭": "discharge",
+    "蔕": "flower stalk",
+    "遰": "pig grunt"
+  },
+  "evidence": [
+    {
+      "source": "Repository Chinese dictionary",
+      "path": "data/chinese_dictionary_char_2025-06-25.jsonl",
+      "supports": "Advance, crow, two, imperial robe, and belt are the recorded glosses; variant links are explicit."
+    }
+  ]
+}

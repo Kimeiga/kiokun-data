@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-07-24T08:02:32.517872+00:00",
+  "created_at": "2026-07-24T08:12:25.063128+00:00",
   "count": 24037,
   "invalid_count": 0,
   "invalid": [],
@@ -762,22 +762,22 @@
   "mnemonic_length": {
     "min": 34,
     "p50": 78,
-    "p90": 98,
+    "p90": 97,
     "p95": 104,
     "max": 164
   },
   "quality_review": {
     "methodology": "Formal validity and learning quality are separate. Flags are deterministic review signals; abstract meanings and variant forms are not automatically bad, while generic filler is a rewrite signal.",
-    "flagged_count": 1428,
+    "flagged_count": 1426,
     "quality_status_counts": {
-      "pass": 22609,
-      "review": 1404,
+      "pass": 22611,
+      "review": 1402,
       "rewrite": 24
     },
     "flag_counts": {
       "variant_form_needs_review": 832,
-      "abstract_final_meaning": 374,
-      "duplicated_component_meaning": 239,
+      "abstract_final_meaning": 373,
+      "duplicated_component_meaning": 238,
       "opaque_component_gloss": 21,
       "unhelpful_final_gloss": 14,
       "learner_facing_weirdness": 7
@@ -1656,11 +1656,11 @@
     "certification_status": "expedited_non_certified"
   },
   "gpt56_expedited_release": {
-    "materialized_card_projection_hash": "sha256:9cf33b561c6090349b01bf4ec4c94b9aff21178f683f7d2b93a70e2abb02f333",
+    "materialized_card_projection_hash": "sha256:4572f55ac9efc423bb5380e3c26e25564dd8fdfe3878040cc14a03d0ee18f307",
     "formal_validation": {
       "count": 24037,
       "invalid_count": 0
     },
-    "editorial_ledger_sha256": "sha256:86cd9914ea0354fc454081b469cd660849c73f4c6869f871e1f48b6e67f7aa21"
+    "editorial_ledger_sha256": "sha256:62e1bc581b499c6468923ac0ae713dc03561890b3da3e6727dc4ebb6d0b279d3"
   }
 }

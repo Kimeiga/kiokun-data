@@ -1,6 +1,6 @@
 {
-  "created_at": "2026-07-24T08:02:34.525861+00:00",
-  "artifact_created_at": "2026-07-24T08:02:32.882171+00:00",
+  "created_at": "2026-07-24T08:12:27.035057+00:00",
+  "artifact_created_at": "2026-07-24T08:12:25.414994+00:00",
   "methodology": "Formal validity and learning quality are separate. Flags are deterministic review signals; abstract meanings and variant forms are not automatically bad, while generic filler is a rewrite signal.",
   "taxonomy": {
     "generic_filler": {
@@ -2083,20 +2083,20 @@
   },
   "count": 24037,
   "quality_status_counts": {
-    "pass": 22609,
-    "review": 1404,
+    "pass": 22611,
+    "review": 1402,
     "rewrite": 24
   },
   "flag_counts": {
     "variant_form_needs_review": 832,
-    "abstract_final_meaning": 374,
-    "duplicated_component_meaning": 239,
+    "abstract_final_meaning": 373,
+    "duplicated_component_meaning": 238,
     "opaque_component_gloss": 21,
     "unhelpful_final_gloss": 14,
     "learner_facing_weirdness": 7
   },
-  "flagged_count": 1428,
-  "ranked_count": 1428,
+  "flagged_count": 1426,
+  "ranked_count": 1426,
   "ranked": [
     {
       "character": "質",
@@ -9343,56 +9343,6 @@
         {
           "character": "厼",
           "gloss": "reading mark"
-        }
-      ],
-      "component_source": "resolved_ids_forward",
-      "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-    },
-    {
-      "character": "晉",
-      "meaning": "promote",
-      "frequency_rank": null,
-      "quality_status": "review",
-      "quality_score": 4.0,
-      "review_priority": 4.0,
-      "flags": [
-        {
-          "code": "duplicated_component_meaning",
-          "severity": 4.0,
-          "evidence": [
-            [
-              "一",
-              "一"
-            ],
-            [
-              "厶",
-              "厶"
-            ]
-          ]
-        }
-      ],
-      "equation": "一 one + 厶 secret + 厶 secret + 一 one + 日 sun = 晉 promote",
-      "mnemonic": "At sunrise, the 日 sun lifts 一 one bearer of an 厶 secret above 一 one bearer of another 厶 secret to 晉 promote the first.",
-      "components": [
-        {
-          "character": "一",
-          "gloss": "one"
-        },
-        {
-          "character": "厶",
-          "gloss": "secret"
-        },
-        {
-          "character": "厶",
-          "gloss": "secret"
-        },
-        {
-          "character": "一",
-          "gloss": "one"
-        },
-        {
-          "character": "日",
-          "gloss": "sun"
         }
       ],
       "component_source": "resolved_ids_forward",
@@ -23463,8 +23413,8 @@
           "evidence": "縉"
         }
       ],
-      "equation": "糸 thread + 晋 increase = 縉 red silk",
-      "mnemonic": "As more 糸 thread enters the dye bath, the stock of 縉 red silk begins to 晋 increase.",
+      "equation": "糸 thread + 晋 advance = 縉 red silk",
+      "mnemonic": "As the shuttle makes each 晋 advance, 糸 thread forms a bolt of 縉 red silk.",
       "components": [
         {
           "character": "糸",
@@ -23472,7 +23422,7 @@
         },
         {
           "character": "晋",
-          "gloss": "increase"
+          "gloss": "advance"
         }
       ],
       "component_source": "variant_alias:縉",
@@ -30809,8 +30759,8 @@
           "evidence": "搢"
         }
       ],
-      "equation": "扌 hand (side) + 晋 increase = 搢 stick into",
-      "mnemonic": "A 扌 hand makes the row 晋 increase as each new stake begins to 搢 stick into the soil.",
+      "equation": "扌 hand (side) + 晋 advance = 搢 stick into",
+      "mnemonic": "With each 晋 advance of a 扌 hand (side), a stake begins to 搢 stick into the soil.",
       "components": [
         {
           "character": "扌",
@@ -30818,7 +30768,7 @@
         },
         {
           "character": "晋",
-          "gloss": "increase"
+          "gloss": "advance"
         }
       ],
       "component_source": "variant_alias:搢",
@@ -36273,12 +36223,12 @@
           "evidence": "鄑"
         }
       ],
-      "equation": "晋 increase + ⻏ city (right) = 鄑 place",
-      "mnemonic": "As buildings 晋 increase, a Shandong ⻏ city becomes a named 鄑 place on the map.",
+      "equation": "晋 advance + ⻏ city (right) = 鄑 place",
+      "mnemonic": "An 晋 advance beyond the ⻏ city (right) wall reaches the named 鄑 place.",
       "components": [
         {
           "character": "晋",
-          "gloss": "increase"
+          "gloss": "advance"
         },
         {
           "character": "⻏",
@@ -38125,8 +38075,8 @@
           "evidence": "state during the Spring and Autumn period"
         }
       ],
-      "equation": "日 sun + 晋 increase = 㬐 state during the Spring and Autumn period",
-      "mnemonic": "With every return of the 日 sun, 晋 increase expands the 㬐 state during the Spring and Autumn period.",
+      "equation": "日 sun + 晋 advance = 㬐 state during the Spring and Autumn period",
+      "mnemonic": "Each 日 sun marks another year as the border can 晋 advance, recalling the 㬐 state during the Spring and Autumn period.",
       "components": [
         {
           "character": "日",
@@ -38134,7 +38084,7 @@
         },
         {
           "character": "晋",
-          "gloss": "increase"
+          "gloss": "advance"
         }
       ],
       "component_source": "resolved_ids_forward",
@@ -39026,35 +38976,6 @@
         {
           "character": "居",
           "gloss": "reside"
-        }
-      ],
-      "component_source": "resolved_ids_forward",
-      "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-    },
-    {
-      "character": "䜇",
-      "meaning": "speak not",
-      "frequency_rank": null,
-      "quality_status": "review",
-      "quality_score": 1.5,
-      "review_priority": 1.5,
-      "flags": [
-        {
-          "code": "abstract_final_meaning",
-          "severity": 1.5,
-          "evidence": "speak not"
-        }
-      ],
-      "equation": "言 speech + 衮 imperial robe = 䜇 speak not",
-      "mnemonic": "Before a ruler wearing a 衮 imperial robe, etiquette restrains 言 speech, requiring attendants to 䜇 speak not.",
-      "components": [
-        {
-          "character": "言",
-          "gloss": "speech"
-        },
-        {
-          "character": "衮",
-          "gloss": "imperial robe"
         }
       ],
       "component_source": "resolved_ids_forward",
@@ -42119,8 +42040,8 @@
           "evidence": "be in great difficulty"
         }
       ],
-      "equation": "歹 death + 帶 sash = 殢 be in great difficulty",
-      "mnemonic": "To 殢 be in great difficulty is to have a 帶 sash snag on skeletal 歹 death remains.",
+      "equation": "歹 death + 帶 belt = 殢 be in great difficulty",
+      "mnemonic": "Anyone whose 帶 belt snags on skeletal 歹 death remains will 殢 be in great difficulty.",
       "components": [
         {
           "character": "歹",
@@ -42128,7 +42049,7 @@
         },
         {
           "character": "帶",
-          "gloss": "sash"
+          "gloss": "belt"
         }
       ],
       "component_source": "resolved_ids_forward",
@@ -45814,11 +45735,11 @@
   ],
   "gpt56_expedited_release": {
     "certification_status": "expedited_non_certified",
-    "materialized_card_projection_hash": "sha256:9cf33b561c6090349b01bf4ec4c94b9aff21178f683f7d2b93a70e2abb02f333",
+    "materialized_card_projection_hash": "sha256:4572f55ac9efc423bb5380e3c26e25564dd8fdfe3878040cc14a03d0ee18f307",
     "formal_validation": {
       "count": 24037,
       "invalid_count": 0
     },
-    "editorial_ledger_sha256": "sha256:86cd9914ea0354fc454081b469cd660849c73f4c6869f871e1f48b6e67f7aa21"
+    "editorial_ledger_sha256": "sha256:62e1bc581b499c6468923ac0ae713dc03561890b3da3e6727dc4ebb6d0b279d3"
   }
 }

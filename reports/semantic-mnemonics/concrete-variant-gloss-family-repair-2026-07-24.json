@@ -1,0 +1,3204 @@
+{
+  "schema_version": 1,
+  "policy_version": "2026-07-24.1",
+  "policy_path": "data/semantic_mnemonic_concrete_variant_gloss_policy.json",
+  "base_projection_hash": "sha256:8df7cb844f72d0f605659a5d85a53d8b0aed17dd5a6fa7a5b35fb7dbd0686f50",
+  "candidate_projection_hash": "sha256:fc98bb12055f34cbfd48e95204475fa6942d0b86637d6a102a93f7bcb586907c",
+  "card_count": 24037,
+  "invalid_count": 0,
+  "changed_count": 57,
+  "already_applied_count": 0,
+  "component_occurrences": {
+    "晉 advance": 2,
+    "晋 advance": 12,
+    "烏 crow": 13,
+    "乌 crow": 5,
+    "兩 two": 11,
+    "两 two": 6,
+    "袞 imperial robe": 5,
+    "衮 imperial robe": 5,
+    "帶 belt": 14,
+    "带 belt": 5
+  },
+  "changed_characters": [
+    "㗣",
+    "㙥",
+    "㛿",
+    "㦅",
+    "㨰",
+    "㬐",
+    "㯂",
+    "㿃",
+    "䐭",
+    "䗖",
+    "䙊",
+    "䙛",
+    "䜇",
+    "䠠",
+    "两",
+    "乌",
+    "俩",
+    "兩",
+    "呜",
+    "唡",
+    "坞",
+    "带",
+    "帶",
+    "戩",
+    "戬",
+    "搢",
+    "摕",
+    "晉",
+    "晋",
+    "殢",
+    "溍",
+    "滚",
+    "滞",
+    "滯",
+    "滾",
+    "烏",
+    "瑨",
+    "磙",
+    "縉",
+    "缙",
+    "艜",
+    "蔉",
+    "蔕",
+    "螮",
+    "衮",
+    "袞",
+    "辆",
+    "遰",
+    "邬",
+    "鄑",
+    "鄔",
+    "钨",
+    "魉",
+    "縉",
+    "𬜯",
+    "搢",
+    "鄑"
+  ],
+  "changes": [
+    {
+      "character": "㗣",
+      "base_card_hash": "sha256:88f6d6cd637af6418619b8269c4bdc16e88c6cdf5f8fd9e991ec3ce7006abd0b",
+      "before": {
+        "meaning": "sneeze",
+        "equation": "口 mouth + 帶 sash = 㗣 sneeze",
+        "components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "帶",
+            "gloss": "sash"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "帶",
+            "gloss": "sash"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sneeze",
+        "equation": "口 mouth + 帶 belt = 㗣 sneeze",
+        "components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "帶",
+            "gloss": "belt"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "帶",
+            "gloss": "belt"
+          }
+        ]
+      },
+      "before_mnemonic": "A burst from the 口 mouth makes a loose 帶 sash flutter during a 㗣 sneeze.",
+      "after_mnemonic": "A burst from the 口 mouth makes a loose 帶 belt flutter during a 㗣 sneeze.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㙥",
+      "base_card_hash": "sha256:8b5f0351e3522912b449068b2acb60c3492ec03ab4eb6e8b3c0a071d893981b4",
+      "before": {
+        "meaning": "muddy",
+        "equation": "土 earth + 袞 ceremonial = 㙥 muddy",
+        "components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "袞",
+            "gloss": "ceremonial"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "袞",
+            "gloss": "ceremonial"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "muddy",
+        "equation": "土 earth + 袞 imperial robe = 㙥 muddy",
+        "components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "袞",
+            "gloss": "imperial robe"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "袞",
+            "gloss": "imperial robe"
+          }
+        ]
+      },
+      "before_mnemonic": "A 袞 ceremonial robe dragging across wet 土 earth soon becomes 㙥 muddy.",
+      "after_mnemonic": "A 袞 imperial robe dragging through wet 土 earth becomes 㙥 muddy.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㛿",
+      "base_card_hash": "sha256:2ed92bc30ae6c2c09f680be837c89cf29a974e3f2994921424ddb088d546da0a",
+      "before": {
+        "meaning": "spoiled",
+        "equation": "女 woman + 带 girdle = 㛿 spoiled",
+        "components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "带",
+            "gloss": "girdle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "带",
+            "gloss": "girdle"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "spoiled",
+        "equation": "女 woman + 带 belt = 㛿 spoiled",
+        "components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "带",
+            "gloss": "belt"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "带",
+            "gloss": "belt"
+          }
+        ]
+      },
+      "before_mnemonic": "Given every jeweled 带 girdle, a 女 woman becomes 㛿 spoiled by constant indulgence.",
+      "after_mnemonic": "Given every jeweled 带 belt, a 女 woman becomes 㛿 spoiled by constant indulgence.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㦅",
+      "base_card_hash": "sha256:b7eef13230a6c5a119b6026e45e8b141b2edd160a4ebae5f1d258cb5416443f8",
+      "before": {
+        "meaning": "uneasy",
+        "equation": "忄 heart (side) + 帶 sash = 㦅 uneasy",
+        "components": [
+          {
+            "character": "忄",
+            "gloss": "heart (side)"
+          },
+          {
+            "character": "帶",
+            "gloss": "sash"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "忄",
+            "gloss": "heart (side)"
+          },
+          {
+            "character": "帶",
+            "gloss": "sash"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "uneasy",
+        "equation": "忄 heart (side) + 帶 belt = 㦅 uneasy",
+        "components": [
+          {
+            "character": "忄",
+            "gloss": "heart (side)"
+          },
+          {
+            "character": "帶",
+            "gloss": "belt"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "忄",
+            "gloss": "heart (side)"
+          },
+          {
+            "character": "帶",
+            "gloss": "belt"
+          }
+        ]
+      },
+      "before_mnemonic": "A 帶 sash tied crookedly over the 忄 heart leaves everything feeling 㦅 uneasy.",
+      "after_mnemonic": "A 帶 belt tied too tightly over the 忄 heart (side) leaves its wearer 㦅 uneasy.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㨰",
+      "base_card_hash": "sha256:6f0760cfd209a4633fba8c74b8a98f77e851fbd5e0e7da691bbb780d28346535",
+      "before": {
+        "meaning": "turn",
+        "equation": "扌 hand (side) + 衮 imperial robe = 㨰 turn",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "衮",
+            "gloss": "imperial robe"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "衮",
+            "gloss": "imperial robe"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "turn",
+        "equation": "扌 hand (side) + 衮 imperial robe = 㨰 turn",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "衮",
+            "gloss": "imperial robe"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "衮",
+            "gloss": "imperial robe"
+          }
+        ]
+      },
+      "before_mnemonic": "A 扌 hand twists the hem of a 衮 imperial robe to 㨰 turn its wearer around.",
+      "after_mnemonic": "A 扌 hand (side) twists the hem of a 衮 imperial robe to 㨰 turn its wearer around.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㬐",
+      "base_card_hash": "sha256:a9c32b53e9526ea22f5598f85535016edc862e4621f16e3208f23f572d346d8e",
+      "before": {
+        "meaning": "state during the Spring and Autumn period",
+        "equation": "日 sun + 晋 increase = 㬐 state during the Spring and Autumn period",
+        "components": [
+          {
+            "character": "日",
+            "gloss": "sun"
+          },
+          {
+            "character": "晋",
+            "gloss": "increase"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "日",
+            "gloss": "sun"
+          },
+          {
+            "character": "晋",
+            "gloss": "increase"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "state during the Spring and Autumn period",
+        "equation": "日 sun + 晋 advance = 㬐 state during the Spring and Autumn period",
+        "components": [
+          {
+            "character": "日",
+            "gloss": "sun"
+          },
+          {
+            "character": "晋",
+            "gloss": "advance"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "日",
+            "gloss": "sun"
+          },
+          {
+            "character": "晋",
+            "gloss": "advance"
+          }
+        ]
+      },
+      "before_mnemonic": "With every return of the 日 sun, 晋 increase expands the 㬐 state during the Spring and Autumn period.",
+      "after_mnemonic": "Each 日 sun marks another year as the border can 晋 advance, recalling the 㬐 state during the Spring and Autumn period.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㯂",
+      "base_card_hash": "sha256:602a424ce4859abe557546b2fa72dbda817d88e3a220f16eb08801df02d3b4a9",
+      "before": {
+        "meaning": "pillar or post",
+        "equation": "木 tree + 帶 sash = 㯂 pillar or post",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "帶",
+            "gloss": "sash"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "帶",
+            "gloss": "sash"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "post",
+        "equation": "木 tree + 帶 belt = 㯂 post",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "帶",
+            "gloss": "belt"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "帶",
+            "gloss": "belt"
+          }
+        ]
+      },
+      "before_mnemonic": "A 帶 sash binds a 木 tree upright as the 㯂 pillar or post of a silkworm frame.",
+      "after_mnemonic": "A 帶 belt binds a 木 tree upright as the 㯂 post of a frame.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㿃",
+      "base_card_hash": "sha256:782060ddb9f67ca96fee6f08a1d061ce8a92743a3d02997e5a00f429fca7700e",
+      "before": {
+        "meaning": "ox-headed boil",
+        "equation": "疒 sickness + 帶 sash = 㿃 ox-headed boil",
+        "components": [
+          {
+            "character": "疒",
+            "gloss": "sickness"
+          },
+          {
+            "character": "帶",
+            "gloss": "sash"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "疒",
+            "gloss": "sickness"
+          },
+          {
+            "character": "帶",
+            "gloss": "sash"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "ox-headed boil",
+        "equation": "疒 sickness + 帶 belt = 㿃 ox-headed boil",
+        "components": [
+          {
+            "character": "疒",
+            "gloss": "sickness"
+          },
+          {
+            "character": "帶",
+            "gloss": "belt"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "疒",
+            "gloss": "sickness"
+          },
+          {
+            "character": "帶",
+            "gloss": "belt"
+          }
+        ]
+      },
+      "before_mnemonic": "In a 疒 sickness dream, a 帶 sash tightens into two horns atop a 㿃 ox-headed boil.",
+      "after_mnemonic": "In a 疒 sickness dream, a 帶 belt tightens into horns atop a 㿃 ox-headed boil.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䐭",
+      "base_card_hash": "sha256:3af20ae6605712f9689af1e0a627d01e5bd1a14308af67be1a7d8fe19889ed47",
+      "before": {
+        "meaning": "discharge or flux",
+        "equation": "⺼ meat (side) + 帶 sash = 䐭 discharge or flux",
+        "components": [
+          {
+            "character": "⺼",
+            "gloss": "meat (side)"
+          },
+          {
+            "character": "帶",
+            "gloss": "sash"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⺼",
+            "gloss": "meat (side)"
+          },
+          {
+            "character": "帶",
+            "gloss": "sash"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "discharge",
+        "equation": "⺼ meat (side) + 帶 belt = 䐭 discharge",
+        "components": [
+          {
+            "character": "⺼",
+            "gloss": "meat (side)"
+          },
+          {
+            "character": "帶",
+            "gloss": "belt"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⺼",
+            "gloss": "meat (side)"
+          },
+          {
+            "character": "帶",
+            "gloss": "belt"
+          }
+        ]
+      },
+      "before_mnemonic": "Juice leaking from ⺼ meat runs along a 帶 sash in a steady 䐭 discharge or flux.",
+      "after_mnemonic": "Fluid leaking from ⺼ meat (side) runs along a 帶 belt in a steady 䐭 discharge.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䗖",
+      "base_card_hash": "sha256:074a7808d867da674d3212ba93da3ada810742cefcff193a5191c0c2531c0714",
+      "before": {
+        "meaning": "rainbow",
+        "equation": "虫 insects + 带 girdle = 䗖 rainbow",
+        "components": [
+          {
+            "character": "虫",
+            "gloss": "insects"
+          },
+          {
+            "character": "带",
+            "gloss": "girdle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "虫",
+            "gloss": "insects"
+          },
+          {
+            "character": "带",
+            "gloss": "girdle"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "rainbow",
+        "equation": "虫 insects + 带 belt = 䗖 rainbow",
+        "components": [
+          {
+            "character": "虫",
+            "gloss": "insects"
+          },
+          {
+            "character": "带",
+            "gloss": "belt"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "虫",
+            "gloss": "insects"
+          },
+          {
+            "character": "带",
+            "gloss": "belt"
+          }
+        ]
+      },
+      "before_mnemonic": "A 带 girdle woven from shimmering 虫 insects arches across the sky as a 䗖 rainbow.",
+      "after_mnemonic": "A 带 belt woven from shimmering 虫 insects arches across the sky as a 䗖 rainbow.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䙊",
+      "base_card_hash": "sha256:24640190e6ff47d955ae9b7b7d9d2e6a2ac40c1c27b567b9f517f2f3e8ff993b",
+      "before": {
+        "meaning": "arid",
+        "equation": "衤 clothing (side) + 带 girdle = 䙊 arid",
+        "components": [
+          {
+            "character": "衤",
+            "gloss": "clothing (side)"
+          },
+          {
+            "character": "带",
+            "gloss": "girdle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "衤",
+            "gloss": "clothing (side)"
+          },
+          {
+            "character": "带",
+            "gloss": "girdle"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "arid",
+        "equation": "衤 clothing (side) + 带 belt = 䙊 arid",
+        "components": [
+          {
+            "character": "衤",
+            "gloss": "clothing (side)"
+          },
+          {
+            "character": "带",
+            "gloss": "belt"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "衤",
+            "gloss": "clothing (side)"
+          },
+          {
+            "character": "带",
+            "gloss": "belt"
+          }
+        ]
+      },
+      "before_mnemonic": "Across a rainless plain, a 带 girdle cinches 衤 clothing against the 䙊 arid air.",
+      "after_mnemonic": "Across a rainless plain, a 带 belt cinches 衤 clothing (side) against the 䙊 arid air.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䙛",
+      "base_card_hash": "sha256:b5384f9ca8724f99b0c99e444e83bfbed4ff763107c6b1da6065bd3c1a190032",
+      "before": {
+        "meaning": "ceremonial dress of the emperor or very high officials",
+        "equation": "衤 clothing (side) + 袞 ceremonial = 䙛 ceremonial dress of the emperor or very high officials",
+        "components": [
+          {
+            "character": "衤",
+            "gloss": "clothing (side)"
+          },
+          {
+            "character": "袞",
+            "gloss": "ceremonial"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "衤",
+            "gloss": "clothing (side)"
+          },
+          {
+            "character": "袞",
+            "gloss": "ceremonial"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "imperial ceremonial dress",
+        "equation": "衤 clothing (side) + 袞 imperial robe = 䙛 imperial ceremonial dress",
+        "components": [
+          {
+            "character": "衤",
+            "gloss": "clothing (side)"
+          },
+          {
+            "character": "袞",
+            "gloss": "imperial robe"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "衤",
+            "gloss": "clothing (side)"
+          },
+          {
+            "character": "袞",
+            "gloss": "imperial robe"
+          }
+        ]
+      },
+      "before_mnemonic": "袞 ceremonial insignia distinguish 衤 clothing as 䙛 ceremonial dress of the emperor or very high officials.",
+      "after_mnemonic": "Add a 袞 imperial robe to formal 衤 clothing (side) to make 䙛 imperial ceremonial dress.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䜇",
+      "base_card_hash": "sha256:9968de1524505b6c9df6a76a56b079cca136898900a0ae40aa865a5f5e3a96d0",
+      "before": {
+        "meaning": "speak not",
+        "equation": "言 speech + 衮 imperial robe = 䜇 speak not",
+        "components": [
+          {
+            "character": "言",
+            "gloss": "speech"
+          },
+          {
+            "character": "衮",
+            "gloss": "imperial robe"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "言",
+            "gloss": "speech"
+          },
+          {
+            "character": "衮",
+            "gloss": "imperial robe"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "remain silent",
+        "equation": "言 speech + 衮 imperial robe = 䜇 remain silent",
+        "components": [
+          {
+            "character": "言",
+            "gloss": "speech"
+          },
+          {
+            "character": "衮",
+            "gloss": "imperial robe"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "言",
+            "gloss": "speech"
+          },
+          {
+            "character": "衮",
+            "gloss": "imperial robe"
+          }
+        ]
+      },
+      "before_mnemonic": "Before a ruler wearing a 衮 imperial robe, etiquette restrains 言 speech, requiring attendants to 䜇 speak not.",
+      "after_mnemonic": "Before a ruler in a 衮 imperial robe, restrain 言 speech and 䜇 remain silent.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䠠",
+      "base_card_hash": "sha256:767a785d9486fbf4a6c35904a32fedf271861ab38183701821f7e39d325aa914",
+      "before": {
+        "meaning": "go",
+        "equation": "帶 sash + 足 foot = 䠠 go",
+        "components": [
+          {
+            "character": "帶",
+            "gloss": "sash"
+          },
+          {
+            "character": "足",
+            "gloss": "foot"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "帶",
+            "gloss": "sash"
+          },
+          {
+            "character": "足",
+            "gloss": "foot"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "go",
+        "equation": "帶 belt + 足 foot = 䠠 go",
+        "components": [
+          {
+            "character": "帶",
+            "gloss": "belt"
+          },
+          {
+            "character": "足",
+            "gloss": "foot"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "帶",
+            "gloss": "belt"
+          },
+          {
+            "character": "足",
+            "gloss": "foot"
+          }
+        ]
+      },
+      "before_mnemonic": "A 帶 sash streams behind its wearer as each 足 foot carries them farther when they 䠠 go.",
+      "after_mnemonic": "A 帶 belt streams behind its wearer as each 足 foot carries them farther when they 䠠 go.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "两",
+      "base_card_hash": "sha256:c22a101b674a82247f4b63b013acfc455b7346f4eaa1c01fb480091411d6055c",
+      "before": {
+        "meaning": "pair",
+        "equation": "Visual form: 两 pair",
+        "components": [
+          {
+            "character": "两",
+            "gloss": "pair"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "两",
+            "gloss": "pair"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "two",
+        "equation": "Visual form: 两 two",
+        "components": [
+          {
+            "character": "两",
+            "gloss": "two"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "两",
+            "gloss": "two"
+          }
+        ]
+      },
+      "before_mnemonic": "Two matching figures hang side by side beneath one frame as a 两 pair.",
+      "after_mnemonic": "One frame holds matching figures side by side: 两 two.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "乌",
+      "base_card_hash": "sha256:b66e8008b89304e0179a44558757c2c8001bf8fd2f4c04d787e7e757eb4d6d87",
+      "before": {
+        "meaning": "rook",
+        "equation": "一 one = 乌 rook",
+        "components": [
+          {
+            "character": "一",
+            "gloss": "one"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "一",
+            "gloss": "one"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "crow",
+        "equation": "Visual form: 乌 crow",
+        "components": [
+          {
+            "character": "乌",
+            "gloss": "crow"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "乌",
+            "gloss": "crow"
+          }
+        ]
+      },
+      "before_mnemonic": "An 乌 rook appears as 一 one black silhouette, its eye indistinguishable from its feathers.",
+      "after_mnemonic": "The 乌 crow is a black bird silhouette whose eye disappears among its feathers.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "俩",
+      "base_card_hash": "sha256:6373aadeef6c54716d85c5aa000002cdb77bdb33f253d878dff2655303a15b57",
+      "before": {
+        "meaning": "pair",
+        "equation": "亻 person (side) + 两 pair = 俩 pair",
+        "components": [
+          {
+            "character": "亻",
+            "gloss": "person (side)"
+          },
+          {
+            "character": "两",
+            "gloss": "pair"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亻",
+            "gloss": "person (side)"
+          },
+          {
+            "character": "两",
+            "gloss": "pair"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "pair",
+        "equation": "亻 person (side) + 两 two = 俩 pair",
+        "components": [
+          {
+            "character": "亻",
+            "gloss": "person (side)"
+          },
+          {
+            "character": "两",
+            "gloss": "two"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亻",
+            "gloss": "person (side)"
+          },
+          {
+            "character": "两",
+            "gloss": "two"
+          }
+        ]
+      },
+      "before_mnemonic": "Each 亻 person takes one of the 两 pair of seats, so together they are a 俩 pair.",
+      "after_mnemonic": "A 亻 person (side) joins another so 两 two people become a 俩 pair.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "兩",
+      "base_card_hash": "sha256:7fc61b1fd89377960fba74e75b601c6b383881365e41c4142cfb7b03896b59a9",
+      "before": {
+        "meaning": "two",
+        "equation": "一 one + 巾 cloth + 𠓜 legs = 兩 two",
+        "components": [
+          {
+            "character": "一",
+            "gloss": "one"
+          },
+          {
+            "character": "巾",
+            "gloss": "cloth"
+          },
+          {
+            "character": "𠓜",
+            "gloss": "legs"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "一",
+            "gloss": "one"
+          },
+          {
+            "character": "巾",
+            "gloss": "cloth"
+          },
+          {
+            "character": "𠓜",
+            "gloss": "legs"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "two",
+        "equation": "Visual form: 兩 two",
+        "components": [
+          {
+            "character": "兩",
+            "gloss": "two"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "兩",
+            "gloss": "two"
+          }
+        ]
+      },
+      "before_mnemonic": "Cut 一 one 巾 cloth into matching covers for the 𠓜 legs, yielding 兩 two pieces.",
+      "after_mnemonic": "One frame holds matching figures side by side: 兩 two.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "呜",
+      "base_card_hash": "sha256:aecc3825c40dab545e12ff13e88c3eafdd1c87059eeb71e5225c56e9066f9025",
+      "before": {
+        "meaning": "sound of crying",
+        "equation": "口 mouth + 乌 rook = 呜 sound of crying",
+        "components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "乌",
+            "gloss": "rook"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "乌",
+            "gloss": "rook"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sound of crying",
+        "equation": "口 mouth + 乌 crow = 呜 sound of crying",
+        "components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "乌",
+            "gloss": "crow"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "乌",
+            "gloss": "crow"
+          }
+        ]
+      },
+      "before_mnemonic": "Tears fall as a 乌 rook opens its 口 mouth, releasing a 呜 sound of crying.",
+      "after_mnemonic": "A 乌 crow opens its 口 mouth, releasing a 呜 sound of crying.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "唡",
+      "base_card_hash": "sha256:b0f60896089b6287dc52cdcff3d5ca034478deababca74e99a460bf3b3771218",
+      "before": {
+        "meaning": "ounce",
+        "equation": "口 mouth + 两 pair = 唡 ounce",
+        "components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "两",
+            "gloss": "pair"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "两",
+            "gloss": "pair"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "ounce",
+        "equation": "口 mouth + 两 two = 唡 ounce",
+        "components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "两",
+            "gloss": "two"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "两",
+            "gloss": "two"
+          }
+        ]
+      },
+      "before_mnemonic": "At an old scale, a 两 pair of weights balances while a 口 mouth calls the measure a 唡 ounce.",
+      "after_mnemonic": "A 口 mouth calls for 两 two half-portions that together weigh a 唡 ounce.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "坞",
+      "base_card_hash": "sha256:0adac537e4b6666404842fb5a00f0a48694f85276ee900756adcea8a7c8355d2",
+      "before": {
+        "meaning": "entrenchment",
+        "equation": "土 earth + 乌 rook = 坞 entrenchment",
+        "components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "乌",
+            "gloss": "rook"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "乌",
+            "gloss": "rook"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "entrenchment",
+        "equation": "土 earth + 乌 crow = 坞 entrenchment",
+        "components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "乌",
+            "gloss": "crow"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "乌",
+            "gloss": "crow"
+          }
+        ]
+      },
+      "before_mnemonic": "Piled 土 earth forms a 坞 entrenchment around the nesting 乌 rook.",
+      "after_mnemonic": "Piled 土 earth forms a 坞 entrenchment around the nesting 乌 crow.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "带",
+      "base_card_hash": "sha256:49e5aee59066e81833eda3f3c759cca4bb62ad315c698c4f0f46d350b0d329dc",
+      "before": {
+        "meaning": "girdle",
+        "equation": "冖 cover + 巾 cloth = 带 girdle",
+        "components": [
+          {
+            "character": "冖",
+            "gloss": "cover"
+          },
+          {
+            "character": "巾",
+            "gloss": "cloth"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "冖",
+            "gloss": "cover"
+          },
+          {
+            "character": "巾",
+            "gloss": "cloth"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "belt",
+        "equation": "Visual form: 带 belt",
+        "components": [
+          {
+            "character": "带",
+            "gloss": "belt"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "带",
+            "gloss": "belt"
+          }
+        ]
+      },
+      "before_mnemonic": "A 带 girdle is 巾 cloth wrapped around the waist, its knot hidden beneath a 冖 cover.",
+      "after_mnemonic": "The woven 带 belt wraps around the waist and holds clothing closed.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "帶",
+      "base_card_hash": "sha256:de3465451dd9def878ca8353d0583132340b1fa35f406aa3b87c8c8d498b2ba4",
+      "before": {
+        "meaning": "sash",
+        "equation": "冖 cover + 巾 cloth = 帶 sash",
+        "components": [
+          {
+            "character": "冖",
+            "gloss": "cover"
+          },
+          {
+            "character": "巾",
+            "gloss": "cloth"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "冖",
+            "gloss": "cover"
+          },
+          {
+            "character": "巾",
+            "gloss": "cloth"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "belt",
+        "equation": "Visual form: 帶 belt",
+        "components": [
+          {
+            "character": "帶",
+            "gloss": "belt"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "帶",
+            "gloss": "belt"
+          }
+        ]
+      },
+      "before_mnemonic": "巾 cloth crosses the waist as a 帶 sash, then slips beneath a 冖 cover at the knot.",
+      "after_mnemonic": "The woven 帶 belt wraps around the waist and holds clothing closed.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "戩",
+      "base_card_hash": "sha256:51ef5884676781fb73ca78f3aa0927c35273e004539096fc0e8eb77df65b86e4",
+      "before": {
+        "meaning": "exterminate",
+        "equation": "晉 promote + 戈 halberd = 戩 exterminate",
+        "components": [
+          {
+            "character": "晉",
+            "gloss": "promote"
+          },
+          {
+            "character": "戈",
+            "gloss": "halberd"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "晉",
+            "gloss": "promote"
+          },
+          {
+            "character": "戈",
+            "gloss": "halberd"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "exterminate",
+        "equation": "晉 advance + 戈 halberd = 戩 exterminate",
+        "components": [
+          {
+            "character": "晉",
+            "gloss": "advance"
+          },
+          {
+            "character": "戈",
+            "gloss": "halberd"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "晉",
+            "gloss": "advance"
+          },
+          {
+            "character": "戈",
+            "gloss": "halberd"
+          }
+        ]
+      },
+      "before_mnemonic": "To 戩 exterminate an invading force, commanders 晉 promote the recruit most skilled with a 戈 halberd.",
+      "after_mnemonic": "Let troops 晉 advance with a 戈 halberd to 戩 exterminate the invading force.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "戬",
+      "base_card_hash": "sha256:b957b88ad87f905d4b5402f3fe9725b9734acdc68a7776fce87812a18ddae124",
+      "before": {
+        "meaning": "destroy",
+        "equation": "晋 increase + 戈 halberd = 戬 destroy",
+        "components": [
+          {
+            "character": "晋",
+            "gloss": "increase"
+          },
+          {
+            "character": "戈",
+            "gloss": "halberd"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "晋",
+            "gloss": "increase"
+          },
+          {
+            "character": "戈",
+            "gloss": "halberd"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "destroy",
+        "equation": "晋 advance + 戈 halberd = 戬 destroy",
+        "components": [
+          {
+            "character": "晋",
+            "gloss": "advance"
+          },
+          {
+            "character": "戈",
+            "gloss": "halberd"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "晋",
+            "gloss": "advance"
+          },
+          {
+            "character": "戈",
+            "gloss": "halberd"
+          }
+        ]
+      },
+      "before_mnemonic": "As enemy attacks 晋 increase, defenders swing a 戈 halberd to 戬 destroy the siege ladder.",
+      "after_mnemonic": "As defenders 晋 advance with a 戈 halberd, they 戬 destroy the siege ladder.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "搢",
+      "base_card_hash": "sha256:cfcee76590982ff56f16446586b9e24c60d5442b0b64ce7f2fa891d274affba4",
+      "before": {
+        "meaning": "stick into",
+        "equation": "扌 hand (side) + 晋 increase = 搢 stick into",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "晋",
+            "gloss": "increase"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "晋",
+            "gloss": "increase"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "stick into",
+        "equation": "扌 hand (side) + 晋 advance = 搢 stick into",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "晋",
+            "gloss": "advance"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "晋",
+            "gloss": "advance"
+          }
+        ]
+      },
+      "before_mnemonic": "A 扌 hand makes a peg 搢 stick into the gap, where it will 晋 increase the frame’s stability.",
+      "after_mnemonic": "A 扌 hand (side) drives a peg forward in an 晋 advance that makes it 搢 stick into the gap.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "摕",
+      "base_card_hash": "sha256:e6969bf8acd9a935477f3a5f853fffe6d4d1e808a8f40426d30561b6819ae04d",
+      "before": {
+        "meaning": "hit",
+        "equation": "扌 hand (side) + 帶 sash = 摕 hit",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "帶",
+            "gloss": "sash"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "帶",
+            "gloss": "sash"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "hit",
+        "equation": "扌 hand (side) + 帶 belt = 摕 hit",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "帶",
+            "gloss": "belt"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "帶",
+            "gloss": "belt"
+          }
+        ]
+      },
+      "before_mnemonic": "A 扌 hand snaps a 帶 sash until its tip can 摕 hit the floor.",
+      "after_mnemonic": "A 扌 hand (side) snaps a 帶 belt until its tip can 摕 hit the floor.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "晉",
+      "base_card_hash": "sha256:a0a287fee5ea7e8fbf4f7fab5a9a544c803d63945b815cdd4e80895662f84807",
+      "before": {
+        "meaning": "promote",
+        "equation": "一 one + 厶 secret + 厶 secret + 一 one + 日 sun = 晉 promote",
+        "components": [
+          {
+            "character": "一",
+            "gloss": "one"
+          },
+          {
+            "character": "厶",
+            "gloss": "secret"
+          },
+          {
+            "character": "厶",
+            "gloss": "secret"
+          },
+          {
+            "character": "一",
+            "gloss": "one"
+          },
+          {
+            "character": "日",
+            "gloss": "sun"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "一",
+            "gloss": "one"
+          },
+          {
+            "character": "厶",
+            "gloss": "secret"
+          },
+          {
+            "character": "厶",
+            "gloss": "secret"
+          },
+          {
+            "character": "一",
+            "gloss": "one"
+          },
+          {
+            "character": "日",
+            "gloss": "sun"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "advance",
+        "equation": "Visual form: 晉 advance",
+        "components": [
+          {
+            "character": "晉",
+            "gloss": "advance"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "晉",
+            "gloss": "advance"
+          }
+        ]
+      },
+      "before_mnemonic": "At sunrise, the 日 sun lifts 一 one bearer of an 厶 secret above 一 one bearer of another 厶 secret to 晉 promote the first.",
+      "after_mnemonic": "When ranks move forward, they 晉 advance.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "晋",
+      "base_card_hash": "sha256:2e620abd6addb75676583145a1f3060a5f01d1dbd4ea747e26653b9381a132e7",
+      "before": {
+        "meaning": "advance",
+        "equation": "亚 second + 日 sun = 晋 advance",
+        "components": [
+          {
+            "character": "亚",
+            "gloss": "second"
+          },
+          {
+            "character": "日",
+            "gloss": "sun"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亚",
+            "gloss": "second"
+          },
+          {
+            "character": "日",
+            "gloss": "sun"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "advance",
+        "equation": "Visual form: 晋 advance",
+        "components": [
+          {
+            "character": "晋",
+            "gloss": "advance"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "晋",
+            "gloss": "advance"
+          }
+        ]
+      },
+      "before_mnemonic": "As the 日 sun rises, 亚 second place steps forward to 晋 advance.",
+      "after_mnemonic": "When ranks move forward, they 晋 advance.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "殢",
+      "base_card_hash": "sha256:8976f93c930956ff2925e07410782cd625d380223535e0bb45967a568b2efc3c",
+      "before": {
+        "meaning": "be in great difficulty",
+        "equation": "歹 death + 帶 sash = 殢 be in great difficulty",
+        "components": [
+          {
+            "character": "歹",
+            "gloss": "death"
+          },
+          {
+            "character": "帶",
+            "gloss": "sash"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "歹",
+            "gloss": "death"
+          },
+          {
+            "character": "帶",
+            "gloss": "sash"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "be in great difficulty",
+        "equation": "歹 death + 帶 belt = 殢 be in great difficulty",
+        "components": [
+          {
+            "character": "歹",
+            "gloss": "death"
+          },
+          {
+            "character": "帶",
+            "gloss": "belt"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "歹",
+            "gloss": "death"
+          },
+          {
+            "character": "帶",
+            "gloss": "belt"
+          }
+        ]
+      },
+      "before_mnemonic": "To 殢 be in great difficulty is to have a 帶 sash snag on skeletal 歹 death remains.",
+      "after_mnemonic": "Anyone whose 帶 belt snags on skeletal 歹 death remains will 殢 be in great difficulty.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "溍",
+      "base_card_hash": "sha256:271f147fa1d2b8b05c8c6d4e1e089967a040ce12dc1135ae10c18076eb9d1b1f",
+      "before": {
+        "meaning": "water",
+        "equation": "氵 water (drops) + 晋 increase = 溍 water",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "晋",
+            "gloss": "increase"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "晋",
+            "gloss": "increase"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "water",
+        "equation": "氵 water (drops) + 晋 advance = 溍 water",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "晋",
+            "gloss": "advance"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "晋",
+            "gloss": "advance"
+          }
+        ]
+      },
+      "before_mnemonic": "As 氵 water continues to 晋 increase from a trickle, it becomes abundant 溍 water.",
+      "after_mnemonic": "As 氵 water (drops) 晋 advance through the channel, they gather into abundant 溍 water.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "滚",
+      "base_card_hash": "sha256:b0d55a0654c2e1548754503a9f97f575a2d6f48b46e41aafe987f461b47dc9f1",
+      "before": {
+        "meaning": "turn",
+        "equation": "氵 water (drops) + 衮 imperial robe = 滚 turn",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "衮",
+            "gloss": "imperial robe"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "衮",
+            "gloss": "imperial robe"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "roll",
+        "equation": "氵 water (drops) + 衮 imperial robe = 滚 roll",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "衮",
+            "gloss": "imperial robe"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "衮",
+            "gloss": "imperial robe"
+          }
+        ]
+      },
+      "before_mnemonic": "The current of 氵 water catches a 衮 imperial robe and makes it 滚 turn over and over.",
+      "after_mnemonic": "氵 water (drops) sweep a 衮 imperial robe downhill and make it 滚 roll.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "滞",
+      "base_card_hash": "sha256:fd235fe4fcdf72288b5aacf9740206d31a7de6dcdd7d009bacd5b77d45dd04e1",
+      "before": {
+        "meaning": "stagnant",
+        "equation": "氵 water (drops) + 带 girdle = 滞 stagnant",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "带",
+            "gloss": "girdle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "带",
+            "gloss": "girdle"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "stagnant",
+        "equation": "氵 water (drops) + 带 belt = 滞 stagnant",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "带",
+            "gloss": "belt"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "带",
+            "gloss": "belt"
+          }
+        ]
+      },
+      "before_mnemonic": "A 带 girdle cinched around flowing 氵 water leaves it 滞 stagnant.",
+      "after_mnemonic": "A 带 belt stretched across a channel holds back 氵 water (drops) until it turns 滞 stagnant.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "滯",
+      "base_card_hash": "sha256:2c14d8eaa0c4b8b005ae9ddc0dcd3c22b99639bdb3e909d12e221c01842c7de0",
+      "before": {
+        "meaning": "stagnant",
+        "equation": "氵 water (drops) + 帶 sash = 滯 stagnant",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "帶",
+            "gloss": "sash"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "帶",
+            "gloss": "sash"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "stagnant",
+        "equation": "氵 water (drops) + 帶 belt = 滯 stagnant",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "帶",
+            "gloss": "belt"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "帶",
+            "gloss": "belt"
+          }
+        ]
+      },
+      "before_mnemonic": "A 帶 sash stretched across a channel holds back 氵 water until it turns 滯 stagnant.",
+      "after_mnemonic": "A 帶 belt stretched across a channel holds back 氵 water (drops) until it turns 滯 stagnant.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "滾",
+      "base_card_hash": "sha256:0479aad97c7065e67817a6ebc83147128d2053f7dce8898bc862fdca23987f68",
+      "before": {
+        "meaning": "trundle",
+        "equation": "氵 water (drops) + 袞 ceremonial = 滾 trundle",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "袞",
+            "gloss": "ceremonial"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "袞",
+            "gloss": "ceremonial"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "roll",
+        "equation": "氵 water (drops) + 袞 imperial robe = 滾 roll",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "袞",
+            "gloss": "imperial robe"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "袞",
+            "gloss": "imperial robe"
+          }
+        ]
+      },
+      "before_mnemonic": "A 袞 ceremonial wagon splashes through 氵 water and begins to 滾 trundle downhill.",
+      "after_mnemonic": "氵 water (drops) sweep a 袞 imperial robe downhill and make it 滾 roll.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "烏",
+      "base_card_hash": "sha256:a6dce64affc55d3d25d7ff230be1bd0c6513348648cc0aa422becfd4381b9673",
+      "before": {
+        "meaning": "crow",
+        "equation": "灬 fire (bottom) = 烏 crow",
+        "components": [
+          {
+            "character": "灬",
+            "gloss": "fire (bottom)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "灬",
+            "gloss": "fire (bottom)"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "crow",
+        "equation": "Visual form: 烏 crow",
+        "components": [
+          {
+            "character": "烏",
+            "gloss": "crow"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "烏",
+            "gloss": "crow"
+          }
+        ]
+      },
+      "before_mnemonic": "Backlit by 灬 fire, an 烏 crow becomes a black silhouette, its eye lost among equally dark feathers.",
+      "after_mnemonic": "The 烏 crow is a black bird silhouette whose eye disappears among its feathers.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "瑨",
+      "base_card_hash": "sha256:932a67769c7d84806752d32a5daf6018af562acfe523e972dc6d920289f706a4",
+      "before": {
+        "meaning": "jade-like stone",
+        "equation": "𤣩 jade (alt) + 晋 increase = 瑨 jade-like stone",
+        "components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade (alt)"
+          },
+          {
+            "character": "晋",
+            "gloss": "increase"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade (alt)"
+          },
+          {
+            "character": "晋",
+            "gloss": "increase"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "jade-like stone",
+        "equation": "𤣩 jade (alt) + 晋 advance = 瑨 jade-like stone",
+        "components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade (alt)"
+          },
+          {
+            "character": "晋",
+            "gloss": "advance"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade (alt)"
+          },
+          {
+            "character": "晋",
+            "gloss": "advance"
+          }
+        ]
+      },
+      "before_mnemonic": "Polishing can 晋 increase a stone's resemblance to 𤣩 jade, revealing a 瑨 jade-like stone.",
+      "after_mnemonic": "A lapidary makes an 晋 advance in polishing 𤣩 jade (alt), revealing a 瑨 jade-like stone.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "磙",
+      "base_card_hash": "sha256:48f912145ca6ff5cb52e8f11553190aa482dd1fc915a6bd016a4ef82e86b9237",
+      "before": {
+        "meaning": "roller",
+        "equation": "石 stone + 衮 imperial robe = 磙 roller",
+        "components": [
+          {
+            "character": "石",
+            "gloss": "stone"
+          },
+          {
+            "character": "衮",
+            "gloss": "imperial robe"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "石",
+            "gloss": "stone"
+          },
+          {
+            "character": "衮",
+            "gloss": "imperial robe"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "roller",
+        "equation": "石 stone + 衮 imperial robe = 磙 roller",
+        "components": [
+          {
+            "character": "石",
+            "gloss": "stone"
+          },
+          {
+            "character": "衮",
+            "gloss": "imperial robe"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "石",
+            "gloss": "stone"
+          },
+          {
+            "character": "衮",
+            "gloss": "imperial robe"
+          }
+        ]
+      },
+      "before_mnemonic": "A 磙 roller is a round 石 stone wrapped ceremonially in an 衮 imperial robe.",
+      "after_mnemonic": "Wrap a 石 stone in a 衮 imperial robe and push it like a 磙 roller.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "縉",
+      "base_card_hash": "sha256:7af1b23ed34aae966885553f2a825a7189c28ccd65ec37a598bd3ad884ac706d",
+      "before": {
+        "meaning": "red silk",
+        "equation": "糸 thread + 晋 increase = 縉 red silk",
+        "components": [
+          {
+            "character": "糸",
+            "gloss": "thread"
+          },
+          {
+            "character": "晋",
+            "gloss": "increase"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "糸",
+            "gloss": "thread"
+          },
+          {
+            "character": "晋",
+            "gloss": "increase"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "red silk",
+        "equation": "糸 thread + 晋 advance = 縉 red silk",
+        "components": [
+          {
+            "character": "糸",
+            "gloss": "thread"
+          },
+          {
+            "character": "晋",
+            "gloss": "advance"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "糸",
+            "gloss": "thread"
+          },
+          {
+            "character": "晋",
+            "gloss": "advance"
+          }
+        ]
+      },
+      "before_mnemonic": "With each pass, 糸 thread makes the bolt 晋 increase, weaving more 縉 red silk.",
+      "after_mnemonic": "As the shuttle makes each 晋 advance, 糸 thread forms a bolt of 縉 red silk.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "缙",
+      "base_card_hash": "sha256:2dafb1c726ea42c11612f34fae3f07b5b84da2303656c594e1371b83510012f1",
+      "before": {
+        "meaning": "red silk",
+        "equation": "纟 thread + 晋 increase = 缙 red silk",
+        "components": [
+          {
+            "character": "纟",
+            "gloss": "thread"
+          },
+          {
+            "character": "晋",
+            "gloss": "increase"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "纟",
+            "gloss": "thread"
+          },
+          {
+            "character": "晋",
+            "gloss": "increase"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "red silk",
+        "equation": "纟 thread + 晋 advance = 缙 red silk",
+        "components": [
+          {
+            "character": "纟",
+            "gloss": "thread"
+          },
+          {
+            "character": "晋",
+            "gloss": "advance"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "纟",
+            "gloss": "thread"
+          },
+          {
+            "character": "晋",
+            "gloss": "advance"
+          }
+        ]
+      },
+      "before_mnemonic": "With each pass, 纟 thread makes the bolt 晋 increase, weaving more 缙 red silk.",
+      "after_mnemonic": "As the shuttle makes each 晋 advance, 纟 thread forms a bolt of 缙 red silk.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "艜",
+      "base_card_hash": "sha256:c7e4d36e04f97a58336fd80d23ff953edb8bb567ba13e2466d34a3e67f6aa8ee",
+      "before": {
+        "meaning": "long narrow two-masted vessel",
+        "equation": "舟 boat + 帶 sash = 艜 long narrow two-masted vessel",
+        "components": [
+          {
+            "character": "舟",
+            "gloss": "boat"
+          },
+          {
+            "character": "帶",
+            "gloss": "sash"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "舟",
+            "gloss": "boat"
+          },
+          {
+            "character": "帶",
+            "gloss": "sash"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "long narrow two-masted vessel",
+        "equation": "舟 boat + 帶 belt = 艜 long narrow two-masted vessel",
+        "components": [
+          {
+            "character": "舟",
+            "gloss": "boat"
+          },
+          {
+            "character": "帶",
+            "gloss": "belt"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "舟",
+            "gloss": "boat"
+          },
+          {
+            "character": "帶",
+            "gloss": "belt"
+          }
+        ]
+      },
+      "before_mnemonic": "The two-masted 舟 boat stretches across the water like a 帶 sash, forming an 艜 long narrow two-masted vessel.",
+      "after_mnemonic": "A long 舟 boat stretches across the water like a 帶 belt, forming an 艜 long narrow two-masted vessel.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "蔉",
+      "base_card_hash": "sha256:6adcce777531f52629eacecd542b2d3ad40c652ce3e6db304ed31ce0832abeb0",
+      "before": {
+        "meaning": "earth up",
+        "equation": "艹 grass (top) + 袞 ceremonial = 蔉 earth up",
+        "components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "袞",
+            "gloss": "ceremonial"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "袞",
+            "gloss": "ceremonial"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "bank up earth",
+        "equation": "艹 grass (top) + 袞 imperial robe = 蔉 bank up earth",
+        "components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "袞",
+            "gloss": "imperial robe"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "袞",
+            "gloss": "imperial robe"
+          }
+        ]
+      },
+      "before_mnemonic": "Before officials in 袞 ceremonial robes arrive, gardeners 蔉 earth up around bordering 艹 grass, banking every exposed root.",
+      "after_mnemonic": "A gardener in a 袞 imperial robe piles soil around 艹 grass (top) to 蔉 bank up earth.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "蔕",
+      "base_card_hash": "sha256:b91fbdfd0c87f941f1e3e469482801a651628ed12ea6506d2b5f36f95edd5b56",
+      "before": {
+        "meaning": "peduncle or stem",
+        "equation": "艹 grass (top) + 帶 sash = 蔕 peduncle or stem",
+        "components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "帶",
+            "gloss": "sash"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "帶",
+            "gloss": "sash"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "flower stalk",
+        "equation": "艹 grass (top) + 帶 belt = 蔕 flower stalk",
+        "components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "帶",
+            "gloss": "belt"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "帶",
+            "gloss": "belt"
+          }
+        ]
+      },
+      "before_mnemonic": "A flower hangs from its 艹 grass plant by a 蔕 peduncle or stem as narrow as a 帶 sash.",
+      "after_mnemonic": "A 蔕 flower stalk rises from 艹 grass (top), as narrow as a 帶 belt.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "螮",
+      "base_card_hash": "sha256:a02c0b9d3a95c7730e9210b98804c7bc7b7bb467dacf79cca1a588cc76ab9d23",
+      "before": {
+        "meaning": "rainbow (alt)",
+        "equation": "虫 insects + 帶 sash = 螮 rainbow (alt)",
+        "components": [
+          {
+            "character": "虫",
+            "gloss": "insects"
+          },
+          {
+            "character": "帶",
+            "gloss": "sash"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "虫",
+            "gloss": "insects"
+          },
+          {
+            "character": "帶",
+            "gloss": "sash"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "rainbow (alt)",
+        "equation": "虫 insects + 帶 belt = 螮 rainbow (alt)",
+        "components": [
+          {
+            "character": "虫",
+            "gloss": "insects"
+          },
+          {
+            "character": "帶",
+            "gloss": "belt"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "虫",
+            "gloss": "insects"
+          },
+          {
+            "character": "帶",
+            "gloss": "belt"
+          }
+        ]
+      },
+      "before_mnemonic": "After rain, a 帶 sash of colors arches over 虫 insects as the 螮 rainbow.",
+      "after_mnemonic": "After rain, a 帶 belt of colors arches over 虫 insects as the 螮 rainbow.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "衮",
+      "base_card_hash": "sha256:906448effc8ea89e51e14ce2ca2caa3449b7f2d7e894beb25d2283cd4ea9669c",
+      "before": {
+        "meaning": "imperial robe",
+        "equation": "衣 clothing + 公 public = 衮 imperial robe",
+        "components": [
+          {
+            "character": "衣",
+            "gloss": "clothing"
+          },
+          {
+            "character": "公",
+            "gloss": "public"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "衣",
+            "gloss": "clothing"
+          },
+          {
+            "character": "公",
+            "gloss": "public"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "imperial robe",
+        "equation": "Visual form: 衮 imperial robe",
+        "components": [
+          {
+            "character": "衮",
+            "gloss": "imperial robe"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "衮",
+            "gloss": "imperial robe"
+          }
+        ]
+      },
+      "before_mnemonic": "The ruler’s 衣 clothing worn before the 公 public is a 衮 imperial robe.",
+      "after_mnemonic": "The embroidered 衮 imperial robe is the ruler's ceremonial garment.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "袞",
+      "base_card_hash": "sha256:9a8413d817060307ff8438349b227275f50d51cdda361fa1ca70ac5d505bd6a0",
+      "before": {
+        "meaning": "ceremonial",
+        "equation": "衣 clothing + 㕣 foothill marsh = 袞 ceremonial",
+        "components": [
+          {
+            "character": "衣",
+            "gloss": "clothing"
+          },
+          {
+            "character": "㕣",
+            "gloss": "foothill marsh"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "衣",
+            "gloss": "clothing"
+          },
+          {
+            "character": "㕣",
+            "gloss": "foothill marsh"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "imperial robe",
+        "equation": "Visual form: 袞 imperial robe",
+        "components": [
+          {
+            "character": "袞",
+            "gloss": "imperial robe"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "袞",
+            "gloss": "imperial robe"
+          }
+        ]
+      },
+      "before_mnemonic": "For a rite at a 㕣 foothill marsh, people reserve their finest 衣 clothing, making the gathering 袞 ceremonial.",
+      "after_mnemonic": "The embroidered 袞 imperial robe is the ruler's ceremonial garment.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "辆",
+      "base_card_hash": "sha256:a1e882a78bfd1fe9719dc58695209d823814b1e43a591b43f25044d8f6d42465",
+      "before": {
+        "meaning": "vehicle classifier",
+        "equation": "车 vehicle + 两 pair = 辆 vehicle classifier",
+        "components": [
+          {
+            "character": "车",
+            "gloss": "vehicle"
+          },
+          {
+            "character": "两",
+            "gloss": "pair"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "车",
+            "gloss": "vehicle"
+          },
+          {
+            "character": "两",
+            "gloss": "pair"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "vehicle classifier",
+        "equation": "车 vehicle + 两 two = 辆 vehicle classifier",
+        "components": [
+          {
+            "character": "车",
+            "gloss": "vehicle"
+          },
+          {
+            "character": "两",
+            "gloss": "two"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "车",
+            "gloss": "vehicle"
+          },
+          {
+            "character": "两",
+            "gloss": "two"
+          }
+        ]
+      },
+      "before_mnemonic": "To count 车 vehicle in a 两 pair, place the 辆 vehicle classifier between number and noun.",
+      "after_mnemonic": "Place the 辆 vehicle classifier after 两 two and before the noun 车 vehicle.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "遰",
+      "base_card_hash": "sha256:9fe5eb47d0b6cfadc6d3a97c15f606a824a133df806daaa1e944088c8d0607b4",
+      "before": {
+        "meaning": "grunting sound of pigs",
+        "equation": "辶 movement + 帶 sash = 遰 grunting sound of pigs",
+        "components": [
+          {
+            "character": "辶",
+            "gloss": "movement"
+          },
+          {
+            "character": "帶",
+            "gloss": "sash"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "辶",
+            "gloss": "movement"
+          },
+          {
+            "character": "帶",
+            "gloss": "sash"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "pig grunt",
+        "equation": "辶 movement + 帶 belt = 遰 pig grunt",
+        "components": [
+          {
+            "character": "辶",
+            "gloss": "movement"
+          },
+          {
+            "character": "帶",
+            "gloss": "belt"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "辶",
+            "gloss": "movement"
+          },
+          {
+            "character": "帶",
+            "gloss": "belt"
+          }
+        ]
+      },
+      "before_mnemonic": "A pig's 帶 sash bobs with each 辶 movement as the animal makes a 遰 grunting sound of pigs.",
+      "after_mnemonic": "A pig's 帶 belt bobs with each 辶 movement as the animal makes an 遰 pig grunt.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "邬",
+      "base_card_hash": "sha256:560105883cc37b74e8fc081ce6bc323cf5d680be42b28d2aa55cef1828657f62",
+      "before": {
+        "meaning": "various place names",
+        "equation": "乌 rook + ⻏ city (right) = 邬 various place names",
+        "components": [
+          {
+            "character": "乌",
+            "gloss": "rook"
+          },
+          {
+            "character": "⻏",
+            "gloss": "city (right)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "乌",
+            "gloss": "rook"
+          },
+          {
+            "character": "⻏",
+            "gloss": "city (right)"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "place name",
+        "equation": "乌 crow + ⻏ city (right) = 邬 place name",
+        "components": [
+          {
+            "character": "乌",
+            "gloss": "crow"
+          },
+          {
+            "character": "⻏",
+            "gloss": "city (right)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "乌",
+            "gloss": "crow"
+          },
+          {
+            "character": "⻏",
+            "gloss": "city (right)"
+          }
+        ]
+      },
+      "before_mnemonic": "A 乌 rook flies from ⻏ city to city, tracing 邬 various place names across an unlabeled map.",
+      "after_mnemonic": "A 乌 crow flies beside an ⻏ city (right), marking the 邬 place name.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "鄑",
+      "base_card_hash": "sha256:3d22fe2a41138c2b49e89efd9d5a861ab70cb389cebe550212ea16530521a4c1",
+      "before": {
+        "meaning": "place",
+        "equation": "晋 increase + ⻏ city (right) = 鄑 place",
+        "components": [
+          {
+            "character": "晋",
+            "gloss": "increase"
+          },
+          {
+            "character": "⻏",
+            "gloss": "city (right)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "晋",
+            "gloss": "increase"
+          },
+          {
+            "character": "⻏",
+            "gloss": "city (right)"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "place",
+        "equation": "晋 advance + ⻏ city (right) = 鄑 place",
+        "components": [
+          {
+            "character": "晋",
+            "gloss": "advance"
+          },
+          {
+            "character": "⻏",
+            "gloss": "city (right)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "晋",
+            "gloss": "advance"
+          },
+          {
+            "character": "⻏",
+            "gloss": "city (right)"
+          }
+        ]
+      },
+      "before_mnemonic": "The 鄑 place lay between Song and Lu, where an ⻏ city could 晋 increase its territory.",
+      "after_mnemonic": "An 晋 advance beyond the ⻏ city (right) wall reaches the named 鄑 place.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "鄔",
+      "base_card_hash": "sha256:42cf3cad97c2012c4812f65178a009315a0a8a3c6ca58d34bb17b2241d74f66f",
+      "before": {
+        "meaning": "place names",
+        "equation": "烏 crow + ⻏ city (right) = 鄔 place names",
+        "components": [
+          {
+            "character": "烏",
+            "gloss": "crow"
+          },
+          {
+            "character": "⻏",
+            "gloss": "city (right)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "烏",
+            "gloss": "crow"
+          },
+          {
+            "character": "⻏",
+            "gloss": "city (right)"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "place name",
+        "equation": "烏 crow + ⻏ city (right) = 鄔 place name",
+        "components": [
+          {
+            "character": "烏",
+            "gloss": "crow"
+          },
+          {
+            "character": "⻏",
+            "gloss": "city (right)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "烏",
+            "gloss": "crow"
+          },
+          {
+            "character": "⻏",
+            "gloss": "city (right)"
+          }
+        ]
+      },
+      "before_mnemonic": "An 烏 crow flies from ⻏ city to city, tracing 鄔 place names across an unlabeled map.",
+      "after_mnemonic": "A 烏 crow flies beside an ⻏ city (right), marking the 鄔 place name.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "钨",
+      "base_card_hash": "sha256:9f0edcf67ff2ce1804f879f6fc9343fb097325698251cc39dab0141f0276c139",
+      "before": {
+        "meaning": "tungsten",
+        "equation": "钅 metal + 乌 rook = 钨 tungsten",
+        "components": [
+          {
+            "character": "钅",
+            "gloss": "metal"
+          },
+          {
+            "character": "乌",
+            "gloss": "rook"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "钅",
+            "gloss": "metal"
+          },
+          {
+            "character": "乌",
+            "gloss": "rook"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "tungsten",
+        "equation": "钅 metal + 乌 crow = 钨 tungsten",
+        "components": [
+          {
+            "character": "钅",
+            "gloss": "metal"
+          },
+          {
+            "character": "乌",
+            "gloss": "crow"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "钅",
+            "gloss": "metal"
+          },
+          {
+            "character": "乌",
+            "gloss": "crow"
+          }
+        ]
+      },
+      "before_mnemonic": "An 乌 rook strains to lift a compact 钅 metal weight because 钨 tungsten is exceptionally dense.",
+      "after_mnemonic": "A 乌 crow strains to lift a compact 钅 metal weight because 钨 tungsten is exceptionally dense.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "魉",
+      "base_card_hash": "sha256:1f2791b50bef2ca4da6f4b699bfb9b74ea795451d9eaf2d1d2cd84de3f4ed8b9",
+      "before": {
+        "meaning": "monster",
+        "equation": "鬼 ghost + 两 pair = 魉 monster",
+        "components": [
+          {
+            "character": "鬼",
+            "gloss": "ghost"
+          },
+          {
+            "character": "两",
+            "gloss": "pair"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "鬼",
+            "gloss": "ghost"
+          },
+          {
+            "character": "两",
+            "gloss": "pair"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "monster",
+        "equation": "鬼 ghost + 两 two = 魉 monster",
+        "components": [
+          {
+            "character": "鬼",
+            "gloss": "ghost"
+          },
+          {
+            "character": "两",
+            "gloss": "two"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "鬼",
+            "gloss": "ghost"
+          },
+          {
+            "character": "两",
+            "gloss": "two"
+          }
+        ]
+      },
+      "before_mnemonic": "When a 鬼 ghost splits into a 两 pair, the doubled apparition becomes a 魉 monster.",
+      "after_mnemonic": "When a 鬼 ghost splits into 两 two, the doubled apparition becomes a 魉 monster.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "縉",
+      "base_card_hash": "sha256:ab252bf30ea10f32ce8aecf4483dfc28a4814468885ae0bfa3c0115e65a68cf5",
+      "before": {
+        "meaning": "red silk",
+        "equation": "糸 thread + 晋 increase = 縉 red silk",
+        "components": [
+          {
+            "character": "糸",
+            "gloss": "thread"
+          },
+          {
+            "character": "晋",
+            "gloss": "increase"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "糸",
+            "gloss": "thread"
+          },
+          {
+            "character": "晋",
+            "gloss": "increase"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "red silk",
+        "equation": "糸 thread + 晋 advance = 縉 red silk",
+        "components": [
+          {
+            "character": "糸",
+            "gloss": "thread"
+          },
+          {
+            "character": "晋",
+            "gloss": "advance"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "糸",
+            "gloss": "thread"
+          },
+          {
+            "character": "晋",
+            "gloss": "advance"
+          }
+        ]
+      },
+      "before_mnemonic": "As more 糸 thread enters the dye bath, the stock of 縉 red silk begins to 晋 increase.",
+      "after_mnemonic": "As the shuttle makes each 晋 advance, 糸 thread forms a bolt of 縉 red silk.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "𬜯",
+      "base_card_hash": "sha256:176f391185e1a26a4323c45e630db0772978368cb675c66e2eb7126382a91514",
+      "before": {
+        "meaning": "grass variety",
+        "equation": "艹 grass (top) + 两 pair = 𬜯 grass variety",
+        "components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "两",
+            "gloss": "pair"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "两",
+            "gloss": "pair"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "grass variety",
+        "equation": "艹 grass (top) + 两 two = 𬜯 grass variety",
+        "components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "两",
+            "gloss": "two"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "两",
+            "gloss": "two"
+          }
+        ]
+      },
+      "before_mnemonic": "Comparing a 两 pair of 艹 grass patches distinguishes one 𬜯 grass variety by its growth pattern.",
+      "after_mnemonic": "两 two patches of 艹 grass (top) reveal one 𬜯 grass variety by their matching growth.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "搢",
+      "base_card_hash": "sha256:3db9b90132ff2a7511b9b44235414fad6ad340390c923706d3e3451bf9f4fb33",
+      "before": {
+        "meaning": "stick into",
+        "equation": "扌 hand (side) + 晋 increase = 搢 stick into",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "晋",
+            "gloss": "increase"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "晋",
+            "gloss": "increase"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "stick into",
+        "equation": "扌 hand (side) + 晋 advance = 搢 stick into",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "晋",
+            "gloss": "advance"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "晋",
+            "gloss": "advance"
+          }
+        ]
+      },
+      "before_mnemonic": "A 扌 hand makes the row 晋 increase as each new stake begins to 搢 stick into the soil.",
+      "after_mnemonic": "With each 晋 advance of a 扌 hand (side), a stake begins to 搢 stick into the soil.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "鄑",
+      "base_card_hash": "sha256:ac5b68712fe51d8492387c811239638b7ad6b4531f7d7a33ee0c776448d55509",
+      "before": {
+        "meaning": "place",
+        "equation": "晋 increase + ⻏ city (right) = 鄑 place",
+        "components": [
+          {
+            "character": "晋",
+            "gloss": "increase"
+          },
+          {
+            "character": "⻏",
+            "gloss": "city (right)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "晋",
+            "gloss": "increase"
+          },
+          {
+            "character": "⻏",
+            "gloss": "city (right)"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "place",
+        "equation": "晋 advance + ⻏ city (right) = 鄑 place",
+        "components": [
+          {
+            "character": "晋",
+            "gloss": "advance"
+          },
+          {
+            "character": "⻏",
+            "gloss": "city (right)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "晋",
+            "gloss": "advance"
+          },
+          {
+            "character": "⻏",
+            "gloss": "city (right)"
+          }
+        ]
+      },
+      "before_mnemonic": "As buildings 晋 increase, a Shandong ⻏ city becomes a named 鄑 place on the map.",
+      "after_mnemonic": "An 晋 advance beyond the ⻏ city (right) wall reaches the named 鄑 place.",
+      "valid": true,
+      "problems": []
+    }
+  ]
+}
