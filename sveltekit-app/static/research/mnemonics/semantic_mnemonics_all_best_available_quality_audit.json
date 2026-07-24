@@ -1,6 +1,6 @@
 {
-  "created_at": "2026-07-21T06:35:39.921332+00:00",
-  "artifact_created_at": "2026-07-21T06:35:37.472873+00:00",
+  "created_at": "2026-07-24T05:19:40.698353+00:00",
+  "artifact_created_at": "2026-07-24T05:19:38.712631+00:00",
   "methodology": "Formal validity and learning quality are separate. Flags are deterministic review signals; abstract meanings and variant forms are not automatically bad, while generic filler is a rewrite signal.",
   "taxonomy": {
     "generic_filler": {
@@ -4127,8 +4127,8 @@
           "evidence": "Zhou-dynasty state"
         }
       ],
-      "equation": "山 mountain + 豕 boar + 豕 boar = 豳 Zhou-dynasty state",
-      "mnemonic": "On a Zhou-era map, a 山 mountain enclosing one 豕 boar and another 豕 boar marks the 豳 Zhou-dynasty state.",
+      "equation": "山 mountain + 豕 pig + 豕 pig = 豳 Zhou-dynasty state",
+      "mnemonic": "On a Zhou-era map, a 山 mountain enclosing one 豕 pig and another 豕 pig marks the 豳 Zhou-dynasty state.",
       "components": [
         {
           "character": "山",
@@ -4136,11 +4136,11 @@
         },
         {
           "character": "豕",
-          "gloss": "boar"
+          "gloss": "pig"
         },
         {
           "character": "豕",
-          "gloss": "boar"
+          "gloss": "pig"
         }
       ],
       "component_source": "resolved_ids_forward",
@@ -5485,8 +5485,8 @@
           ]
         }
       ],
-      "equation": "木 tree + 其 his-hers-its-theirs + 木 tree = 㯦 the game of chess",
-      "mnemonic": "One 木 tree supplies the board, another 木 tree the pieces, as each player maneuvers 其 his-hers-its-theirs forces in 㯦 the game of chess.",
+      "equation": "木 tree + 其 their + 木 tree = 㯦 the game of chess",
+      "mnemonic": "One 木 tree supplies the board, another 木 tree the pieces, as each player maneuvers 其 their forces in 㯦 the game of chess.",
       "components": [
         {
           "character": "木",
@@ -5494,7 +5494,7 @@
         },
         {
           "character": "其",
-          "gloss": "his-hers-its-theirs"
+          "gloss": "their"
         },
         {
           "character": "木",
@@ -10033,16 +10033,16 @@
           ]
         }
       ],
-      "equation": "豕 boar + 豕 boar + 火 fire = 燹 conflagration",
-      "mnemonic": "A 豕 boar and another 豕 boar flee as 火 fire spreads into a 燹 conflagration.",
+      "equation": "豕 pig + 豕 pig + 火 fire = 燹 conflagration",
+      "mnemonic": "A 豕 pig and another 豕 pig flee as 火 fire spreads into a 燹 conflagration.",
       "components": [
         {
           "character": "豕",
-          "gloss": "boar"
+          "gloss": "pig"
         },
         {
           "character": "豕",
-          "gloss": "boar"
+          "gloss": "pig"
         },
         {
           "character": "火",
@@ -13075,8 +13075,8 @@
           "evidence": "the other"
         }
       ],
-      "equation": "彳 step + 皮 covering = 彼 the other",
-      "mnemonic": "A 彳 step moves toward a separate 皮 covering, pointing to 彼 the other.",
+      "equation": "彳 step + 皮 skin = 彼 the other",
+      "mnemonic": "A 彳 step moves toward a separate 皮 skin, pointing to 彼 the other.",
       "components": [
         {
           "character": "彳",
@@ -13084,7 +13084,7 @@
         },
         {
           "character": "皮",
-          "gloss": "covering"
+          "gloss": "skin"
         }
       ],
       "component_source": "resolved_ids_forward+manual_quality_override",
@@ -14624,8 +14624,8 @@
           "evidence": "滑"
         }
       ],
-      "equation": "氵 water (drops) + 骨 skeleton = 滑 slippery",
-      "mnemonic": "Spilled 氵 water makes a bare 骨 skeleton dangerously 滑 slippery.",
+      "equation": "氵 water (drops) + 骨 bone = 滑 slippery",
+      "mnemonic": "Spilled 氵 water makes a bare 骨 bone dangerously 滑 slippery.",
       "components": [
         {
           "character": "氵",
@@ -14633,7 +14633,7 @@
         },
         {
           "character": "骨",
-          "gloss": "skeleton"
+          "gloss": "bone"
         }
       ],
       "component_source": "variant_alias:滑",
@@ -26636,8 +26636,8 @@
           "evidence": "䀘"
         }
       ],
-      "equation": "目 eye + 开 initiate = 䀘 block the line of sight",
-      "mnemonic": "Closing the 目 eye can 开 initiate darkness and 䀘 block the line of sight.",
+      "equation": "目 eye + 开 open = 䀘 block the line of sight",
+      "mnemonic": "When shutters refuse to 开 open, they cover the 目 eye and 䀘 block the line of sight.",
       "components": [
         {
           "character": "目",
@@ -26645,7 +26645,7 @@
         },
         {
           "character": "开",
-          "gloss": "initiate"
+          "gloss": "open"
         }
       ],
       "component_source": "variant_alias:䀘",
@@ -27303,12 +27303,12 @@
           "evidence": "㓟"
         }
       ],
-      "equation": "皮 covering + 刂 knife (side) = 㓟 peel",
-      "mnemonic": "A 刂 knife slips beneath the 皮 covering so you can 㓟 peel it away.",
+      "equation": "皮 skin + 刂 knife (side) = 㓟 peel",
+      "mnemonic": "A 刂 knife slips beneath the 皮 skin so you can 㓟 peel it away.",
       "components": [
         {
           "character": "皮",
-          "gloss": "covering"
+          "gloss": "skin"
         },
         {
           "character": "刂",
@@ -29573,8 +29573,8 @@
           "evidence": "岍"
         }
       ],
-      "equation": "山 mountain + 开 initiate = 岍 mountain name",
-      "mnemonic": "A 岍 mountain name lets climbers 开 initiate their map search for the correct 山 mountain.",
+      "equation": "山 mountain + 开 open = 岍 mountain name",
+      "mnemonic": "开 open a gazetteer to a 山 mountain bearing the 岍 mountain name.",
       "components": [
         {
           "character": "山",
@@ -29582,7 +29582,7 @@
         },
         {
           "character": "开",
-          "gloss": "initiate"
+          "gloss": "open"
         }
       ],
       "component_source": "variant_alias:岍",
@@ -30083,12 +30083,12 @@
           "evidence": "形"
         }
       ],
-      "equation": "开 initiate + 彡 hair = 形 shape",
-      "mnemonic": "A barber uses the first cut to 开 initiate trimming 彡 hair into a precise 形 shape.",
+      "equation": "开 open + 彡 hair = 形 shape",
+      "mnemonic": "彡 hair spreads 开 open while a barber trims it into a precise 形 shape.",
       "components": [
         {
           "character": "开",
-          "gloss": "initiate"
+          "gloss": "open"
         },
         {
           "character": "彡",
@@ -32171,8 +32171,8 @@
           "evidence": "汧"
         }
       ],
-      "equation": "氵 water (drops) + 开 initiate = 汧 marsh",
-      "mnemonic": "Seeping 氵 water can 开 initiate a 汧 marsh across low ground.",
+      "equation": "氵 water (drops) + 开 open = 汧 marsh",
+      "mnemonic": "氵 water spreads 开 open across low ground, forming a 汧 marsh.",
       "components": [
         {
           "character": "氵",
@@ -32180,7 +32180,7 @@
         },
         {
           "character": "开",
-          "gloss": "initiate"
+          "gloss": "open"
         }
       ],
       "component_source": "variant_alias:汧",
@@ -33372,12 +33372,12 @@
           "evidence": "㼛"
         }
       ],
-      "equation": "开 initiate + 瓦 tile = 㼛 long necked wine vessels",
-      "mnemonic": "A potter sets 㼛 long necked wine vessels beside a 瓦 tile to 开 initiate one shared kiln firing.",
+      "equation": "开 open + 瓦 tile = 㼛 long necked wine vessels",
+      "mnemonic": "开 open one of the 㼛 long necked wine vessels set beside a matching 瓦 tile.",
       "components": [
         {
           "character": "开",
-          "gloss": "initiate"
+          "gloss": "open"
         },
         {
           "character": "瓦",
@@ -33401,12 +33401,12 @@
           "evidence": "甤"
         }
       ],
-      "equation": "豕 boar + 生 life = 甤 drooping",
-      "mnemonic": "Though full of 生 life, a tired 豕 boar lets its ears hang 甤 drooping.",
+      "equation": "豕 pig + 生 life = 甤 drooping",
+      "mnemonic": "Though full of 生 life, a tired 豕 pig lets its ears hang 甤 drooping.",
       "components": [
         {
           "character": "豕",
-          "gloss": "boar"
+          "gloss": "pig"
         },
         {
           "character": "生",
@@ -33513,12 +33513,12 @@
           "evidence": "㿼"
         }
       ],
-      "equation": "开 initiate + 皿 dish = 㿼 bowl",
-      "mnemonic": "A cook sets down a 皿 dish to 开 initiate the meal, then fills the deeper 㿼 bowl with soup.",
+      "equation": "开 open + 皿 dish = 㿼 bowl",
+      "mnemonic": "开 open the cupboard and take out a deep 皿 dish shaped as a 㿼 bowl.",
       "components": [
         {
           "character": "开",
-          "gloss": "initiate"
+          "gloss": "open"
         },
         {
           "character": "皿",
@@ -33952,8 +33952,8 @@
           "evidence": "䄯"
         }
       ],
-      "equation": "禾 standing grain + 开 initiate = 䄯 ten bundles of grain",
-      "mnemonic": "Workers 开 initiate the harvest by tying 禾 standing grain into 䄯 ten bundles of grain.",
+      "equation": "禾 standing grain + 开 open = 䄯 ten bundles of grain",
+      "mnemonic": "开 open the granary and count 禾 standing grain into 䄯 ten bundles of grain.",
       "components": [
         {
           "character": "禾",
@@ -33961,7 +33961,7 @@
         },
         {
           "character": "开",
-          "gloss": "initiate"
+          "gloss": "open"
         }
       ],
       "component_source": "variant_alias:䄯",
@@ -34938,8 +34938,8 @@
           "evidence": "芋"
         }
       ],
-      "equation": "艹 grass (top) + 于 Yu = 芋 taro",
-      "mnemonic": "于 Yu lifts broad leaves above 艹 grass and uncovers the starchy corm of 芋 taro.",
+      "equation": "艹 grass (top) + 于 at = 芋 taro",
+      "mnemonic": "Dig 于 at the base of 艹 grass to uncover a 芋 taro.",
       "components": [
         {
           "character": "艹",
@@ -34947,7 +34947,7 @@
         },
         {
           "character": "于",
-          "gloss": "Yu"
+          "gloss": "at"
         }
       ],
       "component_source": "variant_alias:芋",
@@ -35721,8 +35721,8 @@
           "evidence": "蚈"
         }
       ],
-      "equation": "虫 insects + 开 initiate = 蚈 firefly",
-      "mnemonic": "At dusk, 虫 insects 开 initiate tiny flashes as each 蚈 firefly begins to glow.",
+      "equation": "虫 insects + 开 open = 蚈 firefly",
+      "mnemonic": "A 蚈 firefly lets its wings 开 open and flashes among 虫 insects.",
       "components": [
         {
           "character": "虫",
@@ -35730,7 +35730,7 @@
         },
         {
           "character": "开",
-          "gloss": "initiate"
+          "gloss": "open"
         }
       ],
       "component_source": "variant_alias:蚈",
@@ -36310,7 +36310,7 @@
     },
     {
       "character": "趼",
-      "meaning": "callous skin on",
+      "meaning": "callus",
       "frequency_rank": null,
       "quality_status": "review",
       "quality_score": 2.5,
@@ -36322,8 +36322,8 @@
           "evidence": "趼"
         }
       ],
-      "equation": "𧾷 foot + 开 initiate = 趼 callous skin on",
-      "mnemonic": "Long walking can 开 initiate 趼 callous skin on a 𧾷 foot.",
+      "equation": "𧾷 foot + 开 open = 趼 callus",
+      "mnemonic": "A shoe rubs a 𧾷 foot until the skin can 开 open, then harden into a 趼 callus.",
       "components": [
         {
           "character": "𧾷",
@@ -36331,7 +36331,7 @@
         },
         {
           "character": "开",
-          "gloss": "initiate"
+          "gloss": "open"
         }
       ],
       "component_source": "variant_alias:趼",
@@ -37022,12 +37022,12 @@
           "evidence": "䯎"
         }
       ],
-      "equation": "骨 skeleton + 𫢉 stroke form = 䯎 shinbone",
-      "mnemonic": "The 𫢉 stroke form extends from knee to ankle on a 骨 skeleton, following the 䯎 shinbone.",
+      "equation": "骨 bone + 𫢉 stroke form = 䯎 shinbone",
+      "mnemonic": "The 𫢉 stroke form extends from knee to ankle on a 骨 bone, following the 䯎 shinbone.",
       "components": [
         {
           "character": "骨",
-          "gloss": "skeleton"
+          "gloss": "bone"
         },
         {
           "character": "𫢉",
@@ -37068,7 +37068,7 @@
     },
     {
       "character": "鳽",
-      "meaning": "used in names of bitterns and herons",
+      "meaning": "heron",
       "frequency_rank": null,
       "quality_status": "review",
       "quality_score": 2.5,
@@ -37080,12 +37080,12 @@
           "evidence": "鳽"
         }
       ],
-      "equation": "开 initiate + 鳥 bird = 鳽 used in names of bitterns and herons",
-      "mnemonic": "鳽 used in names of bitterns and herons can 开 initiate the field-guide entry for a reed-wading 鳥 bird.",
+      "equation": "开 open + 鳥 bird = 鳽 heron",
+      "mnemonic": "A 鳥 bird spreads its wings 开 open above the reeds: a 鳽 heron.",
       "components": [
         {
           "character": "开",
-          "gloss": "initiate"
+          "gloss": "open"
         },
         {
           "character": "鳥",
@@ -39351,8 +39351,8 @@
           "evidence": "indicating exclamation"
         }
       ],
-      "equation": "辶 movement + 开 initiate = 䢎 indicating exclamation",
-      "mnemonic": "A sudden 辶 movement can 开 initiate a startled cry, with 䢎 indicating exclamation.",
+      "equation": "辶 movement + 开 open = 䢎 indicating exclamation",
+      "mnemonic": "A sudden 辶 movement makes the mouth 开 open, with 䢎 indicating exclamation.",
       "components": [
         {
           "character": "辶",
@@ -39360,7 +39360,7 @@
         },
         {
           "character": "开",
-          "gloss": "initiate"
+          "gloss": "open"
         }
       ],
       "component_source": "resolved_ids_forward",
@@ -43287,8 +43287,8 @@
           "evidence": "kind of grass"
         }
       ],
-      "equation": "艹 grass (top) + 其 his-hers-its-theirs = 萁 kind of grass",
-      "mnemonic": "萁 kind of grass is a bean stalk among 艹 grass, no matter whether the harvest is 其 his-hers-its-theirs.",
+      "equation": "艹 grass (top) + 其 their = 萁 kind of grass",
+      "mnemonic": "A farmer pulls a 萁 kind of grass from 艹 grass and adds it to 其 their fodder.",
       "components": [
         {
           "character": "艹",
@@ -43296,7 +43296,7 @@
         },
         {
           "character": "其",
-          "gloss": "his-hers-its-theirs"
+          "gloss": "their"
         }
       ],
       "component_source": "resolved_ids_forward",
@@ -44161,12 +44161,12 @@
           "evidence": "state in Henan province"
         }
       ],
-      "equation": "于 Yu + ⻏ city (right) = 邘 state in Henan province",
-      "mnemonic": "The 邘 state in Henan province appears on an ancient map where 于 Yu marks its ⻏ city.",
+      "equation": "于 at + ⻏ city (right) = 邘 state in Henan province",
+      "mnemonic": "An ancient map places 邘 state in Henan province 于 at the edge of an ⻏ city.",
       "components": [
         {
           "character": "于",
-          "gloss": "Yu"
+          "gloss": "at"
         },
         {
           "character": "⻏",
@@ -44190,12 +44190,12 @@
           "evidence": "state in today's Hebei"
         }
       ],
-      "equation": "开 initiate + ⻏ city (right) = 邢 state in today's Hebei",
-      "mnemonic": "A son of the Duke of Zhou receives a ⻏ city to 开 initiate rule in the 邢 state in today's Hebei.",
+      "equation": "开 open + ⻏ city (right) = 邢 state in today's Hebei",
+      "mnemonic": "A ruler receives an ⻏ city and throws its gates 开 open in the 邢 state in today's Hebei.",
       "components": [
         {
           "character": "开",
-          "gloss": "initiate"
+          "gloss": "open"
         },
         {
           "character": "⻏",
@@ -46004,11 +46004,11 @@
   ],
   "gpt56_expedited_release": {
     "certification_status": "expedited_non_certified",
-    "materialized_card_projection_hash": "sha256:96a5f1c495f81035286bb6fc27749fd1eeaea5e13eb815d18eece44ac1abdef8",
+    "materialized_card_projection_hash": "sha256:7b43f782389e590325ece64e966d60b5191e2d410ed15dd45fb6f67f7d5404a0",
     "formal_validation": {
       "count": 24037,
       "invalid_count": 0
     },
-    "editorial_ledger_sha256": "sha256:e436c958c3c642e658dbdf19d2854d3574c6fe34d477b57e2a76ce9835b73a8a"
+    "editorial_ledger_sha256": "sha256:ab74fcfce69457e774035bb738c6ddf4cb48b67ebc471d11435d93a350444a25"
   }
 }

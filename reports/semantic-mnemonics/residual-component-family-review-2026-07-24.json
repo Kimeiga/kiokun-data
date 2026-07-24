@@ -1,0 +1,240 @@
+{
+  "schema_version": 1,
+  "review_id": "residual-component-family-review-2026-07-24",
+  "policy_version": "2026-07-24.1",
+  "reviewed_root_count": 20,
+  "changed_card_count": 311,
+  "method": "Personal review of the remaining high-confidence lexical, reusable-gloss, and apparent-decomposition findings; broad audit signals were not auto-applied.",
+  "roots": [
+    {
+      "character": "頁",
+      "decision": "lexical_component_split",
+      "reason": "Page is the ordinary standalone meaning; head remains the useful historical component image in descendants.",
+      "lexical_gloss": "page",
+      "component_gloss": null,
+      "preferred_structure": null,
+      "changed_descendant_cards": 0
+    },
+    {
+      "character": "于",
+      "decision": "replace_obscure_name_gloss",
+      "reason": "At is the common lexical meaning and a legitimate reusable relation; Yu was an obscure surname/name reading forced into 31 cards.",
+      "lexical_gloss": "at",
+      "component_gloss": "at",
+      "preferred_structure": null,
+      "changed_descendant_cards": 31
+    },
+    {
+      "character": "丑",
+      "decision": "lexical_component_split",
+      "reason": "Ugly is the high-value Simplified Chinese meaning; clown remains a vivid legitimate image only inside the root mnemonic.",
+      "lexical_gloss": "ugly",
+      "component_gloss": null,
+      "preferred_structure": null,
+      "changed_descendant_cards": 0
+    },
+    {
+      "character": "其",
+      "decision": "normalize_pronoun_and_boundary",
+      "reason": "Their is a compact primary retrieval gloss; the apparent one-stroke split did not explain the graph.",
+      "lexical_gloss": "their",
+      "component_gloss": "their",
+      "preferred_structure": [
+        {
+          "character": "其",
+          "gloss": "their"
+        }
+      ],
+      "changed_descendant_cards": 40
+    },
+    {
+      "character": "开",
+      "decision": "restore_common_gloss",
+      "reason": "Open is the ordinary lexical and component meaning; initiate was an unnecessarily indirect synonym.",
+      "lexical_gloss": "open",
+      "component_gloss": "open",
+      "preferred_structure": null,
+      "changed_descendant_cards": 36
+    },
+    {
+      "character": "皮",
+      "decision": "restore_common_gloss",
+      "reason": "Skin is the ordinary lexical and pictographic image; covering was overgeneralized.",
+      "lexical_gloss": "skin",
+      "component_gloss": "skin",
+      "preferred_structure": null,
+      "changed_descendant_cards": 57
+    },
+    {
+      "character": "豕",
+      "decision": "restore_pictograph",
+      "reason": "The graph is a pig pictograph; splitting it into one plus a pig alternate form was circular.",
+      "lexical_gloss": "pig",
+      "component_gloss": "pig",
+      "preferred_structure": [
+        {
+          "character": "豕",
+          "gloss": "pig"
+        }
+      ],
+      "changed_descendant_cards": 54
+    },
+    {
+      "character": "足",
+      "decision": "restore_pictograph",
+      "reason": "Foot is the common lexical meaning and the graph is a foot-and-leg pictograph; lower leg was unnecessarily narrow.",
+      "lexical_gloss": "foot",
+      "component_gloss": null,
+      "preferred_structure": [
+        {
+          "character": "足",
+          "gloss": "foot"
+        }
+      ],
+      "changed_descendant_cards": 0
+    },
+    {
+      "character": "骨",
+      "decision": "restore_common_gloss",
+      "reason": "Bone is the ordinary lexical and component meaning; skeleton incorrectly widened the graph.",
+      "lexical_gloss": "bone",
+      "component_gloss": "bone",
+      "preferred_structure": null,
+      "changed_descendant_cards": 83
+    },
+    {
+      "character": "攵",
+      "decision": "restore_component_form",
+      "reason": "攵 is a hand-with-stick component form of 攴, not hair tuft plus mow grass.",
+      "lexical_gloss": null,
+      "component_gloss": null,
+      "preferred_structure": [
+        {
+          "character": "攵",
+          "gloss": "tap"
+        }
+      ],
+      "changed_descendant_cards": 0
+    },
+    {
+      "character": "豆",
+      "decision": "prefer_atomic_modern_target",
+      "reason": "The graph historically depicts a stemmed vessel, while beans is a phonetic-loan meaning; grass top was neither.",
+      "lexical_gloss": null,
+      "component_gloss": null,
+      "preferred_structure": [
+        {
+          "character": "豆",
+          "gloss": "beans"
+        }
+      ],
+      "changed_descendant_cards": 0
+    },
+    {
+      "character": "彡",
+      "decision": "restore_pictograph",
+      "reason": "The graph depicts strands of hair and should not be reduced to a single slash.",
+      "lexical_gloss": null,
+      "component_gloss": null,
+      "preferred_structure": [
+        {
+          "character": "彡",
+          "gloss": "hair"
+        }
+      ],
+      "changed_descendant_cards": 0
+    },
+    {
+      "character": "共",
+      "decision": "prefer_atomic_boundary",
+      "reason": "The graph depicts two hands holding a vessel; twentieth plus one was a learner-hostile apparent split.",
+      "lexical_gloss": null,
+      "component_gloss": null,
+      "preferred_structure": [
+        {
+          "character": "共",
+          "gloss": "together"
+        }
+      ],
+      "changed_descendant_cards": 0
+    },
+    {
+      "character": "壴",
+      "decision": "restore_pictograph",
+      "reason": "The graph depicts a decorated upright drum; soldier, mouth, and grass top were misleading labels.",
+      "lexical_gloss": null,
+      "component_gloss": null,
+      "preferred_structure": [
+        {
+          "character": "壴",
+          "gloss": "drum"
+        }
+      ],
+      "changed_descendant_cards": 0
+    },
+    {
+      "character": "彑",
+      "decision": "restore_pictograph",
+      "reason": "The graph is a head-on snout and should not be reduced to one horizontal stroke.",
+      "lexical_gloss": null,
+      "component_gloss": null,
+      "preferred_structure": [
+        {
+          "character": "彑",
+          "gloss": "snout"
+        }
+      ],
+      "changed_descendant_cards": 0
+    },
+    {
+      "character": "雚",
+      "decision": "prefer_atomic_boundary",
+      "reason": "Grass top alone did not explain the stork/heron graph or its reusable family.",
+      "lexical_gloss": null,
+      "component_gloss": null,
+      "preferred_structure": [
+        {
+          "character": "雚",
+          "gloss": "stork"
+        }
+      ],
+      "changed_descendant_cards": 0
+    },
+    {
+      "character": "趼",
+      "decision": "repair_truncated_gloss",
+      "reason": "Callus restores the complete dictionary sense that had been truncated to the unusable phrase callous skin on.",
+      "lexical_gloss": "callus",
+      "component_gloss": null,
+      "preferred_structure": null,
+      "changed_descendant_cards": 0
+    },
+    {
+      "character": "鳽",
+      "decision": "repair_definition_fragment",
+      "reason": "Heron is the learnable lexical target behind the dictionary note used in naming bitterns and herons.",
+      "lexical_gloss": "heron",
+      "component_gloss": null,
+      "preferred_structure": null,
+      "changed_descendant_cards": 0
+    },
+    {
+      "character": "趼",
+      "decision": "normalize_compatibility_target",
+      "reason": "The compatibility form inherits the corrected callus target from 趼.",
+      "lexical_gloss": "callus",
+      "component_gloss": null,
+      "preferred_structure": null,
+      "changed_descendant_cards": 0
+    },
+    {
+      "character": "鳽",
+      "decision": "normalize_compatibility_target",
+      "reason": "The compatibility form inherits the corrected heron target from 鳽.",
+      "lexical_gloss": "heron",
+      "component_gloss": null,
+      "preferred_structure": null,
+      "changed_descendant_cards": 0
+    }
+  ]
+}

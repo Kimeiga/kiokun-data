@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-07-21T06:35:36.841819+00:00",
+  "created_at": "2026-07-24T05:19:38.334234+00:00",
   "count": 24037,
   "invalid_count": 0,
   "invalid": [],
@@ -1636,11 +1636,11 @@
     "certification_status": "expedited_non_certified"
   },
   "gpt56_expedited_release": {
-    "materialized_card_projection_hash": "sha256:96a5f1c495f81035286bb6fc27749fd1eeaea5e13eb815d18eece44ac1abdef8",
+    "materialized_card_projection_hash": "sha256:7b43f782389e590325ece64e966d60b5191e2d410ed15dd45fb6f67f7d5404a0",
     "formal_validation": {
       "count": 24037,
       "invalid_count": 0
     },
-    "editorial_ledger_sha256": "sha256:e436c958c3c642e658dbdf19d2854d3574c6fe34d477b57e2a76ce9835b73a8a"
+    "editorial_ledger_sha256": "sha256:ab74fcfce69457e774035bb738c6ddf4cb48b67ebc471d11435d93a350444a25"
   }
 }
