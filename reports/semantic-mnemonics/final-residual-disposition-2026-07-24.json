@@ -1,0 +1,229 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-07-24T09:39:20Z",
+  "scope": "Final bounded residual review of the complete learner-facing semantic-mnemonic corpus after the component-boundary, pictograph, variant, gloss, prose, metadata, grammar, qualifier, and spelling passes.",
+  "source_corpus": "sveltekit-app/static/research/mnemonics/semantic_mnemonics_all_best_available.json",
+  "source_count": 24037,
+  "cumulative_change_summary": {
+    "base_commit": "c7f8ab5cdd07b27d101898ed9a6c72bfa69d1e94",
+    "unique_changed_card_count": 820,
+    "field_change_counts": {
+      "meaning": 523,
+      "source_meaning": 523,
+      "components": 378,
+      "visual_components": 378,
+      "equation": 813,
+      "mnemonic": 380,
+      "hero_image_prompt": 0
+    },
+    "note": "Counts overlap because a card can change in more than one field or review pass."
+  },
+  "release_integrity": {
+    "declared_count": 24037,
+    "actual_count": 24037,
+    "unique_character_count": 24037,
+    "valid_card_count": 24037,
+    "component_index_card_count": 24037,
+    "semantic_mnemonic_corpus_hash": "sha256:f7c9bab15e001585d8f98ac66b2d85e0d320c2ddeaf11733a31b226904cfa6c4",
+    "component_index_source_corpus_hash": "sha256:f7c9bab15e001585d8f98ac66b2d85e0d320c2ddeaf11733a31b226904cfa6c4",
+    "hashes_match": true
+  },
+  "final_passes": [
+    {
+      "name": "final prose and gloss recovery",
+      "changed_card_count": 24,
+      "report": "reports/semantic-mnemonics/final-prose-gloss-repair-2026-07-24.json"
+    },
+    {
+      "name": "egg pictograph family",
+      "changed_card_count": 7,
+      "report": "reports/semantic-mnemonics/egg-pictograph-repair-2026-07-24.json"
+    },
+    {
+      "name": "long gloss normalization 1",
+      "changed_card_count": 57,
+      "report": "reports/semantic-mnemonics/long-gloss-repair-2026-07-24.json"
+    },
+    {
+      "name": "long gloss normalization 2",
+      "changed_card_count": 75,
+      "report": "reports/semantic-mnemonics/long-gloss-repair-2-2026-07-24.json"
+    },
+    {
+      "name": "long gloss normalization 3",
+      "changed_card_count": 103,
+      "report": "reports/semantic-mnemonics/long-gloss-repair-3-2026-07-24.json"
+    },
+    {
+      "name": "residual grammar and gloss normalization",
+      "changed_card_count": 55,
+      "report": "reports/semantic-mnemonics/residual-grammar-gloss-repair-2026-07-24.json"
+    },
+    {
+      "name": "nonsemantic variant metadata suffix removal",
+      "changed_card_count": 489,
+      "report": "reports/semantic-mnemonics/variant-metadata-suffix-repair-2026-07-24.json"
+    },
+    {
+      "name": "residual qualifier normalization",
+      "changed_card_count": 12,
+      "report": "reports/semantic-mnemonics/residual-qualifier-gloss-repair-2026-07-24.json"
+    },
+    {
+      "name": "residual spelling and gloss normalization",
+      "changed_card_count": 6,
+      "report": "reports/semantic-mnemonics/residual-spelling-gloss-repair-2026-07-24.json"
+    }
+  ],
+  "deterministic_checks": {
+    "semantic_test_suite": {
+      "command": "python3 -m unittest discover -s scripts -p 'test_semantic_mnemonic*.py'",
+      "tests_run": 301,
+      "result": "pass"
+    },
+    "production_build": {
+      "command": "npm run build",
+      "node_version_family": 22,
+      "result": "pass",
+      "note": "The build emitted only pre-existing framework, accessibility, bundle-size, and dependency-age warnings."
+    },
+    "spelling_scan": {
+      "tool": "codespell",
+      "result": "pass",
+      "actionable_finding_count": 0,
+      "note": "Remaining dictionary hits were manually checked as valid English homographs, technical terms, readings, or proper names."
+    },
+    "residual_pattern_scan": {
+      "semicolon_meaning_count": 0,
+      "slash_meaning_count": 0,
+      "malformed_pattern_count": 0,
+      "metadata_suffix_meaning_count": 0,
+      "metadata_suffix_component_count": 0
+    }
+  },
+  "heuristic_audits": {
+    "component_family_audit": {
+      "report": "reports/semantic-mnemonics/component-family-audit-final-2026-07-24.json",
+      "signal_count": 1339,
+      "by_kind": {
+        "apparent_ids_high_impact": 51,
+        "pictograph_overdecomposed": 231,
+        "simplification_collision": 54,
+        "source_target_gloss_drift": 592,
+        "variant_concept_drift": 84,
+        "variant_or_archaic_primitive": 327
+      }
+    },
+    "prose_quality_audit": {
+      "report": "reports/semantic-mnemonics/prose-quality-final-2026-07-24.json",
+      "flagged_card_count": 1403,
+      "quality_status_counts": {
+        "pass": 22634,
+        "review": 1390,
+        "rewrite": 13
+      },
+      "flag_counts": {
+        "variant_form_needs_review": 832,
+        "abstract_final_meaning": 372,
+        "duplicated_component_meaning": 238,
+        "opaque_component_gloss": 7,
+        "unhelpful_final_gloss": 2
+      }
+    },
+    "interpretation": "These are deliberately broad review signals, not defect counts. Every high-severity residual class was manually dispositioned after the final repair passes."
+  },
+  "manual_dispositions": [
+    {
+      "category": "repeated visible components",
+      "characters": [
+        "樂",
+        "樂",
+        "呂",
+        "旅",
+        "樂",
+        "林",
+        "丽",
+        "㒹",
+        "仌",
+        "多",
+        "巽",
+        "晉",
+        "㬈"
+      ],
+      "decision": "retain",
+      "reason": "The repetition is the visible and memorable structure of each compatibility or variant form, so deduplicating the component labels would erase the mnemonic image."
+    },
+    {
+      "category": "specialized Korean reading marks",
+      "characters": [
+        "䁞",
+        "乥",
+        "寕",
+        "扵",
+        "於",
+        "旀",
+        "靣"
+      ],
+      "decision": "retain",
+      "reason": "The apparently opaque labels are accurate learner-facing gugyeol or reading-mark functions; replacing them with invented concrete objects would teach false semantics."
+    },
+    {
+      "category": "lexical and component-mode gloss splits",
+      "decision": "retain",
+      "reason": "Side forms and productive components such as 氵, 艹, 扌, 亻, 金, 言, 日, and ⺼ benefit from concrete component-mode labels even when the standalone lexical gloss differs."
+    },
+    {
+      "category": "simplification collisions",
+      "decision": "retain distinct concepts",
+      "reason": "Pairs such as 廣/广, 幾/几, 兒/儿, 幹/干, 乾/干, 鬥/斗, and the 台 family collapse historically different characters. A single forced gloss would create incorrect mnemonics."
+    },
+    {
+      "category": "stable recurring units and pictographs",
+      "decision": "retain selectively",
+      "reason": "A component can be worth learning atomically when it recurs as a stable visible chunk, even if it is rare as a standalone word. It is dissolved when its stored lexical meaning is merely archaic or a variant label and the smaller pieces produce a clearer image."
+    },
+    {
+      "category": "precise long glosses",
+      "characters": [
+        "㙱",
+        "㱯",
+        "㺐",
+        "㺑",
+        "㼰",
+        "䜠",
+        "丣",
+        "侬",
+        "儂",
+        "汜",
+        "狖",
+        "蘧",
+        "饝",
+        "𠹺",
+        "𮬜"
+      ],
+      "decision": "retain",
+      "reason": "The remaining longer labels preserve necessary referential, grammatical, regional, or taxonomic precision and are more useful than an ambiguous shorter substitute."
+    }
+  ],
+  "deliberately_unresolved": [
+    {
+      "character": "㙌",
+      "meaning": "meaning unknown",
+      "decision": "retain honest uncertainty",
+      "reason": "The bundled dictionary supplies only a simplified-form note, and the available traditional-form references do not recover a defensible lexical sense.",
+      "reference": "https://en.wiktionary.org/wiki/%E3%99%8C"
+    },
+    {
+      "character": "𨊰",
+      "meaning": "meaning unknown",
+      "decision": "retain honest uncertainty",
+      "reason": "Kangxi-derived reference material supplies a reading but explicitly says that the meaning is not explained.",
+      "reference": "https://www.zdic.net/hans/%F0%A8%8A%B0"
+    }
+  ],
+  "conclusion": {
+    "actionable_high_confidence_finding_count": 0,
+    "release_decision": "approve",
+    "statement": "No further corpus-wide rewrite is justified by the residual evidence. The remaining audit signals are intentional structure, accurate specialized terminology, unavoidable source collisions, useful component abstraction, or explicitly documented lexical uncertainty."
+  }
+}

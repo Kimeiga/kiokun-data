@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "policy_version": "2026-07-24.1",
+  "family": "residual-spelling-gloss",
+  "decision": "Repair the final spelling-scan findings that reflect real gloss corruption rather than valid English homographs, and normalize the affected mnemonic sentences.",
+  "replacements": {
+    "䈙": {
+      "old": "bamboo to wither",
+      "new": "withered bamboo"
+    },
+    "徜": {
+      "old": "walking and fro",
+      "new": "walk to and fro"
+    },
+    "犨": {
+      "old": "panting of cow",
+      "new": "cow-panting sound"
+    },
+    "鯰": {
+      "old": "sheat",
+      "new": "catfish"
+    },
+    "鲶": {
+      "old": "sheat",
+      "new": "catfish"
+    }
+  },
+  "component_replacements": {
+    "红": {
+      "old": "vermillion",
+      "new": "red"
+    }
+  },
+  "expected_target_count": 5,
+  "expected_changed_card_count": 6,
+  "evidence": [
+    {
+      "source": "Repository Chinese character dictionary and embedded top-word glosses",
+      "path": "data/chinese_dictionary_char_2025-06-25.jsonl",
+      "supports": "鯰/鲶 as catfish, 犨 as a cow-breathing sound, and the inherited malformed strings corrected here."
+    },
+    {
+      "source": "Chinese University of Hong Kong Chinese Character Database",
+      "url": "https://humanum.arts.cuhk.edu.hk/Lexis/lexi-mf/search.php?word=%E9%AF%B0",
+      "supports": "鯰 as Siluriformes/catfish."
+    },
+    {
+      "source": "Deterministic corpus spelling scan",
+      "path": "sveltekit-app/static/research/mnemonics/semantic_mnemonics_all_best_available.json",
+      "supports": "The bounded residual spelling candidates and dismissal of valid homographs such as mane, bale, trough, and wether."
+    }
+  ]
+}

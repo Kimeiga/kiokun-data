@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "review_id": "final-prose-gloss-review-2026-07-24",
+  "policy_version": "2026-07-24.1",
+  "changed_card_count": 24,
+  "method": "Manual, evidence-backed resolution of every prose-audit placeholder with recoverable semantics, plus seven false-positive prose polishes. The two meanings not recoverable from available sources remain explicitly unresolved.",
+  "root_gloss_repairs": {
+    "𠀅": "sign of the hog",
+    "𠧩": "repent",
+    "𫜹": "snout",
+    "𫝀": "five",
+    "𫩠": "Macau name character",
+    "𭤨": "flags flying",
+    "𭥍": "purpose",
+    "𰮤": "imperial I",
+    "𱋁": "pair of deer",
+    "𱥯": "lacquer sap",
+    "𭔰": "measuring beans",
+    "𰕎": "clear away dishes"
+  },
+  "target_cleanup": {
+    "厨": "kitchen"
+  },
+  "component_boundary_repairs": {
+    "𭔰": "Expand 豆 + 寸 in the three containing cards instead of asking learners to memorize an otherwise undefined intermediate.",
+    "𫜹": "Retain the exact visible component but replace the empty gloss form with its documented relationship to 彐.",
+    "𱥯": "Use the recurring shape as the lacquer-sap image inside 桼 rather than the irrelevant label old form."
+  },
+  "prose_polish_characters": [
+    "句",
+    "魂",
+    "䰟",
+    "叒",
+    "喭",
+    "惓",
+    "笺"
+  ],
+  "deliberately_unresolved": {
+    "㙌": "The bundled dictionary records only '(a simplified form)' and supplies no traditional target or recoverable meaning.",
+    "𨊰": "Unihan and Kangxi-derived sources supply a reading but explicitly leave the sense unknown."
+  },
+  "evidence": [
+    {
+      "source": "Unicode Unihan_Readings.txt",
+      "path": "data/unihan/Unihan_Readings.txt",
+      "supports": "𠀅 is a variant of 亥; 𠧩 is an archaic form of 悔 meaning to repent."
+    },
+    {
+      "source": "Unicode kStrange data and Moji Joho MJ056880",
+      "url": "https://moji.or.jp/mojikibansearch/info?MJ%E6%96%87%E5%AD%97%E5%9B%B3%E5%BD%A2%E5%90%8D=MJ056880",
+      "supports": "𫝀 reduces to 五 and carries its readings."
+    },
+    {
+      "source": "Unicode IRG disunification proposal",
+      "url": "https://www.unicode.org/irg/docs/n2509-Disunify5F50.pdf",
+      "supports": "𫜹 is the separately encoded component shape historically overloaded with 彐."
+    },
+    {
+      "source": "Repository IDS and external variant references",
+      "path": "data/ids",
+      "supports": "𭤨 is a component form of 㫃; 𭥍 is a variant of 旨; 𱋁 is 鹿 + 鹿."
+    },
+    {
+      "source": "Chinese Text Project, Five Classics Characters",
+      "url": "https://ctext.org/wiki.pl?chapter=147275&if=en",
+      "supports": "𰮤 is the inherited clerical component form corresponding to 朕 in the 滕/勝 family."
+    },
+    {
+      "source": "Ji Xusheng etymology summarized with citation",
+      "url": "https://chinese.stackexchange.com/questions/63926/does-this-character-have-a-meaning",
+      "supports": "𰕎 is an early form behind 徹, originally referring to clearing tableware after a meal."
+    },
+    {
+      "source": "Repository Chinese dictionary",
+      "path": "data/chinese_dictionary_char_2025-06-25.jsonl",
+      "supports": "厨 means kitchen; the prior closet gloss belongs to 橱."
+    }
+  ]
+}

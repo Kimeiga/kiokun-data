@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "policy_version": "2026-07-24.1",
+  "family": "egg-pictograph",
+  "root_decisions": {
+    "卵": {
+      "lexical_gloss": "egg",
+      "component_gloss": "egg",
+      "decision": "atomize_pictograph"
+    },
+    "卵": {
+      "lexical_gloss": "egg",
+      "component_gloss": "egg",
+      "decision": "align_compatibility_ideograph"
+    }
+  },
+  "reason": "卵 is a pictograph of paired egg sacs. The inherited gloss nest eggs is unnatural, and decomposing it as hook stroke plus reading mark creates two irrelevant facts instead of teaching the useful meaning egg.",
+  "expected_changed_card_count": 7,
+  "expected_standard_occurrence_count": 6,
+  "expected_compatibility_occurrence_count": 1,
+  "evidence": [
+    {
+      "source": "Repository Chinese dictionary",
+      "path": "data/chinese_dictionary_char_2025-06-25.jsonl",
+      "supports": "卵 is defined as egg and described as a pictograph."
+    },
+    {
+      "source": "Unicode Unihan_Readings.txt",
+      "path": "data/unihan/Unihan_Readings.txt",
+      "supports": "Both U+5375 卵 and U+F91C 卵 mean egg, ovum, roe, or spawn."
+    },
+    {
+      "source": "Unicode compatibility normalization",
+      "supports": "NFKC maps U+F91C 卵 to U+5375 卵."
+    }
+  ]
+}

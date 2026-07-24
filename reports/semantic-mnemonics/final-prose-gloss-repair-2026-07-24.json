@@ -1,0 +1,1291 @@
+{
+  "schema_version": 1,
+  "policy_version": "2026-07-24.1",
+  "policy_path": "data/semantic_mnemonic_final_prose_gloss_policy.json",
+  "base_projection_hash": "sha256:93a46f2efc9d10d99ed2ad305be2a22801a91834715cfa5f0d9859502a761978",
+  "candidate_projection_hash": "sha256:aae3f94eb60807e4a96cb0ca1c6b628b70d4a95e5eee897f62ba99cb0c9eb73a",
+  "card_count": 24037,
+  "invalid_count": 0,
+  "changed_count": 24,
+  "already_applied_count": 0,
+  "changed_characters": [
+    "㨗",
+    "䰟",
+    "厨",
+    "叒",
+    "句",
+    "喭",
+    "惓",
+    "桼",
+    "笺",
+    "闘",
+    "鬪",
+    "魂",
+    "𠀅",
+    "𠧩",
+    "𫜹",
+    "𫝀",
+    "𫩠",
+    "𭔰",
+    "𭤨",
+    "𭥍",
+    "𰕎",
+    "𰮤",
+    "𱋁",
+    "𱥯"
+  ],
+  "deliberately_unresolved": {
+    "㙌": "The bundled dictionary records only '(a simplified form)' and supplies no traditional target or recoverable meaning.",
+    "𨊰": "Unihan and Kangxi-derived sources supply a reading but explicitly leave the sense unknown."
+  },
+  "changes": [
+    {
+      "character": "㨗",
+      "base_card_hash": "sha256:c9b45b60a23e898f805027eb364267bfd393e4510716ff14859c87a330f3b0b4",
+      "before": {
+        "meaning": "alert",
+        "equation": "扌 hand (side) + ⺊ divination + 𫜹 form + 龰 foot = 㨗 alert",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "⺊",
+            "gloss": "divination"
+          },
+          {
+            "character": "𫜹",
+            "gloss": "form"
+          },
+          {
+            "character": "龰",
+            "gloss": "foot"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "⺊",
+            "gloss": "divination"
+          },
+          {
+            "character": "𫜹",
+            "gloss": "form"
+          },
+          {
+            "character": "龰",
+            "gloss": "foot"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "alert",
+        "equation": "扌 hand (side) + ⺊ divination + 𫜹 snout + 龰 foot = 㨗 alert",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "⺊",
+            "gloss": "divination"
+          },
+          {
+            "character": "𫜹",
+            "gloss": "snout"
+          },
+          {
+            "character": "龰",
+            "gloss": "foot"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "⺊",
+            "gloss": "divination"
+          },
+          {
+            "character": "𫜹",
+            "gloss": "snout"
+          },
+          {
+            "character": "龰",
+            "gloss": "foot"
+          }
+        ]
+      },
+      "before_mnemonic": "A 扌 hand checks the ⺊ divination 𫜹 form while a 龰 foot remains 㨗 alert for its signal.",
+      "after_mnemonic": "At the omen, a 扌 hand checks the ⺊ divination board, a 𫜹 snout lifts, and a 龰 foot springs 㨗 alert.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䰟",
+      "base_card_hash": "sha256:e351bcadfba0141d16a522baca602579025d049ead06cabd8d1dba5305e280c6",
+      "before": {
+        "meaning": "the soul",
+        "equation": "云 utter + 鬼 ghost = 䰟 the soul",
+        "components": [
+          {
+            "character": "云",
+            "gloss": "utter"
+          },
+          {
+            "character": "鬼",
+            "gloss": "ghost"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "云",
+            "gloss": "utter"
+          },
+          {
+            "character": "鬼",
+            "gloss": "ghost"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "the soul",
+        "equation": "云 utter + 鬼 ghost = 䰟 the soul",
+        "components": [
+          {
+            "character": "云",
+            "gloss": "utter"
+          },
+          {
+            "character": "鬼",
+            "gloss": "ghost"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "云",
+            "gloss": "utter"
+          },
+          {
+            "character": "鬼",
+            "gloss": "ghost"
+          }
+        ]
+      },
+      "before_mnemonic": "In a folktale, a 鬼 ghost lets 䰟 the soul 云 utter words no living mouth can speak.",
+      "after_mnemonic": "A 鬼 ghost gives 䰟 the soul a chance to 云 utter what no living mouth can say.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "厨",
+      "base_card_hash": "sha256:edab736ef1ed036ba7cbd1594ee1009c73ec1c2837579e56cd44fe035947e511",
+      "before": {
+        "meaning": "closet",
+        "equation": "厂 cliff + 𭔰 beans measure = 厨 closet",
+        "components": [
+          {
+            "character": "厂",
+            "gloss": "cliff"
+          },
+          {
+            "character": "𭔰",
+            "gloss": "beans measure"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "厂",
+            "gloss": "cliff"
+          },
+          {
+            "character": "𭔰",
+            "gloss": "beans measure"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "kitchen",
+        "equation": "厂 cliff + 豆 stemmed bowl + 寸 inch = 厨 kitchen",
+        "components": [
+          {
+            "character": "厂",
+            "gloss": "cliff"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "寸",
+            "gloss": "inch"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "厂",
+            "gloss": "cliff"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "寸",
+            "gloss": "inch"
+          }
+        ]
+      },
+      "before_mnemonic": "A recess in the 厂 cliff stores a 𭔰 beans measure, functioning as a 厨 closet.",
+      "after_mnemonic": "Beneath a 厂 cliff shaped like a roof, a 豆 stemmed bowl sits one 寸 inch from the wall in the 厨 kitchen.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "叒",
+      "base_card_hash": "sha256:121860bec11bbe8fc187a87860a9e91c537a0663bc0b4750876dafb0c699fdbf",
+      "before": {
+        "meaning": "united",
+        "equation": "又 hand + 双 pair = 叒 united",
+        "components": [
+          {
+            "character": "又",
+            "gloss": "hand"
+          },
+          {
+            "character": "双",
+            "gloss": "pair"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "又",
+            "gloss": "hand"
+          },
+          {
+            "character": "双",
+            "gloss": "pair"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "united",
+        "equation": "又 hand + 双 pair = 叒 united",
+        "components": [
+          {
+            "character": "又",
+            "gloss": "hand"
+          },
+          {
+            "character": "双",
+            "gloss": "pair"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "又",
+            "gloss": "hand"
+          },
+          {
+            "character": "双",
+            "gloss": "pair"
+          }
+        ]
+      },
+      "before_mnemonic": "One 又 hand clasps a 双 pair of hands, all three 叒 united.",
+      "after_mnemonic": "An 又 hand joins a 双 pair so that all three are 叒 united.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "句",
+      "base_card_hash": "sha256:ec722d6f1758a0a265019dc143b327f8344bae8432ef378591acd8a6774cdfbe",
+      "before": {
+        "meaning": "sentence",
+        "equation": "勹 wrap + 口 mouth = 句 sentence",
+        "components": [
+          {
+            "character": "勹",
+            "gloss": "wrap"
+          },
+          {
+            "character": "口",
+            "gloss": "mouth"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "勹",
+            "gloss": "wrap"
+          },
+          {
+            "character": "口",
+            "gloss": "mouth"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sentence",
+        "equation": "勹 wrap + 口 mouth = 句 sentence",
+        "components": [
+          {
+            "character": "勹",
+            "gloss": "wrap"
+          },
+          {
+            "character": "口",
+            "gloss": "mouth"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "勹",
+            "gloss": "wrap"
+          },
+          {
+            "character": "口",
+            "gloss": "mouth"
+          }
+        ]
+      },
+      "before_mnemonic": "A 句 sentence uses words to 勹 wrap one complete thought for the 口 mouth to speak.",
+      "after_mnemonic": "Words spoken through the 口 mouth 勹 wrap one complete thought into a 句 sentence.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "喭",
+      "base_card_hash": "sha256:169cf4c7bcdcfa75a93e2b6145cc870a08d45aa76102e605bfca23456a7103c9",
+      "before": {
+        "meaning": "condole with",
+        "equation": "口 mouth + 彦 elegant = 喭 condole with",
+        "components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "彦",
+            "gloss": "elegant"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "彦",
+            "gloss": "elegant"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "condole with",
+        "equation": "口 mouth + 彦 elegant = 喭 condole with",
+        "components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "彦",
+            "gloss": "elegant"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "彦",
+            "gloss": "elegant"
+          }
+        ]
+      },
+      "before_mnemonic": "A 口 mouth chooses 彦 elegant words to gently 喭 condole with a grieving friend.",
+      "after_mnemonic": "The 口 mouth uses 彦 elegant language to 喭 condole with a grieving friend.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "惓",
+      "base_card_hash": "sha256:c648b976d5781fc69601fc153ecb7d3ddca36db667754c3990126f212c7b9e37",
+      "before": {
+        "meaning": "sincere",
+        "equation": "忄 heart (side) + 卷 scroll = 惓 sincere",
+        "components": [
+          {
+            "character": "忄",
+            "gloss": "heart (side)"
+          },
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "忄",
+            "gloss": "heart (side)"
+          },
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sincere",
+        "equation": "忄 heart (side) + 卷 scroll = 惓 sincere",
+        "components": [
+          {
+            "character": "忄",
+            "gloss": "heart (side)"
+          },
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "忄",
+            "gloss": "heart (side)"
+          },
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          }
+        ]
+      },
+      "before_mnemonic": "A message written from the 忄 heart (side) fills a 卷 scroll with 惓 sincere words.",
+      "after_mnemonic": "A 卷 scroll written from the 忄 heart (side) makes its promise feel 惓 sincere.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "桼",
+      "base_card_hash": "sha256:00cd1fd24430489977e05163d97ae669a25263c609be86d1aad6eed5582438df",
+      "before": {
+        "meaning": "varnish tree",
+        "equation": "木 tree + 𱥯 old form = 桼 varnish tree",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "𱥯",
+            "gloss": "old form"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "𱥯",
+            "gloss": "old form"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "varnish tree",
+        "equation": "木 tree + 𱥯 lacquer sap = 桼 varnish tree",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "𱥯",
+            "gloss": "lacquer sap"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "𱥯",
+            "gloss": "lacquer sap"
+          }
+        ]
+      },
+      "before_mnemonic": "The 𱥯 old form pictures lacquer sap dripping from the 木 tree known as the 桼 varnish tree.",
+      "after_mnemonic": "The 𱥯 lacquer sap drips from the 木 tree known as the 桼 varnish tree.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "笺",
+      "base_card_hash": "sha256:3619a1c23ae8ef944bfa4311e0ad9a5445b0cf2d62b823f3bfa991ade6d50d9c",
+      "before": {
+        "meaning": "memo",
+        "equation": "竹 bamboo + 戋 tiny = 笺 memo",
+        "components": [
+          {
+            "character": "竹",
+            "gloss": "bamboo"
+          },
+          {
+            "character": "戋",
+            "gloss": "tiny"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "竹",
+            "gloss": "bamboo"
+          },
+          {
+            "character": "戋",
+            "gloss": "tiny"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "memo",
+        "equation": "竹 bamboo + 戋 tiny = 笺 memo",
+        "components": [
+          {
+            "character": "竹",
+            "gloss": "bamboo"
+          },
+          {
+            "character": "戋",
+            "gloss": "tiny"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "竹",
+            "gloss": "bamboo"
+          },
+          {
+            "character": "戋",
+            "gloss": "tiny"
+          }
+        ]
+      },
+      "before_mnemonic": "A 戋 tiny space on 竹 bamboo limits a 笺 memo to a few words.",
+      "after_mnemonic": "A 戋 tiny note on 竹 bamboo becomes a concise 笺 memo.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "闘",
+      "base_card_hash": "sha256:792d9e143695d8ad5da73afc55c918d28929324669a44b199a228b1f2cf218c9",
+      "before": {
+        "meaning": "fight",
+        "equation": "門 gate + 𭔰 beans measure = 闘 fight",
+        "components": [
+          {
+            "character": "門",
+            "gloss": "gate"
+          },
+          {
+            "character": "𭔰",
+            "gloss": "beans measure"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "門",
+            "gloss": "gate"
+          },
+          {
+            "character": "𭔰",
+            "gloss": "beans measure"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "fight",
+        "equation": "門 gate + 豆 stemmed bowl + 寸 inch = 闘 fight",
+        "components": [
+          {
+            "character": "門",
+            "gloss": "gate"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "寸",
+            "gloss": "inch"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "門",
+            "gloss": "gate"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "寸",
+            "gloss": "inch"
+          }
+        ]
+      },
+      "before_mnemonic": "At the 門 gate, rivals grab the same 𭔰 beans measure and begin to 闘 fight over it.",
+      "after_mnemonic": "At the 門 gate, rivals tug a 豆 stemmed bowl 寸 inch by inch until they 闘 fight.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "鬪",
+      "base_card_hash": "sha256:b45912f7f01814757551fd26aba68e9ebd2aa86009faa801ab1c0377d1ff8671",
+      "before": {
+        "meaning": "fight",
+        "equation": "鬥 fight + 𭔰 beans measure = 鬪 fight",
+        "components": [
+          {
+            "character": "鬥",
+            "gloss": "fight"
+          },
+          {
+            "character": "𭔰",
+            "gloss": "beans measure"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "鬥",
+            "gloss": "fight"
+          },
+          {
+            "character": "𭔰",
+            "gloss": "beans measure"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "fight",
+        "equation": "鬥 fight + 豆 stemmed bowl + 寸 inch = 鬪 fight",
+        "components": [
+          {
+            "character": "鬥",
+            "gloss": "fight"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "寸",
+            "gloss": "inch"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "鬥",
+            "gloss": "fight"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "寸",
+            "gloss": "inch"
+          }
+        ]
+      },
+      "before_mnemonic": "In a 鬪 fight, rivals seize the 𭔰 beans measure and 鬥 fight over the count.",
+      "after_mnemonic": "The 鬥 fight frame encloses rivals pulling a 豆 stemmed bowl 寸 inch by inch in a 鬪 fight.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "魂",
+      "base_card_hash": "sha256:8de306ee870bc10b44aad30237b1e18e9b8ecfc900b814549eefcaf406f9a62f",
+      "before": {
+        "meaning": "soul",
+        "equation": "云 utter + 鬼 ghost = 魂 soul",
+        "components": [
+          {
+            "character": "云",
+            "gloss": "utter"
+          },
+          {
+            "character": "鬼",
+            "gloss": "ghost"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "云",
+            "gloss": "utter"
+          },
+          {
+            "character": "鬼",
+            "gloss": "ghost"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "soul",
+        "equation": "云 utter + 鬼 ghost = 魂 soul",
+        "components": [
+          {
+            "character": "云",
+            "gloss": "utter"
+          },
+          {
+            "character": "鬼",
+            "gloss": "ghost"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "云",
+            "gloss": "utter"
+          },
+          {
+            "character": "鬼",
+            "gloss": "ghost"
+          }
+        ]
+      },
+      "before_mnemonic": "In a folktale, a 鬼 ghost lets a 魂 soul 云 utter words no living mouth can speak.",
+      "after_mnemonic": "A 鬼 ghost gives the 魂 soul a chance to 云 utter what no living mouth can say.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "𠀅",
+      "base_card_hash": "sha256:11343a6594cc1be10e18eacca3094ff5d1fc5fb89c42ee7e921d3214b1e7b9d1",
+      "before": {
+        "meaning": "alternate form",
+        "equation": "Visual form: 𠀅 alternate form",
+        "components": [
+          {
+            "character": "𠀅",
+            "gloss": "alternate form"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𠀅",
+            "gloss": "alternate form"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sign of the hog",
+        "equation": "Visual form: 𠀅 sign of the hog",
+        "components": [
+          {
+            "character": "𠀅",
+            "gloss": "sign of the hog"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𠀅",
+            "gloss": "sign of the hog"
+          }
+        ]
+      },
+      "before_mnemonic": "The slightly reshaped 𠀅 alternate form stands beside its standard twin, differing by one old pen stroke.",
+      "after_mnemonic": "The three-stroke 𠀅 sign of the hog is an old variant of 亥, the twelfth earthly branch.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "𠧩",
+      "base_card_hash": "sha256:7e796304e0ca615547e7c942285d825b9aa452d1299b64a1cd2d4d247713b726",
+      "before": {
+        "meaning": "form",
+        "equation": "Visual form: 𠧩 form",
+        "components": [
+          {
+            "character": "𠧩",
+            "gloss": "form"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𠧩",
+            "gloss": "form"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "repent",
+        "equation": "Visual form: 𠧩 repent",
+        "components": [
+          {
+            "character": "𠧩",
+            "gloss": "repent"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𠧩",
+            "gloss": "repent"
+          }
+        ]
+      },
+      "before_mnemonic": "The 𠧩 form holds its inner strokes inside a fixed, mold-like outline.",
+      "after_mnemonic": "To 𠧩 repent, a scribe traps regret inside the enclosing strokes of this archaic form of 悔.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "𫜹",
+      "base_card_hash": "sha256:7aa8a2397535cd102fd6ae64fdd7efb5ec07601389389846d856baa34ffca745",
+      "before": {
+        "meaning": "form",
+        "equation": "Visual form: 𫜹 form",
+        "components": [
+          {
+            "character": "𫜹",
+            "gloss": "form"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𫜹",
+            "gloss": "form"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "snout",
+        "equation": "Visual form: 𫜹 snout",
+        "components": [
+          {
+            "character": "𫜹",
+            "gloss": "snout"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𫜹",
+            "gloss": "snout"
+          }
+        ]
+      },
+      "before_mnemonic": "Pressing soft clay into a rigid mold fixes its 𫜹 form on every side.",
+      "after_mnemonic": "Picture 𫜹 snout with a blunt projecting front; this separately encoded shape was once shared with 彐.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "𫝀",
+      "base_card_hash": "sha256:7c4daeedabf6fbaa96281cf471bfec4cdd02e4b2165d03bd956b109d31d64475",
+      "before": {
+        "meaning": "form",
+        "equation": "Visual form: 𫝀 form",
+        "components": [
+          {
+            "character": "𫝀",
+            "gloss": "form"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𫝀",
+            "gloss": "form"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "five",
+        "equation": "Visual form: 𫝀 five",
+        "components": [
+          {
+            "character": "𫝀",
+            "gloss": "five"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𫝀",
+            "gloss": "five"
+          }
+        ]
+      },
+      "before_mnemonic": "A backlit silhouette reveals the 𫝀 form of a figure while concealing every detail.",
+      "after_mnemonic": "五 loses one cross-stroke in its old variant; the result is 𫝀 five.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "𫩠",
+      "base_card_hash": "sha256:0a1bcb24035d099803daff5c65c9fc4cc061600f58dc72fdef3c14a68653da19",
+      "before": {
+        "meaning": "alternate form",
+        "equation": "Visual form: 𫩠 alternate form",
+        "components": [
+          {
+            "character": "𫩠",
+            "gloss": "alternate form"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𫩠",
+            "gloss": "alternate form"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "Macau name character",
+        "equation": "Visual form: 𫩠 Macau name character",
+        "components": [
+          {
+            "character": "𫩠",
+            "gloss": "Macau name character"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𫩠",
+            "gloss": "Macau name character"
+          }
+        ]
+      },
+      "before_mnemonic": "𫩠 alternate form keeps the square mouth while rearranging the surrounding strokes into a changed outline.",
+      "after_mnemonic": "A registry clerk recognizes 𫩠 Macau name character by the square mouth tucked beneath its small roof.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "𭔰",
+      "base_card_hash": "sha256:0d475601fc9acac36072e0c2b3eadad0cf2782c3744cadfbc776c3f0da8e1c56",
+      "before": {
+        "meaning": "form",
+        "equation": "豆 stemmed bowl + 寸 inch = 𭔰 form",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "寸",
+            "gloss": "inch"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "寸",
+            "gloss": "inch"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "measuring beans",
+        "equation": "豆 stemmed bowl + 寸 inch = 𭔰 measuring beans",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "寸",
+            "gloss": "inch"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "寸",
+            "gloss": "inch"
+          }
+        ]
+      },
+      "before_mnemonic": "Set each 豆 stemmed bowl one 寸 inch apart to 𭔰 form a measured row.",
+      "after_mnemonic": "A 寸 inch mark on a 豆 stemmed bowl helps with 𭔰 measuring beans.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "𭤨",
+      "base_card_hash": "sha256:dd0c4881d6394207de23ed2f139bc9f8b60689dddcc3050149aa49efc92063db",
+      "before": {
+        "meaning": "form",
+        "equation": "Visual form: 𭤨 form",
+        "components": [
+          {
+            "character": "𭤨",
+            "gloss": "form"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𭤨",
+            "gloss": "form"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "flags flying",
+        "equation": "Visual form: 𭤨 flags flying",
+        "components": [
+          {
+            "character": "𭤨",
+            "gloss": "flags flying"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𭤨",
+            "gloss": "flags flying"
+          }
+        ]
+      },
+      "before_mnemonic": "The enclosing bends of 𭤨 form trace a firm outline around an open center.",
+      "after_mnemonic": "A side-facing pole carries cloth as 𭤨 flags flying, the same wind-blown image as 㫃.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "𭥍",
+      "base_card_hash": "sha256:e49f9d27f3ee27bf80a52e59f0813f0d218a8ecbe370c77b92bc762db0e1e584",
+      "before": {
+        "meaning": "alternate form",
+        "equation": "Visual form: 𭥍 alternate form",
+        "components": [
+          {
+            "character": "𭥍",
+            "gloss": "alternate form"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𭥍",
+            "gloss": "alternate form"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "purpose",
+        "equation": "Visual form: 𭥍 purpose",
+        "components": [
+          {
+            "character": "𭥍",
+            "gloss": "purpose"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𭥍",
+            "gloss": "purpose"
+          }
+        ]
+      },
+      "before_mnemonic": "Two offset paths in 𭥍 alternate form suggest the same outline redrawn by a different route.",
+      "after_mnemonic": "The shifted top stroke marks 𭥍 purpose as an old variant of 旨.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "𰕎",
+      "base_card_hash": "sha256:1c6e713ec12219b38ca878e3a1054a8c2d580efa53a09f3cb29f882289c0783c",
+      "before": {
+        "meaning": "form",
+        "equation": "育 education + 攵 tap = 𰕎 form",
+        "components": [
+          {
+            "character": "育",
+            "gloss": "education"
+          },
+          {
+            "character": "攵",
+            "gloss": "tap"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "育",
+            "gloss": "education"
+          },
+          {
+            "character": "攵",
+            "gloss": "tap"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "clear away dishes",
+        "equation": "育 cooking pot + 攵 tap = 𰕎 clear away dishes",
+        "components": [
+          {
+            "character": "育",
+            "gloss": "cooking pot"
+          },
+          {
+            "character": "攵",
+            "gloss": "tap"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "育",
+            "gloss": "cooking pot"
+          },
+          {
+            "character": "攵",
+            "gloss": "tap"
+          }
+        ]
+      },
+      "before_mnemonic": "A repeated 攵 tap during 育 education can 𰕎 form a learner's habit of keeping time.",
+      "after_mnemonic": "A final 攵 tap sends the 育 cooking pot off the table as attendants 𰕎 clear away dishes.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "𰮤",
+      "base_card_hash": "sha256:80b6255f94573a9afd3470154d2f4f940d17398933b9f3855e4c7bf4947ea0a5",
+      "before": {
+        "meaning": "form",
+        "equation": "Visual form: 𰮤 form",
+        "components": [
+          {
+            "character": "𰮤",
+            "gloss": "form"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𰮤",
+            "gloss": "form"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "imperial I",
+        "equation": "Visual form: 𰮤 imperial I",
+        "components": [
+          {
+            "character": "𰮤",
+            "gloss": "imperial I"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𰮤",
+            "gloss": "imperial I"
+          }
+        ]
+      },
+      "before_mnemonic": "Wet clay pressed into a mold begins to 𰮤 form along its walls.",
+      "after_mnemonic": "An emperor writes 朕 in inherited clerical shorthand, leaving 𰮤 imperial I inside the 滕 and 勝 families.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "𱋁",
+      "base_card_hash": "sha256:1bd0ff4cdf76a83a98d54630b601373ae8e34d0947ee37e79065eac3cdb93b89",
+      "before": {
+        "meaning": "form",
+        "equation": "Visual form: 𱋁 form",
+        "components": [
+          {
+            "character": "𱋁",
+            "gloss": "form"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𱋁",
+            "gloss": "form"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "pair of deer",
+        "equation": "鹿 deer + 鹿 deer = 𱋁 pair of deer",
+        "components": [
+          {
+            "character": "鹿",
+            "gloss": "deer"
+          },
+          {
+            "character": "鹿",
+            "gloss": "deer"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "鹿",
+            "gloss": "deer"
+          },
+          {
+            "character": "鹿",
+            "gloss": "deer"
+          }
+        ]
+      },
+      "before_mnemonic": "Soft clay pressed between two palms begins to 𱋁 form a smooth bowl.",
+      "after_mnemonic": "One 鹿 deer beside another 鹿 deer makes 𱋁 pair of deer.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "𱥯",
+      "base_card_hash": "sha256:d90a3a5122790685de989f90948d1ac3c53c4e912e78c23e809a73af76770df2",
+      "before": {
+        "meaning": "old form",
+        "equation": "Visual form: 𱥯 old form",
+        "components": [
+          {
+            "character": "𱥯",
+            "gloss": "old form"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𱥯",
+            "gloss": "old form"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "lacquer sap",
+        "equation": "Visual form: 𱥯 lacquer sap",
+        "components": [
+          {
+            "character": "𱥯",
+            "gloss": "lacquer sap"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𱥯",
+            "gloss": "lacquer sap"
+          }
+        ]
+      },
+      "before_mnemonic": "A chipped tablet preserves the 𱥯 old form in worn, uneven strokes from an earlier script.",
+      "after_mnemonic": "The person-like tap above watery drops pictures 𱥯 lacquer sap flowing inside 桼.",
+      "valid": true,
+      "problems": []
+    }
+  ]
+}

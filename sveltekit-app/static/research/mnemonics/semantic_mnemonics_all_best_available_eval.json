@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-07-24T08:20:05.997821+00:00",
+  "created_at": "2026-07-24T09:31:45.832991+00:00",
   "count": 24037,
   "invalid_count": 0,
   "invalid": [],
@@ -763,24 +763,23 @@
     "min": 34,
     "p50": 78,
     "p90": 97,
-    "p95": 104,
-    "max": 164
+    "p95": 103,
+    "max": 145
   },
   "quality_review": {
     "methodology": "Formal validity and learning quality are separate. Flags are deterministic review signals; abstract meanings and variant forms are not automatically bad, while generic filler is a rewrite signal.",
-    "flagged_count": 1425,
+    "flagged_count": 1403,
     "quality_status_counts": {
-      "pass": 22612,
-      "review": 1401,
-      "rewrite": 24
+      "pass": 22634,
+      "review": 1390,
+      "rewrite": 13
     },
     "flag_counts": {
       "variant_form_needs_review": 832,
-      "abstract_final_meaning": 373,
-      "duplicated_component_meaning": 237,
-      "opaque_component_gloss": 21,
-      "unhelpful_final_gloss": 14,
-      "learner_facing_weirdness": 7
+      "abstract_final_meaning": 372,
+      "duplicated_component_meaning": 238,
+      "opaque_component_gloss": 7,
+      "unhelpful_final_gloss": 2
     },
     "top_suspicious": [
       {
@@ -901,326 +900,6 @@
         ],
         "component_source": "resolved_ids_forward+manual_quality_override",
         "generation_source": "codex_manual_quality_patch_2026_07_08"
-      },
-      {
-        "character": "𠀅",
-        "meaning": "alternate form",
-        "frequency_rank": null,
-        "quality_status": "rewrite",
-        "quality_score": 8.0,
-        "review_priority": 8.0,
-        "flags": [
-          {
-            "code": "opaque_component_gloss",
-            "severity": 4.0,
-            "evidence": [
-              "𠀅 alternate form"
-            ]
-          },
-          {
-            "code": "unhelpful_final_gloss",
-            "severity": 4.0,
-            "evidence": "alternate form"
-          }
-        ],
-        "equation": "Visual form: 𠀅 alternate form",
-        "mnemonic": "The slightly reshaped 𠀅 alternate form stands beside its standard twin, differing by one old pen stroke.",
-        "components": [
-          {
-            "character": "𠀅",
-            "gloss": "alternate form"
-          }
-        ],
-        "component_source": "self_fallback",
-        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-      },
-      {
-        "character": "𠧩",
-        "meaning": "form",
-        "frequency_rank": null,
-        "quality_status": "rewrite",
-        "quality_score": 8.0,
-        "review_priority": 8.0,
-        "flags": [
-          {
-            "code": "opaque_component_gloss",
-            "severity": 4.0,
-            "evidence": [
-              "𠧩 form"
-            ]
-          },
-          {
-            "code": "unhelpful_final_gloss",
-            "severity": 4.0,
-            "evidence": "form"
-          }
-        ],
-        "equation": "Visual form: 𠧩 form",
-        "mnemonic": "The 𠧩 form holds its inner strokes inside a fixed, mold-like outline.",
-        "components": [
-          {
-            "character": "𠧩",
-            "gloss": "form"
-          }
-        ],
-        "component_source": "self_fallback",
-        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-      },
-      {
-        "character": "𫜹",
-        "meaning": "form",
-        "frequency_rank": null,
-        "quality_status": "rewrite",
-        "quality_score": 8.0,
-        "review_priority": 8.0,
-        "flags": [
-          {
-            "code": "opaque_component_gloss",
-            "severity": 4.0,
-            "evidence": [
-              "𫜹 form"
-            ]
-          },
-          {
-            "code": "unhelpful_final_gloss",
-            "severity": 4.0,
-            "evidence": "form"
-          }
-        ],
-        "equation": "Visual form: 𫜹 form",
-        "mnemonic": "Pressing soft clay into a rigid mold fixes its 𫜹 form on every side.",
-        "components": [
-          {
-            "character": "𫜹",
-            "gloss": "form"
-          }
-        ],
-        "component_source": "self_fallback",
-        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-      },
-      {
-        "character": "𫝀",
-        "meaning": "form",
-        "frequency_rank": null,
-        "quality_status": "rewrite",
-        "quality_score": 8.0,
-        "review_priority": 8.0,
-        "flags": [
-          {
-            "code": "opaque_component_gloss",
-            "severity": 4.0,
-            "evidence": [
-              "𫝀 form"
-            ]
-          },
-          {
-            "code": "unhelpful_final_gloss",
-            "severity": 4.0,
-            "evidence": "form"
-          }
-        ],
-        "equation": "Visual form: 𫝀 form",
-        "mnemonic": "A backlit silhouette reveals the 𫝀 form of a figure while concealing every detail.",
-        "components": [
-          {
-            "character": "𫝀",
-            "gloss": "form"
-          }
-        ],
-        "component_source": "self_fallback",
-        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-      },
-      {
-        "character": "𫩠",
-        "meaning": "alternate form",
-        "frequency_rank": null,
-        "quality_status": "rewrite",
-        "quality_score": 8.0,
-        "review_priority": 8.0,
-        "flags": [
-          {
-            "code": "opaque_component_gloss",
-            "severity": 4.0,
-            "evidence": [
-              "𫩠 alternate form"
-            ]
-          },
-          {
-            "code": "unhelpful_final_gloss",
-            "severity": 4.0,
-            "evidence": "alternate form"
-          }
-        ],
-        "equation": "Visual form: 𫩠 alternate form",
-        "mnemonic": "𫩠 alternate form keeps the square mouth while rearranging the surrounding strokes into a changed outline.",
-        "components": [
-          {
-            "character": "𫩠",
-            "gloss": "alternate form"
-          }
-        ],
-        "component_source": "self_fallback",
-        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-      },
-      {
-        "character": "𭤨",
-        "meaning": "form",
-        "frequency_rank": null,
-        "quality_status": "rewrite",
-        "quality_score": 8.0,
-        "review_priority": 8.0,
-        "flags": [
-          {
-            "code": "opaque_component_gloss",
-            "severity": 4.0,
-            "evidence": [
-              "𭤨 form"
-            ]
-          },
-          {
-            "code": "unhelpful_final_gloss",
-            "severity": 4.0,
-            "evidence": "form"
-          }
-        ],
-        "equation": "Visual form: 𭤨 form",
-        "mnemonic": "The enclosing bends of 𭤨 form trace a firm outline around an open center.",
-        "components": [
-          {
-            "character": "𭤨",
-            "gloss": "form"
-          }
-        ],
-        "component_source": "self_fallback",
-        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-      },
-      {
-        "character": "𭥍",
-        "meaning": "alternate form",
-        "frequency_rank": null,
-        "quality_status": "rewrite",
-        "quality_score": 8.0,
-        "review_priority": 8.0,
-        "flags": [
-          {
-            "code": "opaque_component_gloss",
-            "severity": 4.0,
-            "evidence": [
-              "𭥍 alternate form"
-            ]
-          },
-          {
-            "code": "unhelpful_final_gloss",
-            "severity": 4.0,
-            "evidence": "alternate form"
-          }
-        ],
-        "equation": "Visual form: 𭥍 alternate form",
-        "mnemonic": "Two offset paths in 𭥍 alternate form suggest the same outline redrawn by a different route.",
-        "components": [
-          {
-            "character": "𭥍",
-            "gloss": "alternate form"
-          }
-        ],
-        "component_source": "self_fallback",
-        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-      },
-      {
-        "character": "𰮤",
-        "meaning": "form",
-        "frequency_rank": null,
-        "quality_status": "rewrite",
-        "quality_score": 8.0,
-        "review_priority": 8.0,
-        "flags": [
-          {
-            "code": "opaque_component_gloss",
-            "severity": 4.0,
-            "evidence": [
-              "𰮤 form"
-            ]
-          },
-          {
-            "code": "unhelpful_final_gloss",
-            "severity": 4.0,
-            "evidence": "form"
-          }
-        ],
-        "equation": "Visual form: 𰮤 form",
-        "mnemonic": "Wet clay pressed into a mold begins to 𰮤 form along its walls.",
-        "components": [
-          {
-            "character": "𰮤",
-            "gloss": "form"
-          }
-        ],
-        "component_source": "self_fallback",
-        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-      },
-      {
-        "character": "𱋁",
-        "meaning": "form",
-        "frequency_rank": null,
-        "quality_status": "rewrite",
-        "quality_score": 8.0,
-        "review_priority": 8.0,
-        "flags": [
-          {
-            "code": "opaque_component_gloss",
-            "severity": 4.0,
-            "evidence": [
-              "𱋁 form"
-            ]
-          },
-          {
-            "code": "unhelpful_final_gloss",
-            "severity": 4.0,
-            "evidence": "form"
-          }
-        ],
-        "equation": "Visual form: 𱋁 form",
-        "mnemonic": "Soft clay pressed between two palms begins to 𱋁 form a smooth bowl.",
-        "components": [
-          {
-            "character": "𱋁",
-            "gloss": "form"
-          }
-        ],
-        "component_source": "self_fallback",
-        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-      },
-      {
-        "character": "𱥯",
-        "meaning": "old form",
-        "frequency_rank": null,
-        "quality_status": "rewrite",
-        "quality_score": 8.0,
-        "review_priority": 8.0,
-        "flags": [
-          {
-            "code": "opaque_component_gloss",
-            "severity": 4.0,
-            "evidence": [
-              "𱥯 old form"
-            ]
-          },
-          {
-            "code": "unhelpful_final_gloss",
-            "severity": 4.0,
-            "evidence": "old form"
-          }
-        ],
-        "equation": "Visual form: 𱥯 old form",
-        "mnemonic": "A chipped tablet preserves the 𱥯 old form in worn, uneven strokes from an earlier script.",
-        "components": [
-          {
-            "character": "𱥯",
-            "gloss": "old form"
-          }
-        ],
-        "component_source": "self_fallback",
-        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
       },
       {
         "character": "旅",
@@ -1621,34 +1300,479 @@
         "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
       },
       {
-        "character": "卵",
-        "meaning": "nest eggs",
-        "frequency_rank": 1507,
+        "character": "晶",
+        "meaning": "sparkling",
+        "frequency_rank": 1594,
         "quality_status": "review",
         "quality_score": 4.0,
-        "review_priority": 7.351,
+        "review_priority": 7.331,
         "flags": [
           {
-            "code": "opaque_component_gloss",
+            "code": "duplicated_component_meaning",
             "severity": 4.0,
             "evidence": [
-              "卪 reading mark"
+              [
+                "日",
+                "日",
+                "日"
+              ]
             ]
           }
         ],
-        "equation": "𠂑 hook stroke + 卪 reading mark = 卵 nest eggs",
-        "mnemonic": "A 𠂑 hook stroke and a 卪 reading mark curve like shell halves around paired 卵 nest eggs.",
+        "equation": "日 sun + 日 sun + 日 sun = 晶 sparkling",
+        "mnemonic": "Across one arc of the 日 sun, a second 日 sun, and a third 日 sun, the same gem stays 晶 sparkling.",
         "components": [
           {
-            "character": "𠂑",
-            "gloss": "hook stroke"
+            "character": "日",
+            "gloss": "sun"
           },
           {
-            "character": "卪",
-            "gloss": "reading mark"
+            "character": "日",
+            "gloss": "sun"
+          },
+          {
+            "character": "日",
+            "gloss": "sun"
           }
         ],
         "component_source": "resolved_ids_forward",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
+      },
+      {
+        "character": "倹",
+        "meaning": "frugal",
+        "frequency_rank": 2881,
+        "quality_status": "review",
+        "quality_score": 4.0,
+        "review_priority": 7.139,
+        "flags": [
+          {
+            "code": "duplicated_component_meaning",
+            "severity": 4.0,
+            "evidence": [
+              [
+                "亻",
+                "人"
+              ]
+            ]
+          }
+        ],
+        "equation": "亻 person (side) + 口 mouth + 人 person = 倹 frugal",
+        "mnemonic": "To remain 倹 frugal, a 亻 person counts every 口 mouth before serving each 人 person.",
+        "components": [
+          {
+            "character": "亻",
+            "gloss": "person (side)"
+          },
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "人",
+            "gloss": "person"
+          }
+        ],
+        "component_source": "resolved_ids_forward",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
+      },
+      {
+        "character": "樂",
+        "meaning": "music",
+        "frequency_rank": null,
+        "quality_status": "rewrite",
+        "quality_score": 6.5,
+        "review_priority": 6.5,
+        "flags": [
+          {
+            "code": "duplicated_component_meaning",
+            "severity": 4.0,
+            "evidence": [
+              [
+                "幺",
+                "幺"
+              ]
+            ]
+          },
+          {
+            "code": "variant_form_needs_review",
+            "severity": 2.5,
+            "evidence": "樂"
+          }
+        ],
+        "equation": "幺 thread + 白 white + 幺 thread + 木 tree = 樂 music",
+        "mnemonic": "On a 白 white soundboard carved from a 木 tree, one 幺 thread and another 幺 thread vibrate into 樂 music.",
+        "components": [
+          {
+            "character": "幺",
+            "gloss": "thread"
+          },
+          {
+            "character": "白",
+            "gloss": "white"
+          },
+          {
+            "character": "幺",
+            "gloss": "thread"
+          },
+          {
+            "character": "木",
+            "gloss": "tree"
+          }
+        ],
+        "component_source": "variant_alias:樂",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
+      },
+      {
+        "character": "樂",
+        "meaning": "music",
+        "frequency_rank": null,
+        "quality_status": "rewrite",
+        "quality_score": 6.5,
+        "review_priority": 6.5,
+        "flags": [
+          {
+            "code": "duplicated_component_meaning",
+            "severity": 4.0,
+            "evidence": [
+              [
+                "幺",
+                "幺"
+              ]
+            ]
+          },
+          {
+            "code": "variant_form_needs_review",
+            "severity": 2.5,
+            "evidence": "樂"
+          }
+        ],
+        "equation": "幺 thread + 白 white + 幺 thread + 木 tree = 樂 music",
+        "mnemonic": "A 白 white zither carved from a 木 tree stretches one 幺 thread beside another 幺 thread for plucking 樂 music.",
+        "components": [
+          {
+            "character": "幺",
+            "gloss": "thread"
+          },
+          {
+            "character": "白",
+            "gloss": "white"
+          },
+          {
+            "character": "幺",
+            "gloss": "thread"
+          },
+          {
+            "character": "木",
+            "gloss": "tree"
+          }
+        ],
+        "component_source": "variant_alias:樂",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
+      },
+      {
+        "character": "呂",
+        "meaning": "spine",
+        "frequency_rank": null,
+        "quality_status": "rewrite",
+        "quality_score": 6.5,
+        "review_priority": 6.5,
+        "flags": [
+          {
+            "code": "duplicated_component_meaning",
+            "severity": 4.0,
+            "evidence": [
+              [
+                "口",
+                "口"
+              ]
+            ]
+          },
+          {
+            "code": "variant_form_needs_review",
+            "severity": 2.5,
+            "evidence": "呂"
+          }
+        ],
+        "equation": "口 mouth + 丿 slash + 口 mouth = 呂 spine",
+        "mnemonic": "One 口 mouth sits above another 口 mouth, while a 丿 slash offsets them like vertebrae along the 呂 spine.",
+        "components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "丿",
+            "gloss": "slash"
+          },
+          {
+            "character": "口",
+            "gloss": "mouth"
+          }
+        ],
+        "component_source": "variant_alias:呂",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
+      },
+      {
+        "character": "旅",
+        "meaning": "travel",
+        "frequency_rank": null,
+        "quality_status": "rewrite",
+        "quality_score": 6.5,
+        "review_priority": 6.5,
+        "flags": [
+          {
+            "code": "duplicated_component_meaning",
+            "severity": 4.0,
+            "evidence": [
+              [
+                "人",
+                "人"
+              ]
+            ]
+          },
+          {
+            "code": "variant_form_needs_review",
+            "severity": 2.5,
+            "evidence": "旅"
+          }
+        ],
+        "equation": "㫃 flags flying + 人 person + 人 person = 旅 travel",
+        "mnemonic": "With 㫃 flags flying ahead, one 人 person follows another 人 person as they 旅 travel.",
+        "components": [
+          {
+            "character": "㫃",
+            "gloss": "flags flying"
+          },
+          {
+            "character": "人",
+            "gloss": "person"
+          },
+          {
+            "character": "人",
+            "gloss": "person"
+          }
+        ],
+        "component_source": "variant_alias:旅",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
+      },
+      {
+        "character": "樂",
+        "meaning": "music",
+        "frequency_rank": null,
+        "quality_status": "rewrite",
+        "quality_score": 6.5,
+        "review_priority": 6.5,
+        "flags": [
+          {
+            "code": "duplicated_component_meaning",
+            "severity": 4.0,
+            "evidence": [
+              [
+                "幺",
+                "幺"
+              ]
+            ]
+          },
+          {
+            "code": "variant_form_needs_review",
+            "severity": 2.5,
+            "evidence": "樂"
+          }
+        ],
+        "equation": "幺 thread + 白 white + 幺 thread + 木 tree = 樂 music",
+        "mnemonic": "One 幺 thread and another 幺 thread stretch across a 白 white branch of a 木 tree, vibrating as 樂 music.",
+        "components": [
+          {
+            "character": "幺",
+            "gloss": "thread"
+          },
+          {
+            "character": "白",
+            "gloss": "white"
+          },
+          {
+            "character": "幺",
+            "gloss": "thread"
+          },
+          {
+            "character": "木",
+            "gloss": "tree"
+          }
+        ],
+        "component_source": "variant_alias:樂",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
+      },
+      {
+        "character": "林",
+        "meaning": "woods",
+        "frequency_rank": null,
+        "quality_status": "rewrite",
+        "quality_score": 6.5,
+        "review_priority": 6.5,
+        "flags": [
+          {
+            "code": "duplicated_component_meaning",
+            "severity": 4.0,
+            "evidence": [
+              [
+                "木",
+                "木"
+              ]
+            ]
+          },
+          {
+            "code": "variant_form_needs_review",
+            "severity": 2.5,
+            "evidence": "林"
+          }
+        ],
+        "equation": "木 tree + 木 tree = 林 woods",
+        "mnemonic": "One 木 tree beside another 木 tree begins the 林 woods.",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "木",
+            "gloss": "tree"
+          }
+        ],
+        "component_source": "variant_alias:林",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
+      },
+      {
+        "character": "丽",
+        "meaning": "magnificent",
+        "frequency_rank": null,
+        "quality_status": "rewrite",
+        "quality_score": 6.5,
+        "review_priority": 6.5,
+        "flags": [
+          {
+            "code": "duplicated_component_meaning",
+            "severity": 4.0,
+            "evidence": [
+              [
+                "冂",
+                "冂"
+              ],
+              [
+                "丶",
+                "丶"
+              ]
+            ]
+          },
+          {
+            "code": "variant_form_needs_review",
+            "severity": 2.5,
+            "evidence": "丽"
+          }
+        ],
+        "equation": "一 one + 冂 outer frame + 丶 dot + 冂 outer frame + 丶 dot = 丽 magnificent",
+        "mnemonic": "一 one beam crowns a 丶 dot in one 冂 outer frame and another 丶 dot in a second 冂 outer frame, making 丽 magnificent symmetry.",
+        "components": [
+          {
+            "character": "一",
+            "gloss": "one"
+          },
+          {
+            "character": "冂",
+            "gloss": "outer frame"
+          },
+          {
+            "character": "丶",
+            "gloss": "dot"
+          },
+          {
+            "character": "冂",
+            "gloss": "outer frame"
+          },
+          {
+            "character": "丶",
+            "gloss": "dot"
+          }
+        ],
+        "component_source": "variant_alias:丽",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
+      },
+      {
+        "character": "㒹",
+        "meaning": "upset",
+        "frequency_rank": null,
+        "quality_status": "rewrite",
+        "quality_score": 6.5,
+        "review_priority": 6.5,
+        "flags": [
+          {
+            "code": "duplicated_component_meaning",
+            "severity": 4.0,
+            "evidence": [
+              [
+                "真",
+                "真"
+              ]
+            ]
+          },
+          {
+            "code": "variant_form_needs_review",
+            "severity": 2.5,
+            "evidence": "㒹"
+          }
+        ],
+        "equation": "真 true + 真 true = 㒹 upset",
+        "mnemonic": "When one 真 true account contradicts another 真 true account, the conflict can 㒹 upset everyone.",
+        "components": [
+          {
+            "character": "真",
+            "gloss": "true"
+          },
+          {
+            "character": "真",
+            "gloss": "true"
+          }
+        ],
+        "component_source": "variant_alias:㒹",
+        "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
+      },
+      {
+        "character": "仌",
+        "meaning": "ice",
+        "frequency_rank": null,
+        "quality_status": "rewrite",
+        "quality_score": 6.5,
+        "review_priority": 6.5,
+        "flags": [
+          {
+            "code": "duplicated_component_meaning",
+            "severity": 4.0,
+            "evidence": [
+              [
+                "人",
+                "人"
+              ]
+            ]
+          },
+          {
+            "code": "variant_form_needs_review",
+            "severity": 2.5,
+            "evidence": "仌"
+          }
+        ],
+        "equation": "人 person + 人 person = 仌 ice",
+        "mnemonic": "One 人 person braces another 人 person as they skid across 仌 ice.",
+        "components": [
+          {
+            "character": "人",
+            "gloss": "person"
+          },
+          {
+            "character": "人",
+            "gloss": "person"
+          }
+        ],
+        "component_source": "variant_alias:仌",
         "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
       }
     ],
@@ -1656,11 +1780,11 @@
     "certification_status": "expedited_non_certified"
   },
   "gpt56_expedited_release": {
-    "materialized_card_projection_hash": "sha256:15aae83cdf630f878bfa8bb28517ca7077b740864b95977d27158ddbbc3505ab",
+    "materialized_card_projection_hash": "sha256:b0769a9425ea7f414985f96c7c8fefad982ecec5ca7916c9552339127f77dfd0",
     "formal_validation": {
       "count": 24037,
       "invalid_count": 0
     },
-    "editorial_ledger_sha256": "sha256:fb5ec3fe8d59122d529e62407200d8fcb832c51ca0694145b9529ad8d727a75a"
+    "editorial_ledger_sha256": "sha256:b113cc16e43adf50a7f9dafd472ed093993a0e658a1bfb23bfcacb2efcc529cd"
   }
 }

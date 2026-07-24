@@ -1,0 +1,4258 @@
+{
+  "schema_version": 1,
+  "policy_version": "2026-07-24.2",
+  "policy_path": "data/semantic_mnemonic_long_gloss_policy_2.json",
+  "base_projection_hash": "sha256:b5231c7f49f73755b41b085181753e6ccb5bfd0d62fa6cca4a86fd7a06986d0f",
+  "candidate_projection_hash": "sha256:b6778e03270d7f6c7e350638447dc689fd4e5697ffbb31833a17e24117086a0a",
+  "card_count": 24037,
+  "invalid_count": 0,
+  "changed_count": 75,
+  "already_applied_count": 0,
+  "changed_characters": [
+    "㓃",
+    "㙫",
+    "㙻",
+    "㝙",
+    "㢆",
+    "㢦",
+    "㣁",
+    "㩉",
+    "㫔",
+    "㬐",
+    "㭸",
+    "㵰",
+    "㶟",
+    "㶡",
+    "㶬",
+    "㻨",
+    "㻰",
+    "㽫",
+    "㾼",
+    "㿆",
+    "䊿",
+    "䏮",
+    "䓥",
+    "䔮",
+    "䘯",
+    "䘿",
+    "䜠",
+    "䝰",
+    "䞛",
+    "䡋",
+    "䡏",
+    "䡼",
+    "䡿",
+    "䢪",
+    "䣑",
+    "䦼",
+    "䩛",
+    "䪝",
+    "䭞",
+    "䮆",
+    "䵞",
+    "䶛",
+    "啶",
+    "囖",
+    "妺",
+    "庹",
+    "戤",
+    "掆",
+    "摣",
+    "晹",
+    "湓",
+    "漎",
+    "犼",
+    "狖",
+    "獙",
+    "琀",
+    "琮",
+    "眳",
+    "籅",
+    "絘",
+    "胙",
+    "蝥",
+    "蟊",
+    "閛",
+    "靬",
+    "騲",
+    "黱",
+    "黼",
+    "𠴰",
+    "𣖕",
+    "𥫣",
+    "𫐄",
+    "𬲳",
+    "𮪤",
+    "𰹷"
+  ],
+  "changes": [
+    {
+      "character": "㓃",
+      "base_card_hash": "sha256:fa84604ee6ce8a21621ecf03e2031851de50d5b511bf61d3d0f7118c69a2d402",
+      "before": {
+        "meaning": "sacrifice by pouring out a libation of wine",
+        "equation": "冖 cover + 託 entrust = 㓃 sacrifice by pouring out a libation of wine",
+        "components": [
+          {
+            "character": "冖",
+            "gloss": "cover"
+          },
+          {
+            "character": "託",
+            "gloss": "entrust"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "冖",
+            "gloss": "cover"
+          },
+          {
+            "character": "託",
+            "gloss": "entrust"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "pour a wine libation",
+        "equation": "冖 cover + 託 entrust = 㓃 pour a wine libation",
+        "components": [
+          {
+            "character": "冖",
+            "gloss": "cover"
+          },
+          {
+            "character": "託",
+            "gloss": "entrust"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "冖",
+            "gloss": "cover"
+          },
+          {
+            "character": "託",
+            "gloss": "entrust"
+          }
+        ]
+      },
+      "before_mnemonic": "Removing a 冖 cover, priests 託 entrust wine to the gods as they 㓃 sacrifice by pouring out a libation of wine.",
+      "after_mnemonic": "Removing a 冖 cover, priests 託 entrust wine to the gods as they 㓃 pour a wine libation.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㙫",
+      "base_card_hash": "sha256:1aea78d7af732f7c46b96b23826fc32a4512275c5cb5199894ffae96f0b6ab67",
+      "before": {
+        "meaning": "fountain or spring out from the underground",
+        "equation": "土 earth + 集 gather = 㙫 fountain or spring out from the underground",
+        "components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "集",
+            "gloss": "gather"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "集",
+            "gloss": "gather"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "underground spring",
+        "equation": "土 earth + 集 gather = 㙫 underground spring",
+        "components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "集",
+            "gloss": "gather"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "集",
+            "gloss": "gather"
+          }
+        ]
+      },
+      "before_mnemonic": "Water can 集 gather beneath 土 earth, then 㙫 fountain or spring out from the underground.",
+      "after_mnemonic": "Water can 集 gather beneath 土 earth, then burst out as an 㙫 underground spring.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㙻",
+      "base_card_hash": "sha256:89fc79b343710faa12a8b514f0e8610f6ac78ea36f190fa75fbffbbf569c3aba",
+      "before": {
+        "meaning": "living space for one family in ancient times",
+        "equation": "土 earth + 廛 store = 㙻 living space for one family in ancient times",
+        "components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "廛",
+            "gloss": "store"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "廛",
+            "gloss": "store"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "family dwelling",
+        "equation": "土 earth + 廛 store = 㙻 family dwelling",
+        "components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "廛",
+            "gloss": "store"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "廛",
+            "gloss": "store"
+          }
+        ]
+      },
+      "before_mnemonic": "A 廛 store stands on the family's allotted 土 earth, within its 㙻 living space for one family in ancient times.",
+      "after_mnemonic": "A 廛 store stands on the family's allotted 土 earth, within its 㙻 family dwelling.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㝙",
+      "base_card_hash": "sha256:2525819dd273a3fecf75d89c8e1808629f47d508420f0117c2c5c0ff3dabe0e8",
+      "before": {
+        "meaning": "the third of the twelve terrestrial branches",
+        "equation": "宀 roof + 王 king + 一 one + 八 eight = 㝙 the third of the twelve terrestrial branches",
+        "components": [
+          {
+            "character": "宀",
+            "gloss": "roof"
+          },
+          {
+            "character": "王",
+            "gloss": "king"
+          },
+          {
+            "character": "一",
+            "gloss": "one"
+          },
+          {
+            "character": "八",
+            "gloss": "eight"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "宀",
+            "gloss": "roof"
+          },
+          {
+            "character": "王",
+            "gloss": "king"
+          },
+          {
+            "character": "一",
+            "gloss": "one"
+          },
+          {
+            "character": "八",
+            "gloss": "eight"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "third earthly branch",
+        "equation": "宀 roof + 王 king + 一 one + 八 eight = 㝙 third earthly branch",
+        "components": [
+          {
+            "character": "宀",
+            "gloss": "roof"
+          },
+          {
+            "character": "王",
+            "gloss": "king"
+          },
+          {
+            "character": "一",
+            "gloss": "one"
+          },
+          {
+            "character": "八",
+            "gloss": "eight"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "宀",
+            "gloss": "roof"
+          },
+          {
+            "character": "王",
+            "gloss": "king"
+          },
+          {
+            "character": "一",
+            "gloss": "one"
+          },
+          {
+            "character": "八",
+            "gloss": "eight"
+          }
+        ]
+      },
+      "before_mnemonic": "Beneath a 宀 roof, the 王 king passes 一 one and two while counting twelve branches, reaches 㝙 the third of the twelve terrestrial branches, then continues to 八 eight.",
+      "after_mnemonic": "Beneath a 宀 roof, the 王 king passes 一 one and two, reaches the 㝙 third earthly branch, then continues toward 八 eight.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㢆",
+      "base_card_hash": "sha256:d74a636627d82813215f07f9a2930b7d39cb56cc41cfec5a098458f64d3b85d3",
+      "before": {
+        "meaning": "living space for one family in ancient times",
+        "equation": "广 roof + 里 li = 㢆 living space for one family in ancient times",
+        "components": [
+          {
+            "character": "广",
+            "gloss": "roof"
+          },
+          {
+            "character": "里",
+            "gloss": "li"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "广",
+            "gloss": "roof"
+          },
+          {
+            "character": "里",
+            "gloss": "li"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "family dwelling",
+        "equation": "广 roof + 里 li = 㢆 family dwelling",
+        "components": [
+          {
+            "character": "广",
+            "gloss": "roof"
+          },
+          {
+            "character": "里",
+            "gloss": "li"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "广",
+            "gloss": "roof"
+          },
+          {
+            "character": "里",
+            "gloss": "li"
+          }
+        ]
+      },
+      "before_mnemonic": "Along one 里 li of an ancient settlement, each 广 roof marks a 㢆 living space for one family in ancient times.",
+      "after_mnemonic": "Along one 里 li of an ancient settlement, each 广 roof marks a 㢆 family dwelling.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㢦",
+      "base_card_hash": "sha256:a12191488eb853e8be7f5b60c3039b775b1b45f440bc3fedeb6c6824223fe484",
+      "before": {
+        "meaning": "wooden post or pile for tethering animals",
+        "equation": "哥 older brother + 弋 catch = 㢦 wooden post or pile for tethering animals",
+        "components": [
+          {
+            "character": "哥",
+            "gloss": "older brother"
+          },
+          {
+            "character": "弋",
+            "gloss": "catch"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "哥",
+            "gloss": "older brother"
+          },
+          {
+            "character": "弋",
+            "gloss": "catch"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "tethering post",
+        "equation": "哥 older brother + 弋 catch = 㢦 tethering post",
+        "components": [
+          {
+            "character": "哥",
+            "gloss": "older brother"
+          },
+          {
+            "character": "弋",
+            "gloss": "catch"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "哥",
+            "gloss": "older brother"
+          },
+          {
+            "character": "弋",
+            "gloss": "catch"
+          }
+        ]
+      },
+      "before_mnemonic": "A 哥 older brother drives wood into the ground so a rope can 弋 catch securely, creating a 㢦 wooden post or pile for tethering animals.",
+      "after_mnemonic": "A 哥 older brother drives wood into the ground so a rope can 弋 catch securely, creating a 㢦 tethering post.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㣁",
+      "base_card_hash": "sha256:292673ba1de657bfe59baca5b20e6f6063637f19e5f72691b009c14bc07682f6",
+      "before": {
+        "meaning": "equip a bow with silk and muscular fibre",
+        "equation": "弓 bow + 𤰇 prepare = 㣁 equip a bow with silk and muscular fibre",
+        "components": [
+          {
+            "character": "弓",
+            "gloss": "bow"
+          },
+          {
+            "character": "𤰇",
+            "gloss": "prepare"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "弓",
+            "gloss": "bow"
+          },
+          {
+            "character": "𤰇",
+            "gloss": "prepare"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "string a bow with silk and sinew",
+        "equation": "弓 bow + 𤰇 prepare = 㣁 string a bow with silk and sinew",
+        "components": [
+          {
+            "character": "弓",
+            "gloss": "bow"
+          },
+          {
+            "character": "𤰇",
+            "gloss": "prepare"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "弓",
+            "gloss": "bow"
+          },
+          {
+            "character": "𤰇",
+            "gloss": "prepare"
+          }
+        ]
+      },
+      "before_mnemonic": "To 㣁 equip a bow with silk and muscular fibre, 𤰇 prepare both strands beside the 弓 bow.",
+      "after_mnemonic": "To 㣁 string a bow with silk and sinew, 𤰇 prepare both strands beside the 弓 bow.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㩉",
+      "base_card_hash": "sha256:e8fda3d0c31676ac065fd82ddb3c5a76503d85f577af1bac91ba8d7df248c108",
+      "before": {
+        "meaning": "take a rubbing of an inscription on stone",
+        "equation": "扌 hand (side) + 翕 agree = 㩉 take a rubbing of an inscription on stone",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "翕",
+            "gloss": "agree"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "翕",
+            "gloss": "agree"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "take an inscription rubbing",
+        "equation": "扌 hand (side) + 翕 agree = 㩉 take an inscription rubbing",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "翕",
+            "gloss": "agree"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "翕",
+            "gloss": "agree"
+          }
+        ]
+      },
+      "before_mnemonic": "A 扌 hand makes paper 翕 agree with every carved groove to 㩉 take a rubbing of an inscription on stone.",
+      "after_mnemonic": "A 扌 hand makes paper 翕 agree with every carved groove to 㩉 take an inscription rubbing.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㫔",
+      "base_card_hash": "sha256:ab438ed248c281eea42a453416a4fe5686851809984ab7c20e425e4b52590e5c",
+      "before": {
+        "meaning": "one of the Eight Diagrams for divination",
+        "equation": "日 sun + 上 above = 㫔 one of the Eight Diagrams for divination",
+        "components": [
+          {
+            "character": "日",
+            "gloss": "sun"
+          },
+          {
+            "character": "上",
+            "gloss": "above"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "日",
+            "gloss": "sun"
+          },
+          {
+            "character": "上",
+            "gloss": "above"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "mountain trigram",
+        "equation": "日 sun + 上 above = 㫔 mountain trigram",
+        "components": [
+          {
+            "character": "日",
+            "gloss": "sun"
+          },
+          {
+            "character": "上",
+            "gloss": "above"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "日",
+            "gloss": "sun"
+          },
+          {
+            "character": "上",
+            "gloss": "above"
+          }
+        ]
+      },
+      "before_mnemonic": "㫔 one of the Eight Diagrams for divination is the mountain trigram, with 日 sun imagined 上 above its peak.",
+      "after_mnemonic": "The 日 sun rests 上 above a peak drawn on 㫔 mountain trigram among the Eight Trigrams.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㬐",
+      "base_card_hash": "sha256:f0fafb69e5fb53cc62a9a3eb69f3b01601afb7d1cd2bf58a348d2bea6a1265dd",
+      "before": {
+        "meaning": "state during the Spring and Autumn period",
+        "equation": "日 sun + 晋 advance = 㬐 state during the Spring and Autumn period",
+        "components": [
+          {
+            "character": "日",
+            "gloss": "sun"
+          },
+          {
+            "character": "晋",
+            "gloss": "advance"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "日",
+            "gloss": "sun"
+          },
+          {
+            "character": "晋",
+            "gloss": "advance"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "Spring and Autumn state",
+        "equation": "日 sun + 晋 advance = 㬐 Spring and Autumn state",
+        "components": [
+          {
+            "character": "日",
+            "gloss": "sun"
+          },
+          {
+            "character": "晋",
+            "gloss": "advance"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "日",
+            "gloss": "sun"
+          },
+          {
+            "character": "晋",
+            "gloss": "advance"
+          }
+        ]
+      },
+      "before_mnemonic": "Each 日 sun marks another year as the border can 晋 advance, recalling the 㬐 state during the Spring and Autumn period.",
+      "after_mnemonic": "Each 日 sun marks another year as the border can 晋 advance, recalling the 㬐 Spring and Autumn state.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㭸",
+      "base_card_hash": "sha256:b02128a00b1a847e5afb110e291895839112a11eb65435bb7d1f8f96d21cc8c3",
+      "before": {
+        "meaning": "the branches to spread out in all directions",
+        "equation": "木 tree + 兔 rabbit = 㭸 the branches to spread out in all directions",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "兔",
+            "gloss": "rabbit"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "兔",
+            "gloss": "rabbit"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "branches spreading outward",
+        "equation": "木 tree + 兔 rabbit = 㭸 branches spreading outward",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "兔",
+            "gloss": "rabbit"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "兔",
+            "gloss": "rabbit"
+          }
+        ]
+      },
+      "before_mnemonic": "A 兔 rabbit bounds through a 木 tree, tugging 㭸 the branches to spread out in all directions.",
+      "after_mnemonic": "A 兔 rabbit tugs a 木 tree until 㭸 branches spreading outward fill the canopy.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㵰",
+      "base_card_hash": "sha256:647e7851ede117bd2649b72a328f74ec5f2ab8ae72f6808843a2f76abeda4ecd",
+      "before": {
+        "meaning": "Xushui (or Shuanglongjiang) in ancient times",
+        "equation": "氵 water (drops) + 與 offer = 㵰 Xushui (or Shuanglongjiang) in ancient times",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "與",
+            "gloss": "offer"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "與",
+            "gloss": "offer"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "ancient Xushui River",
+        "equation": "氵 water (drops) + 與 offer = 㵰 ancient Xushui River",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "與",
+            "gloss": "offer"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "與",
+            "gloss": "offer"
+          }
+        ]
+      },
+      "before_mnemonic": "On the riverbank, people 與 offer bowls of 氵 water drawn from 㵰 Xushui (or Shuanglongjiang) in ancient times.",
+      "after_mnemonic": "On the riverbank, people 與 offer bowls of 氵 water (drops) drawn from the 㵰 ancient Xushui River.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㶟",
+      "base_card_hash": "sha256:93a846a90c314d9ec7de8ee58596ea55027d1a2e526c5ffc5b9233e1b602ff38",
+      "before": {
+        "meaning": "ancient name for a river in Shanxi and Hebei",
+        "equation": "氵 water (drops) + 纍 wind around = 㶟 ancient name for a river in Shanxi and Hebei",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "纍",
+            "gloss": "wind around"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "纍",
+            "gloss": "wind around"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "ancient Shanxi-Hebei river",
+        "equation": "氵 water (drops) + 纍 wind around = 㶟 ancient Shanxi-Hebei river",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "纍",
+            "gloss": "wind around"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "纍",
+            "gloss": "wind around"
+          }
+        ]
+      },
+      "before_mnemonic": "氵 water that seems to 纍 wind around Shanxi and Hebei carries the 㶟 ancient name for a river in Shanxi and Hebei.",
+      "after_mnemonic": "The 㶟 ancient Shanxi-Hebei river carries 氵 water (drops) that seems to 纍 wind around the hills.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㶡",
+      "base_card_hash": "sha256:7e4304b89796e4c3304ac5df8817f0b1beb1e962581fc89893b544836da57486",
+      "before": {
+        "meaning": "bright lights and illuminations of the fire",
+        "equation": "⺇ table + 火 fire = 㶡 bright lights and illuminations of the fire",
+        "components": [
+          {
+            "character": "⺇",
+            "gloss": "table"
+          },
+          {
+            "character": "火",
+            "gloss": "fire"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⺇",
+            "gloss": "table"
+          },
+          {
+            "character": "火",
+            "gloss": "fire"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "firelight",
+        "equation": "⺇ table + 火 fire = 㶡 firelight",
+        "components": [
+          {
+            "character": "⺇",
+            "gloss": "table"
+          },
+          {
+            "character": "火",
+            "gloss": "fire"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⺇",
+            "gloss": "table"
+          },
+          {
+            "character": "火",
+            "gloss": "fire"
+          }
+        ]
+      },
+      "before_mnemonic": "A contained 火 fire beside a ⺇ table fills the room with 㶡 bright lights and illuminations of the fire.",
+      "after_mnemonic": "A contained 火 fire beside a ⺇ table fills the room with 㶡 firelight.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㶬",
+      "base_card_hash": "sha256:d677145a2eea0342c1751d4b5d05d7311e94efc3609d9e003fd70eca5808fb21",
+      "before": {
+        "meaning": "bright lights and illuminations of the fire",
+        "equation": "火 fire + 末 last = 㶬 bright lights and illuminations of the fire",
+        "components": [
+          {
+            "character": "火",
+            "gloss": "fire"
+          },
+          {
+            "character": "末",
+            "gloss": "last"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "火",
+            "gloss": "fire"
+          },
+          {
+            "character": "末",
+            "gloss": "last"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "firelight",
+        "equation": "火 fire + 末 last = 㶬 firelight",
+        "components": [
+          {
+            "character": "火",
+            "gloss": "fire"
+          },
+          {
+            "character": "末",
+            "gloss": "last"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "火",
+            "gloss": "fire"
+          },
+          {
+            "character": "末",
+            "gloss": "last"
+          }
+        ]
+      },
+      "before_mnemonic": "After every lamp fades, 火 fire is the 末 last source of 㶬 bright lights and illuminations of the fire.",
+      "after_mnemonic": "After every lamp fades, 火 fire is the 末 last source of 㶬 firelight.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㻨",
+      "base_card_hash": "sha256:13baf750f3c1fe0b9dcf8c35f7a6f3d5add3a0e6f64846f509db26f9774b6cdb",
+      "before": {
+        "meaning": "fine stone a little less valuable than jade",
+        "equation": "臣 watchful eye + 㕚 claws of birds or animals + 玉 jade = 㻨 fine stone a little less valuable than jade",
+        "components": [
+          {
+            "character": "臣",
+            "gloss": "watchful eye"
+          },
+          {
+            "character": "㕚",
+            "gloss": "claws of birds or animals"
+          },
+          {
+            "character": "玉",
+            "gloss": "jade"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "臣",
+            "gloss": "watchful eye"
+          },
+          {
+            "character": "㕚",
+            "gloss": "claws of birds or animals"
+          },
+          {
+            "character": "玉",
+            "gloss": "jade"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "near-jade fine stone",
+        "equation": "臣 watchful eye + 㕚 claws of birds or animals + 玉 jade = 㻨 near-jade fine stone",
+        "components": [
+          {
+            "character": "臣",
+            "gloss": "watchful eye"
+          },
+          {
+            "character": "㕚",
+            "gloss": "claws of birds or animals"
+          },
+          {
+            "character": "玉",
+            "gloss": "jade"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "臣",
+            "gloss": "watchful eye"
+          },
+          {
+            "character": "㕚",
+            "gloss": "claws of birds or animals"
+          },
+          {
+            "character": "玉",
+            "gloss": "jade"
+          }
+        ]
+      },
+      "before_mnemonic": "Under a 臣 watchful eye, 㕚 claws of birds or animals rank 玉 jade first and a second stone beneath it as 㻨 fine stone a little less valuable than jade.",
+      "after_mnemonic": "Under a 臣 watchful eye, 㕚 claws of birds or animals rank 玉 jade first and a 㻨 near-jade fine stone second.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㻰",
+      "base_card_hash": "sha256:5cfbb8917a071b3f4b6f21978f0d605c2b9881af9084031ae2f4010f3ae165b1",
+      "before": {
+        "meaning": "decorated jade or ornament on a scabbard",
+        "equation": "𤣩 jade (alt) + 彗 broomstick = 㻰 decorated jade or ornament on a scabbard",
+        "components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade (alt)"
+          },
+          {
+            "character": "彗",
+            "gloss": "broomstick"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade (alt)"
+          },
+          {
+            "character": "彗",
+            "gloss": "broomstick"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "jade scabbard ornament",
+        "equation": "𤣩 jade (alt) + 彗 broomstick = 㻰 jade scabbard ornament",
+        "components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade (alt)"
+          },
+          {
+            "character": "彗",
+            "gloss": "broomstick"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade (alt)"
+          },
+          {
+            "character": "彗",
+            "gloss": "broomstick"
+          }
+        ]
+      },
+      "before_mnemonic": "A 彗 broomstick polishes 𤣩 jade mounted along the sword’s outside, revealing the 㻰 decorated jade or ornament on a scabbard.",
+      "after_mnemonic": "A 彗 broomstick polishes 𤣩 jade mounted along the sword’s outside, revealing the 㻰 jade scabbard ornament.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㽫",
+      "base_card_hash": "sha256:52a8a6cdaa7d80958f46569df0516ac8e6befae12219e78ae0adeff15eb53126",
+      "before": {
+        "meaning": "seeds of the plant allied to the water-lily",
+        "equation": "雍 union + 田 rice field = 㽫 seeds of the plant allied to the water-lily",
+        "components": [
+          {
+            "character": "雍",
+            "gloss": "union"
+          },
+          {
+            "character": "田",
+            "gloss": "rice field"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "雍",
+            "gloss": "union"
+          },
+          {
+            "character": "田",
+            "gloss": "rice field"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "water-lily-relative seeds",
+        "equation": "雍 union + 田 rice field = 㽫 water-lily-relative seeds",
+        "components": [
+          {
+            "character": "雍",
+            "gloss": "union"
+          },
+          {
+            "character": "田",
+            "gloss": "rice field"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "雍",
+            "gloss": "union"
+          },
+          {
+            "character": "田",
+            "gloss": "rice field"
+          }
+        ]
+      },
+      "before_mnemonic": "Beside a flooded 田 rice field, floating plants gather in 雍 union and bear 㽫 seeds of the plant allied to the water-lily.",
+      "after_mnemonic": "Beside a flooded 田 rice field, floating plants gather in 雍 union and bear 㽫 water-lily-relative seeds.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㾼",
+      "base_card_hash": "sha256:f13fa07d79abc9acceed0ab4da5c00cba1f6161e98efca12cd7d72b722229c22",
+      "before": {
+        "meaning": "suffer a stroke of paralysis or apoplexy",
+        "equation": "疒 sickness + 退 retreat = 㾼 suffer a stroke of paralysis or apoplexy",
+        "components": [
+          {
+            "character": "疒",
+            "gloss": "sickness"
+          },
+          {
+            "character": "退",
+            "gloss": "retreat"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "疒",
+            "gloss": "sickness"
+          },
+          {
+            "character": "退",
+            "gloss": "retreat"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "suffer a paralytic stroke",
+        "equation": "疒 sickness + 退 retreat = 㾼 suffer a paralytic stroke",
+        "components": [
+          {
+            "character": "疒",
+            "gloss": "sickness"
+          },
+          {
+            "character": "退",
+            "gloss": "retreat"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "疒",
+            "gloss": "sickness"
+          },
+          {
+            "character": "退",
+            "gloss": "retreat"
+          }
+        ]
+      },
+      "before_mnemonic": "When someone may 㾼 suffer a stroke of paralysis or apoplexy, movement seems to 退 retreat beneath 疒 sickness.",
+      "after_mnemonic": "When someone may 㾼 suffer a paralytic stroke, movement seems to 退 retreat beneath 疒 sickness.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㿆",
+      "base_card_hash": "sha256:8ffc9ddfd8c3657ea9291e2462d5ab6e723609631aae15d91bf3e7298bf6c706",
+      "before": {
+        "meaning": "damage by the pests to the rice seedling",
+        "equation": "疒 sickness + 禾 standing grain + 衣 clothing = 㿆 damage by the pests to the rice seedling",
+        "components": [
+          {
+            "character": "疒",
+            "gloss": "sickness"
+          },
+          {
+            "character": "禾",
+            "gloss": "standing grain"
+          },
+          {
+            "character": "衣",
+            "gloss": "clothing"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "疒",
+            "gloss": "sickness"
+          },
+          {
+            "character": "禾",
+            "gloss": "standing grain"
+          },
+          {
+            "character": "衣",
+            "gloss": "clothing"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "pest damage to rice seedlings",
+        "equation": "疒 sickness + 禾 standing grain + 衣 clothing = 㿆 pest damage to rice seedlings",
+        "components": [
+          {
+            "character": "疒",
+            "gloss": "sickness"
+          },
+          {
+            "character": "禾",
+            "gloss": "standing grain"
+          },
+          {
+            "character": "衣",
+            "gloss": "clothing"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "疒",
+            "gloss": "sickness"
+          },
+          {
+            "character": "禾",
+            "gloss": "standing grain"
+          },
+          {
+            "character": "衣",
+            "gloss": "clothing"
+          }
+        ]
+      },
+      "before_mnemonic": "Pests riddle the 衣 clothing of 禾 standing grain with holes, leaving 㿆 damage by the pests to the rice seedling like crop 疒 sickness.",
+      "after_mnemonic": "Pests riddle the 衣 clothing of 禾 standing grain with holes, leaving 㿆 pest damage to rice seedlings like crop 疒 sickness.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䊿",
+      "base_card_hash": "sha256:eec41bf25457e82bbfb1c3f7406581132506e0a68a92d8315d3b9cc0e404c006",
+      "before": {
+        "meaning": "the lapel or collar of a garment or robe",
+        "equation": "糸 thread + 夫 husband = 䊿 the lapel or collar of a garment or robe",
+        "components": [
+          {
+            "character": "糸",
+            "gloss": "thread"
+          },
+          {
+            "character": "夫",
+            "gloss": "husband"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "糸",
+            "gloss": "thread"
+          },
+          {
+            "character": "夫",
+            "gloss": "husband"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "garment lapel or collar",
+        "equation": "糸 thread + 夫 husband = 䊿 garment lapel or collar",
+        "components": [
+          {
+            "character": "糸",
+            "gloss": "thread"
+          },
+          {
+            "character": "夫",
+            "gloss": "husband"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "糸",
+            "gloss": "thread"
+          },
+          {
+            "character": "夫",
+            "gloss": "husband"
+          }
+        ]
+      },
+      "before_mnemonic": "A 夫 husband notices a loose 糸 thread beneath his chin, right on 䊿 the lapel or collar of a garment or robe.",
+      "after_mnemonic": "A 夫 husband notices a loose 糸 thread right on the 䊿 garment lapel or collar.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䏮",
+      "base_card_hash": "sha256:c78d12135e1ed870f16db2d5e37cbabbca74e102c18c787ff581a1cbd2f6834e",
+      "before": {
+        "meaning": "the sides of the trunk from armpits to ribs",
+        "equation": "⺼ meat (side) + 力 power = 䏮 the sides of the trunk from armpits to ribs",
+        "components": [
+          {
+            "character": "⺼",
+            "gloss": "meat (side)"
+          },
+          {
+            "character": "力",
+            "gloss": "power"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⺼",
+            "gloss": "meat (side)"
+          },
+          {
+            "character": "力",
+            "gloss": "power"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "torso sides from armpits to ribs",
+        "equation": "⺼ meat (side) + 力 power = 䏮 torso sides from armpits to ribs",
+        "components": [
+          {
+            "character": "⺼",
+            "gloss": "meat (side)"
+          },
+          {
+            "character": "力",
+            "gloss": "power"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⺼",
+            "gloss": "meat (side)"
+          },
+          {
+            "character": "力",
+            "gloss": "power"
+          }
+        ]
+      },
+      "before_mnemonic": "Reaching overhead displays 力 power in the taut ⺼ meat along 䏮 the sides of the trunk from armpits to ribs.",
+      "after_mnemonic": "Reaching overhead displays 力 power in the taut ⺼ meat (side) along the 䏮 torso sides from armpits to ribs.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䓥",
+      "base_card_hash": "sha256:80f30c87e44f315b9618d51182f1eb4cf3e33125bcc2543207b36773787bd84b",
+      "before": {
+        "meaning": "sound of the wriggled insects on the grass",
+        "equation": "入 enter + 草 grass = 䓥 sound of the wriggled insects on the grass",
+        "components": [
+          {
+            "character": "入",
+            "gloss": "enter"
+          },
+          {
+            "character": "草",
+            "gloss": "grass"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "入",
+            "gloss": "enter"
+          },
+          {
+            "character": "草",
+            "gloss": "grass"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "grass-insect rustling",
+        "equation": "入 enter + 草 grass = 䓥 grass-insect rustling",
+        "components": [
+          {
+            "character": "入",
+            "gloss": "enter"
+          },
+          {
+            "character": "草",
+            "gloss": "grass"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "入",
+            "gloss": "enter"
+          },
+          {
+            "character": "草",
+            "gloss": "grass"
+          }
+        ]
+      },
+      "before_mnemonic": "When insects 入 enter the 草 grass, their wriggling produces the 䓥 sound of the wriggled insects on the grass.",
+      "after_mnemonic": "When insects 入 enter the 草 grass, their wriggling produces 䓥 grass-insect rustling.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䔮",
+      "base_card_hash": "sha256:8ae22a217d404059b1fa48d1a1aa94d94f4482485ef482a6b5595a6650b1732a",
+      "before": {
+        "meaning": "growing in the water with edible flowers",
+        "equation": "艹 grass (top) + 斯 cut = 䔮 growing in the water with edible flowers",
+        "components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "斯",
+            "gloss": "cut"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "斯",
+            "gloss": "cut"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "aquatic plant with edible flowers",
+        "equation": "艹 grass (top) + 斯 cut = 䔮 aquatic plant with edible flowers",
+        "components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "斯",
+            "gloss": "cut"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "斯",
+            "gloss": "cut"
+          }
+        ]
+      },
+      "before_mnemonic": "Workers leave shorebound 艹 grass and wade toward 䔮 growing in the water with edible flowers, ready to 斯 cut a blossom.",
+      "after_mnemonic": "Workers leave shorebound 艹 grass (top) and wade toward an 䔮 aquatic plant with edible flowers, ready to 斯 cut a blossom.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䘯",
+      "base_card_hash": "sha256:21b59a393c6565fc87c80e9e64578a48dac04803dee954cccabde9f0cc71132c",
+      "before": {
+        "meaning": "the lapel or collar of a garment or robe",
+        "equation": "衤 clothing (side) + 肖 resemble = 䘯 the lapel or collar of a garment or robe",
+        "components": [
+          {
+            "character": "衤",
+            "gloss": "clothing (side)"
+          },
+          {
+            "character": "肖",
+            "gloss": "resemble"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "衤",
+            "gloss": "clothing (side)"
+          },
+          {
+            "character": "肖",
+            "gloss": "resemble"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "garment lapel or collar",
+        "equation": "衤 clothing (side) + 肖 resemble = 䘯 garment lapel or collar",
+        "components": [
+          {
+            "character": "衤",
+            "gloss": "clothing (side)"
+          },
+          {
+            "character": "肖",
+            "gloss": "resemble"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "衤",
+            "gloss": "clothing (side)"
+          },
+          {
+            "character": "肖",
+            "gloss": "resemble"
+          }
+        ]
+      },
+      "before_mnemonic": "On 衤 clothing, 䘯 the lapel or collar of a garment or robe can 肖 resemble a frame around the neck.",
+      "after_mnemonic": "On 衤 clothing (side), the 䘯 garment lapel or collar can 肖 resemble a frame around the neck.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䘿",
+      "base_card_hash": "sha256:dc9b9b8fc57a7610711e103915be4d2b3927c1ab6e055cf1032c8069b1d0cf83",
+      "before": {
+        "meaning": "shirt or a jacket without any decorated hem",
+        "equation": "衤 clothing (side) + 屈 knuckle under = 䘿 shirt or a jacket without any decorated hem",
+        "components": [
+          {
+            "character": "衤",
+            "gloss": "clothing (side)"
+          },
+          {
+            "character": "屈",
+            "gloss": "knuckle under"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "衤",
+            "gloss": "clothing (side)"
+          },
+          {
+            "character": "屈",
+            "gloss": "knuckle under"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "plain unhemmed shirt or jacket",
+        "equation": "衤 clothing (side) + 屈 knuckle under = 䘿 plain unhemmed shirt or jacket",
+        "components": [
+          {
+            "character": "衤",
+            "gloss": "clothing (side)"
+          },
+          {
+            "character": "屈",
+            "gloss": "knuckle under"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "衤",
+            "gloss": "clothing (side)"
+          },
+          {
+            "character": "屈",
+            "gloss": "knuckle under"
+          }
+        ]
+      },
+      "before_mnemonic": "When decorative trim must 屈 knuckle under to strict simplicity, plain 衤 clothing remains a 䘿 shirt or a jacket without any decorated hem.",
+      "after_mnemonic": "When trim must 屈 knuckle under to simplicity, 衤 clothing (side) becomes a 䘿 plain unhemmed shirt or jacket.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䜠",
+      "base_card_hash": "sha256:d0107fc796a7ca1f3871aac98de01fdc4f399a668903b825b673ece57765dfdb",
+      "before": {
+        "meaning": "language historically labeled “barbarian”",
+        "equation": "言 speech + 質 quality = 䜠 language historically labeled “barbarian”",
+        "components": [
+          {
+            "character": "言",
+            "gloss": "speech"
+          },
+          {
+            "character": "質",
+            "gloss": "quality"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "言",
+            "gloss": "speech"
+          },
+          {
+            "character": "質",
+            "gloss": "quality"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "historically derogatory language label",
+        "equation": "言 speech + 質 quality = 䜠 historically derogatory language label",
+        "components": [
+          {
+            "character": "言",
+            "gloss": "speech"
+          },
+          {
+            "character": "質",
+            "gloss": "quality"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "言",
+            "gloss": "speech"
+          },
+          {
+            "character": "質",
+            "gloss": "quality"
+          }
+        ]
+      },
+      "before_mnemonic": "Historically, elites denied the 質 quality of unfamiliar 言 speech and called it 䜠 language historically labeled “barbarian”.",
+      "after_mnemonic": "Historically, elites denied the 質 quality of unfamiliar 言 speech and applied a 䜠 historically derogatory language label.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䝰",
+      "base_card_hash": "sha256:ed77d8acc3f3072811100a4f14de2ea27ca7de20a486af28ecbf197112a5cad3",
+      "before": {
+        "meaning": "store or to accumulate riches or valuables",
+        "equation": "貝 shell + 寺 temple = 䝰 store or to accumulate riches or valuables",
+        "components": [
+          {
+            "character": "貝",
+            "gloss": "shell"
+          },
+          {
+            "character": "寺",
+            "gloss": "temple"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "貝",
+            "gloss": "shell"
+          },
+          {
+            "character": "寺",
+            "gloss": "temple"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "accumulate riches",
+        "equation": "貝 shell + 寺 temple = 䝰 accumulate riches",
+        "components": [
+          {
+            "character": "貝",
+            "gloss": "shell"
+          },
+          {
+            "character": "寺",
+            "gloss": "temple"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "貝",
+            "gloss": "shell"
+          },
+          {
+            "character": "寺",
+            "gloss": "temple"
+          }
+        ]
+      },
+      "before_mnemonic": "To stack every donated 貝 shell in the 寺 temple vault is to 䝰 store or to accumulate riches or valuables.",
+      "after_mnemonic": "To stack every donated 貝 shell in the 寺 temple vault is to 䝰 accumulate riches.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䞛",
+      "base_card_hash": "sha256:db3cc92a6d63396f06f548b70cacdc57050f9e43541a5c27670984493fa97519",
+      "before": {
+        "meaning": "dance of an ancient eastern minority group",
+        "equation": "走 walk + 丏 parapet = 䞛 dance of an ancient eastern minority group",
+        "components": [
+          {
+            "character": "走",
+            "gloss": "walk"
+          },
+          {
+            "character": "丏",
+            "gloss": "parapet"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "走",
+            "gloss": "walk"
+          },
+          {
+            "character": "丏",
+            "gloss": "parapet"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "ancient eastern ceremonial dance",
+        "equation": "走 walk + 丏 parapet = 䞛 ancient eastern ceremonial dance",
+        "components": [
+          {
+            "character": "走",
+            "gloss": "walk"
+          },
+          {
+            "character": "丏",
+            "gloss": "parapet"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "走",
+            "gloss": "walk"
+          },
+          {
+            "character": "丏",
+            "gloss": "parapet"
+          }
+        ]
+      },
+      "before_mnemonic": "Traditionally, performers rhythmically 走 walk beside a 丏 parapet in the 䞛 dance of an ancient eastern minority group.",
+      "after_mnemonic": "Traditionally, performers rhythmically 走 walk beside a 丏 parapet in the 䞛 ancient eastern ceremonial dance.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䡋",
+      "base_card_hash": "sha256:c84a041d7ac074e7fc89e001e441a864eec5385151f2e924b1f070829f685aa6",
+      "before": {
+        "meaning": "decoration on the nave or hub of a wheel",
+        "equation": "車 vehicle + 支 offshoot = 䡋 decoration on the nave or hub of a wheel",
+        "components": [
+          {
+            "character": "車",
+            "gloss": "vehicle"
+          },
+          {
+            "character": "支",
+            "gloss": "offshoot"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "車",
+            "gloss": "vehicle"
+          },
+          {
+            "character": "支",
+            "gloss": "offshoot"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "wheel-hub ornament",
+        "equation": "車 vehicle + 支 offshoot = 䡋 wheel-hub ornament",
+        "components": [
+          {
+            "character": "車",
+            "gloss": "vehicle"
+          },
+          {
+            "character": "支",
+            "gloss": "offshoot"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "車",
+            "gloss": "vehicle"
+          },
+          {
+            "character": "支",
+            "gloss": "offshoot"
+          }
+        ]
+      },
+      "before_mnemonic": "On a 車 vehicle wheel, the 䡋 decoration on the nave or hub of a wheel branches like a 支 offshoot between spokes.",
+      "after_mnemonic": "On a 車 vehicle wheel, the 䡋 wheel-hub ornament branches like a 支 offshoot between spokes.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䡏",
+      "base_card_hash": "sha256:dcee747f35717eeb59f8b812cd0f18dcc28920001ac0f85c6ba65569d25781d8",
+      "before": {
+        "meaning": "horizontal front bar on a cart or carriage",
+        "equation": "車 vehicle + 弘 great = 䡏 horizontal front bar on a cart or carriage",
+        "components": [
+          {
+            "character": "車",
+            "gloss": "vehicle"
+          },
+          {
+            "character": "弘",
+            "gloss": "great"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "車",
+            "gloss": "vehicle"
+          },
+          {
+            "character": "弘",
+            "gloss": "great"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "carriage front crossbar",
+        "equation": "車 vehicle + 弘 great = 䡏 carriage front crossbar",
+        "components": [
+          {
+            "character": "車",
+            "gloss": "vehicle"
+          },
+          {
+            "character": "弘",
+            "gloss": "great"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "車",
+            "gloss": "vehicle"
+          },
+          {
+            "character": "弘",
+            "gloss": "great"
+          }
+        ]
+      },
+      "before_mnemonic": "A 䡏 horizontal front bar on a cart or carriage gives a 車 vehicle 弘 great breadth across its front.",
+      "after_mnemonic": "A 䡏 carriage front crossbar gives a 車 vehicle 弘 great breadth across its front.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䡼",
+      "base_card_hash": "sha256:f3e6b1dd60faef9e11d841b0e3bb2778247193b8ea3b8d252dd8711c36d3e9c9",
+      "before": {
+        "meaning": "frames on the sides and front of a carriage",
+        "equation": "車 vehicle + 霝 drops of rain = 䡼 frames on the sides and front of a carriage",
+        "components": [
+          {
+            "character": "車",
+            "gloss": "vehicle"
+          },
+          {
+            "character": "霝",
+            "gloss": "drops of rain"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "車",
+            "gloss": "vehicle"
+          },
+          {
+            "character": "霝",
+            "gloss": "drops of rain"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "carriage side and front frames",
+        "equation": "車 vehicle + 霝 drops of rain = 䡼 carriage side and front frames",
+        "components": [
+          {
+            "character": "車",
+            "gloss": "vehicle"
+          },
+          {
+            "character": "霝",
+            "gloss": "drops of rain"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "車",
+            "gloss": "vehicle"
+          },
+          {
+            "character": "霝",
+            "gloss": "drops of rain"
+          }
+        ]
+      },
+      "before_mnemonic": "Across the front and both sides of a 車 vehicle, 霝 drops of rain bead along the 䡼 frames on the sides and front of a carriage.",
+      "after_mnemonic": "Across the front and both sides of a 車 vehicle, 霝 drops of rain bead along the 䡼 carriage side and front frames.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䡿",
+      "base_card_hash": "sha256:d8f71dd0c870f3f8a8993b3458df171ecc5ec2381b456c4c24774f71790ccd6d",
+      "before": {
+        "meaning": "frames on the sides and front of a carriage",
+        "equation": "車 vehicle + 靈 spirit = 䡿 frames on the sides and front of a carriage",
+        "components": [
+          {
+            "character": "車",
+            "gloss": "vehicle"
+          },
+          {
+            "character": "靈",
+            "gloss": "spirit"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "車",
+            "gloss": "vehicle"
+          },
+          {
+            "character": "靈",
+            "gloss": "spirit"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "carriage side and front frames",
+        "equation": "車 vehicle + 靈 spirit = 䡿 carriage side and front frames",
+        "components": [
+          {
+            "character": "車",
+            "gloss": "vehicle"
+          },
+          {
+            "character": "靈",
+            "gloss": "spirit"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "車",
+            "gloss": "vehicle"
+          },
+          {
+            "character": "靈",
+            "gloss": "spirit"
+          }
+        ]
+      },
+      "before_mnemonic": "A 靈 spirit slips through the lattice along a 車 vehicle, revealing 䡿 frames on the sides and front of a carriage.",
+      "after_mnemonic": "A 靈 spirit slips through the lattice along a 車 vehicle, revealing the 䡿 carriage side and front frames.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䢪",
+      "base_card_hash": "sha256:5421bcaf0bfb80a77bfbf1d7981f1717cfb03e06e6e552dd7b31dd29f0e12af8",
+      "before": {
+        "meaning": "sledge for transportation over mud or snow",
+        "equation": "辶 movement + 喬 lofty = 䢪 sledge for transportation over mud or snow",
+        "components": [
+          {
+            "character": "辶",
+            "gloss": "movement"
+          },
+          {
+            "character": "喬",
+            "gloss": "lofty"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "辶",
+            "gloss": "movement"
+          },
+          {
+            "character": "喬",
+            "gloss": "lofty"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "mud-or-snow sledge",
+        "equation": "辶 movement + 喬 lofty = 䢪 mud-or-snow sledge",
+        "components": [
+          {
+            "character": "辶",
+            "gloss": "movement"
+          },
+          {
+            "character": "喬",
+            "gloss": "lofty"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "辶",
+            "gloss": "movement"
+          },
+          {
+            "character": "喬",
+            "gloss": "lofty"
+          }
+        ]
+      },
+      "before_mnemonic": "Smooth 辶 movement carries a rider on the 喬 lofty runners of a 䢪 sledge for transportation over mud or snow.",
+      "after_mnemonic": "Smooth 辶 movement carries a rider on the 喬 lofty runners of a 䢪 mud-or-snow sledge.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䣑",
+      "base_card_hash": "sha256:7020f0f59d8eca3c2ef06916c52b03780ff8e927f43860ec052f838df625f6fc",
+      "before": {
+        "meaning": "living space for one family in ancient times",
+        "equation": "厘 centi + ⻏ city (right) = 䣑 living space for one family in ancient times",
+        "components": [
+          {
+            "character": "厘",
+            "gloss": "centi"
+          },
+          {
+            "character": "⻏",
+            "gloss": "city (right)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "厘",
+            "gloss": "centi"
+          },
+          {
+            "character": "⻏",
+            "gloss": "city (right)"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "family dwelling",
+        "equation": "厘 centi + ⻏ city (right) = 䣑 family dwelling",
+        "components": [
+          {
+            "character": "厘",
+            "gloss": "centi"
+          },
+          {
+            "character": "⻏",
+            "gloss": "city (right)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "厘",
+            "gloss": "centi"
+          },
+          {
+            "character": "⻏",
+            "gloss": "city (right)"
+          }
+        ]
+      },
+      "before_mnemonic": "The ⻏ city divides on a 厘 centi scale, allotting one unit as 䣑 living space for one family in ancient times.",
+      "after_mnemonic": "The ⻏ city (right) uses 厘 centi divisions to allot each household a 䣑 family dwelling.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䦼",
+      "base_card_hash": "sha256:475b65cede216e71c2b0f9f52aea679f9981bddc724799833108a809b151546e",
+      "before": {
+        "meaning": "dig a passage through a mountain or hill",
+        "equation": "⻖ mound (left) + 夬 parted = 䦼 dig a passage through a mountain or hill",
+        "components": [
+          {
+            "character": "⻖",
+            "gloss": "mound (left)"
+          },
+          {
+            "character": "夬",
+            "gloss": "parted"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⻖",
+            "gloss": "mound (left)"
+          },
+          {
+            "character": "夬",
+            "gloss": "parted"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "tunnel through a mountain",
+        "equation": "⻖ mound (left) + 夬 parted = 䦼 tunnel through a mountain",
+        "components": [
+          {
+            "character": "⻖",
+            "gloss": "mound (left)"
+          },
+          {
+            "character": "夬",
+            "gloss": "parted"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⻖",
+            "gloss": "mound (left)"
+          },
+          {
+            "character": "夬",
+            "gloss": "parted"
+          }
+        ]
+      },
+      "before_mnemonic": "Workers 䦼 dig a passage through a mountain or hill until the ⻖ mound stands 夬 parted.",
+      "after_mnemonic": "Workers 䦼 tunnel through a mountain until the ⻖ mound stands 夬 parted.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䩛",
+      "base_card_hash": "sha256:fc3a495615a0ca9d17c1ef7b0b7d8cf36e7c6ce72f10c69d04e2cde0391c4d10",
+      "before": {
+        "meaning": "leather belt used to bind or restrain a cart",
+        "equation": "革 leather + 必 certainly = 䩛 leather belt used to bind or restrain a cart",
+        "components": [
+          {
+            "character": "革",
+            "gloss": "leather"
+          },
+          {
+            "character": "必",
+            "gloss": "certainly"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "革",
+            "gloss": "leather"
+          },
+          {
+            "character": "必",
+            "gloss": "certainly"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "cart-binding leather belt",
+        "equation": "革 leather + 必 certainly = 䩛 cart-binding leather belt",
+        "components": [
+          {
+            "character": "革",
+            "gloss": "leather"
+          },
+          {
+            "character": "必",
+            "gloss": "certainly"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "革",
+            "gloss": "leather"
+          },
+          {
+            "character": "必",
+            "gloss": "certainly"
+          }
+        ]
+      },
+      "before_mnemonic": "A cart's 革 leather strap 必 certainly secures its load as a 䩛 leather belt used to bind or restrain a cart.",
+      "after_mnemonic": "A cart's 革 leather strap 必 certainly secures its load as a 䩛 cart-binding leather belt.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䪝",
+      "base_card_hash": "sha256:6e9ebb5e027c918d1222d508c6e9c28a9caf91eb97d85369dd709e6d50dbe4d4",
+      "before": {
+        "meaning": "leather thong wound around a sword handle",
+        "equation": "韋 tanned hide + 蒦 measure = 䪝 leather thong wound around a sword handle",
+        "components": [
+          {
+            "character": "韋",
+            "gloss": "tanned hide"
+          },
+          {
+            "character": "蒦",
+            "gloss": "measure"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "韋",
+            "gloss": "tanned hide"
+          },
+          {
+            "character": "蒦",
+            "gloss": "measure"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sword-hilt leather thong",
+        "equation": "韋 tanned hide + 蒦 measure = 䪝 sword-hilt leather thong",
+        "components": [
+          {
+            "character": "韋",
+            "gloss": "tanned hide"
+          },
+          {
+            "character": "蒦",
+            "gloss": "measure"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "韋",
+            "gloss": "tanned hide"
+          },
+          {
+            "character": "蒦",
+            "gloss": "measure"
+          }
+        ]
+      },
+      "before_mnemonic": "蒦 measure a strip of 韋 tanned hide before making a 䪝 leather thong wound around a sword handle.",
+      "after_mnemonic": "蒦 measure a strip of 韋 tanned hide before making a 䪝 sword-hilt leather thong.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䭞",
+      "base_card_hash": "sha256:e308e9916be2b9bc5b1a79b16d5f140d49366317c0f39656ee93b2d05b42574a",
+      "before": {
+        "meaning": "sacrifice offered to gods or the deceased",
+        "equation": "飠 food + 睪 spy on = 䭞 sacrifice offered to gods or the deceased",
+        "components": [
+          {
+            "character": "飠",
+            "gloss": "food"
+          },
+          {
+            "character": "睪",
+            "gloss": "spy on"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "飠",
+            "gloss": "food"
+          },
+          {
+            "character": "睪",
+            "gloss": "spy on"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "offering to gods or the deceased",
+        "equation": "飠 food + 睪 spy on = 䭞 offering to gods or the deceased",
+        "components": [
+          {
+            "character": "飠",
+            "gloss": "food"
+          },
+          {
+            "character": "睪",
+            "gloss": "spy on"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "飠",
+            "gloss": "food"
+          },
+          {
+            "character": "睪",
+            "gloss": "spy on"
+          }
+        ]
+      },
+      "before_mnemonic": "At an ancient rite, a hidden witness can 睪 spy on attendants placing 飠 food as a 䭞 sacrifice offered to gods or the deceased.",
+      "after_mnemonic": "At an ancient rite, a hidden witness can 睪 spy on attendants placing 飠 food; it becomes 䭞 offering to gods or the deceased.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䮆",
+      "base_card_hash": "sha256:e87d3fb73b22ec213af256b895e0136ad1af51f4aa6bd58c7c4db18261036b01",
+      "before": {
+        "meaning": "horse with mixed color of yellow and white",
+        "equation": "馬 horse + 㔻 distinguished = 䮆 horse with mixed color of yellow and white",
+        "components": [
+          {
+            "character": "馬",
+            "gloss": "horse"
+          },
+          {
+            "character": "㔻",
+            "gloss": "distinguished"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "馬",
+            "gloss": "horse"
+          },
+          {
+            "character": "㔻",
+            "gloss": "distinguished"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "yellow-and-white horse",
+        "equation": "馬 horse + 㔻 distinguished = 䮆 yellow-and-white horse",
+        "components": [
+          {
+            "character": "馬",
+            "gloss": "horse"
+          },
+          {
+            "character": "㔻",
+            "gloss": "distinguished"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "馬",
+            "gloss": "horse"
+          },
+          {
+            "character": "㔻",
+            "gloss": "distinguished"
+          }
+        ]
+      },
+      "before_mnemonic": "A 馬 horse is 㔻 distinguished by intermingled yellow and white patches, identifying a 䮆 horse with mixed color of yellow and white.",
+      "after_mnemonic": "A 馬 horse is 㔻 distinguished by intermingled yellow and white patches, identifying a 䮆 yellow-and-white horse.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䵞",
+      "base_card_hash": "sha256:182f5a71dc319b0f66805438174352496eb06c97d4bcc567e83f81a848cbd58a",
+      "before": {
+        "meaning": "ancient punishment of tattooing the face",
+        "equation": "黑 black + 刂 knife (side) = 䵞 ancient punishment of tattooing the face",
+        "components": [
+          {
+            "character": "黑",
+            "gloss": "black"
+          },
+          {
+            "character": "刂",
+            "gloss": "knife (side)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "黑",
+            "gloss": "black"
+          },
+          {
+            "character": "刂",
+            "gloss": "knife (side)"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "facial tattoo punishment",
+        "equation": "黑 black + 刂 knife (side) = 䵞 facial tattoo punishment",
+        "components": [
+          {
+            "character": "黑",
+            "gloss": "black"
+          },
+          {
+            "character": "刂",
+            "gloss": "knife (side)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "黑",
+            "gloss": "black"
+          },
+          {
+            "character": "刂",
+            "gloss": "knife (side)"
+          }
+        ]
+      },
+      "before_mnemonic": "Traditionally, a 刂 knife cut facial lines filled with 黑 black pigment in the 䵞 ancient punishment of tattooing the face.",
+      "after_mnemonic": "Traditionally, a 刂 knife cut facial lines filled with 黑 black pigment in the 䵞 facial tattoo punishment.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䶛",
+      "base_card_hash": "sha256:86105c4d8066c5febceb1a94581f04cedc74cd2ee14c12cf9308db6ed40d3f38",
+      "before": {
+        "meaning": "separate the meat from the bones with teeth",
+        "equation": "列 line up + 齒 teeth = 䶛 separate the meat from the bones with teeth",
+        "components": [
+          {
+            "character": "列",
+            "gloss": "line up"
+          },
+          {
+            "character": "齒",
+            "gloss": "teeth"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "列",
+            "gloss": "line up"
+          },
+          {
+            "character": "齒",
+            "gloss": "teeth"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "strip meat from bones with teeth",
+        "equation": "列 line up + 齒 teeth = 䶛 strip meat from bones with teeth",
+        "components": [
+          {
+            "character": "列",
+            "gloss": "line up"
+          },
+          {
+            "character": "齒",
+            "gloss": "teeth"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "列",
+            "gloss": "line up"
+          },
+          {
+            "character": "齒",
+            "gloss": "teeth"
+          }
+        ]
+      },
+      "before_mnemonic": "齒 teeth 䶛 separate the meat from the bones with teeth, leaving the bare bones to 列 line up.",
+      "after_mnemonic": "齒 teeth 䶛 strip meat from bones with teeth, leaving the bare bones to 列 line up.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "啶",
+      "base_card_hash": "sha256:188f49986b59157504eb281382f4e7f19f6a452aa6336742c137e8603ec8737f",
+      "before": {
+        "meaning": "phonetic used in pyridine and pyrimidine",
+        "equation": "口 mouth + 定 settle on = 啶 phonetic used in pyridine and pyrimidine",
+        "components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "定",
+            "gloss": "settle on"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "定",
+            "gloss": "settle on"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "chemical-name phonetic",
+        "equation": "口 mouth + 定 settle on = 啶 chemical-name phonetic",
+        "components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "定",
+            "gloss": "settle on"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "定",
+            "gloss": "settle on"
+          }
+        ]
+      },
+      "before_mnemonic": "A 口 mouth can 定 settle on the 啶 phonetic used in pyridine and pyrimidine when naming either compound.",
+      "after_mnemonic": "In pyridine and pyrimidine, 啶 chemical-name phonetic lets a 口 mouth 定 settle on the syllable dìng.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "囖",
+      "base_card_hash": "sha256:c5de911a6def3a84c2a4510c48dcdb4c5ec6731b1f91c27acb8697d06c8f808a",
+      "before": {
+        "meaning": "final particle for pointing out the obvious",
+        "equation": "口 mouth + 籮 bamboo basket = 囖 final particle for pointing out the obvious",
+        "components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "籮",
+            "gloss": "bamboo basket"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "籮",
+            "gloss": "bamboo basket"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "obviousness particle",
+        "equation": "口 mouth + 籮 bamboo basket = 囖 obviousness particle",
+        "components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "籮",
+            "gloss": "bamboo basket"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "籮",
+            "gloss": "bamboo basket"
+          }
+        ]
+      },
+      "before_mnemonic": "Seeing a 籮 bamboo basket plainly full, the 口 mouth ends its remark with 囖 final particle for pointing out the obvious.",
+      "after_mnemonic": "Seeing a 籮 bamboo basket plainly full, the 口 mouth ends its remark with a 囖 obviousness particle.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "妺",
+      "base_card_hash": "sha256:8741b3cddcd9b3c9748df555f884b1ff1b38c208db09fa0c179058912966a792",
+      "before": {
+        "meaning": "wife of the last ruler of the Xia dynasty",
+        "equation": "女 woman + 末 last = 妺 wife of the last ruler of the Xia dynasty",
+        "components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "末",
+            "gloss": "last"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "末",
+            "gloss": "last"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "last Xia ruler's wife",
+        "equation": "女 woman + 末 last = 妺 last Xia ruler's wife",
+        "components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "末",
+            "gloss": "last"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "末",
+            "gloss": "last"
+          }
+        ]
+      },
+      "before_mnemonic": "History identifies the 女 woman beside the 末 last Xia throne as 妺 wife of the last ruler of the Xia dynasty.",
+      "after_mnemonic": "History identifies the 女 woman beside the 末 last Xia throne as the 妺 last Xia ruler's wife.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "庹",
+      "base_card_hash": "sha256:d9ef314c798df6ac9c91e42b09c544b67582db636e76668a81e50de39396bce7",
+      "before": {
+        "meaning": "the length of one's two outstretched arms",
+        "equation": "广 roof + 廿 twenty + 尺 ruler = 庹 the length of one's two outstretched arms",
+        "components": [
+          {
+            "character": "广",
+            "gloss": "roof"
+          },
+          {
+            "character": "廿",
+            "gloss": "twenty"
+          },
+          {
+            "character": "尺",
+            "gloss": "ruler"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "广",
+            "gloss": "roof"
+          },
+          {
+            "character": "廿",
+            "gloss": "twenty"
+          },
+          {
+            "character": "尺",
+            "gloss": "ruler"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "arm-span measure",
+        "equation": "广 roof + 廿 twenty + 尺 ruler = 庹 arm-span measure",
+        "components": [
+          {
+            "character": "广",
+            "gloss": "roof"
+          },
+          {
+            "character": "廿",
+            "gloss": "twenty"
+          },
+          {
+            "character": "尺",
+            "gloss": "ruler"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "广",
+            "gloss": "roof"
+          },
+          {
+            "character": "廿",
+            "gloss": "twenty"
+          },
+          {
+            "character": "尺",
+            "gloss": "ruler"
+          }
+        ]
+      },
+      "before_mnemonic": "Under a 广 roof, mark 廿 twenty units on a 尺 ruler to measure 庹 the length of one's two outstretched arms.",
+      "after_mnemonic": "Under a 广 roof, 廿 twenty marks on a 尺 ruler compare with outstretched arms to define one 庹 arm-span measure.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "戤",
+      "base_card_hash": "sha256:58422131fd3298301a61dac3bd04e892e50ef2173a64cc985ce7a4b1ff07b806",
+      "before": {
+        "meaning": "infringe a trade-mark to pledge an article",
+        "equation": "盈 replete + 戈 halberd = 戤 infringe a trade-mark to pledge an article",
+        "components": [
+          {
+            "character": "盈",
+            "gloss": "replete"
+          },
+          {
+            "character": "戈",
+            "gloss": "halberd"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "盈",
+            "gloss": "replete"
+          },
+          {
+            "character": "戈",
+            "gloss": "halberd"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "infringe a trademark",
+        "equation": "盈 replete + 戈 halberd = 戤 infringe a trademark",
+        "components": [
+          {
+            "character": "盈",
+            "gloss": "replete"
+          },
+          {
+            "character": "戈",
+            "gloss": "halberd"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "盈",
+            "gloss": "replete"
+          },
+          {
+            "character": "戈",
+            "gloss": "halberd"
+          }
+        ]
+      },
+      "before_mnemonic": "A pawnshop is 盈 replete with articles bearing a copied 戈 halberd mark after forgers 戤 infringe a trade-mark to pledge an article.",
+      "after_mnemonic": "A pawnshop is 盈 replete with articles bearing a copied 戈 halberd mark after forgers 戤 infringe a trademark.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "掆",
+      "base_card_hash": "sha256:d723cef814df4aac1acd4c0019123e1ae58a52be1e3103ef7467dd528792d365",
+      "before": {
+        "meaning": "carry on the shoulders of two or more men",
+        "equation": "扌 hand (side) + 岡 ridge of a hill = 掆 carry on the shoulders of two or more men",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "岡",
+            "gloss": "ridge of a hill"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "岡",
+            "gloss": "ridge of a hill"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "carry on several shoulders",
+        "equation": "扌 hand (side) + 岡 ridge of a hill = 掆 carry on several shoulders",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "岡",
+            "gloss": "ridge of a hill"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "岡",
+            "gloss": "ridge of a hill"
+          }
+        ]
+      },
+      "before_mnemonic": "To 掆 carry on the shoulders of two or more men, lay the load across a pole like the 岡 ridge of a hill, each 扌 hand steadying it.",
+      "after_mnemonic": "Several workers use each 扌 hand (side) to steady a load across a pole shaped like the 岡 ridge of a hill, then 掆 carry on several shoulders.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "摣",
+      "base_card_hash": "sha256:f462a688c6bcd8a374bfcf5cf8887543899d1187089d24997ac0b888e9b4d577",
+      "before": {
+        "meaning": "handful to pick up with the fingers to seize",
+        "equation": "扌 hand (side) + 虍 tiger (top) + 且 moreover = 摣 handful to pick up with the fingers to seize",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "虍",
+            "gloss": "tiger (top)"
+          },
+          {
+            "character": "且",
+            "gloss": "moreover"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "虍",
+            "gloss": "tiger (top)"
+          },
+          {
+            "character": "且",
+            "gloss": "moreover"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "grab a handful",
+        "equation": "扌 hand (side) + 虍 tiger (top) + 且 moreover = 摣 grab a handful",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "虍",
+            "gloss": "tiger (top)"
+          },
+          {
+            "character": "且",
+            "gloss": "moreover"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "虍",
+            "gloss": "tiger (top)"
+          },
+          {
+            "character": "且",
+            "gloss": "moreover"
+          }
+        ]
+      },
+      "before_mnemonic": "A 扌 hand takes a 摣 handful to pick up with the fingers to seize shed 虍 tiger fur; 且 moreover, it holds fast.",
+      "after_mnemonic": "A 扌 hand (side) can 摣 grab a handful of shed 虍 tiger (top) fur; 且 moreover, it holds fast.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "晹",
+      "base_card_hash": "sha256:0d43448b84908f5f2d982917a189582f1bc2c24d10453c8288e1406704551109",
+      "before": {
+        "meaning": "sun appearing and disappearing behind clouds",
+        "equation": "日 sun + 易 easy = 晹 sun appearing and disappearing behind clouds",
+        "components": [
+          {
+            "character": "日",
+            "gloss": "sun"
+          },
+          {
+            "character": "易",
+            "gloss": "easy"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "日",
+            "gloss": "sun"
+          },
+          {
+            "character": "易",
+            "gloss": "easy"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sun flickering behind clouds",
+        "equation": "日 sun + 易 easy = 晹 sun flickering behind clouds",
+        "components": [
+          {
+            "character": "日",
+            "gloss": "sun"
+          },
+          {
+            "character": "易",
+            "gloss": "easy"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "日",
+            "gloss": "sun"
+          },
+          {
+            "character": "易",
+            "gloss": "easy"
+          }
+        ]
+      },
+      "before_mnemonic": "Cloud gaps make it 易 easy for the 日 sun to flicker as 晹 sun appearing and disappearing behind clouds.",
+      "after_mnemonic": "The 日 sun slips through clouds; it is 易 easy to remember 晹 sun flickering behind clouds.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "湓",
+      "base_card_hash": "sha256:6089e00489bc009a5cfe44b83cdf4c29ca746822856b2cf4415e3b988862e669",
+      "before": {
+        "meaning": "affluent of the River Yangtze near Kiukiang",
+        "equation": "氵 water (drops) + 盆 basin = 湓 affluent of the River Yangtze near Kiukiang",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "盆",
+            "gloss": "basin"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "盆",
+            "gloss": "basin"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "Yangtze tributary",
+        "equation": "氵 water (drops) + 盆 basin = 湓 Yangtze tributary",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "盆",
+            "gloss": "basin"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "盆",
+            "gloss": "basin"
+          }
+        ]
+      },
+      "before_mnemonic": "Near Kiukiang, 氵 water spills from a 盆 basin into the Yangtze as the 湓 affluent of the River Yangtze near Kiukiang.",
+      "after_mnemonic": "Near Jiujiang, 氵 water (drops) spills from a 盆 basin into the 湓 Yangtze tributary.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "漎",
+      "base_card_hash": "sha256:6084424e0b120a072b491a87aabac68c5c8dc9d500fea1edd12e46de089eb125",
+      "before": {
+        "meaning": "place where small streams join a large one",
+        "equation": "氵 water (drops) + 從 follow = 漎 place where small streams join a large one",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "從",
+            "gloss": "follow"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "從",
+            "gloss": "follow"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "confluence of streams",
+        "equation": "氵 water (drops) + 從 follow = 漎 confluence of streams",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "從",
+            "gloss": "follow"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "從",
+            "gloss": "follow"
+          }
+        ]
+      },
+      "before_mnemonic": "Streams of 氵 water 從 follow one another into the 漎 place where small streams join a large one.",
+      "after_mnemonic": "Streams of 氵 water 從 follow one another into the 漎 confluence of streams.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "犼",
+      "base_card_hash": "sha256:306ecd0f153c162b440bd07915a539340eea9d7859f579d7e1876f3093cc2da5",
+      "before": {
+        "meaning": "fierce Mongolian wolf-dragon roof ornament",
+        "equation": "犭 dog (side) + 孔 cavity = 犼 fierce Mongolian wolf-dragon roof ornament",
+        "components": [
+          {
+            "character": "犭",
+            "gloss": "dog (side)"
+          },
+          {
+            "character": "孔",
+            "gloss": "cavity"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "犭",
+            "gloss": "dog (side)"
+          },
+          {
+            "character": "孔",
+            "gloss": "cavity"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "wolf-dragon roof ornament",
+        "equation": "犭 dog (side) + 孔 cavity = 犼 wolf-dragon roof ornament",
+        "components": [
+          {
+            "character": "犭",
+            "gloss": "dog (side)"
+          },
+          {
+            "character": "孔",
+            "gloss": "cavity"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "犭",
+            "gloss": "dog (side)"
+          },
+          {
+            "character": "孔",
+            "gloss": "cavity"
+          }
+        ]
+      },
+      "before_mnemonic": "On a roof ridge, a snarling 犭 dog face surrounds the mouthlike 孔 cavity of a 犼 fierce Mongolian wolf-dragon roof ornament.",
+      "after_mnemonic": "On a roof ridge, a snarling 犭 dog face surrounds the mouthlike 孔 cavity of a 犼 wolf-dragon roof ornament.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "狖",
+      "base_card_hash": "sha256:c3af0bbb9109747da90b8c222fcf3a5f28f5b835a23ad3aa2d4cf55e84adb8f3",
+      "before": {
+        "meaning": "gibbon with a long tail and prominent nose",
+        "equation": "犭 dog (side) + 穴 hole = 狖 gibbon with a long tail and prominent nose",
+        "components": [
+          {
+            "character": "犭",
+            "gloss": "dog (side)"
+          },
+          {
+            "character": "穴",
+            "gloss": "hole"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "犭",
+            "gloss": "dog (side)"
+          },
+          {
+            "character": "穴",
+            "gloss": "hole"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "long-tailed, prominent-nosed gibbon",
+        "equation": "犭 dog (side) + 穴 hole = 狖 long-tailed, prominent-nosed gibbon",
+        "components": [
+          {
+            "character": "犭",
+            "gloss": "dog (side)"
+          },
+          {
+            "character": "穴",
+            "gloss": "hole"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "犭",
+            "gloss": "dog (side)"
+          },
+          {
+            "character": "穴",
+            "gloss": "hole"
+          }
+        ]
+      },
+      "before_mnemonic": "When a long tail curls from an 穴 hole and a prominent nose sniffs a 犭 dog, a 狖 gibbon with a long tail and prominent nose is hiding inside.",
+      "after_mnemonic": "When a long tail curls from an 穴 hole and a prominent nose sniffs a 犭 dog, a 狖 long-tailed, prominent-nosed gibbon is hiding inside.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "獙",
+      "base_card_hash": "sha256:43bcccdf150d5396bf56d6d869f9d81015f072ee179dd49274fb695a2ffa2c10",
+      "before": {
+        "meaning": "mythological beast resembling a winged fox",
+        "equation": "犭 dog (side) + 敝 break = 獙 mythological beast resembling a winged fox",
+        "components": [
+          {
+            "character": "犭",
+            "gloss": "dog (side)"
+          },
+          {
+            "character": "敝",
+            "gloss": "break"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "犭",
+            "gloss": "dog (side)"
+          },
+          {
+            "character": "敝",
+            "gloss": "break"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "winged foxlike mythical beast",
+        "equation": "犭 dog (side) + 敝 break = 獙 winged foxlike mythical beast",
+        "components": [
+          {
+            "character": "犭",
+            "gloss": "dog (side)"
+          },
+          {
+            "character": "敝",
+            "gloss": "break"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "犭",
+            "gloss": "dog (side)"
+          },
+          {
+            "character": "敝",
+            "gloss": "break"
+          }
+        ]
+      },
+      "before_mnemonic": "A 犭 dog sprouts foxlike wings that 敝 break its bond with the earth, revealing an 獙 mythological beast resembling a winged fox.",
+      "after_mnemonic": "A 犭 dog sprouts foxlike wings that 敝 break its bond with the earth, revealing an 獙 winged foxlike mythical beast.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "琀",
+      "base_card_hash": "sha256:85ab90bc9cbe18bf5627cba8d40566e1d876403f5e1257715fed0f5d5a76b5b9",
+      "before": {
+        "meaning": "gems or pearls placed in a corpse's mouth",
+        "equation": "𤣩 jade (alt) + 含 harbor = 琀 gems or pearls placed in a corpse's mouth",
+        "components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade (alt)"
+          },
+          {
+            "character": "含",
+            "gloss": "harbor"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade (alt)"
+          },
+          {
+            "character": "含",
+            "gloss": "harbor"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "burial mouth gems",
+        "equation": "𤣩 jade (alt) + 含 harbor = 琀 burial mouth gems",
+        "components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade (alt)"
+          },
+          {
+            "character": "含",
+            "gloss": "harbor"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade (alt)"
+          },
+          {
+            "character": "含",
+            "gloss": "harbor"
+          }
+        ]
+      },
+      "before_mnemonic": "In an ancient burial rite, the mouth would 含 harbor 𤣩 jade as 琀 gems or pearls placed in a corpse's mouth.",
+      "after_mnemonic": "In an ancient burial, the mouth would 含 harbor 琀 burial mouth gems carved from 𤣩 jade (alt).",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "琮",
+      "base_card_hash": "sha256:7e0c0875b7c068c4ce31a544f7c15fed4e5a2a427a45af133bb61e180c4d5a56",
+      "before": {
+        "meaning": "octagonal piece of jade with hole in middle",
+        "equation": "𤣩 jade (alt) + 宗 religion = 琮 octagonal piece of jade with hole in middle",
+        "components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade (alt)"
+          },
+          {
+            "character": "宗",
+            "gloss": "religion"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade (alt)"
+          },
+          {
+            "character": "宗",
+            "gloss": "religion"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "ritual jade tube",
+        "equation": "𤣩 jade (alt) + 宗 religion = 琮 ritual jade tube",
+        "components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade (alt)"
+          },
+          {
+            "character": "宗",
+            "gloss": "religion"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade (alt)"
+          },
+          {
+            "character": "宗",
+            "gloss": "religion"
+          }
+        ]
+      },
+      "before_mnemonic": "Eight corners and a central opening distinguish the 𤣩 jade 琮 octagonal piece of jade with hole in middle used in 宗 religion.",
+      "after_mnemonic": "The 琮 ritual jade tube has a square exterior and circular bore; its 𤣩 jade (alt) served 宗 religion.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "眳",
+      "base_card_hash": "sha256:f59141079e64e565392287d9564df2400431d0068451863a937d93cd5118c667",
+      "before": {
+        "meaning": "space between the eyebrows and the eyelashes",
+        "equation": "目 eye + 名 noun (part of speech) = 眳 space between the eyebrows and the eyelashes",
+        "components": [
+          {
+            "character": "目",
+            "gloss": "eye"
+          },
+          {
+            "character": "名",
+            "gloss": "noun (part of speech)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "目",
+            "gloss": "eye"
+          },
+          {
+            "character": "名",
+            "gloss": "noun (part of speech)"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "eye-to-eyebrow space",
+        "equation": "目 eye + 名 noun (part of speech) = 眳 eye-to-eyebrow space",
+        "components": [
+          {
+            "character": "目",
+            "gloss": "eye"
+          },
+          {
+            "character": "名",
+            "gloss": "noun (part of speech)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "目",
+            "gloss": "eye"
+          },
+          {
+            "character": "名",
+            "gloss": "noun (part of speech)"
+          }
+        ]
+      },
+      "before_mnemonic": "A 名 noun (part of speech) labels the narrow strip above each 目 eye as the 眳 space between the eyebrows and the eyelashes.",
+      "after_mnemonic": "A 名 noun (part of speech) labels the narrow strip above each 目 eye as the 眳 eye-to-eyebrow space.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "籅",
+      "base_card_hash": "sha256:87c4839abb1877b8c0c8933eeec1317dd4f2de146c2f4ad9f75f4faeee9f916f",
+      "before": {
+        "meaning": "round basket used for feeding the cattle",
+        "equation": "竹 bamboo + 與 offer = 籅 round basket used for feeding the cattle",
+        "components": [
+          {
+            "character": "竹",
+            "gloss": "bamboo"
+          },
+          {
+            "character": "與",
+            "gloss": "offer"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "竹",
+            "gloss": "bamboo"
+          },
+          {
+            "character": "與",
+            "gloss": "offer"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "cattle-feeding basket",
+        "equation": "竹 bamboo + 與 offer = 籅 cattle-feeding basket",
+        "components": [
+          {
+            "character": "竹",
+            "gloss": "bamboo"
+          },
+          {
+            "character": "與",
+            "gloss": "offer"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "竹",
+            "gloss": "bamboo"
+          },
+          {
+            "character": "與",
+            "gloss": "offer"
+          }
+        ]
+      },
+      "before_mnemonic": "Weave 竹 bamboo into a 籅 round basket used for feeding the cattle and 與 offer them hay.",
+      "after_mnemonic": "Weave 竹 bamboo into a 籅 cattle-feeding basket and 與 offer them hay.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "絘",
+      "base_card_hash": "sha256:a14b664b28b2ad5f76b9a05e1482774be0844a04097940384ac0577ce5430c06",
+      "before": {
+        "meaning": "ancient tax in the form of bales of cloth",
+        "equation": "糸 thread + 次 next = 絘 ancient tax in the form of bales of cloth",
+        "components": [
+          {
+            "character": "糸",
+            "gloss": "thread"
+          },
+          {
+            "character": "次",
+            "gloss": "next"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "糸",
+            "gloss": "thread"
+          },
+          {
+            "character": "次",
+            "gloss": "next"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "ancient cloth-bale tax",
+        "equation": "糸 thread + 次 next = 絘 ancient cloth-bale tax",
+        "components": [
+          {
+            "character": "糸",
+            "gloss": "thread"
+          },
+          {
+            "character": "次",
+            "gloss": "next"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "糸",
+            "gloss": "thread"
+          },
+          {
+            "character": "次",
+            "gloss": "next"
+          }
+        ]
+      },
+      "before_mnemonic": "For the 絘 ancient tax in the form of bales of cloth, officials count each 糸 thread bundle as the 次 next payment.",
+      "after_mnemonic": "For the 絘 ancient cloth-bale tax, officials count each 糸 thread bundle as the 次 next payment.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "胙",
+      "base_card_hash": "sha256:47e8351a99efba609eff7f44addf728a1420f0423da86befca53ee6c56466acc",
+      "before": {
+        "meaning": "meat offered in sacrifice to one's ancestors",
+        "equation": "⺼ meat (side) + 乍 for the first time = 胙 meat offered in sacrifice to one's ancestors",
+        "components": [
+          {
+            "character": "⺼",
+            "gloss": "meat (side)"
+          },
+          {
+            "character": "乍",
+            "gloss": "for the first time"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⺼",
+            "gloss": "meat (side)"
+          },
+          {
+            "character": "乍",
+            "gloss": "for the first time"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "ancestral sacrificial meat",
+        "equation": "⺼ meat (side) + 乍 for the first time = 胙 ancestral sacrificial meat",
+        "components": [
+          {
+            "character": "⺼",
+            "gloss": "meat (side)"
+          },
+          {
+            "character": "乍",
+            "gloss": "for the first time"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⺼",
+            "gloss": "meat (side)"
+          },
+          {
+            "character": "乍",
+            "gloss": "for the first time"
+          }
+        ]
+      },
+      "before_mnemonic": "A family performing its ancestral rite 乍 for the first time sets out ⺼ meat as 胙 meat offered in sacrifice to one's ancestors.",
+      "after_mnemonic": "A family performing its ancestral rite 乍 for the first time sets out ⺼ meat as 胙 ancestral sacrificial meat.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "蝥",
+      "base_card_hash": "sha256:ef7091fe3363cfca3e593c17de13390b31f202e3c94abcdbfc1141981728018f",
+      "before": {
+        "meaning": "fly which is used similarly to cantharides",
+        "equation": "敄 put forth effort + 虫 insects = 蝥 fly which is used similarly to cantharides",
+        "components": [
+          {
+            "character": "敄",
+            "gloss": "put forth effort"
+          },
+          {
+            "character": "虫",
+            "gloss": "insects"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "敄",
+            "gloss": "put forth effort"
+          },
+          {
+            "character": "虫",
+            "gloss": "insects"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "blister beetle",
+        "equation": "敄 put forth effort + 虫 insects = 蝥 blister beetle",
+        "components": [
+          {
+            "character": "敄",
+            "gloss": "put forth effort"
+          },
+          {
+            "character": "虫",
+            "gloss": "insects"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "敄",
+            "gloss": "put forth effort"
+          },
+          {
+            "character": "虫",
+            "gloss": "insects"
+          }
+        ]
+      },
+      "before_mnemonic": "The 蝥 fly which is used similarly to cantharides hides among 虫 insects, forcing collectors to 敄 put forth effort to distinguish it.",
+      "after_mnemonic": "The 蝥 blister beetle hides among 虫 insects, forcing collectors to 敄 put forth effort to distinguish it.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "蟊",
+      "base_card_hash": "sha256:931b6f3bdd4d00e6998a2e6a3b555c53422188fca8d53fc47aa6b2db8381dbb3",
+      "before": {
+        "meaning": "fly which is used similarly to cantharides",
+        "equation": "矛 spear + 䖵 insects = 蟊 fly which is used similarly to cantharides",
+        "components": [
+          {
+            "character": "矛",
+            "gloss": "spear"
+          },
+          {
+            "character": "䖵",
+            "gloss": "insects"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "矛",
+            "gloss": "spear"
+          },
+          {
+            "character": "䖵",
+            "gloss": "insects"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "blister beetle",
+        "equation": "矛 spear + 䖵 insects = 蟊 blister beetle",
+        "components": [
+          {
+            "character": "矛",
+            "gloss": "spear"
+          },
+          {
+            "character": "䖵",
+            "gloss": "insects"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "矛",
+            "gloss": "spear"
+          },
+          {
+            "character": "䖵",
+            "gloss": "insects"
+          }
+        ]
+      },
+      "before_mnemonic": "For display only, a tiny 矛 spear pins the 蟊 fly which is used similarly to cantharides among 䖵 insects.",
+      "after_mnemonic": "For display only, a tiny 矛 spear pins the 蟊 blister beetle among 䖵 insects.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "閛",
+      "base_card_hash": "sha256:2b468a5e208b4a92c204d12d8528f8e18bfdf074a85ca76dea9d56ce473cb4f5",
+      "before": {
+        "meaning": "the sound of opening or closing the door",
+        "equation": "門 gate + 平 even = 閛 the sound of opening or closing the door",
+        "components": [
+          {
+            "character": "門",
+            "gloss": "gate"
+          },
+          {
+            "character": "平",
+            "gloss": "even"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "門",
+            "gloss": "gate"
+          },
+          {
+            "character": "平",
+            "gloss": "even"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "door-slamming sound",
+        "equation": "門 gate + 平 even = 閛 door-slamming sound",
+        "components": [
+          {
+            "character": "門",
+            "gloss": "gate"
+          },
+          {
+            "character": "平",
+            "gloss": "even"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "門",
+            "gloss": "gate"
+          },
+          {
+            "character": "平",
+            "gloss": "even"
+          }
+        ]
+      },
+      "before_mnemonic": "A 門 gate swings with a 平 even rhythm, making 閛 the sound of opening or closing the door.",
+      "after_mnemonic": "A 門 gate swings with a 平 even rhythm, making a 閛 door-slamming sound.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "靬",
+      "base_card_hash": "sha256:72c3ba9484c17f1273eb695baebb0ef7e0d25f0046204dba60d42adee109a7b5",
+      "before": {
+        "meaning": "Han-dynasty name for far-western countries",
+        "equation": "革 leather + 干 offend = 靬 Han-dynasty name for far-western countries",
+        "components": [
+          {
+            "character": "革",
+            "gloss": "leather"
+          },
+          {
+            "character": "干",
+            "gloss": "offend"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "革",
+            "gloss": "leather"
+          },
+          {
+            "character": "干",
+            "gloss": "offend"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "Han-era name for western countries",
+        "equation": "革 leather + 干 offend = 靬 Han-era name for western countries",
+        "components": [
+          {
+            "character": "革",
+            "gloss": "leather"
+          },
+          {
+            "character": "干",
+            "gloss": "offend"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "革",
+            "gloss": "leather"
+          },
+          {
+            "character": "干",
+            "gloss": "offend"
+          }
+        ]
+      },
+      "before_mnemonic": "On a Han-era map, the 靬 Han-dynasty name for far-western countries is etched into 革 leather where its edge seems to 干 offend the border.",
+      "after_mnemonic": "On a Han-era map, the 靬 Han-era name for western countries is etched into 革 leather where its edge seems to 干 offend the border.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "騲",
+      "base_card_hash": "sha256:b8fbdb3383c29b0cd8aec5518f407997cae550465b1c2a767465d884d20977f2",
+      "before": {
+        "meaning": "female of certain animals such as horses",
+        "equation": "馬 horse + 草 grass = 騲 female of certain animals such as horses",
+        "components": [
+          {
+            "character": "馬",
+            "gloss": "horse"
+          },
+          {
+            "character": "草",
+            "gloss": "grass"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "馬",
+            "gloss": "horse"
+          },
+          {
+            "character": "草",
+            "gloss": "grass"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "female horse or similar animal",
+        "equation": "馬 horse + 草 grass = 騲 female horse or similar animal",
+        "components": [
+          {
+            "character": "馬",
+            "gloss": "horse"
+          },
+          {
+            "character": "草",
+            "gloss": "grass"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "馬",
+            "gloss": "horse"
+          },
+          {
+            "character": "草",
+            "gloss": "grass"
+          }
+        ]
+      },
+      "before_mnemonic": "A 騲 female of certain animals such as horses can be a 馬 horse nursing her foal amid 草 grass.",
+      "after_mnemonic": "A 騲 female horse or similar animal can be a 馬 horse nursing her foal amid 草 grass.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "黱",
+      "base_card_hash": "sha256:102bb3c6ab36794458ec88fa0a2ca10eb04d74256387fb090df3d0dc2367dde9",
+      "before": {
+        "meaning": "umber-black dye for painting the eyebrow",
+        "equation": "黑 black = 黱 umber-black dye for painting the eyebrow",
+        "components": [
+          {
+            "character": "黑",
+            "gloss": "black"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "黑",
+            "gloss": "black"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "eyebrow dye",
+        "equation": "黑 black = 黱 eyebrow dye",
+        "components": [
+          {
+            "character": "黑",
+            "gloss": "black"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "黑",
+            "gloss": "black"
+          }
+        ]
+      },
+      "before_mnemonic": "A fine brush lays one 黑 black arch above the eye using 黱 umber-black dye for painting the eyebrow.",
+      "after_mnemonic": "A fine brush lays one 黑 black arch above the eye using 黱 eyebrow dye.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "黼",
+      "base_card_hash": "sha256:a79f73f8651989082b2b0732793dbdef966eb8d86f7b87c693e0fb9baea56779",
+      "before": {
+        "meaning": "embroidered official or sacrificial robe",
+        "equation": "黹 needlework + 甫 begin = 黼 embroidered official or sacrificial robe",
+        "components": [
+          {
+            "character": "黹",
+            "gloss": "needlework"
+          },
+          {
+            "character": "甫",
+            "gloss": "begin"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "黹",
+            "gloss": "needlework"
+          },
+          {
+            "character": "甫",
+            "gloss": "begin"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "embroidered ceremonial robe",
+        "equation": "黹 needlework + 甫 begin = 黼 embroidered ceremonial robe",
+        "components": [
+          {
+            "character": "黹",
+            "gloss": "needlework"
+          },
+          {
+            "character": "甫",
+            "gloss": "begin"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "黹",
+            "gloss": "needlework"
+          },
+          {
+            "character": "甫",
+            "gloss": "begin"
+          }
+        ]
+      },
+      "before_mnemonic": "Artisans 甫 begin 黹 needlework for the official ceremony, finishing a 黼 embroidered official or sacrificial robe.",
+      "after_mnemonic": "Artisans 甫 begin 黹 needlework for the official ceremony, finishing the 黼 embroidered ceremonial robe.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "𠴰",
+      "base_card_hash": "sha256:b9d7304515e6483da476b6b98a0b46e414b08b6eff25cf64eaada5d7657b9b28",
+      "before": {
+        "meaning": "classifier for a piece or lump of something",
+        "equation": "Visual form: 𠴰 classifier for a piece or lump of something",
+        "components": [
+          {
+            "character": "𠴰",
+            "gloss": "classifier for a piece or lump of something"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𠴰",
+            "gloss": "classifier for a piece or lump of something"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "lump classifier",
+        "equation": "Visual form: 𠴰 lump classifier",
+        "components": [
+          {
+            "character": "𠴰",
+            "gloss": "lump classifier"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𠴰",
+            "gloss": "lump classifier"
+          }
+        ]
+      },
+      "before_mnemonic": "A square mouth counts one compact chunk with 𠴰 classifier for a piece or lump of something.",
+      "after_mnemonic": "A square mouth counts one compact chunk with the 𠴰 lump classifier.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "𣖕",
+      "base_card_hash": "sha256:b68255c3b7e70911877fb51e798a72cc41e5cd4e5b2ecd5f044c37f6083cf256",
+      "before": {
+        "meaning": "the back of a chair for one to lean against",
+        "equation": "Visual form: 𣖕 the back of a chair for one to lean against",
+        "components": [
+          {
+            "character": "𣖕",
+            "gloss": "the back of a chair for one to lean against"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𣖕",
+            "gloss": "the back of a chair for one to lean against"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "chair back",
+        "equation": "Visual form: 𣖕 chair back",
+        "components": [
+          {
+            "character": "𣖕",
+            "gloss": "chair back"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𣖕",
+            "gloss": "chair back"
+          }
+        ]
+      },
+      "before_mnemonic": "𣖕 the back of a chair for one to lean against rises behind the seat and supports the sitter's shoulders.",
+      "after_mnemonic": "The 𣖕 chair back rises behind the seat and supports the sitter's shoulders.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "𥫣",
+      "base_card_hash": "sha256:cc17dbc923161debe7de73a97fb7e92b95d706a53def2004b5cc2eb4723fd1d2",
+      "before": {
+        "meaning": "round basket used for feeding the cattle",
+        "equation": "Visual form: 𥫣 round basket used for feeding the cattle",
+        "components": [
+          {
+            "character": "𥫣",
+            "gloss": "round basket used for feeding the cattle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𥫣",
+            "gloss": "round basket used for feeding the cattle"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "cattle-feeding basket",
+        "equation": "Visual form: 𥫣 cattle-feeding basket",
+        "components": [
+          {
+            "character": "𥫣",
+            "gloss": "cattle-feeding basket"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𥫣",
+            "gloss": "cattle-feeding basket"
+          }
+        ]
+      },
+      "before_mnemonic": "Fodder rests in the cupped lower strokes of a 𥫣 round basket used for feeding the cattle.",
+      "after_mnemonic": "Fodder rests in the cupped lower strokes of a 𥫣 cattle-feeding basket.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "𫐄",
+      "base_card_hash": "sha256:605dcaf3fd6c794185efece3ca68e2c3e23a9a1d40cee643ddd826998ea62a01",
+      "before": {
+        "meaning": "cross-bar at the end of the poles of a cart",
+        "equation": "Visual form: 𫐄 cross-bar at the end of the poles of a cart",
+        "components": [
+          {
+            "character": "𫐄",
+            "gloss": "cross-bar at the end of the poles of a cart"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𫐄",
+            "gloss": "cross-bar at the end of the poles of a cart"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "cart-pole crossbar",
+        "equation": "Visual form: 𫐄 cart-pole crossbar",
+        "components": [
+          {
+            "character": "𫐄",
+            "gloss": "cart-pole crossbar"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𫐄",
+            "gloss": "cart-pole crossbar"
+          }
+        ]
+      },
+      "before_mnemonic": "A horizontal cap on 𫐄 cross-bar at the end of the poles of a cart braces both projecting shafts.",
+      "after_mnemonic": "A horizontal cap on the 𫐄 cart-pole crossbar braces both projecting shafts.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "𬲳",
+      "base_card_hash": "sha256:ec213212a2188e45532db86395e1d47f36d045319d42502e3f4987837bf9134a",
+      "before": {
+        "meaning": "sacrifice offered to gods or the deceased",
+        "equation": "Visual form: 𬲳 sacrifice offered to gods or the deceased",
+        "components": [
+          {
+            "character": "𬲳",
+            "gloss": "sacrifice offered to gods or the deceased"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𬲳",
+            "gloss": "sacrifice offered to gods or the deceased"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "offering to gods or the deceased",
+        "equation": "Visual form: 𬲳 offering to gods or the deceased",
+        "components": [
+          {
+            "character": "𬲳",
+            "gloss": "offering to gods or the deceased"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𬲳",
+            "gloss": "offering to gods or the deceased"
+          }
+        ]
+      },
+      "before_mnemonic": "At the altar, a family places a 𬲳 sacrifice offered to gods or the deceased before uninscribed memorial tablets.",
+      "after_mnemonic": "At the altar, a family places 𬲳 offering to gods or the deceased before uninscribed memorial tablets.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "𮪤",
+      "base_card_hash": "sha256:36328bb94e8dd3f6fae9b0f16deca76622f34794becf02ad6b51f7c1a158db8a",
+      "before": {
+        "meaning": "the female of certain animals such as horses",
+        "equation": "Visual form: 𮪤 the female of certain animals such as horses",
+        "components": [
+          {
+            "character": "𮪤",
+            "gloss": "the female of certain animals such as horses"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𮪤",
+            "gloss": "the female of certain animals such as horses"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "female horse or similar animal",
+        "equation": "Visual form: 𮪤 female horse or similar animal",
+        "components": [
+          {
+            "character": "𮪤",
+            "gloss": "female horse or similar animal"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𮪤",
+            "gloss": "female horse or similar animal"
+          }
+        ]
+      },
+      "before_mnemonic": "Standing protectively beside her foal is 𮪤 the female of certain animals such as horses.",
+      "after_mnemonic": "Standing protectively beside her foal is a 𮪤 female horse or similar animal.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "𰹷",
+      "base_card_hash": "sha256:fcb4c089c20d657b63b02f5daa13b86d140787e30186d2ca8c8ac1393010bf4a",
+      "before": {
+        "meaning": "cross-bar at the end of the poles of a cart",
+        "equation": "Visual form: 𰹷 cross-bar at the end of the poles of a cart",
+        "components": [
+          {
+            "character": "𰹷",
+            "gloss": "cross-bar at the end of the poles of a cart"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𰹷",
+            "gloss": "cross-bar at the end of the poles of a cart"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "cart-pole crossbar",
+        "equation": "Visual form: 𰹷 cart-pole crossbar",
+        "components": [
+          {
+            "character": "𰹷",
+            "gloss": "cart-pole crossbar"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𰹷",
+            "gloss": "cart-pole crossbar"
+          }
+        ]
+      },
+      "before_mnemonic": "A sturdy 𰹷 cross-bar at the end of the poles of a cart spans between the draft animals.",
+      "after_mnemonic": "A sturdy 𰹷 cart-pole crossbar spans between the draft animals.",
+      "valid": true,
+      "problems": []
+    }
+  ]
+}

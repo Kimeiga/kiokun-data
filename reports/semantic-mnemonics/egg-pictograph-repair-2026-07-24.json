@@ -1,0 +1,384 @@
+{
+  "schema_version": 1,
+  "policy_version": "2026-07-24.1",
+  "policy_path": "data/semantic_mnemonic_egg_pictograph_policy.json",
+  "base_projection_hash": "sha256:aae3f94eb60807e4a96cb0ca1c6b628b70d4a95e5eee897f62ba99cb0c9eb73a",
+  "candidate_projection_hash": "sha256:6d620971bbfb3558970a6efd8f0e02d29ff0bedd00341436c5f85de0ee028c17",
+  "card_count": 24037,
+  "invalid_count": 0,
+  "changed_count": 7,
+  "already_applied_count": 0,
+  "standard_egg_occurrence_count": 6,
+  "compatibility_egg_occurrence_count": 1,
+  "changed_characters": [
+    "㤻",
+    "㲉",
+    "卵",
+    "孵",
+    "毈",
+    "贕",
+    "卵"
+  ],
+  "changes": [
+    {
+      "character": "㤻",
+      "base_card_hash": "sha256:5992f3190769ad0a3b900069b011ecbcb1914ed50a0ed36d088be092830bc2b4",
+      "before": {
+        "meaning": "clumsy",
+        "equation": "卵 nest eggs + 心 heart = 㤻 clumsy",
+        "components": [
+          {
+            "character": "卵",
+            "gloss": "nest eggs"
+          },
+          {
+            "character": "心",
+            "gloss": "heart"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "卵",
+            "gloss": "nest eggs"
+          },
+          {
+            "character": "心",
+            "gloss": "heart"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "clumsy",
+        "equation": "卵 egg + 心 heart = 㤻 clumsy",
+        "components": [
+          {
+            "character": "卵",
+            "gloss": "egg"
+          },
+          {
+            "character": "心",
+            "gloss": "heart"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "卵",
+            "gloss": "egg"
+          },
+          {
+            "character": "心",
+            "gloss": "heart"
+          }
+        ]
+      },
+      "before_mnemonic": "Protecting 卵 nest eggs makes the 心 heart guide each motion so carefully that it grows 㤻 clumsy.",
+      "after_mnemonic": "A 心 heart worries over a fragile 卵 egg, making every protective movement 㤻 clumsy.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㲉",
+      "base_card_hash": "sha256:5f1f277eda952c1fe037c98ec92a2f789b04cdeec1fd9d547d070d260f4af179",
+      "before": {
+        "meaning": "egg shells",
+        "equation": "卵 nest eggs = 㲉 egg shells",
+        "components": [
+          {
+            "character": "卵",
+            "gloss": "nest eggs"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "卵",
+            "gloss": "nest eggs"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "egg shells",
+        "equation": "卵 egg = 㲉 egg shells",
+        "components": [
+          {
+            "character": "卵",
+            "gloss": "egg"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "卵",
+            "gloss": "egg"
+          }
+        ]
+      },
+      "before_mnemonic": "Cracked 卵 nest eggs leave 㲉 egg shells behind.",
+      "after_mnemonic": "Cracking an 卵 egg leaves 㲉 egg shells behind.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "卵",
+      "base_card_hash": "sha256:5e20fcf2b65fe9527dd74cadab5295cfd4c73b23f4ed38b66985189d52a5cb6e",
+      "before": {
+        "meaning": "nest eggs",
+        "equation": "𠂑 hook stroke + 卪 reading mark = 卵 nest eggs",
+        "components": [
+          {
+            "character": "𠂑",
+            "gloss": "hook stroke"
+          },
+          {
+            "character": "卪",
+            "gloss": "reading mark"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𠂑",
+            "gloss": "hook stroke"
+          },
+          {
+            "character": "卪",
+            "gloss": "reading mark"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "egg",
+        "equation": "Visual form: 卵 egg",
+        "components": [
+          {
+            "character": "卵",
+            "gloss": "egg"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "卵",
+            "gloss": "egg"
+          }
+        ]
+      },
+      "before_mnemonic": "A 𠂑 hook stroke and a 卪 reading mark curve like shell halves around paired 卵 nest eggs.",
+      "after_mnemonic": "Two rounded sacs each hold a seed, the old pictograph for 卵 egg.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "孵",
+      "base_card_hash": "sha256:4e2b93a0f74b5d70603892ac0f5767ac5dfc7b15bbb614a6e4ee397f96db680c",
+      "before": {
+        "meaning": "hatch",
+        "equation": "卵 nest eggs + 孚 brood = 孵 hatch",
+        "components": [
+          {
+            "character": "卵",
+            "gloss": "nest eggs"
+          },
+          {
+            "character": "孚",
+            "gloss": "brood"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "卵",
+            "gloss": "nest eggs"
+          },
+          {
+            "character": "孚",
+            "gloss": "brood"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "hatch",
+        "equation": "卵 egg + 孚 brood = 孵 hatch",
+        "components": [
+          {
+            "character": "卵",
+            "gloss": "egg"
+          },
+          {
+            "character": "孚",
+            "gloss": "brood"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "卵",
+            "gloss": "egg"
+          },
+          {
+            "character": "孚",
+            "gloss": "brood"
+          }
+        ]
+      },
+      "before_mnemonic": "Birds 孚 brood over 卵 nest eggs until the chicks begin to 孵 hatch.",
+      "after_mnemonic": "A parent begins to 孚 brood over each 卵 egg until the chicks 孵 hatch.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "毈",
+      "base_card_hash": "sha256:b7e45a4b4a59c0be93de28f842041ae508111c705419082df8da478fc2651ef6",
+      "before": {
+        "meaning": "infertile eggs",
+        "equation": "卵 nest eggs + 段 stage = 毈 infertile eggs",
+        "components": [
+          {
+            "character": "卵",
+            "gloss": "nest eggs"
+          },
+          {
+            "character": "段",
+            "gloss": "stage"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "卵",
+            "gloss": "nest eggs"
+          },
+          {
+            "character": "段",
+            "gloss": "stage"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "infertile eggs",
+        "equation": "卵 egg + 段 stage = 毈 infertile eggs",
+        "components": [
+          {
+            "character": "卵",
+            "gloss": "egg"
+          },
+          {
+            "character": "段",
+            "gloss": "stage"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "卵",
+            "gloss": "egg"
+          },
+          {
+            "character": "段",
+            "gloss": "stage"
+          }
+        ]
+      },
+      "before_mnemonic": "卵 nest eggs that never reach the next 段 stage remain 毈 infertile eggs.",
+      "after_mnemonic": "An 卵 egg that never reaches the next 段 stage joins a clutch of 毈 infertile eggs.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "贕",
+      "base_card_hash": "sha256:e1926282868ec7b75a888a6ee0a12ea7587c1ad510788e982eec94c227fe5c03",
+      "before": {
+        "meaning": "still-born chick",
+        "equation": "卵 nest eggs + 賣 sell = 贕 still-born chick",
+        "components": [
+          {
+            "character": "卵",
+            "gloss": "nest eggs"
+          },
+          {
+            "character": "賣",
+            "gloss": "sell"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "卵",
+            "gloss": "nest eggs"
+          },
+          {
+            "character": "賣",
+            "gloss": "sell"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "still-born chick",
+        "equation": "卵 egg + 賣 sell = 贕 still-born chick",
+        "components": [
+          {
+            "character": "卵",
+            "gloss": "egg"
+          },
+          {
+            "character": "賣",
+            "gloss": "sell"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "卵",
+            "gloss": "egg"
+          },
+          {
+            "character": "賣",
+            "gloss": "sell"
+          }
+        ]
+      },
+      "before_mnemonic": "A 贕 still-born chick remains sealed inside one of the 卵 nest eggs, so the farmer cannot 賣 sell it.",
+      "after_mnemonic": "A 贕 still-born chick remains sealed inside an 卵 egg, so the farmer cannot 賣 sell it.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "卵",
+      "base_card_hash": "sha256:fad08d7edc4d0bc6119cf2724d6d91609dc3086c9af49f1c442277440626b730",
+      "before": {
+        "meaning": "nest eggs",
+        "equation": "𠂑 hook stroke + 卪 reading mark = 卵 nest eggs",
+        "components": [
+          {
+            "character": "𠂑",
+            "gloss": "hook stroke"
+          },
+          {
+            "character": "卪",
+            "gloss": "reading mark"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𠂑",
+            "gloss": "hook stroke"
+          },
+          {
+            "character": "卪",
+            "gloss": "reading mark"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "egg",
+        "equation": "Visual form: 卵 egg",
+        "components": [
+          {
+            "character": "卵",
+            "gloss": "egg"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "卵",
+            "gloss": "egg"
+          }
+        ]
+      },
+      "before_mnemonic": "A 𠂑 hook stroke cradles an 卪 reading mark as snugly as a nest cradles 卵 nest eggs.",
+      "after_mnemonic": "Two rounded sacs each hold a seed in 卵 egg, the same old picture as 卵.",
+      "valid": true,
+      "problems": []
+    }
+  ]
+}

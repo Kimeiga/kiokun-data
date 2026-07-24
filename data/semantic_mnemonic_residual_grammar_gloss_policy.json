@@ -1,0 +1,235 @@
+{
+  "schema_version": 1,
+  "policy_version": "2026-07-24.1",
+  "family": "residual-grammar-gloss",
+  "decision": "Repair the remaining high-confidence short gloss corruptions, collapse unrelated dictionary fragments to a useful learner-facing headword sense, and propagate changed recurring component labels.",
+  "replacements": {
+    "㒟": {
+      "old": "slim carriage (of a woman)",
+      "new": "slender-waisted dancing"
+    },
+    "㨒": {
+      "old": "cut open and clean -- as fish",
+      "new": "gut and clean fish"
+    },
+    "㬻": {
+      "old": "in between of the flesh",
+      "new": "space between layers of flesh"
+    },
+    "㺪": {
+      "old": "uncarved of unpolished jade or gem",
+      "new": "uncarved or unpolished jade"
+    },
+    "㾫": {
+      "old": "hemiplegia -- paralysis",
+      "new": "hemiplegia"
+    },
+    "䀠": {
+      "old": "(of birds) to look around",
+      "new": "birds looking around"
+    },
+    "䊪": {
+      "old": "coarse rice -- unhulled",
+      "new": "coarse unhulled rice"
+    },
+    "䎳": {
+      "old": "lose of the ear",
+      "new": "cut-off ear"
+    },
+    "䏏": {
+      "old": "signs and groans",
+      "new": "sighs and groans"
+    },
+    "䐱": {
+      "old": "pick the meat in between of bones",
+      "new": "pick meat from between bones"
+    },
+    "䒄": {
+      "old": "fully laden of a boat",
+      "new": "fully laden boat"
+    },
+    "䓋": {
+      "old": "elm-seeds -- used as food",
+      "new": "edible elm seeds"
+    },
+    "䦚": {
+      "old": "wide open of the door",
+      "new": "door opened wide"
+    },
+    "䨅": {
+      "old": "small birds -- the wren",
+      "new": "wren"
+    },
+    "䮺": {
+      "old": "luxuriant of the grass",
+      "new": "lush grass"
+    },
+    "䮼": {
+      "old": "(of horse) piebald",
+      "new": "piebald horse"
+    },
+    "枵": {
+      "old": "hollo stump of a tree",
+      "new": "hollow tree stump"
+    },
+    "㩭": {
+      "old": "disturb or to agitate",
+      "new": "disturb or agitate"
+    },
+    "𫽊": {
+      "old": "disturb or to agitate",
+      "new": "disturb or agitate"
+    },
+    "㱽": {
+      "old": "hit or to strike heavily",
+      "new": "strike heavily"
+    },
+    "㽟": {
+      "old": "till or to plough the fields",
+      "new": "till the fields"
+    },
+    "䆅": {
+      "old": "accumulate or to store up rice",
+      "new": "store up rice"
+    },
+    "䎎": {
+      "old": "glide or to hover up in the air",
+      "new": "glide or hover in the air"
+    },
+    "佢": {
+      "old": "he/she/it",
+      "new": "Cantonese third-person pronoun"
+    },
+    "侬": {
+      "old": "I/you (dialectal)",
+      "new": "dialectal first- or second-person pronoun"
+    },
+    "儂": {
+      "old": "I/you (dialectal)",
+      "new": "dialectal first- or second-person pronoun"
+    },
+    "䂐": {
+      "old": "short / stupid",
+      "new": "short or stupid"
+    },
+    "䕹": {
+      "old": "curtain/shade",
+      "new": "curtain or shade"
+    },
+    "䦆": {
+      "old": "big hoe/mattock",
+      "new": "large mattock"
+    },
+    "䩙": {
+      "old": "scabbard/reins",
+      "new": "scabbard or reins"
+    },
+    "䪜": {
+      "old": "shield/screen",
+      "new": "shield or screen"
+    },
+    "哕": {
+      "old": "belch/vomit",
+      "new": "belch or vomit"
+    },
+    "噦": {
+      "old": "belch/vomit",
+      "new": "belch or vomit"
+    },
+    "煠": {
+      "old": "fry in oil/scald",
+      "new": "fry in oil or scald"
+    },
+    "锒": {
+      "old": "lock/chain",
+      "new": "lock or chain"
+    },
+    "镢": {
+      "old": "pick/hoe",
+      "new": "pickaxe or hoe"
+    },
+    "驟": {
+      "old": "sudden/gallop",
+      "new": "sudden"
+    },
+    "骤": {
+      "old": "sudden/gallop",
+      "new": "sudden"
+    },
+    "𩧰": {
+      "old": "legendary animal / wild horse",
+      "new": "legendary beast or wild horse"
+    },
+    "呡": {
+      "old": "corners of the mouth; lips",
+      "new": "lips"
+    },
+    "呺": {
+      "old": "voice of anger; vast",
+      "new": "angry shout"
+    },
+    "唅": {
+      "old": "sound; put in the mouth",
+      "new": "hold in the mouth"
+    },
+    "巇": {
+      "old": "crack; hazardous",
+      "new": "dangerous crevice"
+    },
+    "憰": {
+      "old": "wily; time-serving",
+      "new": "wily"
+    },
+    "懫": {
+      "old": "resentful; enraged",
+      "new": "enraged"
+    },
+    "汫": {
+      "old": "pit; trap",
+      "new": "pit"
+    },
+    "犵": {
+      "old": "resolute; non-Han ethnic group",
+      "new": "resolute"
+    },
+    "詀": {
+      "old": "garrulous; whisper; joke",
+      "new": "garrulous"
+    },
+    "詤": {
+      "old": "make wild statements; lie",
+      "new": "lie wildly"
+    },
+    "赿": {
+      "old": "late; slow",
+      "new": "slow or late"
+    },
+    "踋": {
+      "old": "foot or feet; cast of a play",
+      "new": "foot or dramatic role"
+    },
+    "軙": {
+      "old": "Chinese surname; arrange",
+      "new": "arrange"
+    }
+  },
+  "expected_target_count": 52,
+  "expected_changed_card_count": 55,
+  "evidence": [
+    {
+      "source": "Repository Chinese character dictionary",
+      "path": "data/chinese_dictionary_char_2025-06-25.jsonl",
+      "supports": "Headword senses behind the malformed English strings and the narrower attested senses selected here."
+    },
+    {
+      "source": "Taiwan Ministry of Education Dictionary of Chinese Character Variants",
+      "url": "https://dict.variants.moe.edu.tw/",
+      "supports": "㒟 as slender-waisted dancing and other historical variant senses."
+    },
+    {
+      "source": "Shuowen and traditional dictionary evidence",
+      "url": "https://www.zdic.net/",
+      "supports": "䎳 as an ear cut off and correction of other inherited machine-translated fragments."
+    }
+  ]
+}

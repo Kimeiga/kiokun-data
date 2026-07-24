@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "review_id": "egg-pictograph-review-2026-07-24",
+  "policy_version": "2026-07-24.1",
+  "changed_card_count": 7,
+  "method": "Manual rewrite of the complete 卵/卵 boundary around the atomic egg pictograph, including every containing mnemonic.",
+  "root_decisions": {
+    "卵": {
+      "lexical_gloss": "egg",
+      "component_gloss": "egg",
+      "decision": "atomize_pictograph"
+    },
+    "卵": {
+      "lexical_gloss": "egg",
+      "component_gloss": "egg",
+      "decision": "align_compatibility_ideograph"
+    }
+  },
+  "evidence": [
+    {
+      "source": "Repository Chinese dictionary",
+      "path": "data/chinese_dictionary_char_2025-06-25.jsonl",
+      "supports": "卵 is defined as egg and described as a pictograph."
+    },
+    {
+      "source": "Unicode Unihan_Readings.txt",
+      "path": "data/unihan/Unihan_Readings.txt",
+      "supports": "Both U+5375 卵 and U+F91C 卵 mean egg, ovum, roe, or spawn."
+    },
+    {
+      "source": "Unicode compatibility normalization",
+      "supports": "NFKC maps U+F91C 卵 to U+5375 卵."
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "review_id": "residual-qualifier-gloss-review-2026-07-24",
+  "policy_version": "2026-07-24.1",
+  "target_count": 12,
+  "changed_card_count": 12,
+  "method": "Exact replacement of the final nonessential explanatory parentheticals, followed by sentence-level review.",
+  "replacements": {
+    "㜶": {
+      "old": "(married) couple",
+      "new": "married couple"
+    },
+    "㞟": {
+      "old": "savings and (or) reserves",
+      "new": "savings or reserves"
+    },
+    "㟭": {
+      "old": "the Min River (in Sichuan)",
+      "new": "Min River in Sichuan"
+    },
+    "䈼": {
+      "old": "thin (bamboo) laths",
+      "new": "thin bamboo laths"
+    },
+    "䑡": {
+      "old": "small boat (short and deep)",
+      "new": "short deep boat"
+    },
+    "䑺": {
+      "old": "sail (of a boat)",
+      "new": "sail"
+    },
+    "棩": {
+      "old": "crooked (tree)",
+      "new": "crooked tree"
+    },
+    "璱": {
+      "old": "bright (of jade)",
+      "new": "bright jade"
+    },
+    "笀": {
+      "old": "arista (of grain)",
+      "new": "grain awn"
+    },
+    "薳": {
+      "old": "polygala (a medical herb)",
+      "new": "medicinal polygala"
+    },
+    "豝": {
+      "old": "sow (female pig)",
+      "new": "sow"
+    },
+    "鼩": {
+      "old": "shrew (zoology)",
+      "new": "shrew"
+    }
+  },
+  "manual_mnemonic_override_count": 2,
+  "evidence": [
+    {
+      "source": "Repository Chinese character dictionary",
+      "path": "data/chinese_dictionary_char_2025-06-25.jsonl",
+      "supports": "The direct headword senses retained after removing explanatory parentheses."
+    },
+    {
+      "source": "Materialized semantic-mnemonic corpus",
+      "path": "sveltekit-app/static/research/mnemonics/semantic_mnemonics_all_best_available.json",
+      "supports": "The bounded residual set after variant-metadata and grammar normalization."
+    }
+  ]
+}

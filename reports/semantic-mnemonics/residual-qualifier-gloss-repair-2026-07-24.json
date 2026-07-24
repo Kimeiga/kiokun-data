@@ -1,0 +1,699 @@
+{
+  "schema_version": 1,
+  "policy_version": "2026-07-24.1",
+  "policy_path": "data/semantic_mnemonic_residual_qualifier_gloss_policy.json",
+  "base_projection_hash": "sha256:f25a9ce969e0ab77d2dc83e17dd9f24b903a17bdf065c5cdb47dfaa76e24bec0",
+  "candidate_projection_hash": "sha256:ac13199454945f31a072141c32622ad3eca58a9b995bca7d571907db56815f1e",
+  "card_count": 24037,
+  "invalid_count": 0,
+  "changed_count": 12,
+  "already_applied_count": 0,
+  "changed_characters": [
+    "㜶",
+    "㞟",
+    "㟭",
+    "䈼",
+    "䑡",
+    "䑺",
+    "棩",
+    "璱",
+    "笀",
+    "薳",
+    "豝",
+    "鼩"
+  ],
+  "changes": [
+    {
+      "character": "㜶",
+      "base_card_hash": "sha256:c29a6235857d9453abadeb09a956a0c8b20725a152b9822fc04897176091624c",
+      "before": {
+        "meaning": "(married) couple",
+        "equation": "女 woman + 毚 greedy = 㜶 (married) couple",
+        "components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "毚",
+            "gloss": "greedy"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "毚",
+            "gloss": "greedy"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "married couple",
+        "equation": "女 woman + 毚 greedy = 㜶 married couple",
+        "components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "毚",
+            "gloss": "greedy"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "毚",
+            "gloss": "greedy"
+          }
+        ]
+      },
+      "before_mnemonic": "Even when one spouse is 毚 greedy, a 女 woman and that spouse remain a 㜶 (married) couple.",
+      "after_mnemonic": "Even when one spouse is 毚 greedy, a 女 woman and that spouse remain a 㜶 married couple.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㞟",
+      "base_card_hash": "sha256:11e7726a3e5ae5674668c612a75266e5e415afb1f26cf86d9c0ef9cf9de4e814",
+      "before": {
+        "meaning": "savings and (or) reserves",
+        "equation": "尸 sitting person + 奠 found = 㞟 savings and (or) reserves",
+        "components": [
+          {
+            "character": "尸",
+            "gloss": "sitting person"
+          },
+          {
+            "character": "奠",
+            "gloss": "found"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "尸",
+            "gloss": "sitting person"
+          },
+          {
+            "character": "奠",
+            "gloss": "found"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "savings or reserves",
+        "equation": "尸 sitting person + 奠 found = 㞟 savings or reserves",
+        "components": [
+          {
+            "character": "尸",
+            "gloss": "sitting person"
+          },
+          {
+            "character": "奠",
+            "gloss": "found"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "尸",
+            "gloss": "sitting person"
+          },
+          {
+            "character": "奠",
+            "gloss": "found"
+          }
+        ]
+      },
+      "before_mnemonic": "A 尸 sitting person uses 㞟 savings and (or) reserves to 奠 found a secure future.",
+      "after_mnemonic": "A 尸 sitting person uses 㞟 savings or reserves to 奠 found a secure future.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㟭",
+      "base_card_hash": "sha256:54674be2bf37368fa5d37f0f5c76dd740aa689c0664e19e48d538584548d8c84",
+      "before": {
+        "meaning": "the Min River (in Sichuan)",
+        "equation": "山 mountain + 昬 dark = 㟭 the Min River (in Sichuan)",
+        "components": [
+          {
+            "character": "山",
+            "gloss": "mountain"
+          },
+          {
+            "character": "昬",
+            "gloss": "dark"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "山",
+            "gloss": "mountain"
+          },
+          {
+            "character": "昬",
+            "gloss": "dark"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "Min River in Sichuan",
+        "equation": "山 mountain + 昬 dark = 㟭 Min River in Sichuan",
+        "components": [
+          {
+            "character": "山",
+            "gloss": "mountain"
+          },
+          {
+            "character": "昬",
+            "gloss": "dark"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "山",
+            "gloss": "mountain"
+          },
+          {
+            "character": "昬",
+            "gloss": "dark"
+          }
+        ]
+      },
+      "before_mnemonic": "㟭 the Min River (in Sichuan) flows through Sichuan from a 昬 dark 山 mountain gorge.",
+      "after_mnemonic": "From a 昬 dark 山 mountain gorge, the 㟭 Min River in Sichuan flows onward.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䈼",
+      "base_card_hash": "sha256:e468bb53f2af0e718d5383ad4a844fdb9dba0db5d99755845e060dee41b203a2",
+      "before": {
+        "meaning": "thin (bamboo) laths",
+        "equation": "竹 bamboo + 密 secret = 䈼 thin (bamboo) laths",
+        "components": [
+          {
+            "character": "竹",
+            "gloss": "bamboo"
+          },
+          {
+            "character": "密",
+            "gloss": "secret"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "竹",
+            "gloss": "bamboo"
+          },
+          {
+            "character": "密",
+            "gloss": "secret"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "thin bamboo laths",
+        "equation": "竹 bamboo + 密 secret = 䈼 thin bamboo laths",
+        "components": [
+          {
+            "character": "竹",
+            "gloss": "bamboo"
+          },
+          {
+            "character": "密",
+            "gloss": "secret"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "竹",
+            "gloss": "bamboo"
+          },
+          {
+            "character": "密",
+            "gloss": "secret"
+          }
+        ]
+      },
+      "before_mnemonic": "To conceal a 密 secret, split 竹 bamboo into 䈼 thin (bamboo) laths and weave them into a tight basket.",
+      "after_mnemonic": "To conceal a 密 secret, split 竹 bamboo into 䈼 thin bamboo laths and weave them into a tight basket.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䑡",
+      "base_card_hash": "sha256:b5664c41d810ee13c6a99e0fa1749772e9e3b5c0fbea08a2648e215d2b433334",
+      "before": {
+        "meaning": "small boat (short and deep)",
+        "equation": "舟 boat + 叉 fork = 䑡 small boat (short and deep)",
+        "components": [
+          {
+            "character": "舟",
+            "gloss": "boat"
+          },
+          {
+            "character": "叉",
+            "gloss": "fork"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "舟",
+            "gloss": "boat"
+          },
+          {
+            "character": "叉",
+            "gloss": "fork"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "short deep boat",
+        "equation": "舟 boat + 叉 fork = 䑡 short deep boat",
+        "components": [
+          {
+            "character": "舟",
+            "gloss": "boat"
+          },
+          {
+            "character": "叉",
+            "gloss": "fork"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "舟",
+            "gloss": "boat"
+          },
+          {
+            "character": "叉",
+            "gloss": "fork"
+          }
+        ]
+      },
+      "before_mnemonic": "Inside a 䑡 small boat (short and deep), a 叉 fork stands upright within the compact 舟 boat hull.",
+      "after_mnemonic": "Inside a 䑡 short deep boat, a 叉 fork stands upright within the compact 舟 boat hull.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䑺",
+      "base_card_hash": "sha256:08795c0171fb96e6a233eb8899130f96a541a3085eb387c196de63a10ea97a32",
+      "before": {
+        "meaning": "sail (of a boat)",
+        "equation": "舟 boat + 風 wind = 䑺 sail (of a boat)",
+        "components": [
+          {
+            "character": "舟",
+            "gloss": "boat"
+          },
+          {
+            "character": "風",
+            "gloss": "wind"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "舟",
+            "gloss": "boat"
+          },
+          {
+            "character": "風",
+            "gloss": "wind"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sail",
+        "equation": "舟 boat + 風 wind = 䑺 sail",
+        "components": [
+          {
+            "character": "舟",
+            "gloss": "boat"
+          },
+          {
+            "character": "風",
+            "gloss": "wind"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "舟",
+            "gloss": "boat"
+          },
+          {
+            "character": "風",
+            "gloss": "wind"
+          }
+        ]
+      },
+      "before_mnemonic": "The 風 wind fills a 䑺 sail (of a boat), driving the 舟 boat forward.",
+      "after_mnemonic": "The 風 wind fills a 䑺 sail, driving the 舟 boat forward.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "棩",
+      "base_card_hash": "sha256:4b107456100a6b08d7213cc12345a6043998a40a34a387f1fee367f9ef8be93b",
+      "before": {
+        "meaning": "crooked (tree)",
+        "equation": "木 tree + 𣶒 abyss = 棩 crooked (tree)",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "𣶒",
+            "gloss": "abyss"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "𣶒",
+            "gloss": "abyss"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "crooked tree",
+        "equation": "木 tree + 𣶒 abyss = 棩 crooked tree",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "𣶒",
+            "gloss": "abyss"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "𣶒",
+            "gloss": "abyss"
+          }
+        ]
+      },
+      "before_mnemonic": "A 木 tree leaning away from a 𣶒 abyss grows into a 棩 crooked (tree).",
+      "after_mnemonic": "A 木 tree leaning away from a 𣶒 abyss grows into a 棩 crooked tree.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "璱",
+      "base_card_hash": "sha256:824a5c2c108b446a725b26e1028369a97375bbdf50575c943d726c88549dbbe2",
+      "before": {
+        "meaning": "bright (of jade)",
+        "equation": "𤣩 jade + 瑟 Chinese harp = 璱 bright (of jade)",
+        "components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade"
+          },
+          {
+            "character": "瑟",
+            "gloss": "Chinese harp"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade"
+          },
+          {
+            "character": "瑟",
+            "gloss": "Chinese harp"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "bright jade",
+        "equation": "𤣩 jade + 瑟 Chinese harp = 璱 bright jade",
+        "components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade"
+          },
+          {
+            "character": "瑟",
+            "gloss": "Chinese harp"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade"
+          },
+          {
+            "character": "瑟",
+            "gloss": "Chinese harp"
+          }
+        ]
+      },
+      "before_mnemonic": "Bands of brilliance cross 𤣩 jade like strings on a 瑟 Chinese harp when it is 璱 bright (of jade).",
+      "after_mnemonic": "Bands crossing 𤣩 jade like strings on a 瑟 Chinese harp make 璱 bright jade shine.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "笀",
+      "base_card_hash": "sha256:1c014768ab8d0baf6b897e6f94838905690599384fdf8dc64001a500ae5e8c6f",
+      "before": {
+        "meaning": "arista (of grain)",
+        "equation": "竹 bamboo + 亡 deceased = 笀 arista (of grain)",
+        "components": [
+          {
+            "character": "竹",
+            "gloss": "bamboo"
+          },
+          {
+            "character": "亡",
+            "gloss": "deceased"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "竹",
+            "gloss": "bamboo"
+          },
+          {
+            "character": "亡",
+            "gloss": "deceased"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "grain awn",
+        "equation": "竹 bamboo + 亡 deceased = 笀 grain awn",
+        "components": [
+          {
+            "character": "竹",
+            "gloss": "bamboo"
+          },
+          {
+            "character": "亡",
+            "gloss": "deceased"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "竹",
+            "gloss": "bamboo"
+          },
+          {
+            "character": "亡",
+            "gloss": "deceased"
+          }
+        ]
+      },
+      "before_mnemonic": "After harvest, a 亡 deceased stalk still bears a 笀 arista (of grain), stiff and straight as 竹 bamboo.",
+      "after_mnemonic": "After harvest, a 亡 deceased stalk still bears a 笀 grain awn, stiff and straight as 竹 bamboo.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "薳",
+      "base_card_hash": "sha256:257f5b216663d6e6b5e20bb7a7f3a74b1d7618ecefc5784e55a54d7734d55f60",
+      "before": {
+        "meaning": "polygala (a medical herb)",
+        "equation": "艹 grass (top) + 遠 distant = 薳 polygala (a medical herb)",
+        "components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "遠",
+            "gloss": "distant"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "遠",
+            "gloss": "distant"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "medicinal polygala",
+        "equation": "艹 grass (top) + 遠 distant = 薳 medicinal polygala",
+        "components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "遠",
+            "gloss": "distant"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "遠",
+            "gloss": "distant"
+          }
+        ]
+      },
+      "before_mnemonic": "A botanist carries 薳 polygala (a medical herb) from 遠 distant hills through ordinary 艹 grass.",
+      "after_mnemonic": "A botanist carries 薳 medicinal polygala from 遠 distant hills through ordinary 艹 grass.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "豝",
+      "base_card_hash": "sha256:91012fb349c6e1416622eebd1edebc368cdbb0234fe9dca036e1ae0e51d4b75a",
+      "before": {
+        "meaning": "sow (female pig)",
+        "equation": "豕 pig + 巴 cling = 豝 sow (female pig)",
+        "components": [
+          {
+            "character": "豕",
+            "gloss": "pig"
+          },
+          {
+            "character": "巴",
+            "gloss": "cling"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豕",
+            "gloss": "pig"
+          },
+          {
+            "character": "巴",
+            "gloss": "cling"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sow",
+        "equation": "豕 pig + 巴 cling = 豝 sow",
+        "components": [
+          {
+            "character": "豕",
+            "gloss": "pig"
+          },
+          {
+            "character": "巴",
+            "gloss": "cling"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豕",
+            "gloss": "pig"
+          },
+          {
+            "character": "巴",
+            "gloss": "cling"
+          }
+        ]
+      },
+      "before_mnemonic": "Piglets 巴 cling to their 豝 sow (female pig), while the 豕 pig stands apart.",
+      "after_mnemonic": "Piglets 巴 cling to their 豝 sow, while the 豕 pig stands apart.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "鼩",
+      "base_card_hash": "sha256:f684e3c42c48bef63820523e32ed5d0b680896b8642ebd5e367dd44d26dac02e",
+      "before": {
+        "meaning": "shrew (zoology)",
+        "equation": "鼠 mouse + 句 sentence = 鼩 shrew (zoology)",
+        "components": [
+          {
+            "character": "鼠",
+            "gloss": "mouse"
+          },
+          {
+            "character": "句",
+            "gloss": "sentence"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "鼠",
+            "gloss": "mouse"
+          },
+          {
+            "character": "句",
+            "gloss": "sentence"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "shrew",
+        "equation": "鼠 mouse + 句 sentence = 鼩 shrew",
+        "components": [
+          {
+            "character": "鼠",
+            "gloss": "mouse"
+          },
+          {
+            "character": "句",
+            "gloss": "sentence"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "鼠",
+            "gloss": "mouse"
+          },
+          {
+            "character": "句",
+            "gloss": "sentence"
+          }
+        ]
+      },
+      "before_mnemonic": "A pointed-snouted 鼩 shrew (zoology) resembles a 鼠 mouse but squeaks an entire 句 sentence.",
+      "after_mnemonic": "A pointed-snouted 鼩 shrew resembles a 鼠 mouse but squeaks an entire 句 sentence.",
+      "valid": true,
+      "problems": []
+    }
+  ]
+}

@@ -1,0 +1,357 @@
+{
+  "schema_version": 1,
+  "policy_version": "2026-07-24.1",
+  "policy_path": "data/semantic_mnemonic_residual_spelling_gloss_policy.json",
+  "base_projection_hash": "sha256:ac13199454945f31a072141c32622ad3eca58a9b995bca7d571907db56815f1e",
+  "candidate_projection_hash": "sha256:f7c9bab15e001585d8f98ac66b2d85e0d320c2ddeaf11733a31b226904cfa6c4",
+  "card_count": 24037,
+  "invalid_count": 0,
+  "changed_count": 6,
+  "already_applied_count": 0,
+  "changed_characters": [
+    "䈙",
+    "徜",
+    "犨",
+    "荭",
+    "鯰",
+    "鲶"
+  ],
+  "changes": [
+    {
+      "character": "䈙",
+      "base_card_hash": "sha256:6efdd2294723dd5fdbfd753482a1aef0279053f33037d92a06c91c735658f07f",
+      "before": {
+        "meaning": "bamboo to wither",
+        "equation": "竹 bamboo + 紂 saddle crupper = 䈙 bamboo to wither",
+        "components": [
+          {
+            "character": "竹",
+            "gloss": "bamboo"
+          },
+          {
+            "character": "紂",
+            "gloss": "saddle crupper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "竹",
+            "gloss": "bamboo"
+          },
+          {
+            "character": "紂",
+            "gloss": "saddle crupper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "withered bamboo",
+        "equation": "竹 bamboo + 紂 saddle crupper = 䈙 withered bamboo",
+        "components": [
+          {
+            "character": "竹",
+            "gloss": "bamboo"
+          },
+          {
+            "character": "紂",
+            "gloss": "saddle crupper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "竹",
+            "gloss": "bamboo"
+          },
+          {
+            "character": "紂",
+            "gloss": "saddle crupper"
+          }
+        ]
+      },
+      "before_mnemonic": "Looped around a 竹 bamboo stalk, a tightening 紂 saddle crupper causes the 䈙 bamboo to wither.",
+      "after_mnemonic": "A tightening 紂 saddle crupper looped around 竹 bamboo leaves 䈙 withered bamboo.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "徜",
+      "base_card_hash": "sha256:6755a0b33067d728803cb7703dec6c4a8b11efffa890d83e1c58e7c746ad79e1",
+      "before": {
+        "meaning": "walking and fro",
+        "equation": "彳 step + 尚 esteem = 徜 walking and fro",
+        "components": [
+          {
+            "character": "彳",
+            "gloss": "step"
+          },
+          {
+            "character": "尚",
+            "gloss": "esteem"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "彳",
+            "gloss": "step"
+          },
+          {
+            "character": "尚",
+            "gloss": "esteem"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "walk to and fro",
+        "equation": "彳 step + 尚 esteem = 徜 walk to and fro",
+        "components": [
+          {
+            "character": "彳",
+            "gloss": "step"
+          },
+          {
+            "character": "尚",
+            "gloss": "esteem"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "彳",
+            "gloss": "step"
+          },
+          {
+            "character": "尚",
+            "gloss": "esteem"
+          }
+        ]
+      },
+      "before_mnemonic": "A judge shows 尚 esteem for both sides by 徜 walking and fro, taking each 彳 step between them.",
+      "after_mnemonic": "A judge shows 尚 esteem for both sides by pacing each 彳 step to 徜 walk to and fro.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "犨",
+      "base_card_hash": "sha256:d4b457cda93e290a58061ddf643f5582ebf326ad1a7498119ed33182f7b925c4",
+      "before": {
+        "meaning": "panting of cow",
+        "equation": "雔 match + 牛 cow = 犨 panting of cow",
+        "components": [
+          {
+            "character": "雔",
+            "gloss": "match"
+          },
+          {
+            "character": "牛",
+            "gloss": "cow"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "雔",
+            "gloss": "match"
+          },
+          {
+            "character": "牛",
+            "gloss": "cow"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "cow-panting sound",
+        "equation": "雔 match + 牛 cow = 犨 cow-panting sound",
+        "components": [
+          {
+            "character": "雔",
+            "gloss": "match"
+          },
+          {
+            "character": "牛",
+            "gloss": "cow"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "雔",
+            "gloss": "match"
+          },
+          {
+            "character": "牛",
+            "gloss": "cow"
+          }
+        ]
+      },
+      "before_mnemonic": "A tired 牛 cow makes each breath 雔 match the last, its steady rhythm becoming 犨 panting of cow.",
+      "after_mnemonic": "A tired 牛 cow makes each breath 雔 match the last, producing a 犨 cow-panting sound.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "荭",
+      "base_card_hash": "sha256:dc63730a06257c021c7cfc563343939a5278cbcaef38e783b8e732cdbbd4035e",
+      "before": {
+        "meaning": "herb",
+        "equation": "艹 grass (top) + 红 vermillion = 荭 herb",
+        "components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "红",
+            "gloss": "vermillion"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "红",
+            "gloss": "vermillion"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "herb",
+        "equation": "艹 grass (top) + 红 red = 荭 herb",
+        "components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "红",
+            "gloss": "red"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "红",
+            "gloss": "red"
+          }
+        ]
+      },
+      "before_mnemonic": "Among the 艹 grass, stems stained 红 vermillion are gathered as the 荭 herb.",
+      "after_mnemonic": "Among 艹 grass, stems stained 红 red are gathered as the 荭 herb.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "鯰",
+      "base_card_hash": "sha256:3cf9cd6594f23326c20d47d6b4f7399a016d0f4fdbab1646cc1bab1e2d2593ad",
+      "before": {
+        "meaning": "sheat",
+        "equation": "魚 fish + 念 miss = 鯰 sheat",
+        "components": [
+          {
+            "character": "魚",
+            "gloss": "fish"
+          },
+          {
+            "character": "念",
+            "gloss": "miss"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "魚",
+            "gloss": "fish"
+          },
+          {
+            "character": "念",
+            "gloss": "miss"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "catfish",
+        "equation": "魚 fish + 念 miss = 鯰 catfish",
+        "components": [
+          {
+            "character": "魚",
+            "gloss": "fish"
+          },
+          {
+            "character": "念",
+            "gloss": "miss"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "魚",
+            "gloss": "fish"
+          },
+          {
+            "character": "念",
+            "gloss": "miss"
+          }
+        ]
+      },
+      "before_mnemonic": "An 鯰 sheat is the whiskered freshwater 魚 fish you might 念 miss against a muddy riverbed.",
+      "after_mnemonic": "An 鯰 catfish is the whiskered freshwater 魚 fish you might 念 miss against a muddy riverbed.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "鲶",
+      "base_card_hash": "sha256:c6325ce962c2cffdeafdccd3e10da4cc076a06da8474b02de5fb91070dff2ef1",
+      "before": {
+        "meaning": "sheat",
+        "equation": "鱼 fish + 念 miss = 鲶 sheat",
+        "components": [
+          {
+            "character": "鱼",
+            "gloss": "fish"
+          },
+          {
+            "character": "念",
+            "gloss": "miss"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "鱼",
+            "gloss": "fish"
+          },
+          {
+            "character": "念",
+            "gloss": "miss"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "catfish",
+        "equation": "鱼 fish + 念 miss = 鲶 catfish",
+        "components": [
+          {
+            "character": "鱼",
+            "gloss": "fish"
+          },
+          {
+            "character": "念",
+            "gloss": "miss"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "鱼",
+            "gloss": "fish"
+          },
+          {
+            "character": "念",
+            "gloss": "miss"
+          }
+        ]
+      },
+      "before_mnemonic": "A 鲶 sheat is the whiskered freshwater 鱼 fish you might 念 miss against a muddy riverbed.",
+      "after_mnemonic": "A 鲶 catfish is the whiskered freshwater 鱼 fish you might 念 miss against a muddy riverbed.",
+      "valid": true,
+      "problems": []
+    }
+  ]
+}

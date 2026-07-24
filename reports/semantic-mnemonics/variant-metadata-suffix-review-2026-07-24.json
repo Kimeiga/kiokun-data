@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "review_id": "variant-metadata-suffix-review-2026-07-24",
+  "policy_version": "2026-07-24.1",
+  "target_count": 204,
+  "changed_card_count": 489,
+  "suffixes_removed": [
+    " (alternate form)",
+    " (front end)",
+    " (back end)",
+    " (alt)",
+    " (B)"
+  ],
+  "manual_mnemonic_override_count": 6,
+  "method": "Exact suffix removal from bounded target meanings and every materialized component occurrence carrying the same metadata.",
+  "evidence": [
+    {
+      "source": "Materialized corpus variant metadata",
+      "path": "sveltekit-app/static/research/mnemonics/semantic_mnemonics_all_best_available.json",
+      "supports": "Variant identity is stored outside the target gloss, so these suffixes do not need to consume mnemonic vocabulary."
+    },
+    {
+      "source": "Component-use index",
+      "path": "sveltekit-app/static/game_data/semantic_mnemonic_component_uses.json",
+      "supports": "The same metadata suffixes recur as component labels and can be normalized without changing their semantic headwords."
+    }
+  ]
+}

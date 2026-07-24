@@ -1,6 +1,6 @@
 {
-  "created_at": "2026-07-24T08:20:08.001761+00:00",
-  "artifact_created_at": "2026-07-24T08:20:06.358056+00:00",
+  "created_at": "2026-07-24T09:31:47.846053+00:00",
+  "artifact_created_at": "2026-07-24T09:31:46.204741+00:00",
   "methodology": "Formal validity and learning quality are separate. Flags are deterministic review signals; abstract meanings and variant forms are not automatically bad, while generic filler is a rewrite signal.",
   "taxonomy": {
     "generic_filler": {
@@ -2083,20 +2083,19 @@
   },
   "count": 24037,
   "quality_status_counts": {
-    "pass": 22612,
-    "review": 1401,
-    "rewrite": 24
+    "pass": 22634,
+    "review": 1390,
+    "rewrite": 13
   },
   "flag_counts": {
     "variant_form_needs_review": 832,
-    "abstract_final_meaning": 373,
-    "duplicated_component_meaning": 237,
-    "opaque_component_gloss": 21,
-    "unhelpful_final_gloss": 14,
-    "learner_facing_weirdness": 7
+    "abstract_final_meaning": 372,
+    "duplicated_component_meaning": 238,
+    "opaque_component_gloss": 7,
+    "unhelpful_final_gloss": 2
   },
-  "flagged_count": 1425,
-  "ranked_count": 1425,
+  "flagged_count": 1403,
+  "ranked_count": 1403,
   "ranked": [
     {
       "character": "質",
@@ -2216,326 +2215,6 @@
       ],
       "component_source": "resolved_ids_forward+manual_quality_override",
       "generation_source": "codex_manual_quality_patch_2026_07_08"
-    },
-    {
-      "character": "𠀅",
-      "meaning": "alternate form",
-      "frequency_rank": null,
-      "quality_status": "rewrite",
-      "quality_score": 8.0,
-      "review_priority": 8.0,
-      "flags": [
-        {
-          "code": "opaque_component_gloss",
-          "severity": 4.0,
-          "evidence": [
-            "𠀅 alternate form"
-          ]
-        },
-        {
-          "code": "unhelpful_final_gloss",
-          "severity": 4.0,
-          "evidence": "alternate form"
-        }
-      ],
-      "equation": "Visual form: 𠀅 alternate form",
-      "mnemonic": "The slightly reshaped 𠀅 alternate form stands beside its standard twin, differing by one old pen stroke.",
-      "components": [
-        {
-          "character": "𠀅",
-          "gloss": "alternate form"
-        }
-      ],
-      "component_source": "self_fallback",
-      "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-    },
-    {
-      "character": "𠧩",
-      "meaning": "form",
-      "frequency_rank": null,
-      "quality_status": "rewrite",
-      "quality_score": 8.0,
-      "review_priority": 8.0,
-      "flags": [
-        {
-          "code": "opaque_component_gloss",
-          "severity": 4.0,
-          "evidence": [
-            "𠧩 form"
-          ]
-        },
-        {
-          "code": "unhelpful_final_gloss",
-          "severity": 4.0,
-          "evidence": "form"
-        }
-      ],
-      "equation": "Visual form: 𠧩 form",
-      "mnemonic": "The 𠧩 form holds its inner strokes inside a fixed, mold-like outline.",
-      "components": [
-        {
-          "character": "𠧩",
-          "gloss": "form"
-        }
-      ],
-      "component_source": "self_fallback",
-      "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-    },
-    {
-      "character": "𫜹",
-      "meaning": "form",
-      "frequency_rank": null,
-      "quality_status": "rewrite",
-      "quality_score": 8.0,
-      "review_priority": 8.0,
-      "flags": [
-        {
-          "code": "opaque_component_gloss",
-          "severity": 4.0,
-          "evidence": [
-            "𫜹 form"
-          ]
-        },
-        {
-          "code": "unhelpful_final_gloss",
-          "severity": 4.0,
-          "evidence": "form"
-        }
-      ],
-      "equation": "Visual form: 𫜹 form",
-      "mnemonic": "Pressing soft clay into a rigid mold fixes its 𫜹 form on every side.",
-      "components": [
-        {
-          "character": "𫜹",
-          "gloss": "form"
-        }
-      ],
-      "component_source": "self_fallback",
-      "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-    },
-    {
-      "character": "𫝀",
-      "meaning": "form",
-      "frequency_rank": null,
-      "quality_status": "rewrite",
-      "quality_score": 8.0,
-      "review_priority": 8.0,
-      "flags": [
-        {
-          "code": "opaque_component_gloss",
-          "severity": 4.0,
-          "evidence": [
-            "𫝀 form"
-          ]
-        },
-        {
-          "code": "unhelpful_final_gloss",
-          "severity": 4.0,
-          "evidence": "form"
-        }
-      ],
-      "equation": "Visual form: 𫝀 form",
-      "mnemonic": "A backlit silhouette reveals the 𫝀 form of a figure while concealing every detail.",
-      "components": [
-        {
-          "character": "𫝀",
-          "gloss": "form"
-        }
-      ],
-      "component_source": "self_fallback",
-      "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-    },
-    {
-      "character": "𫩠",
-      "meaning": "alternate form",
-      "frequency_rank": null,
-      "quality_status": "rewrite",
-      "quality_score": 8.0,
-      "review_priority": 8.0,
-      "flags": [
-        {
-          "code": "opaque_component_gloss",
-          "severity": 4.0,
-          "evidence": [
-            "𫩠 alternate form"
-          ]
-        },
-        {
-          "code": "unhelpful_final_gloss",
-          "severity": 4.0,
-          "evidence": "alternate form"
-        }
-      ],
-      "equation": "Visual form: 𫩠 alternate form",
-      "mnemonic": "𫩠 alternate form keeps the square mouth while rearranging the surrounding strokes into a changed outline.",
-      "components": [
-        {
-          "character": "𫩠",
-          "gloss": "alternate form"
-        }
-      ],
-      "component_source": "self_fallback",
-      "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-    },
-    {
-      "character": "𭤨",
-      "meaning": "form",
-      "frequency_rank": null,
-      "quality_status": "rewrite",
-      "quality_score": 8.0,
-      "review_priority": 8.0,
-      "flags": [
-        {
-          "code": "opaque_component_gloss",
-          "severity": 4.0,
-          "evidence": [
-            "𭤨 form"
-          ]
-        },
-        {
-          "code": "unhelpful_final_gloss",
-          "severity": 4.0,
-          "evidence": "form"
-        }
-      ],
-      "equation": "Visual form: 𭤨 form",
-      "mnemonic": "The enclosing bends of 𭤨 form trace a firm outline around an open center.",
-      "components": [
-        {
-          "character": "𭤨",
-          "gloss": "form"
-        }
-      ],
-      "component_source": "self_fallback",
-      "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-    },
-    {
-      "character": "𭥍",
-      "meaning": "alternate form",
-      "frequency_rank": null,
-      "quality_status": "rewrite",
-      "quality_score": 8.0,
-      "review_priority": 8.0,
-      "flags": [
-        {
-          "code": "opaque_component_gloss",
-          "severity": 4.0,
-          "evidence": [
-            "𭥍 alternate form"
-          ]
-        },
-        {
-          "code": "unhelpful_final_gloss",
-          "severity": 4.0,
-          "evidence": "alternate form"
-        }
-      ],
-      "equation": "Visual form: 𭥍 alternate form",
-      "mnemonic": "Two offset paths in 𭥍 alternate form suggest the same outline redrawn by a different route.",
-      "components": [
-        {
-          "character": "𭥍",
-          "gloss": "alternate form"
-        }
-      ],
-      "component_source": "self_fallback",
-      "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-    },
-    {
-      "character": "𰮤",
-      "meaning": "form",
-      "frequency_rank": null,
-      "quality_status": "rewrite",
-      "quality_score": 8.0,
-      "review_priority": 8.0,
-      "flags": [
-        {
-          "code": "opaque_component_gloss",
-          "severity": 4.0,
-          "evidence": [
-            "𰮤 form"
-          ]
-        },
-        {
-          "code": "unhelpful_final_gloss",
-          "severity": 4.0,
-          "evidence": "form"
-        }
-      ],
-      "equation": "Visual form: 𰮤 form",
-      "mnemonic": "Wet clay pressed into a mold begins to 𰮤 form along its walls.",
-      "components": [
-        {
-          "character": "𰮤",
-          "gloss": "form"
-        }
-      ],
-      "component_source": "self_fallback",
-      "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-    },
-    {
-      "character": "𱋁",
-      "meaning": "form",
-      "frequency_rank": null,
-      "quality_status": "rewrite",
-      "quality_score": 8.0,
-      "review_priority": 8.0,
-      "flags": [
-        {
-          "code": "opaque_component_gloss",
-          "severity": 4.0,
-          "evidence": [
-            "𱋁 form"
-          ]
-        },
-        {
-          "code": "unhelpful_final_gloss",
-          "severity": 4.0,
-          "evidence": "form"
-        }
-      ],
-      "equation": "Visual form: 𱋁 form",
-      "mnemonic": "Soft clay pressed between two palms begins to 𱋁 form a smooth bowl.",
-      "components": [
-        {
-          "character": "𱋁",
-          "gloss": "form"
-        }
-      ],
-      "component_source": "self_fallback",
-      "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-    },
-    {
-      "character": "𱥯",
-      "meaning": "old form",
-      "frequency_rank": null,
-      "quality_status": "rewrite",
-      "quality_score": 8.0,
-      "review_priority": 8.0,
-      "flags": [
-        {
-          "code": "opaque_component_gloss",
-          "severity": 4.0,
-          "evidence": [
-            "𱥯 old form"
-          ]
-        },
-        {
-          "code": "unhelpful_final_gloss",
-          "severity": 4.0,
-          "evidence": "old form"
-        }
-      ],
-      "equation": "Visual form: 𱥯 old form",
-      "mnemonic": "A chipped tablet preserves the 𱥯 old form in worn, uneven strokes from an earlier script.",
-      "components": [
-        {
-          "character": "𱥯",
-          "gloss": "old form"
-        }
-      ],
-      "component_source": "self_fallback",
-      "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
     },
     {
       "character": "旅",
@@ -2936,37 +2615,6 @@
       "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
     },
     {
-      "character": "卵",
-      "meaning": "nest eggs",
-      "frequency_rank": 1507,
-      "quality_status": "review",
-      "quality_score": 4.0,
-      "review_priority": 7.351,
-      "flags": [
-        {
-          "code": "opaque_component_gloss",
-          "severity": 4.0,
-          "evidence": [
-            "卪 reading mark"
-          ]
-        }
-      ],
-      "equation": "𠂑 hook stroke + 卪 reading mark = 卵 nest eggs",
-      "mnemonic": "A 𠂑 hook stroke and a 卪 reading mark curve like shell halves around paired 卵 nest eggs.",
-      "components": [
-        {
-          "character": "𠂑",
-          "gloss": "hook stroke"
-        },
-        {
-          "character": "卪",
-          "gloss": "reading mark"
-        }
-      ],
-      "component_source": "resolved_ids_forward",
-      "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-    },
-    {
       "character": "晶",
       "meaning": "sparkling",
       "frequency_rank": 1594,
@@ -3088,42 +2736,6 @@
         }
       ],
       "component_source": "variant_alias:樂",
-      "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-    },
-    {
-      "character": "卵",
-      "meaning": "nest eggs",
-      "frequency_rank": null,
-      "quality_status": "rewrite",
-      "quality_score": 6.5,
-      "review_priority": 6.5,
-      "flags": [
-        {
-          "code": "opaque_component_gloss",
-          "severity": 4.0,
-          "evidence": [
-            "卪 reading mark"
-          ]
-        },
-        {
-          "code": "variant_form_needs_review",
-          "severity": 2.5,
-          "evidence": "卵"
-        }
-      ],
-      "equation": "𠂑 hook stroke + 卪 reading mark = 卵 nest eggs",
-      "mnemonic": "A 𠂑 hook stroke cradles an 卪 reading mark as snugly as a nest cradles 卵 nest eggs.",
-      "components": [
-        {
-          "character": "𠂑",
-          "gloss": "hook stroke"
-        },
-        {
-          "character": "卪",
-          "gloss": "reading mark"
-        }
-      ],
-      "component_source": "variant_alias:卵",
       "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
     },
     {
@@ -3656,64 +3268,6 @@
         }
       ],
       "component_source": "variant_alias:㬈",
-      "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-    },
-    {
-      "character": "句",
-      "meaning": "sentence",
-      "frequency_rank": 927,
-      "quality_status": "review",
-      "quality_score": 3.0,
-      "review_priority": 5.647,
-      "flags": [
-        {
-          "code": "learner_facing_weirdness",
-          "severity": 3.0,
-          "evidence": "A uses words"
-        }
-      ],
-      "equation": "勹 wrap + 口 mouth = 句 sentence",
-      "mnemonic": "A 句 sentence uses words to 勹 wrap one complete thought for the 口 mouth to speak.",
-      "components": [
-        {
-          "character": "勹",
-          "gloss": "wrap"
-        },
-        {
-          "character": "口",
-          "gloss": "mouth"
-        }
-      ],
-      "component_source": "resolved_ids_forward",
-      "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-    },
-    {
-      "character": "魂",
-      "meaning": "soul",
-      "frequency_rank": 1380,
-      "quality_status": "review",
-      "quality_score": 3.0,
-      "review_priority": 5.536,
-      "flags": [
-        {
-          "code": "learner_facing_weirdness",
-          "severity": 3.0,
-          "evidence": "a words"
-        }
-      ],
-      "equation": "云 utter + 鬼 ghost = 魂 soul",
-      "mnemonic": "In a folktale, a 鬼 ghost lets a 魂 soul 云 utter words no living mouth can speak.",
-      "components": [
-        {
-          "character": "云",
-          "gloss": "utter"
-        },
-        {
-          "character": "鬼",
-          "gloss": "ghost"
-        }
-      ],
-      "component_source": "resolved_ids_forward",
       "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
     },
     {
@@ -5020,45 +4574,6 @@
       "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
     },
     {
-      "character": "㨗",
-      "meaning": "alert",
-      "frequency_rank": null,
-      "quality_status": "review",
-      "quality_score": 4.0,
-      "review_priority": 4.0,
-      "flags": [
-        {
-          "code": "opaque_component_gloss",
-          "severity": 4.0,
-          "evidence": [
-            "𫜹 form"
-          ]
-        }
-      ],
-      "equation": "扌 hand (side) + ⺊ divination + 𫜹 form + 龰 foot = 㨗 alert",
-      "mnemonic": "A 扌 hand checks the ⺊ divination 𫜹 form while a 龰 foot remains 㨗 alert for its signal.",
-      "components": [
-        {
-          "character": "扌",
-          "gloss": "hand (side)"
-        },
-        {
-          "character": "⺊",
-          "gloss": "divination"
-        },
-        {
-          "character": "𫜹",
-          "gloss": "form"
-        },
-        {
-          "character": "龰",
-          "gloss": "foot"
-        }
-      ],
-      "component_source": "resolved_ids_forward",
-      "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-    },
-    {
       "character": "㪿",
       "meaning": "break",
       "frequency_rank": null,
@@ -5684,7 +5199,7 @@
     },
     {
       "character": "㵿",
-      "meaning": "endlessly long or vast water currents",
+      "meaning": "endless broad waters",
       "frequency_rank": null,
       "quality_status": "review",
       "quality_score": 4.0,
@@ -5702,8 +5217,8 @@
           ]
         }
       ],
-      "equation": "氵 water (drops) + 白 white + 白 white + 白 white = 㵿 endlessly long or vast water currents",
-      "mnemonic": "Across 㵿 endlessly long or vast water currents, 氵 water carries a 白 white crest, a second 白 white crest, then a third 白 white crest.",
+      "equation": "氵 water (drops) + 白 white + 白 white + 白 white = 㵿 endless broad waters",
+      "mnemonic": "Across 㵿 endless broad waters, 氵 water carries a 白 white crest, a second 白 white crest, then a third 白 white crest.",
       "components": [
         {
           "character": "氵",
@@ -6011,7 +5526,7 @@
     },
     {
       "character": "䀠",
-      "meaning": "(of birds) to look around",
+      "meaning": "birds looking around",
       "frequency_rank": null,
       "quality_status": "review",
       "quality_score": 4.0,
@@ -6028,8 +5543,8 @@
           ]
         }
       ],
-      "equation": "目 eye + 目 eye = 䀠 (of birds) to look around",
-      "mnemonic": "When birds use 䀠 (of birds) to look around, one 目 eye scans left and the other 目 eye scans right.",
+      "equation": "目 eye + 目 eye = 䀠 birds looking around",
+      "mnemonic": "One 目 eye and a second 目 eye scan in opposite directions: 䀠 birds looking around.",
       "components": [
         {
           "character": "目",
@@ -9349,37 +8864,6 @@
       "generation_source": "codex_manual_quality_patch_2026_07_08"
     },
     {
-      "character": "桼",
-      "meaning": "varnish tree",
-      "frequency_rank": null,
-      "quality_status": "review",
-      "quality_score": 4.0,
-      "review_priority": 4.0,
-      "flags": [
-        {
-          "code": "opaque_component_gloss",
-          "severity": 4.0,
-          "evidence": [
-            "𱥯 old form"
-          ]
-        }
-      ],
-      "equation": "木 tree + 𱥯 old form = 桼 varnish tree",
-      "mnemonic": "The 𱥯 old form pictures lacquer sap dripping from the 木 tree known as the 桼 varnish tree.",
-      "components": [
-        {
-          "character": "木",
-          "gloss": "tree"
-        },
-        {
-          "character": "𱥯",
-          "gloss": "old form"
-        }
-      ],
-      "component_source": "resolved_ids_forward",
-      "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-    },
-    {
       "character": "棗",
       "meaning": "jujube",
       "frequency_rank": null,
@@ -10028,12 +9512,12 @@
           ]
         }
       ],
-      "equation": "𤣩 jade (alt) + 玉 jade = 珏 paired jades",
+      "equation": "𤣩 jade + 玉 jade = 珏 paired jades",
       "mnemonic": "𤣩 jade hangs beside 玉 jade on one pendant as 珏 paired jades.",
       "components": [
         {
           "character": "𤣩",
-          "gloss": "jade (alt)"
+          "gloss": "jade"
         },
         {
           "character": "玉",
@@ -11590,7 +11074,7 @@
     },
     {
       "character": "靐",
-      "meaning": "thunder (alt)",
+      "meaning": "thunder",
       "frequency_rank": null,
       "quality_status": "review",
       "quality_score": 4.0,
@@ -11608,7 +11092,7 @@
           ]
         }
       ],
-      "equation": "雷 thunder + 雷 thunder + 雷 thunder = 靐 thunder (alt)",
+      "equation": "雷 thunder + 雷 thunder + 雷 thunder = 靐 thunder",
       "mnemonic": "One 雷 thunder answers another 雷 thunder, then a third 雷 thunder erupts as booming 靐 thunder.",
       "components": [
         {
@@ -11935,12 +11419,12 @@
           "evidence": "珞"
         }
       ],
-      "equation": "𤣩 jade (alt) + 各 each = 珞 kind of necklace",
+      "equation": "𤣩 jade + 各 each = 珞 kind of necklace",
       "mnemonic": "𤣩 jade beads, 各 each threaded beside the next, form a 珞 kind of necklace.",
       "components": [
         {
           "character": "𤣩",
-          "gloss": "jade (alt)"
+          "gloss": "jade"
         },
         {
           "character": "各",
@@ -12105,12 +11589,12 @@
           "evidence": "理"
         }
       ],
-      "equation": "𤣩 jade (alt) + 里 li = 理 reason",
+      "equation": "𤣩 jade + 里 li = 理 reason",
       "mnemonic": "For one 里 li, scholars examine 𤣩 jade until evidence lets 理 reason settle their dispute.",
       "components": [
         {
           "character": "𤣩",
-          "gloss": "jade (alt)"
+          "gloss": "jade"
         },
         {
           "character": "里",
@@ -12511,35 +11995,6 @@
       "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
     },
     {
-      "character": "𭔰",
-      "meaning": "form",
-      "frequency_rank": null,
-      "quality_status": "review",
-      "quality_score": 4.0,
-      "review_priority": 4.0,
-      "flags": [
-        {
-          "code": "unhelpful_final_gloss",
-          "severity": 4.0,
-          "evidence": "form"
-        }
-      ],
-      "equation": "豆 stemmed bowl + 寸 inch = 𭔰 form",
-      "mnemonic": "Set each 豆 stemmed bowl one 寸 inch apart to 𭔰 form a measured row.",
-      "components": [
-        {
-          "character": "豆",
-          "gloss": "stemmed bowl"
-        },
-        {
-          "character": "寸",
-          "gloss": "inch"
-        }
-      ],
-      "component_source": "ids",
-      "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-    },
-    {
       "character": "况",
       "meaning": "condition",
       "frequency_rank": null,
@@ -12842,32 +12297,37 @@
       "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
     },
     {
-      "character": "𰕎",
-      "meaning": "form",
+      "character": "𱋁",
+      "meaning": "pair of deer",
       "frequency_rank": null,
       "quality_status": "review",
       "quality_score": 4.0,
       "review_priority": 4.0,
       "flags": [
         {
-          "code": "unhelpful_final_gloss",
+          "code": "duplicated_component_meaning",
           "severity": 4.0,
-          "evidence": "form"
+          "evidence": [
+            [
+              "鹿",
+              "鹿"
+            ]
+          ]
         }
       ],
-      "equation": "育 education + 攵 tap = 𰕎 form",
-      "mnemonic": "A repeated 攵 tap during 育 education can 𰕎 form a learner's habit of keeping time.",
+      "equation": "鹿 deer + 鹿 deer = 𱋁 pair of deer",
+      "mnemonic": "One 鹿 deer beside another 鹿 deer makes 𱋁 pair of deer.",
       "components": [
         {
-          "character": "育",
-          "gloss": "education"
+          "character": "鹿",
+          "gloss": "deer"
         },
         {
-          "character": "攵",
-          "gloss": "tap"
+          "character": "鹿",
+          "gloss": "deer"
         }
       ],
-      "component_source": "ids",
+      "component_source": "self_fallback",
       "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
     },
     {
@@ -12942,12 +12402,12 @@
           "evidence": "reason"
         }
       ],
-      "equation": "𤣩 jade (alt) + 里 li = 理 reason",
+      "equation": "𤣩 jade + 里 li = 理 reason",
       "mnemonic": "Finding 𤣩 jade one 里 li from its mine demands a 理 reason for the journey.",
       "components": [
         {
           "character": "𤣩",
-          "gloss": "jade (alt)"
+          "gloss": "jade"
         },
         {
           "character": "里",
@@ -13341,151 +12801,6 @@
       ],
       "component_source": "resolved_ids_forward+manual_quality_override",
       "generation_source": "codex_manual_quality_patch_2026_07_08"
-    },
-    {
-      "character": "䰟",
-      "meaning": "the soul",
-      "frequency_rank": null,
-      "quality_status": "review",
-      "quality_score": 3.0,
-      "review_priority": 3.0,
-      "flags": [
-        {
-          "code": "learner_facing_weirdness",
-          "severity": 3.0,
-          "evidence": "a lets words"
-        }
-      ],
-      "equation": "云 utter + 鬼 ghost = 䰟 the soul",
-      "mnemonic": "In a folktale, a 鬼 ghost lets 䰟 the soul 云 utter words no living mouth can speak.",
-      "components": [
-        {
-          "character": "云",
-          "gloss": "utter"
-        },
-        {
-          "character": "鬼",
-          "gloss": "ghost"
-        }
-      ],
-      "component_source": "resolved_ids_forward",
-      "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-    },
-    {
-      "character": "叒",
-      "meaning": "united",
-      "frequency_rank": null,
-      "quality_status": "review",
-      "quality_score": 3.0,
-      "review_priority": 3.0,
-      "flags": [
-        {
-          "code": "learner_facing_weirdness",
-          "severity": 3.0,
-          "evidence": "a of hands"
-        }
-      ],
-      "equation": "又 hand + 双 pair = 叒 united",
-      "mnemonic": "One 又 hand clasps a 双 pair of hands, all three 叒 united.",
-      "components": [
-        {
-          "character": "又",
-          "gloss": "hand"
-        },
-        {
-          "character": "双",
-          "gloss": "pair"
-        }
-      ],
-      "component_source": "resolved_ids_forward",
-      "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-    },
-    {
-      "character": "喭",
-      "meaning": "condole with",
-      "frequency_rank": null,
-      "quality_status": "review",
-      "quality_score": 3.0,
-      "review_priority": 3.0,
-      "flags": [
-        {
-          "code": "learner_facing_weirdness",
-          "severity": 3.0,
-          "evidence": "A chooses words"
-        }
-      ],
-      "equation": "口 mouth + 彦 elegant = 喭 condole with",
-      "mnemonic": "A 口 mouth chooses 彦 elegant words to gently 喭 condole with a grieving friend.",
-      "components": [
-        {
-          "character": "口",
-          "gloss": "mouth"
-        },
-        {
-          "character": "彦",
-          "gloss": "elegant"
-        }
-      ],
-      "component_source": "resolved_ids_forward",
-      "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-    },
-    {
-      "character": "惓",
-      "meaning": "sincere",
-      "frequency_rank": null,
-      "quality_status": "review",
-      "quality_score": 3.0,
-      "review_priority": 3.0,
-      "flags": [
-        {
-          "code": "learner_facing_weirdness",
-          "severity": 3.0,
-          "evidence": "a with words"
-        }
-      ],
-      "equation": "忄 heart (side) + 卷 scroll = 惓 sincere",
-      "mnemonic": "A message written from the 忄 heart (side) fills a 卷 scroll with 惓 sincere words.",
-      "components": [
-        {
-          "character": "忄",
-          "gloss": "heart (side)"
-        },
-        {
-          "character": "卷",
-          "gloss": "scroll"
-        }
-      ],
-      "component_source": "resolved_ids_forward",
-      "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-    },
-    {
-      "character": "笺",
-      "meaning": "memo",
-      "frequency_rank": null,
-      "quality_status": "review",
-      "quality_score": 3.0,
-      "review_priority": 3.0,
-      "flags": [
-        {
-          "code": "learner_facing_weirdness",
-          "severity": 3.0,
-          "evidence": "a few words"
-        }
-      ],
-      "equation": "竹 bamboo + 戋 tiny = 笺 memo",
-      "mnemonic": "A 戋 tiny space on 竹 bamboo limits a 笺 memo to a few words.",
-      "components": [
-        {
-          "character": "竹",
-          "gloss": "bamboo"
-        },
-        {
-          "character": "戋",
-          "gloss": "tiny"
-        }
-      ],
-      "component_source": "resolved_ids_forward",
-      "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
     },
     {
       "character": "存",
@@ -15021,6 +14336,31 @@
       "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
     },
     {
+      "character": "卵",
+      "meaning": "egg",
+      "frequency_rank": null,
+      "quality_status": "review",
+      "quality_score": 2.5,
+      "review_priority": 2.5,
+      "flags": [
+        {
+          "code": "variant_form_needs_review",
+          "severity": 2.5,
+          "evidence": "卵"
+        }
+      ],
+      "equation": "Visual form: 卵 egg",
+      "mnemonic": "Two rounded sacs each hold a seed in 卵 egg, the same old picture as 卵.",
+      "components": [
+        {
+          "character": "卵",
+          "gloss": "egg"
+        }
+      ],
+      "component_source": "variant_alias:卵",
+      "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
+    },
+    {
       "character": "欄",
       "meaning": "railing",
       "frequency_rank": null,
@@ -15598,7 +14938,7 @@
     },
     {
       "character": "櫓",
-      "meaning": "oar (alt)",
+      "meaning": "oar",
       "frequency_rank": null,
       "quality_status": "review",
       "quality_score": 2.5,
@@ -15610,7 +14950,7 @@
           "evidence": "櫓"
         }
       ],
-      "equation": "木 tree + 魯 Lu = 櫓 oar (alt)",
+      "equation": "木 tree + 魯 Lu = 櫓 oar",
       "mnemonic": "In 魯 Lu, a boatman shapes a 木 tree branch into a long 櫓 oar.",
       "components": [
         {
@@ -17007,7 +16347,7 @@
     },
     {
       "character": "磻",
-      "meaning": "tributary of the Wei river in Shanxi",
+      "meaning": "Shanxi tributary of the Wei River",
       "frequency_rank": null,
       "quality_status": "review",
       "quality_score": 2.5,
@@ -17019,8 +16359,8 @@
           "evidence": "磻"
         }
       ],
-      "equation": "石 stone + 番 paw = 磻 tributary of the Wei river in Shanxi",
-      "mnemonic": "A 番 paw carved into a 石 stone marks the 磻 tributary of the Wei river in Shanxi.",
+      "equation": "石 stone + 番 paw = 磻 Shanxi tributary of the Wei River",
+      "mnemonic": "A 番 paw carved into a 石 stone marks the 磻 Shanxi tributary of the Wei River.",
       "components": [
         {
           "character": "石",
@@ -17873,7 +17213,7 @@
     },
     {
       "character": "礪",
-      "meaning": "whetstone (alt)",
+      "meaning": "whetstone",
       "frequency_rank": null,
       "quality_status": "review",
       "quality_score": 2.5,
@@ -17885,7 +17225,7 @@
           "evidence": "礪"
         }
       ],
-      "equation": "石 stone + 厲 stern = 礪 whetstone (alt)",
+      "equation": "石 stone + 厲 stern = 礪 whetstone",
       "mnemonic": "A 厲 stern craftsman presses a blade against 石 stone, using the 礪 whetstone to sharpen its edge.",
       "components": [
         {
@@ -18287,12 +17627,12 @@
           "evidence": "璉"
         }
       ],
-      "equation": "𤣩 jade (alt) + 連 connect = 璉 vessel",
+      "equation": "𤣩 jade + 連 connect = 璉 vessel",
       "mnemonic": "𤣩 jade pieces 連 connect around grain offerings, enclosing them in a 璉 vessel.",
       "components": [
         {
           "character": "𤣩",
-          "gloss": "jade (alt)"
+          "gloss": "jade"
         },
         {
           "character": "連",
@@ -18971,7 +18311,7 @@
     },
     {
       "character": "怜",
-      "meaning": "pity (alt)",
+      "meaning": "pity",
       "frequency_rank": null,
       "quality_status": "review",
       "quality_score": 2.5,
@@ -18983,7 +18323,7 @@
           "evidence": "怜"
         }
       ],
-      "equation": "忄 heart (side) + 令 orders = 怜 pity (alt)",
+      "equation": "忄 heart (side) + 令 orders = 怜 pity",
       "mnemonic": "A 忄 heart overrules harsh 令 orders and shows 怜 pity.",
       "components": [
         {
@@ -19012,12 +18352,12 @@
           "evidence": "玲"
         }
       ],
-      "equation": "𤣩 jade (alt) + 令 orders = 玲 exquisite",
+      "equation": "𤣩 jade + 令 orders = 玲 exquisite",
       "mnemonic": "Under 令 orders, a jeweler carves 𤣩 jade into lace-fine detail, making it 玲 exquisite.",
       "components": [
         {
           "character": "𤣩",
-          "gloss": "jade (alt)"
+          "gloss": "jade"
         },
         {
           "character": "令",
@@ -19870,12 +19210,12 @@
           "evidence": "琉"
         }
       ],
-      "equation": "𤣩 jade (alt) + 㐬 stream = 琉 glaze",
+      "equation": "𤣩 jade + 㐬 stream = 琉 glaze",
       "mnemonic": "A 㐬 stream pours over pottery, leaving a 琉 glaze as lustrous as polished 𤣩 jade.",
       "components": [
         {
           "character": "𤣩",
-          "gloss": "jade (alt)"
+          "gloss": "jade"
         },
         {
           "character": "㐬",
@@ -20823,12 +20163,12 @@
           "evidence": "璘"
         }
       ],
-      "equation": "𤣩 jade (alt) + 粦 will-o'-the wisp = 璘 luster",
+      "equation": "𤣩 jade + 粦 will-o'-the wisp = 璘 luster",
       "mnemonic": "A 粦 will-o'-the wisp dances across polished 𤣩 jade, awakening its 璘 luster.",
       "components": [
         {
           "character": "𤣩",
-          "gloss": "jade (alt)"
+          "gloss": "jade"
         },
         {
           "character": "粦",
@@ -22977,12 +22317,12 @@
           "evidence": "琢"
         }
       ],
-      "equation": "𤣩 jade (alt) + 豖 shackled pig = 琢 chisel",
+      "equation": "𤣩 jade + 豖 shackled pig = 琢 chisel",
       "mnemonic": "An artisan can 琢 chisel a tiny 豖 shackled pig from 𤣩 jade.",
       "components": [
         {
           "character": "𤣩",
-          "gloss": "jade (alt)"
+          "gloss": "jade"
         },
         {
           "character": "豖",
@@ -25227,12 +24567,12 @@
           "evidence": "瑱"
         }
       ],
-      "equation": "𤣩 jade (alt) + 真 true = 瑱 gem used as ear plug",
+      "equation": "𤣩 jade + 真 true = 瑱 gem used as ear plug",
       "mnemonic": "Only 𤣩 jade judged 真 true is carved into an 瑱 gem used as ear plug for court dress.",
       "components": [
         {
           "character": "𤣩",
-          "gloss": "jade (alt)"
+          "gloss": "jade"
         },
         {
           "character": "真",
@@ -32891,12 +32231,12 @@
           "evidence": "㺬"
         }
       ],
-      "equation": "𤣩 jade (alt) + 凡 ordinary = 㺬 large piece",
+      "equation": "𤣩 jade + 凡 ordinary = 㺬 large piece",
       "mnemonic": "A 㺬 large piece of 𤣩 jade dwarfs every 凡 ordinary pebble beside it.",
       "components": [
         {
           "character": "𤣩",
-          "gloss": "jade (alt)"
+          "gloss": "jade"
         },
         {
           "character": "凡",
@@ -32920,12 +32260,12 @@
           "evidence": "玥"
         }
       ],
-      "equation": "𤣩 jade (alt) + 月 moon = 玥 mysterious gem",
-      "mnemonic": "A 玥 mysterious gem of 𤣩 jade (alt) glows like the 月 moon.",
+      "equation": "𤣩 jade + 月 moon = 玥 mysterious gem",
+      "mnemonic": "A 玥 mysterious gem of 𤣩 jade glows like the 月 moon.",
       "components": [
         {
           "character": "𤣩",
-          "gloss": "jade (alt)"
+          "gloss": "jade"
         },
         {
           "character": "月",
@@ -33007,12 +32347,12 @@
           "evidence": "瑇"
         }
       ],
-      "equation": "𤣩 jade (alt) + 毒 poison = 瑇 tortoise shell",
+      "equation": "𤣩 jade + 毒 poison = 瑇 tortoise shell",
       "mnemonic": "A 瑇 tortoise shell locks 毒 poison beneath hard plates that gleam like 𤣩 jade.",
       "components": [
         {
           "character": "𤣩",
-          "gloss": "jade (alt)"
+          "gloss": "jade"
         },
         {
           "character": "毒",
@@ -33036,12 +32376,12 @@
           "evidence": "瑜"
         }
       ],
-      "equation": "𤣩 jade (alt) + 俞 approve = 瑜 flawless gem or jewel",
+      "equation": "𤣩 jade + 俞 approve = 瑜 flawless gem or jewel",
       "mnemonic": "After inspecting every surface, experts 俞 approve the 𤣩 jade as a 瑜 flawless gem or jewel.",
       "components": [
         {
           "character": "𤣩",
-          "gloss": "jade (alt)"
+          "gloss": "jade"
         },
         {
           "character": "俞",
@@ -33065,12 +32405,12 @@
           "evidence": "瑱"
         }
       ],
-      "equation": "𤣩 jade (alt) + 真 true = 瑱 gem used as ear plug",
+      "equation": "𤣩 jade + 真 true = 瑱 gem used as ear plug",
       "mnemonic": "Carved from 𤣩 jade to seal an ear, a 瑱 gem used as ear plug fulfills its 真 true purpose.",
       "components": [
         {
           "character": "𤣩",
-          "gloss": "jade (alt)"
+          "gloss": "jade"
         },
         {
           "character": "真",
@@ -33094,12 +32434,12 @@
           "evidence": "璅"
         }
       ],
-      "equation": "𤣩 jade (alt) + 巢 nest = 璅 gem",
+      "equation": "𤣩 jade + 巢 nest = 璅 gem",
       "mnemonic": "A bird tucks polished 𤣩 jade into its 巢 nest, cradling the 璅 gem like an egg.",
       "components": [
         {
           "character": "𤣩",
-          "gloss": "jade (alt)"
+          "gloss": "jade"
         },
         {
           "character": "巢",
@@ -33123,12 +32463,12 @@
           "evidence": "瓊"
         }
       ],
-      "equation": "𤣩 jade (alt) + 敻 faraway = 瓊 fine jade",
+      "equation": "𤣩 jade + 敻 faraway = 瓊 fine jade",
       "mnemonic": "Only 瓊 fine jade is worth carrying from a 敻 faraway mine when nearby 𤣩 jade is plentiful.",
       "components": [
         {
           "character": "𤣩",
-          "gloss": "jade (alt)"
+          "gloss": "jade"
         },
         {
           "character": "敻",
@@ -36206,7 +35546,7 @@
     },
     {
       "character": "鈸",
-      "meaning": "cymbals (alt)",
+      "meaning": "cymbals",
       "frequency_rank": null,
       "quality_status": "review",
       "quality_score": 2.5,
@@ -36218,7 +35558,7 @@
           "evidence": "鈸"
         }
       ],
-      "equation": "金 metal + 犮 pull up = 鈸 cymbals (alt)",
+      "equation": "金 metal + 犮 pull up = 鈸 cymbals",
       "mnemonic": "A musician must 犮 pull up one 金 metal disc before crashing the 鈸 cymbals together.",
       "components": [
         {
@@ -36906,7 +36246,7 @@
     },
     {
       "character": "䳭",
-      "meaning": "wagtail (alt)",
+      "meaning": "wagtail",
       "frequency_rank": null,
       "quality_status": "review",
       "quality_score": 2.5,
@@ -36918,7 +36258,7 @@
           "evidence": "䳭"
         }
       ],
-      "equation": "即 immediately + 鳥 bird = 䳭 wagtail (alt)",
+      "equation": "即 immediately + 鳥 bird = 䳭 wagtail",
       "mnemonic": "The 鳥 bird that 即 immediately wags its tail upon landing is a 䳭 wagtail.",
       "components": [
         {
@@ -38029,7 +37369,7 @@
     },
     {
       "character": "㬐",
-      "meaning": "state during the Spring and Autumn period",
+      "meaning": "Spring and Autumn state",
       "frequency_rank": null,
       "quality_status": "review",
       "quality_score": 1.5,
@@ -38038,11 +37378,11 @@
         {
           "code": "abstract_final_meaning",
           "severity": 1.5,
-          "evidence": "state during the Spring and Autumn period"
+          "evidence": "Spring and Autumn state"
         }
       ],
-      "equation": "日 sun + 晋 advance = 㬐 state during the Spring and Autumn period",
-      "mnemonic": "Each 日 sun marks another year as the border can 晋 advance, recalling the 㬐 state during the Spring and Autumn period.",
+      "equation": "日 sun + 晋 advance = 㬐 Spring and Autumn state",
+      "mnemonic": "Each 日 sun marks another year as the border can 晋 advance, recalling the 㬐 Spring and Autumn state.",
       "components": [
         {
           "character": "日",
@@ -38279,35 +37619,6 @@
         {
           "character": "奢",
           "gloss": "extravagant"
-        }
-      ],
-      "component_source": "resolved_ids_forward",
-      "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-    },
-    {
-      "character": "㶁",
-      "meaning": "after blocking the water flow takes different waterway",
-      "frequency_rank": null,
-      "quality_status": "review",
-      "quality_score": 1.5,
-      "review_priority": 1.5,
-      "flags": [
-        {
-          "code": "abstract_final_meaning",
-          "severity": 1.5,
-          "evidence": "after blocking the water flow takes different waterway"
-        }
-      ],
-      "equation": "氵 water (drops) + 虢 Guo = 㶁 after blocking the water flow takes different waterway",
-      "mnemonic": "In 虢 Guo, diverted 氵 water demonstrates how 㶁 after blocking the water flow takes different waterway around a barrier.",
-      "components": [
-        {
-          "character": "氵",
-          "gloss": "water (drops)"
-        },
-        {
-          "character": "虢",
-          "gloss": "Guo"
         }
       ],
       "component_source": "resolved_ids_forward",
@@ -42350,12 +41661,12 @@
           "evidence": "inferior kind of jade"
         }
       ],
-      "equation": "𤣩 jade (alt) + 可 can = 珂 inferior kind of jade",
+      "equation": "𤣩 jade + 可 can = 珂 inferior kind of jade",
       "mnemonic": "This 𤣩 jade 可 can be used for practice because it is a 珂 inferior kind of jade.",
       "components": [
         {
           "character": "𤣩",
-          "gloss": "jade (alt)"
+          "gloss": "jade"
         },
         {
           "character": "可",
@@ -42379,12 +41690,12 @@
           "evidence": "kind of necklace"
         }
       ],
-      "equation": "𤣩 jade (alt) + 各 each = 珞 kind of necklace",
+      "equation": "𤣩 jade + 各 each = 珞 kind of necklace",
       "mnemonic": "A 珞 kind of necklace sets polished 𤣩 jade into 各 each link around the neck.",
       "components": [
         {
           "character": "𤣩",
-          "gloss": "jade (alt)"
+          "gloss": "jade"
         },
         {
           "character": "各",
@@ -42408,12 +41719,12 @@
           "evidence": "kind of white cornelian"
         }
       ],
-      "equation": "𤣩 jade (alt) + 郎 gentleman = 瑯 kind of white cornelian",
+      "equation": "𤣩 jade + 郎 gentleman = 瑯 kind of white cornelian",
       "mnemonic": "A 郎 gentleman strings pale 瑯 kind of white cornelian beside polished 𤣩 jade on a pendant.",
       "components": [
         {
           "character": "𤣩",
-          "gloss": "jade (alt)"
+          "gloss": "jade"
         },
         {
           "character": "郎",
@@ -42437,12 +41748,12 @@
           "evidence": "fine quality jade"
         }
       ],
-      "equation": "𤣩 jade (alt) + 爱 love = 瑷 fine quality jade",
+      "equation": "𤣩 jade + 爱 love = 瑷 fine quality jade",
       "mnemonic": "The jeweler reserves 爱 love for the 𤣩 jade selected as 瑷 fine quality jade.",
       "components": [
         {
           "character": "𤣩",
-          "gloss": "jade (alt)"
+          "gloss": "jade"
         },
         {
           "character": "爱",
@@ -44368,7 +43679,7 @@
     },
     {
       "character": "鄦",
-      "meaning": "vassal state during the Zhou Dynasty (1046-221 BC)",
+      "meaning": "Zhou vassal state of Xu",
       "frequency_rank": null,
       "quality_status": "review",
       "quality_score": 1.5,
@@ -44377,11 +43688,11 @@
         {
           "code": "abstract_final_meaning",
           "severity": 1.5,
-          "evidence": "vassal state during the Zhou Dynasty (1046-221 BC)"
+          "evidence": "Zhou vassal state of Xu"
         }
       ],
-      "equation": "無 nothing + ⻏ city (right) = 鄦 vassal state during the Zhou Dynasty (1046-221 BC)",
-      "mnemonic": "On a memory map, erase the land to 無 nothing but one ⻏ city for the 鄦 vassal state during the Zhou Dynasty (1046-221 BC).",
+      "equation": "無 nothing + ⻏ city (right) = 鄦 Zhou vassal state of Xu",
+      "mnemonic": "On a memory map, erase the land to 無 nothing but one ⻏ city for the 鄦 Zhou vassal state of Xu.",
       "components": [
         {
           "character": "無",
@@ -45325,7 +44636,7 @@
     },
     {
       "character": "𡁵",
-      "meaning": "aspect marker for continuous action",
+      "meaning": "continuous-aspect marker",
       "frequency_rank": null,
       "quality_status": "review",
       "quality_score": 1.5,
@@ -45334,15 +44645,15 @@
         {
           "code": "abstract_final_meaning",
           "severity": 1.5,
-          "evidence": "aspect marker for continuous action"
+          "evidence": "continuous-aspect marker"
         }
       ],
-      "equation": "Visual form: 𡁵 aspect marker for continuous action",
-      "mnemonic": "The small mouth in 𡁵 aspect marker for continuous action stands beside strokes streaming onward without a break.",
+      "equation": "Visual form: 𡁵 continuous-aspect marker",
+      "mnemonic": "The small mouth in the 𡁵 continuous-aspect marker stands beside strokes streaming onward without a break.",
       "components": [
         {
           "character": "𡁵",
-          "gloss": "aspect marker for continuous action"
+          "gloss": "continuous-aspect marker"
         }
       ],
       "component_source": "self_fallback",
@@ -45701,11 +45012,11 @@
   ],
   "gpt56_expedited_release": {
     "certification_status": "expedited_non_certified",
-    "materialized_card_projection_hash": "sha256:15aae83cdf630f878bfa8bb28517ca7077b740864b95977d27158ddbbc3505ab",
+    "materialized_card_projection_hash": "sha256:b0769a9425ea7f414985f96c7c8fefad982ecec5ca7916c9552339127f77dfd0",
     "formal_validation": {
       "count": 24037,
       "invalid_count": 0
     },
-    "editorial_ledger_sha256": "sha256:fb5ec3fe8d59122d529e62407200d8fcb832c51ca0694145b9529ad8d727a75a"
+    "editorial_ledger_sha256": "sha256:b113cc16e43adf50a7f9dafd472ed093993a0e658a1bfb23bfcacb2efcc529cd"
   }
 }
