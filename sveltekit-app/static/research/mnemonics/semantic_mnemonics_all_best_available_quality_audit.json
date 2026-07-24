@@ -1,6 +1,6 @@
 {
-  "created_at": "2026-07-24T06:35:51.753583+00:00",
-  "artifact_created_at": "2026-07-24T06:35:50.083384+00:00",
+  "created_at": "2026-07-24T06:49:02.707339+00:00",
+  "artifact_created_at": "2026-07-24T06:49:01.041131+00:00",
   "methodology": "Formal validity and learning quality are separate. Flags are deterministic review signals; abstract meanings and variant forms are not automatically bad, while generic filler is a rewrite signal.",
   "taxonomy": {
     "generic_filler": {
@@ -2768,8 +2768,8 @@
           ]
         }
       ],
-      "equation": "糸 thread + 日 day + 乚 turning hook + 日 day = 縄 rope",
-      "mnemonic": "From one 日 day to the next 日 day, a 乚 turning hook twists 糸 thread into sturdy 縄 rope.",
+      "equation": "糸 thread + 日 sun + 乚 turning hook + 日 sun = 縄 rope",
+      "mnemonic": "From one return of the 日 sun to the next return of the 日 sun, a 乚 turning hook twists 糸 thread into sturdy 縄 rope.",
       "components": [
         {
           "character": "糸",
@@ -2777,7 +2777,7 @@
         },
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         },
         {
           "character": "乚",
@@ -2785,7 +2785,7 @@
         },
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         }
       ],
       "component_source": "resolved_ids_forward",
@@ -2986,20 +2986,20 @@
           ]
         }
       ],
-      "equation": "日 day + 日 day + 日 day = 晶 sparkling",
-      "mnemonic": "Across one 日 day, a second 日 day, and a third 日 day, the same gem stays 晶 sparkling.",
+      "equation": "日 sun + 日 sun + 日 sun = 晶 sparkling",
+      "mnemonic": "Across one arc of the 日 sun, a second 日 sun, and a third 日 sun, the same gem stays 晶 sparkling.",
       "components": [
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         },
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         },
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         }
       ],
       "component_source": "resolved_ids_forward",
@@ -3588,8 +3588,8 @@
           "evidence": "晉"
         }
       ],
-      "equation": "一 one + 厶 secret + 厶 secret + 一 one + 日 day = 晉 promote",
-      "mnemonic": "A publicist reveals 一 one 厶 secret, then 一 one 厶 secret, within a 日 day to 晉 promote a mystery novel.",
+      "equation": "一 one + 厶 secret + 厶 secret + 一 one + 日 sun = 晉 promote",
+      "mnemonic": "A publicist reveals 一 one 厶 secret, then 一 one 厶 secret, within a day beneath the 日 sun to 晉 promote a mystery novel.",
       "components": [
         {
           "character": "一",
@@ -3609,7 +3609,7 @@
         },
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         }
       ],
       "component_source": "variant_alias:晉",
@@ -3639,16 +3639,16 @@
           "evidence": "㬈"
         }
       ],
-      "equation": "日 day + 日 day + 皿 dish = 㬈 warm sunshine",
-      "mnemonic": "A 皿 dish left outside for one 日 day and another 日 day gleams beneath 㬈 warm sunshine.",
+      "equation": "日 sun + 日 sun + 皿 dish = 㬈 warm sunshine",
+      "mnemonic": "A 皿 dish left outside for one arc of the 日 sun and the next arc of the 日 sun gleams beneath 㬈 warm sunshine.",
       "components": [
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         },
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         },
         {
           "character": "皿",
@@ -4494,8 +4494,8 @@
           ]
         }
       ],
-      "equation": "土 earth + 日 day + 土 earth = 㘿 fill up",
-      "mnemonic": "Shovel 土 earth into the pit all 日 day, then tamp a final layer of 土 earth to 㘿 fill up the hole.",
+      "equation": "土 earth + 日 sun + 土 earth = 㘿 fill up",
+      "mnemonic": "Shovel 土 earth into the pit under the 日 sun all day, then tamp a final layer of 土 earth to 㘿 fill up the hole.",
       "components": [
         {
           "character": "土",
@@ -4503,7 +4503,7 @@
         },
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         },
         {
           "character": "土",
@@ -5115,16 +5115,16 @@
           ]
         }
       ],
-      "equation": "日 day + 日 day + 皿 dish = 㬈 warm sunshine",
-      "mnemonic": "Across one 日 day and the next 日 day, a 皿 dish basks in 㬈 warm sunshine.",
+      "equation": "日 sun + 日 sun + 皿 dish = 㬈 warm sunshine",
+      "mnemonic": "Across one arc of the 日 sun and the next arc of the 日 sun, a 皿 dish basks in 㬈 warm sunshine.",
       "components": [
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         },
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         },
         {
           "character": "皿",
@@ -5153,12 +5153,12 @@
           ]
         }
       ],
-      "equation": "日 day + 亠 lid + 日 day + 小 small = 㬌 sunshine",
-      "mnemonic": "A 亠 lid blocks the sky for one 日 day until the next 日 day sends 㬌 sunshine through 小 small gaps.",
+      "equation": "日 sun + 亠 lid + 日 sun + 小 small = 㬌 sunshine",
+      "mnemonic": "A 亠 lid blocks the sky for one arc of the 日 sun until the next rise of the 日 sun sends 㬌 sunshine through 小 small gaps.",
       "components": [
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         },
         {
           "character": "亠",
@@ -5166,7 +5166,7 @@
         },
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         },
         {
           "character": "小",
@@ -5195,8 +5195,8 @@
           ]
         }
       ],
-      "equation": "至 reach + 至 reach + 日 day = 㬜 advance",
-      "mnemonic": "One arrow can 至 reach the first marker and another can 至 reach farther in 日 day light, showing an army 㬜 advance.",
+      "equation": "至 reach + 至 reach + 日 sun = 㬜 advance",
+      "mnemonic": "One arrow can 至 reach the first marker and another can 至 reach farther in light from the 日 sun, showing an army 㬜 advance.",
       "components": [
         {
           "character": "至",
@@ -5208,7 +5208,7 @@
         },
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         }
       ],
       "component_source": "resolved_ids_forward",
@@ -6923,8 +6923,8 @@
           ]
         }
       ],
-      "equation": "宀 roof + 日 day + 日 day + 金 metal = 䥌 evidence",
-      "mnemonic": "Matching weights for 金 metal under one 宀 roof on one 日 day and another 日 day provide 䥌 evidence.",
+      "equation": "宀 roof + 日 sun + 日 sun + 金 metal = 䥌 evidence",
+      "mnemonic": "Matching weights for 金 metal under one 宀 roof on one arc of the 日 sun and the next arc of the 日 sun provide 䥌 evidence.",
       "components": [
         {
           "character": "宀",
@@ -6932,11 +6932,11 @@
         },
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         },
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         },
         {
           "character": "金",
@@ -9371,8 +9371,8 @@
           ]
         }
       ],
-      "equation": "一 one + 厶 secret + 厶 secret + 一 one + 日 day = 晉 promote",
-      "mnemonic": "At sunrise, 日 day lifts 一 one bearer of an 厶 secret above 一 one bearer of another 厶 secret to 晉 promote the first.",
+      "equation": "一 one + 厶 secret + 厶 secret + 一 one + 日 sun = 晉 promote",
+      "mnemonic": "At sunrise, the 日 sun lifts 一 one bearer of an 厶 secret above 一 one bearer of another 厶 secret to 晉 promote the first.",
       "components": [
         {
           "character": "一",
@@ -9392,7 +9392,7 @@
         },
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         }
       ],
       "component_source": "resolved_ids_forward",
@@ -10488,8 +10488,8 @@
           ]
         }
       ],
-      "equation": "穴 hole + 土 earth + 日 day + 乚 turning hook + 日 day = 竃 kitchen",
-      "mnemonic": "A 竃 kitchen centers on a 穴 hole in the 土 earth, where a 乚 turning hook tends the fire 日 day after 日 day.",
+      "equation": "穴 hole + 土 earth + 日 sun + 乚 turning hook + 日 sun = 竃 kitchen",
+      "mnemonic": "A 竃 kitchen centers on a 穴 hole in the 土 earth, where a 乚 turning hook tends one fire beneath the 日 sun and then another beneath the next 日 sun.",
       "components": [
         {
           "character": "穴",
@@ -10501,7 +10501,7 @@
         },
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         },
         {
           "character": "乚",
@@ -10509,7 +10509,7 @@
         },
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         }
       ],
       "component_source": "resolved_ids_forward",
@@ -11171,8 +11171,8 @@
           ]
         }
       ],
-      "equation": "虫 insects + 日 day + 乚 turning hook + 日 day = 蝿 flies",
-      "mnemonic": "From one 日 day to the next 日 day, 虫 insects circle a 乚 turning hook in the restless flight of 蝿 flies.",
+      "equation": "虫 insects + 日 sun + 乚 turning hook + 日 sun = 蝿 flies",
+      "mnemonic": "From one return of the 日 sun to the next return of the 日 sun, 虫 insects circle a 乚 turning hook in the restless flight of 蝿 flies.",
       "components": [
         {
           "character": "虫",
@@ -11180,7 +11180,7 @@
         },
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         },
         {
           "character": "乚",
@@ -11188,7 +11188,7 @@
         },
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         }
       ],
       "component_source": "resolved_ids_forward",
@@ -12155,12 +12155,12 @@
           "evidence": "易"
         }
       ],
-      "equation": "日 day + 勿 not = 易 easy",
-      "mnemonic": "The instruction 勿 not turns a packed 日 day into an 易 easy schedule by removing needless tasks.",
+      "equation": "日 sun + 勿 not = 易 easy",
+      "mnemonic": "The instruction 勿 not turns a packed day beneath the 日 sun into an 易 easy schedule by removing needless tasks.",
       "components": [
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         },
         {
           "character": "勿",
@@ -13809,12 +13809,12 @@
           "evidence": "easy"
         }
       ],
-      "equation": "日 day + 勿 not = 易 easy",
-      "mnemonic": "A 日 day that is 勿 not harsh makes work 易 easy.",
+      "equation": "日 sun + 勿 not = 易 easy",
+      "mnemonic": "The 日 sun that is 勿 not harsh makes work 易 easy.",
       "components": [
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         },
         {
           "character": "勿",
@@ -14103,12 +14103,12 @@
           "evidence": "be"
         }
       ],
-      "equation": "日 day + 𤴓 straight foot = 是 be",
-      "mnemonic": "Throughout 日 day, a 𤴓 straight foot remains planted, continuing to 是 be.",
+      "equation": "日 sun + 𤴓 straight foot = 是 be",
+      "mnemonic": "Throughout a day beneath the 日 sun, a 𤴓 straight foot remains planted, continuing to 是 be.",
       "components": [
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         },
         {
           "character": "𤴓",
@@ -15901,8 +15901,8 @@
           "evidence": "魯"
         }
       ],
-      "equation": "魚 fish + 日 day = 魯 Lu",
-      "mnemonic": "On a bright 日 day in 魯 Lu, a market stall displays baskets of 魚 fish.",
+      "equation": "魚 fish + 日 sun = 魯 Lu",
+      "mnemonic": "Under a bright 日 sun in 魯 Lu, a market stall displays baskets of 魚 fish.",
       "components": [
         {
           "character": "魚",
@@ -15910,7 +15910,7 @@
         },
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         }
       ],
       "component_source": "variant_alias:魯",
@@ -18114,8 +18114,8 @@
           "evidence": "曆"
         }
       ],
-      "equation": "厤 calendar + 日 day = 曆 calendar",
-      "mnemonic": "An 厤 calendar assigns one square to each 日 day, just as a 曆 calendar does.",
+      "equation": "厤 calendar + 日 sun = 曆 calendar",
+      "mnemonic": "An 厤 calendar assigns one square to each return of the 日 sun, just as a 曆 calendar does.",
       "components": [
         {
           "character": "厤",
@@ -18123,7 +18123,7 @@
         },
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         }
       ],
       "component_source": "variant_alias:曆",
@@ -19730,12 +19730,12 @@
           "evidence": "暈"
         }
       ],
-      "equation": "日 day + 軍 army = 暈 dizzy",
-      "mnemonic": "A 軍 army marches in circles all 日 day inside a 暈 dizzy vision.",
+      "equation": "日 sun + 軍 army = 暈 dizzy",
+      "mnemonic": "A 軍 army marches in circles under the 日 sun all day inside a 暈 dizzy vision.",
       "components": [
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         },
         {
           "character": "軍",
@@ -21441,12 +21441,12 @@
           "evidence": "暴"
         }
       ],
-      "equation": "日 day + 共 together + 氺 water = 暴 violent",
-      "mnemonic": "All 日 day, 氺 water and debris rush 共 together in a 暴 violent torrent.",
+      "equation": "日 sun + 共 together + 氺 water = 暴 violent",
+      "mnemonic": "Under the 日 sun all day, 氺 water and debris rush 共 together in a 暴 violent torrent.",
       "components": [
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         },
         {
           "character": "共",
@@ -21702,12 +21702,12 @@
           "evidence": "晴"
         }
       ],
-      "equation": "日 day + 青 blue or green = 晴 sunny",
-      "mnemonic": "A 日 day beneath a 青 blue or green sky is 晴 sunny.",
+      "equation": "日 sun + 青 blue or green = 晴 sunny",
+      "mnemonic": "The 日 sun beneath a 青 blue or green sky is 晴 sunny.",
       "components": [
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         },
         {
           "character": "青",
@@ -22837,12 +22837,12 @@
           "evidence": "暑"
         }
       ],
-      "equation": "日 day + 者 person = 暑 summer heat",
-      "mnemonic": "A 者 person wilts through a blazing 日 day in relentless 暑 summer heat.",
+      "equation": "日 sun + 者 person = 暑 summer heat",
+      "mnemonic": "A 者 person wilts through a blazing 日 sun in relentless 暑 summer heat.",
       "components": [
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         },
         {
           "character": "者",
@@ -23525,8 +23525,8 @@
           "evidence": "者"
         }
       ],
-      "equation": "耂 old (top) + 日 day = 者 person",
-      "mnemonic": "A 者 person grows 耂 old one 日 day at a time.",
+      "equation": "耂 old (top) + 日 sun = 者 person",
+      "mnemonic": "A 者 person grows 耂 old one arc of the 日 sun at a time.",
       "components": [
         {
           "character": "耂",
@@ -23534,7 +23534,7 @@
         },
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         }
       ],
       "component_source": "variant_alias:者",
@@ -24822,12 +24822,12 @@
           "evidence": "晴"
         }
       ],
-      "equation": "日 day + 青 blue or green = 晴 sunny",
-      "mnemonic": "A 晴 sunny 日 day lights a 青 blue or green landscape without a cloud in sight.",
+      "equation": "日 sun + 青 blue or green = 晴 sunny",
+      "mnemonic": "A 晴 sunny sky lets the 日 sun light a 青 blue or green landscape without a cloud in sight.",
       "components": [
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         },
         {
           "character": "青",
@@ -25377,8 +25377,8 @@
           "evidence": "瘟"
         }
       ],
-      "equation": "疒 sickness + 日 day + 皿 dish = 瘟 pestilence",
-      "mnemonic": "A 疒 sickness spreads until every 日 day finds each 皿 dish abandoned during the 瘟 pestilence.",
+      "equation": "疒 sickness + 日 sun + 皿 dish = 瘟 pestilence",
+      "mnemonic": "A 疒 sickness spreads until every return of the 日 sun finds each 皿 dish abandoned during the 瘟 pestilence.",
       "components": [
         {
           "character": "疒",
@@ -25386,7 +25386,7 @@
         },
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         },
         {
           "character": "皿",
@@ -25700,8 +25700,8 @@
           "evidence": "者"
         }
       ],
-      "equation": "耂 old (top) + 日 day = 者 person",
-      "mnemonic": "A 耂 old 者 person has lived through many a 日 day.",
+      "equation": "耂 old (top) + 日 sun = 者 person",
+      "mnemonic": "A 耂 old 者 person has lived through many returns of the 日 sun.",
       "components": [
         {
           "character": "耂",
@@ -25709,7 +25709,7 @@
         },
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         }
       ],
       "component_source": "variant_alias:者",
@@ -31132,12 +31132,12 @@
           "evidence": "㬙"
         }
       ],
-      "equation": "日 day + 爲 handle = 㬙 sunshine",
-      "mnemonic": "At dawn, the 日 day seems to turn a golden 爲 handle, releasing 㬙 sunshine across the hills.",
+      "equation": "日 sun + 爲 handle = 㬙 sunshine",
+      "mnemonic": "At dawn, the 日 sun seems to turn a golden 爲 handle, releasing 㬙 sunshine across the hills.",
       "components": [
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         },
         {
           "character": "爲",
@@ -31161,12 +31161,12 @@
           "evidence": "暑"
         }
       ],
-      "equation": "日 day + 者 person = 暑 summer heat",
-      "mnemonic": "At midday, the 日 day bears down on every 者 person with 暑 summer heat.",
+      "equation": "日 sun + 者 person = 暑 summer heat",
+      "mnemonic": "At midday, the 日 sun bears down on every 者 person with 暑 summer heat.",
       "components": [
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         },
         {
           "character": "者",
@@ -31277,12 +31277,12 @@
           "evidence": "最"
         }
       ],
-      "equation": "日 day + 取 take = 最 most",
-      "mnemonic": "In one 日 day, whoever can 取 take the 最 most prizes ranks first.",
+      "equation": "日 sun + 取 take = 最 most",
+      "mnemonic": "In one arc of the 日 sun, whoever can 取 take the 最 most prizes ranks first.",
       "components": [
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         },
         {
           "character": "取",
@@ -32184,8 +32184,8 @@
           "evidence": "涅"
         }
       ],
-      "equation": "氵 water (drops) + 日 day + 土 earth = 涅 blacken",
-      "mnemonic": "After a 日 day, 氵 water mixed with 土 earth becomes mud that can 涅 blacken cloth.",
+      "equation": "氵 water (drops) + 日 sun + 土 earth = 涅 blacken",
+      "mnemonic": "After a day beneath the 日 sun, 氵 water mixed with 土 earth becomes mud that can 涅 blacken cloth.",
       "components": [
         {
           "character": "氵",
@@ -32193,7 +32193,7 @@
         },
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         },
         {
           "character": "土",
@@ -34400,8 +34400,8 @@
           "evidence": "者"
         }
       ],
-      "equation": "耂 old (top) + 日 day = 者 person",
-      "mnemonic": "An 耂 old face ages one 日 day at a time while belonging to the same 者 person.",
+      "equation": "耂 old (top) + 日 sun = 者 person",
+      "mnemonic": "An 耂 old face ages one arc of the 日 sun at a time while belonging to the same 者 person.",
       "components": [
         {
           "character": "耂",
@@ -34409,7 +34409,7 @@
         },
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         }
       ],
       "component_source": "variant_alias:者",
@@ -38100,12 +38100,12 @@
           "evidence": "kind of water"
         }
       ],
-      "equation": "日 day + 半 half = 㫠 kind of water",
-      "mnemonic": "A 日 day glitters across 半 half the surface of a 㫠 kind of water.",
+      "equation": "日 sun + 半 half = 㫠 kind of water",
+      "mnemonic": "The 日 sun glitters across 半 half the surface of a 㫠 kind of water.",
       "components": [
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         },
         {
           "character": "半",
@@ -38129,12 +38129,12 @@
           "evidence": "state during the Spring and Autumn period"
         }
       ],
-      "equation": "日 day + 晋 increase = 㬐 state during the Spring and Autumn period",
-      "mnemonic": "Each 日 day saw 晋 increase its territory as the 㬐 state during the Spring and Autumn period.",
+      "equation": "日 sun + 晋 increase = 㬐 state during the Spring and Autumn period",
+      "mnemonic": "With every return of the 日 sun, 晋 increase expands the 㬐 state during the Spring and Autumn period.",
       "components": [
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         },
         {
           "character": "晋",
@@ -38158,12 +38158,12 @@
           "evidence": "not"
         }
       ],
-      "equation": "日 day + 曾 formerly = 㬝 not",
-      "mnemonic": "Despite having 曾 formerly gleamed, it does 㬝 not brighten the 日 day now.",
+      "equation": "日 sun + 曾 formerly = 㬝 not",
+      "mnemonic": "Although it 曾 formerly gleamed, it does 㬝 not brighten even beneath the 日 sun now.",
       "components": [
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         },
         {
           "character": "曾",
@@ -38187,12 +38187,12 @@
           "evidence": "wet clothes not completely dry"
         }
       ],
-      "equation": "日 day + 㬎 visible = 㬤 wet clothes not completely dry",
-      "mnemonic": "After a full 日 day, 㬎 visible damp patches still mark 㬤 wet clothes not completely dry.",
+      "equation": "日 sun + 㬎 visible = 㬤 wet clothes not completely dry",
+      "mnemonic": "After a full arc of the 日 sun, 㬎 visible damp patches still mark 㬤 wet clothes not completely dry.",
       "components": [
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         },
         {
           "character": "㬎",
@@ -41945,12 +41945,12 @@
           "evidence": "be"
         }
       ],
-      "equation": "日 day + 正 correct = 昰 be",
-      "mnemonic": "A 日 day confirmed 正 correct can 昰 be the appointed date.",
+      "equation": "日 sun + 正 correct = 昰 be",
+      "mnemonic": "A date confirmed 正 correct by the position of the 日 sun can 昰 be the appointed date.",
       "components": [
         {
           "character": "日",
-          "gloss": "day"
+          "gloss": "sun"
         },
         {
           "character": "正",
@@ -45814,11 +45814,11 @@
   ],
   "gpt56_expedited_release": {
     "certification_status": "expedited_non_certified",
-    "materialized_card_projection_hash": "sha256:f3a4248d5a771f36af641b8cbe1ced9b8157a6f60e53923c049792c8a7071dd0",
+    "materialized_card_projection_hash": "sha256:e0716e12cc371525d524fb06d59110fcd2714aaf53836aabe1276f0c5f6fc4ae",
     "formal_validation": {
       "count": 24037,
       "invalid_count": 0
     },
-    "editorial_ledger_sha256": "sha256:5aab5f9df3bf36deb2606ee4c73c6159f8c6f9e3bc467e878011c5f0921ccaec"
+    "editorial_ledger_sha256": "sha256:41c1123ea84d1598f0da64ac639759730b8561014d12ff14ec350c89b3f9b64c"
   }
 }

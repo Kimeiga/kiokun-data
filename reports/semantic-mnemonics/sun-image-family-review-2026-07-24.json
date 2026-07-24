@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "review_id": "sun-image-family-review-2026-07-24",
+  "policy_version": "2026-07-24.1",
+  "reviewed_root_count": 1,
+  "changed_card_count": 340,
+  "changed_component_occurrence_count": 349,
+  "method": "Full-family deterministic conversion of the 日 component from the lexical time-unit gloss day to the concrete pictographic image sun, followed by contextual prose review.",
+  "roots": [
+    {
+      "character": "日",
+      "decision": "lexical_component_split",
+      "reason": "The independent modern meaning is day, while the reusable graphic image is the ancient sun pictograph. Using sun in compounds supplies a concrete, stable image and avoids teaching the lexical time unit as though it were the visible object.",
+      "lexical_gloss": "day",
+      "component_gloss": "sun"
+    }
+  ]
+}

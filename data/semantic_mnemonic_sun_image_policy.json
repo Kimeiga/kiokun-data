@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "policy_version": "2026-07-24.1",
+  "family": "sun-image",
+  "root_decisions": {
+    "日": {
+      "decision": "lexical_component_split",
+      "lexical_gloss": "day",
+      "component_gloss": "sun",
+      "reason": "The independent modern meaning is day, while the reusable graphic image is the ancient sun pictograph. Using sun in compounds supplies a concrete, stable image and avoids teaching the lexical time unit as though it were the visible object."
+    }
+  },
+  "expected_changed_card_count": 340,
+  "expected_component_occurrence_count": 349
+}

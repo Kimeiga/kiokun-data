@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-07-24T06:35:49.714954+00:00",
+  "created_at": "2026-07-24T06:49:00.658471+00:00",
   "count": 24037,
   "invalid_count": 0,
   "invalid": [],
@@ -761,7 +761,7 @@
   },
   "mnemonic_length": {
     "min": 34,
-    "p50": 78,
+    "p50": 79,
     "p90": 98,
     "p95": 104,
     "max": 164
@@ -1453,8 +1453,8 @@
             ]
           }
         ],
-        "equation": "糸 thread + 日 day + 乚 turning hook + 日 day = 縄 rope",
-        "mnemonic": "From one 日 day to the next 日 day, a 乚 turning hook twists 糸 thread into sturdy 縄 rope.",
+        "equation": "糸 thread + 日 sun + 乚 turning hook + 日 sun = 縄 rope",
+        "mnemonic": "From one return of the 日 sun to the next return of the 日 sun, a 乚 turning hook twists 糸 thread into sturdy 縄 rope.",
         "components": [
           {
             "character": "糸",
@@ -1462,7 +1462,7 @@
           },
           {
             "character": "日",
-            "gloss": "day"
+            "gloss": "sun"
           },
           {
             "character": "乚",
@@ -1470,7 +1470,7 @@
           },
           {
             "character": "日",
-            "gloss": "day"
+            "gloss": "sun"
           }
         ],
         "component_source": "resolved_ids_forward",
@@ -1656,11 +1656,11 @@
     "certification_status": "expedited_non_certified"
   },
   "gpt56_expedited_release": {
-    "materialized_card_projection_hash": "sha256:f3a4248d5a771f36af641b8cbe1ced9b8157a6f60e53923c049792c8a7071dd0",
+    "materialized_card_projection_hash": "sha256:e0716e12cc371525d524fb06d59110fcd2714aaf53836aabe1276f0c5f6fc4ae",
     "formal_validation": {
       "count": 24037,
       "invalid_count": 0
     },
-    "editorial_ledger_sha256": "sha256:5aab5f9df3bf36deb2606ee4c73c6159f8c6f9e3bc467e878011c5f0921ccaec"
+    "editorial_ledger_sha256": "sha256:41c1123ea84d1598f0da64ac639759730b8561014d12ff14ec350c89b3f9b64c"
   }
 }
