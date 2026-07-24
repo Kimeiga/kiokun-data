@@ -1,6 +1,6 @@
 {
-  "created_at": "2026-07-24T05:19:40.698353+00:00",
-  "artifact_created_at": "2026-07-24T05:19:38.712631+00:00",
+  "created_at": "2026-07-24T05:41:54.065920+00:00",
+  "artifact_created_at": "2026-07-24T05:41:52.456870+00:00",
   "methodology": "Formal validity and learning quality are separate. Flags are deterministic review signals; abstract meanings and variant forms are not automatically bad, while generic filler is a rewrite signal.",
   "taxonomy": {
     "generic_filler": {
@@ -2083,21 +2083,21 @@
   },
   "count": 24037,
   "quality_status_counts": {
-    "pass": 22602,
-    "review": 1406,
+    "pass": 22603,
+    "review": 1405,
     "rewrite": 29
   },
   "flag_counts": {
     "variant_form_needs_review": 832,
-    "abstract_final_meaning": 377,
+    "abstract_final_meaning": 376,
     "duplicated_component_meaning": 237,
     "opaque_component_gloss": 21,
     "unhelpful_final_gloss": 14,
     "learner_facing_weirdness": 8,
     "generic_filler": 5
   },
-  "flagged_count": 1435,
-  "ranked_count": 1435,
+  "flagged_count": 1434,
+  "ranked_count": 1434,
   "ranked": [
     {
       "character": "弾",
@@ -5341,16 +5341,16 @@
           ]
         }
       ],
-      "equation": "至 until + 至 until + 日 day = 㬜 advance",
-      "mnemonic": "From dawn 至 until noon, then noon 至 until the next 日 day, sprouting plants 㬜 advance.",
+      "equation": "至 reach + 至 reach + 日 day = 㬜 advance",
+      "mnemonic": "One arrow can 至 reach the first marker and another can 至 reach farther in 日 day light, showing an army 㬜 advance.",
       "components": [
         {
           "character": "至",
-          "gloss": "until"
+          "gloss": "reach"
         },
         {
           "character": "至",
-          "gloss": "until"
+          "gloss": "reach"
         },
         {
           "character": "日",
@@ -5591,8 +5591,8 @@
           ]
         }
       ],
-      "equation": "氵 water (drops) + 户 family + 水 water = 㴃 tears",
-      "mnemonic": "As the 户 family weeps beside flowing 水 water, drops of 氵 water become 㴃 tears on their cheeks.",
+      "equation": "氵 water (drops) + 户 door + 水 water = 㴃 tears",
+      "mnemonic": "氵 water (drops) and flowing 水 water streak down a 户 door like 㴃 tears.",
       "components": [
         {
           "character": "氵",
@@ -5600,7 +5600,7 @@
         },
         {
           "character": "户",
-          "gloss": "family"
+          "gloss": "door"
         },
         {
           "character": "水",
@@ -12653,8 +12653,8 @@
           ]
         }
       ],
-      "equation": "𢆶 threads + 𢆶 threads + 刀 sword = 𢇍 cut",
-      "mnemonic": "A 刀 sword can 𢇍 cut the upper 𢆶 threads from the lower 𢆶 threads.",
+      "equation": "𢆶 threads + 𢆶 threads + 刀 knife = 𢇍 cut",
+      "mnemonic": "A 刀 knife can 𢇍 cut the upper 𢆶 threads from the lower 𢆶 threads.",
       "components": [
         {
           "character": "𢆶",
@@ -12666,7 +12666,7 @@
         },
         {
           "character": "刀",
-          "gloss": "sword"
+          "gloss": "knife"
         }
       ],
       "component_source": "dictionary_component_fallback",
@@ -20119,8 +20119,8 @@
           "evidence": "留"
         }
       ],
-      "equation": "𠂎 bend stroke + 刀 sword + 田 rice field = 留 stay",
-      "mnemonic": "A 𠂎 bend stroke turns a 刀 sword back at the edge of the 田 rice field, forcing it to 留 stay.",
+      "equation": "𠂎 bend stroke + 刀 knife + 田 rice field = 留 stay",
+      "mnemonic": "A 𠂎 bend stroke turns a 刀 knife back at the edge of the 田 rice field, forcing it to 留 stay.",
       "components": [
         {
           "character": "𠂎",
@@ -20128,7 +20128,7 @@
         },
         {
           "character": "刀",
-          "gloss": "sword"
+          "gloss": "knife"
         },
         {
           "character": "田",
@@ -21457,8 +21457,8 @@
           "evidence": "切"
         }
       ],
-      "equation": "七 seven + 刀 sword = 切 cut",
-      "mnemonic": "A 刀 sword makes 七 seven strokes to 切 cut a thick rope.",
+      "equation": "七 seven + 刀 knife = 切 cut",
+      "mnemonic": "A 刀 knife makes 七 seven strokes to 切 cut a thick rope.",
       "components": [
         {
           "character": "七",
@@ -21466,7 +21466,7 @@
         },
         {
           "character": "刀",
-          "gloss": "sword"
+          "gloss": "knife"
         }
       ],
       "component_source": "variant_alias:切",
@@ -27274,12 +27274,12 @@
           "evidence": "刃"
         }
       ],
-      "equation": "刀 sword + 丿 slash = 刃 blade",
-      "mnemonic": "The 丿 slash marks the sharpened 刃 blade on a 刀 sword.",
+      "equation": "刀 knife + 丿 slash = 刃 blade",
+      "mnemonic": "The 丿 slash marks the sharpened 刃 blade on a 刀 knife.",
       "components": [
         {
           "character": "刀",
-          "gloss": "sword"
+          "gloss": "knife"
         },
         {
           "character": "丿",
@@ -27419,12 +27419,12 @@
           "evidence": "㔕"
         }
       ],
-      "equation": "气 steam + 力 power = 㔕 with purpose",
-      "mnemonic": "Directed 气 steam supplies 力 power that works 㔕 with purpose.",
+      "equation": "气 air + 力 power = 㔕 with purpose",
+      "mnemonic": "Directed 气 air supplies 力 power that works 㔕 with purpose.",
       "components": [
         {
           "character": "气",
-          "gloss": "steam"
+          "gloss": "air"
         },
         {
           "character": "力",
@@ -28579,8 +28579,8 @@
           "evidence": "切"
         }
       ],
-      "equation": "七 seven + 刀 sword = 切 cut",
-      "mnemonic": "A 刀 sword must 切 cut once for each of 七 seven marks.",
+      "equation": "七 seven + 刀 knife = 切 cut",
+      "mnemonic": "A 刀 knife must 切 cut once for each of 七 seven marks.",
       "components": [
         {
           "character": "七",
@@ -28588,7 +28588,7 @@
         },
         {
           "character": "刀",
-          "gloss": "sword"
+          "gloss": "knife"
         }
       ],
       "component_source": "variant_alias:切",
@@ -29544,8 +29544,8 @@
           "evidence": "峀"
         }
       ],
-      "equation": "山 mountain + 由 wherefore = 峀 peak",
-      "mnemonic": "Climbers ask 由 wherefore the 山 mountain narrows upward before reaching its 峀 peak.",
+      "equation": "山 mountain + 由 cause = 峀 peak",
+      "mnemonic": "Erosion is the 由 cause that narrows a 山 mountain upward into its 峀 peak.",
       "components": [
         {
           "character": "山",
@@ -29553,7 +29553,7 @@
         },
         {
           "character": "由",
-          "gloss": "wherefore"
+          "gloss": "cause"
         }
       ],
       "component_source": "variant_alias:峀",
@@ -39264,45 +39264,16 @@
           "evidence": "exclamation of admiration"
         }
       ],
-      "equation": "豸 worm-like invertebrate + 奇 strange = 䝝 exclamation of admiration",
-      "mnemonic": "Seeing a 奇 strange 豸 worm-like invertebrate unfurl jeweled wings draws a 䝝 exclamation of admiration.",
+      "equation": "豸 beast + 奇 strange = 䝝 exclamation of admiration",
+      "mnemonic": "The sight of a 奇 strange 豸 beast draws a 䝝 exclamation of admiration.",
       "components": [
         {
           "character": "豸",
-          "gloss": "worm-like invertebrate"
+          "gloss": "beast"
         },
         {
           "character": "奇",
           "gloss": "strange"
-        }
-      ],
-      "component_source": "resolved_ids_forward",
-      "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-    },
-    {
-      "character": "䝞",
-      "meaning": "be known as (禺號)",
-      "frequency_rank": null,
-      "quality_status": "review",
-      "quality_score": 1.5,
-      "review_priority": 1.5,
-      "flags": [
-        {
-          "code": "abstract_final_meaning",
-          "severity": 1.5,
-          "evidence": "be known as (禺號)"
-        }
-      ],
-      "equation": "豸 worm-like invertebrate + 虎 tiger = 䝞 be known as (禺號)",
-      "mnemonic": "A 豸 worm-like invertebrate disguised as a 虎 tiger comes to 䝞 be known as (禺號) wherever it crawls.",
-      "components": [
-        {
-          "character": "豸",
-          "gloss": "worm-like invertebrate"
-        },
-        {
-          "character": "虎",
-          "gloss": "tiger"
         }
       ],
       "component_source": "resolved_ids_forward",
@@ -46004,11 +45975,11 @@
   ],
   "gpt56_expedited_release": {
     "certification_status": "expedited_non_certified",
-    "materialized_card_projection_hash": "sha256:7b43f782389e590325ece64e966d60b5191e2d410ed15dd45fb6f67f7d5404a0",
+    "materialized_card_projection_hash": "sha256:661833e26c97a8ebb45d6587b5b4c135cde6027c8b0a0c67db876e8bfd460097",
     "formal_validation": {
       "count": 24037,
       "invalid_count": 0
     },
-    "editorial_ledger_sha256": "sha256:ab74fcfce69457e774035bb738c6ddf4cb48b67ebc471d11435d93a350444a25"
+    "editorial_ledger_sha256": "sha256:910eb8179c82bd13754dd6802c960495509bbe6c5e6c48fcc5318d1714f7fb99"
   }
 }

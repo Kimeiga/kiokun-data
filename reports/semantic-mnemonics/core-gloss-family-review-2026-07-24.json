@@ -1,0 +1,170 @@
+{
+  "schema_version": 1,
+  "review_id": "core-gloss-family-review-2026-07-24",
+  "policy_version": "2026-07-24.1",
+  "reviewed_root_count": 20,
+  "changed_card_count": 296,
+  "method": "Manual review of every card reached by the selected high-reuse families; unrelated audit signals were excluded.",
+  "roots": [
+    {
+      "character": "刀",
+      "decision": "restore_common_lexical_and_pictographic_gloss",
+      "reason": "刀 ordinarily means knife or saber and depicts a knife; sword incorrectly teaches the graph as 劍/剑.",
+      "lexical_gloss": "knife",
+      "component_gloss": "knife",
+      "changed_cards_with_component": 50
+    },
+    {
+      "character": "䂶",
+      "decision": "normalize_dictionary_english",
+      "reason": "Crustacean replaces the unnatural taxonomic fragment the Crustacea.",
+      "lexical_gloss": "crustacean",
+      "component_gloss": null,
+      "changed_cards_with_component": 0
+    },
+    {
+      "character": "䄂",
+      "decision": "normalize_dictionary_english",
+      "reason": "Pray and curse removes a malformed infinitive while preserving the ancient ritual sense.",
+      "lexical_gloss": "pray and curse",
+      "component_gloss": null,
+      "changed_cards_with_component": 0
+    },
+    {
+      "character": "㦾",
+      "decision": "normalize_dictionary_english",
+      "reason": "Door bolt is concise and avoids embedding the article the inside every equation and sentence.",
+      "lexical_gloss": "door bolt",
+      "component_gloss": null,
+      "changed_cards_with_component": 0
+    },
+    {
+      "character": "㧀",
+      "decision": "normalize_dictionary_english",
+      "reason": "Door bolt is concise and avoids embedding the article the inside every equation and sentence.",
+      "lexical_gloss": "door bolt",
+      "component_gloss": null,
+      "changed_cards_with_component": 0
+    },
+    {
+      "character": "气",
+      "decision": "restore_common_simplified_gloss",
+      "reason": "Air is the common modern meaning of 气 and the concrete image reused throughout its component family; steam is an older, narrower sense.",
+      "lexical_gloss": "air",
+      "component_gloss": "air",
+      "changed_cards_with_component": 47
+    },
+    {
+      "character": "户",
+      "decision": "lexical_component_split",
+      "reason": "Household is the useful modern lexical meaning, while the graph depicts a one-leaf door and functions far more clearly as door in descendants.",
+      "lexical_gloss": "household",
+      "component_gloss": "door",
+      "changed_cards_with_component": 42
+    },
+    {
+      "character": "戹",
+      "decision": "normalize_gloss_casing",
+      "reason": "In difficulty retains the meaning while removing erroneous title casing.",
+      "lexical_gloss": "in difficulty",
+      "component_gloss": null,
+      "changed_cards_with_component": 0
+    },
+    {
+      "character": "炎",
+      "decision": "preserve_lexical_restore_component_image",
+      "reason": "Inflammation remains a useful lexical target, but two fires make flames the concrete reusable image in descendants.",
+      "lexical_gloss": null,
+      "component_gloss": "flames",
+      "changed_cards_with_component": 39
+    },
+    {
+      "character": "剡",
+      "decision": "repair_duplicated_gloss",
+      "reason": "Sharp replaces the malformed target Sharp-Pointed Sharp while preserving the character's core cutting sense.",
+      "lexical_gloss": "sharp",
+      "component_gloss": null,
+      "changed_cards_with_component": 0
+    },
+    {
+      "character": "由",
+      "decision": "replace_archaic_english",
+      "reason": "Cause preserves the central source/reason sense without teaching the obsolete English word wherefore.",
+      "lexical_gloss": "cause",
+      "component_gloss": "cause",
+      "changed_cards_with_component": 44
+    },
+    {
+      "character": "庙",
+      "decision": "repair_wrong_target",
+      "reason": "Temple is the ordinary meaning of the simplified character 庙; imperial was an adjective fragment.",
+      "lexical_gloss": "temple",
+      "component_gloss": null,
+      "changed_cards_with_component": 0
+    },
+    {
+      "character": "至",
+      "decision": "restore_concrete_core_sense",
+      "reason": "Reach or arrive is the graph's concrete core meaning and yields clearer descendant mnemonics than the grammatical word until.",
+      "lexical_gloss": "reach",
+      "component_gloss": "reach",
+      "changed_cards_with_component": 39
+    },
+    {
+      "character": "氳",
+      "decision": "normalize_variant_target",
+      "reason": "Life-giving influence aligns the traditional form with 氲 and fixes inconsistent hyphenation and number.",
+      "lexical_gloss": "life-giving influence",
+      "component_gloss": null,
+      "changed_cards_with_component": 0
+    },
+    {
+      "character": "牖",
+      "decision": "repair_truncated_definition",
+      "reason": "Window restores the actual lexical meaning that had been truncated to the unrelated word lead.",
+      "lexical_gloss": "window",
+      "component_gloss": null,
+      "changed_cards_with_component": 0
+    },
+    {
+      "character": "紬",
+      "decision": "normalize_variant_target",
+      "reason": "Thread aligns 紬 with its simplified variant 䌷 and removes erroneous title casing.",
+      "lexical_gloss": "thread",
+      "component_gloss": null,
+      "changed_cards_with_component": 0
+    },
+    {
+      "character": "舮",
+      "decision": "normalize_dictionary_english",
+      "reason": "Bow of a boat is concise natural English for the same nautical sense.",
+      "lexical_gloss": "bow of a boat",
+      "component_gloss": null,
+      "changed_cards_with_component": 0
+    },
+    {
+      "character": "䝞",
+      "decision": "repair_wrong_target",
+      "reason": "Name of an immortal restores the local dictionary definition in place of an unrelated fragment.",
+      "lexical_gloss": "name of an immortal",
+      "component_gloss": null,
+      "changed_cards_with_component": 0
+    },
+    {
+      "character": "䝡",
+      "decision": "normalize_dictionary_english",
+      "reason": "Ancient animal expresses the same rare sense in clear modern English.",
+      "lexical_gloss": "ancient animal",
+      "component_gloss": null,
+      "changed_cards_with_component": 0
+    },
+    {
+      "character": "豸",
+      "decision": "restore_pictographic_component_family",
+      "reason": "The graph is an animal pictograph and heads a beast radical family; beast explains its descendants far better than worm-like invertebrate.",
+      "lexical_gloss": "beast",
+      "component_gloss": "beast",
+      "changed_cards_with_component": 37
+    }
+  ]
+}
