@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "policy_version": "2026-07-24.1",
+  "purpose": "Separate useful lexical meanings from concrete historical images in six reused component families, and restore two already-scoped roots to their lexical or component role.",
+  "lexical_glosses": {
+    "丁": "fourth",
+    "臣": "minister",
+    "單": "single",
+    "番": "turn",
+    "昜": "bright",
+    "豈": "how",
+    "交": "cross",
+    "丷": "split horns"
+  },
+  "component_glosses": {
+    "丁": "nail",
+    "臣": "watchful eye",
+    "單": "trap",
+    "番": "paw",
+    "昜": "sunlight",
+    "豈": "victory drum",
+    "交": "crossed legs",
+    "丷": "split horns"
+  },
+  "root_decisions": {
+    "丁": {
+      "decision": "lexical_component_split",
+      "reason": "Fourth is the useful modern lexical value, while the graph's nail image is concrete and recurs through the phonetic family."
+    },
+    "臣": {
+      "decision": "lexical_component_split",
+      "reason": "Minister is the useful lexical meaning; watchful eye preserves the eye pictograph already used consistently in descendants."
+    },
+    "單": {
+      "decision": "atomic_pictograph_split",
+      "reason": "Single is the common lexical meaning, while the whole graph historically depicts a hunting or military trap and should not be taught as an accidental modern-stroke decomposition."
+    },
+    "番": {
+      "decision": "atomic_pictograph_split",
+      "reason": "Turn is the useful lexical meaning, while the whole graph historically depicts an animal paw and should function as one concrete mnemonic unit."
+    },
+    "昜": {
+      "decision": "atomic_pictograph_split",
+      "reason": "Bright is the attested lexical meaning, while sunlight is the concrete whole-form image reused in descendants."
+    },
+    "豈": {
+      "decision": "atomic_pictograph_split",
+      "reason": "How is the useful lexical meaning, while the whole form depicts an upright celebratory drum associated with victory music."
+    },
+    "交": {
+      "decision": "atomic_pictograph_split",
+      "reason": "Cross is both the useful lexical sense and the action shown by the whole pictograph of a person with crossed legs."
+    },
+    "丷": {
+      "decision": "component_only_atomic",
+      "reason": "This is a component label rather than ordinary vocabulary; split horns is already the consistent concrete image in all descendants."
+    }
+  }
+}

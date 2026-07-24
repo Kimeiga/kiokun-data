@@ -1,6 +1,6 @@
 {
-  "created_at": "2026-07-24T06:00:27.593716+00:00",
-  "artifact_created_at": "2026-07-24T06:00:25.956922+00:00",
+  "created_at": "2026-07-24T06:20:12.334893+00:00",
+  "artifact_created_at": "2026-07-24T06:20:10.671057+00:00",
   "methodology": "Formal validity and learning quality are separate. Flags are deterministic review signals; abstract meanings and variant forms are not automatically bad, while generic filler is a rewrite signal.",
   "taxonomy": {
     "generic_filler": {
@@ -8812,8 +8812,8 @@
           ]
         }
       ],
-      "equation": "宀 roof + 丆 reading mark + ⺫ eye (side) + 丁 fourth = 寕 repose",
-      "mnemonic": "Under the 宀 roof, the ⺫ eye reaches the 丁 fourth 丆 reading mark and closes in 寕 repose.",
+      "equation": "宀 roof + 丆 reading mark + ⺫ eye (side) + 丁 nail = 寕 repose",
+      "mnemonic": "Beneath a 宀 roof, a 丆 reading mark and an ⺫ eye (side) settle on a fixed 丁 nail in 寕 repose.",
       "components": [
         {
           "character": "宀",
@@ -8829,7 +8829,7 @@
         },
         {
           "character": "丁",
-          "gloss": "fourth"
+          "gloss": "nail"
         }
       ],
       "component_source": "resolved_ids_forward",
@@ -13938,35 +13938,6 @@
       "generation_source": "codex_manual_quality_patch_2026_07_08"
     },
     {
-      "character": "効",
-      "meaning": "effect",
-      "frequency_rank": 664,
-      "quality_status": "review",
-      "quality_score": 1.5,
-      "review_priority": 2.874,
-      "flags": [
-        {
-          "code": "abstract_final_meaning",
-          "severity": 1.5,
-          "evidence": "effect"
-        }
-      ],
-      "equation": "交 mingle + 力 power = 効 effect",
-      "mnemonic": "When different elements 交 mingle, their combined 力 power produces a powerful 効 effect.",
-      "components": [
-        {
-          "character": "交",
-          "gloss": "mingle"
-        },
-        {
-          "character": "力",
-          "gloss": "power"
-        }
-      ],
-      "component_source": "resolved_ids_forward",
-      "generation_source": "gemini35_reviewed_1000"
-    },
-    {
       "character": "恋",
       "meaning": "be enamored of",
       "frequency_rank": 760,
@@ -17199,8 +17170,8 @@
           "evidence": "寧"
         }
       ],
-      "equation": "寍 calm base + 丁 fourth = 寧 calm",
-      "mnemonic": "A 丁 fourth note settles onto the 寍 calm base, letting the restless melody become 寧 calm.",
+      "equation": "寍 calm base + 丁 nail = 寧 calm",
+      "mnemonic": "A fixed 丁 nail under the 寍 calm base keeps everything 寧 calm.",
       "components": [
         {
           "character": "寍",
@@ -17208,7 +17179,7 @@
         },
         {
           "character": "丁",
-          "gloss": "fourth"
+          "gloss": "nail"
         }
       ],
       "component_source": "variant_alias:寧",
@@ -17307,8 +17278,8 @@
           "evidence": "磻"
         }
       ],
-      "equation": "石 stone + 番 try = 磻 tributary of the Wei river in Shanxi",
-      "mnemonic": "Follow each 石 stone and 番 try every fork to trace the 磻 tributary of the Wei river in Shanxi.",
+      "equation": "石 stone + 番 paw = 磻 tributary of the Wei river in Shanxi",
+      "mnemonic": "A 番 paw carved into a 石 stone marks the 磻 tributary of the Wei river in Shanxi.",
       "components": [
         {
           "character": "石",
@@ -17316,7 +17287,7 @@
         },
         {
           "character": "番",
-          "gloss": "try"
+          "gloss": "paw"
         }
       ],
       "component_source": "variant_alias:磻",
@@ -19213,8 +19184,8 @@
           "evidence": "寧"
         }
       ],
-      "equation": "寍 calm base + 丁 fourth = 寧 calm",
-      "mnemonic": "The 丁 fourth corner completes a square atop the 寍 calm base, and its perfect balance feels 寧 calm.",
+      "equation": "寍 calm base + 丁 nail = 寧 calm",
+      "mnemonic": "A fixed 丁 nail under the 寍 calm base keeps everything 寧 calm.",
       "components": [
         {
           "character": "寍",
@@ -19222,7 +19193,7 @@
         },
         {
           "character": "丁",
-          "gloss": "fourth"
+          "gloss": "nail"
         }
       ],
       "component_source": "variant_alias:寧",
@@ -29376,8 +29347,8 @@
           "evidence": "寧"
         }
       ],
-      "equation": "寍 calm base + 丁 fourth = 寧 calm",
-      "mnemonic": "At the 丁 fourth count, return to the 寍 calm base and become 寧 calm.",
+      "equation": "寍 calm base + 丁 nail = 寧 calm",
+      "mnemonic": "A fixed 丁 nail under the 寍 calm base keeps everything 寧 calm.",
       "components": [
         {
           "character": "寍",
@@ -29385,7 +29356,7 @@
         },
         {
           "character": "丁",
-          "gloss": "fourth"
+          "gloss": "nail"
         }
       ],
       "component_source": "variant_alias:寧",
@@ -40082,8 +40053,8 @@
           "evidence": "not sticking together"
         }
       ],
-      "equation": "黍 glutinous millet + 昜 expand = 䵘 not sticking together",
-      "mnemonic": "When 黍 glutinous millet grains 昜 expand with space between them, they stay 䵘 not sticking together.",
+      "equation": "黍 glutinous millet + 昜 sunlight = 䵘 not sticking together",
+      "mnemonic": "Dry 黍 glutinous millet in the 昜 sunlight until the grains are 䵘 not sticking together.",
       "components": [
         {
           "character": "黍",
@@ -40091,7 +40062,7 @@
         },
         {
           "character": "昜",
-          "gloss": "expand"
+          "gloss": "sunlight"
         }
       ],
       "component_source": "resolved_ids_forward",
@@ -42116,12 +42087,12 @@
           "evidence": "effect"
         }
       ],
-      "equation": "交 mingle + 攵 tap = 效 effect",
-      "mnemonic": "The 效 effect of one 攵 tap makes two colors 交 mingle across the water.",
+      "equation": "交 crossed legs + 攵 tap = 效 effect",
+      "mnemonic": "An 攵 tap on 交 crossed legs produces an immediate 效 effect.",
       "components": [
         {
           "character": "交",
-          "gloss": "mingle"
+          "gloss": "crossed legs"
         },
         {
           "character": "攵",
@@ -45389,8 +45360,8 @@
           "evidence": "display food for show only"
         }
       ],
-      "equation": "飠 food + 丁 fourth = 飣 display food for show only",
-      "mnemonic": "At the 丁 fourth course, untouched 飠 food is arranged so hosts 飣 display food for show only.",
+      "equation": "飠 food + 丁 nail = 飣 display food for show only",
+      "mnemonic": "Pin decorative 飠 food in place with a 丁 nail to 飣 display food for show only.",
       "components": [
         {
           "character": "飠",
@@ -45398,7 +45369,7 @@
         },
         {
           "character": "丁",
-          "gloss": "fourth"
+          "gloss": "nail"
         }
       ],
       "component_source": "resolved_ids_forward",
@@ -45428,6 +45399,35 @@
         {
           "character": "食",
           "gloss": "food"
+        }
+      ],
+      "component_source": "resolved_ids_forward",
+      "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
+    },
+    {
+      "character": "饤",
+      "meaning": "display food for show only",
+      "frequency_rank": null,
+      "quality_status": "review",
+      "quality_score": 1.5,
+      "review_priority": 1.5,
+      "flags": [
+        {
+          "code": "abstract_final_meaning",
+          "severity": 1.5,
+          "evidence": "display food for show only"
+        }
+      ],
+      "equation": "饣 food (side) + 丁 nail = 饤 display food for show only",
+      "mnemonic": "A 丁 nail holds 饣 food (side) in an ornamental arrangement to 饤 display food for show only.",
+      "components": [
+        {
+          "character": "饣",
+          "gloss": "food (side)"
+        },
+        {
+          "character": "丁",
+          "gloss": "nail"
         }
       ],
       "component_source": "resolved_ids_forward",
@@ -46043,11 +46043,11 @@
   ],
   "gpt56_expedited_release": {
     "certification_status": "expedited_non_certified",
-    "materialized_card_projection_hash": "sha256:6079db5271af5cfaf6cbf518f1a144516e537d2c8b5b1c63530dfce9fe75863d",
+    "materialized_card_projection_hash": "sha256:fa3697725a216215b769461edd20ae338fa2947f9e69f1fbc20d02c1ad54d5e9",
     "formal_validation": {
       "count": 24037,
       "invalid_count": 0
     },
-    "editorial_ledger_sha256": "sha256:590651d92ec902100546b4bca656b05e20886d09ce10f6f4dafc3a304b716074"
+    "editorial_ledger_sha256": "sha256:b59844197dc9c29364d614ff7f5f0657e785d05cd3e687aed9c4a6e36901967e"
   }
 }
