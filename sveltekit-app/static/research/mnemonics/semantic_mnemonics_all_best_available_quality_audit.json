@@ -1,6 +1,6 @@
 {
-  "created_at": "2026-07-24T05:41:54.065920+00:00",
-  "artifact_created_at": "2026-07-24T05:41:52.456870+00:00",
+  "created_at": "2026-07-24T06:00:27.593716+00:00",
+  "artifact_created_at": "2026-07-24T06:00:25.956922+00:00",
   "methodology": "Formal validity and learning quality are separate. Flags are deterministic review signals; abstract meanings and variant forms are not automatically bad, while generic filler is a rewrite signal.",
   "taxonomy": {
     "generic_filler": {
@@ -2083,21 +2083,21 @@
   },
   "count": 24037,
   "quality_status_counts": {
-    "pass": 22603,
-    "review": 1405,
+    "pass": 22601,
+    "review": 1407,
     "rewrite": 29
   },
   "flag_counts": {
     "variant_form_needs_review": 832,
     "abstract_final_meaning": 376,
-    "duplicated_component_meaning": 237,
+    "duplicated_component_meaning": 239,
     "opaque_component_gloss": 21,
     "unhelpful_final_gloss": 14,
     "learner_facing_weirdness": 8,
     "generic_filler": 5
   },
-  "flagged_count": 1434,
-  "ranked_count": 1434,
+  "flagged_count": 1436,
+  "ranked_count": 1436,
   "ranked": [
     {
       "character": "弾",
@@ -5523,16 +5523,16 @@
           ]
         }
       ],
-      "equation": "歹 harmful + 歹 harmful = 㱛 destroy",
-      "mnemonic": "One 歹 harmful force meets another 歹 harmful force, and together they 㱛 destroy what lies between.",
+      "equation": "歹 death + 歹 death = 㱛 destroy",
+      "mnemonic": "One 歹 death piled upon another 歹 death can only 㱛 destroy.",
       "components": [
         {
           "character": "歹",
-          "gloss": "harmful"
+          "gloss": "death"
         },
         {
           "character": "歹",
-          "gloss": "harmful"
+          "gloss": "death"
         }
       ],
       "component_source": "resolved_ids_forward",
@@ -6803,8 +6803,8 @@
           ]
         }
       ],
-      "equation": "言 speech + 刃 blade + 刃 blade + 止 stop = 䜀 insult with words",
-      "mnemonic": "A 言 speech sharpened by one 刃 blade and another 刃 blade can 止 stop goodwill when it becomes an 䜀 insult with words.",
+      "equation": "言 speech + 刃 blade + 刃 blade + 止 foot = 䜀 insult with words",
+      "mnemonic": "A 止 foot recoils as 言 speech cuts like one 刃 blade and then another 刃 blade: 䜀 insult with words.",
       "components": [
         {
           "character": "言",
@@ -6820,7 +6820,7 @@
         },
         {
           "character": "止",
-          "gloss": "stop"
+          "gloss": "foot"
         }
       ],
       "component_source": "resolved_ids_forward",
@@ -6883,8 +6883,8 @@
           ]
         }
       ],
-      "equation": "讠 speech + 刃 blade + 刃 blade + 止 stop = 䜧 insult with words",
-      "mnemonic": "讠 speech can cut like a 刃 blade upon 刃 blade; 止 stop before you 䜧 insult with words.",
+      "equation": "讠 speech + 刃 blade + 刃 blade + 止 foot = 䜧 insult with words",
+      "mnemonic": "A 止 foot recoils as 讠 speech cuts like one 刃 blade and then another 刃 blade: 䜧 insult with words.",
       "components": [
         {
           "character": "讠",
@@ -6900,7 +6900,7 @@
         },
         {
           "character": "止",
-          "gloss": "stop"
+          "gloss": "foot"
         }
       ],
       "component_source": "resolved_ids_forward",
@@ -9835,6 +9835,40 @@
       "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
     },
     {
+      "character": "歨",
+      "meaning": "step",
+      "frequency_rank": null,
+      "quality_status": "review",
+      "quality_score": 4.0,
+      "review_priority": 4.0,
+      "flags": [
+        {
+          "code": "duplicated_component_meaning",
+          "severity": 4.0,
+          "evidence": [
+            [
+              "止",
+              "龰"
+            ]
+          ]
+        }
+      ],
+      "equation": "止 foot + 龰 foot = 歨 step",
+      "mnemonic": "One 止 foot followed by another 龰 foot makes a 歨 step.",
+      "components": [
+        {
+          "character": "止",
+          "gloss": "foot"
+        },
+        {
+          "character": "龰",
+          "gloss": "foot"
+        }
+      ],
+      "component_source": "resolved_ids_forward",
+      "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
+    },
+    {
       "character": "歰",
       "meaning": "unsmooth",
       "frequency_rank": null,
@@ -11515,6 +11549,40 @@
         {
           "character": "赤",
           "gloss": "crimson"
+        }
+      ],
+      "component_source": "resolved_ids_forward",
+      "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
+    },
+    {
+      "character": "趾",
+      "meaning": "toe",
+      "frequency_rank": null,
+      "quality_status": "review",
+      "quality_score": 4.0,
+      "review_priority": 4.0,
+      "flags": [
+        {
+          "code": "duplicated_component_meaning",
+          "severity": 4.0,
+          "evidence": [
+            [
+              "𧾷",
+              "止"
+            ]
+          ]
+        }
+      ],
+      "equation": "𧾷 foot + 止 foot = 趾 toe",
+      "mnemonic": "The 止 foot at the end of a larger 𧾷 foot is a 趾 toe.",
+      "components": [
+        {
+          "character": "𧾷",
+          "gloss": "foot"
+        },
+        {
+          "character": "止",
+          "gloss": "foot"
         }
       ],
       "component_source": "resolved_ids_forward",
@@ -13340,8 +13408,8 @@
           "evidence": "correct"
         }
       ],
-      "equation": "一 one + 止 stop = 正 correct",
-      "mnemonic": "Make 一 one final check, then 止 stop when every answer is 正 correct.",
+      "equation": "一 one + 止 foot = 正 correct",
+      "mnemonic": "Keep one 一 one 止 foot squarely on the line to remain 正 correct.",
       "components": [
         {
           "character": "一",
@@ -13349,7 +13417,7 @@
         },
         {
           "character": "止",
-          "gloss": "stop"
+          "gloss": "foot"
         }
       ],
       "component_source": "resolved_ids_forward+manual_quality_override",
@@ -18304,8 +18372,8 @@
           "evidence": "歷"
         }
       ],
-      "equation": "厤 calendar + 止 stop = 歷 experience",
-      "mnemonic": "At every 止 stop to consult an 厤 calendar, reflection turns passing days into 歷 experience.",
+      "equation": "厤 calendar + 止 foot = 歷 experience",
+      "mnemonic": "A 止 foot crosses day after day on an 厤 calendar to build 歷 experience.",
       "components": [
         {
           "character": "厤",
@@ -18313,7 +18381,7 @@
         },
         {
           "character": "止",
-          "gloss": "stop"
+          "gloss": "foot"
         }
       ],
       "component_source": "variant_alias:歷",
@@ -18739,12 +18807,12 @@
           "evidence": "列"
         }
       ],
-      "equation": "歹 harmful + 刂 knife (side) = 列 line up",
-      "mnemonic": "Inspectors 列 line up every 歹 harmful 刂 knife with space between each blade.",
+      "equation": "歹 death + 刂 knife (side) = 列 line up",
+      "mnemonic": "A 刂 knife (side) makes the skeletal remains of 歹 death 列 line up.",
       "components": [
         {
           "character": "歹",
-          "gloss": "harmful"
+          "gloss": "death"
         },
         {
           "character": "刂",
@@ -19000,12 +19068,12 @@
           "evidence": "殮"
         }
       ],
-      "equation": "歹 harmful + 僉 unanimous = 殮 dress corpse for burial",
-      "mnemonic": "After a 歹 harmful fate ends a life, relatives are 僉 unanimous as they 殮 dress corpse for burial.",
+      "equation": "歹 death + 僉 unanimous = 殮 dress corpse for burial",
+      "mnemonic": "After 歹 death, let 僉 unanimous relatives gather clothes to 殮 dress corpse for burial.",
       "components": [
         {
           "character": "歹",
-          "gloss": "harmful"
+          "gloss": "death"
         },
         {
           "character": "僉",
@@ -23284,8 +23352,8 @@
           "evidence": "祉"
         }
       ],
-      "equation": "示 show + 止 stop = 祉 blessings",
-      "mnemonic": "Pause to 示 show gratitude, and 止 stop long enough to notice your 祉 blessings.",
+      "equation": "示 show + 止 foot = 祉 blessings",
+      "mnemonic": "A steady 止 foot before the altar of 示 show receives 祉 blessings.",
       "components": [
         {
           "character": "示",
@@ -23293,7 +23361,7 @@
         },
         {
           "character": "止",
-          "gloss": "stop"
+          "gloss": "foot"
         }
       ],
       "component_source": "variant_alias:祉",
@@ -25103,12 +25171,12 @@
           "evidence": "歹"
         }
       ],
-      "equation": "歹 harmful = 歹 harmful",
-      "mnemonic": "A bare-bone remnant is 歹 harmful because its broken edge remains 歹 harmful to handle.",
+      "equation": "歹 death = 歹 harmful",
+      "mnemonic": "The old form 歹 harmful is a stark image of 歹 death.",
       "components": [
         {
           "character": "歹",
-          "gloss": "harmful"
+          "gloss": "death"
         }
       ],
       "component_source": "variant_alias:歹",
@@ -32010,7 +32078,7 @@
     },
     {
       "character": "歲",
-      "meaning": "years of age",
+      "meaning": "year",
       "frequency_rank": null,
       "quality_status": "review",
       "quality_score": 2.5,
@@ -32022,12 +32090,12 @@
           "evidence": "歲"
         }
       ],
-      "equation": "止 stop + 戌 11th terrestrial branch = 歲 years of age",
-      "mnemonic": "At the 戌 11th terrestrial branch, you 止 stop to count your 歲 years of age.",
+      "equation": "止 foot + 戌 11th terrestrial branch = 歲 year",
+      "mnemonic": "A 止 foot crossing the 戌 11th terrestrial branch counts one 歲 year.",
       "components": [
         {
           "character": "止",
-          "gloss": "stop"
+          "gloss": "foot"
         },
         {
           "character": "戌",
@@ -35535,8 +35603,8 @@
           "evidence": "䕫"
         }
       ],
-      "equation": "艹 grass (top) + 止 stop + 白 white + 㔾 seal + 夂 walk = 䕫 one-legged monster",
-      "mnemonic": "A 䕫 one-legged monster resembles a 白 white 㔾 seal, hopping through 艹 grass whenever it must 夂 walk, then 止 stop.",
+      "equation": "艹 grass (top) + 止 foot + 白 white + 㔾 seal + 夂 walk = 䕫 one-legged monster",
+      "mnemonic": "The 䕫 one-legged monster hides its 止 foot under 艹 grass (top), shows a 白 white face and a 㔾 seal, then takes a 夂 walk.",
       "components": [
         {
           "character": "艹",
@@ -35544,7 +35612,7 @@
         },
         {
           "character": "止",
-          "gloss": "stop"
+          "gloss": "foot"
         },
         {
           "character": "白",
@@ -42280,12 +42348,12 @@
           "evidence": "be in great difficulty"
         }
       ],
-      "equation": "歹 harmful + 帶 sash = 殢 be in great difficulty",
-      "mnemonic": "A 帶 sash tangles around the legs; its 歹 harmful grip makes the wearer 殢 be in great difficulty.",
+      "equation": "歹 death + 帶 sash = 殢 be in great difficulty",
+      "mnemonic": "To 殢 be in great difficulty is to have a 帶 sash snag on skeletal 歹 death remains.",
       "components": [
         {
           "character": "歹",
-          "gloss": "harmful"
+          "gloss": "death"
         },
         {
           "character": "帶",
@@ -45975,11 +46043,11 @@
   ],
   "gpt56_expedited_release": {
     "certification_status": "expedited_non_certified",
-    "materialized_card_projection_hash": "sha256:661833e26c97a8ebb45d6587b5b4c135cde6027c8b0a0c67db876e8bfd460097",
+    "materialized_card_projection_hash": "sha256:6079db5271af5cfaf6cbf518f1a144516e537d2c8b5b1c63530dfce9fe75863d",
     "formal_validation": {
       "count": 24037,
       "invalid_count": 0
     },
-    "editorial_ledger_sha256": "sha256:910eb8179c82bd13754dd6802c960495509bbe6c5e6c48fcc5318d1714f7fb99"
+    "editorial_ledger_sha256": "sha256:590651d92ec902100546b4bca656b05e20886d09ce10f6f4dafc3a304b716074"
   }
 }

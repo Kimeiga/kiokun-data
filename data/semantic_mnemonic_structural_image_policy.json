@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "policy_version": "2026-07-24.1",
+  "purpose": "Separate common lexical meanings from the concrete historical images needed in the high-reuse 歹, 止, and 角 component families.",
+  "lexical_glosses": {
+    "歹": "bad",
+    "止": "stop",
+    "角": "angle"
+  },
+  "component_glosses": {
+    "歹": "death",
+    "止": "foot",
+    "角": "horn"
+  },
+  "root_decisions": {
+    "歹": {
+      "decision": "lexical_component_split",
+      "reason": "Bad is the common lexical meaning, while the graph depicts skeletal remains and death is the concrete image behind its descendant family."
+    },
+    "止": {
+      "decision": "lexical_component_split",
+      "reason": "Stop is the common lexical meaning, while the graph is a foot pictograph and foot makes movement descendants easier to remember."
+    },
+    "角": {
+      "decision": "lexical_component_split",
+      "reason": "Angle is the common lexical meaning, while the graph depicts an animal horn and horn is the concrete image reused in descendants."
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "review_id": "structural-image-family-review-2026-07-24",
+  "policy_version": "2026-07-24.1",
+  "reviewed_root_count": 3,
+  "changed_card_count": 193,
+  "method": "Manual review of every card reached by the selected lexical/component splits; no unrelated audit signal was applied.",
+  "roots": [
+    {
+      "character": "歹",
+      "decision": "lexical_component_split",
+      "reason": "Bad is the common lexical meaning, while the graph depicts skeletal remains and death is the concrete image behind its descendant family.",
+      "lexical_gloss": "bad",
+      "component_gloss": "death",
+      "changed_cards_with_component": 83
+    },
+    {
+      "character": "止",
+      "decision": "lexical_component_split",
+      "reason": "Stop is the common lexical meaning, while the graph is a foot pictograph and foot makes movement descendants easier to remember.",
+      "lexical_gloss": "stop",
+      "component_gloss": "foot",
+      "changed_cards_with_component": 54
+    },
+    {
+      "character": "角",
+      "decision": "lexical_component_split",
+      "reason": "Angle is the common lexical meaning, while the graph depicts an animal horn and horn is the concrete image reused in descendants.",
+      "lexical_gloss": "angle",
+      "component_gloss": "horn",
+      "changed_cards_with_component": 57
+    }
+  ]
+}
