@@ -1,0 +1,7165 @@
+{
+  "schema_version": 1,
+  "policy_version": "2026-07-24.1",
+  "policy_path": "data/semantic_mnemonic_altar_image_policy.json",
+  "base_projection_hash": "sha256:f6c8d5e821b81fbf611d993b8cd4e69cee2767075c0964f5f784230c608d5263",
+  "candidate_projection_hash": "sha256:7061874aa559420b1c75d77c643d578d855b1a9692221c83b1be34a38599284e",
+  "card_count": 24037,
+  "invalid_count": 0,
+  "changed_count": 124,
+  "already_applied_count": 0,
+  "old_component_occurrence_count": 125,
+  "altar_occurrence_count": 125,
+  "changed_characters": [
+    "䄅",
+    "䄟",
+    "䏡",
+    "䒬",
+    "䞸",
+    "䱈",
+    "佘",
+    "奈",
+    "宗",
+    "斎",
+    "柰",
+    "标",
+    "款",
+    "眎",
+    "示",
+    "礼",
+    "礽",
+    "社",
+    "礿",
+    "祀",
+    "祁",
+    "祂",
+    "祃",
+    "祅",
+    "祆",
+    "祇",
+    "祈",
+    "祉",
+    "祊",
+    "祎",
+    "祏",
+    "祐",
+    "祓",
+    "祔",
+    "祕",
+    "祖",
+    "祗",
+    "祘",
+    "祙",
+    "祚",
+    "祛",
+    "祜",
+    "祝",
+    "神",
+    "祟",
+    "祠",
+    "祢",
+    "祥",
+    "祦",
+    "祧",
+    "票",
+    "祫",
+    "祭",
+    "祯",
+    "祲",
+    "祷",
+    "祸",
+    "祺",
+    "祼",
+    "祿",
+    "禀",
+    "禁",
+    "禂",
+    "禄",
+    "禅",
+    "禇",
+    "禊",
+    "禋",
+    "禍",
+    "禎",
+    "福",
+    "禑",
+    "禓",
+    "禔",
+    "禕",
+    "禖",
+    "禘",
+    "禚",
+    "禛",
+    "禜",
+    "禝",
+    "禠",
+    "禡",
+    "禢",
+    "禤",
+    "禥",
+    "禦",
+    "禧",
+    "禨",
+    "禩",
+    "禪",
+    "禫",
+    "禮",
+    "禰",
+    "禱",
+    "禳",
+    "禴",
+    "視",
+    "视",
+    "际",
+    "隷",
+    "頴",
+    "颕",
+    "龒",
+    "奈",
+    "祿",
+    "禮",
+    "礼",
+    "神",
+    "祥",
+    "福",
+    "隷",
+    "社",
+    "祉",
+    "祈",
+    "祐",
+    "祖",
+    "祝",
+    "禍",
+    "禎",
+    "視",
+    "視",
+    "祖",
+    "福"
+  ],
+  "changes": [
+    {
+      "character": "䄅",
+      "base_card_hash": "sha256:f8ed08a62f7bbdca40af867f8a799914ae79d7a13d28afaeccedbdfb35dc0b16",
+      "before": {
+        "meaning": "worship",
+        "equation": "龹 raised hands + 示 show = 䄅 worship",
+        "components": [
+          {
+            "character": "龹",
+            "gloss": "raised hands"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "龹",
+            "gloss": "raised hands"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "worship",
+        "equation": "龹 raised hands + 示 altar = 䄅 worship",
+        "components": [
+          {
+            "character": "龹",
+            "gloss": "raised hands"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "龹",
+            "gloss": "raised hands"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ]
+      },
+      "before_mnemonic": "龹 raised hands 示 show devotion as people 䄅 worship.",
+      "after_mnemonic": "At a 示 altar, 龹 raised hands in reverence mark 䄅 worship.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䄟",
+      "base_card_hash": "sha256:bea6ff4eca9b54078cc5c84e36676580d1a1045cd03b98e85091678d22587ba0",
+      "before": {
+        "meaning": "worship",
+        "equation": "毳 fine hair or fur on animals + 示 show = 䄟 worship",
+        "components": [
+          {
+            "character": "毳",
+            "gloss": "fine hair or fur on animals"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "毳",
+            "gloss": "fine hair or fur on animals"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "worship",
+        "equation": "毳 fine hair or fur on animals + 示 altar = 䄟 worship",
+        "components": [
+          {
+            "character": "毳",
+            "gloss": "fine hair or fur on animals"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "毳",
+            "gloss": "fine hair or fur on animals"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ]
+      },
+      "before_mnemonic": "Kneeling in a cloak of 毳 fine hair or fur on animals, a pilgrim uses the posture to 示 show they 䄟 worship.",
+      "after_mnemonic": "A pilgrim lays a cloak of 毳 fine hair or fur on animals upon a 示 altar during 䄟 worship.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䏡",
+      "base_card_hash": "sha256:44ce6639adfdeecabb8af1736ba676e81fe6a1c6c9502e452fa4cb4767d810b7",
+      "before": {
+        "meaning": "uncooked or raw meat",
+        "equation": "⺼ meat (side) + 示 show = 䏡 uncooked or raw meat",
+        "components": [
+          {
+            "character": "⺼",
+            "gloss": "meat (side)"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⺼",
+            "gloss": "meat (side)"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "uncooked or raw meat",
+        "equation": "⺼ meat (side) + 示 altar = 䏡 uncooked or raw meat",
+        "components": [
+          {
+            "character": "⺼",
+            "gloss": "meat (side)"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⺼",
+            "gloss": "meat (side)"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ]
+      },
+      "before_mnemonic": "A clear case lets the butcher 示 show 䏡 uncooked or raw meat, keeping the ⺼ meat untouched by heat.",
+      "after_mnemonic": "Before cooking, place ⺼ meat (side) beside a 示 altar as 䏡 uncooked or raw meat.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䒬",
+      "base_card_hash": "sha256:d44c08325195c58caf9b1b083c5d01280e02a6462fb61efcbd6d051c67413f34",
+      "before": {
+        "meaning": "not",
+        "equation": "艹 grass (top) + 示 show = 䒬 not",
+        "components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "not",
+        "equation": "艹 grass (top) + 示 altar = 䒬 not",
+        "components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ]
+      },
+      "before_mnemonic": "A bare patch can 示 show that 䒬 not one blade of 艹 grass grows there.",
+      "after_mnemonic": "At a neglected 示 altar, 䒬 not one blade of 艹 grass (top) remains.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䞸",
+      "base_card_hash": "sha256:a0b1c44dadd8a6dfc99a0eb4fc73c6ca8ed2afa5aecb2344e05b2604aa07453b",
+      "before": {
+        "meaning": "reach",
+        "equation": "走 walk + 示 show + 口 mouth = 䞸 reach",
+        "components": [
+          {
+            "character": "走",
+            "gloss": "walk"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "口",
+            "gloss": "mouth"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "走",
+            "gloss": "walk"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "口",
+            "gloss": "mouth"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "reach",
+        "equation": "走 walk + 示 altar + 口 mouth = 䞸 reach",
+        "components": [
+          {
+            "character": "走",
+            "gloss": "walk"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "口",
+            "gloss": "mouth"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "走",
+            "gloss": "walk"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "口",
+            "gloss": "mouth"
+          }
+        ]
+      },
+      "before_mnemonic": "Let a speaking 口 mouth 示 show the route; 走 walk along it to 䞸 reach the speaker.",
+      "after_mnemonic": "Follow the call of a 口 mouth and 走 walk until you 䞸 reach the 示 altar.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䱈",
+      "base_card_hash": "sha256:1e6a944de8a259521916a4353eca0a8189a49b6fa45fb367ed908297da7e1ea7",
+      "before": {
+        "meaning": "fish pulp",
+        "equation": "魚 fish + 示 show = 䱈 fish pulp",
+        "components": [
+          {
+            "character": "魚",
+            "gloss": "fish"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "魚",
+            "gloss": "fish"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "fish pulp",
+        "equation": "魚 fish + 示 altar = 䱈 fish pulp",
+        "components": [
+          {
+            "character": "魚",
+            "gloss": "fish"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "魚",
+            "gloss": "fish"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ]
+      },
+      "before_mnemonic": "Mashing a 魚 fish can 示 show how firm flesh becomes 䱈 fish pulp.",
+      "after_mnemonic": "Pound 魚 fish in a bowl beside a 示 altar until it becomes 䱈 fish pulp.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "佘",
+      "base_card_hash": "sha256:f2077bd7623da4439cfbf5793160153c00e761eda390d7bfa807e9d2f5fedd0c",
+      "before": {
+        "meaning": "surname",
+        "equation": "𠆢 person roof + 示 show = 佘 surname",
+        "components": [
+          {
+            "character": "𠆢",
+            "gloss": "person roof"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𠆢",
+            "gloss": "person roof"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "surname",
+        "equation": "𠆢 person roof + 示 altar = 佘 surname",
+        "components": [
+          {
+            "character": "𠆢",
+            "gloss": "person roof"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𠆢",
+            "gloss": "person roof"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ]
+      },
+      "before_mnemonic": "Under one 𠆢 person roof, relatives 示 show they share the 佘 surname.",
+      "after_mnemonic": "Under one 𠆢 person roof, relatives honor the same 示 altar and preserve the 佘 surname.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "奈",
+      "base_card_hash": "sha256:5f6c4d87596cfaaa41b3f50c6ce5b84c8449ef4b6a81ad56bdf7570df8fc05b7",
+      "before": {
+        "meaning": "can't help but",
+        "equation": "大 big + 示 show = 奈 can't help but",
+        "components": [
+          {
+            "character": "大",
+            "gloss": "big"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "大",
+            "gloss": "big"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "can't help but",
+        "equation": "大 big + 示 altar = 奈 can't help but",
+        "components": [
+          {
+            "character": "大",
+            "gloss": "big"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "大",
+            "gloss": "big"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ]
+      },
+      "before_mnemonic": "When a 大 big sign begins to 示 show the truth, you 奈 can't help but look.",
+      "after_mnemonic": "Faced with a 大 big burden at a 示 altar, you 奈 can't help but kneel.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "宗",
+      "base_card_hash": "sha256:ec561fa35f92291f8762dd904e314ca10f6adcdcf88e92697bdf22c94de07ce3",
+      "before": {
+        "meaning": "religion",
+        "equation": "宀 roof + 示 show = 宗 religion",
+        "components": [
+          {
+            "character": "宀",
+            "gloss": "roof"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "宀",
+            "gloss": "roof"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "religion",
+        "equation": "宀 roof + 示 altar = 宗 religion",
+        "components": [
+          {
+            "character": "宀",
+            "gloss": "roof"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "宀",
+            "gloss": "roof"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ]
+      },
+      "before_mnemonic": "Under a 宀 roof, rituals 示 show how a community practices its 宗 religion.",
+      "after_mnemonic": "A 宀 roof sheltering a 示 altar forms an ancestral shrine, the root of 宗 religion.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "斎",
+      "base_card_hash": "sha256:d51479da20b3c665ee5a9d3caa6b611ef9f6dfb2b894cf4cf9d820d14d6b5629",
+      "before": {
+        "meaning": "abstain from food",
+        "equation": "齐 equal + 示 show = 斎 abstain from food",
+        "components": [
+          {
+            "character": "齐",
+            "gloss": "equal"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "齐",
+            "gloss": "equal"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "abstain from food",
+        "equation": "齐 equal + 示 altar = 斎 abstain from food",
+        "components": [
+          {
+            "character": "齐",
+            "gloss": "equal"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "齐",
+            "gloss": "equal"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ]
+      },
+      "before_mnemonic": "齐 equal rows of untouched bowls 示 show that everyone will 斎 abstain from food.",
+      "after_mnemonic": "齐 equal rows of untouched bowls before a 示 altar mark the vow to 斎 abstain from food.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "柰",
+      "base_card_hash": "sha256:3a2c8ae1e4ed54e38a7ba729f505d9be3652da4e105f082a3410889285721e79",
+      "before": {
+        "meaning": "crab-apple tree",
+        "equation": "木 tree + 示 show = 柰 crab-apple tree",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "crab-apple tree",
+        "equation": "木 tree + 示 altar = 柰 crab-apple tree",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ]
+      },
+      "before_mnemonic": "A 木 tree can 示 show tiny apple-like fruit when it is a 柰 crab-apple tree.",
+      "after_mnemonic": "A 木 tree beside a 示 altar bears the small fruit of a 柰 crab-apple tree.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "标",
+      "base_card_hash": "sha256:00994e12c638e5c07316d150b8b7630818dec99404d71dd6cb960aa599ac846f",
+      "before": {
+        "meaning": "mark",
+        "equation": "木 tree + 示 show = 标 mark",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "mark",
+        "equation": "木 tree + 示 altar = 标 mark",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ]
+      },
+      "before_mnemonic": "A 木 tree can 示 show the correct trail when its bark bears a 标 mark.",
+      "after_mnemonic": "A notch on a 木 tree beside the 示 altar serves as a 标 mark.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "款",
+      "base_card_hash": "sha256:cbd8ed40a12fb287fa69770b3630af52454946216d06af4b97eb252960a1a74c",
+      "before": {
+        "meaning": "funds",
+        "equation": "士 soldier + 示 show + 欠 yawn = 款 funds",
+        "components": [
+          {
+            "character": "士",
+            "gloss": "soldier"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "士",
+            "gloss": "soldier"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "funds",
+        "equation": "士 soldier + 示 altar + 欠 yawn = 款 funds",
+        "components": [
+          {
+            "character": "士",
+            "gloss": "soldier"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "士",
+            "gloss": "soldier"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A 士 soldier stifles a 欠 yawn and must 示 show the supply ledger before requesting 款 funds.",
+      "after_mnemonic": "A 士 soldier stifles a 欠 yawn and lays the supply ledger on a 示 altar before requesting 款 funds.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "眎",
+      "base_card_hash": "sha256:4abe8128b63a9349114f5adf35ac6de954533147f62ad0aba00d07264c356df8",
+      "before": {
+        "meaning": "look at",
+        "equation": "目 eye + 示 show = 眎 look at",
+        "components": [
+          {
+            "character": "目",
+            "gloss": "eye"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "目",
+            "gloss": "eye"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "look at",
+        "equation": "目 eye + 示 altar = 眎 look at",
+        "components": [
+          {
+            "character": "目",
+            "gloss": "eye"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "目",
+            "gloss": "eye"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ]
+      },
+      "before_mnemonic": "A display can 示 show a scene for the 目 eye to 眎 look at.",
+      "after_mnemonic": "Turn the 目 eye toward the offerings on a 示 altar to 眎 look at them.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "示",
+      "base_card_hash": "sha256:b52ccac1d3d643bf8de0a70e231ca4bfa9880dd9698b45c61eca7caea06cfe98",
+      "before": {
+        "meaning": "show",
+        "equation": "Visual form: 示 show",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "show",
+        "equation": "Visual form: 示 altar; meaning 示 show",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ]
+      },
+      "before_mnemonic": "A memorial tablet is raised to 示 show the ancestors what was offered.",
+      "after_mnemonic": "The old pictograph is a 示 altar displaying offerings; what it presents is there to 示 show.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "礼",
+      "base_card_hash": "sha256:0db6643ffcf8fc9f146fc3db28eff852509996cf987dc65ecd537b6e6f2116a4",
+      "before": {
+        "meaning": "ceremony",
+        "equation": "示 show + 乚 turning hook = 礼 ceremony",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "乚",
+            "gloss": "turning hook"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "乚",
+            "gloss": "turning hook"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "ceremony",
+        "equation": "示 altar + 乚 turning hook = 礼 ceremony",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "乚",
+            "gloss": "turning hook"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "乚",
+            "gloss": "turning hook"
+          }
+        ]
+      },
+      "before_mnemonic": "A 乚 turning hook cues the formal bow people 示 show to open the 礼 ceremony.",
+      "after_mnemonic": "A 乚 turning hook catches the ceremonial ribbon tied to a 示 altar for a 礼 ceremony.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "礽",
+      "base_card_hash": "sha256:70db39273b6eb8e2f0ffac4b7aa3886c6285978b534ab700de278ccc29def574",
+      "before": {
+        "meaning": "blessings",
+        "equation": "示 show + 乃 only then = 礽 blessings",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "乃",
+            "gloss": "only then"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "乃",
+            "gloss": "only then"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "blessings",
+        "equation": "示 altar + 乃 only then = 礽 blessings",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "乃",
+            "gloss": "only then"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "乃",
+            "gloss": "only then"
+          }
+        ]
+      },
+      "before_mnemonic": "Fresh shoots 示 show that rain has returned, and 乃 only then do the fields reveal their 礽 blessings.",
+      "after_mnemonic": "Place the first harvest on a 示 altar, and 乃 only then ask for 礽 blessings.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "社",
+      "base_card_hash": "sha256:35561b240e9c112a53a3ff17aa7808264dac99a4bfd8afbfdaf34124f8279e65",
+      "before": {
+        "meaning": "company",
+        "equation": "示 show + 土 earth = 社 company",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "土",
+            "gloss": "earth"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "土",
+            "gloss": "earth"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "company",
+        "equation": "示 altar + 土 earth = 社 company",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "土",
+            "gloss": "earth"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "土",
+            "gloss": "earth"
+          }
+        ]
+      },
+      "before_mnemonic": "Employees can 示 show how their 社 company turns 土 earth into bricks.",
+      "after_mnemonic": "A 示 altar planted in 土 earth was a community shrine; that community sense grew into 社 company.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "礿",
+      "base_card_hash": "sha256:225505dc08327f6f83366d760a9661981f5b4ae34f421e592568223a6814aef9",
+      "before": {
+        "meaning": "sacrifice (alt)",
+        "equation": "示 show + 勺 ladle = 礿 sacrifice (alt)",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "勺",
+            "gloss": "ladle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "勺",
+            "gloss": "ladle"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sacrifice (alt)",
+        "equation": "示 altar + 勺 ladle = 礿 sacrifice (alt)",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "勺",
+            "gloss": "ladle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "勺",
+            "gloss": "ladle"
+          }
+        ]
+      },
+      "before_mnemonic": "At the spring 礿 sacrifice, a raised 勺 ladle can 示 show the offering.",
+      "after_mnemonic": "A 勺 ladle pours an offering over a 示 altar during a 礿 sacrifice (alt).",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祀",
+      "base_card_hash": "sha256:fab91145c9a42ac70603867c08c9846f92b7795f9c70dde2a0fb9d395a5097dd",
+      "before": {
+        "meaning": "sacrifice",
+        "equation": "示 show + 巳 the hours from 9 to 11 = 祀 sacrifice",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "巳",
+            "gloss": "the hours from 9 to 11"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "巳",
+            "gloss": "the hours from 9 to 11"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sacrifice",
+        "equation": "示 altar + 巳 the hours from 9 to 11 = 祀 sacrifice",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "巳",
+            "gloss": "the hours from 9 to 11"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "巳",
+            "gloss": "the hours from 9 to 11"
+          }
+        ]
+      },
+      "before_mnemonic": "During 巳 the hours from 9 to 11, priests 示 show the offering they will 祀 sacrifice.",
+      "after_mnemonic": "At a 示 altar during 巳 the hours from 9 to 11, priests prepare a 祀 sacrifice.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祁",
+      "base_card_hash": "sha256:c88d4ba3719fd24edd4a76c32d31c1ed1d8d4dbc168745eaa691760132d5b922",
+      "before": {
+        "meaning": "numerous",
+        "equation": "示 show + ⻏ city (right) = 祁 numerous",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "⻏",
+            "gloss": "city (right)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "⻏",
+            "gloss": "city (right)"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "numerous",
+        "equation": "示 altar + ⻏ city (right) = 祁 numerous",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "⻏",
+            "gloss": "city (right)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "⻏",
+            "gloss": "city (right)"
+          }
+        ]
+      },
+      "before_mnemonic": "A ⻏ city mounts a giant 示 show because its 祁 numerous residents cannot fit on one stage.",
+      "after_mnemonic": "A ⻏ city needs 祁 numerous offerings to fill its great 示 altar.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祂",
+      "base_card_hash": "sha256:2fc6d9f6143ed8027d88ccd763d4de0b7505916312833f511c9aac8b00b8e681",
+      "before": {
+        "meaning": "honorific",
+        "equation": "示 show + 也 also = 祂 honorific",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "也",
+            "gloss": "also"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "也",
+            "gloss": "also"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "honorific",
+        "equation": "示 altar + 也 also = 祂 honorific",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "也",
+            "gloss": "also"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "也",
+            "gloss": "also"
+          }
+        ]
+      },
+      "before_mnemonic": "When listing pronouns, 也 also include the 祂 honorific to 示 show reverence toward the divine.",
+      "after_mnemonic": "The 祂 honorific stands beside a 示 altar; 也 also reserve it for the divine.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祃",
+      "base_card_hash": "sha256:29ec2cc05618129b97fffc0742bdad935645377cc49f0db8ead9ae0cfe06a710",
+      "before": {
+        "meaning": "sacrifice",
+        "equation": "示 show + 马 horse = 祃 sacrifice",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "马",
+            "gloss": "horse"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "马",
+            "gloss": "horse"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "military-camp sacrifice",
+        "equation": "示 altar + 马 horse = 祃 military-camp sacrifice",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "马",
+            "gloss": "horse"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "马",
+            "gloss": "horse"
+          }
+        ]
+      },
+      "before_mnemonic": "Before a campaign, soldiers 示 show reverence beside a 马 horse while conducting a 祃 sacrifice.",
+      "after_mnemonic": "Before a campaign, soldiers lead a 马 horse to a 示 altar for a 祃 military-camp sacrifice.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祅",
+      "base_card_hash": "sha256:4cdc937ce8cac94a467ce42f3eddee43d2d9af56de3bf2785a95a945b500a299",
+      "before": {
+        "meaning": "calamities",
+        "equation": "示 show + 夭 die young = 祅 calamities",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "夭",
+            "gloss": "die young"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "夭",
+            "gloss": "die young"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "calamities",
+        "equation": "示 altar + 夭 die young = 祅 calamities",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "夭",
+            "gloss": "die young"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "夭",
+            "gloss": "die young"
+          }
+        ]
+      },
+      "before_mnemonic": "Events that 示 show people 夭 die young are 祅 calamities.",
+      "after_mnemonic": "A dark omen at a 示 altar foretells 祅 calamities in which people may 夭 die young.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祆",
+      "base_card_hash": "sha256:aa5c347fa7ae66ef38cf4f7aafbf9be5ed2bb89af358a26a21f3fcb34a31eff3",
+      "before": {
+        "meaning": "Ormazda",
+        "equation": "示 show + 天 heaven = 祆 Ormazda",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "天",
+            "gloss": "heaven"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "天",
+            "gloss": "heaven"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "Ormazda",
+        "equation": "示 altar + 天 heaven = 祆 Ormazda",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "天",
+            "gloss": "heaven"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "天",
+            "gloss": "heaven"
+          }
+        ]
+      },
+      "before_mnemonic": "In Zoroastrian worship, sacred fire can 示 show the light of 天 heaven associated with 祆 Ormazda.",
+      "after_mnemonic": "A flame on a 示 altar reaches toward 天 heaven in worship of 祆 Ormazda.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祇",
+      "base_card_hash": "sha256:8fc2b7c94d6ccbac2fa6bc2821e8037108954c85ca3002d83b4e74f3305c35d8",
+      "before": {
+        "meaning": "the spirit of the earth",
+        "equation": "示 show + 氏 clan = 祇 the spirit of the earth",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "氏",
+            "gloss": "clan"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "氏",
+            "gloss": "clan"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "the spirit of the earth",
+        "equation": "示 altar + 氏 clan = 祇 the spirit of the earth",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "氏",
+            "gloss": "clan"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "氏",
+            "gloss": "clan"
+          }
+        ]
+      },
+      "before_mnemonic": "A 氏 clan kneels on ancestral soil to 示 show reverence for 祇 the spirit of the earth.",
+      "after_mnemonic": "A 氏 clan kneels on ancestral soil before a 示 altar dedicated to 祇 the spirit of the earth.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祈",
+      "base_card_hash": "sha256:c93dd74f523c97fc377b62070362d108fd7f64631efa95128cfc43a20ee130d0",
+      "before": {
+        "meaning": "supplicate",
+        "equation": "示 show + 斤 axe = 祈 supplicate",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "斤",
+            "gloss": "axe"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "斤",
+            "gloss": "axe"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "supplicate",
+        "equation": "示 altar + 斤 axe = 祈 supplicate",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "斤",
+            "gloss": "axe"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "斤",
+            "gloss": "axe"
+          }
+        ]
+      },
+      "before_mnemonic": "Lay down a 斤 axe to 示 show humility when you 祈 supplicate.",
+      "after_mnemonic": "Lay down the 斤 axe before the 示 altar when you 祈 supplicate.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祉",
+      "base_card_hash": "sha256:490bf329710793a9319878099fd60bc21d8edc53ccd47cc3e155bb5e23027fad",
+      "before": {
+        "meaning": "blessings",
+        "equation": "示 show + 止 foot = 祉 blessings",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "止",
+            "gloss": "foot"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "止",
+            "gloss": "foot"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "blessings",
+        "equation": "示 altar + 止 foot = 祉 blessings",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "止",
+            "gloss": "foot"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "止",
+            "gloss": "foot"
+          }
+        ]
+      },
+      "before_mnemonic": "At the altar of 示 show, a steady 止 foot receives 祉 blessings.",
+      "after_mnemonic": "A steady 止 foot approaches the 示 altar to receive 祉 blessings.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祊",
+      "base_card_hash": "sha256:0a82369870832d99d3e157c1311037fe85f347341fcae12ecf922643957ae9c9",
+      "before": {
+        "meaning": "river in Shandong",
+        "equation": "示 show + 方 direction = 祊 river in Shandong",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "方",
+            "gloss": "direction"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "方",
+            "gloss": "direction"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "river in Shandong",
+        "equation": "示 altar + 方 direction = 祊 river in Shandong",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "方",
+            "gloss": "direction"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "方",
+            "gloss": "direction"
+          }
+        ]
+      },
+      "before_mnemonic": "A map’s blue line can 示 show the 方 direction taken by the 祊 river in Shandong.",
+      "after_mnemonic": "A shrine map beside a 示 altar marks the 方 direction of the 祊 river in Shandong.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祎",
+      "base_card_hash": "sha256:97969647d5c6a86d36ba0f8e51ea775510ecff1544c96008a65fccfb51247489",
+      "before": {
+        "meaning": "excellent",
+        "equation": "示 show + 韦 tanned leather = 祎 excellent",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "韦",
+            "gloss": "tanned leather"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "韦",
+            "gloss": "tanned leather"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "excellent",
+        "equation": "示 altar + 韦 tanned leather = 祎 excellent",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "韦",
+            "gloss": "tanned leather"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "韦",
+            "gloss": "tanned leather"
+          }
+        ]
+      },
+      "before_mnemonic": "An even finish and supple strength 示 show why 韦 tanned leather is 祎 excellent.",
+      "after_mnemonic": "Offer finely worked 韦 tanned leather at a 示 altar because it is 祎 excellent.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祏",
+      "base_card_hash": "sha256:a2598034cdf38bee529d8e126c7451e8c587e848cb0c6dc445c3d3b9ddee79f0",
+      "before": {
+        "meaning": "shrine",
+        "equation": "示 show + 石 stone = 祏 shrine",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "石",
+            "gloss": "stone"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "石",
+            "gloss": "stone"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "shrine",
+        "equation": "示 altar + 石 stone = 祏 shrine",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "石",
+            "gloss": "stone"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "石",
+            "gloss": "stone"
+          }
+        ]
+      },
+      "before_mnemonic": "A 石 stone set out to 示 show ancestral reverence stands within a 祏 shrine.",
+      "after_mnemonic": "A 石 stone memorial tablet set beside a 示 altar stands within a 祏 shrine.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祐",
+      "base_card_hash": "sha256:e51a8c98805ace23cf1844783bae75a71fbc941dc6598f6c012349ecec26cd34",
+      "before": {
+        "meaning": "divine intervention",
+        "equation": "示 show + 右 right = 祐 divine intervention",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "右",
+            "gloss": "right"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "右",
+            "gloss": "right"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "divine intervention",
+        "equation": "示 altar + 右 right = 祐 divine intervention",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "右",
+            "gloss": "right"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "右",
+            "gloss": "right"
+          }
+        ]
+      },
+      "before_mnemonic": "Events that 示 show an inexplicable turn 右 right are credited to 祐 divine intervention.",
+      "after_mnemonic": "When help arrives from the 右 right of a 示 altar, worshippers call it 祐 divine intervention.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祓",
+      "base_card_hash": "sha256:97f39fc9394954170d8739a9619c0df9c6d4059add9dd6f792a32cde65f6e11d",
+      "before": {
+        "meaning": "exorcise",
+        "equation": "示 show + 犮 pull up = 祓 exorcise",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "犮",
+            "gloss": "pull up"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "犮",
+            "gloss": "pull up"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "exorcise",
+        "equation": "示 altar + 犮 pull up = 祓 exorcise",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "犮",
+            "gloss": "pull up"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "犮",
+            "gloss": "pull up"
+          }
+        ]
+      },
+      "before_mnemonic": "To 祓 exorcise a spirit, 示 show it the doorway and 犮 pull up the temple curtain behind it.",
+      "after_mnemonic": "To 祓 exorcise a spirit, 犮 pull up the curtain and drive it away from the 示 altar.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祔",
+      "base_card_hash": "sha256:6ec64763ac058a6aba96a14b9db7782f38a6828bf0612511aa80d8aaa9b3eff5",
+      "before": {
+        "meaning": "worship one's ancestors",
+        "equation": "示 show + 付 pay = 祔 worship one's ancestors",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "付",
+            "gloss": "pay"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "付",
+            "gloss": "pay"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "worship one's ancestors",
+        "equation": "示 altar + 付 pay = 祔 worship one's ancestors",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "付",
+            "gloss": "pay"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "付",
+            "gloss": "pay"
+          }
+        ]
+      },
+      "before_mnemonic": "To 祔 worship one's ancestors, 示 show respect and 付 pay tribute at an ancestral shrine.",
+      "after_mnemonic": "To 祔 worship one's ancestors, 付 pay tribute with offerings at a 示 altar.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祕",
+      "base_card_hash": "sha256:0a35c9bf84c73e6bbfa1de355ec05e45a52aefbdf36f9ed3c429fb6a034a3308",
+      "before": {
+        "meaning": "confidential",
+        "equation": "示 show + 必 certainly = 祕 confidential",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "必",
+            "gloss": "certainly"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "必",
+            "gloss": "certainly"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "confidential",
+        "equation": "示 altar + 必 certainly = 祕 confidential",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "必",
+            "gloss": "certainly"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "必",
+            "gloss": "certainly"
+          }
+        ]
+      },
+      "before_mnemonic": "A 祕 confidential file is one you must 必 certainly never 示 show without permission.",
+      "after_mnemonic": "A vow before a 示 altar is 必 certainly kept 祕 confidential.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祖",
+      "base_card_hash": "sha256:f484fa7d8553b28cdb23582b2670719009cfed9e484e3527811331dcaeed3814",
+      "before": {
+        "meaning": "ancestor",
+        "equation": "示 show + 且 moreover = 祖 ancestor",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "且",
+            "gloss": "moreover"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "且",
+            "gloss": "moreover"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "ancestor",
+        "equation": "示 altar + 且 moreover = 祖 ancestor",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "且",
+            "gloss": "moreover"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "且",
+            "gloss": "moreover"
+          }
+        ]
+      },
+      "before_mnemonic": "To honor a 祖 ancestor, 示 show the oldest family portrait and 且 moreover preserve the story behind it.",
+      "after_mnemonic": "A memorial tablet on a 示 altar honors a 祖 ancestor, and 且 moreover preserves the family story.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祗",
+      "base_card_hash": "sha256:fcf2e5c7a410f82208b1de44aa0a117e9c8410b626ad097d1e8cf8d0b2e42ab2",
+      "before": {
+        "meaning": "respect",
+        "equation": "示 show + 氐 bottom = 祗 respect",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "氐",
+            "gloss": "bottom"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "氐",
+            "gloss": "bottom"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "respect",
+        "equation": "示 altar + 氐 bottom = 祗 respect",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "氐",
+            "gloss": "bottom"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "氐",
+            "gloss": "bottom"
+          }
+        ]
+      },
+      "before_mnemonic": "A deep bow toward the 氐 bottom can 示 show 祗 respect.",
+      "after_mnemonic": "Bow toward the 氐 bottom before a 示 altar to express 祗 respect.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祘",
+      "base_card_hash": "sha256:be68687fbd4586881e9b45ae40371efc53b4226332fb1de5c790c7cd52c5c4f8",
+      "before": {
+        "meaning": "calculate",
+        "equation": "示 show + 示 show = 祘 calculate",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "calculate",
+        "equation": "示 altar + 示 altar = 祘 calculate",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ]
+      },
+      "before_mnemonic": "First, 示 show one tally; then 示 show another so the clerk can 祘 calculate the total.",
+      "after_mnemonic": "Count one offering on a 示 altar and then another 示 altar to 祘 calculate the total.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祙",
+      "base_card_hash": "sha256:0dbaf53db8aed3f4bbc73acb77885467162972cab65942e164a07ceb66979f8a",
+      "before": {
+        "meaning": "demon",
+        "equation": "示 show + 未 not yet = 祙 demon",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "未",
+            "gloss": "not yet"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "未",
+            "gloss": "not yet"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "demon",
+        "equation": "示 altar + 未 not yet = 祙 demon",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "未",
+            "gloss": "not yet"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "未",
+            "gloss": "not yet"
+          }
+        ]
+      },
+      "before_mnemonic": "A ritual can 示 show the horned silhouette of a 祙 demon that has 未 not yet appeared.",
+      "after_mnemonic": "At the 示 altar, a shadow that has 未 not yet taken form appears as a 祙 demon.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祚",
+      "base_card_hash": "sha256:bf3b283afe055b6247039e7e2fad880151784745efa5975867899b487faa051c",
+      "before": {
+        "meaning": "throne",
+        "equation": "示 show + 乍 for the first time = 祚 throne",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "乍",
+            "gloss": "for the first time"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "乍",
+            "gloss": "for the first time"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "throne",
+        "equation": "示 altar + 乍 for the first time = 祚 throne",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "乍",
+            "gloss": "for the first time"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "乍",
+            "gloss": "for the first time"
+          }
+        ]
+      },
+      "before_mnemonic": "The new ruler must 示 show themself 乍 for the first time before taking the 祚 throne.",
+      "after_mnemonic": "A ruler appears 乍 for the first time before the 示 altar, then takes the 祚 throne.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祛",
+      "base_card_hash": "sha256:990992aa2a02d20f0b928b7fe72a2d64c6b2c862e198c852b5417a3c44a9b88a",
+      "before": {
+        "meaning": "disperse",
+        "equation": "示 show + 去 go = 祛 disperse",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "去",
+            "gloss": "go"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "去",
+            "gloss": "go"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "disperse",
+        "equation": "示 altar + 去 go = 祛 disperse",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "去",
+            "gloss": "go"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "去",
+            "gloss": "go"
+          }
+        ]
+      },
+      "before_mnemonic": "示 show the crowd where to 去 go, and people begin to 祛 disperse.",
+      "after_mnemonic": "Carry the 示 altar outside and let every clinging spirit 去 go to 祛 disperse it.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祜",
+      "base_card_hash": "sha256:458d0e6be762ef45b6aa820bddf19f865e0c0878d803d079d283c006630d920b",
+      "before": {
+        "meaning": "blessing",
+        "equation": "示 show + 古 old = 祜 blessing",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "古",
+            "gloss": "old"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "古",
+            "gloss": "old"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "blessing",
+        "equation": "示 altar + 古 old = 祜 blessing",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "古",
+            "gloss": "old"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "古",
+            "gloss": "old"
+          }
+        ]
+      },
+      "before_mnemonic": "A 示 show of thanks for an 古 old kindness invites a 祜 blessing.",
+      "after_mnemonic": "An 古 old offering preserved on a 示 altar recalls a lasting 祜 blessing.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祝",
+      "base_card_hash": "sha256:89df9be7b408b1445811368093bcebe448d34f9ce91fb94a9215cb4463743672",
+      "before": {
+        "meaning": "wish well",
+        "equation": "示 show + 兄 elder brother = 祝 wish well",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "兄",
+            "gloss": "elder brother"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "兄",
+            "gloss": "elder brother"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "wish well",
+        "equation": "示 altar + 兄 elder brother = 祝 wish well",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "兄",
+            "gloss": "elder brother"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "兄",
+            "gloss": "elder brother"
+          }
+        ]
+      },
+      "before_mnemonic": "To 祝 wish well, 示 show your 兄 elder brother affection with a warm toast.",
+      "after_mnemonic": "At a 示 altar, raise a warm toast to 祝 wish well for an 兄 elder brother.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "神",
+      "base_card_hash": "sha256:d7ee4a3a78511abeecbe9944062ed0e82836dc7ca8bf3ce345e0982df17545c2",
+      "before": {
+        "meaning": "gods",
+        "equation": "示 show + 申 express = 神 gods",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "申",
+            "gloss": "express"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "申",
+            "gloss": "express"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "gods",
+        "equation": "示 altar + 申 express = 神 gods",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "申",
+            "gloss": "express"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "申",
+            "gloss": "express"
+          }
+        ]
+      },
+      "before_mnemonic": "Through omens, 神 gods 申 express their will and 示 show mortals what to heed.",
+      "after_mnemonic": "At a 示 altar, 神 gods 申 express their will through omens.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祟",
+      "base_card_hash": "sha256:77fd875023118942f2cb8cc3430697da4d5f048cb7e6253e921925232ac6e820",
+      "before": {
+        "meaning": "harmful spirit",
+        "equation": "出 exit + 示 show = 祟 harmful spirit",
+        "components": [
+          {
+            "character": "出",
+            "gloss": "exit"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "出",
+            "gloss": "exit"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "harmful spirit",
+        "equation": "出 exit + 示 altar = 祟 harmful spirit",
+        "components": [
+          {
+            "character": "出",
+            "gloss": "exit"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "出",
+            "gloss": "exit"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ]
+      },
+      "before_mnemonic": "When something unseen tries to 出 exit a sealed shrine, its scratches 示 show a 祟 harmful spirit.",
+      "after_mnemonic": "When something tries to 出 exit a sealed 示 altar, its scratches betray a 祟 harmful spirit.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祠",
+      "base_card_hash": "sha256:0d360289b5a3a026ad18b6cf76a8e8b9e579e96d5ac9750f0653b763dcc60b38",
+      "before": {
+        "meaning": "ancestral temple",
+        "equation": "示 show + 司 take charge = 祠 ancestral temple",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "司",
+            "gloss": "take charge"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "司",
+            "gloss": "take charge"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "ancestral temple",
+        "equation": "示 altar + 司 take charge = 祠 ancestral temple",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "司",
+            "gloss": "take charge"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "司",
+            "gloss": "take charge"
+          }
+        ]
+      },
+      "before_mnemonic": "At a 祠 ancestral temple, memorial tablets 示 show whose rites the caretaker must 司 take charge of.",
+      "after_mnemonic": "A caretaker must 司 take charge of the ancestral tablets on the 示 altar in a 祠 ancestral temple.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祢",
+      "base_card_hash": "sha256:5e29d6b9679164745be301f21753f5d32b7ba29bb4b375c939a10fb4a3b38a56",
+      "before": {
+        "meaning": "one's deceased father",
+        "equation": "示 show + 尔 those = 祢 one's deceased father",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "尔",
+            "gloss": "those"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "尔",
+            "gloss": "those"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "one's deceased father",
+        "equation": "示 altar + 尔 those = 祢 one's deceased father",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "尔",
+            "gloss": "those"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "尔",
+            "gloss": "those"
+          }
+        ]
+      },
+      "before_mnemonic": "At his memorial tablet, a son points to 尔 those flowers to 示 show devotion to 祢 one's deceased father.",
+      "after_mnemonic": "At a 示 altar, a son points to 尔 those flowers while honoring 祢 one's deceased father.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祥",
+      "base_card_hash": "sha256:761c48879c59de41b2567e57cb3ecd6901bdf2a20e3415652981d0f8b4fd4c22",
+      "before": {
+        "meaning": "propitious",
+        "equation": "示 show + 羊 sheep = 祥 propitious",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "羊",
+            "gloss": "sheep"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "羊",
+            "gloss": "sheep"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "propitious",
+        "equation": "示 altar + 羊 sheep = 祥 propitious",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "羊",
+            "gloss": "sheep"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "羊",
+            "gloss": "sheep"
+          }
+        ]
+      },
+      "before_mnemonic": "A healthy 羊 sheep placed on 示 show makes the fair seem 祥 propitious.",
+      "after_mnemonic": "A healthy 羊 sheep offered at a 示 altar is taken as a 祥 propitious sign.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祦",
+      "base_card_hash": "sha256:9c698dcae47e9a711a785a5de07d22db690d548d7056510801ad69126781cd3f",
+      "before": {
+        "meaning": "good",
+        "equation": "示 show + 吳 Wu = 祦 good",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "吳",
+            "gloss": "Wu"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "吳",
+            "gloss": "Wu"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "good",
+        "equation": "示 altar + 吳 Wu = 祦 good",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "吳",
+            "gloss": "Wu"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "吳",
+            "gloss": "Wu"
+          }
+        ]
+      },
+      "before_mnemonic": "A craft from 吳 Wu earns praise when placed on 示 show because it is 祦 good.",
+      "after_mnemonic": "A craft from 吳 Wu is placed on a 示 altar because it is judged 祦 good.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祧",
+      "base_card_hash": "sha256:5fb13ce0a77fab04b0a9a3f3b3351165c0603aec49b9bb92868143965a2849c2",
+      "before": {
+        "meaning": "ancestral hall",
+        "equation": "示 show + 兆 portent = 祧 ancestral hall",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "兆",
+            "gloss": "portent"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "兆",
+            "gloss": "portent"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "ancestral hall",
+        "equation": "示 altar + 兆 portent = 祧 ancestral hall",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "兆",
+            "gloss": "portent"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "兆",
+            "gloss": "portent"
+          }
+        ]
+      },
+      "before_mnemonic": "In a 祧 ancestral hall, tablets 示 show the lineage whose elders once interpreted each 兆 portent.",
+      "after_mnemonic": "Inside a 祧 ancestral hall, a 示 altar holds tablets of elders who interpreted each 兆 portent.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "票",
+      "base_card_hash": "sha256:7332ea966087ba34c01a896c6469b83986d5043b3c4514a297f583b5bc66f084",
+      "before": {
+        "meaning": "ticket",
+        "equation": "覀 west (cover) + 示 show = 票 ticket",
+        "components": [
+          {
+            "character": "覀",
+            "gloss": "west (cover)"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "覀",
+            "gloss": "west (cover)"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "ticket",
+        "equation": "覀 west (cover) + 示 altar = 票 ticket",
+        "components": [
+          {
+            "character": "覀",
+            "gloss": "west (cover)"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "覀",
+            "gloss": "west (cover)"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ]
+      },
+      "before_mnemonic": "At the gate, lift the 覀 west (cover) and 示 show the attendant your 票 ticket.",
+      "after_mnemonic": "At the gate, lift the 覀 west (cover) and place your 票 ticket on a counter shaped like a 示 altar.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祫",
+      "base_card_hash": "sha256:97dcf5ed56263c36fa6f2d24476a573938e12b99d2b9dec20fb8ecf870f8a817",
+      "before": {
+        "meaning": "triennial sacrifice to one's ancestors",
+        "equation": "示 show + 合 fit = 祫 triennial sacrifice to one's ancestors",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "合",
+            "gloss": "fit"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "合",
+            "gloss": "fit"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "triennial sacrifice to one's ancestors",
+        "equation": "示 altar + 合 fit = 祫 triennial sacrifice to one's ancestors",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "合",
+            "gloss": "fit"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "合",
+            "gloss": "fit"
+          }
+        ]
+      },
+      "before_mnemonic": "Every third year, near and distant family lines 合 fit around one altar to 示 show reverence in a 祫 triennial sacrifice to one's ancestors.",
+      "after_mnemonic": "Every third year, family lines 合 fit around one 示 altar for a 祫 triennial sacrifice to one's ancestors.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祭",
+      "base_card_hash": "sha256:e9dd937861ca610e33ba27a9b50b4bb144487482a951d8951a99908d556935e0",
+      "before": {
+        "meaning": "offer sacrifice",
+        "equation": "𠂊 slash stroke + 冫 ice + 示 show = 祭 offer sacrifice",
+        "components": [
+          {
+            "character": "𠂊",
+            "gloss": "slash stroke"
+          },
+          {
+            "character": "冫",
+            "gloss": "ice"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𠂊",
+            "gloss": "slash stroke"
+          },
+          {
+            "character": "冫",
+            "gloss": "ice"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "offer sacrifice",
+        "equation": "𠂊 slash stroke + 冫 ice + 示 altar = 祭 offer sacrifice",
+        "components": [
+          {
+            "character": "𠂊",
+            "gloss": "slash stroke"
+          },
+          {
+            "character": "冫",
+            "gloss": "ice"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𠂊",
+            "gloss": "slash stroke"
+          },
+          {
+            "character": "冫",
+            "gloss": "ice"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ]
+      },
+      "before_mnemonic": "Priests 祭 offer sacrifice with meat marked by a 𠂊 slash stroke, kept on 冫 ice, and raised to 示 show devotion.",
+      "after_mnemonic": "Priests 祭 offer sacrifice by placing meat marked with a 𠂊 slash stroke, kept on 冫 ice, upon a 示 altar.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祯",
+      "base_card_hash": "sha256:c53caf12a76dc46cae7c37ec22063cf7bd18cd8e823cd32b784c91a2ba89018e",
+      "before": {
+        "meaning": "auspicious",
+        "equation": "示 show + 贞 chaste = 祯 auspicious",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "贞",
+            "gloss": "chaste"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "贞",
+            "gloss": "chaste"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "auspicious",
+        "equation": "示 altar + 贞 chaste = 祯 auspicious",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "贞",
+            "gloss": "chaste"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "贞",
+            "gloss": "chaste"
+          }
+        ]
+      },
+      "before_mnemonic": "A ceremony can 示 show a 贞 chaste vow on a day chosen as 祯 auspicious.",
+      "after_mnemonic": "A 贞 chaste vow made at a 示 altar on a favorable day is considered 祯 auspicious.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祲",
+      "base_card_hash": "sha256:759b19066db49b69d5118f6bc45f29242577cc65a36749653e2fe22959eb4823",
+      "before": {
+        "meaning": "ominous or sinister",
+        "equation": "示 show + 𠬶 invade = 祲 ominous or sinister",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "𠬶",
+            "gloss": "invade"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "𠬶",
+            "gloss": "invade"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "ominous or sinister",
+        "equation": "示 altar + 𠬶 invade = 祲 ominous or sinister",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "𠬶",
+            "gloss": "invade"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "𠬶",
+            "gloss": "invade"
+          }
+        ]
+      },
+      "before_mnemonic": "Clouds 示 show an unnatural color beginning to 𠬶 invade the horizon, making the scene 祲 ominous or sinister.",
+      "after_mnemonic": "Smoke of an unnatural color begins to 𠬶 invade the 示 altar, making the omen 祲 ominous or sinister.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祷",
+      "base_card_hash": "sha256:f7a34b3664c2fff7b5d5a198c73f1462b2183ea61c32afebb6b37f5c86e0435c",
+      "before": {
+        "meaning": "entreat",
+        "equation": "示 show + 寿 longevity = 祷 entreat",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "寿",
+            "gloss": "longevity"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "寿",
+            "gloss": "longevity"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "entreat",
+        "equation": "示 altar + 寿 longevity = 祷 entreat",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "寿",
+            "gloss": "longevity"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "寿",
+            "gloss": "longevity"
+          }
+        ]
+      },
+      "before_mnemonic": "Clasped hands 示 show how earnestly one can 祷 entreat for 寿 longevity.",
+      "after_mnemonic": "Kneel at a 示 altar and 祷 entreat the powers there for 寿 longevity.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祸",
+      "base_card_hash": "sha256:31671e0b31c6127432c203ababd830ca2e8c2e2681ed80f41d5a0ec1f440c894",
+      "before": {
+        "meaning": "calamity",
+        "equation": "示 show + 呙 gossip = 祸 calamity",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "呙",
+            "gloss": "gossip"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "呙",
+            "gloss": "gossip"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "calamity",
+        "equation": "示 altar + 呙 gossip = 祸 calamity",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "呙",
+            "gloss": "gossip"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "呙",
+            "gloss": "gossip"
+          }
+        ]
+      },
+      "before_mnemonic": "Unchecked 呙 gossip can 示 show its destructive reach when it triggers a 祸 calamity.",
+      "after_mnemonic": "Malicious 呙 gossip whispered at a 示 altar can unleash a 祸 calamity.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祺",
+      "base_card_hash": "sha256:f3f41493b1f549428735f27f073e83c4d1eab9dff722b3afeb4c090c303f0110",
+      "before": {
+        "meaning": "good luck",
+        "equation": "示 show + 其 their = 祺 good luck",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "其",
+            "gloss": "their"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "其",
+            "gloss": "their"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "good luck",
+        "equation": "示 altar + 其 their = 祺 good luck",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "其",
+            "gloss": "their"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "其",
+            "gloss": "their"
+          }
+        ]
+      },
+      "before_mnemonic": "A 示 show of favorable signs promises 祺 good luck for 其 their household.",
+      "after_mnemonic": "Offer grain at a 示 altar to seek 祺 good luck for 其 their household.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祼",
+      "base_card_hash": "sha256:cced5a085da1db1037174a0f795309befcbd4457fad5f869032b8440d2eb786f",
+      "before": {
+        "meaning": "libation",
+        "equation": "示 show + 果 fruit = 祼 libation",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "果",
+            "gloss": "fruit"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "果",
+            "gloss": "fruit"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "libation",
+        "equation": "示 altar + 果 fruit = 祼 libation",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "果",
+            "gloss": "fruit"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "果",
+            "gloss": "fruit"
+          }
+        ]
+      },
+      "before_mnemonic": "At the rite, 示 show the 果 fruit offering, then pour the 祼 libation.",
+      "after_mnemonic": "Place 果 fruit on a 示 altar, then pour the 祼 libation.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祿",
+      "base_card_hash": "sha256:711bbefe7f5fc68552711c5393588c19e9c52662cc3eca146c8fe7234d253960",
+      "before": {
+        "meaning": "blessing",
+        "equation": "示 show + 彔 carve wood = 祿 blessing",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "彔",
+            "gloss": "carve wood"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "彔",
+            "gloss": "carve wood"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "blessing",
+        "equation": "示 altar + 彔 carve wood = 祿 blessing",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "彔",
+            "gloss": "carve wood"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "彔",
+            "gloss": "carve wood"
+          }
+        ]
+      },
+      "before_mnemonic": "A craftsperson can 彔 carve wood for a shrine to 示 show gratitude for a 祿 blessing.",
+      "after_mnemonic": "A craftsperson can 彔 carve wood for a 示 altar in gratitude for a 祿 blessing.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "禀",
+      "base_card_hash": "sha256:9ecf690e5fc2d1d53cc73bcfba9ed4d2473aad64249001e8b51d3da64c843a51",
+      "before": {
+        "meaning": "report",
+        "equation": "㐭 granary + 示 show = 禀 report",
+        "components": [
+          {
+            "character": "㐭",
+            "gloss": "granary"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "㐭",
+            "gloss": "granary"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "report",
+        "equation": "㐭 granary + 示 altar = 禀 report",
+        "components": [
+          {
+            "character": "㐭",
+            "gloss": "granary"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "㐭",
+            "gloss": "granary"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ]
+      },
+      "before_mnemonic": "A clerk opens the 㐭 granary to 示 show its stock in a 禀 report.",
+      "after_mnemonic": "A clerk opens the 㐭 granary and lays its tally on a desk shaped like a 示 altar in a 禀 report.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "禁",
+      "base_card_hash": "sha256:bbb4b50ff3cdad24771d3032500eb46e36729f794da09299ba455ad9d3607082",
+      "before": {
+        "meaning": "prohibit",
+        "equation": "林 woods + 示 show = 禁 prohibit",
+        "components": [
+          {
+            "character": "林",
+            "gloss": "woods"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "林",
+            "gloss": "woods"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "prohibit",
+        "equation": "林 woods + 示 altar = 禁 prohibit",
+        "components": [
+          {
+            "character": "林",
+            "gloss": "woods"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "林",
+            "gloss": "woods"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ]
+      },
+      "before_mnemonic": "Signs posted at the edge of the 林 woods 示 show where the local authorities 禁 prohibit trespassing.",
+      "after_mnemonic": "A warning set like a 示 altar at the edge of the 林 woods marks what authorities 禁 prohibit.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "禂",
+      "base_card_hash": "sha256:b93ac5d16c1a1f0878aa84bf27245e7b39ec0371e397acc8af95ddb2832762e9",
+      "before": {
+        "meaning": "pray",
+        "equation": "示 show + 周 circumference = 禂 pray",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "周",
+            "gloss": "circumference"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "周",
+            "gloss": "circumference"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "pray",
+        "equation": "示 altar + 周 circumference = 禂 pray",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "周",
+            "gloss": "circumference"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "周",
+            "gloss": "circumference"
+          }
+        ]
+      },
+      "before_mnemonic": "Worshippers form a 周 circumference around an altar to 示 show devotion as they 禂 pray.",
+      "after_mnemonic": "Worshippers form a 周 circumference around a 示 altar as they 禂 pray.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "禄",
+      "base_card_hash": "sha256:8a960ece719a646c5057effa2d7d6ae8d4718f73d5a395d6fe0128b2d897365a",
+      "before": {
+        "meaning": "blessing",
+        "equation": "示 show + 录 record = 禄 blessing",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "录",
+            "gloss": "record"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "录",
+            "gloss": "record"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "blessing",
+        "equation": "示 altar + 录 record = 禄 blessing",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "录",
+            "gloss": "record"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "录",
+            "gloss": "record"
+          }
+        ]
+      },
+      "before_mnemonic": "A 录 record can 示 show each 禄 blessing a family has received.",
+      "after_mnemonic": "A 录 record beside the 示 altar lists every 禄 blessing the family received.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "禅",
+      "base_card_hash": "sha256:6ba0e1de95e647932eb517d7bd95bb3af2a03f722b406e655142c0373b9c02b5",
+      "before": {
+        "meaning": "meditation",
+        "equation": "示 show + 単 trap = 禅 meditation",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "単",
+            "gloss": "trap"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "単",
+            "gloss": "trap"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "meditation",
+        "equation": "示 altar + 単 trap = 禅 meditation",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "単",
+            "gloss": "trap"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "単",
+            "gloss": "trap"
+          }
+        ]
+      },
+      "before_mnemonic": "At an altar marked 示 show, empty the mind of every 単 trap during 禅 meditation.",
+      "after_mnemonic": "Before a 示 altar, empty the mind of every 単 trap during 禅 meditation.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "禇",
+      "base_card_hash": "sha256:dc57c8423319892ed2ea3a3def02aba8f24c4a51f66c2d37034bd5c76508e859",
+      "before": {
+        "meaning": "erroneous form of 褚",
+        "equation": "示 show + 者 person = 禇 erroneous form of 褚",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "者",
+            "gloss": "person"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "者",
+            "gloss": "person"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "erroneous form of 褚",
+        "equation": "示 altar + 者 person = 禇 erroneous form of 褚",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "者",
+            "gloss": "person"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "者",
+            "gloss": "person"
+          }
+        ]
+      },
+      "before_mnemonic": "A 者 person mistakenly writes 示 show beside them, producing 禇 erroneous form of 褚.",
+      "after_mnemonic": "A 者 person mistakenly writes a 示 altar beside the phonetic, producing 禇 erroneous form of 褚.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "禊",
+      "base_card_hash": "sha256:9a7c943edd25ec82d59ae67c1020c5757a3139dfb0aa45e051fff8c36294298c",
+      "before": {
+        "meaning": "semi-annual ceremony of purification",
+        "equation": "示 show + 契 contract = 禊 semi-annual ceremony of purification",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "契",
+            "gloss": "contract"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "契",
+            "gloss": "contract"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "semi-annual ceremony of purification",
+        "equation": "示 altar + 契 contract = 禊 semi-annual ceremony of purification",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "契",
+            "gloss": "contract"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "契",
+            "gloss": "contract"
+          }
+        ]
+      },
+      "before_mnemonic": "Each spring and autumn, a 契 contract is washed clean, then lifted to 示 show the seal of the 禊 semi-annual ceremony of purification.",
+      "after_mnemonic": "Each spring and autumn, a 契 contract is washed clean beside a 示 altar in a 禊 semi-annual ceremony of purification.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "禋",
+      "base_card_hash": "sha256:c61e98037c069f1b5ef9a36e2c3c8798cc4d0ccfd90f3c5a403b8310f1f397f8",
+      "before": {
+        "meaning": "offer",
+        "equation": "示 show + 垔 dam up = 禋 offer",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "垔",
+            "gloss": "dam up"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "垔",
+            "gloss": "dam up"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "offer",
+        "equation": "示 altar + 垔 dam up = 禋 offer",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "垔",
+            "gloss": "dam up"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "垔",
+            "gloss": "dam up"
+          }
+        ]
+      },
+      "before_mnemonic": "To 禋 offer, 示 show what your closed hands 垔 dam up, then open them.",
+      "after_mnemonic": "To 禋 offer, open what closed hands 垔 dam up and place it on a 示 altar.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "禍",
+      "base_card_hash": "sha256:f992ec821c78c7d6005b58094cf779ea67108657c4463ad243916f32426c1180",
+      "before": {
+        "meaning": "misfortune",
+        "equation": "示 show + 咼 jaw = 禍 misfortune",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "咼",
+            "gloss": "jaw"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "咼",
+            "gloss": "jaw"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "misfortune",
+        "equation": "示 altar + 咼 jaw = 禍 misfortune",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "咼",
+            "gloss": "jaw"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "咼",
+            "gloss": "jaw"
+          }
+        ]
+      },
+      "before_mnemonic": "A clenched 咼 jaw can 示 show that sudden 禍 misfortune has arrived.",
+      "after_mnemonic": "A clenched 咼 jaw before a 示 altar warns that 禍 misfortune has arrived.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "禎",
+      "base_card_hash": "sha256:346cb1d7ab11c02ff171fdb59b185615182d1b930f9d482e1366a9e03675028b",
+      "before": {
+        "meaning": "auspicious",
+        "equation": "示 show + 貞 chaste = 禎 auspicious",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "貞",
+            "gloss": "chaste"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "貞",
+            "gloss": "chaste"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "auspicious",
+        "equation": "示 altar + 貞 chaste = 禎 auspicious",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "貞",
+            "gloss": "chaste"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "貞",
+            "gloss": "chaste"
+          }
+        ]
+      },
+      "before_mnemonic": "A ceremony can 示 show a 貞 chaste vow on a day chosen as 禎 auspicious.",
+      "after_mnemonic": "A 貞 chaste vow made at a 示 altar on a favorable day is considered 禎 auspicious.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "福",
+      "base_card_hash": "sha256:9f593e06175e84b3f77c9a6887749816b72ee20aec845615fd9de17b775b79fe",
+      "before": {
+        "meaning": "happiness",
+        "equation": "示 show + 畐 fill = 福 happiness",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "畐",
+            "gloss": "fill"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "畐",
+            "gloss": "fill"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "happiness",
+        "equation": "示 altar + 畐 fill = 福 happiness",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "畐",
+            "gloss": "fill"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "畐",
+            "gloss": "fill"
+          }
+        ]
+      },
+      "before_mnemonic": "Let shared laughter 畐 fill the home and 示 show its 福 happiness.",
+      "after_mnemonic": "Let offerings 畐 fill the 示 altar as the household asks for 福 happiness.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "禑",
+      "base_card_hash": "sha256:bf4aa8f45514811f31c4d45e1141bd1043aece24d222ca1c6ede549eb07fe82b",
+      "before": {
+        "meaning": "happy",
+        "equation": "示 show + 禺 district = 禑 happy",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "禺",
+            "gloss": "district"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "禺",
+            "gloss": "district"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "happy",
+        "equation": "示 altar + 禺 district = 禑 happy",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "禺",
+            "gloss": "district"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "禺",
+            "gloss": "district"
+          }
+        ]
+      },
+      "before_mnemonic": "A lantern 示 show brightens the whole 禺 district, leaving everyone 禑 happy.",
+      "after_mnemonic": "Lanterns around a 示 altar brighten the whole 禺 district and leave everyone 禑 happy.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "禓",
+      "base_card_hash": "sha256:14f61612af956f587a56aa55b1b98aaec1822011659fb4b2e27aa1d7b3b7a2f8",
+      "before": {
+        "meaning": "drive out demons",
+        "equation": "示 show + 昜 sunlight = 禓 drive out demons",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "昜",
+            "gloss": "sunlight"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "昜",
+            "gloss": "sunlight"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "drive out demons",
+        "equation": "示 altar + 昜 sunlight = 禓 drive out demons",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "昜",
+            "gloss": "sunlight"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "昜",
+            "gloss": "sunlight"
+          }
+        ]
+      },
+      "before_mnemonic": "At the altar of 示 show, flood the room with 昜 sunlight to 禓 drive out demons.",
+      "after_mnemonic": "Flood the 示 altar with 昜 sunlight to 禓 drive out demons.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "禔",
+      "base_card_hash": "sha256:577d272e28878238df9ef5f25b2996f8e48f638ed7fee8eb2b97f37206ec4eb7",
+      "before": {
+        "meaning": "peace",
+        "equation": "示 show + 是 be = 禔 peace",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "是",
+            "gloss": "be"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "是",
+            "gloss": "be"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "peace",
+        "equation": "示 altar + 是 be = 禔 peace",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "是",
+            "gloss": "be"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "是",
+            "gloss": "be"
+          }
+        ]
+      },
+      "before_mnemonic": "When rivals 示 show they can 是 be together without fighting, they establish 禔 peace.",
+      "after_mnemonic": "Before a 示 altar, rivals prove they can 是 be together and establish 禔 peace.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "禕",
+      "base_card_hash": "sha256:c60ee2eb0cd0eed76ac2976764f45a8eee45bbecaf4b3375d7b1853a37853019",
+      "before": {
+        "meaning": "excellent",
+        "equation": "示 show + 韋 tanned hide = 禕 excellent",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "韋",
+            "gloss": "tanned hide"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "韋",
+            "gloss": "tanned hide"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "excellent",
+        "equation": "示 altar + 韋 tanned hide = 禕 excellent",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "韋",
+            "gloss": "tanned hide"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "韋",
+            "gloss": "tanned hide"
+          }
+        ]
+      },
+      "before_mnemonic": "An even finish and supple strength 示 show why 韋 tanned hide is 禕 excellent.",
+      "after_mnemonic": "Offer finely worked 韋 tanned hide at a 示 altar because it is 禕 excellent.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "禖",
+      "base_card_hash": "sha256:d3de59236723643299db98c1a5109c71163640b3960e7d0e1604b9e207227916",
+      "before": {
+        "meaning": "sacrifice",
+        "equation": "示 show + 某 such and such = 禖 sacrifice",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "某",
+            "gloss": "such and such"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "某",
+            "gloss": "such and such"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sacrifice",
+        "equation": "示 altar + 某 such and such = 禖 sacrifice",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "某",
+            "gloss": "such and such"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "某",
+            "gloss": "such and such"
+          }
+        ]
+      },
+      "before_mnemonic": "A 禖 sacrifice can 示 show devotion by offering 某 such and such treasured possession.",
+      "after_mnemonic": "At a 示 altar, choose 某 such and such treasured object for the 禖 sacrifice.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "禘",
+      "base_card_hash": "sha256:34791560e45a7d67823164a04647b9787bf461e2f30256f4347f0558b0891687",
+      "before": {
+        "meaning": "imperial ancestor worship",
+        "equation": "示 show + 帝 sovereign = 禘 imperial ancestor worship",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "帝",
+            "gloss": "sovereign"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "帝",
+            "gloss": "sovereign"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "imperial ancestor worship",
+        "equation": "示 altar + 帝 sovereign = 禘 imperial ancestor worship",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "帝",
+            "gloss": "sovereign"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "帝",
+            "gloss": "sovereign"
+          }
+        ]
+      },
+      "before_mnemonic": "During 禘 imperial ancestor worship, a 帝 sovereign will 示 show reverence before ancestral tablets.",
+      "after_mnemonic": "During 禘 imperial ancestor worship, the 帝 sovereign bows before a 示 altar of ancestral tablets.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "禚",
+      "base_card_hash": "sha256:46464f77dff98adaf8e2bc1ff1039170f9434a9649a59918fc160b4bea001024",
+      "before": {
+        "meaning": "place name",
+        "equation": "示 show + 羔 kid = 禚 place name",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "羔",
+            "gloss": "kid"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "羔",
+            "gloss": "kid"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "place name",
+        "equation": "示 altar + 羔 kid = 禚 place name",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "羔",
+            "gloss": "kid"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "羔",
+            "gloss": "kid"
+          }
+        ]
+      },
+      "before_mnemonic": "A map uses a 羔 kid icon to 示 show the village bearing the 禚 place name.",
+      "after_mnemonic": "A map beside a 示 altar uses a 羔 kid icon for the village bearing the 禚 place name.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "禛",
+      "base_card_hash": "sha256:b029f118efd9b06ae1d17c3dfd4d549fa972c639b09067f920cc267018970253",
+      "before": {
+        "meaning": "receive blessings",
+        "equation": "示 show + 真 true = 禛 receive blessings",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "真",
+            "gloss": "true"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "真",
+            "gloss": "true"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "receive blessings",
+        "equation": "示 altar + 真 true = 禛 receive blessings",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "真",
+            "gloss": "true"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "真",
+            "gloss": "true"
+          }
+        ]
+      },
+      "before_mnemonic": "示 show a 真 true, sincere spirit to 禛 receive blessings.",
+      "after_mnemonic": "Approach a 示 altar with a 真 true and sincere spirit to 禛 receive blessings.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "禜",
+      "base_card_hash": "sha256:7f6ca71de56b27a7c6bb23f87797ff4f6962fb3924494c97379c5e53732bb240",
+      "before": {
+        "meaning": "sacrifice",
+        "equation": "𤇾 brilliant + 示 show = 禜 sacrifice",
+        "components": [
+          {
+            "character": "𤇾",
+            "gloss": "brilliant"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𤇾",
+            "gloss": "brilliant"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sacrifice",
+        "equation": "𤇾 brilliant + 示 altar = 禜 sacrifice",
+        "components": [
+          {
+            "character": "𤇾",
+            "gloss": "brilliant"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𤇾",
+            "gloss": "brilliant"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ]
+      },
+      "before_mnemonic": "Traditionally, a 𤇾 brilliant flame rises to 示 show the heavens a 禜 sacrifice seeking protection from storms.",
+      "after_mnemonic": "A 𤇾 brilliant flame rises from a 示 altar during a 禜 sacrifice seeking protection from storms.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "禝",
+      "base_card_hash": "sha256:6260c106ba963f0dd382b3dc989c714bbbddea9518971f9c5533ce51a8545784",
+      "before": {
+        "meaning": "millet (alt)",
+        "equation": "示 show + 畟 plough = 禝 millet (alt)",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "畟",
+            "gloss": "plough"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "畟",
+            "gloss": "plough"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "millet (alt)",
+        "equation": "示 altar + 畟 plough = 禝 millet (alt)",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "畟",
+            "gloss": "plough"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "畟",
+            "gloss": "plough"
+          }
+        ]
+      },
+      "before_mnemonic": "After using a 畟 plough, a farmer lifts tiny golden grains to 示 show the new 禝 millet harvest.",
+      "after_mnemonic": "After using a 畟 plough, place golden grain on a 示 altar as the new 禝 millet (alt).",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "禠",
+      "base_card_hash": "sha256:992b92e898bee3cbfb04c0fbd7c0dfad47d7a0e94dc2455fb1873eb7b60c103e",
+      "before": {
+        "meaning": "happy",
+        "equation": "示 show + 虒 amphibious beast = 禠 happy",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "虒",
+            "gloss": "amphibious beast"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "虒",
+            "gloss": "amphibious beast"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "happy",
+        "equation": "示 altar + 虒 amphibious beast = 禠 happy",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "虒",
+            "gloss": "amphibious beast"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "虒",
+            "gloss": "amphibious beast"
+          }
+        ]
+      },
+      "before_mnemonic": "An 虒 amphibious beast splashes and plays to 示 show that it feels 禠 happy.",
+      "after_mnemonic": "An 虒 amphibious beast splashes around the 示 altar and looks 禠 happy.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "禡",
+      "base_card_hash": "sha256:d469efb96ead8bfaa8b9a128cc5a31c16190d0ab5d0cb82102d7dbefc998e773",
+      "before": {
+        "meaning": "sacrifice at",
+        "equation": "示 show + 馬 horse = 禡 sacrifice at",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "馬",
+            "gloss": "horse"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "馬",
+            "gloss": "horse"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "military-camp sacrifice",
+        "equation": "示 altar + 馬 horse = 禡 military-camp sacrifice",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "馬",
+            "gloss": "horse"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "馬",
+            "gloss": "horse"
+          }
+        ]
+      },
+      "before_mnemonic": "Before battle, soldiers 示 show reverence beside a 馬 horse and hold a 禡 sacrifice at their first camp.",
+      "after_mnemonic": "At the first camp, soldiers lead a 馬 horse to a 示 altar for a 禡 military-camp sacrifice.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "禢",
+      "base_card_hash": "sha256:f44657f9f8ce4bbd6d58c674df923013dfb444678c7f14d5e4ef010cbe8e9f06",
+      "before": {
+        "meaning": "surname",
+        "equation": "示 show + 𦐇 the sound of wings = 禢 surname",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "𦐇",
+            "gloss": "the sound of wings"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "𦐇",
+            "gloss": "the sound of wings"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "surname",
+        "equation": "示 altar + 𦐇 the sound of wings = 禢 surname",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "𦐇",
+            "gloss": "the sound of wings"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "𦐇",
+            "gloss": "the sound of wings"
+          }
+        ]
+      },
+      "before_mnemonic": "During introductions, a 示 show timed to 𦐇 the sound of wings identifies the 禢 surname.",
+      "after_mnemonic": "A fan moving with 𦐇 the sound of wings rests on a family 示 altar marked with the 禢 surname.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "禤",
+      "base_card_hash": "sha256:87c67feee7d79a1d4bf3d58c6e5c2d539b943f997be22f1ece84d5782e7e0173",
+      "before": {
+        "meaning": "surname",
+        "equation": "示 show + ⺫ eye (side) + 羽 feathers = 禤 surname",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "⺫",
+            "gloss": "eye (side)"
+          },
+          {
+            "character": "羽",
+            "gloss": "feathers"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "⺫",
+            "gloss": "eye (side)"
+          },
+          {
+            "character": "羽",
+            "gloss": "feathers"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "surname",
+        "equation": "示 altar + ⺫ eye (side) + 羽 feathers = 禤 surname",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "⺫",
+            "gloss": "eye (side)"
+          },
+          {
+            "character": "羽",
+            "gloss": "feathers"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "⺫",
+            "gloss": "eye (side)"
+          },
+          {
+            "character": "羽",
+            "gloss": "feathers"
+          }
+        ]
+      },
+      "before_mnemonic": "A bearer of the 禤 surname can 示 show one ⺫ eye through a fan of 羽 feathers.",
+      "after_mnemonic": "A bearer of the 禤 surname places a fan with 羽 feathers before a 示 altar and peers through it with one ⺫ eye (side).",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "禥",
+      "base_card_hash": "sha256:6065f95d1f4f649d7ef955feef2c0bdf1177ff93594d9a5ab8904d12f3e610d1",
+      "before": {
+        "meaning": "auspicious",
+        "equation": "示 show + 基 base = 禥 auspicious",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "基",
+            "gloss": "base"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "基",
+            "gloss": "base"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "auspicious",
+        "equation": "示 altar + 基 base = 禥 auspicious",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "基",
+            "gloss": "base"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "基",
+            "gloss": "base"
+          }
+        ]
+      },
+      "before_mnemonic": "A firm 基 base can 示 show a 禥 auspicious beginning for the new shrine.",
+      "after_mnemonic": "A firm 基 base beneath a 示 altar is read as a 禥 auspicious beginning.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "禦",
+      "base_card_hash": "sha256:5b1fd73162d546146c4fcac252f742b73b15f4880bca3abdf4a24661cc328d43",
+      "before": {
+        "meaning": "withstand",
+        "equation": "御 imperial + 示 show = 禦 withstand",
+        "components": [
+          {
+            "character": "御",
+            "gloss": "imperial"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "御",
+            "gloss": "imperial"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "withstand",
+        "equation": "御 imperial + 示 altar = 禦 withstand",
+        "components": [
+          {
+            "character": "御",
+            "gloss": "imperial"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "御",
+            "gloss": "imperial"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ]
+      },
+      "before_mnemonic": "A 御 imperial 示 show of strength at the gates can 禦 withstand a siege.",
+      "after_mnemonic": "A 御 imperial 示 altar raised at the gates rallies defenders to 禦 withstand a siege.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "禧",
+      "base_card_hash": "sha256:28916c8c43dbd38e3ab4860470c5244b0b4ba9a20be0c66c2117e0e3177033d1",
+      "before": {
+        "meaning": "congratulations",
+        "equation": "示 show + 喜 joyful = 禧 congratulations",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "喜",
+            "gloss": "joyful"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "喜",
+            "gloss": "joyful"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "congratulations",
+        "equation": "示 altar + 喜 joyful = 禧 congratulations",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "喜",
+            "gloss": "joyful"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "喜",
+            "gloss": "joyful"
+          }
+        ]
+      },
+      "before_mnemonic": "When you 示 show that you are 喜 joyful for someone’s success, you offer 禧 congratulations.",
+      "after_mnemonic": "Lay a 喜 joyful gift on a 示 altar while offering 禧 congratulations.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "禨",
+      "base_card_hash": "sha256:51d35523d9c70abbeeeb7c54d89261638a393416d933f030dcd260e9a2a903fa",
+      "before": {
+        "meaning": "pray for good fortune",
+        "equation": "示 show + 幾 how many = 禨 pray for good fortune",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "幾",
+            "gloss": "how many"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "幾",
+            "gloss": "how many"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "pray for good fortune",
+        "equation": "示 altar + 幾 how many = 禨 pray for good fortune",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "幾",
+            "gloss": "how many"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "幾",
+            "gloss": "how many"
+          }
+        ]
+      },
+      "before_mnemonic": "示 show 幾 how many blessings you seek when you 禨 pray for good fortune.",
+      "after_mnemonic": "At a 示 altar, count 幾 how many blessings you seek when you 禨 pray for good fortune.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "禩",
+      "base_card_hash": "sha256:a1fe77b51747c8bb6b2cf76fc21bce00316c9bbf31c8ac934a75f109ec973cc7",
+      "before": {
+        "meaning": "sacrifice",
+        "equation": "示 show + 異 different = 禩 sacrifice",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "異",
+            "gloss": "different"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "異",
+            "gloss": "different"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sacrifice",
+        "equation": "示 altar + 異 different = 禩 sacrifice",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "異",
+            "gloss": "different"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "異",
+            "gloss": "different"
+          }
+        ]
+      },
+      "before_mnemonic": "Priests 示 show one 異 different offering, reserved for the day they will 禩 sacrifice it.",
+      "after_mnemonic": "Priests place one 異 different offering on the 示 altar for the day they 禩 sacrifice it.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "禪",
+      "base_card_hash": "sha256:52241192e2756326c5957d07c0659f92c3801a554fa13f5ac0cfaefdda05608d",
+      "before": {
+        "meaning": "meditation",
+        "equation": "示 show + 單 trap = 禪 meditation",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "單",
+            "gloss": "trap"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "單",
+            "gloss": "trap"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "meditation",
+        "equation": "示 altar + 單 trap = 禪 meditation",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "單",
+            "gloss": "trap"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "單",
+            "gloss": "trap"
+          }
+        ]
+      },
+      "before_mnemonic": "At an altar marked 示 show, empty the mind of every 單 trap during 禪 meditation.",
+      "after_mnemonic": "Before a 示 altar, empty the mind of every 單 trap during 禪 meditation.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "禫",
+      "base_card_hash": "sha256:1b095c8c7b6cc335cb719cd55c286ade996b71112e95d578cd472612cc41701d",
+      "before": {
+        "meaning": "end-of-mourning sacrifice",
+        "equation": "示 show + 覃 reach = 禫 end-of-mourning sacrifice",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "覃",
+            "gloss": "reach"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "覃",
+            "gloss": "reach"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "end-of-mourning sacrifice",
+        "equation": "示 altar + 覃 reach = 禫 end-of-mourning sacrifice",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "覃",
+            "gloss": "reach"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "覃",
+            "gloss": "reach"
+          }
+        ]
+      },
+      "before_mnemonic": "Traditionally, families 覃 reach the day for removing mourning clothes and 示 show remembrance through a 禫 end-of-mourning sacrifice.",
+      "after_mnemonic": "When families 覃 reach the day for removing mourning clothes, they return to the 示 altar for a 禫 end-of-mourning sacrifice.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "禮",
+      "base_card_hash": "sha256:c48e082e9ac47d10b02929bf9c11304a161367d0173bbad2af77a5ffc6e939d4",
+      "before": {
+        "meaning": "ceremony",
+        "equation": "示 show + 豊 plentiful = 禮 ceremony",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "豊",
+            "gloss": "plentiful"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "豊",
+            "gloss": "plentiful"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "ceremony",
+        "equation": "示 altar + 豊 plentiful = 禮 ceremony",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "豊",
+            "gloss": "plentiful"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "豊",
+            "gloss": "plentiful"
+          }
+        ]
+      },
+      "before_mnemonic": "Hosts 示 show welcome with a 豊 plentiful offering, opening the 禮 ceremony.",
+      "after_mnemonic": "Hosts pile a 豊 plentiful offering on a 示 altar to open the 禮 ceremony.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "禰",
+      "base_card_hash": "sha256:ad86322b4656acf870bb67780aeb50275b79357464798506f4e22febc8f138f6",
+      "before": {
+        "meaning": "one's deceased father",
+        "equation": "示 show + 爾 you (literary) = 禰 one's deceased father",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "爾",
+            "gloss": "you (literary)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "爾",
+            "gloss": "you (literary)"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "one's deceased father",
+        "equation": "示 altar + 爾 you (literary) = 禰 one's deceased father",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "爾",
+            "gloss": "you (literary)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "爾",
+            "gloss": "you (literary)"
+          }
+        ]
+      },
+      "before_mnemonic": "At a family shrine, an inscription uses 爾 you (literary) to 示 show a son addressing 禰 one's deceased father.",
+      "after_mnemonic": "At a 示 altar, an inscription uses 爾 you (literary) as a son addresses 禰 one's deceased father.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "禱",
+      "base_card_hash": "sha256:94e2016ceff1437a8354fe7bb6cb1019d498ab41784e545562e583eb87a013b0",
+      "before": {
+        "meaning": "pray",
+        "equation": "示 show + 壽 longevity = 禱 pray",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "壽",
+            "gloss": "longevity"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "壽",
+            "gloss": "longevity"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "pray",
+        "equation": "示 altar + 壽 longevity = 禱 pray",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "壽",
+            "gloss": "longevity"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "壽",
+            "gloss": "longevity"
+          }
+        ]
+      },
+      "before_mnemonic": "Clasped hands 示 show a wish for 壽 longevity whenever people 禱 pray.",
+      "after_mnemonic": "Kneel at a 示 altar and 禱 pray for 壽 longevity.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "禳",
+      "base_card_hash": "sha256:bcf3ee4737d6f7c4a5bc11230aec68f0f7661ce53e2846117d12359c75c65f77",
+      "before": {
+        "meaning": "pray or sacrifice",
+        "equation": "示 show + 襄 aid = 禳 pray or sacrifice",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "襄",
+            "gloss": "aid"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "襄",
+            "gloss": "aid"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "pray or sacrifice",
+        "equation": "示 altar + 襄 aid = 禳 pray or sacrifice",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "襄",
+            "gloss": "aid"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "襄",
+            "gloss": "aid"
+          }
+        ]
+      },
+      "before_mnemonic": "People 示 show their plea for divine 襄 aid when they 禳 pray or sacrifice.",
+      "after_mnemonic": "At a 示 altar, people ask for divine 襄 aid when they 禳 pray or sacrifice.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "禴",
+      "base_card_hash": "sha256:c3a02cdd485451a5e065abea464b1096b86646a4a955600d8cd1b9ebd12fcf39",
+      "before": {
+        "meaning": "sacrifice",
+        "equation": "示 show + 龠 pipe = 禴 sacrifice",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "龠",
+            "gloss": "pipe"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "龠",
+            "gloss": "pipe"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sacrifice",
+        "equation": "示 altar + 龠 pipe = 禴 sacrifice",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "龠",
+            "gloss": "pipe"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "龠",
+            "gloss": "pipe"
+          }
+        ]
+      },
+      "before_mnemonic": "Musicians play a 龠 pipe to 示 show reverence while the ruler presents a 禴 sacrifice.",
+      "after_mnemonic": "Musicians play a 龠 pipe beside a 示 altar while the ruler presents a 禴 sacrifice.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "視",
+      "base_card_hash": "sha256:4ec58b61246ea7ea4f8b36caadae2612f04a02c45f8147b31727663d64ff0096",
+      "before": {
+        "meaning": "inspect",
+        "equation": "示 show + 見 see = 視 inspect",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "見",
+            "gloss": "see"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "見",
+            "gloss": "see"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "inspect",
+        "equation": "示 altar + 見 see = 視 inspect",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "見",
+            "gloss": "see"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "見",
+            "gloss": "see"
+          }
+        ]
+      },
+      "before_mnemonic": "Rotate what you 示 show so others can 見 see every side and 視 inspect it.",
+      "after_mnemonic": "Turn an object on the 示 altar so the examiner can 見 see every side and 視 inspect it.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "视",
+      "base_card_hash": "sha256:a10bd00ad240fd8eedba05ccd6f3a617356e29f864ffc1a4b638b18fdcc93f19",
+      "before": {
+        "meaning": "observe",
+        "equation": "示 show + 见 see = 视 observe",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "见",
+            "gloss": "see"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "见",
+            "gloss": "see"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "observe",
+        "equation": "示 altar + 见 see = 视 observe",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "见",
+            "gloss": "see"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "见",
+            "gloss": "see"
+          }
+        ]
+      },
+      "before_mnemonic": "A chart can 示 show the pattern that students 见 see when they 视 observe its changes.",
+      "after_mnemonic": "Place the object on a stand shaped like a 示 altar where students can 见 see it and 视 observe its changes.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "际",
+      "base_card_hash": "sha256:080fe8887fe5327689b2ed5cbada018a0994da75257c24638b8611ecc1d3c545",
+      "before": {
+        "meaning": "boundary",
+        "equation": "⻖ mound (left) + 示 show = 际 boundary",
+        "components": [
+          {
+            "character": "⻖",
+            "gloss": "mound (left)"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⻖",
+            "gloss": "mound (left)"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "boundary",
+        "equation": "⻖ mound (left) + 示 altar = 际 boundary",
+        "components": [
+          {
+            "character": "⻖",
+            "gloss": "mound (left)"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⻖",
+            "gloss": "mound (left)"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ]
+      },
+      "before_mnemonic": "A ⻖ mound can 示 show exactly where the 际 boundary runs.",
+      "after_mnemonic": "A 示 altar beside a ⻖ mound (left) marks the 际 boundary between sacred and ordinary ground.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "隷",
+      "base_card_hash": "sha256:82b8aef6ef095de34878b58ef0e1cb7bb6d61a916c30780dfb689698e7b5450e",
+      "before": {
+        "meaning": "be subservient",
+        "equation": "士 soldier + 示 show + 隶 subservient = 隷 be subservient",
+        "components": [
+          {
+            "character": "士",
+            "gloss": "soldier"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "隶",
+            "gloss": "subservient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "士",
+            "gloss": "soldier"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "隶",
+            "gloss": "subservient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "be subservient",
+        "equation": "士 soldier + 示 altar + 隶 subservient = 隷 be subservient",
+        "components": [
+          {
+            "character": "士",
+            "gloss": "soldier"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "隶",
+            "gloss": "subservient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "士",
+            "gloss": "soldier"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "隶",
+            "gloss": "subservient"
+          }
+        ]
+      },
+      "before_mnemonic": "To 隷 be subservient, a 士 soldier must 示 show the obedience of someone already 隶 subservient.",
+      "after_mnemonic": "To 隷 be subservient, a 士 soldier bows before a 示 altar like someone already 隶 subservient.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "頴",
+      "base_card_hash": "sha256:0c20fe7524bab59bb26cbd40319e5bc223c1cf4c3b08e7c68c44ca73444f3f2b",
+      "before": {
+        "meaning": "rice tassel",
+        "equation": "頃 100 Chinese acres + 示 show = 頴 rice tassel",
+        "components": [
+          {
+            "character": "頃",
+            "gloss": "100 Chinese acres"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "頃",
+            "gloss": "100 Chinese acres"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "rice tassel",
+        "equation": "頃 100 Chinese acres + 示 altar = 頴 rice tassel",
+        "components": [
+          {
+            "character": "頃",
+            "gloss": "100 Chinese acres"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "頃",
+            "gloss": "100 Chinese acres"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ]
+      },
+      "before_mnemonic": "Across 頃 100 Chinese acres, ripening stalks 示 show each 頴 rice tassel.",
+      "after_mnemonic": "Across 頃 100 Chinese acres, farmers place the first 頴 rice tassel on a 示 altar.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "颕",
+      "base_card_hash": "sha256:97ccc67207c1656fe3e6fb83ac1c45aa1009a68e2c44db4aaebdc9e5f4f7f6f7",
+      "before": {
+        "meaning": "tassel",
+        "equation": "顷 unit of area + 示 show = 颕 tassel",
+        "components": [
+          {
+            "character": "顷",
+            "gloss": "unit of area"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "顷",
+            "gloss": "unit of area"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "tassel",
+        "equation": "顷 unit of area + 示 altar = 颕 tassel",
+        "components": [
+          {
+            "character": "顷",
+            "gloss": "unit of area"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "顷",
+            "gloss": "unit of area"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ]
+      },
+      "before_mnemonic": "Across each 顷 unit of area, ripening stalks 示 show a 颕 tassel.",
+      "after_mnemonic": "From each 顷 unit of area, farmers place one 颕 tassel on a 示 altar.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "龒",
+      "base_card_hash": "sha256:bc67d7cc14d802ac9148c418579d3db16e5251fb204c93f7192d551177373031",
+      "before": {
+        "meaning": "dragon",
+        "equation": "龍 dragon + 示 show = 龒 dragon",
+        "components": [
+          {
+            "character": "龍",
+            "gloss": "dragon"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "龍",
+            "gloss": "dragon"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "dragon",
+        "equation": "龍 dragon + 示 altar = 龒 dragon",
+        "components": [
+          {
+            "character": "龍",
+            "gloss": "dragon"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "龍",
+            "gloss": "dragon"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ]
+      },
+      "before_mnemonic": "A 龒 dragon steps from legend when the 龍 dragon chooses to 示 show itself.",
+      "after_mnemonic": "A 龍 dragon carved upon a 示 altar takes the form of a 龒 dragon.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "奈",
+      "base_card_hash": "sha256:722fb4589694c38fe366eada3c231006ff724519a6e3a7861c172fdc0181f738",
+      "before": {
+        "meaning": "can't help but",
+        "equation": "大 big + 示 show = 奈 can't help but",
+        "components": [
+          {
+            "character": "大",
+            "gloss": "big"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "大",
+            "gloss": "big"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "can't help but",
+        "equation": "大 big + 示 altar = 奈 can't help but",
+        "components": [
+          {
+            "character": "大",
+            "gloss": "big"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "大",
+            "gloss": "big"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          }
+        ]
+      },
+      "before_mnemonic": "A 大 big surprise begins to 示 show on my face, so I 奈 can't help but react.",
+      "after_mnemonic": "A 大 big burden laid before a 示 altar leaves you 奈 can't help but kneel.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祿",
+      "base_card_hash": "sha256:e38b07ee0f6bc4be722e2c85e10250c3e5c71c517dd1cad293611270e6c52435",
+      "before": {
+        "meaning": "blessing",
+        "equation": "示 show + 彔 carve wood = 祿 blessing",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "彔",
+            "gloss": "carve wood"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "彔",
+            "gloss": "carve wood"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "blessing",
+        "equation": "示 altar + 彔 carve wood = 祿 blessing",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "彔",
+            "gloss": "carve wood"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "彔",
+            "gloss": "carve wood"
+          }
+        ]
+      },
+      "before_mnemonic": "They 彔 carve wood into a keepsake to 示 show gratitude for a 祿 blessing.",
+      "after_mnemonic": "They 彔 carve wood into a 示 altar in gratitude for a 祿 blessing.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "禮",
+      "base_card_hash": "sha256:83264fccd1ad3a5fd754501866b3703db5175fded407f3c4cdd440eebe509c20",
+      "before": {
+        "meaning": "ceremony",
+        "equation": "示 show + 豊 plentiful = 禮 ceremony",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "豊",
+            "gloss": "plentiful"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "豊",
+            "gloss": "plentiful"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "ceremony",
+        "equation": "示 altar + 豊 plentiful = 禮 ceremony",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "豊",
+            "gloss": "plentiful"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "豊",
+            "gloss": "plentiful"
+          }
+        ]
+      },
+      "before_mnemonic": "A 禮 ceremony can 示 show gratitude through 豊 plentiful offerings.",
+      "after_mnemonic": "A 禮 ceremony gathers 豊 plentiful offerings on a 示 altar.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "礼",
+      "base_card_hash": "sha256:153028213a479d6f7819b246d438b83df37004e4197b59af6b3ff23f39d18cb9",
+      "before": {
+        "meaning": "ceremony",
+        "equation": "示 show + 乚 turning hook = 礼 ceremony",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "乚",
+            "gloss": "turning hook"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "乚",
+            "gloss": "turning hook"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "ceremony",
+        "equation": "示 altar + 乚 turning hook = 礼 ceremony",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "乚",
+            "gloss": "turning hook"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "乚",
+            "gloss": "turning hook"
+          }
+        ]
+      },
+      "before_mnemonic": "Performers follow a 乚 turning hook in the floor pattern to 示 show each stage of the 礼 ceremony.",
+      "after_mnemonic": "A 乚 turning hook secures the ribbon on a 示 altar for a 礼 ceremony.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "神",
+      "base_card_hash": "sha256:dbf72bf57fc2ee5bc5c891261e0f8fb55b81d8708024361b6ca434bf54be3253",
+      "before": {
+        "meaning": "gods",
+        "equation": "示 show + 申 express = 神 gods",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "申",
+            "gloss": "express"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "申",
+            "gloss": "express"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "gods",
+        "equation": "示 altar + 申 express = 神 gods",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "申",
+            "gloss": "express"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "申",
+            "gloss": "express"
+          }
+        ]
+      },
+      "before_mnemonic": "People 示 show devotion and 申 express prayers before the 神 gods.",
+      "after_mnemonic": "At a 示 altar, people 申 express prayers before the 神 gods.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祥",
+      "base_card_hash": "sha256:a17bf5c65b4702a89a196eb7227475d5368aa4fc1324b9fb1b43bb8507ce9d1e",
+      "before": {
+        "meaning": "propitious",
+        "equation": "示 show + 羊 sheep = 祥 propitious",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "羊",
+            "gloss": "sheep"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "羊",
+            "gloss": "sheep"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "propitious",
+        "equation": "示 altar + 羊 sheep = 祥 propitious",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "羊",
+            "gloss": "sheep"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "羊",
+            "gloss": "sheep"
+          }
+        ]
+      },
+      "before_mnemonic": "A well-fed 羊 sheep can 示 show that the grazing season is 祥 propitious.",
+      "after_mnemonic": "A well-fed 羊 sheep at a 示 altar is read as a 祥 propitious sign.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "福",
+      "base_card_hash": "sha256:26d10de170a325bdef7b6c5926a8a91da6f2d73932265dda92debfea83b9083e",
+      "before": {
+        "meaning": "happiness",
+        "equation": "示 show + 畐 fill = 福 happiness",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "畐",
+            "gloss": "fill"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "畐",
+            "gloss": "fill"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "happiness",
+        "equation": "示 altar + 畐 fill = 福 happiness",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "畐",
+            "gloss": "fill"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "畐",
+            "gloss": "fill"
+          }
+        ]
+      },
+      "before_mnemonic": "Smiling faces 示 show how shared meals 畐 fill the home with 福 happiness.",
+      "after_mnemonic": "Offerings 畐 fill the 示 altar as the household asks for 福 happiness.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "隷",
+      "base_card_hash": "sha256:7b2596f3ce59d4390cb2f8f028d830e83b8de4b8cf82571832b5a0243ffae154",
+      "before": {
+        "meaning": "be subservient",
+        "equation": "士 soldier + 示 show + 隶 subservient = 隷 be subservient",
+        "components": [
+          {
+            "character": "士",
+            "gloss": "soldier"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "隶",
+            "gloss": "subservient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "士",
+            "gloss": "soldier"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "隶",
+            "gloss": "subservient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "be subservient",
+        "equation": "士 soldier + 示 altar + 隶 subservient = 隷 be subservient",
+        "components": [
+          {
+            "character": "士",
+            "gloss": "soldier"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "隶",
+            "gloss": "subservient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "士",
+            "gloss": "soldier"
+          },
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "隶",
+            "gloss": "subservient"
+          }
+        ]
+      },
+      "before_mnemonic": "A 士 soldier bows to 示 show he is 隶 subservient, compelled to 隷 be subservient to his commander.",
+      "after_mnemonic": "A 士 soldier bows before a 示 altar like someone 隶 subservient, compelled to 隷 be subservient.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "社",
+      "base_card_hash": "sha256:b143f9b64968fcde560190fb8bb20b6c194386d4675cd48e2466db0b9774a854",
+      "before": {
+        "meaning": "company",
+        "equation": "示 show + 土 earth = 社 company",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "土",
+            "gloss": "earth"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "土",
+            "gloss": "earth"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "company",
+        "equation": "示 altar + 土 earth = 社 company",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "土",
+            "gloss": "earth"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "土",
+            "gloss": "earth"
+          }
+        ]
+      },
+      "before_mnemonic": "Workers at a construction 社 company 示 show clients how their machines reshape 土 earth.",
+      "after_mnemonic": "A 示 altar planted in 土 earth was a community shrine; that community sense grew into 社 company.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祉",
+      "base_card_hash": "sha256:3b97791ba71ab08be367f35ee0ae1d80a5a226eb0e78f62bd6456e0b4ebd26fb",
+      "before": {
+        "meaning": "blessings",
+        "equation": "示 show + 止 foot = 祉 blessings",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "止",
+            "gloss": "foot"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "止",
+            "gloss": "foot"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "blessings",
+        "equation": "示 altar + 止 foot = 祉 blessings",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "止",
+            "gloss": "foot"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "止",
+            "gloss": "foot"
+          }
+        ]
+      },
+      "before_mnemonic": "A steady 止 foot before the altar of 示 show receives 祉 blessings.",
+      "after_mnemonic": "A steady 止 foot approaches the 示 altar to receive 祉 blessings.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祈",
+      "base_card_hash": "sha256:37f422d9e4060e6e4bee49ac6995032927a9be72d97f0500fd11dc4423e64ef1",
+      "before": {
+        "meaning": "supplicate",
+        "equation": "示 show + 斤 axe = 祈 supplicate",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "斤",
+            "gloss": "axe"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "斤",
+            "gloss": "axe"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "supplicate",
+        "equation": "示 altar + 斤 axe = 祈 supplicate",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "斤",
+            "gloss": "axe"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "斤",
+            "gloss": "axe"
+          }
+        ]
+      },
+      "before_mnemonic": "Lay down the 斤 axe to 示 show humility when you 祈 supplicate for mercy.",
+      "after_mnemonic": "Lay down the 斤 axe before the 示 altar when you 祈 supplicate for mercy.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祐",
+      "base_card_hash": "sha256:034b5aa0258d1f642a2f850e2730338ac51b204ee3d7d23cc3116ede2dd2d94b",
+      "before": {
+        "meaning": "divine intervention",
+        "equation": "示 show + 右 right = 祐 divine intervention",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "右",
+            "gloss": "right"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "右",
+            "gloss": "right"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "divine intervention",
+        "equation": "示 altar + 右 right = 祐 divine intervention",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "右",
+            "gloss": "right"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "右",
+            "gloss": "right"
+          }
+        ]
+      },
+      "before_mnemonic": "A sudden rescue from the 右 right can 示 show 祐 divine intervention when human help is impossible.",
+      "after_mnemonic": "When rescue arrives from the 右 right of a 示 altar, worshippers call it 祐 divine intervention.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祖",
+      "base_card_hash": "sha256:7cd7ad5221cb521547ce5b543cf78a53e9696ea7d1b3af5f957b4ac4b0c95f08",
+      "before": {
+        "meaning": "ancestor",
+        "equation": "示 show + 且 moreover = 祖 ancestor",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "且",
+            "gloss": "moreover"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "且",
+            "gloss": "moreover"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "ancestor",
+        "equation": "示 altar + 且 moreover = 祖 ancestor",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "且",
+            "gloss": "moreover"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "且",
+            "gloss": "moreover"
+          }
+        ]
+      },
+      "before_mnemonic": "A family portrait can 示 show one 祖 ancestor and 且 moreover reveal the generations descending from them.",
+      "after_mnemonic": "A memorial tablet on a 示 altar honors one 祖 ancestor, and 且 moreover preserves the family story.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祝",
+      "base_card_hash": "sha256:c85400b11280a97005eafe20f0e9078463f2cc6d944792331797ac35a2c6f1a9",
+      "before": {
+        "meaning": "wish well",
+        "equation": "示 show + 兄 elder brother = 祝 wish well",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "兄",
+            "gloss": "elder brother"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "兄",
+            "gloss": "elder brother"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "wish well",
+        "equation": "示 altar + 兄 elder brother = 祝 wish well",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "兄",
+            "gloss": "elder brother"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "兄",
+            "gloss": "elder brother"
+          }
+        ]
+      },
+      "before_mnemonic": "A card can 示 show that I 祝 wish well for my 兄 elder brother.",
+      "after_mnemonic": "At a 示 altar, raise a warm toast to 祝 wish well for an 兄 elder brother.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "禍",
+      "base_card_hash": "sha256:9a8e9db4316acf2f418288625e1d24a818bf1aec6ac3adbe2f9e03a4c2ce12c3",
+      "before": {
+        "meaning": "misfortune",
+        "equation": "示 show + 咼 jaw = 禍 misfortune",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "咼",
+            "gloss": "jaw"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "咼",
+            "gloss": "jaw"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "misfortune",
+        "equation": "示 altar + 咼 jaw = 禍 misfortune",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "咼",
+            "gloss": "jaw"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "咼",
+            "gloss": "jaw"
+          }
+        ]
+      },
+      "before_mnemonic": "A cracked 咼 jaw can 示 show that 禍 misfortune has struck.",
+      "after_mnemonic": "A clenched 咼 jaw before a 示 altar warns that 禍 misfortune has arrived.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "禎",
+      "base_card_hash": "sha256:7fb7385a666f8c18edc378244aa95aa1a3df7359e2cb8a6f37a77af0049e1465",
+      "before": {
+        "meaning": "auspicious",
+        "equation": "示 show + 貞 chaste = 禎 auspicious",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "貞",
+            "gloss": "chaste"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "貞",
+            "gloss": "chaste"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "auspicious",
+        "equation": "示 altar + 貞 chaste = 禎 auspicious",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "貞",
+            "gloss": "chaste"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "貞",
+            "gloss": "chaste"
+          }
+        ]
+      },
+      "before_mnemonic": "A 貞 chaste officiant reads omens that 示 show whether the ceremony is 禎 auspicious.",
+      "after_mnemonic": "A 貞 chaste vow made at a 示 altar on a favorable day is considered 禎 auspicious.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "視",
+      "base_card_hash": "sha256:b036330affe92afda1f3c7f28b495af7fccd63cb0b22173f5cb303d53c1d5442",
+      "before": {
+        "meaning": "inspect",
+        "equation": "示 show + 見 see = 視 inspect",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "見",
+            "gloss": "see"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "見",
+            "gloss": "see"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "inspect",
+        "equation": "示 altar + 見 see = 視 inspect",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "見",
+            "gloss": "see"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "見",
+            "gloss": "see"
+          }
+        ]
+      },
+      "before_mnemonic": "To 視 inspect the work, first 示 show every seam where the examiner can 見 see it.",
+      "after_mnemonic": "Turn an object on the 示 altar so the examiner can 見 see every side and 視 inspect it.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "視",
+      "base_card_hash": "sha256:b63d8165e5c14d9ba12c51b04037bb977732807ef0a86a44c02e32ab78f2a08d",
+      "before": {
+        "meaning": "inspect",
+        "equation": "示 show + 見 see = 視 inspect",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "見",
+            "gloss": "see"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "見",
+            "gloss": "see"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "inspect",
+        "equation": "示 altar + 見 see = 視 inspect",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "見",
+            "gloss": "see"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "見",
+            "gloss": "see"
+          }
+        ]
+      },
+      "before_mnemonic": "Turn the object so it can 示 show every side, then 視 inspect it to 見 see each detail.",
+      "after_mnemonic": "Turn an object on the 示 altar so the examiner can 見 see every side and 視 inspect it.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祖",
+      "base_card_hash": "sha256:4a9696ec7d142f90fd02b687dd527bd253506526961f5e032f22afe804389513",
+      "before": {
+        "meaning": "ancestor",
+        "equation": "示 show + 且 moreover = 祖 ancestor",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "且",
+            "gloss": "moreover"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "且",
+            "gloss": "moreover"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "ancestor",
+        "equation": "示 altar + 且 moreover = 祖 ancestor",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "且",
+            "gloss": "moreover"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "且",
+            "gloss": "moreover"
+          }
+        ]
+      },
+      "before_mnemonic": "Family portraits not only 示 show each generation but 且 moreover honor the 祖 ancestor who began the line.",
+      "after_mnemonic": "A memorial tablet on a 示 altar honors one 祖 ancestor, and 且 moreover preserves the family story.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "福",
+      "base_card_hash": "sha256:bf04f20cc4b872e69b9b2d98159d0a67113c038315764a0cf8e39e9c41734201",
+      "before": {
+        "meaning": "happiness",
+        "equation": "示 show + 畐 fill = 福 happiness",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "畐",
+            "gloss": "fill"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "畐",
+            "gloss": "fill"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "happiness",
+        "equation": "示 altar + 畐 fill = 福 happiness",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "畐",
+            "gloss": "fill"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "畐",
+            "gloss": "fill"
+          }
+        ]
+      },
+      "before_mnemonic": "When meals 畐 fill the table, smiling faces 示 show the family's 福 happiness.",
+      "after_mnemonic": "Offerings 畐 fill the 示 altar as the household asks for 福 happiness.",
+      "valid": true,
+      "problems": []
+    }
+  ]
+}

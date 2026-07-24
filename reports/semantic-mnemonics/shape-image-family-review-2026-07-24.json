@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "review_id": "shape-image-family-review-2026-07-24",
+  "policy_version": "2026-07-24.1",
+  "reviewed_root_count": 3,
+  "changed_card_count": 65,
+  "old_occurrence_counts": {
+    "甲": 25,
+    "卷": 18,
+    "耑": 20
+  },
+  "final_occurrence_counts": {
+    "甲": 25,
+    "卷": 19,
+    "耑": 21
+  },
+  "method": "Manual rewrite of the complete 甲, 卷, and 耑 boundaries around concrete shell, scroll, and tip images, with nine target cleanups and traditional/simplified alignment.",
+  "roots": [
+    {
+      "character": "甲",
+      "decision": "lexical_component_split_and_atomic_image",
+      "lexical_gloss": "first",
+      "component_gloss": "shell",
+      "reason": "The character commonly labels the first Heavenly Stem or category A, while shell is a concrete independent sense and a visually useful image for its enclosing, protective, body, and animal descendants."
+    },
+    {
+      "character": "卷",
+      "decision": "restore_common_concrete_root_gloss",
+      "lexical_gloss": "scroll",
+      "component_gloss": "scroll",
+      "reason": "Scroll is both a common real meaning and the curled object depicted by the graph. It supports the entire roll, curl, circle, fatigue, and document family more directly than the narrow contextual gloss exam paper."
+    },
+    {
+      "character": "耑",
+      "decision": "restore_archaic_root_gloss_and_atomic_image",
+      "lexical_gloss": "tip",
+      "component_gloss": "tip",
+      "reason": "The rare independent graph is an old form associated with an end or tip. Tip is concrete, historically grounded, and reusable across the 端 phonetic family; specialized was an opaque variant gloss with little mnemonic value."
+    }
+  ],
+  "target_cleanup": {
+    "䖖": "act familiar",
+    "钾": "potassium",
+    "䅚": "densely growing rice",
+    "蜷": "curl up",
+    "錈": "bend metal",
+    "锩": "bend metal",
+    "鬈": "curly hair",
+    "端": "end",
+    "顓": "honest"
+  }
+}

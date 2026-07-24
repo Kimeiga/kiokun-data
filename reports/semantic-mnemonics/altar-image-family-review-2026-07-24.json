@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "review_id": "altar-image-family-review-2026-07-24",
+  "policy_version": "2026-07-24.1",
+  "reviewed_root_count": 1,
+  "target_cleanup_count": 2,
+  "changed_card_count": 124,
+  "old_component_occurrence_count": 125,
+  "final_altar_occurrence_count": 125,
+  "method": "Manual rewrite of the complete 示 boundary: the independent card teaches the common lexical meaning show, while every structural use and the root's visual form use the concrete altar pictograph.",
+  "roots": [
+    {
+      "character": "示",
+      "decision": "lexical_component_split_and_atomic_pictograph",
+      "reason": "The independent character commonly means show, while its reusable graph is an altar or offering table. The concrete altar image makes its large ritual, divine, blessing, and ancestral family coherent and avoids forcing the verb show into unrelated structures.",
+      "lexical_gloss": "show",
+      "component_gloss": "altar"
+    }
+  ],
+  "target_cleanup_characters": [
+    "祃",
+    "禡"
+  ]
+}

@@ -1,0 +1,3682 @@
+{
+  "schema_version": 1,
+  "policy_version": "2026-07-24.1",
+  "policy_path": "data/semantic_mnemonic_shape_image_policy.json",
+  "base_projection_hash": "sha256:c869c9268edc23feeeb54986421570bdaf41e73e9b36aebfa0bb933c602f8beb",
+  "candidate_projection_hash": "sha256:b63c0f63d7c99c481bbe3c3a2b6b0915597ba29d96e848ab04e05ca473b1c905",
+  "card_count": 24037,
+  "invalid_count": 0,
+  "changed_count": 65,
+  "already_applied_count": 0,
+  "old_occurrence_counts": {
+    "甲": 25,
+    "卷": 18,
+    "耑": 20
+  },
+  "new_occurrence_counts": {
+    "甲": 25,
+    "卷": 19,
+    "耑": 21
+  },
+  "changed_characters": [
+    "㒽",
+    "㕅",
+    "㘡",
+    "㙐",
+    "㟨",
+    "㪜",
+    "㳌",
+    "㼷",
+    "䅚",
+    "䆘",
+    "䊎",
+    "䖖",
+    "䘥",
+    "䛅",
+    "䝎",
+    "䱧",
+    "䳪",
+    "䵎",
+    "倦",
+    "勌",
+    "匣",
+    "卷",
+    "厣",
+    "厴",
+    "呷",
+    "喘",
+    "圈",
+    "圌",
+    "媏",
+    "岬",
+    "惓",
+    "惴",
+    "押",
+    "捲",
+    "揣",
+    "柙",
+    "棬",
+    "湍",
+    "炠",
+    "狎",
+    "瑞",
+    "甲",
+    "睠",
+    "端",
+    "綣",
+    "绻",
+    "耑",
+    "胛",
+    "舺",
+    "蜷",
+    "踡",
+    "踹",
+    "遄",
+    "鉀",
+    "錈",
+    "鍴",
+    "钾",
+    "锩",
+    "閘",
+    "闸",
+    "顓",
+    "颛",
+    "鬈",
+    "鴨",
+    "鸭"
+  ],
+  "changes": [
+    {
+      "character": "㒽",
+      "base_card_hash": "sha256:769e089c253642bce7c98f5766a16c0833eb552664c3c6f87d4f56bad83f1756",
+      "before": {
+        "meaning": "children's cap",
+        "equation": "⺜ sun (side) + 卷 exam paper = 㒽 children's cap",
+        "components": [
+          {
+            "character": "⺜",
+            "gloss": "sun (side)"
+          },
+          {
+            "character": "卷",
+            "gloss": "exam paper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⺜",
+            "gloss": "sun (side)"
+          },
+          {
+            "character": "卷",
+            "gloss": "exam paper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "children's cap",
+        "equation": "⺜ sun (side) + 卷 scroll = 㒽 children's cap",
+        "components": [
+          {
+            "character": "⺜",
+            "gloss": "sun (side)"
+          },
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⺜",
+            "gloss": "sun (side)"
+          },
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          }
+        ]
+      },
+      "before_mnemonic": "Fold a 卷 exam paper into a visor that shades a child from the ⺜ sun, making a 㒽 children's cap.",
+      "after_mnemonic": "Roll a 卷 scroll into a visor that shades a child from the ⺜ sun (side), making a 㒽 children's cap.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㕅",
+      "base_card_hash": "sha256:305c2b2d608390c8159c8861432e03f83a160493bdfc7c829233c7574cb90498",
+      "before": {
+        "meaning": "extremely",
+        "equation": "厂 cliff + 甲 first = 㕅 extremely",
+        "components": [
+          {
+            "character": "厂",
+            "gloss": "cliff"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "厂",
+            "gloss": "cliff"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "extremely",
+        "equation": "厂 cliff + 甲 shell = 㕅 extremely",
+        "components": [
+          {
+            "character": "厂",
+            "gloss": "cliff"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "厂",
+            "gloss": "cliff"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ]
+      },
+      "before_mnemonic": "The 甲 first climber finds the 厂 cliff 㕅 extremely steep.",
+      "after_mnemonic": "A loose 甲 shell at the top makes the 厂 cliff 㕅 extremely dangerous.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㘡",
+      "base_card_hash": "sha256:736bf872303bb71378e908790946a109559a3d7e5e1f4ec21c08929c03f6e535",
+      "before": {
+        "meaning": "pen for wild beasts",
+        "equation": "囗 enclosure + 甲 first = 㘡 pen for wild beasts",
+        "components": [
+          {
+            "character": "囗",
+            "gloss": "enclosure"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "囗",
+            "gloss": "enclosure"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "pen for wild beasts",
+        "equation": "囗 enclosure + 甲 shell = 㘡 pen for wild beasts",
+        "components": [
+          {
+            "character": "囗",
+            "gloss": "enclosure"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "囗",
+            "gloss": "enclosure"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ]
+      },
+      "before_mnemonic": "Once the 甲 first wild beast enters a reinforced 囗 enclosure, it becomes a 㘡 pen for wild beasts.",
+      "after_mnemonic": "A hard 甲 shell closes the last gap in a 囗 enclosure, making a 㘡 pen for wild beasts.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㙐",
+      "base_card_hash": "sha256:faff221f02b24bc6bd77e35ec55915f3c21f816424a72f0828455545a7ae3925",
+      "before": {
+        "meaning": "hang",
+        "equation": "土 earth + 耑 specialized = 㙐 hang",
+        "components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "耑",
+            "gloss": "specialized"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "耑",
+            "gloss": "specialized"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "hang",
+        "equation": "土 earth + 耑 tip = 㙐 hang",
+        "components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "耑",
+            "gloss": "tip"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "耑",
+            "gloss": "tip"
+          }
+        ]
+      },
+      "before_mnemonic": "A 耑 specialized suspension rig holds a basket above 土 earth, letting it 㙐 hang.",
+      "after_mnemonic": "Tie a basket to the 耑 tip of a pole above 土 earth and let it 㙐 hang.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㟨",
+      "base_card_hash": "sha256:17a7a6174105828d8240fae58d5b3e8bc87aa8143145e047c974d5b73b736920",
+      "before": {
+        "meaning": "fountain in the side of a hill",
+        "equation": "山 mountain + 耑 specialized = 㟨 fountain in the side of a hill",
+        "components": [
+          {
+            "character": "山",
+            "gloss": "mountain"
+          },
+          {
+            "character": "耑",
+            "gloss": "specialized"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "山",
+            "gloss": "mountain"
+          },
+          {
+            "character": "耑",
+            "gloss": "specialized"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "fountain in the side of a hill",
+        "equation": "山 mountain + 耑 tip = 㟨 fountain in the side of a hill",
+        "components": [
+          {
+            "character": "山",
+            "gloss": "mountain"
+          },
+          {
+            "character": "耑",
+            "gloss": "tip"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "山",
+            "gloss": "mountain"
+          },
+          {
+            "character": "耑",
+            "gloss": "tip"
+          }
+        ]
+      },
+      "before_mnemonic": "At one 耑 specialized point, water emerges from the 山 mountain as a 㟨 fountain in the side of a hill.",
+      "after_mnemonic": "At the 耑 tip of a ledge, water emerges from the 山 mountain as a 㟨 fountain in the side of a hill.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㪜",
+      "base_card_hash": "sha256:7c8a25cd554b4b51829fdaffd970105147407b97296ac96fd8e32c8e09624895",
+      "before": {
+        "meaning": "measure",
+        "equation": "耑 specialized + 攴 rap = 㪜 measure",
+        "components": [
+          {
+            "character": "耑",
+            "gloss": "specialized"
+          },
+          {
+            "character": "攴",
+            "gloss": "rap"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "耑",
+            "gloss": "specialized"
+          },
+          {
+            "character": "攴",
+            "gloss": "rap"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "measure",
+        "equation": "耑 tip + 攴 rap = 㪜 measure",
+        "components": [
+          {
+            "character": "耑",
+            "gloss": "tip"
+          },
+          {
+            "character": "攴",
+            "gloss": "rap"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "耑",
+            "gloss": "tip"
+          },
+          {
+            "character": "攴",
+            "gloss": "rap"
+          }
+        ]
+      },
+      "before_mnemonic": "A 耑 specialized instrument sends an 攴 rap through the wall to 㪜 measure its thickness.",
+      "after_mnemonic": "Place the 耑 tip of a rod against the wall and 攴 rap it to 㪜 measure the thickness.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㳌",
+      "base_card_hash": "sha256:8beb3fda09357e5ede4350b907847ee5a4c49109f8611df4733829db50a6871b",
+      "before": {
+        "meaning": "marshy",
+        "equation": "氵 water (drops) + 甲 first = 㳌 marshy",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "marshy",
+        "equation": "氵 water (drops) + 甲 shell = 㳌 marshy",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ]
+      },
+      "before_mnemonic": "The 甲 first patch where 氵 water pools after rain turns 㳌 marshy underfoot.",
+      "after_mnemonic": "Broken pieces of 甲 shell collect where 氵 water (drops) pools and the ground turns 㳌 marshy.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㼷",
+      "base_card_hash": "sha256:d69317c8ac23ef84d3e39e9a66a3777e405241640e27c5ca03b28c0e07d9fb29",
+      "before": {
+        "meaning": "basin",
+        "equation": "耑 specialized + 瓦 tile = 㼷 basin",
+        "components": [
+          {
+            "character": "耑",
+            "gloss": "specialized"
+          },
+          {
+            "character": "瓦",
+            "gloss": "tile"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "耑",
+            "gloss": "specialized"
+          },
+          {
+            "character": "瓦",
+            "gloss": "tile"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "basin",
+        "equation": "耑 tip + 瓦 tile = 㼷 basin",
+        "components": [
+          {
+            "character": "耑",
+            "gloss": "tip"
+          },
+          {
+            "character": "瓦",
+            "gloss": "tile"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "耑",
+            "gloss": "tip"
+          },
+          {
+            "character": "瓦",
+            "gloss": "tile"
+          }
+        ]
+      },
+      "before_mnemonic": "A potter uses a 耑 specialized mold to curve clay meant for a 瓦 tile into a 㼷 basin.",
+      "after_mnemonic": "Curve a 瓦 tile around the 耑 tip of a mold to form a 㼷 basin.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䅚",
+      "base_card_hash": "sha256:b5ed1d40e8fdf9759195993d584bba45fd6bc6b0a58867bcaa34ec6406938a7c",
+      "before": {
+        "meaning": "closely growing of the rice plants",
+        "equation": "禾 standing grain + 卷 exam paper = 䅚 closely growing of the rice plants",
+        "components": [
+          {
+            "character": "禾",
+            "gloss": "standing grain"
+          },
+          {
+            "character": "卷",
+            "gloss": "exam paper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "禾",
+            "gloss": "standing grain"
+          },
+          {
+            "character": "卷",
+            "gloss": "exam paper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "densely growing rice",
+        "equation": "禾 standing grain + 卷 scroll = 䅚 densely growing rice",
+        "components": [
+          {
+            "character": "禾",
+            "gloss": "standing grain"
+          },
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "禾",
+            "gloss": "standing grain"
+          },
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          }
+        ]
+      },
+      "before_mnemonic": "䅚 closely growing of the rice plants leaves too little space for a 卷 exam paper between plants of 禾 standing grain.",
+      "after_mnemonic": "The 禾 standing grain is so tightly packed that no 卷 scroll fits between rows of 䅚 densely growing rice.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䆘",
+      "base_card_hash": "sha256:11b6fc84ada852554fec66358473c9c0f07d574fd4e530ea43de415247dc4388",
+      "before": {
+        "meaning": "narrow",
+        "equation": "穴 hole + 甲 first = 䆘 narrow",
+        "components": [
+          {
+            "character": "穴",
+            "gloss": "hole"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "穴",
+            "gloss": "hole"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "narrow",
+        "equation": "穴 hole + 甲 shell = 䆘 narrow",
+        "components": [
+          {
+            "character": "穴",
+            "gloss": "hole"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "穴",
+            "gloss": "hole"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ]
+      },
+      "before_mnemonic": "The 甲 first explorer squeezes sideways through a 穴 hole because the passage is 䆘 narrow.",
+      "after_mnemonic": "A broad 甲 shell barely fits through a 穴 hole because the passage is 䆘 narrow.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䊎",
+      "base_card_hash": "sha256:d28e41c466ffefa94a90749bb27327c961922f1fe9e522d252001cf78058b272",
+      "before": {
+        "meaning": "flour",
+        "equation": "米 rice + 卷 exam paper = 䊎 flour",
+        "components": [
+          {
+            "character": "米",
+            "gloss": "rice"
+          },
+          {
+            "character": "卷",
+            "gloss": "exam paper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "米",
+            "gloss": "rice"
+          },
+          {
+            "character": "卷",
+            "gloss": "exam paper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "flour",
+        "equation": "米 rice + 卷 scroll = 䊎 flour",
+        "components": [
+          {
+            "character": "米",
+            "gloss": "rice"
+          },
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "米",
+            "gloss": "rice"
+          },
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          }
+        ]
+      },
+      "before_mnemonic": "Grind 米 rice fine enough to dust a 卷 exam paper with 䊎 flour.",
+      "after_mnemonic": "Grind 米 rice fine enough to dust a 卷 scroll with 䊎 flour.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䖖",
+      "base_card_hash": "sha256:51b10aeb9042ec1a60f6a5609b0946cb1665b0081688118550c78ae02ae0ceec",
+      "before": {
+        "meaning": "show familiarity",
+        "equation": "虎 tiger + 甲 first = 䖖 show familiarity",
+        "components": [
+          {
+            "character": "虎",
+            "gloss": "tiger"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "虎",
+            "gloss": "tiger"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "act familiar",
+        "equation": "虎 tiger + 甲 shell = 䖖 act familiar",
+        "components": [
+          {
+            "character": "虎",
+            "gloss": "tiger"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "虎",
+            "gloss": "tiger"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ]
+      },
+      "before_mnemonic": "A 虎 tiger recognizes its longtime keeper 甲 first and begins to 䖖 show familiarity.",
+      "after_mnemonic": "A 虎 tiger recognizes the 甲 shell worn by its longtime keeper and begins to 䖖 act familiar.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䘥",
+      "base_card_hash": "sha256:db0f0bf123655dfd1c94bb84ada057fcd343c5418354061add5ac6f2b003e5ed",
+      "before": {
+        "meaning": "the front of a Chinese gown",
+        "equation": "衤 clothing (side) + 甲 first = 䘥 the front of a Chinese gown",
+        "components": [
+          {
+            "character": "衤",
+            "gloss": "clothing (side)"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "衤",
+            "gloss": "clothing (side)"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "the front of a Chinese gown",
+        "equation": "衤 clothing (side) + 甲 shell = 䘥 the front of a Chinese gown",
+        "components": [
+          {
+            "character": "衤",
+            "gloss": "clothing (side)"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "衤",
+            "gloss": "clothing (side)"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ]
+      },
+      "before_mnemonic": "The 甲 first part seen when facing traditional 衤 clothing is 䘥 the front of a Chinese gown.",
+      "after_mnemonic": "A stiff panel shaped like a 甲 shell reinforces the 衤 clothing (side) at 䘥 the front of a Chinese gown.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䛅",
+      "base_card_hash": "sha256:07295518e31d52000d76ecf85a83d80ea2f8bf9abc49cd6fcec395ed2f99147c",
+      "before": {
+        "meaning": "talkative",
+        "equation": "言 speech + 甲 first = 䛅 talkative",
+        "components": [
+          {
+            "character": "言",
+            "gloss": "speech"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "言",
+            "gloss": "speech"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "talkative",
+        "equation": "言 speech + 甲 shell = 䛅 talkative",
+        "components": [
+          {
+            "character": "言",
+            "gloss": "speech"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "言",
+            "gloss": "speech"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ]
+      },
+      "before_mnemonic": "The 䛅 talkative guest makes 言 speech the 甲 first response to every pause.",
+      "after_mnemonic": "A 䛅 talkative guest fills every pause with 言 speech while rattling a 甲 shell for attention.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䝎",
+      "base_card_hash": "sha256:e16fc9749e50d414b926cd98f5ec5f05c228be56fae4dfa8e93ec95f988f902b",
+      "before": {
+        "meaning": "pig",
+        "equation": "豕 pig + 耑 specialized = 䝎 pig",
+        "components": [
+          {
+            "character": "豕",
+            "gloss": "pig"
+          },
+          {
+            "character": "耑",
+            "gloss": "specialized"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豕",
+            "gloss": "pig"
+          },
+          {
+            "character": "耑",
+            "gloss": "specialized"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "pig",
+        "equation": "豕 pig + 耑 tip = 䝎 pig",
+        "components": [
+          {
+            "character": "豕",
+            "gloss": "pig"
+          },
+          {
+            "character": "耑",
+            "gloss": "tip"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豕",
+            "gloss": "pig"
+          },
+          {
+            "character": "耑",
+            "gloss": "tip"
+          }
+        ]
+      },
+      "before_mnemonic": "A 耑 specialized pen houses the 䝎 pig, a domesticated counterpart to the roaming 豕 pig.",
+      "after_mnemonic": "The blunt 耑 tip of the snout identifies a 䝎 pig among the roaming 豕 pig family.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䱧",
+      "base_card_hash": "sha256:b52ce64610d0f31f9005c7b33e9a2a37923715548c6c097fe11bdf72bd60a869",
+      "before": {
+        "meaning": "eel",
+        "equation": "魚 fish + 卷 exam paper = 䱧 eel",
+        "components": [
+          {
+            "character": "魚",
+            "gloss": "fish"
+          },
+          {
+            "character": "卷",
+            "gloss": "exam paper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "魚",
+            "gloss": "fish"
+          },
+          {
+            "character": "卷",
+            "gloss": "exam paper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "eel",
+        "equation": "魚 fish + 卷 scroll = 䱧 eel",
+        "components": [
+          {
+            "character": "魚",
+            "gloss": "fish"
+          },
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "魚",
+            "gloss": "fish"
+          },
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          }
+        ]
+      },
+      "before_mnemonic": "The 䱧 eel, a 魚 fish, curls across a 卷 exam paper like one long ink stroke.",
+      "after_mnemonic": "The 䱧 eel, a 魚 fish, curls like a tightly wound 卷 scroll.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䳪",
+      "base_card_hash": "sha256:d682c30d43fbaf6c382b193c35769c50671c9a21b4319a2298df82660e14ce01",
+      "before": {
+        "meaning": "bird",
+        "equation": "耑 specialized + 鳥 bird = 䳪 bird",
+        "components": [
+          {
+            "character": "耑",
+            "gloss": "specialized"
+          },
+          {
+            "character": "鳥",
+            "gloss": "bird"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "耑",
+            "gloss": "specialized"
+          },
+          {
+            "character": "鳥",
+            "gloss": "bird"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "bird",
+        "equation": "耑 tip + 鳥 bird = 䳪 bird",
+        "components": [
+          {
+            "character": "耑",
+            "gloss": "tip"
+          },
+          {
+            "character": "鳥",
+            "gloss": "bird"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "耑",
+            "gloss": "tip"
+          },
+          {
+            "character": "鳥",
+            "gloss": "bird"
+          }
+        ]
+      },
+      "before_mnemonic": "The stork-like 鳥 bird that uses a 耑 specialized bill to probe shallows is the 䳪 bird.",
+      "after_mnemonic": "A probing beak with a sharp 耑 tip distinguishes the 䳪 bird from another 鳥 bird.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䵎",
+      "base_card_hash": "sha256:a8ebb6a236ef8f5f4d1199e0524fa872b14a3f997467a1484a0d844a03c5aad2",
+      "before": {
+        "meaning": "dark",
+        "equation": "耑 specialized = 䵎 dark",
+        "components": [
+          {
+            "character": "耑",
+            "gloss": "specialized"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "耑",
+            "gloss": "specialized"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "dark",
+        "equation": "耑 tip = 䵎 dark",
+        "components": [
+          {
+            "character": "耑",
+            "gloss": "tip"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "耑",
+            "gloss": "tip"
+          }
+        ]
+      },
+      "before_mnemonic": "A 耑 specialized dyer judges the deepest yellow cloth 䵎 dark beside the brighter samples.",
+      "after_mnemonic": "Compare the 耑 tip of the dyed cloth with a bright sample to judge it 䵎 dark.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "倦",
+      "base_card_hash": "sha256:0ff54fcecd0e07a426e98fb10b88233cbb1934ba8da6cfbd4a7b4d888847a632",
+      "before": {
+        "meaning": "worn out",
+        "equation": "亻 person (side) + 卷 exam paper = 倦 worn out",
+        "components": [
+          {
+            "character": "亻",
+            "gloss": "person (side)"
+          },
+          {
+            "character": "卷",
+            "gloss": "exam paper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亻",
+            "gloss": "person (side)"
+          },
+          {
+            "character": "卷",
+            "gloss": "exam paper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "worn out",
+        "equation": "亻 person (side) + 卷 scroll = 倦 worn out",
+        "components": [
+          {
+            "character": "亻",
+            "gloss": "person (side)"
+          },
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亻",
+            "gloss": "person (side)"
+          },
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          }
+        ]
+      },
+      "before_mnemonic": "A 亻 person slumps over the last 卷 exam paper, utterly 倦 worn out.",
+      "after_mnemonic": "A 亻 person (side) slumps over the last 卷 scroll, utterly 倦 worn out.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "勌",
+      "base_card_hash": "sha256:36bda86f36a02243eee583814460f6ba47b3d72517aa62204e5967726a6c7d47",
+      "before": {
+        "meaning": "labor",
+        "equation": "卷 exam paper + 力 power = 勌 labor",
+        "components": [
+          {
+            "character": "卷",
+            "gloss": "exam paper"
+          },
+          {
+            "character": "力",
+            "gloss": "power"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "卷",
+            "gloss": "exam paper"
+          },
+          {
+            "character": "力",
+            "gloss": "power"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "labor",
+        "equation": "卷 scroll + 力 power = 勌 labor",
+        "components": [
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          },
+          {
+            "character": "力",
+            "gloss": "power"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          },
+          {
+            "character": "力",
+            "gloss": "power"
+          }
+        ]
+      },
+      "before_mnemonic": "Each 卷 exam paper demands 力 power from those who 勌 labor over it.",
+      "after_mnemonic": "Copying every 卷 scroll demands the 力 power of those who 勌 labor over it.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "匣",
+      "base_card_hash": "sha256:b1607939846d02824cc7b8a2930ef680e51d9d109e625510fec594d3d2d94f26",
+      "before": {
+        "meaning": "case",
+        "equation": "匚 box (open) + 甲 first = 匣 case",
+        "components": [
+          {
+            "character": "匚",
+            "gloss": "box (open)"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "匚",
+            "gloss": "box (open)"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "case",
+        "equation": "匚 box (open) + 甲 shell = 匣 case",
+        "components": [
+          {
+            "character": "匚",
+            "gloss": "box (open)"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "匚",
+            "gloss": "box (open)"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ]
+      },
+      "before_mnemonic": "The 甲 first edition rests protected in an 匣 case, an 匚 box (open) just enough to display it.",
+      "after_mnemonic": "An 匚 box (open) closes around a 甲 shell like a fitted 匣 case.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "卷",
+      "base_card_hash": "sha256:bf6fe72e3a074703e9fbad97ed810e0d8b98290a8c9f2801ceaf93a739d71fad",
+      "before": {
+        "meaning": "exam paper",
+        "equation": "龹 raised hands + 㔾 seal = 卷 exam paper",
+        "components": [
+          {
+            "character": "龹",
+            "gloss": "raised hands"
+          },
+          {
+            "character": "㔾",
+            "gloss": "seal"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "龹",
+            "gloss": "raised hands"
+          },
+          {
+            "character": "㔾",
+            "gloss": "seal"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "scroll",
+        "equation": "Visual form: 卷 scroll",
+        "components": [
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          }
+        ]
+      },
+      "before_mnemonic": "A student's 龹 raised hands submit the 卷 exam paper for the examiner's 㔾 seal.",
+      "after_mnemonic": "A sheet curling around itself forms a 卷 scroll, a real book or picture format that can be rolled.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "厣",
+      "base_card_hash": "sha256:b0c59034e3fd423571063572432c146c3dba4b0593f1c59e85f4dc122757325a",
+      "before": {
+        "meaning": "shell",
+        "equation": "厌 detest + 甲 first = 厣 shell",
+        "components": [
+          {
+            "character": "厌",
+            "gloss": "detest"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "厌",
+            "gloss": "detest"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "shell",
+        "equation": "厌 detest + 甲 shell = 厣 shell",
+        "components": [
+          {
+            "character": "厌",
+            "gloss": "detest"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "厌",
+            "gloss": "detest"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ]
+      },
+      "before_mnemonic": "A snail's 甲 first response when it starts to 厌 detest a disturbance is hiding beneath its 厣 shell.",
+      "after_mnemonic": "When a snail begins to 厌 detest a disturbance, it retreats beneath its hard 甲 shell, the 厣 shell.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "厴",
+      "base_card_hash": "sha256:d0c876401e3bd44df8ea3ada28329defd1e608e7bcc14078646b0ba47c70b78b",
+      "before": {
+        "meaning": "shell",
+        "equation": "厭 detest + 甲 first = 厴 shell",
+        "components": [
+          {
+            "character": "厭",
+            "gloss": "detest"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "厭",
+            "gloss": "detest"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "shell",
+        "equation": "厭 detest + 甲 shell = 厴 shell",
+        "components": [
+          {
+            "character": "厭",
+            "gloss": "detest"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "厭",
+            "gloss": "detest"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ]
+      },
+      "before_mnemonic": "A snail's 甲 first response when it starts to 厭 detest a disturbance is hiding beneath its 厴 shell.",
+      "after_mnemonic": "When a snail begins to 厭 detest a disturbance, it retreats beneath its hard 甲 shell, the 厴 shell.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "呷",
+      "base_card_hash": "sha256:5f9870b2fe13f50bda057ae8174e4842e60dfbd693e90dbd9b56810ed5d11601",
+      "before": {
+        "meaning": "swallow",
+        "equation": "口 mouth + 甲 first = 呷 swallow",
+        "components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "swallow",
+        "equation": "口 mouth + 甲 shell = 呷 swallow",
+        "components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ]
+      },
+      "before_mnemonic": "The 口 mouth takes the 甲 first sip, then begins to 呷 swallow.",
+      "after_mnemonic": "A 口 mouth pulls meat from a 甲 shell and begins to 呷 swallow.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "喘",
+      "base_card_hash": "sha256:118e54df8e20bd6a56a249f949a311b6acfe8dcb6cd018145dc9cd6a18ee3622",
+      "before": {
+        "meaning": "wheeze",
+        "equation": "口 mouth + 耑 specialized = 喘 wheeze",
+        "components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "耑",
+            "gloss": "specialized"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "耑",
+            "gloss": "specialized"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "wheeze",
+        "equation": "口 mouth + 耑 tip = 喘 wheeze",
+        "components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "耑",
+            "gloss": "tip"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "耑",
+            "gloss": "tip"
+          }
+        ]
+      },
+      "before_mnemonic": "A 耑 specialized actor makes a raspy breath through the 口 mouth to 喘 wheeze on cue.",
+      "after_mnemonic": "Purse the 口 mouth to a narrow 耑 tip as the breath catches in a 喘 wheeze.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "圈",
+      "base_card_hash": "sha256:1e30a114c9779f54a46f97f9cf6e0b6cb1541be8989e9570fed3956fdf363d9c",
+      "before": {
+        "meaning": "circle",
+        "equation": "囗 enclosure + 卷 exam paper = 圈 circle",
+        "components": [
+          {
+            "character": "囗",
+            "gloss": "enclosure"
+          },
+          {
+            "character": "卷",
+            "gloss": "exam paper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "囗",
+            "gloss": "enclosure"
+          },
+          {
+            "character": "卷",
+            "gloss": "exam paper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "circle",
+        "equation": "囗 enclosure + 卷 scroll = 圈 circle",
+        "components": [
+          {
+            "character": "囗",
+            "gloss": "enclosure"
+          },
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "囗",
+            "gloss": "enclosure"
+          },
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          }
+        ]
+      },
+      "before_mnemonic": "Inside a 囗 enclosure, curl a 卷 exam paper until its ends meet in a 圈 circle.",
+      "after_mnemonic": "Inside a 囗 enclosure, curl a 卷 scroll until its ends meet in a 圈 circle.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "圌",
+      "base_card_hash": "sha256:fa043f4aa5729d1fd3c2f85890a114e05e1751c592316d1954710d3e4cebcf3f",
+      "before": {
+        "meaning": "fence",
+        "equation": "囗 enclosure + 耑 specialized = 圌 fence",
+        "components": [
+          {
+            "character": "囗",
+            "gloss": "enclosure"
+          },
+          {
+            "character": "耑",
+            "gloss": "specialized"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "囗",
+            "gloss": "enclosure"
+          },
+          {
+            "character": "耑",
+            "gloss": "specialized"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "fence",
+        "equation": "囗 enclosure + 耑 tip = 圌 fence",
+        "components": [
+          {
+            "character": "囗",
+            "gloss": "enclosure"
+          },
+          {
+            "character": "耑",
+            "gloss": "tip"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "囗",
+            "gloss": "enclosure"
+          },
+          {
+            "character": "耑",
+            "gloss": "tip"
+          }
+        ]
+      },
+      "before_mnemonic": "A 耑 specialized row of posts closes the open side of a 囗 enclosure as a 圌 fence.",
+      "after_mnemonic": "Point every post to a 耑 tip around a 囗 enclosure to build a 圌 fence.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "媏",
+      "base_card_hash": "sha256:015d2377ab447808658d1aeb8d8a56dc3201d102e1ac8504e9fd91f407b23b26",
+      "before": {
+        "meaning": "female-name character",
+        "equation": "女 woman + 耑 specialized = 媏 female-name character",
+        "components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "耑",
+            "gloss": "specialized"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "耑",
+            "gloss": "specialized"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "female-name character",
+        "equation": "女 woman + 耑 tip = 媏 female-name character",
+        "components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "耑",
+            "gloss": "tip"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "耑",
+            "gloss": "tip"
+          }
+        ]
+      },
+      "before_mnemonic": "A 女 woman uses the 媏 female-name character as a 耑 specialized part of her traditional name.",
+      "after_mnemonic": "A 女 woman chooses the pointed form of a 耑 tip inside the 媏 female-name character.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "岬",
+      "base_card_hash": "sha256:d4acaaafd47d24f0e2c8614a2589d3e7881484c87a972864c70a7c1295627410",
+      "before": {
+        "meaning": "cape",
+        "equation": "山 mountain + 甲 first = 岬 cape",
+        "components": [
+          {
+            "character": "山",
+            "gloss": "mountain"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "山",
+            "gloss": "mountain"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "cape",
+        "equation": "山 mountain + 甲 shell = 岬 cape",
+        "components": [
+          {
+            "character": "山",
+            "gloss": "mountain"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "山",
+            "gloss": "mountain"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ]
+      },
+      "before_mnemonic": "A 岬 cape is the part of a 山 mountain that reaches the sea 甲 first.",
+      "after_mnemonic": "A 山 mountain ridge curves like a 甲 shell as it projects into the sea as a 岬 cape.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "惓",
+      "base_card_hash": "sha256:5b1e75dbd5790e356fcde1a2ec2cc4c3c21e90a82f8ac0023bf9df6df6f80aff",
+      "before": {
+        "meaning": "sincere",
+        "equation": "忄 heart (side) + 卷 exam paper = 惓 sincere",
+        "components": [
+          {
+            "character": "忄",
+            "gloss": "heart (side)"
+          },
+          {
+            "character": "卷",
+            "gloss": "exam paper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "忄",
+            "gloss": "heart (side)"
+          },
+          {
+            "character": "卷",
+            "gloss": "exam paper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sincere",
+        "equation": "忄 heart (side) + 卷 scroll = 惓 sincere",
+        "components": [
+          {
+            "character": "忄",
+            "gloss": "heart (side)"
+          },
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "忄",
+            "gloss": "heart (side)"
+          },
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          }
+        ]
+      },
+      "before_mnemonic": "One who answers a 卷 exam paper exactly as the 忄 heart believes is 惓 sincere.",
+      "after_mnemonic": "A message written from the 忄 heart (side) fills a 卷 scroll with 惓 sincere words.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "惴",
+      "base_card_hash": "sha256:ebd8012970cc141567b754adeea3422b282e76779b1e436b9223e4da762edfdf",
+      "before": {
+        "meaning": "afraid",
+        "equation": "忄 heart (side) + 耑 specialized = 惴 afraid",
+        "components": [
+          {
+            "character": "忄",
+            "gloss": "heart (side)"
+          },
+          {
+            "character": "耑",
+            "gloss": "specialized"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "忄",
+            "gloss": "heart (side)"
+          },
+          {
+            "character": "耑",
+            "gloss": "specialized"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "afraid",
+        "equation": "忄 heart (side) + 耑 tip = 惴 afraid",
+        "components": [
+          {
+            "character": "忄",
+            "gloss": "heart (side)"
+          },
+          {
+            "character": "耑",
+            "gloss": "tip"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "忄",
+            "gloss": "heart (side)"
+          },
+          {
+            "character": "耑",
+            "gloss": "tip"
+          }
+        ]
+      },
+      "before_mnemonic": "The 忄 heart feels 惴 afraid when a task demands a 耑 specialized skill it has never learned.",
+      "after_mnemonic": "The 忄 heart (side) trembles at the 耑 tip of a cliff because it is 惴 afraid.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "押",
+      "base_card_hash": "sha256:a1bccdd1a9b2a8de8d65fd874f6c995681bb9d65fd04cc767db775d3ac2bba68",
+      "before": {
+        "meaning": "pawn",
+        "equation": "扌 hand (side) + 甲 first = 押 pawn",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "pawn",
+        "equation": "扌 hand (side) + 甲 shell = 押 pawn",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ]
+      },
+      "before_mnemonic": "You use your 扌 hand to offer the 甲 first valuable item you own to 押 pawn it for cash.",
+      "after_mnemonic": "A 扌 hand (side) places a valuable 甲 shell token down to 押 pawn it for cash.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "捲",
+      "base_card_hash": "sha256:b032c84cc9ba59c7b5ab70afa393e3303d2f4e7e11163f47bc275406082ceaf7",
+      "before": {
+        "meaning": "roll up",
+        "equation": "扌 hand (side) + 卷 exam paper = 捲 roll up",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "卷",
+            "gloss": "exam paper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "卷",
+            "gloss": "exam paper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "roll up",
+        "equation": "扌 hand (side) + 卷 scroll = 捲 roll up",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          }
+        ]
+      },
+      "before_mnemonic": "A 扌 hand grips one edge of the 卷 exam paper and begins to 捲 roll up the sheet.",
+      "after_mnemonic": "A 扌 hand (side) grips one edge of a 卷 scroll and begins to 捲 roll up the sheet.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "揣",
+      "base_card_hash": "sha256:c44794dfbb295778a0a7e1393d9d211ced151c6dbb52ee615f61235f4fced248",
+      "before": {
+        "meaning": "conjecture",
+        "equation": "扌 hand (side) + 耑 specialized = 揣 conjecture",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "耑",
+            "gloss": "specialized"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "耑",
+            "gloss": "specialized"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "conjecture",
+        "equation": "扌 hand (side) + 耑 tip = 揣 conjecture",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "耑",
+            "gloss": "tip"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "耑",
+            "gloss": "tip"
+          }
+        ]
+      },
+      "before_mnemonic": "A 扌 hand weighs the evidence while 耑 specialized knowledge narrows what one can 揣 conjecture.",
+      "after_mnemonic": "Rest a 扌 hand (side) at the 耑 tip of the chin while you 揣 conjecture.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "柙",
+      "base_card_hash": "sha256:e9565c7876f5016fcd52035a5ee93f64089ffba0f90a2b0afb76e19e72259e4d",
+      "before": {
+        "meaning": "cage",
+        "equation": "木 tree + 甲 first = 柙 cage",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "cage",
+        "equation": "木 tree + 甲 shell = 柙 cage",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ]
+      },
+      "before_mnemonic": "A 木 tree marked 甲 first supplies the stout bars of a 柙 cage.",
+      "after_mnemonic": "Bars from a 木 tree form a protective 甲 shell around an animal in a 柙 cage.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "棬",
+      "base_card_hash": "sha256:809b00f6f170b34ab35bdf312ccead76e68293f0c1a55a15c67c5c3ce8d8a9f0",
+      "before": {
+        "meaning": "bowl",
+        "equation": "木 tree + 卷 exam paper = 棬 bowl",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "卷",
+            "gloss": "exam paper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "卷",
+            "gloss": "exam paper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "bowl",
+        "equation": "木 tree + 卷 scroll = 棬 bowl",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          }
+        ]
+      },
+      "before_mnemonic": "Wood from a 木 tree bends around a rolled 卷 exam paper to form a 棬 bowl.",
+      "after_mnemonic": "Wood from a 木 tree bends around a 卷 scroll as a form for a 棬 bowl.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "湍",
+      "base_card_hash": "sha256:992c072d22f50f920c57a54fa4d98e06a5bc8a2c6b9d1f15a87bbc484b93a77c",
+      "before": {
+        "meaning": "rapid water current",
+        "equation": "氵 water (drops) + 耑 specialized = 湍 rapid water current",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "耑",
+            "gloss": "specialized"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "耑",
+            "gloss": "specialized"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "rapid water current",
+        "equation": "氵 water (drops) + 耑 tip = 湍 rapid water current",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "耑",
+            "gloss": "tip"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "耑",
+            "gloss": "tip"
+          }
+        ]
+      },
+      "before_mnemonic": "Only 耑 specialized training prepares rafters for a 湍 rapid water current churning the 氵 water white.",
+      "after_mnemonic": "氵 water (drops) crashes over each sharp 耑 tip of rock in a 湍 rapid water current.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "炠",
+      "base_card_hash": "sha256:fae47008a25f02a46cd496232f01b2c33dcb780c4d50eaff64e690b436de955a",
+      "before": {
+        "meaning": "cook in boiling water",
+        "equation": "火 fire + 甲 first = 炠 cook in boiling water",
+        "components": [
+          {
+            "character": "火",
+            "gloss": "fire"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "火",
+            "gloss": "fire"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "cook in boiling water",
+        "equation": "火 fire + 甲 shell = 炠 cook in boiling water",
+        "components": [
+          {
+            "character": "火",
+            "gloss": "fire"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "火",
+            "gloss": "fire"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ]
+      },
+      "before_mnemonic": "For the 甲 first step, boil water over 火 fire so ingredients can 炠 cook in boiling water.",
+      "after_mnemonic": "Set shellfish in their 甲 shell over 火 fire to 炠 cook in boiling water.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "狎",
+      "base_card_hash": "sha256:05c0cfdcf7f841dd24b73b65e237ab350b02f830e1a89363dab8376bd1229e03",
+      "before": {
+        "meaning": "be familiar with",
+        "equation": "犭 dog (side) + 甲 first = 狎 be familiar with",
+        "components": [
+          {
+            "character": "犭",
+            "gloss": "dog (side)"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "犭",
+            "gloss": "dog (side)"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "be familiar with",
+        "equation": "犭 dog (side) + 甲 shell = 狎 be familiar with",
+        "components": [
+          {
+            "character": "犭",
+            "gloss": "dog (side)"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "犭",
+            "gloss": "dog (side)"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ]
+      },
+      "before_mnemonic": "The 甲 first neighbor a 犭 dog meets daily soon becomes someone it can 狎 be familiar with.",
+      "after_mnemonic": "A 犭 dog (side) recognizes the same 甲 shell charm each day and learns to 狎 be familiar with its wearer.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "瑞",
+      "base_card_hash": "sha256:d06faaac995c5652ecff73ffe66cb61187e504d6a2964c0277373a08e408efaa",
+      "before": {
+        "meaning": "auspicious",
+        "equation": "𤣩 jade (alt) + 耑 specialized = 瑞 auspicious",
+        "components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade (alt)"
+          },
+          {
+            "character": "耑",
+            "gloss": "specialized"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade (alt)"
+          },
+          {
+            "character": "耑",
+            "gloss": "specialized"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "auspicious",
+        "equation": "𤣩 jade (alt) + 耑 tip = 瑞 auspicious",
+        "components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade (alt)"
+          },
+          {
+            "character": "耑",
+            "gloss": "tip"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade (alt)"
+          },
+          {
+            "character": "耑",
+            "gloss": "tip"
+          }
+        ]
+      },
+      "before_mnemonic": "At a 耑 specialized ceremony, a 𤣩 jade token serves as a 瑞 auspicious sign.",
+      "after_mnemonic": "A ceremonial 𤣩 jade (alt) scepter ends in a precise 耑 tip and serves as a 瑞 auspicious sign.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "甲",
+      "base_card_hash": "sha256:dcbfae893091335fa522d97f946547dbb8b22550a01f7b1c4a5a1e6125af533e",
+      "before": {
+        "meaning": "first",
+        "equation": "Visual form: 甲 first",
+        "components": [
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "first",
+        "equation": "Visual form: 甲 shell; meaning 甲 first",
+        "components": [
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ]
+      },
+      "before_mnemonic": "In the traditional ten-part Heavenly Stem cycle, 甲 first takes the opening position.",
+      "after_mnemonic": "A hard 甲 shell suggests armor and protection; in the Heavenly Stem sequence, 甲 first opens the cycle.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "睠",
+      "base_card_hash": "sha256:faad2e10b417618a23eac5eaf5007974478c2ff035266311d9c6d9985510cb1f",
+      "before": {
+        "meaning": "love",
+        "equation": "目 eye + 卷 exam paper = 睠 love",
+        "components": [
+          {
+            "character": "目",
+            "gloss": "eye"
+          },
+          {
+            "character": "卷",
+            "gloss": "exam paper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "目",
+            "gloss": "eye"
+          },
+          {
+            "character": "卷",
+            "gloss": "exam paper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "love",
+        "equation": "目 eye + 卷 scroll = 睠 love",
+        "components": [
+          {
+            "character": "目",
+            "gloss": "eye"
+          },
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "目",
+            "gloss": "eye"
+          },
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          }
+        ]
+      },
+      "before_mnemonic": "A parent's 目 eye studies a child's 卷 exam paper, seeing effort before scores and showing 睠 love.",
+      "after_mnemonic": "A parent's 目 eye studies a child's 卷 scroll, seeing effort before errors and showing 睠 love.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "端",
+      "base_card_hash": "sha256:7577ab1fc703d948e630bfc17970279fe97d1dc0a25b60ffd12419858eedb5e2",
+      "before": {
+        "meaning": "upright",
+        "equation": "立 standing up + 耑 specialized = 端 upright",
+        "components": [
+          {
+            "character": "立",
+            "gloss": "standing up"
+          },
+          {
+            "character": "耑",
+            "gloss": "specialized"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "立",
+            "gloss": "standing up"
+          },
+          {
+            "character": "耑",
+            "gloss": "specialized"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "end",
+        "equation": "立 standing up + 耑 tip = 端 end",
+        "components": [
+          {
+            "character": "立",
+            "gloss": "standing up"
+          },
+          {
+            "character": "耑",
+            "gloss": "tip"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "立",
+            "gloss": "standing up"
+          },
+          {
+            "character": "耑",
+            "gloss": "tip"
+          }
+        ]
+      },
+      "before_mnemonic": "For an acrobat, 立 standing up on one hand is a 耑 specialized way to remain 端 upright.",
+      "after_mnemonic": "A marker 立 standing up at the 耑 tip of a boundary shows where the 端 end lies.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "綣",
+      "base_card_hash": "sha256:612e64d4dd05535791b9fa2a977c5b60eb129b30fd802066659b3a16a5aaf1dd",
+      "before": {
+        "meaning": "affectionate",
+        "equation": "糸 thread + 卷 exam paper = 綣 affectionate",
+        "components": [
+          {
+            "character": "糸",
+            "gloss": "thread"
+          },
+          {
+            "character": "卷",
+            "gloss": "exam paper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "糸",
+            "gloss": "thread"
+          },
+          {
+            "character": "卷",
+            "gloss": "exam paper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "affectionate",
+        "equation": "糸 thread + 卷 scroll = 綣 affectionate",
+        "components": [
+          {
+            "character": "糸",
+            "gloss": "thread"
+          },
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "糸",
+            "gloss": "thread"
+          },
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          }
+        ]
+      },
+      "before_mnemonic": "A 糸 thread curls around a 卷 exam paper in a protective embrace that feels 綣 affectionate.",
+      "after_mnemonic": "A 糸 thread binds a precious 卷 scroll in a protective embrace that feels 綣 affectionate.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "绻",
+      "base_card_hash": "sha256:89ab9fd6f089219a3490ec345b14619ca3820e2f73bb413677d19e0d96c3f632",
+      "before": {
+        "meaning": "affectionate",
+        "equation": "纟 thread + 卷 exam paper = 绻 affectionate",
+        "components": [
+          {
+            "character": "纟",
+            "gloss": "thread"
+          },
+          {
+            "character": "卷",
+            "gloss": "exam paper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "纟",
+            "gloss": "thread"
+          },
+          {
+            "character": "卷",
+            "gloss": "exam paper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "affectionate",
+        "equation": "纟 thread + 卷 scroll = 绻 affectionate",
+        "components": [
+          {
+            "character": "纟",
+            "gloss": "thread"
+          },
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "纟",
+            "gloss": "thread"
+          },
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          }
+        ]
+      },
+      "before_mnemonic": "A 纟 thread carefully stitches a torn 卷 exam paper for its owner, a 绻 affectionate act.",
+      "after_mnemonic": "A 纟 thread binds a precious 卷 scroll in a protective embrace that feels 绻 affectionate.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "耑",
+      "base_card_hash": "sha256:91068235ce971c26aaa8c9d88c3b15095404ba120979434e6c142275de4b6588",
+      "before": {
+        "meaning": "specialized",
+        "equation": "山 mountain + 而 and = 耑 specialized",
+        "components": [
+          {
+            "character": "山",
+            "gloss": "mountain"
+          },
+          {
+            "character": "而",
+            "gloss": "and"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "山",
+            "gloss": "mountain"
+          },
+          {
+            "character": "而",
+            "gloss": "and"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "tip",
+        "equation": "Visual form: 耑 tip",
+        "components": [
+          {
+            "character": "耑",
+            "gloss": "tip"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "耑",
+            "gloss": "tip"
+          }
+        ]
+      },
+      "before_mnemonic": "A 山 mountain course links geology 而 and climbing, keeping its training 耑 specialized.",
+      "after_mnemonic": "The old graph marks the pointed beginning or extremity of something: its 耑 tip.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "胛",
+      "base_card_hash": "sha256:9a9476cb37670d86cd72bf4e3722e2b1104f14884089517fc327e4eba78a4ccb",
+      "before": {
+        "meaning": "the shoulder",
+        "equation": "⺼ meat (side) + 甲 first = 胛 the shoulder",
+        "components": [
+          {
+            "character": "⺼",
+            "gloss": "meat (side)"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⺼",
+            "gloss": "meat (side)"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "the shoulder",
+        "equation": "⺼ meat (side) + 甲 shell = 胛 the shoulder",
+        "components": [
+          {
+            "character": "⺼",
+            "gloss": "meat (side)"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⺼",
+            "gloss": "meat (side)"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ]
+      },
+      "before_mnemonic": "Below the neck, the 甲 first place where ⺼ meat bulges outward is 胛 the shoulder.",
+      "after_mnemonic": "The ⺼ meat (side) covers a flat bone shaped like a 甲 shell at 胛 the shoulder.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "舺",
+      "base_card_hash": "sha256:2ae3b1a1d085e710280d3c2f7588c2de85f041591547f09eeeb6511eaceffc1f",
+      "before": {
+        "meaning": "boat",
+        "equation": "舟 boat + 甲 first = 舺 boat",
+        "components": [
+          {
+            "character": "舟",
+            "gloss": "boat"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "舟",
+            "gloss": "boat"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "boat",
+        "equation": "舟 boat + 甲 shell = 舺 boat",
+        "components": [
+          {
+            "character": "舟",
+            "gloss": "boat"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "舟",
+            "gloss": "boat"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ]
+      },
+      "before_mnemonic": "The 舺 boat is the 甲 first 舟 boat launched, leading every other vessel from the harbor.",
+      "after_mnemonic": "A hull shaped like a 甲 shell protects each 舟 boat and forms a sturdy 舺 boat.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "蜷",
+      "base_card_hash": "sha256:355d98d1d54ec51c3914421a3908e4cc5eaf21ae4e12dd4ae4c1ae9185316826",
+      "before": {
+        "meaning": "creep like worm",
+        "equation": "虫 insects + 卷 exam paper = 蜷 creep like worm",
+        "components": [
+          {
+            "character": "虫",
+            "gloss": "insects"
+          },
+          {
+            "character": "卷",
+            "gloss": "exam paper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "虫",
+            "gloss": "insects"
+          },
+          {
+            "character": "卷",
+            "gloss": "exam paper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "curl up",
+        "equation": "虫 insects + 卷 scroll = 蜷 curl up",
+        "components": [
+          {
+            "character": "虫",
+            "gloss": "insects"
+          },
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "虫",
+            "gloss": "insects"
+          },
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          }
+        ]
+      },
+      "before_mnemonic": "Watch 虫 insects cross a 卷 exam paper and 蜷 creep like worm after worm in a wriggling chain.",
+      "after_mnemonic": "Touch the edge of a 卷 scroll and watch 虫 insects imitate its curve as they 蜷 curl up.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "踡",
+      "base_card_hash": "sha256:e1dc2c3b34e66976bc7a56b94e25ea12d887d1eaa52ccdf2afa0130245a366c0",
+      "before": {
+        "meaning": "curled",
+        "equation": "𧾷 foot + 卷 exam paper = 踡 curled",
+        "components": [
+          {
+            "character": "𧾷",
+            "gloss": "foot"
+          },
+          {
+            "character": "卷",
+            "gloss": "exam paper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𧾷",
+            "gloss": "foot"
+          },
+          {
+            "character": "卷",
+            "gloss": "exam paper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "curled",
+        "equation": "𧾷 foot + 卷 scroll = 踡 curled",
+        "components": [
+          {
+            "character": "𧾷",
+            "gloss": "foot"
+          },
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𧾷",
+            "gloss": "foot"
+          },
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          }
+        ]
+      },
+      "before_mnemonic": "A 𧾷 foot grips a rolled 卷 exam paper with its toes 踡 curled around it.",
+      "after_mnemonic": "A 𧾷 foot grips a 卷 scroll with its toes 踡 curled around it.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "踹",
+      "base_card_hash": "sha256:22bf198bda00b023898a2871af6abc7c8e4d2b5ce65e2d27c479d62128eb8381",
+      "before": {
+        "meaning": "stomp",
+        "equation": "𧾷 foot + 耑 specialized = 踹 stomp",
+        "components": [
+          {
+            "character": "𧾷",
+            "gloss": "foot"
+          },
+          {
+            "character": "耑",
+            "gloss": "specialized"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𧾷",
+            "gloss": "foot"
+          },
+          {
+            "character": "耑",
+            "gloss": "specialized"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "stomp",
+        "equation": "𧾷 foot + 耑 tip = 踹 stomp",
+        "components": [
+          {
+            "character": "𧾷",
+            "gloss": "foot"
+          },
+          {
+            "character": "耑",
+            "gloss": "tip"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𧾷",
+            "gloss": "foot"
+          },
+          {
+            "character": "耑",
+            "gloss": "tip"
+          }
+        ]
+      },
+      "before_mnemonic": "A 𧾷 foot uses a 耑 specialized downward strike to 踹 stomp the ground.",
+      "after_mnemonic": "Drive the 耑 tip of a 𧾷 foot downward to 踹 stomp the ground.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "遄",
+      "base_card_hash": "sha256:3e6633d8d749762b2b63d607cf13ebe8877c0c2a0e14a19e4a408ade0e59707a",
+      "before": {
+        "meaning": "hurry",
+        "equation": "辶 movement + 耑 specialized = 遄 hurry",
+        "components": [
+          {
+            "character": "辶",
+            "gloss": "movement"
+          },
+          {
+            "character": "耑",
+            "gloss": "specialized"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "辶",
+            "gloss": "movement"
+          },
+          {
+            "character": "耑",
+            "gloss": "specialized"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "hurry",
+        "equation": "辶 movement + 耑 tip = 遄 hurry",
+        "components": [
+          {
+            "character": "辶",
+            "gloss": "movement"
+          },
+          {
+            "character": "耑",
+            "gloss": "tip"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "辶",
+            "gloss": "movement"
+          },
+          {
+            "character": "耑",
+            "gloss": "tip"
+          }
+        ]
+      },
+      "before_mnemonic": "When 辶 movement is 耑 specialized for speed, a courier must 遄 hurry.",
+      "after_mnemonic": "Aim 辶 movement toward the 耑 tip of the route and 遄 hurry there.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "鉀",
+      "base_card_hash": "sha256:97963f1fe691259a0754c9da12fa2c6a4c40612e0a312f2609a20c1b00161251",
+      "before": {
+        "meaning": "potassium",
+        "equation": "金 metal + 甲 first = 鉀 potassium",
+        "components": [
+          {
+            "character": "金",
+            "gloss": "metal"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "金",
+            "gloss": "metal"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "potassium",
+        "equation": "金 metal + 甲 shell = 鉀 potassium",
+        "components": [
+          {
+            "character": "金",
+            "gloss": "metal"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "金",
+            "gloss": "metal"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ]
+      },
+      "before_mnemonic": "Among 金 metal elements, 鉀 potassium was the 甲 first to be isolated by electrolysis.",
+      "after_mnemonic": "Reactive 鉀 potassium is sealed inside a protective 甲 shell of 金 metal.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "錈",
+      "base_card_hash": "sha256:e7e4920a852d161afa60ca55e2244314113ff3ec81b0c9133c1a38d8776db199",
+      "before": {
+        "meaning": "bend iron",
+        "equation": "金 metal + 卷 exam paper = 錈 bend iron",
+        "components": [
+          {
+            "character": "金",
+            "gloss": "metal"
+          },
+          {
+            "character": "卷",
+            "gloss": "exam paper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "金",
+            "gloss": "metal"
+          },
+          {
+            "character": "卷",
+            "gloss": "exam paper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "bend metal",
+        "equation": "金 metal + 卷 scroll = 錈 bend metal",
+        "components": [
+          {
+            "character": "金",
+            "gloss": "metal"
+          },
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "金",
+            "gloss": "metal"
+          },
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          }
+        ]
+      },
+      "before_mnemonic": "A smith curls 金 metal like a rolled 卷 exam paper to 錈 bend iron.",
+      "after_mnemonic": "A smith curls 金 metal like a 卷 scroll to 錈 bend metal.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "鍴",
+      "base_card_hash": "sha256:c653e6ec2f20d0cddf7c5e743430a487287f1dcad7fe2faf92ff8a188db2603e",
+      "before": {
+        "meaning": "drinking goblet",
+        "equation": "金 metal + 耑 specialized = 鍴 drinking goblet",
+        "components": [
+          {
+            "character": "金",
+            "gloss": "metal"
+          },
+          {
+            "character": "耑",
+            "gloss": "specialized"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "金",
+            "gloss": "metal"
+          },
+          {
+            "character": "耑",
+            "gloss": "specialized"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "drinking goblet",
+        "equation": "金 metal + 耑 tip = 鍴 drinking goblet",
+        "components": [
+          {
+            "character": "金",
+            "gloss": "metal"
+          },
+          {
+            "character": "耑",
+            "gloss": "tip"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "金",
+            "gloss": "metal"
+          },
+          {
+            "character": "耑",
+            "gloss": "tip"
+          }
+        ]
+      },
+      "before_mnemonic": "A 耑 specialized vessel made of 金 metal is the 鍴 drinking goblet reserved for formal toasts.",
+      "after_mnemonic": "A 金 metal cup rising to a slender 耑 tip at its stem is a 鍴 drinking goblet.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "钾",
+      "base_card_hash": "sha256:b7d4b2cb0320eb465753135958ed5a1a493fe93d31ae057f5e272dae1049f407",
+      "before": {
+        "meaning": "potassium kalium",
+        "equation": "钅 metal + 甲 first = 钾 potassium kalium",
+        "components": [
+          {
+            "character": "钅",
+            "gloss": "metal"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "钅",
+            "gloss": "metal"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "potassium",
+        "equation": "钅 metal + 甲 shell = 钾 potassium",
+        "components": [
+          {
+            "character": "钅",
+            "gloss": "metal"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "钅",
+            "gloss": "metal"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ]
+      },
+      "before_mnemonic": "Among 钅 metal elements, 钾 potassium kalium was the 甲 first to be isolated by electrolysis.",
+      "after_mnemonic": "Reactive 钾 potassium is sealed inside a protective 甲 shell of 钅 metal.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "锩",
+      "base_card_hash": "sha256:d1ccb8fb8825b8792913a4aaf265018fbb9df8cf34c8117df5339af54bf45387",
+      "before": {
+        "meaning": "bend",
+        "equation": "钅 metal + 卷 exam paper = 锩 bend",
+        "components": [
+          {
+            "character": "钅",
+            "gloss": "metal"
+          },
+          {
+            "character": "卷",
+            "gloss": "exam paper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "钅",
+            "gloss": "metal"
+          },
+          {
+            "character": "卷",
+            "gloss": "exam paper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "bend metal",
+        "equation": "钅 metal + 卷 scroll = 锩 bend metal",
+        "components": [
+          {
+            "character": "钅",
+            "gloss": "metal"
+          },
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "钅",
+            "gloss": "metal"
+          },
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          }
+        ]
+      },
+      "before_mnemonic": "Seeing a 卷 exam paper curl, a smith gives 钅 metal the same curve to 锩 bend it.",
+      "after_mnemonic": "A smith curls 钅 metal like a 卷 scroll to 锩 bend metal.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "閘",
+      "base_card_hash": "sha256:b5f779faba39f653ffe61f113a0bba57189507aecab1ce8f2281150fb8391f1a",
+      "before": {
+        "meaning": "floodgate",
+        "equation": "門 gate + 甲 first = 閘 floodgate",
+        "components": [
+          {
+            "character": "門",
+            "gloss": "gate"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "門",
+            "gloss": "gate"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "floodgate",
+        "equation": "門 gate + 甲 shell = 閘 floodgate",
+        "components": [
+          {
+            "character": "門",
+            "gloss": "gate"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "門",
+            "gloss": "gate"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ]
+      },
+      "before_mnemonic": "The 甲 first 門 gate to close against rising water is the 閘 floodgate.",
+      "after_mnemonic": "A heavy panel like a 甲 shell drops inside a 門 gate to form a 閘 floodgate.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "闸",
+      "base_card_hash": "sha256:a864e56814d4ae630119b4176eab0fb299881cf24c206699e5bb02630b855202",
+      "before": {
+        "meaning": "sluice",
+        "equation": "门 gate + 甲 first = 闸 sluice",
+        "components": [
+          {
+            "character": "门",
+            "gloss": "gate"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "门",
+            "gloss": "gate"
+          },
+          {
+            "character": "甲",
+            "gloss": "first"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sluice",
+        "equation": "门 gate + 甲 shell = 闸 sluice",
+        "components": [
+          {
+            "character": "门",
+            "gloss": "gate"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "门",
+            "gloss": "gate"
+          },
+          {
+            "character": "甲",
+            "gloss": "shell"
+          }
+        ]
+      },
+      "before_mnemonic": "The 甲 first 门 gate opened to release canal water is the 闸 sluice.",
+      "after_mnemonic": "A heavy panel like a 甲 shell drops inside a 门 gate to form a 闸 sluice.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "顓",
+      "base_card_hash": "sha256:74a77a532a9fb7ce98a0c36175681a2cdf12a8ca0554e1dee772f25f8efab2e5",
+      "before": {
+        "meaning": "simple",
+        "equation": "耑 specialized + 頁 head = 顓 simple",
+        "components": [
+          {
+            "character": "耑",
+            "gloss": "specialized"
+          },
+          {
+            "character": "頁",
+            "gloss": "head"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "耑",
+            "gloss": "specialized"
+          },
+          {
+            "character": "頁",
+            "gloss": "head"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "honest",
+        "equation": "耑 tip + 頁 head = 顓 honest",
+        "components": [
+          {
+            "character": "耑",
+            "gloss": "tip"
+          },
+          {
+            "character": "頁",
+            "gloss": "head"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "耑",
+            "gloss": "tip"
+          },
+          {
+            "character": "頁",
+            "gloss": "head"
+          }
+        ]
+      },
+      "before_mnemonic": "A 頁 head with 耑 specialized focus strips away every complication, keeping the final plan 顓 simple.",
+      "after_mnemonic": "A 頁 head bows toward the 耑 tip of a marker while making a 顓 honest pledge.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "颛",
+      "base_card_hash": "sha256:011a4b192569ac4ca644678a02de9c9bc752c0444a8478c3e857356ecdf2f754",
+      "before": {
+        "meaning": "honest",
+        "equation": "耑 specialized + 页 head = 颛 honest",
+        "components": [
+          {
+            "character": "耑",
+            "gloss": "specialized"
+          },
+          {
+            "character": "页",
+            "gloss": "head"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "耑",
+            "gloss": "specialized"
+          },
+          {
+            "character": "页",
+            "gloss": "head"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "honest",
+        "equation": "耑 tip + 页 head = 颛 honest",
+        "components": [
+          {
+            "character": "耑",
+            "gloss": "tip"
+          },
+          {
+            "character": "页",
+            "gloss": "head"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "耑",
+            "gloss": "tip"
+          },
+          {
+            "character": "页",
+            "gloss": "head"
+          }
+        ]
+      },
+      "before_mnemonic": "A 页 head with 耑 specialized attention checks every fact before giving a 颛 honest account.",
+      "after_mnemonic": "A 页 head bows toward the 耑 tip of a marker while making a 颛 honest pledge.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "鬈",
+      "base_card_hash": "sha256:dcb656c1e3bab5b0d0e98263af48d55bc8736e72b377be60333c9ca926de50fc",
+      "before": {
+        "meaning": "fine growth of hair curly hair",
+        "equation": "髟 long hair + 卷 exam paper = 鬈 fine growth of hair curly hair",
+        "components": [
+          {
+            "character": "髟",
+            "gloss": "long hair"
+          },
+          {
+            "character": "卷",
+            "gloss": "exam paper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "髟",
+            "gloss": "long hair"
+          },
+          {
+            "character": "卷",
+            "gloss": "exam paper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "curly hair",
+        "equation": "髟 long hair + 卷 scroll = 鬈 curly hair",
+        "components": [
+          {
+            "character": "髟",
+            "gloss": "long hair"
+          },
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "髟",
+            "gloss": "long hair"
+          },
+          {
+            "character": "卷",
+            "gloss": "scroll"
+          }
+        ]
+      },
+      "before_mnemonic": "髟 long hair coils around a rolled 卷 exam paper, producing 鬈 fine growth of hair curly hair.",
+      "after_mnemonic": "髟 long hair coiling like a 卷 scroll becomes 鬈 curly hair.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "鴨",
+      "base_card_hash": "sha256:f4ae6efb481ba20ab34870d0071d4f860373eb4086fc7a6bb899924d279d6694",
+      "before": {
+        "meaning": "duck",
+        "equation": "甲 first + 鳥 bird = 鴨 duck",
+        "components": [
+          {
+            "character": "甲",
+            "gloss": "first"
+          },
+          {
+            "character": "鳥",
+            "gloss": "bird"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "甲",
+            "gloss": "first"
+          },
+          {
+            "character": "鳥",
+            "gloss": "bird"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "duck",
+        "equation": "甲 shell + 鳥 bird = 鴨 duck",
+        "components": [
+          {
+            "character": "甲",
+            "gloss": "shell"
+          },
+          {
+            "character": "鳥",
+            "gloss": "bird"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "甲",
+            "gloss": "shell"
+          },
+          {
+            "character": "鳥",
+            "gloss": "bird"
+          }
+        ]
+      },
+      "before_mnemonic": "The 甲 first 鳥 bird to waddle from pond to shore is an 鴨 duck.",
+      "after_mnemonic": "A 鳥 bird cracks its 甲 shell and waddles out as an 鴨 duck.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "鸭",
+      "base_card_hash": "sha256:b087db48da5b056bac982526fbb8efa6d1029b0f256d827b2e8f6d214309c270",
+      "before": {
+        "meaning": "duck",
+        "equation": "甲 first + 鸟 bird = 鸭 duck",
+        "components": [
+          {
+            "character": "甲",
+            "gloss": "first"
+          },
+          {
+            "character": "鸟",
+            "gloss": "bird"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "甲",
+            "gloss": "first"
+          },
+          {
+            "character": "鸟",
+            "gloss": "bird"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "duck",
+        "equation": "甲 shell + 鸟 bird = 鸭 duck",
+        "components": [
+          {
+            "character": "甲",
+            "gloss": "shell"
+          },
+          {
+            "character": "鸟",
+            "gloss": "bird"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "甲",
+            "gloss": "shell"
+          },
+          {
+            "character": "鸟",
+            "gloss": "bird"
+          }
+        ]
+      },
+      "before_mnemonic": "The 甲 first 鸟 bird to waddle from pond to shore is a 鸭 duck.",
+      "after_mnemonic": "A 鸟 bird cracks its 甲 shell and waddles out as a 鸭 duck.",
+      "valid": true,
+      "problems": []
+    }
+  ]
+}

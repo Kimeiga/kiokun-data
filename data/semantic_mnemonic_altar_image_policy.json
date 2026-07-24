@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "policy_version": "2026-07-24.1",
+  "family": "altar-image",
+  "root_decisions": {
+    "示": {
+      "decision": "lexical_component_split_and_atomic_pictograph",
+      "lexical_gloss": "show",
+      "component_gloss": "altar",
+      "reason": "The independent character commonly means show, while its reusable graph is an altar or offering table. The concrete altar image makes its large ritual, divine, blessing, and ancestral family coherent and avoids forcing the verb show into unrelated structures."
+    }
+  },
+  "target_cleanup_characters": [
+    "祃",
+    "禡"
+  ],
+  "expected_changed_card_count": 124,
+  "expected_old_component_occurrence_count": 125,
+  "expected_altar_occurrence_count": 125
+}

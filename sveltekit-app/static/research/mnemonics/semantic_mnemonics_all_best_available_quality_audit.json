@@ -1,6 +1,6 @@
 {
-  "created_at": "2026-07-24T07:06:01.252596+00:00",
-  "artifact_created_at": "2026-07-24T07:05:59.611517+00:00",
+  "created_at": "2026-07-24T07:30:15.709423+00:00",
+  "artifact_created_at": "2026-07-24T07:30:14.069626+00:00",
   "methodology": "Formal validity and learning quality are separate. Flags are deterministic review signals; abstract meanings and variant forms are not automatically bad, while generic filler is a rewrite signal.",
   "taxonomy": {
     "generic_filler": {
@@ -2083,8 +2083,8 @@
   },
   "count": 24037,
   "quality_status_counts": {
-    "pass": 22609,
-    "review": 1404,
+    "pass": 22608,
+    "review": 1405,
     "rewrite": 24
   },
   "flag_counts": {
@@ -2093,10 +2093,10 @@
     "duplicated_component_meaning": 239,
     "opaque_component_gloss": 21,
     "unhelpful_final_gloss": 14,
-    "learner_facing_weirdness": 6
+    "learner_facing_weirdness": 7
   },
-  "flagged_count": 1428,
-  "ranked_count": 1428,
+  "flagged_count": 1429,
+  "ranked_count": 1429,
   "ranked": [
     {
       "character": "質",
@@ -9229,8 +9229,8 @@
           ]
         }
       ],
-      "equation": "厶 secret + 厶 secret + 冖 cover + 斗 big dipper = 斚 small cup",
-      "mnemonic": "Beneath a 冖 cover, one 厶 secret within another 厶 secret shrinks a 斗 big dipper into a 斚 small cup.",
+      "equation": "厶 secret + 厶 secret + 冖 cover + 斗 ladle = 斚 small cup",
+      "mnemonic": "Beneath a 冖 cover, one 厶 secret within another 厶 secret hides a 斗 ladle and a 斚 small cup.",
       "components": [
         {
           "character": "厶",
@@ -9246,7 +9246,7 @@
         },
         {
           "character": "斗",
-          "gloss": "big dipper"
+          "gloss": "ladle"
         }
       ],
       "component_source": "resolved_ids_forward",
@@ -10420,16 +10420,16 @@
           ]
         }
       ],
-      "equation": "示 show + 示 show = 祘 calculate",
-      "mnemonic": "First, 示 show one tally; then 示 show another so the clerk can 祘 calculate the total.",
+      "equation": "示 altar + 示 altar = 祘 calculate",
+      "mnemonic": "Count one offering on a 示 altar and then another 示 altar to 祘 calculate the total.",
       "components": [
         {
           "character": "示",
-          "gloss": "show"
+          "gloss": "altar"
         },
         {
           "character": "示",
-          "gloss": "show"
+          "gloss": "altar"
         }
       ],
       "component_source": "resolved_ids_forward",
@@ -12333,8 +12333,8 @@
           "evidence": "隷"
         }
       ],
-      "equation": "士 soldier + 示 show + 隶 subservient = 隷 be subservient",
-      "mnemonic": "A 士 soldier bows to 示 show he is 隶 subservient, compelled to 隷 be subservient to his commander.",
+      "equation": "士 soldier + 示 altar + 隶 subservient = 隷 be subservient",
+      "mnemonic": "A 士 soldier bows before a 示 altar like someone 隶 subservient, compelled to 隷 be subservient.",
       "components": [
         {
           "character": "士",
@@ -12342,7 +12342,7 @@
         },
         {
           "character": "示",
-          "gloss": "show"
+          "gloss": "altar"
         },
         {
           "character": "隶",
@@ -12608,12 +12608,12 @@
           "evidence": "form"
         }
       ],
-      "equation": "豆 beans + 寸 inch = 𭔰 form",
-      "mnemonic": "Set 豆 beans one 寸 inch apart to 𭔰 form a measured row.",
+      "equation": "豆 stemmed bowl + 寸 inch = 𭔰 form",
+      "mnemonic": "Set each 豆 stemmed bowl one 寸 inch apart to 𭔰 form a measured row.",
       "components": [
         {
           "character": "豆",
-          "gloss": "beans"
+          "gloss": "stemmed bowl"
         },
         {
           "character": "寸",
@@ -13514,6 +13514,35 @@
       "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
     },
     {
+      "character": "惓",
+      "meaning": "sincere",
+      "frequency_rank": null,
+      "quality_status": "review",
+      "quality_score": 3.0,
+      "review_priority": 3.0,
+      "flags": [
+        {
+          "code": "learner_facing_weirdness",
+          "severity": 3.0,
+          "evidence": "a with words"
+        }
+      ],
+      "equation": "忄 heart (side) + 卷 scroll = 惓 sincere",
+      "mnemonic": "A message written from the 忄 heart (side) fills a 卷 scroll with 惓 sincere words.",
+      "components": [
+        {
+          "character": "忄",
+          "gloss": "heart (side)"
+        },
+        {
+          "character": "卷",
+          "gloss": "scroll"
+        }
+      ],
+      "component_source": "resolved_ids_forward",
+      "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
+    },
+    {
       "character": "笺",
       "meaning": "memo",
       "frequency_rank": null,
@@ -14190,8 +14219,8 @@
           "evidence": "be subservient"
         }
       ],
-      "equation": "士 soldier + 示 show + 隶 subservient = 隷 be subservient",
-      "mnemonic": "To 隷 be subservient, a 士 soldier must 示 show the obedience of someone already 隶 subservient.",
+      "equation": "士 soldier + 示 altar + 隶 subservient = 隷 be subservient",
+      "mnemonic": "To 隷 be subservient, a 士 soldier bows before a 示 altar like someone already 隶 subservient.",
       "components": [
         {
           "character": "士",
@@ -14199,7 +14228,7 @@
         },
         {
           "character": "示",
-          "gloss": "show"
+          "gloss": "altar"
         },
         {
           "character": "隶",
@@ -14380,16 +14409,12 @@
           "evidence": "豈"
         }
       ],
-      "equation": "山 mountain + 豆 beans = 豈 how",
-      "mnemonic": "Seeing 豆 beans piled as high as a 山 mountain, one can only ask 豈 how they got there.",
+      "equation": "Visual form: 豈 victory drum; meaning 豈 how",
+      "mnemonic": "A triumphant 豈 victory drum sounds while the borrowed modern sense asks 豈 how.",
       "components": [
         {
-          "character": "山",
-          "gloss": "mountain"
-        },
-        {
-          "character": "豆",
-          "gloss": "beans"
+          "character": "豈",
+          "gloss": "victory drum"
         }
       ],
       "component_source": "variant_alias:豈",
@@ -14687,8 +14712,8 @@
           "evidence": "奈"
         }
       ],
-      "equation": "大 big + 示 show = 奈 can't help but",
-      "mnemonic": "A 大 big surprise begins to 示 show on my face, so I 奈 can't help but react.",
+      "equation": "大 big + 示 altar = 奈 can't help but",
+      "mnemonic": "A 大 big burden laid before a 示 altar leaves you 奈 can't help but kneel.",
       "components": [
         {
           "character": "大",
@@ -14696,7 +14721,7 @@
         },
         {
           "character": "示",
-          "gloss": "show"
+          "gloss": "altar"
         }
       ],
       "component_source": "variant_alias:奈",
@@ -15988,12 +16013,12 @@
           "evidence": "祿"
         }
       ],
-      "equation": "示 show + 彔 carve wood = 祿 blessing",
-      "mnemonic": "They 彔 carve wood into a keepsake to 示 show gratitude for a 祿 blessing.",
+      "equation": "示 altar + 彔 carve wood = 祿 blessing",
+      "mnemonic": "They 彔 carve wood into a 示 altar in gratitude for a 祿 blessing.",
       "components": [
         {
           "character": "示",
-          "gloss": "show"
+          "gloss": "altar"
         },
         {
           "character": "彔",
@@ -19332,12 +19357,12 @@
           "evidence": "禮"
         }
       ],
-      "equation": "示 show + 豊 plentiful = 禮 ceremony",
-      "mnemonic": "A 禮 ceremony can 示 show gratitude through 豊 plentiful offerings.",
+      "equation": "示 altar + 豊 plentiful = 禮 ceremony",
+      "mnemonic": "A 禮 ceremony gathers 豊 plentiful offerings on a 示 altar.",
       "components": [
         {
           "character": "示",
-          "gloss": "show"
+          "gloss": "altar"
         },
         {
           "character": "豊",
@@ -19560,8 +19585,8 @@
           "evidence": "料"
         }
       ],
-      "equation": "米 rice + 斗 big dipper = 料 material",
-      "mnemonic": "米 rice arranged in the seven-star pattern of the 斗 big dipper becomes 料 material for a mosaic.",
+      "equation": "米 rice + 斗 ladle = 料 material",
+      "mnemonic": "Measure 米 rice with a 斗 ladle as the basic 料 material for the meal.",
       "components": [
         {
           "character": "米",
@@ -19569,7 +19594,7 @@
         },
         {
           "character": "斗",
-          "gloss": "big dipper"
+          "gloss": "ladle"
         }
       ],
       "component_source": "variant_alias:料",
@@ -21822,12 +21847,12 @@
           "evidence": "礼"
         }
       ],
-      "equation": "示 show + 乚 turning hook = 礼 ceremony",
-      "mnemonic": "Performers follow a 乚 turning hook in the floor pattern to 示 show each stage of the 礼 ceremony.",
+      "equation": "示 altar + 乚 turning hook = 礼 ceremony",
+      "mnemonic": "A 乚 turning hook secures the ribbon on a 示 altar for a 礼 ceremony.",
       "components": [
         {
           "character": "示",
-          "gloss": "show"
+          "gloss": "altar"
         },
         {
           "character": "乚",
@@ -21851,12 +21876,12 @@
           "evidence": "神"
         }
       ],
-      "equation": "示 show + 申 express = 神 gods",
-      "mnemonic": "People 示 show devotion and 申 express prayers before the 神 gods.",
+      "equation": "示 altar + 申 express = 神 gods",
+      "mnemonic": "At a 示 altar, people 申 express prayers before the 神 gods.",
       "components": [
         {
           "character": "示",
-          "gloss": "show"
+          "gloss": "altar"
         },
         {
           "character": "申",
@@ -21880,12 +21905,12 @@
           "evidence": "祥"
         }
       ],
-      "equation": "示 show + 羊 sheep = 祥 propitious",
-      "mnemonic": "A well-fed 羊 sheep can 示 show that the grazing season is 祥 propitious.",
+      "equation": "示 altar + 羊 sheep = 祥 propitious",
+      "mnemonic": "A well-fed 羊 sheep at a 示 altar is read as a 祥 propitious sign.",
       "components": [
         {
           "character": "示",
-          "gloss": "show"
+          "gloss": "altar"
         },
         {
           "character": "羊",
@@ -21909,12 +21934,12 @@
           "evidence": "福"
         }
       ],
-      "equation": "示 show + 畐 fill = 福 happiness",
-      "mnemonic": "Smiling faces 示 show how shared meals 畐 fill the home with 福 happiness.",
+      "equation": "示 altar + 畐 fill = 福 happiness",
+      "mnemonic": "Offerings 畐 fill the 示 altar as the household asks for 福 happiness.",
       "components": [
         {
           "character": "示",
-          "gloss": "show"
+          "gloss": "altar"
         },
         {
           "character": "畐",
@@ -23094,12 +23119,12 @@
           "evidence": "社"
         }
       ],
-      "equation": "示 show + 土 earth = 社 company",
-      "mnemonic": "Workers at a construction 社 company 示 show clients how their machines reshape 土 earth.",
+      "equation": "示 altar + 土 earth = 社 company",
+      "mnemonic": "A 示 altar planted in 土 earth was a community shrine; that community sense grew into 社 company.",
       "components": [
         {
           "character": "示",
-          "gloss": "show"
+          "gloss": "altar"
         },
         {
           "character": "土",
@@ -23123,12 +23148,12 @@
           "evidence": "祉"
         }
       ],
-      "equation": "示 show + 止 foot = 祉 blessings",
-      "mnemonic": "A steady 止 foot before the altar of 示 show receives 祉 blessings.",
+      "equation": "示 altar + 止 foot = 祉 blessings",
+      "mnemonic": "A steady 止 foot approaches the 示 altar to receive 祉 blessings.",
       "components": [
         {
           "character": "示",
-          "gloss": "show"
+          "gloss": "altar"
         },
         {
           "character": "止",
@@ -23152,12 +23177,12 @@
           "evidence": "祈"
         }
       ],
-      "equation": "示 show + 斤 axe = 祈 supplicate",
-      "mnemonic": "Lay down the 斤 axe to 示 show humility when you 祈 supplicate for mercy.",
+      "equation": "示 altar + 斤 axe = 祈 supplicate",
+      "mnemonic": "Lay down the 斤 axe before the 示 altar when you 祈 supplicate for mercy.",
       "components": [
         {
           "character": "示",
-          "gloss": "show"
+          "gloss": "altar"
         },
         {
           "character": "斤",
@@ -23181,12 +23206,12 @@
           "evidence": "祐"
         }
       ],
-      "equation": "示 show + 右 right = 祐 divine intervention",
-      "mnemonic": "A sudden rescue from the 右 right can 示 show 祐 divine intervention when human help is impossible.",
+      "equation": "示 altar + 右 right = 祐 divine intervention",
+      "mnemonic": "When rescue arrives from the 右 right of a 示 altar, worshippers call it 祐 divine intervention.",
       "components": [
         {
           "character": "示",
-          "gloss": "show"
+          "gloss": "altar"
         },
         {
           "character": "右",
@@ -23210,12 +23235,12 @@
           "evidence": "祖"
         }
       ],
-      "equation": "示 show + 且 moreover = 祖 ancestor",
-      "mnemonic": "A family portrait can 示 show one 祖 ancestor and 且 moreover reveal the generations descending from them.",
+      "equation": "示 altar + 且 moreover = 祖 ancestor",
+      "mnemonic": "A memorial tablet on a 示 altar honors one 祖 ancestor, and 且 moreover preserves the family story.",
       "components": [
         {
           "character": "示",
-          "gloss": "show"
+          "gloss": "altar"
         },
         {
           "character": "且",
@@ -23239,12 +23264,12 @@
           "evidence": "祝"
         }
       ],
-      "equation": "示 show + 兄 elder brother = 祝 wish well",
-      "mnemonic": "A card can 示 show that I 祝 wish well for my 兄 elder brother.",
+      "equation": "示 altar + 兄 elder brother = 祝 wish well",
+      "mnemonic": "At a 示 altar, raise a warm toast to 祝 wish well for an 兄 elder brother.",
       "components": [
         {
           "character": "示",
-          "gloss": "show"
+          "gloss": "altar"
         },
         {
           "character": "兄",
@@ -23268,12 +23293,12 @@
           "evidence": "禍"
         }
       ],
-      "equation": "示 show + 咼 jaw = 禍 misfortune",
-      "mnemonic": "A cracked 咼 jaw can 示 show that 禍 misfortune has struck.",
+      "equation": "示 altar + 咼 jaw = 禍 misfortune",
+      "mnemonic": "A clenched 咼 jaw before a 示 altar warns that 禍 misfortune has arrived.",
       "components": [
         {
           "character": "示",
-          "gloss": "show"
+          "gloss": "altar"
         },
         {
           "character": "咼",
@@ -23297,12 +23322,12 @@
           "evidence": "禎"
         }
       ],
-      "equation": "示 show + 貞 chaste = 禎 auspicious",
-      "mnemonic": "A 貞 chaste officiant reads omens that 示 show whether the ceremony is 禎 auspicious.",
+      "equation": "示 altar + 貞 chaste = 禎 auspicious",
+      "mnemonic": "A 貞 chaste vow made at a 示 altar on a favorable day is considered 禎 auspicious.",
       "components": [
         {
           "character": "示",
-          "gloss": "show"
+          "gloss": "altar"
         },
         {
           "character": "貞",
@@ -23691,12 +23716,12 @@
           "evidence": "視"
         }
       ],
-      "equation": "示 show + 見 see = 視 inspect",
-      "mnemonic": "To 視 inspect the work, first 示 show every seam where the examiner can 見 see it.",
+      "equation": "示 altar + 見 see = 視 inspect",
+      "mnemonic": "Turn an object on the 示 altar so the examiner can 見 see every side and 視 inspect it.",
       "components": [
         {
           "character": "示",
-          "gloss": "show"
+          "gloss": "altar"
         },
         {
           "character": "見",
@@ -25841,12 +25866,12 @@
           "evidence": "視"
         }
       ],
-      "equation": "示 show + 見 see = 視 inspect",
-      "mnemonic": "Turn the object so it can 示 show every side, then 視 inspect it to 見 see each detail.",
+      "equation": "示 altar + 見 see = 視 inspect",
+      "mnemonic": "Turn an object on the 示 altar so the examiner can 見 see every side and 視 inspect it.",
       "components": [
         {
           "character": "示",
-          "gloss": "show"
+          "gloss": "altar"
         },
         {
           "character": "見",
@@ -33704,12 +33729,12 @@
           "evidence": "祖"
         }
       ],
-      "equation": "示 show + 且 moreover = 祖 ancestor",
-      "mnemonic": "Family portraits not only 示 show each generation but 且 moreover honor the 祖 ancestor who began the line.",
+      "equation": "示 altar + 且 moreover = 祖 ancestor",
+      "mnemonic": "A memorial tablet on a 示 altar honors one 祖 ancestor, and 且 moreover preserves the family story.",
       "components": [
         {
           "character": "示",
-          "gloss": "show"
+          "gloss": "altar"
         },
         {
           "character": "且",
@@ -33733,12 +33758,12 @@
           "evidence": "福"
         }
       ],
-      "equation": "示 show + 畐 fill = 福 happiness",
-      "mnemonic": "When meals 畐 fill the table, smiling faces 示 show the family's 福 happiness.",
+      "equation": "示 altar + 畐 fill = 福 happiness",
+      "mnemonic": "Offerings 畐 fill the 示 altar as the household asks for 福 happiness.",
       "components": [
         {
           "character": "示",
-          "gloss": "show"
+          "gloss": "altar"
         },
         {
           "character": "畐",
@@ -37362,35 +37387,6 @@
       "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
     },
     {
-      "character": "㛒",
-      "meaning": "can not speak",
-      "frequency_rank": null,
-      "quality_status": "review",
-      "quality_score": 1.5,
-      "review_priority": 1.5,
-      "flags": [
-        {
-          "code": "abstract_final_meaning",
-          "severity": 1.5,
-          "evidence": "can not speak"
-        }
-      ],
-      "equation": "女 woman + 豆 beans = 㛒 can not speak",
-      "mnemonic": "A 女 woman uses 豆 beans as word tokens because she 㛒 can not speak.",
-      "components": [
-        {
-          "character": "女",
-          "gloss": "woman"
-        },
-        {
-          "character": "豆",
-          "gloss": "beans"
-        }
-      ],
-      "component_source": "resolved_ids_forward",
-      "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-    },
-    {
       "character": "㛺",
       "meaning": "not clean",
       "frequency_rank": null,
@@ -38245,12 +38241,12 @@
           "evidence": "the way of speaking"
         }
       ],
-      "equation": "豆 beans + 欠 yawn = 㰯 the way of speaking",
-      "mnemonic": "Between each 欠 yawn, a cook compares everything to 豆 beans; that defines 㰯 the way of speaking.",
+      "equation": "豆 stemmed bowl + 欠 yawn = 㰯 the way of speaking",
+      "mnemonic": "Between each 欠 yawn, a speaker keeps striking a 豆 stemmed bowl; that peculiar rhythm defines 㰯 the way of speaking.",
       "components": [
         {
           "character": "豆",
-          "gloss": "beans"
+          "gloss": "stemmed bowl"
         },
         {
           "character": "欠",
@@ -38842,8 +38838,8 @@
           "evidence": "not"
         }
       ],
-      "equation": "艹 grass (top) + 示 show = 䒬 not",
-      "mnemonic": "A bare patch can 示 show that 䒬 not one blade of 艹 grass grows there.",
+      "equation": "艹 grass (top) + 示 altar = 䒬 not",
+      "mnemonic": "At a neglected 示 altar, 䒬 not one blade of 艹 grass (top) remains.",
       "components": [
         {
           "character": "艹",
@@ -38851,7 +38847,7 @@
         },
         {
           "character": "示",
-          "gloss": "show"
+          "gloss": "altar"
         }
       ],
       "component_source": "resolved_ids_forward",
@@ -38910,6 +38906,35 @@
         {
           "character": "攵",
           "gloss": "tap"
+        }
+      ],
+      "component_source": "resolved_ids_forward",
+      "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
+    },
+    {
+      "character": "䖖",
+      "meaning": "act familiar",
+      "frequency_rank": null,
+      "quality_status": "review",
+      "quality_score": 1.5,
+      "review_priority": 1.5,
+      "flags": [
+        {
+          "code": "abstract_final_meaning",
+          "severity": 1.5,
+          "evidence": "act familiar"
+        }
+      ],
+      "equation": "虎 tiger + 甲 shell = 䖖 act familiar",
+      "mnemonic": "A 虎 tiger recognizes the 甲 shell worn by its longtime keeper and begins to 䖖 act familiar.",
+      "components": [
+        {
+          "character": "虎",
+          "gloss": "tiger"
+        },
+        {
+          "character": "甲",
+          "gloss": "shell"
         }
       ],
       "component_source": "resolved_ids_forward",
@@ -42405,8 +42430,8 @@
           "evidence": "be familiar with"
         }
       ],
-      "equation": "犭 dog (side) + 甲 first = 狎 be familiar with",
-      "mnemonic": "The 甲 first neighbor a 犭 dog meets daily soon becomes someone it can 狎 be familiar with.",
+      "equation": "犭 dog (side) + 甲 shell = 狎 be familiar with",
+      "mnemonic": "A 犭 dog (side) recognizes the same 甲 shell charm each day and learns to 狎 be familiar with its wearer.",
       "components": [
         {
           "character": "犭",
@@ -42414,7 +42439,7 @@
         },
         {
           "character": "甲",
-          "gloss": "first"
+          "gloss": "shell"
         }
       ],
       "component_source": "resolved_ids_forward",
@@ -45814,11 +45839,11 @@
   ],
   "gpt56_expedited_release": {
     "certification_status": "expedited_non_certified",
-    "materialized_card_projection_hash": "sha256:57a8188d30df057fb9f4568a4cf1bd08cd935f610ad965a450314cad68321ef3",
+    "materialized_card_projection_hash": "sha256:b1b3da59047b8b430a54461f3726565fb3cc7c6ea7511965a13e8ce4831aee35",
     "formal_validation": {
       "count": 24037,
       "invalid_count": 0
     },
-    "editorial_ledger_sha256": "sha256:3a0dcd8b997baf08bc00301675d20c42c1df0d76250af93fb9159e45f12ef893"
+    "editorial_ledger_sha256": "sha256:bc60accd836eeffd97c9848e11d519d73d4145517089a6ad941ad1daa120096e"
   }
 }

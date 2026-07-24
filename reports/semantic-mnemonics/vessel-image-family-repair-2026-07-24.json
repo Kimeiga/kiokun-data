@@ -1,0 +1,5051 @@
+{
+  "schema_version": 1,
+  "policy_version": "2026-07-24.1",
+  "policy_path": "data/semantic_mnemonic_vessel_image_policy.json",
+  "base_projection_hash": "sha256:7061874aa559420b1c75d77c643d578d855b1a9692221c83b1be34a38599284e",
+  "candidate_projection_hash": "sha256:c869c9268edc23feeeb54986421570bdaf41e73e9b36aebfa0bb933c602f8beb",
+  "card_count": 24037,
+  "invalid_count": 0,
+  "changed_count": 87,
+  "already_applied_count": 0,
+  "old_bean_occurrence_count": 49,
+  "old_dipper_occurrence_count": 39,
+  "stemmed_bowl_occurrence_count": 48,
+  "ladle_occurrence_count": 39,
+  "victory_drum_occurrence_count": 30,
+  "changed_characters": [
+    "㕏",
+    "㘰",
+    "㛒",
+    "㞳",
+    "㢄",
+    "㤱",
+    "㪴",
+    "㪵",
+    "㪶",
+    "㪸",
+    "㪹",
+    "㪺",
+    "㪻",
+    "㰯",
+    "㳆",
+    "㸯",
+    "䀞",
+    "䄈",
+    "䇆",
+    "䇺",
+    "䖒",
+    "䚵",
+    "䛠",
+    "䜴",
+    "䜵",
+    "䜶",
+    "䜷",
+    "䜸",
+    "䜺",
+    "䜻",
+    "䜼",
+    "䜽",
+    "䜾",
+    "䝀",
+    "䝁",
+    "䝂",
+    "䝃",
+    "䝄",
+    "䱏",
+    "乧",
+    "呌",
+    "哣",
+    "壹",
+    "戽",
+    "抖",
+    "斗",
+    "料",
+    "斚",
+    "斛",
+    "斜",
+    "斝",
+    "斞",
+    "斟",
+    "斠",
+    "斡",
+    "枓",
+    "痘",
+    "登",
+    "短",
+    "科",
+    "脰",
+    "荳",
+    "蚪",
+    "裋",
+    "豆",
+    "豇",
+    "豉",
+    "豊",
+    "豋",
+    "豌",
+    "豍",
+    "豎",
+    "豏",
+    "豐",
+    "逗",
+    "鈄",
+    "钭",
+    "閗",
+    "阧",
+    "頭",
+    "餖",
+    "饾",
+    "鬦",
+    "魁",
+    "豈",
+    "料",
+    "𭔰"
+  ],
+  "changes": [
+    {
+      "character": "㕏",
+      "base_card_hash": "sha256:c02da1fa11d170070b8f42d4b82ade89744499a2857b36ccce1c70b9c76ad611",
+      "before": {
+        "meaning": "kitchen",
+        "equation": "厂 cliff + 豆 beans + 斗 big dipper = 㕏 kitchen",
+        "components": [
+          {
+            "character": "厂",
+            "gloss": "cliff"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "厂",
+            "gloss": "cliff"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "kitchen",
+        "equation": "厂 cliff + 豆 stemmed bowl + 斗 ladle = 㕏 kitchen",
+        "components": [
+          {
+            "character": "厂",
+            "gloss": "cliff"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "厂",
+            "gloss": "cliff"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ]
+      },
+      "before_mnemonic": "The 㕏 kitchen beneath a 厂 cliff serves 豆 beans in a ladle shaped like the 斗 big dipper.",
+      "after_mnemonic": "Beneath a 厂 cliff, a 豆 stemmed bowl and 斗 ladle equip the 㕏 kitchen.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㘰",
+      "base_card_hash": "sha256:fc9eec37617413a5c35ee2cd9d1a151f754534a17958e17b63941ed350a5d291",
+      "before": {
+        "meaning": "pour wine or tea into a cup",
+        "equation": "土 earth + 斗 big dipper = 㘰 pour wine or tea into a cup",
+        "components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "pour wine or tea into a cup",
+        "equation": "土 earth + 斗 ladle = 㘰 pour wine or tea into a cup",
+        "components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ]
+      },
+      "before_mnemonic": "A cup pressed into 土 earth stays steady while the 斗 big dipper tips to 㘰 pour wine or tea into a cup.",
+      "after_mnemonic": "Brace a cup in 土 earth and tip a 斗 ladle to 㘰 pour wine or tea into a cup.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㛒",
+      "base_card_hash": "sha256:d8b07f9f10614561bff0808a3d68d02d7b5264b1b3693e426bea43d143c12f48",
+      "before": {
+        "meaning": "can not speak",
+        "equation": "女 woman + 豆 beans = 㛒 can not speak",
+        "components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "cannot speak",
+        "equation": "女 woman + 豆 stemmed bowl = 㛒 cannot speak",
+        "components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ]
+      },
+      "before_mnemonic": "A 女 woman uses 豆 beans as word tokens because she 㛒 can not speak.",
+      "after_mnemonic": "A 女 woman taps a 豆 stemmed bowl as a signal because she 㛒 cannot speak.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㞳",
+      "base_card_hash": "sha256:11d4b511b64e5ac64c679fcb79e1218a848935ef045aceed94d4528a2d7c5a76",
+      "before": {
+        "meaning": "mountain name",
+        "equation": "山 mountain + 斗 big dipper = 㞳 mountain name",
+        "components": [
+          {
+            "character": "山",
+            "gloss": "mountain"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "山",
+            "gloss": "mountain"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "mountain name",
+        "equation": "山 mountain + 斗 ladle = 㞳 mountain name",
+        "components": [
+          {
+            "character": "山",
+            "gloss": "mountain"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "山",
+            "gloss": "mountain"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ]
+      },
+      "before_mnemonic": "The 斗 big dipper hangs above the 山 mountain, inspiring stargazers to coin the 㞳 mountain name.",
+      "after_mnemonic": "A 山 mountain shaped like a celestial 斗 ladle inspires the 㞳 mountain name.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㢄",
+      "base_card_hash": "sha256:cf1b95e3d86a701b12e24f119f22641a550eb8a2616ced020bc2b631729286fd",
+      "before": {
+        "meaning": "utensil",
+        "equation": "广 roof + 豆 beans = 㢄 utensil",
+        "components": [
+          {
+            "character": "广",
+            "gloss": "roof"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "广",
+            "gloss": "roof"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "utensil",
+        "equation": "广 roof + 豆 stemmed bowl = 㢄 utensil",
+        "components": [
+          {
+            "character": "广",
+            "gloss": "roof"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "广",
+            "gloss": "roof"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ]
+      },
+      "before_mnemonic": "Under the 广 roof, a scoop for 豆 beans serves as the essential 㢄 utensil.",
+      "after_mnemonic": "Under a 广 roof, a 豆 stemmed bowl serves as an essential 㢄 utensil.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㤱",
+      "base_card_hash": "sha256:b2a9a675528274db94c96e70ac2a8b20b6986f11b5f75cfcb251d68b48f77353",
+      "before": {
+        "meaning": "passion",
+        "equation": "忄 heart (side) + 豆 beans = 㤱 passion",
+        "components": [
+          {
+            "character": "忄",
+            "gloss": "heart (side)"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "忄",
+            "gloss": "heart (side)"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "passion",
+        "equation": "忄 heart (side) + 豆 stemmed bowl = 㤱 passion",
+        "components": [
+          {
+            "character": "忄",
+            "gloss": "heart (side)"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "忄",
+            "gloss": "heart (side)"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ]
+      },
+      "before_mnemonic": "The 忄 heart cherishes its 豆 beans, tending them daily with 㤱 passion.",
+      "after_mnemonic": "The 忄 heart (side) guards a treasured 豆 stemmed bowl with 㤱 passion.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㪴",
+      "base_card_hash": "sha256:a10e754265c4a1d86d7fd0a7bf08d1dd86ea2f70dcff7539e613f20c4e28064b",
+      "before": {
+        "meaning": "measure",
+        "equation": "元 beginning + 斗 big dipper = 㪴 measure",
+        "components": [
+          {
+            "character": "元",
+            "gloss": "beginning"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "元",
+            "gloss": "beginning"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "measure",
+        "equation": "元 beginning + 斗 ladle = 㪴 measure",
+        "components": [
+          {
+            "character": "元",
+            "gloss": "beginning"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "元",
+            "gloss": "beginning"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ]
+      },
+      "before_mnemonic": "At the 元 beginning, sight along the 斗 big dipper to 㪴 measure the width of the night sky.",
+      "after_mnemonic": "At the 元 beginning, level the grain in a 斗 ladle to 㪴 measure it.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㪵",
+      "base_card_hash": "sha256:cddd957ed6308f8a138f587607b28538da3f7e160025528f72d551c4ef00d4de",
+      "before": {
+        "meaning": "half of a unit of measurement used in ancient times",
+        "equation": "半 half + 斗 big dipper = 㪵 half of a unit of measurement used in ancient times",
+        "components": [
+          {
+            "character": "半",
+            "gloss": "half"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "半",
+            "gloss": "half"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "half of a unit of measurement used in ancient times",
+        "equation": "半 half + 斗 ladle = 㪵 half of a unit of measurement used in ancient times",
+        "components": [
+          {
+            "character": "半",
+            "gloss": "half"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "半",
+            "gloss": "half"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ]
+      },
+      "before_mnemonic": "半 half the bowl of the 斗 big dipper is shaded to mark 㪵 half of a unit of measurement used in ancient times.",
+      "after_mnemonic": "Shade 半 half of a 斗 ladle to mark 㪵 half of a unit of measurement used in ancient times.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㪶",
+      "base_card_hash": "sha256:91e6d6c7509f29a66f99f721592ac56ea0d03f0e8bc55bcba5c3387450df2388",
+      "before": {
+        "meaning": "dry measure",
+        "equation": "百 hundred + 斗 big dipper = 㪶 dry measure",
+        "components": [
+          {
+            "character": "百",
+            "gloss": "hundred"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "百",
+            "gloss": "hundred"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "dry measure",
+        "equation": "百 hundred + 斗 ladle = 㪶 dry measure",
+        "components": [
+          {
+            "character": "百",
+            "gloss": "hundred"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "百",
+            "gloss": "hundred"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ]
+      },
+      "before_mnemonic": "Count 百 hundred grains into the bowl of the 斗 big dipper, using it as a 㪶 dry measure.",
+      "after_mnemonic": "Count 百 hundred grains into a 斗 ladle and use it as a 㪶 dry measure.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㪸",
+      "base_card_hash": "sha256:a8c4947b2d72e07c7236873533e52f58f7e364b51ac3a74270602a85d9f84f04",
+      "before": {
+        "meaning": "fill a cup with",
+        "equation": "其 their + 斗 big dipper = 㪸 fill a cup with",
+        "components": [
+          {
+            "character": "其",
+            "gloss": "their"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "其",
+            "gloss": "their"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "fill a cup",
+        "equation": "其 their + 斗 ladle = 㪸 fill a cup",
+        "components": [
+          {
+            "character": "其",
+            "gloss": "their"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "其",
+            "gloss": "their"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ]
+      },
+      "before_mnemonic": "A host tilts the 斗 big dipper to 㪸 fill a cup with 其 their chosen drink.",
+      "after_mnemonic": "A host uses a 斗 ladle to 㪸 fill a cup with 其 their chosen drink.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㪹",
+      "base_card_hash": "sha256:405cdc56edd6a7ac0875225949c120546f8b88df5ec6419b465d034af32f3475",
+      "before": {
+        "meaning": "rob",
+        "equation": "婁 embrace + 斗 big dipper = 㪹 rob",
+        "components": [
+          {
+            "character": "婁",
+            "gloss": "embrace"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "婁",
+            "gloss": "embrace"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "rob",
+        "equation": "婁 embrace + 斗 ladle = 㪹 rob",
+        "components": [
+          {
+            "character": "婁",
+            "gloss": "embrace"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "婁",
+            "gloss": "embrace"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ]
+      },
+      "before_mnemonic": "A thief may 婁 embrace a pendant shaped like the 斗 big dipper while they 㪹 rob the observatory.",
+      "after_mnemonic": "A thief tries to 婁 embrace a stolen 斗 ladle while they 㪹 rob the pantry.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㪺",
+      "base_card_hash": "sha256:651885ccfc2e5fa71f1618d91d4d5e83a775ecd0b5ef1726d3b19787803d4d2a",
+      "before": {
+        "meaning": "bale out",
+        "equation": "斗 big dipper = 㪺 bale out",
+        "components": [
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "bale out",
+        "equation": "斗 ladle = 㪺 bale out",
+        "components": [
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ]
+      },
+      "before_mnemonic": "Scoop floodwater with the bowl of the 斗 big dipper to 㪺 bale out the boat.",
+      "after_mnemonic": "Scoop floodwater with a 斗 ladle to 㪺 bale out the boat.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㪻",
+      "base_card_hash": "sha256:6c35eca947fc3d832fd0bcce4feadf9f30bcaca55a75cc5708b77fe4b2f920b4",
+      "before": {
+        "meaning": "wine ladle",
+        "equation": "䜌 tie together + 斗 big dipper = 㪻 wine ladle",
+        "components": [
+          {
+            "character": "䜌",
+            "gloss": "tie together"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "䜌",
+            "gloss": "tie together"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "wine ladle",
+        "equation": "䜌 tie together + 斗 ladle = 㪻 wine ladle",
+        "components": [
+          {
+            "character": "䜌",
+            "gloss": "tie together"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "䜌",
+            "gloss": "tie together"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ]
+      },
+      "before_mnemonic": "Cord can 䜌 tie together a handle and the bowl of the 斗 big dipper into a 㪻 wine ladle.",
+      "after_mnemonic": "Use cord to 䜌 tie together a decorated handle around a 斗 ladle, making a 㪻 wine ladle.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㰯",
+      "base_card_hash": "sha256:a1867f8c0dec1dbb2164c858809175a4ea2eb078e9119c1eba3d807b301a46f3",
+      "before": {
+        "meaning": "the way of speaking",
+        "equation": "豆 beans + 欠 yawn = 㰯 the way of speaking",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "the way of speaking",
+        "equation": "豆 stemmed bowl + 欠 yawn = 㰯 the way of speaking",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "Between each 欠 yawn, a cook compares everything to 豆 beans; that defines 㰯 the way of speaking.",
+      "after_mnemonic": "Between each 欠 yawn, a speaker keeps striking a 豆 stemmed bowl; that peculiar rhythm defines 㰯 the way of speaking.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㳆",
+      "base_card_hash": "sha256:c7e44db214984520d5f4eec9f2ebbd47f601a214dfaead8a2edba3e8b611315f",
+      "before": {
+        "meaning": "place name",
+        "equation": "氵 water (drops) + 斗 big dipper = 㳆 place name",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "place name",
+        "equation": "氵 water (drops) + 斗 ladle = 㳆 place name",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ]
+      },
+      "before_mnemonic": "A settlement where the 斗 big dipper reflects in 氵 water bears the 㳆 place name.",
+      "after_mnemonic": "A 斗 ladle dips into 氵 water (drops) at the well marking the 㳆 place name.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㸯",
+      "base_card_hash": "sha256:d64abce78f51a3c39912f4c90bf769ad7bd2762f49aac3c069350f27cfca6e8f",
+      "before": {
+        "meaning": "fine breed of cattle",
+        "equation": "牜 ox + 斗 big dipper = 㸯 fine breed of cattle",
+        "components": [
+          {
+            "character": "牜",
+            "gloss": "ox"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "牜",
+            "gloss": "ox"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "fine breed of cattle",
+        "equation": "牜 ox + 斗 ladle = 㸯 fine breed of cattle",
+        "components": [
+          {
+            "character": "牜",
+            "gloss": "ox"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "牜",
+            "gloss": "ox"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ]
+      },
+      "before_mnemonic": "A 牜 ox ranked as prominent among cattle as the 斗 big dipper among stars belongs to a 㸯 fine breed of cattle.",
+      "after_mnemonic": "A 牜 ox bearing a brand shaped like a 斗 ladle belongs to a 㸯 fine breed of cattle.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䀞",
+      "base_card_hash": "sha256:f8190ed33d344c07ea57373253014a36308e53702aeb99a573ddf84929e5e06f",
+      "before": {
+        "meaning": "with heavy eyelids",
+        "equation": "目 eye + 斗 big dipper = 䀞 with heavy eyelids",
+        "components": [
+          {
+            "character": "目",
+            "gloss": "eye"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "目",
+            "gloss": "eye"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "with heavy eyelids",
+        "equation": "目 eye + 斗 ladle = 䀞 with heavy eyelids",
+        "components": [
+          {
+            "character": "目",
+            "gloss": "eye"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "目",
+            "gloss": "eye"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ]
+      },
+      "before_mnemonic": "Beneath the 斗 big dipper, the 目 eye grows 䀞 with heavy eyelids.",
+      "after_mnemonic": "The 目 eye watches a celestial 斗 ladle through the night and grows 䀞 with heavy eyelids.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䄈",
+      "base_card_hash": "sha256:8edc257d781ee8cb02d7da5459fcfd57efbc0c435a698a02a73d0d32b35957ee",
+      "before": {
+        "meaning": "sacrifice to happiness",
+        "equation": "礻 spirit + 豆 beans = 䄈 sacrifice to happiness",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sacrifice to happiness",
+        "equation": "礻 spirit + 豆 stemmed bowl = 䄈 sacrifice to happiness",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ]
+      },
+      "before_mnemonic": "After the harvest, offer 豆 beans to a 礻 spirit in a 䄈 sacrifice to happiness.",
+      "after_mnemonic": "Fill a 豆 stemmed bowl for the 礻 spirit during a 䄈 sacrifice to happiness.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䇆",
+      "base_card_hash": "sha256:9e36da8df0d92f3196de9c3013c1d6f26ad5f61b872848a88f2e9c36cdafcac2",
+      "before": {
+        "meaning": "capacity unit in France",
+        "equation": "立 standing up + 斗 big dipper = 䇆 capacity unit in France",
+        "components": [
+          {
+            "character": "立",
+            "gloss": "standing up"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "立",
+            "gloss": "standing up"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "decaliter",
+        "equation": "立 standing up + 斗 ladle = 䇆 decaliter",
+        "components": [
+          {
+            "character": "立",
+            "gloss": "standing up"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "立",
+            "gloss": "standing up"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ]
+      },
+      "before_mnemonic": "Ten one-liter bottles remain 立 standing up beneath the 斗 big dipper, together totaling a 䇆 capacity unit in France.",
+      "after_mnemonic": "A vessel 立 standing up holds ten liters measured by a 斗 ladle, exactly one 䇆 decaliter.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䇺",
+      "base_card_hash": "sha256:1fe2f2bea2833222c7d779c880ae9644c6fd6d0196bf735189dbccabf437206a",
+      "before": {
+        "meaning": "beans and peas",
+        "equation": "竹 bamboo + 豆 beans = 䇺 beans and peas",
+        "components": [
+          {
+            "character": "竹",
+            "gloss": "bamboo"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "竹",
+            "gloss": "bamboo"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "beans and peas",
+        "equation": "竹 bamboo + 豆 stemmed bowl = 䇺 beans and peas",
+        "components": [
+          {
+            "character": "竹",
+            "gloss": "bamboo"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "竹",
+            "gloss": "bamboo"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ]
+      },
+      "before_mnemonic": "A 竹 bamboo tray holds 豆 beans beside small green pods, completing the 䇺 beans and peas harvest.",
+      "after_mnemonic": "A 竹 bamboo tray tips its harvest into a 豆 stemmed bowl filled with 䇺 beans and peas.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䖒",
+      "base_card_hash": "sha256:d56ce947ec5bb8381a887a3671df78078b87c21757ce6be9c0ebd495002cec78",
+      "before": {
+        "meaning": "bean-shaped earthenware",
+        "equation": "虍 tiger (top) + 豆 beans = 䖒 bean-shaped earthenware",
+        "components": [
+          {
+            "character": "虍",
+            "gloss": "tiger (top)"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "虍",
+            "gloss": "tiger (top)"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "bean-shaped earthenware",
+        "equation": "虍 tiger (top) + 豆 stemmed bowl = 䖒 bean-shaped earthenware",
+        "components": [
+          {
+            "character": "虍",
+            "gloss": "tiger (top)"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "虍",
+            "gloss": "tiger (top)"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ]
+      },
+      "before_mnemonic": "Clay pressed around 豆 beans forms 䖒 bean-shaped earthenware beneath a painted 虍 tiger.",
+      "after_mnemonic": "A painted 虍 tiger (top) decorates a 豆 stemmed bowl made as 䖒 bean-shaped earthenware.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䚵",
+      "base_card_hash": "sha256:491a3dbb1651bc8d8ab3e6f523596933c37c2d99f6babf9f3d4b96402d331574",
+      "before": {
+        "meaning": "induce",
+        "equation": "言 speech + 斗 big dipper = 䚵 induce",
+        "components": [
+          {
+            "character": "言",
+            "gloss": "speech"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "言",
+            "gloss": "speech"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "induce",
+        "equation": "言 speech + 斗 ladle = 䚵 induce",
+        "components": [
+          {
+            "character": "言",
+            "gloss": "speech"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "言",
+            "gloss": "speech"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ]
+      },
+      "before_mnemonic": "言 speech points to the guiding 斗 big dipper and can 䚵 induce a hesitant companion to follow.",
+      "after_mnemonic": "言 speech promising a full 斗 ladle of grain can 䚵 induce a hungry traveler to help.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䛠",
+      "base_card_hash": "sha256:68553d2a1b85c30d46211dfaf6a857c29915a79e873647e32e7f5f09fb8dcc50",
+      "before": {
+        "meaning": "unable to talk",
+        "equation": "言 speech + 豆 beans = 䛠 unable to talk",
+        "components": [
+          {
+            "character": "言",
+            "gloss": "speech"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "言",
+            "gloss": "speech"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "unable to talk",
+        "equation": "言 speech + 豆 stemmed bowl = 䛠 unable to talk",
+        "components": [
+          {
+            "character": "言",
+            "gloss": "speech"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "言",
+            "gloss": "speech"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ]
+      },
+      "before_mnemonic": "The script contains only 豆 beans instead of 言 speech, so the actor is 䛠 unable to talk.",
+      "after_mnemonic": "With no 言 speech, a performer taps a 豆 stemmed bowl to signal that they are 䛠 unable to talk.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䜴",
+      "base_card_hash": "sha256:cad02f4ba751c04f2b37e31f8e47930c95a095d8ee0daf717e8dd7a60a0202f5",
+      "before": {
+        "meaning": "bold",
+        "equation": "豆 beans + 攴 rap = 䜴 bold",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "攴",
+            "gloss": "rap"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "攴",
+            "gloss": "rap"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "bold",
+        "equation": "豆 stemmed bowl + 攴 rap = 䜴 bold",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "攴",
+            "gloss": "rap"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "攴",
+            "gloss": "rap"
+          }
+        ]
+      },
+      "before_mnemonic": "Among the 豆 beans, one is 䜴 bold enough to 攴 rap against the jar lid.",
+      "after_mnemonic": "One diner is 䜴 bold enough to 攴 rap a spoon against the ceremonial 豆 stemmed bowl.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䜵",
+      "base_card_hash": "sha256:3b397fadaf8e277a7514e654c5e429c655027ade5a98785df74233589c0cfc72",
+      "before": {
+        "meaning": "Fermented Beans",
+        "equation": "豆 beans + 皮 skin = 䜵 Fermented Beans",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "皮",
+            "gloss": "skin"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "皮",
+            "gloss": "skin"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "fermented beans",
+        "equation": "豆 stemmed bowl + 皮 skin = 䜵 fermented beans",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "皮",
+            "gloss": "skin"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "皮",
+            "gloss": "skin"
+          }
+        ]
+      },
+      "before_mnemonic": "As 豆 beans ferment, their 皮 skin darkens into 䜵 Fermented Beans.",
+      "after_mnemonic": "Inside a 豆 stemmed bowl, beans ferment until their 皮 skin darkens into 䜵 fermented beans.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䜶",
+      "base_card_hash": "sha256:0557cb00d46760c49013d8ad6c80400e4a531b8c53bedb117957568c9332e039",
+      "before": {
+        "meaning": "small kidney bean",
+        "equation": "豆 beans + 夅 descend = 䜶 small kidney bean",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "夅",
+            "gloss": "descend"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "夅",
+            "gloss": "descend"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "small kidney bean",
+        "equation": "豆 stemmed bowl + 夅 descend = 䜶 small kidney bean",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "夅",
+            "gloss": "descend"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "夅",
+            "gloss": "descend"
+          }
+        ]
+      },
+      "before_mnemonic": "Among larger 豆 beans, the 䜶 small kidney bean alone can 夅 descend through a narrow sieve.",
+      "after_mnemonic": "Only a 䜶 small kidney bean can 夅 descend through the narrow holes of a 豆 stemmed bowl.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䜷",
+      "base_card_hash": "sha256:b4d6da4f07558b07682209f35f5e30bef5291be694925867b5e9b1db0d2864a9",
+      "before": {
+        "meaning": "fermented and seasoned",
+        "equation": "豆 beans + 𠬶 invade = 䜷 fermented and seasoned",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "𠬶",
+            "gloss": "invade"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "𠬶",
+            "gloss": "invade"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "fermented and seasoned",
+        "equation": "豆 stemmed bowl + 𠬶 invade = 䜷 fermented and seasoned",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "𠬶",
+            "gloss": "invade"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "𠬶",
+            "gloss": "invade"
+          }
+        ]
+      },
+      "before_mnemonic": "Microbes and seasoning 𠬶 invade 豆 beans in the crock until they are 䜷 fermented and seasoned.",
+      "after_mnemonic": "Seasoning seems to 𠬶 invade a 豆 stemmed bowl until its beans are 䜷 fermented and seasoned.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䜸",
+      "base_card_hash": "sha256:aeb228fbb98fbbc980457044606a11bf66314a5132d2594b4b9ff08e3705580a",
+      "before": {
+        "meaning": "small pieces of bean-stalks",
+        "equation": "豆 beans + 尾 tail = 䜸 small pieces of bean-stalks",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "尾",
+            "gloss": "tail"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "尾",
+            "gloss": "tail"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "small pieces of bean-stalks",
+        "equation": "豆 stemmed bowl + 尾 tail = 䜸 small pieces of bean-stalks",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "尾",
+            "gloss": "tail"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "尾",
+            "gloss": "tail"
+          }
+        ]
+      },
+      "before_mnemonic": "Chopping the 尾 tail ends from stalks bearing 豆 beans produces 䜸 small pieces of bean-stalks.",
+      "after_mnemonic": "A 豆 stemmed bowl catches each 尾 tail end chopped into 䜸 small pieces of bean-stalks.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䜺",
+      "base_card_hash": "sha256:8c2cf48bb649785686bfda9b03e80b42b452ab608d399169282e96b72726f9c6",
+      "before": {
+        "meaning": "husking",
+        "equation": "豆 beans + 昔 times past = 䜺 husking",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "昔",
+            "gloss": "times past"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "昔",
+            "gloss": "times past"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "husking",
+        "equation": "豆 stemmed bowl + 昔 times past = 䜺 husking",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "昔",
+            "gloss": "times past"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "昔",
+            "gloss": "times past"
+          }
+        ]
+      },
+      "before_mnemonic": "In 昔 times past, cooks prepared 豆 beans for cakes by 䜺 husking them.",
+      "after_mnemonic": "In 昔 times past, cooks filled a 豆 stemmed bowl while 䜺 husking beans.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䜻",
+      "base_card_hash": "sha256:e9bc4b7c69ea74be5a75bd3cd231719a3c5820ceb3bc74877ef5116145622b8c",
+      "before": {
+        "meaning": "fermented beans",
+        "equation": "豆 beans + 是 be = 䜻 fermented beans",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "是",
+            "gloss": "be"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "是",
+            "gloss": "be"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "fermented beans",
+        "equation": "豆 stemmed bowl + 是 be = 䜻 fermented beans",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "是",
+            "gloss": "be"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "是",
+            "gloss": "be"
+          }
+        ]
+      },
+      "before_mnemonic": "The command 是 be leaves 豆 beans undisturbed in brine until they become 䜻 fermented beans.",
+      "after_mnemonic": "Let beans 是 be undisturbed in a 豆 stemmed bowl until they become 䜻 fermented beans.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䜼",
+      "base_card_hash": "sha256:17f428df124c4f6b5b633b636901fa4aabe0c9b183667d34e3846fb768e09aea",
+      "before": {
+        "meaning": "bean",
+        "equation": "敄 put forth effort + 豆 beans = 䜼 bean",
+        "components": [
+          {
+            "character": "敄",
+            "gloss": "put forth effort"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "敄",
+            "gloss": "put forth effort"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "bean",
+        "equation": "敄 put forth effort + 豆 stemmed bowl = 䜼 bean",
+        "components": [
+          {
+            "character": "敄",
+            "gloss": "put forth effort"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "敄",
+            "gloss": "put forth effort"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ]
+      },
+      "before_mnemonic": "Farmers 敄 put forth effort tending 豆 beans until each pod yields a 䜼 bean.",
+      "after_mnemonic": "Farmers 敄 put forth effort until every 豆 stemmed bowl holds a harvested 䜼 bean.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䜽",
+      "base_card_hash": "sha256:674a1dc6c11e6d2cd6288a4dc42a2dec9f859a25d4cf88e49f5f64ac1ee15c04",
+      "before": {
+        "meaning": "bean",
+        "equation": "豆 beans + 俞 approve = 䜽 bean",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "俞",
+            "gloss": "approve"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "俞",
+            "gloss": "approve"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "bean",
+        "equation": "豆 stemmed bowl + 俞 approve = 䜽 bean",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "俞",
+            "gloss": "approve"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "俞",
+            "gloss": "approve"
+          }
+        ]
+      },
+      "before_mnemonic": "At harvest, growers 俞 approve the 䜽 bean after it changes color among the other 豆 beans.",
+      "after_mnemonic": "Growers 俞 approve each 䜽 bean before dropping it into a 豆 stemmed bowl.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䜾",
+      "base_card_hash": "sha256:db39b37a3d0151658858c26bd3eef1d23c0fb8cce6275045af338646caa1ae54",
+      "before": {
+        "meaning": "fermented",
+        "equation": "豆 beans + 音 sound = 䜾 fermented",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "音",
+            "gloss": "sound"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "音",
+            "gloss": "sound"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "fermented",
+        "equation": "豆 stemmed bowl + 音 sound = 䜾 fermented",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "音",
+            "gloss": "sound"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "音",
+            "gloss": "sound"
+          }
+        ]
+      },
+      "before_mnemonic": "A bubbling 音 sound rises from the crock while 豆 beans become 䜾 fermented.",
+      "after_mnemonic": "A bubbling 音 sound rises from a 豆 stemmed bowl while its beans become 䜾 fermented.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䝀",
+      "base_card_hash": "sha256:ed2574f7a5f23d6d04aab59940c624cee76b6c89223b6c4199764b0fbc7d0777",
+      "before": {
+        "meaning": "garden peas",
+        "equation": "豆 beans + 留 stay = 䝀 garden peas",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "留",
+            "gloss": "stay"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "留",
+            "gloss": "stay"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "garden peas",
+        "equation": "豆 stemmed bowl + 留 stay = 䝀 garden peas",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "留",
+            "gloss": "stay"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "留",
+            "gloss": "stay"
+          }
+        ]
+      },
+      "before_mnemonic": "On the trellis, 䝀 garden peas 留 stay green after the other 豆 beans are harvested.",
+      "after_mnemonic": "Let 䝀 garden peas 留 stay in a 豆 stemmed bowl after the other vegetables are cleared.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䝁",
+      "base_card_hash": "sha256:c865083809dca6d831196cecd28292e7b72ed0db339daf8f3a499b672e8accf0",
+      "before": {
+        "meaning": "wild green lentil",
+        "equation": "𤇾 brilliant + 豆 beans = 䝁 wild green lentil",
+        "components": [
+          {
+            "character": "𤇾",
+            "gloss": "brilliant"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𤇾",
+            "gloss": "brilliant"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "wild green lentil",
+        "equation": "𤇾 brilliant + 豆 stemmed bowl = 䝁 wild green lentil",
+        "components": [
+          {
+            "character": "𤇾",
+            "gloss": "brilliant"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𤇾",
+            "gloss": "brilliant"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ]
+      },
+      "before_mnemonic": "The 䝁 wild green lentil shines 𤇾 brilliant green among tangled wild 豆 beans.",
+      "after_mnemonic": "A 䝁 wild green lentil looks 𤇾 brilliant against the pale clay of a 豆 stemmed bowl.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䝂",
+      "base_card_hash": "sha256:c4277911265025438cfad6460018bfc0750252382ddd527b9d1d6ca328d45a60",
+      "before": {
+        "meaning": "erect",
+        "equation": "臣 watchful eye + 殳 hand tool + 豆 beans = 䝂 erect",
+        "components": [
+          {
+            "character": "臣",
+            "gloss": "watchful eye"
+          },
+          {
+            "character": "殳",
+            "gloss": "hand tool"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "臣",
+            "gloss": "watchful eye"
+          },
+          {
+            "character": "殳",
+            "gloss": "hand tool"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "erect",
+        "equation": "臣 watchful eye + 殳 hand tool + 豆 stemmed bowl = 䝂 erect",
+        "components": [
+          {
+            "character": "臣",
+            "gloss": "watchful eye"
+          },
+          {
+            "character": "殳",
+            "gloss": "hand tool"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "臣",
+            "gloss": "watchful eye"
+          },
+          {
+            "character": "殳",
+            "gloss": "hand tool"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ]
+      },
+      "before_mnemonic": "Under a 臣 watchful eye, a 殳 hand tool props the vines of 豆 beans 䝂 erect.",
+      "after_mnemonic": "Under a 臣 watchful eye, a 殳 hand tool props a 豆 stemmed bowl 䝂 erect.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䝃",
+      "base_card_hash": "sha256:5bc0f66bd469d33ba94f5388af76b7b134ce3ab120377c6f0a5da88c91a20306",
+      "before": {
+        "meaning": "beans",
+        "equation": "豆 beans + 㬎 visible = 䝃 beans",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "㬎",
+            "gloss": "visible"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "㬎",
+            "gloss": "visible"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "beans",
+        "equation": "豆 stemmed bowl + 㬎 visible = 䝃 beans",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "㬎",
+            "gloss": "visible"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "㬎",
+            "gloss": "visible"
+          }
+        ]
+      },
+      "before_mnemonic": "A display of 䝃 beans spreads the 豆 beans apart so each seed is 㬎 visible.",
+      "after_mnemonic": "Spread 䝃 beans across a 豆 stemmed bowl so each seed is 㬎 visible.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䝄",
+      "base_card_hash": "sha256:d6d5b6029128ad04f8ee520b687d4185503fbce436c8b337a5ce6b2952ded721",
+      "before": {
+        "meaning": "cowpea",
+        "equation": "豆 beans + 雙 pair = 䝄 cowpea",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "雙",
+            "gloss": "pair"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "雙",
+            "gloss": "pair"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "cowpea",
+        "equation": "豆 stemmed bowl + 雙 pair = 䝄 cowpea",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "雙",
+            "gloss": "pair"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "雙",
+            "gloss": "pair"
+          }
+        ]
+      },
+      "before_mnemonic": "The 䝄 cowpea hangs as a 雙 pair of long pods packed with 豆 beans.",
+      "after_mnemonic": "A 雙 pair of long 䝄 cowpea pods overfills a 豆 stemmed bowl.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䱏",
+      "base_card_hash": "sha256:1fe3e3dc94388efd00e768155c786dbda53c228b620e2408b728f2cce532feee",
+      "before": {
+        "meaning": "fish",
+        "equation": "魚 fish + 豆 beans = 䱏 fish",
+        "components": [
+          {
+            "character": "魚",
+            "gloss": "fish"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "魚",
+            "gloss": "fish"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "fish",
+        "equation": "魚 fish + 豆 stemmed bowl = 䱏 fish",
+        "components": [
+          {
+            "character": "魚",
+            "gloss": "fish"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "魚",
+            "gloss": "fish"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ]
+      },
+      "before_mnemonic": "For 䱏 fish, 魚 fish carries the meaning while 豆 beans carries the historically attested sound.",
+      "after_mnemonic": "A painted 魚 fish on a 豆 stemmed bowl identifies the catch as 䱏 fish.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "乧",
+      "base_card_hash": "sha256:675052006c3c6ccdffcb45beeec610bbf6f58907c364da62fde4016dc9e0601d",
+      "before": {
+        "meaning": "Korean hanja",
+        "equation": "斗 big dipper + 乙 second = 乧 Korean hanja",
+        "components": [
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          },
+          {
+            "character": "乙",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          },
+          {
+            "character": "乙",
+            "gloss": "second"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "Korean-coined character",
+        "equation": "斗 ladle + 乙 second = 乧 Korean-coined character",
+        "components": [
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          },
+          {
+            "character": "乙",
+            "gloss": "second"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          },
+          {
+            "character": "乙",
+            "gloss": "second"
+          }
+        ]
+      },
+      "before_mnemonic": "The 乧 Korean hanja combines du from 斗 big dipper with final l from 乙 second.",
+      "after_mnemonic": "The 乧 Korean-coined character takes du from a 斗 ladle and final l from 乙 second.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "呌",
+      "base_card_hash": "sha256:3157d4a9b6a02f9d9217132302d8d202d57851130ab18067dd9efae2a2b90409",
+      "before": {
+        "meaning": "call",
+        "equation": "口 mouth + 斗 big dipper = 呌 call",
+        "components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "call",
+        "equation": "口 mouth + 斗 ladle = 呌 call",
+        "components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ]
+      },
+      "before_mnemonic": "A 口 mouth shouts a 呌 call toward the 斗 big dipper, summoning the stars.",
+      "after_mnemonic": "A 口 mouth raises a 呌 call for someone to bring the 斗 ladle.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "哣",
+      "base_card_hash": "sha256:2f1246054e3bbc579dade23708852e6858a7d3cad9c2e63a2aeaabda42529b43",
+      "before": {
+        "meaning": "sick",
+        "equation": "口 mouth + 豆 beans = 哣 sick",
+        "components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sick",
+        "equation": "口 mouth + 豆 stemmed bowl = 哣 sick",
+        "components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ]
+      },
+      "before_mnemonic": "A diner feeling 哣 sick keeps their 口 mouth closed before a bowl of 豆 beans.",
+      "after_mnemonic": "A diner feeling 哣 sick keeps their 口 mouth closed before a 豆 stemmed bowl.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "壹",
+      "base_card_hash": "sha256:f7a1c7fc6daf795cbc1cc2b6214e56a5856d8a86d3940995fad129022552a700",
+      "before": {
+        "meaning": "number one",
+        "equation": "士 soldier + 冖 cover + 豆 beans = 壹 number one",
+        "components": [
+          {
+            "character": "士",
+            "gloss": "soldier"
+          },
+          {
+            "character": "冖",
+            "gloss": "cover"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "士",
+            "gloss": "soldier"
+          },
+          {
+            "character": "冖",
+            "gloss": "cover"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "number one",
+        "equation": "士 soldier + 冖 cover + 豆 stemmed bowl = 壹 number one",
+        "components": [
+          {
+            "character": "士",
+            "gloss": "soldier"
+          },
+          {
+            "character": "冖",
+            "gloss": "cover"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "士",
+            "gloss": "soldier"
+          },
+          {
+            "character": "冖",
+            "gloss": "cover"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ]
+      },
+      "before_mnemonic": "Under a 冖 cover, a 士 soldier ranks the winning sack of 豆 beans as 壹 number one.",
+      "after_mnemonic": "Under a 冖 cover, a 士 soldier guards the single 豆 stemmed bowl ranked 壹 number one.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "戽",
+      "base_card_hash": "sha256:73e4caddcc53942c2268cccaabf2f7241a37fac8c28428c50b830b522ec093e0",
+      "before": {
+        "meaning": "bale out water",
+        "equation": "户 door + 斗 big dipper = 戽 bale out water",
+        "components": [
+          {
+            "character": "户",
+            "gloss": "door"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "户",
+            "gloss": "door"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "bale out water",
+        "equation": "户 door + 斗 ladle = 戽 bale out water",
+        "components": [
+          {
+            "character": "户",
+            "gloss": "door"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "户",
+            "gloss": "door"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ]
+      },
+      "before_mnemonic": "Use a scoop cut from a 户 door like the 斗 big dipper to 戽 bale out water.",
+      "after_mnemonic": "Cut a scoop from a 户 door in the shape of a 斗 ladle to 戽 bale out water.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "抖",
+      "base_card_hash": "sha256:11416207764fa225257553cd88cae3e482f9cf356369a3a9828bd1bcd0ef8f48",
+      "before": {
+        "meaning": "quiver",
+        "equation": "扌 hand (side) + 斗 big dipper = 抖 quiver",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "quiver",
+        "equation": "扌 hand (side) + 斗 ladle = 抖 quiver",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ]
+      },
+      "before_mnemonic": "A 扌 hand tracing the 斗 big dipper cannot hold still and begins to 抖 quiver.",
+      "after_mnemonic": "A trembling 扌 hand (side) spills the 斗 ladle as it begins to 抖 quiver.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "斗",
+      "base_card_hash": "sha256:99421caa6bffb4704d6bb712db6c37a89466e8f95b56130a1d67e98510d04cb7",
+      "before": {
+        "meaning": "fight",
+        "equation": "Visual form: 斗 big dipper; meaning 斗 fight",
+        "components": [
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "fight",
+        "equation": "Visual form: 斗 ladle; meaning 斗 fight",
+        "components": [
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ]
+      },
+      "before_mnemonic": "Under the 斗 big dipper, two rivals 斗 fight through the night.",
+      "after_mnemonic": "The handle and cup form a 斗 ladle, the shape that names the Big Dipper; simplified borrowing also gives 斗 fight.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "料",
+      "base_card_hash": "sha256:d5e11091ecf325c20a9d6e8f0feee84495bedbbf4a1a6a4d3e99075563f6326b",
+      "before": {
+        "meaning": "material",
+        "equation": "米 rice + 斗 big dipper = 料 material",
+        "components": [
+          {
+            "character": "米",
+            "gloss": "rice"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "米",
+            "gloss": "rice"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "material",
+        "equation": "米 rice + 斗 ladle = 料 material",
+        "components": [
+          {
+            "character": "米",
+            "gloss": "rice"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "米",
+            "gloss": "rice"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ]
+      },
+      "before_mnemonic": "Measuring out raw 米 rice with a 斗 big dipper provides the essential 料 material for the feast.",
+      "after_mnemonic": "Measure raw 米 rice with a 斗 ladle to prepare the 料 material for the meal.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "斚",
+      "base_card_hash": "sha256:931e5c9e3323d1135cae7a07116e06b5be58688a1531dcb3cd477fdd7cd21e9e",
+      "before": {
+        "meaning": "small cup",
+        "equation": "厶 secret + 厶 secret + 冖 cover + 斗 big dipper = 斚 small cup",
+        "components": [
+          {
+            "character": "厶",
+            "gloss": "secret"
+          },
+          {
+            "character": "厶",
+            "gloss": "secret"
+          },
+          {
+            "character": "冖",
+            "gloss": "cover"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "厶",
+            "gloss": "secret"
+          },
+          {
+            "character": "厶",
+            "gloss": "secret"
+          },
+          {
+            "character": "冖",
+            "gloss": "cover"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "small cup",
+        "equation": "厶 secret + 厶 secret + 冖 cover + 斗 ladle = 斚 small cup",
+        "components": [
+          {
+            "character": "厶",
+            "gloss": "secret"
+          },
+          {
+            "character": "厶",
+            "gloss": "secret"
+          },
+          {
+            "character": "冖",
+            "gloss": "cover"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "厶",
+            "gloss": "secret"
+          },
+          {
+            "character": "厶",
+            "gloss": "secret"
+          },
+          {
+            "character": "冖",
+            "gloss": "cover"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ]
+      },
+      "before_mnemonic": "Beneath a 冖 cover, one 厶 secret within another 厶 secret shrinks a 斗 big dipper into a 斚 small cup.",
+      "after_mnemonic": "Beneath a 冖 cover, one 厶 secret within another 厶 secret hides a 斗 ladle and a 斚 small cup.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "斛",
+      "base_card_hash": "sha256:6da6c4761ec9eb72a8f76564b2dee40fe655cf5852c42e3368409315abc13de5",
+      "before": {
+        "meaning": "dry measure",
+        "equation": "角 horn + 斗 big dipper = 斛 dry measure",
+        "components": [
+          {
+            "character": "角",
+            "gloss": "horn"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "角",
+            "gloss": "horn"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "dry measure",
+        "equation": "角 horn + 斗 ladle = 斛 dry measure",
+        "components": [
+          {
+            "character": "角",
+            "gloss": "horn"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "角",
+            "gloss": "horn"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ]
+      },
+      "before_mnemonic": "A hollow 角 horn pours grain into a 斗 big dipper as one 斛 dry measure.",
+      "after_mnemonic": "A hollow 角 horn pours grain into a 斗 ladle used as one 斛 dry measure.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "斜",
+      "base_card_hash": "sha256:6756b9257b72d4a835f3f6bc4f8606d10575b9d6a6d766c7a6829a371abbbaf0",
+      "before": {
+        "meaning": "slanting",
+        "equation": "余 excess + 斗 big dipper = 斜 slanting",
+        "components": [
+          {
+            "character": "余",
+            "gloss": "excess"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "余",
+            "gloss": "excess"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "slanting",
+        "equation": "余 excess + 斗 ladle = 斜 slanting",
+        "components": [
+          {
+            "character": "余",
+            "gloss": "excess"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "余",
+            "gloss": "excess"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ]
+      },
+      "before_mnemonic": "余 excess weight in the bowl tips the 斗 big dipper until its handle lies 斜 slanting.",
+      "after_mnemonic": "余 excess weight tips the bowl of a 斗 ladle until its handle lies 斜 slanting.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "斝",
+      "base_card_hash": "sha256:7cf4c71471808bfe988fe279f6b2cedaabe67264cbbf7b7e33b97c4c4b0c0951",
+      "before": {
+        "meaning": "small jade wine cup",
+        "equation": "吅 noise + 冖 cover + 斗 big dipper = 斝 small jade wine cup",
+        "components": [
+          {
+            "character": "吅",
+            "gloss": "noise"
+          },
+          {
+            "character": "冖",
+            "gloss": "cover"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "吅",
+            "gloss": "noise"
+          },
+          {
+            "character": "冖",
+            "gloss": "cover"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "small jade wine cup",
+        "equation": "吅 noise + 冖 cover + 斗 ladle = 斝 small jade wine cup",
+        "components": [
+          {
+            "character": "吅",
+            "gloss": "noise"
+          },
+          {
+            "character": "冖",
+            "gloss": "cover"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "吅",
+            "gloss": "noise"
+          },
+          {
+            "character": "冖",
+            "gloss": "cover"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ]
+      },
+      "before_mnemonic": "Lift the 冖 cover: 吅 noise erupts as a 斗 big dipper shrinks into a 斝 small jade wine cup.",
+      "after_mnemonic": "Lift the 冖 cover and 吅 noise erupts around a 斗 ladle and a 斝 small jade wine cup.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "斞",
+      "base_card_hash": "sha256:60d990b105958b7c304ab5d72b7ec1b8a6ab40bf942bd23b900cefb9c207fc58",
+      "before": {
+        "meaning": "stack of grain",
+        "equation": "臾 moment + 斗 big dipper = 斞 stack of grain",
+        "components": [
+          {
+            "character": "臾",
+            "gloss": "moment"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "臾",
+            "gloss": "moment"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "stack of grain",
+        "equation": "臾 moment + 斗 ladle = 斞 stack of grain",
+        "components": [
+          {
+            "character": "臾",
+            "gloss": "moment"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "臾",
+            "gloss": "moment"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ]
+      },
+      "before_mnemonic": "For a 臾 moment, a 斗 big dipper pours grain until it forms a 斞 stack of grain.",
+      "after_mnemonic": "For a 臾 moment, a 斗 ladle pours grain until it forms a 斞 stack of grain.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "斟",
+      "base_card_hash": "sha256:c515c66709bb93875488d380ba76c155fe7a8c1b5b9f1b8260160a8e9f740679",
+      "before": {
+        "meaning": "pour wine",
+        "equation": "甚 extremely + 斗 big dipper = 斟 pour wine",
+        "components": [
+          {
+            "character": "甚",
+            "gloss": "extremely"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "甚",
+            "gloss": "extremely"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "pour wine",
+        "equation": "甚 extremely + 斗 ladle = 斟 pour wine",
+        "components": [
+          {
+            "character": "甚",
+            "gloss": "extremely"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "甚",
+            "gloss": "extremely"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ]
+      },
+      "before_mnemonic": "Hold the 斗 big dipper 甚 extremely steady as you use it to 斟 pour wine.",
+      "after_mnemonic": "Hold the 斗 ladle 甚 extremely steady as you use it to 斟 pour wine.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "斠",
+      "base_card_hash": "sha256:420370949510ec2bc839147a7cc5bb6c82ae1bf79eb74403b4acc437602d4b38",
+      "before": {
+        "meaning": "measure",
+        "equation": "冓 secluded place + 斗 big dipper = 斠 measure",
+        "components": [
+          {
+            "character": "冓",
+            "gloss": "secluded place"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "冓",
+            "gloss": "secluded place"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "measure",
+        "equation": "冓 secluded place + 斗 ladle = 斠 measure",
+        "components": [
+          {
+            "character": "冓",
+            "gloss": "secluded place"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "冓",
+            "gloss": "secluded place"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ]
+      },
+      "before_mnemonic": "In a 冓 secluded place, fill a 斗 big dipper to the line to 斠 measure grain.",
+      "after_mnemonic": "In a 冓 secluded place, fill a 斗 ladle to its line to 斠 measure grain.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "斡",
+      "base_card_hash": "sha256:30c95deb6e0ba270a2b7480e3cab9d6b29e7207b5c494499e8c47593ae262e71",
+      "before": {
+        "meaning": "rotate",
+        "equation": "𠦝 sunrise + 𠆢 person roof + 斗 big dipper = 斡 rotate",
+        "components": [
+          {
+            "character": "𠦝",
+            "gloss": "sunrise"
+          },
+          {
+            "character": "𠆢",
+            "gloss": "person roof"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𠦝",
+            "gloss": "sunrise"
+          },
+          {
+            "character": "𠆢",
+            "gloss": "person roof"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "rotate",
+        "equation": "𠦝 sunrise + 𠆢 person roof + 斗 ladle = 斡 rotate",
+        "components": [
+          {
+            "character": "𠦝",
+            "gloss": "sunrise"
+          },
+          {
+            "character": "𠆢",
+            "gloss": "person roof"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𠦝",
+            "gloss": "sunrise"
+          },
+          {
+            "character": "𠆢",
+            "gloss": "person roof"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ]
+      },
+      "before_mnemonic": "Between one 𠦝 sunrise and the next, the 斗 big dipper seems to 斡 rotate above a 𠆢 person roof.",
+      "after_mnemonic": "From one 𠦝 sunrise to the next, a celestial 斗 ladle seems to 斡 rotate above a 𠆢 person roof.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "枓",
+      "base_card_hash": "sha256:315971d772a9c8d07f76e0f31b5070347a62ca12a9d45387506887e0e7172abf",
+      "before": {
+        "meaning": "capital",
+        "equation": "木 tree + 斗 big dipper = 枓 capital",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "capital",
+        "equation": "木 tree + 斗 ladle = 枓 capital",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ]
+      },
+      "before_mnemonic": "A 木 tree carved to cradle the 斗 big dipper crowns a column as its 枓 capital.",
+      "after_mnemonic": "A 木 tree is carved into a bracket shaped like a 斗 ladle that crowns a column as its 枓 capital.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "痘",
+      "base_card_hash": "sha256:0de0985fe27a219f6cfce918937c018d77edc242339c366cfbaf09e45f00659c",
+      "before": {
+        "meaning": "smallpox",
+        "equation": "疒 sickness + 豆 beans = 痘 smallpox",
+        "components": [
+          {
+            "character": "疒",
+            "gloss": "sickness"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "疒",
+            "gloss": "sickness"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "smallpox",
+        "equation": "疒 sickness + 豆 stemmed bowl = 痘 smallpox",
+        "components": [
+          {
+            "character": "疒",
+            "gloss": "sickness"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "疒",
+            "gloss": "sickness"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ]
+      },
+      "before_mnemonic": "痘 smallpox is a 疒 sickness known for many round pustules, each resembling tiny 豆 beans.",
+      "after_mnemonic": "痘 smallpox is a 疒 sickness whose round pustules resemble beans heaped in a 豆 stemmed bowl.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "登",
+      "base_card_hash": "sha256:82e3b6c7eae5acfbdbda301e1ecdc724b49ec4b9ef04b98b52cb253efce93ac4",
+      "before": {
+        "meaning": "ascend",
+        "equation": "癶 legs + 豆 beans = 登 ascend",
+        "components": [
+          {
+            "character": "癶",
+            "gloss": "legs"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "癶",
+            "gloss": "legs"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "ascend",
+        "equation": "癶 legs + 豆 stemmed bowl = 登 ascend",
+        "components": [
+          {
+            "character": "癶",
+            "gloss": "legs"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "癶",
+            "gloss": "legs"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ]
+      },
+      "before_mnemonic": "Sprouting 豆 beans grow 癶 legs that 登 ascend a garden trellis.",
+      "after_mnemonic": "A pair of 癶 legs carries a 豆 stemmed bowl up the steps to 登 ascend.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "短",
+      "base_card_hash": "sha256:88566f0bb371a2a61766f2f40c298fecbb6770701e503539b83ad4124603b924",
+      "before": {
+        "meaning": "short",
+        "equation": "矢 dart + 豆 beans = 短 short",
+        "components": [
+          {
+            "character": "矢",
+            "gloss": "dart"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "矢",
+            "gloss": "dart"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "short",
+        "equation": "矢 dart + 豆 stemmed bowl = 短 short",
+        "components": [
+          {
+            "character": "矢",
+            "gloss": "dart"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "矢",
+            "gloss": "dart"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ]
+      },
+      "before_mnemonic": "A 矢 dart measured against three 豆 beans is 短 short enough to fit in one palm.",
+      "after_mnemonic": "Lay a 矢 dart across a 豆 stemmed bowl; if it fits inside, it is 短 short.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "科",
+      "base_card_hash": "sha256:462d904479f997f4b103e606be7903709b2679d6af2cbfefe3344c068a2ad291",
+      "before": {
+        "meaning": "department",
+        "equation": "禾 standing grain + 斗 big dipper = 科 department",
+        "components": [
+          {
+            "character": "禾",
+            "gloss": "standing grain"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "禾",
+            "gloss": "standing grain"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "department",
+        "equation": "禾 standing grain + 斗 ladle = 科 department",
+        "components": [
+          {
+            "character": "禾",
+            "gloss": "standing grain"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "禾",
+            "gloss": "standing grain"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ]
+      },
+      "before_mnemonic": "The agricultural office measures 禾 standing grain by the 斗 big dipper to manage the grain 科 department.",
+      "after_mnemonic": "The agricultural office measures 禾 standing grain with a 斗 ladle for the grain 科 department.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "脰",
+      "base_card_hash": "sha256:9a52a2630b94fea4f6f3770936046674451172b805c653e3e5f8081fb48c06fb",
+      "before": {
+        "meaning": "the neck",
+        "equation": "⺼ meat (side) + 豆 beans = 脰 the neck",
+        "components": [
+          {
+            "character": "⺼",
+            "gloss": "meat (side)"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⺼",
+            "gloss": "meat (side)"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "the neck",
+        "equation": "⺼ meat (side) + 豆 stemmed bowl = 脰 the neck",
+        "components": [
+          {
+            "character": "⺼",
+            "gloss": "meat (side)"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⺼",
+            "gloss": "meat (side)"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ]
+      },
+      "before_mnemonic": "A collar of 豆 beans circles the ⺼ meat of 脰 the neck.",
+      "after_mnemonic": "The ⺼ meat (side) of 脰 the neck supports the head like the stem beneath a 豆 stemmed bowl.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "荳",
+      "base_card_hash": "sha256:f9b9a1c2e0fb9703f41393d1058765c44798f5714888d96101eed71e91c3d66a",
+      "before": {
+        "meaning": "pea",
+        "equation": "艹 grass (top) + 豆 beans = 荳 pea",
+        "components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "pea",
+        "equation": "艹 grass (top) + 豆 stemmed bowl = 荳 pea",
+        "components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ]
+      },
+      "before_mnemonic": "Rising above 艹 grass, a pod holds little 豆 beans, each an 荳 pea.",
+      "after_mnemonic": "Pods from 艹 grass (top) fill a 豆 stemmed bowl with each harvested 荳 pea.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "蚪",
+      "base_card_hash": "sha256:7792971f024b590b42e1ce4decfe20ee646a3ab69b4ec8f11ae5b89ed00fab6b",
+      "before": {
+        "meaning": "tadpole",
+        "equation": "虫 insects + 斗 big dipper = 蚪 tadpole",
+        "components": [
+          {
+            "character": "虫",
+            "gloss": "insects"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "虫",
+            "gloss": "insects"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "tadpole",
+        "equation": "虫 insects + 斗 ladle = 蚪 tadpole",
+        "components": [
+          {
+            "character": "虫",
+            "gloss": "insects"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "虫",
+            "gloss": "insects"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ]
+      },
+      "before_mnemonic": "Under the 斗 big dipper, a cloud of 虫 insects circles a comma-shaped 蚪 tadpole wriggling in a pond.",
+      "after_mnemonic": "A 斗 ladle scoops pond water where one speck among 虫 insects wriggles as a 蚪 tadpole.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "裋",
+      "base_card_hash": "sha256:1ef0624b066ab25f558ce491772b2b2ab36d6c848511b6ba2c28ff8a50d227ff",
+      "before": {
+        "meaning": "servant's cotton clothes",
+        "equation": "衤 clothing (side) + 豆 beans = 裋 servant's cotton clothes",
+        "components": [
+          {
+            "character": "衤",
+            "gloss": "clothing (side)"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "衤",
+            "gloss": "clothing (side)"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "servant's cotton clothes",
+        "equation": "衤 clothing (side) + 豆 stemmed bowl = 裋 servant's cotton clothes",
+        "components": [
+          {
+            "character": "衤",
+            "gloss": "clothing (side)"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "衤",
+            "gloss": "clothing (side)"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ]
+      },
+      "before_mnemonic": "A servant sorting 豆 beans wears 裋 servant's cotton clothes as his everyday 衤 clothing.",
+      "after_mnemonic": "A servant spills a 豆 stemmed bowl on the everyday 衤 clothing (side) called 裋 servant's cotton clothes.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "豆",
+      "base_card_hash": "sha256:6060906cf13539a730087960329ef857a6ae2773765106a394edea397409d49f",
+      "before": {
+        "meaning": "beans",
+        "equation": "Visual form: 豆 beans",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "beans",
+        "equation": "Visual form: 豆 stemmed bowl; meaning 豆 beans",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ]
+      },
+      "before_mnemonic": "The stacked bowl-like shape holds a serving of 豆 beans.",
+      "after_mnemonic": "The high foot and rounded dish form a 豆 stemmed bowl; later borrowing gives the common meaning 豆 beans.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "豇",
+      "base_card_hash": "sha256:31f2f21dd4ce3ed4f64f684a9c4ea57706046e0119a195414c9ebd18c27b50c7",
+      "before": {
+        "meaning": "small kidney bean",
+        "equation": "豆 beans + 工 work = 豇 small kidney bean",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "工",
+            "gloss": "work"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "工",
+            "gloss": "work"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "small kidney bean",
+        "equation": "豆 stemmed bowl + 工 work = 豇 small kidney bean",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "工",
+            "gloss": "work"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "工",
+            "gloss": "work"
+          }
+        ]
+      },
+      "before_mnemonic": "During 工 work sorting 豆 beans, each tiny curved seed with one indented side goes into the 豇 small kidney bean pile.",
+      "after_mnemonic": "During 工 work, sort every 豇 small kidney bean into a 豆 stemmed bowl.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "豉",
+      "base_card_hash": "sha256:71b58949c454ec0d52152f4421c159a2aa3266c8f4be1697b95d69f420a7a278",
+      "before": {
+        "meaning": "fermented beans",
+        "equation": "豆 beans + 支 offshoot = 豉 fermented beans",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "支",
+            "gloss": "offshoot"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "支",
+            "gloss": "offshoot"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "fermented beans",
+        "equation": "豆 stemmed bowl + 支 offshoot = 豉 fermented beans",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "支",
+            "gloss": "offshoot"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "支",
+            "gloss": "offshoot"
+          }
+        ]
+      },
+      "before_mnemonic": "One savory 支 offshoot of preserving 豆 beans is 豉 fermented beans.",
+      "after_mnemonic": "One savory 支 offshoot of preservation fills a 豆 stemmed bowl with 豉 fermented beans.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "豊",
+      "base_card_hash": "sha256:ab542820c512c09c8f56d58029b2539f881ed0f9deacddca597b21f4b967dd98",
+      "before": {
+        "meaning": "plentiful",
+        "equation": "曲 bent + 豆 beans = 豊 plentiful",
+        "components": [
+          {
+            "character": "曲",
+            "gloss": "bent"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "曲",
+            "gloss": "bent"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "plentiful",
+        "equation": "曲 bent + 豆 stemmed bowl = 豊 plentiful",
+        "components": [
+          {
+            "character": "曲",
+            "gloss": "bent"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "曲",
+            "gloss": "bent"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ]
+      },
+      "before_mnemonic": "The weight of 豆 beans leaves each stalk 曲 bent when the crop is 豊 plentiful.",
+      "after_mnemonic": "曲 bent stalks pile offerings high above a 豆 stemmed bowl when the harvest is 豊 plentiful.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "豋",
+      "base_card_hash": "sha256:1c818dc4530a1964f10689a2309215f0b12c0df441029381ca1c0feaed0da6df",
+      "before": {
+        "meaning": "ceremonial vessel",
+        "equation": "𠂊 slash stroke + 冫 ice + 豆 beans = 豋 ceremonial vessel",
+        "components": [
+          {
+            "character": "𠂊",
+            "gloss": "slash stroke"
+          },
+          {
+            "character": "冫",
+            "gloss": "ice"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𠂊",
+            "gloss": "slash stroke"
+          },
+          {
+            "character": "冫",
+            "gloss": "ice"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "ceremonial vessel",
+        "equation": "𠂊 slash stroke + 冫 ice + 豆 stemmed bowl = 豋 ceremonial vessel",
+        "components": [
+          {
+            "character": "𠂊",
+            "gloss": "slash stroke"
+          },
+          {
+            "character": "冫",
+            "gloss": "ice"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𠂊",
+            "gloss": "slash stroke"
+          },
+          {
+            "character": "冫",
+            "gloss": "ice"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ]
+      },
+      "before_mnemonic": "The 豋 ceremonial vessel holds 豆 beans on 冫 ice beneath a carved 𠂊 slash stroke during the rite.",
+      "after_mnemonic": "A 豋 ceremonial vessel is a 豆 stemmed bowl holding an offering marked by a 𠂊 slash stroke and kept on 冫 ice.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "豌",
+      "base_card_hash": "sha256:b7e8b23d395ebd3a2f8b6f874e7b81c326338d7f404490edb5fa1301d373a381",
+      "before": {
+        "meaning": "peas",
+        "equation": "豆 beans + 宛 winding = 豌 peas",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "宛",
+            "gloss": "winding"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "宛",
+            "gloss": "winding"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "peas",
+        "equation": "豆 stemmed bowl + 宛 winding = 豌 peas",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "宛",
+            "gloss": "winding"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "宛",
+            "gloss": "winding"
+          }
+        ]
+      },
+      "before_mnemonic": "Along a 宛 winding vine, round 豆 beans swell inside pods of 豌 peas.",
+      "after_mnemonic": "A 宛 winding vine fills a 豆 stemmed bowl with round 豌 peas.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "豍",
+      "base_card_hash": "sha256:9c4693b86040964c6e9ed5b49ed429000d4d31764651fde1e8ab7808c632d743",
+      "before": {
+        "meaning": "pea",
+        "equation": "豆 beans + 卑 lowly = 豍 pea",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "卑",
+            "gloss": "lowly"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "卑",
+            "gloss": "lowly"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "pea",
+        "equation": "豆 stemmed bowl + 卑 lowly = 豍 pea",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "卑",
+            "gloss": "lowly"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "卑",
+            "gloss": "lowly"
+          }
+        ]
+      },
+      "before_mnemonic": "Among 豆 beans, one small 豍 pea holds the 卑 lowly rank beneath all the others.",
+      "after_mnemonic": "At the 卑 lowly bottom of a 豆 stemmed bowl rests one small 豍 pea.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "豎",
+      "base_card_hash": "sha256:d37f4ecb827fc222a46ad38e2160180b06b6c304c28ceb0febadb89b981c3b90",
+      "before": {
+        "meaning": "perpendicular",
+        "equation": "臤 firm grip + 豆 beans = 豎 perpendicular",
+        "components": [
+          {
+            "character": "臤",
+            "gloss": "firm grip"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "臤",
+            "gloss": "firm grip"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "perpendicular",
+        "equation": "臤 firm grip + 豆 stemmed bowl = 豎 perpendicular",
+        "components": [
+          {
+            "character": "臤",
+            "gloss": "firm grip"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "臤",
+            "gloss": "firm grip"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ]
+      },
+      "before_mnemonic": "A 臤 firm grip holds a bean stalk above the 豆 beans, 豎 perpendicular to the ground.",
+      "after_mnemonic": "A 臤 firm grip holds a 豆 stemmed bowl 豎 perpendicular to the table.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "豏",
+      "base_card_hash": "sha256:83c6ab4027fa98eac66f54108d5105b206e5dcfed982926f090d1092e7f5c8a4",
+      "before": {
+        "meaning": "half-grown beans",
+        "equation": "豆 beans + 兼 double = 豏 half-grown beans",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "兼",
+            "gloss": "double"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "兼",
+            "gloss": "double"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "half-grown beans",
+        "equation": "豆 stemmed bowl + 兼 double = 豏 half-grown beans",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "兼",
+            "gloss": "double"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "兼",
+            "gloss": "double"
+          }
+        ]
+      },
+      "before_mnemonic": "Though expected to grow 兼 double their size, the 豆 beans remain 豏 half-grown beans.",
+      "after_mnemonic": "Expected to grow 兼 double their size, the beans in a 豆 stemmed bowl remain 豏 half-grown beans.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "豐",
+      "base_card_hash": "sha256:adc8d4461fddd602b0a77ea090349c67d92e33db35b53d996b9e717e53af672f",
+      "before": {
+        "meaning": "plentiful",
+        "equation": "𠁳 downstroke + 豆 beans = 豐 plentiful",
+        "components": [
+          {
+            "character": "𠁳",
+            "gloss": "downstroke"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𠁳",
+            "gloss": "downstroke"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "plentiful",
+        "equation": "𠁳 downstroke + 豆 stemmed bowl = 豐 plentiful",
+        "components": [
+          {
+            "character": "𠁳",
+            "gloss": "downstroke"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𠁳",
+            "gloss": "downstroke"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ]
+      },
+      "before_mnemonic": "A 𠁳 downstroke marks yet another row of 豆 beans because the harvest is 豐 plentiful.",
+      "after_mnemonic": "A 𠁳 downstroke marks another row of offerings above the 豆 stemmed bowl because the harvest is 豐 plentiful.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "逗",
+      "base_card_hash": "sha256:8f7fb99d7d612068612965fe75a74467a787ffa64a64711b690c0ffb45a0f7ed",
+      "before": {
+        "meaning": "tease",
+        "equation": "辶 movement + 豆 beans = 逗 tease",
+        "components": [
+          {
+            "character": "辶",
+            "gloss": "movement"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "辶",
+            "gloss": "movement"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "tease",
+        "equation": "辶 movement + 豆 stemmed bowl = 逗 tease",
+        "components": [
+          {
+            "character": "辶",
+            "gloss": "movement"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "辶",
+            "gloss": "movement"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ]
+      },
+      "before_mnemonic": "Keeping 豆 beans in 辶 movement just beyond reach will 逗 tease anyone trying to grab them.",
+      "after_mnemonic": "Keep a 豆 stemmed bowl in 辶 movement just beyond reach to 逗 tease a hungry guest.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "鈄",
+      "base_card_hash": "sha256:4d8a3a592eb97a56996a46dc1bbe7535cf3304ba198903a06f5387670284ee96",
+      "before": {
+        "meaning": "wine flagon",
+        "equation": "金 metal + 斗 big dipper = 鈄 wine flagon",
+        "components": [
+          {
+            "character": "金",
+            "gloss": "metal"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "金",
+            "gloss": "metal"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "wine flagon",
+        "equation": "金 metal + 斗 ladle = 鈄 wine flagon",
+        "components": [
+          {
+            "character": "金",
+            "gloss": "metal"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "金",
+            "gloss": "metal"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ]
+      },
+      "before_mnemonic": "The 斗 big dipper pours a stream of wine into a 鈄 wine flagon forged from 金 metal.",
+      "after_mnemonic": "A 斗 ladle pours wine into a 鈄 wine flagon forged from 金 metal.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "钭",
+      "base_card_hash": "sha256:a56f38822df6af987d21c46e4cdff41470e11970e9bd82d30737b51ae7dc750c",
+      "before": {
+        "meaning": "wine flagon",
+        "equation": "钅 metal + 斗 big dipper = 钭 wine flagon",
+        "components": [
+          {
+            "character": "钅",
+            "gloss": "metal"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "钅",
+            "gloss": "metal"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "wine flagon",
+        "equation": "钅 metal + 斗 ladle = 钭 wine flagon",
+        "components": [
+          {
+            "character": "钅",
+            "gloss": "metal"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "钅",
+            "gloss": "metal"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ]
+      },
+      "before_mnemonic": "The 斗 big dipper pours a stream of wine into a 钭 wine flagon forged from 钅 metal.",
+      "after_mnemonic": "A 斗 ladle pours wine into a 钭 wine flagon forged from 钅 metal.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "閗",
+      "base_card_hash": "sha256:c083a4b8813220d1cb1d471b6a17ad68628398d18088370163e7dfec592f6fb4",
+      "before": {
+        "meaning": "fight",
+        "equation": "門 gate + 斗 big dipper = 閗 fight",
+        "components": [
+          {
+            "character": "門",
+            "gloss": "gate"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "門",
+            "gloss": "gate"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "fight",
+        "equation": "門 gate + 斗 ladle = 閗 fight",
+        "components": [
+          {
+            "character": "門",
+            "gloss": "gate"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "門",
+            "gloss": "gate"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ]
+      },
+      "before_mnemonic": "At the 門 gate, two rivals swear the 斗 big dipper points opposite ways, then 閗 fight.",
+      "after_mnemonic": "At the 門 gate, two rivals grab the same 斗 ladle and 閗 fight.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "阧",
+      "base_card_hash": "sha256:8b812bd026f177e200116862849699e942d142e7d73823a19b88996dff7e05ef",
+      "before": {
+        "meaning": "sloping",
+        "equation": "⻖ mound (left) + 斗 big dipper = 阧 sloping",
+        "components": [
+          {
+            "character": "⻖",
+            "gloss": "mound (left)"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⻖",
+            "gloss": "mound (left)"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sloping",
+        "equation": "⻖ mound (left) + 斗 ladle = 阧 sloping",
+        "components": [
+          {
+            "character": "⻖",
+            "gloss": "mound (left)"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⻖",
+            "gloss": "mound (left)"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ]
+      },
+      "before_mnemonic": "The 斗 big dipper tilts above the ⻖ mound, matching its 阧 sloping hillside.",
+      "after_mnemonic": "A 斗 ladle tips beside a ⻖ mound (left), matching the 阧 sloping hillside.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "頭",
+      "base_card_hash": "sha256:86d95f39138afee63569220dea8899b9721c38bdb104a2f426420d2c77d0d657",
+      "before": {
+        "meaning": "head",
+        "equation": "豆 beans + 頁 head = 頭 head",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "頁",
+            "gloss": "head"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "頁",
+            "gloss": "head"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "head",
+        "equation": "豆 stemmed bowl + 頁 head = 頭 head",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "頁",
+            "gloss": "head"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "頁",
+            "gloss": "head"
+          }
+        ]
+      },
+      "before_mnemonic": "A bowl of 豆 beans balanced on a person's 頁 head makes for a very steady 頭 head.",
+      "after_mnemonic": "Balance a 豆 stemmed bowl on a person's 頁 head to train a steady 頭 head.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "餖",
+      "base_card_hash": "sha256:dc523c6877126c23fcd79b0afda9169048db9c9989e59cb2337249abc52198a4",
+      "before": {
+        "meaning": "food item set",
+        "equation": "飠 food + 豆 beans = 餖 food item set",
+        "components": [
+          {
+            "character": "飠",
+            "gloss": "food"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "飠",
+            "gloss": "food"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "displayed food",
+        "equation": "飠 food + 豆 stemmed bowl = 餖 displayed food",
+        "components": [
+          {
+            "character": "飠",
+            "gloss": "food"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "飠",
+            "gloss": "food"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ]
+      },
+      "before_mnemonic": "Among displayed 飠 food, a dish of 豆 beans is one 餖 food item set purely for show.",
+      "after_mnemonic": "Arrange 飠 food inside a 豆 stemmed bowl as 餖 displayed food.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "饾",
+      "base_card_hash": "sha256:29b50a35727a1dc2214ed75fad53a368b03e7faae04d203084bc7a3f737af6eb",
+      "before": {
+        "meaning": "food",
+        "equation": "饣 food (side) + 豆 beans = 饾 food",
+        "components": [
+          {
+            "character": "饣",
+            "gloss": "food (side)"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "饣",
+            "gloss": "food (side)"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "displayed food",
+        "equation": "饣 food (side) + 豆 stemmed bowl = 饾 displayed food",
+        "components": [
+          {
+            "character": "饣",
+            "gloss": "food (side)"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "饣",
+            "gloss": "food (side)"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ]
+      },
+      "before_mnemonic": "A dish of 豆 beans joins the displayed 饣 food as 饾 food set out purely for show.",
+      "after_mnemonic": "Arrange 饣 food (side) inside a 豆 stemmed bowl as 饾 displayed food.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "鬦",
+      "base_card_hash": "sha256:2e118a1a9897e510ab6ce1944d82309feb99ba34176cfe2edc144bb4bf77c379",
+      "before": {
+        "meaning": "struggle",
+        "equation": "鬥 fight + 斗 big dipper = 鬦 struggle",
+        "components": [
+          {
+            "character": "鬥",
+            "gloss": "fight"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "鬥",
+            "gloss": "fight"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "struggle",
+        "equation": "鬥 fight + 斗 ladle = 鬦 struggle",
+        "components": [
+          {
+            "character": "鬥",
+            "gloss": "fight"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "鬥",
+            "gloss": "fight"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ]
+      },
+      "before_mnemonic": "Beneath the 斗 big dipper, neither side abandons the 鬥 fight, prolonging the 鬦 struggle.",
+      "after_mnemonic": "Neither side abandons the 鬥 fight over a 斗 ladle, prolonging the 鬦 struggle.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "魁",
+      "base_card_hash": "sha256:8b5c7b837d353e538344103a8bc2625add64f85240d02584f8959a7d4e85b9ff",
+      "before": {
+        "meaning": "leader",
+        "equation": "⻤ ghost + 斗 big dipper = 魁 leader",
+        "components": [
+          {
+            "character": "⻤",
+            "gloss": "ghost"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⻤",
+            "gloss": "ghost"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "leader",
+        "equation": "⻤ ghost + 斗 ladle = 魁 leader",
+        "components": [
+          {
+            "character": "⻤",
+            "gloss": "ghost"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⻤",
+            "gloss": "ghost"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ]
+      },
+      "before_mnemonic": "Under the 斗 big dipper, one ⻤ ghost strides ahead as the 魁 leader of a spectral procession.",
+      "after_mnemonic": "An ⻤ ghost carrying a celestial 斗 ladle strides ahead as the 魁 leader.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "豈",
+      "base_card_hash": "sha256:75a70b3464de8869a158c182113cca12307f70c9120ecf6e561deef6074d6fa9",
+      "before": {
+        "meaning": "how",
+        "equation": "山 mountain + 豆 beans = 豈 how",
+        "components": [
+          {
+            "character": "山",
+            "gloss": "mountain"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "山",
+            "gloss": "mountain"
+          },
+          {
+            "character": "豆",
+            "gloss": "beans"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "how",
+        "equation": "Visual form: 豈 victory drum; meaning 豈 how",
+        "components": [
+          {
+            "character": "豈",
+            "gloss": "victory drum"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豈",
+            "gloss": "victory drum"
+          }
+        ]
+      },
+      "before_mnemonic": "Seeing 豆 beans piled as high as a 山 mountain, one can only ask 豈 how they got there.",
+      "after_mnemonic": "A triumphant 豈 victory drum sounds while the borrowed modern sense asks 豈 how.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "料",
+      "base_card_hash": "sha256:d57a006d2ae782492bbfa3e5855b9fa210792e124e5282b7cd3275b1760c56b4",
+      "before": {
+        "meaning": "material",
+        "equation": "米 rice + 斗 big dipper = 料 material",
+        "components": [
+          {
+            "character": "米",
+            "gloss": "rice"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "米",
+            "gloss": "rice"
+          },
+          {
+            "character": "斗",
+            "gloss": "big dipper"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "material",
+        "equation": "米 rice + 斗 ladle = 料 material",
+        "components": [
+          {
+            "character": "米",
+            "gloss": "rice"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "米",
+            "gloss": "rice"
+          },
+          {
+            "character": "斗",
+            "gloss": "ladle"
+          }
+        ]
+      },
+      "before_mnemonic": "米 rice arranged in the seven-star pattern of the 斗 big dipper becomes 料 material for a mosaic.",
+      "after_mnemonic": "Measure 米 rice with a 斗 ladle as the basic 料 material for the meal.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "𭔰",
+      "base_card_hash": "sha256:5d6a5bdaf1143737267ce782781173e9a74a58f90c45300b9e2598ad7226b7ff",
+      "before": {
+        "meaning": "form",
+        "equation": "豆 beans + 寸 inch = 𭔰 form",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "寸",
+            "gloss": "inch"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "寸",
+            "gloss": "inch"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "form",
+        "equation": "豆 stemmed bowl + 寸 inch = 𭔰 form",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "寸",
+            "gloss": "inch"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          },
+          {
+            "character": "寸",
+            "gloss": "inch"
+          }
+        ]
+      },
+      "before_mnemonic": "Set 豆 beans one 寸 inch apart to 𭔰 form a measured row.",
+      "after_mnemonic": "Set each 豆 stemmed bowl one 寸 inch apart to 𭔰 form a measured row.",
+      "valid": true,
+      "problems": []
+    }
+  ]
+}

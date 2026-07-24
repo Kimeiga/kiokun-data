@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "review_id": "vessel-image-family-review-2026-07-24",
+  "policy_version": "2026-07-24.1",
+  "reviewed_root_count": 3,
+  "changed_card_count": 87,
+  "old_bean_occurrence_count": 49,
+  "old_dipper_occurrence_count": 39,
+  "final_stemmed_bowl_occurrence_count": 48,
+  "final_ladle_occurrence_count": 39,
+  "final_victory_drum_occurrence_count": 30,
+  "method": "Manual rewrite of the complete 豆 and 斗 boundaries around their concrete vessel images, alignment of the 豈 compatibility form with 豈, and cleanup of seven learner-facing target glosses.",
+  "roots": [
+    {
+      "character": "豆",
+      "decision": "lexical_component_split_and_atomic_pictograph",
+      "lexical_gloss": "beans",
+      "component_gloss": "stemmed bowl",
+      "reason": "The independent character commonly means beans, while its graph depicts a high-footed bowl or vessel. A stemmed bowl is visually recoverable from the form and remains useful in the character's vessel, offering, food, and phonetic descendants."
+    },
+    {
+      "character": "斗",
+      "decision": "lexical_component_split_and_atomic_pictograph",
+      "lexical_gloss": "fight",
+      "component_gloss": "ladle",
+      "reason": "The simplified character commonly carries fight from 鬥, while the older graph is a handled dipper or grain measure. Ladle is a compact concrete image that explains measuring, pouring, cup, and Big-Dipper associations better than treating every occurrence as a constellation."
+    },
+    {
+      "character": "豈",
+      "decision": "compatibility_variant_alignment",
+      "lexical_gloss": "how",
+      "component_gloss": "victory drum",
+      "reason": "This compatibility form of 豈 should inherit the same atomic victory-drum image instead of being decomposed into mountain plus beans."
+    }
+  ],
+  "target_cleanup": {
+    "㛒": "cannot speak",
+    "䜵": "fermented beans",
+    "㪸": "fill a cup",
+    "䇆": "decaliter",
+    "乧": "Korean-coined character",
+    "餖": "displayed food",
+    "饾": "displayed food"
+  }
+}
