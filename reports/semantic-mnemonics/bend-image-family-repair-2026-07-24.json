@@ -1,0 +1,1475 @@
+{
+  "schema_version": 1,
+  "policy_version": "2026-07-24.1",
+  "policy_path": "data/semantic_mnemonic_bend_image_policy.json",
+  "base_projection_hash": "sha256:b63c0f63d7c99c481bbe3c3a2b6b0915597ba29d96e848ab04e05ca473b1c905",
+  "candidate_projection_hash": "sha256:c9d564876ac3259fcde7a02d333444dd20f9f29632789add4f4d4f241d534400",
+  "card_count": 24037,
+  "invalid_count": 0,
+  "changed_count": 26,
+  "already_applied_count": 0,
+  "old_component_occurrence_count": 25,
+  "bend_occurrence_count": 26,
+  "changed_characters": [
+    "㢻",
+    "㣦",
+    "㮃",
+    "㹻",
+    "䅗",
+    "䆧",
+    "䍴",
+    "䫋",
+    "䬐",
+    "䰀",
+    "䴧",
+    "倭",
+    "委",
+    "巍",
+    "捼",
+    "痿",
+    "矮",
+    "緌",
+    "萎",
+    "諉",
+    "诿",
+    "踒",
+    "躷",
+    "逶",
+    "餧",
+    "魏"
+  ],
+  "changes": [
+    {
+      "character": "㢻",
+      "base_card_hash": "sha256:58da5b89ee815fdf57bc2b0c63a78abe688c88f3e2939ff081726118e288a3ae",
+      "before": {
+        "meaning": "draw a bow",
+        "equation": "弓 bow + 委 committee = 㢻 draw a bow",
+        "components": [
+          {
+            "character": "弓",
+            "gloss": "bow"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "弓",
+            "gloss": "bow"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "draw a bow",
+        "equation": "弓 bow + 委 bend = 㢻 draw a bow",
+        "components": [
+          {
+            "character": "弓",
+            "gloss": "bow"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "弓",
+            "gloss": "bow"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ]
+      },
+      "before_mnemonic": "The 委 committee pulls back the string of a 弓 bow together to 㢻 draw a bow.",
+      "after_mnemonic": "Put a 委 bend into the limbs of a 弓 bow when you 㢻 draw a bow.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㣦",
+      "base_card_hash": "sha256:6a916c1687d2e70ecf7bb8dadb2ae9c778cb73b4ce4e591c60c74a6462e22242",
+      "before": {
+        "meaning": "winding path",
+        "equation": "彳 step + 委 committee = 㣦 winding path",
+        "components": [
+          {
+            "character": "彳",
+            "gloss": "step"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "彳",
+            "gloss": "step"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "winding path",
+        "equation": "彳 step + 委 bend = 㣦 winding path",
+        "components": [
+          {
+            "character": "彳",
+            "gloss": "step"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "彳",
+            "gloss": "step"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ]
+      },
+      "before_mnemonic": "Every 委 committee compromise bends the route again, leaving each 彳 step on a 㣦 winding path.",
+      "after_mnemonic": "Every 委 bend makes the next 彳 step follow a 㣦 winding path.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㮃",
+      "base_card_hash": "sha256:d22e4a27b80a958c2c22a105ece74d98a01a4ac161fc1d78915be99031a2ca0c",
+      "before": {
+        "meaning": "farm tool",
+        "equation": "木 tree + 委 committee = 㮃 farm tool",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "farm tool",
+        "equation": "木 tree + 委 bend = 㮃 farm tool",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ]
+      },
+      "before_mnemonic": "A 委 committee tests a handle cut from a 木 tree by turning soil with the 㮃 farm tool.",
+      "after_mnemonic": "Shape a branch from a 木 tree around a 委 bend to make a 㮃 farm tool.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㹻",
+      "base_card_hash": "sha256:1b6601c164ba5f8ed4f1c8deeb05baa419c9741c0c640e325a6dd8e8ef17bd92",
+      "before": {
+        "meaning": "puppy",
+        "equation": "犭 dog (side) + 委 committee = 㹻 puppy",
+        "components": [
+          {
+            "character": "犭",
+            "gloss": "dog (side)"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "犭",
+            "gloss": "dog (side)"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "puppy",
+        "equation": "犭 dog (side) + 委 bend = 㹻 puppy",
+        "components": [
+          {
+            "character": "犭",
+            "gloss": "dog (side)"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "犭",
+            "gloss": "dog (side)"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ]
+      },
+      "before_mnemonic": "A 㹻 puppy is the tiny 犭 dog tumbling playfully between the chairs of a seated 委 committee.",
+      "after_mnemonic": "A playful 㹻 puppy puts a 委 bend in its whole 犭 dog (side) body as it tumbles.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䅗",
+      "base_card_hash": "sha256:76cefc0e9ae20d0ea8b530502a82ff3605fa8beb7db75c057f2b904d79a73429",
+      "before": {
+        "meaning": "four bundles of grain",
+        "equation": "禾 standing grain + 委 committee = 䅗 four bundles of grain",
+        "components": [
+          {
+            "character": "禾",
+            "gloss": "standing grain"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "禾",
+            "gloss": "standing grain"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "four bundles of grain",
+        "equation": "禾 standing grain + 委 bend = 䅗 four bundles of grain",
+        "components": [
+          {
+            "character": "禾",
+            "gloss": "standing grain"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "禾",
+            "gloss": "standing grain"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ]
+      },
+      "before_mnemonic": "At a square table, the 委 committee places one bundle of 禾 standing grain at each corner, making 䅗 four bundles of grain.",
+      "after_mnemonic": "Tie 禾 standing grain at each 委 bend to make 䅗 four bundles of grain.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䆧",
+      "base_card_hash": "sha256:3a2da2882ca816a3feefb8df023ce4cec0587daf88201cc5820be5f8ba08998b",
+      "before": {
+        "meaning": "cave",
+        "equation": "穴 hole + 委 committee = 䆧 cave",
+        "components": [
+          {
+            "character": "穴",
+            "gloss": "hole"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "穴",
+            "gloss": "hole"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "cave",
+        "equation": "穴 hole + 委 bend = 䆧 cave",
+        "components": [
+          {
+            "character": "穴",
+            "gloss": "hole"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "穴",
+            "gloss": "hole"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ]
+      },
+      "before_mnemonic": "The 委 committee meets inside a 穴 hole roomy enough to serve as a 䆧 cave.",
+      "after_mnemonic": "A tunnel takes one 委 bend before opening into a large 穴 hole, a 䆧 cave.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䍴",
+      "base_card_hash": "sha256:61503f5e1af83068326ea7d9e91a68137bd4846b3aa3122252ca9a203f77679e",
+      "before": {
+        "meaning": "squeeze and to crowd against each other (of sheep)",
+        "equation": "委 committee = 䍴 squeeze and to crowd against each other (of sheep)",
+        "components": [
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sheep crowd together",
+        "equation": "委 bend = 䍴 sheep crowd together",
+        "components": [
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ]
+      },
+      "before_mnemonic": "Sheep gather around their 委 committee until woolly shoulders lock, forcing them to 䍴 squeeze and to crowd against each other (of sheep).",
+      "after_mnemonic": "Each sheep puts a 委 bend in its body as 䍴 sheep crowd together.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䫋",
+      "base_card_hash": "sha256:418d58aaedfaf740004f017c8bcec3b96ef6a92c994a1b04eac35fcd3d0239e6",
+      "before": {
+        "meaning": "female attendants or servants",
+        "equation": "委 committee + 頁 head = 䫋 female attendants or servants",
+        "components": [
+          {
+            "character": "委",
+            "gloss": "committee"
+          },
+          {
+            "character": "頁",
+            "gloss": "head"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "委",
+            "gloss": "committee"
+          },
+          {
+            "character": "頁",
+            "gloss": "head"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "female attendants",
+        "equation": "委 bend + 頁 head = 䫋 female attendants",
+        "components": [
+          {
+            "character": "委",
+            "gloss": "bend"
+          },
+          {
+            "character": "頁",
+            "gloss": "head"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "委",
+            "gloss": "bend"
+          },
+          {
+            "character": "頁",
+            "gloss": "head"
+          }
+        ]
+      },
+      "before_mnemonic": "Traditionally, a palace 委 committee appoints those behind the queen's 頁 head as 䫋 female attendants or servants.",
+      "after_mnemonic": "A respectful 委 bend of the 頁 head identifies the 䫋 female attendants.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䬐",
+      "base_card_hash": "sha256:48e69c85e0093730906a46c5d06508829fa4f4a8123a86dd5e2779ca8ff6b398",
+      "before": {
+        "meaning": "breeze",
+        "equation": "風 wind + 委 committee = 䬐 breeze",
+        "components": [
+          {
+            "character": "風",
+            "gloss": "wind"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "風",
+            "gloss": "wind"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "breeze",
+        "equation": "風 wind + 委 bend = 䬐 breeze",
+        "components": [
+          {
+            "character": "風",
+            "gloss": "wind"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "風",
+            "gloss": "wind"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ]
+      },
+      "before_mnemonic": "A 委 committee opens one window, admitting just enough 風 wind for a 䬐 breeze.",
+      "after_mnemonic": "A gentle 委 bend in the path of 風 wind turns it into a 䬐 breeze.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䰀",
+      "base_card_hash": "sha256:00bc46681444c3529211e0e156d04b118d92ad72deb39f4643ff951c2b74b794",
+      "before": {
+        "meaning": "dressed hair of a Chinese woman",
+        "equation": "髟 long hair + 委 committee = 䰀 dressed hair of a Chinese woman",
+        "components": [
+          {
+            "character": "髟",
+            "gloss": "long hair"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "髟",
+            "gloss": "long hair"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "woman's dressed hair",
+        "equation": "髟 long hair + 委 bend = 䰀 woman's dressed hair",
+        "components": [
+          {
+            "character": "髟",
+            "gloss": "long hair"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "髟",
+            "gloss": "long hair"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ]
+      },
+      "before_mnemonic": "For a historical portrait, a 委 committee of stylists arranges 髟 long hair into 䰀 dressed hair of a Chinese woman.",
+      "after_mnemonic": "Arrange 髟 long hair in each graceful 委 bend to create 䰀 woman's dressed hair.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䴧",
+      "base_card_hash": "sha256:90d44245196a4ccc0634611d449f8f55f7caca547ee0e70ab70673cf4995936b",
+      "before": {
+        "meaning": "venison",
+        "equation": "鹿 deer + 委 committee = 䴧 venison",
+        "components": [
+          {
+            "character": "鹿",
+            "gloss": "deer"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "鹿",
+            "gloss": "deer"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "venison",
+        "equation": "鹿 deer + 委 bend = 䴧 venison",
+        "components": [
+          {
+            "character": "鹿",
+            "gloss": "deer"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "鹿",
+            "gloss": "deer"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ]
+      },
+      "before_mnemonic": "The 委 committee chooses cuts from a 鹿 deer for a banquet serving 䴧 venison.",
+      "after_mnemonic": "Follow the 委 bend of a 鹿 deer flank when carving 䴧 venison.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "倭",
+      "base_card_hash": "sha256:a22b10024fd1d8f464a01b288492a6b778354e86b0536a3063a2eb0248a051c7",
+      "before": {
+        "meaning": "dwarf",
+        "equation": "亻 person (side) + 委 committee = 倭 dwarf",
+        "components": [
+          {
+            "character": "亻",
+            "gloss": "person (side)"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亻",
+            "gloss": "person (side)"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "dwarf",
+        "equation": "亻 person (side) + 委 bend = 倭 dwarf",
+        "components": [
+          {
+            "character": "亻",
+            "gloss": "person (side)"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亻",
+            "gloss": "person (side)"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ]
+      },
+      "before_mnemonic": "The 委 committee lowers its lectern so a 亻 person who is an 倭 dwarf can address the room comfortably.",
+      "after_mnemonic": "In an old description, a 亻 person (side) with a deep 委 bend is called an 倭 dwarf.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "委",
+      "base_card_hash": "sha256:b4067e637dba6544de2b64f2d4a1ed02117f5704ffa4a85e70c463df48a2ccae",
+      "before": {
+        "meaning": "committee",
+        "equation": "禾 standing grain + 女 woman = 委 committee",
+        "components": [
+          {
+            "character": "禾",
+            "gloss": "standing grain"
+          },
+          {
+            "character": "女",
+            "gloss": "woman"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "禾",
+            "gloss": "standing grain"
+          },
+          {
+            "character": "女",
+            "gloss": "woman"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "entrust",
+        "equation": "Visual form: 委 bend; meaning 委 entrust",
+        "components": [
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ]
+      },
+      "before_mnemonic": "A 女 woman joins growers inspecting the 禾 standing grain, forming an agricultural 委 committee.",
+      "after_mnemonic": "A bowed figure gives the graph its 委 bend; what you hand into another's care, you 委 entrust.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "巍",
+      "base_card_hash": "sha256:ad207781eb678129aa757f1ef55ec2078bd9c199a527f88898a914f0a797badf",
+      "before": {
+        "meaning": "lofty",
+        "equation": "嵬 rugged + 委 committee = 巍 lofty",
+        "components": [
+          {
+            "character": "嵬",
+            "gloss": "rugged"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "嵬",
+            "gloss": "rugged"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "lofty",
+        "equation": "嵬 rugged + 委 bend = 巍 lofty",
+        "components": [
+          {
+            "character": "嵬",
+            "gloss": "rugged"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "嵬",
+            "gloss": "rugged"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ]
+      },
+      "before_mnemonic": "A 委 committee measures the 嵬 rugged peak and finds its summit 巍 lofty above the clouds.",
+      "after_mnemonic": "The 委 bend of an 嵬 rugged ridgeline rises to a 巍 lofty summit.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "捼",
+      "base_card_hash": "sha256:ee4f56e0a213f5def1500b8eab56931d423fbe7702655c5cdb82fca0296fce63",
+      "before": {
+        "meaning": "crumple",
+        "equation": "扌 hand (side) + 委 committee = 捼 crumple",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "crumple",
+        "equation": "扌 hand (side) + 委 bend = 捼 crumple",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ]
+      },
+      "before_mnemonic": "After the 委 committee rejects a proposal, a 扌 hand can 捼 crumple it.",
+      "after_mnemonic": "A 扌 hand (side) forces bend after 委 bend into a sheet to 捼 crumple it.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "痿",
+      "base_card_hash": "sha256:2953c7464b717eacdb7d47d5cc51d59c720ad66f88e45acc345595d10bc75b3f",
+      "before": {
+        "meaning": "impotence",
+        "equation": "疒 sickness + 委 committee = 痿 impotence",
+        "components": [
+          {
+            "character": "疒",
+            "gloss": "sickness"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "疒",
+            "gloss": "sickness"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "atrophy",
+        "equation": "疒 sickness + 委 bend = 痿 atrophy",
+        "components": [
+          {
+            "character": "疒",
+            "gloss": "sickness"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "疒",
+            "gloss": "sickness"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ]
+      },
+      "before_mnemonic": "Stricken by 疒 sickness, the 委 committee remains in 痿 impotence, unable to enact even one decision.",
+      "after_mnemonic": "A 疒 sickness that leaves muscles in a weak 委 bend causes 痿 atrophy.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "矮",
+      "base_card_hash": "sha256:c369e3b55faa24fae98e3a67b26538b8001489263e36d3bf592cd21467429f41",
+      "before": {
+        "meaning": "short of stature",
+        "equation": "矢 dart + 委 committee = 矮 short of stature",
+        "components": [
+          {
+            "character": "矢",
+            "gloss": "dart"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "矢",
+            "gloss": "dart"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "short of stature",
+        "equation": "矢 dart + 委 bend = 矮 short of stature",
+        "components": [
+          {
+            "character": "矢",
+            "gloss": "dart"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "矢",
+            "gloss": "dart"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ]
+      },
+      "before_mnemonic": "The 委 committee sets a 矢 dart target at a comfortable height for members who are 矮 short of stature.",
+      "after_mnemonic": "A 矢 dart passes over a figure with a 委 bend because the figure is 矮 short of stature.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "緌",
+      "base_card_hash": "sha256:d65b976a3ec1fe2c2f080faf6c0c1320f7526b4197dad6c6213f8b602c372dae",
+      "before": {
+        "meaning": "tassels hanging from hat",
+        "equation": "糸 thread + 委 committee = 緌 tassels hanging from hat",
+        "components": [
+          {
+            "character": "糸",
+            "gloss": "thread"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "糸",
+            "gloss": "thread"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "hat tassels",
+        "equation": "糸 thread + 委 bend = 緌 hat tassels",
+        "components": [
+          {
+            "character": "糸",
+            "gloss": "thread"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "糸",
+            "gloss": "thread"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ]
+      },
+      "before_mnemonic": "The 委 committee twists 糸 thread into the decorative 緌 tassels hanging from hat brims.",
+      "after_mnemonic": "Let each 糸 thread fall in a soft 委 bend to form 緌 hat tassels.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "萎",
+      "base_card_hash": "sha256:312aee33bcc0e383e7fe101e9911df48254931fb50df51fd6aa72506106041da",
+      "before": {
+        "meaning": "wilt",
+        "equation": "艹 grass (top) + 委 committee = 萎 wilt",
+        "components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "wilt",
+        "equation": "艹 grass (top) + 委 bend = 萎 wilt",
+        "components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ]
+      },
+      "before_mnemonic": "The 委 committee debates until the unwatered 艹 grass begins to 萎 wilt.",
+      "after_mnemonic": "When 艹 grass (top) takes a limp 委 bend, it begins to 萎 wilt.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "諉",
+      "base_card_hash": "sha256:8442cf5e4823af9d1805395cabee537a47d84ad6efc94baed79ee20b6239863e",
+      "before": {
+        "meaning": "pass",
+        "equation": "言 speech + 委 committee = 諉 pass",
+        "components": [
+          {
+            "character": "言",
+            "gloss": "speech"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "言",
+            "gloss": "speech"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "pass the buck",
+        "equation": "言 speech + 委 bend = 諉 pass the buck",
+        "components": [
+          {
+            "character": "言",
+            "gloss": "speech"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "言",
+            "gloss": "speech"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ]
+      },
+      "before_mnemonic": "In its 言 speech, the 委 committee tries to 諉 pass responsibility to someone else.",
+      "after_mnemonic": "言 speech takes a dishonest 委 bend away from responsibility when someone tries to 諉 pass the buck.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "诿",
+      "base_card_hash": "sha256:1efd0e98080868f19b293217753ce741f976f1da5981f9b85362b0ee7d60248d",
+      "before": {
+        "meaning": "pass buck",
+        "equation": "讠 speech + 委 committee = 诿 pass buck",
+        "components": [
+          {
+            "character": "讠",
+            "gloss": "speech"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "讠",
+            "gloss": "speech"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "pass buck",
+        "equation": "讠 speech + 委 bend = 诿 pass buck",
+        "components": [
+          {
+            "character": "讠",
+            "gloss": "speech"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "讠",
+            "gloss": "speech"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ]
+      },
+      "before_mnemonic": "Each 委 committee member gives a 讠 speech, then tries to 诿 pass buck to the next.",
+      "after_mnemonic": "讠 speech takes a dishonest 委 bend away from responsibility when someone tries to 诿 pass buck.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "踒",
+      "base_card_hash": "sha256:38bf325317d153ed53d10260da2b82b400248dd67f910afb3846d724ef83898e",
+      "before": {
+        "meaning": "slip and sprain a limb",
+        "equation": "𧾷 foot + 委 committee = 踒 slip and sprain a limb",
+        "components": [
+          {
+            "character": "𧾷",
+            "gloss": "foot"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𧾷",
+            "gloss": "foot"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sprain",
+        "equation": "𧾷 foot + 委 bend = 踒 sprain",
+        "components": [
+          {
+            "character": "𧾷",
+            "gloss": "foot"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𧾷",
+            "gloss": "foot"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ]
+      },
+      "before_mnemonic": "A safety 委 committee marks the slick spot where a 𧾷 foot could 踒 slip and sprain a limb.",
+      "after_mnemonic": "A sudden 委 bend in the 𧾷 foot can 踒 sprain the ankle.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "躷",
+      "base_card_hash": "sha256:d7c0a2ac44d7827bcb6bdfbb95f2b28ac96cd4498e90c00535314f57badc5bf3",
+      "before": {
+        "meaning": "of short stature",
+        "equation": "身 body + 委 committee = 躷 of short stature",
+        "components": [
+          {
+            "character": "身",
+            "gloss": "body"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "身",
+            "gloss": "body"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "short of stature",
+        "equation": "身 body + 委 bend = 躷 short of stature",
+        "components": [
+          {
+            "character": "身",
+            "gloss": "body"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "身",
+            "gloss": "body"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ]
+      },
+      "before_mnemonic": "The 委 committee lowers its lectern for a 身 body that is 躷 of short stature.",
+      "after_mnemonic": "A 身 body held in a deep 委 bend looks 躷 short of stature.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "逶",
+      "base_card_hash": "sha256:d2d6c2037e503784188fac29de8a1c331c480e94ecca18a9875ced6f2c2eca12",
+      "before": {
+        "meaning": "curving",
+        "equation": "辶 movement + 委 committee = 逶 curving",
+        "components": [
+          {
+            "character": "辶",
+            "gloss": "movement"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "辶",
+            "gloss": "movement"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "curving",
+        "equation": "辶 movement + 委 bend = 逶 curving",
+        "components": [
+          {
+            "character": "辶",
+            "gloss": "movement"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "辶",
+            "gloss": "movement"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ]
+      },
+      "before_mnemonic": "As an 委 committee directs 辶 movement, the route keeps 逶 curving toward each member's preference.",
+      "after_mnemonic": "辶 movement following bend after 委 bend becomes 逶 curving.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "餧",
+      "base_card_hash": "sha256:4179d82c8a4960c0b6e672cf1870322f9d584859253e51e193e934d850a9afd5",
+      "before": {
+        "meaning": "steamed-bun",
+        "equation": "飠 food + 委 committee = 餧 steamed-bun",
+        "components": [
+          {
+            "character": "飠",
+            "gloss": "food"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "飠",
+            "gloss": "food"
+          },
+          {
+            "character": "委",
+            "gloss": "committee"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "steamed bun",
+        "equation": "飠 food + 委 bend = 餧 steamed bun",
+        "components": [
+          {
+            "character": "飠",
+            "gloss": "food"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "飠",
+            "gloss": "food"
+          },
+          {
+            "character": "委",
+            "gloss": "bend"
+          }
+        ]
+      },
+      "before_mnemonic": "The 委 committee opens a bamboo steamer and divides the round 飠 food, one 餧 steamed-bun per member.",
+      "after_mnemonic": "Fold 飠 food around one smooth 委 bend to shape a round 餧 steamed bun.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "魏",
+      "base_card_hash": "sha256:4fe8452c354278dba305df716ce8785f9ae19fd99c68336d73b0fa325bfc4f33",
+      "before": {
+        "meaning": "Wei",
+        "equation": "委 committee + 鬼 ghost = 魏 Wei",
+        "components": [
+          {
+            "character": "委",
+            "gloss": "committee"
+          },
+          {
+            "character": "鬼",
+            "gloss": "ghost"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "委",
+            "gloss": "committee"
+          },
+          {
+            "character": "鬼",
+            "gloss": "ghost"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "Wei",
+        "equation": "委 bend + 鬼 ghost = 魏 Wei",
+        "components": [
+          {
+            "character": "委",
+            "gloss": "bend"
+          },
+          {
+            "character": "鬼",
+            "gloss": "ghost"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "委",
+            "gloss": "bend"
+          },
+          {
+            "character": "鬼",
+            "gloss": "ghost"
+          }
+        ]
+      },
+      "before_mnemonic": "A towering 鬼 ghost guards the 委 committee at the palace gate of 魏 Wei.",
+      "after_mnemonic": "A 鬼 ghost stands at the 委 bend of a banner bearing the name 魏 Wei.",
+      "valid": true,
+      "problems": []
+    }
+  ]
+}

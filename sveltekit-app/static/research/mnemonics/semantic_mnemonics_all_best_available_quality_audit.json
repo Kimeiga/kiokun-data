@@ -1,6 +1,6 @@
 {
-  "created_at": "2026-07-24T07:30:15.709423+00:00",
-  "artifact_created_at": "2026-07-24T07:30:14.069626+00:00",
+  "created_at": "2026-07-24T07:42:31.866494+00:00",
+  "artifact_created_at": "2026-07-24T07:42:30.225635+00:00",
   "methodology": "Formal validity and learning quality are separate. Flags are deterministic review signals; abstract meanings and variant forms are not automatically bad, while generic filler is a rewrite signal.",
   "taxonomy": {
     "generic_filler": {
@@ -2083,20 +2083,20 @@
   },
   "count": 24037,
   "quality_status_counts": {
-    "pass": 22608,
-    "review": 1405,
+    "pass": 22609,
+    "review": 1404,
     "rewrite": 24
   },
   "flag_counts": {
     "variant_form_needs_review": 832,
-    "abstract_final_meaning": 375,
+    "abstract_final_meaning": 374,
     "duplicated_component_meaning": 239,
     "opaque_component_gloss": 21,
     "unhelpful_final_gloss": 14,
     "learner_facing_weirdness": 7
   },
-  "flagged_count": 1429,
-  "ranked_count": 1429,
+  "flagged_count": 1428,
+  "ranked_count": 1428,
   "ranked": [
     {
       "character": "質",
@@ -38717,31 +38717,6 @@
       "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
     },
     {
-      "character": "䍴",
-      "meaning": "squeeze and to crowd against each other (of sheep)",
-      "frequency_rank": null,
-      "quality_status": "review",
-      "quality_score": 1.5,
-      "review_priority": 1.5,
-      "flags": [
-        {
-          "code": "abstract_final_meaning",
-          "severity": 1.5,
-          "evidence": "squeeze and to crowd against each other (of sheep)"
-        }
-      ],
-      "equation": "委 committee = 䍴 squeeze and to crowd against each other (of sheep)",
-      "mnemonic": "Sheep gather around their 委 committee until woolly shoulders lock, forcing them to 䍴 squeeze and to crowd against each other (of sheep).",
-      "components": [
-        {
-          "character": "委",
-          "gloss": "committee"
-        }
-      ],
-      "component_source": "resolved_ids_forward",
-      "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-    },
-    {
       "character": "䍷",
       "meaning": "chase each other",
       "frequency_rank": null,
@@ -45839,11 +45814,11 @@
   ],
   "gpt56_expedited_release": {
     "certification_status": "expedited_non_certified",
-    "materialized_card_projection_hash": "sha256:b1b3da59047b8b430a54461f3726565fb3cc7c6ea7511965a13e8ce4831aee35",
+    "materialized_card_projection_hash": "sha256:ceb8e6e43e2997a8f4cf7948930e3f9816e081b3d7af7cd46bd86a3093fc3d31",
     "formal_validation": {
       "count": 24037,
       "invalid_count": 0
     },
-    "editorial_ledger_sha256": "sha256:bc60accd836eeffd97c9848e11d519d73d4145517089a6ad941ad1daa120096e"
+    "editorial_ledger_sha256": "sha256:8259e40cbc72b9b1eb9601bbc589496897e559577081abcb5e14e4c9320c3e0f"
   }
 }

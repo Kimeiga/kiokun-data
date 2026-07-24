@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "policy_version": "2026-07-24.1",
+  "family": "bend-image",
+  "root_decisions": {
+    "委": {
+      "decision": "lexical_component_split_and_atomic_image",
+      "lexical_gloss": "entrust",
+      "component_gloss": "bend",
+      "reason": "Entrust is a common modern lexical use, while bend is an attested older sense and a concrete image. It explains the large curve, droop, wilt, shortness, winding, hair, tassel, and sprain family far better than the abbreviation committee."
+    }
+  },
+  "target_cleanup": {
+    "䍴": "sheep crowd together",
+    "䫋": "female attendants",
+    "䰀": "woman's dressed hair",
+    "痿": "atrophy",
+    "諉": "pass the buck",
+    "緌": "hat tassels",
+    "踒": "sprain",
+    "躷": "short of stature",
+    "餧": "steamed bun"
+  },
+  "expected_changed_card_count": 26,
+  "expected_old_component_occurrence_count": 25,
+  "expected_bend_occurrence_count": 26
+}
