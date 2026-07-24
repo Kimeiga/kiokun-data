@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "review_id": "yawn-image-family-review-2026-07-24",
+  "policy_version": "2026-07-24.1",
+  "reviewed_root_count": 1,
+  "changed_card_count": 121,
+  "old_component_occurrence_count": 120,
+  "final_yawn_occurrence_count": 121,
+  "method": "Manual rewrite of the complete 欠 boundary: the independent card teaches the common lexical meaning owe, while every structural use and the root's visual form use the concrete yawn pictograph.",
+  "roots": [
+    {
+      "character": "欠",
+      "decision": "lexical_component_split_and_atomic_pictograph",
+      "reason": "The common independent meaning is owe/lack, while the reusable graph depicts an open-mouthed person yawning or exhaling. The concrete yawn image explains the many breath, mouth, sound, and emotion compounds better than the abstract adjective deficient.",
+      "lexical_gloss": "owe",
+      "component_gloss": "yawn"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "policy_version": "2026-07-24.1",
+  "family": "yawn-image",
+  "root_decisions": {
+    "欠": {
+      "decision": "lexical_component_split_and_atomic_pictograph",
+      "lexical_gloss": "owe",
+      "component_gloss": "yawn",
+      "reason": "The common independent meaning is owe/lack, while the reusable graph depicts an open-mouthed person yawning or exhaling. The concrete yawn image explains the many breath, mouth, sound, and emotion compounds better than the abstract adjective deficient."
+    }
+  },
+  "expected_changed_card_count": 121,
+  "expected_old_component_occurrence_count": 120,
+  "expected_yawn_occurrence_count": 121
+}

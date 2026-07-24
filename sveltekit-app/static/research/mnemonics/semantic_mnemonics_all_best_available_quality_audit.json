@@ -1,6 +1,6 @@
 {
-  "created_at": "2026-07-24T06:57:46.483269+00:00",
-  "artifact_created_at": "2026-07-24T06:57:44.834448+00:00",
+  "created_at": "2026-07-24T07:06:01.252596+00:00",
+  "artifact_created_at": "2026-07-24T07:05:59.611517+00:00",
   "methodology": "Formal validity and learning quality are separate. Flags are deterministic review signals; abstract meanings and variant forms are not automatically bad, while generic filler is a rewrite signal.",
   "taxonomy": {
     "generic_filler": {
@@ -31803,8 +31803,8 @@
           "evidence": "次"
         }
       ],
-      "equation": "冫 ice + 欠 deficient = 次 next",
-      "mnemonic": "When 冫 ice is 欠 deficient, the 次 next delivery moves to the front of the schedule.",
+      "equation": "冫 ice + 欠 yawn = 次 next",
+      "mnemonic": "A traveler sees thin 冫 ice, gives a 欠 yawn, and waits for the 次 next crossing.",
       "components": [
         {
           "character": "冫",
@@ -31812,7 +31812,7 @@
         },
         {
           "character": "欠",
-          "gloss": "deficient"
+          "gloss": "yawn"
         }
       ],
       "component_source": "variant_alias:次",
@@ -31832,8 +31832,8 @@
           "evidence": "歔"
         }
       ],
-      "equation": "虚 void + 欠 deficient = 歔 blow through nose",
-      "mnemonic": "The 虚 void inside a nostril channels each 欠 deficient breath as you 歔 blow through nose.",
+      "equation": "虚 void + 欠 yawn = 歔 blow through nose",
+      "mnemonic": "After a 欠 yawn, the 虚 void inside a nostril channels the breath as you 歔 blow through nose.",
       "components": [
         {
           "character": "虚",
@@ -31841,7 +31841,7 @@
         },
         {
           "character": "欠",
-          "gloss": "deficient"
+          "gloss": "yawn"
         }
       ],
       "component_source": "variant_alias:歔",
@@ -38245,8 +38245,8 @@
           "evidence": "the way of speaking"
         }
       ],
-      "equation": "豆 beans + 欠 deficient = 㰯 the way of speaking",
-      "mnemonic": "For a cook 欠 deficient in varied words, constant 豆 beans comparisons define 㰯 the way of speaking.",
+      "equation": "豆 beans + 欠 yawn = 㰯 the way of speaking",
+      "mnemonic": "Between each 欠 yawn, a cook compares everything to 豆 beans; that defines 㰯 the way of speaking.",
       "components": [
         {
           "character": "豆",
@@ -38254,7 +38254,7 @@
         },
         {
           "character": "欠",
-          "gloss": "deficient"
+          "gloss": "yawn"
         }
       ],
       "component_source": "resolved_ids_forward",
@@ -38274,8 +38274,8 @@
           "evidence": "smile at each other"
         }
       ],
-      "equation": "䖒 bean-shaped earthenware + 欠 deficient = 㱆 smile at each other",
-      "mnemonic": "Comparing matching flaws in their 䖒 bean-shaped earthenware, two potters, each 欠 deficient in solemnity, 㱆 smile at each other.",
+      "equation": "䖒 bean-shaped earthenware + 欠 yawn = 㱆 smile at each other",
+      "mnemonic": "Two potters notice matching flaws in 䖒 bean-shaped earthenware, share a 欠 yawn, and 㱆 smile at each other.",
       "components": [
         {
           "character": "䖒",
@@ -38283,7 +38283,7 @@
         },
         {
           "character": "欠",
-          "gloss": "deficient"
+          "gloss": "yawn"
         }
       ],
       "component_source": "resolved_ids_forward",
@@ -45814,11 +45814,11 @@
   ],
   "gpt56_expedited_release": {
     "certification_status": "expedited_non_certified",
-    "materialized_card_projection_hash": "sha256:497cd2999b8902e599e027897d4dcedd808ecad9e5fe4ec9ca7d85efa880d122",
+    "materialized_card_projection_hash": "sha256:57a8188d30df057fb9f4568a4cf1bd08cd935f610ad965a450314cad68321ef3",
     "formal_validation": {
       "count": 24037,
       "invalid_count": 0
     },
-    "editorial_ledger_sha256": "sha256:96f4172d5a5524fbbaafb96e066937d0d7ffeb4dab22030933b7db9651f8767e"
+    "editorial_ledger_sha256": "sha256:3a0dcd8b997baf08bc00301675d20c42c1df0d76250af93fb9159e45f12ef893"
   }
 }

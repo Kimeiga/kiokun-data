@@ -1,0 +1,6954 @@
+{
+  "schema_version": 1,
+  "policy_version": "2026-07-24.1",
+  "policy_path": "data/semantic_mnemonic_yawn_image_policy.json",
+  "base_projection_hash": "sha256:f09411f977c87b720fdbb31b2fb3ab41429b49dae52a5db037caaa79b5db9cd4",
+  "candidate_projection_hash": "sha256:f6c8d5e821b81fbf611d993b8cd4e69cee2767075c0964f5f784230c608d5263",
+  "card_count": 24037,
+  "invalid_count": 0,
+  "changed_count": 121,
+  "already_applied_count": 0,
+  "old_component_occurrence_count": 120,
+  "yawn_occurrence_count": 121,
+  "changed_characters": [
+    "㐸",
+    "㦤",
+    "㰝",
+    "㰞",
+    "㰟",
+    "㰠",
+    "㰡",
+    "㰢",
+    "㰣",
+    "㰤",
+    "㰥",
+    "㰦",
+    "㰧",
+    "㰨",
+    "㰩",
+    "㰪",
+    "㰫",
+    "㰬",
+    "㰭",
+    "㰮",
+    "㰯",
+    "㰰",
+    "㰱",
+    "㰲",
+    "㰳",
+    "㰴",
+    "㰵",
+    "㰶",
+    "㰷",
+    "㰸",
+    "㰹",
+    "㰺",
+    "㰻",
+    "㰼",
+    "㰽",
+    "㰾",
+    "㰿",
+    "㱀",
+    "㱁",
+    "㱂",
+    "㱃",
+    "㱄",
+    "㱅",
+    "㱆",
+    "㱇",
+    "㱈",
+    "㱉",
+    "㱊",
+    "㱋",
+    "㱌",
+    "㱍",
+    "㳄",
+    "㸝",
+    "㺵",
+    "䇜",
+    "䊻",
+    "䚿",
+    "䪠",
+    "䯉",
+    "吹",
+    "坎",
+    "扻",
+    "杴",
+    "欠",
+    "次",
+    "欢",
+    "欣",
+    "欤",
+    "欧",
+    "欨",
+    "欬",
+    "欮",
+    "欲",
+    "欵",
+    "欶",
+    "欷",
+    "欸",
+    "欹",
+    "欺",
+    "欻",
+    "欼",
+    "欽",
+    "款",
+    "欿",
+    "歀",
+    "歁",
+    "歃",
+    "歆",
+    "歇",
+    "歈",
+    "歉",
+    "歊",
+    "歌",
+    "歎",
+    "歐",
+    "歓",
+    "歔",
+    "歕",
+    "歗",
+    "歘",
+    "歙",
+    "歚",
+    "歛",
+    "歜",
+    "歟",
+    "歡",
+    "炊",
+    "盜",
+    "砍",
+    "羨",
+    "肷",
+    "芡",
+    "軟",
+    "软",
+    "钦",
+    "飮",
+    "飲",
+    "饮",
+    "龡",
+    "次",
+    "歔"
+  ],
+  "changes": [
+    {
+      "character": "㐸",
+      "base_card_hash": "sha256:85830b628215d080fdc7dcbe0eb09919fdb59045cc4bdf6d88bacb7f5fb2f6a3",
+      "before": {
+        "meaning": "owe money",
+        "equation": "亻 person (side) + 欠 deficient = 㐸 owe money",
+        "components": [
+          {
+            "character": "亻",
+            "gloss": "person (side)"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亻",
+            "gloss": "person (side)"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "owe money",
+        "equation": "亻 person (side) + 欠 yawn = 㐸 owe money",
+        "components": [
+          {
+            "character": "亻",
+            "gloss": "person (side)"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亻",
+            "gloss": "person (side)"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "When a 亻 person makes a 欠 deficient payment, they still 㐸 owe money.",
+      "after_mnemonic": "A 亻 person (side) gives a nervous 欠 yawn when asked to pay what they 㐸 owe money.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㦤",
+      "base_card_hash": "sha256:799f2f60c3f70bef1b0aca7755a3fb7fdde6f23020330a0ec1e8a9aa191dbabc",
+      "before": {
+        "meaning": "virtuous",
+        "equation": "壹 number one + 欠 deficient + 心 heart = 㦤 virtuous",
+        "components": [
+          {
+            "character": "壹",
+            "gloss": "number one"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          },
+          {
+            "character": "心",
+            "gloss": "heart"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "壹",
+            "gloss": "number one"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          },
+          {
+            "character": "心",
+            "gloss": "heart"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "virtuous",
+        "equation": "壹 number one + 欠 yawn + 心 heart = 㦤 virtuous",
+        "components": [
+          {
+            "character": "壹",
+            "gloss": "number one"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          },
+          {
+            "character": "心",
+            "gloss": "heart"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "壹",
+            "gloss": "number one"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          },
+          {
+            "character": "心",
+            "gloss": "heart"
+          }
+        ]
+      },
+      "before_mnemonic": "A 心 heart makes repairing a food supply that is 欠 deficient its 壹 number one duty, showing 㦤 virtuous care.",
+      "after_mnemonic": "Even after a 欠 yawn, a caring 心 heart makes helping others its 壹 number one duty and remains 㦤 virtuous.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㰝",
+      "base_card_hash": "sha256:6e660c8d28abe5be76771e2390727112edbdb19e1636dd7a83dd51c8b241fb0f",
+      "before": {
+        "meaning": "cough",
+        "equation": "巳 the hours from 9 to 11 + 欠 deficient = 㰝 cough",
+        "components": [
+          {
+            "character": "巳",
+            "gloss": "the hours from 9 to 11"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "巳",
+            "gloss": "the hours from 9 to 11"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "cough",
+        "equation": "巳 the hours from 9 to 11 + 欠 yawn = 㰝 cough",
+        "components": [
+          {
+            "character": "巳",
+            "gloss": "the hours from 9 to 11"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "巳",
+            "gloss": "the hours from 9 to 11"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "During 巳 the hours from 9 to 11, an actor uses a 㰝 cough to cover dialogue that is 欠 deficient.",
+      "after_mnemonic": "During 巳 the hours from 9 to 11, a 欠 yawn catches in the throat and becomes a 㰝 cough.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㰞",
+      "base_card_hash": "sha256:fb86cca65107f4b0225951d691ea79ced9eb0ab6caf4ec5082e189b47b95b697",
+      "before": {
+        "meaning": "laugh at",
+        "equation": "山 mountain + 欠 deficient = 㰞 laugh at",
+        "components": [
+          {
+            "character": "山",
+            "gloss": "mountain"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "山",
+            "gloss": "mountain"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "laugh at",
+        "equation": "山 mountain + 欠 yawn = 㰞 laugh at",
+        "components": [
+          {
+            "character": "山",
+            "gloss": "mountain"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "山",
+            "gloss": "mountain"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "Hikers 㰞 laugh at a 山 mountain drawn with a 欠 deficient peak.",
+      "after_mnemonic": "Hikers give an exaggerated 欠 yawn at a tiny 山 mountain drawing, then 㰞 laugh at it.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㰟",
+      "base_card_hash": "sha256:f563db9f11a5d4a44f7b6919c52293861111def1965d5739b8e857caab9f40fe",
+      "before": {
+        "meaning": "hope",
+        "equation": "气 air + 欠 deficient = 㰟 hope",
+        "components": [
+          {
+            "character": "气",
+            "gloss": "air"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "气",
+            "gloss": "air"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "hope",
+        "equation": "气 air + 欠 yawn = 㰟 hope",
+        "components": [
+          {
+            "character": "气",
+            "gloss": "air"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "气",
+            "gloss": "air"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "When 气 air is 欠 deficient, a trapped miner can only 㰟 hope for ventilation.",
+      "after_mnemonic": "A trapped miner opens their mouth in a desperate 欠 yawn for 气 air and can only 㰟 hope for ventilation.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㰠",
+      "base_card_hash": "sha256:db3f835132040d2d53b8ba9f46dd69614a0e86b7609558abd4d4b5f9ce215942",
+      "before": {
+        "meaning": "covet",
+        "equation": "欠 deficient = 㰠 covet",
+        "components": [
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "covet",
+        "equation": "欠 yawn = 㰠 covet",
+        "components": [
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A collector with a 欠 deficient collection begins to 㰠 covet every missing piece.",
+      "after_mnemonic": "A collector gives a bored 欠 yawn over one collection and begins to 㰠 covet another.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㰡",
+      "base_card_hash": "sha256:dc71c16a7721747a6aae5b15bcda1a7dfe9928e5b7261fe1279c15ad0d4860fb",
+      "before": {
+        "meaning": "impatient",
+        "equation": "介 introduce + 欠 deficient = 㰡 impatient",
+        "components": [
+          {
+            "character": "介",
+            "gloss": "introduce"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "介",
+            "gloss": "introduce"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "impatient",
+        "equation": "介 introduce + 欠 yawn = 㰡 impatient",
+        "components": [
+          {
+            "character": "介",
+            "gloss": "introduce"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "介",
+            "gloss": "introduce"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "When a host is slow to 介 introduce anyone, guests become 欠 deficient in patience and therefore 㰡 impatient.",
+      "after_mnemonic": "When a host is slow to 介 introduce anyone, a guest's 欠 yawn shows they have grown 㰡 impatient.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㰢",
+      "base_card_hash": "sha256:b761cd24212140cb9be2c235d7fbb24b35c35e6fdbac7b5d23ef9f1107c77637",
+      "before": {
+        "meaning": "cough",
+        "equation": "开 open + 欠 deficient = 㰢 cough",
+        "components": [
+          {
+            "character": "开",
+            "gloss": "open"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "开",
+            "gloss": "open"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "cough",
+        "equation": "开 open + 欠 yawn = 㰢 cough",
+        "components": [
+          {
+            "character": "开",
+            "gloss": "open"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "开",
+            "gloss": "open"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A 欠 deficient breath forces the throat to 开 open in a 㰢 cough.",
+      "after_mnemonic": "As the mouth 开 open in a 欠 yawn, the breath catches and turns into a 㰢 cough.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㰣",
+      "base_card_hash": "sha256:e71daa7c400ea9a5a36c50168d3ca5bd0eecd051c60f9af3d54d5e0222a3bff2",
+      "before": {
+        "meaning": "vomit",
+        "equation": "此 this (literary) + 欠 deficient = 㰣 vomit",
+        "components": [
+          {
+            "character": "此",
+            "gloss": "this (literary)"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "此",
+            "gloss": "this (literary)"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "vomit",
+        "equation": "此 this (literary) + 欠 yawn = 㰣 vomit",
+        "components": [
+          {
+            "character": "此",
+            "gloss": "this (literary)"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "此",
+            "gloss": "this (literary)"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "Seeing 此 this (literary) spoiled meal makes a diner bend over, suddenly 欠 deficient in control, and 㰣 vomit.",
+      "after_mnemonic": "Seeing 此 this (literary) spoiled meal turns a 欠 yawn into a gag, making the diner 㰣 vomit.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㰤",
+      "base_card_hash": "sha256:47d95df1fcb9c6ebb499b27f63b26e99bfe3c335aa5d57290175ce252b5c1591",
+      "before": {
+        "meaning": "laugh",
+        "equation": "可 can + 欠 deficient = 㰤 laugh",
+        "components": [
+          {
+            "character": "可",
+            "gloss": "can"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "可",
+            "gloss": "can"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "laugh",
+        "equation": "可 can + 欠 yawn = 㰤 laugh",
+        "components": [
+          {
+            "character": "可",
+            "gloss": "can"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "可",
+            "gloss": "can"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "Even a comedian 欠 deficient in wit 可 can make the audience 㰤 laugh.",
+      "after_mnemonic": "A contagious 欠 yawn 可 can make the whole audience 㰤 laugh.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㰥",
+      "base_card_hash": "sha256:4dca0f8f340f18ca994c9b498a0bb8c0e79528871363d6df214503878ecf0766",
+      "before": {
+        "meaning": "laugh",
+        "equation": "世 generation + 欠 deficient = 㰥 laugh",
+        "components": [
+          {
+            "character": "世",
+            "gloss": "generation"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "世",
+            "gloss": "generation"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "laugh",
+        "equation": "世 generation + 欠 yawn = 㰥 laugh",
+        "components": [
+          {
+            "character": "世",
+            "gloss": "generation"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "世",
+            "gloss": "generation"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A joke passed through each 世 generation can remain 欠 deficient in words yet still make everyone 㰥 laugh.",
+      "after_mnemonic": "A 欠 yawn passed through each 世 generation of the family can still make everyone 㰥 laugh.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㰦",
+      "base_card_hash": "sha256:f65a3b33011f732ba2554fa2e68232b344d68518a20a142fa3f9d582b03e1d9a",
+      "before": {
+        "meaning": "breath with mouth open",
+        "equation": "去 go + 欠 deficient = 㰦 breath with mouth open",
+        "components": [
+          {
+            "character": "去",
+            "gloss": "go"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "去",
+            "gloss": "go"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "breath with mouth open",
+        "equation": "去 go + 欠 yawn = 㰦 breath with mouth open",
+        "components": [
+          {
+            "character": "去",
+            "gloss": "go"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "去",
+            "gloss": "go"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "Air can 去 go in when someone 欠 deficient in breath takes a 㰦 breath with mouth open.",
+      "after_mnemonic": "Air can 去 go in when a 欠 yawn opens the mouth for a 㰦 breath with mouth open.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㰧",
+      "base_card_hash": "sha256:7aa6cab8cfc04dc313c28cda2b826e92033a74e0650f7de9e8a7458b05bfeb7c",
+      "before": {
+        "meaning": "drink",
+        "equation": "台 platform + 欠 deficient = 㰧 drink",
+        "components": [
+          {
+            "character": "台",
+            "gloss": "platform"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "台",
+            "gloss": "platform"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "drink",
+        "equation": "台 platform + 欠 yawn = 㰧 drink",
+        "components": [
+          {
+            "character": "台",
+            "gloss": "platform"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "台",
+            "gloss": "platform"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A water station 欠 deficient in cups sets one cup on a 台 platform so everyone can 㰧 drink.",
+      "after_mnemonic": "A speaker on a 台 platform stops in the middle of a 欠 yawn to 㰧 drink some water.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㰨",
+      "base_card_hash": "sha256:169a12567083aa2ccc2441f06701d3951cd77cf2397e774b3540af6004d3e76d",
+      "before": {
+        "meaning": "take breath or rest",
+        "equation": "只 only + 欠 deficient = 㰨 take breath or rest",
+        "components": [
+          {
+            "character": "只",
+            "gloss": "only"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "只",
+            "gloss": "only"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "take breath or rest",
+        "equation": "只 only + 欠 yawn = 㰨 take breath or rest",
+        "components": [
+          {
+            "character": "只",
+            "gloss": "only"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "只",
+            "gloss": "only"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "When strength is 欠 deficient, 只 only one pause lets the runner 㰨 take breath or rest.",
+      "after_mnemonic": "After 只 only one huge 欠 yawn, the runner decides to 㰨 take breath or rest.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㰩",
+      "base_card_hash": "sha256:c0627d444b49bb7e0612f6acb4f6f1bdcafcc6e115b24137fd6b74602a50b3fc",
+      "before": {
+        "meaning": "sound of laughter",
+        "equation": "虫 insects + 欠 deficient = 㰩 sound of laughter",
+        "components": [
+          {
+            "character": "虫",
+            "gloss": "insects"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "虫",
+            "gloss": "insects"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sound of laughter",
+        "equation": "虫 insects + 欠 yawn = 㰩 sound of laughter",
+        "components": [
+          {
+            "character": "虫",
+            "gloss": "insects"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "虫",
+            "gloss": "insects"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A mimic copies 虫 insects so perfectly that listeners 欠 deficient in composure erupt with the 㰩 sound of laughter.",
+      "after_mnemonic": "A performer opens in a 欠 yawn while imitating 虫 insects, and the audience erupts with the 㰩 sound of laughter.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㰪",
+      "base_card_hash": "sha256:fa1eafead674b8914247ad4b75745363542022c38a64513e432701bf8e1df6fc",
+      "before": {
+        "meaning": "wicked",
+        "equation": "圭 jade pointed at top + 欠 deficient = 㰪 wicked",
+        "components": [
+          {
+            "character": "圭",
+            "gloss": "jade pointed at top"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "圭",
+            "gloss": "jade pointed at top"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "wicked",
+        "equation": "圭 jade pointed at top + 欠 yawn = 㰪 wicked",
+        "components": [
+          {
+            "character": "圭",
+            "gloss": "jade pointed at top"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "圭",
+            "gloss": "jade pointed at top"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "Deliberately chipping 圭 jade pointed at top until it is 欠 deficient makes the sabotage 㰪 wicked.",
+      "after_mnemonic": "A saboteur hides a 欠 yawn while chipping 圭 jade pointed at top, a truly 㰪 wicked act.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㰫",
+      "base_card_hash": "sha256:2f7d3a89a782532ccc8a5202a956b269a78ddbe800ab7365f959d7af038d4bb7",
+      "before": {
+        "meaning": "glad",
+        "equation": "先 ahead + 欠 deficient = 㰫 glad",
+        "components": [
+          {
+            "character": "先",
+            "gloss": "ahead"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "先",
+            "gloss": "ahead"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "glad",
+        "equation": "先 ahead + 欠 yawn = 㰫 glad",
+        "components": [
+          {
+            "character": "先",
+            "gloss": "ahead"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "先",
+            "gloss": "ahead"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "Though 欠 deficient in speed, a runner sees the finish just 先 ahead and feels 㰫 glad.",
+      "after_mnemonic": "After a 欠 yawn, a runner sees the finish just 先 ahead and feels 㰫 glad.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㰬",
+      "base_card_hash": "sha256:db64673a9aca5f238e3f02c4d9494f2cf4c91d4ba673f1c64068c1260c433e15",
+      "before": {
+        "meaning": "shortwindedness",
+        "equation": "旬 ten-day period + 欠 deficient = 㰬 shortwindedness",
+        "components": [
+          {
+            "character": "旬",
+            "gloss": "ten-day period"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "旬",
+            "gloss": "ten-day period"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "shortwindedness",
+        "equation": "旬 ten-day period + 欠 yawn = 㰬 shortwindedness",
+        "components": [
+          {
+            "character": "旬",
+            "gloss": "ten-day period"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "旬",
+            "gloss": "ten-day period"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "Throughout a 旬 ten-day period, a singer stays 欠 deficient in breath, revealing persistent 㰬 shortwindedness.",
+      "after_mnemonic": "A repeated 欠 yawn throughout a 旬 ten-day period reveals persistent 㰬 shortwindedness.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㰭",
+      "base_card_hash": "sha256:e4167ed970e6bb430030f2f33f53a8f727823f4ac9313a5a0cb24ed59f4ecd3d",
+      "before": {
+        "meaning": "joy",
+        "equation": "夸 extravagant + 欠 deficient = 㰭 joy",
+        "components": [
+          {
+            "character": "夸",
+            "gloss": "extravagant"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "夸",
+            "gloss": "extravagant"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "joy",
+        "equation": "夸 extravagant + 欠 yawn = 㰭 joy",
+        "components": [
+          {
+            "character": "夸",
+            "gloss": "extravagant"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "夸",
+            "gloss": "extravagant"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "Even when a celebration is 欠 deficient in money, one 夸 extravagant dance fills everyone with 㰭 joy.",
+      "after_mnemonic": "One 夸 extravagant dance interrupts a bored 欠 yawn and fills the room with 㰭 joy.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㰮",
+      "base_card_hash": "sha256:22833376aa2aa1508ee18cbed43b673dad5a165bb9ea6adfb15b5f2a30bc5fcc",
+      "before": {
+        "meaning": "laugh at",
+        "equation": "辰 sign of the dragon + 欠 deficient = 㰮 laugh at",
+        "components": [
+          {
+            "character": "辰",
+            "gloss": "sign of the dragon"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "辰",
+            "gloss": "sign of the dragon"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "laugh at",
+        "equation": "辰 sign of the dragon + 欠 yawn = 㰮 laugh at",
+        "components": [
+          {
+            "character": "辰",
+            "gloss": "sign of the dragon"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "辰",
+            "gloss": "sign of the dragon"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A skeptic finds the 辰 sign of the dragon 欠 deficient in proof and begins to 㰮 laugh at it.",
+      "after_mnemonic": "A skeptic gives a dismissive 欠 yawn at the 辰 sign of the dragon and begins to 㰮 laugh at it.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㰯",
+      "base_card_hash": "sha256:75a9855f212ca53acb7990967ca4349bf9eca6923684269c5f283da5eb335c77",
+      "before": {
+        "meaning": "the way of speaking",
+        "equation": "豆 beans + 欠 deficient = 㰯 the way of speaking",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "the way of speaking",
+        "equation": "豆 beans + 欠 yawn = 㰯 the way of speaking",
+        "components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "豆",
+            "gloss": "beans"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "For a cook 欠 deficient in varied words, constant 豆 beans comparisons define 㰯 the way of speaking.",
+      "after_mnemonic": "Between each 欠 yawn, a cook compares everything to 豆 beans; that defines 㰯 the way of speaking.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㰰",
+      "base_card_hash": "sha256:c6fee3034fb4944a3d646a19d2aaca8e6af9e117073893dff64cf2deddbb43cf",
+      "before": {
+        "meaning": "asthmatic",
+        "equation": "夾 press from both sides + 欠 deficient = 㰰 asthmatic",
+        "components": [
+          {
+            "character": "夾",
+            "gloss": "press from both sides"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "夾",
+            "gloss": "press from both sides"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "asthmatic",
+        "equation": "夾 press from both sides + 欠 yawn = 㰰 asthmatic",
+        "components": [
+          {
+            "character": "夾",
+            "gloss": "press from both sides"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "夾",
+            "gloss": "press from both sides"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "Hands 夾 press from both sides on a bellows 欠 deficient in air, whose thin wheeze sounds 㰰 asthmatic.",
+      "after_mnemonic": "When hands 夾 press from both sides on the chest, even a 欠 yawn becomes a wheeze that sounds 㰰 asthmatic.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㰱",
+      "base_card_hash": "sha256:7c1b637f89835d695d0a14ec31cfef9eb1efa3e200f95e2e62dcfd88be16597e",
+      "before": {
+        "meaning": "try",
+        "equation": "欠 deficient = 㰱 try",
+        "components": [
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "try",
+        "equation": "欠 yawn = 㰱 try",
+        "components": [
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A beginner 欠 deficient in skill must still 㰱 try the difficult task.",
+      "after_mnemonic": "A beginner suppresses a 欠 yawn and still decides to 㰱 try the difficult task.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㰲",
+      "base_card_hash": "sha256:5ca2a108665272285cad8bbd204670da28dc6fdb73f43c3f94b51dc48e7eeb41",
+      "before": {
+        "meaning": "blow off",
+        "equation": "或 uncertain area + 欠 deficient = 㰲 blow off",
+        "components": [
+          {
+            "character": "或",
+            "gloss": "uncertain area"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "或",
+            "gloss": "uncertain area"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "blow off",
+        "equation": "或 uncertain area + 欠 yawn = 㰲 blow off",
+        "components": [
+          {
+            "character": "或",
+            "gloss": "uncertain area"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "或",
+            "gloss": "uncertain area"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "Dust hides an 或 uncertain area, and a breeze 欠 deficient in force can barely 㰲 blow off the covering.",
+      "after_mnemonic": "Use the breath of a 欠 yawn to 㰲 blow off dust hiding an 或 uncertain area.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㰳",
+      "base_card_hash": "sha256:4a014f3882b1945547b2377271be9d887a4c9fe4df47fe4e7e2a204f28270451",
+      "before": {
+        "meaning": "braying",
+        "equation": "亞 Asia + 欠 deficient = 㰳 braying",
+        "components": [
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "braying",
+        "equation": "亞 Asia + 欠 yawn = 㰳 braying",
+        "components": [
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亞",
+            "gloss": "Asia"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "Across 亞 Asia, a donkey 欠 deficient in silence fills the air with 㰳 braying.",
+      "after_mnemonic": "Across 亞 Asia, a donkey's wide 欠 yawn grows into loud 㰳 braying.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㰴",
+      "base_card_hash": "sha256:d1e3d5b69ab75c41594549a3b299f5b6cc24427bde42f6f6f56651d38357c39b",
+      "before": {
+        "meaning": "grate on the ear",
+        "equation": "咅 spit + 欠 deficient = 㰴 grate on the ear",
+        "components": [
+          {
+            "character": "咅",
+            "gloss": "spit"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "咅",
+            "gloss": "spit"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "grate on the ear",
+        "equation": "咅 spit + 欠 yawn = 㰴 grate on the ear",
+        "components": [
+          {
+            "character": "咅",
+            "gloss": "spit"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "咅",
+            "gloss": "spit"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "Words 咅 spit with contempt from a speaker 欠 deficient in tact and 㰴 grate on the ear.",
+      "after_mnemonic": "Words 咅 spit with contempt after an exaggerated 欠 yawn and begin to 㰴 grate on the ear.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㰵",
+      "base_card_hash": "sha256:52531cf364e3d24863dbe357e69d47b50f5f43c07474da4067e54e422053396b",
+      "before": {
+        "meaning": "drink",
+        "equation": "卒 foot soldier + 欠 deficient = 㰵 drink",
+        "components": [
+          {
+            "character": "卒",
+            "gloss": "foot soldier"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "卒",
+            "gloss": "foot soldier"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "drink",
+        "equation": "卒 foot soldier + 欠 yawn = 㰵 drink",
+        "components": [
+          {
+            "character": "卒",
+            "gloss": "foot soldier"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "卒",
+            "gloss": "foot soldier"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A 卒 foot soldier finds his flask 欠 deficient in water and kneels at a stream to 㰵 drink.",
+      "after_mnemonic": "A tired 卒 foot soldier finishes a 欠 yawn, kneels at a stream, and begins to 㰵 drink.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㰶",
+      "base_card_hash": "sha256:0acc19fcce2217049bfccd3adfaa864b7c816aa6279fa9af0d31f735e32ddf6d",
+      "before": {
+        "meaning": "wrinkle the nose while sobbing",
+        "equation": "咎 fault + 欠 deficient = 㰶 wrinkle the nose while sobbing",
+        "components": [
+          {
+            "character": "咎",
+            "gloss": "fault"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "咎",
+            "gloss": "fault"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "wrinkle the nose while sobbing",
+        "equation": "咎 fault + 欠 yawn = 㰶 wrinkle the nose while sobbing",
+        "components": [
+          {
+            "character": "咎",
+            "gloss": "fault"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "咎",
+            "gloss": "fault"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A child blamed for a 咎 fault is 欠 deficient in composure and begins to 㰶 wrinkle the nose while sobbing.",
+      "after_mnemonic": "A child blamed for a 咎 fault feels a 欠 yawn collapse into sobs and begins to 㰶 wrinkle the nose while sobbing.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㰷",
+      "base_card_hash": "sha256:6e6460ae9676b8fd7243aed6bd541e6da5ee8d968695d0d5e0a1984448576864",
+      "before": {
+        "meaning": "resurrection",
+        "equation": "死 death + 欠 deficient = 㰷 resurrection",
+        "components": [
+          {
+            "character": "死",
+            "gloss": "death"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "死",
+            "gloss": "death"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "resurrection",
+        "equation": "死 death + 欠 yawn = 㰷 resurrection",
+        "components": [
+          {
+            "character": "死",
+            "gloss": "death"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "死",
+            "gloss": "death"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "When 死 death proves 欠 deficient and releases its captive, 㰷 resurrection begins.",
+      "after_mnemonic": "When a body marked by 死 death suddenly gives a 欠 yawn, its 㰷 resurrection has begun.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㰸",
+      "base_card_hash": "sha256:e54a273db43a4d966699d1e0ed24b13c488b77f3a7158bfbbe3cc4a6366db67d",
+      "before": {
+        "meaning": "collect",
+        "equation": "口 mouth + 人 person + 欠 deficient = 㰸 collect",
+        "components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "人",
+            "gloss": "person"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "人",
+            "gloss": "person"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "collect",
+        "equation": "口 mouth + 人 person + 欠 yawn = 㰸 collect",
+        "components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "人",
+            "gloss": "person"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "人",
+            "gloss": "person"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A 口 mouth calls each 人 person to bring what is 欠 deficient, and together they 㰸 collect supplies.",
+      "after_mnemonic": "After a 欠 yawn, a 口 mouth calls each 人 person over to 㰸 collect supplies.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㰹",
+      "base_card_hash": "sha256:8d9179e354e7da680664b7c46f27a20abf01c5d269f0f10cc8fe95cb168caa42",
+      "before": {
+        "meaning": "laugh",
+        "equation": "咸 everybody + 欠 deficient = 㰹 laugh",
+        "components": [
+          {
+            "character": "咸",
+            "gloss": "everybody"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "咸",
+            "gloss": "everybody"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "laugh",
+        "equation": "咸 everybody + 欠 yawn = 㰹 laugh",
+        "components": [
+          {
+            "character": "咸",
+            "gloss": "everybody"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "咸",
+            "gloss": "everybody"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "When 咸 everybody is 欠 deficient in solemnity, they 㰹 laugh together.",
+      "after_mnemonic": "When 咸 everybody catches the same 欠 yawn, they cannot help but 㰹 laugh together.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㰺",
+      "base_card_hash": "sha256:414217445812df4f0aef5eee7be8fac5456b643711a2fc3cca62499fd14d5afa",
+      "before": {
+        "meaning": "swallow",
+        "equation": "叚 fake + 欠 deficient = 㰺 swallow",
+        "components": [
+          {
+            "character": "叚",
+            "gloss": "fake"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "叚",
+            "gloss": "fake"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "swallow",
+        "equation": "叚 fake + 欠 yawn = 㰺 swallow",
+        "components": [
+          {
+            "character": "叚",
+            "gloss": "fake"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "叚",
+            "gloss": "fake"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A 叚 fake diner is 欠 deficient in any real throat, so it can only pretend to 㰺 swallow.",
+      "after_mnemonic": "A 叚 fake diner turns a theatrical 欠 yawn into a pretend attempt to 㰺 swallow.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㰻",
+      "base_card_hash": "sha256:9d9fc6ca6ee7d6b3ba8e25b22afbff5e88b3ed9b4aca4c047f3fb0baa9ae1928",
+      "before": {
+        "meaning": "asses braying",
+        "equation": "壴 drum + 欠 deficient = 㰻 asses braying",
+        "components": [
+          {
+            "character": "壴",
+            "gloss": "drum"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "壴",
+            "gloss": "drum"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "asses braying",
+        "equation": "壴 drum + 欠 yawn = 㰻 asses braying",
+        "components": [
+          {
+            "character": "壴",
+            "gloss": "drum"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "壴",
+            "gloss": "drum"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A 欠 deficient 壴 drum cannot drown out the ragged chorus of 㰻 asses braying.",
+      "after_mnemonic": "Even a loud 壴 drum cannot drown out the enormous 欠 yawn that grows into 㰻 asses braying.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㰼",
+      "base_card_hash": "sha256:3534a2627b0d7728dc1d7a64e63374a2fce4622d8e6c3b1d28fda2a294730f52",
+      "before": {
+        "meaning": "greed",
+        "equation": "匧 trunk + 欠 deficient = 㰼 greed",
+        "components": [
+          {
+            "character": "匧",
+            "gloss": "trunk"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "匧",
+            "gloss": "trunk"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "greed",
+        "equation": "匧 trunk + 欠 yawn = 㰼 greed",
+        "components": [
+          {
+            "character": "匧",
+            "gloss": "trunk"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "匧",
+            "gloss": "trunk"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "Though a 匧 trunk is full, its owner feels 欠 deficient and succumbs to 㰼 greed.",
+      "after_mnemonic": "An owner gives a bored 欠 yawn beside a full 匧 trunk yet still succumbs to 㰼 greed.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㰽",
+      "base_card_hash": "sha256:08896556c5ce737214eeb3e04a1cf7cc5b2c9c3cd05a1b51c04102ef72ae7186",
+      "before": {
+        "meaning": "exert oneself to yell",
+        "equation": "匽 hide + 欠 deficient = 㰽 exert oneself to yell",
+        "components": [
+          {
+            "character": "匽",
+            "gloss": "hide"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "匽",
+            "gloss": "hide"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "exert oneself to yell",
+        "equation": "匽 hide + 欠 yawn = 㰽 exert oneself to yell",
+        "components": [
+          {
+            "character": "匽",
+            "gloss": "hide"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "匽",
+            "gloss": "hide"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "To reach someone who chose to 匽 hide, one, 欠 deficient in breath, must 㰽 exert oneself to yell.",
+      "after_mnemonic": "To reach someone who chose to 匽 hide, fill the lungs with a 欠 yawn and 㰽 exert oneself to yell.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㰾",
+      "base_card_hash": "sha256:b5b1dc6892d2a0ed3c6dc545ace0e9ae8a9519c7dc13ca0e0d9d67f8a2c64182",
+      "before": {
+        "meaning": "Chu songs",
+        "equation": "白 white + 方 direction + 欠 deficient = 㰾 Chu songs",
+        "components": [
+          {
+            "character": "白",
+            "gloss": "white"
+          },
+          {
+            "character": "方",
+            "gloss": "direction"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "白",
+            "gloss": "white"
+          },
+          {
+            "character": "方",
+            "gloss": "direction"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "Chu songs",
+        "equation": "白 white + 方 direction + 欠 yawn = 㰾 Chu songs",
+        "components": [
+          {
+            "character": "白",
+            "gloss": "white"
+          },
+          {
+            "character": "方",
+            "gloss": "direction"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "白",
+            "gloss": "white"
+          },
+          {
+            "character": "方",
+            "gloss": "direction"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "白 white sleeves sweep in every 方 direction while singers, 欠 deficient in breath, sustain 㰾 Chu songs.",
+      "after_mnemonic": "白 white sleeves sweep in every 方 direction while singers fight each 欠 yawn to sustain 㰾 Chu songs.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㰿",
+      "base_card_hash": "sha256:0bfdf4728620b41107d161b208b62da880d309606c29a09041f9caa6a75db3bf",
+      "before": {
+        "meaning": "sigh in lamentation",
+        "equation": "奚 question + 欠 deficient = 㰿 sigh in lamentation",
+        "components": [
+          {
+            "character": "奚",
+            "gloss": "question"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "奚",
+            "gloss": "question"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sigh in lamentation",
+        "equation": "奚 question + 欠 yawn = 㰿 sigh in lamentation",
+        "components": [
+          {
+            "character": "奚",
+            "gloss": "question"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "奚",
+            "gloss": "question"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "An 奚 question left unanswered and 欠 deficient in hope makes the speaker 㰿 sigh in lamentation.",
+      "after_mnemonic": "An unanswered 奚 question turns a weary 欠 yawn into a 㰿 sigh in lamentation.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㱀",
+      "base_card_hash": "sha256:c037aeef4c4003c5be0a3d30dc0fd50e38ff940b31f482469b2845a74fa06422",
+      "before": {
+        "meaning": "bite",
+        "equation": "芻 cut + 欠 deficient = 㱀 bite",
+        "components": [
+          {
+            "character": "芻",
+            "gloss": "cut"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "芻",
+            "gloss": "cut"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "bite",
+        "equation": "芻 cut + 欠 yawn = 㱀 bite",
+        "components": [
+          {
+            "character": "芻",
+            "gloss": "cut"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "芻",
+            "gloss": "cut"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A 欠 deficient set of teeth cannot 芻 cut cleanly with each 㱀 bite.",
+      "after_mnemonic": "A mouth starts with a 欠 yawn, then the jaws 芻 cut down in a sudden 㱀 bite.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㱁",
+      "base_card_hash": "sha256:816b322ce21a94ca5eb3e035f383cc1e9e4bf5f8fbe5e5d0ad75ce092124b388",
+      "before": {
+        "meaning": "ask",
+        "equation": "祟 harmful spirit + 欠 deficient = 㱁 ask",
+        "components": [
+          {
+            "character": "祟",
+            "gloss": "harmful spirit"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "祟",
+            "gloss": "harmful spirit"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "ask",
+        "equation": "祟 harmful spirit + 欠 yawn = 㱁 ask",
+        "components": [
+          {
+            "character": "祟",
+            "gloss": "harmful spirit"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "祟",
+            "gloss": "harmful spirit"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "When certainty is 欠 deficient about a 祟 harmful spirit, one must 㱁 ask what happened.",
+      "after_mnemonic": "Hear a 祟 harmful spirit give a distant 欠 yawn, and you must 㱁 ask who is there.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㱂",
+      "base_card_hash": "sha256:4eaef5907f7c9d5d6ff5edbae9fceee60efb7828911ac8c743cfc8d2efaaff71",
+      "before": {
+        "meaning": "poor",
+        "equation": "康 hale + 欠 deficient = 㱂 poor",
+        "components": [
+          {
+            "character": "康",
+            "gloss": "hale"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "康",
+            "gloss": "hale"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "poor",
+        "equation": "康 hale + 欠 yawn = 㱂 poor",
+        "components": [
+          {
+            "character": "康",
+            "gloss": "hale"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "康",
+            "gloss": "hale"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A 欠 deficient harvest leaves even the 康 hale farmer 㱂 poor.",
+      "after_mnemonic": "Even a 康 hale farmer gives a weary 欠 yawn over an empty purse when the harvest leaves them 㱂 poor.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㱃",
+      "base_card_hash": "sha256:72b007d9d03cdab999609655dffde3d143fdd4a4878cc0a7d3b9666549f62c08",
+      "before": {
+        "meaning": "drink",
+        "equation": "今 now + 酉 wine jar + 欠 deficient = 㱃 drink",
+        "components": [
+          {
+            "character": "今",
+            "gloss": "now"
+          },
+          {
+            "character": "酉",
+            "gloss": "wine jar"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "今",
+            "gloss": "now"
+          },
+          {
+            "character": "酉",
+            "gloss": "wine jar"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "drink",
+        "equation": "今 now + 酉 wine jar + 欠 yawn = 㱃 drink",
+        "components": [
+          {
+            "character": "今",
+            "gloss": "now"
+          },
+          {
+            "character": "酉",
+            "gloss": "wine jar"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "今",
+            "gloss": "now"
+          },
+          {
+            "character": "酉",
+            "gloss": "wine jar"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "With the water supply 欠 deficient, raise the remaining 酉 wine jar 今 now and 㱃 drink.",
+      "after_mnemonic": "A yawning guest lifts the 酉 wine jar 今 now, finishes the 欠 yawn, and begins to 㱃 drink.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㱄",
+      "base_card_hash": "sha256:1022179236e96cbc3c1f32e619e28ca9f5728d09f88943b92ef82578fefe4e6f",
+      "before": {
+        "meaning": "cough",
+        "equation": "黑 black + 欠 deficient = 㱄 cough",
+        "components": [
+          {
+            "character": "黑",
+            "gloss": "black"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "黑",
+            "gloss": "black"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "cough",
+        "equation": "黑 black + 欠 yawn = 㱄 cough",
+        "components": [
+          {
+            "character": "黑",
+            "gloss": "black"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "黑",
+            "gloss": "black"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "In 黑 black darkness, a 欠 deficient breath betrays its owner as a sharp 㱄 cough.",
+      "after_mnemonic": "In 黑 black darkness, a 欠 yawn catches in the throat and betrays its owner as a sharp 㱄 cough.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㱅",
+      "base_card_hash": "sha256:e741c6ed4fa0613d6a5d10e8cd1637a525ee16170bf39e4aadfdd97a0ed9be2c",
+      "before": {
+        "meaning": "virtuous",
+        "equation": "壹 number one + 欠 deficient = 㱅 virtuous",
+        "components": [
+          {
+            "character": "壹",
+            "gloss": "number one"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "壹",
+            "gloss": "number one"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "virtuous",
+        "equation": "壹 number one + 欠 yawn = 㱅 virtuous",
+        "components": [
+          {
+            "character": "壹",
+            "gloss": "number one"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "壹",
+            "gloss": "number one"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A 㱅 virtuous choice puts integrity at 壹 number one while remaining 欠 deficient in selfishness.",
+      "after_mnemonic": "Even through a 欠 yawn, a 㱅 virtuous person puts integrity at 壹 number one.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㱆",
+      "base_card_hash": "sha256:b97fa2d2ae06756e70b7636c4d6a010cec000d5783f1ca00834e0660a1331e2e",
+      "before": {
+        "meaning": "smile at each other",
+        "equation": "䖒 bean-shaped earthenware + 欠 deficient = 㱆 smile at each other",
+        "components": [
+          {
+            "character": "䖒",
+            "gloss": "bean-shaped earthenware"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "䖒",
+            "gloss": "bean-shaped earthenware"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "smile at each other",
+        "equation": "䖒 bean-shaped earthenware + 欠 yawn = 㱆 smile at each other",
+        "components": [
+          {
+            "character": "䖒",
+            "gloss": "bean-shaped earthenware"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "䖒",
+            "gloss": "bean-shaped earthenware"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "Comparing matching flaws in their 䖒 bean-shaped earthenware, two potters, each 欠 deficient in solemnity, 㱆 smile at each other.",
+      "after_mnemonic": "Two potters notice matching flaws in 䖒 bean-shaped earthenware, share a 欠 yawn, and 㱆 smile at each other.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㱇",
+      "base_card_hash": "sha256:0cb0da5c33e93cd1da04735225ac28936a9c1977e6f489d961e48ced602ad967",
+      "before": {
+        "meaning": "scare",
+        "equation": "嗇 thrifty + 欠 deficient = 㱇 scare",
+        "components": [
+          {
+            "character": "嗇",
+            "gloss": "thrifty"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "嗇",
+            "gloss": "thrifty"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "scare",
+        "equation": "嗇 thrifty + 欠 yawn = 㱇 scare",
+        "components": [
+          {
+            "character": "嗇",
+            "gloss": "thrifty"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "嗇",
+            "gloss": "thrifty"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A 嗇 thrifty host spends nothing on lighting; the room, 欠 deficient in light, can 㱇 scare guests.",
+      "after_mnemonic": "A 嗇 thrifty host records one cavernous 欠 yawn instead of buying sound effects to 㱇 scare guests.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㱈",
+      "base_card_hash": "sha256:8edc832d62cf95bc289f937bdbdbf5eb15b38bf0f0cd87416c066ede30b5f154",
+      "before": {
+        "meaning": "personal-name character",
+        "equation": "禁 prohibit + 欠 deficient = 㱈 personal-name character",
+        "components": [
+          {
+            "character": "禁",
+            "gloss": "prohibit"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "禁",
+            "gloss": "prohibit"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "personal-name character",
+        "equation": "禁 prohibit + 欠 yawn = 㱈 personal-name character",
+        "components": [
+          {
+            "character": "禁",
+            "gloss": "prohibit"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "禁",
+            "gloss": "prohibit"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A registry may 禁 prohibit a 㱈 personal-name character when its font is 欠 deficient in support.",
+      "after_mnemonic": "A clerk stifles a 欠 yawn and may 禁 prohibit a 㱈 personal-name character that the font cannot support.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㱉",
+      "base_card_hash": "sha256:173adab707a6ef6cfd79b476023d542f981d9165f2489e8c488cddb877fa01d8",
+      "before": {
+        "meaning": "moving of the mouth",
+        "equation": "業 profession + 欠 deficient = 㱉 moving of the mouth",
+        "components": [
+          {
+            "character": "業",
+            "gloss": "profession"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "業",
+            "gloss": "profession"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "moving of the mouth",
+        "equation": "業 profession + 欠 yawn = 㱉 moving of the mouth",
+        "components": [
+          {
+            "character": "業",
+            "gloss": "profession"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "業",
+            "gloss": "profession"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "In the 業 profession of silent mime, 㱉 moving of the mouth stays deliberately 欠 deficient in sound.",
+      "after_mnemonic": "In the 業 profession of silent mime, a staged 欠 yawn becomes 㱉 moving of the mouth without sound.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㱊",
+      "base_card_hash": "sha256:30840ee3ba4324da0610a875d5666b0c28898ddfeb3308d72a4d8ffa9f90eee5",
+      "before": {
+        "meaning": "breathing",
+        "equation": "憂 worry + 欠 deficient = 㱊 breathing",
+        "components": [
+          {
+            "character": "憂",
+            "gloss": "worry"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "憂",
+            "gloss": "worry"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "breathing",
+        "equation": "憂 worry + 欠 yawn = 㱊 breathing",
+        "components": [
+          {
+            "character": "憂",
+            "gloss": "worry"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "憂",
+            "gloss": "worry"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "In a portrait of 憂 worry, words are 欠 deficient while visible 㱊 breathing steadily lifts the shoulders.",
+      "after_mnemonic": "A portrait of 憂 worry shows a repeated 欠 yawn and visible 㱊 breathing that lifts the shoulders.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㱋",
+      "base_card_hash": "sha256:e1954a51a0934ff06fc8306ab266ba6e72a5cbc4ba4bab1fead92401f529b333",
+      "before": {
+        "meaning": "high",
+        "equation": "霍 all at once + 欠 deficient = 㱋 high",
+        "components": [
+          {
+            "character": "霍",
+            "gloss": "all at once"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "霍",
+            "gloss": "all at once"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "high",
+        "equation": "霍 all at once + 欠 yawn = 㱋 high",
+        "components": [
+          {
+            "character": "霍",
+            "gloss": "all at once"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "霍",
+            "gloss": "all at once"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "When a tower rises 霍 all at once, its height is no longer 欠 deficient: it stands 㱋 high.",
+      "after_mnemonic": "A huge 欠 yawn tilts the head 霍 all at once toward a ceiling so 㱋 high.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㱌",
+      "base_card_hash": "sha256:922bbefa90b490cb52a5c9cb359c2b51d1d7130f53756dfe346e594bb72706cd",
+      "before": {
+        "meaning": "take",
+        "equation": "聶 whisper + 欠 deficient = 㱌 take",
+        "components": [
+          {
+            "character": "聶",
+            "gloss": "whisper"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "聶",
+            "gloss": "whisper"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "take",
+        "equation": "聶 whisper + 欠 yawn = 㱌 take",
+        "components": [
+          {
+            "character": "聶",
+            "gloss": "whisper"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "聶",
+            "gloss": "whisper"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "When 欠 deficient hearing misses most sounds, lean close to 㱌 take in a 聶 whisper.",
+      "after_mnemonic": "After a noisy 欠 yawn, lean close to 㱌 take in a soft 聶 whisper.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㱍",
+      "base_card_hash": "sha256:31773239b861ea8fe9fe34a6720aa06dfd401a2998dbc0750525c12748acd3c2",
+      "before": {
+        "meaning": "deficient",
+        "equation": "䜌 tie together + 欠 deficient = 㱍 deficient",
+        "components": [
+          {
+            "character": "䜌",
+            "gloss": "tie together"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "䜌",
+            "gloss": "tie together"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "deficient",
+        "equation": "䜌 tie together + 欠 yawn = 㱍 deficient",
+        "components": [
+          {
+            "character": "䜌",
+            "gloss": "tie together"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "䜌",
+            "gloss": "tie together"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A 欠 deficient knot cannot 䜌 tie together the net, leaving the whole weave 㱍 deficient.",
+      "after_mnemonic": "A worker's 欠 yawn loosens a knot that should 䜌 tie together the net, leaving it 㱍 deficient.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㳄",
+      "base_card_hash": "sha256:368bc3250ba590b045e07d3d0a67cfb9be6aee415782fb2a421845665ac9c678",
+      "before": {
+        "meaning": "spit",
+        "equation": "氵 water (drops) + 欠 deficient = 㳄 spit",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "spit",
+        "equation": "氵 water (drops) + 欠 yawn = 㳄 spit",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "Manners are 欠 deficient when someone sprays droplets like 氵 water as they 㳄 spit.",
+      "after_mnemonic": "A 欠 yawn is interrupted when droplets like 氵 water spray out as someone begins to 㳄 spit.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㸝",
+      "base_card_hash": "sha256:691b78338ce9a35eeb6cce8d2887d6d4d9317ea6ac9c4cf3cd5a8e2449bb3f54",
+      "before": {
+        "meaning": "shovel",
+        "equation": "片 slice + 欠 deficient = 㸝 shovel",
+        "components": [
+          {
+            "character": "片",
+            "gloss": "slice"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "片",
+            "gloss": "slice"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "shovel",
+        "equation": "片 slice + 欠 yawn = 㸝 shovel",
+        "components": [
+          {
+            "character": "片",
+            "gloss": "slice"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "片",
+            "gloss": "slice"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A 㸝 shovel becomes 欠 deficient when a 片 slice breaks from its broad blade.",
+      "after_mnemonic": "A sleepy worker finishes a 欠 yawn, uses a 片 slice of steel, and lifts the 㸝 shovel.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㺵",
+      "base_card_hash": "sha256:1b26f831430c07ef17aca630191c5c4490ea7fbe8bc4a8aa3b98538f82090f2d",
+      "before": {
+        "meaning": "black jade-stone",
+        "equation": "𤣩 jade (alt) + 欠 deficient = 㺵 black jade-stone",
+        "components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade (alt)"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade (alt)"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "black jade-stone",
+        "equation": "𤣩 jade (alt) + 欠 yawn = 㺵 black jade-stone",
+        "components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade (alt)"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade (alt)"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A 㺵 black jade-stone is 𤣩 jade so 欠 deficient in brightness that little light returns.",
+      "after_mnemonic": "A dark opening like a 欠 yawn appears inside 𤣩 jade (alt), forming a 㺵 black jade-stone.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䇜",
+      "base_card_hash": "sha256:694ab79a7686595ed4be028cd9f2d6fdc4c80fd20d954dbd6ac8199bca376af7",
+      "before": {
+        "meaning": "small",
+        "equation": "竹 bamboo + 欠 deficient = 䇜 small",
+        "components": [
+          {
+            "character": "竹",
+            "gloss": "bamboo"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "竹",
+            "gloss": "bamboo"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "small",
+        "equation": "竹 bamboo + 欠 yawn = 䇜 small",
+        "components": [
+          {
+            "character": "竹",
+            "gloss": "bamboo"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "竹",
+            "gloss": "bamboo"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "Compared with towering 竹 bamboo, this plant is 欠 deficient in height and remains 䇜 small.",
+      "after_mnemonic": "Beside towering 竹 bamboo, even a wide 欠 yawn looks 䇜 small.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䊻",
+      "base_card_hash": "sha256:ec4d688cb1d4be020bb3c560af23c44afba09d9a0cbcf6f4d0ba4f23f7b206bf",
+      "before": {
+        "meaning": "silky",
+        "equation": "糸 thread + 欠 deficient = 䊻 silky",
+        "components": [
+          {
+            "character": "糸",
+            "gloss": "thread"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "糸",
+            "gloss": "thread"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "silky",
+        "equation": "糸 thread + 欠 yawn = 䊻 silky",
+        "components": [
+          {
+            "character": "糸",
+            "gloss": "thread"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "糸",
+            "gloss": "thread"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "Cloth with 糸 thread so fine it seems 欠 deficient in substance feels 䊻 silky.",
+      "after_mnemonic": "A weaver hides a 欠 yawn while brushing 糸 thread so fine that the cloth feels 䊻 silky.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䚿",
+      "base_card_hash": "sha256:f63d89df430e848ec3b0e626b6911ec8d3ea7cc7d63f618721aa821ab86570e9",
+      "before": {
+        "meaning": "shout in rage",
+        "equation": "言 speech + 欠 deficient = 䚿 shout in rage",
+        "components": [
+          {
+            "character": "言",
+            "gloss": "speech"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "言",
+            "gloss": "speech"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "shout in rage",
+        "equation": "言 speech + 欠 yawn = 䚿 shout in rage",
+        "components": [
+          {
+            "character": "言",
+            "gloss": "speech"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "言",
+            "gloss": "speech"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "When patience is 欠 deficient, 言 speech erupts and people 䚿 shout in rage.",
+      "after_mnemonic": "A dismissive 欠 yawn interrupts 言 speech, making the speaker 䚿 shout in rage.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䪠",
+      "base_card_hash": "sha256:b261eb5bf30235105bc21609f1a1482cfa38e0d3123c69849faad816efd38a79",
+      "before": {
+        "meaning": "pulverized",
+        "equation": "𠂔 stop + 欠 deficient + 韭 chives = 䪠 pulverized",
+        "components": [
+          {
+            "character": "𠂔",
+            "gloss": "stop"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          },
+          {
+            "character": "韭",
+            "gloss": "chives"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𠂔",
+            "gloss": "stop"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          },
+          {
+            "character": "韭",
+            "gloss": "chives"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "pulverized",
+        "equation": "𠂔 stop + 欠 yawn + 韭 chives = 䪠 pulverized",
+        "components": [
+          {
+            "character": "𠂔",
+            "gloss": "stop"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          },
+          {
+            "character": "韭",
+            "gloss": "chives"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𠂔",
+            "gloss": "stop"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          },
+          {
+            "character": "韭",
+            "gloss": "chives"
+          }
+        ]
+      },
+      "before_mnemonic": "If grinding is 欠 deficient, do not 𠂔 stop until the 韭 chives are 䪠 pulverized.",
+      "after_mnemonic": "Even through a 欠 yawn, do not 𠂔 stop grinding until the 韭 chives are 䪠 pulverized.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䯉",
+      "base_card_hash": "sha256:41df9fccdd39d3eff60a2358b6b2b99496b4612bb5d75bcf4251e534da299762",
+      "before": {
+        "meaning": "choke",
+        "equation": "骨 bone + 欠 deficient = 䯉 choke",
+        "components": [
+          {
+            "character": "骨",
+            "gloss": "bone"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "骨",
+            "gloss": "bone"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "choke",
+        "equation": "骨 bone + 欠 yawn = 䯉 choke",
+        "components": [
+          {
+            "character": "骨",
+            "gloss": "bone"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "骨",
+            "gloss": "bone"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A 骨 bone lodged in a throat leaves 欠 deficient air and makes someone 䯉 choke.",
+      "after_mnemonic": "A 欠 yawn draws a sharp 骨 bone into the throat and makes someone 䯉 choke.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "吹",
+      "base_card_hash": "sha256:2801e56cc1e91bf7a2dbc7c3779e715361b97aba652abbf4f68fe599b448416f",
+      "before": {
+        "meaning": "blow",
+        "equation": "口 mouth + 欠 deficient = 吹 blow",
+        "components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "blow",
+        "equation": "口 mouth + 欠 yawn = 吹 blow",
+        "components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "As a 口 mouth continues to 吹 blow, its supply of air becomes 欠 deficient.",
+      "after_mnemonic": "A 口 mouth opens in a 欠 yawn and releases enough air to 吹 blow.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "坎",
+      "base_card_hash": "sha256:18619d84a778b23b6c7b72a6010ba9bd6b40ab4aa5a6dc139f6b18ed78aed081",
+      "before": {
+        "meaning": "pit",
+        "equation": "土 earth + 欠 deficient = 坎 pit",
+        "components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "pit",
+        "equation": "土 earth + 欠 yawn = 坎 pit",
+        "components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "Land 欠 deficient in packed 土 earth sinks into a 坎 pit.",
+      "after_mnemonic": "A worker gives a 欠 yawn while moving 土 earth, misses a step, and falls into a 坎 pit.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "扻",
+      "base_card_hash": "sha256:04e898e44b6a1cd46e96c61efca1d97205ca95cc6060ccd8ffe93285db784f3e",
+      "before": {
+        "meaning": "strike",
+        "equation": "扌 hand (side) + 欠 deficient = 扻 strike",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "strike",
+        "equation": "扌 hand (side) + 欠 yawn = 扻 strike",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "When force is 欠 deficient, swing the 扌 hand again to 扻 strike harder.",
+      "after_mnemonic": "After a 欠 yawn, swing the 扌 hand (side) again to 扻 strike harder.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "杴",
+      "base_card_hash": "sha256:5799bde0f8e307958f5c8ab41ed7cd2064461dbf36b443875fc0416c74fa425b",
+      "before": {
+        "meaning": "trough",
+        "equation": "木 tree + 欠 deficient = 杴 trough",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "trough",
+        "equation": "木 tree + 欠 yawn = 杴 trough",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "Carve a 木 tree until its center is 欠 deficient, leaving a long 杴 trough.",
+      "after_mnemonic": "Copy the hollow mouth of a 欠 yawn while carving a 木 tree into a long 杴 trough.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "欠",
+      "base_card_hash": "sha256:d5a111e42d34750eff153aac4cbca436e55efe1e5c017134b82141ae39950517",
+      "before": {
+        "meaning": "deficient",
+        "equation": "◎ marker + 人 person = 欠 deficient",
+        "components": [
+          {
+            "character": "◎",
+            "gloss": "marker"
+          },
+          {
+            "character": "人",
+            "gloss": "person"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "◎",
+            "gloss": "marker"
+          },
+          {
+            "character": "人",
+            "gloss": "person"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "owe",
+        "equation": "Visual form: 欠 yawn; meaning 欠 owe",
+        "components": [
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "The ◎ marker opens as a yawning mouth above an 人 person whose energy is 欠 deficient.",
+      "after_mnemonic": "An open-mouthed figure gives a 欠 yawn because they still 欠 owe a full night's sleep.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "次",
+      "base_card_hash": "sha256:3008288c0c0ee6f911725bebce13f8b39ae83d9ac9d2e3cc298611b27f978d1e",
+      "before": {
+        "meaning": "next",
+        "equation": "冫 ice + 欠 deficient = 次 next",
+        "components": [
+          {
+            "character": "冫",
+            "gloss": "ice"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "冫",
+            "gloss": "ice"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "next",
+        "equation": "冫 ice + 欠 yawn = 次 next",
+        "components": [
+          {
+            "character": "冫",
+            "gloss": "ice"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "冫",
+            "gloss": "ice"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "冫 ice leaves a 欠 deficient foothold, so the traveler shifts to the 次 next step.",
+      "after_mnemonic": "A traveler gives a 欠 yawn at the slippery 冫 ice and waits for the 次 next step.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "欢",
+      "base_card_hash": "sha256:908c9539330ff7f20f7acc4170d1f8edb9bb1b702aed92db9ce0b3cd45c93c59",
+      "before": {
+        "meaning": "joy",
+        "equation": "又 hand + 欠 deficient = 欢 joy",
+        "components": [
+          {
+            "character": "又",
+            "gloss": "hand"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "又",
+            "gloss": "hand"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "joy",
+        "equation": "又 hand + 欠 yawn = 欢 joy",
+        "components": [
+          {
+            "character": "又",
+            "gloss": "hand"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "又",
+            "gloss": "hand"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A song remains 欠 deficient until a 又 hand adds the missing beat, releasing 欢 joy through the crowd.",
+      "after_mnemonic": "A 又 hand covers a 欠 yawn until music restores 欢 joy to the crowd.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "欣",
+      "base_card_hash": "sha256:b5afe1c4d3ad4ad0c818d8189a20d47937ac7ca10952c7d7cb7173be0629da93",
+      "before": {
+        "meaning": "elated",
+        "equation": "斤 axe + 欠 deficient = 欣 elated",
+        "components": [
+          {
+            "character": "斤",
+            "gloss": "axe"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "斤",
+            "gloss": "axe"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "elated",
+        "equation": "斤 axe + 欠 yawn = 欣 elated",
+        "components": [
+          {
+            "character": "斤",
+            "gloss": "axe"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "斤",
+            "gloss": "axe"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "With a 斤 axe, the worker replenishes the 欠 deficient woodpile and feels 欣 elated.",
+      "after_mnemonic": "A yawning worker swings a 斤 axe through the final log; the 欠 yawn ends and they feel 欣 elated.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "欤",
+      "base_card_hash": "sha256:4792dfe43afa72742abd8d58fa69584f65fd621fe265ec5bb3c6479a1c70f5d0",
+      "before": {
+        "meaning": "particle",
+        "equation": "与 offer + 欠 deficient = 欤 particle",
+        "components": [
+          {
+            "character": "与",
+            "gloss": "offer"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "与",
+            "gloss": "offer"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "particle",
+        "equation": "与 offer + 欠 yawn = 欤 particle",
+        "components": [
+          {
+            "character": "与",
+            "gloss": "offer"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "与",
+            "gloss": "offer"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "An 与 offer that feels 欠 deficient in certainty ends with a doubtful 欤 particle.",
+      "after_mnemonic": "An 与 offer trails off into a 欠 yawn and ends with a doubtful 欤 particle.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "欧",
+      "base_card_hash": "sha256:1e7b13ad07f0ae6329fa81af854f133243c94cd34a679aa3d101634d4dc914da",
+      "before": {
+        "meaning": "Europe",
+        "equation": "区 region + 欠 deficient = 欧 Europe",
+        "components": [
+          {
+            "character": "区",
+            "gloss": "region"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "区",
+            "gloss": "region"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "Europe",
+        "equation": "区 region + 欠 yawn = 欧 Europe",
+        "components": [
+          {
+            "character": "区",
+            "gloss": "region"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "区",
+            "gloss": "region"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "The 区 region west of Asia, 欠 deficient in tropical land, is 欧 Europe.",
+      "after_mnemonic": "A mapmaker gives a 欠 yawn while circling the 区 region labeled 欧 Europe.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "欨",
+      "base_card_hash": "sha256:cab09cfc6373fd6d8aefccc5d47db1244d7b8fb11ab8feac9a8dd4cd7d219aa4",
+      "before": {
+        "meaning": "blow or breathe upon",
+        "equation": "句 sentence + 欠 deficient = 欨 blow or breathe upon",
+        "components": [
+          {
+            "character": "句",
+            "gloss": "sentence"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "句",
+            "gloss": "sentence"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "blow or breathe upon",
+        "equation": "句 sentence + 欠 yawn = 欨 blow or breathe upon",
+        "components": [
+          {
+            "character": "句",
+            "gloss": "sentence"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "句",
+            "gloss": "sentence"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A 欠 deficient 句 sentence ends early when you turn to 欨 blow or breathe upon the fogged glass.",
+      "after_mnemonic": "A 句 sentence pauses as a 欠 yawn supplies the breath to 欨 blow or breathe upon a fogged glass.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "欬",
+      "base_card_hash": "sha256:a0dddd0a4ab0cbac90ed731cead800801d3fd5c9f0b3c2ff47ba748a3e639c4c",
+      "before": {
+        "meaning": "sound of laughter",
+        "equation": "亥 sign of the hog + 欠 deficient = 欬 sound of laughter",
+        "components": [
+          {
+            "character": "亥",
+            "gloss": "sign of the hog"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亥",
+            "gloss": "sign of the hog"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sound of laughter",
+        "equation": "亥 sign of the hog + 欠 yawn = 欬 sound of laughter",
+        "components": [
+          {
+            "character": "亥",
+            "gloss": "sign of the hog"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亥",
+            "gloss": "sign of the hog"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A performer’s 欠 deficient impression of the 亥 sign of the hog breaks into a 欬 sound of laughter.",
+      "after_mnemonic": "A performer's impression of the 亥 sign of the hog begins as a 欠 yawn and breaks into a 欬 sound of laughter.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "欮",
+      "base_card_hash": "sha256:d86696d33fa17f4d648f8fa58d4e08108f2e8b5dac2926786c3cabc1ffdbbd1b",
+      "before": {
+        "meaning": "hiccough",
+        "equation": "屰 disobedient + 欠 deficient = 欮 hiccough",
+        "components": [
+          {
+            "character": "屰",
+            "gloss": "disobedient"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "屰",
+            "gloss": "disobedient"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "hiccough",
+        "equation": "屰 disobedient + 欠 yawn = 欮 hiccough",
+        "components": [
+          {
+            "character": "屰",
+            "gloss": "disobedient"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "屰",
+            "gloss": "disobedient"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A 屰 disobedient breath catches in each 欠 deficient pause, emerging as a 欮 hiccough.",
+      "after_mnemonic": "A 屰 disobedient breath interrupts a 欠 yawn and emerges as a 欮 hiccough.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "欲",
+      "base_card_hash": "sha256:88aa933d86b54bd05dffa32199e850ed31e3ff341279ebbd67fe694581cf227b",
+      "before": {
+        "meaning": "desire",
+        "equation": "谷 valley + 欠 deficient = 欲 desire",
+        "components": [
+          {
+            "character": "谷",
+            "gloss": "valley"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "谷",
+            "gloss": "valley"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "desire",
+        "equation": "谷 valley + 欠 yawn = 欲 desire",
+        "components": [
+          {
+            "character": "谷",
+            "gloss": "valley"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "谷",
+            "gloss": "valley"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "When a 谷 valley is 欠 deficient in water, its farmers 欲 desire rain.",
+      "after_mnemonic": "A traveler gives a weary 欠 yawn while crossing a 谷 valley and feels 欲 desire for rest.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "欵",
+      "base_card_hash": "sha256:5d704d19d7b14e2e860675ca0186190c629d85cc3aaa94877b8e85f44cd1297e",
+      "before": {
+        "meaning": "treat well",
+        "equation": "欠 deficient = 欵 treat well",
+        "components": [
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "treat well",
+        "equation": "欠 yawn = 欵 treat well",
+        "components": [
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "To 欵 treat well someone 欠 deficient in comfort, provide what is missing.",
+      "after_mnemonic": "When a guest gives a tired 欠 yawn, a good host will 欵 treat well the guest by providing a bed.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "欶",
+      "base_card_hash": "sha256:8ebb0786912cab06b2d51a04c5f723a3b28d0489d2f51898e4e001582d323bd2",
+      "before": {
+        "meaning": "suck",
+        "equation": "束 bundle + 欠 deficient = 欶 suck",
+        "components": [
+          {
+            "character": "束",
+            "gloss": "bundle"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "束",
+            "gloss": "bundle"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "suck",
+        "equation": "束 bundle + 欠 yawn = 欶 suck",
+        "components": [
+          {
+            "character": "束",
+            "gloss": "bundle"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "束",
+            "gloss": "bundle"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "One straw from a 束 bundle reveals 欠 deficient suction when you cannot 欶 suck up the drink.",
+      "after_mnemonic": "After a 欠 yawn opens the mouth, take one straw from a 束 bundle and 欶 suck up the drink.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "欷",
+      "base_card_hash": "sha256:cadb64a5dc4391752bda7402cd1171b536b595bb56e6019b1b5dfb03d07a7361",
+      "before": {
+        "meaning": "sob",
+        "equation": "希 hope + 欠 deficient = 欷 sob",
+        "components": [
+          {
+            "character": "希",
+            "gloss": "hope"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "希",
+            "gloss": "hope"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sob",
+        "equation": "希 hope + 欠 yawn = 欷 sob",
+        "components": [
+          {
+            "character": "希",
+            "gloss": "hope"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "希",
+            "gloss": "hope"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "When 希 hope proves 欠 deficient, grief escapes in a 欷 sob.",
+      "after_mnemonic": "When 希 hope fades, a 欠 yawn twists into grief and escapes as a 欷 sob.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "欸",
+      "base_card_hash": "sha256:819d7901e41f21913667bda74edd28a9aba70f282fce6794684ceb65679d6088",
+      "before": {
+        "meaning": "exclamatory sound",
+        "equation": "矣 completion particle + 欠 deficient = 欸 exclamatory sound",
+        "components": [
+          {
+            "character": "矣",
+            "gloss": "completion particle"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "矣",
+            "gloss": "completion particle"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "exclamatory sound",
+        "equation": "矣 completion particle + 欠 yawn = 欸 exclamatory sound",
+        "components": [
+          {
+            "character": "矣",
+            "gloss": "completion particle"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "矣",
+            "gloss": "completion particle"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A 欠 deficient 矣 completion particle leaves the thought hanging, prompting an 欸 exclamatory sound.",
+      "after_mnemonic": "A 矣 completion particle is swallowed by a 欠 yawn, leaving an 欸 exclamatory sound.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "欹",
+      "base_card_hash": "sha256:5c27adb81d4571c6cfa739bae19d580860d86e82014c8eb33718c480592dd63b",
+      "before": {
+        "meaning": "strong dog",
+        "equation": "奇 strange + 欠 deficient = 欹 strong dog",
+        "components": [
+          {
+            "character": "奇",
+            "gloss": "strange"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "奇",
+            "gloss": "strange"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "strong dog",
+        "equation": "奇 strange + 欠 yawn = 欹 strong dog",
+        "components": [
+          {
+            "character": "奇",
+            "gloss": "strange"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "奇",
+            "gloss": "strange"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "Though 奇 strange and 欠 deficient in size, the barking 欹 strong dog drags a log twice its length.",
+      "after_mnemonic": "A 奇 strange dog finishes a 欠 yawn, then proves itself a 欹 strong dog by dragging a log.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "欺",
+      "base_card_hash": "sha256:85a6edfb07fd6dcce63a372ecc3ac36b358f395bdfdabc6970e35fe3a78fc07b",
+      "before": {
+        "meaning": "dupe",
+        "equation": "其 their + 欠 deficient = 欺 dupe",
+        "components": [
+          {
+            "character": "其",
+            "gloss": "their"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "其",
+            "gloss": "their"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "dupe",
+        "equation": "其 their + 欠 yawn = 欺 dupe",
+        "components": [
+          {
+            "character": "其",
+            "gloss": "their"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "其",
+            "gloss": "their"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A 欠 deficient contract deliberately confuses 其 their claims to 欺 dupe the signer.",
+      "after_mnemonic": "A salesperson fakes a 欠 yawn to lower 其 their guard and 欺 dupe the signer.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "欻",
+      "base_card_hash": "sha256:b08d08c6d79521d8f49c0023c80f18050b6d7bea6778983620b93ee4d8254eca",
+      "before": {
+        "meaning": "abrupt",
+        "equation": "炎 flames + 欠 deficient = 欻 abrupt",
+        "components": [
+          {
+            "character": "炎",
+            "gloss": "flames"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "炎",
+            "gloss": "flames"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "abrupt",
+        "equation": "炎 flames + 欠 yawn = 欻 abrupt",
+        "components": [
+          {
+            "character": "炎",
+            "gloss": "flames"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "炎",
+            "gloss": "flames"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "When fuel becomes 欠 deficient, the disappearance of 炎 flames is 欻 abrupt.",
+      "after_mnemonic": "A sudden 欠 yawn blows out 炎 flames, so the change to darkness is 欻 abrupt.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "欼",
+      "base_card_hash": "sha256:71d9a73b033713b4299d6aa5bad10077a0bf89a61addeadbdd16a4d752451c54",
+      "before": {
+        "meaning": "drink",
+        "equation": "叕 connect + 欠 deficient = 欼 drink",
+        "components": [
+          {
+            "character": "叕",
+            "gloss": "connect"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "叕",
+            "gloss": "connect"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "drink",
+        "equation": "叕 connect + 欠 yawn = 欼 drink",
+        "components": [
+          {
+            "character": "叕",
+            "gloss": "connect"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "叕",
+            "gloss": "connect"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "To refill what is 欠 deficient, 叕 connect your cup to the spring and 欼 drink.",
+      "after_mnemonic": "After a 欠 yawn, 叕 connect a straw to the spring and 欼 drink.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "欽",
+      "base_card_hash": "sha256:cf5231206ac4b1801594fddfa5ce1a8f88ca9fd0f05ee6012106722a074eb2e4",
+      "before": {
+        "meaning": "respect",
+        "equation": "金 metal + 欠 deficient = 欽 respect",
+        "components": [
+          {
+            "character": "金",
+            "gloss": "metal"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "金",
+            "gloss": "metal"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "respect",
+        "equation": "金 metal + 欠 yawn = 欽 respect",
+        "components": [
+          {
+            "character": "金",
+            "gloss": "metal"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "金",
+            "gloss": "metal"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "Though the 金 metal is 欠 deficient in shine, I still 欽 respect its craftsmanship.",
+      "after_mnemonic": "An apprentice suppresses a 欠 yawn beside the master's 金 metal work to show 欽 respect.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "款",
+      "base_card_hash": "sha256:6a872df32ce8eaf657190f5c885236a005e2b90ae8b0acd03928630e55bb6e41",
+      "before": {
+        "meaning": "funds",
+        "equation": "士 soldier + 示 show + 欠 deficient = 款 funds",
+        "components": [
+          {
+            "character": "士",
+            "gloss": "soldier"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "士",
+            "gloss": "soldier"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "funds",
+        "equation": "士 soldier + 示 show + 欠 yawn = 款 funds",
+        "components": [
+          {
+            "character": "士",
+            "gloss": "soldier"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "士",
+            "gloss": "soldier"
+          },
+          {
+            "character": "示",
+            "gloss": "show"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A 士 soldier must 示 show that supplies are 欠 deficient before requesting 款 funds.",
+      "after_mnemonic": "A 士 soldier stifles a 欠 yawn and must 示 show the supply ledger before requesting 款 funds.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "欿",
+      "base_card_hash": "sha256:4c4363f55cdfab05bf683605b51624579d5ee9935b4ce78feec905d18232905f",
+      "before": {
+        "meaning": "discontented",
+        "equation": "臽 pit + 欠 deficient = 欿 discontented",
+        "components": [
+          {
+            "character": "臽",
+            "gloss": "pit"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "臽",
+            "gloss": "pit"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "discontented",
+        "equation": "臽 pit + 欠 yawn = 欿 discontented",
+        "components": [
+          {
+            "character": "臽",
+            "gloss": "pit"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "臽",
+            "gloss": "pit"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "The digger finds the 臽 pit 欠 deficient in depth and remains 欿 discontented.",
+      "after_mnemonic": "A digger gives a disappointed 欠 yawn at the shallow 臽 pit and remains 欿 discontented.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "歀",
+      "base_card_hash": "sha256:74e844baf92c17a494fab7ccc0fb6f220049ebbe9053e9c582e3465fc62f3ec9",
+      "before": {
+        "meaning": "section",
+        "equation": "柰 crab-apple tree + 欠 deficient = 歀 section",
+        "components": [
+          {
+            "character": "柰",
+            "gloss": "crab-apple tree"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "柰",
+            "gloss": "crab-apple tree"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "section",
+        "equation": "柰 crab-apple tree + 欠 yawn = 歀 section",
+        "components": [
+          {
+            "character": "柰",
+            "gloss": "crab-apple tree"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "柰",
+            "gloss": "crab-apple tree"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "The orchard manual adds a 歀 section on the 柰 crab-apple tree because its care notes are 欠 deficient.",
+      "after_mnemonic": "An editor gives a 欠 yawn, then adds a 歀 section on the 柰 crab-apple tree.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "歁",
+      "base_card_hash": "sha256:9fa0fe7a54ea13fbf281b72e51e73c0340124366581d0cfd5a455b5216a4a354",
+      "before": {
+        "meaning": "unsatisfied",
+        "equation": "甚 extremely + 欠 deficient = 歁 unsatisfied",
+        "components": [
+          {
+            "character": "甚",
+            "gloss": "extremely"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "甚",
+            "gloss": "extremely"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "unsatisfied",
+        "equation": "甚 extremely + 欠 yawn = 歁 unsatisfied",
+        "components": [
+          {
+            "character": "甚",
+            "gloss": "extremely"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "甚",
+            "gloss": "extremely"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A meal 甚 extremely 欠 deficient in portions leaves every diner 歁 unsatisfied.",
+      "after_mnemonic": "A diner gives a 欠 yawn over portions that are 甚 extremely small and remains 歁 unsatisfied.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "歃",
+      "base_card_hash": "sha256:a1caa5740467c31b3d723b030f8db126593ee319cf8696ed24fac27c3ae3a8e4",
+      "before": {
+        "meaning": "smear one's mouth",
+        "equation": "臿 separate + 欠 deficient = 歃 smear one's mouth",
+        "components": [
+          {
+            "character": "臿",
+            "gloss": "separate"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "臿",
+            "gloss": "separate"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "smear one's mouth",
+        "equation": "臿 separate + 欠 yawn = 歃 smear one's mouth",
+        "components": [
+          {
+            "character": "臿",
+            "gloss": "separate"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "臿",
+            "gloss": "separate"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "In an ancient oath scene, where lip color is 欠 deficient, one adds a 臿 separate red streak to 歃 smear one's mouth.",
+      "after_mnemonic": "After a ritual 欠 yawn, add a 臿 separate red streak to 歃 smear one's mouth for the oath.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "歆",
+      "base_card_hash": "sha256:37d889c3952b706340bdedfd2a82b96b1542fe885c922329b99aacdc05b773ad",
+      "before": {
+        "meaning": "admire",
+        "equation": "音 sound + 欠 deficient = 歆 admire",
+        "components": [
+          {
+            "character": "音",
+            "gloss": "sound"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "音",
+            "gloss": "sound"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "admire",
+        "equation": "音 sound + 欠 yawn = 歆 admire",
+        "components": [
+          {
+            "character": "音",
+            "gloss": "sound"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "音",
+            "gloss": "sound"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A beautiful 音 sound makes every imitation seem 欠 deficient, so listeners 歆 admire the original performer.",
+      "after_mnemonic": "A beautiful 音 sound stops every 欠 yawn, making listeners 歆 admire the performer.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "歇",
+      "base_card_hash": "sha256:8490ee065ac4018a4dd52e18810c9379436a6ace5de228bd920b64de2be7f200",
+      "before": {
+        "meaning": "take a rest",
+        "equation": "曷 question + 欠 deficient = 歇 take a rest",
+        "components": [
+          {
+            "character": "曷",
+            "gloss": "question"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "曷",
+            "gloss": "question"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "take a rest",
+        "equation": "曷 question + 欠 yawn = 歇 take a rest",
+        "components": [
+          {
+            "character": "曷",
+            "gloss": "question"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "曷",
+            "gloss": "question"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "When your answer to a 曷 question is 欠 deficient, 歇 take a rest before trying again.",
+      "after_mnemonic": "When a 曷 question is interrupted by a 欠 yawn, 歇 take a rest before answering.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "歈",
+      "base_card_hash": "sha256:774e0c481c67e4c90699e4c723e56596277090cb13ea2197feb8e4fb10855696",
+      "before": {
+        "meaning": "songs",
+        "equation": "俞 approve + 欠 deficient = 歈 songs",
+        "components": [
+          {
+            "character": "俞",
+            "gloss": "approve"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "俞",
+            "gloss": "approve"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "songs",
+        "equation": "俞 approve + 欠 yawn = 歈 songs",
+        "components": [
+          {
+            "character": "俞",
+            "gloss": "approve"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "俞",
+            "gloss": "approve"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "After the choir repairs 欠 deficient melodies, the choirmaster can 俞 approve them as finished 歈 songs.",
+      "after_mnemonic": "The choir overcomes every 欠 yawn, so the choirmaster can 俞 approve the finished 歈 songs.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "歉",
+      "base_card_hash": "sha256:ff925a44e860976931488dfe3e4510dd7228c86c44666c54c4a9d48855799329",
+      "before": {
+        "meaning": "apology",
+        "equation": "兼 double + 欠 deficient = 歉 apology",
+        "components": [
+          {
+            "character": "兼",
+            "gloss": "double"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "兼",
+            "gloss": "double"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "apology",
+        "equation": "兼 double + 欠 yawn = 歉 apology",
+        "components": [
+          {
+            "character": "兼",
+            "gloss": "double"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "兼",
+            "gloss": "double"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "After a 兼 double failure leaves the work 欠 deficient, owning both mistakes becomes a sincere 歉 apology.",
+      "after_mnemonic": "After a 兼 double interruption by a 欠 yawn, offer a sincere 歉 apology.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "歊",
+      "base_card_hash": "sha256:df56bc6ab93869a2f6158daf833d6c67d84ea03515082c8cb2bc4527c39e588a",
+      "before": {
+        "meaning": "sigh",
+        "equation": "高 tall + 欠 deficient = 歊 sigh",
+        "components": [
+          {
+            "character": "高",
+            "gloss": "tall"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "高",
+            "gloss": "tall"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sigh",
+        "equation": "高 tall + 欠 yawn = 歊 sigh",
+        "components": [
+          {
+            "character": "高",
+            "gloss": "tall"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "高",
+            "gloss": "tall"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "Seeing the 高 tall shelf still 欠 deficient in books, the librarian releases a 歊 sigh.",
+      "after_mnemonic": "Seeing a 高 tall shelf still empty turns a weary 欠 yawn into a 歊 sigh.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "歌",
+      "base_card_hash": "sha256:6d58e53de6934e4036c134847b88f2578be03b38b004478e13bece1c1b5440ab",
+      "before": {
+        "meaning": "song",
+        "equation": "哥 older brother + 欠 deficient = 歌 song",
+        "components": [
+          {
+            "character": "哥",
+            "gloss": "older brother"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "哥",
+            "gloss": "older brother"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "song",
+        "equation": "哥 older brother + 欠 yawn = 歌 song",
+        "components": [
+          {
+            "character": "哥",
+            "gloss": "older brother"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "哥",
+            "gloss": "older brother"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "The 哥 older brother, though 欠 deficient in breath, sustains every note of a 歌 song.",
+      "after_mnemonic": "The 哥 older brother turns a 欠 yawn into the first sustained note of a 歌 song.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "歎",
+      "base_card_hash": "sha256:e0b5968a31b088c56df688f5b92abaf3b58a218a2634d8cf4cf0788f19034908",
+      "before": {
+        "meaning": "gasp",
+        "equation": "𦰩 sigh + 欠 deficient = 歎 gasp",
+        "components": [
+          {
+            "character": "𦰩",
+            "gloss": "sigh"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𦰩",
+            "gloss": "sigh"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "gasp",
+        "equation": "𦰩 sigh + 欠 yawn = 歎 gasp",
+        "components": [
+          {
+            "character": "𦰩",
+            "gloss": "sigh"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𦰩",
+            "gloss": "sigh"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A 𦰩 sigh with 欠 deficient breath shortens into a sharp 歎 gasp.",
+      "after_mnemonic": "A 欠 yawn collapses into a 𦰩 sigh and then a sharp 歎 gasp.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "歐",
+      "base_card_hash": "sha256:ef188b90ade09cd8b83e47f03963553b5599d1b24a737cb6390f31758e7b0d4e",
+      "before": {
+        "meaning": "Europe",
+        "equation": "區 region + 欠 deficient = 歐 Europe",
+        "components": [
+          {
+            "character": "區",
+            "gloss": "region"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "區",
+            "gloss": "region"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "Europe",
+        "equation": "區 region + 欠 yawn = 歐 Europe",
+        "components": [
+          {
+            "character": "區",
+            "gloss": "region"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "區",
+            "gloss": "region"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "The 區 region west of Asia, 欠 deficient in tropical land, is 歐 Europe.",
+      "after_mnemonic": "A mapmaker gives a 欠 yawn while circling the 區 region labeled 歐 Europe.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "歓",
+      "base_card_hash": "sha256:8894abf7c4438663a16b605a9a9a99a80c09bdbd518eb4c1b84e2081bc661b82",
+      "before": {
+        "meaning": "enjoy",
+        "equation": "欠 deficient = 歓 enjoy",
+        "components": [
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "enjoy",
+        "equation": "欠 yawn = 歓 enjoy",
+        "components": [
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "When nothing feels 欠 deficient, people can 歓 enjoy the moment fully.",
+      "after_mnemonic": "After a satisfied 欠 yawn, settle comfortably and 歓 enjoy the moment.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "歔",
+      "base_card_hash": "sha256:95661ebe784ce27b97ed51fd2bef7c5b2ca7a8843157e010182b546be779304c",
+      "before": {
+        "meaning": "blow through nose",
+        "equation": "虚 void + 欠 deficient = 歔 blow through nose",
+        "components": [
+          {
+            "character": "虚",
+            "gloss": "void"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "虚",
+            "gloss": "void"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "blow through nose",
+        "equation": "虚 void + 欠 yawn = 歔 blow through nose",
+        "components": [
+          {
+            "character": "虚",
+            "gloss": "void"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "虚",
+            "gloss": "void"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A closed mouth leaves speech a 虚 void, and when your breath is 欠 deficient, you can only 歔 blow through nose.",
+      "after_mnemonic": "Close the mouth after a 欠 yawn, leave a 虚 void for air through the nostrils, and 歔 blow through nose.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "歕",
+      "base_card_hash": "sha256:904c2f0eb49d7a3be6a64d00ca9451454e1c047c9a52452383dccdce5f88e2ae",
+      "before": {
+        "meaning": "blow",
+        "equation": "賁 forge ahead + 欠 deficient = 歕 blow",
+        "components": [
+          {
+            "character": "賁",
+            "gloss": "forge ahead"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "賁",
+            "gloss": "forge ahead"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "blow",
+        "equation": "賁 forge ahead + 欠 yawn = 歕 blow",
+        "components": [
+          {
+            "character": "賁",
+            "gloss": "forge ahead"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "賁",
+            "gloss": "forge ahead"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "You 賁 forge ahead by using even a 欠 deficient breath to 歕 blow dust from the path.",
+      "after_mnemonic": "Turn the breath of a 欠 yawn into a forceful 歕 blow and 賁 forge ahead.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "歗",
+      "base_card_hash": "sha256:dfb51770c8df3207a6f102e2771f8a0b17393efd282655811c257132f57dbfbe",
+      "before": {
+        "meaning": "roar",
+        "equation": "肅 solemn + 欠 deficient = 歗 roar",
+        "components": [
+          {
+            "character": "肅",
+            "gloss": "solemn"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "肅",
+            "gloss": "solemn"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "roar",
+        "equation": "肅 solemn + 欠 yawn = 歗 roar",
+        "components": [
+          {
+            "character": "肅",
+            "gloss": "solemn"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "肅",
+            "gloss": "solemn"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A 肅 solemn ceremony turns 欠 deficient when one enormous 歗 roar drowns out every chant.",
+      "after_mnemonic": "A 肅 solemn ceremony falls silent when a 欠 yawn swells into an enormous 歗 roar.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "歘",
+      "base_card_hash": "sha256:10c46c731d7ca481aad2c5febcffd21f86c56c0411b293c61e3a7d018eddbaaf",
+      "before": {
+        "meaning": "sudden",
+        "equation": "焱 flames + 欠 deficient = 歘 sudden",
+        "components": [
+          {
+            "character": "焱",
+            "gloss": "flames"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "焱",
+            "gloss": "flames"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sudden",
+        "equation": "焱 flames + 欠 yawn = 歘 sudden",
+        "components": [
+          {
+            "character": "焱",
+            "gloss": "flames"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "焱",
+            "gloss": "flames"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "When fuel proves 欠 deficient, the 焱 flames die with a 歘 sudden snap.",
+      "after_mnemonic": "A puff from a 欠 yawn extinguishes 焱 flames in one 歘 sudden instant.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "歙",
+      "base_card_hash": "sha256:5ad29eb4c2b100af9a9e8b7edd6035e2c54c957d651d990c285a32952d28f4e4",
+      "before": {
+        "meaning": "suck",
+        "equation": "翕 agree + 欠 deficient = 歙 suck",
+        "components": [
+          {
+            "character": "翕",
+            "gloss": "agree"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "翕",
+            "gloss": "agree"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "suck",
+        "equation": "翕 agree + 欠 yawn = 歙 suck",
+        "components": [
+          {
+            "character": "翕",
+            "gloss": "agree"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "翕",
+            "gloss": "agree"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "As air grows 欠 deficient beneath a cup, its rim and glass 翕 agree, letting it 歙 suck tight.",
+      "after_mnemonic": "After a 欠 yawn, lips and cup 翕 agree on a seal that lets you 歙 suck.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "歚",
+      "base_card_hash": "sha256:b9f205af76265accf8942548e2557ae30f4debf00e658365e65c19d49afd09f5",
+      "before": {
+        "meaning": "personal-name character",
+        "equation": "善 virtuous + 欠 deficient = 歚 personal-name character",
+        "components": [
+          {
+            "character": "善",
+            "gloss": "virtuous"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "善",
+            "gloss": "virtuous"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "personal-name character",
+        "equation": "善 virtuous + 欠 yawn = 歚 personal-name character",
+        "components": [
+          {
+            "character": "善",
+            "gloss": "virtuous"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "善",
+            "gloss": "virtuous"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "Parents choose the 歚 personal-name character to wish their child 善 virtuous qualities, never 欠 deficient ones.",
+      "after_mnemonic": "A clerk suppresses a 欠 yawn while parents choose the 歚 personal-name character to wish for 善 virtuous qualities.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "歛",
+      "base_card_hash": "sha256:716ef2bb541f737277c8445a5d18cc543cdbed3875fee01652efcae014679eb8",
+      "before": {
+        "meaning": "draw",
+        "equation": "僉 unanimous + 欠 deficient = 歛 draw",
+        "components": [
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "draw",
+        "equation": "僉 unanimous + 欠 yawn = 歛 draw",
+        "components": [
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "僉",
+            "gloss": "unanimous"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A 僉 unanimous crowd begins to 歛 draw back when the bridge proves 欠 deficient in support.",
+      "after_mnemonic": "A 僉 unanimous crowd gives a warning 欠 yawn and begins to 歛 draw back from the bridge.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "歜",
+      "base_card_hash": "sha256:3bbe4eff3a5c17706825c08b0e11ad1f8c38e48625255e41d411fb1730858863",
+      "before": {
+        "meaning": "furious",
+        "equation": "蜀 Sichuan + 欠 deficient = 歜 furious",
+        "components": [
+          {
+            "character": "蜀",
+            "gloss": "Sichuan"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "蜀",
+            "gloss": "Sichuan"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "furious",
+        "equation": "蜀 Sichuan + 欠 yawn = 歜 furious",
+        "components": [
+          {
+            "character": "蜀",
+            "gloss": "Sichuan"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "蜀",
+            "gloss": "Sichuan"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A 蜀 Sichuan cook finds the pepper 欠 deficient and grows 歜 furious over the bland dish.",
+      "after_mnemonic": "A 蜀 Sichuan cook gives a disgusted 欠 yawn at the bland dish and grows 歜 furious.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "歟",
+      "base_card_hash": "sha256:62d4e46b3df99e5b65794f05cbc4ca2a9497460bd88581a7934df7f1a523cea4",
+      "before": {
+        "meaning": "final particle",
+        "equation": "與 offer + 欠 deficient = 歟 final particle",
+        "components": [
+          {
+            "character": "與",
+            "gloss": "offer"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "與",
+            "gloss": "offer"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "final particle",
+        "equation": "與 offer + 欠 yawn = 歟 final particle",
+        "components": [
+          {
+            "character": "與",
+            "gloss": "offer"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "與",
+            "gloss": "offer"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "An 與 offer that feels 欠 deficient in certainty ends with a doubtful 歟 final particle.",
+      "after_mnemonic": "A 與 offer trails off into a 欠 yawn and ends with a doubtful 歟 final particle.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "歡",
+      "base_card_hash": "sha256:0737b16d3c025191bb47171b84eb8491d78a9a5aaef019aecc72370bf510d5f5",
+      "before": {
+        "meaning": "joyous",
+        "equation": "雚 stork + 欠 deficient = 歡 joyous",
+        "components": [
+          {
+            "character": "雚",
+            "gloss": "stork"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "雚",
+            "gloss": "stork"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "joyous",
+        "equation": "雚 stork + 欠 yawn = 歡 joyous",
+        "components": [
+          {
+            "character": "雚",
+            "gloss": "stork"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "雚",
+            "gloss": "stork"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A colony left 欠 deficient grows 歡 joyous when its missing 雚 stork returns.",
+      "after_mnemonic": "A guard's 欠 yawn turns into a smile when the missing 雚 stork returns and everyone feels 歡 joyous.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "炊",
+      "base_card_hash": "sha256:9fce9da43cade4b2b4e11eb83d177f38005ac1fc8254b04456a2b959aa5fd29f",
+      "before": {
+        "meaning": "cook",
+        "equation": "火 fire + 欠 deficient = 炊 cook",
+        "components": [
+          {
+            "character": "火",
+            "gloss": "fire"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "火",
+            "gloss": "fire"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "cook",
+        "equation": "火 fire + 欠 yawn = 炊 cook",
+        "components": [
+          {
+            "character": "火",
+            "gloss": "fire"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "火",
+            "gloss": "fire"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "When a meal is 欠 deficient, 火 fire helps you 炊 cook enough food for everyone.",
+      "after_mnemonic": "A yawning cook uses the breath of a 欠 yawn to fan 火 fire and 炊 cook.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "盜",
+      "base_card_hash": "sha256:36bed9fc7254d98975fa7bfa1cef4b828a627ee19e7d1d3c83c553f8b818788b",
+      "before": {
+        "meaning": "master thief",
+        "equation": "氵 water (drops) + 欠 deficient + 皿 dish = 盜 master thief",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          },
+          {
+            "character": "皿",
+            "gloss": "dish"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          },
+          {
+            "character": "皿",
+            "gloss": "dish"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "master thief",
+        "equation": "氵 water (drops) + 欠 yawn + 皿 dish = 盜 master thief",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          },
+          {
+            "character": "皿",
+            "gloss": "dish"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          },
+          {
+            "character": "皿",
+            "gloss": "dish"
+          }
+        ]
+      },
+      "before_mnemonic": "Only a 盜 master thief could leave both the 氵 water jar and the 皿 dish 欠 deficient without being seen.",
+      "after_mnemonic": "A 盜 master thief fakes a 欠 yawn, then slips away with the 氵 water jar and 皿 dish.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "砍",
+      "base_card_hash": "sha256:c32791c78269366c49d1cecd966f58994b02eb8ba409c6fee0a65761f3bd1285",
+      "before": {
+        "meaning": "chop",
+        "equation": "石 stone + 欠 deficient = 砍 chop",
+        "components": [
+          {
+            "character": "石",
+            "gloss": "stone"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "石",
+            "gloss": "stone"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "chop",
+        "equation": "石 stone + 欠 yawn = 砍 chop",
+        "components": [
+          {
+            "character": "石",
+            "gloss": "stone"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "石",
+            "gloss": "stone"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A 石 stone axe with a 欠 deficient edge must 砍 chop repeatedly through wood.",
+      "after_mnemonic": "A yawning worker lifts a 石 stone axe after a 欠 yawn and begins to 砍 chop.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "羨",
+      "base_card_hash": "sha256:768ba8c7c1363b7175ab131312476cfb3e9b799e943dd80764aaeedaf3243457",
+      "before": {
+        "meaning": "envy",
+        "equation": "𦍌 sheep + 氵 water (drops) + 欠 deficient = 羨 envy",
+        "components": [
+          {
+            "character": "𦍌",
+            "gloss": "sheep"
+          },
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𦍌",
+            "gloss": "sheep"
+          },
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "envy",
+        "equation": "𦍌 sheep + 氵 water (drops) + 欠 yawn = 羨 envy",
+        "components": [
+          {
+            "character": "𦍌",
+            "gloss": "sheep"
+          },
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𦍌",
+            "gloss": "sheep"
+          },
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "Feeling 欠 deficient, one 𦍌 sheep watches another's full 氵 water trough with 羨 envy.",
+      "after_mnemonic": "One 𦍌 sheep gives a thirsty 欠 yawn while watching another's full 氵 water trough with 羨 envy.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "肷",
+      "base_card_hash": "sha256:7a390d8ab2d14702df4c939619764a7fd1c1e9a4f183a5c07879a01e9f539f83",
+      "before": {
+        "meaning": "area between waist and hips",
+        "equation": "⺼ meat (side) + 欠 deficient = 肷 area between waist and hips",
+        "components": [
+          {
+            "character": "⺼",
+            "gloss": "meat (side)"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⺼",
+            "gloss": "meat (side)"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "area between waist and hips",
+        "equation": "⺼ meat (side) + 欠 yawn = 肷 area between waist and hips",
+        "components": [
+          {
+            "character": "⺼",
+            "gloss": "meat (side)"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⺼",
+            "gloss": "meat (side)"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "At the body's side, a 欠 deficient hollow in the ⺼ meat marks the 肷 area between waist and hips.",
+      "after_mnemonic": "A hollow like an open 欠 yawn in the ⺼ meat (side) marks the 肷 area between waist and hips.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "芡",
+      "base_card_hash": "sha256:ee676ff631ec74dcd80233e409883c513c6e41adf99506822ede0d453c8676e8",
+      "before": {
+        "meaning": "plant allied to the waterlily",
+        "equation": "艹 grass (top) + 欠 deficient = 芡 plant allied to the waterlily",
+        "components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "plant allied to the waterlily",
+        "equation": "艹 grass (top) + 欠 yawn = 芡 plant allied to the waterlily",
+        "components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A 芡 plant allied to the waterlily spreads over water where ordinary 艹 grass is 欠 deficient.",
+      "after_mnemonic": "A botanist gives a 欠 yawn while scanning 艹 grass (top), then spots a 芡 plant allied to the waterlily.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "軟",
+      "base_card_hash": "sha256:5e4396746a886bb6e961386d7463e8ed489f6e8d1c3f0e5122bd935746e98111",
+      "before": {
+        "meaning": "soft",
+        "equation": "車 vehicle + 欠 deficient = 軟 soft",
+        "components": [
+          {
+            "character": "車",
+            "gloss": "vehicle"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "車",
+            "gloss": "vehicle"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "soft",
+        "equation": "車 vehicle + 欠 yawn = 軟 soft",
+        "components": [
+          {
+            "character": "車",
+            "gloss": "vehicle"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "車",
+            "gloss": "vehicle"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A 車 vehicle is 軟 soft where its body is 欠 deficient in rigidity and yields to light pressure.",
+      "after_mnemonic": "A passenger stretches in a 欠 yawn while the 車 vehicle seat yields under them, proving it 軟 soft.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "软",
+      "base_card_hash": "sha256:6d821ab7ce172da3fecc7e435028b5285825699e2fc9d92044f59ba6eec8f4ca",
+      "before": {
+        "meaning": "flexible",
+        "equation": "车 vehicle + 欠 deficient = 软 flexible",
+        "components": [
+          {
+            "character": "车",
+            "gloss": "vehicle"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "车",
+            "gloss": "vehicle"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "flexible",
+        "equation": "车 vehicle + 欠 yawn = 软 flexible",
+        "components": [
+          {
+            "character": "车",
+            "gloss": "vehicle"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "车",
+            "gloss": "vehicle"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A 车 vehicle is 软 flexible where its frame is 欠 deficient in rigidity and bends without breaking.",
+      "after_mnemonic": "A frame bends like a waking stretch after a 欠 yawn, making the 车 vehicle 软 flexible.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "钦",
+      "base_card_hash": "sha256:c200b9af0267460a073e363b5dfc867ed59138435ba952ac6aa3112053274613",
+      "before": {
+        "meaning": "respect",
+        "equation": "钅 metal + 欠 deficient = 钦 respect",
+        "components": [
+          {
+            "character": "钅",
+            "gloss": "metal"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "钅",
+            "gloss": "metal"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "respect",
+        "equation": "钅 metal + 欠 yawn = 钦 respect",
+        "components": [
+          {
+            "character": "钅",
+            "gloss": "metal"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "钅",
+            "gloss": "metal"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "Though the 钅 metal is 欠 deficient in shine, I still 钦 respect its craftsmanship.",
+      "after_mnemonic": "An apprentice suppresses a 欠 yawn beside the master's 钅 metal work to show 钦 respect.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "飮",
+      "base_card_hash": "sha256:d078d228f54a2689b44b711fc242ce3aeefcfaeb2894826ce89a01092ca67da8",
+      "before": {
+        "meaning": "swallow",
+        "equation": "欠 deficient = 飮 swallow",
+        "components": [
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "swallow",
+        "equation": "欠 yawn = 飮 swallow",
+        "components": [
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "The cup becomes 欠 deficient by one mouthful each time you 飮 swallow.",
+      "after_mnemonic": "The mouth closes from a 欠 yawn into the motion used to 飮 swallow.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "飲",
+      "base_card_hash": "sha256:ffe2bb28d8fdc306f9457b8da7ad8119a9ebd8f7b597c1810584effabce7e3f0",
+      "before": {
+        "meaning": "beverage",
+        "equation": "飠 food + 欠 deficient = 飲 beverage",
+        "components": [
+          {
+            "character": "飠",
+            "gloss": "food"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "飠",
+            "gloss": "food"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "beverage",
+        "equation": "飠 food + 欠 yawn = 飲 beverage",
+        "components": [
+          {
+            "character": "飠",
+            "gloss": "food"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "飠",
+            "gloss": "food"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "When 飠 food leaves a meal 欠 deficient, a 飲 beverage completes it.",
+      "after_mnemonic": "After dry 飠 food prompts a 欠 yawn, a 飲 beverage moistens the mouth.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "饮",
+      "base_card_hash": "sha256:a6161a9d829be9e71de2295e56db4e10a78ebd7c6ad477914f321b8a6456d705",
+      "before": {
+        "meaning": "drink",
+        "equation": "饣 food (side) + 欠 deficient = 饮 drink",
+        "components": [
+          {
+            "character": "饣",
+            "gloss": "food (side)"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "饣",
+            "gloss": "food (side)"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "drink",
+        "equation": "饣 food (side) + 欠 yawn = 饮 drink",
+        "components": [
+          {
+            "character": "饣",
+            "gloss": "food (side)"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "饣",
+            "gloss": "food (side)"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "When 饣 food is 欠 deficient in moisture, pause to 饮 drink.",
+      "after_mnemonic": "When dry 饣 food (side) prompts a 欠 yawn, pause to 饮 drink.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "龡",
+      "base_card_hash": "sha256:45f39e978d5b66c303e90830bc8245f0257fffa566141ff50a41ad4f63435668",
+      "before": {
+        "meaning": "blow",
+        "equation": "龠 pipe + 欠 deficient = 龡 blow",
+        "components": [
+          {
+            "character": "龠",
+            "gloss": "pipe"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "龠",
+            "gloss": "pipe"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "blow",
+        "equation": "龠 pipe + 欠 yawn = 龡 blow",
+        "components": [
+          {
+            "character": "龠",
+            "gloss": "pipe"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "龠",
+            "gloss": "pipe"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "A 龠 pipe stays 欠 deficient in sound until a musician begins to 龡 blow through it.",
+      "after_mnemonic": "A 龠 pipe stays silent until the breath of a 欠 yawn becomes a steady 龡 blow.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "次",
+      "base_card_hash": "sha256:892efabb84abea5e4fbb7818a6b4e05e145cd4a337b5fc4401b2448fdc92d817",
+      "before": {
+        "meaning": "next",
+        "equation": "冫 ice + 欠 deficient = 次 next",
+        "components": [
+          {
+            "character": "冫",
+            "gloss": "ice"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "冫",
+            "gloss": "ice"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "next",
+        "equation": "冫 ice + 欠 yawn = 次 next",
+        "components": [
+          {
+            "character": "冫",
+            "gloss": "ice"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "冫",
+            "gloss": "ice"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "When 冫 ice is 欠 deficient, the 次 next delivery moves to the front of the schedule.",
+      "after_mnemonic": "A traveler sees thin 冫 ice, gives a 欠 yawn, and waits for the 次 next crossing.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "歔",
+      "base_card_hash": "sha256:44c2bccb2d2668bcd1d9c050f2d60cfaf1a026465dfefb5e51bd26dc1ed13ca9",
+      "before": {
+        "meaning": "blow through nose",
+        "equation": "虚 void + 欠 deficient = 歔 blow through nose",
+        "components": [
+          {
+            "character": "虚",
+            "gloss": "void"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "虚",
+            "gloss": "void"
+          },
+          {
+            "character": "欠",
+            "gloss": "deficient"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "blow through nose",
+        "equation": "虚 void + 欠 yawn = 歔 blow through nose",
+        "components": [
+          {
+            "character": "虚",
+            "gloss": "void"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "虚",
+            "gloss": "void"
+          },
+          {
+            "character": "欠",
+            "gloss": "yawn"
+          }
+        ]
+      },
+      "before_mnemonic": "The 虚 void inside a nostril channels each 欠 deficient breath as you 歔 blow through nose.",
+      "after_mnemonic": "After a 欠 yawn, the 虚 void inside a nostril channels the breath as you 歔 blow through nose.",
+      "valid": true,
+      "problems": []
+    }
+  ]
+}

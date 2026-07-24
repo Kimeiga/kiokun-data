@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-07-24T06:57:44.438698+00:00",
+  "created_at": "2026-07-24T07:05:59.247240+00:00",
   "count": 24037,
   "invalid_count": 0,
   "invalid": [],
@@ -761,7 +761,7 @@
   },
   "mnemonic_length": {
     "min": 34,
-    "p50": 79,
+    "p50": 78,
     "p90": 98,
     "p95": 104,
     "max": 164
@@ -1656,11 +1656,11 @@
     "certification_status": "expedited_non_certified"
   },
   "gpt56_expedited_release": {
-    "materialized_card_projection_hash": "sha256:497cd2999b8902e599e027897d4dcedd808ecad9e5fe4ec9ca7d85efa880d122",
+    "materialized_card_projection_hash": "sha256:57a8188d30df057fb9f4568a4cf1bd08cd935f610ad965a450314cad68321ef3",
     "formal_validation": {
       "count": 24037,
       "invalid_count": 0
     },
-    "editorial_ledger_sha256": "sha256:96f4172d5a5524fbbaafb96e066937d0d7ffeb4dab22030933b7db9651f8767e"
+    "editorial_ledger_sha256": "sha256:3a0dcd8b997baf08bc00301675d20c42c1df0d76250af93fb9159e45f12ef893"
   }
 }
