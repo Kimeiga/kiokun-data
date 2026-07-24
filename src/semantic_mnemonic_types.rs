@@ -3,23 +3,17 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SemanticMnemonicCorpusManifest {
     pub count: usize,
+    pub bucket_algorithm: String,
+    pub bucket_count: usize,
     #[serde(default)]
-    pub runtime_shards: Vec<SemanticMnemonicShardReference>,
+    pub card_buckets: Vec<SemanticMnemonicBucketReference>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct SemanticMnemonicShardReference {
+pub struct SemanticMnemonicBucketReference {
     pub path: String,
-    pub shard_index: usize,
-    pub start: usize,
-    pub end: usize,
+    pub bucket: String,
     pub count: usize,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct SemanticMnemonicArtifact {
-    #[serde(default)]
-    pub mnemonics: Vec<SemanticMnemonicCard>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

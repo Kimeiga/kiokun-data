@@ -48,7 +48,7 @@ use combined_types::{
 };
 use legacy_unification::semantic_unification_engine::SemanticUnificationEngine;
 use semantic_mnemonic_types::{
-    SemanticMnemonicArtifact, SemanticMnemonicCard, SemanticMnemonicCorpusManifest,
+    SemanticMnemonicCard, SemanticMnemonicCorpusManifest,
 };
 
 /// Determines which shard a key belongs to based on Han character count and hash
@@ -305,29 +305,36 @@ fn load_semantic_mnemonics_from_manifest(
                 manifest_path.display()
             )
         })?;
-    if manifest.runtime_shards.is_empty() {
+    const BUCKET_ALGORITHM: &str = "kiokun_simple_hash_low_byte_v1";
+    const BUCKET_COUNT: usize = 256;
+    if manifest.bucket_algorithm != BUCKET_ALGORITHM {
         anyhow::bail!(
-            "Semantic mnemonic manifest contains no runtime shards: {}",
-            manifest_path.display()
+            "Unsupported semantic mnemonic bucket algorithm {:?}",
+            manifest.bucket_algorithm
+        );
+    }
+    if manifest.bucket_count != BUCKET_COUNT
+        || manifest.card_buckets.len() != BUCKET_COUNT
+    {
+        anyhow::bail!(
+            "Semantic mnemonic manifest must contain {} canonical card buckets",
+            BUCKET_COUNT
         );
     }
 
     let mut by_character = HashMap::new();
     let mut skipped = 0usize;
-    let mut expected_start = 0usize;
-    for (expected_index, shard_reference) in manifest.runtime_shards.iter().enumerate() {
-        if shard_reference.shard_index != expected_index
-            || shard_reference.start != expected_start
-            || shard_reference.end < shard_reference.start
-            || shard_reference.end - shard_reference.start != shard_reference.count
-        {
+    for (bucket_index, bucket_reference) in manifest.card_buckets.iter().enumerate() {
+        let expected_bucket = format!("{:02x}", bucket_index);
+        if bucket_reference.bucket != expected_bucket {
             anyhow::bail!(
-                "Invalid semantic mnemonic runtime shard range at index {}",
-                expected_index
+                "Semantic mnemonic bucket reference {} declares bucket {:?}",
+                bucket_index,
+                bucket_reference.bucket
             );
         }
 
-        let relative_path = std::path::Path::new(&shard_reference.path);
+        let relative_path = std::path::Path::new(&bucket_reference.path);
         if relative_path.is_absolute()
             || relative_path.components().any(|component| {
                 matches!(
@@ -339,57 +346,74 @@ fn load_semantic_mnemonics_from_manifest(
             })
         {
             anyhow::bail!(
-                "Unsafe semantic mnemonic runtime shard path: {}",
-                shard_reference.path
+                "Unsafe semantic mnemonic card-bucket path: {}",
+                bucket_reference.path
             );
         }
-        let shard_path = manifest_path
+        let bucket_path = manifest_path
             .parent()
             .unwrap_or_else(|| std::path::Path::new("."))
             .join(relative_path);
-        let shard_file = File::open(&shard_path).with_context(|| {
+        let bucket_file = File::open(&bucket_path).with_context(|| {
             format!(
-                "Failed to open semantic mnemonic runtime shard: {}",
-                shard_path.display()
+                "Failed to open semantic mnemonic card bucket: {}",
+                bucket_path.display()
             )
         })?;
-        let shard: SemanticMnemonicArtifact =
-            serde_json::from_reader(BufReader::new(shard_file)).with_context(|| {
+
+        let mut bucket_card_count = 0usize;
+        for (line_index, line_result) in BufReader::new(bucket_file).lines().enumerate() {
+            let line = line_result.with_context(|| {
                 format!(
-                    "Failed to parse semantic mnemonic runtime shard: {}",
-                    shard_path.display()
+                    "Failed to read semantic mnemonic card bucket {} line {}",
+                    bucket_path.display(),
+                    line_index + 1
                 )
             })?;
-        if shard.mnemonics.len() != shard_reference.count {
-            anyhow::bail!(
-                "Semantic mnemonic runtime shard {} contains {} cards, expected {}",
-                shard_path.display(),
-                shard.mnemonics.len(),
-                shard_reference.count
-            );
-        }
-
-        for card in shard.mnemonics {
+            if line.is_empty() {
+                anyhow::bail!(
+                    "Semantic mnemonic card bucket {} contains a blank line at {}",
+                    bucket_path.display(),
+                    line_index + 1
+                );
+            }
+            let card: SemanticMnemonicCard = serde_json::from_str(&line).with_context(|| {
+                format!(
+                    "Failed to parse semantic mnemonic card bucket {} line {}",
+                    bucket_path.display(),
+                    line_index + 1
+                )
+            })?;
+            let actual_bucket = ShardType::get_subdir(&card.character);
+            if actual_bucket != expected_bucket {
+                anyhow::bail!(
+                    "Semantic mnemonic card {:?} is in bucket {}, expected {}",
+                    card.character,
+                    expected_bucket,
+                    actual_bucket
+                );
+            }
             if card.character.chars().count() == 1 {
                 let character = card.character.clone();
                 if by_character.insert(character.clone(), card).is_some() {
                     anyhow::bail!(
-                        "Semantic mnemonic runtime shards repeat character {:?}",
+                        "Semantic mnemonic card buckets repeat character {:?}",
                         character
                     );
                 }
             } else {
                 skipped += 1;
             }
+            bucket_card_count += 1;
         }
-        expected_start = shard_reference.end;
-    }
-    if expected_start != manifest.count {
-        anyhow::bail!(
-            "Semantic mnemonic runtime shards cover {} cards, manifest declares {}",
-            expected_start,
-            manifest.count
-        );
+        if bucket_card_count != bucket_reference.count {
+            anyhow::bail!(
+                "Semantic mnemonic card bucket {} contains {} cards, expected {}",
+                bucket_path.display(),
+                bucket_card_count,
+                bucket_reference.count
+            );
+        }
     }
     if by_character.len() + skipped != manifest.count {
         anyhow::bail!(
@@ -401,9 +425,9 @@ fn load_semantic_mnemonics_from_manifest(
     }
 
     println!(
-        "  ✅ Loaded {} semantic mnemonic cards from {} runtime shards{}",
+        "  ✅ Loaded {} semantic mnemonic cards from {} canonical buckets{}",
         by_character.len(),
-        manifest.runtime_shards.len(),
+        manifest.card_buckets.len(),
         if skipped > 0 {
             format!(" (skipped {} non-single-character cards)", skipped)
         } else {
@@ -419,7 +443,7 @@ mod semantic_mnemonic_corpus_tests {
     use super::*;
 
     #[test]
-    fn loads_complete_sharded_runtime_corpus() {
+    fn loads_complete_bucketed_canonical_corpus() {
         let cards = load_semantic_mnemonics_from_manifest(std::path::Path::new(
             SEMANTIC_MNEMONICS_MANIFEST_PATH,
         ))

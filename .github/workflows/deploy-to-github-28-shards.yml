@@ -20,7 +20,7 @@ jobs:
         with:
           lfs: false
 
-      - name: Verify canonical and runtime mnemonic shards
+      - name: Verify canonical mnemonic buckets and runtime projection
         run: python3 scripts/manage_semantic_mnemonic_corpus.py verify
 
   build-and-deploy:
