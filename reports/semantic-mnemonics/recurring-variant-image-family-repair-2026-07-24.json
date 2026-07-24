@@ -1,0 +1,2924 @@
+{
+  "schema_version": 1,
+  "policy_version": "2026-07-24.1",
+  "policy_path": "data/semantic_mnemonic_recurring_variant_image_policy.json",
+  "base_projection_hash": "sha256:bda1e4e707c71f0dbeefbbaf265b5ab4bc685387e2c40188caa620630784c7ed",
+  "candidate_projection_hash": "sha256:8df7cb844f72d0f605659a5d85a53d8b0aed17dd5a6fa7a5b35fb7dbd0686f50",
+  "card_count": 24037,
+  "invalid_count": 0,
+  "changed_count": 51,
+  "already_applied_count": 0,
+  "component_occurrences": {
+    "岂 victory drum": 11,
+    "豈 victory drum": 29,
+    "尔 you (literary)": 16,
+    "爾 you (literary)": 19,
+    "卖 sell": 11,
+    "賣 sell": 18,
+    "黾 toad": 8,
+    "黽 toad": 20
+  },
+  "changed_characters": [
+    "䂧",
+    "䋲",
+    "䰗",
+    "你",
+    "凯",
+    "剀",
+    "卖",
+    "垲",
+    "妳",
+    "尔",
+    "岂",
+    "弥",
+    "恺",
+    "桤",
+    "椟",
+    "櫝",
+    "渎",
+    "渑",
+    "瀆",
+    "爾",
+    "牍",
+    "犊",
+    "狝",
+    "玺",
+    "珎",
+    "皑",
+    "硙",
+    "祢",
+    "称",
+    "窦",
+    "续",
+    "绳",
+    "蝇",
+    "覙",
+    "覿",
+    "觊",
+    "觌",
+    "读",
+    "賣",
+    "赎",
+    "趂",
+    "迩",
+    "鉨",
+    "铠",
+    "闿",
+    "黩",
+    "黾",
+    "鼋",
+    "鼍",
+    "鿭",
+    "你"
+  ],
+  "changes": [
+    {
+      "character": "䂧",
+      "base_card_hash": "sha256:e830d3a8ff10b59405130233e3e8f09e816966994f201eb120b8381423f1d0ed",
+      "before": {
+        "meaning": "clustered rocks",
+        "equation": "石 stone + 尔 those = 䂧 clustered rocks",
+        "components": [
+          {
+            "character": "石",
+            "gloss": "stone"
+          },
+          {
+            "character": "尔",
+            "gloss": "those"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "石",
+            "gloss": "stone"
+          },
+          {
+            "character": "尔",
+            "gloss": "those"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "clustered rocks",
+        "equation": "石 stone + 尔 you (literary) = 䂧 clustered rocks",
+        "components": [
+          {
+            "character": "石",
+            "gloss": "stone"
+          },
+          {
+            "character": "尔",
+            "gloss": "you (literary)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "石",
+            "gloss": "stone"
+          },
+          {
+            "character": "尔",
+            "gloss": "you (literary)"
+          }
+        ]
+      },
+      "before_mnemonic": "尔 those tightly packed piles of 石 stone are 䂧 clustered rocks.",
+      "after_mnemonic": "Pile 石 stone around 尔 you (literary) until it forms 䂧 clustered rocks.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䋲",
+      "base_card_hash": "sha256:815df72a1074a5ba8f47bcc359f567d6ad6a99cbf627b05f027cc8ba25a86ec1",
+      "before": {
+        "meaning": "rope",
+        "equation": "糸 thread + 黾 strive = 䋲 rope",
+        "components": [
+          {
+            "character": "糸",
+            "gloss": "thread"
+          },
+          {
+            "character": "黾",
+            "gloss": "strive"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "糸",
+            "gloss": "thread"
+          },
+          {
+            "character": "黾",
+            "gloss": "strive"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "rope",
+        "equation": "糸 thread + 黾 toad = 䋲 rope",
+        "components": [
+          {
+            "character": "糸",
+            "gloss": "thread"
+          },
+          {
+            "character": "黾",
+            "gloss": "toad"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "糸",
+            "gloss": "thread"
+          },
+          {
+            "character": "黾",
+            "gloss": "toad"
+          }
+        ]
+      },
+      "before_mnemonic": "Each 糸 thread must 黾 strive against the pull, strengthening the braided 䋲 rope.",
+      "after_mnemonic": "Twist 糸 thread into a 䋲 rope sturdy enough to tether a 黾 toad.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䰗",
+      "base_card_hash": "sha256:4f8e031ca96de78cf9420bd7bd2512b25933f71074671eeb7a694168c6bbad07",
+      "before": {
+        "meaning": "lot",
+        "equation": "鬥 fight + ⺈ knife (side) + 黾 strive = 䰗 lot",
+        "components": [
+          {
+            "character": "鬥",
+            "gloss": "fight"
+          },
+          {
+            "character": "⺈",
+            "gloss": "knife (side)"
+          },
+          {
+            "character": "黾",
+            "gloss": "strive"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "鬥",
+            "gloss": "fight"
+          },
+          {
+            "character": "⺈",
+            "gloss": "knife (side)"
+          },
+          {
+            "character": "黾",
+            "gloss": "strive"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "lot",
+        "equation": "鬥 fight + ⺈ knife (side) + 黾 toad = 䰗 lot",
+        "components": [
+          {
+            "character": "鬥",
+            "gloss": "fight"
+          },
+          {
+            "character": "⺈",
+            "gloss": "knife (side)"
+          },
+          {
+            "character": "黾",
+            "gloss": "toad"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "鬥",
+            "gloss": "fight"
+          },
+          {
+            "character": "⺈",
+            "gloss": "knife (side)"
+          },
+          {
+            "character": "黾",
+            "gloss": "toad"
+          }
+        ]
+      },
+      "before_mnemonic": "To avoid a 鬥 fight over one ⺈ knife, rivals 黾 strive for the winning 䰗 lot.",
+      "after_mnemonic": "To avoid a 鬥 fight over one ⺈ knife (side), let a 黾 toad choose the winning 䰗 lot.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "你",
+      "base_card_hash": "sha256:2178dc24f5701cc0e8257aca5e5ce3ee19b80d6f2ccb96dbb9464e1e9eae0381",
+      "before": {
+        "meaning": "you",
+        "equation": "亻 person (side) + 尔 those = 你 you",
+        "components": [
+          {
+            "character": "亻",
+            "gloss": "person (side)"
+          },
+          {
+            "character": "尔",
+            "gloss": "those"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亻",
+            "gloss": "person (side)"
+          },
+          {
+            "character": "尔",
+            "gloss": "those"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "you",
+        "equation": "亻 person (side) + 尔 you (literary) = 你 you",
+        "components": [
+          {
+            "character": "亻",
+            "gloss": "person (side)"
+          },
+          {
+            "character": "尔",
+            "gloss": "you (literary)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亻",
+            "gloss": "person (side)"
+          },
+          {
+            "character": "尔",
+            "gloss": "you (literary)"
+          }
+        ]
+      },
+      "before_mnemonic": "A 亻 person facing 尔 those people singles out 你 you.",
+      "after_mnemonic": "A 亻 person (side) facing 尔 you (literary) singles out 你 you.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "凯",
+      "base_card_hash": "sha256:76619231c8cf52c6fe9980f7fa0a698d2f358282f0b0943043f14e9695671b62",
+      "before": {
+        "meaning": "victorious",
+        "equation": "岂 victorious music + 几 small table = 凯 victorious",
+        "components": [
+          {
+            "character": "岂",
+            "gloss": "victorious music"
+          },
+          {
+            "character": "几",
+            "gloss": "small table"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "岂",
+            "gloss": "victorious music"
+          },
+          {
+            "character": "几",
+            "gloss": "small table"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "victorious",
+        "equation": "岂 victory drum + 几 small table = 凯 victorious",
+        "components": [
+          {
+            "character": "岂",
+            "gloss": "victory drum"
+          },
+          {
+            "character": "几",
+            "gloss": "small table"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "岂",
+            "gloss": "victory drum"
+          },
+          {
+            "character": "几",
+            "gloss": "small table"
+          }
+        ]
+      },
+      "before_mnemonic": "A band plays 岂 victorious music beside a 几 small table laid for a 凯 victorious homecoming.",
+      "after_mnemonic": "A 岂 victory drum beside a 几 small table announces that the army is 凯 victorious.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "剀",
+      "base_card_hash": "sha256:49b05f4f0ab93d16f627e8780d4c446b9e21a9487f9b1616cc8437d029076598",
+      "before": {
+        "meaning": "carefully",
+        "equation": "岂 victorious music + 刂 knife (side) = 剀 carefully",
+        "components": [
+          {
+            "character": "岂",
+            "gloss": "victorious music"
+          },
+          {
+            "character": "刂",
+            "gloss": "knife (side)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "岂",
+            "gloss": "victorious music"
+          },
+          {
+            "character": "刂",
+            "gloss": "knife (side)"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sharpen",
+        "equation": "岂 victory drum + 刂 knife (side) = 剀 sharpen",
+        "components": [
+          {
+            "character": "岂",
+            "gloss": "victory drum"
+          },
+          {
+            "character": "刂",
+            "gloss": "knife (side)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "岂",
+            "gloss": "victory drum"
+          },
+          {
+            "character": "刂",
+            "gloss": "knife (side)"
+          }
+        ]
+      },
+      "before_mnemonic": "Even as 岂 victorious music erupts, the carver works 剀 carefully, keeping the 刂 knife on a fine line.",
+      "after_mnemonic": "Even beside a pounding 岂 victory drum, guide the 刂 knife (side) along a stone to 剀 sharpen it.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "卖",
+      "base_card_hash": "sha256:abda80b5e57ae7f53a0d9020edf46de1b70ef0c20a8b3c52c1b581f7c93ee069",
+      "before": {
+        "meaning": "sell",
+        "equation": "十 ten + 买 buy = 卖 sell",
+        "components": [
+          {
+            "character": "十",
+            "gloss": "ten"
+          },
+          {
+            "character": "买",
+            "gloss": "buy"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "十",
+            "gloss": "ten"
+          },
+          {
+            "character": "买",
+            "gloss": "buy"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sell",
+        "equation": "Visual form: 卖 sell",
+        "components": [
+          {
+            "character": "卖",
+            "gloss": "sell"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "卖",
+            "gloss": "sell"
+          }
+        ]
+      },
+      "before_mnemonic": "Display 十 ten items for customers to 买 buy while you 卖 sell them at the market.",
+      "after_mnemonic": "At a market, display an item to 卖 sell it.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "垲",
+      "base_card_hash": "sha256:3e90208b7e7d21b531a215e242a632fbf9675ded2b89bb41fb7688740958ea6c",
+      "before": {
+        "meaning": "high and dry place",
+        "equation": "土 earth + 岂 victorious music = 垲 high and dry place",
+        "components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "岂",
+            "gloss": "victorious music"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "岂",
+            "gloss": "victorious music"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "high and dry place",
+        "equation": "土 earth + 岂 victory drum = 垲 high and dry place",
+        "components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "岂",
+            "gloss": "victory drum"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "岂",
+            "gloss": "victory drum"
+          }
+        ]
+      },
+      "before_mnemonic": "岂 victorious music sounds across 土 earth safely above floodwater from a 垲 high and dry place.",
+      "after_mnemonic": "Set the 岂 victory drum on 土 earth above floodwater at a 垲 high and dry place.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "妳",
+      "base_card_hash": "sha256:f57a317c41698c9c49c49e5078fa85f5367e9179a4902f2d8d00363aaa4280ce",
+      "before": {
+        "meaning": "you (female)",
+        "equation": "女 woman + 尔 those = 妳 you (female)",
+        "components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "尔",
+            "gloss": "those"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "尔",
+            "gloss": "those"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "you (female)",
+        "equation": "女 woman + 尔 you (literary) = 妳 you (female)",
+        "components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "尔",
+            "gloss": "you (literary)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "尔",
+            "gloss": "you (literary)"
+          }
+        ]
+      },
+      "before_mnemonic": "Among 尔 those people, the 女 woman being addressed is 妳 you (female).",
+      "after_mnemonic": "A 女 woman addressed as 尔 you (literary) is 妳 you (female).",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "尔",
+      "base_card_hash": "sha256:9fde768bd49fc5243e3fa5e3c41dd02e8cb4e77e8e8498152d50c1950aecf782",
+      "before": {
+        "meaning": "those",
+        "equation": "小 small = 尔 those",
+        "components": [
+          {
+            "character": "小",
+            "gloss": "small"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "小",
+            "gloss": "small"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "you (literary)",
+        "equation": "Visual form: 尔 you (literary)",
+        "components": [
+          {
+            "character": "尔",
+            "gloss": "you (literary)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "尔",
+            "gloss": "you (literary)"
+          }
+        ]
+      },
+      "before_mnemonic": "From afar, 尔 those figures look 小 small enough to pinch between two fingers.",
+      "after_mnemonic": "In an old poem, the speaker points to 尔 you (literary).",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "岂",
+      "base_card_hash": "sha256:6bab9ce494ba11db04896fff72872496f59cca86ee038954a94d450435467754",
+      "before": {
+        "meaning": "victorious music",
+        "equation": "山 mountain + 己 self = 岂 victorious music",
+        "components": [
+          {
+            "character": "山",
+            "gloss": "mountain"
+          },
+          {
+            "character": "己",
+            "gloss": "self"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "山",
+            "gloss": "mountain"
+          },
+          {
+            "character": "己",
+            "gloss": "self"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "how",
+        "equation": "Visual form: 岂 victory drum; meaning 岂 how",
+        "components": [
+          {
+            "character": "岂",
+            "gloss": "victory drum"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "岂",
+            "gloss": "victory drum"
+          }
+        ]
+      },
+      "before_mnemonic": "After scaling the 山 mountain, the climber honors 己 self with 岂 victorious music.",
+      "after_mnemonic": "A triumphant 岂 victory drum sounds, while the borrowed modern sense asks 岂 how.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "弥",
+      "base_card_hash": "sha256:6aa32f94945c6bac3f2006124f4ef18df73f4a4315d3ef18d5f708e2b10e0fe8",
+      "before": {
+        "meaning": "full",
+        "equation": "弓 bow + 尔 those = 弥 full",
+        "components": [
+          {
+            "character": "弓",
+            "gloss": "bow"
+          },
+          {
+            "character": "尔",
+            "gloss": "those"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "弓",
+            "gloss": "bow"
+          },
+          {
+            "character": "尔",
+            "gloss": "those"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "full",
+        "equation": "弓 bow + 尔 you (literary) = 弥 full",
+        "components": [
+          {
+            "character": "弓",
+            "gloss": "bow"
+          },
+          {
+            "character": "尔",
+            "gloss": "you (literary)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "弓",
+            "gloss": "bow"
+          },
+          {
+            "character": "尔",
+            "gloss": "you (literary)"
+          }
+        ]
+      },
+      "before_mnemonic": "尔 those archers pack the rack 弥 full with each 弓 bow.",
+      "after_mnemonic": "When 尔 you (literary) pack every 弓 bow into the rack, it is 弥 full.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "恺",
+      "base_card_hash": "sha256:c2573e33e44bb1a31709841384da9ba31fc86a12b375a2a2d32a30866e95718a",
+      "before": {
+        "meaning": "contented",
+        "equation": "忄 heart (side) + 岂 victorious music = 恺 contented",
+        "components": [
+          {
+            "character": "忄",
+            "gloss": "heart (side)"
+          },
+          {
+            "character": "岂",
+            "gloss": "victorious music"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "忄",
+            "gloss": "heart (side)"
+          },
+          {
+            "character": "岂",
+            "gloss": "victorious music"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "contented",
+        "equation": "忄 heart (side) + 岂 victory drum = 恺 contented",
+        "components": [
+          {
+            "character": "忄",
+            "gloss": "heart (side)"
+          },
+          {
+            "character": "岂",
+            "gloss": "victory drum"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "忄",
+            "gloss": "heart (side)"
+          },
+          {
+            "character": "岂",
+            "gloss": "victory drum"
+          }
+        ]
+      },
+      "before_mnemonic": "岂 victorious music makes the 忄 heart feel 恺 contented after the struggle.",
+      "after_mnemonic": "A 岂 victory drum leaves the 忄 heart (side) 恺 contented after the struggle.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "桤",
+      "base_card_hash": "sha256:96e9de114787b575047923ea5ae6c6577b0541eac86ebcef4816ad302cb906d7",
+      "before": {
+        "meaning": "alder",
+        "equation": "木 tree + 岂 victorious music = 桤 alder",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "岂",
+            "gloss": "victorious music"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "岂",
+            "gloss": "victorious music"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "alder",
+        "equation": "木 tree + 岂 victory drum = 桤 alder",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "岂",
+            "gloss": "victory drum"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "岂",
+            "gloss": "victory drum"
+          }
+        ]
+      },
+      "before_mnemonic": "Tiny woody cones distinguish 桤 alder from another 木 tree while a band plays 岂 victorious music.",
+      "after_mnemonic": "Use a 木 tree to frame a 岂 victory drum; the tree is a 桤 alder.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "椟",
+      "base_card_hash": "sha256:774162c0bd3f39bb4e12d02d6289294a41fc80ac79d05c804b4c024897bb750f",
+      "before": {
+        "meaning": "cabinet",
+        "equation": "木 tree + 卖 betray = 椟 cabinet",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "卖",
+            "gloss": "betray"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "卖",
+            "gloss": "betray"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "cabinet",
+        "equation": "木 tree + 卖 sell = 椟 cabinet",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "卖",
+            "gloss": "sell"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "卖",
+            "gloss": "sell"
+          }
+        ]
+      },
+      "before_mnemonic": "Carve a 木 tree into a 椟 cabinet, whose open doors can 卖 betray what was hidden.",
+      "after_mnemonic": "Carve a 木 tree into a 椟 cabinet and 卖 sell it.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "櫝",
+      "base_card_hash": "sha256:a179705feb0147398bd2bec01aa14410b65cdec790c6e8c001d14d0fdcaf9fdd",
+      "before": {
+        "meaning": "closet",
+        "equation": "木 tree + 賣 sell = 櫝 closet",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "賣",
+            "gloss": "sell"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "賣",
+            "gloss": "sell"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "cabinet",
+        "equation": "木 tree + 賣 sell = 櫝 cabinet",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "賣",
+            "gloss": "sell"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "賣",
+            "gloss": "sell"
+          }
+        ]
+      },
+      "before_mnemonic": "Boards from a 木 tree form a 櫝 closet, ready to 賣 sell once its doors and shelves are fitted.",
+      "after_mnemonic": "Carve a 木 tree into a 櫝 cabinet and 賣 sell it.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "渎",
+      "base_card_hash": "sha256:2c57bbffd8939a8defa4c7123a8a347753a245fc7cd65b7c81d790f55f2c52c3",
+      "before": {
+        "meaning": "ditch",
+        "equation": "氵 water (drops) + 卖 betray = 渎 ditch",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "卖",
+            "gloss": "betray"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "卖",
+            "gloss": "betray"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "ditch",
+        "equation": "氵 water (drops) + 卖 sell = 渎 ditch",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "卖",
+            "gloss": "sell"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "卖",
+            "gloss": "sell"
+          }
+        ]
+      },
+      "before_mnemonic": "A 渎 ditch diverts 氵 water, making it 卖 betray the river's natural course.",
+      "after_mnemonic": "Let 氵 water (drops) run through a 渎 ditch beside the market where vendors 卖 sell.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "渑",
+      "base_card_hash": "sha256:1237b0ab88b1325f628d58ea89eb37198700b0e08bf47a78dabb6992d2dc1210",
+      "before": {
+        "meaning": "river name",
+        "equation": "氵 water (drops) + 黾 strive = 渑 river name",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "黾",
+            "gloss": "strive"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "黾",
+            "gloss": "strive"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "river name",
+        "equation": "氵 water (drops) + 黾 toad = 渑 river name",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "黾",
+            "gloss": "toad"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "黾",
+            "gloss": "toad"
+          }
+        ]
+      },
+      "before_mnemonic": "On a Shandong map, the 渑 river name follows 氵 water that seems to 黾 strive around every bend.",
+      "after_mnemonic": "The 渑 river name labels 氵 water (drops) where a 黾 toad waits on the bank.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "瀆",
+      "base_card_hash": "sha256:bbf9ac0f73c6273ce5e8b7477dfc4ae51e96b0d37705788efdd1c00e321f635f",
+      "before": {
+        "meaning": "gutter",
+        "equation": "氵 water (drops) + 賣 sell = 瀆 gutter",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "賣",
+            "gloss": "sell"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "賣",
+            "gloss": "sell"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "ditch",
+        "equation": "氵 water (drops) + 賣 sell = 瀆 ditch",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "賣",
+            "gloss": "sell"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "賣",
+            "gloss": "sell"
+          }
+        ]
+      },
+      "before_mnemonic": "A 瀆 gutter channels 氵 water past vendors who 賣 sell along the market street.",
+      "after_mnemonic": "Let 氵 water (drops) run through a 瀆 ditch beside the market where vendors 賣 sell.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "爾",
+      "base_card_hash": "sha256:c1d2610fc09066137e2080396cd39956c134031762171f1303b6c436a2ec6f57",
+      "before": {
+        "meaning": "you (literary)",
+        "equation": "一 one + 八 eight + 巾 cloth + 㸚 scattered or dispersed = 爾 you (literary)",
+        "components": [
+          {
+            "character": "一",
+            "gloss": "one"
+          },
+          {
+            "character": "八",
+            "gloss": "eight"
+          },
+          {
+            "character": "巾",
+            "gloss": "cloth"
+          },
+          {
+            "character": "㸚",
+            "gloss": "scattered or dispersed"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "一",
+            "gloss": "one"
+          },
+          {
+            "character": "八",
+            "gloss": "eight"
+          },
+          {
+            "character": "巾",
+            "gloss": "cloth"
+          },
+          {
+            "character": "㸚",
+            "gloss": "scattered or dispersed"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "you (literary)",
+        "equation": "Visual form: 爾 you (literary)",
+        "components": [
+          {
+            "character": "爾",
+            "gloss": "you (literary)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "爾",
+            "gloss": "you (literary)"
+          }
+        ]
+      },
+      "before_mnemonic": "A poet lifts 一 one canopy of 巾 cloth, finds 八 eight figures 㸚 scattered or dispersed, and addresses 爾 you (literary).",
+      "after_mnemonic": "In an old poem, the speaker points to 爾 you (literary).",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "牍",
+      "base_card_hash": "sha256:0a2cec1b89ce28f95fa3555d6774544e931f7d2927e55dd1f36bf85751da47d4",
+      "before": {
+        "meaning": "writing tablet",
+        "equation": "片 slice + 卖 betray = 牍 writing tablet",
+        "components": [
+          {
+            "character": "片",
+            "gloss": "slice"
+          },
+          {
+            "character": "卖",
+            "gloss": "betray"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "片",
+            "gloss": "slice"
+          },
+          {
+            "character": "卖",
+            "gloss": "betray"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "writing tablet",
+        "equation": "片 slice + 卖 sell = 牍 writing tablet",
+        "components": [
+          {
+            "character": "片",
+            "gloss": "slice"
+          },
+          {
+            "character": "卖",
+            "gloss": "sell"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "片",
+            "gloss": "slice"
+          },
+          {
+            "character": "卖",
+            "gloss": "sell"
+          }
+        ]
+      },
+      "before_mnemonic": "A 牍 writing tablet is a 片 slice of wood bearing secrets that could 卖 betray their author.",
+      "after_mnemonic": "Write prices on a 片 slice of wood, a 牍 writing tablet, before you 卖 sell.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "犊",
+      "base_card_hash": "sha256:fc716eac0704828535e65948f75a8b6ada4362b57b9542568060ced074191983",
+      "before": {
+        "meaning": "calf",
+        "equation": "牜 ox + 卖 betray = 犊 calf",
+        "components": [
+          {
+            "character": "牜",
+            "gloss": "ox"
+          },
+          {
+            "character": "卖",
+            "gloss": "betray"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "牜",
+            "gloss": "ox"
+          },
+          {
+            "character": "卖",
+            "gloss": "betray"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "calf",
+        "equation": "牜 ox + 卖 sell = 犊 calf",
+        "components": [
+          {
+            "character": "牜",
+            "gloss": "ox"
+          },
+          {
+            "character": "卖",
+            "gloss": "sell"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "牜",
+            "gloss": "ox"
+          },
+          {
+            "character": "卖",
+            "gloss": "sell"
+          }
+        ]
+      },
+      "before_mnemonic": "You 卖 betray a 牜 ox by stealing its 犊 calf.",
+      "after_mnemonic": "A 牜 ox stands beside the 犊 calf that a farmer plans to 卖 sell.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "狝",
+      "base_card_hash": "sha256:564746ab9515de12048bd6df077c725c478dffc8dcca36ff8926f9ed22899ebf",
+      "before": {
+        "meaning": "autumn hunt",
+        "equation": "犭 dog (side) + 尔 those = 狝 autumn hunt",
+        "components": [
+          {
+            "character": "犭",
+            "gloss": "dog (side)"
+          },
+          {
+            "character": "尔",
+            "gloss": "those"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "犭",
+            "gloss": "dog (side)"
+          },
+          {
+            "character": "尔",
+            "gloss": "those"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "autumn hunt",
+        "equation": "犭 dog (side) + 尔 you (literary) = 狝 autumn hunt",
+        "components": [
+          {
+            "character": "犭",
+            "gloss": "dog (side)"
+          },
+          {
+            "character": "尔",
+            "gloss": "you (literary)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "犭",
+            "gloss": "dog (side)"
+          },
+          {
+            "character": "尔",
+            "gloss": "you (literary)"
+          }
+        ]
+      },
+      "before_mnemonic": "A 犭 dog pursues 尔 those deer through fallen leaves during the 狝 autumn hunt.",
+      "after_mnemonic": "尔 you (literary) send a 犭 dog (side) after deer during the 狝 autumn hunt.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "玺",
+      "base_card_hash": "sha256:6642d481018646320106149fa11159c995b7a0f355d5be9db3d276f0808edb71",
+      "before": {
+        "meaning": "imperial seal",
+        "equation": "尔 those + 玉 jade = 玺 imperial seal",
+        "components": [
+          {
+            "character": "尔",
+            "gloss": "those"
+          },
+          {
+            "character": "玉",
+            "gloss": "jade"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "尔",
+            "gloss": "those"
+          },
+          {
+            "character": "玉",
+            "gloss": "jade"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "imperial seal",
+        "equation": "尔 you (literary) + 玉 jade = 玺 imperial seal",
+        "components": [
+          {
+            "character": "尔",
+            "gloss": "you (literary)"
+          },
+          {
+            "character": "玉",
+            "gloss": "jade"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "尔",
+            "gloss": "you (literary)"
+          },
+          {
+            "character": "玉",
+            "gloss": "jade"
+          }
+        ]
+      },
+      "before_mnemonic": "The emperor points to 尔 those 玉 jade blocks, choosing one for his 玺 imperial seal.",
+      "after_mnemonic": "The emperor hands 尔 you (literary) a 玉 jade 玺 imperial seal.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "珎",
+      "base_card_hash": "sha256:6542e815836ddded171417630af24e53c40708322f175151b7d974f49e40733f",
+      "before": {
+        "meaning": "precious",
+        "equation": "𤣩 jade (alt) + 尔 those = 珎 precious",
+        "components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade (alt)"
+          },
+          {
+            "character": "尔",
+            "gloss": "those"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade (alt)"
+          },
+          {
+            "character": "尔",
+            "gloss": "those"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "precious",
+        "equation": "𤣩 jade (alt) + 尔 you (literary) = 珎 precious",
+        "components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade (alt)"
+          },
+          {
+            "character": "尔",
+            "gloss": "you (literary)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade (alt)"
+          },
+          {
+            "character": "尔",
+            "gloss": "you (literary)"
+          }
+        ]
+      },
+      "before_mnemonic": "Among 尔 those stones, only the 𤣩 jade is locked away as 珎 precious.",
+      "after_mnemonic": "尔 you (literary) lock away the 𤣩 jade (alt) because it is 珎 precious.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "皑",
+      "base_card_hash": "sha256:0de70407568ff693c64882505e04464d8e10c57423d67ed0ba1174d56255f3d1",
+      "before": {
+        "meaning": "brilliant white",
+        "equation": "白 white + 岂 victorious music = 皑 brilliant white",
+        "components": [
+          {
+            "character": "白",
+            "gloss": "white"
+          },
+          {
+            "character": "岂",
+            "gloss": "victorious music"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "白",
+            "gloss": "white"
+          },
+          {
+            "character": "岂",
+            "gloss": "victorious music"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "brilliant white",
+        "equation": "白 white + 岂 victory drum = 皑 brilliant white",
+        "components": [
+          {
+            "character": "白",
+            "gloss": "white"
+          },
+          {
+            "character": "岂",
+            "gloss": "victory drum"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "白",
+            "gloss": "white"
+          },
+          {
+            "character": "岂",
+            "gloss": "victory drum"
+          }
+        ]
+      },
+      "before_mnemonic": "At the victory concert, 岂 victorious music rings beneath a 白 white spotlight shining 皑 brilliant white.",
+      "after_mnemonic": "Fresh 白 white snow around the 岂 victory drum shines 皑 brilliant white.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "硙",
+      "base_card_hash": "sha256:73711c2f677a3f7b58e5a0b0fa058b2c3840a8e7614b915ee7edd00c3b295c3c",
+      "before": {
+        "meaning": "stone mill",
+        "equation": "石 stone + 岂 victorious music = 硙 stone mill",
+        "components": [
+          {
+            "character": "石",
+            "gloss": "stone"
+          },
+          {
+            "character": "岂",
+            "gloss": "victorious music"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "石",
+            "gloss": "stone"
+          },
+          {
+            "character": "岂",
+            "gloss": "victorious music"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "stone mill",
+        "equation": "石 stone + 岂 victory drum = 硙 stone mill",
+        "components": [
+          {
+            "character": "石",
+            "gloss": "stone"
+          },
+          {
+            "character": "岂",
+            "gloss": "victory drum"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "石",
+            "gloss": "stone"
+          },
+          {
+            "character": "岂",
+            "gloss": "victory drum"
+          }
+        ]
+      },
+      "before_mnemonic": "岂 victorious music keeps the rhythm while grain crunches between the 石 stone wheels of a 硙 stone mill.",
+      "after_mnemonic": "A circular 石 stone turns like the head of a 岂 victory drum in a 硙 stone mill.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "祢",
+      "base_card_hash": "sha256:04dbc624fc662a2c7c079de573cfb2d277fbdfbcacd95f3960833b9c109df783",
+      "before": {
+        "meaning": "one's deceased father",
+        "equation": "示 altar + 尔 those = 祢 one's deceased father",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "尔",
+            "gloss": "those"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "尔",
+            "gloss": "those"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "one's deceased father",
+        "equation": "示 altar + 尔 you (literary) = 祢 one's deceased father",
+        "components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "尔",
+            "gloss": "you (literary)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "示",
+            "gloss": "altar"
+          },
+          {
+            "character": "尔",
+            "gloss": "you (literary)"
+          }
+        ]
+      },
+      "before_mnemonic": "At a 示 altar, a son points to 尔 those flowers while honoring 祢 one's deceased father.",
+      "after_mnemonic": "At a 示 altar, 尔 you (literary) honor 祢 one's deceased father.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "称",
+      "base_card_hash": "sha256:7d5c7688b2a12e07a71c32b8fdec5e77a389237defd78a3734be053e485ccada",
+      "before": {
+        "meaning": "weigh",
+        "equation": "禾 standing grain + 尔 those = 称 weigh",
+        "components": [
+          {
+            "character": "禾",
+            "gloss": "standing grain"
+          },
+          {
+            "character": "尔",
+            "gloss": "those"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "禾",
+            "gloss": "standing grain"
+          },
+          {
+            "character": "尔",
+            "gloss": "those"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "weigh",
+        "equation": "禾 standing grain + 尔 you (literary) = 称 weigh",
+        "components": [
+          {
+            "character": "禾",
+            "gloss": "standing grain"
+          },
+          {
+            "character": "尔",
+            "gloss": "you (literary)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "禾",
+            "gloss": "standing grain"
+          },
+          {
+            "character": "尔",
+            "gloss": "you (literary)"
+          }
+        ]
+      },
+      "before_mnemonic": "You must harvest the 禾 standing grain and gather 尔 those bundles to 称 weigh them.",
+      "after_mnemonic": "尔 you (literary) place 禾 standing grain on a scale to 称 weigh it.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "窦",
+      "base_card_hash": "sha256:aec7fa61d7ed7ea0f8f03d9ad87b7896d54ed176d89492a11f4e93431a20c519",
+      "before": {
+        "meaning": "burrow",
+        "equation": "穴 hole + 卖 betray = 窦 burrow",
+        "components": [
+          {
+            "character": "穴",
+            "gloss": "hole"
+          },
+          {
+            "character": "卖",
+            "gloss": "betray"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "穴",
+            "gloss": "hole"
+          },
+          {
+            "character": "卖",
+            "gloss": "betray"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "burrow",
+        "equation": "穴 hole + 卖 sell = 窦 burrow",
+        "components": [
+          {
+            "character": "穴",
+            "gloss": "hole"
+          },
+          {
+            "character": "卖",
+            "gloss": "sell"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "穴",
+            "gloss": "hole"
+          },
+          {
+            "character": "卖",
+            "gloss": "sell"
+          }
+        ]
+      },
+      "before_mnemonic": "Fresh soil beside a 穴 hole can 卖 betray where an animal dug its 窦 burrow.",
+      "after_mnemonic": "An animal uses a 穴 hole as a 窦 burrow beneath goods a merchant might 卖 sell.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "续",
+      "base_card_hash": "sha256:6e52046ce2d1d841ea7b15a2c08905f040d552bf9464d091e917320f5dc3e4db",
+      "before": {
+        "meaning": "continue",
+        "equation": "纟 thread + 卖 betray = 续 continue",
+        "components": [
+          {
+            "character": "纟",
+            "gloss": "thread"
+          },
+          {
+            "character": "卖",
+            "gloss": "betray"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "纟",
+            "gloss": "thread"
+          },
+          {
+            "character": "卖",
+            "gloss": "betray"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "continue",
+        "equation": "纟 thread + 卖 sell = 续 continue",
+        "components": [
+          {
+            "character": "纟",
+            "gloss": "thread"
+          },
+          {
+            "character": "卖",
+            "gloss": "sell"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "纟",
+            "gloss": "thread"
+          },
+          {
+            "character": "卖",
+            "gloss": "sell"
+          }
+        ]
+      },
+      "before_mnemonic": "A snapped 纟 thread can 卖 betray the weaver, but one knot lets the work 续 continue.",
+      "after_mnemonic": "Tie the 纟 thread after each length you 卖 sell so the spool can 续 continue.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "绳",
+      "base_card_hash": "sha256:08c088f00267e2de43a895824374be07f6d8da206dc3b20257b6fbe0a988a463",
+      "before": {
+        "meaning": "cord",
+        "equation": "纟 thread + 黾 strive = 绳 cord",
+        "components": [
+          {
+            "character": "纟",
+            "gloss": "thread"
+          },
+          {
+            "character": "黾",
+            "gloss": "strive"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "纟",
+            "gloss": "thread"
+          },
+          {
+            "character": "黾",
+            "gloss": "strive"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "rope",
+        "equation": "纟 thread + 黾 toad = 绳 rope",
+        "components": [
+          {
+            "character": "纟",
+            "gloss": "thread"
+          },
+          {
+            "character": "黾",
+            "gloss": "toad"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "纟",
+            "gloss": "thread"
+          },
+          {
+            "character": "黾",
+            "gloss": "toad"
+          }
+        ]
+      },
+      "before_mnemonic": "Make each 纟 thread 黾 strive alongside the others by twisting them into a strong 绳 cord.",
+      "after_mnemonic": "Twist 纟 thread into a 绳 rope sturdy enough to tether a 黾 toad.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "蝇",
+      "base_card_hash": "sha256:e77794ed8570265d0f86e41421d67e581523d04afd6b469cf5d7bfaa98f3612e",
+      "before": {
+        "meaning": "flies",
+        "equation": "虫 insects + 黾 strive = 蝇 flies",
+        "components": [
+          {
+            "character": "虫",
+            "gloss": "insects"
+          },
+          {
+            "character": "黾",
+            "gloss": "strive"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "虫",
+            "gloss": "insects"
+          },
+          {
+            "character": "黾",
+            "gloss": "strive"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "flies",
+        "equation": "虫 insects + 黾 toad = 蝇 flies",
+        "components": [
+          {
+            "character": "虫",
+            "gloss": "insects"
+          },
+          {
+            "character": "黾",
+            "gloss": "toad"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "虫",
+            "gloss": "insects"
+          },
+          {
+            "character": "黾",
+            "gloss": "toad"
+          }
+        ]
+      },
+      "before_mnemonic": "The buzzing 蝇 flies are 虫 insects that 黾 strive to reach spilled fruit first.",
+      "after_mnemonic": "The 蝇 flies are 虫 insects hovering above a waiting 黾 toad.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "覙",
+      "base_card_hash": "sha256:eec63802704bae0244113cdf63688c38029ec80394db21bf3c89ec94049f62ec",
+      "before": {
+        "meaning": "explain in detail",
+        "equation": "尔 those + 見 see = 覙 explain in detail",
+        "components": [
+          {
+            "character": "尔",
+            "gloss": "those"
+          },
+          {
+            "character": "見",
+            "gloss": "see"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "尔",
+            "gloss": "those"
+          },
+          {
+            "character": "見",
+            "gloss": "see"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "explain in detail",
+        "equation": "尔 you (literary) + 見 see = 覙 explain in detail",
+        "components": [
+          {
+            "character": "尔",
+            "gloss": "you (literary)"
+          },
+          {
+            "character": "見",
+            "gloss": "see"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "尔",
+            "gloss": "you (literary)"
+          },
+          {
+            "character": "見",
+            "gloss": "see"
+          }
+        ]
+      },
+      "before_mnemonic": "To 覙 explain in detail, point out 尔 those features everyone can 見 see.",
+      "after_mnemonic": "尔 you (literary) must 見 see every feature before you 覙 explain in detail.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "覿",
+      "base_card_hash": "sha256:a9f05ecfe7c50dc9c3ba4374b914b2969e35e7c88af21c146e93e9158c213000",
+      "before": {
+        "meaning": "interview",
+        "equation": "賣 sell + 見 see = 覿 interview",
+        "components": [
+          {
+            "character": "賣",
+            "gloss": "sell"
+          },
+          {
+            "character": "見",
+            "gloss": "see"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "賣",
+            "gloss": "sell"
+          },
+          {
+            "character": "見",
+            "gloss": "see"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "meet face to face",
+        "equation": "賣 sell + 見 see = 覿 meet face to face",
+        "components": [
+          {
+            "character": "賣",
+            "gloss": "sell"
+          },
+          {
+            "character": "見",
+            "gloss": "see"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "賣",
+            "gloss": "sell"
+          },
+          {
+            "character": "見",
+            "gloss": "see"
+          }
+        ]
+      },
+      "before_mnemonic": "A merchant must 見 see the buyer and explain the goods they hope to 賣 sell during a 覿 interview.",
+      "after_mnemonic": "To 覿 meet face to face, 賣 sell directly to a buyer you can 見 see.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "觊",
+      "base_card_hash": "sha256:d1d3153f92c4743d32da3aa867aaeeffb9ed9a32e32f7fa4fcaf50c71ccb3790",
+      "before": {
+        "meaning": "covet",
+        "equation": "岂 victorious music + 见 see = 觊 covet",
+        "components": [
+          {
+            "character": "岂",
+            "gloss": "victorious music"
+          },
+          {
+            "character": "见",
+            "gloss": "see"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "岂",
+            "gloss": "victorious music"
+          },
+          {
+            "character": "见",
+            "gloss": "see"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "covet",
+        "equation": "岂 victory drum + 见 see = 觊 covet",
+        "components": [
+          {
+            "character": "岂",
+            "gloss": "victory drum"
+          },
+          {
+            "character": "见",
+            "gloss": "see"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "岂",
+            "gloss": "victory drum"
+          },
+          {
+            "character": "见",
+            "gloss": "see"
+          }
+        ]
+      },
+      "before_mnemonic": "After you 见 see the trophy, 岂 victorious music fills your thoughts as you 觊 covet it.",
+      "after_mnemonic": "After you 见 see the jeweled 岂 victory drum, you may 觊 covet it.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "觌",
+      "base_card_hash": "sha256:354bdb5675c0aae8c655d2683d0ca3cedd248cbe95f6728076c5d5d91a318cbc",
+      "before": {
+        "meaning": "see face to face",
+        "equation": "卖 betray + 见 see = 觌 see face to face",
+        "components": [
+          {
+            "character": "卖",
+            "gloss": "betray"
+          },
+          {
+            "character": "见",
+            "gloss": "see"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "卖",
+            "gloss": "betray"
+          },
+          {
+            "character": "见",
+            "gloss": "see"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "meet face to face",
+        "equation": "卖 sell + 见 see = 觌 meet face to face",
+        "components": [
+          {
+            "character": "卖",
+            "gloss": "sell"
+          },
+          {
+            "character": "见",
+            "gloss": "see"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "卖",
+            "gloss": "sell"
+          },
+          {
+            "character": "见",
+            "gloss": "see"
+          }
+        ]
+      },
+      "before_mnemonic": "You can 见 see the expression of someone you 卖 betray only when you 觌 see face to face.",
+      "after_mnemonic": "To 觌 meet face to face, 卖 sell directly to a buyer you can 见 see.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "读",
+      "base_card_hash": "sha256:27fa411a27e57df003fbd009ede109cf8c7afa9a8f52d3b7afaec833540f5ee5",
+      "before": {
+        "meaning": "read",
+        "equation": "讠 speech + 卖 betray = 读 read",
+        "components": [
+          {
+            "character": "讠",
+            "gloss": "speech"
+          },
+          {
+            "character": "卖",
+            "gloss": "betray"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "讠",
+            "gloss": "speech"
+          },
+          {
+            "character": "卖",
+            "gloss": "betray"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "read",
+        "equation": "讠 speech + 卖 sell = 读 read",
+        "components": [
+          {
+            "character": "讠",
+            "gloss": "speech"
+          },
+          {
+            "character": "卖",
+            "gloss": "sell"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "讠",
+            "gloss": "speech"
+          },
+          {
+            "character": "卖",
+            "gloss": "sell"
+          }
+        ]
+      },
+      "before_mnemonic": "To 读 read the confession aloud, turn its plan to 卖 betray an ally into 讠 speech.",
+      "after_mnemonic": "Use 讠 speech to 读 read the prices before you 卖 sell.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "賣",
+      "base_card_hash": "sha256:2aaea7fe2f249519ae92b75b721e436b5245d7794d0fa2a75edf8bc346ae0753",
+      "before": {
+        "meaning": "sell",
+        "equation": "士 soldier + 買 buy = 賣 sell",
+        "components": [
+          {
+            "character": "士",
+            "gloss": "soldier"
+          },
+          {
+            "character": "買",
+            "gloss": "buy"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "士",
+            "gloss": "soldier"
+          },
+          {
+            "character": "買",
+            "gloss": "buy"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sell",
+        "equation": "Visual form: 賣 sell",
+        "components": [
+          {
+            "character": "賣",
+            "gloss": "sell"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "賣",
+            "gloss": "sell"
+          }
+        ]
+      },
+      "before_mnemonic": "A 士 soldier must 賣 sell an old shield so a recruit can 買 buy it.",
+      "after_mnemonic": "At a market, display an item to 賣 sell it.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "赎",
+      "base_card_hash": "sha256:0748ac41c0f91d070369b10ee389a5b6fce81223bb829a84aa96543ab3ac5745",
+      "before": {
+        "meaning": "redeem",
+        "equation": "贝 shell + 卖 betray = 赎 redeem",
+        "components": [
+          {
+            "character": "贝",
+            "gloss": "shell"
+          },
+          {
+            "character": "卖",
+            "gloss": "betray"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "贝",
+            "gloss": "shell"
+          },
+          {
+            "character": "卖",
+            "gloss": "betray"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "redeem",
+        "equation": "贝 shell + 卖 sell = 赎 redeem",
+        "components": [
+          {
+            "character": "贝",
+            "gloss": "shell"
+          },
+          {
+            "character": "卖",
+            "gloss": "sell"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "贝",
+            "gloss": "shell"
+          },
+          {
+            "character": "卖",
+            "gloss": "sell"
+          }
+        ]
+      },
+      "before_mnemonic": "Someone may 卖 betray you for a 贝 shell; pay it back to 赎 redeem your freedom.",
+      "after_mnemonic": "Return the 贝 shell paid when someone had to 卖 sell their freedom, letting them 赎 redeem it.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "趂",
+      "base_card_hash": "sha256:0a79417c03b7af69222d1d1518f2efe63c92be9061e904f7e4fbe684eb7f1076",
+      "before": {
+        "meaning": "take advantage",
+        "equation": "走 walk + 尔 those = 趂 take advantage",
+        "components": [
+          {
+            "character": "走",
+            "gloss": "walk"
+          },
+          {
+            "character": "尔",
+            "gloss": "those"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "走",
+            "gloss": "walk"
+          },
+          {
+            "character": "尔",
+            "gloss": "those"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "take advantage",
+        "equation": "走 walk + 尔 you (literary) = 趂 take advantage",
+        "components": [
+          {
+            "character": "走",
+            "gloss": "walk"
+          },
+          {
+            "character": "尔",
+            "gloss": "you (literary)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "走",
+            "gloss": "walk"
+          },
+          {
+            "character": "尔",
+            "gloss": "you (literary)"
+          }
+        ]
+      },
+      "before_mnemonic": "While 尔 those opportunities 走 walk beside you, 趂 take advantage before they pass.",
+      "after_mnemonic": "尔 you (literary) should 走 walk beside an opportunity and 趂 take advantage before it passes.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "迩",
+      "base_card_hash": "sha256:1d23d2ee1e85de20c5c9ea86018227fbab64255a5d70e5c3c7940ca12d85eb16",
+      "before": {
+        "meaning": "near",
+        "equation": "辶 movement + 尔 those = 迩 near",
+        "components": [
+          {
+            "character": "辶",
+            "gloss": "movement"
+          },
+          {
+            "character": "尔",
+            "gloss": "those"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "辶",
+            "gloss": "movement"
+          },
+          {
+            "character": "尔",
+            "gloss": "those"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "near",
+        "equation": "辶 movement + 尔 you (literary) = 迩 near",
+        "components": [
+          {
+            "character": "辶",
+            "gloss": "movement"
+          },
+          {
+            "character": "尔",
+            "gloss": "you (literary)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "辶",
+            "gloss": "movement"
+          },
+          {
+            "character": "尔",
+            "gloss": "you (literary)"
+          }
+        ]
+      },
+      "before_mnemonic": "Each forward 辶 movement brings 尔 those distant figures 迩 near enough to recognize.",
+      "after_mnemonic": "Each 辶 movement toward 尔 you (literary) brings me 迩 near.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "鉨",
+      "base_card_hash": "sha256:a5fd2593846811c3fda946aab5d7e83329d1b4097a1b3f0d27c7abcf3d711f53",
+      "before": {
+        "meaning": "nihonium",
+        "equation": "金 metal + 尔 those = 鉨 nihonium",
+        "components": [
+          {
+            "character": "金",
+            "gloss": "metal"
+          },
+          {
+            "character": "尔",
+            "gloss": "those"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "金",
+            "gloss": "metal"
+          },
+          {
+            "character": "尔",
+            "gloss": "those"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "nihonium",
+        "equation": "金 metal + 尔 you (literary) = 鉨 nihonium",
+        "components": [
+          {
+            "character": "金",
+            "gloss": "metal"
+          },
+          {
+            "character": "尔",
+            "gloss": "you (literary)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "金",
+            "gloss": "metal"
+          },
+          {
+            "character": "尔",
+            "gloss": "you (literary)"
+          }
+        ]
+      },
+      "before_mnemonic": "Among 尔 those element samples, the 113th 金 metal is 鉨 nihonium.",
+      "after_mnemonic": "尔 you (literary) inspect the 113th 金 metal, 鉨 nihonium.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "铠",
+      "base_card_hash": "sha256:e0bae4c793dbf7e73c6e96433772980771f9f4a296bbb0533ef78a76111a5099",
+      "before": {
+        "meaning": "armor",
+        "equation": "钅 metal + 岂 victorious music = 铠 armor",
+        "components": [
+          {
+            "character": "钅",
+            "gloss": "metal"
+          },
+          {
+            "character": "岂",
+            "gloss": "victorious music"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "钅",
+            "gloss": "metal"
+          },
+          {
+            "character": "岂",
+            "gloss": "victorious music"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "armor",
+        "equation": "钅 metal + 岂 victory drum = 铠 armor",
+        "components": [
+          {
+            "character": "钅",
+            "gloss": "metal"
+          },
+          {
+            "character": "岂",
+            "gloss": "victory drum"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "钅",
+            "gloss": "metal"
+          },
+          {
+            "character": "岂",
+            "gloss": "victory drum"
+          }
+        ]
+      },
+      "before_mnemonic": "岂 victorious music rings against 钅 metal as a warrior marches in 铠 armor.",
+      "after_mnemonic": "Forge 钅 metal in the sturdy curve of a 岂 victory drum to make 铠 armor.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "闿",
+      "base_card_hash": "sha256:cc09bc58dc4a768a27a6058dfb995c25f83cbf229e3e6677a24b9cca626b756c",
+      "before": {
+        "meaning": "open",
+        "equation": "门 gate + 岂 victorious music = 闿 open",
+        "components": [
+          {
+            "character": "门",
+            "gloss": "gate"
+          },
+          {
+            "character": "岂",
+            "gloss": "victorious music"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "门",
+            "gloss": "gate"
+          },
+          {
+            "character": "岂",
+            "gloss": "victorious music"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "open",
+        "equation": "门 gate + 岂 victory drum = 闿 open",
+        "components": [
+          {
+            "character": "门",
+            "gloss": "gate"
+          },
+          {
+            "character": "岂",
+            "gloss": "victory drum"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "门",
+            "gloss": "gate"
+          },
+          {
+            "character": "岂",
+            "gloss": "victory drum"
+          }
+        ]
+      },
+      "before_mnemonic": "岂 victorious music pours through the 门 gate as it swings 闿 open.",
+      "after_mnemonic": "Swing the 门 gate as wide as the mouth of a 岂 victory drum until it is 闿 open.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "黩",
+      "base_card_hash": "sha256:179c5933b16837657f212f63466ebbf4993090dda8a711c3b8bd3c650bdafec7",
+      "before": {
+        "meaning": "dishonor",
+        "equation": "黑 black + 卖 betray = 黩 dishonor",
+        "components": [
+          {
+            "character": "黑",
+            "gloss": "black"
+          },
+          {
+            "character": "卖",
+            "gloss": "betray"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "黑",
+            "gloss": "black"
+          },
+          {
+            "character": "卖",
+            "gloss": "betray"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "dishonor",
+        "equation": "黑 black + 卖 sell = 黩 dishonor",
+        "components": [
+          {
+            "character": "黑",
+            "gloss": "black"
+          },
+          {
+            "character": "卖",
+            "gloss": "sell"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "黑",
+            "gloss": "black"
+          },
+          {
+            "character": "卖",
+            "gloss": "sell"
+          }
+        ]
+      },
+      "before_mnemonic": "When you 卖 betray a trust, a 黑 black stain can 黩 dishonor your name.",
+      "after_mnemonic": "If you 卖 sell a friend's secret, a 黑 black stain will 黩 dishonor your name.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "黾",
+      "base_card_hash": "sha256:278737e52718e9ea3e69001cdbfc842c7136cbc5098d283c980e217efdf25fdb",
+      "before": {
+        "meaning": "strive",
+        "equation": "口 mouth + 电 electric = 黾 strive",
+        "components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "电",
+            "gloss": "electric"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "口",
+            "gloss": "mouth"
+          },
+          {
+            "character": "电",
+            "gloss": "electric"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "toad",
+        "equation": "Visual form: 黾 toad",
+        "components": [
+          {
+            "character": "黾",
+            "gloss": "toad"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "黾",
+            "gloss": "toad"
+          }
+        ]
+      },
+      "before_mnemonic": "With a 口 mouth urging you onward and 电 electric energy in your limbs, you can 黾 strive.",
+      "after_mnemonic": "The boxy 黾 toad crouches wide, with a broad head above folded legs.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "鼋",
+      "base_card_hash": "sha256:16dff1e65ef900cd46f62ec6bc8af4f4fd937dbae49b8e44959d3d568f40822c",
+      "before": {
+        "meaning": "large turtle",
+        "equation": "元 beginning + 黾 strive = 鼋 large turtle",
+        "components": [
+          {
+            "character": "元",
+            "gloss": "beginning"
+          },
+          {
+            "character": "黾",
+            "gloss": "strive"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "元",
+            "gloss": "beginning"
+          },
+          {
+            "character": "黾",
+            "gloss": "strive"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "large turtle",
+        "equation": "元 beginning + 黾 toad = 鼋 large turtle",
+        "components": [
+          {
+            "character": "元",
+            "gloss": "beginning"
+          },
+          {
+            "character": "黾",
+            "gloss": "toad"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "元",
+            "gloss": "beginning"
+          },
+          {
+            "character": "黾",
+            "gloss": "toad"
+          }
+        ]
+      },
+      "before_mnemonic": "From the 元 beginning, make a tiny shelled swimmer 黾 strive forward until it fills the frame as a 鼋 large turtle.",
+      "after_mnemonic": "At the 元 beginning, a 黾 toad sprouts a broad shell and grows into a 鼋 large turtle.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "鼍",
+      "base_card_hash": "sha256:9a6bb7d105dbeb07036328eacdb047d94a08fc58c9644858762e38ba65a80dbe",
+      "before": {
+        "meaning": "large reptile",
+        "equation": "㽞 remain + 一 one + 黾 strive = 鼍 large reptile",
+        "components": [
+          {
+            "character": "㽞",
+            "gloss": "remain"
+          },
+          {
+            "character": "一",
+            "gloss": "one"
+          },
+          {
+            "character": "黾",
+            "gloss": "strive"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "㽞",
+            "gloss": "remain"
+          },
+          {
+            "character": "一",
+            "gloss": "one"
+          },
+          {
+            "character": "黾",
+            "gloss": "strive"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "large reptile",
+        "equation": "㽞 remain + 一 one + 黾 toad = 鼍 large reptile",
+        "components": [
+          {
+            "character": "㽞",
+            "gloss": "remain"
+          },
+          {
+            "character": "一",
+            "gloss": "one"
+          },
+          {
+            "character": "黾",
+            "gloss": "toad"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "㽞",
+            "gloss": "remain"
+          },
+          {
+            "character": "一",
+            "gloss": "one"
+          },
+          {
+            "character": "黾",
+            "gloss": "toad"
+          }
+        ]
+      },
+      "before_mnemonic": "As 一 one armored 鼍 large reptile approaches, smaller creatures 黾 strive to escape and none 㽞 remain.",
+      "after_mnemonic": "As 一 one armored 鼍 large reptile approaches, only a 黾 toad dares to 㽞 remain.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "鿭",
+      "base_card_hash": "sha256:7c4cee4f55cdbfc5398303274b27d7b22654d84b20f1aa429fec50e69ad95c92",
+      "before": {
+        "meaning": "nihonium",
+        "equation": "钅 metal + 尔 those = 鿭 nihonium",
+        "components": [
+          {
+            "character": "钅",
+            "gloss": "metal"
+          },
+          {
+            "character": "尔",
+            "gloss": "those"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "钅",
+            "gloss": "metal"
+          },
+          {
+            "character": "尔",
+            "gloss": "those"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "nihonium",
+        "equation": "钅 metal + 尔 you (literary) = 鿭 nihonium",
+        "components": [
+          {
+            "character": "钅",
+            "gloss": "metal"
+          },
+          {
+            "character": "尔",
+            "gloss": "you (literary)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "钅",
+            "gloss": "metal"
+          },
+          {
+            "character": "尔",
+            "gloss": "you (literary)"
+          }
+        ]
+      },
+      "before_mnemonic": "Among 尔 those elements on the periodic table, the 钅 metal at 113 is 鿭 nihonium, named for Japan.",
+      "after_mnemonic": "尔 you (literary) inspect element 113, the 钅 metal 鿭 nihonium.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "你",
+      "base_card_hash": "sha256:e7ca974a0d4b88eb53e220e1eda54fbdec614a3ba4fc441430a8ca908612d6a7",
+      "before": {
+        "meaning": "you",
+        "equation": "亻 person (side) + 尔 those = 你 you",
+        "components": [
+          {
+            "character": "亻",
+            "gloss": "person (side)"
+          },
+          {
+            "character": "尔",
+            "gloss": "those"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亻",
+            "gloss": "person (side)"
+          },
+          {
+            "character": "尔",
+            "gloss": "those"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "you",
+        "equation": "亻 person (side) + 尔 you (literary) = 你 you",
+        "components": [
+          {
+            "character": "亻",
+            "gloss": "person (side)"
+          },
+          {
+            "character": "尔",
+            "gloss": "you (literary)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亻",
+            "gloss": "person (side)"
+          },
+          {
+            "character": "尔",
+            "gloss": "you (literary)"
+          }
+        ]
+      },
+      "before_mnemonic": "From 尔 those people, one 亻 person steps forward when I address 你 you.",
+      "after_mnemonic": "A 亻 person (side) addressed as 尔 you (literary) is 你 you.",
+      "valid": true,
+      "problems": []
+    }
+  ]
+}

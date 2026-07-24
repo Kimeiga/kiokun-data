@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "policy_version": "2026-07-24.1",
+  "family": "recurring-variant-image",
+  "root_decisions": {
+    "岂": {
+      "decision": "restore_lexical_gloss_and_align_visual_unit",
+      "lexical_gloss": "how",
+      "component_gloss": "victory drum",
+      "reason": "岂 is the simplified form of 豈. The lexical card should teach the common function how, while descendants should reuse the same concrete victory-drum image as 豈 rather than the abstract phrase victorious music."
+    },
+    "尔": {
+      "decision": "restore_lexical_gloss_and_atomize",
+      "lexical_gloss": "you (literary)",
+      "component_gloss": "you (literary)",
+      "reason": "尔 is the simplified form of 爾 and means you, not those. A stable atomic unit also avoids forcing a misleading small-component story into every descendant."
+    },
+    "爾": {
+      "decision": "preserve_lexical_gloss_and_atomize",
+      "lexical_gloss": "you (literary)",
+      "component_gloss": "you (literary)",
+      "reason": "Nineteen cards already reuse 爾 as one coherent unit, so the root should teach that same unit rather than expand into four low-value pieces."
+    },
+    "卖": {
+      "decision": "preserve_lexical_gloss_and_atomize",
+      "lexical_gloss": "sell",
+      "component_gloss": "sell",
+      "reason": "卖 is the simplified form of 賣 and means sell. Betray was an unrelated narrative gloss that distorted ten descendants."
+    },
+    "賣": {
+      "decision": "preserve_lexical_gloss_and_atomize",
+      "lexical_gloss": "sell",
+      "component_gloss": "sell",
+      "reason": "Eighteen cards already reuse 賣 as one coherent sell unit, so the root should match that recurring boundary."
+    },
+    "黾": {
+      "decision": "restore_pictographic_gloss_and_atomize",
+      "lexical_gloss": "toad",
+      "component_gloss": "toad",
+      "reason": "黾 is the simplified form of the toad pictograph 黽. The rare verbal sense strive is much less useful than the visible animal image across its descendants."
+    }
+  },
+  "target_cleanup": {
+    "剀": "sharpen",
+    "绳": "rope",
+    "觌": "meet face to face",
+    "櫝": "cabinet",
+    "瀆": "ditch",
+    "覿": "meet face to face"
+  },
+  "expected_changed_card_count": 51,
+  "expected_component_occurrences": {
+    "岂 victory drum": 11,
+    "豈 victory drum": 29,
+    "尔 you (literary)": 16,
+    "爾 you (literary)": 19,
+    "卖 sell": 11,
+    "賣 sell": 18,
+    "黾 toad": 8,
+    "黽 toad": 20
+  },
+  "evidence": [
+    {
+      "source": "Repository Chinese dictionary",
+      "path": "data/chinese_dictionary_char_2025-06-25.jsonl",
+      "supports": "岂/豈, 尔/爾, 卖/賣, and 黾/黽 are explicit simplified/traditional pairs; 黾/黽 is identified as a toad pictograph."
+    }
+  ]
+}
