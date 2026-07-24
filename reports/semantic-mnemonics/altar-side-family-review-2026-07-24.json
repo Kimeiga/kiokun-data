@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "review_id": "altar-side-family-review-2026-07-24",
+  "policy_version": "2026-07-24.1",
+  "reviewed_root_count": 1,
+  "changed_card_count": 35,
+  "old_spirit_occurrence_count": 35,
+  "final_altar_side_occurrence_count": 35,
+  "method": "Manual rewrite of the complete 礻 boundary around its concrete memorial-tablet or altar image, with eight target cleanups.",
+  "root": {
+    "character": "礻",
+    "decision": "restore_component_form_image",
+    "lexical_gloss": "altar (side)",
+    "component_gloss": "altar (side)",
+    "reason": "礻 is the side form of 示 and depicts the same memorial tablet or altar. The concrete visible image is more reusable than the abstract gloss spirit."
+  },
+  "target_cleanup": {
+    "䃿": "ritual service",
+    "䄈": "sacrifice for happiness",
+    "䄉": "ritual service",
+    "䄋": "pray to avert calamity",
+    "䄍": "Zhou year-end sacrifice",
+    "䄒": "rice ripening",
+    "䄛": "food and drink offering",
+    "䄡": "ancient northern people"
+  },
+  "evidence": [
+    {
+      "source": "Repository Chinese dictionary",
+      "path": "data/chinese_dictionary_char_2025-06-25.jsonl",
+      "supports": "礻 is identified as the component form of 示, depicting a memorial tablet used for spiritual rituals."
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
-  "created_at": "2026-07-24T08:12:27.035057+00:00",
-  "artifact_created_at": "2026-07-24T08:12:25.414994+00:00",
+  "created_at": "2026-07-24T08:20:08.001761+00:00",
+  "artifact_created_at": "2026-07-24T08:20:06.358056+00:00",
   "methodology": "Formal validity and learning quality are separate. Flags are deterministic review signals; abstract meanings and variant forms are not automatically bad, while generic filler is a rewrite signal.",
   "taxonomy": {
     "generic_filler": {
@@ -2083,20 +2083,20 @@
   },
   "count": 24037,
   "quality_status_counts": {
-    "pass": 22611,
-    "review": 1402,
+    "pass": 22612,
+    "review": 1401,
     "rewrite": 24
   },
   "flag_counts": {
     "variant_form_needs_review": 832,
     "abstract_final_meaning": 373,
-    "duplicated_component_meaning": 238,
+    "duplicated_component_meaning": 237,
     "opaque_component_gloss": 21,
     "unhelpful_final_gloss": 14,
     "learner_facing_weirdness": 7
   },
-  "flagged_count": 1426,
-  "ranked_count": 1426,
+  "flagged_count": 1425,
+  "ranked_count": 1425,
   "ranked": [
     {
       "character": "質",
@@ -6073,40 +6073,6 @@
         {
           "character": "目",
           "gloss": "eye"
-        }
-      ],
-      "component_source": "resolved_ids_forward",
-      "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-    },
-    {
-      "character": "䄥",
-      "meaning": "deity",
-      "frequency_rank": null,
-      "quality_status": "review",
-      "quality_score": 4.0,
-      "review_priority": 4.0,
-      "flags": [
-        {
-          "code": "duplicated_component_meaning",
-          "severity": 4.0,
-          "evidence": [
-            [
-              "礻",
-              "靈"
-            ]
-          ]
-        }
-      ],
-      "equation": "礻 spirit + 靈 spirit = 䄥 deity",
-      "mnemonic": "When a 礻 spirit bows before a 靈 spirit, the one receiving worship is a 䄥 deity.",
-      "components": [
-        {
-          "character": "礻",
-          "gloss": "spirit"
-        },
-        {
-          "character": "靈",
-          "gloss": "spirit"
         }
       ],
       "component_source": "resolved_ids_forward",
@@ -45735,11 +45701,11 @@
   ],
   "gpt56_expedited_release": {
     "certification_status": "expedited_non_certified",
-    "materialized_card_projection_hash": "sha256:4572f55ac9efc423bb5380e3c26e25564dd8fdfe3878040cc14a03d0ee18f307",
+    "materialized_card_projection_hash": "sha256:15aae83cdf630f878bfa8bb28517ca7077b740864b95977d27158ddbbc3505ab",
     "formal_validation": {
       "count": 24037,
       "invalid_count": 0
     },
-    "editorial_ledger_sha256": "sha256:62e1bc581b499c6468923ac0ae713dc03561890b3da3e6727dc4ebb6d0b279d3"
+    "editorial_ledger_sha256": "sha256:fb5ec3fe8d59122d529e62407200d8fcb832c51ca0694145b9529ad8d727a75a"
   }
 }

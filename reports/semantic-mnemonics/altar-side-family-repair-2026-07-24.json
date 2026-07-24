@@ -1,0 +1,2012 @@
+{
+  "schema_version": 1,
+  "policy_version": "2026-07-24.1",
+  "policy_path": "data/semantic_mnemonic_altar_side_policy.json",
+  "base_projection_hash": "sha256:fc98bb12055f34cbfd48e95204475fa6942d0b86637d6a102a93f7bcb586907c",
+  "candidate_projection_hash": "sha256:93a46f2efc9d10d99ed2ad305be2a22801a91834715cfa5f0d9859502a761978",
+  "card_count": 24037,
+  "invalid_count": 0,
+  "changed_count": 35,
+  "already_applied_count": 0,
+  "old_spirit_occurrence_count": 35,
+  "altar_side_occurrence_count": 35,
+  "changed_characters": [
+    "䃽",
+    "䃾",
+    "䃿",
+    "䄀",
+    "䄁",
+    "䄂",
+    "䄃",
+    "䄄",
+    "䄆",
+    "䄇",
+    "䄈",
+    "䄉",
+    "䄋",
+    "䄌",
+    "䄍",
+    "䄎",
+    "䄏",
+    "䄑",
+    "䄒",
+    "䄓",
+    "䄔",
+    "䄕",
+    "䄖",
+    "䄘",
+    "䄙",
+    "䄚",
+    "䄛",
+    "䄜",
+    "䄝",
+    "䄠",
+    "䄡",
+    "䄢",
+    "䄤",
+    "䄥",
+    "礻"
+  ],
+  "changes": [
+    {
+      "character": "䃽",
+      "base_card_hash": "sha256:73afd9dc27d20fb5dd85ed5a087460725eb018e1636b4cb2dfbc2488fffab558",
+      "before": {
+        "meaning": "good fortune",
+        "equation": "礻 spirit + 支 offshoot = 䃽 good fortune",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "支",
+            "gloss": "offshoot"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "支",
+            "gloss": "offshoot"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "good fortune",
+        "equation": "礻 altar (side) + 支 offshoot = 䃽 good fortune",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "支",
+            "gloss": "offshoot"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "支",
+            "gloss": "offshoot"
+          }
+        ]
+      },
+      "before_mnemonic": "A 礻 spirit blesses each 支 offshoot until it bears fruit, bringing 䃽 good fortune.",
+      "after_mnemonic": "An offering on a 礻 altar (side) beside a budding 支 offshoot invites 䃽 good fortune.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䃾",
+      "base_card_hash": "sha256:d5d8383977b0ed1a9acadf793964f26e5f6145a220c734049552d20b90d06089",
+      "before": {
+        "meaning": "sacrifice a piglet",
+        "equation": "礻 spirit + 比 compare = 䃾 sacrifice a piglet",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "比",
+            "gloss": "compare"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "比",
+            "gloss": "compare"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sacrifice a piglet",
+        "equation": "礻 altar (side) + 比 compare = 䃾 sacrifice a piglet",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "比",
+            "gloss": "compare"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "比",
+            "gloss": "compare"
+          }
+        ]
+      },
+      "before_mnemonic": "Worshippers 比 compare the young animals offered to a 礻 spirit before they 䃾 sacrifice a piglet.",
+      "after_mnemonic": "At a 礻 altar (side), worshippers 比 compare young animals before they 䃾 sacrifice a piglet.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䃿",
+      "base_card_hash": "sha256:db6987d8b8dacd1d08fe8ca9ec52ba5f9715cdb3ef43202fa07314018db064d6",
+      "before": {
+        "meaning": "rite or service",
+        "equation": "礻 spirit + 夫 husband = 䃿 rite or service",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "夫",
+            "gloss": "husband"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "夫",
+            "gloss": "husband"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "ritual service",
+        "equation": "礻 altar (side) + 夫 husband = 䃿 ritual service",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "夫",
+            "gloss": "husband"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "夫",
+            "gloss": "husband"
+          }
+        ]
+      },
+      "before_mnemonic": "A 夫 husband joins his household before a 礻 spirit for a solemn 䃿 rite or service.",
+      "after_mnemonic": "A 夫 husband joins the household at a 礻 altar (side) for a 䃿 ritual service.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䄀",
+      "base_card_hash": "sha256:e9bd76d9411931fd367020846e2645099e7cc3be7984aac10c171961b15ffe9f",
+      "before": {
+        "meaning": "calamity",
+        "equation": "礻 spirit + 戈 halberd = 䄀 calamity",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "戈",
+            "gloss": "halberd"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "戈",
+            "gloss": "halberd"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "calamity",
+        "equation": "礻 altar (side) + 戈 halberd = 䄀 calamity",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "戈",
+            "gloss": "halberd"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "戈",
+            "gloss": "halberd"
+          }
+        ]
+      },
+      "before_mnemonic": "A 戈 halberd raised against a sacred 礻 spirit invites 䄀 calamity.",
+      "after_mnemonic": "A 戈 halberd raised against a 礻 altar (side) invites 䄀 calamity.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䄁",
+      "base_card_hash": "sha256:bd3725637c37a3d2ec698d2c8c800d72858628ae6a31370f813ff425616b784f",
+      "before": {
+        "meaning": "worship",
+        "equation": "礻 spirit + 世 generation = 䄁 worship",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "世",
+            "gloss": "generation"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "世",
+            "gloss": "generation"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "worship",
+        "equation": "礻 altar (side) + 世 generation = 䄁 worship",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "世",
+            "gloss": "generation"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "世",
+            "gloss": "generation"
+          }
+        ]
+      },
+      "before_mnemonic": "Each 世 generation gathers to honor the same 礻 spirit and 䄁 worship together.",
+      "after_mnemonic": "Each 世 generation gathers at the same 礻 altar (side) to 䄁 worship.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䄂",
+      "base_card_hash": "sha256:b8642b4161ffca210839c983572d9276a135751460ce6a5a0cf8b570e62d4a66",
+      "before": {
+        "meaning": "pray and curse",
+        "equation": "礻 spirit + 由 cause = 䄂 pray and curse",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "由",
+            "gloss": "cause"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "由",
+            "gloss": "cause"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "pray and curse",
+        "equation": "礻 altar (side) + 由 cause = 䄂 pray and curse",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "由",
+            "gloss": "cause"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "由",
+            "gloss": "cause"
+          }
+        ]
+      },
+      "before_mnemonic": "A grievance is the 由 cause for asking a 礻 spirit to 䄂 pray and curse.",
+      "after_mnemonic": "A grievance is the 由 cause for approaching a 礻 altar (side) to 䄂 pray and curse.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䄃",
+      "base_card_hash": "sha256:1641adb77f550052c5bd4b5634014bbf03e07a3b4f4524657ac9f3b955f303fb",
+      "before": {
+        "meaning": "misfortune",
+        "equation": "礻 spirit + 央 center = 䄃 misfortune",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "央",
+            "gloss": "center"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "央",
+            "gloss": "center"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "misfortune",
+        "equation": "礻 altar (side) + 央 center = 䄃 misfortune",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "央",
+            "gloss": "center"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "央",
+            "gloss": "center"
+          }
+        ]
+      },
+      "before_mnemonic": "When a 礻 spirit abandons the 央 center of the shrine, 䄃 misfortune enters.",
+      "after_mnemonic": "When offerings leave the 央 center of a 礻 altar (side), 䄃 misfortune enters.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䄄",
+      "base_card_hash": "sha256:21d9678318fc35bde0a2dfabd40513bddda1b71310856290f977e3d822118b41",
+      "before": {
+        "meaning": "accomplishment",
+        "equation": "礻 spirit + 因 cause = 䄄 accomplishment",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "因",
+            "gloss": "cause"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "因",
+            "gloss": "cause"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "accomplishment",
+        "equation": "礻 altar (side) + 因 cause = 䄄 accomplishment",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "因",
+            "gloss": "cause"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "因",
+            "gloss": "cause"
+          }
+        ]
+      },
+      "before_mnemonic": "Devotion gives a 礻 spirit to the 因 cause, carrying it through to 䄄 accomplishment.",
+      "after_mnemonic": "A successful offering at a 礻 altar (side) gives the 因 cause for celebrating 䄄 accomplishment.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䄆",
+      "base_card_hash": "sha256:a6c2c584b6d3c5b338baa75556f6940761ba788a53f80f2da79e6661a2ed92e4",
+      "before": {
+        "meaning": "worship",
+        "equation": "礻 spirit + 舌 tongue = 䄆 worship",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "舌",
+            "gloss": "tongue"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "舌",
+            "gloss": "tongue"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "worship",
+        "equation": "礻 altar (side) + 舌 tongue = 䄆 worship",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "舌",
+            "gloss": "tongue"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "舌",
+            "gloss": "tongue"
+          }
+        ]
+      },
+      "before_mnemonic": "A 舌 tongue praises a 礻 spirit aloud as the speaker begins to 䄆 worship.",
+      "after_mnemonic": "A 舌 tongue praises the image on a 礻 altar (side) as the speaker begins to 䄆 worship.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䄇",
+      "base_card_hash": "sha256:7c97dc4974bddeaf6c766b9fe7eeb36875a322c08e93c427c52aaebe6f81ff05",
+      "before": {
+        "meaning": "clan name",
+        "equation": "礻 spirit + 呈 submit = 䄇 clan name",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "呈",
+            "gloss": "submit"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "呈",
+            "gloss": "submit"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "clan name",
+        "equation": "礻 altar (side) + 呈 submit = 䄇 clan name",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "呈",
+            "gloss": "submit"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "呈",
+            "gloss": "submit"
+          }
+        ]
+      },
+      "before_mnemonic": "At the ancestral 礻 spirit shrine, each family must 呈 submit its 䄇 clan name.",
+      "after_mnemonic": "At the ancestral 礻 altar (side), each family must 呈 submit its 䄇 clan name.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䄈",
+      "base_card_hash": "sha256:2091e1c1e2e42972b45318122085ab20b069df30204fe5f685c41e3ce3e01f7e",
+      "before": {
+        "meaning": "sacrifice to happiness",
+        "equation": "礻 spirit + 豆 stemmed bowl = 䄈 sacrifice to happiness",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sacrifice for happiness",
+        "equation": "礻 altar (side) + 豆 stemmed bowl = 䄈 sacrifice for happiness",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "豆",
+            "gloss": "stemmed bowl"
+          }
+        ]
+      },
+      "before_mnemonic": "Fill a 豆 stemmed bowl for the 礻 spirit during a 䄈 sacrifice to happiness.",
+      "after_mnemonic": "Fill a 豆 stemmed bowl at the 礻 altar (side) for a 䄈 sacrifice for happiness.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䄉",
+      "base_card_hash": "sha256:8e2078eac0b2636482ad76212cb672745a474fac32f56e7aeaa433ddc2268da7",
+      "before": {
+        "meaning": "rite or service",
+        "equation": "礻 spirit + 我 I = 䄉 rite or service",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "我",
+            "gloss": "I"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "我",
+            "gloss": "I"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "ritual service",
+        "equation": "礻 altar (side) + 我 I = 䄉 ritual service",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "我",
+            "gloss": "I"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "我",
+            "gloss": "I"
+          }
+        ]
+      },
+      "before_mnemonic": "Before the 礻 spirit altar, 我 I conduct the 䄉 rite or service.",
+      "after_mnemonic": "Before the 礻 altar (side), 我 I conduct the 䄉 ritual service.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䄋",
+      "base_card_hash": "sha256:d8f2ad53d5157fcda915d977b8779b4b211d8fc5a582be6d0bc3c17ff159ca7b",
+      "before": {
+        "meaning": "pray for preventing or forestalling calamities",
+        "equation": "礻 spirit + 奄 ere long = 䄋 pray for preventing or forestalling calamities",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "奄",
+            "gloss": "ere long"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "奄",
+            "gloss": "ere long"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "pray to avert calamity",
+        "equation": "礻 altar (side) + 奄 ere long = 䄋 pray to avert calamity",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "奄",
+            "gloss": "ere long"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "奄",
+            "gloss": "ere long"
+          }
+        ]
+      },
+      "before_mnemonic": "Before looming danger arrives 奄 ere long, petition a 礻 spirit and 䄋 pray for preventing or forestalling calamities.",
+      "after_mnemonic": "Before danger arrives 奄 ere long, petition at a 礻 altar (side) and 䄋 pray to avert calamity.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䄌",
+      "base_card_hash": "sha256:0d6bd94c2d9e8363b4d90b7225c1b7336e19877206441a6c6a4b205ee7ed60b9",
+      "before": {
+        "meaning": "perform rites",
+        "equation": "礻 spirit + 叕 connect = 䄌 perform rites",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "叕",
+            "gloss": "connect"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "叕",
+            "gloss": "connect"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "perform rites",
+        "equation": "礻 altar (side) + 叕 connect = 䄌 perform rites",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "叕",
+            "gloss": "connect"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "叕",
+            "gloss": "connect"
+          }
+        ]
+      },
+      "before_mnemonic": "People 叕 connect with an ancestral 礻 spirit when they 䄌 perform rites.",
+      "after_mnemonic": "People 叕 connect with their ancestors at a 礻 altar (side) when they 䄌 perform rites.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䄍",
+      "base_card_hash": "sha256:6587f5440b5a7d6bb36f86e2912c500c805ae9dabe7634c13ad16bd0074c0eda",
+      "before": {
+        "meaning": "year-end sacrifice of the Zhou Dynasty",
+        "equation": "礻 spirit + 昔 times past = 䄍 year-end sacrifice of the Zhou Dynasty",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "昔",
+            "gloss": "times past"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "昔",
+            "gloss": "times past"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "Zhou year-end sacrifice",
+        "equation": "礻 altar (side) + 昔 times past = 䄍 Zhou year-end sacrifice",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "昔",
+            "gloss": "times past"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "昔",
+            "gloss": "times past"
+          }
+        ]
+      },
+      "before_mnemonic": "In 昔 times past, people honored a harvest 礻 spirit through the 䄍 year-end sacrifice of the Zhou Dynasty.",
+      "after_mnemonic": "In 昔 times past, offerings at a 礻 altar (side) marked the 䄍 Zhou year-end sacrifice.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䄎",
+      "base_card_hash": "sha256:80477405dba736276160589b2286cef75e1577ea8d541e59550cfb78c7e3c78c",
+      "before": {
+        "meaning": "beautiful",
+        "equation": "礻 spirit + 奇 strange = 䄎 beautiful",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "奇",
+            "gloss": "strange"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "奇",
+            "gloss": "strange"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "beautiful",
+        "equation": "礻 altar (side) + 奇 strange = 䄎 beautiful",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "奇",
+            "gloss": "strange"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "奇",
+            "gloss": "strange"
+          }
+        ]
+      },
+      "before_mnemonic": "A 奇 strange 礻 spirit captivates everyone with its 䄎 beautiful, otherworldly symmetry.",
+      "after_mnemonic": "A 奇 strange ornament makes the 礻 altar (side) look 䄎 beautiful.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䄏",
+      "base_card_hash": "sha256:e8996305c16a6020f8df5c8a143f141789ead59b69ffd0128b4db7ea87942edc",
+      "before": {
+        "meaning": "bizarre",
+        "equation": "礻 spirit + 艹 grass (top) + 夭 die young = 䄏 bizarre",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "夭",
+            "gloss": "die young"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "夭",
+            "gloss": "die young"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "bizarre",
+        "equation": "礻 altar (side) + 艹 grass (top) + 夭 die young = 䄏 bizarre",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "夭",
+            "gloss": "die young"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "艹",
+            "gloss": "grass (top)"
+          },
+          {
+            "character": "夭",
+            "gloss": "die young"
+          }
+        ]
+      },
+      "before_mnemonic": "A 礻 spirit haunts 艹 grass where new shoots 夭 die young, making the whole scene 䄏 bizarre.",
+      "after_mnemonic": "A 礻 altar (side) stands in 艹 grass (top) where new shoots 夭 die young, making the scene 䄏 bizarre.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䄑",
+      "base_card_hash": "sha256:dbe7b8894d1d7abca955c0c6e86450580e5a0298bdb36f7d5337ecfd8a1c4247",
+      "before": {
+        "meaning": "worship",
+        "equation": "礻 spirit + 昏 dusk = 䄑 worship",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "昏",
+            "gloss": "dusk"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "昏",
+            "gloss": "dusk"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "worship",
+        "equation": "礻 altar (side) + 昏 dusk = 䄑 worship",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "昏",
+            "gloss": "dusk"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "昏",
+            "gloss": "dusk"
+          }
+        ]
+      },
+      "before_mnemonic": "At 昏 dusk, people gather before the 礻 spirit to 䄑 worship in the fading light.",
+      "after_mnemonic": "At 昏 dusk, people gather before a 礻 altar (side) to 䄑 worship.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䄒",
+      "base_card_hash": "sha256:d63bc8e0854e932d92c174436e84cc39e94febb558e60105283d9666936fb68f",
+      "before": {
+        "meaning": "ripening of paddy or rice",
+        "equation": "礻 spirit + 念 miss = 䄒 ripening of paddy or rice",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "念",
+            "gloss": "miss"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "念",
+            "gloss": "miss"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "rice ripening",
+        "equation": "礻 altar (side) + 念 miss = 䄒 rice ripening",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "念",
+            "gloss": "miss"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "念",
+            "gloss": "miss"
+          }
+        ]
+      },
+      "before_mnemonic": "As green rice turns gold in 䄒 ripening of paddy or rice, farmers 念 miss the absent 礻 spirit.",
+      "after_mnemonic": "At a 礻 altar (side), farmers 念 miss absent relatives as they await 䄒 rice ripening.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䄓",
+      "base_card_hash": "sha256:d7c179060586aaf1a8aa522ab3db5c536daf7dca74fb7902cce4bd12279d40f5",
+      "before": {
+        "meaning": "rite",
+        "equation": "礻 spirit + 皇 emperor = 䄓 rite",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "皇",
+            "gloss": "emperor"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "皇",
+            "gloss": "emperor"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "rite",
+        "equation": "礻 altar (side) + 皇 emperor = 䄓 rite",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "皇",
+            "gloss": "emperor"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "皇",
+            "gloss": "emperor"
+          }
+        ]
+      },
+      "before_mnemonic": "The 皇 emperor approaches the 礻 spirit with prescribed gestures, performing each 䄓 rite exactly.",
+      "after_mnemonic": "The 皇 emperor approaches the 礻 altar (side), performing each 䄓 rite exactly.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䄔",
+      "base_card_hash": "sha256:503fc31d103bd788170c8157bd01548c27e38462d3a36a091db2a65002fca112",
+      "before": {
+        "meaning": "family name",
+        "equation": "礻 spirit + 禹 Yu the Great = 䄔 family name",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "禹",
+            "gloss": "Yu the Great"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "禹",
+            "gloss": "Yu the Great"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "family name",
+        "equation": "礻 altar (side) + 禹 Yu the Great = 䄔 family name",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "禹",
+            "gloss": "Yu the Great"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "禹",
+            "gloss": "Yu the Great"
+          }
+        ]
+      },
+      "before_mnemonic": "Descendants invoke the 礻 spirit of 禹 Yu the Great as they pass down their 䄔 family name.",
+      "after_mnemonic": "At a 礻 altar (side), descendants invoke 禹 Yu the Great while passing down their 䄔 family name.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䄕",
+      "base_card_hash": "sha256:7021b83b3b5bb72228d07cc4eeb2f431484750f36039600ca54584f43102497c",
+      "before": {
+        "meaning": "land deity",
+        "equation": "礻 spirit + 畓 rice paddy = 䄕 land deity",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "畓",
+            "gloss": "rice paddy"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "畓",
+            "gloss": "rice paddy"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "land deity",
+        "equation": "礻 altar (side) + 畓 rice paddy = 䄕 land deity",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "畓",
+            "gloss": "rice paddy"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "畓",
+            "gloss": "rice paddy"
+          }
+        ]
+      },
+      "before_mnemonic": "The 礻 spirit guarding every 畓 rice paddy is revered as the 䄕 land deity.",
+      "after_mnemonic": "A 礻 altar (side) beside each 畓 rice paddy honors the 䄕 land deity.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䄖",
+      "base_card_hash": "sha256:f61c454ebd6cf5a0b261f16ff4c4c2825c3cd14e719d1854690ea1703415dc39",
+      "before": {
+        "meaning": "personal-name character",
+        "equation": "礻 spirit + 俞 approve = 䄖 personal-name character",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "俞",
+            "gloss": "approve"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "俞",
+            "gloss": "approve"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "personal-name character",
+        "equation": "礻 altar (side) + 俞 approve = 䄖 personal-name character",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "俞",
+            "gloss": "approve"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "俞",
+            "gloss": "approve"
+          }
+        ]
+      },
+      "before_mnemonic": "Parents ask the 礻 spirit to 俞 approve the 䄖 personal-name character chosen for their newborn.",
+      "after_mnemonic": "Parents ask at a 礻 altar (side) for ancestors to 俞 approve the 䄖 personal-name character.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䄘",
+      "base_card_hash": "sha256:fa3528a3165530d370f11513b46a00fe11b49e59467eb2b53ef7c50c740c7e83",
+      "before": {
+        "meaning": "rite",
+        "equation": "礻 spirit + 旁 side = 䄘 rite",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "旁",
+            "gloss": "side"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "旁",
+            "gloss": "side"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "rite",
+        "equation": "礻 altar (side) + 旁 side = 䄘 rite",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "旁",
+            "gloss": "side"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "旁",
+            "gloss": "side"
+          }
+        ]
+      },
+      "before_mnemonic": "Standing at the 旁 side of the 礻 spirit altar, each attendant performs the 䄘 rite.",
+      "after_mnemonic": "Standing at the 旁 side of a 礻 altar (side), each attendant performs the 䄘 rite.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䄙",
+      "base_card_hash": "sha256:aefee7f9feba1a02c193f8e9f8cbc03182d912adcbaf76ebe0ad0c8ca729fb09",
+      "before": {
+        "meaning": "luck",
+        "equation": "礻 spirit + 冥 gloomy = 䄙 luck",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "冥",
+            "gloss": "gloomy"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "冥",
+            "gloss": "gloomy"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "luck",
+        "equation": "礻 altar (side) + 冥 gloomy = 䄙 luck",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "冥",
+            "gloss": "gloomy"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "冥",
+            "gloss": "gloomy"
+          }
+        ]
+      },
+      "before_mnemonic": "A 冥 gloomy 礻 spirit unexpectedly smiles on you, turning misfortune into 䄙 luck.",
+      "after_mnemonic": "A lamp on a 冥 gloomy 礻 altar (side) turns misfortune into 䄙 luck.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䄚",
+      "base_card_hash": "sha256:516a04e7916e853586c548bc4c82b62cc9d7ddbb7e29042127855e81e7faa8f7",
+      "before": {
+        "meaning": "worship",
+        "equation": "礻 spirit + 曹 Cao = 䄚 worship",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "曹",
+            "gloss": "Cao"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "曹",
+            "gloss": "Cao"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "worship",
+        "equation": "礻 altar (side) + 曹 Cao = 䄚 worship",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "曹",
+            "gloss": "Cao"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "曹",
+            "gloss": "Cao"
+          }
+        ]
+      },
+      "before_mnemonic": "曹 Cao kneels before the 礻 spirit and begins to 䄚 worship.",
+      "after_mnemonic": "曹 Cao kneels before a 礻 altar (side) and begins to 䄚 worship.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䄛",
+      "base_card_hash": "sha256:a4aba397cb8ef1f2b7b756af7b07ee066ba5bd5aba009744f054c60cb2bae34c",
+      "before": {
+        "meaning": "food-and-drink offering",
+        "equation": "礻 spirit + 婁 embrace = 䄛 food-and-drink offering",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "婁",
+            "gloss": "embrace"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "婁",
+            "gloss": "embrace"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "food and drink offering",
+        "equation": "礻 altar (side) + 婁 embrace = 䄛 food and drink offering",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "婁",
+            "gloss": "embrace"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "婁",
+            "gloss": "embrace"
+          }
+        ]
+      },
+      "before_mnemonic": "Worshippers 婁 embrace the bowl of a 䄛 food-and-drink offering before the 礻 spirit.",
+      "after_mnemonic": "Worshippers 婁 embrace the bowl of a 䄛 food and drink offering before a 礻 altar (side).",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䄜",
+      "base_card_hash": "sha256:9e0405fa16d09e856db602df3517e7369b7e4c6be6f64e5b5f3fe0b96c093009",
+      "before": {
+        "meaning": "happiness and well-being",
+        "equation": "礻 spirit + 离 netted beast = 䄜 happiness and well-being",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "离",
+            "gloss": "netted beast"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "离",
+            "gloss": "netted beast"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "happiness and well-being",
+        "equation": "礻 altar (side) + 离 netted beast = 䄜 happiness and well-being",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "离",
+            "gloss": "netted beast"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "离",
+            "gloss": "netted beast"
+          }
+        ]
+      },
+      "before_mnemonic": "A 礻 spirit frees the 离 netted beast, and both settle into 䄜 happiness and well-being.",
+      "after_mnemonic": "At a 礻 altar (side), release a 离 netted beast and pray for 䄜 happiness and well-being.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䄝",
+      "base_card_hash": "sha256:0ea7eb0594d30364a0ba5c7215cb7a87db7edffa90ca2bf53aefc344408b4c31",
+      "before": {
+        "meaning": "show no respect",
+        "equation": "礻 spirit + 舂 grind in mortar = 䄝 show no respect",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "舂",
+            "gloss": "grind in mortar"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "舂",
+            "gloss": "grind in mortar"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "show no respect",
+        "equation": "礻 altar (side) + 舂 grind in mortar = 䄝 show no respect",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "舂",
+            "gloss": "grind in mortar"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "舂",
+            "gloss": "grind in mortar"
+          }
+        ]
+      },
+      "before_mnemonic": "People who 舂 grind in mortar through a 礻 spirit ceremony 䄝 show no respect, drowning out every prayer.",
+      "after_mnemonic": "People who 舂 grind in mortar through a 礻 altar (side) ceremony 䄝 show no respect.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䄠",
+      "base_card_hash": "sha256:8d84df308075d880913aa3823de50c8b470fd6ca00d0b2f73b977456308dc548",
+      "before": {
+        "meaning": "sacrifice to heaven",
+        "equation": "礻 spirit + 亶 real = 䄠 sacrifice to heaven",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "亶",
+            "gloss": "real"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "亶",
+            "gloss": "real"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sacrifice to heaven",
+        "equation": "礻 altar (side) + 亶 real = 䄠 sacrifice to heaven",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "亶",
+            "gloss": "real"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "亶",
+            "gloss": "real"
+          }
+        ]
+      },
+      "before_mnemonic": "The ruler kneels before the 礻 spirit, making his vow 亶 real through a 䄠 sacrifice to heaven.",
+      "after_mnemonic": "The ruler kneels at a 礻 altar (side), making his vow 亶 real through a 䄠 sacrifice to heaven.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䄡",
+      "base_card_hash": "sha256:e87c1eb6cf63a7d7316b50dc437452ef297eaa188665f7b303c7282365ffdde8",
+      "before": {
+        "meaning": "ancient northern ethnic group",
+        "equation": "礻 spirit + 詹 verbose = 䄡 ancient northern ethnic group",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "詹",
+            "gloss": "verbose"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "詹",
+            "gloss": "verbose"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "ancient northern people",
+        "equation": "礻 altar (side) + 詹 verbose = 䄡 ancient northern people",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "詹",
+            "gloss": "verbose"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "詹",
+            "gloss": "verbose"
+          }
+        ]
+      },
+      "before_mnemonic": "A 詹 verbose northern chronicle records the 礻 spirit traditions preserved by the 䄡 ancient northern ethnic group.",
+      "after_mnemonic": "A 詹 verbose chronicle at a 礻 altar (side) records the 䄡 ancient northern people.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䄢",
+      "base_card_hash": "sha256:b6849d4a1ffcf32fa6af59043ef0e38d78a40f013a3396574fd208243010da92",
+      "before": {
+        "meaning": "pious",
+        "equation": "礻 spirit + 齊 identical = 䄢 pious",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "齊",
+            "gloss": "identical"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "齊",
+            "gloss": "identical"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "pious",
+        "equation": "礻 altar (side) + 齊 identical = 䄢 pious",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "齊",
+            "gloss": "identical"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "齊",
+            "gloss": "identical"
+          }
+        ]
+      },
+      "before_mnemonic": "A 䄢 pious devotee gives the 礻 spirit 齊 identical care in every daily ritual.",
+      "after_mnemonic": "A 䄢 pious devotee places 齊 identical offerings on a 礻 altar (side) each day.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䄤",
+      "base_card_hash": "sha256:d4f387da01ad25a3a1ffd7dfd61faac64a5d491d1432f2993f3b1dd04a2c0655",
+      "before": {
+        "meaning": "sink",
+        "equation": "礻 spirit + 賴 rely on = 䄤 sink",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "賴",
+            "gloss": "rely on"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "賴",
+            "gloss": "rely on"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sink",
+        "equation": "礻 altar (side) + 賴 rely on = 䄤 sink",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "賴",
+            "gloss": "rely on"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "賴",
+            "gloss": "rely on"
+          }
+        ]
+      },
+      "before_mnemonic": "Those who 賴 rely on a fading 礻 spirit for support begin to 䄤 sink with it.",
+      "after_mnemonic": "Those who 賴 rely on a crumbling 礻 altar (side) begin to 䄤 sink with it.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䄥",
+      "base_card_hash": "sha256:c4949ea6cec191885a6fb46eb8d68cd8856dedca4dd97d48c7e5c2b7d7fe2dd2",
+      "before": {
+        "meaning": "deity",
+        "equation": "礻 spirit + 靈 spirit = 䄥 deity",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "靈",
+            "gloss": "spirit"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          },
+          {
+            "character": "靈",
+            "gloss": "spirit"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "deity",
+        "equation": "礻 altar (side) + 靈 spirit = 䄥 deity",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "靈",
+            "gloss": "spirit"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          },
+          {
+            "character": "靈",
+            "gloss": "spirit"
+          }
+        ]
+      },
+      "before_mnemonic": "When a 礻 spirit bows before a 靈 spirit, the one receiving worship is a 䄥 deity.",
+      "after_mnemonic": "A 靈 spirit receiving offerings at a 礻 altar (side) is worshipped as a 䄥 deity.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "礻",
+      "base_card_hash": "sha256:773f76bf1135ed70b4768ba52f11d72a70caeadd4962a11f7d839d39ade2e596",
+      "before": {
+        "meaning": "spirit",
+        "equation": "Visual form: 礻 spirit",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "spirit"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "altar (side)",
+        "equation": "Visual form: 礻 altar (side)",
+        "components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "礻",
+            "gloss": "altar (side)"
+          }
+        ]
+      },
+      "before_mnemonic": "A memorial tablet bearing offerings anchors the ritual presence of a 礻 spirit.",
+      "after_mnemonic": "A shortened memorial tablet forms the 礻 altar (side).",
+      "valid": true,
+      "problems": []
+    }
+  ]
+}
