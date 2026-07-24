@@ -1,6 +1,6 @@
 {
-  "created_at": "2026-07-24T06:49:02.707339+00:00",
-  "artifact_created_at": "2026-07-24T06:49:01.041131+00:00",
+  "created_at": "2026-07-24T06:57:46.483269+00:00",
+  "artifact_created_at": "2026-07-24T06:57:44.834448+00:00",
   "methodology": "Formal validity and learning quality are separate. Flags are deterministic review signals; abstract meanings and variant forms are not automatically bad, while generic filler is a rewrite signal.",
   "taxonomy": {
     "generic_filler": {
@@ -9417,16 +9417,16 @@
           ]
         }
       ],
-      "equation": "月 month + 月 month = 朋 companion",
-      "mnemonic": "A 月 month spent together, then another 月 month, turns a stranger into a 朋 companion.",
+      "equation": "月 moon + 月 moon = 朋 companion",
+      "mnemonic": "One 月 moon beside another 月 moon looks like a paired 朋 companion.",
       "components": [
         {
           "character": "月",
-          "gloss": "month"
+          "gloss": "moon"
         },
         {
           "character": "月",
-          "gloss": "month"
+          "gloss": "moon"
         }
       ],
       "component_source": "resolved_ids_forward+manual_quality_override",
@@ -15441,8 +15441,8 @@
           "evidence": "朗"
         }
       ],
-      "equation": "良 high-quality + 月 month = 朗 lucent",
-      "mnemonic": "For the entire 月 month, 良 high-quality lanterns keep the long gallery 朗 lucent.",
+      "equation": "良 high-quality + 月 moon = 朗 lucent",
+      "mnemonic": "良 high-quality light from the 月 moon keeps the long gallery 朗 lucent.",
       "components": [
         {
           "character": "良",
@@ -15450,7 +15450,7 @@
         },
         {
           "character": "月",
-          "gloss": "month"
+          "gloss": "moon"
         }
       ],
       "component_source": "variant_alias:朗",
@@ -24851,8 +24851,8 @@
           "evidence": "朗"
         }
       ],
-      "equation": "良 high-quality + 月 month = 朗 lucent",
-      "mnemonic": "For a full 月 month, 良 high-quality glass remains 朗 lucent enough to transmit every ray of light.",
+      "equation": "良 high-quality + 月 moon = 朗 lucent",
+      "mnemonic": "良 high-quality light from the 月 moon passes through glass that remains 朗 lucent.",
       "components": [
         {
           "character": "良",
@@ -24860,7 +24860,7 @@
         },
         {
           "character": "月",
-          "gloss": "month"
+          "gloss": "moon"
         }
       ],
       "component_source": "variant_alias:朗",
@@ -24880,8 +24880,8 @@
           "evidence": "望"
         }
       ],
-      "equation": "亡 deceased + 月 month + 王 king = 望 expect",
-      "mnemonic": "The 亡 deceased 王 king cannot return, yet each 月 month his people still 望 expect his arrival.",
+      "equation": "亡 deceased + 月 moon + 王 king = 望 expect",
+      "mnemonic": "A 亡 deceased 王 king cannot return, yet under the 月 moon his people still 望 expect his arrival.",
       "components": [
         {
           "character": "亡",
@@ -24889,7 +24889,7 @@
         },
         {
           "character": "月",
-          "gloss": "month"
+          "gloss": "moon"
         },
         {
           "character": "王",
@@ -31364,8 +31364,8 @@
           "evidence": "朗"
         }
       ],
-      "equation": "良 high-quality + 月 month = 朗 lucent",
-      "mnemonic": "Under a cloudless sky, a 月 month of 良 high-quality moonlit nights stays 朗 lucent.",
+      "equation": "良 high-quality + 月 moon = 朗 lucent",
+      "mnemonic": "良 high-quality light from the 月 moon keeps the gallery 朗 lucent.",
       "components": [
         {
           "character": "良",
@@ -31373,7 +31373,7 @@
         },
         {
           "character": "月",
-          "gloss": "month"
+          "gloss": "moon"
         }
       ],
       "component_source": "variant_alias:朗",
@@ -31393,8 +31393,8 @@
           "evidence": "望"
         }
       ],
-      "equation": "亡 deceased + 月 month + 王 king = 望 expect",
-      "mnemonic": "Each 月 month, subjects facing the empty throne of a 亡 deceased 王 king 望 expect a successor.",
+      "equation": "亡 deceased + 月 moon + 王 king = 望 expect",
+      "mnemonic": "Under the 月 moon, subjects of a 亡 deceased 王 king 望 expect a successor.",
       "components": [
         {
           "character": "亡",
@@ -31402,7 +31402,7 @@
         },
         {
           "character": "月",
-          "gloss": "month"
+          "gloss": "moon"
         },
         {
           "character": "王",
@@ -32979,8 +32979,8 @@
           "evidence": "玥"
         }
       ],
-      "equation": "𤣩 jade (alt) + 月 month = 玥 mysterious gem",
-      "mnemonic": "A 玥 mysterious gem of 𤣩 jade glows only during one 月 month each year.",
+      "equation": "𤣩 jade (alt) + 月 moon = 玥 mysterious gem",
+      "mnemonic": "A 玥 mysterious gem of 𤣩 jade (alt) glows like the 月 moon.",
       "components": [
         {
           "character": "𤣩",
@@ -32988,7 +32988,7 @@
         },
         {
           "character": "月",
-          "gloss": "month"
+          "gloss": "moon"
         }
       ],
       "component_source": "variant_alias:玥",
@@ -45814,11 +45814,11 @@
   ],
   "gpt56_expedited_release": {
     "certification_status": "expedited_non_certified",
-    "materialized_card_projection_hash": "sha256:e0716e12cc371525d524fb06d59110fcd2714aaf53836aabe1276f0c5f6fc4ae",
+    "materialized_card_projection_hash": "sha256:497cd2999b8902e599e027897d4dcedd808ecad9e5fe4ec9ca7d85efa880d122",
     "formal_validation": {
       "count": 24037,
       "invalid_count": 0
     },
-    "editorial_ledger_sha256": "sha256:41c1123ea84d1598f0da64ac639759730b8561014d12ff14ec350c89b3f9b64c"
+    "editorial_ledger_sha256": "sha256:96f4172d5a5524fbbaafb96e066937d0d7ffeb4dab22030933b7db9651f8767e"
   }
 }

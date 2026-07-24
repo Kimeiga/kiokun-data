@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "policy_version": "2026-07-24.1",
+  "family": "moon-image",
+  "root_decisions": {
+    "月": {
+      "decision": "lexical_component_split_with_scoped_flesh_allograph",
+      "lexical_gloss": "month",
+      "default_component_gloss": "moon",
+      "reason": "The independent modern time-unit meaning is month, while the reusable pictographic image is the moon. Contexts derived from the visually merged meat/flesh form retain flesh instead of being forced into a lunar story."
+    }
+  },
+  "scoped_flesh_characters": [
+    "㞕",
+    "㨊",
+    "㵦",
+    "㻟",
+    "䑚",
+    "䙃",
+    "䜔",
+    "䤻",
+    "䭉",
+    "刖",
+    "堶",
+    "媠",
+    "惰",
+    "有",
+    "朊",
+    "楕",
+    "毻",
+    "胡",
+    "跀",
+    "隋",
+    "隨",
+    "鬌"
+  ],
+  "expected_changed_card_count": 68,
+  "expected_component_occurrence_count": 69,
+  "expected_moon_occurrence_count": 47,
+  "expected_new_flesh_occurrence_count": 22
+}

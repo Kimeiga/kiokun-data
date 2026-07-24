@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "review_id": "moon-image-family-review-2026-07-24",
+  "policy_version": "2026-07-24.1",
+  "reviewed_root_count": 1,
+  "changed_card_count": 68,
+  "changed_component_occurrence_count": 69,
+  "moon_occurrence_count": 47,
+  "new_flesh_occurrence_count": 22,
+  "method": "Manual review of every 月 month component occurrence. True/default pictographic contexts use moon; contexts derived from the merged meat form use flesh; six pre-existing flesh contexts remain unchanged.",
+  "roots": [
+    {
+      "character": "月",
+      "decision": "lexical_component_split_with_scoped_flesh_allograph",
+      "reason": "The independent modern time-unit meaning is month, while the reusable pictographic image is the moon. Contexts derived from the visually merged meat/flesh form retain flesh instead of being forced into a lunar story.",
+      "lexical_gloss": "month",
+      "default_component_gloss": "moon",
+      "scoped_flesh_characters": [
+        "㞕",
+        "㨊",
+        "㵦",
+        "㻟",
+        "䑚",
+        "䙃",
+        "䜔",
+        "䤻",
+        "䭉",
+        "刖",
+        "堶",
+        "媠",
+        "惰",
+        "有",
+        "朊",
+        "楕",
+        "毻",
+        "胡",
+        "跀",
+        "隋",
+        "隨",
+        "鬌"
+      ]
+    }
+  ]
+}

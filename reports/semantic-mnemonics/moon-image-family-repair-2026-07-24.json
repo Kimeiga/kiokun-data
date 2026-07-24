@@ -1,0 +1,4310 @@
+{
+  "schema_version": 1,
+  "policy_version": "2026-07-24.1",
+  "policy_path": "data/semantic_mnemonic_moon_image_policy.json",
+  "base_projection_hash": "sha256:a846a6ae0cdc079e149029c1190d36ef09a9d2723a7e3dbaa52e0a8450747014",
+  "candidate_projection_hash": "sha256:f09411f977c87b720fdbb31b2fb3ab41429b49dae52a5db037caaa79b5db9cd4",
+  "card_count": 24037,
+  "invalid_count": 0,
+  "changed_count": 68,
+  "already_applied_count": 0,
+  "component_occurrence_count": 69,
+  "moon_occurrence_count": 47,
+  "new_flesh_occurrence_count": 22,
+  "changed_characters": [
+    "㞕",
+    "㨊",
+    "㬳",
+    "㬴",
+    "㬸",
+    "㬿",
+    "㵦",
+    "㵬",
+    "㵻",
+    "㻟",
+    "䎳",
+    "䑚",
+    "䙃",
+    "䚴",
+    "䜔",
+    "䢁",
+    "䤻",
+    "䩗",
+    "䭉",
+    "刖",
+    "堶",
+    "媠",
+    "惰",
+    "抈",
+    "明",
+    "月",
+    "有",
+    "朊",
+    "朋",
+    "朌",
+    "服",
+    "朏",
+    "朐",
+    "朓",
+    "朔",
+    "朕",
+    "朖",
+    "朗",
+    "朘",
+    "朙",
+    "望",
+    "朝",
+    "朞",
+    "期",
+    "朠",
+    "朢",
+    "朣",
+    "朦",
+    "朧",
+    "楕",
+    "毻",
+    "潃",
+    "玥",
+    "胡",
+    "跀",
+    "钥",
+    "閒",
+    "阴",
+    "隋",
+    "隨",
+    "霡",
+    "鬌",
+    "朗",
+    "朗",
+    "望",
+    "朗",
+    "望",
+    "玥"
+  ],
+  "changes": [
+    {
+      "character": "㞕",
+      "base_card_hash": "sha256:aea46eddbd107bfcffb28cdfdb91f1f4e2afb6e9d2671a553a867e3e5d6ecb63",
+      "before": {
+        "meaning": "chips",
+        "equation": "尸 sitting person + 八 eight + 月 month = 㞕 chips",
+        "components": [
+          {
+            "character": "尸",
+            "gloss": "sitting person"
+          },
+          {
+            "character": "八",
+            "gloss": "eight"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "尸",
+            "gloss": "sitting person"
+          },
+          {
+            "character": "八",
+            "gloss": "eight"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "chips",
+        "equation": "尸 sitting person + 八 eight + 月 flesh = 㞕 chips",
+        "components": [
+          {
+            "character": "尸",
+            "gloss": "sitting person"
+          },
+          {
+            "character": "八",
+            "gloss": "eight"
+          },
+          {
+            "character": "月",
+            "gloss": "flesh"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "尸",
+            "gloss": "sitting person"
+          },
+          {
+            "character": "八",
+            "gloss": "eight"
+          },
+          {
+            "character": "月",
+            "gloss": "flesh"
+          }
+        ]
+      },
+      "before_mnemonic": "Each 月 month, a 尸 sitting person sorts 八 eight 㞕 chips on the workshop floor.",
+      "after_mnemonic": "A 尸 sitting person cuts 月 flesh into 八 eight tiny 㞕 chips.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㨊",
+      "base_card_hash": "sha256:6af8ccb6f6eddbf7eba23e8fff8604cbbaae9de539c55cd191aa6e539a35f032",
+      "before": {
+        "meaning": "discard",
+        "equation": "扌 hand (side) + 左 left + 月 month = 㨊 discard",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "discard",
+        "equation": "扌 hand (side) + 左 left + 月 flesh = 㨊 discard",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "flesh"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "flesh"
+          }
+        ]
+      },
+      "before_mnemonic": "At the end of each 月 month, a 扌 hand clears what is 左 left, deciding what to 㨊 discard.",
+      "after_mnemonic": "A 扌 hand (side) sweeps 月 flesh 左 left on the block into a bin to 㨊 discard it.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㬳",
+      "base_card_hash": "sha256:f692395f15e663111c94dbd620f5580a8278d6b3561bd7e6373606e5d2794bdc",
+      "before": {
+        "meaning": "clear",
+        "equation": "月 month + 午 noon = 㬳 clear",
+        "components": [
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "午",
+            "gloss": "noon"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "午",
+            "gloss": "noon"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "clear",
+        "equation": "月 moon + 午 noon = 㬳 clear",
+        "components": [
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "午",
+            "gloss": "noon"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "午",
+            "gloss": "noon"
+          }
+        ]
+      },
+      "before_mnemonic": "At 午 noon, haze that lingered for a 月 month finally lifts, leaving the sky 㬳 clear.",
+      "after_mnemonic": "At 午 noon, haze clears so the pale 月 moon remains 㬳 clear.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㬴",
+      "base_card_hash": "sha256:f6aeb9b9da6586de3faea57dbad432b442e6057af169b4a677561d74106f9a28",
+      "before": {
+        "meaning": "the moon is dimmed",
+        "equation": "月 month + 共 together = 㬴 the moon is dimmed",
+        "components": [
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "共",
+            "gloss": "together"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "共",
+            "gloss": "together"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "the moon is dimmed",
+        "equation": "月 moon + 共 together = 㬴 the moon is dimmed",
+        "components": [
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "共",
+            "gloss": "together"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "共",
+            "gloss": "together"
+          }
+        ]
+      },
+      "before_mnemonic": "Over a 月 month, clouds gather 共 together until 㬴 the moon is dimmed.",
+      "after_mnemonic": "Clouds crowd 共 together over the 月 moon until 㬴 the moon is dimmed.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㬸",
+      "base_card_hash": "sha256:dd9875865446fb618cdb7db44e8bf4b80aa89e3c176ca385dfe2fb33d642c013",
+      "before": {
+        "meaning": "sacrificial ceremony",
+        "equation": "月 month + 花 flower = 㬸 sacrificial ceremony",
+        "components": [
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "花",
+            "gloss": "flower"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "花",
+            "gloss": "flower"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sacrificial ceremony",
+        "equation": "月 moon + 花 flower = 㬸 sacrificial ceremony",
+        "components": [
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "花",
+            "gloss": "flower"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "花",
+            "gloss": "flower"
+          }
+        ]
+      },
+      "before_mnemonic": "Laying a 花 flower on the altar each 月 month begins a 㬸 sacrificial ceremony.",
+      "after_mnemonic": "Under the 月 moon, placing a 花 flower on the altar begins a 㬸 sacrificial ceremony.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㬿",
+      "base_card_hash": "sha256:2eef63821841e436fd734f03d72febef2eaf482c807d722bd9fefea00fb5a8cd",
+      "before": {
+        "meaning": "moonlight",
+        "equation": "月 month + 敦 candid = 㬿 moonlight",
+        "components": [
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "敦",
+            "gloss": "candid"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "敦",
+            "gloss": "candid"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "moonlight",
+        "equation": "月 moon + 敦 candid = 㬿 moonlight",
+        "components": [
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "敦",
+            "gloss": "candid"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "敦",
+            "gloss": "candid"
+          }
+        ]
+      },
+      "before_mnemonic": "A 敦 candid diary records how 㬿 moonlight changes each night throughout a 月 month.",
+      "after_mnemonic": "A 敦 candid sky hides nothing, letting the 月 moon spill 㬿 moonlight.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㵦",
+      "base_card_hash": "sha256:40d4e6827466a438743bf3659f43596ebbfefbceee9b429fe42fc821fbbb9c31",
+      "before": {
+        "meaning": "slippery",
+        "equation": "氵 water (drops) + 辶 movement + 左 left + 月 month = 㵦 slippery",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "辶",
+            "gloss": "movement"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "辶",
+            "gloss": "movement"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "slippery",
+        "equation": "氵 water (drops) + 辶 movement + 左 left + 月 flesh = 㵦 slippery",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "辶",
+            "gloss": "movement"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "flesh"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "辶",
+            "gloss": "movement"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "flesh"
+          }
+        ]
+      },
+      "before_mnemonic": "After a 月 month of dripping 氵 water, each 辶 movement veers 左 left on the 㵦 slippery floor.",
+      "after_mnemonic": "A scrap of 月 flesh in dripping 氵 water sends each 辶 movement veering 左 left on the 㵦 slippery floor.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㵬",
+      "base_card_hash": "sha256:970dfdfa81ae95d42067faa3454c419ed3cedc8758f79c4872960e03bbb423c1",
+      "before": {
+        "meaning": "personal-name character",
+        "equation": "氵 water (drops) + 月 month + 盈 replete = 㵬 personal-name character",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "盈",
+            "gloss": "replete"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "盈",
+            "gloss": "replete"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "personal-name character",
+        "equation": "氵 water (drops) + 月 moon + 盈 replete = 㵬 personal-name character",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "盈",
+            "gloss": "replete"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "盈",
+            "gloss": "replete"
+          }
+        ]
+      },
+      "before_mnemonic": "A calligrapher spends a 月 month choosing a newborn's 㵬 personal-name character, the brush cup 盈 replete with 氵 water.",
+      "after_mnemonic": "A basin 盈 replete with 氵 water reflects the 月 moon beside the 㵬 personal-name character a calligrapher selects.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㵻",
+      "base_card_hash": "sha256:248e60c7cc09e0440de5545b1756f815fc33b881cecdcf737cb15c8b277783f4",
+      "before": {
+        "meaning": "sweat from shame",
+        "equation": "氵 water (drops) + 月 month + 叟 old man = 㵻 sweat from shame",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "叟",
+            "gloss": "old man"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "叟",
+            "gloss": "old man"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sweat from shame",
+        "equation": "氵 water (drops) + 月 moon + 叟 old man = 㵻 sweat from shame",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "叟",
+            "gloss": "old man"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "叟",
+            "gloss": "old man"
+          }
+        ]
+      },
+      "before_mnemonic": "For one 月 month, a 叟 old man averts his eyes over a mistake as 氵 water beads form 㵻 sweat from shame.",
+      "after_mnemonic": "Under the revealing 月 moon, a 叟 old man sees 氵 water bead as 㵻 sweat from shame.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "㻟",
+      "base_card_hash": "sha256:77d8a384980c836207026da3d865e62a611ec3b3ddaa1e1b89c842573c2a3217",
+      "before": {
+        "meaning": "jade",
+        "equation": "𤣩 jade (alt) + 左 left + 月 month = 㻟 jade",
+        "components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade (alt)"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade (alt)"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "jade",
+        "equation": "𤣩 jade (alt) + 左 left + 月 flesh = 㻟 jade",
+        "components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade (alt)"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "flesh"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade (alt)"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "flesh"
+          }
+        ]
+      },
+      "before_mnemonic": "Every 月 month, the 𤣩 jade display shifts one place 左 left, bringing 㻟 jade forward.",
+      "after_mnemonic": "A butcher sets 月 flesh to the 左 left of a 𤣩 jade (alt) display, making the true 㻟 jade look finer.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䎳",
+      "base_card_hash": "sha256:1b5706ec804f235d026d3909d010b7c9caee0a5a3bb682dda7a92503f8bbcaea",
+      "before": {
+        "meaning": "lose of the ear",
+        "equation": "耳 ear + 月 month = 䎳 lose of the ear",
+        "components": [
+          {
+            "character": "耳",
+            "gloss": "ear"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "耳",
+            "gloss": "ear"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "lose of the ear",
+        "equation": "耳 ear + 月 moon = 䎳 lose of the ear",
+        "components": [
+          {
+            "character": "耳",
+            "gloss": "ear"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "耳",
+            "gloss": "ear"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ]
+      },
+      "before_mnemonic": "A statue missing its 耳 ear for one 月 month documents 䎳 lose of the ear.",
+      "after_mnemonic": "A crescent 月 moon resembles the missing curve of an 耳 ear in 䎳 lose of the ear.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䑚",
+      "base_card_hash": "sha256:6b44ae9824bf60d9475e2c4aa91dc6b77fd39d4ff037b992a8022214d407aa5e",
+      "before": {
+        "meaning": "sweet",
+        "equation": "舌 tongue + 月 month = 䑚 sweet",
+        "components": [
+          {
+            "character": "舌",
+            "gloss": "tongue"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "舌",
+            "gloss": "tongue"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sweet",
+        "equation": "舌 tongue + 月 flesh = 䑚 sweet",
+        "components": [
+          {
+            "character": "舌",
+            "gloss": "tongue"
+          },
+          {
+            "character": "月",
+            "gloss": "flesh"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "舌",
+            "gloss": "tongue"
+          },
+          {
+            "character": "月",
+            "gloss": "flesh"
+          }
+        ]
+      },
+      "before_mnemonic": "A 月 month of ripening makes fruit 䑚 sweet upon the 舌 tongue.",
+      "after_mnemonic": "月 flesh glazed with honey tastes 䑚 sweet on the 舌 tongue.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䙃",
+      "base_card_hash": "sha256:5926705e1f5dd13e29cca9b662f996e329a453820541f78367f9d3f0b4dcc349",
+      "before": {
+        "meaning": "sleeveless clothes",
+        "equation": "衤 clothing (side) + 左 left + 月 month = 䙃 sleeveless clothes",
+        "components": [
+          {
+            "character": "衤",
+            "gloss": "clothing (side)"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "衤",
+            "gloss": "clothing (side)"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sleeveless clothes",
+        "equation": "衤 clothing (side) + 左 left + 月 flesh = 䙃 sleeveless clothes",
+        "components": [
+          {
+            "character": "衤",
+            "gloss": "clothing (side)"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "flesh"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "衤",
+            "gloss": "clothing (side)"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "flesh"
+          }
+        ]
+      },
+      "before_mnemonic": "During a hot 月 month, start at the 左 left arm and remove both sleeves from 衤 clothing to make 䙃 sleeveless clothes.",
+      "after_mnemonic": "To make 䙃 sleeveless clothes, cut 衤 clothing (side) away from 月 flesh, starting at the 左 left arm.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䚴",
+      "base_card_hash": "sha256:9f5d05348d8730b1dbe706cc63062cd76ebc458c0dbafcc7aebb616ffa84f8d9",
+      "before": {
+        "meaning": "furious",
+        "equation": "言 speech + 月 month = 䚴 furious",
+        "components": [
+          {
+            "character": "言",
+            "gloss": "speech"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "言",
+            "gloss": "speech"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "furious",
+        "equation": "言 speech + 月 moon = 䚴 furious",
+        "components": [
+          {
+            "character": "言",
+            "gloss": "speech"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "言",
+            "gloss": "speech"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ]
+      },
+      "before_mnemonic": "After a 月 month of ignored complaints, the speaker's 言 speech turns 䚴 furious.",
+      "after_mnemonic": "A sleepless complaint shouted at the 月 moon turns 言 speech 䚴 furious.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䜔",
+      "base_card_hash": "sha256:17577bfb7f93d500df66705fc159504302589cb6192a1c182ef032e58d5b7b95",
+      "before": {
+        "meaning": "speak",
+        "equation": "言 speech + 辶 movement + 左 left + 月 month = 䜔 speak",
+        "components": [
+          {
+            "character": "言",
+            "gloss": "speech"
+          },
+          {
+            "character": "辶",
+            "gloss": "movement"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "言",
+            "gloss": "speech"
+          },
+          {
+            "character": "辶",
+            "gloss": "movement"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "speak",
+        "equation": "言 speech + 辶 movement + 左 left + 月 flesh = 䜔 speak",
+        "components": [
+          {
+            "character": "言",
+            "gloss": "speech"
+          },
+          {
+            "character": "辶",
+            "gloss": "movement"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "flesh"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "言",
+            "gloss": "speech"
+          },
+          {
+            "character": "辶",
+            "gloss": "movement"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "flesh"
+          }
+        ]
+      },
+      "before_mnemonic": "Each 月 month, a procession's 辶 movement from the 左 left brings a herald carrying another's 言 speech to 䜔 speak for them.",
+      "after_mnemonic": "With 月 flesh held in the 左 left hand, a herald makes 辶 movement forward and uses 言 speech to 䜔 speak.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䢁",
+      "base_card_hash": "sha256:d3b94c55e7a36c02f6892dee2d6145eea770728ed8d558c0be5143dca468f341",
+      "before": {
+        "meaning": "tire of a wheel",
+        "equation": "车 vehicle + 月 month = 䢁 tire of a wheel",
+        "components": [
+          {
+            "character": "车",
+            "gloss": "vehicle"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "车",
+            "gloss": "vehicle"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "tire of a wheel",
+        "equation": "车 vehicle + 月 moon = 䢁 tire of a wheel",
+        "components": [
+          {
+            "character": "车",
+            "gloss": "vehicle"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "车",
+            "gloss": "vehicle"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ]
+      },
+      "before_mnemonic": "After a 月 month on the road, a 车 vehicle may need a new 䢁 tire of a wheel.",
+      "after_mnemonic": "The round 月 moon mirrors the 䢁 tire of a wheel on a 车 vehicle.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䤻",
+      "base_card_hash": "sha256:c2db93593418e59a97f867257bf810b14f5e0d1051dfa5c8a475b60299b82995",
+      "before": {
+        "meaning": "heavy iron part",
+        "equation": "金 metal + 左 left + 月 month = 䤻 heavy iron part",
+        "components": [
+          {
+            "character": "金",
+            "gloss": "metal"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "金",
+            "gloss": "metal"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "heavy iron part",
+        "equation": "金 metal + 左 left + 月 flesh = 䤻 heavy iron part",
+        "components": [
+          {
+            "character": "金",
+            "gloss": "metal"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "flesh"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "金",
+            "gloss": "metal"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "flesh"
+          }
+        ]
+      },
+      "before_mnemonic": "A 䤻 heavy iron part lets the plough's 左 left side bear a 月 month of hard work with unbending 金 metal.",
+      "after_mnemonic": "A 䤻 heavy iron part of 金 metal rests to the 左 left of hanging 月 flesh in a smith's shop.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䩗",
+      "base_card_hash": "sha256:723c3e94768184d724206ad230e66b7ec97c7ca59f91cbc2e904edc3ba7c6676",
+      "before": {
+        "meaning": "rule by might rather than right",
+        "equation": "革 leather + 月 month = 䩗 rule by might rather than right",
+        "components": [
+          {
+            "character": "革",
+            "gloss": "leather"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "革",
+            "gloss": "leather"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "rule by might rather than right",
+        "equation": "革 leather + 月 moon = 䩗 rule by might rather than right",
+        "components": [
+          {
+            "character": "革",
+            "gloss": "leather"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "革",
+            "gloss": "leather"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ]
+      },
+      "before_mnemonic": "For an entire 月 month, a ruler keeps a 革 leather whip beside the throne and chooses to 䩗 rule by might rather than right.",
+      "after_mnemonic": "Under the 月 moon, a ruler brandishes a 革 leather whip to 䩗 rule by might rather than right.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "䭉",
+      "base_card_hash": "sha256:4fd0266576701681e004f5fe84248d1e8b18ef71ddae6b3679db201475d72fef",
+      "before": {
+        "meaning": "mashed beans",
+        "equation": "飠 food + 左 left + 月 month = 䭉 mashed beans",
+        "components": [
+          {
+            "character": "飠",
+            "gloss": "food"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "飠",
+            "gloss": "food"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "mashed beans",
+        "equation": "飠 food + 左 left + 月 flesh = 䭉 mashed beans",
+        "components": [
+          {
+            "character": "飠",
+            "gloss": "food"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "flesh"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "飠",
+            "gloss": "food"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "flesh"
+          }
+        ]
+      },
+      "before_mnemonic": "Each 月 month, the 左 left hand pounds soaked 飠 food into 䭉 mashed beans.",
+      "after_mnemonic": "Set 月 flesh to the 左 left and use the 飠 food bowl for 䭉 mashed beans.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "刖",
+      "base_card_hash": "sha256:74b5099018b1bd848d4830ee043e0a7dbd5021bef9de35ab9c214c91691c9d83",
+      "before": {
+        "meaning": "cutting off feet",
+        "equation": "月 month + 刂 knife (side) = 刖 cutting off feet",
+        "components": [
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "刂",
+            "gloss": "knife (side)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "刂",
+            "gloss": "knife (side)"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "cutting off feet",
+        "equation": "月 flesh + 刂 knife (side) = 刖 cutting off feet",
+        "components": [
+          {
+            "character": "月",
+            "gloss": "flesh"
+          },
+          {
+            "character": "刂",
+            "gloss": "knife (side)"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "月",
+            "gloss": "flesh"
+          },
+          {
+            "character": "刂",
+            "gloss": "knife (side)"
+          }
+        ]
+      },
+      "before_mnemonic": "Historically, the chosen 月 month marked when 刖 cutting off feet was carried out with a 刂 knife.",
+      "after_mnemonic": "A 刂 knife (side) bites into 月 flesh in the punishment of 刖 cutting off feet.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "堶",
+      "base_card_hash": "sha256:1719cddb6ba7e4d6df11445e95ef843b9b86600e132293be26025e9d3e2eee28",
+      "before": {
+        "meaning": "throw heavy weights",
+        "equation": "土 earth + 左 left + 月 month = 堶 throw heavy weights",
+        "components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "throw heavy weights",
+        "equation": "土 earth + 左 left + 月 flesh = 堶 throw heavy weights",
+        "components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "flesh"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "土",
+            "gloss": "earth"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "flesh"
+          }
+        ]
+      },
+      "before_mnemonic": "To 堶 throw heavy weights, train the 左 left arm for a 月 month using packed 土 earth.",
+      "after_mnemonic": "Pack 土 earth around a weight, brace 月 flesh in the 左 left arm, and 堶 throw heavy weights.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "媠",
+      "base_card_hash": "sha256:cb542098579a1c16af21577d4b53f5596512f5c1c3127632a29afba29d1ece9f",
+      "before": {
+        "meaning": "lazy",
+        "equation": "女 woman + 左 left + 月 month = 媠 lazy",
+        "components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "lazy",
+        "equation": "女 woman + 左 left + 月 flesh = 媠 lazy",
+        "components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "flesh"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "女",
+            "gloss": "woman"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "flesh"
+          }
+        ]
+      },
+      "before_mnemonic": "For a whole 月 month, a 女 woman leaves every task on the 左 left side untouched because she feels 媠 lazy.",
+      "after_mnemonic": "A 女 woman leaves 月 flesh on the 左 left side untouched because she feels 媠 lazy.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "惰",
+      "base_card_hash": "sha256:2d3dedfdd71d4793ab8009f506a72571feeb749704b401ab26903fbac94662bf",
+      "before": {
+        "meaning": "indolent",
+        "equation": "忄 heart (side) + 左 left + 月 month = 惰 indolent",
+        "components": [
+          {
+            "character": "忄",
+            "gloss": "heart (side)"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "忄",
+            "gloss": "heart (side)"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "indolent",
+        "equation": "忄 heart (side) + 左 left + 月 flesh = 惰 indolent",
+        "components": [
+          {
+            "character": "忄",
+            "gloss": "heart (side)"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "flesh"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "忄",
+            "gloss": "heart (side)"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "flesh"
+          }
+        ]
+      },
+      "before_mnemonic": "An 忄 heart becomes 惰 indolent when work is 左 left untouched for a 月 month.",
+      "after_mnemonic": "The 忄 heart (side) turns 惰 indolent when 月 flesh lies 左 left untouched.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "抈",
+      "base_card_hash": "sha256:22262c8ec181b5747c5bf1385a02b62ccd708f1f5bc9dcbdd2d509e5690c9050",
+      "before": {
+        "meaning": "bend",
+        "equation": "扌 hand (side) + 月 month = 抈 bend",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "bend",
+        "equation": "扌 hand (side) + 月 moon = 抈 bend",
+        "components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "扌",
+            "gloss": "hand (side)"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ]
+      },
+      "before_mnemonic": "A 扌 hand creases the calendar page for each 月 month, making it 抈 bend.",
+      "after_mnemonic": "A 扌 hand (side) curves a strip like the crescent 月 moon to 抈 bend it.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "明",
+      "base_card_hash": "sha256:f54b8a943dec66d1c00f59618715085c87770903863a84ca9dc1401fa47185b0",
+      "before": {
+        "meaning": "bright",
+        "equation": "日 sun + 月 month = 明 bright",
+        "components": [
+          {
+            "character": "日",
+            "gloss": "sun"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "日",
+            "gloss": "sun"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "bright",
+        "equation": "日 sun + 月 moon = 明 bright",
+        "components": [
+          {
+            "character": "日",
+            "gloss": "sun"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "日",
+            "gloss": "sun"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ]
+      },
+      "before_mnemonic": "The 日 sun and the moon that marks each 月 month shine together, making the sky 明 bright.",
+      "after_mnemonic": "The 日 sun and 月 moon shine together, making the sky 明 bright.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "月",
+      "base_card_hash": "sha256:6eb4fbbe9744f35e1dfda861b7212561baaae392dd910e1698df2838b085a10f",
+      "before": {
+        "meaning": "month",
+        "equation": "Visual form: 月 month",
+        "components": [
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "month",
+        "equation": "Visual form: 月 moon; meaning 月 month",
+        "components": [
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ]
+      },
+      "before_mnemonic": "The crescent outline and two inner marks of 月 month resemble a moon charted through its phases.",
+      "after_mnemonic": "The crescent outline is the 月 moon; one lunar cycle gives the lexical meaning 月 month.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "有",
+      "base_card_hash": "sha256:767819ce512f0b14641daa77bcebff041d9b4caee7790c3d2a477fcdd28a7307",
+      "before": {
+        "meaning": "possess",
+        "equation": "𠂇 left hand + 月 month = 有 possess",
+        "components": [
+          {
+            "character": "𠂇",
+            "gloss": "left hand"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𠂇",
+            "gloss": "left hand"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "possess",
+        "equation": "𠂇 left hand + 月 flesh = 有 possess",
+        "components": [
+          {
+            "character": "𠂇",
+            "gloss": "left hand"
+          },
+          {
+            "character": "月",
+            "gloss": "flesh"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𠂇",
+            "gloss": "left hand"
+          },
+          {
+            "character": "月",
+            "gloss": "flesh"
+          }
+        ]
+      },
+      "before_mnemonic": "A 𠂇 left hand circles one 月 month on a calendar to show the time you 有 possess.",
+      "after_mnemonic": "A 𠂇 left hand closes around 月 flesh to show what you 有 possess.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "朊",
+      "base_card_hash": "sha256:c5ac747fa6ade208a0222a82147067d4a33243fb422311242c57a1001c4f955c",
+      "before": {
+        "meaning": "protein",
+        "equation": "月 month + 元 beginning = 朊 protein",
+        "components": [
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "元",
+            "gloss": "beginning"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "元",
+            "gloss": "beginning"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "protein",
+        "equation": "月 flesh + 元 beginning = 朊 protein",
+        "components": [
+          {
+            "character": "月",
+            "gloss": "flesh"
+          },
+          {
+            "character": "元",
+            "gloss": "beginning"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "月",
+            "gloss": "flesh"
+          },
+          {
+            "character": "元",
+            "gloss": "beginning"
+          }
+        ]
+      },
+      "before_mnemonic": "A nutrition chart begins at the 元 beginning of each 月 month by tracking 朊 protein.",
+      "after_mnemonic": "At the 元 beginning of nutrition, 月 flesh supplies 朊 protein.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "朋",
+      "base_card_hash": "sha256:81b81a888bd83528d044b37151cd9e76e2e39e622cea626a6a53a481f20204a5",
+      "before": {
+        "meaning": "companion",
+        "equation": "月 month + 月 month = 朋 companion",
+        "components": [
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "companion",
+        "equation": "月 moon + 月 moon = 朋 companion",
+        "components": [
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ]
+      },
+      "before_mnemonic": "A 月 month spent together, then another 月 month, turns a stranger into a 朋 companion.",
+      "after_mnemonic": "One 月 moon beside another 月 moon looks like a paired 朋 companion.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "朌",
+      "base_card_hash": "sha256:299473f3f3ca6626faf2a4a47708baca01ff126ff04afe020e5a6c834d977556",
+      "before": {
+        "meaning": "large",
+        "equation": "月 month + 分 divide = 朌 large",
+        "components": [
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "分",
+            "gloss": "divide"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "分",
+            "gloss": "divide"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "large",
+        "equation": "月 moon + 分 divide = 朌 large",
+        "components": [
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "分",
+            "gloss": "divide"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "分",
+            "gloss": "divide"
+          }
+        ]
+      },
+      "before_mnemonic": "A 月 month feels 朌 large when you 分 divide it into a whole grid of days.",
+      "after_mnemonic": "When clouds 分 divide, the low 月 moon appears 朌 large.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "服",
+      "base_card_hash": "sha256:171e9040ba8f6b1c23bc9672c9e0a79a3429965dd189d593bdb4b9d4a14cdcf7",
+      "before": {
+        "meaning": "apparel",
+        "equation": "月 month + 𠬝 submit = 服 apparel",
+        "components": [
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "𠬝",
+            "gloss": "submit"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "𠬝",
+            "gloss": "submit"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "apparel",
+        "equation": "月 moon + 𠬝 submit = 服 apparel",
+        "components": [
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "𠬝",
+            "gloss": "submit"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "𠬝",
+            "gloss": "submit"
+          }
+        ]
+      },
+      "before_mnemonic": "Each 月 month, designers 𠬝 submit their finest 服 apparel for the catalog.",
+      "after_mnemonic": "A 月 moon emblem decorates the 服 apparel that a courtier wears when they 𠬝 submit.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "朏",
+      "base_card_hash": "sha256:d92dcb8a3a8d2e314ba6a6176ea24c214f767f2c4dfff01f207b6d0963c14f3e",
+      "before": {
+        "meaning": "light of crescent moon",
+        "equation": "月 month + 出 exit = 朏 light of crescent moon",
+        "components": [
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "出",
+            "gloss": "exit"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "出",
+            "gloss": "exit"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "light of crescent moon",
+        "equation": "月 moon + 出 exit = 朏 light of crescent moon",
+        "components": [
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "出",
+            "gloss": "exit"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "出",
+            "gloss": "exit"
+          }
+        ]
+      },
+      "before_mnemonic": "At the start of a 月 month, 朏 light of crescent moon seems to 出 exit the darkness.",
+      "after_mnemonic": "The 月 moon begins to 出 exit darkness as 朏 light of crescent moon.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "朐",
+      "base_card_hash": "sha256:8fe0e912c8808a34575bf6321ac4c3350598d1f5dc06fb0ae037b345a2c46bcd",
+      "before": {
+        "meaning": "warm",
+        "equation": "月 month + 句 sentence = 朐 warm",
+        "components": [
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "句",
+            "gloss": "sentence"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "句",
+            "gloss": "sentence"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "warm",
+        "equation": "月 moon + 句 sentence = 朐 warm",
+        "components": [
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "句",
+            "gloss": "sentence"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "句",
+            "gloss": "sentence"
+          }
+        ]
+      },
+      "before_mnemonic": "The forecast's 句 sentence says every day of the coming 月 month will remain 朐 warm.",
+      "after_mnemonic": "A 句 sentence predicts that the pale 月 moon will glow 朐 warm.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "朓",
+      "base_card_hash": "sha256:b041a3f06c446eb2b84f117cfd5810ccec5515ede22a171251e98e732ab4d5ff",
+      "before": {
+        "meaning": "sacrifice",
+        "equation": "月 month + 兆 portent = 朓 sacrifice",
+        "components": [
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "兆",
+            "gloss": "portent"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "兆",
+            "gloss": "portent"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "sacrifice",
+        "equation": "月 moon + 兆 portent = 朓 sacrifice",
+        "components": [
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "兆",
+            "gloss": "portent"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "兆",
+            "gloss": "portent"
+          }
+        ]
+      },
+      "before_mnemonic": "Each 月 month, a 兆 portent determines the 朓 sacrifice offered at the shrine.",
+      "after_mnemonic": "A 兆 portent seen beside the 月 moon determines the 朓 sacrifice.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "朔",
+      "base_card_hash": "sha256:6e013e1679e697ab2532efdc55a1a961166012f990f252f1a1969c496f290fa7",
+      "before": {
+        "meaning": "first day of lunar month",
+        "equation": "屰 disobedient + 月 month = 朔 first day of lunar month",
+        "components": [
+          {
+            "character": "屰",
+            "gloss": "disobedient"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "屰",
+            "gloss": "disobedient"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "first day of lunar month",
+        "equation": "屰 disobedient + 月 moon = 朔 first day of lunar month",
+        "components": [
+          {
+            "character": "屰",
+            "gloss": "disobedient"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "屰",
+            "gloss": "disobedient"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ]
+      },
+      "before_mnemonic": "A 屰 disobedient 月 month refuses to continue the old count and restarts on the 朔 first day of lunar month.",
+      "after_mnemonic": "A 屰 disobedient 月 moon rejects the old count and starts the 朔 first day of lunar month.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "朕",
+      "base_card_hash": "sha256:3a271a858c0cc58065d29ad7fe7c294a78c13cb663aa167ecca4e3a1c880053b",
+      "before": {
+        "meaning": "imperial I",
+        "equation": "月 month + 关 close = 朕 imperial I",
+        "components": [
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "关",
+            "gloss": "close"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "关",
+            "gloss": "close"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "imperial I",
+        "equation": "月 moon + 关 close = 朕 imperial I",
+        "components": [
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "关",
+            "gloss": "close"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "关",
+            "gloss": "close"
+          }
+        ]
+      },
+      "before_mnemonic": "Only the emperor may say 朕 imperial I while officials 关 close the accounts for each 月 month.",
+      "after_mnemonic": "When the emperor says 朕 imperial I, officials 关 close the curtains on the 月 moon.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "朖",
+      "base_card_hash": "sha256:a1d6bf6e3881554d2bead9b82455737106c69b5fd3c7ddea9e7df157b2ed7a0b",
+      "before": {
+        "meaning": "distinct",
+        "equation": "月 month + 良 high-quality = 朖 distinct",
+        "components": [
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "良",
+            "gloss": "high-quality"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "良",
+            "gloss": "high-quality"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "distinct",
+        "equation": "月 moon + 良 high-quality = 朖 distinct",
+        "components": [
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "良",
+            "gloss": "high-quality"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "良",
+            "gloss": "high-quality"
+          }
+        ]
+      },
+      "before_mnemonic": "A 良 high-quality calendar makes every phase of the 月 month 朖 distinct.",
+      "after_mnemonic": "A 良 high-quality telescope makes every ridge of the 月 moon 朖 distinct.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "朗",
+      "base_card_hash": "sha256:e5ccad9b89b33ca8e0202ae35cf7395eae85960a7f5b8d4e1aff411cf0cc3e4f",
+      "before": {
+        "meaning": "lucent",
+        "equation": "良 high-quality + 月 month = 朗 lucent",
+        "components": [
+          {
+            "character": "良",
+            "gloss": "high-quality"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "良",
+            "gloss": "high-quality"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "lucent",
+        "equation": "良 high-quality + 月 moon = 朗 lucent",
+        "components": [
+          {
+            "character": "良",
+            "gloss": "high-quality"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "良",
+            "gloss": "high-quality"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ]
+      },
+      "before_mnemonic": "A 良 high-quality lamp stays 朗 lucent through an entire 月 month.",
+      "after_mnemonic": "A 良 high-quality lantern competes with the 月 moon and keeps the hall 朗 lucent.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "朘",
+      "base_card_hash": "sha256:40c583e858bb5c44a3d16542e5fe3f2d5cd78e1ea50b28cdba11c2712f6f46f1",
+      "before": {
+        "meaning": "wane",
+        "equation": "月 month + 夋 dawdle = 朘 wane",
+        "components": [
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "夋",
+            "gloss": "dawdle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "夋",
+            "gloss": "dawdle"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "wane",
+        "equation": "月 moon + 夋 dawdle = 朘 wane",
+        "components": [
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "夋",
+            "gloss": "dawdle"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "夋",
+            "gloss": "dawdle"
+          }
+        ]
+      },
+      "before_mnemonic": "As the 月 month begins to 夋 dawdle toward its end, its moonlight starts to 朘 wane.",
+      "after_mnemonic": "The 月 moon seems to 夋 dawdle near the horizon as its light begins to 朘 wane.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "朙",
+      "base_card_hash": "sha256:5c5213baf5b85729fefe4b6ccfef8e036d2aa029a3bfea1094287d5500defd04",
+      "before": {
+        "meaning": "intelligent",
+        "equation": "囧 bright window + 月 month = 朙 intelligent",
+        "components": [
+          {
+            "character": "囧",
+            "gloss": "bright window"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "囧",
+            "gloss": "bright window"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "intelligent",
+        "equation": "囧 bright window + 月 moon = 朙 intelligent",
+        "components": [
+          {
+            "character": "囧",
+            "gloss": "bright window"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "囧",
+            "gloss": "bright window"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ]
+      },
+      "before_mnemonic": "A student reads by a 囧 bright window for a 月 month, becoming 朙 intelligent.",
+      "after_mnemonic": "A student reads by the 月 moon through a 囧 bright window, becoming 朙 intelligent.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "望",
+      "base_card_hash": "sha256:704629d4d939491f6d444e86f517a5b14c69ee9da53bdaff77c12eddaa4591de",
+      "before": {
+        "meaning": "expect",
+        "equation": "亡 deceased + 月 month + 王 king = 望 expect",
+        "components": [
+          {
+            "character": "亡",
+            "gloss": "deceased"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "王",
+            "gloss": "king"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亡",
+            "gloss": "deceased"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "王",
+            "gloss": "king"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "expect",
+        "equation": "亡 deceased + 月 moon + 王 king = 望 expect",
+        "components": [
+          {
+            "character": "亡",
+            "gloss": "deceased"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "王",
+            "gloss": "king"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亡",
+            "gloss": "deceased"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "王",
+            "gloss": "king"
+          }
+        ]
+      },
+      "before_mnemonic": "After the 王 king declares a 月 month of mourning for the 亡 deceased, people can 望 expect the palace to remain quiet.",
+      "after_mnemonic": "The 王 king looks at the 月 moon after a 亡 deceased messenger fails to return; he can only 望 expect news.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "朝",
+      "base_card_hash": "sha256:ef0c484f74fa7742b1fde54ceb822ec4b220a61c25e31d0a10049a44f0e39442",
+      "before": {
+        "meaning": "dynasty",
+        "equation": "𠦝 sunrise + 月 month = 朝 dynasty",
+        "components": [
+          {
+            "character": "𠦝",
+            "gloss": "sunrise"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𠦝",
+            "gloss": "sunrise"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "dynasty",
+        "equation": "𠦝 sunrise + 月 moon = 朝 dynasty",
+        "components": [
+          {
+            "character": "𠦝",
+            "gloss": "sunrise"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𠦝",
+            "gloss": "sunrise"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ]
+      },
+      "before_mnemonic": "At 𠦝 sunrise, the royal court records another 月 month in the reign of the 朝 dynasty.",
+      "after_mnemonic": "At 𠦝 sunrise, the fading 月 moon marks the morning of the 朝 dynasty.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "朞",
+      "base_card_hash": "sha256:2574170b7f4a074e2578c40a7e0e21fa92a9361f8f4f98a98e368fb9cfc9af36",
+      "before": {
+        "meaning": "full year",
+        "equation": "其 their + 月 month = 朞 full year",
+        "components": [
+          {
+            "character": "其",
+            "gloss": "their"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "其",
+            "gloss": "their"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "full year",
+        "equation": "其 their + 月 moon = 朞 full year",
+        "components": [
+          {
+            "character": "其",
+            "gloss": "their"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "其",
+            "gloss": "their"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ]
+      },
+      "before_mnemonic": "Each 月 month is crossed off on 其 their calendar until twelve make a 朞 full year.",
+      "after_mnemonic": "Twelve returns of the 月 moon fill 其 their calendar to make a 朞 full year.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "期",
+      "base_card_hash": "sha256:d57a0ad723682e557ac62b85fd12b7013ca9eb439170934d8da472ed6a220788",
+      "before": {
+        "meaning": "period of time",
+        "equation": "其 their + 月 month = 期 period of time",
+        "components": [
+          {
+            "character": "其",
+            "gloss": "their"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "其",
+            "gloss": "their"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "period of time",
+        "equation": "其 their + 月 moon = 期 period of time",
+        "components": [
+          {
+            "character": "其",
+            "gloss": "their"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "其",
+            "gloss": "their"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ]
+      },
+      "before_mnemonic": "A marked 月 month reserves 其 their appointment for a 期 period of time.",
+      "after_mnemonic": "Mark a phase of the 月 moon on 其 their calendar to reserve a 期 period of time.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "朠",
+      "base_card_hash": "sha256:79507bb8810c9ad15b0ae91edfd2f5b2652bccef48f28304c94375e259728e06",
+      "before": {
+        "meaning": "color of the moon",
+        "equation": "月 month + 英 England = 朠 color of the moon",
+        "components": [
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "英",
+            "gloss": "England"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "英",
+            "gloss": "England"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "color of the moon",
+        "equation": "月 moon + 英 England = 朠 color of the moon",
+        "components": [
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "英",
+            "gloss": "England"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "英",
+            "gloss": "England"
+          }
+        ]
+      },
+      "before_mnemonic": "At Greenwich in 英 England, astronomers record each 朠 color of the moon throughout the 月 month.",
+      "after_mnemonic": "Over 英 England, the 月 moon changes hue, giving each 朠 color of the moon.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "朢",
+      "base_card_hash": "sha256:da3847f87c5b214244d785a5291f8ab795a9bbb409fb44c9753c5b63fc982c96",
+      "before": {
+        "meaning": "gaze",
+        "equation": "𦣠 look at + 月 month = 朢 gaze",
+        "components": [
+          {
+            "character": "𦣠",
+            "gloss": "look at"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𦣠",
+            "gloss": "look at"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "gaze",
+        "equation": "𦣠 look at + 月 moon = 朢 gaze",
+        "components": [
+          {
+            "character": "𦣠",
+            "gloss": "look at"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𦣠",
+            "gloss": "look at"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ]
+      },
+      "before_mnemonic": "A lingering 𦣠 look at the full moon marking the 月 month deepens into a 朢 gaze.",
+      "after_mnemonic": "A lingering 𦣠 look at the 月 moon deepens into a 朢 gaze.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "朣",
+      "base_card_hash": "sha256:6c2738fd50a0b1e58332160eb41bf12c022feefb1ad9627e3e47aa5c0f85eaf5",
+      "before": {
+        "meaning": "the rising moon",
+        "equation": "月 month + 童 juvenile = 朣 the rising moon",
+        "components": [
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "童",
+            "gloss": "juvenile"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "童",
+            "gloss": "juvenile"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "the rising moon",
+        "equation": "月 moon + 童 juvenile = 朣 the rising moon",
+        "components": [
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "童",
+            "gloss": "juvenile"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "童",
+            "gloss": "juvenile"
+          }
+        ]
+      },
+      "before_mnemonic": "Young as a 童 juvenile, 朣 the rising moon climbs above the horizon early in the 月 month.",
+      "after_mnemonic": "A 童 juvenile points as the 月 moon climbs: 朣 the rising moon.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "朦",
+      "base_card_hash": "sha256:267c3db1eba1a4d5054e7dd67ae54b8651d977e680490799d5252736305be7a6",
+      "before": {
+        "meaning": "dim",
+        "equation": "月 month + 蒙 Mongolia = 朦 dim",
+        "components": [
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "蒙",
+            "gloss": "Mongolia"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "蒙",
+            "gloss": "Mongolia"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "dim",
+        "equation": "月 moon + 蒙 Mongolia = 朦 dim",
+        "components": [
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "蒙",
+            "gloss": "Mongolia"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "蒙",
+            "gloss": "Mongolia"
+          }
+        ]
+      },
+      "before_mnemonic": "A 月 month of Gobi dust leaves 蒙 Mongolia 朦 dim beneath a veiled sun.",
+      "after_mnemonic": "Mist from 蒙 Mongolia veils the 月 moon until it looks 朦 dim.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "朧",
+      "base_card_hash": "sha256:aaf29fdd01fa0588ebfdc3f810527d06911a48bc21b8f31b3eb1b111fba084b1",
+      "before": {
+        "meaning": "hazy",
+        "equation": "月 month + 龍 dragon = 朧 hazy",
+        "components": [
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "龍",
+            "gloss": "dragon"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "龍",
+            "gloss": "dragon"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "hazy",
+        "equation": "月 moon + 龍 dragon = 朧 hazy",
+        "components": [
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "龍",
+            "gloss": "dragon"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "龍",
+            "gloss": "dragon"
+          }
+        ]
+      },
+      "before_mnemonic": "Through every night of the 月 month, a distant 龍 dragon remains 朧 hazy behind clouds.",
+      "after_mnemonic": "A 龍 dragon silhouette crosses the 月 moon and turns 朧 hazy.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "楕",
+      "base_card_hash": "sha256:41a1670b7fdd9c4dee9ef107ff7859d118b1d95562e9b7cb62a1e8cc89614220",
+      "before": {
+        "meaning": "oval-shaped",
+        "equation": "木 tree + 左 left + 月 month = 楕 oval-shaped",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "oval-shaped",
+        "equation": "木 tree + 左 left + 月 flesh = 楕 oval-shaped",
+        "components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "flesh"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "木",
+            "gloss": "tree"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "flesh"
+          }
+        ]
+      },
+      "before_mnemonic": "Stretch a 木 tree ring toward the 左 left for a 月 month, and it becomes 楕 oval-shaped.",
+      "after_mnemonic": "A 木 tree frame pressed against 月 flesh by the 左 left hand becomes 楕 oval-shaped.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "毻",
+      "base_card_hash": "sha256:2397e1fe4dca0721768446668a6417ce1cb75aadabe04a14ffdeb0cea022e10d",
+      "before": {
+        "meaning": "molt",
+        "equation": "左 left + 月 month + 毛 fur = 毻 molt",
+        "components": [
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "毛",
+            "gloss": "fur"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "毛",
+            "gloss": "fur"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "molt",
+        "equation": "左 left + 月 flesh + 毛 fur = 毻 molt",
+        "components": [
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "flesh"
+          },
+          {
+            "character": "毛",
+            "gloss": "fur"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "flesh"
+          },
+          {
+            "character": "毛",
+            "gloss": "fur"
+          }
+        ]
+      },
+      "before_mnemonic": "Each 月 month, the 毛 fur 左 left behind shows the animal has begun to 毻 molt.",
+      "after_mnemonic": "月 flesh sheds 毛 fur to the 左 left as the animal begins to 毻 molt.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "潃",
+      "base_card_hash": "sha256:6dea14a7880669dc2f5b5b4b31b07fb63dd0c431a3bbba18be3881c5295ad035",
+      "before": {
+        "meaning": "slops",
+        "equation": "氵 water (drops) + 彳 step + 攵 tap + 月 month = 潃 slops",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "彳",
+            "gloss": "step"
+          },
+          {
+            "character": "攵",
+            "gloss": "tap"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "彳",
+            "gloss": "step"
+          },
+          {
+            "character": "攵",
+            "gloss": "tap"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "slops",
+        "equation": "氵 water (drops) + 彳 step + 攵 tap + 月 moon = 潃 slops",
+        "components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "彳",
+            "gloss": "step"
+          },
+          {
+            "character": "攵",
+            "gloss": "tap"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "氵",
+            "gloss": "water (drops)"
+          },
+          {
+            "character": "彳",
+            "gloss": "step"
+          },
+          {
+            "character": "攵",
+            "gloss": "tap"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ]
+      },
+      "before_mnemonic": "A 月 month of grime lets each 彳 step and 攵 tap stir discarded 氵 water into 潃 slops.",
+      "after_mnemonic": "Under the 月 moon, each 彳 step and 攵 tap stirs discarded 氵 water into 潃 slops.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "玥",
+      "base_card_hash": "sha256:38319dec58748a74ef0f73aec0710c4fc5ce3ae2a6e889bba372a001ca32bb9a",
+      "before": {
+        "meaning": "mysterious gem",
+        "equation": "𤣩 jade (alt) + 月 month = 玥 mysterious gem",
+        "components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade (alt)"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade (alt)"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "mysterious gem",
+        "equation": "𤣩 jade (alt) + 月 moon = 玥 mysterious gem",
+        "components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade (alt)"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade (alt)"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ]
+      },
+      "before_mnemonic": "Once each 月 month, a 玥 mysterious gem briefly gleams among 𤣩 jade before disappearing.",
+      "after_mnemonic": "The 月 moon seems trapped inside 𤣩 jade (alt) as a 玥 mysterious gem.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "胡",
+      "base_card_hash": "sha256:712a10826ba4ff036932497ccb4fbea7616733e6104ececed3e20da01b773c85",
+      "before": {
+        "meaning": "recklessly",
+        "equation": "古 old + 月 month = 胡 recklessly",
+        "components": [
+          {
+            "character": "古",
+            "gloss": "old"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "古",
+            "gloss": "old"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "recklessly",
+        "equation": "古 old + 月 flesh = 胡 recklessly",
+        "components": [
+          {
+            "character": "古",
+            "gloss": "old"
+          },
+          {
+            "character": "月",
+            "gloss": "flesh"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "古",
+            "gloss": "old"
+          },
+          {
+            "character": "月",
+            "gloss": "flesh"
+          }
+        ]
+      },
+      "before_mnemonic": "He ignores a 古 old warning and spends a 月 month staking everything, acting 胡 recklessly.",
+      "after_mnemonic": "Ignore an 古 old warning and gulp 月 flesh too fast, eating 胡 recklessly.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "跀",
+      "base_card_hash": "sha256:76c812e087eb8aee7e113bebdcce314e6327f2a8372dff7b8f059ab6cebf5e79",
+      "before": {
+        "meaning": "cut off the feet",
+        "equation": "𧾷 foot + 月 month = 跀 cut off the feet",
+        "components": [
+          {
+            "character": "𧾷",
+            "gloss": "foot"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𧾷",
+            "gloss": "foot"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "cut off the feet",
+        "equation": "𧾷 foot + 月 flesh = 跀 cut off the feet",
+        "components": [
+          {
+            "character": "𧾷",
+            "gloss": "foot"
+          },
+          {
+            "character": "月",
+            "gloss": "flesh"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𧾷",
+            "gloss": "foot"
+          },
+          {
+            "character": "月",
+            "gloss": "flesh"
+          }
+        ]
+      },
+      "before_mnemonic": "The judge postpones punishment for a 月 month, then points to each 𧾷 foot and orders guards to 跀 cut off the feet.",
+      "after_mnemonic": "A blade passes from the 𧾷 foot into 月 flesh when guards 跀 cut off the feet.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "钥",
+      "base_card_hash": "sha256:f2fe9b37287ce0f282ab1e935125c2b693246791478e328a75593b7cc1a0169e",
+      "before": {
+        "meaning": "key",
+        "equation": "钅 metal + 月 month = 钥 key",
+        "components": [
+          {
+            "character": "钅",
+            "gloss": "metal"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "钅",
+            "gloss": "metal"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "key",
+        "equation": "钅 metal + 月 moon = 钥 key",
+        "components": [
+          {
+            "character": "钅",
+            "gloss": "metal"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "钅",
+            "gloss": "metal"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ]
+      },
+      "before_mnemonic": "Month after 月 month, the same 钅 metal 钥 key opens the lock.",
+      "after_mnemonic": "The 月 moon glints on the 钅 metal of a 钥 key.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "閒",
+      "base_card_hash": "sha256:f878d82bec4b5614261212681d4d8efb6fd643425b5c3fa85b84acdf71492abf",
+      "before": {
+        "meaning": "leisure",
+        "equation": "門 gate + 月 month = 閒 leisure",
+        "components": [
+          {
+            "character": "門",
+            "gloss": "gate"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "門",
+            "gloss": "gate"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "leisure",
+        "equation": "門 gate + 月 moon = 閒 leisure",
+        "components": [
+          {
+            "character": "門",
+            "gloss": "gate"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "門",
+            "gloss": "gate"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ]
+      },
+      "before_mnemonic": "The 門 gate stays closed to work for one 月 month, giving the household a stretch of 閒 leisure.",
+      "after_mnemonic": "The 月 moon shines through a 門 gate, turning a closed courtyard into 閒 leisure.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "阴",
+      "base_card_hash": "sha256:6b734101b17634d8ea897786f780a440e1f7ddf0327560d176cea5fb25d779d8",
+      "before": {
+        "meaning": "shade",
+        "equation": "⻖ mound (left) + 月 month = 阴 shade",
+        "components": [
+          {
+            "character": "⻖",
+            "gloss": "mound (left)"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⻖",
+            "gloss": "mound (left)"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "shade",
+        "equation": "⻖ mound (left) + 月 moon = 阴 shade",
+        "components": [
+          {
+            "character": "⻖",
+            "gloss": "mound (left)"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⻖",
+            "gloss": "mound (left)"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ]
+      },
+      "before_mnemonic": "A ⻖ mound remains dark for a full 月 month, its hidden slope covered in 阴 shade.",
+      "after_mnemonic": "A ⻖ mound (left) blocks the 月 moon, covering its hidden slope in 阴 shade.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "隋",
+      "base_card_hash": "sha256:3e29a0b81ba0f91b0c97b3332dd083efbe3d10e8127281824720a11b1ec70106",
+      "before": {
+        "meaning": "Sui dynasty",
+        "equation": "⻖ mound (left) + 左 left + 月 month = 隋 Sui dynasty",
+        "components": [
+          {
+            "character": "⻖",
+            "gloss": "mound (left)"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⻖",
+            "gloss": "mound (left)"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "Sui dynasty",
+        "equation": "⻖ mound (left) + 左 left + 月 flesh = 隋 Sui dynasty",
+        "components": [
+          {
+            "character": "⻖",
+            "gloss": "mound (left)"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "flesh"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⻖",
+            "gloss": "mound (left)"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "flesh"
+          }
+        ]
+      },
+      "before_mnemonic": "A ⻖ mound beside the canal's 左 left bank records each 月 month of work under the 隋 Sui dynasty.",
+      "after_mnemonic": "By a ⻖ mound (left), 月 flesh lies to the 左 left beneath the standard of the 隋 Sui dynasty.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "隨",
+      "base_card_hash": "sha256:e458a8f621bd1a56799efab15b8a0739b834802994f575cccfbcb53ce7c1274c",
+      "before": {
+        "meaning": "follow",
+        "equation": "⻖ mound (left) + 辶 movement + 左 left + 月 month = 隨 follow",
+        "components": [
+          {
+            "character": "⻖",
+            "gloss": "mound (left)"
+          },
+          {
+            "character": "辶",
+            "gloss": "movement"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⻖",
+            "gloss": "mound (left)"
+          },
+          {
+            "character": "辶",
+            "gloss": "movement"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "follow",
+        "equation": "⻖ mound (left) + 辶 movement + 左 left + 月 flesh = 隨 follow",
+        "components": [
+          {
+            "character": "⻖",
+            "gloss": "mound (left)"
+          },
+          {
+            "character": "辶",
+            "gloss": "movement"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "flesh"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "⻖",
+            "gloss": "mound (left)"
+          },
+          {
+            "character": "辶",
+            "gloss": "movement"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "flesh"
+          }
+        ]
+      },
+      "before_mnemonic": "Each 月 month, let your 辶 movement 隨 follow the 左 left trail around the ⻖ mound.",
+      "after_mnemonic": "Carry 月 flesh in the 左 left hand as 辶 movement circles a ⻖ mound (left), telling the group to 隨 follow.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "霡",
+      "base_card_hash": "sha256:ad20440813a64e19f3526d08418045f31a85856611047669b0c3b5a666268437",
+      "before": {
+        "meaning": "dust",
+        "equation": "雨 rain + 月 month + 永 eternity = 霡 dust",
+        "components": [
+          {
+            "character": "雨",
+            "gloss": "rain"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "永",
+            "gloss": "eternity"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "雨",
+            "gloss": "rain"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "永",
+            "gloss": "eternity"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "dust",
+        "equation": "雨 rain + 月 moon + 永 eternity = 霡 dust",
+        "components": [
+          {
+            "character": "雨",
+            "gloss": "rain"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "永",
+            "gloss": "eternity"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "雨",
+            "gloss": "rain"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "永",
+            "gloss": "eternity"
+          }
+        ]
+      },
+      "before_mnemonic": "A 月 month without 雨 rain feels like 永 eternity as 霡 dust coats every surface.",
+      "after_mnemonic": "Without 雨 rain for what feels like 永 eternity, the 月 moon looks dusty while 霡 dust coats every surface.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "鬌",
+      "base_card_hash": "sha256:10f9e0bf1e737e6a342765305446208e65ee08419b1a69ef04423ba2b368d374",
+      "before": {
+        "meaning": "tufts of hair",
+        "equation": "髟 long hair + 左 left + 月 month = 鬌 tufts of hair",
+        "components": [
+          {
+            "character": "髟",
+            "gloss": "long hair"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "髟",
+            "gloss": "long hair"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "tufts of hair",
+        "equation": "髟 long hair + 左 left + 月 flesh = 鬌 tufts of hair",
+        "components": [
+          {
+            "character": "髟",
+            "gloss": "long hair"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "flesh"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "髟",
+            "gloss": "long hair"
+          },
+          {
+            "character": "左",
+            "gloss": "left"
+          },
+          {
+            "character": "月",
+            "gloss": "flesh"
+          }
+        ]
+      },
+      "before_mnemonic": "Each 月 month, trimming leaves only the 左 left patches of 髟 long hair as 鬌 tufts of hair.",
+      "after_mnemonic": "Trim 髟 long hair until 月 flesh of the scalp shows beneath patches 左 left as 鬌 tufts of hair.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "朗",
+      "base_card_hash": "sha256:81cbee182c41e1e890b64c9ac8886c719d464edfc48e116374dea0d1a5b3ec9e",
+      "before": {
+        "meaning": "lucent",
+        "equation": "良 high-quality + 月 month = 朗 lucent",
+        "components": [
+          {
+            "character": "良",
+            "gloss": "high-quality"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "良",
+            "gloss": "high-quality"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "lucent",
+        "equation": "良 high-quality + 月 moon = 朗 lucent",
+        "components": [
+          {
+            "character": "良",
+            "gloss": "high-quality"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "良",
+            "gloss": "high-quality"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ]
+      },
+      "before_mnemonic": "For the entire 月 month, 良 high-quality lanterns keep the long gallery 朗 lucent.",
+      "after_mnemonic": "良 high-quality light from the 月 moon keeps the long gallery 朗 lucent.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "朗",
+      "base_card_hash": "sha256:ab998aebff4e427d1d761234a68045e1ed8982654d763728d92c261bd81041ca",
+      "before": {
+        "meaning": "lucent",
+        "equation": "良 high-quality + 月 month = 朗 lucent",
+        "components": [
+          {
+            "character": "良",
+            "gloss": "high-quality"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "良",
+            "gloss": "high-quality"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "lucent",
+        "equation": "良 high-quality + 月 moon = 朗 lucent",
+        "components": [
+          {
+            "character": "良",
+            "gloss": "high-quality"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "良",
+            "gloss": "high-quality"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ]
+      },
+      "before_mnemonic": "For a full 月 month, 良 high-quality glass remains 朗 lucent enough to transmit every ray of light.",
+      "after_mnemonic": "良 high-quality light from the 月 moon passes through glass that remains 朗 lucent.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "望",
+      "base_card_hash": "sha256:b492f3fa6a8ebd70b457ef378306831ad3b438fb18e6443139342aff09e12e43",
+      "before": {
+        "meaning": "expect",
+        "equation": "亡 deceased + 月 month + 王 king = 望 expect",
+        "components": [
+          {
+            "character": "亡",
+            "gloss": "deceased"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "王",
+            "gloss": "king"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亡",
+            "gloss": "deceased"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "王",
+            "gloss": "king"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "expect",
+        "equation": "亡 deceased + 月 moon + 王 king = 望 expect",
+        "components": [
+          {
+            "character": "亡",
+            "gloss": "deceased"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "王",
+            "gloss": "king"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亡",
+            "gloss": "deceased"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "王",
+            "gloss": "king"
+          }
+        ]
+      },
+      "before_mnemonic": "The 亡 deceased 王 king cannot return, yet each 月 month his people still 望 expect his arrival.",
+      "after_mnemonic": "A 亡 deceased 王 king cannot return, yet under the 月 moon his people still 望 expect his arrival.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "朗",
+      "base_card_hash": "sha256:ac5f303a993206ba38b703cd620d39d172d867b6bc2b8df76ff65e7507c7fec1",
+      "before": {
+        "meaning": "lucent",
+        "equation": "良 high-quality + 月 month = 朗 lucent",
+        "components": [
+          {
+            "character": "良",
+            "gloss": "high-quality"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "良",
+            "gloss": "high-quality"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "lucent",
+        "equation": "良 high-quality + 月 moon = 朗 lucent",
+        "components": [
+          {
+            "character": "良",
+            "gloss": "high-quality"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "良",
+            "gloss": "high-quality"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ]
+      },
+      "before_mnemonic": "Under a cloudless sky, a 月 month of 良 high-quality moonlit nights stays 朗 lucent.",
+      "after_mnemonic": "良 high-quality light from the 月 moon keeps the gallery 朗 lucent.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "望",
+      "base_card_hash": "sha256:c6c99a76a5f25afc5ea684db1fedc38bdd27ddbc52c65c38eddf69ab4b1faefd",
+      "before": {
+        "meaning": "expect",
+        "equation": "亡 deceased + 月 month + 王 king = 望 expect",
+        "components": [
+          {
+            "character": "亡",
+            "gloss": "deceased"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "王",
+            "gloss": "king"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亡",
+            "gloss": "deceased"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          },
+          {
+            "character": "王",
+            "gloss": "king"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "expect",
+        "equation": "亡 deceased + 月 moon + 王 king = 望 expect",
+        "components": [
+          {
+            "character": "亡",
+            "gloss": "deceased"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "王",
+            "gloss": "king"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "亡",
+            "gloss": "deceased"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          },
+          {
+            "character": "王",
+            "gloss": "king"
+          }
+        ]
+      },
+      "before_mnemonic": "Each 月 month, subjects facing the empty throne of a 亡 deceased 王 king 望 expect a successor.",
+      "after_mnemonic": "Under the 月 moon, subjects of a 亡 deceased 王 king 望 expect a successor.",
+      "valid": true,
+      "problems": []
+    },
+    {
+      "character": "玥",
+      "base_card_hash": "sha256:dee6817c6d4a9ca553582b14c9b37eedcdfea5263f65d3cfb1d55b6df6cc1b9a",
+      "before": {
+        "meaning": "mysterious gem",
+        "equation": "𤣩 jade (alt) + 月 month = 玥 mysterious gem",
+        "components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade (alt)"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade (alt)"
+          },
+          {
+            "character": "月",
+            "gloss": "month"
+          }
+        ]
+      },
+      "after": {
+        "meaning": "mysterious gem",
+        "equation": "𤣩 jade (alt) + 月 moon = 玥 mysterious gem",
+        "components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade (alt)"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ],
+        "visual_components": [
+          {
+            "character": "𤣩",
+            "gloss": "jade (alt)"
+          },
+          {
+            "character": "月",
+            "gloss": "moon"
+          }
+        ]
+      },
+      "before_mnemonic": "A 玥 mysterious gem of 𤣩 jade glows only during one 月 month each year.",
+      "after_mnemonic": "A 玥 mysterious gem of 𤣩 jade (alt) glows like the 月 moon.",
+      "valid": true,
+      "problems": []
+    }
+  ]
+}
