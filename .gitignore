@@ -101,7 +101,7 @@ ios/Kiokun/Resources/*.sqlite-*
 # Large generated Capacitor database payloads
 sveltekit-app/ios/App/App/public/assets/databases/*.db
 
-# Reconstructed on demand from data/semantic_mnemonic_corpus/.
+# Ignored legacy view; the canonical corpus is committed as bucketed JSONL.
 sveltekit-app/static/research/mnemonics/semantic_mnemonics_all_best_available.json
 sveltekit-app/static/research/mnemonics/semantic_mnemonics_all_best_available.json.materialization.json
 

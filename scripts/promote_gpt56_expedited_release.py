@@ -550,13 +550,12 @@ def build_expedited_release(
 
 def _verify_published(
     *,
-    corpus_path: Path,
+    corpus: dict[str, Any],
     evaluation_path: Path,
     audit_path: Path,
     component_index_path: Path,
     receipt_path: Path,
 ) -> None:
-    corpus = load_json(corpus_path)
     cards = corpus.get("mnemonics")
     if not isinstance(cards, list) or len(cards) != EXPECTED_FULL_CORPUS_COUNT:
         raise ExpeditedReleaseError("published expedited corpus lacks complete card coverage")
@@ -590,7 +589,10 @@ def main() -> None:
     parser.add_argument(
         "--output-corpus",
         type=Path,
-        default=complete.OUTPUT_PATH,
+        help=(
+            "write an explicit legacy monolith instead of publishing the "
+            "canonical bucketed corpus"
+        ),
     )
     parser.add_argument("--output-eval", type=Path, default=complete.EVAL_PATH)
     parser.add_argument("--output-audit", type=Path, default=complete.QUALITY_AUDIT_PATH)
@@ -617,6 +619,9 @@ def main() -> None:
     args = parser.parse_args()
     if not args.confirm_expedited_non_certified:
         parser.error("--confirm-expedited-non-certified is required")
+    current_source_hash = complete.corpus_store.current_manifest_source_hash(
+        complete.CORPUS_MANIFEST_PATH
+    )
     artifact, evaluation, audit, component_index, receipt = build_expedited_release(
         applied_path=args.artifact,
         merged_path=args.merged_reviews,
@@ -646,22 +651,37 @@ def main() -> None:
         print(json.dumps(summary, ensure_ascii=False, indent=2))
         return
     documents = {
-        args.output_corpus.resolve(): (artifact, True),
         args.output_eval.resolve(): (evaluation, False),
         args.output_audit.resolve(): (audit, False),
         args.output_component_index.resolve(): (component_index, True),
         args.output_receipt.resolve(): (receipt, False),
     }
+    if args.output_corpus:
+        documents[args.output_corpus.resolve()] = (artifact, True)
+        published_corpus_path = args.output_corpus.resolve()
+    else:
+        complete.corpus_store.publish_corpus(
+            artifact,
+            corpus_dir=complete.CORPUS_MANIFEST_PATH.parent,
+            expected_source_hash=current_source_hash,
+        )
+        published_corpus_path = complete.CORPUS_MANIFEST_PATH
     complete.publish_json_artifacts(documents)
     _verify_published(
-        corpus_path=args.output_corpus.resolve(),
+        corpus=(
+            load_json(published_corpus_path)
+            if args.output_corpus
+            else complete.corpus_store.load_corpus(
+                manifest_path=complete.CORPUS_MANIFEST_PATH
+            )
+        ),
         evaluation_path=args.output_eval.resolve(),
         audit_path=args.output_audit.resolve(),
         component_index_path=args.output_component_index.resolve(),
         receipt_path=args.output_receipt.resolve(),
     )
     summary["outputs"] = {key: str(path) for key, path in {
-        "corpus": args.output_corpus.resolve(),
+        "corpus": published_corpus_path,
         "evaluation": args.output_eval.resolve(),
         "audit": args.output_audit.resolve(),
         "component_index": args.output_component_index.resolve(),

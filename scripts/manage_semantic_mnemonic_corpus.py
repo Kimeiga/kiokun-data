@@ -21,11 +21,14 @@ editorial tools.
 from __future__ import annotations
 
 import argparse
+import ctypes
 import hashlib
 import json
 import os
 from pathlib import Path, PurePosixPath
+import shutil
 import sys
+import tempfile
 from typing import Any, Iterable
 
 
@@ -286,21 +289,20 @@ def remove_legacy_generated_shards(corpus_dir: Path) -> None:
         directory.rmdir()
 
 
-def pack_corpus(
+def build_corpus_tree(
+    artifact: dict[str, Any],
     *,
-    artifact_path: Path = DEFAULT_LEGACY_ARTIFACT,
     corpus_dir: Path = DEFAULT_CORPUS_DIR,
-    bootstrap: bool = False,
 ) -> dict[str, Any]:
-    manifest_path = corpus_dir / "manifest.json"
-    assert_pack_is_based_on_current_corpus(
-        manifest_path=manifest_path,
-        artifact_path=artifact_path,
-        bootstrap=bootstrap,
-    )
+    """Write and verify one complete corpus tree.
 
-    artifact = load_json(artifact_path, label="materialized mnemonic artifact")
-    cards = validate_artifact(artifact, label="materialized mnemonic artifact")
+    Callers must build into a staging directory.  Publishing a partially
+    written tree in place would make the manifest and buckets disagree if the
+    process were interrupted.
+    """
+
+    manifest_path = corpus_dir / "manifest.json"
+    cards = validate_artifact(artifact, label="mnemonic artifact")
     runtime_cards = [runtime_card(card) for card in cards]
     validate_cards(runtime_cards, label="runtime projection")
 
@@ -386,16 +388,169 @@ def pack_corpus(
     write_json_atomic(manifest_path, manifest, pretty=True)
 
     remove_legacy_generated_shards(corpus_dir)
+    return verify_corpus(manifest_path=manifest_path)
+
+
+def atomic_exchange_directories(left: Path, right: Path) -> None:
+    """Atomically exchange two directories on Linux or macOS."""
+
+    if sys.platform.startswith("linux"):
+        libc = ctypes.CDLL(None, use_errno=True)
+        renameat2 = getattr(libc, "renameat2", None)
+        if renameat2 is None:
+            raise CorpusError("transactional corpus publishing requires renameat2")
+        renameat2.argtypes = [
+            ctypes.c_int,
+            ctypes.c_char_p,
+            ctypes.c_int,
+            ctypes.c_char_p,
+            ctypes.c_uint,
+        ]
+        renameat2.restype = ctypes.c_int
+        result = renameat2(
+            -100,  # AT_FDCWD
+            os.fsencode(left),
+            -100,
+            os.fsencode(right),
+            2,  # RENAME_EXCHANGE
+        )
+    elif sys.platform == "darwin":
+        libc = ctypes.CDLL(None, use_errno=True)
+        renamex_np = getattr(libc, "renamex_np", None)
+        if renamex_np is None:
+            raise CorpusError("transactional corpus publishing requires renamex_np")
+        renamex_np.argtypes = [
+            ctypes.c_char_p,
+            ctypes.c_char_p,
+            ctypes.c_uint,
+        ]
+        renamex_np.restype = ctypes.c_int
+        result = renamex_np(
+            os.fsencode(left),
+            os.fsencode(right),
+            2,  # RENAME_SWAP
+        )
+    else:
+        raise CorpusError(
+            f"transactional corpus publishing is unsupported on {sys.platform}"
+        )
+
+    if result != 0:
+        error_number = ctypes.get_errno()
+        raise CorpusError(
+            "cannot atomically exchange corpus directories: "
+            f"{os.strerror(error_number)}"
+        )
+
+
+def load_corpus(
+    *,
+    manifest_path: Path = DEFAULT_MANIFEST,
+) -> dict[str, Any]:
+    """Load the authoritative bucketed corpus as its editorial artifact."""
+
+    return verify_corpus(manifest_path=manifest_path)["artifact"]
+
+
+def publish_corpus(
+    artifact: dict[str, Any],
+    *,
+    corpus_dir: Path = DEFAULT_CORPUS_DIR,
+    expected_source_hash: str | None = None,
+) -> dict[str, Any]:
+    """Verify a staged corpus and atomically exchange it with the current tree."""
+
+    validate_artifact(artifact, label="mnemonic artifact")
+    manifest_path = corpus_dir / "manifest.json"
+    current_hash = current_manifest_source_hash(manifest_path)
+    if expected_source_hash is not None and current_hash != expected_source_hash:
+        raise CorpusError(
+            "canonical corpus changed since it was loaded; reload before publishing"
+        )
+
+    corpus_dir.parent.mkdir(parents=True, exist_ok=True)
+    staging_dir = Path(
+        tempfile.mkdtemp(
+            prefix=f".{corpus_dir.name}.pack-",
+            dir=corpus_dir.parent,
+        )
+    )
+    exchanged = False
+    preserve_staging = False
+    try:
+        if corpus_dir.exists():
+            shutil.copytree(corpus_dir, staging_dir, dirs_exist_ok=True)
+        staged_result = build_corpus_tree(artifact, corpus_dir=staging_dir)
+
+        # Close the optimistic-concurrency window after the potentially long
+        # staging build and immediately before the atomic exchange.
+        if current_manifest_source_hash(manifest_path) != current_hash:
+            raise CorpusError(
+                "canonical corpus changed while the replacement was being built"
+            )
+
+        if corpus_dir.exists():
+            atomic_exchange_directories(staging_dir, corpus_dir)
+            exchanged = True
+        else:
+            os.replace(staging_dir, corpus_dir)
+        try:
+            result = verify_corpus(manifest_path=manifest_path)
+            if (
+                result["source_artifact_sha256"]
+                != staged_result["source_artifact_sha256"]
+            ):
+                raise CorpusError(
+                    "installed corpus differs from its verified staging tree"
+                )
+        except Exception:
+            if exchanged:
+                try:
+                    atomic_exchange_directories(staging_dir, corpus_dir)
+                except CorpusError as rollback_error:
+                    preserve_staging = True
+                    raise CorpusError(
+                        "installed corpus verification failed and rollback failed; "
+                        f"previous corpus preserved at {staging_dir}: {rollback_error}"
+                    ) from rollback_error
+            elif corpus_dir.exists():
+                os.replace(corpus_dir, staging_dir)
+            raise
+        return result
+    finally:
+        if staging_dir.exists() and not preserve_staging:
+            shutil.rmtree(staging_dir, ignore_errors=True)
+
+
+def pack_corpus(
+    *,
+    artifact_path: Path = DEFAULT_LEGACY_ARTIFACT,
+    corpus_dir: Path = DEFAULT_CORPUS_DIR,
+    bootstrap: bool = False,
+) -> dict[str, Any]:
+    manifest_path = corpus_dir / "manifest.json"
+    assert_pack_is_based_on_current_corpus(
+        manifest_path=manifest_path,
+        artifact_path=artifact_path,
+        bootstrap=bootstrap,
+    )
+    current_hash = current_manifest_source_hash(manifest_path)
+    artifact = load_json(artifact_path, label="materialized mnemonic artifact")
+    result = publish_corpus(
+        artifact,
+        corpus_dir=corpus_dir,
+        expected_source_hash=current_hash,
+    )
     write_json_atomic(
         materialization_state_path(artifact_path),
         {
             "schema_version": SCHEMA_VERSION,
             "manifest": str(manifest_path),
-            "source_artifact_sha256": manifest["source_artifact_sha256"],
+            "source_artifact_sha256": result["source_artifact_sha256"],
         },
         pretty=True,
     )
-    return verify_corpus(manifest_path=manifest_path)
+    return result
 
 
 def load_referenced_bytes(

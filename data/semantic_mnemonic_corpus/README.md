@@ -43,13 +43,26 @@ The verifier checks:
 - byte-exact reconstruction of the former monolith; and
 - the compact runtime-field projection consumed by the Rust builder.
 
-## Edit with legacy corpus tools
+## Edit and audit
 
-Existing editorial tools can continue using their historical monolithic path:
+Tracked editors and audits use the shared bucket-native API in
+`scripts/manage_semantic_mnemonic_corpus.py`. They load the verified JSONL
+buckets and publish a completely staged replacement with one atomic directory
+exchange, so a failed or interrupted write cannot mix old and new files.
+
+Run the focused editor directly:
+
+```sh
+python3 scripts/edit_semantic_mnemonic.py --character 処
+python3 scripts/edit_semantic_mnemonic.py --character 処 --apply
+```
+
+External legacy tools can still request a temporary monolithic compatibility
+view:
 
 ```sh
 python3 scripts/manage_semantic_mnemonic_corpus.py materialize
-# Run the editor or repair tool.
+# Run the external legacy tool.
 python3 scripts/manage_semantic_mnemonic_corpus.py pack
 python3 scripts/manage_semantic_mnemonic_corpus.py dematerialize
 ```
@@ -60,9 +73,10 @@ python3 scripts/manage_semantic_mnemonic_corpus.py dematerialize
 sveltekit-app/static/research/mnemonics/semantic_mnemonics_all_best_available.json
 ```
 
-`pack` refuses to replace the canonical corpus unless that file was
-materialized from the current manifest. `dematerialize` refuses to remove it
-if it contains unpacked edits.
+`pack` builds and verifies a complete staging corpus before atomically
+exchanging it with the current directory. It refuses to publish unless the
+compatibility file was materialized from the current manifest.
+`dematerialize` refuses to remove the file if it contains unpacked edits.
 
 The bucketed JSONL cards are authoritative. The monolith is only a temporary
 editing view, and the deployed per-character mnemonic is a typed projection

@@ -37,11 +37,12 @@ sys.path.insert(0, str(SCRIPTS))
 
 import audit_semantic_mnemonics as quality_audit  # noqa: E402
 import complete_semantic_mnemonics_all as complete  # noqa: E402
+import manage_semantic_mnemonic_corpus as corpus_store  # noqa: E402
 import promote_gpt56_expedited_release as expedited  # noqa: E402
 
 
 EXPECTED_CARD_COUNT = 24_037
-CORPUS_PATH = complete.OUTPUT_PATH
+CORPUS_PATH = corpus_store.DEFAULT_MANIFEST
 EVAL_PATH = complete.EVAL_PATH
 AUDIT_PATH = complete.QUALITY_AUDIT_PATH
 COMPONENT_INDEX_PATH = complete.MNEMONIC_COMPONENT_USES_PATH
@@ -83,6 +84,8 @@ def repo_path(path: Path) -> str:
 
 
 def load_object(path: Path, label: str) -> dict[str, Any]:
+    if path.resolve() == CORPUS_PATH.resolve():
+        return load_corpus_object()
     try:
         value = json.loads(path.read_text())
     except (OSError, json.JSONDecodeError) as exc:
@@ -90,6 +93,13 @@ def load_object(path: Path, label: str) -> dict[str, Any]:
     if not isinstance(value, dict):
         raise EditorialOverrideError(f"{label} must be a JSON object: {path}")
     return value
+
+
+def load_corpus_object() -> dict[str, Any]:
+    try:
+        return corpus_store.load_corpus(manifest_path=CORPUS_PATH)
+    except corpus_store.CorpusError as exc:
+        raise EditorialOverrideError(f"cannot read mnemonic corpus: {exc}") from exc
 
 
 def one_codepoint(value: Any, label: str) -> str:
@@ -296,7 +306,7 @@ def build_release_documents(
     *,
     ledger_hash: str,
     changed: list[dict[str, Any]],
-) -> dict[Path, tuple[Any, bool]]:
+) -> tuple[dict[str, Any], dict[Path, tuple[Any, bool]]]:
     """Rebuild the exact artifact group consumed by the shard publisher."""
 
     now = utc_now()
@@ -368,8 +378,7 @@ def build_release_documents(
             "characters": [entry["character"] for entry in changed],
         },
     }
-    return {
-        CORPUS_PATH: (artifact, True),
+    return artifact, {
         EVAL_PATH: (evaluation, False),
         AUDIT_PATH: (quality_report, False),
         COMPONENT_INDEX_PATH: (component_index, True),
@@ -395,7 +404,7 @@ def dictionary_hint(character: str) -> dict[str, Any] | None:
 
 
 def lookup_card(character: str) -> dict[str, Any]:
-    corpus = load_object(CORPUS_PATH, "mnemonic corpus")
+    corpus = load_corpus_object()
     cards = corpus.get("mnemonics")
     if not isinstance(cards, list):
         raise EditorialOverrideError("mnemonic corpus lacks mnemonics")
@@ -454,7 +463,8 @@ def selected_overrides(overrides: list[dict[str, Any]], character: str | None) -
 
 
 def check_or_apply(*, character: str | None, write: bool) -> dict[str, Any]:
-    corpus = load_object(CORPUS_PATH, "mnemonic corpus")
+    current_source_hash = corpus_store.current_manifest_source_hash(CORPUS_PATH)
+    corpus = load_corpus_object()
     cards = corpus.get("mnemonics")
     if not isinstance(cards, list):
         raise EditorialOverrideError("mnemonic corpus lacks a mnemonics list")
@@ -499,22 +509,33 @@ def check_or_apply(*, character: str | None, write: bool) -> dict[str, Any]:
     if not changed:
         result["published"] = False
         return result
-    documents = build_release_documents(
+    published_corpus, documents = build_release_documents(
         corpus,
         cards,
         evaluation,
         ledger_hash=ledger_hash,
         changed=changed,
     )
-    result["new_projection_hash"] = documents[CORPUS_PATH][0]["gpt56_expedited_release"]["materialized_card_projection_hash"]
+    result["new_projection_hash"] = published_corpus["gpt56_expedited_release"]["materialized_card_projection_hash"]
     result["published"] = bool(write)
-    result["outputs"] = {repo_path(path): "minified" if compact else "pretty" for path, (_, compact) in documents.items()}
+    result["outputs"] = {
+        repo_path(CORPUS_PATH): "bucketed-jsonl",
+        **{
+            repo_path(path): "minified" if compact else "pretty"
+            for path, (_, compact) in documents.items()
+        },
+    }
     if write:
+        corpus_store.publish_corpus(
+            published_corpus,
+            corpus_dir=CORPUS_PATH.parent,
+            expected_source_hash=current_source_hash,
+        )
         complete.publish_json_artifacts(documents)
         # Reload the materialized set after the atomic rename, not the in-memory
         # documents, so a future refactor cannot accidentally report success for
         # data that was not actually installed.
-        reloaded = load_object(CORPUS_PATH, "published mnemonic corpus")
+        reloaded = load_corpus_object()
         reloaded_cards = reloaded.get("mnemonics")
         if not isinstance(reloaded_cards, list):
             raise EditorialOverrideError("published mnemonic corpus lacks mnemonics")

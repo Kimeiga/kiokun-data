@@ -22,6 +22,7 @@ from typing import Any
 
 import semantic_mnemonics as sm
 import audit_semantic_mnemonics as quality_audit
+import manage_semantic_mnemonic_corpus as corpus_store
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -31,6 +32,7 @@ GAME_DATA_DIR = ROOT / "sveltekit-app" / "static" / "game_data"
 PAID_10K_PATH = RESEARCH_DIR / "semantic_mnemonics_10000.json"
 REVIEWED_1000_PATH = RESEARCH_DIR / "semantic_mnemonics_1000_refined_pairs_gemini35.json"
 OUTPUT_PATH = RESEARCH_DIR / "semantic_mnemonics_all_best_available.json"
+CORPUS_MANIFEST_PATH = corpus_store.DEFAULT_MANIFEST
 EVAL_PATH = RESEARCH_DIR / "semantic_mnemonics_all_best_available_eval.json"
 QUALITY_AUDIT_PATH = RESEARCH_DIR / "semantic_mnemonics_all_best_available_quality_audit.json"
 
@@ -1937,10 +1939,18 @@ def validate_artifact(cards: list[dict[str, Any]]) -> dict[str, Any]:
 
 
 def main() -> None:
+    current_source_hash = corpus_store.current_manifest_source_hash(
+        CORPUS_MANIFEST_PATH
+    )
     targets = all_target_characters()
     paid_10k = load_artifact(PAID_10K_PATH)
     reviewed_1000 = load_artifact(REVIEWED_1000_PATH)
-    existing_best = load_artifact(OUTPUT_PATH)
+    existing_best = {
+        card["character"]: card
+        for card in corpus_store.load_corpus(
+            manifest_path=CORPUS_MANIFEST_PATH
+        )["mnemonics"]
+    }
     manual_quality = {
         char: card
         for char, card in existing_best.items()
@@ -2014,9 +2024,7 @@ def main() -> None:
         "quality_patch_reviewed_characters": final_manual_quality_chars,
         "quality_patch_reviewed_count": len(final_manual_quality_chars),
     }
-    OUTPUT_PATH.write_text(json.dumps(artifact, ensure_ascii=False, separators=(",", ":")))
     quality_report = quality_audit.build_report(artifact, limit=1000)
-    QUALITY_AUDIT_PATH.write_text(json.dumps(quality_report, ensure_ascii=False, indent=2) + "\n")
     evaluation = validate_artifact(cards)
     evaluation["quality_review"] = {
         "methodology": quality_report["methodology"],
@@ -2026,9 +2034,23 @@ def main() -> None:
         "top_suspicious": quality_report["ranked"][:25],
         "full_report": str(QUALITY_AUDIT_PATH.relative_to(ROOT)),
     }
-    EVAL_PATH.write_text(json.dumps(evaluation, ensure_ascii=False, indent=2))
+    if evaluation["invalid_count"] != 0:
+        raise RuntimeError(
+            f"refusing to publish {evaluation['invalid_count']} invalid mnemonic cards"
+        )
+    corpus_store.publish_corpus(
+        artifact,
+        corpus_dir=CORPUS_MANIFEST_PATH.parent,
+        expected_source_hash=current_source_hash,
+    )
+    corpus_store.write_json_atomic(
+        QUALITY_AUDIT_PATH,
+        quality_report,
+        pretty=True,
+    )
+    corpus_store.write_json_atomic(EVAL_PATH, evaluation, pretty=True)
     print(json.dumps({
-        "output": str(OUTPUT_PATH),
+        "output": str(CORPUS_MANIFEST_PATH),
         "eval": str(EVAL_PATH),
         "quality_audit": str(QUALITY_AUDIT_PATH),
         "count": len(cards),

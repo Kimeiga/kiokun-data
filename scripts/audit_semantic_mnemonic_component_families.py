@@ -14,6 +14,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import sys
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -21,10 +22,11 @@ from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[1]
-CORPUS_PATH = (
-    ROOT
-    / "sveltekit-app/static/research/mnemonics/semantic_mnemonics_all_best_available.json"
-)
+sys.path.insert(0, str(ROOT / "scripts"))
+
+import manage_semantic_mnemonic_corpus as corpus_store  # noqa: E402
+
+
 DICTIONARY_PATH = ROOT / "data/chinese_dictionary_char_2025-06-25.jsonl"
 IDS_PATH = ROOT / "data/ids/IDS-UCS-Basic.txt"
 DEFAULT_OUTPUT = (
@@ -97,7 +99,7 @@ def main() -> None:
     parser.add_argument("--limit", type=int, default=150)
     args = parser.parse_args()
 
-    artifact = load_json(CORPUS_PATH)
+    artifact = corpus_store.load_corpus()
     cards = artifact.get("mnemonics") or []
     if len(cards) != 24_037:
         raise SystemExit(f"unexpected corpus size: {len(cards)}")
@@ -257,7 +259,7 @@ def main() -> None:
     output = {
         "schema_version": 1,
         "created_at": datetime.now(timezone.utc).isoformat(),
-        "source_corpus": str(CORPUS_PATH.relative_to(ROOT)),
+        "source_corpus": str(corpus_store.DEFAULT_MANIFEST.relative_to(ROOT)),
         "source_count": len(cards),
         "methodology": {
             "purpose": "Rank upstream component-family policy risks; never auto-apply changes.",

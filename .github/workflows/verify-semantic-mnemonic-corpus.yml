@@ -1,0 +1,47 @@
+name: Verify Semantic Mnemonic Corpus
+
+on:
+  pull_request:
+    paths:
+      - 'data/semantic_mnemonic_corpus/**'
+      - 'scripts/manage_semantic_mnemonic_corpus.py'
+      - 'scripts/test_manage_semantic_mnemonic_corpus.py'
+      - 'scripts/audit_semantic_mnemonic_component_families.py'
+      - 'scripts/audit_semantic_mnemonics.py'
+      - 'scripts/complete_semantic_mnemonics_all.py'
+      - 'scripts/edit_semantic_mnemonic.py'
+      - 'scripts/promote_gpt56_expedited_release.py'
+      - 'scripts/smoke_semantic_mnemonic_deployment.py'
+      - 'src/main.rs'
+      - 'src/semantic_mnemonic_types.rs'
+      - 'Cargo.toml'
+      - 'Cargo.lock'
+      - '.github/workflows/verify-semantic-mnemonic-corpus.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+        with:
+          lfs: false
+
+      - name: Verify canonical buckets and Python corpus API
+        run: |
+          python3 scripts/manage_semantic_mnemonic_corpus.py verify
+          python3 -m unittest scripts/test_manage_semantic_mnemonic_corpus.py
+
+      - name: Setup Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          toolchain: stable
+
+      - name: Test the Rust bucket loader
+        run: |
+          cargo test --bin build_dictionary \
+            semantic_mnemonic_corpus_tests::loads_complete_bucketed_canonical_corpus \
+            -- --exact

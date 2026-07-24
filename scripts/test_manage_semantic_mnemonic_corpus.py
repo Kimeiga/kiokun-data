@@ -3,6 +3,7 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
+from unittest import mock
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
@@ -152,6 +153,116 @@ class ManageSemanticMnemonicCorpusTests(unittest.TestCase):
         changed = {name for name in before if before[name] != after[name]}
         self.assertEqual(changed, {"8c.jsonl"})
         self.assertEqual(result["artifact"]["mnemonics"][1]["meaning"], "pair")
+
+    def test_native_api_updates_buckets_without_a_materialized_monolith(self) -> None:
+        initial = self.pack()
+        corpus.dematerialize_corpus(
+            manifest_path=self.corpus_dir / "manifest.json",
+            artifact_path=self.artifact_path,
+        )
+        artifact = corpus.load_corpus(
+            manifest_path=self.corpus_dir / "manifest.json"
+        )
+        artifact["mnemonics"][1]["meaning"] = "pair"
+        artifact["mnemonics"][1]["equation"] = "一 one + 一 one = 二 pair"
+        artifact["mnemonics"][1]["mnemonic"] = "Two 一 one lines form a 二 pair."
+
+        result = corpus.publish_corpus(
+            artifact,
+            corpus_dir=self.corpus_dir,
+            expected_source_hash=initial["source_artifact_sha256"],
+        )
+
+        self.assertFalse(self.artifact_path.exists())
+        self.assertEqual(result["artifact"]["mnemonics"][1]["meaning"], "pair")
+
+    def test_failed_staging_verification_leaves_current_tree_unchanged(self) -> None:
+        self.pack()
+        before = {
+            path.relative_to(self.corpus_dir): path.read_bytes()
+            for path in self.corpus_dir.rglob("*")
+            if path.is_file()
+        }
+        edited = json.loads(self.artifact_path.read_text())
+        edited["mnemonics"][1]["meaning"] = "pair"
+        original_verify = corpus.verify_corpus
+
+        def reject_staging(*, manifest_path: Path) -> dict:
+            if manifest_path.parent != self.corpus_dir:
+                raise corpus.CorpusError("synthetic staged verification failure")
+            return original_verify(manifest_path=manifest_path)
+
+        with mock.patch.object(corpus, "verify_corpus", side_effect=reject_staging):
+            with self.assertRaisesRegex(corpus.CorpusError, "synthetic staged"):
+                corpus.publish_corpus(edited, corpus_dir=self.corpus_dir)
+
+        after = {
+            path.relative_to(self.corpus_dir): path.read_bytes()
+            for path in self.corpus_dir.rglob("*")
+            if path.is_file()
+        }
+        self.assertEqual(after, before)
+
+    def test_atomic_exchange_failure_leaves_current_tree_unchanged(self) -> None:
+        self.pack()
+        before_manifest = (self.corpus_dir / "manifest.json").read_bytes()
+        edited = json.loads(self.artifact_path.read_text())
+        edited["mnemonics"][1]["meaning"] = "pair"
+
+        with mock.patch.object(
+            corpus,
+            "atomic_exchange_directories",
+            side_effect=corpus.CorpusError("synthetic exchange failure"),
+        ):
+            with self.assertRaisesRegex(corpus.CorpusError, "synthetic exchange"):
+                corpus.publish_corpus(edited, corpus_dir=self.corpus_dir)
+
+        self.assertEqual(
+            (self.corpus_dir / "manifest.json").read_bytes(),
+            before_manifest,
+        )
+        self.assertEqual(
+            corpus.verify_corpus(
+                manifest_path=self.corpus_dir / "manifest.json"
+            )["artifact"],
+            self.artifact,
+        )
+
+    def test_failed_post_install_verification_rolls_back_exchange(self) -> None:
+        self.pack()
+        before_manifest = (self.corpus_dir / "manifest.json").read_bytes()
+        edited = json.loads(self.artifact_path.read_text())
+        edited["mnemonics"][1]["meaning"] = "pair"
+        original_verify = corpus.verify_corpus
+
+        def reject_installed(*, manifest_path: Path) -> dict:
+            if manifest_path.parent == self.corpus_dir:
+                raise corpus.CorpusError("synthetic installed verification failure")
+            return original_verify(manifest_path=manifest_path)
+
+        with mock.patch.object(corpus, "verify_corpus", side_effect=reject_installed):
+            with self.assertRaisesRegex(corpus.CorpusError, "synthetic installed"):
+                corpus.publish_corpus(edited, corpus_dir=self.corpus_dir)
+
+        self.assertEqual(
+            (self.corpus_dir / "manifest.json").read_bytes(),
+            before_manifest,
+        )
+        self.assertEqual(
+            original_verify(
+                manifest_path=self.corpus_dir / "manifest.json"
+            )["artifact"],
+            self.artifact,
+        )
+
+    def test_native_publish_rejects_stale_source_hash(self) -> None:
+        result = self.pack()
+        with self.assertRaisesRegex(corpus.CorpusError, "changed since it was loaded"):
+            corpus.publish_corpus(
+                self.artifact,
+                corpus_dir=self.corpus_dir,
+                expected_source_hash=result["source_artifact_sha256"] + "-stale",
+            )
 
     def test_verify_rejects_tampered_card_bucket(self) -> None:
         self.pack()

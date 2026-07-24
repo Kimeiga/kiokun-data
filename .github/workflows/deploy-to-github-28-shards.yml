@@ -7,6 +7,7 @@ on:
       - 'src/**'
       - 'data/**'
       - 'scripts/manage_semantic_mnemonic_corpus.py'
+      - 'scripts/smoke_semantic_mnemonic_deployment.py'
       - 'Cargo.toml'
       - '.github/workflows/deploy-to-github-28-shards.yml'
   workflow_dispatch:  # Manual trigger also available
@@ -191,3 +192,20 @@ jobs:
           git push -f origin main
           
           echo "✓ Pushed to kiokun2-dict-${{ matrix.shard }}"
+
+  smoke-test-semantic-mnemonics:
+    name: Smoke test published mnemonic projections
+    needs: build-and-deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+        with:
+          lfs: false
+
+      - name: Compare representative published entries with canonical cards
+        run: |
+          python3 scripts/smoke_semantic_mnemonic_deployment.py \
+            --attempts 18 \
+            --delay 20 \
+            --timeout 30

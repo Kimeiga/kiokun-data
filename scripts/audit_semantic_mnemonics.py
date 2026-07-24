@@ -17,12 +17,17 @@ import re
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
+import sys
 from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
+
+import manage_semantic_mnemonic_corpus as corpus_store  # noqa: E402
+
+
 RESEARCH_DIR = ROOT / "sveltekit-app" / "static" / "research" / "mnemonics"
-DEFAULT_ARTIFACT = RESEARCH_DIR / "semantic_mnemonics_all_best_available.json"
 DEFAULT_OUTPUT = RESEARCH_DIR / "semantic_mnemonics_all_best_available_quality_audit.json"
 KANJI_DETAILS_PATH = ROOT / "sveltekit-app" / "static" / "game_data" / "kanji_details.json"
 
@@ -332,12 +337,20 @@ def build_report(artifact: dict[str, Any], *, limit: int = 1000) -> dict[str, An
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--artifact", type=Path, default=DEFAULT_ARTIFACT)
+    parser.add_argument(
+        "--artifact",
+        type=Path,
+        help="audit an explicit legacy JSON artifact instead of the canonical buckets",
+    )
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--limit", type=int, default=1000, help="Maximum ranked cards to include")
     args = parser.parse_args()
 
-    artifact = json.loads(args.artifact.read_text())
+    artifact = (
+        json.loads(args.artifact.read_text())
+        if args.artifact
+        else corpus_store.load_corpus()
+    )
     report = build_report(artifact, limit=max(0, args.limit))
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
