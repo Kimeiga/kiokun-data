@@ -101,6 +101,10 @@ ios/Kiokun/Resources/*.sqlite-*
 # Large generated Capacitor database payloads
 sveltekit-app/ios/App/App/public/assets/databases/*.db
 
+# Reconstructed on demand from data/semantic_mnemonic_corpus/.
+sveltekit-app/static/research/mnemonics/semantic_mnemonics_all_best_available.json
+sveltekit-app/static/research/mnemonics/semantic_mnemonics_all_best_available.json.materialization.json
+
 # Local scratch/debug captures
 bing-page.png
 cosmos_*_debug.json

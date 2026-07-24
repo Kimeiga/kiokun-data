@@ -47,7 +47,9 @@ use combined_types::{
     MergeStatistics, DictionaryMetadata
 };
 use legacy_unification::semantic_unification_engine::SemanticUnificationEngine;
-use semantic_mnemonic_types::{SemanticMnemonicArtifact, SemanticMnemonicCard};
+use semantic_mnemonic_types::{
+    SemanticMnemonicArtifact, SemanticMnemonicCard, SemanticMnemonicCorpusManifest,
+};
 
 /// Determines which shard a key belongs to based on Han character count and hash
 /// This creates 30 shards optimized for GitHub deployment (~10K-15K files each)
@@ -270,34 +272,138 @@ fn is_han_character(c: char) -> bool {
     )
 }
 
-const SEMANTIC_MNEMONICS_PATH: &str =
-    "sveltekit-app/static/research/mnemonics/semantic_mnemonics_all_best_available.json";
+const SEMANTIC_MNEMONICS_MANIFEST_PATH: &str =
+    "data/semantic_mnemonic_corpus/manifest.json";
 
 fn load_semantic_mnemonics() -> Result<HashMap<String, SemanticMnemonicCard>> {
-    let path = std::path::Path::new(SEMANTIC_MNEMONICS_PATH);
-    if !path.exists() {
-        println!("  ℹ️  Semantic mnemonic artifact not found at {}, skipping", SEMANTIC_MNEMONICS_PATH);
+    load_semantic_mnemonics_from_manifest(std::path::Path::new(
+        SEMANTIC_MNEMONICS_MANIFEST_PATH,
+    ))
+}
+
+fn load_semantic_mnemonics_from_manifest(
+    manifest_path: &std::path::Path,
+) -> Result<HashMap<String, SemanticMnemonicCard>> {
+    if !manifest_path.exists() {
+        println!(
+            "  ℹ️  Semantic mnemonic manifest not found at {}, skipping",
+            manifest_path.display()
+        );
         return Ok(HashMap::new());
     }
 
-    let file = File::open(path)
-        .with_context(|| format!("Failed to open semantic mnemonic artifact: {}", path.display()))?;
-    let artifact: SemanticMnemonicArtifact = serde_json::from_reader(BufReader::new(file))
-        .with_context(|| format!("Failed to parse semantic mnemonic artifact: {}", path.display()))?;
+    let manifest_file = File::open(manifest_path).with_context(|| {
+        format!(
+            "Failed to open semantic mnemonic manifest: {}",
+            manifest_path.display()
+        )
+    })?;
+    let manifest: SemanticMnemonicCorpusManifest =
+        serde_json::from_reader(BufReader::new(manifest_file)).with_context(|| {
+            format!(
+                "Failed to parse semantic mnemonic manifest: {}",
+                manifest_path.display()
+            )
+        })?;
+    if manifest.runtime_shards.is_empty() {
+        anyhow::bail!(
+            "Semantic mnemonic manifest contains no runtime shards: {}",
+            manifest_path.display()
+        );
+    }
 
     let mut by_character = HashMap::new();
     let mut skipped = 0usize;
-    for card in artifact.mnemonics {
-        if card.character.chars().count() == 1 {
-            by_character.insert(card.character.clone(), card);
-        } else {
-            skipped += 1;
+    let mut expected_start = 0usize;
+    for (expected_index, shard_reference) in manifest.runtime_shards.iter().enumerate() {
+        if shard_reference.shard_index != expected_index
+            || shard_reference.start != expected_start
+            || shard_reference.end < shard_reference.start
+            || shard_reference.end - shard_reference.start != shard_reference.count
+        {
+            anyhow::bail!(
+                "Invalid semantic mnemonic runtime shard range at index {}",
+                expected_index
+            );
         }
+
+        let relative_path = std::path::Path::new(&shard_reference.path);
+        if relative_path.is_absolute()
+            || relative_path.components().any(|component| {
+                matches!(
+                    component,
+                    std::path::Component::ParentDir
+                        | std::path::Component::RootDir
+                        | std::path::Component::Prefix(_)
+                )
+            })
+        {
+            anyhow::bail!(
+                "Unsafe semantic mnemonic runtime shard path: {}",
+                shard_reference.path
+            );
+        }
+        let shard_path = manifest_path
+            .parent()
+            .unwrap_or_else(|| std::path::Path::new("."))
+            .join(relative_path);
+        let shard_file = File::open(&shard_path).with_context(|| {
+            format!(
+                "Failed to open semantic mnemonic runtime shard: {}",
+                shard_path.display()
+            )
+        })?;
+        let shard: SemanticMnemonicArtifact =
+            serde_json::from_reader(BufReader::new(shard_file)).with_context(|| {
+                format!(
+                    "Failed to parse semantic mnemonic runtime shard: {}",
+                    shard_path.display()
+                )
+            })?;
+        if shard.mnemonics.len() != shard_reference.count {
+            anyhow::bail!(
+                "Semantic mnemonic runtime shard {} contains {} cards, expected {}",
+                shard_path.display(),
+                shard.mnemonics.len(),
+                shard_reference.count
+            );
+        }
+
+        for card in shard.mnemonics {
+            if card.character.chars().count() == 1 {
+                let character = card.character.clone();
+                if by_character.insert(character.clone(), card).is_some() {
+                    anyhow::bail!(
+                        "Semantic mnemonic runtime shards repeat character {:?}",
+                        character
+                    );
+                }
+            } else {
+                skipped += 1;
+            }
+        }
+        expected_start = shard_reference.end;
+    }
+    if expected_start != manifest.count {
+        anyhow::bail!(
+            "Semantic mnemonic runtime shards cover {} cards, manifest declares {}",
+            expected_start,
+            manifest.count
+        );
+    }
+    if by_character.len() + skipped != manifest.count {
+        anyhow::bail!(
+            "Loaded {} mnemonic cards and skipped {}, manifest declares {}",
+            by_character.len(),
+            skipped,
+            manifest.count
+        );
     }
 
     println!(
-        "  ✅ Loaded {} semantic mnemonic cards{}",
+        "  ✅ Loaded {} semantic mnemonic cards from {} runtime shards{}",
         by_character.len(),
+        manifest.runtime_shards.len(),
         if skipped > 0 {
             format!(" (skipped {} non-single-character cards)", skipped)
         } else {
@@ -306,6 +412,25 @@ fn load_semantic_mnemonics() -> Result<HashMap<String, SemanticMnemonicCard>> {
     );
 
     Ok(by_character)
+}
+
+#[cfg(test)]
+mod semantic_mnemonic_corpus_tests {
+    use super::*;
+
+    #[test]
+    fn loads_complete_sharded_runtime_corpus() {
+        let cards = load_semantic_mnemonics_from_manifest(std::path::Path::new(
+            SEMANTIC_MNEMONICS_MANIFEST_PATH,
+        ))
+        .expect("sharded semantic mnemonic corpus should load");
+
+        assert_eq!(cards.len(), 24_037);
+        let qiao = cards.get("喬").expect("喬 mnemonic should be present");
+        assert_eq!(qiao.meaning, "lofty");
+        assert_eq!(qiao.components.len(), 2);
+        assert!(qiao.mnemonic.contains("夭 die young"));
+    }
 }
 
 fn add_single_character_candidate(

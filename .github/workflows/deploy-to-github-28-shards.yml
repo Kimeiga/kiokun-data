@@ -6,13 +6,25 @@ on:
     paths:
       - 'src/**'
       - 'data/**'
-      - 'sveltekit-app/static/research/mnemonics/semantic_mnemonics_all_best_available.json'
+      - 'scripts/manage_semantic_mnemonic_corpus.py'
       - 'Cargo.toml'
       - '.github/workflows/deploy-to-github-28-shards.yml'
   workflow_dispatch:  # Manual trigger also available
 
 jobs:
+  verify-semantic-mnemonic-corpus:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+        with:
+          lfs: false
+
+      - name: Verify canonical and runtime mnemonic shards
+        run: python3 scripts/manage_semantic_mnemonic_corpus.py verify
+
   build-and-deploy:
+    needs: verify-semantic-mnemonic-corpus
     runs-on: ubuntu-latest
     strategy:
       matrix:

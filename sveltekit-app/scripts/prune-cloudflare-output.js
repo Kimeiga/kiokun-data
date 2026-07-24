@@ -3,11 +3,7 @@ import { join } from 'node:path';
 
 const outputDir = '.svelte-kit/cloudflare';
 const generatedLargeAssets = [
-	'assets/databases/KiokunDictionarySQLite.db',
-	// The source-of-truth corpus is consumed by the Rust shard publisher. The
-	// production app receives cards from those per-entry shards, and Pages has
-	// a 25 MiB per-asset limit.
-	'research/mnemonics/semantic_mnemonics_all_best_available.json'
+	'assets/databases/KiokunDictionarySQLite.db'
 ];
 
 for (const relativePath of generatedLargeAssets) {
