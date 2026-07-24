@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "review_id": "wine-jar-family-review-2026-07-24",
+  "policy_version": "2026-07-24.1",
+  "reviewed_root_count": 1,
+  "target_cleanup_count": 2,
+  "changed_card_count": 160,
+  "method": "Manual review of the full 酉 boundary after deterministic vessel-to-wine-jar rewriting, plus two truncated learner-facing targets.",
+  "roots": [
+    {
+      "character": "酉",
+      "decision": "lexical_component_split",
+      "reason": "The character functions lexically as the 10th earthly branch, while its whole pictograph is a wine jar and that concrete image explains its large alcohol and fermentation family.",
+      "lexical_gloss": "10th earthly branch",
+      "component_gloss": "wine jar",
+      "changed_cards_with_component": 158
+    }
+  ],
+  "target_cleanup_characters": [
+    "嗻",
+    "𱄼"
+  ]
+}

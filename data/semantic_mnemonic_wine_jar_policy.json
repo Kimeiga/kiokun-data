@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "policy_version": "2026-07-24.1",
+  "purpose": "Give the high-reuse 酉 family its concrete wine-jar image while preserving the character's useful calendrical meaning, and close two remaining truncated target glosses.",
+  "lexical_glosses": {
+    "酉": "10th earthly branch"
+  },
+  "component_glosses": {
+    "酉": "wine jar"
+  },
+  "root_decisions": {
+    "酉": {
+      "decision": "lexical_component_split",
+      "reason": "The character functions lexically as the 10th earthly branch, while its whole pictograph is a wine jar and that concrete image explains its large alcohol and fermentation family."
+    }
+  },
+  "target_cleanup_characters": [
+    "嗻",
+    "𱄼"
+  ]
+}

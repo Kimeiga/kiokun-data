@@ -1,6 +1,6 @@
 {
-  "created_at": "2026-07-24T06:26:41.978458+00:00",
-  "artifact_created_at": "2026-07-24T06:26:39.989069+00:00",
+  "created_at": "2026-07-24T06:35:51.753583+00:00",
+  "artifact_created_at": "2026-07-24T06:35:50.083384+00:00",
   "methodology": "Formal validity and learning quality are separate. Flags are deterministic review signals; abstract meanings and variant forms are not automatically bad, while generic filler is a rewrite signal.",
   "taxonomy": {
     "generic_filler": {
@@ -2083,8 +2083,8 @@
   },
   "count": 24037,
   "quality_status_counts": {
-    "pass": 22607,
-    "review": 1406,
+    "pass": 22609,
+    "review": 1404,
     "rewrite": 24
   },
   "flag_counts": {
@@ -2093,10 +2093,10 @@
     "duplicated_component_meaning": 239,
     "opaque_component_gloss": 21,
     "unhelpful_final_gloss": 14,
-    "learner_facing_weirdness": 8
+    "learner_facing_weirdness": 6
   },
-  "flagged_count": 1430,
-  "ranked_count": 1430,
+  "flagged_count": 1428,
+  "ranked_count": 1428,
   "ranked": [
     {
       "character": "質",
@@ -13514,35 +13514,6 @@
       "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
     },
     {
-      "character": "嗻",
-      "meaning": "screen talkative",
-      "frequency_rank": null,
-      "quality_status": "review",
-      "quality_score": 3.0,
-      "review_priority": 3.0,
-      "flags": [
-        {
-          "code": "learner_facing_weirdness",
-          "severity": 3.0,
-          "evidence": "A uses words"
-        }
-      ],
-      "equation": "口 mouth + 庶 various = 嗻 screen talkative",
-      "mnemonic": "A 口 mouth uses 庶 various words to 嗻 screen talkative objections.",
-      "components": [
-        {
-          "character": "口",
-          "gloss": "mouth"
-        },
-        {
-          "character": "庶",
-          "gloss": "various"
-        }
-      ],
-      "component_source": "resolved_ids_forward",
-      "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-    },
-    {
       "character": "笺",
       "meaning": "memo",
       "frequency_rank": null,
@@ -13569,31 +13540,6 @@
         }
       ],
       "component_source": "resolved_ids_forward",
-      "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
-    },
-    {
-      "character": "𱄼",
-      "meaning": "horse with white",
-      "frequency_rank": null,
-      "quality_status": "review",
-      "quality_score": 3.0,
-      "review_priority": 3.0,
-      "flags": [
-        {
-          "code": "learner_facing_weirdness",
-          "severity": 3.0,
-          "evidence": "A back legs"
-        }
-      ],
-      "equation": "Visual form: 𱄼 horse with white",
-      "mnemonic": "A 𱄼 horse with white back legs flashes two pale stockings as it trots past a dark fence.",
-      "components": [
-        {
-          "character": "𱄼",
-          "gloss": "horse with white"
-        }
-      ],
-      "component_source": "self_fallback",
       "generation_source": "gpt56_sol_bespoke_full_corpus_2026_07"
     },
     {
@@ -15060,12 +15006,12 @@
           "evidence": "酪"
         }
       ],
-      "equation": "酉 vessel + 各 each = 酪 cream",
-      "mnemonic": "Rich 酪 cream rises to the top of milk in 各 each 酉 vessel.",
+      "equation": "酉 wine jar + 各 each = 酪 cream",
+      "mnemonic": "Rich 酪 cream rises to the top of milk in 各 each 酉 wine jar.",
       "components": [
         {
           "character": "酉",
-          "gloss": "vessel"
+          "gloss": "wine jar"
         },
         {
           "character": "各",
@@ -19415,12 +19361,12 @@
           "evidence": "醴"
         }
       ],
-      "equation": "酉 vessel + 豊 plentiful = 醴 sweet wine",
-      "mnemonic": "豊 plentiful grain ferments inside a 酉 vessel, producing 醴 sweet wine.",
+      "equation": "酉 wine jar + 豊 plentiful = 醴 sweet wine",
+      "mnemonic": "豊 plentiful grain ferments inside a 酉 wine jar, producing 醴 sweet wine.",
       "components": [
         {
           "character": "酉",
-          "gloss": "vessel"
+          "gloss": "wine jar"
         },
         {
           "character": "豊",
@@ -39534,12 +39480,12 @@
           "evidence": "top-quality wine or thick fluid"
         }
       ],
-      "equation": "酉 vessel + 且 moreover = 䣯 top-quality wine or thick fluid",
-      "mnemonic": "Contents of the 酉 vessel pour slowly and, 且 moreover, qualify as 䣯 top-quality wine or thick fluid.",
+      "equation": "酉 wine jar + 且 moreover = 䣯 top-quality wine or thick fluid",
+      "mnemonic": "Contents of the 酉 wine jar pour slowly and, 且 moreover, qualify as 䣯 top-quality wine or thick fluid.",
       "components": [
         {
           "character": "酉",
-          "gloss": "vessel"
+          "gloss": "wine jar"
         },
         {
           "character": "且",
@@ -39563,12 +39509,12 @@
           "evidence": "wine be brewed from grains"
         }
       ],
-      "equation": "酉 vessel + 倉 storehouse = 䤌 wine be brewed from grains",
-      "mnemonic": "The 倉 storehouse supplies grain to an 酉 vessel so that 䤌 wine be brewed from grains.",
+      "equation": "酉 wine jar + 倉 storehouse = 䤌 wine be brewed from grains",
+      "mnemonic": "The 倉 storehouse supplies grain to a 酉 wine jar so that 䤌 wine be brewed from grains.",
       "components": [
         {
           "character": "酉",
-          "gloss": "vessel"
+          "gloss": "wine jar"
         },
         {
           "character": "倉",
@@ -44663,12 +44609,12 @@
           "evidence": "Green Kind"
         }
       ],
-      "equation": "酉 vessel + 录 record = 醁 Green Kind",
-      "mnemonic": "A 录 record catalogs the emerald-colored wine in an 酉 vessel as 醁 Green Kind.",
+      "equation": "酉 wine jar + 录 record = 醁 Green Kind",
+      "mnemonic": "A 录 record catalogs the emerald-colored wine in a 酉 wine jar as 醁 Green Kind.",
       "components": [
         {
           "character": "酉",
-          "gloss": "vessel"
+          "gloss": "wine jar"
         },
         {
           "character": "录",
@@ -44692,12 +44638,12 @@
           "evidence": "kind of wine"
         }
       ],
-      "equation": "酉 vessel + 霝 drops of rain = 醽 kind of wine",
-      "mnemonic": "A vintner shelters an 酉 vessel from 霝 drops of rain so the 醽 kind of wine stays undiluted.",
+      "equation": "酉 wine jar + 霝 drops of rain = 醽 kind of wine",
+      "mnemonic": "A vintner shelters a 酉 wine jar from 霝 drops of rain so the 醽 kind of wine stays undiluted.",
       "components": [
         {
           "character": "酉",
-          "gloss": "vessel"
+          "gloss": "wine jar"
         },
         {
           "character": "霝",
@@ -45868,11 +45814,11 @@
   ],
   "gpt56_expedited_release": {
     "certification_status": "expedited_non_certified",
-    "materialized_card_projection_hash": "sha256:038051ea4e5407d2c16c9376a43ca41c7c56fdd2db9b7b61f7618fd3dbe9db29",
+    "materialized_card_projection_hash": "sha256:f3a4248d5a771f36af641b8cbe1ced9b8157a6f60e53923c049792c8a7071dd0",
     "formal_validation": {
       "count": 24037,
       "invalid_count": 0
     },
-    "editorial_ledger_sha256": "sha256:5c137e8ead0ef5dab848330e9433964cf0f7c003f8f0413e7190b2ef6f363eb5"
+    "editorial_ledger_sha256": "sha256:5aab5f9df3bf36deb2606ee4c73c6159f8c6f9e3bc467e878011c5f0921ccaec"
   }
 }
