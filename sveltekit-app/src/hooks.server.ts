@@ -3,8 +3,18 @@ import { building } from "$app/environment";
 import type { Handle } from "@sveltejs/kit";
 
 export const handle: Handle = async ({ event, resolve }) => {
-	// Skip auth in local dev when platform bindings are unavailable
-	if (building || !event.platform?.env?.GOOGLE_CLIENT_SECRET) {
+	// Adapter Cloudflare intentionally throws when a prerenderable route reads
+	// platform.env. Treat that environment like a public, signed-out request.
+	let env: App.Platform['env'] | undefined;
+	try {
+		env = event.platform?.env;
+		if (env) void env.GOOGLE_CLIENT_SECRET;
+	} catch {
+		env = undefined;
+	}
+
+	// Skip auth while building/prerendering and in local dev without bindings.
+	if (building || !env?.GOOGLE_CLIENT_SECRET) {
 		event.locals.session = null;
 		event.locals.user = null;
 		event.locals.isAdmin = true;
@@ -12,9 +22,9 @@ export const handle: Handle = async ({ event, resolve }) => {
 	}
 
 	// Get auth instance
-	const auth = createAuth(event.platform!.env.DB, {
-		GOOGLE_CLIENT_ID: event.platform!.env.GOOGLE_CLIENT_ID,
-		GOOGLE_CLIENT_SECRET: event.platform!.env.GOOGLE_CLIENT_SECRET,
+	const auth = createAuth(env.DB, {
+		GOOGLE_CLIENT_ID: env.GOOGLE_CLIENT_ID,
+		GOOGLE_CLIENT_SECRET: env.GOOGLE_CLIENT_SECRET,
 	});
 
 	// Get session from request
@@ -28,7 +38,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	// Check if user is admin (hard-coded email check)
 	if (event.locals.user) {
-		const adminEmail = event.platform!.env.ADMIN_EMAIL || "hak7alp@gmail.com";
+		const adminEmail = env.ADMIN_EMAIL || "hak7alp@gmail.com";
 		event.locals.isAdmin = event.locals.user.email === adminEmail;
 	} else {
 		event.locals.isAdmin = false;

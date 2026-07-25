@@ -18,7 +18,7 @@
 
 	let videoElement: HTMLVideoElement | undefined = $state();
 	let currentTime = $state(28.2);
-	let selectedGroup: GroupId = $state('all');
+	let selectedGroup: GroupId = $state('winner');
 	let hasPrimedVideo = $state(false);
 
 	const keyMomentStart = 27.8;
@@ -315,11 +315,7 @@
 	}
 </script>
 
-<svelte:head>
-	<title>Japanese Reel STT Benchmark — Kiokun</title>
-</svelte:head>
-
-<article>
+<article id="main-content" role="main">
 	<header class="masthead">
 		<a class="back" href="/blog">← Kiokun Notebook</a>
 		<p class="kicker">Speech Recognition</p>
@@ -703,6 +699,7 @@
 
 	.jump-row button,
 	.filters button {
+		min-height: 44px;
 		border: 1px solid var(--rule);
 		background: var(--paper);
 		color: var(--ink-soft);
@@ -995,6 +992,9 @@
 	}
 
 	summary {
+		display: flex;
+		align-items: center;
+		min-height: 44px;
 		cursor: pointer;
 		font-family: var(--label);
 		font-size: 0.78rem;

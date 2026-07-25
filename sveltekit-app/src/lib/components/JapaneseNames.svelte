@@ -143,7 +143,6 @@
 		position: relative;
 		max-height: 70px; /* Strictly 1 row */
 		overflow: hidden;
-		transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Faster, smoother easing */
 	}
 
 	.names-container.expanded {

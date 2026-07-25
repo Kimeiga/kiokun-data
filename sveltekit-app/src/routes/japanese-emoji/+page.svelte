@@ -80,24 +80,29 @@
 	];
 </script>
 
-<svelte:head>
-	<title>Japanese Emoji Guide - Kiokun</title>
-</svelte:head>
-
 <Header currentWord="" />
 
-<div class="container">
-	<header class="page-header">
-		<h1>🇯🇵 Japanese Emoji Guide</h1>
-		<p class="subtitle">Discover the meaning behind Japan's cultural emoji symbols</p>
+<main id="main-content" class="container learner-page learner-page--wide">
+	<header class="page-header learner-intro">
+		<h1>Japanese Emoji Guide</h1>
+		<p class="subtitle">Decode the language and culture behind Japan’s familiar emoji symbols.</p>
 		<p class="intro">
-			Did you know the word "emoji" comes from Japanese? 絵 (e = picture) + 文字 (moji = character). 
-			Because emoji originated in Japan, many symbols reflect Japanese culture, language, and daily life.
+			Emoji comes from 絵 (e, picture) + 文字 (moji, character). Because the system originated
+			in Japan, many symbols preserve language from signs, festivals, food, and daily life.
 		</p>
 	</header>
 
+	<nav class="section-nav" aria-label="Emoji guide sections">
+		<a href="#kanji-emoji">Kanji</a>
+		<a href="#landmarks">Landmarks</a>
+		<a href="#festivals">Festivals</a>
+		<a href="#food">Food</a>
+		<a href="#symbols">Signs</a>
+		<a href="#examples">Examples</a>
+	</nav>
+
 	<!-- Kanji/Semantic Emoji Section -->
-	<section class="emoji-section">
+	<section id="kanji-emoji" class="emoji-section">
 		<h2>📝 Kanji Symbol Emoji</h2>
 		<p class="section-intro">
 			These emoji use real Japanese kanji characters. They originated from Japanese signage and are most useful for language learners!
@@ -129,7 +134,7 @@
 	</section>
 
 	<!-- Cultural Emoji Section -->
-	<section class="emoji-section">
+	<section id="landmarks" class="emoji-section">
 		<h2>🏯 Icons & Landmarks</h2>
 		<div class="emoji-grid">
 			{#each culturalEmoji as item}
@@ -148,7 +153,7 @@
 	</section>
 
 	<!-- Festival Emoji Section -->
-	<section class="emoji-section">
+	<section id="festivals" class="emoji-section">
 		<h2>🎋 Festivals & Traditions</h2>
 		<div class="emoji-grid">
 			{#each festivalEmoji as item}
@@ -167,7 +172,7 @@
 	</section>
 
 	<!-- Food Emoji Section -->
-	<section class="emoji-section">
+	<section id="food" class="emoji-section">
 		<h2>🍣 Food & Drink</h2>
 		<div class="emoji-grid">
 			{#each foodEmoji as item}
@@ -186,7 +191,7 @@
 	</section>
 
 	<!-- Symbol Emoji Section -->
-	<section class="emoji-section">
+	<section id="symbols" class="emoji-section">
 		<h2>🔰 Symbols & Signs</h2>
 		<div class="emoji-grid">
 			{#each symbolEmoji as item}
@@ -205,7 +210,7 @@
 	</section>
 
 	<!-- Finding Examples Section -->
-	<section class="emoji-section finding-examples">
+	<section id="examples" class="emoji-section finding-examples">
 		<h2>🔍 Find Real Examples</h2>
 		<p class="section-intro">
 			Want to see how these emoji are used in the wild? Here are some ways to find real examples:
@@ -246,49 +251,70 @@
 			</div>
 		</div>
 	</section>
-</div>
+</main>
 
 <style>
 	.container {
-		max-width: 1200px;
-		margin: 0 auto;
-		padding: 20px 20px 60px;
+		max-width: var(--content-wide);
 	}
 
 	.page-header {
-		text-align: center;
-		padding: 40px 0;
-	}
-
-	.page-header h1 {
-		font-size: 36px;
-		margin: 0 0 12px;
-		color: var(--text-primary);
+		padding: 0;
 	}
 
 	.subtitle {
 		font-size: 18px;
 		color: var(--text-secondary);
-		margin: 0 0 20px;
+		margin: 0.45rem 0 0;
 	}
 
 	.intro {
 		max-width: 700px;
-		margin: 0 auto;
-		font-size: 15px;
+		margin: 0.65rem 0 0;
+		font-size: var(--font-size-callout);
 		color: var(--text-tertiary);
 		line-height: 1.6;
 	}
 
+	.section-nav {
+		display: flex;
+		gap: 0.45rem;
+		margin-bottom: 1.75rem;
+		overflow-x: auto;
+		padding-bottom: 0.35rem;
+		scrollbar-width: thin;
+	}
+
+	.section-nav a {
+		display: inline-flex;
+		min-height: 44px;
+		flex: 0 0 auto;
+		align-items: center;
+		padding: 0.55rem 0.85rem;
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-full);
+		background: var(--bg-secondary);
+		color: var(--text-secondary);
+		font-size: var(--font-size-callout);
+		font-weight: 650;
+		text-decoration: none;
+	}
+
+	.section-nav a:hover {
+		border-color: var(--accent);
+		color: var(--accent);
+	}
+
 	.emoji-section {
-		margin-bottom: 50px;
+		scroll-margin-top: 5rem;
+		margin-bottom: 2.75rem;
 	}
 
 	.emoji-section h2 {
 		font-size: 24px;
 		margin: 0 0 12px;
 		padding-bottom: 12px;
-		border-bottom: 2px solid var(--border-color);
+		border-bottom: 1px solid var(--border-color);
 		color: var(--text-primary);
 	}
 
@@ -313,13 +339,12 @@
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-lg);
 		padding: 20px;
-		transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+		transition: border-color 0.15s ease, background-color 0.15s ease;
 	}
 
 	.emoji-card:hover {
 		border-color: var(--accent);
-		box-shadow: 0 4px 12px var(--shadow);
-		transform: translateY(-2px);
+		background: var(--surface-hover);
 	}
 
 	.emoji-large {
@@ -366,7 +391,7 @@
 	}
 
 	.description {
-		font-size: 13px;
+		font-size: 14px;
 		color: var(--text-secondary);
 		line-height: 1.5;
 		margin: 0 0 8px;
@@ -394,7 +419,8 @@
 		display: inline-flex;
 		align-items: center;
 		gap: 4px;
-		padding: 6px 10px;
+		min-height: 44px;
+		padding: 8px 10px;
 		font-size: 12px;
 		color: var(--text-secondary);
 		background: var(--bg-tertiary);
@@ -475,15 +501,11 @@
 
 	@media (max-width: 768px) {
 		.container {
-			padding: 10px 16px 40px;
+			padding-top: 1.1rem;
 		}
 
 		.page-header {
-			padding: 30px 0;
-		}
-
-		.page-header h1 {
-			font-size: 28px;
+			padding: 0;
 		}
 
 		.subtitle {
@@ -492,6 +514,10 @@
 
 		.emoji-section h2 {
 			font-size: 20px;
+		}
+
+		.emoji-section {
+			margin-bottom: 2rem;
 		}
 
 		.emoji-grid {
@@ -507,7 +533,12 @@
 		}
 
 		.finding-examples {
-			padding: 20px;
+			padding: 1rem;
+		}
+
+		.emoji-card,
+		.tip-card {
+			padding: 1rem;
 		}
 	}
 </style>

@@ -132,7 +132,8 @@
 
 <Header autofocus={false} />
 
-<main class="sentence-page">
+<main id="main-content" class="sentence-page">
+	<h1 class="visually-hidden">{text || 'Sentence'} — {langLabel} sentence</h1>
 	<div class="sentence-container" class:panel-open={panelOpen}>
 		<div class="sentence-main">
 			<!-- Back link -->

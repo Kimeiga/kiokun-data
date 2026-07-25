@@ -76,7 +76,7 @@
 
 <Header currentWord="" />
 
-<main class="min-h-screen bg-base-100 pt-20 pb-10 px-4">
+<main id="main-content" class="min-h-screen bg-bg-primary pb-10 px-4">
 	<div class="max-w-4xl mx-auto">
 		<h1 class="text-3xl font-bold mb-2">📚 Study Decks</h1>
 		<p class="text-base-content/70 mb-8">Import pre-made vocabulary decks based on frequency lists.</p>
@@ -138,4 +138,3 @@
 		{/if}
 	</div>
 </main>
-

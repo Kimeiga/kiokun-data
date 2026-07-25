@@ -34,6 +34,8 @@
 	class:active={studyMode}
 	onclick={toggle}
 	title={studyMode ? 'Exit study mode' : 'Study mode — hide answers to test yourself'}
+	aria-label={studyMode ? 'Exit study mode' : 'Enter study mode'}
+	aria-pressed={studyMode}
 >
 	{#if studyMode}
 		<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
@@ -67,8 +69,8 @@
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		width: 32px;
-		height: 32px;
+		width: 44px;
+		height: 44px;
 		border-radius: 50%;
 		border: none;
 		background: transparent;

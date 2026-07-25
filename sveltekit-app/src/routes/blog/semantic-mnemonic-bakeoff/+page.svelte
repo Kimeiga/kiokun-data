@@ -18,8 +18,9 @@
 	)[0];
 
 	let selectedProvider = $state('all');
-	let selectedCharacter = $state('all');
-	let showFailures = $state(true);
+	let selectedCharacter = $state(data.characters[0]?.character ?? 'all');
+	let showFailures = $state(false);
+	let showAllInputs = $state(false);
 
 	const providerOptions = [
 		{ id: 'all', label: 'All providers' },
@@ -233,10 +234,7 @@
 	}
 </script>
 
-<svelte:head>
-	<title>The Mnemonic Model Bakeoff - Kiokun</title>
-</svelte:head>
-
+<main id="main-content">
 <article>
 	<header class="masthead">
 		<a class="back" href="/blog">← Kiokun Notebook</a>
@@ -308,7 +306,7 @@
 			</p>
 
 			<div class="input-grid">
-				{#each data.characters as item}
+				{#each (showAllInputs ? data.characters : data.characters.slice(0, 6)) as item}
 					<div class="input-panel">
 						<div class="char-head">
 							<span class="han">{item.character}</span>
@@ -327,6 +325,11 @@
 					</div>
 				{/each}
 			</div>
+			{#if data.characters.length > 6}
+				<button class="reveal-inputs" type="button" aria-expanded={showAllInputs} onclick={() => showAllInputs = !showAllInputs}>
+					{showAllInputs ? 'Show fewer test characters' : `Browse all ${data.characters.length} test characters`}
+				</button>
+			{/if}
 
 			<p class="note">
 				This is a small targeted test, not a universal model benchmark. Its purpose was to
@@ -444,7 +447,7 @@
 					{/each}
 				</div>
 
-				<div class="segmented" aria-label="Character filter">
+				<div class="segmented characters" aria-label="Character filter">
 					<button
 						type="button"
 						class:selected={selectedCharacter === 'all'}
@@ -564,6 +567,7 @@
 		</Reveal>
 	</div>
 </article>
+</main>
 
 <style>
 	article {
@@ -633,7 +637,11 @@
 	}
 	.prose {
 		display: grid;
+		min-width: 0;
 		gap: clamp(3rem, 7vw, 5rem);
+	}
+	:global(.prose > .reveal) {
+		min-width: 0;
 	}
 	.prose p {
 		font-size: 1.02rem;
@@ -792,7 +800,9 @@
 		color: var(--ink) !important;
 	}
 	.table-wrap {
+		max-width: 100%;
 		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
 		border-top: 1px solid var(--rule);
 		border-bottom: 1px solid var(--rule);
 	}
@@ -838,8 +848,18 @@
 		flex-wrap: wrap;
 		gap: 0.45rem;
 	}
+	.segmented.characters {
+		flex-wrap: nowrap;
+		overflow-x: auto;
+		padding-bottom: 0.25rem;
+		scrollbar-width: thin;
+	}
+	.segmented.characters button {
+		flex: 0 0 auto;
+		scroll-snap-align: start;
+	}
 	button {
-		min-height: 2.35rem;
+		min-height: 44px;
 		border: 1px solid var(--rule);
 		border-radius: 6px;
 		padding: 0 0.8rem;
@@ -855,11 +875,20 @@
 		background: var(--shu-wash);
 		color: var(--ink);
 	}
+	.reveal-inputs {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		margin-top: 0.75rem;
+		color: var(--shu);
+	}
 	.toggle {
 		display: inline-flex;
 		align-items: center;
 		gap: 0.55rem;
 		width: fit-content;
+		min-height: 44px;
 		font-family: var(--label);
 		font-size: 0.8rem;
 		color: var(--ink-soft);
@@ -1009,7 +1038,7 @@
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		min-height: 2rem;
+		min-height: 44px;
 		padding: 0 0.75rem;
 		border: 1px solid var(--rule);
 		border-radius: 6px;
@@ -1039,12 +1068,14 @@
 		}
 	}
 	@media (max-width: 780px) {
-		.summary-strip,
 		.input-grid,
 		.outputs,
 		.takeaways,
 		.data-link {
 			grid-template-columns: 1fr;
+		}
+		.summary-strip {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
 		}
 		.model-head {
 			display: grid;

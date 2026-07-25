@@ -580,7 +580,7 @@
 
 <Header currentWord="" />
 
-<div class="layout" class:panel-open={panelOpen}>
+<main id="main-content" class="layout" class:panel-open={panelOpen}>
 	<div class="main-content">
 		{#if loading}
 			<p class="status">Loading...</p>
@@ -688,7 +688,7 @@
 							<div class="image-text-row">
 								<div class="it-image">
 									<button class="gallery-click" onclick={() => lightboxUrl = img.imageUrl} title="View full size">
-										<img src={img.imageUrl} alt={`Image from ${artifact.title}`} />
+										<img src={img.imageUrl} alt={`Image from ${artifact.title}`} loading="lazy" decoding="async" />
 									</button>
 									{#if isOwner()}
 										<button class="img-delete" onclick={() => deleteImage(img.id)} title="Delete image">x</button>
@@ -930,7 +930,7 @@
 			</div>
 		</div>
 	{/if}
-</div>
+</main>
 
 <!-- Image Lightbox -->
 {#if lightboxUrl}

@@ -1,7 +1,3 @@
-<script module lang="ts">
-	export const prerender = true;
-</script>
-
 <script lang="ts">
 	import Reveal from '$lib/blog/Reveal.svelte';
 
@@ -148,11 +144,7 @@
 	];
 </script>
 
-<svelte:head>
-	<title>The Sentence Translation Bakeoff - Kiokun</title>
-</svelte:head>
-
-<article>
+<article id="main-content" role="main">
 	<header class="masthead">
 		<a class="back" href="/blog">← Kiokun Notebook</a>
 		<p class="kicker">Translation Quality</p>

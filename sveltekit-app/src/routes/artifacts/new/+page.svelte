@@ -181,7 +181,7 @@
 
 <Header currentWord="" />
 
-<div class="page">
+<main id="main-content" class="page">
 	{#if !$session.data?.user}
 		<p class="status">Please sign in to create artifacts.</p>
 	{:else}
@@ -317,7 +317,7 @@
 			</div>
 		</div>
 	{/if}
-</div>
+</main>
 
 <!-- Image Lightbox -->
 {#if lightboxUrl}

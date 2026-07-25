@@ -82,7 +82,7 @@
 
 <Header currentWord="" />
 
-<div class="page">
+<main id="main-content" class="page">
 	<div class="page-header">
 		<h1>Custom Words</h1>
 		{#if $session.data?.user}
@@ -131,7 +131,7 @@
 			{/each}
 		</div>
 	{/if}
-</div>
+</main>
 
 <style>
 	.page { max-width: 960px; margin: 0 auto; padding: var(--spacing-xl); }

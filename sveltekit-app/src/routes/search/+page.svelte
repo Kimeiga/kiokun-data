@@ -1,13 +1,11 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { onMount } from 'svelte';
 	import Header from '$lib/components/Header.svelte';
-	import { getDictionaryUrl } from '$lib/shard-utils';
-	import { dev } from '$app/environment';
 
 	interface SearchResult {
 		word: string;
 		targetWord?: string;
+		forms?: string[];
 		language: string;
 		languages?: string[];
 		pronunciation: string;
@@ -40,15 +38,18 @@
 	let loading = $state(false);
 	let error = $state('');
 	let total = $state(0);
-
-	// Map of traditional → simplified for Chinese results
-	let simplifiedForms = $state<Record<string, string>>({});
+	let visibleChinese = $state(8);
+	let visibleJapanese = $state(8);
+	let visibleKorean = $state(8);
 
 	// Get query from URL parameter
 	$effect(() => {
 		const urlQuery = $page.url.searchParams.get('q');
 		if (urlQuery && urlQuery !== query) {
 			query = urlQuery;
+			visibleChinese = 8;
+			visibleJapanese = 8;
+			visibleKorean = 8;
 			performSearch(urlQuery);
 		}
 	});
@@ -64,7 +65,7 @@
 		error = '';
 
 		try {
-			const response = await fetch(`/api/search?q=${encodeURIComponent(searchQuery)}&limit=100`);
+				const response = await fetch(`/api/search?q=${encodeURIComponent(searchQuery)}&limit=60`);
 
 			if (!response.ok) {
 				throw new Error(`Search failed: ${response.statusText}`);
@@ -73,9 +74,6 @@
 			const data: SearchResponse = await response.json();
 			results = data.results;
 			total = data.total;
-
-			// Fetch simplified forms for Chinese results
-			loadSimplifiedForms(data.results.filter(r => r.language === 'chinese'));
 
 			// Also search custom words in parallel
 			try {
@@ -94,77 +92,42 @@
 		}
 	}
 
-	// Fetch dictionary entries for Chinese results to get simplified forms
-	async function loadSimplifiedForms(chineseResults: SearchResult[]) {
-		const uniqueWords = [...new Set(chineseResults.map(r => r.targetWord || r.word))];
-		const forms: Record<string, string> = {};
-
-		await Promise.all(uniqueWords.map(async (word) => {
-			try {
-				const url = await getDictionaryUrl(word, dev, fetch);
-				const response = await fetch(url);
-				if (!response.ok) return;
-
-				const buffer = await response.arrayBuffer();
-				const decompressed = await new Response(
-					new Blob([buffer]).stream().pipeThrough(new DecompressionStream('deflate-raw'))
-				).text();
-				const entry = JSON.parse(decompressed);
-
-				// Extract simplified form from chinese_words
-				if (entry.chinese_words?.length > 0) {
-					const cw = entry.chinese_words[0];
-					if (cw.simp && cw.simp !== word) {
-						forms[word] = cw.simp;
-					}
-				}
-			} catch {
-				// Ignore failures
-			}
-		}));
-
-		simplifiedForms = { ...simplifiedForms, ...forms };
-	}
-
 	// Separate results by language
 	let japaneseResults = $derived(results.filter(r => r.language === 'japanese'));
 	let chineseResults = $derived(results.filter(r => r.language === 'chinese'));
 	let koreanResults = $derived(results.filter(r => r.language === 'korean'));
 </script>
 
-<svelte:head>
-	<title>Search: {query || 'Dictionary'} - Kiokun</title>
-</svelte:head>
-
 <Header currentWord="" />
 
-<div class="search-page">
-	<div class="search-header">
+<main id="main-content" class="search-page learner-page learner-page--wide">
+	<div class="search-header learner-intro">
 		<h1>Search Results</h1>
 		{#if query}
 			<p class="search-query">
-				Searching for: <strong>{query}</strong>
+				Results across Chinese, Japanese, and Korean for <strong>{query}</strong>
 			</p>
 		{/if}
 	</div>
 
 	{#if loading}
-		<div class="loading">
+		<div class="loading" role="status" aria-live="polite">
 			<div class="spinner"></div>
-			<p>Searching...</p>
+			<p>Searching the dictionary…</p>
 		</div>
 	{:else if error}
-		<div class="error-message">
-			<p>❌ {error}</p>
+		<div class="error-message" role="alert">
+			<h2>Search is unavailable</h2>
+			<p>{error}. Please try again.</p>
 		</div>
 	{:else if !query}
 		<div class="empty-state">
-			<p>Enter a search term to find dictionary entries</p>
+			<p>Use the search field above to find a character, word, pronunciation, or meaning.</p>
 		</div>
 	{:else if results.length === 0}
 		<div class="no-results">
-			<p>No results found for "{query}"</p>
-			<p class="hint">Try searching for English words that might appear in definitions</p>
+			<h2>No results for “{query}”</h2>
+			<p class="hint">Try a shorter spelling, a dictionary form, or an English meaning.</p>
 		</div>
 	{:else}
 		<div class="results-header">
@@ -177,16 +140,12 @@
 				<div class="results-column">
 					<h2 class="column-title">Chinese 🇨🇳</h2>
 					<div class="results-list">
-						{#each chineseResults as result}
+						{#each chineseResults.slice(0, visibleChinese) as result}
 							{@const targetWord = result.targetWord || result.word}
 							<a href="/{targetWord}" class="result-card">
 								<div class="result-header">
 									<span class="word">
-										{#if simplifiedForms[targetWord]}
-											{simplifiedForms[targetWord]} / {targetWord}
-										{:else}
-											{result.word}
-										{/if}
+										{(result.forms?.length ? result.forms.slice(0, 3) : [result.word]).join(' / ')}
 									</span>
 									{#if result.pronunciation}
 										<span class="pronunciation">[{result.pronunciation}]</span>
@@ -210,6 +169,11 @@
 							</a>
 						{/each}
 					</div>
+					{#if visibleChinese < chineseResults.length}
+						<button class="show-more" onclick={() => visibleChinese += 12}>
+							Show more Chinese results <span>{visibleChinese} of {chineseResults.length}</span>
+						</button>
+					{/if}
 				</div>
 			{/if}
 
@@ -217,7 +181,7 @@
 				<div class="results-column">
 					<h2 class="column-title">Japanese 🇯🇵</h2>
 					<div class="results-list">
-						{#each japaneseResults as result}
+						{#each japaneseResults.slice(0, visibleJapanese) as result}
 							<a href="/{result.targetWord || result.word}" class="result-card">
 								<div class="result-header">
 									<span class="word">{result.word}</span>
@@ -243,6 +207,11 @@
 							</a>
 						{/each}
 					</div>
+					{#if visibleJapanese < japaneseResults.length}
+						<button class="show-more" onclick={() => visibleJapanese += 12}>
+							Show more Japanese results <span>{visibleJapanese} of {japaneseResults.length}</span>
+						</button>
+					{/if}
 				</div>
 			{/if}
 
@@ -250,7 +219,7 @@
 				<div class="results-column">
 					<h2 class="column-title">Korean 🇰🇷</h2>
 					<div class="results-list">
-						{#each koreanResults as result}
+						{#each koreanResults.slice(0, visibleKorean) as result}
 							<a href="/{result.targetWord || result.word}" class="result-card">
 								<div class="result-header">
 									<span class="word">{result.word}</span>
@@ -276,6 +245,11 @@
 							</a>
 						{/each}
 					</div>
+					{#if visibleKorean < koreanResults.length}
+						<button class="show-more" onclick={() => visibleKorean += 12}>
+							Show more Korean results <span>{visibleKorean} of {koreanResults.length}</span>
+						</button>
+					{/if}
 				</div>
 			{/if}
 		</div>
@@ -315,13 +289,11 @@
 			</div>
 		{/if}
 	{/if}
-</div>
+</main>
 
 <style>
 	.search-page {
-		max-width: 1400px;
-		margin: 0 auto;
-		padding: var(--spacing-xl);
+		max-width: var(--content-wide);
 	}
 
 	.search-header {
@@ -329,13 +301,12 @@
 	}
 
 	.search-header h1 {
-		font-size: var(--font-size-title);
-		margin-bottom: var(--spacing-md);
+		margin-bottom: 0;
 		color: var(--text-primary);
 	}
 
 	.search-query {
-		font-size: var(--font-size-headline);
+		font-size: var(--font-size-body);
 		color: var(--text-secondary);
 	}
 
@@ -345,14 +316,14 @@
 
 	.loading {
 		text-align: center;
-		padding: 60px var(--spacing-xl);
+		padding: 4rem var(--spacing-xl);
 	}
 
 	.spinner {
 		width: 40px;
 		height: 40px;
 		margin: 0 auto var(--spacing-xl);
-		border: 4px solid var(--border);
+		border: 3px solid var(--border-color);
 		border-top-color: var(--accent);
 		border-radius: var(--radius-full);
 		animation: spin 1s linear infinite;
@@ -368,8 +339,15 @@
 	.empty-state,
 	.no-results {
 		text-align: center;
-		padding: 60px var(--spacing-xl);
+		padding: 4rem var(--spacing-xl);
 		color: var(--text-secondary);
+	}
+
+	.error-message h2,
+	.no-results h2 {
+		margin: 0 0 0.4rem;
+		color: var(--text-primary);
+		font-size: var(--font-size-headline);
 	}
 
 	.no-results .hint {
@@ -381,14 +359,14 @@
 	.results-header {
 		margin-bottom: var(--spacing-xl);
 		padding-bottom: var(--spacing-md);
-		border-bottom: 1px solid var(--border);
+		border-bottom: 1px solid var(--border-color);
 		color: var(--text-secondary);
 	}
 
 	.results-container {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-		gap: var(--spacing-xl);
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+		gap: clamp(1.25rem, 3vw, 2rem);
 	}
 
 	.results-column {
@@ -403,7 +381,7 @@
 		color: var(--text-primary);
 		margin-bottom: var(--spacing-md);
 		padding-bottom: var(--spacing-sm);
-		border-bottom: 2px solid var(--border);
+		border-bottom: 1px solid var(--border-color);
 	}
 
 	.results-list {
@@ -414,19 +392,41 @@
 
 	.result-card {
 		display: block;
-		padding: var(--spacing-xl);
+		padding: var(--spacing-lg);
 		background: var(--bg-secondary);
 		border: 1px solid var(--border-light);
 		border-radius: var(--radius-md);
 		text-decoration: none;
 		color: inherit;
-		transition: background 0.15s ease, border-color 0.15s ease;
+		transition: background-color 0.15s ease, border-color 0.15s ease;
 	}
 
 	.result-card:hover {
 		border-color: var(--accent);
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-		transform: translateY(-2px);
+		background: var(--surface-hover);
+	}
+
+	.show-more {
+		display: flex;
+		min-height: 44px;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		padding: 0.65rem 0.85rem;
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-md);
+		background: var(--bg-tertiary);
+		color: var(--accent);
+		font: inherit;
+		font-size: var(--font-size-callout);
+		font-weight: 650;
+		cursor: pointer;
+	}
+
+	.show-more span {
+		color: var(--text-muted);
+		font-size: var(--font-size-caption1);
+		font-weight: 500;
 	}
 
 	.result-header {
@@ -477,7 +477,7 @@
 
 	@media (max-width: 768px) {
 		.search-page {
-			padding: var(--spacing-lg);
+			padding-top: 1.1rem;
 		}
 
 		.results-header {
@@ -487,6 +487,7 @@
 
 		.results-container {
 			grid-template-columns: 1fr;
+			gap: 1.75rem;
 		}
 
 		.results-column {

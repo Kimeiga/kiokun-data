@@ -89,6 +89,9 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		justify-content: center;
+		min-width: 44px;
+		min-height: 44px;
 		text-decoration: none;
 		transition: color 0.15s;
 	}

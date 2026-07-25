@@ -1,5 +1,11 @@
 import assert from 'node:assert/strict';
-import { defaultSeoForUrl, dictionaryDefinitions, ogImagePath, type OgCardData } from './seo';
+import {
+	defaultSeoForUrl,
+	dictionaryDefinitions,
+	ogImagePath,
+	structuredDataForSeo,
+	type OgCardData
+} from './seo';
 import { parseOgCard, renderOgSvg } from './server/og-card';
 
 const sentenceSeo = defaultSeoForUrl(
@@ -33,6 +39,14 @@ assert(svg.includes('width="1200"'));
 assert(svg.includes('height="630"'));
 assert(svg.includes('&lt;圖 &amp; map&gt;'));
 assert(!svg.includes('<圖 & map>'), 'user-facing card text must be XML escaped');
+
+const homeSeo = defaultSeoForUrl(new URL('https://kiokun.com/'));
+const homeStructuredData = structuredDataForSeo(homeSeo, 'https://kiokun.com/');
+assert.equal(homeStructuredData['@type'], 'WebSite');
+assert.equal((homeStructuredData.potentialAction as Record<string, unknown>)['@type'], 'SearchAction');
+
+const privateSeo = defaultSeoForUrl(new URL('https://kiokun.com/reel/abc/compare'));
+assert.equal(privateSeo.robots, 'noindex, nofollow');
 
 const learnerDefinitions = dictionaryDefinitions({
 	chinese_words: [

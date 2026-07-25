@@ -36,7 +36,7 @@
 
 <Header currentWord={data.component} />
 
-<main class="max-w-3xl mx-auto px-4 py-6">
+<main id="main-content" class="max-w-3xl mx-auto px-4 py-6">
 	<!-- Back link -->
 	<a
 		href="/{data.component}"
@@ -47,7 +47,9 @@
 
 	<!-- Header section -->
 	<div class="text-center mb-8">
-		<div class="text-6xl font-serif text-text-primary mb-2">{data.component}</div>
+		<h1 class="text-6xl font-serif text-text-primary mb-2">
+			{data.component}<span class="visually-hidden"> phonetic series</span>
+		</h1>
 		{#if data.componentGloss}
 			<div class="text-lg text-text-secondary">{data.componentGloss}</div>
 		{/if}

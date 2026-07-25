@@ -100,7 +100,7 @@
 	<title>Transcript Compare | Kiokun</title>
 </svelte:head>
 
-<main class="comparison-page">
+<main id="main-content" class="comparison-page">
 	<header class="page-header">
 		<div>
 			<a class="back-link" href="/reel/{data.videoId}">← Reel</a>

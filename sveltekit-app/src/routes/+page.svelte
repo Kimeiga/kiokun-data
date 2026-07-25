@@ -9,23 +9,30 @@
 	import { getDictionaryUrl } from '$lib/shard-utils';
 	import { dev } from '$app/environment';
 
-	let handwritingInput: HandwritingInput;
-	let heroSearchInput: HTMLInputElement;
+	let handwritingInput = $state<HandwritingInput>();
+	let searchDropdown = $state<SearchDropdown>();
+	let heroSearchInput = $state<HTMLInputElement>();
 	let heroSearchValue = $state('');
 	let handwritingOpen = $state(false);
+	let searchDropdownOpen = $state(false);
+	let searchActiveDescendant = $state('');
 	let isNativeRuntime = $state(typeof window !== 'undefined' && window.location.protocol === 'capacitor:');
 
 	function handleHandwritingSelect(char: string) {
 		heroSearchValue += char;
+		heroSearchInput?.focus();
 	}
 
 	function toggleHandwriting() {
+		searchDropdown?.close();
 		handwritingOpen = !handwritingOpen;
 	}
 
 	async function doHeroSearch() {
 		const word = heroSearchValue.trim();
 		if (word) {
+			searchDropdown?.close();
+			handwritingInput?.close();
 			await navigateOrSearch(word);
 		}
 	}
@@ -56,18 +63,21 @@
 	// Programmatic focus to ensure it works on mobile browsers
 	onMount(() => {
 		isNativeRuntime = window.location.protocol === 'capacitor:';
-		if (!isNativeRuntime && heroSearchInput) {
-			// Small delay helps mobile browsers honor the focus
-			setTimeout(() => heroSearchInput.focus(), 100);
-		}
-	});
+			if (
+				!isNativeRuntime &&
+				heroSearchInput &&
+				window.matchMedia('(min-width: 768px) and (pointer: fine)').matches
+			) {
+				const input = heroSearchInput;
+				setTimeout(() => input.focus(), 100);
+			}
+		});
 
 	async function handleHeroSearch(event: KeyboardEvent) {
+		if (searchDropdown?.handleKeydown(event)) return;
 		if (event.key === 'Enter') {
-			const word = heroSearchValue.trim();
-			if (word) {
-				await navigateOrSearch(word);
-			}
+			event.preventDefault();
+			await doHeroSearch();
 		}
 	}
 
@@ -236,43 +246,71 @@
 	];
 </script>
 
-<svelte:head>
-	<title>Kiokun - Chinese, Japanese & Korean Dictionary</title>
-</svelte:head>
-
 <Header currentWord="" isHomePage={true} />
 
-<main class="page">
+<main id="main-content" class="page">
 	<!-- Hero -->
 	<section class="hero">
 		<h1 class="hero-title">Kiokun</h1>
 		<p class="hero-sub">The shared vocabulary of Chinese, Japanese & Korean</p>
 		<!-- Hero Search -->
-		<div class="hero-search">
+		<form
+			class="hero-search"
+			role="search"
+			onsubmit={(event) => {
+				event.preventDefault();
+				void doHeroSearch();
+			}}
+		>
 			<div class="hero-search-row">
 				<!-- svelte-ignore a11y_autofocus -->
 				<input
+					id="hero-search"
+					name="q"
 					type="text"
+					role="combobox"
 					class="hero-search-input"
 					placeholder="Search characters, words, or sentences..."
+					aria-label="Search the dictionary"
+					aria-autocomplete="list"
+					aria-controls="hero-search-results"
+					aria-expanded={searchDropdownOpen}
+					aria-activedescendant={searchActiveDescendant || undefined}
+					autocomplete="off"
+					enterkeyhint="search"
 					bind:value={heroSearchValue}
 					bind:this={heroSearchInput}
 					onkeydown={handleHeroSearch}
-					autofocus={!isNativeRuntime}
+					onfocus={() => searchDropdown?.handleFocus()}
+					onblur={() => searchDropdown?.handleBlur()}
 				/>
 				<div class="hero-search-actions">
+					{#if heroSearchValue.trim()}
+						<button type="submit" class="hero-action-btn search" title="Search" aria-label="Search">
+							<svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+								<circle cx="11" cy="11" r="8"/>
+								<path d="m21 21-4.3-4.3"/>
+							</svg>
+						</button>
+					{:else}
+						<button
+							type="button"
+							onclick={goToRandomCharacter}
+							class="hero-action-btn"
+							title="Random character"
+							aria-label="Open a random character"
+						>
+							🎲
+						</button>
+					{/if}
 					<button
-						onclick={goToRandomCharacter}
-						class="hero-action-btn"
-						title="Random Character"
-					>
-						🎲
-					</button>
-					<button
+						type="button"
 						onclick={toggleHandwriting}
 						class="hero-action-btn"
 						class:active={handwritingOpen}
-						title="Draw Character"
+						title="Draw a character"
+						aria-label="Draw a character"
+						aria-expanded={handwritingOpen}
 					>
 						<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 							<path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>
@@ -280,9 +318,17 @@
 					</button>
 				</div>
 			</div>
-			<SearchDropdown bind:value={heroSearchValue} />
+			<SearchDropdown
+				bind:this={searchDropdown}
+				bind:value={heroSearchValue}
+				bind:open={searchDropdownOpen}
+				bind:activeDescendant={searchActiveDescendant}
+				inputId="hero-search"
+				listboxId="hero-search-results"
+				onNavigate={() => handwritingInput?.close()}
+			/>
 			<HandwritingInput bind:this={handwritingInput} bind:visible={handwritingOpen} onSelect={handleHandwritingSelect} />
-		</div>
+		</form>
 	</section>
 
 	<!-- Daily Picks -->
@@ -333,6 +379,7 @@
 				</a>
 			{/each}
 		</div>
+		<a href="/category" class="link-more">Browse all character categories →</a>
 	</section>
 
 	<!-- Words — secondary, denser -->
@@ -472,7 +519,7 @@
 				<h2>Explore</h2>
 			</div>
 			<div class="quick-links">
-				<a href="/learning-resources" class="qlink">🎓 Learning Resources</a>
+				<a href="/learning" class="qlink">🎓 Learning Resources</a>
 				<a href="/artifacts" class="qlink">📦 Artifacts</a>
 				<a href="/frequency" class="qlink">📊 Frequency Lists</a>
 				<a href="/study" class="qlink">📚 Flashcard Review (SRS)</a>
@@ -527,7 +574,8 @@
 	.hero-search-input {
 		flex: 1;
 		min-width: 0;
-		padding: 12px 80px 12px 20px;
+		min-height: 52px;
+		padding: 12px 104px 12px 20px;
 		border: 1px solid var(--border-light);
 		border-radius: var(--radius-full);
 		font-size: var(--font-size-body);
@@ -561,8 +609,8 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 32px;
-		height: 32px;
+		width: 44px;
+		height: 44px;
 		border-radius: 50%;
 		border: none;
 		background: transparent;
@@ -570,6 +618,11 @@
 		cursor: pointer;
 		transition: color 0.15s ease, background 0.15s ease;
 		font-size: 16px;
+	}
+
+	.hero-action-btn.search {
+		background: var(--accent);
+		color: var(--bg-primary);
 	}
 
 	.hero-action-btn:hover {
@@ -715,6 +768,7 @@
 	}
 	.word-chip {
 		display: inline-flex;
+		min-height: 44px;
 		align-items: baseline;
 		gap: 6px;
 		padding: 8px 14px;
@@ -750,6 +804,9 @@
 		gap: 8px;
 	}
 	.search-chip {
+		display: inline-flex;
+		min-height: 44px;
+		align-items: center;
 		padding: 8px 16px;
 		background: var(--bg-secondary);
 		border: 1px solid var(--border-color);
@@ -780,6 +837,7 @@
 	}
 	.sent-btn {
 		display: flex;
+		min-height: 52px;
 		flex-direction: column;
 		align-items: flex-start;
 		padding: 10px 14px;
@@ -825,6 +883,7 @@
 	}
 	.conj-btn {
 		display: flex;
+		min-height: 44px;
 		align-items: center;
 		gap: 8px;
 		padding: 8px 12px;
@@ -867,6 +926,7 @@
 	}
 	.homo-card {
 		display: flex;
+		min-height: 72px;
 		flex-direction: column;
 		gap: 4px;
 		padding: 12px 16px;
@@ -901,6 +961,7 @@
 	}
 	.cat-chip {
 		display: flex;
+		min-height: 72px;
 		flex-direction: column;
 		align-items: center;
 		gap: 4px;
@@ -929,7 +990,9 @@
 		margin-top: 12px;
 	}
 	.link-more {
-		display: block;
+		display: inline-flex;
+		min-height: 44px;
+		align-items: center;
 		margin-top: 10px;
 		font-size: var(--font-size-caption1);
 		color: var(--accent);
@@ -946,7 +1009,9 @@
 		gap: 6px;
 	}
 	.qlink {
-		display: block;
+		display: flex;
+		min-height: 44px;
+		align-items: center;
 		padding: 10px 14px;
 		background: var(--bg-secondary);
 		border: 1px solid var(--border-color);
@@ -993,6 +1058,9 @@
 		}
 		.cjk-grid {
 			grid-template-columns: repeat(2, 1fr);
+		}
+		.cjk-card:nth-child(n + 9) {
+			display: none;
 		}
 		.cjk-glyph {
 			font-size: 24px;

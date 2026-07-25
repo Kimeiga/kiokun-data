@@ -13,6 +13,8 @@
 			class:active={languageStore.preferences.chinese}
 			onclick={() => languageStore.toggle('chinese')}
 			title="Toggle Chinese"
+			aria-label="Toggle Chinese"
+			aria-pressed={languageStore.preferences.chinese}
 		>
 			🇨🇳
 		</button>
@@ -21,6 +23,8 @@
 			class:active={languageStore.preferences.japanese}
 			onclick={() => languageStore.toggle('japanese')}
 			title="Toggle Japanese"
+			aria-label="Toggle Japanese"
+			aria-pressed={languageStore.preferences.japanese}
 		>
 			🇯🇵
 		</button>
@@ -29,6 +33,8 @@
 			class:active={languageStore.preferences.korean}
 			onclick={() => languageStore.toggle('korean')}
 			title="Toggle Korean"
+			aria-label="Toggle Korean"
+			aria-pressed={languageStore.preferences.korean}
 		>
 			🇰🇷
 		</button>
@@ -44,6 +50,7 @@
 				class="lang-btn-expanded"
 				class:active={languageStore.preferences.chinese}
 				onclick={() => languageStore.toggle('chinese')}
+				aria-pressed={languageStore.preferences.chinese}
 			>
 				<span class="text-lg">🇨🇳</span>
 				<span class="text-sm">Chinese</span>
@@ -52,6 +59,7 @@
 				class="lang-btn-expanded"
 				class:active={languageStore.preferences.japanese}
 				onclick={() => languageStore.toggle('japanese')}
+				aria-pressed={languageStore.preferences.japanese}
 			>
 				<span class="text-lg">🇯🇵</span>
 				<span class="text-sm">Japanese</span>
@@ -60,6 +68,7 @@
 				class="lang-btn-expanded"
 				class:active={languageStore.preferences.korean}
 				onclick={() => languageStore.toggle('korean')}
+				aria-pressed={languageStore.preferences.korean}
 			>
 				<span class="text-lg">🇰🇷</span>
 				<span class="text-sm">Korean</span>
@@ -73,8 +82,8 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 28px;
-		height: 28px;
+		width: 36px;
+		height: 36px;
 		border-radius: 50%;
 		font-size: 16px;
 		transition: opacity 0.15s ease, filter 0.15s ease, background 0.15s ease;
@@ -108,6 +117,7 @@
 		transition: opacity 0.15s ease, filter 0.15s ease, border-color 0.15s ease, background 0.15s ease;
 		opacity: 0.5;
 		filter: grayscale(100%);
+		min-height: 44px;
 	}
 
 	.lang-btn-expanded:hover {
@@ -130,5 +140,11 @@
 	.lang-btn-expanded.active span:last-child {
 		color: var(--text-primary);
 	}
-</style>
 
+	@media (pointer: coarse) {
+		.lang-btn {
+			width: 44px;
+			height: 44px;
+		}
+	}
+</style>

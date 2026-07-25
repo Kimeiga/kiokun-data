@@ -28,6 +28,8 @@ export interface PageSeo {
 	robots?: string;
 }
 
+export type StructuredData = Record<string, unknown>;
+
 const SITE_NAME = 'Kiokun';
 const DEFAULT_DESCRIPTION =
 	'Learn Chinese, Japanese, and Korean together with definitions, readings, stroke order, mnemonics, and real usage.';
@@ -322,11 +324,19 @@ function sectionSeo(pathname: string): PageSeo {
 			title: title.replace(/\s+[—|-]\s+Kiokun.*$/, ''),
 			subtitle: description
 		},
-		robots: ['study', 'lists', 'custom-words', 'login'].includes(route) ? 'noindex, nofollow' : undefined
+		robots: ['study', 'lists', 'custom-words', 'login', 'demo', 'test'].includes(route) ? 'noindex, nofollow' : undefined
 	};
 }
 
 export function defaultSeoForUrl(url: URL): PageSeo {
+	if (
+		url.pathname === '/artifacts/new' ||
+		/^\/reel\/[^/]+\/compare\/?$/.test(url.pathname)
+	) {
+		const seo = sectionSeo(url.pathname);
+		return { ...seo, robots: 'noindex, nofollow' };
+	}
+
 	if (url.pathname === '/sentence') {
 		const text = cleanText(url.searchParams.get('text') || '');
 		const translation = cleanText(url.searchParams.get('en') || '');
@@ -461,6 +471,73 @@ export function defaultSeoForUrl(url: URL): PageSeo {
 	}
 
 	return sectionSeo(url.pathname);
+}
+
+export function structuredDataForSeo(seo: PageSeo, canonicalUrl: string): StructuredData {
+	const base = {
+		'@context': 'https://schema.org',
+		name: cleanText(seo.title.replace(/\s+[—|-]\s+Kiokun.*$/, '')),
+		description: seo.description,
+		url: canonicalUrl,
+		inLanguage: 'en'
+	};
+
+	if (seo.canonicalPath === '/') {
+		return {
+			...base,
+			'@type': 'WebSite',
+			name: SITE_NAME,
+			potentialAction: {
+				'@type': 'SearchAction',
+				target: {
+					'@type': 'EntryPoint',
+					urlTemplate: 'https://kiokun.com/search?q={search_term_string}'
+				},
+				'query-input': 'required name=search_term_string'
+			}
+		};
+	}
+
+	if (seo.og.kind === 'character' || seo.og.kind === 'word') {
+		return {
+			...base,
+			'@type': 'WebPage',
+			mainEntity: {
+				'@type': 'DefinedTerm',
+				name: seo.og.title,
+				description: seo.og.subtitle || seo.description,
+				inDefinedTermSet: {
+					'@type': 'DefinedTermSet',
+					name: 'Kiokun Chinese, Japanese & Korean Dictionary',
+					url: 'https://kiokun.com/'
+				}
+			}
+		};
+	}
+
+	if (seo.canonicalPath.startsWith('/blog/')) {
+		return {
+			...base,
+			'@type': 'Article',
+			headline: seo.og.title,
+			author: { '@type': 'Organization', name: SITE_NAME },
+			publisher: { '@type': 'Organization', name: SITE_NAME, url: 'https://kiokun.com/' }
+		};
+	}
+
+	if (seo.og.kind === 'sentence' || seo.og.kind === 'reel') {
+		return {
+			...base,
+			'@type': 'LearningResource',
+			learningResourceType: seo.og.kind === 'sentence' ? 'Example sentence' : 'Interactive transcript',
+			educationalUse: 'Language learning'
+		};
+	}
+
+	return {
+		...base,
+		'@type': seo.canonicalPath.startsWith('/search') ? 'SearchResultsPage' : 'CollectionPage'
+	};
 }
 
 export function ogImagePath(card: OgCardData): string {

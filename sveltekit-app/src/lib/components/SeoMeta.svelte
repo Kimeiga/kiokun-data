@@ -1,11 +1,14 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { defaultSeoForUrl, ogImagePath, type PageSeo } from '$lib/seo';
+	import { defaultSeoForUrl, ogImagePath, structuredDataForSeo, type PageSeo } from '$lib/seo';
 
 	let seo = $derived((($page.data as { seo?: PageSeo }).seo) || defaultSeoForUrl($page.url));
 	let origin = $derived($page.url.protocol === 'http:' || $page.url.protocol === 'https:' ? $page.url.origin : 'https://kiokun.com');
 	let canonicalUrl = $derived(new URL(seo.canonicalPath, origin).toString());
 	let imageUrl = $derived(new URL(ogImagePath(seo.og), origin).toString());
+	let structuredData = $derived(
+		JSON.stringify(structuredDataForSeo(seo, canonicalUrl)).replace(/</g, '\\u003c')
+	);
 </script>
 
 <svelte:head>
@@ -31,4 +34,5 @@
 	<meta name="twitter:description" content={seo.description} />
 	<meta name="twitter:image" content={imageUrl} />
 	<meta name="twitter:image:alt" content={`${seo.og.title} — ${seo.og.subtitle || seo.description}`} />
+	{@html `<script type="application/ld+json">${structuredData}</script>`}
 </svelte:head>

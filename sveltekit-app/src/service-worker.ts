@@ -3,21 +3,15 @@
 /// <reference lib="esnext" />
 /// <reference lib="webworker" />
 
-import { build, version } from '$service-worker';
+import { version } from '$service-worker';
 
 const CACHE_NAME = `kiokun-v${version}`;
 
-// Only immutable, versioned build assets are safe to precache. Static JSON is
-// request-driven: some files are intentionally omitted from the Pages output,
-// while others are large, route-specific datasets that should not consume the
-// install-time cache. The fetch handler below retains its runtime behavior.
-const PRECACHE = [...build];
-
-// Install: precache static assets
+// Install without downloading every route. The previous full-build precache
+// pulled in route-specific JavaScript, the game engine, and a 4 MB tokenizer
+// before a learner visited those surfaces. Immutable assets are cached lazily.
 self.addEventListener('install', (event: ExtendableEvent) => {
-	event.waitUntil(
-		caches.open(CACHE_NAME).then(cache => cache.addAll(PRECACHE))
-	);
+	event.waitUntil(caches.open(CACHE_NAME));
 	(self as any).skipWaiting();
 });
 
@@ -60,20 +54,11 @@ self.addEventListener('fetch', (event: FetchEvent) => {
 		return;
 	}
 
-	// API calls: network-first with cache fallback
+	// Other API calls may be personalized. Do not persist them in the shared
+	// browser Cache Storage, where a later signed-in user could receive stale
+	// data from a previous session.
 	if (url.pathname.startsWith('/api/')) {
-		event.respondWith(
-			fetch(event.request)
-				.then(response => {
-					// Cache successful GET API responses for offline
-					if (response.ok) {
-						const clone = response.clone();
-						caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
-					}
-					return response;
-				})
-				.catch(() => caches.match(event.request).then(r => r || new Response('Offline', { status: 503 })))
-		);
+		event.respondWith(fetch(event.request));
 		return;
 	}
 
@@ -100,8 +85,14 @@ self.addEventListener('fetch', (event: FetchEvent) => {
 			caches.match(event.request).then(cached => {
 				if (cached) return cached;
 				return fetch(event.request).then(response => {
-					// Cache pitch accent shards, sentence data, etc.
-					if (response.ok && (url.pathname.includes('/pitch/') || url.pathname.includes('/zh_sentences/') || url.pathname.includes('/kr_sentences/'))) {
+					// Cache only assets the learner actually visits. Versioned
+					// application files are immutable; language shards are stable.
+					if (response.ok && (
+						url.pathname.startsWith('/_app/immutable/') ||
+						url.pathname.includes('/pitch/') ||
+						url.pathname.includes('/zh_sentences/') ||
+						url.pathname.includes('/kr_sentences/')
+					)) {
 						const clone = response.clone();
 						caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
 					}

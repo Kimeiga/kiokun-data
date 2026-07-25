@@ -108,7 +108,7 @@
 
 <Header currentWord="" />
 
-<main class="min-h-screen bg-base-100 pt-20 pb-10 px-4">
+<main id="main-content" class="min-h-screen bg-bg-primary pb-10 px-4">
 	<div class="max-w-4xl mx-auto">
 		<div class="flex items-center justify-between mb-6">
 			<h1 class="text-3xl font-bold">📇 My Cards</h1>
@@ -192,4 +192,3 @@
 		{/if}
 	</div>
 </main>
-

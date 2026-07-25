@@ -20,6 +20,7 @@ interface SearchResult {
 interface GroupedResult {
 	word: string;
 	targetWord: string;
+	forms: string[];
 	language: string;
 	languages?: string[]; // all languages this word appears in
 	pronunciation: string;
@@ -179,6 +180,7 @@ export async function GET({ url, platform }: RequestEvent) {
 				grouped.set(key, {
 					word: row.word,
 					targetWord,
+					forms: [row.word, targetWord].filter((form, index, forms) => form && forms.indexOf(form) === index),
 					language: row.language,
 					languages: [row.language],
 					pronunciation: '',
@@ -190,6 +192,9 @@ export async function GET({ url, platform }: RequestEvent) {
 			}
 
 			const group = grouped.get(key)!;
+			if (!group.forms.includes(row.word)) {
+				group.forms.push(row.word);
+			}
 			if (rowDisplayScore > group._displayScore) {
 				group.word = row.word;
 				group.language = row.language;

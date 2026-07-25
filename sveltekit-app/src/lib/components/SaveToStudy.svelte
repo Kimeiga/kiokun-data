@@ -75,9 +75,9 @@
 	}
 
 	const sizeClasses = {
-		sm: 'w-8 h-8 text-xs justify-center',
-		md: 'px-3 py-1.5 text-sm gap-1.5',
-		lg: 'px-4 py-2 text-base gap-2',
+		sm: 'w-11 h-11 text-xs justify-center',
+		md: 'min-h-11 px-3 py-2 text-sm gap-1.5',
+		lg: 'min-h-11 px-4 py-2 text-base gap-2',
 	};
 </script>
 
@@ -85,6 +85,8 @@
 	<button
 		onclick={toggleSave}
 		disabled={isLoading}
+		aria-label={isSaved ? `Remove ${word} from study` : `Save ${word} to study`}
+		aria-pressed={isSaved}
 		class="inline-flex items-center rounded-full font-medium transition-colors duration-150
 			{sizeClasses[size]}
 			{isSaved
@@ -110,9 +112,8 @@
 	</button>
 
 	{#if showSignInHint}
-		<div class="absolute top-full left-1/2 -translate-x-1/2 mt-2 px-3 py-2 bg-bg-tertiary text-text-primary text-xs rounded-lg shadow-lg whitespace-nowrap z-10 border border-border">
+		<div role="status" class="absolute top-full left-1/2 -translate-x-1/2 mt-2 px-3 py-2 bg-bg-tertiary text-text-primary text-xs rounded-lg shadow-lg whitespace-nowrap z-10 border border-border">
 			Sign in to save words
 		</div>
 	{/if}
 </div>
-

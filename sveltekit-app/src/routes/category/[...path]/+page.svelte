@@ -22,9 +22,9 @@
 
 <Header />
 
-<main class="max-w-4xl mx-auto px-4 py-8">
+<main id="main-content" class="learner-page">
 	<!-- Breadcrumb navigation -->
-	<nav class="text-sm text-text-tertiary mb-6 flex items-center gap-2 flex-wrap">
+	<nav aria-label="Category breadcrumb" class="text-sm text-text-tertiary mb-5 flex items-center gap-2 flex-wrap">
 		<a href="/category" class="underline hover:text-accent transition-colors">📂 Categories</a>
 		{#each breadcrumbs as crumb}
 			<span>→</span>
@@ -32,8 +32,14 @@
 		{/each}
 	</nav>
 
-	<!-- Category title -->
-	<h1 class="text-3xl md:text-4xl font-bold text-accent mb-6">{categoryName}</h1>
+	<div class="learner-intro">
+		<h1>{categoryName}</h1>
+		<p>
+			{data.characters.length} {data.characters.length === 1 ? 'character' : 'characters'}
+			{data.subcategories.length > 0 ? ` across ${data.subcategories.length} subcategories` : ''}
+			with learner meanings and connected forms.
+		</p>
+	</div>
 
 	<!-- Subcategories -->
 	{#if data.subcategories.length > 0}
@@ -43,7 +49,7 @@
 				{#each data.subcategories as subcat}
 					<a 
 						href="/category/{[...data.categoryPath, subcat].join('/')}"
-						class="p-3 rounded-lg bg-card-bg border border-card-border hover:border-accent hover:bg-card-hover transition-colors text-center"
+						class="min-h-12 p-3 rounded-lg bg-bg-secondary border border-border hover:border-accent hover:bg-bg-tertiary transition-colors text-center flex items-center justify-center"
 					>
 						<span class="text-text-primary font-medium">{subcat}</span>
 					</a>
@@ -62,13 +68,13 @@
 				{#each data.characters as entry}
 					<a 
 						href="/{entry.char}"
-						class="p-3 rounded-lg bg-card-bg border border-card-border hover:border-accent hover:bg-card-hover transition-colors text-center group"
+						class="min-h-24 p-3 rounded-lg bg-bg-secondary border border-border hover:border-accent hover:bg-bg-tertiary transition-colors text-center group flex flex-col items-center justify-center"
 					>
 						<div class="text-3xl font-cjk text-text-primary group-hover:text-accent transition-colors">
 							{entry.char}
 						</div>
 						{#if entry.gloss}
-							<div class="text-xs text-text-tertiary mt-1 truncate" title={entry.gloss}>
+							<div class="text-xs text-text-tertiary mt-1 line-clamp-2 leading-snug" title={entry.gloss}>
 								{entry.gloss}
 							</div>
 						{/if}

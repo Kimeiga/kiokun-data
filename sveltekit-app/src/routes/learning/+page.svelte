@@ -2,26 +2,24 @@
 	import Header from '$lib/components/Header.svelte';
 </script>
 
-<svelte:head>
-	<title>Learning — Kiokun</title>
-</svelte:head>
-
 <Header currentWord="" />
 
-<div class="max-w-4xl mx-auto px-4 py-8">
-	<h1 class="text-4xl font-bold mb-4 text-text-primary">🎓 Learning</h1>
-	<p class="text-lg text-text-secondary mb-8">
-		Learn Chinese, Japanese &amp; Korean through real content, example sentences, homophones,
-		your study deck, and saved artifacts.
-	</p>
+<main id="main-content" class="learner-page">
+	<div class="learner-intro">
+		<h1>Learning</h1>
+		<p>
+			Choose a useful next step: learn from real speech, compare confusing sounds, inspect
+			language in context, or review what you have saved.
+		</p>
+	</div>
 
 	<div class="space-y-6">
-		<section>
+		<section id="japanese" class="learning-section">
 			<h2 class="text-2xl font-bold mb-4 text-text-primary">🇯🇵 Japanese</h2>
 			<div class="grid gap-4 md:grid-cols-2">
 				<a
 					href="/learning-resources/japanese/scripting-japan"
-					class="block p-6 bg-bg-secondary border border-border rounded-lg hover:shadow-lg transition-shadow"
+					class="learning-card block p-6 bg-bg-secondary border border-border rounded-lg"
 				>
 					<div class="flex items-start gap-4">
 						<div class="text-4xl">🎥</div>
@@ -30,7 +28,7 @@
 							<p class="text-text-secondary mb-3">
 								Learn natural Japanese through real conversations and street interviews
 							</p>
-							<div class="flex items-center gap-2 text-sm text-text-tertiary">
+							<div class="flex flex-wrap items-center gap-2 text-sm text-text-tertiary">
 								<span class="px-2 py-1 bg-bg-tertiary rounded">YouTube</span>
 								<span class="px-2 py-1 bg-bg-tertiary rounded">Street Interviews</span>
 								<span class="px-2 py-1 bg-bg-tertiary rounded">Natural Speech</span>
@@ -41,18 +39,18 @@
 
 				<a
 					href="/japanese-emoji"
-					class="block p-6 bg-bg-secondary border border-border rounded-lg hover:shadow-lg transition-shadow"
+					class="learning-card block p-6 bg-bg-secondary border border-border rounded-lg"
 				>
 					<div class="flex items-start gap-4">
 						<div class="text-4xl">😊</div>
 						<div class="flex-1">
 							<h3 class="text-xl font-bold mb-2 text-text-primary">Japanese Emoji</h3>
 							<p class="text-text-secondary mb-3">
-								Explore Japanese emoticons (kaomoji) and their meanings
+								Decode the Japanese language and culture behind familiar emoji symbols
 							</p>
 							<div class="flex items-center gap-2 text-sm text-text-tertiary">
-								<span class="px-2 py-1 bg-bg-tertiary rounded">Kaomoji</span>
-								<span class="px-2 py-1 bg-bg-tertiary rounded">Emoticons</span>
+								<span class="px-2 py-1 bg-bg-tertiary rounded">Emoji</span>
+								<span class="px-2 py-1 bg-bg-tertiary rounded">Signs</span>
 								<span class="px-2 py-1 bg-bg-tertiary rounded">Culture</span>
 							</div>
 						</div>
@@ -61,20 +59,20 @@
 			</div>
 		</section>
 
-		<section>
+		<section class="learning-section">
 			<h2 class="text-2xl font-bold mb-4 text-text-primary">🔊 Homophones</h2>
 			<div class="grid gap-4 md:grid-cols-3">
-				<a href="/homophones/japanese" class="block p-5 bg-bg-secondary border border-border rounded-lg hover:shadow-lg transition-shadow">
+				<a href="/homophones/japanese" class="learning-card block p-5 bg-bg-secondary border border-border rounded-lg">
 					<div class="text-2xl mb-2">🇯🇵</div>
 					<h3 class="text-lg font-bold mb-1 text-text-primary">Japanese</h3>
 					<p class="text-sm text-text-secondary">9,649 word groups with pitch accent patterns</p>
 				</a>
-				<a href="/homophones/chinese" class="block p-5 bg-bg-secondary border border-border rounded-lg hover:shadow-lg transition-shadow">
+				<a href="/homophones/chinese" class="learning-card block p-5 bg-bg-secondary border border-border rounded-lg">
 					<div class="text-2xl mb-2">🇨🇳</div>
 					<h3 class="text-lg font-bold mb-1 text-text-primary">Chinese</h3>
 					<p class="text-sm text-text-secondary">5,000 word groups by pinyin pronunciation</p>
 				</a>
-				<a href="/homophones/korean" class="block p-5 bg-bg-secondary border border-border rounded-lg hover:shadow-lg transition-shadow">
+				<a href="/homophones/korean" class="learning-card block p-5 bg-bg-secondary border border-border rounded-lg">
 					<div class="text-2xl mb-2">🇰🇷</div>
 					<h3 class="text-lg font-bold mb-1 text-text-primary">Korean</h3>
 					<p class="text-sm text-text-secondary">585 hanja groups by hangul reading</p>
@@ -82,9 +80,10 @@
 			</div>
 		</section>
 
-		<section>
+		<section class="learning-section">
 			<h2 class="text-2xl font-bold mb-4 text-text-primary">📦 Artifacts</h2>
-			<a href="/artifacts" class="block p-6 bg-bg-secondary border border-border rounded-lg hover:shadow-lg transition-shadow">
+			<a href="/artifacts" class="learning-card block p-6 bg-bg-secondary border border-border rounded-lg">
+				<h3 class="text-xl font-bold mb-2 text-text-primary">Language in the real world</h3>
 				<p class="text-text-secondary">
 					Upload photos of real-world text — product packaging, signs, menus — and study the
 					vocabulary with an interactive reader. Every word is clickable with dictionary
@@ -93,10 +92,10 @@
 			</a>
 		</section>
 
-		<section>
+		<section class="learning-section">
 			<h2 class="text-2xl font-bold mb-4 text-text-primary">📚 Study &amp; community</h2>
 			<div class="grid gap-4 md:grid-cols-2">
-				<a href="/study" class="block p-6 bg-bg-secondary border border-border rounded-lg hover:shadow-lg transition-shadow">
+				<a href="/study" class="learning-card block p-6 bg-bg-secondary border border-border rounded-lg">
 					<div class="flex items-start gap-4">
 						<div class="text-4xl">📚</div>
 						<div class="flex-1">
@@ -107,7 +106,7 @@
 						</div>
 					</div>
 				</a>
-				<a href="/users" class="block p-6 bg-bg-secondary border border-border rounded-lg hover:shadow-lg transition-shadow">
+				<a href="/users" class="learning-card block p-6 bg-bg-secondary border border-border rounded-lg">
 					<div class="flex items-start gap-4">
 						<div class="text-4xl">👥</div>
 						<div class="flex-1">
@@ -121,9 +120,9 @@
 			</div>
 		</section>
 
-		<section>
+		<section class="learning-section">
 			<h2 class="text-2xl font-bold mb-4 text-text-primary">📓 Behind the scenes</h2>
-			<a href="/blog" class="block p-6 bg-bg-secondary border border-border rounded-lg hover:shadow-lg transition-shadow">
+			<a href="/blog" class="learning-card block p-6 bg-bg-secondary border border-border rounded-lg">
 				<div class="flex items-start gap-4">
 					<div class="text-4xl">📓</div>
 					<div class="flex-1">
@@ -137,4 +136,38 @@
 			</a>
 		</section>
 	</div>
-</div>
+</main>
+
+<style>
+	.learning-section + .learning-section {
+		margin-top: 2rem;
+		padding-top: 2rem;
+		border-top: 1px solid var(--border-color);
+	}
+
+	.learning-section h2 {
+		letter-spacing: -0.015em;
+	}
+
+	.learning-card {
+		color: inherit;
+		text-decoration: none;
+		transition: border-color 140ms ease, background-color 140ms ease;
+	}
+
+	.learning-card:hover {
+		border-color: var(--accent);
+		background: var(--surface-hover);
+	}
+
+	@media (max-width: 640px) {
+		.learning-card {
+			padding: 1rem;
+		}
+
+		.learning-section + .learning-section {
+			margin-top: 1.5rem;
+			padding-top: 1.5rem;
+		}
+	}
+</style>

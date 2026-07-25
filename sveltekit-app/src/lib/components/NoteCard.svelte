@@ -30,7 +30,7 @@
 <div class="note-card">
 	{#if note.image_url}
 		<div class="note-image">
-			<img src={note.image_url} alt="Note attachment" />
+			<img src={note.image_url} alt="Note attachment" loading="lazy" decoding="async" />
 		</div>
 	{/if}
 
@@ -110,4 +110,3 @@
 		background: color-mix(in srgb, var(--color-error, #e74c3c) 85%, black);
 	}
 </style>
-

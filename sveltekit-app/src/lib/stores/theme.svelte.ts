@@ -29,9 +29,9 @@ class ThemeStore {
 		if (!browser) return;
 		
 		document.documentElement.setAttribute('data-theme', theme);
+		document.querySelector('#theme-color')?.setAttribute('content', theme === 'dark' ? '#000000' : '#f8f9fa');
 		localStorage.setItem('theme', theme);
 	}
 }
 
 export const themeStore = new ThemeStore();
-

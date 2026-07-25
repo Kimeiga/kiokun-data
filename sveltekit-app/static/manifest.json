@@ -1,12 +1,13 @@
 {
-  "name": "Kiokun - Chinese & Japanese Dictionary",
+  "id": "/",
+  "name": "Kiokun — Chinese, Japanese & Korean Dictionary",
   "short_name": "Kiokun",
-  "description": "A comprehensive Chinese and Japanese dictionary with stroke order, frequency data, and cross-references.",
+  "description": "Learn Chinese, Japanese, and Korean together with readings, stroke order, mnemonics, and real usage.",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
-  "background_color": "#1a1a2e",
-  "theme_color": "#8b5cf6",
-  "orientation": "portrait-primary",
+  "background_color": "#000000",
+  "theme_color": "#34d399",
   "icons": [
     {
       "src": "/favicon-16x16.png",
@@ -42,8 +43,24 @@
       "purpose": "maskable"
     }
   ],
+  "shortcuts": [
+    {
+      "name": "Search the dictionary",
+      "short_name": "Search",
+      "url": "/search"
+    },
+    {
+      "name": "Explore learning tools",
+      "short_name": "Learn",
+      "url": "/learning"
+    },
+    {
+      "name": "Play the character game",
+      "short_name": "Game",
+      "url": "/game"
+    }
+  ],
   "categories": ["education", "reference"],
   "lang": "en",
   "dir": "ltr"
 }
-

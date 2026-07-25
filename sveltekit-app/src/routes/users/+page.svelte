@@ -47,24 +47,22 @@
 	}
 </script>
 
-<svelte:head>
-	<title>Users - Kiokun</title>
-</svelte:head>
-
 <Header currentWord="" />
 
-<main class="users-page">
+<main id="main-content" class="users-page learner-page learner-page--wide">
 	<div class="container">
-		<h1>Community Members</h1>
-		<p class="subtitle">Explore notes from our community of learners</p>
+		<div class="learner-intro">
+			<h1>Community Notes</h1>
+			<p>See how other learners explain characters in their own words and discover useful study notes.</p>
+		</div>
 
 		{#if loading}
-			<div class="loading">
-				<p>Loading users...</p>
+			<div class="loading" role="status">
+				<p>Loading learners…</p>
 			</div>
 		{:else if error}
-			<div class="error">
-				<p>{error}</p>
+			<div class="error" role="alert">
+				<p>{error}. Please try again.</p>
 			</div>
 		{:else if users.length === 0}
 			<div class="empty">
@@ -76,7 +74,7 @@
 					<a href="/users/{user.id}" class="user-card">
 						<div class="user-avatar">
 							{#if user.image}
-								<img src={user.image} alt={user.name} />
+								<img src={user.image} alt="" loading="lazy" decoding="async" />
 							{:else}
 								<div class="avatar-placeholder">
 									{user.name.charAt(0).toUpperCase()}
@@ -101,28 +99,13 @@
 
 <style>
 	.users-page {
-		min-height: 100vh;
+		min-height: calc(100dvh - var(--kiokun-header-height, 4.5rem));
 		background: var(--bg-primary);
-		padding: 2rem 1rem;
 	}
 
 	.container {
 		max-width: 1200px;
 		margin: 0 auto;
-	}
-
-	h1 {
-		font-size: 2.5rem;
-		color: var(--text-primary);
-		margin-bottom: 0.5rem;
-		text-align: center;
-	}
-
-	.subtitle {
-		text-align: center;
-		color: var(--text-secondary);
-		font-size: 1.1rem;
-		margin-bottom: 3rem;
 	}
 
 	.loading,
@@ -141,7 +124,7 @@
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 		gap: 1.5rem;
-		margin-top: 2rem;
+		margin-top: 1.5rem;
 	}
 
 	.user-card {
@@ -151,7 +134,7 @@
 		padding: 1.5rem;
 		text-decoration: none;
 		color: inherit;
-		transition: background 0.15s ease, border-color 0.15s ease;
+		transition: background-color 0.15s ease, border-color 0.15s ease;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -159,8 +142,7 @@
 	}
 
 	.user-card:hover {
-		transform: translateY(-4px);
-		box-shadow: 0 8px 16px var(--shadow-hover);
+		background: var(--surface-hover);
 		border-color: var(--accent);
 	}
 
@@ -214,22 +196,23 @@
 	}
 
 	@media (max-width: 768px) {
-		h1 {
-			font-size: 2rem;
-		}
-
 		.users-grid {
-			grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-			gap: 1rem;
+			grid-template-columns: 1fr;
+			gap: 0.65rem;
 		}
 
 		.user-card {
-			padding: 1.25rem;
+			flex-direction: row;
+			gap: 1rem;
+			padding: 0.9rem;
+			text-align: left;
 		}
 
 		.user-avatar {
 			width: 60px;
 			height: 60px;
+			flex: 0 0 auto;
+			margin: 0;
 		}
 	}
 </style>

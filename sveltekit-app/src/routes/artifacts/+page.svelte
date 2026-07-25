@@ -23,12 +23,16 @@
 	let langFilter = $state('');
 	let typeFilter = $state('');
 	let visibility = $state(''); // '', 'mine'
+	let requestController: AbortController | null = null;
 
 	$effect(() => {
 		loadArtifacts();
 	});
 
 	async function loadArtifacts() {
+		requestController?.abort();
+		const controller = new AbortController();
+		requestController = controller;
 		loading = true;
 		try {
 			const params = new URLSearchParams();
@@ -39,14 +43,17 @@
 			}
 			params.set('limit', '100');
 
-			const resp = await fetch(`/api/artifacts?${params}`);
+			const resp = await fetch(`/api/artifacts?${params}`, { signal: controller.signal });
 			if (resp.ok) {
 				artifacts = await resp.json();
 			}
-		} catch {
-			// ignore
+		} catch (error) {
+			if (!controller.signal.aborted) console.error('Failed to load artifacts', error);
 		} finally {
-			loading = false;
+			if (requestController === controller) {
+				requestController = null;
+				loading = false;
+			}
 		}
 	}
 
@@ -87,17 +94,13 @@
 	}
 </script>
 
-<svelte:head>
-	<title>Artifacts - Kiokun</title>
-</svelte:head>
-
 <Header currentWord="" />
 
-<div class="page">
-	<div class="page-header">
+<main id="main-content" class="page learner-page">
+	<div class="page-header learner-intro">
 		<div>
 			<h1>Artifacts</h1>
-			<p class="subtitle">Real-world language encounters from packaging, signs, menus, and more</p>
+			<p class="subtitle">Study words where they actually appear: packaging, signs, menus, books, and media.</p>
 		</div>
 		{#if $session.data?.user}
 			<a href="/artifacts/new" class="create-btn">+ New Artifact</a>
@@ -106,28 +109,28 @@
 
 	<!-- Filters -->
 	<div class="filter-rows">
-		<div class="filters">
-			<button class="filter-btn" class:active={!langFilter} onclick={() => { langFilter = ''; loadArtifacts(); }}>All Languages</button>
-			<button class="filter-btn" class:active={langFilter === 'zh'} onclick={() => { langFilter = 'zh'; loadArtifacts(); }}>🇨🇳 Chinese</button>
-			<button class="filter-btn" class:active={langFilter === 'ja'} onclick={() => { langFilter = 'ja'; loadArtifacts(); }}>🇯🇵 Japanese</button>
-			<button class="filter-btn" class:active={langFilter === 'ko'} onclick={() => { langFilter = 'ko'; loadArtifacts(); }}>🇰🇷 Korean</button>
+		<div class="filters" role="group" aria-label="Filter by language">
+			<button class="filter-btn" class:active={!langFilter} aria-pressed={!langFilter} onclick={() => langFilter = ''}>All Languages</button>
+			<button class="filter-btn" class:active={langFilter === 'zh'} aria-pressed={langFilter === 'zh'} onclick={() => langFilter = 'zh'}>🇨🇳 Chinese</button>
+			<button class="filter-btn" class:active={langFilter === 'ja'} aria-pressed={langFilter === 'ja'} onclick={() => langFilter = 'ja'}>🇯🇵 Japanese</button>
+			<button class="filter-btn" class:active={langFilter === 'ko'} aria-pressed={langFilter === 'ko'} onclick={() => langFilter = 'ko'}>🇰🇷 Korean</button>
 		</div>
-		<div class="filters">
-			<button class="filter-btn" class:active={!typeFilter} onclick={() => { typeFilter = ''; loadArtifacts(); }}>All Types</button>
-			<button class="filter-btn" class:active={typeFilter === 'packaging'} onclick={() => { typeFilter = 'packaging'; loadArtifacts(); }}>📦 Packaging</button>
-			<button class="filter-btn" class:active={typeFilter === 'sign'} onclick={() => { typeFilter = 'sign'; loadArtifacts(); }}>🪧 Sign</button>
-			<button class="filter-btn" class:active={typeFilter === 'menu'} onclick={() => { typeFilter = 'menu'; loadArtifacts(); }}>🍜 Menu</button>
-			<button class="filter-btn" class:active={typeFilter === 'book'} onclick={() => { typeFilter = 'book'; loadArtifacts(); }}>📖 Book</button>
-			<button class="filter-btn" class:active={typeFilter === 'media'} onclick={() => { typeFilter = 'media'; loadArtifacts(); }}>📺 Media</button>
+		<div class="filters" role="group" aria-label="Filter by artifact type">
+			<button class="filter-btn" class:active={!typeFilter} aria-pressed={!typeFilter} onclick={() => typeFilter = ''}>All Types</button>
+			<button class="filter-btn" class:active={typeFilter === 'packaging'} aria-pressed={typeFilter === 'packaging'} onclick={() => typeFilter = 'packaging'}>📦 Packaging</button>
+			<button class="filter-btn" class:active={typeFilter === 'sign'} aria-pressed={typeFilter === 'sign'} onclick={() => typeFilter = 'sign'}>🪧 Sign</button>
+			<button class="filter-btn" class:active={typeFilter === 'menu'} aria-pressed={typeFilter === 'menu'} onclick={() => typeFilter = 'menu'}>🍜 Menu</button>
+			<button class="filter-btn" class:active={typeFilter === 'book'} aria-pressed={typeFilter === 'book'} onclick={() => typeFilter = 'book'}>📖 Book</button>
+			<button class="filter-btn" class:active={typeFilter === 'media'} aria-pressed={typeFilter === 'media'} onclick={() => typeFilter = 'media'}>📺 Media</button>
 			{#if $session.data?.user}
 				<span class="filter-separator"></span>
-				<button class="filter-btn" class:active={visibility === 'mine'} onclick={() => { visibility = visibility === 'mine' ? '' : 'mine'; loadArtifacts(); }}>My Artifacts</button>
+				<button class="filter-btn" class:active={visibility === 'mine'} aria-pressed={visibility === 'mine'} onclick={() => visibility = visibility === 'mine' ? '' : 'mine'}>My Artifacts</button>
 			{/if}
 		</div>
 	</div>
 
 	{#if loading}
-		<p class="status">Loading...</p>
+		<p class="status" role="status">Loading artifacts…</p>
 	{:else if artifacts.length === 0}
 		<p class="status">No artifacts yet. {$session.data?.user ? 'Create the first one!' : 'Sign in to create artifacts.'}</p>
 	{:else}
@@ -136,7 +139,7 @@
 				<a href="/artifacts/{artifact.id}" class="artifact-card">
 					{#if artifact.thumbnailUrl}
 						<div class="card-image">
-							<img src={artifact.thumbnailUrl} alt={artifact.title} />
+							<img src={artifact.thumbnailUrl} alt="" loading="lazy" decoding="async" />
 						</div>
 					{:else}
 						<div class="card-image card-image-placeholder">
@@ -169,12 +172,12 @@
 			{/each}
 		</div>
 	{/if}
-</div>
+</main>
 
 <style>
-	.page { max-width: 960px; margin: 0 auto; padding: var(--spacing-xl); }
+	.page { max-width: var(--content-standard); }
 	.page-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: var(--spacing-xl); gap: var(--spacing-lg); }
-	.page-header h1 { font-size: var(--font-size-title); font-weight: 700; color: var(--text-primary); margin: 0; }
+	.page-header h1 { color: var(--text-primary); margin: 0; }
 	.subtitle { font-size: var(--font-size-body); color: var(--text-secondary); margin: var(--spacing-xs) 0 0; }
 
 	.create-btn {
@@ -194,6 +197,8 @@
 	.filter-rows { display: flex; flex-direction: column; gap: var(--spacing-sm); margin-bottom: var(--spacing-xl); }
 	.filters { display: flex; gap: var(--spacing-sm); flex-wrap: wrap; align-items: center; }
 	.filter-btn {
+		min-height: 44px;
+		flex: 0 0 auto;
 		padding: var(--spacing-sm) var(--spacing-lg);
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-full);
@@ -277,7 +282,13 @@
 	.card-dot { color: var(--border-color); }
 
 	@media (max-width: 768px) {
-		.page-header { flex-direction: column; }
+		.page-header { flex-direction: column; margin-bottom: 1.25rem; }
 		.artifact-grid { grid-template-columns: 1fr; }
+		.filters {
+			flex-wrap: nowrap;
+			overflow-x: auto;
+			padding-bottom: 0.25rem;
+			scrollbar-width: thin;
+		}
 	}
 </style>

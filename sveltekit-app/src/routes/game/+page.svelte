@@ -584,7 +584,8 @@ ${questions}
 	});
 </script>
 
-<main>
+<main id="main-content">
+	<h1 class="visually-hidden">Sentence game</h1>
 	{#if loading}
 		<div class="loading">Loading...</div>
 	{:else if unifiedExercise && currentExercise}
@@ -787,10 +788,11 @@ ${questions}
 				class="ask-input"
 				type="text"
 				bind:value={askExtra}
+				aria-label="Optional question to include with copied exercise context"
 				placeholder="extra question for the LLM (optional)"
 				onkeydown={(e) => e.key === 'Enter' && copyAsk()}
 			/>
-			<button class="debug-copy-btn" onclick={copyAsk} title="Copy context + questions for an LLM">
+			<button class="debug-copy-btn" onclick={copyAsk} title="Copy context + questions for an LLM" aria-label="Copy exercise context and questions">
 				{debugCopied ? '✓ Copied!' : '📋 Copy Ask'}
 			</button>
 		</div>
@@ -826,7 +828,7 @@ ${questions}
 		background: var(--bg-secondary);
 		font-size: 1.2rem;
 		cursor: pointer;
-		transition: all 0.15s ease;
+		transition: background-color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease, transform 0.15s ease;
 		opacity: 0.6;
 	}
 
@@ -987,9 +989,9 @@ ${questions}
 		line-height: 1.4;
 		min-height: 1.4em;
 		cursor: grab;
-		transition: all 0.15s ease;
+		transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease, transform 0.15s ease;
 		box-shadow: 0 2px 0 var(--tile-shadow);
-		font-family: 'Geist', sans-serif;
+		font-family: var(--font-cjk);
 		user-select: none;
 		-webkit-user-select: none;
 		touch-action: none;
@@ -1017,7 +1019,7 @@ ${questions}
 	}
 
 	[data-lang='tr'] .tile {
-		font-family: 'Geist', sans-serif;
+		font-family: var(--font-cjk);
 	}
 
 	.tile:hover {
@@ -1112,9 +1114,9 @@ ${questions}
 		border-radius: 12px;
 		font-size: 1rem;
 		font-weight: 600;
-		font-family: 'Geist', sans-serif;
+		font-family: var(--font-cjk);
 		cursor: pointer;
-		transition: all 0.15s ease;
+		transition: background-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease, opacity 0.15s ease, transform 0.15s ease;
 	}
 
 	.btn:disabled {
@@ -1278,6 +1280,7 @@ ${questions}
 	.ask-input {
 		flex: 1;
 		min-width: 0;
+		min-height: 2.75rem;
 		padding: 0.45rem 0.6rem;
 		font-size: 0.75rem;
 		background: var(--bg-secondary);
@@ -1290,6 +1293,7 @@ ${questions}
 	}
 	.debug-copy-btn {
 		flex: none;
+		min-height: 2.75rem;
 		padding: 0.45rem 0.7rem;
 		font-size: 0.75rem;
 		white-space: nowrap;
@@ -1304,5 +1308,11 @@ ${questions}
 	.debug-copy-btn:hover {
 		background: var(--bg-secondary);
 		color: var(--text-primary);
+	}
+
+	@media (pointer: coarse) {
+		.ask-box {
+			opacity: 0.82;
+		}
 	}
 </style>

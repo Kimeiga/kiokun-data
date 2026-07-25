@@ -113,7 +113,7 @@
 
 <Header currentWord="" />
 
-<main class="user-notes-page">
+<main id="main-content" class="user-notes-page">
 	<div class="container">
 		{#if loading}
 			<div class="loading">
@@ -130,7 +130,7 @@
 				<div class="user-profile">
 					<div class="user-avatar">
 						{#if userData.image}
-							<img src={userData.image} alt={userData.name} />
+							<img src={userData.image} alt={userData.name} decoding="async" />
 						{:else}
 							<div class="avatar-placeholder">
 								{userData.name.charAt(0).toUpperCase()}

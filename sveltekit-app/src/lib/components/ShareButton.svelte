@@ -36,7 +36,7 @@
 	}
 </script>
 
-<button class="share-btn" onclick={share} title={copied ? 'Copied!' : 'Share'}>
+<button class="share-btn" onclick={share} title={copied ? 'Copied!' : 'Share'} aria-label={copied ? 'Link copied' : 'Share this page'}>
 	{#if copied}
 		<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 			<polyline points="20 6 9 17 4 12"></polyline>
@@ -55,8 +55,8 @@
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		width: 32px;
-		height: 32px;
+		width: 44px;
+		height: 44px;
 		border-radius: 50%;
 		border: none;
 		background: transparent;

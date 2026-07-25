@@ -145,7 +145,7 @@
 
 <Header currentWord="" />
 
-<div class="page">
+<main id="main-content" class="page">
 	{#if !$session.data?.user}
 		<div class="auth-prompt">
 			<h1>Sign in Required</h1>
@@ -287,7 +287,7 @@
 			</div>
 		</form>
 	{/if}
-</div>
+</main>
 
 <style>
 	.page {

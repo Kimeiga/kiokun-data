@@ -211,32 +211,43 @@
 	});
 
 	let pageNum = $state(0);
-	const pageSize = 50;
+	const pageSize = 6;
+	const groupPreviewSize = 8;
+	let expandedGroups = $state<string[]>([]);
 	let displayed = $derived(filtered.slice(0, (pageNum + 1) * pageSize));
 	let hasMore = $derived(displayed.length < filtered.length);
+
+	function groupWords(group: HomophoneGroup) {
+		return expandedGroups.includes(group.r) ? group.w : group.w.slice(0, groupPreviewSize);
+	}
+
+	function toggleGroup(reading: string) {
+		expandedGroups = expandedGroups.includes(reading)
+			? expandedGroups.filter((item) => item !== reading)
+			: [...expandedGroups, reading];
+	}
 
 	$effect(() => {
 		searchQuery; minGroupSize; syllableCount; commonOnly; mode;
 		pageNum = 0;
+		expandedGroups = [];
 	});
 </script>
 
-<svelte:head>
-	<title>Japanese Homophones - Kiokun</title>
-</svelte:head>
-
 <Header currentWord="" />
 
-<div class="page">
-	<h1>Japanese Homophones</h1>
-	<p class="subtitle">Words that sound the same but have different meanings</p>
+<main id="main-content" class="page learner-page">
+	<div class="learner-intro">
+		<h1>Japanese Homophones</h1>
+		<p class="subtitle">Compare words that sound the same but use different kanji and meanings.</p>
+	</div>
 
 	<!-- Mode Toggle -->
-	<div class="mode-toggle">
-		<button class="mode-btn" class:active={mode === 'words'} onclick={() => mode = 'words'}>
+	<div class="mode-toggle" role="tablist" aria-label="Homophone data">
+		<button class="mode-btn" class:active={mode === 'words'} role="tab" aria-selected={mode === 'words'} onclick={() => mode = 'words'}>
 			Words <span class="mode-count">{wordData.length}</span>
 		</button>
-		<button class="mode-btn" class:active={mode === 'characters'} onclick={() => mode = 'characters'}>
+		<button class="mode-btn" class:active={mode === 'characters'} role="tab" aria-selected={mode === 'characters'} onclick={() => mode = 'characters'}>
 			Characters <span class="mode-count">{charData.length}</span>
 		</button>
 	</div>
@@ -245,9 +256,10 @@
 	<div class="filters">
 		<div class="filter-row">
 			<input
-				type="text"
+				type="search"
 				class="search-input"
-				placeholder="Search by reading, kanji, romaji, or meaning..."
+				aria-label="Search Japanese homophones"
+				placeholder="Search by reading, kanji, romaji, or meaning…"
 				bind:value={searchQuery}
 			/>
 		</div>
@@ -279,7 +291,7 @@
 	</div>
 
 	{#if loading}
-		<p class="status">Loading homophones...</p>
+		<p class="status" role="status">Loading homophones…</p>
 	{:else if filtered.length === 0}
 		<p class="status">No homophones match your filters.</p>
 	{:else}
@@ -292,7 +304,7 @@
 					</div>
 					<Notes character={`ja:${group.r}`} compact />
 					<div class="group-words">
-						{#each group.w as word}
+						{#each groupWords(group) as word}
 							<a href="/{word.w}" class="word-entry" class:common={!!word.c}>
 								<div class="word-top">
 									<span class="word-kanji">{word.w}</span>
@@ -309,6 +321,11 @@
 							</a>
 						{/each}
 					</div>
+					{#if group.w.length > groupPreviewSize}
+						<button class="group-expand" aria-expanded={expandedGroups.includes(group.r)} onclick={() => toggleGroup(group.r)}>
+							{expandedGroups.includes(group.r) ? 'Show fewer words' : `Show all ${group.w.length} words`}
+						</button>
+					{/if}
 				</div>
 			{/each}
 		</div>
@@ -323,19 +340,20 @@
 	<div class="attribution">
 		Pitch accent data from <a href="https://github.com/mifunetoshiro/kanjium" target="_blank" rel="noopener">Kanjium</a> (CC BY-SA 4.0)
 	</div>
-</div>
+</main>
 
 <style>
-	.page { max-width: 960px; margin: 0 auto; padding: var(--spacing-xl); }
+	.page { max-width: var(--content-standard); }
 	h1 { font-size: var(--font-size-title); font-weight: 700; color: var(--text-primary); margin: 0; }
-	.subtitle { font-size: var(--font-size-body); color: var(--text-secondary); margin: var(--spacing-xs) 0 var(--spacing-xl); }
+	.subtitle { font-size: var(--font-size-body); color: var(--text-secondary); margin: var(--spacing-xs) 0 0; }
 
 	.mode-toggle { display: flex; gap: var(--spacing-sm); margin-bottom: var(--spacing-lg); }
 	.mode-btn {
 		padding: var(--spacing-sm) var(--spacing-xl);
 		border: 1px solid var(--border-color); border-radius: var(--radius-full);
 		background: var(--bg-secondary); color: var(--text-secondary);
-		font-size: var(--font-size-body); cursor: pointer; transition: all 0.15s;
+		min-height: 44px; font-size: var(--font-size-body); cursor: pointer;
+		transition: border-color 0.15s, background 0.15s, color 0.15s;
 	}
 	.mode-btn.active { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
 	.mode-count { font-size: var(--font-size-caption1); color: var(--text-muted); margin-left: var(--spacing-xs); }
@@ -343,7 +361,7 @@
 	.filters { margin-bottom: var(--spacing-xl); display: flex; flex-direction: column; gap: var(--spacing-sm); }
 	.filter-row { display: flex; gap: var(--spacing-md); align-items: center; flex-wrap: wrap; }
 	.search-input {
-		flex: 1; min-width: 240px; padding: var(--spacing-md);
+		flex: 1; min-width: 240px; min-height: 48px; padding: var(--spacing-md);
 		border: 1px solid var(--border-color); border-radius: var(--radius-md);
 		background: var(--bg-tertiary); color: var(--text-primary);
 		font-size: var(--font-size-body); font-family: inherit;
@@ -352,12 +370,12 @@
 	.filter-item { display: flex; align-items: center; gap: var(--spacing-xs); }
 	.filter-label { font-size: var(--font-size-caption1); color: var(--text-secondary); }
 	.filter-select {
-		padding: var(--spacing-sm) var(--spacing-md);
+		min-height: 44px; padding: var(--spacing-sm) var(--spacing-md);
 		border: 1px solid var(--border-color); border-radius: var(--radius-md);
 		background: var(--bg-secondary); color: var(--text-primary); font-size: var(--font-size-callout);
 	}
-	.filter-item.toggle { gap: var(--spacing-sm); font-size: var(--font-size-callout); color: var(--text-secondary); cursor: pointer; }
-	.filter-item.toggle input { accent-color: var(--accent); }
+	.filter-item.toggle { min-height: 44px; gap: var(--spacing-sm); font-size: var(--font-size-callout); color: var(--text-secondary); cursor: pointer; }
+	.filter-item.toggle input { width: 20px; height: 20px; accent-color: var(--accent); }
 	.result-count { font-size: var(--font-size-caption1); color: var(--text-muted); margin-left: auto; }
 
 	.status { text-align: center; padding: 40px; color: var(--text-secondary); }
@@ -379,7 +397,7 @@
 		gap: 1px; background: var(--border-color);
 	}
 	.word-entry {
-		display: flex; flex-direction: column; padding: var(--spacing-md) var(--spacing-lg);
+		display: flex; min-height: 68px; flex-direction: column; padding: var(--spacing-md) var(--spacing-lg);
 		background: var(--bg-secondary); text-decoration: none; transition: background 0.15s;
 	}
 	.word-entry:hover { background: var(--bg-tertiary); }
@@ -422,6 +440,13 @@
 		font-size: var(--font-size-callout); color: var(--text-secondary); margin-top: 2px; line-height: 1.4;
 	}
 
+	.group-expand {
+		display: flex; align-items: center; justify-content: center; width: 100%; min-height: 44px;
+		padding: var(--spacing-sm) var(--spacing-md); border: 0; border-top: 1px solid var(--border-color);
+		background: var(--bg-tertiary); color: var(--accent); font: inherit; font-weight: 600; cursor: pointer;
+	}
+	.group-expand:hover { background: var(--accent-light); }
+
 	.load-more {
 		display: block; width: 100%; padding: var(--spacing-lg); margin-top: var(--spacing-lg);
 		border: 1px solid var(--border-color); border-radius: var(--radius-md);
@@ -439,7 +464,12 @@
 	.attribution a:hover { text-decoration: underline; }
 
 	@media (max-width: 640px) {
-		.group-words { grid-template-columns: 1fr; }
+		.group-words { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+		.word-entry { min-width: 0; padding: var(--spacing-md); }
+		.word-top { gap: var(--spacing-xs); }
+		.word-kanji { font-size: var(--font-size-body); overflow-wrap: anywhere; }
+		.pitch-badge { margin-left: 0; }
+		.word-gloss { display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; }
 		.filter-row { flex-direction: column; align-items: stretch; }
 		.result-count { margin-left: 0; }
 	}

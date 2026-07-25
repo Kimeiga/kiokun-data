@@ -56,13 +56,17 @@
 
 	.permalink-btn {
 		all: unset;
+		display: grid;
+		width: 2.75rem;
+		height: 2.75rem;
+		margin: -0.8rem -0.75rem -0.8rem -0.45rem;
+		place-items: center;
 		cursor: pointer;
 		opacity: 0;
 		transition: opacity 0.15s ease;
 		font-size: 0.85em;
 		color: var(--text-muted, var(--text-secondary));
 		line-height: 1;
-		padding: 0 0.15em;
 	}
 
 	.section-heading:hover .permalink-btn {

@@ -1,7 +1,3 @@
-<script module lang="ts">
-	export const prerender = true;
-</script>
-
 <script lang="ts">
 	import Reveal from '$lib/blog/Reveal.svelte';
 	import Figure from '$lib/blog/Figure.svelte';
@@ -12,11 +8,7 @@
 	import Specimen from '$lib/blog/Specimen.svelte';
 </script>
 
-<svelte:head>
-	<title>The Free Dictionary Engine — Kiokun</title>
-</svelte:head>
-
-<article>
+<article id="main-content" role="main">
 	<header class="masthead">
 		<a class="back" href="/blog">← Kiokun Notebook</a>
 		<p class="kicker">Infrastructure</p>

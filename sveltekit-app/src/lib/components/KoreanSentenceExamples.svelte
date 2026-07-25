@@ -130,7 +130,7 @@
 	.kr-examples { position: relative; }
 	.column-header { font-size: var(--font-size-caption1); font-weight: 600; color: var(--text-secondary); margin-bottom: var(--spacing-sm); }
 	.toggle-btn {
-		display: block; width: 100%; padding: var(--spacing-xs); margin-top: var(--spacing-xs);
+		display: block; width: 100%; min-height: 2.75rem; padding: var(--spacing-xs); margin-top: var(--spacing-xs);
 		background: transparent; border: 1px solid var(--border-light); border-radius: var(--radius-sm);
 		color: var(--text-secondary); font-size: var(--font-size-caption2); cursor: pointer;
 		transition: border-color 0.15s, color 0.15s;

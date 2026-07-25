@@ -274,6 +274,8 @@
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
+		min-width: 44px;
+		min-height: 44px;
 		padding: 4px;
 		border: none;
 		background: transparent;
@@ -315,7 +317,7 @@
 		color: var(--text-primary, #333);
 		box-shadow: 0 4px 0 var(--border-color, #ddd);
 		font-family: inherit;
-		transition: all 0.15s ease;
+		transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease, transform 0.15s ease;
 	}
 
 	.speak-button.pill:hover {
@@ -357,4 +359,3 @@
 		to { opacity: 1; }
 	}
 </style>
-

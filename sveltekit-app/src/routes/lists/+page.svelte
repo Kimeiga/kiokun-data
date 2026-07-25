@@ -123,7 +123,7 @@
 
 <Header currentWord="" />
 
-<div class="container">
+<main id="main-content" class="container">
 	<div class="page-header">
 		<h1>My Notes</h1>
 		<p class="subtitle">All your character notes in one place</p>
@@ -195,7 +195,7 @@
 			</div>
 		{/if}
 	{/if}
-</div>
+</main>
 
 <style>
 	.container {

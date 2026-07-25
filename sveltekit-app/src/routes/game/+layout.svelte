@@ -20,16 +20,6 @@
 	});
 </script>
 
-<svelte:head>
-	<!-- Fonts: Geist (UI) + Noto Sans for all CJK scripts the game uses -->
-	<link rel="preconnect" href="https://fonts.googleapis.com" />
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
-	<link
-		href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500&family=Noto+Sans+JP:wght@400;500&family=Noto+Sans+SC:wght@400;500&family=Noto+Sans+TC:wght@400;500&family=Noto+Sans+KR:wght@400;500&display=swap"
-		rel="stylesheet"
-	/>
-</svelte:head>
-
 <!--
   All of duojp's CSS custom properties are scoped to .duojp-scope (not :root)
   so they cannot leak into the rest of the Kiokun app. The game page's own
@@ -59,7 +49,7 @@
 		--tile-border: #e4e4e7;
 		--tile-shadow: #d4d4d8;
 
-		font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+		font-family: var(--font-cjk);
 		background: var(--bg-primary);
 		color: var(--text-primary);
 		min-height: 100%;

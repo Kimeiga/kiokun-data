@@ -13,18 +13,23 @@
 		'blog',
 		'category',
 		'custom-words',
+		'demo',
 		'frequency',
 		'game',
 		'homophones',
 		'japanese-emoji',
 		'learning',
+		'learning-resources',
+		'lists',
 		'login',
+		'phonetic',
 		'privacy',
 		'reel',
 		'research',
 		'search',
 		'sentence',
 		'study',
+		'test',
 		'terms',
 		'users'
 	]);
@@ -137,6 +142,7 @@
 		(function() {
 			const theme = localStorage.getItem('theme') || 'dark';
 			document.documentElement.setAttribute('data-theme', theme);
+			document.querySelector('#theme-color')?.setAttribute('content', theme === 'dark' ? '#000000' : '#f8f9fa');
 			if (window.location.protocol === 'capacitor:') {
 				document.documentElement.classList.add('capacitor-native');
 			}
@@ -146,6 +152,7 @@
 
 <KeyboardShortcuts />
 <SeoMeta />
+<a class="skip-link" href="#main-content">Skip to content</a>
 {#if routeLoading}
 	<div class="route-loading" aria-live="polite" aria-busy="true">
 		<div class="route-loading-bar"></div>

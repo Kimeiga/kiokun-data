@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { fade } from "svelte/transition";
+	import { tick } from "svelte";
+	import { fade, fly } from "svelte/transition";
 
 	let {
 		visible = $bindable(false),
@@ -10,6 +11,7 @@
 	} = $props();
 
 	let canvasEl: HTMLCanvasElement | undefined = $state();
+	let closeButton: HTMLButtonElement | undefined = $state();
 	let ctx: CanvasRenderingContext2D | null = $state(null);
 	let isDrawing = $state(false);
 	let candidates = $state<string[]>([]);
@@ -40,6 +42,20 @@
 			ctx = canvasEl.getContext("2d");
 			drawGrid();
 		}
+	});
+
+	$effect(() => {
+		if (!visible || typeof document === "undefined") return;
+
+		const previousFocus = document.activeElement as HTMLElement | null;
+		const previousOverflow = document.body.style.overflow;
+		document.body.style.overflow = "hidden";
+		void tick().then(() => closeButton?.focus());
+
+		return () => {
+			document.body.style.overflow = previousOverflow;
+			previousFocus?.focus();
+		};
 	});
 
 	function drawGrid() {
@@ -188,7 +204,7 @@
 
 	function selectCandidate(char: string) {
 		onSelect?.(char);
-		clearCanvas();
+		close();
 	}
 
 	function clearCanvas() {
@@ -224,61 +240,147 @@
 <svelte:window onkeydown={visible ? handleKeydown : undefined} />
 
 {#if visible}
-	<div class="hw-panel" transition:fade={{ duration: 100 }}>
-		<div class="hw-layout">
-			<!-- Canvas -->
-			<div class="hw-canvas-area">
-				<div class="hw-canvas-wrap">
-					<canvas
-						bind:this={canvasEl}
-						width={CANVAS_SIZE}
-						height={CANVAS_SIZE}
-						class="hw-canvas"
-						onmousedown={startStroke}
-						onmousemove={moveStroke}
-						onmouseup={endStroke}
-						onmouseleave={(e) => { if (isDrawing) endStroke(e); }}
-						ontouchstart={startStroke}
-						ontouchmove={moveStroke}
-						ontouchend={endStroke}
-					></canvas>
+	<div class="hw-layer" transition:fade={{ duration: 120 }}>
+		<button class="hw-backdrop" type="button" aria-label="Close handwriting input" onclick={close}></button>
+		<div
+			class="hw-panel"
+			role="dialog"
+			aria-modal="true"
+			aria-labelledby="handwriting-title"
+			aria-describedby="handwriting-help"
+			transition:fly={{ y: 18, duration: 180 }}
+		>
+			<div class="hw-header">
+				<div>
+					<h2 id="handwriting-title">Draw a character</h2>
+					<p id="handwriting-help">Chinese or Japanese · select the closest match</p>
 				</div>
-				<div class="hw-actions">
-					<button class="hw-btn" onclick={undoStroke} disabled={strokes.length === 0}>Undo</button>
-					<button class="hw-btn" onclick={clearCanvas} disabled={strokes.length === 0}>Clear</button>
-					<button class="hw-btn hw-btn-close" onclick={close}>Done</button>
-				</div>
+				<button bind:this={closeButton} class="hw-close" type="button" onclick={close} aria-label="Close">
+					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+						<path d="m6 6 12 12M18 6 6 18"/>
+					</svg>
+				</button>
 			</div>
 
-			<!-- Candidates -->
-			<div class="hw-candidates">
-				{#if isRecognizing && candidates.length === 0}
-					<span class="hw-hint">Recognizing...</span>
-				{:else if candidates.length > 0}
-					{#each candidates as char}
-						<button class="hw-char" onclick={() => selectCandidate(char)}>{char}</button>
-					{/each}
-				{:else}
-					<span class="hw-hint">Draw a character</span>
-				{/if}
+			<div class="hw-layout">
+				<div class="hw-canvas-area">
+					<div class="hw-canvas-wrap">
+						<canvas
+							bind:this={canvasEl}
+							width={CANVAS_SIZE}
+							height={CANVAS_SIZE}
+							class="hw-canvas"
+							aria-label="Character drawing area"
+							onmousedown={startStroke}
+							onmousemove={moveStroke}
+							onmouseup={endStroke}
+							onmouseleave={(event) => { if (isDrawing) endStroke(event); }}
+							ontouchstart={startStroke}
+							ontouchmove={moveStroke}
+							ontouchend={endStroke}
+						></canvas>
+					</div>
+					<div class="hw-actions">
+						<button class="hw-btn" type="button" onclick={undoStroke} disabled={strokes.length === 0}>Undo</button>
+						<button class="hw-btn" type="button" onclick={clearCanvas} disabled={strokes.length === 0}>Clear</button>
+					</div>
+				</div>
+
+				<div class="hw-results" aria-live="polite" aria-busy={isRecognizing}>
+					<div class="hw-result-label">Matches</div>
+					<div class="hw-candidates">
+						{#if isRecognizing && candidates.length === 0}
+							<span class="hw-hint">Recognizing…</span>
+						{:else if candidates.length > 0}
+							{#each candidates as char}
+								<button class="hw-char" type="button" onclick={() => selectCandidate(char)} aria-label={`Use ${char}`}>
+									{char}
+								</button>
+							{/each}
+						{:else}
+							<span class="hw-hint">Your matches will appear here.</span>
+						{/if}
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 {/if}
 
 <style>
+	.hw-layer {
+		position: fixed;
+		z-index: 180;
+		inset: 0;
+		display: grid;
+		place-items: end center;
+		padding: 0.75rem;
+		padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0px));
+	}
+
+	.hw-backdrop {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		border: 0;
+		background: rgba(0, 0, 0, 0.6);
+		cursor: default;
+	}
+
 	.hw-panel {
+		position: relative;
+		width: min(100%, 36rem);
+		max-height: calc(100dvh - 1.5rem);
+		overflow-y: auto;
 		border: 1px solid var(--border-color);
-		border-radius: var(--radius-lg, 12px);
+		border-radius: var(--radius-lg);
 		background: var(--bg-secondary);
-		padding: 12px;
-		margin-top: 8px;
-		box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+		padding: 1rem;
+		box-shadow: 0 22px 60px rgba(0, 0, 0, 0.35);
+		overscroll-behavior: contain;
+	}
+
+	.hw-header {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: 1rem;
+		margin-bottom: 0.9rem;
+	}
+
+	.hw-header h2 {
+		margin: 0;
+		color: var(--text-primary);
+		font-size: 1.05rem;
+		font-weight: 750;
+		line-height: 1.25;
+	}
+
+	.hw-header p {
+		margin: 0.15rem 0 0;
+		color: var(--text-secondary);
+		font-size: var(--font-size-caption1);
+		line-height: 1.4;
+	}
+
+	.hw-close {
+		display: grid;
+		width: 2.75rem;
+		height: 2.75rem;
+		flex: 0 0 auto;
+		place-items: center;
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-full);
+		background: var(--bg-tertiary);
+		color: var(--text-primary);
+		cursor: pointer;
 	}
 
 	.hw-layout {
-		display: flex;
-		gap: 12px;
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		gap: 1rem;
 		align-items: flex-start;
 	}
 
@@ -286,82 +388,113 @@
 		flex-shrink: 0;
 		display: flex;
 		flex-direction: column;
-		gap: 8px;
+		gap: 0.6rem;
 	}
 
 	.hw-canvas-wrap {
-		border: 2px solid var(--border-color);
-		border-radius: 8px;
+		width: min(100%, 18rem);
+		aspect-ratio: 1;
+		margin: 0 auto;
 		overflow: hidden;
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-md);
 		touch-action: none;
-		width: 200px;
-		height: 200px;
 		background: var(--bg-primary);
 	}
 
 	.hw-canvas {
 		display: block;
+		width: 100%;
+		height: 100%;
 		cursor: crosshair;
-		width: 200px;
-		height: 200px;
 	}
 
 	.hw-actions {
 		display: flex;
-		gap: 4px;
+		gap: 0.5rem;
 	}
 
 	.hw-btn {
 		flex: 1;
-		padding: 4px 8px;
-		border-radius: 6px;
+		min-height: 2.75rem;
+		padding: 0.55rem 0.8rem;
 		border: 1px solid var(--border-color);
+		border-radius: var(--radius-md);
 		background: var(--bg-tertiary);
 		color: var(--text-primary);
-		font-size: 12px;
+		font: inherit;
+		font-size: var(--font-size-callout);
 		cursor: pointer;
-		transition: opacity 0.15s;
+		transition: border-color 140ms ease, opacity 140ms ease;
 	}
-	.hw-btn:disabled { opacity: 0.35; cursor: default; }
-	.hw-btn-close { border-color: var(--accent); color: var(--accent); }
+
+	.hw-btn:hover:not(:disabled) {
+		border-color: var(--accent);
+	}
+
+	.hw-btn:disabled {
+		opacity: 0.4;
+		cursor: default;
+	}
+
+	.hw-results {
+		min-width: 0;
+	}
+
+	.hw-result-label {
+		margin-bottom: 0.45rem;
+		color: var(--text-secondary);
+		font-size: var(--font-size-caption1);
+		font-weight: 700;
+	}
 
 	.hw-candidates {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 6px;
+		gap: 0.5rem;
 		align-content: flex-start;
 		min-width: 0;
-		flex: 1;
 	}
 
 	.hw-char {
-		width: 44px;
-		height: 44px;
-		border-radius: 8px;
-		border: 2px solid var(--border-color);
+		display: grid;
+		width: 3.25rem;
+		height: 3.25rem;
+		place-items: center;
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-md);
 		background: var(--bg-tertiary);
 		color: var(--text-primary);
-		font-size: 22px;
-		font-weight: 600;
+		font-family: var(--font-cjk);
+		font-size: 1.55rem;
+		font-weight: 650;
 		cursor: pointer;
-		transition: border-color 0.15s, color 0.15s;
-		display: flex;
-		align-items: center;
-		justify-content: center;
+		transition: border-color 140ms ease, color 140ms ease, background-color 140ms ease;
 	}
-	.hw-char:hover { border-color: var(--accent); color: var(--accent); }
+
+	.hw-char:hover {
+		border-color: var(--accent);
+		background: var(--accent-light);
+		color: var(--accent);
+	}
 
 	.hw-hint {
 		color: var(--text-muted);
-		font-size: 13px;
-		padding: 8px;
+		font-size: var(--font-size-caption1);
+		line-height: 1.45;
 	}
 
-	/* Mobile: stack vertically */
-	@media (max-width: 480px) {
-		.hw-layout { flex-direction: column; }
-		.hw-canvas-wrap { width: 100%; height: auto; aspect-ratio: 1; }
-		.hw-canvas { width: 100%; height: 100%; }
-		.hw-candidates { justify-content: center; }
+	@media (min-width: 640px) {
+		.hw-layer {
+			place-items: center;
+		}
+
+		.hw-layout {
+			grid-template-columns: 18rem minmax(0, 1fr);
+		}
+
+		.hw-panel {
+			padding: 1.15rem;
+		}
 	}
 </style>

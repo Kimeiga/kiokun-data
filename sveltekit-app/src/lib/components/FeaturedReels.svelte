@@ -99,7 +99,7 @@
 				>
 					<div class="reel-thumbnail">
 						{#if reel.thumbnail}
-							<img src={reel.thumbnail} alt="Video thumbnail" loading="lazy" />
+							<img src={reel.thumbnail} alt="Video thumbnail" loading="lazy" decoding="async" />
 						{:else}
 							<div class="thumbnail-placeholder">🎬</div>
 						{/if}
@@ -116,21 +116,21 @@
 
 <style>
 	.featured-reels {
-		padding: 30px 0;
+		padding: 1.5rem 0 0;
 		border-top: 1px solid var(--border-color);
-		margin-top: 20px;
+		margin-top: 0;
 	}
 
 	.section-title {
 		font-size: 20px;
 		font-weight: 700;
-		text-align: center;
+		text-align: left;
 		margin: 0 0 8px;
 		color: var(--text-primary);
 	}
 
 	.section-subtitle {
-		text-align: center;
+		text-align: left;
 		font-size: 13px;
 		color: var(--text-muted);
 		margin: 0 0 20px;
@@ -149,14 +149,12 @@
 		border-radius: var(--radius-lg);
 		overflow: hidden;
 		background: var(--bg-secondary);
-		border: 2px solid var(--border-color);
-		transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+		border: 1px solid var(--border-color);
+		transition: border-color 0.15s ease;
 	}
 
 	.reel-card:hover {
 		border-color: var(--accent);
-		transform: translateY(-2px);
-		box-shadow: 0 4px 12px var(--shadow);
 	}
 
 	.reel-thumbnail {
@@ -222,9 +220,20 @@
 
 	@media (max-width: 480px) {
 		.reels-grid {
-			grid-template-columns: repeat(2, 1fr);
+			display: grid;
+			grid-auto-columns: minmax(8.5rem, 42%);
+			grid-auto-flow: column;
+			grid-template-columns: none;
 			gap: 8px;
+			overflow-x: auto;
+			padding-bottom: 0.65rem;
+			scroll-padding-inline: 1px;
+			scroll-snap-type: x proximity;
+			scrollbar-width: thin;
+		}
+
+		.reel-card {
+			scroll-snap-align: start;
 		}
 	}
 </style>
-

@@ -70,12 +70,12 @@
 
 <Header currentWord="" />
 
-<div class="max-w-6xl mx-auto px-4 py-8">
+<main id="main-content" class="max-w-6xl mx-auto px-4 py-8">
 	<!-- Breadcrumb -->
 	<nav class="text-sm mb-6 text-text-secondary">
-		<a href="/learning-resources" class="hover:text-accent">Learning Resources</a>
+		<a href="/learning" class="hover:text-accent">Learning</a>
 		<span class="mx-2">/</span>
-		<a href="/learning-resources/japanese" class="hover:text-accent">Japanese</a>
+		<a href="/learning#japanese" class="hover:text-accent">Japanese</a>
 		<span class="mx-2">/</span>
 		<a href="/learning-resources/japanese/scripting-japan" class="hover:text-accent">Scripting Japan</a>
 		<span class="mx-2">/</span>
@@ -159,4 +159,4 @@
 			</div>
 		</div>
 	{/if}
-</div>
+</main>

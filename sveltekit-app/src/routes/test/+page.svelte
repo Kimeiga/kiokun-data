@@ -2,6 +2,7 @@
 	import PitchAccent from '$lib/PitchAccent.svelte';
 </script>
 
+<main id="main-content">
 <h1>Pitch Accent Test</h1>
 
 <div style="margin: 20px;">
@@ -23,3 +24,4 @@
 	<h2>Test 4: Multiple patterns</h2>
 	<PitchAccent kana="はし" pitchAccents={[1, 2]} />
 </div>
+</main>

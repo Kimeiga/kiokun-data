@@ -380,7 +380,8 @@
 <Header currentWord={data.conjugatedFrom || data.word} />
 <SentenceBar currentWord={data.word} />
 
-<div class="max-w-6xl mx-auto px-3 py-2 md:px-5 md:py-3">
+<main id="main-content" class="max-w-6xl mx-auto px-3 py-2 md:px-5 md:py-3">
+	<h1 class="visually-hidden">{data.word} dictionary entry</h1>
 	<!-- Conjugation Info Box (shown when arriving via deinflection) -->
 	{#if data.conjugatedFrom && data.conjugationInfo}
 		<div class="mb-4 p-4 bg-info-bg border border-info-border rounded-lg">
@@ -537,9 +538,9 @@
 							{#if uniqueGloss}
 								<div class="character-summary">
 										<div class="character-title-row flex items-center gap-2 mb-1 md:mb-2">
-											<h1
-												class="text-xl md:text-4xl font-bold text-accent leading-tight flex-1 min-w-0"
-											>
+										<h2
+											class="text-xl md:text-4xl font-bold text-accent leading-tight flex-1 min-w-0"
+										>
 												<button
 													type="button"
 													class="character-title-button study-hide"
@@ -547,7 +548,7 @@
 												>
 													{uniqueGloss}
 												</button>
-											</h1>
+										</h2>
 										{#if data.data.chinese_char?.statistics?.hskLevel}
 											<span class="level-badge hsk">HSK {data.data.chinese_char.statistics.hskLevel}</span>
 										{/if}
@@ -564,11 +565,11 @@
 									</div>
 									<!-- Taxonomy breadcrumb -->
 									{#if taxonomy && taxonomy.length > 0}
-										<div class="text-xs text-text-tertiary mb-2 flex items-center gap-1 flex-wrap">
+										<div class="taxonomy-breadcrumb text-xs text-text-tertiary mb-2 flex items-center gap-1 flex-wrap">
 											{#each taxonomy as category, i}
 												<a
 													href="/category/{taxonomy.slice(0, i + 1).join('/')}"
-													class="text-text-secondary underline hover:text-accent transition-colors"
+													class="taxonomy-link text-text-secondary underline hover:text-accent transition-colors"
 												>{category}</a>
 												{#if i < taxonomy.length - 1}
 													<span class="text-text-tertiary">→</span>
@@ -836,14 +837,18 @@
 		{/if}
 	</div>
 	{/if}
-</div>
+</main>
 
 <style>
 	/* Homophones */
 	.homophones-section { margin-bottom: var(--spacing-lg); }
 
 	.character-title-button {
-		display: inline;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-width: 44px;
+		min-height: 44px;
 		max-width: 100%;
 		padding: 0;
 		border: 0;
@@ -861,6 +866,18 @@
 		border-radius: var(--radius-sm);
 	}
 
+	.taxonomy-breadcrumb {
+		min-height: 44px;
+	}
+
+	.taxonomy-link {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-width: 44px;
+		min-height: 44px;
+	}
+
 	.homophone-group { margin-bottom: var(--spacing-sm); }
 	.homophone-reading {
 		font-size: var(--font-size-caption1);
@@ -869,6 +886,11 @@
 	}
 	.homophone-list { display: flex; flex-wrap: wrap; gap: 6px; }
 	.homophone-chip {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-width: 44px;
+		min-height: 44px;
 		padding: 3px 10px;
 		border-radius: var(--radius-full);
 		border: 1px solid var(--border-color);
@@ -978,6 +1000,8 @@
 
 	.character-sense-preview {
 		display: flex;
+		align-items: center;
+		min-height: 44px;
 		flex-wrap: wrap;
 		gap: 0.15rem 0.45rem;
 		margin-bottom: var(--spacing-sm);

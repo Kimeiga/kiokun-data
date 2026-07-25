@@ -76,7 +76,7 @@
 		</div>
 	</header>
 
-	<main>
+	<main id="main-content">
 		<section class="upload-section">
 			<h2>Create a New Note</h2>
 			<form onsubmit={handleSubmit}>
@@ -401,4 +401,3 @@
 		margin: 8px 0;
 	}
 </style>
-

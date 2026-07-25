@@ -57,21 +57,24 @@
 	}
 </script>
 
-<svelte:head>
-	<title>Scripting Japan - Learning Resources - Kiokun</title>
-</svelte:head>
-
 <Header currentWord="" />
 
-<div class="max-w-6xl mx-auto px-4 py-8">
+<main id="main-content" class="max-w-6xl mx-auto px-4 py-8">
 	<!-- Breadcrumb -->
 	<nav class="text-sm mb-6 text-text-secondary">
-		<a href="/learning-resources" class="hover:text-accent">Learning Resources</a>
+		<a href="/learning" class="hover:text-accent">Learning</a>
 		<span class="mx-2">/</span>
-		<a href="/learning-resources/japanese" class="hover:text-accent">Japanese</a>
+		<a href="/learning#japanese" class="hover:text-accent">Japanese</a>
 		<span class="mx-2">/</span>
 		<span class="text-text-primary">Scripting Japan</span>
 	</nav>
+
+	<div class="mb-8">
+		<h1 class="text-4xl font-bold mb-3 text-text-primary">Scripting Japan</h1>
+		<p class="text-lg text-text-secondary mb-4">
+			Learn natural Japanese through street interviews, everyday conversations, and listening practice.
+		</p>
+	</div>
 
 	{#if loading}
 		<div class="text-center py-12">
@@ -80,13 +83,14 @@
 		</div>
 	{:else if error}
 		<div class="text-center py-12">
-			<div class="text-4xl mb-4">❌</div>
-			<p class="text-red-500">{error}</p>
+			<p class="font-semibold text-text-primary">The video collection is temporarily unavailable.</p>
+			<p class="mt-2 text-text-secondary">You can still explore Japanese characters and vocabulary while it reconnects.</p>
+			<a class="resource-fallback" href="/learning#japanese">Explore Japanese learning resources</a>
 		</div>
 	{:else if source}
 		<!-- Channel Header -->
 		<div class="mb-8">
-			<h1 class="text-4xl font-bold mb-3 text-text-primary">{source.name}</h1>
+			<h2 class="text-2xl font-bold mb-3 text-text-primary">{source.name}</h2>
 			<p class="text-lg text-text-secondary mb-4">{source.description}</p>
 			<div class="flex items-center gap-4 text-sm text-text-tertiary">
 				<span>📺 {videos.length} videos</span>
@@ -113,6 +117,8 @@
 							<img 
 								src={video.thumbnailUrl} 
 								alt={video.title}
+								loading="lazy"
+								decoding="async"
 								class="w-full h-full object-cover"
 							/>
 							<div class="absolute bottom-2 right-2 px-2 py-1 bg-black bg-opacity-75 text-white text-xs rounded">
@@ -138,9 +144,18 @@
 			</div>
 		{/if}
 	{/if}
-</div>
+</main>
 
 <style>
+	.resource-fallback {
+		display: inline-flex;
+		align-items: center;
+		min-height: 44px;
+		margin-top: 1rem;
+		color: var(--accent);
+		font-weight: 600;
+	}
+
 	.line-clamp-2 {
 		display: -webkit-box;
 		-webkit-line-clamp: 2;

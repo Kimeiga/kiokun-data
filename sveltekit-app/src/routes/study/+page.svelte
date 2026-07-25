@@ -305,7 +305,7 @@
 
 <Header currentWord="" />
 
-<div class="max-w-2xl mx-auto px-4 py-8">
+<main id="main-content" class="max-w-2xl mx-auto px-4 py-8">
 	<div class="flex items-center justify-between mb-6">
 		<h1 class="text-3xl font-bold text-text-primary">Study</h1>
 		{#if $session.data?.user}
@@ -326,7 +326,7 @@
 	{#if !$session.data?.user && !$session.isPending}
 		<div class="text-center py-12">
 			<p class="text-text-secondary mb-4">Sign in to start studying</p>
-			<a href="/" class="text-accent hover:underline">Go to homepage</a>
+			<a href="/" class="inline-flex min-h-11 items-center text-accent hover:underline">Go to homepage</a>
 		</div>
 	{:else if isLoading}
 		<div class="text-center py-12">
@@ -527,7 +527,7 @@
 			</div>
 		{/if}
 	{/if}
-</div>
+</main>
 
 <style>
 	.card-container {

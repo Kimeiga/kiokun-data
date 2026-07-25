@@ -1152,7 +1152,7 @@ style="background: var(--color-hint-bg); border-color: var(--color-hint-border);
 		</div>
 		<div class="flex flex-col justify-center min-w-0">
 			<div class="component-title-row">
-				<a href="/{char}" class="text-2xl font-serif text-text-primary hover:text-accent-primary transition-colors">{char}</a>
+				<a href="/{char}" class="component-character-link text-2xl font-serif text-text-primary hover:text-accent-primary transition-colors">{char}</a>
 				{#if originalChar}
 					<span class="component-origin-inline">
 						(originally <a href="/{originalChar}">{originalChar}</a>{#if originalGloss}{' '}<span class="component-origin-gloss">{originalGloss}</span>{/if})
@@ -1237,7 +1237,7 @@ style="background: var(--color-hint-bg); border-color: var(--color-hint-border);
 		</div>
 		<div class="flex flex-col justify-center min-w-0">
 			<div class="component-title-row">
-				<a href="/{char}" class="text-2xl font-serif text-text-primary hover:text-accent-primary transition-colors">{char}</a>
+				<a href="/{char}" class="component-character-link text-2xl font-serif text-text-primary hover:text-accent-primary transition-colors">{char}</a>
 				{#if originalChar}
 					<span class="component-origin-inline">
 						(originally <a href="/{originalChar}">{originalChar}</a>{#if originalGloss}{' '}<span class="component-origin-gloss">{originalGloss}</span>{/if})
@@ -1300,7 +1300,7 @@ style="background: var(--color-hint-bg); border-color: var(--color-hint-border);
 		</div>
 		<div class="flex flex-col justify-center min-w-0">
 			<div class="component-title-row">
-				<a href="/{char}" class="text-2xl font-serif text-text-primary hover:text-accent-primary transition-colors">{char}</a>
+				<a href="/{char}" class="component-character-link text-2xl font-serif text-text-primary hover:text-accent-primary transition-colors">{char}</a>
 				{#if originalChar}
 					<span class="component-origin-inline">
 						(originally <a href="/{originalChar}">{originalChar}</a>{#if originalGloss}{' '}<span class="component-origin-gloss">{originalGloss}</span>{/if})
@@ -1366,6 +1366,7 @@ src={image.url}
 alt="{image.type || 'Historical'} {image.era || ''}"
 class="historical-image w-14 h-14 mx-auto object-contain"
 loading="lazy"
+decoding="async"
 onerror={(e) => {
 	const target = e.currentTarget as HTMLImageElement;
 	target.style.display = 'none';
@@ -1437,10 +1438,18 @@ onerror={(e) => {
 
 	.component-title-row {
 		display: flex;
-		align-items: baseline;
+		align-items: center;
 		flex-wrap: wrap;
 		gap: 0.35rem 0.5rem;
 		margin-bottom: 0.125rem;
+	}
+
+	.component-character-link {
+		display: inline-grid;
+		width: 44px;
+		height: 44px;
+		margin-block: -6px;
+		place-items: center;
 	}
 
 	.component-origin-inline {

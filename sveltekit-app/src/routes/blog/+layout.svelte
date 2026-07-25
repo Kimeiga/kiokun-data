@@ -47,4 +47,11 @@
 		background: var(--shu);
 		color: var(--bg-secondary);
 	}
+
+	:global(.blog .back),
+	:global(.blog .blog-home-link) {
+		display: inline-flex;
+		min-height: 2.75rem;
+		align-items: center;
+	}
 </style>

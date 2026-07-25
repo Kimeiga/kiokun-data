@@ -1,7 +1,3 @@
-<script module lang="ts">
-	export const prerender = true;
-</script>
-
 <script lang="ts">
 	import Reveal from '$lib/blog/Reveal.svelte';
 
@@ -45,11 +41,7 @@
 	];
 </script>
 
-<svelte:head>
-	<title>The Kiokun Notebook</title>
-</svelte:head>
-
-<main>
+<main id="main-content">
 	<header class="head">
 		<Reveal as="div">
 			<p class="brand">記憶</p>
@@ -80,7 +72,7 @@
 	</Reveal>
 
 	<footer>
-		<a href="/">← Back to the dictionary</a>
+		<a class="blog-home-link" href="/">← Back to the dictionary</a>
 	</footer>
 </main>
 

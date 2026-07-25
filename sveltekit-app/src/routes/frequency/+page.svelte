@@ -16,7 +16,8 @@
 	let loading = $state(true);
 	let error = $state<string | null>(null);
 	let activeTab: 'japanese' | 'chinese' | 'korean' = $state('japanese');
-	let displayCount = $state(100);
+	const PAGE_SIZE = 30;
+	let displayCount = $state(PAGE_SIZE);
 
 	// Load frequency data from static file
 	async function loadFrequencyData() {
@@ -48,7 +49,7 @@
 	});
 
 	function loadMore() {
-		displayCount = Math.min(displayCount + 100, 1000);
+		displayCount = Math.min(displayCount + PAGE_SIZE, 1000);
 	}
 
 	let displayedWords = $derived(
@@ -68,51 +69,57 @@
 	);
 </script>
 
-<svelte:head>
-	<title>Frequency List - Kiokun Dictionary</title>
-</svelte:head>
-
 <Header />
 
-<main class="frequency-page">
+<main id="main-content" class="frequency-page learner-page learner-page--narrow">
 	<div class="container">
-		<h1>📊 Word Frequency List</h1>
+		<div class="learner-intro">
+			<h1>Word Frequency</h1>
 		<p class="subtitle">
-			The most common words ranked by frequency. Japanese words use JPDB corpus data,
-			Chinese words use movie subtitle frequency, Korean words use subtitle frequency.
+				Start with the words you are most likely to encounter. Rankings use Japanese corpus
+				data and Chinese subtitle frequency.
 		</p>
+		</div>
 
 		<!-- Tab switcher -->
-		<div class="tabs">
+		<div class="tabs" role="tablist" aria-label="Frequency language">
 			<button
 				class="tab"
 				class:active={activeTab === 'japanese'}
-				onclick={() => { activeTab = 'japanese'; displayCount = 100; }}
+				onclick={() => { activeTab = 'japanese'; displayCount = PAGE_SIZE; }}
+				role="tab"
+				aria-selected={activeTab === 'japanese'}
 			>
 				🇯🇵 Japanese ({japaneseWords.length})
 			</button>
 			<button
 				class="tab"
 				class:active={activeTab === 'chinese'}
-				onclick={() => { activeTab = 'chinese'; displayCount = 100; }}
+				onclick={() => { activeTab = 'chinese'; displayCount = PAGE_SIZE; }}
+				role="tab"
+				aria-selected={activeTab === 'chinese'}
 			>
 				🇨🇳 Chinese ({chineseWords.length})
 			</button>
 			<button
 				class="tab"
 				class:active={activeTab === 'korean'}
-				onclick={() => { activeTab = 'korean'; displayCount = 100; }}
+				onclick={() => { activeTab = 'korean'; displayCount = PAGE_SIZE; }}
+				role="tab"
+				aria-selected={activeTab === 'korean'}
+				disabled={koreanWords.length === 0}
+				title={koreanWords.length === 0 ? 'Korean frequency data is coming soon' : undefined}
 			>
-				🇰🇷 Korean ({koreanWords.length})
+				🇰🇷 Korean {koreanWords.length ? `(${koreanWords.length})` : '— Soon'}
 			</button>
 		</div>
 
 		{#if loading}
-			<div class="loading">Loading frequency data...</div>
+			<div class="loading" role="status">Loading frequency data…</div>
 		{:else if error}
-			<div class="error">{error}</div>
+			<div class="error" role="alert">Frequency data could not load. {error}</div>
 		{:else}
-			<div class="word-list">
+			<div class="word-list" role="tabpanel">
 				{#each displayedWords as word, i (word.word + '-' + i)}
 					<a href="/{word.word}" class="word-card">
 						<span class="rank">#{word.rank}</span>
@@ -137,9 +144,7 @@
 
 <style>
 	.frequency-page {
-		min-height: 100vh;
-		background: var(--bg-primary);
-		padding: var(--spacing-xl);
+		min-height: calc(100dvh - var(--kiokun-header-height, 4.5rem));
 	}
 
 	.container {
@@ -147,14 +152,8 @@
 		margin: 0 auto;
 	}
 
-	h1 {
-		color: var(--text-primary);
-		margin-bottom: var(--spacing-sm);
-	}
-
 	.subtitle {
 		color: var(--text-secondary);
-		margin-bottom: var(--spacing-xl);
 		font-size: var(--font-size-callout);
 	}
 
@@ -162,10 +161,15 @@
 		display: flex;
 		gap: var(--spacing-sm);
 		margin-bottom: var(--spacing-xl);
+		overflow-x: auto;
+		padding-bottom: 0.2rem;
+		scrollbar-width: thin;
 	}
 
 	.tab {
-		padding: var(--spacing-md) var(--spacing-xl);
+		min-height: 2.75rem;
+		flex: 0 0 auto;
+		padding: var(--spacing-sm) var(--spacing-lg);
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-md);
 		background: var(--bg-secondary);
@@ -179,9 +183,14 @@
 		background: var(--bg-tertiary);
 	}
 
+	.tab:disabled {
+		opacity: 0.55;
+		cursor: not-allowed;
+	}
+
 	.tab.active {
 		background: var(--accent);
-		color: white;
+		color: var(--accent-contrast);
 		border-color: var(--accent);
 	}
 
@@ -203,7 +212,7 @@
 
 	.word-card {
 		display: grid;
-		grid-template-columns: 60px 80px 100px 1fr auto;
+		grid-template-columns: 3.5rem minmax(5rem, auto) minmax(6.5rem, auto) 1fr auto;
 		gap: var(--spacing-md);
 		align-items: center;
 		padding: var(--spacing-md) var(--spacing-lg);
@@ -217,7 +226,6 @@
 	.word-card:hover {
 		background: var(--bg-tertiary);
 		border-color: var(--accent);
-		transform: translateX(var(--spacing-xs));
 	}
 
 	.rank {
@@ -276,10 +284,9 @@
 		}
 
 		.word-card {
-			grid-template-columns: 50px 60px 1fr;
+			grid-template-columns: 2.8rem minmax(3.5rem, auto) minmax(0, 1fr) auto;
 			gap: var(--spacing-sm);
 			padding: var(--spacing-md);
-			position: relative;
 		}
 
 		.rank {
@@ -291,19 +298,20 @@
 		}
 
 		.reading {
-			display: none;
+			overflow: hidden;
+			font-size: var(--font-size-footnote);
+			text-overflow: ellipsis;
+			white-space: nowrap;
 		}
 
 		.definition {
 			grid-column: 1 / -1;
 			font-size: var(--font-size-footnote);
+			white-space: normal;
+			line-height: 1.4;
 		}
 
 		.common-badge {
-			position: absolute;
-			right: var(--spacing-md);
-			top: 50%;
-			transform: translateY(-50%);
 			font-size: var(--font-size-caption1);
 		}
 

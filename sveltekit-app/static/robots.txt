@@ -1,6 +1,7 @@
 # Allow normal search engines full access
 User-agent: *
 Allow: /
+Sitemap: https://kiokun.com/sitemap.xml
 
 # Block AI training / scraping crawlers
 User-agent: GPTBot

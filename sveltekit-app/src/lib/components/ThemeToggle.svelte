@@ -31,8 +31,8 @@
 
 <style>
 	.theme-toggle {
-		width: 40px;
-		height: 40px;
+		width: 44px;
+		height: 44px;
 		border-radius: 50%;
 		background: var(--toggle-bg);
 		border: 2px solid var(--toggle-border);
@@ -62,4 +62,3 @@
 		transform: rotate(20deg);
 	}
 </style>
-

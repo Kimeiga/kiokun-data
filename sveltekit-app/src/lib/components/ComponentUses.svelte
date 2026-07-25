@@ -132,7 +132,6 @@
 		position: relative;
 		max-height: 200px;
 		overflow: hidden;
-		transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 	}
 
 	.component-types-container.expanded {
@@ -247,4 +246,3 @@
 		}
 	}
 </style>
-

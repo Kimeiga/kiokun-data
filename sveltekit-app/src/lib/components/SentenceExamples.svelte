@@ -125,6 +125,7 @@
 	.toggle-btn {
 		display: block;
 		width: 100%;
+		min-height: 2.75rem;
 		padding: var(--spacing-xs);
 		margin-top: var(--spacing-xs);
 		background: transparent;

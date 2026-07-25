@@ -62,7 +62,7 @@
 
 <Header currentWord="" />
 
-<div class="max-w-4xl mx-auto px-4 py-8">
+<main id="main-content" class="max-w-4xl mx-auto px-4 py-8">
 	<div class="flex items-center justify-between mb-6">
 		<h1 class="text-3xl font-bold text-text-primary">Statistics</h1>
 		<a href="/study" class="px-4 py-2 border border-border rounded-lg hover:bg-bg-secondary text-sm">
@@ -213,7 +213,7 @@
 			</div>
 		</div>
 	{/if}
-</div>
+</main>
 
 <style>
 	.stat-card {
