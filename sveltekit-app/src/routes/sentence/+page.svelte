@@ -187,8 +187,12 @@
 
 		<!-- Dictionary Panel -->
 		{#if panelOpen}
-			<!-- svelte-ignore a11y_no_static_element_interactions -->
-			<div class="panel-overlay" onclick={closePanel}></div>
+			<button
+				type="button"
+				class="panel-overlay"
+				aria-label="Close dictionary panel"
+				onclick={closePanel}
+			></button>
 			<div class="dictionary-panel">
 				<div class="panel-header">
 					<h3 class="panel-word">{selectedWord}</h3>
@@ -400,11 +404,18 @@
 
 	@media (max-width: 768px) {
 		.panel-overlay {
+			appearance: none;
 			display: block;
 			position: fixed;
 			inset: 0;
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			padding: 0;
+			border: 0;
 			background: rgba(0, 0, 0, 0.5);
 			z-index: 40;
+			cursor: default;
 		}
 		.dictionary-panel {
 			position: fixed;

@@ -708,9 +708,9 @@
 				// Fetch stroke count for component
 				try {
 					const response = await fetch(
-						`https://cdn.jsdelivr.net/npm/hanzi-writer-data@latest/${compChar}.json`,
+						`/api/stroke-data?char=${encodeURIComponent(compChar)}`,
 					);
-					if (response.ok) {
+					if (response.ok && response.status !== 204) {
 						const compData = await response.json();
 						const strokeCount = compData.strokes.length;
 
@@ -722,7 +722,7 @@
 						newMap.set(compChar, strokeIndices);
 						console.log(`[SEQUENTIAL] "${compChar}": ${strokeCount} strokes → indices ${strokeIndices.join(', ')}`);
 						currentStrokeIndex += strokeCount;
-					} else {
+					} else if (response.status !== 204) {
 						console.warn(`[SEQUENTIAL] Failed to fetch stroke data for "${compChar}" (${response.status})`);
 					}
 				} catch (err) {

@@ -202,7 +202,16 @@
 						<g
 							class="node level-{node.level}"
 							class:hovered={isHovered}
+							role="link"
+							tabindex="0"
+							aria-label={`Open ${node.id}${node.label ? `, ${node.label}` : ''}`}
 							onclick={() => goto(`/${node.id}`)}
+							onkeydown={(event) => {
+								if (event.key === 'Enter' || event.key === ' ') {
+									event.preventDefault();
+									goto(`/${node.id}`);
+								}
+							}}
 							onmouseenter={() => (hoveredNode = node.id)}
 							onmouseleave={() => (hoveredNode = null)}
 							style="cursor: pointer"

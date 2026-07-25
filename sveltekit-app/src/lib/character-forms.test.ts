@@ -120,8 +120,8 @@ assert.deepEqual(atForms.map((form) => form.character), ['於', '于']);
 assert.deepEqual(atForms[0].roles, ['traditional', 'hong-kong', 'japanese']);
 assert.deepEqual(
 	atForms[1].roles,
-	['traditional', 'hong-kong', 'simplified', 'japanese', 'korean'],
-	'the unified header preserves every form-specific language role'
+	['simplified'],
+	'the unified header labels the form for the canonical “at” sense, not unrelated senses'
 );
 
 const distinctForms = buildCharacterHeaderForms({

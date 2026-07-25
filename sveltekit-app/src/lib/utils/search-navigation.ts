@@ -139,9 +139,12 @@ async function fetchDictionaryEntry(
 	maxRedirects: number = 3
 ): Promise<DictionaryEntry | null> {
 	try {
-		const url = await getDictionaryUrl(word, dev, fetchFn);
+		// Deinflection deliberately tests candidate forms that frequently do
+		// not exist. Treat those misses as optional so the same-origin proxy can
+		// return a quiet 204 instead of filling the browser console with 404s.
+		const url = await getDictionaryUrl(word, dev, fetchFn, { optional: true });
 		const response = await fetchDictionaryBytes(url, fetchFn);
-		if (!response.ok) return null;
+		if (!response.ok || response.status === 204) return null;
 
 		// Decompress the deflated response
 		const buffer = await response.arrayBuffer();

@@ -6,6 +6,7 @@ import { eq } from "drizzle-orm";
 import { buildWordTokens } from "$lib/utils/segment";
 import { lookupWord } from "$lib/server/dictionary-lookup";
 import { getTokenizer, tokenizeJapanese } from "$lib/server/kuromoji-loader";
+import type { R2Bucket } from "@cloudflare/workers-types";
 
 /**
  * Check if a token is content (not punctuation/whitespace).
@@ -73,6 +74,7 @@ async function tokenizeAndEnrich(text: string, language: string, bucket?: R2Buck
 				dictionaryForm: lookup.dictionaryForm,
 				reading: lookup.reading,
 				gloss: lookup.gloss,
+				conjugation: null,
 			};
 		})
 	);

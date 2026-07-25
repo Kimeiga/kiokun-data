@@ -158,6 +158,7 @@ function rolesAndOrderForContexts(
 	contexts: RelatedCharacterFormContext[]
 ): {
 	rolesByCharacter: Map<string, Set<CharacterFormRole>>;
+	primaryRolesByCharacter: Map<string, Set<CharacterFormRole>>;
 	order: string[];
 } {
 	const rolesByCharacter = new Map<string, Set<CharacterFormRole>>();
@@ -221,9 +222,15 @@ function rolesAndOrderForContexts(
 	};
 
 	addContext(relatedCharacterFormContext(entry));
+	const primaryRolesByCharacter = new Map(
+		[...rolesByCharacter].map(([character, roles]) => [
+			character,
+			new Set(roles)
+		])
+	);
 	for (const context of contexts) addContext(context);
 
-	return { rolesByCharacter, order };
+	return { rolesByCharacter, primaryRolesByCharacter, order };
 }
 
 function languageTagForRoles(roles: CharacterFormRole[]): CharacterHeaderForm['languageTag'] {
@@ -247,7 +254,11 @@ export function buildCharacterHeaderForms({
 	cards?: SemanticMnemonicCard[];
 	relatedContexts?: RelatedCharacterFormContext[];
 }): CharacterHeaderForm[] {
-	const { rolesByCharacter, order } = rolesAndOrderForContexts(entry, relatedContexts);
+	const {
+		rolesByCharacter,
+		primaryRolesByCharacter,
+		order
+	} = rolesAndOrderForContexts(entry, relatedContexts);
 	const meaningByCharacter = new Map(
 		cards.map((card) => [card.character, normalizeLearnerGloss(card.meaning)])
 	);
@@ -271,7 +282,11 @@ export function buildCharacterHeaderForms({
 	if ([...word].length === 1) add(word);
 
 	return order.map((character, index) => {
-		const roles = [...(rolesByCharacter.get(character) || [])]
+		// Labels and flags describe how this glyph expresses the canonical
+		// page's learner concept. Related entries can contribute definitions
+		// without making an unrelated sense look valid in every language.
+		const senseRoles = primaryRolesByCharacter.get(character);
+		const roles = [...(senseRoles?.size ? senseRoles : rolesByCharacter.get(character) || [])]
 			.sort((a, b) => ROLE_ORDER.indexOf(a) - ROLE_ORDER.indexOf(b));
 		const flags = roles.map((role) => ROLE_FLAGS[role]).join('');
 		const roleLabel = roles.length

@@ -252,9 +252,12 @@ async function fetchDictionaryEntry(word: string, fetchFn: typeof fetch): Promis
 async function loadDictionaryEntry(word: string, fetchFn: typeof fetch, redirectsLeft = 3): Promise<DictionaryEntry | null> {
 	try {
 		const { inflateSync } = await import('fflate');
-		const url = await getDictionaryUrl(word, dev, fetchFn);
+		// Sentence annotation probes inflected and partial token forms that are
+		// expected to miss. Ask the same-origin proxy for a quiet 204 so those
+		// ordinary misses do not surface as browser console errors.
+		const url = await getDictionaryUrl(word, dev, fetchFn, { optional: true });
 		const response = await fetchDictionaryBytes(url, fetchFn);
-		if (!response.ok) return null;
+		if (!response.ok || response.status === 204) return null;
 
 		const data = JSON.parse(
 			new TextDecoder().decode(inflateSync(new Uint8Array(await response.arrayBuffer())))

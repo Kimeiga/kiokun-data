@@ -267,7 +267,12 @@ export async function getLocalUrl(word: string, fetchFn: typeof fetch = fetch): 
  * @param fetchFn - Optional fetch function (use SvelteKit's fetch in load functions)
  * @returns Full URL to fetch the word's dictionary data
  */
-export async function getDictionaryUrl(word: string, dev: boolean = false, fetchFn: typeof fetch = fetch): Promise<string> {
+export async function getDictionaryUrl(
+  word: string,
+  dev: boolean = false,
+  fetchFn: typeof fetch = fetch,
+  options: { optional?: boolean } = {}
+): Promise<string> {
   if (!dev && isCapacitorRuntime()) {
     return `/__kiokun_offline__/dictionary/${encodeURIComponent(word)}.json.deflate`;
   }
@@ -276,6 +281,7 @@ export async function getDictionaryUrl(word: string, dev: boolean = false, fetch
     const params = new URLSearchParams({ word });
     const cacheVersion = getDictionaryCacheVersion(dev);
     if (cacheVersion) params.set('v', cacheVersion);
+    if (options.optional) params.set('optional', '1');
     return `/api/dictionary?${params.toString()}`;
   }
 

@@ -6,7 +6,6 @@ import { eq, desc } from "drizzle-orm";
 
 // GET /api/users/[userId]/notes - Get all notes for a specific user
 export async function GET({ params, platform }: RequestEvent) {
-	// @ts-expect-error - userId param exists in route
 	const { userId } = params;
 
 	if (!userId) {
@@ -63,4 +62,3 @@ export async function GET({ params, platform }: RequestEvent) {
 		throw error(500, "Failed to fetch user notes");
 	}
 }
-

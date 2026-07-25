@@ -161,8 +161,8 @@
 		<form onsubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
 			<!-- Language Selector -->
 			<div class="field">
-				<label class="label">Language</label>
-				<div class="lang-tabs">
+				<div class="label" id="custom-word-language-label">Language</div>
+				<div class="lang-tabs" role="group" aria-labelledby="custom-word-language-label">
 					<button type="button" class="lang-tab" class:active={language === 'zh'} onclick={() => language = 'zh'}>
 						🇨🇳 Chinese
 					</button>
@@ -236,8 +236,8 @@
 
 			<!-- Part of Speech -->
 			<div class="field">
-				<label class="label">Part of Speech</label>
-				<div class="pos-grid">
+				<div class="label" id="custom-word-pos-label">Part of Speech</div>
+				<div class="pos-grid" role="group" aria-labelledby="custom-word-pos-label">
 					{#each allPartsOfSpeech as pos}
 						<button
 							type="button"
@@ -253,7 +253,7 @@
 
 			<!-- Definitions -->
 			<div class="field">
-				<label class="label">Definitions *</label>
+				<div class="label" id="custom-word-definitions-label">Definitions *</div>
 				{#each definitions as def, i}
 					<div class="def-row">
 						<span class="def-num">{i + 1}.</span>
@@ -261,6 +261,7 @@
 							type="text"
 							class="input def-input"
 							bind:value={definitions[i]}
+							aria-label={`Definition ${i + 1}`}
 							placeholder="Enter definition..."
 						/>
 						{#if definitions.length > 1}

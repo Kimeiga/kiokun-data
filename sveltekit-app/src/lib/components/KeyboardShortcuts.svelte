@@ -94,7 +94,9 @@
 	<div
 		class="shortcut-overlay"
 		role="dialog"
+		aria-modal="true"
 		aria-label="Keyboard shortcuts"
+		tabindex="-1"
 		onclick={handleBackdropClick}
 		onkeydown={(e) => e.key === 'Escape' && (showHelp = false)}
 	>

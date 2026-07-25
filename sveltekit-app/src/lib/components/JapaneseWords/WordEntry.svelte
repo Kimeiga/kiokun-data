@@ -14,7 +14,6 @@
 	import PitchAccent from '../PitchAccent.svelte';
 
 	export let word: JapaneseWord;
-	export let accentDisplay: 'none' | 'binary' | 'binary-hi-contrast' = 'binary';
 
 	// Filter kanji headwords - keep original dictionary order
 	const displayKanji = word.kanji.filter((k) => !k.tags.includes('sK')); // Remove search-only kanji
@@ -145,4 +144,3 @@
 		gap: var(--spacing-xs);
 	}
 </style>
-

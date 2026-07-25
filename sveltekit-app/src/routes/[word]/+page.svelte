@@ -193,6 +193,118 @@
 	let traditionalChar = $derived(data.data.chinese_char?.char || data.word);
 	let koreanChar = $derived(data.data.korean_char);
 	let uniqueGloss = $derived(learnerGlossForEntry(data.data));
+
+	interface HeaderReading {
+		label: string;
+		value: string;
+		className: string;
+		languageTag: string;
+	}
+
+	function uniqueReadings(values: Array<string | null | undefined>): string[] {
+		return [...new Set(values.filter((value): value is string => Boolean(value)))];
+	}
+
+	function buildHeaderReadings(entry: any, korean: any): HeaderReading[] {
+		const readings: HeaderReading[] = [];
+		const add = (
+			label: string,
+			values: Array<string | null | undefined>,
+			className: string,
+			languageTag: string,
+			separator = ", "
+		) => {
+			const unique = uniqueReadings(values);
+			if (!unique.length) return;
+			readings.push({
+				label,
+				value: unique.join(separator),
+				className,
+				languageTag
+			});
+		};
+
+		const wordPinyins = new Set(
+			entry.chinese_words?.flatMap(
+				(word: any) =>
+					word.items?.map((item: any) => item.pinyin).filter(Boolean) || []
+			) || []
+		);
+		const frequencyPinyins = entry.chinese_char?.pinyinFrequencies || [];
+		const filteredPinyins = frequencyPinyins.filter((item: any) =>
+			wordPinyins.has(item.pinyin)
+		);
+		const displayPinyins =
+			filteredPinyins.length > 0 ? filteredPinyins : frequencyPinyins;
+
+		if (displayPinyins.length > 0) {
+			add(
+				"Mandarin",
+				displayPinyins.map((item: any) => item.pinyin),
+				"text-pinyin",
+				"zh-Latn"
+			);
+		} else if (entry.chinese_char?.oldPronunciations?.length) {
+			add(
+				"Mandarin",
+				entry.chinese_char.oldPronunciations.map((item: any) => item.pinyin),
+				"text-pinyin",
+				"zh-Latn"
+			);
+		} else {
+			add(
+				"Mandarin",
+				entry.chinese_words?.flatMap(
+					(word: any) =>
+						word.items?.map((item: any) => item.pinyin).filter(Boolean) || []
+				) || [],
+				"text-pinyin",
+				"zh-Latn"
+			);
+		}
+
+		add(
+			"Cantonese",
+			entry.chinese_char?.cantonese || [],
+			"text-cantonese",
+			"yue-Latn"
+		);
+
+		const readingMeaning = entry.japanese_char?.readingMeaning;
+		const japaneseReadings =
+			readingMeaning?.groups?.flatMap((group: any) => group.readings || []) ||
+			readingMeaning?.readings ||
+			[];
+		add(
+			"Japanese on’yomi",
+			japaneseReadings
+				.filter((reading: any) => reading.type === "ja_on")
+				.map((reading: any) => reading.value),
+			"text-onyomi",
+			"ja",
+			"、"
+		);
+		add(
+			"Japanese kun’yomi",
+			japaneseReadings
+				.filter((reading: any) => reading.type === "ja_kun")
+				.map((reading: any) => reading.value),
+			"text-kunyomi",
+			"ja",
+			"、"
+		);
+
+		add(
+			"Korean",
+			korean?.readings?.map((reading: any) => reading.hangul) || [],
+			"text-korean",
+			"ko"
+		);
+
+		return readings;
+	}
+
+	let headerReadings = $derived(buildHeaderReadings(data.data, koreanChar));
 	let headerForms = $derived.by(() =>
 		buildCharacterHeaderForms({
 			entry: data.data,
@@ -393,16 +505,15 @@
 				<div class="py-3 md:py-4">
 					<!-- Compact Header: Characters + Pronunciations + Gloss in one line -->
 					<div class="flex flex-col gap-4 mb-4">
-						<!-- Top Row: Character Variants & Main Gloss -->
-						<!-- Grid: chars left, gloss+pronunciations right -->
-						<div class="grid grid-cols-1 sm:grid-cols-[auto_1fr] gap-3 md:gap-4 items-start">
+						<!-- Identity row: written forms + learner meaning -->
+						<div class="character-identity-grid">
 							<!-- Character Variants with Stroke Animations -->
-							<div class="flex flex-wrap items-start gap-2.5 md:gap-4">
+							<div class="character-form-list">
 								{#each headerForms as form}
-									<div class="flex w-[80px] md:w-[100px] flex-col items-center gap-1.5">
+									<div class="character-form">
 										<div
 											id={form.targetId}
-											class="w-[80px] h-[80px] md:w-[100px] md:h-[100px] flex items-center justify-center bg-bg-secondary rounded-xl shadow-lg border border-border"
+											class="w-[80px] h-[80px] md:w-[100px] md:h-[100px] flex items-center justify-center bg-bg-secondary rounded-xl border border-border"
 											aria-label={`${form.character}: ${form.roleLabel}`}
 										>
 											<div lang={form.languageTag} class="text-5xl md:text-7xl font-bold font-cjk leading-none text-text-primary">
@@ -417,7 +528,7 @@
 										</div>
 										{#if hasDifferentFormMeaning(form)}
 											<div
-												class="max-w-full text-center text-[0.68rem] md:text-xs font-medium leading-tight text-accent"
+												class="max-w-full text-center text-sm font-medium leading-tight text-accent"
 												title={`Mnemonic keyword for ${form.character}`}
 											>
 												{form.meaning}
@@ -427,9 +538,9 @@
 								{/each}
 							</div>
 
-							<!-- Main Meaning (Gloss) + Pronunciations -->
+							<!-- Main learner meaning and actions -->
 							{#if uniqueGloss}
-								<div class="min-w-0">
+								<div class="character-summary">
 										<div class="character-title-row flex items-center gap-2 mb-1 md:mb-2">
 											<h1
 												class="text-xl md:text-4xl font-bold text-accent leading-tight flex-1 min-w-0"
@@ -470,91 +581,28 @@
 											{/each}
 										</div>
 									{/if}
-									<!-- Pinyin/Readings Summary - always left-aligned -->
-									<!-- svelte-ignore a11y_click_events_have_key_events -->
-									<!-- svelte-ignore a11y_no_static_element_interactions -->
-									<div class="flex flex-col gap-1 text-text-secondary text-sm md:text-base study-hide" onclick={handleStudyClick}>
-										{#if data.data.chinese_char?.pinyinFrequencies && data.data.chinese_char.pinyinFrequencies.length > 0}
-											{@const wordPinyins = new Set(
-												data.data.chinese_words?.flatMap(
-													(w) =>
-														w.items
-															?.map(
-																(item) =>
-																	item.pinyin,
-															)
-															.filter(Boolean),
-												) || [],
-											)}
-											{@const filteredPinyins =
-												data.data.chinese_char.pinyinFrequencies.filter(
-													(pf) =>
-														wordPinyins.has(
-															pf.pinyin,
-														),
-												)}
-											{@const displayPinyins = filteredPinyins.length > 0 ? filteredPinyins : data.data.chinese_char.pinyinFrequencies}
-											<div class="font-mono text-pinyin">
-												{displayPinyins
-													.map((pf) => pf.pinyin)
-													.join(", ")}
-											</div>
-										{:else if data.data.chinese_char?.oldPronunciations?.length}
-											{@const pinyinFromOld = [...new Set(data.data.chinese_char.oldPronunciations.map((p) => p.pinyin).filter(Boolean))]}
-											{#if pinyinFromOld.length > 0}
-												<div class="font-mono text-pinyin">
-													{pinyinFromOld.join(", ")}
-												</div>
-											{/if}
-										{:else if data.data.chinese_words?.length}
-											{@const pinyinFromWords = [...new Set(data.data.chinese_words.flatMap((w) => w.items?.map((item) => item.pinyin).filter(Boolean) || []))]}
-											{#if pinyinFromWords.length > 0}
-												<div class="font-mono text-pinyin">
-													{pinyinFromWords.join(", ")}
-												</div>
-											{/if}
-										{/if}
-										<!-- Cantonese (Jyutping) readings from Unihan -->
-										{#if data.data.chinese_char?.cantonese && data.data.chinese_char.cantonese.length > 0}
-											<div class="font-mono text-cantonese">
-												{data.data.chinese_char.cantonese.join(", ")}
-											</div>
-										{/if}
-										{#if data.data.japanese_char?.readingMeaning}
-											{@const allReadings =
-												data.data.japanese_char
-													.readingMeaning.groups?.[0]
-													?.readings ||
-												data.data.japanese_char
-													.readingMeaning.readings ||
-												[]}
-											{@const onyomi = allReadings
-												.filter(
-													(r) => r.type === "ja_on",
-												)
-												.map((r) => r.value)}
-											{@const kunyomi = allReadings
-												.filter(
-													(r) => r.type === "ja_kun",
-												)
-												.map((r) => r.value)}
-											{#if onyomi.length > 0}
-												<div class="font-cjk text-onyomi">
-													{onyomi.join("、")}
-												</div>
-											{/if}
-											{#if kunyomi.length > 0}
-												<div class="font-cjk text-kunyomi">
-													{kunyomi.join("、")}
-												</div>
-											{/if}
-										{/if}
-										{#if koreanChar && koreanChar.readings?.length > 0}
-											<div class="font-cjk text-korean">
-												{koreanChar.readings.map(r => r.hangul).join(", ")}
-											</div>
-										{/if}
-									</div>
+								</div>
+							{/if}
+
+							{#if headerReadings.length > 0}
+								<!-- svelte-ignore a11y_click_events_have_key_events -->
+								<!-- svelte-ignore a11y_no_static_element_interactions -->
+								<div
+									class="character-readings study-hide"
+									aria-label="Character readings"
+									onclick={handleStudyClick}
+								>
+									{#each headerReadings as reading}
+										<div class="character-reading-group">
+											<span class="character-reading-label">{reading.label}</span>
+											<span
+												class="character-reading-value font-cjk {reading.className}"
+												lang={reading.languageTag}
+											>
+												{reading.value}
+											</span>
+										</div>
+									{/each}
 								</div>
 							{/if}
 						</div>
@@ -647,7 +695,6 @@
 						<div class="mb-4" lang="ja">
 							<WordTable
 								words={data.data.japanese_words}
-								accentDisplay="binary"
 							/>
 						</div>
 					</div>
@@ -859,6 +906,75 @@
 		color: var(--color-cantonese);
 	}
 
+	.character-identity-grid {
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr);
+		align-items: center;
+		gap: var(--spacing-md) var(--spacing-lg);
+	}
+
+	.character-form-list {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: flex-start;
+		gap: 0.625rem;
+	}
+
+	.character-form {
+		display: flex;
+		width: 5.5rem;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.375rem;
+	}
+
+	@media (min-width: 768px) {
+		.character-form-list {
+			gap: 1rem;
+		}
+
+		.character-form {
+			width: 6.75rem;
+		}
+	}
+
+	.character-summary {
+		min-width: 0;
+		align-self: center;
+	}
+
+	.character-readings {
+		grid-column: 1 / -1;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.625rem clamp(1rem, 3vw, 2rem);
+		padding-top: var(--spacing-md);
+		border-top: 1px solid var(--border-light);
+		color: var(--text-secondary);
+	}
+
+	.character-reading-group {
+		display: flex;
+		min-width: 0;
+		flex: 0 1 auto;
+		align-items: baseline;
+		gap: 0.45rem;
+	}
+
+	.character-reading-label {
+		flex-shrink: 0;
+		color: var(--text-tertiary);
+		font-size: var(--font-size-caption1);
+		font-weight: 600;
+	}
+
+	.character-reading-value {
+		min-width: 0;
+		overflow-wrap: anywhere;
+		font-size: var(--font-size-body);
+		line-height: 1.45;
+	}
+
 	/* Responsive column layout for Chinese, Japanese, and Korean word sections.
 	   Adapts to 1, 2, or 3 columns based on how many languages have content. */
 	.word-sections-grid {
@@ -959,6 +1075,33 @@
 
 	/* Mobile typography adjustments */
 	@media (max-width: 768px) {
+		.character-identity-grid {
+			grid-template-columns: minmax(0, 1fr);
+			align-items: start;
+			gap: var(--spacing-md);
+		}
+
+		.character-form-list {
+			gap: 0.625rem;
+		}
+
+		.character-summary {
+			width: 100%;
+		}
+
+		.character-readings {
+			grid-column: 1;
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(min(10rem, 100%), 1fr));
+			gap: 0.625rem 1rem;
+		}
+
+		.character-reading-group {
+			align-items: flex-start;
+			flex-direction: column;
+			gap: 0.125rem;
+		}
+
 		.character-title-row {
 			flex-wrap: wrap;
 		}

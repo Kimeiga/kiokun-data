@@ -240,7 +240,7 @@
 
 			<!-- Image + Text Entries -->
 			<div class="field">
-				<label>Photos & Text</label>
+				<div class="field-heading">Photos &amp; Text</div>
 
 				{#if imageEntries.length > 0}
 					<div class="image-entries">
@@ -353,7 +353,8 @@
 	}
 
 	.field { margin-bottom: var(--spacing-lg); }
-	.field label { display: block; font-size: var(--font-size-callout); font-weight: 600; color: var(--text-primary); margin-bottom: var(--spacing-sm); }
+	.field label,
+	.field-heading { display: block; font-size: var(--font-size-callout); font-weight: 600; color: var(--text-primary); margin-bottom: var(--spacing-sm); }
 	.optional { font-weight: 400; color: var(--text-muted); }
 
 	.input {

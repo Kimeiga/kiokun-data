@@ -688,7 +688,7 @@
 							<div class="image-text-row">
 								<div class="it-image">
 									<button class="gallery-click" onclick={() => lightboxUrl = img.imageUrl} title="View full size">
-										<img src={img.imageUrl} alt="Artifact photo" />
+										<img src={img.imageUrl} alt={`Image from ${artifact.title}`} />
 									</button>
 									{#if isOwner()}
 										<button class="img-delete" onclick={() => deleteImage(img.id)} title="Delete image">x</button>
@@ -810,8 +810,12 @@
 
 	<!-- Dictionary Side Panel (desktop) / Bottom Sheet (mobile) -->
 	{#if panelOpen}
-		<!-- svelte-ignore a11y_no_static_element_interactions -->
-		<div class="panel-overlay" onclick={closePanel}></div>
+		<button
+			type="button"
+			class="panel-overlay"
+			aria-label="Close dictionary panel"
+			onclick={closePanel}
+		></button>
 		<div class="dictionary-panel">
 			<div class="panel-header">
 				<h3 class="panel-word">{selectedWord}</h3>
@@ -1097,7 +1101,8 @@
 		opacity: 0;
 		transition: opacity 0.15s;
 	}
-	.gallery-item:hover .img-delete { opacity: 1; }
+	.it-image:hover .img-delete,
+	.img-delete:focus-visible { opacity: 1; }
 
 	/* Sentences */
 	.sentences-list { display: flex; flex-direction: column; gap: var(--spacing-md); }
@@ -1134,8 +1139,6 @@
 		transition: border-color 0.15s, color 0.15s, background 0.15s;
 	}
 	.toggle-pill.active { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
-	.loading-dot { font-size: var(--font-size-caption1); color: var(--text-muted); }
-
 	/* Annotated words */
 	.annotated-word {
 		display: inline-flex;
@@ -1222,7 +1225,7 @@
 		border: 1px dashed var(--border-color);
 		border-radius: var(--radius-md);
 	}
-	.sentence-input, .translation-input {
+	.sentence-input {
 		width: 100%;
 		padding: var(--spacing-md);
 		border: 1px solid var(--border-color);
@@ -1234,14 +1237,21 @@
 		box-sizing: border-box;
 	}
 	.sentence-input { font-family: var(--font-cjk); font-size: var(--font-size-headline); }
-	.sentence-input:focus, .translation-input:focus { outline: none; border-color: var(--accent); }
+	.sentence-input:focus { outline: none; border-color: var(--accent); }
 
 	/* Dictionary Panel */
 	.panel-overlay {
+		appearance: none;
 		position: fixed;
 		inset: 0;
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		border: 0;
 		background: rgba(0,0,0,0.3);
 		z-index: 200;
+		cursor: default;
 	}
 
 	.dictionary-panel {
@@ -1325,7 +1335,6 @@
 		flex: 1;
 	}
 	.panel-loading, .panel-empty { color: var(--text-muted); font-size: var(--font-size-callout); }
-	.panel-pronunciation { font-size: var(--font-size-body); color: var(--color-pinyin); margin-bottom: var(--spacing-md); }
 	.panel-reading { font-size: var(--font-size-body); color: var(--accent); margin-bottom: var(--spacing-sm); }
 	.panel-pinyin { font-size: var(--font-size-callout); color: var(--color-pinyin); display: block; margin-bottom: var(--spacing-xs); }
 	.panel-pos { font-size: var(--font-size-caption1); color: var(--text-muted); font-style: italic; display: block; margin-bottom: var(--spacing-xs); }

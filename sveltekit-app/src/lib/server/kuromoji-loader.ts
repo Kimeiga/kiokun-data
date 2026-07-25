@@ -3,6 +3,7 @@
  * Loads dictionary files from R2 bucket instead of filesystem.
  */
 import kuromoji from 'kuromoji';
+import type { R2Bucket } from '@cloudflare/workers-types';
 
 let cachedTokenizer: kuromoji.Tokenizer<kuromoji.IpadicFeatures> | null = null;
 
@@ -38,7 +39,6 @@ export async function getTokenizer(bucket: R2Bucket): Promise<kuromoji.Tokenizer
 		});
 
 		// Override the internal loader
-		const origLoad = (builder as any).loader.load;
 		(builder as any).loader.load = function (url: string, callback: (err: any, data: any) => void) {
 			const filename = url.split('/').pop()!;
 			const buffer = dictBuffers[filename];

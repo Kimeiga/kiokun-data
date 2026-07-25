@@ -9,7 +9,7 @@
 	import SearchDropdown from "./SearchDropdown.svelte";
 	import { navigateOrSearch } from "$lib/utils/search-navigation";
 
-	let handwritingInput: HandwritingInput;
+	let handwritingInput = $state<HandwritingInput>();
 	let handwritingOpen = $state(false);
 
 	let { currentWord = "", autofocus = false, isHomePage = false }: { currentWord?: string; autofocus?: boolean; isHomePage?: boolean } = $props();
@@ -85,7 +85,10 @@
 					<div class="flex-1 relative">
 						<!-- svelte-ignore a11y_autofocus -->
 						<input
+							id="site-search"
+							name="q"
 							type="text"
+							aria-label="Search the dictionary"
 							class="w-full pl-3 pr-3 py-1.5 md:pl-5 md:pr-4 md:py-2.5 border border-border-light rounded-full text-sm md:text-base bg-bg-tertiary text-text-primary font-sans transition-colors duration-150 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent placeholder:text-text-muted"
 							placeholder="Search..."
 							bind:value={internalSearchValue}

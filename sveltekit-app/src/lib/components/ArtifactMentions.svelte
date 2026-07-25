@@ -57,7 +57,7 @@
 
 {#if hasLoaded && mentions.length > 0}
 	<div class="artifact-mentions" id="artifacts">
-		<SectionHeading title="Found In Artifacts" />
+		<SectionHeading>Found In Artifacts</SectionHeading>
 		<div class="mentions-list">
 			{#each mentions as mention (mention.id)}
 				<a href="/artifacts/{mention.id}" class="mention-card">

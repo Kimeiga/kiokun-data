@@ -7,12 +7,11 @@
 	import WordEntry from './WordEntry.svelte';
 
 	export let words: JapaneseWord[];
-	export let accentDisplay: 'none' | 'binary' | 'binary-hi-contrast' = 'binary';
 </script>
 
 <div class="word-table">
 	{#each words as word (word.id)}
-		<WordEntry {word} {accentDisplay} />
+		<WordEntry {word} />
 	{/each}
 </div>
 
@@ -23,4 +22,3 @@
 		gap: var(--spacing-sm);
 	}
 </style>
-

@@ -1,0 +1,48 @@
+name: Validate Character Learning
+
+on:
+  pull_request:
+    paths:
+      - 'data/semantic_mnemonic_corpus/**'
+      - 'sveltekit-app/src/lib/character-forms.ts'
+      - 'sveltekit-app/src/lib/character-forms.test.ts'
+      - 'sveltekit-app/src/lib/character-corpus-invariants.test.ts'
+      - 'sveltekit-app/package.json'
+      - 'sveltekit-app/package-lock.json'
+  push:
+    branches: [main]
+    paths:
+      - 'data/semantic_mnemonic_corpus/**'
+      - 'sveltekit-app/src/lib/character-forms.ts'
+      - 'sveltekit-app/src/lib/character-forms.test.ts'
+      - 'sveltekit-app/src/lib/character-corpus-invariants.test.ts'
+      - 'sveltekit-app/package.json'
+      - 'sveltekit-app/package-lock.json'
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+
+      - name: Install dependencies
+        working-directory: sveltekit-app
+        run: npm ci --include=optional
+
+      - name: Verify canonical mnemonic corpus
+        run: python3 scripts/manage_semantic_mnemonic_corpus.py verify
+
+      - name: Run character learning invariants
+        working-directory: sveltekit-app
+        run: npm run test:character-forms && npm run test:character-corpus
