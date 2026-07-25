@@ -1,23 +1,24 @@
 import type { RequestHandler } from './$types';
-import { Resvg, initWasm } from '@resvg/resvg-wasm';
-import wasmUrl from '@resvg/resvg-wasm/index_bg.wasm?url';
-import notoSansScUrl from '@fontsource/noto-sans-sc/files/noto-sans-sc-chinese-simplified-400-normal.woff2?url';
-import notoSansKrUrl from '@fontsource/noto-sans-kr/files/noto-sans-kr-korean-400-normal.woff2?url';
 import notoSansLatinUrl from '@fontsource/noto-sans/files/noto-sans-latin-ext-400-normal.woff2?url';
 import notoSansBasicLatinUrl from '@fontsource/noto-sans/files/noto-sans-latin-400-normal.woff2?url';
 import { parseOgCard, renderOgSvg } from '$lib/server/og-card';
 
-let wasmReady: Promise<void> | null = null;
+const notoSansScUrl = '/fonts/noto-sans-sc-og.woff2';
+const notoSansKrUrl = '/fonts/noto-sans-kr-og.woff2';
+
+let rendererModule: Promise<typeof import('@cf-wasm/resvg/workerd')> | null = null;
 let fontBuffers: Promise<Uint8Array[]> | null = null;
 
-async function initializeRenderer(requestUrl: URL): Promise<Uint8Array[]> {
-	if (!wasmReady) {
-		wasmReady = initWasm(fetch(new URL(wasmUrl, requestUrl))).catch((error) => {
-			// Vite hot reload can recreate this module while the WASM singleton stays initialized.
-			if (error instanceof Error && error.message.includes('Already initialized')) return;
-			throw error;
-		});
+function loadRenderer() {
+	if (!rendererModule) {
+		rendererModule = import.meta.env.DEV
+			? import('@cf-wasm/resvg/node')
+			: import('@cf-wasm/resvg/workerd');
 	}
+	return rendererModule;
+}
+
+function loadFonts(requestUrl: URL): Promise<Uint8Array[]> {
 	if (!fontBuffers) {
 		fontBuffers = Promise.all(
 			[notoSansBasicLatinUrl, notoSansLatinUrl, notoSansScUrl, notoSansKrUrl].map(async (fontUrl) => {
@@ -27,7 +28,6 @@ async function initializeRenderer(requestUrl: URL): Promise<Uint8Array[]> {
 			})
 		);
 	}
-	await wasmReady;
 	return fontBuffers;
 }
 
@@ -37,8 +37,11 @@ export const GET: RequestHandler = async ({ url, request, platform }) => {
 	if (cached) return cached;
 
 	const card = parseOgCard(url.searchParams);
-	const fonts = await initializeRenderer(new URL(request.url));
-	const renderer = new Resvg(renderOgSvg(card), {
+	const [{ Resvg }, fonts] = await Promise.all([
+		loadRenderer(),
+		loadFonts(new URL(request.url))
+	]);
+	const renderer = await Resvg.async(renderOgSvg(card), {
 		font: {
 			fontBuffers: fonts,
 			defaultFontFamily: 'Noto Sans',
@@ -50,9 +53,9 @@ export const GET: RequestHandler = async ({ url, request, platform }) => {
 	});
 	const rendered = renderer.render();
 	const png = rendered.asPng();
+	const body = png.buffer.slice(png.byteOffset, png.byteOffset + png.byteLength) as ArrayBuffer;
 	rendered.free();
 	renderer.free();
-	const body = png.buffer.slice(png.byteOffset, png.byteOffset + png.byteLength) as ArrayBuffer;
 
 	const response = new Response(body, {
 		headers: {

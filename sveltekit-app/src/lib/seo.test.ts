@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { defaultSeoForUrl, ogImagePath, type OgCardData } from './seo';
+import { defaultSeoForUrl, dictionaryDefinitions, ogImagePath, type OgCardData } from './seo';
 import { parseOgCard, renderOgSvg } from './server/og-card';
 
 const sentenceSeo = defaultSeoForUrl(
@@ -23,7 +23,7 @@ const characterCard: OgCardData = {
 };
 
 const imageUrl = new URL(ogImagePath(characterCard), 'https://kiokun.com');
-assert.equal(imageUrl.searchParams.get('v'), '1', 'OG cards must be versioned for immutable caching');
+assert.equal(imageUrl.searchParams.get('v'), '2', 'OG cards must be versioned for immutable caching');
 const roundTripped = parseOgCard(imageUrl.searchParams);
 assert.deepEqual(roundTripped.forms, ['图', '図']);
 assert.equal(roundTripped.readings?.[1]?.value, 'ズ、ト');
@@ -33,6 +33,19 @@ assert(svg.includes('width="1200"'));
 assert(svg.includes('height="630"'));
 assert(svg.includes('&lt;圖 &amp; map&gt;'));
 assert(!svg.includes('<圖 & map>'), 'user-facing card text must be XML escaped');
+
+const learnerDefinitions = dictionaryDefinitions({
+	chinese_words: [
+		{
+			items: [
+				{
+					definitions: ['map; CL:張[张[zhāng],本[běn]']
+				}
+			]
+		}
+	]
+} as never);
+assert.deepEqual(learnerDefinitions, ['map'], 'classifier metadata must not become a learner-facing sense');
 
 const longWord = renderOgSvg({
 	kind: 'word',

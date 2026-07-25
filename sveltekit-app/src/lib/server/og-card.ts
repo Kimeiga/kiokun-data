@@ -114,8 +114,8 @@ function base(content: string): string {
 		</defs>
 		<rect width="1200" height="630" fill="#050505"/>
 		<rect x="24" y="24" width="1152" height="582" rx="30" fill="#0a0a0a" stroke="#292929" stroke-width="2"/>
-		${content}
 		${brand()}
+		${content}
 	</svg>`;
 }
 
@@ -132,9 +132,7 @@ function readingRail(readings: OgReading[], x: number, y: number, maxWidth: numb
 				? 'KUN’YOMI'
 				: reading.label.replace('Japanese ', '').toUpperCase();
 		const rawValue = reading.value.length > 32 ? `${reading.value.slice(0, 31)}…` : reading.value;
-		// Font subsets reliably contain combining tone marks even when a rare
-		// precomposed pinyin syllable (such as ǎ) is absent.
-		const value = rawValue.normalize('NFD');
+		const value = rawValue;
 		const width = Math.min(maxWidth, Math.max(116, textUnits(value) * 22 + 32));
 		if (cursorX > x && cursorX + width > x + maxWidth) {
 			cursorX = x;

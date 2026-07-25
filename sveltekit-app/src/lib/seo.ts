@@ -53,7 +53,12 @@ function definitionFragments(values: string[]): string[] {
 				.split(/\s*[;；]\s*/)
 				.map((part) => part.replace(/^\d+[.)]\s*/, '').trim())
 		)
-	).filter((value) => value.length > 1 && value.length <= 96);
+	).filter(
+		(value) =>
+			value.length > 1 &&
+			value.length <= 96 &&
+			!/^(?:CL|classifier)\s*:/i.test(value)
+	);
 }
 
 export function dictionaryDefinitions(entry: DictionaryEntry): string[] {
@@ -460,7 +465,7 @@ export function defaultSeoForUrl(url: URL): PageSeo {
 
 export function ogImagePath(card: OgCardData): string {
 	const params = new URLSearchParams({
-		v: '1',
+		v: '2',
 		kind: card.kind,
 		title: truncate(card.title, 180)
 	});
