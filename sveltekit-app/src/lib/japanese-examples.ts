@@ -1,4 +1,4 @@
-import type { JapaneseSense } from '$lib/types';
+import type { JapaneseSense } from './types';
 
 export interface JapaneseSenseExample {
 	text: string;

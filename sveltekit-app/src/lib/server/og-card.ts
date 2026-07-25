@@ -1,4 +1,4 @@
-import type { OgCardData, OgReading } from '$lib/seo';
+import type { OgCardData, OgReading } from '../seo';
 
 const WIDTH = 1200;
 const HEIGHT = 630;

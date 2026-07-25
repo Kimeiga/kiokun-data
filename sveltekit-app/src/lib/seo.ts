@@ -1,5 +1,5 @@
-import type { DictionaryEntry } from '$lib/types';
-import { learnerGlossForEntry } from '$lib/character-forms';
+import type { DictionaryEntry } from './types';
+import { learnerGlossForEntry } from './character-forms';
 
 export type OgCardKind = 'character' | 'word' | 'sentence' | 'reel' | 'section';
 
