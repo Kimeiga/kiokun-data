@@ -4,6 +4,7 @@
 	import { afterNavigate, beforeNavigate } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import KeyboardShortcuts from '$lib/components/KeyboardShortcuts.svelte';
+	import SeoMeta from '$lib/components/SeoMeta.svelte';
 
 	let { children, data }: { children: any; data: LayoutData } = $props();
 
@@ -144,6 +145,7 @@
 </svelte:head>
 
 <KeyboardShortcuts />
+<SeoMeta />
 {#if routeLoading}
 	<div class="route-loading" aria-live="polite" aria-busy="true">
 		<div class="route-loading-bar"></div>

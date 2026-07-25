@@ -130,10 +130,6 @@
 	}
 </script>
 
-<svelte:head>
-	<title>{langFlag} Sentence - Kiokun Dictionary</title>
-</svelte:head>
-
 <Header autofocus={false} />
 
 <main class="sentence-page">

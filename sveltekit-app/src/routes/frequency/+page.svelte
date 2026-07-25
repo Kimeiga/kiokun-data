@@ -70,7 +70,6 @@
 
 <svelte:head>
 	<title>Frequency List - Kiokun Dictionary</title>
-	<meta name="description" content="Most common Japanese, Chinese, and Korean words ranked by frequency" />
 </svelte:head>
 
 <Header />
@@ -315,4 +314,3 @@
 		}
 	}
 </style>
-

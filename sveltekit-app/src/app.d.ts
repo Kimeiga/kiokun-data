@@ -3,6 +3,9 @@
 declare global {
 	namespace App {
 		// interface Error {}
+		interface PageData {
+			seo?: import('$lib/seo').PageSeo;
+		}
 		interface Locals {
 			session: {
 				id: string;
@@ -42,4 +45,3 @@ declare global {
 }
 
 export {};
-

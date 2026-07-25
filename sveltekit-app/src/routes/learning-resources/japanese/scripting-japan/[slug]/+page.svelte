@@ -66,7 +66,6 @@
 
 <svelte:head>
 	<title>{video?.title || 'Loading...'} - Scripting Japan - Kiokun</title>
-	<meta name="description" content={video?.summary || 'Learn natural Japanese'} />
 </svelte:head>
 
 <Header currentWord="" />
@@ -161,4 +160,3 @@
 		</div>
 	{/if}
 </div>
-

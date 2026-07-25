@@ -10,6 +10,11 @@ import {
 	relatedCharacterFormContext,
 	type RelatedCharacterFormContext
 } from '$lib/character-forms';
+import {
+	buildCustomWordSeo,
+	buildDictionarySeo,
+	type PageSeo
+} from '$lib/seo';
 
 // SSR works in production (fetches GitHub CDN) but can cause issues in dev
 // where the CORS proxy may not be reachable from the server process.
@@ -269,7 +274,7 @@ export interface PageData {
 	charGlosses: CharGlosses;
 	charTaxonomy: CharTaxonomy;
 	componentUses: ComponentUsesMap;
-	characterLearningData: Promise<CharacterLearningData>;
+	characterLearningData: CharacterLearningData;
 	relatedFormContexts: RelatedCharacterFormContext[];
 	// Conjugation info (passed via URL params when arriving from deinflection)
 	conjugatedFrom?: string;  // The original conjugated word
@@ -277,6 +282,7 @@ export interface PageData {
 	conjugationAlternatives?: ConjugationAlternative[]; // Other possible matches
 	// Custom word (user-created dictionary entry)
 	customWord?: any;
+	seo: PageSeo;
 }
 
 export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
@@ -353,12 +359,13 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 					charGlosses: {},
 					charTaxonomy: {},
 					componentUses: {},
-					characterLearningData: Promise.resolve(emptyCharacterLearningData()),
+					characterLearningData: emptyCharacterLearningData(),
 					relatedFormContexts: [],
 					customWord,
 					conjugatedFrom,
 					conjugationInfo,
-					conjugationAlternatives
+					conjugationAlternatives,
+					seo: buildCustomWordSeo(word, customWord)
 				};
 			}
 		} catch {
@@ -461,7 +468,7 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 			fetch
 		);
 
-		const characterLearningData = import('$lib/word-character-learning')
+		const characterLearningData = await import('$lib/word-character-learning')
 			.then(({ buildCharacterLearningData }) =>
 				buildCharacterLearningData({
 					word,
@@ -472,7 +479,7 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 				})
 			)
 			.catch((err) => {
-				console.error('[LOAD] Failed to start character learning data load:', err);
+				console.error('[LOAD] Failed to load character learning data:', err);
 				return emptyCharacterLearningData();
 			});
 
@@ -487,7 +494,8 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 			relatedFormContexts,
 			conjugatedFrom,
 			conjugationInfo,
-			conjugationAlternatives
+			conjugationAlternatives,
+			seo: buildDictionarySeo(word, data)
 		};
 	} catch (err) {
 		if (isHttpError(err) || isRedirect(err)) {

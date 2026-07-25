@@ -150,10 +150,6 @@
 
 <svelte:head>
 	<title>The Sentence Translation Bakeoff - Kiokun</title>
-	<meta
-		name="description"
-		content="A Kiokun model comparison for repairing bad Japanese, Chinese, Korean, and Turkish example-sentence translations."
-	/>
 </svelte:head>
 
 <article>

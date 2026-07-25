@@ -450,10 +450,6 @@
 	}
 </script>
 
-<svelte:head>
-	<title>{languageFlag} Reel | Kiokun</title>
-</svelte:head>
-
 <div class="reel-header">
 	<Header />
 </div>

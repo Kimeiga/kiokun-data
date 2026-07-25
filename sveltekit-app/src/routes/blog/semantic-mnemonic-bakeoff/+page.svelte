@@ -235,10 +235,6 @@
 
 <svelte:head>
 	<title>The Mnemonic Model Bakeoff - Kiokun</title>
-	<meta
-		name="description"
-		content="A Kiokun research note comparing Gemini, Claude, Gemma, OpenAI, and Cloudflare attempts at generating component-based kanji mnemonics."
-	/>
 </svelte:head>
 
 <article>

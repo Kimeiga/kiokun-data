@@ -14,10 +14,6 @@
 
 <svelte:head>
 	<title>The Free Dictionary Engine — Kiokun</title>
-	<meta
-		name="description"
-		content="How Kiokun hosts 435,000 dictionary files for $0 across 30 GitHub repositories, addresses any word with a single hash, and rebuilds itself in the cloud."
-	/>
 </svelte:head>
 
 <article>

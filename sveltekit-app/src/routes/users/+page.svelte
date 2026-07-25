@@ -49,7 +49,6 @@
 
 <svelte:head>
 	<title>Users - Kiokun</title>
-	<meta name="description" content="Browse all users and their notes" />
 </svelte:head>
 
 <Header currentWord="" />
@@ -234,4 +233,3 @@
 		}
 	}
 </style>
-

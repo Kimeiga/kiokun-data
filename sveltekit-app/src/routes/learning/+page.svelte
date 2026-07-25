@@ -4,10 +4,6 @@
 
 <svelte:head>
 	<title>Learning — Kiokun</title>
-	<meta
-		name="description"
-		content="Learn Chinese, Japanese & Korean through real content, homophones, study tools and artifacts."
-	/>
 </svelte:head>
 
 <Header currentWord="" />

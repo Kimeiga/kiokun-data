@@ -223,7 +223,6 @@
 
 <svelte:head>
 	<title>Japanese Homophones - Kiokun</title>
-	<meta name="description" content="Browse Japanese homophones — words that sound the same but have different meanings and kanji. Includes pitch accent patterns." />
 </svelte:head>
 
 <Header currentWord="" />

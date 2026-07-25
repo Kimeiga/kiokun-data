@@ -317,10 +317,6 @@
 
 <svelte:head>
 	<title>Japanese Reel STT Benchmark — Kiokun</title>
-	<meta
-		name="description"
-		content="A practical benchmark of 20 speech-to-text, OCR, and multimodal models on one noisy Japanese reel, with synced transcripts and model-by-model notes."
-	/>
 </svelte:head>
 
 <article>

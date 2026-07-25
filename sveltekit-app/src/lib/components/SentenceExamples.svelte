@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { JapaneseSense, KoreanWord } from "$lib/types";
 	import AnnotatedSentence from "$lib/components/AnnotatedSentence.svelte";
+	import { japaneseExamplesForSense } from "$lib/japanese-examples";
 
 	interface Props {
 		japaneseSenses?: JapaneseSense[];
@@ -19,18 +20,9 @@
 		const items: ExampleItem[] = [];
 		if (japaneseSenses) {
 			for (const sense of japaneseSenses) {
-				if (!sense.examples) continue;
-				for (const ex of sense.examples) {
-					const jpSentence = ex.sentences?.find(
-						(s) => (s as any).land === "jpn" || s.lang === "jpn",
-					);
-					const engSentence = ex.sentences?.find(
-						(s) => (s as any).land === "eng" || s.lang === "eng",
-					);
-					const displayText = jpSentence?.text;
-					if (displayText) {
-						items.push({ source: "ja", text: displayText, translation: engSentence?.text });
-					}
+				// The first source-linked example is displayed beside its definition.
+				for (const example of japaneseExamplesForSense(sense).slice(1)) {
+					items.push({ source: "ja", text: example.text, translation: example.translation });
 				}
 			}
 		}

@@ -109,7 +109,6 @@
 
 <svelte:head>
 	<title>{userData ? `${userData.name}'s Notes` : 'User Notes'} - Kiokun</title>
-	<meta name="description" content="View user's character notes" />
 </svelte:head>
 
 <Header currentWord="" />
@@ -421,4 +420,3 @@
 		}
 	}
 </style>
-

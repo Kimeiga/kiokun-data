@@ -119,7 +119,6 @@
 
 <svelte:head>
 	<title>My Notes - Kiokun</title>
-	<meta name="description" content="View and manage all your character notes" />
 </svelte:head>
 
 <Header currentWord="" />
@@ -507,4 +506,3 @@
 		}
 	}
 </style>
-

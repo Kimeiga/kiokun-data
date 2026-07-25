@@ -47,10 +47,6 @@
 
 <svelte:head>
 	<title>The Kiokun Notebook</title>
-	<meta
-		name="description"
-		content="Engineering notes from Kiokun — a Chinese, Japanese & Korean dictionary."
-	/>
 </svelte:head>
 
 <main>

@@ -59,7 +59,6 @@
 
 <svelte:head>
 	<title>Scripting Japan - Learning Resources - Kiokun</title>
-	<meta name="description" content="Learn natural Japanese through Scripting Japan videos" />
 </svelte:head>
 
 <Header currentWord="" />

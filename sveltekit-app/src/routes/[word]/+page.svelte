@@ -21,6 +21,8 @@
 	import StudyModeToggle from "$lib/components/StudyModeToggle.svelte";
 	import LazyComponent from "$lib/components/LazyComponent.svelte";
 	import LazySentenceSections from "$lib/components/LazySentenceSections.svelte";
+	import { dictionaryDefinitions } from "$lib/seo";
+	import CharacterLearningSections from "$lib/components/CharacterLearningSections.svelte";
 
 	const loadNotes = () => import("$lib/components/Notes.svelte");
 	const loadJapaneseNames = () => import("$lib/components/JapaneseNames.svelte");
@@ -28,7 +30,6 @@
 	const loadAppearsIn = () => import("$lib/AppearsIn.svelte");
 	const loadArtifactMentions = () => import("$lib/components/ArtifactMentions.svelte");
 	const loadReelsSection = () => import("$lib/components/ReelsSection.svelte");
-	const loadCharacterLearningSections = () => import("$lib/components/CharacterLearningSections.svelte");
 
 	// Study mode: tap-to-reveal interaction
 	function handleStudyClick(event: MouseEvent) {
@@ -65,10 +66,18 @@
 		};
 	}
 
-	let characterLearningData = $state<CharacterLearningData>(fallbackLearningData(data.data));
+	let characterLearningData = $state<CharacterLearningData>(
+		data.characterLearningData || fallbackLearningData(data.data)
+	);
 
 	$effect(() => {
-		const promise = data.characterLearningData;
+		const incoming = data.characterLearningData;
+		if (!incoming || typeof (incoming as any).then !== 'function') {
+			characterLearningData = incoming || fallbackLearningData(data.data);
+			return;
+		}
+
+		const promise = incoming as unknown as Promise<CharacterLearningData>;
 		let cancelled = false;
 		characterLearningData = fallbackLearningData(data.data);
 
@@ -305,6 +314,12 @@
 	}
 
 	let headerReadings = $derived(buildHeaderReadings(data.data, koreanChar));
+	let senseHighlights = $derived.by(() => {
+		const primary = normalizeLearnerGloss(uniqueGloss).toLocaleLowerCase('en');
+		return dictionaryDefinitions(data.data)
+			.filter((definition) => normalizeLearnerGloss(definition).toLocaleLowerCase('en') !== primary)
+			.slice(0, 4);
+	});
 	let headerForms = $derived.by(() =>
 		buildCharacterHeaderForms({
 			entry: data.data,
@@ -361,26 +376,6 @@
 		}
 	});
 </script>
-
-<svelte:head>
-	<title>{data.word} - Kiokun Dictionary</title>
-	<meta name="description" content={uniqueGloss
-		? `${data.word}: ${uniqueGloss}. Chinese and Japanese dictionary entry with stroke order, readings, and definitions.`
-		: `${data.word} - Chinese and Japanese dictionary entry with stroke order, readings, and definitions.`} />
-
-	<!-- Open Graph -->
-	<meta property="og:title" content={`${data.word} - Kiokun Dictionary`} />
-	<meta property="og:description" content={uniqueGloss
-		? `${data.word}: ${uniqueGloss}. Chinese and Japanese dictionary entry with stroke order, readings, and definitions.`
-		: `${data.word} - Chinese and Japanese dictionary entry with stroke order, readings, and definitions.`} />
-	<meta property="og:url" content={`https://kiokun.pages.dev/${encodeURIComponent(data.word)}`} />
-
-	<!-- Twitter Card -->
-	<meta name="twitter:title" content={`${data.word} - Kiokun Dictionary`} />
-	<meta name="twitter:description" content={uniqueGloss
-		? `${data.word}: ${uniqueGloss}. Chinese and Japanese dictionary entry with stroke order, readings, and definitions.`
-		: `${data.word} - Chinese and Japanese dictionary entry with stroke order, readings, and definitions.`} />
-</svelte:head>
 
 <Header currentWord={data.conjugatedFrom || data.word} />
 <SentenceBar currentWord={data.word} />
@@ -581,6 +576,14 @@
 											{/each}
 										</div>
 									{/if}
+									{#if senseHighlights.length > 0}
+										<button type="button" class="character-sense-preview study-hide" onclick={handleStudyClick}>
+											{#each senseHighlights as sense, index}
+												{#if index > 0}<span class="sense-separator" aria-hidden="true">·</span>{/if}
+												<span>{sense}</span>
+											{/each}
+										</button>
+									{/if}
 								</div>
 							{/if}
 
@@ -592,33 +595,34 @@
 									aria-label="Character readings"
 									onclick={handleStudyClick}
 								>
-									{#each headerReadings as reading}
-										<div class="character-reading-group">
-											<span class="character-reading-label">{reading.label}</span>
+									{#each headerReadings as reading, index}
+										{#if index > 0}
+											<span class="reading-separator" aria-hidden="true">·</span>
+										{/if}
+										<span
+											class="character-reading-group"
+											aria-label={`${reading.label}: ${reading.value}`}
+										>
+											<span class="visually-hidden">{reading.label}: </span>
 											<span
 												class="character-reading-value font-cjk {reading.className}"
 												lang={reading.languageTag}
 											>
 												{reading.value}
 											</span>
-										</div>
+										</span>
 									{/each}
 								</div>
 							{/if}
 						</div>
 					</div>
 
-						<LazyComponent
-							loader={loadCharacterLearningSections}
-							props={{
-								data,
-								support: characterLearningData.support,
-								mnemonicCards,
-								simplifiedCharData: characterLearningData.simplifiedCharData,
-								headerForms,
-							}}
-							rootMargin="1400px 0px"
-							eager={true}
+						<CharacterLearningSections
+							{data}
+							support={characterLearningData.support}
+							{mnemonicCards}
+							simplifiedCharData={characterLearningData.simplifiedCharData}
+							{headerForms}
 						/>
 					</div>
 				</div>
@@ -947,32 +951,56 @@
 		grid-column: 1 / -1;
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.625rem clamp(1rem, 3vw, 2rem);
-		padding-top: var(--spacing-md);
+		align-items: baseline;
+		gap: 0.25rem 0.55rem;
+		padding-top: var(--spacing-sm);
 		border-top: 1px solid var(--border-light);
 		color: var(--text-secondary);
 	}
 
 	.character-reading-group {
-		display: flex;
 		min-width: 0;
 		flex: 0 1 auto;
-		align-items: baseline;
-		gap: 0.45rem;
 	}
 
-	.character-reading-label {
-		flex-shrink: 0;
+	.reading-separator,
+	.sense-separator {
 		color: var(--text-tertiary);
-		font-size: var(--font-size-caption1);
-		font-weight: 600;
 	}
 
 	.character-reading-value {
 		min-width: 0;
 		overflow-wrap: anywhere;
-		font-size: var(--font-size-body);
-		line-height: 1.45;
+		font-size: clamp(1rem, 2.2vw, 1.25rem);
+		font-weight: 600;
+		line-height: 1.35;
+	}
+
+	.character-sense-preview {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.15rem 0.45rem;
+		margin-bottom: var(--spacing-sm);
+		padding: 0;
+		border: 0;
+		background: transparent;
+		color: var(--text-secondary);
+		font-size: var(--font-size-caption1);
+		font-family: inherit;
+		line-height: 1.4;
+		text-align: left;
+	}
+
+	.visually-hidden {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
 	}
 
 	/* Responsive column layout for Chinese, Japanese, and Korean word sections.
@@ -1078,7 +1106,7 @@
 		.character-identity-grid {
 			grid-template-columns: minmax(0, 1fr);
 			align-items: start;
-			gap: var(--spacing-md);
+			gap: var(--spacing-sm);
 		}
 
 		.character-form-list {
@@ -1091,23 +1119,11 @@
 
 		.character-readings {
 			grid-column: 1;
-			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(min(10rem, 100%), 1fr));
-			gap: 0.625rem 1rem;
-		}
-
-		.character-reading-group {
-			align-items: flex-start;
-			flex-direction: column;
-			gap: 0.125rem;
+			gap: 0.2rem 0.45rem;
 		}
 
 		.character-title-row {
 			flex-wrap: wrap;
-		}
-
-		.character-title-row h1 {
-			flex-basis: 100%;
 		}
 
 	}

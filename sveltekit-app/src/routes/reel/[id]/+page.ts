@@ -1,4 +1,5 @@
 import type { PageLoad } from './$types';
+import { buildReelSeo, type PageSeo } from '$lib/seo';
 
 // SSR enabled: fetches static JSON which SvelteKit serves on the server
 
@@ -44,6 +45,7 @@ export interface ReelPageData {
 	author: string | null;
 	caption: string | null;
 	duration: number | null;
+	seo: PageSeo;
 }
 
 export const load: PageLoad<ReelPageData> = async ({ params, url, fetch }) => {
@@ -108,7 +110,7 @@ export const load: PageLoad<ReelPageData> = async ({ params, url, fetch }) => {
 	// Get video metadata
 	const videoInfo = videoData.videos[videoId];
 
-	return {
+	const pageData = {
 		videoId,
 		videoUrl,
 		posterUrl: videoInfo?.thumbnail ?? null,
@@ -120,5 +122,16 @@ export const load: PageLoad<ReelPageData> = async ({ params, url, fetch }) => {
 		author: videoInfo?.author ?? null,
 		caption: videoInfo?.caption ?? null,
 		duration: videoInfo?.duration ?? null
+	};
+	return {
+		...pageData,
+		seo: buildReelSeo({
+			id: videoId,
+			language,
+			caption: pageData.caption,
+			author: pageData.author,
+			transcript,
+			highlightWord
+		})
 	};
 };

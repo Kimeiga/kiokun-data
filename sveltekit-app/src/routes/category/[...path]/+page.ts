@@ -1,5 +1,6 @@
 import type { PageLoad } from './$types';
 import { error } from '@sveltejs/kit';
+import { buildCategorySeo, type PageSeo } from '$lib/seo';
 
 /**
  * Character taxonomy mapping (char to category path array)
@@ -31,6 +32,7 @@ export interface PageData {
 	categoryPath: string[];
 	characters: CharacterEntry[];
 	subcategories: string[];
+	seo: PageSeo;
 }
 
 // SSR enabled: fetches static JSON which SvelteKit serves on the server
@@ -88,11 +90,11 @@ export const load: PageLoad<PageData> = async ({ params, fetch }) => {
 		return {
 			categoryPath,
 			characters,
-			subcategories
+			subcategories,
+			seo: buildCategorySeo(categoryPath)
 		};
 	} catch (err) {
 		console.error('Failed to load category:', err);
 		throw error(500, 'Failed to load category');
 	}
 };
-

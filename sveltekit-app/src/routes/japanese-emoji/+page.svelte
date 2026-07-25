@@ -82,7 +82,6 @@
 
 <svelte:head>
 	<title>Japanese Emoji Guide - Kiokun</title>
-	<meta name="description" content="A guide to Japanese cultural emojis - learn the meaning of kanji emoji symbols, festival icons, and Japanese cultural pictographs." />
 </svelte:head>
 
 <Header currentWord="" />
@@ -512,4 +511,3 @@
 		}
 	}
 </style>
-

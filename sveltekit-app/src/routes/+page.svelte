@@ -238,10 +238,6 @@
 
 <svelte:head>
 	<title>Kiokun - Chinese, Japanese & Korean Dictionary</title>
-	<meta
-		name="description"
-		content="A comprehensive CJK dictionary with stroke order, etymology, frequency data, and cross-references across Chinese, Japanese, and Korean."
-	/>
 </svelte:head>
 
 <Header currentWord="" isHomePage={true} />
