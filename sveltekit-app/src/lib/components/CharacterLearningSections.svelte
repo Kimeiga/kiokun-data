@@ -6,6 +6,10 @@
 		SemanticMnemonicComponent,
 	} from "$lib/types";
 	import type { CharacterSupportData } from "$lib/character-support";
+	import {
+		learnerGlossForEntry,
+		type CharacterHeaderForm,
+	} from "$lib/character-forms";
 	import CharacterEquation from "$lib/components/CharacterEquation.svelte";
 	import SectionHeading from "$lib/components/shared/SectionHeading.svelte";
 	import SemanticMnemonicCard from "$lib/components/SemanticMnemonicCard.svelte";
@@ -19,15 +23,16 @@
 		support = { charGlosses: {}, charTaxonomy: {}, componentUses: {} },
 		mnemonicCards = [],
 		simplifiedCharData: loadedSimplifiedCharData = null,
+		headerForms = [],
 	}: {
 		data: any;
 		support?: CharacterSupportData;
 		mnemonicCards?: SemanticMnemonicCardType[];
 		simplifiedCharData?: any;
+		headerForms?: CharacterHeaderForm[];
 	} = $props();
 
 	let charGlosses = $derived(support?.charGlosses || {});
-	let charTaxonomy = $derived(support?.charTaxonomy || {});
 	let componentUses = $derived(support?.componentUses || {});
 
 	const showClaudeMnemonics = false;
@@ -87,24 +92,8 @@
 
 	// Get all character variants
 	let traditionalChar = $derived(data.data.chinese_char?.char || data.word);
-
-
 	let simplifiedChar = $derived(data.data.chinese_char?.simpVariants?.[0]);
 	let japaneseChar = $derived(data.data.japanese_char?.literal);
-	let koreanChar = $derived(data.data.korean_char);
-	let hkChar = $derived(data.data.chinese_char?.hkChar);
-
-	// Check if Korean Hanja form differs from traditional Chinese
-	// Note: hanjaForm may contain Korean compatibility characters (U+F900-U+FAD9) which are
-	// visually identical to standard CJK characters but have different Unicode codepoints.
-	// We compare against korean_char.character (the canonical form) to determine if Korean
-	// uses the same character, and only show a separate Korean box when hanjaForm actually
-	// looks different (e.g., 龜 vs its Korean variant).
-	let koreanHanjaForm = $derived(data.data.korean_char?.hanjaForm);
-	let koreanCharacter = $derived(data.data.korean_char?.character);
-	let krHasDifferentForm = $derived(
-		koreanHanjaForm && koreanCharacter && koreanCharacter !== traditionalChar && koreanCharacter !== simplifiedChar && koreanCharacter !== japaneseChar
-	);
 
 	// Strip variant indicators (trad/simp/jp labels) from glosses
 	function stripVariantIndicator(gloss: string): string {
@@ -140,55 +129,7 @@
 		return true;
 	}
 
-	// Get unique gloss from game data (falls back to existing gloss)
-	let uniqueGloss = $derived(
-		stripVariantIndicator(
-			charGlosses?.[traditionalChar] ||
-			charGlosses?.[data.word] ||
-			data.data.chinese_char?.gloss ||
-			''
-		)
-	);
-
-	// Get taxonomy path for the character
-	let taxonomy = $derived(
-		charTaxonomy?.[traditionalChar] ||
-		charTaxonomy?.[data.word] ||
-		[]
-	);
-
-	// Simple comparisons to determine which characters are identical
-	// If no simplified variant exists, the character is the same in simplified Chinese
-	let simpSameAsTrad = $derived(!simplifiedChar || simplifiedChar === traditionalChar);
-	let jpSameAsTrad = $derived(japaneseChar === traditionalChar);
-	let jpSameAsSimp = $derived(!simplifiedChar ? jpSameAsTrad : japaneseChar === simplifiedChar);
-
-	// Korean character comparisons - check if Korean uses the same character as traditional
-	let krSameAsTrad = $derived(!koreanChar || koreanChar.character === traditionalChar);
-	let krSameAsSimp = $derived(!koreanChar || !simplifiedChar ? krSameAsTrad : koreanChar.character === simplifiedChar);
-	let krSameAsJp = $derived(!koreanChar || !japaneseChar ? krSameAsTrad : koreanChar.character === japaneseChar);
-
-	// Hong Kong character variant - check if HK uses a different character form than all others
-	let hkHasDifferentForm = $derived(
-		hkChar &&
-		hkChar !== traditionalChar &&
-		hkChar !== simplifiedChar &&
-		hkChar !== japaneseChar &&
-		hkChar !== koreanCharacter
-	);
-
-	// Count how many unique character boxes we'll show
-	let characterBoxCount = $derived.by(() => {
-		let count = traditionalChar ? 1 : 0;
-		if (simplifiedChar && !simpSameAsTrad) count++;
-		if (japaneseChar && !jpSameAsTrad && !jpSameAsSimp) count++;
-		// Korean Hanja variant only if it differs from all others
-		if (krHasDifferentForm) count++;
-		// Hong Kong variant only if it differs from all others
-		if (hkHasDifferentForm) count++;
-		return count;
-	});
-	let isSingleCharacter = $derived(characterBoxCount === 1);
+	let uniqueGloss = $derived(learnerGlossForEntry(data.data));
 
 	// Parse IDS (Ideographic Description Sequence) into component characters.
 	// IDS uses U+2FF0..U+2FFB as operators followed by their operand characters.
@@ -237,36 +178,9 @@
 		return glossesA.every((g, i) => g === glossesB[i]);
 	}
 
-	function mnemonicComponentSignature(card: SemanticMnemonicCardType): string {
-		const components = card.visual_components?.length ? card.visual_components : card.components || [];
-		if (components.length === 0) return card.equation;
-		const glossesMap = charGlosses as Record<string, string>;
-
-		const normalize = (component: { character: string; gloss: string }) =>
-			cleanComponentGloss(glossesMap?.[component.character] || component.gloss || '')
-				.trim()
-				.toLowerCase();
-
-		const isSelfShape = components.length === 1 && components[0]?.character === card.character;
-		if (isSelfShape) return `${card.character}|${normalize(components[0])}`;
-
-		return components
-			.map(normalize)
-			.filter(Boolean)
-			.sort()
-			.join("|");
-	}
-
 	function mnemonicVariantLabel(card: SemanticMnemonicCardType): string {
-		const labels: string[] = [];
-		if (card.character === traditionalChar) labels.push("Traditional");
-		if (card.character === simplifiedChar) labels.push("Simplified");
-		if (data.data.chinese_char?.tradVariants?.includes(card.character) && !labels.includes("Traditional")) labels.push("Traditional");
-		if (data.data.chinese_char?.simpVariants?.includes(card.character) && !labels.includes("Simplified")) labels.push("Simplified");
-		if (card.character === japaneseChar && !labels.includes("Japanese")) labels.push("Japanese");
-		if (koreanChar?.character === card.character && !labels.includes("Korean")) labels.push("Korean");
-		if (hkChar === card.character && !labels.includes("Hong Kong")) labels.push("Hong Kong");
-		return labels.length > 0 ? `${labels.join(" / ")} (${card.character})` : card.character;
+		const form = headerForms.find((item) => item.character === card.character);
+		return form ? `${form.roleLabel} (${card.character})` : card.character;
 	}
 
 	let semanticMnemonicCards = $derived.by(() => {
@@ -278,12 +192,11 @@
 
 		const order = new Map<string, number>();
 		[
+			...headerForms.map((form) => form.character),
 			[...data.word].length === 1 ? data.word : undefined,
 			traditionalChar,
 			simplifiedChar,
 			japaneseChar,
-			koreanChar?.character,
-			hkChar,
 		].forEach((char, index) => {
 			if (char && !order.has(char)) order.set(char, index);
 		});
@@ -297,18 +210,11 @@
 			})
 			.sort((a, b) => (order.get(a.character) ?? 99) - (order.get(b.character) ?? 99));
 
-		const seenSignatures = new Set<string>();
 		return sortedCards
 			.map((card) => ({
 				card,
 				label: mnemonicVariantLabel(card),
-				signature: mnemonicComponentSignature(card),
-			}))
-			.filter(({ signature }) => {
-				if (seenSignatures.has(signature)) return false;
-				seenSignatures.add(signature);
-				return true;
-			});
+			}));
 	});
 
 	// Japanese components from the trad entry's japanese_char.ids field
@@ -857,22 +763,27 @@
 		) => {
 			// Wrap onError to restore fallback content
 			const onError = (error: any) => {
-				const fallback = targetFallbacks.get(char);
-				if (fallback) {
-					// Find the target element and restore its content
-					const targets = ['trad-writer-target', 'simp-writer-target', 'jp-writer-target'];
-					for (const id of targets) {
-						const el = document.getElementById(id);
-						if (el && el.innerHTML === '') {
-							el.innerHTML = fallback;
-							break;
-						}
+				for (const form of headerForms) {
+					if (form.character !== char) continue;
+					const target = document.getElementById(form.targetId);
+					const fallback = targetFallbacks.get(form.targetId);
+					if (target && fallback && target.innerHTML === '') {
+						target.innerHTML = fallback;
 					}
 				}
 				onErrorOriginal(error);
 			};
-			// Determine if this is a Japanese character by checking if the char matches japaneseChar
-			const isJapanese = char === japaneseChar;
+			const form = headerForms.find((item) => item.character === char);
+			const hasChineseRole = form?.roles.some((role) =>
+				['traditional', 'hong-kong', 'simplified'].includes(role)
+			);
+			// Prefer Japanese stroke data for the entry's KANJIDIC form (or a
+			// Japanese-only form). A related form can carry a Japanese role
+			// without existing in hanzi-writer-data-jp; Chinese data is then the
+			// correct first source and avoids a noisy expected 404.
+			const isJapanese =
+				char === japaneseChar ||
+				Boolean(form?.roles.includes('japanese') && !hasChineseRole);
 
 			if (isJapanese) {
 				// Try Japanese data first, fall back to Chinese data, then KanjiVG
@@ -950,14 +861,10 @@
 
 				const svgText = await response.text();
 
-				// Find the target element and inject the SVG
-				// Check traditional first since Japanese/Korean may share the same character
-				const targetId =
-					char === traditionalChar
-						? "trad-writer-target"
-						: char === simplifiedChar
-							? "simp-writer-target"
-							: "jp-writer-target";
+				const targetId = headerForms.find(
+					(form) => form.character === char
+				)?.targetId;
+				if (!targetId) throw new Error(`Missing stroke target for ${char}`);
 				const target = document.getElementById(targetId);
 
 				if (target) {
@@ -983,7 +890,7 @@
 						// Hide stroke numbers (they're in a separate group with id containing "StrokeNumbers")
 						const strokeNumbersGroup = svg.querySelector(
 							'[id*="StrokeNumbers"]',
-						);
+						) as HTMLElement | null;
 						if (strokeNumbersGroup) {
 							strokeNumbersGroup.style.display = "none";
 						}
@@ -1080,29 +987,18 @@
 		function animateChar(targetId: string, char: string) {
 			const target = document.getElementById(targetId);
 			if (!target) return;
-			targetFallbacks.set(char, target.innerHTML);
+			targetFallbacks.set(targetId, target.innerHTML);
 			target.innerHTML = "";
 			try {
 				const writer = HanziWriter.create(target, char, writerConfig);
 				writer.loopCharacterAnimation();
 			} catch {
-				target.innerHTML = targetFallbacks.get(char) || "";
+				target.innerHTML = targetFallbacks.get(targetId) || "";
 			}
 		}
 
-		// Animate traditional character (always if exists)
-		if (traditionalChar) {
-			animateChar("trad-writer-target", traditionalChar);
-		}
-
-		// Animate simplified character (only if different from traditional)
-		if (simplifiedChar && simplifiedChar !== traditionalChar) {
-			animateChar("simp-writer-target", simplifiedChar);
-		}
-
-		// Animate Japanese character (only if different from both trad and simp)
-		if (japaneseChar && japaneseChar !== traditionalChar && japaneseChar !== simplifiedChar) {
-			animateChar("jp-writer-target", japaneseChar);
+		for (const form of headerForms) {
+			animateChar(form.targetId, form.character);
 		}
 
 		// Load component mappings for traditional character
@@ -1121,12 +1017,16 @@
 
 	// Re-run animation when data changes
 	$effect(() => {
-		if (data.word) {
-			// Small delay to ensure DOM is updated
-			setTimeout(() => {
-				initHanziWriter();
-			}, 50);
-		}
+		const currentWord = data.word;
+		const targetSignature = headerForms
+			.map((form) => `${form.targetId}:${form.character}`)
+			.join('|');
+		if (!currentWord || !targetSignature) return;
+
+		const timer = setTimeout(() => {
+			initHanziWriter();
+		}, 50);
+		return () => clearTimeout(timer);
 	});
 
 </script>

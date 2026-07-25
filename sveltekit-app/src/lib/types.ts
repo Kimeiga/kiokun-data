@@ -314,8 +314,25 @@ export interface JapaneseQueryCode {
 }
 
 export interface JapaneseReadingMeaning {
-  readingGroups: JapaneseReadingGroup[];
-  meanings: string[];
+  groups?: JapaneseReadingMeaningGroup[];
+  nanori?: string[];
+  // Legacy projection retained for older cached dictionary entries.
+  readingGroups?: JapaneseReadingGroup[];
+  readings?: JapaneseTypedReading[];
+  meanings?: string[];
+}
+
+export interface JapaneseReadingMeaningGroup {
+  readings: JapaneseTypedReading[];
+  meanings: Array<{
+    lang?: string;
+    value: string;
+  }>;
+}
+
+export interface JapaneseTypedReading {
+  type: string;
+  value: string;
 }
 
 export interface JapaneseReadingGroup {

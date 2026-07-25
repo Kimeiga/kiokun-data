@@ -3,6 +3,12 @@
 	import type { PageData } from "./$types";
 	import type { CharacterLearningData } from "$lib/word-character-learning";
 	import type { SemanticMnemonicCard as SemanticMnemonicCardType } from "$lib/types";
+	import {
+		buildCharacterHeaderForms,
+		learnerGlossForEntry,
+		normalizeLearnerGloss,
+		type CharacterHeaderForm,
+	} from "$lib/character-forms";
 	import Header from "$lib/components/Header.svelte";
 	import WordTable from "$lib/components/JapaneseWords/WordTable.svelte";
 	import SectionHeading from "$lib/components/shared/SectionHeading.svelte";
@@ -185,70 +191,30 @@
 
 	// Get all character variants
 	let traditionalChar = $derived(data.data.chinese_char?.char || data.word);
-
-
-	let simplifiedChar = $derived(data.data.chinese_char?.simpVariants?.[0]);
-	let japaneseChar = $derived(data.data.japanese_char?.literal);
 	let koreanChar = $derived(data.data.korean_char);
-	let hkChar = $derived(data.data.chinese_char?.hkChar);
-
-	// Check if Korean Hanja form differs from traditional Chinese
-	// Note: hanjaForm may contain Korean compatibility characters (U+F900-U+FAD9) which are
-	// visually identical to standard CJK characters but have different Unicode codepoints.
-	// We compare against korean_char.character (the canonical form) to determine if Korean
-	// uses the same character, and only show a separate Korean box when hanjaForm actually
-	// looks different (e.g., 龜 vs its Korean variant).
-	let koreanHanjaForm = $derived(data.data.korean_char?.hanjaForm);
-	let koreanCharacter = $derived(data.data.korean_char?.character);
-	let krHasDifferentForm = $derived(
-		koreanHanjaForm && koreanCharacter && koreanCharacter !== traditionalChar && koreanCharacter !== simplifiedChar && koreanCharacter !== japaneseChar
+	let uniqueGloss = $derived(learnerGlossForEntry(data.data));
+	let headerForms = $derived.by(() =>
+		buildCharacterHeaderForms({
+			entry: data.data,
+			word: data.word,
+			cards: mnemonicCards,
+			relatedContexts: data.relatedFormContexts,
+		})
 	);
 
-	// Strip variant indicators (trad/simp/jp labels) from glosses
-	function stripVariantIndicator(gloss: string): string {
-		return gloss
-			.replace(/\s*\(trad\/jp\)/gi, '')
-			.replace(/\s*\(trad\)/gi, '')
-			.replace(/\s*\(simp\)/gi, '')
-			.replace(/\s*\(jp\)/gi, '')
-			.trim();
+	function hasDifferentFormMeaning(form: CharacterHeaderForm): boolean {
+		return Boolean(
+			form.meaning &&
+			normalizeLearnerGloss(form.meaning).toLocaleLowerCase('en') !==
+				normalizeLearnerGloss(uniqueGloss).toLocaleLowerCase('en')
+		);
 	}
-
-	// Get unique gloss from game data (falls back to existing gloss)
-	let uniqueGloss = $derived(
-		stripVariantIndicator(
-			charGlosses?.[traditionalChar] ||
-			charGlosses?.[data.word] ||
-			data.data.chinese_char?.gloss ||
-			''
-		)
-	);
 
 	// Get taxonomy path for the character
 	let taxonomy = $derived(
 		charTaxonomy?.[traditionalChar] ||
 		charTaxonomy?.[data.word] ||
 		[]
-	);
-
-	// Simple comparisons to determine which characters are identical
-	// If no simplified variant exists, the character is the same in simplified Chinese
-	let simpSameAsTrad = $derived(!simplifiedChar || simplifiedChar === traditionalChar);
-	let jpSameAsTrad = $derived(japaneseChar === traditionalChar);
-	let jpSameAsSimp = $derived(!simplifiedChar ? jpSameAsTrad : japaneseChar === simplifiedChar);
-
-	// Korean character comparisons - check if Korean uses the same character as traditional
-	let krSameAsTrad = $derived(!koreanChar || koreanChar.character === traditionalChar);
-	let krSameAsSimp = $derived(!koreanChar || !simplifiedChar ? krSameAsTrad : koreanChar.character === simplifiedChar);
-	let krSameAsJp = $derived(!koreanChar || !japaneseChar ? krSameAsTrad : koreanChar.character === japaneseChar);
-
-	// Hong Kong character variant - check if HK uses a different character form than all others
-	let hkHasDifferentForm = $derived(
-		hkChar &&
-		hkChar !== traditionalChar &&
-		hkChar !== simplifiedChar &&
-		hkChar !== japaneseChar &&
-		hkChar !== koreanCharacter
 	);
 
 	// Homophones: words with the same reading
@@ -286,21 +252,21 @@
 
 <svelte:head>
 	<title>{data.word} - Kiokun Dictionary</title>
-	<meta name="description" content={data.data.chinese_char?.gloss
-		? `${data.word}: ${data.data.chinese_char.gloss}. Chinese and Japanese dictionary entry with stroke order, readings, and definitions.`
+	<meta name="description" content={uniqueGloss
+		? `${data.word}: ${uniqueGloss}. Chinese and Japanese dictionary entry with stroke order, readings, and definitions.`
 		: `${data.word} - Chinese and Japanese dictionary entry with stroke order, readings, and definitions.`} />
 
 	<!-- Open Graph -->
 	<meta property="og:title" content={`${data.word} - Kiokun Dictionary`} />
-	<meta property="og:description" content={data.data.chinese_char?.gloss
-		? `${data.word}: ${data.data.chinese_char.gloss}. Chinese and Japanese dictionary entry with stroke order, readings, and definitions.`
+	<meta property="og:description" content={uniqueGloss
+		? `${data.word}: ${uniqueGloss}. Chinese and Japanese dictionary entry with stroke order, readings, and definitions.`
 		: `${data.word} - Chinese and Japanese dictionary entry with stroke order, readings, and definitions.`} />
 	<meta property="og:url" content={`https://kiokun.pages.dev/${encodeURIComponent(data.word)}`} />
 
 	<!-- Twitter Card -->
 	<meta name="twitter:title" content={`${data.word} - Kiokun Dictionary`} />
-	<meta name="twitter:description" content={data.data.chinese_char?.gloss
-		? `${data.word}: ${data.data.chinese_char.gloss}. Chinese and Japanese dictionary entry with stroke order, readings, and definitions.`
+	<meta name="twitter:description" content={uniqueGloss
+		? `${data.word}: ${uniqueGloss}. Chinese and Japanese dictionary entry with stroke order, readings, and definitions.`
 		: `${data.word} - Chinese and Japanese dictionary entry with stroke order, readings, and definitions.`} />
 </svelte:head>
 
@@ -429,95 +395,40 @@
 					<div class="flex flex-col gap-4 mb-4">
 						<!-- Top Row: Character Variants & Main Gloss -->
 						<!-- Grid: chars left, gloss+pronunciations right -->
-						<div class="grid grid-cols-[auto_1fr] gap-3 md:gap-4 items-start">
+						<div class="grid grid-cols-1 sm:grid-cols-[auto_1fr] gap-3 md:gap-4 items-start">
 							<!-- Character Variants with Stroke Animations -->
-							<div class="flex items-center gap-3 md:gap-4">
-								<!-- Traditional Chinese (always shown if exists) -->
-								{#if traditionalChar}
-									<div class="flex flex-col items-center gap-2">
+							<div class="flex flex-wrap items-start gap-2.5 md:gap-4">
+								{#each headerForms as form}
+									<div class="flex w-[80px] md:w-[100px] flex-col items-center gap-1.5">
 										<div
-											id="trad-writer-target"
+											id={form.targetId}
 											class="w-[80px] h-[80px] md:w-[100px] md:h-[100px] flex items-center justify-center bg-bg-secondary rounded-xl shadow-lg border border-border"
+											aria-label={`${form.character}: ${form.roleLabel}`}
 										>
-											<div lang="zh-Hant" class="text-5xl md:text-7xl font-bold font-cjk leading-none text-text-primary">
-												{traditionalChar}
+											<div lang={form.languageTag} class="text-5xl md:text-7xl font-bold font-cjk leading-none text-text-primary">
+												{form.character}
 											</div>
 										</div>
-										<div class="text-xs md:text-base tracking-wide">
-											🇹🇼{#if !hkHasDifferentForm}🇭🇰{/if}{#if simpSameAsTrad}🇨🇳{/if}{#if jpSameAsTrad}🇯🇵{/if}{#if koreanChar && krSameAsTrad && !krHasDifferentForm}🇰🇷{/if}
-										</div>
-									</div>
-								{/if}
-
-								<!-- Simplified Chinese (only if different from traditional) -->
-								{#if simplifiedChar && !simpSameAsTrad}
-									<div class="flex flex-col items-center gap-2">
 										<div
-											id="simp-writer-target"
-											class="w-[80px] h-[80px] md:w-[100px] md:h-[100px] flex items-center justify-center bg-bg-secondary rounded-xl shadow-lg border border-border"
+											class="min-h-5 text-xs md:text-base tracking-wide"
+											title={form.roleLabel}
 										>
-											<div lang="zh-Hans" class="text-5xl md:text-7xl font-bold font-cjk leading-none text-text-primary">
-												{simplifiedChar}
+											{form.flags}
+										</div>
+										{#if hasDifferentFormMeaning(form)}
+											<div
+												class="max-w-full text-center text-[0.68rem] md:text-xs font-medium leading-tight text-accent"
+												title={`Mnemonic keyword for ${form.character}`}
+											>
+												{form.meaning}
 											</div>
-										</div>
-										<div class="text-xs md:text-base tracking-wide">
-											🇨🇳{#if jpSameAsSimp}🇯🇵{/if}
-										</div>
+										{/if}
 									</div>
-								{/if}
-
-								<!-- Japanese Kanji (only if different from both trad and simp) -->
-								{#if japaneseChar && !jpSameAsTrad && !jpSameAsSimp}
-									<div class="flex flex-col items-center gap-2">
-										<div
-											id="jp-writer-target"
-											class="w-[80px] h-[80px] md:w-[100px] md:h-[100px] flex items-center justify-center bg-bg-secondary rounded-xl shadow-lg border border-border"
-										>
-											<div lang="ja" class="text-5xl md:text-7xl font-bold font-cjk leading-none text-text-primary">
-												{japaneseChar}
-											</div>
-										</div>
-										<div class="text-xs md:text-base tracking-wide">
-											🇯🇵{#if koreanChar && krSameAsJp && !krHasDifferentForm}🇰🇷{/if}
-										</div>
-									</div>
-								{/if}
-
-								<!-- Korean Hanja (only if it has a distinct form from all others) -->
-								{#if krHasDifferentForm && koreanHanjaForm}
-									<div class="flex flex-col items-center gap-2">
-										<div
-											class="w-[80px] h-[80px] md:w-[100px] md:h-[100px] flex items-center justify-center bg-bg-secondary rounded-xl shadow-lg border border-border"
-										>
-											<div lang="ko" class="text-5xl md:text-7xl font-bold font-cjk leading-none text-text-primary">
-												{koreanHanjaForm}
-											</div>
-										</div>
-										<div class="text-xs md:text-base tracking-wide">
-											🇰🇷
-										</div>
-									</div>
-								{/if}
-
-								<!-- Hong Kong variant (only if it has a distinct form from all others) -->
-								{#if hkHasDifferentForm && hkChar}
-									<div class="flex flex-col items-center gap-2">
-										<div
-											class="w-[80px] h-[80px] md:w-[100px] md:h-[100px] flex items-center justify-center bg-bg-secondary rounded-xl shadow-lg border border-border"
-										>
-											<div lang="zh-HK" class="text-5xl md:text-7xl font-bold font-cjk leading-none text-text-primary">
-												{hkChar}
-											</div>
-										</div>
-										<div class="text-xs md:text-base tracking-wide">
-											🇭🇰
-										</div>
-									</div>
-								{/if}
+								{/each}
 							</div>
 
 							<!-- Main Meaning (Gloss) + Pronunciations -->
-							{#if uniqueGloss || data.data.chinese_char?.gloss}
+							{#if uniqueGloss}
 								<div class="min-w-0">
 										<div class="character-title-row flex items-center gap-2 mb-1 md:mb-2">
 											<h1
@@ -528,7 +439,7 @@
 													class="character-title-button study-hide"
 													onclick={handleStudyClick}
 												>
-													{uniqueGloss || stripVariantIndicator(data.data.chinese_char?.gloss || '')}
+													{uniqueGloss}
 												</button>
 											</h1>
 										{#if data.data.chinese_char?.statistics?.hskLevel}
@@ -656,6 +567,7 @@
 								support: characterLearningData.support,
 								mnemonicCards,
 								simplifiedCharData: characterLearningData.simplifiedCharData,
+								headerForms,
 							}}
 							rootMargin="1400px 0px"
 							eager={true}

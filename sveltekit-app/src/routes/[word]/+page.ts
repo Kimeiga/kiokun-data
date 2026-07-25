@@ -5,6 +5,11 @@ import { dev } from '$app/environment';
 import { decompressSync, strFromU8 } from 'fflate';
 import type { DictionaryEntry, SemanticMnemonicCard } from '$lib/types';
 import type { CharacterLearningData } from '$lib/word-character-learning';
+import {
+	equivalentTraditionalTarget,
+	relatedCharacterFormContext,
+	type RelatedCharacterFormContext
+} from '$lib/character-forms';
 
 // SSR works in production (fetches GitHub CDN) but can cause issues in dev
 // where the CORS proxy may not be reachable from the server process.
@@ -33,6 +38,20 @@ function fetchDictionaryBytes(url: string, fetchFn: typeof fetch): Promise<Respo
 		return globalThis.fetch(url);
 	}
 	return fetchFn(url);
+}
+
+async function fetchDictionaryEntry(
+	word: string,
+	fetchFn: typeof fetch
+): Promise<DictionaryEntry | null> {
+	try {
+		const dictionaryUrl = await getDictionaryUrl(word, dev, fetchFn);
+		const response = await fetchDictionaryBytes(dictionaryUrl, fetchFn);
+		if (!response.ok) return null;
+		return decompressAndParse(await response.arrayBuffer());
+	} catch {
+		return null;
+	}
 }
 
 function unavailableDictionaryStatus(status: number): number {
@@ -105,6 +124,133 @@ function mergeSemanticMnemonicVariants(
 	return variants;
 }
 
+function mergeUniqueBy<T>(
+	current: T[] | undefined,
+	additional: T[] | undefined,
+	keyFor: (item: T) => string
+): T[] {
+	const merged = [...(current || [])];
+	const seen = new Set(merged.map(keyFor));
+	for (const item of additional || []) {
+		const key = keyFor(item);
+		if (!key || seen.has(key)) continue;
+		seen.add(key);
+		merged.push(item);
+	}
+	return merged;
+}
+
+/**
+ * Preserve the independent dictionary evidence of an equivalent written form
+ * on its canonical page. Character metadata stays form-specific and is carried
+ * separately in RelatedCharacterFormContext.
+ */
+function mergeEquivalentFormData(
+	target: DictionaryEntry,
+	related: DictionaryEntry
+): void {
+	target.chinese_words = mergeUniqueBy(
+		target.chinese_words,
+		related.chinese_words,
+		(word) => word._id
+	);
+	target.japanese_words = mergeUniqueBy(
+		target.japanese_words,
+		related.japanese_words,
+		(word) => word.id
+	);
+	target.korean_words = mergeUniqueBy(
+		target.korean_words,
+		related.korean_words,
+		(word) => word.id
+	);
+	target.japanese_names = mergeUniqueBy(
+		target.japanese_names,
+		related.japanese_names,
+		(name) => String((name as any).id || JSON.stringify(name))
+	);
+	target.contains = mergeUniqueBy(
+		target.contains,
+		related.contains,
+		(preview) => `${preview.w}\u0000${preview.p || ''}\u0000${preview.jp || ''}\u0000${preview.kr || ''}`
+	);
+	target.contained_in_chinese = mergeUniqueBy(
+		target.contained_in_chinese,
+		related.contained_in_chinese,
+		(preview) => preview.w
+	);
+	target.contained_in_japanese = mergeUniqueBy(
+		target.contained_in_japanese,
+		related.contained_in_japanese,
+		(preview) => preview.w
+	);
+	target.contained_in_korean = mergeUniqueBy(
+		target.contained_in_korean,
+		related.contained_in_korean,
+		(preview) => preview.w
+	);
+	target.related_japanese_words = [
+		...new Set([
+			...(target.related_japanese_words || []),
+			...(related.related_japanese_words || [])
+		])
+	];
+
+	const primary = target.semantic_mnemonic;
+	target.semantic_mnemonic_variants = mergeSemanticMnemonicVariants(
+		[
+			...(target.semantic_mnemonic_variants || []),
+			related.semantic_mnemonic,
+			...(related.semantic_mnemonic_variants || [])
+		],
+		primary
+	);
+}
+
+async function loadRelatedCharacterForms(
+	data: DictionaryEntry,
+	redirectOriginal: DictionaryEntry | null,
+	fetchFn: typeof fetch
+): Promise<RelatedCharacterFormContext[]> {
+	const candidates = new Set<string>();
+	const canonicalCharacter = data.chinese_char?.char || data.key;
+
+	for (const character of data.chinese_char?.simpVariants || []) {
+		if (character !== canonicalCharacter) candidates.add(character);
+	}
+	if (
+		data.simplified_form_of &&
+		data.simplified_form_of !== canonicalCharacter
+	) {
+		candidates.add(data.simplified_form_of);
+	}
+	if (redirectOriginal?.key && redirectOriginal.key !== canonicalCharacter) {
+		candidates.add(redirectOriginal.key);
+	}
+
+	const entries = await Promise.all(
+		[...candidates].slice(0, 12).map(async (character) => {
+			if (redirectOriginal?.key === character) return redirectOriginal;
+			return fetchDictionaryEntry(character, fetchFn);
+		})
+	);
+
+	const contexts: RelatedCharacterFormContext[] = [];
+	const seenContexts = new Set<string>();
+	for (const related of entries) {
+		if (!related || related.key === data.key) continue;
+		if (!seenContexts.has(related.key)) {
+			seenContexts.add(related.key);
+			contexts.push(relatedCharacterFormContext(related));
+		}
+		if (equivalentTraditionalTarget(related) === canonicalCharacter) {
+			mergeEquivalentFormData(data, related);
+		}
+	}
+
+	return contexts;
+}
+
 /**
  * Page data returned by the load function
  */
@@ -124,6 +270,7 @@ export interface PageData {
 	charTaxonomy: CharTaxonomy;
 	componentUses: ComponentUsesMap;
 	characterLearningData: Promise<CharacterLearningData>;
+	relatedFormContexts: RelatedCharacterFormContext[];
 	// Conjugation info (passed via URL params when arriving from deinflection)
 	conjugatedFrom?: string;  // The original conjugated word
 	conjugationInfo?: string; // Human-readable conjugation description
@@ -207,6 +354,7 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 					charTaxonomy: {},
 					componentUses: {},
 					characterLearningData: Promise.resolve(emptyCharacterLearningData()),
+					relatedFormContexts: [],
 					customWord,
 					conjugatedFrom,
 					conjugationInfo,
@@ -226,6 +374,17 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 		// Get compressed data and decompress
 		const compressedData = await response.arrayBuffer();
 		let data: DictionaryEntry = decompressAndParse(compressedData);
+
+		// Canonicalize only semantically identical one-to-one merged forms.
+		// Meaning-bearing mergers (后/後, 制/製, etc.) intentionally remain
+		// distinct pages even though their written forms are cross-linked.
+		const canonicalTarget = equivalentTraditionalTarget(data);
+		if (canonicalTarget && canonicalTarget !== word) {
+			throw redirect(
+				308,
+				`/${encodeURIComponent(canonicalTarget)}${url.search}`
+			);
+		}
 
 		// Debug: Log image data for historical evolution
 		if (data.chinese_char?.images) {
@@ -296,6 +455,12 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 			}
 		}
 
+		const relatedFormContexts = await loadRelatedCharacterForms(
+			data,
+			redirectOriginal,
+			fetch
+		);
+
 		const characterLearningData = import('$lib/word-character-learning')
 			.then(({ buildCharacterLearningData }) =>
 				buildCharacterLearningData({
@@ -319,6 +484,7 @@ export const load: PageLoad<PageData> = async ({ params, fetch, url }) => {
 			charTaxonomy: {},
 			componentUses: {},
 			characterLearningData,
+			relatedFormContexts,
 			conjugatedFrom,
 			conjugationInfo,
 			conjugationAlternatives
