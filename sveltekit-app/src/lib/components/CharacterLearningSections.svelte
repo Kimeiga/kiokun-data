@@ -484,7 +484,19 @@
 			return;
 		}
 
-		// Fall back to KanjiVG for Japanese characters or if makemeahanzi matches not available
+		// KanjiVG only contains Japanese forms. Chinese-only forms such as 图 can
+		// legitimately be absent, so avoid an expected 404 and use the local
+		// sequential fallback directly.
+		const form = headerForms.find((item) => item.character === char);
+		const isJapaneseForm =
+			char === japaneseChar || Boolean(form?.roles.includes("japanese"));
+		if (!isJapaneseForm) {
+			await loadSequentialComponentMappings(char, targetMap);
+			return;
+		}
+
+		// Fall back to KanjiVG for Japanese characters when makemeahanzi
+		// component matches are unavailable.
 		console.log(`[COMPONENT-MAP] Falling back to KanjiVG for ${char}`);
 		try {
 			const codepoint = char
