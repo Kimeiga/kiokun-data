@@ -904,10 +904,11 @@
 
 	/* Level badges */
 	.level-badge {
-		padding: 2px 8px;
+		padding: 1px 6px;
 		border-radius: var(--radius-full);
-		font-size: 11px;
+		font-size: 10px;
 		font-weight: 600;
+		line-height: 1.3;
 		white-space: nowrap;
 		flex-shrink: 0;
 	}

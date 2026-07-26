@@ -51,7 +51,7 @@
 		letter-spacing: 0.4px;
 		display: flex;
 		align-items: center;
-		gap: 0.25em;
+		gap: 0;
 	}
 
 	.permalink-btn {
@@ -59,7 +59,7 @@
 		display: grid;
 		width: 2.75rem;
 		height: 2.75rem;
-		margin: -0.8rem -0.75rem -0.8rem -0.45rem;
+		margin: -0.8rem -1.25rem -0.8rem -0.9rem;
 		place-items: center;
 		cursor: pointer;
 		opacity: 0;
