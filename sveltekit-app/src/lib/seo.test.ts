@@ -29,7 +29,7 @@ const characterCard: OgCardData = {
 };
 
 const imageUrl = new URL(ogImagePath(characterCard), 'https://kiokun.com');
-assert.equal(imageUrl.searchParams.get('v'), '2', 'OG cards must be versioned for immutable caching');
+assert.equal(imageUrl.searchParams.get('v'), '3', 'OG cards must be versioned for immutable caching');
 const roundTripped = parseOgCard(imageUrl.searchParams);
 assert.deepEqual(roundTripped.forms, ['图', '図']);
 assert.equal(roundTripped.readings?.[1]?.value, 'ズ、ト');
@@ -69,5 +69,9 @@ const longWord = renderOgSvg({
 	definitions: ['UNESCO']
 });
 assert(longWord.includes('font-size="76"'), 'long word titles should step down to a fitted size');
+assert(longWord.includes('<line x1="716"'), 'word cards should keep identity and meanings in distinct columns');
+assert(longWord.includes('>Organization</text>'), 'long meanings should use available height before truncating');
+assert(!longWord.includes('MULTILINGUAL DICTIONARY'), 'word cards should not repeat a redundant dictionary label');
+assert(longWord.includes('kiokun.com'), 'word cards should retain a compact source label');
 
 console.log('SEO and OG card tests passed.');

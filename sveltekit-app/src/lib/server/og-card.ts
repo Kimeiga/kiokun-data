@@ -49,27 +49,40 @@ function wrapText(value: string, maxUnits: number, maxLines: number): string[] {
 	if (!input) return [];
 	const chars = graphemes(input);
 	const lines: string[] = [];
-	let line = '';
-	let units = 0;
+	let cursor = 0;
 
-	for (const char of chars) {
-		const nextUnits = units + glyphUnits(char);
-		if (line && nextUnits > maxUnits && lines.length < maxLines - 1) {
-			lines.push(line.trim());
-			line = char.trimStart();
-			units = textUnits(line);
-		} else {
-			line += char;
+	while (cursor < chars.length && lines.length < maxLines) {
+		let end = cursor;
+		let units = 0;
+		let lastSpace = -1;
+
+		while (end < chars.length) {
+			const nextUnits = units + glyphUnits(chars[end]);
+			if (end > cursor && nextUnits > maxUnits) break;
 			units = nextUnits;
+			if (/\s/.test(chars[end])) lastSpace = end;
+			end += 1;
 		}
-	}
-	if (line.trim()) lines.push(line.trim());
 
-	if (lines.length > maxLines) lines.length = maxLines;
-	const consumed = lines.join('').replace(/\s/g, '').length;
-	const sourceLength = input.replace(/\s/g, '').length;
-	if (consumed < sourceLength && lines.length) {
-		lines[lines.length - 1] = `${lines[lines.length - 1].replace(/[.,;:!?，。；：！？…]*$/, '')}…`;
+		if (end >= chars.length) {
+			lines.push(chars.slice(cursor).join('').trim());
+			cursor = chars.length;
+			break;
+		}
+
+		const breakAt = lastSpace >= cursor ? lastSpace + 1 : end;
+		const line = chars.slice(cursor, breakAt).join('').trim();
+		if (line) lines.push(line);
+		cursor = Math.max(breakAt, cursor + 1);
+		while (cursor < chars.length && /\s/.test(chars[cursor])) cursor += 1;
+	}
+
+	if (cursor < chars.length && lines.length) {
+		let finalLine = lines[lines.length - 1].replace(/[.,;:!?，。；：！？…]*$/, '').trimEnd();
+		while (finalLine.length > 1 && textUnits(`${finalLine}…`) > maxUnits) {
+			finalLine = graphemes(finalLine).slice(0, -1).join('').trimEnd();
+		}
+		lines[lines.length - 1] = `${finalLine}…`;
 	}
 	return lines;
 }
@@ -92,18 +105,20 @@ function textLines(
 		.join('');
 }
 
-function brand(): string {
+function brand(showLanguageTagline = true): string {
 	return `
 		<g transform="translate(64 552)">
 			<rect width="42" height="42" rx="12" fill="url(#brandGradient)"/>
 			<text x="21" y="30" fill="#fff" font-size="25" font-weight="700" text-anchor="middle">憶</text>
 			<text x="58" y="29" fill="#f5f5f5" font-size="24" font-weight="700">Kiokun</text>
-			<text x="158" y="28" fill="#737373" font-size="19">Chinese · Japanese · Korean</text>
+			${showLanguageTagline
+				? '<text x="158" y="28" fill="#737373" font-size="19">Chinese · Japanese · Korean</text>'
+				: '<text x="1072" y="29" fill="#8a8a8a" font-size="21" font-weight="500" text-anchor="end">kiokun.com</text>'}
 		</g>
 	`;
 }
 
-function base(content: string): string {
+function base(content: string, showLanguageTagline = true): string {
 	return `<svg xmlns="http://www.w3.org/2000/svg" width="${WIDTH}" height="${HEIGHT}" viewBox="0 0 ${WIDTH} ${HEIGHT}" font-family="'Noto Sans', 'Noto Sans SC', 'Noto Sans KR', sans-serif">
 		<defs>
 			<linearGradient id="brandGradient" x1="0" y1="0" x2="1" y2="1">
@@ -114,7 +129,7 @@ function base(content: string): string {
 		</defs>
 		<rect width="1200" height="630" fill="#050505"/>
 		<rect x="24" y="24" width="1152" height="582" rx="30" fill="#0a0a0a" stroke="#292929" stroke-width="2"/>
-		${brand()}
+		${brand(showLanguageTagline)}
 		${content}
 	</svg>`;
 }
@@ -126,11 +141,7 @@ function readingRail(readings: OgReading[], x: number, y: number, maxWidth: numb
 	const pieces: string[] = [];
 
 	for (const reading of readings.slice(0, 5)) {
-		const label = reading.label.includes('on’yomi')
-			? 'ON’YOMI'
-			: reading.label.includes('kun’yomi')
-				? 'KUN’YOMI'
-				: reading.label.replace('Japanese ', '').toUpperCase();
+		const label = readingLabel(reading.label);
 		const rawValue = reading.value.length > 32 ? `${reading.value.slice(0, 31)}…` : reading.value;
 		const value = rawValue;
 		const width = Math.min(maxWidth, Math.max(116, textUnits(value) * 22 + 32));
@@ -162,6 +173,83 @@ function definitionList(definitions: string[], x: number, y: number, width: numb
 	return pieces.join('');
 }
 
+function readingLabel(label: string): string {
+	return label.includes('on’yomi')
+		? 'ON’YOMI'
+		: label.includes('kun’yomi')
+			? 'KUN’YOMI'
+			: label.replace('Japanese ', '').toUpperCase();
+}
+
+function wordReadingStack(readings: OgReading[], x: number, y: number, maxWidth: number): string {
+	const visible = readings.slice(0, 3);
+	const maxValueLines = visible.length >= 3 ? 1 : 2;
+	let cursorY = y;
+	const pieces: string[] = [];
+
+	for (const reading of visible) {
+		const valueGraphemes = graphemes(reading.value);
+		const value =
+			valueGraphemes.length > 52 ? `${valueGraphemes.slice(0, 51).join('')}…` : reading.value;
+		const valueSize = 30;
+		const lines = wrapText(value, maxWidth / valueSize, maxValueLines);
+		if (!lines.length) continue;
+		pieces.push(
+			`<text x="${x}" y="${cursorY}" fill="#8a8a8a" font-size="18" font-weight="650" letter-spacing="1">${escapeXml(readingLabel(reading.label))}</text>`
+		);
+		pieces.push(textLines(lines, x, cursorY + 31, valueSize, 34, COLORS[reading.color], 600));
+		cursorY += 39 + lines.length * 34;
+	}
+	return pieces.join('');
+}
+
+function meaningKey(value: string): string {
+	return value
+		.toLocaleLowerCase('en')
+		.replace(/^(?:a|an|the|to)\s+/, '')
+		.replace(/[^\p{L}\p{N}]+/gu, '');
+}
+
+function wordMeanings(card: OgCardData, x: number, y: number, width: number): string {
+	const meanings: string[] = [];
+	const seen = new Set<string>();
+	for (const meaning of [card.subtitle || '', ...(card.definitions || [])]) {
+		const trimmed = meaning.trim();
+		const key = meaningKey(trimmed);
+		if (!trimmed || !key || seen.has(key)) continue;
+		seen.add(key);
+		meanings.push(trimmed);
+	}
+	if (!meanings.length) return '';
+
+	const primary = meanings[0];
+	const primaryUnits = textUnits(primary);
+	const primaryPreferred = primaryUnits <= 16 ? 52 : primaryUnits <= 30 ? 44 : 38;
+	const primarySize = Math.max(
+		34,
+		Math.min(primaryPreferred, Math.floor((width * 5) / Math.max(1, primaryUnits)))
+	);
+	const primaryLines = wrapText(primary, width / primarySize, 5);
+	const primaryLineHeight = Math.round(primarySize * 1.12);
+	const primaryEndY = y + Math.max(0, primaryLines.length - 1) * primaryLineHeight;
+	const secondaryStartY = primaryEndY + 67;
+	const secondarySize = 28;
+	const secondaryLineHeight = 36;
+	let cursorY = secondaryStartY;
+	const pieces = [textLines(primaryLines, x, y, primarySize, primaryLineHeight, '#34d399', 650)];
+
+	for (const meaning of meanings.slice(1, 4)) {
+		const availableLines = Math.max(1, Math.min(5, Math.floor((500 - cursorY) / secondaryLineHeight) + 1));
+		const lines = wrapText(meaning, (width - 24) / secondarySize, availableLines);
+		if (!lines.length || cursorY > 500) continue;
+		pieces.push(`<circle cx="${x + 5}" cy="${cursorY - 8}" r="4" fill="#34d399"/>`);
+		pieces.push(textLines(lines, x + 24, cursorY, secondarySize, secondaryLineHeight, '#d4d4d4', 450));
+		cursorY += lines.length * secondaryLineHeight + 24;
+	}
+
+	return pieces.join('');
+}
+
 function characterCard(card: OgCardData): string {
 	const titleSize = fitFontSize(card.title, 294, 260, 150);
 	const subtitle = card.subtitle || card.definitions?.[0] || '';
@@ -181,25 +269,29 @@ function characterCard(card: OgCardData): string {
 }
 
 function wordCard(card: OgCardData): string {
+	const leftX = 64;
+	const leftWidth = 620;
+	const rightX = 758;
+	const rightWidth = 378;
 	const titleChars = graphemes(card.title).length;
 	const preferred = titleChars <= 4 ? 110 : titleChars <= 8 ? 96 : titleChars <= 14 ? 76 : 60;
-	const titleSize = fitFontSize(card.title, 1060, preferred, 48);
-	const titleLines = wrapText(card.title, 1060 / titleSize, 2);
-	const titleStartY = 190;
-	const titleEndY = titleStartY + (titleLines.length - 1) * Math.round(titleSize * 1.04);
-	const subtitleY = titleEndY + 66;
-	const subtitle = card.subtitle || '';
-	const subtitleSize = fitFontSize(subtitle, 1060, 48, 34);
-	const readingY = Math.min(382, subtitleY + 66);
-	const definitionsY = Math.max(440, readingY + 86);
+	const maxTitleLines = titleChars <= 14 ? 2 : 3;
+	const titleSize = Math.max(
+		48,
+		Math.min(preferred, Math.floor((leftWidth * maxTitleLines) / Math.max(1, textUnits(card.title))))
+	);
+	const titleLines = wrapText(card.title, leftWidth / titleSize, maxTitleLines);
+	const titleLineHeight = Math.round(titleSize * 1.04);
+	const titleStartY = titleLines.length === 1 ? 180 : titleLines.length === 2 ? 138 : 104;
+	const titleEndY = titleStartY + (titleLines.length - 1) * titleLineHeight;
+	const readingY = Math.max(282, titleEndY + 62);
 
 	return base(`
-		<text x="64" y="82" fill="#737373" font-size="18" font-weight="700" letter-spacing="2">${escapeXml((card.eyebrow || 'MULTILINGUAL DICTIONARY').toUpperCase())}</text>
-		${textLines(titleLines, 64, titleStartY, titleSize, Math.round(titleSize * 1.04), '#f5f5f5', 650)}
-		${subtitle ? textLines(wrapText(subtitle, 1060 / subtitleSize, 1), 64, subtitleY, subtitleSize, Math.round(subtitleSize * 1.1), '#34d399', 650) : ''}
-		${readingRail(card.readings || [], 64, readingY, 1070)}
-		${definitionList(card.definitions || [], 64, definitionsY, 1040, definitionsY > 470 ? 1 : 2)}
-	`);
+		<line x1="716" y1="64" x2="716" y2="510" stroke="#292929" stroke-width="1"/>
+		${textLines(titleLines, leftX, titleStartY, titleSize, titleLineHeight, '#f5f5f5', 650)}
+		${wordReadingStack(card.readings || [], leftX, readingY, leftWidth)}
+		${wordMeanings(card, rightX, 124, rightWidth)}
+	`, false);
 }
 
 function sentenceCard(card: OgCardData): string {

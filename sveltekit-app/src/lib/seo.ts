@@ -542,7 +542,7 @@ export function structuredDataForSeo(seo: PageSeo, canonicalUrl: string): Struct
 
 export function ogImagePath(card: OgCardData): string {
 	const params = new URLSearchParams({
-		v: '2',
+		v: '3',
 		kind: card.kind,
 		title: truncate(card.title, 180)
 	});
