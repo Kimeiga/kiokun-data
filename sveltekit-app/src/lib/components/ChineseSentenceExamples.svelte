@@ -1,5 +1,6 @@
 <script lang="ts">
 	import AnnotatedSentence from '$lib/components/AnnotatedSentence.svelte';
+	import DisclosureChevron from '$lib/components/shared/DisclosureChevron.svelte';
 	import { buildChineseRubySegments } from '$lib/utils/sentence-ruby';
 
 	interface Props { word: string; words?: string[]; hasContent?: boolean; }
@@ -111,7 +112,7 @@
 				{showTraditional ? '🇹🇼' : '🇨🇳'}
 			</button>
 		</div>
-		<div class="example-list">
+		<div class="example-list" id="chinese-sentence-examples">
 			{#each displayed as s}
 				{@const sentenceText = showTraditional ? s.trad : s.simp}
 				{@const rubySegments = buildChineseRubySegments(sentenceText, s.py)}
@@ -131,9 +132,13 @@
 			{/each}
 		</div>
 		{#if hasMoreSentences}
-			<button class="toggle-btn" onclick={() => expanded = !expanded}>
-				{expanded ? 'Show less' : `Show more (${sentences.length - COLLAPSED_COUNT})`}
-			</button>
+			<DisclosureChevron
+				{expanded}
+				controls="chinese-sentence-examples"
+				onclick={() => expanded = !expanded}
+				expandLabel={`Show ${sentences.length - COLLAPSED_COUNT} more Chinese examples`}
+				collapseLabel="Show fewer Chinese examples"
+			/>
 		{/if}
 	</div>
 {/if}
@@ -152,13 +157,6 @@
 		transition: border-color 0.15s, color 0.15s;
 	}
 	.script-toggle:hover { border-color: var(--accent); color: var(--accent); }
-	.toggle-btn {
-		display: block; width: 100%; min-height: 2.75rem; padding: var(--spacing-xs); margin-top: var(--spacing-xs);
-		background: transparent; border: 1px solid var(--border-light); border-radius: var(--radius-sm);
-		color: var(--text-secondary); font-size: var(--font-size-caption2); cursor: pointer;
-		transition: border-color 0.15s, color 0.15s;
-	}
-	.toggle-btn:hover { border-color: var(--accent); color: var(--accent); }
 	.example-list { display: flex; flex-direction: column; gap: var(--spacing-xs); }
 	.example-item {
 		display: block; padding: var(--spacing-xs) var(--spacing-sm);

@@ -5,9 +5,10 @@
 		title?: string;
 		text?: string;
 		url?: string;
+		compact?: boolean;
 	}
 
-	let { title = '', text = '', url = '' }: Props = $props();
+	let { title = '', text = '', url = '', compact = false }: Props = $props();
 
 	let copied = $state(false);
 
@@ -36,7 +37,7 @@
 	}
 </script>
 
-<button class="share-btn" onclick={share} title={copied ? 'Copied!' : 'Share'} aria-label={copied ? 'Link copied' : 'Share this page'}>
+<button class="share-btn" class:compact onclick={share} title={copied ? 'Copied!' : 'Share'} aria-label={copied ? 'Link copied' : 'Share this page'}>
 	{#if copied}
 		<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 			<polyline points="20 6 9 17 4 12"></polyline>
@@ -67,5 +68,9 @@
 	.share-btn:hover {
 		color: var(--accent);
 		background: var(--accent-light);
+	}
+	.share-btn.compact {
+		width: 32px;
+		height: 32px;
 	}
 </style>

@@ -71,7 +71,7 @@
 		<!-- Audio pronunciation + Pitch accent + Homophones -->
 		{#if speakText}
 			<PitchAccent word={speakText} reading={displayKana.length > 0 ? displayKana[0].text : undefined} />
-			<SpeakButton text={speakText} lang="ja" size={18} />
+			<SpeakButton text={speakText} lang="ja" size={18} compact />
 			{#if displayKana.length > 0}
 				<a
 					href="/homophones/japanese?q={encodeURIComponent(displayKana[0].text)}"
@@ -94,16 +94,12 @@
 </div>
 
 <style>
-	.word-entry {
-		margin-bottom: var(--spacing-lg);
-	}
-
 	.homophone-link {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		min-width: 44px;
-		min-height: 44px;
+		min-width: 32px;
+		min-height: 32px;
 		padding: 2px 6px;
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-full);

@@ -18,7 +18,6 @@
 	import { languageStore } from "$lib/stores/languages.svelte";
 	import SentenceBar from "$lib/components/SentenceBar.svelte";
 	import ShareButton from "$lib/components/ShareButton.svelte";
-	import StudyModeToggle from "$lib/components/StudyModeToggle.svelte";
 	import LazyComponent from "$lib/components/LazyComponent.svelte";
 	import LazySentenceSections from "$lib/components/LazySentenceSections.svelte";
 	import { dictionaryDefinitions } from "$lib/seo";
@@ -30,14 +29,6 @@
 	const loadAppearsIn = () => import("$lib/AppearsIn.svelte");
 	const loadArtifactMentions = () => import("$lib/components/ArtifactMentions.svelte");
 	const loadReelsSection = () => import("$lib/components/ReelsSection.svelte");
-
-	// Study mode: tap-to-reveal interaction
-	function handleStudyClick(event: MouseEvent) {
-		const target = (event.target as HTMLElement).closest?.('.study-hide');
-		if (target) {
-			target.classList.toggle('revealed');
-		}
-	}
 
 	let { data }: { data: PageData } = $props();
 
@@ -498,9 +489,9 @@
 		<!-- Character Header -->
 		{#if data.data.chinese_char || data.data.japanese_char}
 			<div class="mb-0">
-				<div class="py-3 md:py-4">
+				<div class="py-2 md:py-3">
 					<!-- Compact Header: Characters + Pronunciations + Gloss in one line -->
-					<div class="flex flex-col gap-4 mb-4">
+					<div class="flex flex-col mb-2">
 						<!-- Identity row: written forms + learner meaning -->
 						<div class="character-identity-grid">
 							<!-- Character Variants with Stroke Animations -->
@@ -537,17 +528,11 @@
 							<!-- Main learner meaning and actions -->
 							{#if uniqueGloss}
 								<div class="character-summary">
-										<div class="character-title-row flex items-center gap-2 mb-1 md:mb-2">
+										<div class="character-title-row flex items-center gap-1 mb-1">
 										<h2
 											class="text-xl md:text-4xl font-bold text-accent leading-tight flex-1 min-w-0"
 										>
-												<button
-													type="button"
-													class="character-title-button study-hide"
-													onclick={handleStudyClick}
-												>
-													{uniqueGloss}
-												</button>
+											{uniqueGloss}
 										</h2>
 										{#if data.data.chinese_char?.statistics?.hskLevel}
 											<span class="level-badge hsk">HSK {data.data.chinese_char.statistics.hskLevel}</span>
@@ -555,8 +540,7 @@
 										{#if data.data.japanese_char?.misc?.jlptLevel}
 											<span class="level-badge jlpt">N{data.data.japanese_char.misc.jlptLevel}</span>
 										{/if}
-										<StudyModeToggle />
-										<ShareButton title="{data.word} - Kiokun Dictionary" />
+										<ShareButton title="{data.word} - Kiokun Dictionary" compact />
 										<SaveToStudy
 											word={data.word}
 											language={data.data.chinese_char ? 'zh' : (data.data.japanese_char ? 'ja' : 'ko')}
@@ -565,7 +549,7 @@
 									</div>
 									<!-- Taxonomy breadcrumb -->
 									{#if taxonomy && taxonomy.length > 0}
-										<div class="taxonomy-breadcrumb text-xs text-text-tertiary mb-2 flex items-center gap-1 flex-wrap">
+										<div class="taxonomy-breadcrumb text-xs text-text-tertiary mb-1 flex items-center gap-1 flex-wrap">
 											{#each taxonomy as category, i}
 												<a
 													href="/category/{taxonomy.slice(0, i + 1).join('/')}"
@@ -578,23 +562,20 @@
 										</div>
 									{/if}
 									{#if senseHighlights.length > 0}
-										<button type="button" class="character-sense-preview study-hide" onclick={handleStudyClick}>
+										<div class="character-sense-preview">
 											{#each senseHighlights as sense, index}
 												{#if index > 0}<span class="sense-separator" aria-hidden="true">·</span>{/if}
 												<span>{sense}</span>
 											{/each}
-										</button>
+										</div>
 									{/if}
 								</div>
 							{/if}
 
 							{#if headerReadings.length > 0}
-								<!-- svelte-ignore a11y_click_events_have_key_events -->
-								<!-- svelte-ignore a11y_no_static_element_interactions -->
 								<div
-									class="character-readings study-hide"
+									class="character-readings"
 									aria-label="Character readings"
-									onclick={handleStudyClick}
 								>
 									{#each headerReadings as reading, index}
 										{#if index > 0}
@@ -631,14 +612,12 @@
 
 		<!-- Chinese, Japanese, and Korean Words -->
 		{#if showChineseWords || showJapaneseWords || showKoreanWords}
-			<!-- svelte-ignore a11y_click_events_have_key_events -->
-			<!-- svelte-ignore a11y_no_static_element_interactions -->
-			<div class="word-sections-grid study-hide" class:two-primary-word-grid={twoPrimaryWordColumns} onclick={handleStudyClick}>
+			<div class="word-sections-grid" class:two-primary-word-grid={twoPrimaryWordColumns}>
 				<!-- Chinese Words -->
 				{#if data.data.chinese_words?.length && languageStore.preferences.chinese}
 					<div class="word-section-chinese">
 						<SectionHeading id="chinese">Chinese</SectionHeading>
-						<div class="mb-4">
+						<div>
 							{#each data.data.chinese_words as word}
 								{#if word.items && word.items.length > 0}
 									{@const itemsWithDefs = word.items.filter(
@@ -672,7 +651,7 @@
 														[{item.jyutping}]
 													</span>
 												{/if}
-												<SpeakButton text={word.simp || word.trad || data.word} lang="zh" size={18} />
+												<SpeakButton text={word.simp || word.trad || data.word} lang="zh" size={18} compact />
 												<SaveToStudy word={word.simp || word.trad || data.word} language="zh" size="sm" />
 											</div>
 											<!-- Definitions -->
@@ -697,7 +676,7 @@
 				{#if data.data.japanese_words?.length && languageStore.preferences.japanese}
 					<div class="word-section-japanese">
 						<SectionHeading id="japanese">Japanese</SectionHeading>
-						<div class="mb-4" lang="ja">
+						<div lang="ja">
 							<WordTable
 								words={data.data.japanese_words}
 							/>
@@ -709,7 +688,7 @@
 				{#if data.data.korean_words?.length && languageStore.preferences.korean}
 					<div class="word-section-korean" lang="ko">
 						<SectionHeading id="korean">Korean</SectionHeading>
-						<div class="mb-4">
+						<div>
 							{#each data.data.korean_words as word}
 								<div class="korean-word-entry">
 									<!-- Hangul and Hanja -->
@@ -718,7 +697,7 @@
 										{#if word.hanja}
 											<span class="korean-hanja">[{word.hanja}]</span>
 										{/if}
-										<SpeakButton text={word.hangul} lang="ko" size={18} />
+										<SpeakButton text={word.hangul} lang="ko" size={18} compact />
 										<SaveToStudy word={word.hangul} language="ko" size="sm" />
 									</div>
 									<!-- Part of speech -->
@@ -743,7 +722,7 @@
 
 		<!-- Homophones -->
 		{#if homophones.length > 0}
-			<SectionHeading id="homophones">Homophones</SectionHeading>
+			<SectionHeading id="homophones" divided={false}>Homophones</SectionHeading>
 			<div class="homophones-section">
 				{#each homophones as group}
 					<div class="homophone-group">
@@ -843,41 +822,6 @@
 	/* Homophones */
 	.homophones-section { margin-bottom: var(--spacing-lg); }
 
-	.character-title-button {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		min-width: 44px;
-		min-height: 44px;
-		max-width: 100%;
-		padding: 0;
-		border: 0;
-		background: transparent;
-		color: inherit;
-		font: inherit;
-		line-height: inherit;
-		text-align: left;
-		cursor: pointer;
-	}
-
-	.character-title-button:focus-visible {
-		outline: 2px solid var(--accent);
-		outline-offset: 3px;
-		border-radius: var(--radius-sm);
-	}
-
-	.taxonomy-breadcrumb {
-		min-height: 44px;
-	}
-
-	.taxonomy-link {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		min-width: 44px;
-		min-height: 44px;
-	}
-
 	.homophone-group { margin-bottom: var(--spacing-sm); }
 	.homophone-reading {
 		font-size: var(--font-size-caption1);
@@ -937,7 +881,7 @@
 		display: grid;
 		grid-template-columns: auto minmax(0, 1fr);
 		align-items: center;
-		gap: var(--spacing-md) var(--spacing-lg);
+		gap: var(--spacing-sm) var(--spacing-lg);
 	}
 
 	.character-form-list {
@@ -976,8 +920,6 @@
 		flex-wrap: wrap;
 		align-items: baseline;
 		gap: 0.25rem 0.55rem;
-		padding-top: var(--spacing-sm);
-		border-top: 1px solid var(--border-light);
 		color: var(--text-secondary);
 	}
 
@@ -1002,10 +944,9 @@
 	.character-sense-preview {
 		display: flex;
 		align-items: center;
-		min-height: 44px;
 		flex-wrap: wrap;
 		gap: 0.15rem 0.45rem;
-		margin-bottom: var(--spacing-sm);
+		margin-bottom: var(--spacing-xs);
 		padding: 0;
 		border: 0;
 		background: transparent;
@@ -1054,7 +995,7 @@
 
 	/* Chinese word entry styling to match Japanese word styling */
 	.chinese-word-entry {
-		margin-bottom: var(--spacing-xl);
+		margin-bottom: var(--spacing-md);
 	}
 
 	.chinese-headwords {
@@ -1092,7 +1033,7 @@
 
 	/* Korean word entry styling */
 	.korean-word-entry {
-		margin-bottom: var(--spacing-xl);
+		margin-bottom: var(--spacing-md);
 	}
 
 	.korean-headwords {

@@ -23,9 +23,11 @@
 		/** Optional: render as a bordered pill that matches themed pill buttons.
 		 *  Intended for use together with `label`. */
 		pill?: boolean;
+		/** Optional: use the compact inline control size for dense dictionary rows. */
+		compact?: boolean;
 	}
 
-	let { text, lang, size = 16, label, pill = false }: Props = $props();
+	let { text, lang, size = 16, label, pill = false, compact = false }: Props = $props();
 
 	let isSpeaking = $state(false);
 	let isSupported = $state(true);
@@ -245,6 +247,7 @@
 		class="speak-button"
 		class:speaking={isSpeaking}
 		class:pill
+		class:compact
 		onclick={speak}
 		title={lang === 'zh' ? 'Listen (Chinese)' : lang === 'ko' ? 'Listen (Korean)' : 'Listen (Japanese)'}
 		aria-label={lang === 'zh' ? 'Listen to Chinese pronunciation' : lang === 'ko' ? 'Listen to Korean pronunciation' : 'Listen to Japanese pronunciation'}
@@ -289,6 +292,12 @@
 	.speak-button:hover {
 		color: var(--text-primary, #333);
 		background: var(--bg-secondary, #f5f5f5);
+	}
+
+	.speak-button.compact {
+		min-width: 32px;
+		min-height: 32px;
+		padding: 2px;
 	}
 
 	.speak-button:active {

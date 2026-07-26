@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import AnnotatedSentence from '$lib/components/AnnotatedSentence.svelte';
+	import DisclosureChevron from '$lib/components/shared/DisclosureChevron.svelte';
 
 	interface Props {
 		word: string;
@@ -104,7 +105,7 @@
 	<div class="kr-examples">
 		<div class="examples-main">
 			<div class="column-header">🇰🇷 ({sentences.length})</div>
-			<div class="example-list">
+			<div class="example-list" id="korean-sentence-examples">
 				{#each displayed as s}
 					<a
 						class="example-item"
@@ -118,9 +119,13 @@
 				{/each}
 			</div>
 			{#if hasMoreSentences}
-				<button class="toggle-btn" onclick={() => expanded = !expanded}>
-					{expanded ? 'Show less' : `Show more (${sentences.length - COLLAPSED_COUNT})`}
-				</button>
+				<DisclosureChevron
+					{expanded}
+					controls="korean-sentence-examples"
+					onclick={() => expanded = !expanded}
+					expandLabel={`Show ${sentences.length - COLLAPSED_COUNT} more Korean examples`}
+					collapseLabel="Show fewer Korean examples"
+				/>
 			{/if}
 		</div>
 	</div>
@@ -129,13 +134,6 @@
 <style>
 	.kr-examples { position: relative; }
 	.column-header { font-size: var(--font-size-caption1); font-weight: 600; color: var(--text-secondary); margin-bottom: var(--spacing-sm); }
-	.toggle-btn {
-		display: block; width: 100%; min-height: 2.75rem; padding: var(--spacing-xs); margin-top: var(--spacing-xs);
-		background: transparent; border: 1px solid var(--border-light); border-radius: var(--radius-sm);
-		color: var(--text-secondary); font-size: var(--font-size-caption2); cursor: pointer;
-		transition: border-color 0.15s, color 0.15s;
-	}
-	.toggle-btn:hover { border-color: var(--accent); color: var(--accent); }
 	.examples-main { min-width: 0; }
 	.example-list { display: flex; flex-direction: column; gap: var(--spacing-xs); }
 	.example-item {

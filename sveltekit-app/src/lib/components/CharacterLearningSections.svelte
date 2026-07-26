@@ -14,6 +14,7 @@
 	import SectionHeading from "$lib/components/shared/SectionHeading.svelte";
 	import SemanticMnemonicCard from "$lib/components/SemanticMnemonicCard.svelte";
 	import LazyComponent from "$lib/components/LazyComponent.svelte";
+	import DisclosureChevron from "$lib/components/shared/DisclosureChevron.svelte";
 
 	const loadNotes = () => import("$lib/components/Notes.svelte");
 	const loadSimilarCharacters = () => import("$lib/components/SimilarCharacters.svelte");
@@ -34,6 +35,26 @@
 
 	let charGlosses = $derived(support?.charGlosses || {});
 	let componentUses = $derived(support?.componentUses || {});
+	let historicalExpanded = $state(false);
+	let historicalListElement: HTMLDivElement | null = $state(null);
+	let historicalCanExpand = $state(false);
+
+	$effect(() => {
+		const element = historicalListElement;
+		if (!element || historicalExpanded || typeof ResizeObserver === "undefined") return;
+
+		const measure = () => {
+			historicalCanExpand = element.scrollHeight > element.clientHeight + 1;
+		};
+		const frame = requestAnimationFrame(measure);
+		const observer = new ResizeObserver(measure);
+		observer.observe(element);
+
+		return () => {
+			cancelAnimationFrame(frame);
+			observer.disconnect();
+		};
+	});
 
 	const showClaudeMnemonics = false;
 
@@ -1357,7 +1378,12 @@ rootMargin="1200px 0px"
 	{@const historicalImages = data.data.chinese_char.images.filter((img: { url?: string }) => img.url)}
 	<div class="mb-3">
 	<SectionHeading id="history">Historical Evolution</SectionHeading>
-	<div class="historical-scroll flex gap-2 overflow-x-auto pb-2">
+	<div
+		class="historical-scroll"
+		class:expanded={historicalExpanded}
+		id="historical-evolution-list"
+		bind:this={historicalListElement}
+	>
 		{#each historicalImages as image}
 {#if image.url}
 	<div class="historical-card">
@@ -1400,6 +1426,15 @@ onerror={(e) => {
 </div>
 		</div>
 	</div>
+	{#if historicalCanExpand || historicalExpanded}
+		<DisclosureChevron
+			expanded={historicalExpanded}
+			controls="historical-evolution-list"
+			onclick={() => historicalExpanded = !historicalExpanded}
+			expandLabel="Show all historical forms"
+			collapseLabel="Show fewer historical forms"
+		/>
+	{/if}
 	</div>
 {/if}
 
@@ -1473,8 +1508,17 @@ onerror={(e) => {
 	}
 
 	.historical-scroll {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--spacing-sm);
 		max-width: 100%;
 		min-width: 0;
+		max-height: 7.25rem;
+		overflow: hidden;
+	}
+
+	.historical-scroll.expanded {
+		max-height: none;
 	}
 
 	.historical-card {
@@ -1508,11 +1552,6 @@ onerror={(e) => {
 	}
 
 	@media (max-width: 768px) {
-		.historical-scroll {
-			flex-wrap: wrap;
-			overflow-x: visible;
-		}
-
 		.historical-card {
 			flex: 1 1 68px;
 			padding: var(--spacing-sm);

@@ -3,6 +3,7 @@
 	// Based on 10ten-ja-reader's NameEntry component
 	import Tag from "./shared/Tag.svelte";
 	import SectionHeading from "./shared/SectionHeading.svelte";
+	import DisclosureChevron from "./shared/DisclosureChevron.svelte";
 
 	interface JmnedictName {
 		id: string;
@@ -26,15 +27,27 @@
 
 	let { names, word }: Props = $props();
 
-	// Pagination state
 	let showAll = $state(false);
-	let initialCount = 4; // Show first row (4 items on desktop)
+	let namesContainer: HTMLDivElement | null = $state(null);
+	let canExpand = $state(false);
 
-	// Computed displayed names
-	let displayedNames = $derived(
-		showAll ? names : names.slice(0, initialCount),
-	);
-	let hasMore = $derived(names.length > initialCount);
+	$effect(() => {
+		const element = namesContainer;
+		const _names = names;
+		if (!element || showAll || typeof ResizeObserver === "undefined") return;
+
+		const measure = () => {
+			canExpand = element.scrollHeight > element.clientHeight + 1;
+		};
+		const frame = requestAnimationFrame(measure);
+		const observer = new ResizeObserver(measure);
+		observer.observe(element);
+
+		return () => {
+			cancelAnimationFrame(frame);
+			observer.disconnect();
+		};
+	});
 
 	// Type display names (English labels for tags)
 	const typeLabels: Record<string, string> = {
@@ -62,7 +75,12 @@
 
 <div class="japanese-names">
 	<SectionHeading id="names">Japanese Names</SectionHeading>
-	<div class="names-container" class:expanded={showAll}>
+	<div
+		class="names-container"
+		class:expanded={showAll}
+		id="japanese-names-list"
+		bind:this={namesContainer}
+	>
 		<div class="names-grid">
 			{#each names as name}
 				<div class="name-entry">
@@ -100,59 +118,39 @@
 				</div>
 			{/each}
 		</div>
-
-		{#if !showAll && names.length > initialCount}
-			<div class="gradient-overlay"></div>
-		{/if}
 	</div>
 
-	{#if names.length > initialCount}
-		<button
-			class="toggle-btn"
-			onclick={() => (showAll = !showAll)}
-			aria-label={showAll ? "Collapse" : "Expand"}
-		>
-			<div class="arrow-icon" class:flipped={showAll}>
-				<svg
-					width="24"
-					height="24"
-					viewBox="0 0 24 24"
-					fill="none"
-					xmlns="http://www.w3.org/2000/svg"
-				>
-					<path
-						d="M6 9L12 15L18 9"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-					/>
-				</svg>
-			</div>
-		</button>
+	{#if canExpand || showAll}
+		<DisclosureChevron
+			expanded={showAll}
+			controls="japanese-names-list"
+			onclick={() => showAll = !showAll}
+			expandLabel="Show all Japanese names"
+			collapseLabel="Show fewer Japanese names"
+		/>
 	{/if}
 </div>
 
 <style>
 	.japanese-names {
-		margin-bottom: var(--spacing-xl);
+		margin-bottom: var(--spacing-md);
 		position: relative;
 	}
 
 	.names-container {
 		position: relative;
-		max-height: 70px; /* Strictly 1 row */
+		max-height: 4.5rem;
 		overflow: hidden;
 	}
 
 	.names-container.expanded {
-		max-height: 600px; /* Reduced further to minimize "invisible" transition time */
+		max-height: none;
 	}
 
 	.names-grid {
 		display: grid;
 		grid-template-columns: 1fr;
-		gap: 0;
+		gap: var(--spacing-sm);
 	}
 
 	/* 2 columns on tablet */
@@ -172,11 +170,6 @@
 	.name-entry {
 		padding: var(--spacing-sm) var(--spacing-md);
 		break-inside: avoid;
-		border-bottom: 1px solid var(--border-light);
-	}
-
-	.name-entry:last-child {
-		border-bottom: none;
 	}
 
 	.name-headwords {
@@ -217,41 +210,4 @@
 		color: var(--text-secondary);
 	}
 
-	.gradient-overlay {
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		height: 80px;
-		background: linear-gradient(to bottom, transparent, var(--bg-primary));
-		pointer-events: none;
-	}
-
-	.toggle-btn {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		width: 100%;
-		padding: 8px;
-		margin-top: -10px; /* Pull up slightly to overlap/connect */
-		background: transparent;
-		border: none;
-		color: var(--text-secondary);
-		cursor: pointer;
-		position: relative;
-		z-index: 10;
-		transition: color 0.2s;
-	}
-
-	.toggle-btn:hover {
-		color: var(--accent);
-	}
-
-	.arrow-icon {
-		transition: transform 0.3s ease;
-	}
-
-	.arrow-icon.flipped {
-		transform: rotate(180deg);
-	}
 </style>

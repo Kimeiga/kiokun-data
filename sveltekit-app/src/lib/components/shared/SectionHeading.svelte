@@ -1,5 +1,13 @@
 <script lang="ts">
-	let { children, id }: { children: any; id?: string } = $props();
+	let {
+		children,
+		id,
+		divided = true,
+	}: {
+		children: any;
+		id?: string;
+		divided?: boolean;
+	} = $props();
 
 	let copied = $state(false);
 
@@ -15,7 +23,7 @@
 	}
 </script>
 
-<div class="section-heading" id={id}>
+<div class="section-heading" class:undivided={!divided} id={id}>
 	<div class="section-heading-content">
 		{@render children()}
 		{#if id}
@@ -43,6 +51,11 @@
 		padding-top: var(--spacing-xs);
 	}
 
+	.section-heading.undivided {
+		border-top: 0;
+		padding-top: 0;
+	}
+
 	.section-heading-content {
 		font-size: var(--font-size-caption1);
 		font-weight: 700;
@@ -57,9 +70,9 @@
 	.permalink-btn {
 		all: unset;
 		display: grid;
-		width: 2.75rem;
-		height: 2.75rem;
-		margin: -0.8rem -1.25rem -0.8rem -0.9rem;
+		width: 2rem;
+		height: 2rem;
+		margin: -0.45rem -0.65rem -0.45rem -0.45rem;
 		place-items: center;
 		cursor: pointer;
 		opacity: 0;

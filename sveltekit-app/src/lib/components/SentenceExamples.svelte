@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { JapaneseSense, KoreanWord } from "$lib/types";
 	import AnnotatedSentence from "$lib/components/AnnotatedSentence.svelte";
+	import DisclosureChevron from "$lib/components/shared/DisclosureChevron.svelte";
 	import { japaneseExamplesForSense } from "$lib/japanese-examples";
 
 	interface Props {
@@ -50,7 +51,7 @@
 	<div class="sentence-column">
 		<div class="column-header">🇯🇵 ({examples.length})</div>
 
-		<div class="examples-list">
+		<div class="examples-list" id="japanese-sentence-examples">
 			{#each displayed as item}
 				<a
 					class="example-item"
@@ -67,9 +68,13 @@
 		</div>
 
 		{#if hasMore}
-			<button class="toggle-btn" onclick={() => expanded = !expanded}>
-				{expanded ? 'Show less' : `Show more (${examples.length - COLLAPSED_COUNT})`}
-			</button>
+			<DisclosureChevron
+				{expanded}
+				controls="japanese-sentence-examples"
+				onclick={() => expanded = !expanded}
+				expandLabel={`Show ${examples.length - COLLAPSED_COUNT} more Japanese examples`}
+				collapseLabel="Show fewer Japanese examples"
+			/>
 		{/if}
 
 	</div>
@@ -122,23 +127,4 @@
 		line-height: 1.4;
 	}
 
-	.toggle-btn {
-		display: block;
-		width: 100%;
-		min-height: 2.75rem;
-		padding: var(--spacing-xs);
-		margin-top: var(--spacing-xs);
-		background: transparent;
-		border: 1px solid var(--border-light);
-		border-radius: var(--radius-sm);
-		color: var(--text-secondary);
-		font-size: var(--font-size-caption2);
-		cursor: pointer;
-		transition: border-color 0.15s, color 0.15s;
-	}
-
-	.toggle-btn:hover {
-		border-color: var(--accent);
-		color: var(--accent);
-	}
 </style>

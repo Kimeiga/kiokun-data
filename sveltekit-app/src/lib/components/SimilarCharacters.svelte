@@ -1,5 +1,6 @@
 <script lang="ts">
 	import SectionHeading from "./shared/SectionHeading.svelte";
+	import DisclosureChevron from "./shared/DisclosureChevron.svelte";
 
 	interface Props {
 		targetChar: string;
@@ -14,6 +15,10 @@
 
 	let { targetChar, targetStrokeCount, targetComponents, componentUses, charGlosses }: Props =
 		$props();
+	let expanded = $state(false);
+	let listElement: HTMLDivElement | null = $state(null);
+	let canExpand = $state(false);
+	let visibleCollapsedCount = $state(20);
 
 	// Find similar characters: share at least one component with the target
 	let similarChars = $derived.by(() => {
@@ -54,14 +59,49 @@
 			.sort((a, b) => b.score - a.score)
 			.slice(0, 20);
 	});
+
+	$effect(() => {
+		const element = listElement;
+		const _items = similarChars;
+		if (!element || expanded || typeof ResizeObserver === "undefined") return;
+
+		const measure = () => {
+			const items = Array.from(element.querySelectorAll<HTMLElement>(".similar-chip"));
+			const firstTop = items[0]?.offsetTop;
+			visibleCollapsedCount = firstTop === undefined
+				? items.length
+				: items.filter((item) => item.offsetTop === firstTop).length;
+			canExpand = visibleCollapsedCount < items.length;
+		};
+		const frame = requestAnimationFrame(measure);
+		const observer = new ResizeObserver(measure);
+		observer.observe(element);
+
+		return () => {
+			cancelAnimationFrame(frame);
+			observer.disconnect();
+		};
+	});
 </script>
 
 {#if similarChars.length > 0}
 	<div class="similar-section">
 		<SectionHeading id="similar">Similar Characters</SectionHeading>
-		<div class="similar-scroll" lang="zh">
-			{#each similarChars as item}
-				<a href="/{item.char}" class="similar-chip" title={item.gloss || item.char}>
+		<div
+			class="similar-scroll"
+			class:expanded
+			id="similar-character-list"
+			bind:this={listElement}
+			lang="zh"
+		>
+			{#each similarChars as item, index}
+				<a
+					href="/{item.char}"
+					class="similar-chip"
+					title={item.gloss || item.char}
+					aria-hidden={!expanded && index >= visibleCollapsedCount}
+					tabindex={!expanded && index >= visibleCollapsedCount ? -1 : undefined}
+				>
 					<span class="chip-char">{item.char}</span>
 					{#if item.gloss}
 						<span class="chip-gloss">{item.gloss}</span>
@@ -69,12 +109,21 @@
 				</a>
 			{/each}
 		</div>
+		{#if canExpand || expanded}
+			<DisclosureChevron
+				{expanded}
+				controls="similar-character-list"
+				onclick={() => expanded = !expanded}
+				expandLabel="Show all similar characters"
+				collapseLabel="Show fewer similar characters"
+			/>
+		{/if}
 	</div>
 {/if}
 
 <style>
 	.similar-section {
-		margin-bottom: var(--spacing-lg);
+		margin-bottom: var(--spacing-md);
 	}
 
 	.similar-scroll {
@@ -83,8 +132,13 @@
 		gap: var(--spacing-sm);
 		max-width: 100%;
 		min-width: 0;
-		overflow-x: visible;
-		padding-bottom: var(--spacing-sm);
+		max-height: 4rem;
+		overflow: hidden;
+		padding-bottom: var(--spacing-xs);
+	}
+
+	.similar-scroll.expanded {
+		max-height: none;
 	}
 
 	.similar-chip {
