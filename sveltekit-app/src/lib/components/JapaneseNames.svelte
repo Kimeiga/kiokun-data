@@ -4,6 +4,10 @@
 	import Tag from "./shared/Tag.svelte";
 	import SectionHeading from "./shared/SectionHeading.svelte";
 	import DisclosureChevron from "./shared/DisclosureChevron.svelte";
+	import {
+		animateDisclosureHeight,
+		measureFirstVisualRow,
+	} from "$lib/utils/disclosure-motion";
 
 	interface JmnedictName {
 		id: string;
@@ -30,6 +34,7 @@
 	let showAll = $state(false);
 	let namesContainer: HTMLDivElement | null = $state(null);
 	let canExpand = $state(false);
+	let collapsedHeight = $state(72);
 
 	$effect(() => {
 		const element = namesContainer;
@@ -37,17 +42,32 @@
 		if (!element || showAll || typeof ResizeObserver === "undefined") return;
 
 		const measure = () => {
-			canExpand = element.scrollHeight > element.clientHeight + 1;
+			const items = Array.from(element.querySelectorAll<HTMLElement>(".name-entry"));
+			const row = measureFirstVisualRow(element, ".name-entry");
+			if (row.height > 0) collapsedHeight = row.height;
+			canExpand = row.count < items.length;
 		};
 		const frame = requestAnimationFrame(measure);
 		const observer = new ResizeObserver(measure);
 		observer.observe(element);
+		for (const item of element.querySelectorAll(".name-entry")) {
+			observer.observe(item);
+		}
 
 		return () => {
 			cancelAnimationFrame(frame);
 			observer.disconnect();
 		};
 	});
+
+	function toggleExpanded() {
+		void animateDisclosureHeight({
+			element: namesContainer,
+			nextExpanded: !showAll,
+			collapsedHeight,
+			setExpanded: (value) => showAll = value,
+		});
+	}
 
 	// Type display names (English labels for tags)
 	const typeLabels: Record<string, string> = {
@@ -80,6 +100,7 @@
 		class:expanded={showAll}
 		id="japanese-names-list"
 		bind:this={namesContainer}
+		style={`--collapsed-height: ${collapsedHeight}px`}
 	>
 		<div class="names-grid">
 			{#each names as name}
@@ -124,7 +145,7 @@
 		<DisclosureChevron
 			expanded={showAll}
 			controls="japanese-names-list"
-			onclick={() => showAll = !showAll}
+			onclick={toggleExpanded}
 			expandLabel="Show all Japanese names"
 			collapseLabel="Show fewer Japanese names"
 		/>
@@ -133,13 +154,13 @@
 
 <style>
 	.japanese-names {
-		margin-bottom: var(--spacing-md);
+		margin-bottom: var(--spacing-xs);
 		position: relative;
 	}
 
 	.names-container {
 		position: relative;
-		max-height: 4.5rem;
+		max-height: var(--collapsed-height, 4.5rem);
 		overflow: hidden;
 	}
 

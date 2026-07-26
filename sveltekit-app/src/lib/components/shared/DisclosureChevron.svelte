@@ -25,8 +25,8 @@
 	title={expanded ? collapseLabel : expandLabel}
 >
 	<svg
-		width="18"
-		height="18"
+		width="14"
+		height="14"
 		viewBox="0 0 24 24"
 		fill="none"
 		stroke="currentColor"
@@ -44,22 +44,29 @@
 		position: relative;
 		z-index: 1;
 		display: grid;
-		width: 2.125rem;
-		height: 1.875rem;
-		margin: -0.25rem auto 0;
+		width: 1.625rem;
+		height: 1.625rem;
+		margin: 0.2rem auto -0.125rem;
 		padding: 0;
 		place-items: center;
-		border: 1px solid var(--border-light);
-		border-radius: var(--radius-full);
-		background: var(--bg-primary);
+		border: 0;
+		border-radius: 50%;
+		background: var(--bg-secondary);
 		color: var(--text-tertiary);
 		cursor: pointer;
-		transition: border-color 0.15s ease, color 0.15s ease;
+		transition:
+			background-color 0.15s ease,
+			color 0.15s ease,
+			transform 0.12s ease;
 	}
 
 	.disclosure-chevron:hover {
-		border-color: var(--accent);
+		background: var(--accent-light);
 		color: var(--accent);
+	}
+
+	.disclosure-chevron:active {
+		transform: scale(0.92);
 	}
 
 	.disclosure-chevron:focus-visible {
@@ -73,5 +80,12 @@
 
 	.expanded svg {
 		transform: rotate(180deg);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.disclosure-chevron,
+		svg {
+			transition: none;
+		}
 	}
 </style>

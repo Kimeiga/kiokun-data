@@ -1,6 +1,10 @@
 <script lang="ts">
 	import SectionHeading from "./shared/SectionHeading.svelte";
 	import DisclosureChevron from "./shared/DisclosureChevron.svelte";
+	import {
+		animateDisclosureHeight,
+		measureFirstVisualRow,
+	} from "$lib/utils/disclosure-motion";
 
 	interface Props {
 		targetChar: string;
@@ -19,6 +23,7 @@
 	let listElement: HTMLDivElement | null = $state(null);
 	let canExpand = $state(false);
 	let visibleCollapsedCount = $state(20);
+	let collapsedHeight = $state(68);
 
 	// Find similar characters: share at least one component with the target
 	let similarChars = $derived.by(() => {
@@ -67,21 +72,32 @@
 
 		const measure = () => {
 			const items = Array.from(element.querySelectorAll<HTMLElement>(".similar-chip"));
-			const firstTop = items[0]?.offsetTop;
-			visibleCollapsedCount = firstTop === undefined
-				? items.length
-				: items.filter((item) => item.offsetTop === firstTop).length;
+			const row = measureFirstVisualRow(element, ".similar-chip");
+			visibleCollapsedCount = row.count || items.length;
+			if (row.height > 0) collapsedHeight = row.height;
 			canExpand = visibleCollapsedCount < items.length;
 		};
 		const frame = requestAnimationFrame(measure);
 		const observer = new ResizeObserver(measure);
 		observer.observe(element);
+		for (const item of element.querySelectorAll(".similar-chip")) {
+			observer.observe(item);
+		}
 
 		return () => {
 			cancelAnimationFrame(frame);
 			observer.disconnect();
 		};
 	});
+
+	function toggleExpanded() {
+		void animateDisclosureHeight({
+			element: listElement,
+			nextExpanded: !expanded,
+			collapsedHeight,
+			setExpanded: (value) => expanded = value,
+		});
+	}
 </script>
 
 {#if similarChars.length > 0}
@@ -92,6 +108,7 @@
 			class:expanded
 			id="similar-character-list"
 			bind:this={listElement}
+			style={`--collapsed-height: ${collapsedHeight}px`}
 			lang="zh"
 		>
 			{#each similarChars as item, index}
@@ -113,7 +130,7 @@
 			<DisclosureChevron
 				{expanded}
 				controls="similar-character-list"
-				onclick={() => expanded = !expanded}
+				onclick={toggleExpanded}
 				expandLabel="Show all similar characters"
 				collapseLabel="Show fewer similar characters"
 			/>
@@ -123,7 +140,7 @@
 
 <style>
 	.similar-section {
-		margin-bottom: var(--spacing-md);
+		margin-bottom: 0;
 	}
 
 	.similar-scroll {
@@ -132,9 +149,8 @@
 		gap: var(--spacing-sm);
 		max-width: 100%;
 		min-width: 0;
-		max-height: 4rem;
+		max-height: var(--collapsed-height, 4.25rem);
 		overflow: hidden;
-		padding-bottom: var(--spacing-xs);
 	}
 
 	.similar-scroll.expanded {

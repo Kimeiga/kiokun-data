@@ -15,6 +15,10 @@
 	import SemanticMnemonicCard from "$lib/components/SemanticMnemonicCard.svelte";
 	import LazyComponent from "$lib/components/LazyComponent.svelte";
 	import DisclosureChevron from "$lib/components/shared/DisclosureChevron.svelte";
+	import {
+		animateDisclosureHeight,
+		measureFirstVisualRow,
+	} from "$lib/utils/disclosure-motion";
 
 	const loadNotes = () => import("$lib/components/Notes.svelte");
 	const loadSimilarCharacters = () => import("$lib/components/SimilarCharacters.svelte");
@@ -38,23 +42,39 @@
 	let historicalExpanded = $state(false);
 	let historicalListElement: HTMLDivElement | null = $state(null);
 	let historicalCanExpand = $state(false);
+	let historicalCollapsedHeight = $state(116);
 
 	$effect(() => {
 		const element = historicalListElement;
 		if (!element || historicalExpanded || typeof ResizeObserver === "undefined") return;
 
 		const measure = () => {
-			historicalCanExpand = element.scrollHeight > element.clientHeight + 1;
+			const items = Array.from(element.querySelectorAll<HTMLElement>(".historical-card"));
+			const row = measureFirstVisualRow(element, ".historical-card");
+			if (row.height > 0) historicalCollapsedHeight = row.height;
+			historicalCanExpand = row.count < items.length;
 		};
 		const frame = requestAnimationFrame(measure);
 		const observer = new ResizeObserver(measure);
 		observer.observe(element);
+		for (const item of element.querySelectorAll(".historical-card")) {
+			observer.observe(item);
+		}
 
 		return () => {
 			cancelAnimationFrame(frame);
 			observer.disconnect();
 		};
 	});
+
+	function toggleHistoricalExpanded() {
+		void animateDisclosureHeight({
+			element: historicalListElement,
+			nextExpanded: !historicalExpanded,
+			collapsedHeight: historicalCollapsedHeight,
+			setExpanded: (value) => historicalExpanded = value,
+		});
+	}
 
 	const showClaudeMnemonics = false;
 
@@ -1376,13 +1396,14 @@ rootMargin="1200px 0px"
 <!-- Historical Evolution (reference material, below the learning sections) -->
 {#if data.data.chinese_char?.images && data.data.chinese_char.images.filter((img: { url?: string }) => img.url).length > 0}
 	{@const historicalImages = data.data.chinese_char.images.filter((img: { url?: string }) => img.url)}
-	<div class="mb-3">
+	<div class="historical-section">
 	<SectionHeading id="history">Historical Evolution</SectionHeading>
 	<div
 		class="historical-scroll"
 		class:expanded={historicalExpanded}
 		id="historical-evolution-list"
 		bind:this={historicalListElement}
+		style={`--collapsed-height: ${historicalCollapsedHeight}px`}
 	>
 		{#each historicalImages as image}
 {#if image.url}
@@ -1430,7 +1451,7 @@ onerror={(e) => {
 		<DisclosureChevron
 			expanded={historicalExpanded}
 			controls="historical-evolution-list"
-			onclick={() => historicalExpanded = !historicalExpanded}
+			onclick={toggleHistoricalExpanded}
 			expandLabel="Show all historical forms"
 			collapseLabel="Show fewer historical forms"
 		/>
@@ -1513,12 +1534,16 @@ onerror={(e) => {
 		gap: var(--spacing-sm);
 		max-width: 100%;
 		min-width: 0;
-		max-height: 7.25rem;
+		max-height: var(--collapsed-height, 7.25rem);
 		overflow: hidden;
 	}
 
 	.historical-scroll.expanded {
 		max-height: none;
+	}
+
+	.historical-section {
+		margin-bottom: 0;
 	}
 
 	.historical-card {
