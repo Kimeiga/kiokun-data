@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { LayoutData } from './$types';
-	import '@fontsource-variable/geist/wght.css';
 	import '../app.css';
 	import { afterNavigate, beforeNavigate } from '$app/navigation';
 	import { onMount } from 'svelte';
