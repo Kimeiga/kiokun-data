@@ -118,8 +118,8 @@
 	--font-size-caption2: 11px;
 
 	/* ── Font stacks ── */
-	--font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI Variable", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-	--font-cjk: -apple-system, BlinkMacSystemFont, "Segoe UI Variable", "Segoe UI", "PingFang TC", "PingFang SC", "Hiragino Sans", "Hiragino Sans GB", "Yu Gothic UI", "Yu Gothic", "YuGothic", "Meiryo", "Microsoft JhengHei UI", "Microsoft JhengHei", "Microsoft YaHei UI", "Microsoft YaHei", "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans CJK TC", "Noto Sans CJK SC", "Noto Sans CJK JP", "Noto Sans CJK KR", "Noto Sans", sans-serif;
+	--font-ui: "Geist Variable", -apple-system, BlinkMacSystemFont, "Segoe UI Variable", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	--font-cjk: "Geist Variable", -apple-system, BlinkMacSystemFont, "Segoe UI Variable", "Segoe UI", "PingFang TC", "PingFang SC", "Hiragino Sans", "Hiragino Sans GB", "Yu Gothic UI", "Yu Gothic", "YuGothic", "Meiryo", "Microsoft JhengHei UI", "Microsoft JhengHei", "Microsoft YaHei UI", "Microsoft YaHei", "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans CJK TC", "Noto Sans CJK SC", "Noto Sans CJK JP", "Noto Sans CJK KR", "Noto Sans", sans-serif;
 	--font-mono: "Monaco", "Menlo", "Consolas", monospace;
 
 	/* ── Spacing scale ── */
