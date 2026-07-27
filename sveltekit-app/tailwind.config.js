@@ -63,25 +63,10 @@ export default {
 				hover: '0 4px 12px var(--shadow-hover)'
 			},
 			fontFamily: {
-				cjk: [
-					// Noto Serif fonts (Google Fonts) - consistent across all CJK
-					'"Noto Serif TC"', // Traditional Chinese
-					'"Noto Serif SC"', // Simplified Chinese
-					'"Noto Serif JP"', // Japanese
-					// System font fallbacks
-					'Microsoft JhengHei', // Windows Traditional Chinese
-					'PingFang TC', // macOS/iOS Traditional Chinese
-					'Microsoft YaHei', // Windows Simplified Chinese
-					'PingFang SC', // macOS/iOS Simplified Chinese
-					'MS Mincho', // Windows Japanese serif
-					'Hiragino Mincho ProN', // macOS Japanese serif
-					// Generic fallback
-					'serif'
-				],
-				sans: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif']
+				cjk: ['var(--font-cjk)'],
+				sans: ['var(--font-ui)']
 			}
 		}
 	},
 	plugins: []
 };
-
