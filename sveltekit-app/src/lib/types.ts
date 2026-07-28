@@ -84,8 +84,25 @@ export interface ChineseWordItem {
   jyutping?: string;  // Cantonese pronunciation (Jyutping romanization)
   simpTrad?: 'simp' | 'trad' | 'both';
   definitions?: string[];
+  definitionExamples?: ChineseDefinitionExamples[];
   tang?: string[];
   variantRefs?: string[];
+}
+
+export interface ChineseDefinitionExamples {
+  definition: string;
+  examples: ChineseExample[];
+}
+
+export interface ChineseExample {
+  simp: string;
+  trad: string;
+  en: string;
+  pinyin?: string;
+  source: string;
+  sourceSenseId: string;
+  sourceGloss: string;
+  matchConfidence: number;
 }
 
 export interface ChineseWordStatistics {

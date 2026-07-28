@@ -46,10 +46,33 @@ pub struct Item {
     pub simp_trad: Option<SimpTrad>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub definitions: Option<Vec<String>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub definition_examples: Vec<ChineseDefinitionExamples>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tang: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub variant_refs: Option<Vec<String>>,  // NEW: Variant references for this pronunciation
+}
+
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct ChineseDefinitionExamples {
+    pub definition: String,
+    pub examples: Vec<ChineseExample>,
+}
+
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct ChineseExample {
+    pub simp: String,
+    pub trad: String,
+    pub en: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub pinyin: Option<String>,
+    pub source: String,
+    pub source_sense_id: String,
+    pub source_gloss: String,
+    pub match_confidence: f64,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

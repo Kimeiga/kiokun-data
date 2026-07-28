@@ -1,5 +1,6 @@
 // Core types - Testing auto-deployment 2025-01-27
 mod chinese_types;
+mod chinese_examples;
 mod japanese_types;
 mod korean_types;
 mod chinese_char_types;
@@ -559,6 +560,26 @@ async fn main() -> Result<()> {
                 .action(clap::ArgAction::SetTrue)
         )
         .arg(
+            Arg::new("build-chinese-examples")
+                .long("build-chinese-examples")
+                .help("Build compact CC-CEDICT definition alignments from a Kaikki Chinese JSONL file")
+                .action(clap::ArgAction::SetTrue),
+        )
+        .arg(
+            Arg::new("kaikki-chinese")
+                .long("kaikki-chinese")
+                .value_name("PATH")
+                .help("Path to the Kaikki Chinese JSONL source used by --build-chinese-examples")
+                .default_value("data/kaikki.org-dictionary-Chinese.jsonl"),
+        )
+        .arg(
+            Arg::new("chinese-examples")
+                .long("chinese-examples")
+                .value_name("PATH")
+                .help("Compact Chinese definition-example alignments to embed in dictionary shards")
+                .default_value("data/chinese_definition_examples_kaikki_2026-07-25.jsonl"),
+        )
+        .arg(
             Arg::new("test-hash")
                 .long("test-hash")
                 .value_name("WORD")
@@ -706,6 +727,31 @@ async fn main() -> Result<()> {
     if matches.get_flag("generate-j2c-mapping") {
         println!("🔄 Generating Japanese to Chinese mapping...");
         generate_j2c_mapping().await?;
+        return Ok(());
+    }
+
+    if matches.get_flag("build-chinese-examples") {
+        let kaikki_path = matches
+            .get_one::<String>("kaikki-chinese")
+            .expect("Kaikki path has a default");
+        let output_path = matches
+            .get_one::<String>("chinese-examples")
+            .expect("Chinese examples path has a default");
+        println!("📚 Loading Chinese dictionary for Kaikki sense alignment...");
+        let chinese_entries =
+            load_chinese_dictionary("data/chinese_dictionary_word_2025-06-25.jsonl")
+                .context("Failed to load Chinese dictionary")?;
+        println!("🔗 Matching Kaikki examples to CC-CEDICT definitions...");
+        let stats = chinese_examples::build_kaikki_alignment_file(
+            &chinese_entries,
+            std::path::Path::new(kaikki_path),
+            std::path::Path::new(output_path),
+        )?;
+        println!(
+            "  ✅ Matched {} source senses to {} definitions ({} examples) from {} source entries",
+            stats.matched_senses, stats.matched_definitions, stats.examples, stats.source_entries
+        );
+        println!("  📁 Wrote {}", output_path);
         return Ok(());
     }
 
@@ -924,6 +970,26 @@ async fn main() -> Result<()> {
         load_chinese_dictionary("data/chinese_dictionary_word_2025-06-25.jsonl")
             .context("Failed to load Chinese dictionary")?
     };
+
+    let chinese_examples_path = matches
+        .get_one::<String>("chinese-examples")
+        .expect("Chinese examples path has a default");
+    if !chinese_entries.is_empty() && std::path::Path::new(chinese_examples_path).exists() {
+        println!("📝 Embedding sense-linked Chinese examples...");
+        let (definitions, examples) = chinese_examples::attach_definition_examples(
+            &mut chinese_entries,
+            std::path::Path::new(chinese_examples_path),
+        )?;
+        println!(
+            "  ✅ Embedded {} examples under {} CC-CEDICT definitions",
+            examples, definitions
+        );
+    } else if !chinese_entries.is_empty() {
+        println!(
+            "  ℹ️  Chinese example alignments not found at {}; continuing without them",
+            chinese_examples_path
+        );
+    }
 
     // Enrich Chinese words with Cantonese Jyutping from CC-Canto data
     let cc_canto_path = "data/cantonese/cc-canto";

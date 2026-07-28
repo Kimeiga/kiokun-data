@@ -28,8 +28,21 @@ This creates a dictionary that helps users understand concepts from a **combined
 
 ### **Data Sources**
 - **Chinese Dictionary**: 145,580 entries from CC-CEDICT format (JSONL, ~70MB)
+- **Chinese Sense Examples**: Chinese Wiktionary examples extracted by Kaikki (2026-07-25), conservatively aligned to CC-CEDICT definitions in Rust and retained with source sense IDs (CC BY-SA)
 - **Japanese Dictionary**: 211,692 entries from JMDict format (JSON, ~124MB)
 - **J2C Mapping**: 68,801 Japanese-to-Chinese character conversions (OpenCC jp2t)
+
+Regenerate the compact Chinese alignment file from a downloaded Kaikki JSONL source with:
+
+```bash
+cargo run --release --bin build_dictionary -- \
+  --build-chinese-examples \
+  --kaikki-chinese /path/to/kaikki.org-dictionary-Chinese.jsonl
+```
+
+Normal dictionary builds automatically embed the resulting
+`data/chinese_definition_examples_kaikki_2026-07-25.jsonl` records in the same
+compressed word shards as their CC-CEDICT definitions.
 
 ### **Current Output Formats**
 - **Individual Files**: 22,135 unified entries as separate JSON files (106MB total)

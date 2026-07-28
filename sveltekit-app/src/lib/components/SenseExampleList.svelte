@@ -1,11 +1,13 @@
 <script lang="ts">
 	import AnnotatedSentence from "$lib/components/AnnotatedSentence.svelte";
 	import DisclosureChevron from "$lib/components/shared/DisclosureChevron.svelte";
-	import type { SentenceLanguage } from "$lib/sentence-analysis";
+
+	type SentenceLanguage = "ja" | "ko" | "zh";
 
 	interface SenseExample {
 		text: string;
 		translation?: string;
+		pinyin?: string;
 	}
 
 	export let examples: SenseExample[] = [];
@@ -23,6 +25,7 @@
 			lang: language,
 		});
 		if (example.translation) params.set("en", example.translation);
+		if (example.pinyin) params.set("py", example.pinyin);
 		if (fromWord) params.set("from", fromWord);
 		return `/sentence?${params.toString()}`;
 	}
@@ -44,7 +47,7 @@
 						class="sense-example-source"
 						lang={language === "zh" ? "zh" : language}
 					>
-						<AnnotatedSentence text={example.text} {language} />
+						<AnnotatedSentence text={example.text} {language} pinyin={example.pinyin || ""} />
 					</span>
 					{#if example.translation}
 						<span class="sense-example-translation">{example.translation}</span>

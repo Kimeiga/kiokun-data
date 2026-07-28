@@ -666,13 +666,30 @@
 											</div>
 											<!-- Definitions -->
 											{#if item.definitions && item.definitions.length > 0}
-												<div
+												<ol
 													class="chinese-definitions"
+													class:multiple={item.definitions.length > 1}
 												>
-													{item.definitions.join(
-														"; ",
-													)}
-												</div>
+													{#each item.definitions as definition}
+														{@const matchedExamples = item.definitionExamples?.find(
+															(record) => record.definition === definition,
+														)?.examples || []}
+														<li class="chinese-definition">
+															<div>{definition}</div>
+															{#if matchedExamples.length > 0}
+																<SenseExampleList
+																	examples={matchedExamples.map((example) => ({
+																		text: example.simp || example.trad,
+																		translation: example.en,
+																		pinyin: example.pinyin,
+																	}))}
+																	language="zh"
+																	fromWord={word.simp || word.trad}
+																/>
+															{/if}
+														</li>
+													{/each}
+												</ol>
 											{/if}
 										</div>
 									{/each}
@@ -1070,9 +1087,21 @@
 	}
 
 	.chinese-definitions {
+		margin: 0;
+		padding: 0;
+		list-style: none;
 		font-size: var(--font-size-footnote);
 		line-height: 1.5;
 		color: var(--text-primary);
+	}
+
+	.chinese-definitions.multiple {
+		padding-left: 20px;
+		list-style: decimal;
+	}
+
+	.chinese-definition {
+		margin-bottom: var(--spacing-sm);
 	}
 
 	/* Korean word entry styling */
