@@ -1702,7 +1702,7 @@ fn collect_english_fragments(
 fn clean_definition_fragments(fragments: Vec<String>) -> Vec<String> {
     let mut cleaned = Vec::new();
     for fragment in fragments {
-        let text = decode_basic_html_entities(fragment.trim());
+        let text = normalize_korean_english(&decode_basic_html_entities(fragment.trim()));
         if text.is_empty()
             || text == "Sentence"
             || text == "See More"
@@ -1716,6 +1716,12 @@ fn clean_definition_fragments(fragments: Vec<String>) -> Vec<String> {
         }
     }
     cleaned
+}
+
+fn normalize_korean_english(text: &str) -> String {
+    // KRDICT's English export consistently misspells “ginkgo” as “gingko”.
+    // Correct it in the derived corpus while leaving the upstream archive intact.
+    text.replace("Gingko", "Ginkgo").replace("gingko", "ginkgo")
 }
 
 fn strip_sense_number_prefix(text: &mut String) -> Option<u32> {
@@ -2050,7 +2056,7 @@ mod korean_content_tests {
                     "content": [
                         {"tag": "span", "content": "은행 〔銀杏〕", "lang": "ko"},
                         {"tag": "div", "content": [
-                            {"tag": "span", "content": "ginkgo", "lang": "en"}
+                            {"tag": "span", "content": "gingko", "lang": "en"}
                         ], "lang": "en"}
                     ]
                 }],
@@ -2070,6 +2076,7 @@ mod korean_content_tests {
         assert_ne!(words[0].id, words[1].id);
         assert_eq!(words[0].hanja.as_deref(), Some("銀行"));
         assert_eq!(words[1].hanja.as_deref(), Some("銀杏"));
+        assert_eq!(words[1].definitions[0].text, "ginkgo");
     }
 }
 

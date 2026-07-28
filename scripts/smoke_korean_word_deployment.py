@@ -56,13 +56,13 @@ def validate_published_entries(*, cache_key: str, timeout: float) -> dict[str, A
     if ambiguous.get("redirect") is not None:
         raise RuntimeError("은행: ambiguous Hangul homonym must not redirect to one Hanja")
     require_hanja(ambiguous, "銀行", "bank")
-    require_hanja(ambiguous, "銀杏", "gingko")
+    require_hanja(ambiguous, "銀杏", "ginkgo")
     ids = [word.get("id") for word in korean_words(ambiguous)]
     if len(ids) != len(set(ids)):
         raise RuntimeError("은행: published Korean homonyms do not have unique IDs")
 
     require_hanja(entries["銀行"], "銀行", "bank")
-    require_hanja(entries["銀杏"], "銀杏", "gingko")
+    require_hanja(entries["銀杏"], "銀杏", "ginkgo")
 
     if entries["저금리"].get("redirect") != "低金利":
         raise RuntimeError("저금리: unambiguous Hangul form should redirect to 低金利")

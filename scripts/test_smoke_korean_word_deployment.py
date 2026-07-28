@@ -32,7 +32,7 @@ class KoreanDeploymentSmokeTests(unittest.TestCase):
                 "key": "은행",
                 "korean_words": [
                     word("bank", "銀行", "bank"),
-                    word("ginkgo", "銀杏", "gingko"),
+                    word("ginkgo", "銀杏", "ginkgo"),
                 ],
             },
             "銀行": {
@@ -41,7 +41,7 @@ class KoreanDeploymentSmokeTests(unittest.TestCase):
             },
             "銀杏": {
                 "key": "銀杏",
-                "korean_words": [word("ginkgo", "銀杏", "gingko")],
+                "korean_words": [word("ginkgo", "銀杏", "ginkgo")],
             },
             "저금리": {"key": "저금리", "redirect": "低金利"},
             "正말": {"key": "正말", "redirect": "정말"},
