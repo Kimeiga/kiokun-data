@@ -5,6 +5,9 @@ on:
     paths:
       - 'data/semantic_mnemonic_corpus/**'
       - 'scripts/repair_semantic_mnemonic_learning_glosses.py'
+      - 'scripts/repair_semantic_mnemonic_groupings.py'
+      - 'scripts/semantic_mnemonic_card_inputs.json'
+      - 'data/semantic_mnemonic_grouping_policy.json'
       - 'sveltekit-app/static/game_data/component_glosses.json'
       - 'sveltekit-app/src/lib/character-forms.ts'
       - 'sveltekit-app/src/lib/character-forms.test.ts'
@@ -19,6 +22,9 @@ on:
     paths:
       - 'data/semantic_mnemonic_corpus/**'
       - 'scripts/repair_semantic_mnemonic_learning_glosses.py'
+      - 'scripts/repair_semantic_mnemonic_groupings.py'
+      - 'scripts/semantic_mnemonic_card_inputs.json'
+      - 'data/semantic_mnemonic_grouping_policy.json'
       - 'sveltekit-app/static/game_data/component_glosses.json'
       - 'sveltekit-app/src/lib/character-forms.ts'
       - 'sveltekit-app/src/lib/character-forms.test.ts'
@@ -54,7 +60,9 @@ jobs:
         run: python3 scripts/manage_semantic_mnemonic_corpus.py verify
 
       - name: Verify curated learning-gloss policy
-        run: python3 scripts/repair_semantic_mnemonic_learning_glosses.py --check
+        run: |
+          python3 scripts/repair_semantic_mnemonic_learning_glosses.py --check
+          python3 scripts/repair_semantic_mnemonic_groupings.py --check
 
       - name: Run character learning invariants
         working-directory: sveltekit-app

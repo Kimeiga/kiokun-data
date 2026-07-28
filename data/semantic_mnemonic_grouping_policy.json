@@ -1,0 +1,238 @@
+{
+  "schema_version": 1,
+  "policy_version": "2026-07-28.1",
+  "purpose": "Review every card whose stored alternative analysis competes with a fragmented or stroke-level learner decomposition. Retained cards use their small components productively; repaired cards group recognizable shapes or restore a concrete historical image.",
+  "candidate_rule": "A card has stored historical components and either uses a low-level stroke component or has more current components than historical components.",
+  "reviewed_retain": [
+    "並",
+    "乱",
+    "乳",
+    "争",
+    "倉",
+    "光",
+    "制",
+    "原",
+    "友",
+    "司",
+    "合",
+    "善",
+    "声",
+    "夜",
+    "夢",
+    "太",
+    "失",
+    "奉",
+    "寿",
+    "岡",
+    "席",
+    "幹",
+    "度",
+    "微",
+    "愛",
+    "憂",
+    "成",
+    "散",
+    "断",
+    "旧",
+    "昔",
+    "業",
+    "武",
+    "画",
+    "益",
+    "監",
+    "礼",
+    "算",
+    "系",
+    "能",
+    "興",
+    "船",
+    "血",
+    "豪"
+  ],
+  "repairs": {
+    "候": {
+      "components": [
+        {
+          "character": "侯",
+          "gloss": "marquis"
+        },
+        {
+          "character": "丨",
+          "gloss": "line"
+        }
+      ],
+      "equation": "Visual comparison: 侯 marquis + 丨 line = 候 wait",
+      "mnemonic": "The 侯 marquis stands behind a 丨 line and must 候 wait.",
+      "hero_image_prompt": "A marquis waiting patiently behind a single queue line, no text or labels.",
+      "rationale": "Groups the recognizable 侯 form and gives the one distinguishing line a direct job."
+    },
+    "局": {
+      "components": [
+        {
+          "character": "尸",
+          "gloss": "seated person"
+        },
+        {
+          "character": "句",
+          "gloss": "sentence"
+        }
+      ],
+      "equation": "Visual comparison: 尸 seated person + 句 sentence = 局 bureau",
+      "mnemonic": "A 尸 seated person processes each official 句 sentence inside a 局 bureau.",
+      "hero_image_prompt": "A seated clerk processing official papers inside a small bureau, no text or labels.",
+      "rationale": "Replaces an abstract wrap stroke with the recognizable sentence-shaped lower form."
+    },
+    "展": {
+      "components": [
+        {
+          "character": "尸",
+          "gloss": "seated person"
+        },
+        {
+          "character": "衣",
+          "gloss": "clothing"
+        }
+      ],
+      "equation": "Visual comparison: 尸 seated person + 衣 clothing = 展 unfold",
+      "mnemonic": "A 尸 seated person spreads out 衣 clothing to 展 unfold it for display.",
+      "hero_image_prompt": "A seated person spreading out a robe to unfold it for display, no text or labels.",
+      "rationale": "Replaces five tiny inner fragments with the salient clothing-like form and a single action."
+    },
+    "延": {
+      "components": [
+        {
+          "character": "廴",
+          "gloss": "long stride"
+        },
+        {
+          "character": "正",
+          "gloss": "straight"
+        }
+      ],
+      "equation": "Visual comparison: 廴 long stride + 正 straight = 延 prolong",
+      "mnemonic": "Keep taking a 廴 long stride 正 straight ahead to 延 prolong the journey.",
+      "hero_image_prompt": "A traveler taking long strides along a straight road that continues toward the horizon, no text or labels.",
+      "rationale": "Uses the recognizable modern visual grouping while explicitly labeling it a comparison, not an exact stroke analysis."
+    },
+    "然": {
+      "components": [
+        {
+          "character": "⺼",
+          "gloss": "meat"
+        },
+        {
+          "character": "犬",
+          "gloss": "dog"
+        },
+        {
+          "character": "灬",
+          "gloss": "fire"
+        }
+      ],
+      "equation": "Historical image: ⺼ meat + 犬 dog + 灬 fire = 然 so",
+      "mnemonic": "⺼ meat from a 犬 dog burns over 灬 fire—the old image behind 然, which later came to mean “so.”",
+      "hero_image_prompt": "An ancient cooking fire heating a small covered portion of meat, historical educational illustration, non-graphic, no text.",
+      "rationale": "Restores the attested dog-meat-over-fire image instead of inventing roles for slash and ice fragments."
+    },
+    "留": {
+      "components": [
+        {
+          "character": "卯",
+          "gloss": "dawn"
+        },
+        {
+          "character": "田",
+          "gloss": "field"
+        }
+      ],
+      "equation": "卯 dawn + 田 field = 留 stay",
+      "mnemonic": "From 卯 dawn, workers remain in the 田 field and 留 stay through the day.",
+      "hero_image_prompt": "Farm workers remaining in a field from dawn into daylight, no text or labels.",
+      "rationale": "Restores the recorded 卯 plus 田 grouping and turns it into one compact temporal scene."
+    },
+    "祭": {
+      "components": [
+        {
+          "character": "⺼",
+          "gloss": "meat"
+        },
+        {
+          "character": "又",
+          "gloss": "hand"
+        },
+        {
+          "character": "示",
+          "gloss": "altar"
+        }
+      ],
+      "equation": "⺼ meat + 又 hand + 示 altar = 祭 offer sacrifice",
+      "mnemonic": "A 又 hand places ⺼ meat on a 示 altar to 祭 offer sacrifice.",
+      "hero_image_prompt": "A hand respectfully placing a prepared meat offering on an ancestral altar, non-graphic, no text.",
+      "rationale": "Restores the attested hand-held meat offering instead of treating the meat form as slash plus ice."
+    },
+    "第": {
+      "components": [
+        {
+          "character": "竹",
+          "gloss": "bamboo"
+        },
+        {
+          "character": "弟",
+          "gloss": "younger brother"
+        }
+      ],
+      "equation": "竹 bamboo + 弟 younger brother = 第 ordinal prefix",
+      "mnemonic": "A 竹 bamboo slip records a 弟 younger brother's 第 ordinal position.",
+      "hero_image_prompt": "Younger brothers arranging bamboo slips into a carefully ordered row, no writing, text, or labels.",
+      "rationale": "Uses the standard 竹 plus 弟 analysis and removes the unrelated mourning story."
+    },
+    "舞": {
+      "components": [
+        {
+          "character": "無",
+          "gloss": "dancer"
+        },
+        {
+          "character": "舛",
+          "gloss": "crossed feet"
+        }
+      ],
+      "equation": "Historical image: 無 dancer + 舛 crossed feet = 舞 dance",
+      "mnemonic": "無 originally pictured a dancer; adding 舛 crossed feet made the motion explicit in 舞 dance.",
+      "hero_image_prompt": "An ancient dancer holding ornaments while the feet cross in a lively dance step, no text or labels.",
+      "rationale": "Restores the attested dancing figure and crossed-feet image instead of enumerating four stroke fragments."
+    },
+    "那": {
+      "components": [
+        {
+          "character": "哪",
+          "gloss": "which"
+        },
+        {
+          "character": "口",
+          "gloss": "mouth"
+        }
+      ],
+      "equation": "哪 which − 口 mouth = 那 that",
+      "mnemonic": "Remove the questioning 口 mouth from 哪 which, leaving 那 that.",
+      "hero_image_prompt": "A questioning mouth disappearing as a hand points toward a distant object, no writing, text, or labels.",
+      "rationale": "Uses an exact, familiar character subtraction instead of listing knife, two lines, and city."
+    },
+    "電": {
+      "components": [
+        {
+          "character": "雨",
+          "gloss": "rain"
+        },
+        {
+          "character": "申",
+          "gloss": "lightning"
+        }
+      ],
+      "equation": "Historical image: 雨 rain + 申 lightning = 電 electricity",
+      "mnemonic": "申 originally pictured lightning; place it under 雨 rain to make 電 electricity.",
+      "hero_image_prompt": "A bright branching lightning bolt flashing beneath a heavy rain cloud, no text or labels.",
+      "rationale": "Restores the attested lightning-under-rain analysis instead of splitting 申 into sun and hook."
+    }
+  }
+}

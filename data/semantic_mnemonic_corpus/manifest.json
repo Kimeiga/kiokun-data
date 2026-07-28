@@ -4,10 +4,10 @@
   "count": 24037,
   "bucket_algorithm": "kiokun_simple_hash_low_byte_v1",
   "bucket_count": 256,
-  "source_artifact_sha256": "sha256:a32ebf5140b8ca72f87786c4c1c2280d2b9f031d4dafecce7264c59690aa5c8c",
-  "source_artifact_byte_count": 58946042,
-  "runtime_projection_sha256": "sha256:d61068bc53fbfa6431eedbbe653baa6e5f8650c3756cd5ad5f1914f4fc8d1cb2",
-  "runtime_projection_byte_count": 10203659,
+  "source_artifact_sha256": "sha256:d87fe39c88fed0115d8e3f20e4331086d9ba7a6c50719f39b60c00e9898750e7",
+  "source_artifact_byte_count": 58948017,
+  "runtime_projection_sha256": "sha256:b9e8259bb15e195c59cd8750f519975e6b1c3f02c3bf98a889503df05261578d",
+  "runtime_projection_byte_count": 10202292,
   "runtime_card_fields": [
     "character",
     "meaning",
@@ -267,8 +267,8 @@
       "bucket": "19",
       "first_character": "㔙",
       "last_character": "𰌙",
-      "sha256": "sha256:8758f413034a5ac0824dae65717d9ecac9cd324a23592ea88e57bba09bcc2006",
-      "byte_count": 230076,
+      "sha256": "sha256:68edfe16e1b927fc95d3af6a684c1e948ca3d93aaef82372b32d359e4a1b4523",
+      "byte_count": 230012,
       "count": 96
     },
     {
@@ -312,8 +312,8 @@
       "bucket": "1e",
       "first_character": "㔞",
       "last_character": "𰬞",
-      "sha256": "sha256:f07f361697e35fd2228a473f2547f0c0196b4b2eeba31b6a8047a632e1642099",
-      "byte_count": 229151,
+      "sha256": "sha256:3af16c0a4aed2941d3041053d5dfd474f3fab98fd9b0c687e31ec5bb47f3dbf5",
+      "byte_count": 229292,
       "count": 99
     },
     {
@@ -438,8 +438,8 @@
       "bucket": "2c",
       "first_character": "㐬",
       "last_character": "𱌬",
-      "sha256": "sha256:df1959b3a22bd48b049c7ff547c202493429ace2366f540dca164327f1a6a94b",
-      "byte_count": 250181,
+      "sha256": "sha256:d74a5030548a6e0cef943ff7ddefdc6e2b39fe00bfdb22166e3a7fa54b4825ab",
+      "byte_count": 250500,
       "count": 98
     },
     {
@@ -528,8 +528,8 @@
       "bucket": "36",
       "first_character": "㔶",
       "last_character": "𰰶",
-      "sha256": "sha256:9a4ea3fc1f9a378001544d2c36c7c6f163c4bc389346cc14974077d063a37f8b",
-      "byte_count": 224024,
+      "sha256": "sha256:361f09d7e2a5d8701933f51b5bdbe9914eae29ff608e1e304840ebbd3a07a59d",
+      "byte_count": 224286,
       "count": 99
     },
     {
@@ -618,8 +618,8 @@
       "bucket": "40",
       "first_character": "㙀",
       "last_character": "𰱀",
-      "sha256": "sha256:2ef0c62e911d38a2dd575eed351c29ebc18c22d66accbfb8100d2f0395d2fb2e",
-      "byte_count": 203701,
+      "sha256": "sha256:85a9acdda7fa4e1bfaef531f0f8116d409b71a7800ad5ac62358f620e87e15fc",
+      "byte_count": 203900,
       "count": 89
     },
     {
@@ -807,8 +807,8 @@
       "bucket": "55",
       "first_character": "㕕",
       "last_character": "𱅕",
-      "sha256": "sha256:a3eb73fc981905bb079aabac13fd57b013a069bef3308bcb0d375adfe06fad12",
-      "byte_count": 261446,
+      "sha256": "sha256:33ce76e0a35e20d2c42742686258cfbf6915ff1f22f41541edd7b15ae520ea4e",
+      "byte_count": 261284,
       "count": 104
     },
     {
@@ -843,8 +843,8 @@
       "bucket": "59",
       "first_character": "㑙",
       "last_character": "𱉙",
-      "sha256": "sha256:8f1f1b0ae1d60d4f67698bcb83ee1779ee80a0a68fb1a42369de97368fc73cb5",
-      "byte_count": 223704,
+      "sha256": "sha256:f8f8fe51199cac39a2df1b8353fe1704217882f6973f0cda60f66dda6dd8bf4e",
+      "byte_count": 223806,
       "count": 93
     },
     {
@@ -1023,8 +1023,8 @@
       "bucket": "6d",
       "first_character": "㕭",
       "last_character": "𰽭",
-      "sha256": "sha256:bb7d7f73d1d36c89b913f15e5b50aa4e0fb348abe38050ad9df7b4a1d79de3cb",
-      "byte_count": 233981,
+      "sha256": "sha256:b4cfadd35bd609352bb053d4d877349489cd510689b6037e7c741dc08ec330c0",
+      "byte_count": 234184,
       "count": 102
     },
     {
@@ -1509,8 +1509,8 @@
       "bucket": "a3",
       "first_character": "㖣",
       "last_character": "𱊣",
-      "sha256": "sha256:9c49d3c0c104d06e7aeb705076922026b3cdb5c628f0417228ca558a446d536a",
-      "byte_count": 217316,
+      "sha256": "sha256:171d061bd240c7b16af4995c857794aec4e0587b34acebcae70c73813a017308",
+      "byte_count": 217642,
       "count": 89
     },
     {
@@ -2256,8 +2256,8 @@
       "bucket": "f6",
       "first_character": "㓶",
       "last_character": "𰷶",
-      "sha256": "sha256:8d55a2f5d41a8eef9a47d6caacd1c63f1210ab015405f9e8e8158779edbe5e4e",
-      "byte_count": 206402,
+      "sha256": "sha256:5617ef7eb55afc7dba04aaaaa96d5872e53fe14aea29917df52987af73e509e8",
+      "byte_count": 206685,
       "count": 85
     },
     {
@@ -2301,8 +2301,8 @@
       "bucket": "fb",
       "first_character": "㓻",
       "last_character": "𱇻",
-      "sha256": "sha256:efd957798aa1f44767af117f66919124712866b46fa6dc7996ed02139ae14108",
-      "byte_count": 247867,
+      "sha256": "sha256:ad80d4dc5c482d49b35f25c982c6db71c627db8a4e95177145278bf7a7ce94be",
+      "byte_count": 248233,
       "count": 97
     },
     {
