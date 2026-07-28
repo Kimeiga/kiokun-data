@@ -2,6 +2,7 @@ import { dev } from '$app/environment';
 import { getDictionaryUrl } from '$lib/shard-utils';
 import type { DictionaryEntry } from '$lib/types';
 import { findWordsWithDeinflection } from '$lib/utils/search-navigation';
+import { alignChinesePinyinReadings } from './chinese-ruby';
 import { isWordToken, segmentText } from './segment';
 
 export interface RubySegment {
@@ -11,11 +12,9 @@ export interface RubySegment {
 }
 
 const HAN_RE = /\p{Script=Han}/u;
-const LATIN_RE = /\p{Script=Latin}/u;
 const HANGUL_RE = /[\uAC00-\uD7A3]/u;
 const JAPANESE_KANA_RE = /[\u3040-\u30FF\u31F0-\u31FFー]/u;
 const WORD_CONTENT_RE = /[\p{Script=Han}\p{Script=Latin}\p{N}\uAC00-\uD7A3\u3040-\u30FF\u31F0-\u31FFー]/u;
-const PINYIN_TOKEN_RE = /[\p{Script=Latin}\p{Mark}\d:'’-]+|[^\s]/gu;
 const PUNCT_OR_SPACE_RE = /(\s+|[.,;:!?。、，！？“”"「」『』（）()[\]{}…]+)/u;
 
 const KR_INITIALS = ['g', 'kk', 'n', 'd', 'tt', 'r', 'm', 'b', 'pp', 's', 'ss', '', 'j', 'jj', 'ch', 'k', 't', 'p', 'h'];
@@ -26,24 +25,20 @@ const dictionaryEntryCache = new Map<string, Promise<DictionaryEntry | null>>();
 const japaneseReadingCache = new Map<string, Promise<string | null>>();
 
 export function buildChineseRubySegments(text: string, pinyin: string): RubySegment[] {
-	const pinyinTokens = tokenizePinyin(pinyin);
 	const textSegments = segmentText(text, 'zh')
 		.flatMap(splitMixedSegment)
 		.flatMap(splitShortHanSentenceSegment);
-	let pinyinIndex = 0;
+	const readings = alignChinesePinyinReadings(textSegments, pinyin);
 
-	return textSegments.map((segment) => {
+	return textSegments.map((segment, index) => {
 		if (hasHan(segment)) {
-			const reading = takePinyinReading(pinyinTokens, pinyinIndex, countHan(segment));
-			pinyinIndex = reading.nextIndex;
 			return {
 				text: segment,
-				reading: reading.text || undefined,
+				reading: readings[index],
 				isWord: true
 			};
 		}
 
-		pinyinIndex = consumeMatchingSurfaceToken(pinyinTokens, pinyinIndex, segment);
 		return {
 			text: segment,
 			isWord: isWordToken(segment) && WORD_CONTENT_RE.test(segment)
@@ -84,10 +79,6 @@ export function buildKoreanRubySegments(text: string): RubySegment[] {
 			isWord
 		};
 	});
-}
-
-function tokenizePinyin(pinyin: string): string[] {
-	return pinyin.match(PINYIN_TOKEN_RE) ?? [];
 }
 
 function splitMixedSegment(segment: string): string[] {
@@ -143,56 +134,6 @@ function getCharKind(char: string): 'han' | 'word' | 'space' | 'punct' {
 
 function hasHan(text: string): boolean {
 	return HAN_RE.test(text);
-}
-
-function countHan(text: string): number {
-	let count = 0;
-	for (const char of text) {
-		if (HAN_RE.test(char)) count += 1;
-	}
-	return count;
-}
-
-function takePinyinReading(tokens: string[], startIndex: number, syllableCount: number): { text: string; nextIndex: number } {
-	const syllables: string[] = [];
-	let index = startIndex;
-
-	while (index < tokens.length && syllables.length < syllableCount) {
-		const token = tokens[index];
-		if (LATIN_RE.test(token)) {
-			syllables.push(token);
-		}
-		index += 1;
-	}
-
-	return {
-		text: syllables.join(' '),
-		nextIndex: index
-	};
-}
-
-function consumeMatchingSurfaceToken(tokens: string[], startIndex: number, surface: string): number {
-	const comparableSurface = normalizeComparable(surface);
-	if (!comparableSurface) return startIndex;
-
-	const token = tokens[startIndex];
-	if (token && normalizeComparable(token) === comparableSurface) {
-		return startIndex + 1;
-	}
-
-	return startIndex;
-}
-
-function normalizeComparable(value: string): string {
-	return value
-		.normalize('NFKC')
-		.replace(/[“”]/g, '"')
-		.replace(/[‘’]/g, "'")
-		.replace(/。/g, '.')
-		.replace(/，/g, ',')
-		.replace(/、/g, ',')
-		.trim()
-		.toLowerCase();
 }
 
 function hangulToRomanization(text: string): string {
