@@ -56,12 +56,14 @@
 			{/each}
 		</div>
 		{#if hasMore}
-			<DisclosureChevron
-				{expanded}
-				onclick={() => expanded = !expanded}
-				expandLabel={`Show ${usableExamples.length - 1} more examples for this definition`}
-				collapseLabel="Show fewer examples for this definition"
-			/>
+			<div class="sense-example-disclosure">
+				<DisclosureChevron
+					{expanded}
+					onclick={() => expanded = !expanded}
+					expandLabel={`Show ${usableExamples.length - 1} more examples for this definition`}
+					collapseLabel="Show fewer examples for this definition"
+				/>
+			</div>
 		{/if}
 	</div>
 {/if}
@@ -123,6 +125,10 @@
 		color: var(--text-tertiary);
 		font-size: var(--font-size-caption1);
 		line-height: 1.4;
+	}
+
+	.sense-example-disclosure {
+		width: fit-content;
 	}
 
 	@media (prefers-reduced-motion: reduce) {
