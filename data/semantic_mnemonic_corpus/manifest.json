@@ -4,10 +4,10 @@
   "count": 24037,
   "bucket_algorithm": "kiokun_simple_hash_low_byte_v1",
   "bucket_count": 256,
-  "source_artifact_sha256": "sha256:d87fe39c88fed0115d8e3f20e4331086d9ba7a6c50719f39b60c00e9898750e7",
-  "source_artifact_byte_count": 58948017,
-  "runtime_projection_sha256": "sha256:b9e8259bb15e195c59cd8750f519975e6b1c3f02c3bf98a889503df05261578d",
-  "runtime_projection_byte_count": 10202292,
+  "source_artifact_sha256": "sha256:9c40fa26210496cebcae3474cdc47a33f1520d57dc25f1d4ac5c8ad11b25bc74",
+  "source_artifact_byte_count": 58951854,
+  "runtime_projection_sha256": "sha256:a6ae923dc2d4ea3d4649c3a9f9b5dee9f7f86690e70fcda255ea426e5fcb5e2f",
+  "runtime_projection_byte_count": 10201696,
   "runtime_card_fields": [
     "character",
     "meaning",
@@ -69,8 +69,8 @@
       "bucket": "03",
       "first_character": "㔃",
       "last_character": "𱌃",
-      "sha256": "sha256:9024e8444ad7aac7e9a063402d78b20e3111f27bbf658131a9a69a2c5a9c7ab6",
-      "byte_count": 235037,
+      "sha256": "sha256:6bfc625c89ec18b95fb5bcfda909877fce1b25f34c147e2236a738f52b105c42",
+      "byte_count": 235752,
       "count": 93
     },
     {
@@ -132,8 +132,8 @@
       "bucket": "0a",
       "first_character": "㔊",
       "last_character": "𱌊",
-      "sha256": "sha256:f6738d911caebedf97204ecdd486e5cf623a66dce1faf2be519738b73c6ed954",
-      "byte_count": 239934,
+      "sha256": "sha256:d2b082e6f7018c519553903e1dd48b22770967ba82cac5e8b2c7084f791b5585",
+      "byte_count": 240498,
       "count": 104
     },
     {
@@ -150,8 +150,8 @@
       "bucket": "0c",
       "first_character": "㐌",
       "last_character": "𰰌",
-      "sha256": "sha256:f2ddebd8851e71b5c019ac5e1bdde58e8b7af6c42c9af1fbf6a71dd16086796a",
-      "byte_count": 229358,
+      "sha256": "sha256:131ccb5bb6a74c1f3b217594970282c6d53985a9cf85e39b6cf211a00e9d664a",
+      "byte_count": 229360,
       "count": 100
     },
     {
@@ -222,8 +222,8 @@
       "bucket": "14",
       "first_character": "㘔",
       "last_character": "𰬔",
-      "sha256": "sha256:08c0500766a94ec4cca6465686fe8e5ab500da3541bd898939308c60619f38f1",
-      "byte_count": 231786,
+      "sha256": "sha256:9f2caa8c31001cd5b1dc75645cd0964b7fc40b8ff23b9ea1e15463676e138ddb",
+      "byte_count": 232460,
       "count": 90
     },
     {
@@ -960,8 +960,8 @@
       "bucket": "66",
       "first_character": "㑦",
       "last_character": "𱉦",
-      "sha256": "sha256:f94dcaa0b35af6b404b439dd312c3c70f4acb12c269ba5ea6679b3d28f1cc488",
-      "byte_count": 240748,
+      "sha256": "sha256:ee94170165ed569184ddfc9b9c0924748ca5ac9706da835c4f9e3411f5d91edf",
+      "byte_count": 241601,
       "count": 95
     },
     {
@@ -1959,8 +1959,8 @@
       "bucket": "d5",
       "first_character": "㗕",
       "last_character": "𱇕",
-      "sha256": "sha256:41f56e118d08c6a12a58fd901592b1dec496a5213e3f5da5d5af8b00b94510d4",
-      "byte_count": 222425,
+      "sha256": "sha256:5043d06089eedc43acb09f458dd64fab1e2921bebc71a74eabcb2948d812d1ec",
+      "byte_count": 222543,
       "count": 95
     },
     {
@@ -2067,8 +2067,8 @@
       "bucket": "e1",
       "first_character": "㓡",
       "last_character": "𰗡",
-      "sha256": "sha256:25909aada74e0e1418483c704bc4389929a88b361de8f5bea105b8fb68b7fbd0",
-      "byte_count": 201519,
+      "sha256": "sha256:03f8ad53c3595fe72aa5892794c3eb7778081498c98d7f9e6faffc4c44ab3bcf",
+      "byte_count": 201970,
       "count": 85
     },
     {
@@ -2202,8 +2202,8 @@
       "bucket": "f0",
       "first_character": "㓰",
       "last_character": "𱇰",
-      "sha256": "sha256:24892139af181442399e1fd401bc93fdb2b227c22fad739281cdee5a2b3c3856",
-      "byte_count": 218865,
+      "sha256": "sha256:d274f934e4735d9c92870854de7e492ddd4b25283b4fefb4e2f30fda85863e53",
+      "byte_count": 219082,
       "count": 96
     },
     {
@@ -2310,8 +2310,8 @@
       "bucket": "fc",
       "first_character": "㓼",
       "last_character": "𰣼",
-      "sha256": "sha256:195318b9a72bca48b2bb88ccda620f3d340107277075439ce463cd43112555d7",
-      "byte_count": 196172,
+      "sha256": "sha256:c5890f61b00d514bff9bd1157405ad60ae56c628deff224c38e785243db2288f",
+      "byte_count": 196415,
       "count": 86
     },
     {

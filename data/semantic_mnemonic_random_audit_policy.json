@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "policy_version": "2026-07-28.1",
+  "audit": {
+    "seed": 20260728,
+    "corpus_count": 24037,
+    "character_sample_count": 591,
+    "character_strata": {
+      "common": 100,
+      "variant": 100,
+      "complex": 97,
+      "supplementary": 47,
+      "uniform": 247
+    },
+    "word_page_sample_count": 150,
+    "word_page_strata": {
+      "chinese": 50,
+      "japanese": 50,
+      "korean": 50
+    },
+    "method": "Deterministic stratified sampling plus full-corpus heuristic ranking. Repairs require a clear learner-facing defect and a higher-confidence replacement; a heuristic flag alone is not sufficient.",
+    "sources": [
+      "https://humanum.arts.cuhk.edu.hk/Lexis/lexi-mf/oraclePiece.php?piece=%E7%87%95",
+      "https://dict.variants.moe.edu.tw/dictView.jsp?educode=A02445&powerMode=2",
+      "https://humanum.arts.cuhk.edu.hk/Lexis/lexi-mf/search.php?word=%E5%A9%A6",
+      "https://www.kanjipedia.jp/kanji/0002415100"
+    ]
+  },
+  "repairs": {
+    "頃": {
+      "meaning": "around",
+      "lexical_gloss": "around",
+      "mnemonic_keyword": "around",
+      "keyword_kind": "visual_comparison",
+      "components": [
+        {
+          "character": "匕",
+          "gloss": "ancient spoon"
+        },
+        {
+          "character": "頁",
+          "gloss": "head"
+        }
+      ],
+      "equation": "Visual comparison: 匕 ancient spoon + 頁 head = 頃 around",
+      "mnemonic": "A falling 匕 ancient spoon clatters behind a 頁 head, making it turn 頃 around.",
+      "hero_image_prompt": "A metal spoon clattering to the floor behind a person whose head turns around toward the sound, no text or labels.",
+      "rationale": "Prioritizes the common Japanese time/approximation sense over the rare land unit and replaces a head counting one hundred fields with the visible left-and-right grouping."
+    },
+    "夊": {
+      "meaning": "trailing foot",
+      "lexical_gloss": "trailing foot",
+      "mnemonic_keyword": "trailing foot",
+      "keyword_kind": "historical_form",
+      "components": [
+        {
+          "character": "夊",
+          "gloss": "trailing foot"
+        }
+      ],
+      "equation": "Visual form: 夊 trailing foot",
+      "mnemonic": "The upper bend is a knee, and the long final stroke drags behind like a 夊 trailing foot.",
+      "hero_image_prompt": "A slow walking foot trailing behind with the leg bent at the knee, simple educational ink illustration, no text.",
+      "rationale": "Replaces the catalog metadata gloss 'shape mark 35' with the historically useful component image learners actually need."
+    },
+    "婦": {
+      "components": [
+        {
+          "character": "女",
+          "gloss": "woman"
+        },
+        {
+          "character": "帚",
+          "gloss": "broom"
+        }
+      ],
+      "equation": "Historical image: 女 woman + 帚 broom = 婦 married woman",
+      "mnemonic": "In this traditional image, a 女 woman holding the household 帚 broom is a 婦 married woman.",
+      "hero_image_prompt": "A respectfully framed historical household scene with an adult married woman holding a traditional straw broom, museum illustration, no text.",
+      "rationale": "The prior story put the broom away and then introduced a second married woman. Historical framing makes the old convention explicit without presenting it as a modern rule."
+    },
+    "員": {
+      "components": [
+        {
+          "character": "口",
+          "gloss": "mouth"
+        },
+        {
+          "character": "貝",
+          "gloss": "shell"
+        }
+      ],
+      "equation": "口 mouth + 貝 shell = 員 employee",
+      "mnemonic": "At payroll, a 口 mouth calls each name before paying a 貝 shell to one 員 employee.",
+      "hero_image_prompt": "An old payroll window where a clerk calls a name and pays one worker with a shell coin, no text or labels.",
+      "rationale": "Moves the answer out of the setup and lets the two visible components identify one employee through a concrete payroll action."
+    },
+    "演": {
+      "components": [
+        {
+          "character": "氵",
+          "gloss": "water (drops)"
+        },
+        {
+          "character": "寅",
+          "gloss": "sign of the tiger"
+        }
+      ],
+      "equation": "氵 water (drops) + 寅 sign of the tiger = 演 perform",
+      "mnemonic": "Onstage, 氵 water ripples around the 寅 sign of the tiger as dancers 演 perform.",
+      "hero_image_prompt": "Dancers performing onstage around rippling water beneath a tiger zodiac emblem, no text or app UI.",
+      "rationale": "Removes the unsupported claim that splashing water and wearing a tiger sign somehow help an actor perform; the components now define the stage scene."
+    },
+    "県": {
+      "components": [
+        {
+          "character": "目",
+          "gloss": "eye"
+        },
+        {
+          "character": "小",
+          "gloss": "small"
+        }
+      ],
+      "equation": "Visual comparison: 目 eye + 小 small = 県 county",
+      "mnemonic": "A 目 eye surveys each 小 small region on the map to find one 県 county.",
+      "hero_image_prompt": "An eye surveying small outlined regions on a map and focusing on one county, no writing, text, or labels.",
+      "rationale": "Replaces five tiny IDS fragments with the two salient modern shapes visible to a Japanese learner."
+    },
+    "燕": {
+      "components": [
+        {
+          "character": "燕",
+          "gloss": "swallow"
+        }
+      ],
+      "equation": "Historical image: 燕 swallow",
+      "mnemonic": "The ancient form pictures a beak, spread wings, and forked tail as an 燕 swallow.",
+      "hero_image_prompt": "An ancient pictographic swallow with a visible beak, two spread wings, and a forked tail, educational ink illustration, no text.",
+      "rationale": "Restores the attested whole-character bird image instead of making a swallow lead twenty birds north with a fiery tail."
+    },
+    "㷼": {
+      "components": [
+        {
+          "character": "燕",
+          "gloss": "swallow"
+        }
+      ],
+      "equation": "Variant of 燕 swallow: 㷼 swallow",
+      "mnemonic": "The old variant 㷼 swallow preserves the beak, spread wings, and forked tail of 燕 swallow.",
+      "hero_image_prompt": "Two historical written forms beside the same swallow silhouette with beak, spread wings, and forked tail, no text.",
+      "rationale": "Uses the officially recorded variant relationship instead of inventing a northbound flock fleeing a fire."
+    },
+    "鷰": {
+      "components": [
+        {
+          "character": "燕",
+          "gloss": "swallow"
+        }
+      ],
+      "equation": "Variant of 燕 swallow: 鷰 swallow",
+      "mnemonic": "The old variant 鷰 swallow preserves the beak, spread wings, and forked tail of 燕 swallow.",
+      "hero_image_prompt": "Two historical written forms beside the same swallow silhouette with beak, spread wings, and forked tail, no text.",
+      "rationale": "Uses the officially recorded variant relationship instead of enumerating a bird plus four unrelated fragments."
+    }
+  }
+}

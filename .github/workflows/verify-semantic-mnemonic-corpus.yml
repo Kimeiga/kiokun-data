@@ -7,9 +7,12 @@ on:
       - 'scripts/manage_semantic_mnemonic_corpus.py'
       - 'scripts/repair_semantic_mnemonic_learning_glosses.py'
       - 'scripts/repair_semantic_mnemonic_groupings.py'
+      - 'scripts/repair_semantic_mnemonic_random_audit.py'
       - 'scripts/test_repair_semantic_mnemonic_groupings.py'
+      - 'scripts/test_repair_semantic_mnemonic_random_audit.py'
       - 'scripts/semantic_mnemonic_card_inputs.json'
       - 'data/semantic_mnemonic_grouping_policy.json'
+      - 'data/semantic_mnemonic_random_audit_policy.json'
       - 'sveltekit-app/static/game_data/component_glosses.json'
       - 'scripts/test_manage_semantic_mnemonic_corpus.py'
       - 'scripts/audit_semantic_mnemonic_component_families.py'
@@ -41,8 +44,10 @@ jobs:
           python3 scripts/manage_semantic_mnemonic_corpus.py verify
           python3 scripts/repair_semantic_mnemonic_learning_glosses.py --check
           python3 scripts/repair_semantic_mnemonic_groupings.py --check
+          python3 scripts/repair_semantic_mnemonic_random_audit.py --check
           python3 -m unittest scripts/test_manage_semantic_mnemonic_corpus.py
           python3 -m unittest scripts/test_repair_semantic_mnemonic_groupings.py
+          python3 -m unittest scripts/test_repair_semantic_mnemonic_random_audit.py
 
       - name: Setup Rust
         uses: actions-rust-lang/setup-rust-toolchain@v1

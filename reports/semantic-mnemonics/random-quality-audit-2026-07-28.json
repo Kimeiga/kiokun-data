@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-07-28",
+  "seed": 20260728,
+  "scope": {
+    "canonical_cards": 24037,
+    "heuristic_full_corpus_scan": 24037,
+    "manually_screened_character_sample": 591,
+    "live_word_pages_requested": 150
+  },
+  "character_sample": {
+    "common": 100,
+    "variant": 100,
+    "complex": 97,
+    "supplementary": 47,
+    "uniform": 247
+  },
+  "word_sample": {
+    "chinese": {
+      "requested": 50,
+      "http_200": 50
+    },
+    "japanese": {
+      "requested": 50,
+      "http_200": 49,
+      "source_headword_not_published": 1
+    },
+    "korean": {
+      "requested": 50,
+      "http_200": 36,
+      "source_headword_not_published": 14
+    }
+  },
+  "repair_policy": "data/semantic_mnemonic_random_audit_policy.json",
+  "repaired_characters": [
+    "頃",
+    "夊",
+    "婦",
+    "員",
+    "演",
+    "県",
+    "燕",
+    "㷼",
+    "鷰"
+  ],
+  "notes": [
+    "Heuristic flags were treated as review signals rather than automatic failures.",
+    "The unserved Japanese and Korean source headword forms were recorded for a separate indexing review; they were not treated as mnemonic defects.",
+    "Rare cards with uncertain or unattested glosses were not rewritten speculatively.",
+    "The 頃 repair changes only the learner-facing gloss and mnemonic; the full Chinese and Japanese dictionary senses remain available on the page."
+  ]
+}
