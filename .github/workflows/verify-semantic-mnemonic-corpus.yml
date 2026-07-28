@@ -5,6 +5,8 @@ on:
     paths:
       - 'data/semantic_mnemonic_corpus/**'
       - 'scripts/manage_semantic_mnemonic_corpus.py'
+      - 'scripts/repair_semantic_mnemonic_learning_glosses.py'
+      - 'sveltekit-app/static/game_data/component_glosses.json'
       - 'scripts/test_manage_semantic_mnemonic_corpus.py'
       - 'scripts/audit_semantic_mnemonic_component_families.py'
       - 'scripts/audit_semantic_mnemonics.py'
@@ -33,6 +35,7 @@ jobs:
       - name: Verify canonical buckets and Python corpus API
         run: |
           python3 scripts/manage_semantic_mnemonic_corpus.py verify
+          python3 scripts/repair_semantic_mnemonic_learning_glosses.py --check
           python3 -m unittest scripts/test_manage_semantic_mnemonic_corpus.py
 
       - name: Setup Rust

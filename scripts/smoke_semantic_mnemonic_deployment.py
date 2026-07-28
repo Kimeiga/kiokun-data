@@ -23,6 +23,7 @@ import manage_semantic_mnemonic_corpus as corpus_store  # noqa: E402
 
 SMOKE_CASES = {
     "normal": "喬",
+    "semantic_layers": "弋",
     "alias": "豈",
     "mnemonic_only": "𢼸",
     "supplementary_plane": "𠀀",
@@ -104,6 +105,13 @@ def validate_case(
         )
     if label == "normal" and expected_card.get("alias_of"):
         raise RuntimeError(f"{label} {character}: expected a non-alias card")
+    if label == "semantic_layers":
+        required = {"lexical_gloss", "mnemonic_keyword", "keyword_kind"}
+        missing = required - set(actual_card or {})
+        if missing:
+            raise RuntimeError(
+                f"{label} {character}: published card lacks {sorted(missing)}"
+            )
     if label == "alias" and not expected_card.get("alias_of"):
         raise RuntimeError(f"{label} {character}: expected alias metadata")
     if label == "mnemonic_only":

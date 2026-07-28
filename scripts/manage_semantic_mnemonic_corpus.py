@@ -50,6 +50,9 @@ BUCKET_ALGORITHM = "kiokun_simple_hash_low_byte_v1"
 RUNTIME_CARD_FIELDS = (
     "character",
     "meaning",
+    "lexical_gloss",
+    "mnemonic_keyword",
+    "keyword_kind",
     "equation",
     "mnemonic",
     "components",
@@ -61,7 +64,17 @@ RUNTIME_CARD_FIELDS = (
     "alias_kind",
     "alias_reason",
 )
+PREVIOUS_RUNTIME_CARD_FIELDS = tuple(
+    field
+    for field in RUNTIME_CARD_FIELDS
+    if field not in {"lexical_gloss", "mnemonic_keyword", "keyword_kind"}
+)
 REQUIRED_RUNTIME_FIELDS = ("character", "meaning", "equation", "mnemonic")
+KEYWORD_KINDS = {
+    "visual_comparison",
+    "historical_form",
+    "component_image",
+}
 
 
 class CorpusError(RuntimeError):
@@ -147,6 +160,30 @@ def validate_cards(cards: Any, *, label: str) -> list[dict[str, Any]]:
                 raise CorpusError(
                     f"{label}[{index}] {character!r} has invalid {field!r}"
                 )
+        semantic_layer_fields = (
+            card.get("lexical_gloss"),
+            card.get("mnemonic_keyword"),
+            card.get("keyword_kind"),
+        )
+        if any(value is not None for value in semantic_layer_fields):
+            if not all(
+                isinstance(value, str) and value
+                for value in semantic_layer_fields
+            ):
+                raise CorpusError(
+                    f"{label}[{index}] {character!r} must define lexical_gloss, "
+                    "mnemonic_keyword, and keyword_kind together"
+                )
+            if card["keyword_kind"] not in KEYWORD_KINDS:
+                raise CorpusError(
+                    f"{label}[{index}] {character!r} has unsupported keyword_kind "
+                    f"{card['keyword_kind']!r}"
+                )
+            if card["meaning"] != card["mnemonic_keyword"]:
+                raise CorpusError(
+                    f"{label}[{index}] {character!r} must keep meaning equal to "
+                    "mnemonic_keyword for compatibility with older clients"
+                )
         seen.add(character)
         validated.append(card)
     return validated
@@ -162,9 +199,13 @@ def validate_artifact(artifact: dict[str, Any], *, label: str) -> list[dict[str,
     return cards
 
 
-def runtime_card(card: dict[str, Any]) -> dict[str, Any]:
+def runtime_card(
+    card: dict[str, Any],
+    *,
+    fields: tuple[str, ...] = RUNTIME_CARD_FIELDS,
+) -> dict[str, Any]:
     projected: dict[str, Any] = {}
-    for field in RUNTIME_CARD_FIELDS:
+    for field in fields:
         if field not in card:
             continue
         value = card[field]
@@ -772,16 +813,27 @@ def verify_corpus(
     if manifest.get("source_artifact_byte_count") != len(artifact_bytes):
         raise CorpusError("reconstructed source artifact byte count differs")
 
-    runtime_cards = [runtime_card(card) for card in artifact["mnemonics"]]
+    manifest_runtime_fields = manifest.get("runtime_card_fields")
+    if manifest_runtime_fields == list(RUNTIME_CARD_FIELDS):
+        runtime_fields = RUNTIME_CARD_FIELDS
+    elif manifest_runtime_fields == list(PREVIOUS_RUNTIME_CARD_FIELDS):
+        # Permit one explicit predecessor so a bucket-native editor can load
+        # and transactionally republish a corpus during a runtime-field
+        # migration. The next publication always writes the current contract.
+        runtime_fields = PREVIOUS_RUNTIME_CARD_FIELDS
+    else:
+        raise CorpusError("manifest runtime-card field contract differs from code")
+
+    runtime_cards = [
+        runtime_card(card, fields=runtime_fields)
+        for card in artifact["mnemonics"]
+    ]
     validate_cards(runtime_cards, label="runtime projection")
     runtime_projection = canonical_json_bytes({"mnemonics": runtime_cards})
     if manifest.get("runtime_projection_sha256") != sha256_bytes(runtime_projection):
         raise CorpusError("runtime projection hash differs from manifest")
     if manifest.get("runtime_projection_byte_count") != len(runtime_projection):
         raise CorpusError("runtime projection byte count differs")
-    if manifest.get("runtime_card_fields") != list(RUNTIME_CARD_FIELDS):
-        raise CorpusError("manifest runtime-card field contract differs from code")
-
     bucket_sizes = [
         reference["byte_count"] for reference in manifest["card_buckets"]
     ]

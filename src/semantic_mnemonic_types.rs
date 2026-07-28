@@ -20,6 +20,20 @@ pub struct SemanticMnemonicBucketReference {
 pub struct SemanticMnemonicCard {
     pub character: String,
     pub meaning: String,
+
+    /// Attested standalone sense(s), when the learning keyword is deliberately
+    /// a visual or historical image rather than a dictionary definition.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub lexical_gloss: Option<String>,
+
+    /// Explicit learning keyword used by the equation and dependent cards.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub mnemonic_keyword: Option<String>,
+
+    /// Why the mnemonic keyword differs from the lexical gloss.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub keyword_kind: Option<String>,
+
     pub equation: String,
     pub mnemonic: String,
 

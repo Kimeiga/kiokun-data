@@ -4,13 +4,16 @@
   "count": 24037,
   "bucket_algorithm": "kiokun_simple_hash_low_byte_v1",
   "bucket_count": 256,
-  "source_artifact_sha256": "sha256:ed1caf294d427c8984872fadab003a25155d89a2113649d128ed9093827a843d",
-  "source_artifact_byte_count": 58944998,
-  "runtime_projection_sha256": "sha256:6f86273bf4c4f00811902d41f7486fcc72debbd2a1dcb5c5f66d2214d3650c9e",
-  "runtime_projection_byte_count": 10202615,
+  "source_artifact_sha256": "sha256:a32ebf5140b8ca72f87786c4c1c2280d2b9f031d4dafecce7264c59690aa5c8c",
+  "source_artifact_byte_count": 58946042,
+  "runtime_projection_sha256": "sha256:d61068bc53fbfa6431eedbbe653baa6e5f8650c3756cd5ad5f1914f4fc8d1cb2",
+  "runtime_projection_byte_count": 10203659,
   "runtime_card_fields": [
     "character",
     "meaning",
+    "lexical_gloss",
+    "mnemonic_keyword",
+    "keyword_kind",
     "equation",
     "mnemonic",
     "components",
@@ -138,8 +141,8 @@
       "bucket": "0b",
       "first_character": "㔋",
       "last_character": "𰰋",
-      "sha256": "sha256:8e32c7407b86eccf75784a301e003cbc1f359060330b2959194e4b9eeb035746",
-      "byte_count": 229683,
+      "sha256": "sha256:387a44cf7425fd6b32a3e336fa987a35f3287d4c271b205e92de034da4e79523",
+      "byte_count": 229902,
       "count": 97
     },
     {
@@ -147,8 +150,8 @@
       "bucket": "0c",
       "first_character": "㐌",
       "last_character": "𰰌",
-      "sha256": "sha256:3e192fcf36950f73ef2e01d33bc4e16fdfaa52925e404a297f43c0516248c6b0",
-      "byte_count": 229328,
+      "sha256": "sha256:f2ddebd8851e71b5c019ac5e1bdde58e8b7af6c42c9af1fbf6a71dd16086796a",
+      "byte_count": 229358,
       "count": 100
     },
     {
@@ -156,8 +159,8 @@
       "bucket": "0d",
       "first_character": "㔍",
       "last_character": "𱈍",
-      "sha256": "sha256:2d8965bfe10bcb37b6d2ccb98c222c77c6664073647e6daa534c0580dfb50439",
-      "byte_count": 225981,
+      "sha256": "sha256:bd3b9e41539ff38ad3fa1da14d4a5c2324faaaa5976b2482d7cbacf79251286b",
+      "byte_count": 226015,
       "count": 92
     },
     {
@@ -165,8 +168,8 @@
       "bucket": "0e",
       "first_character": "㔎",
       "last_character": "䳭",
-      "sha256": "sha256:984c562c3ff200434c7a783781436359e9f9cbd9938d6abd1eea1243dd4c0b24",
-      "byte_count": 242905,
+      "sha256": "sha256:059475c158c7fe95d6cfdf7bea171c49e236522757e262fea42eae2aa1417c21",
+      "byte_count": 242928,
       "count": 100
     },
     {
@@ -174,8 +177,8 @@
       "bucket": "0f",
       "first_character": "㔏",
       "last_character": "𰰏",
-      "sha256": "sha256:a743529c937901769ade7639d8b90b1d0acfe2b124af47ec69b37c28364cb317",
-      "byte_count": 216105,
+      "sha256": "sha256:a20f07f266a9120d4f0636284fff3f67dac1a52d6d4e54ea85bcc2863fed7092",
+      "byte_count": 216142,
       "count": 92
     },
     {
@@ -264,8 +267,8 @@
       "bucket": "19",
       "first_character": "㔙",
       "last_character": "𰌙",
-      "sha256": "sha256:01a7221275f5c17b0bc33e841063480165c67085ce23e3567a260007a1aa6555",
-      "byte_count": 230026,
+      "sha256": "sha256:8758f413034a5ac0824dae65717d9ecac9cd324a23592ea88e57bba09bcc2006",
+      "byte_count": 230076,
       "count": 96
     },
     {
@@ -300,8 +303,8 @@
       "bucket": "1d",
       "first_character": "㔝",
       "last_character": "𰴝",
-      "sha256": "sha256:b2facf810959bd198e920e5784e70d9c5ba81882b34445d81300d1e9e9413f31",
-      "byte_count": 211482,
+      "sha256": "sha256:ab7efff0881e22fa8febb6c291464cdc478f78c68596d29fc08d8d95e7c39f27",
+      "byte_count": 211500,
       "count": 90
     },
     {
@@ -345,8 +348,8 @@
       "bucket": "22",
       "first_character": "㔢",
       "last_character": "𰜢",
-      "sha256": "sha256:d7a6e8ad4c706f964d1732769a27edb3ca44e4edab3bc743c6f25312e773127a",
-      "byte_count": 228194,
+      "sha256": "sha256:d4c3b869aa2b807661b63d5109d8ea4bf773dc327546ef12156d0faf3e06a184",
+      "byte_count": 228235,
       "count": 92
     },
     {
@@ -372,8 +375,8 @@
       "bucket": "25",
       "first_character": "㔥",
       "last_character": "𰬥",
-      "sha256": "sha256:b53bca8879b80636dbf86798c140571e34da7ae630b5c9b3482502ac96bc1e6b",
-      "byte_count": 225823,
+      "sha256": "sha256:fa48f1ee5a90e661479b6e2cd9952114263b41204ab3e63637c7c83727421d7b",
+      "byte_count": 225863,
       "count": 93
     },
     {
@@ -408,8 +411,8 @@
       "bucket": "29",
       "first_character": "㐩",
       "last_character": "𰬩",
-      "sha256": "sha256:77e071bc84fd03987dacaad012e6976f80ae0a9aa977e77caca6ee31631a9229",
-      "byte_count": 235286,
+      "sha256": "sha256:195240f7ed633e3ba8cdfdb6e9479f459dc9cd1a9d90759dd4d1ea3781194252",
+      "byte_count": 235308,
       "count": 97
     },
     {
@@ -435,8 +438,8 @@
       "bucket": "2c",
       "first_character": "㐬",
       "last_character": "𱌬",
-      "sha256": "sha256:4ecb758ff8c4e333d6ab5ae461d4ed01bce14836177faaf083406c98a243d309",
-      "byte_count": 250131,
+      "sha256": "sha256:df1959b3a22bd48b049c7ff547c202493429ace2366f540dca164327f1a6a94b",
+      "byte_count": 250181,
       "count": 98
     },
     {
@@ -840,8 +843,8 @@
       "bucket": "59",
       "first_character": "㑙",
       "last_character": "𱉙",
-      "sha256": "sha256:1f946d6978d1b4bf972f12e8598e5c93c55ea6881b02833afec595683f216906",
-      "byte_count": 223658,
+      "sha256": "sha256:8f1f1b0ae1d60d4f67698bcb83ee1779ee80a0a68fb1a42369de97368fc73cb5",
+      "byte_count": 223704,
       "count": 93
     },
     {
@@ -957,8 +960,8 @@
       "bucket": "66",
       "first_character": "㑦",
       "last_character": "𱉦",
-      "sha256": "sha256:cdb202b1c2b61d8f36a1691b9faf49edf8aed71ff7deecf0562e01031c222c00",
-      "byte_count": 240710,
+      "sha256": "sha256:f94dcaa0b35af6b404b439dd312c3c70f4acb12c269ba5ea6679b3d28f1cc488",
+      "byte_count": 240748,
       "count": 95
     },
     {
@@ -1389,8 +1392,8 @@
       "bucket": "96",
       "first_character": "㒖",
       "last_character": "𰾖",
-      "sha256": "sha256:6ccb4f32e388a8996fb6b8630e63c3981b884b45a31cedb7d1cb0154103b0e7c",
-      "byte_count": 239587,
+      "sha256": "sha256:5cf1857ac1f06781b99462121fc08dd4bbd20716e13f6447ee305152ec4ef3ac",
+      "byte_count": 239619,
       "count": 100
     },
     {
@@ -1515,8 +1518,8 @@
       "bucket": "a4",
       "first_character": "⺤",
       "last_character": "𰾤",
-      "sha256": "sha256:0361e02ee1db78b373939b451f9e61843a624b57301c14ef2783df1f8a661b1f",
-      "byte_count": 228515,
+      "sha256": "sha256:6968e45b7f008edb110430c2617bf87abaa964b594f3df86f1d1fdbd8cb57e2b",
+      "byte_count": 228574,
       "count": 97
     },
     {
@@ -1524,8 +1527,8 @@
       "bucket": "a5",
       "first_character": "㒥",
       "last_character": "𱆥",
-      "sha256": "sha256:c6f5eefd085293eb4d5503036fed2eaecebb39b52c78baa62ab69f4295c10064",
-      "byte_count": 205228,
+      "sha256": "sha256:73c2693568d128ed5dc4564e9ef72de14344240d4b2eaefee32488c9e906c8ef",
+      "byte_count": 205267,
       "count": 91
     },
     {
@@ -1533,8 +1536,8 @@
       "bucket": "a6",
       "first_character": "㒦",
       "last_character": "𱊦",
-      "sha256": "sha256:d59cde8c03c38c4d2d4e2e2eab9f74f874c2de521a4843b4e675aab6764b7136",
-      "byte_count": 222200,
+      "sha256": "sha256:3a9ac5f3afdcbb179e8c27fc359046cb8799fce6227c9ca313bea589f71026c3",
+      "byte_count": 222207,
       "count": 96
     },
     {
@@ -1605,8 +1608,8 @@
       "bucket": "ae",
       "first_character": "㖮",
       "last_character": "𱂮",
-      "sha256": "sha256:cdc3570d536681d34bfed3dc363346bbdf17bf57a5385662516c65619a383a2b",
-      "byte_count": 236618,
+      "sha256": "sha256:198ee0ccdf8d234cb57a38d6bdcdf4c71e3544f90bd99050876aaf428f8ccdf8",
+      "byte_count": 236673,
       "count": 96
     },
     {
@@ -1929,8 +1932,8 @@
       "bucket": "d2",
       "first_character": "㗒",
       "last_character": "𰛒",
-      "sha256": "sha256:b56debaa2cadea0505bea188b64b4b22e2d86bbf1085ca40c9facfa342d9841f",
-      "byte_count": 211734,
+      "sha256": "sha256:6a9f75e7f60c02ac6db17c73eb9c2f010bec6d4964167f89f213a5e6e130bf19",
+      "byte_count": 211779,
       "count": 91
     },
     {
@@ -1938,8 +1941,8 @@
       "bucket": "d3",
       "first_character": "㓓",
       "last_character": "冕",
-      "sha256": "sha256:40e18064f9af1d923d4657d73f9ee8064dc582516130eec7279e730732346d12",
-      "byte_count": 202008,
+      "sha256": "sha256:9b74cc38db7e55647fddf653e6707c1c843486b9e1f00bb493b4b8de4c571ddb",
+      "byte_count": 202030,
       "count": 91
     },
     {
@@ -2082,8 +2085,8 @@
       "bucket": "e3",
       "first_character": "㓣",
       "last_character": "𰇣",
-      "sha256": "sha256:0da1b773402b2fb33f71a786124a06ed10a3473903e032fac18216e5ea367bbe",
-      "byte_count": 204897,
+      "sha256": "sha256:edd34a43ad714b1456f67e0779393dafa96c5950e919499b05f9acb5ee4ea17b",
+      "byte_count": 204930,
       "count": 84
     },
     {
@@ -2118,8 +2121,8 @@
       "bucket": "e7",
       "first_character": "㓧",
       "last_character": "𱇧",
-      "sha256": "sha256:79a5751348142ef409027fdb650b9c334a699a7650954e133d501ad639c7cc65",
-      "byte_count": 204110,
+      "sha256": "sha256:a12d4f085b2d5c542fae4b17b9280310ceff8df684c18aaffd971bd453edf4f0",
+      "byte_count": 204172,
       "count": 91
     },
     {
@@ -2253,8 +2256,8 @@
       "bucket": "f6",
       "first_character": "㓶",
       "last_character": "𰷶",
-      "sha256": "sha256:c7ff076955065fb004d46ee81f581f02344c81006d8a009c4d88b2d086a59170",
-      "byte_count": 206360,
+      "sha256": "sha256:8d55a2f5d41a8eef9a47d6caacd1c63f1210ab015405f9e8e8158779edbe5e4e",
+      "byte_count": 206402,
       "count": 85
     },
     {

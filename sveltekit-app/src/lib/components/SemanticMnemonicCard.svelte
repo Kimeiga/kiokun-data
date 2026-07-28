@@ -26,6 +26,18 @@
 			{#if label}
 				<div class="variant-label">{label}</div>
 			{/if}
+			{#if card.mnemonic_keyword && card.lexical_gloss}
+				<div class="semantic-layers">
+					<div>
+						<span class="semantic-layer-label">Mnemonic keyword</span>
+						<span lang="en">{card.mnemonic_keyword}</span>
+					</div>
+					<div>
+						<span class="semantic-layer-label">Actual meanings</span>
+						<span lang="en">{card.lexical_gloss}</span>
+					</div>
+				</div>
+			{/if}
 			<div class="mnemonic-equation" lang="zh">{card.equation}</div>
 			<p class="mnemonic-text">{card.mnemonic}</p>
 
@@ -53,6 +65,23 @@
 		font-weight: 700;
 		letter-spacing: 0;
 		margin-bottom: var(--spacing-xs);
+	}
+
+	.semantic-layers {
+		display: grid;
+		gap: 0.2rem;
+		margin-bottom: var(--spacing-xs);
+		color: var(--text-secondary);
+		font-size: var(--font-size-caption1);
+		line-height: 1.45;
+	}
+
+	.semantic-layer-label {
+		display: inline-block;
+		min-width: 8.5rem;
+		margin-right: 0.4rem;
+		color: var(--text-tertiary);
+		font-weight: 650;
 	}
 
 	.mnemonic-equation {

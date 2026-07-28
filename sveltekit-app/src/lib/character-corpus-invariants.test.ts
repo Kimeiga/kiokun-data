@@ -61,6 +61,24 @@ for (const file of bucketFiles) {
 		assert(normalizeLearnerGloss(card.meaning), `${card.character}: missing learner meaning`);
 		assert(card.equation?.trim(), `${card.character}: missing equation`);
 		assert(card.mnemonic?.trim(), `${card.character}: missing mnemonic`);
+		const semanticLayerValues = [
+			card.lexical_gloss,
+			card.mnemonic_keyword,
+			card.keyword_kind
+		];
+		if (semanticLayerValues.some((value) => value !== undefined)) {
+			assert(
+				semanticLayerValues.every(
+					(value) => typeof value === 'string' && value.trim()
+				),
+				`${card.character}: semantic-layer fields must be defined together`
+			);
+			assert.equal(
+				card.meaning,
+				card.mnemonic_keyword,
+				`${card.character}: legacy meaning must match mnemonic_keyword`
+			);
+		}
 
 		const entry = {
 			key: card.character,
@@ -104,6 +122,16 @@ for (const file of bucketFiles) {
 }
 
 assert.equal(cards.size, manifest.count, 'manifest count does not match corpus cards');
+
+const yi = cards.get('弋');
+assert(yi, '弋: missing semantic-layer regression card');
+assert.equal(yi.meaning, 'bladeless halberd');
+assert.equal(yi.mnemonic_keyword, 'bladeless halberd');
+assert.equal(
+	yi.lexical_gloss,
+	'wooden stake; tethered hunting arrow; shoot with a tethered arrow'
+);
+assert.equal(yi.keyword_kind, 'visual_comparison');
 
 for (const [character, target] of aliases) {
 	assert(cards.has(target), `${character}: alias target ${target} is missing`);

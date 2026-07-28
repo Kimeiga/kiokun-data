@@ -28,6 +28,19 @@ bucket is approximately 260 KiB.
 The compact runtime representation is a deterministic projection verified by
 the manifest, but it is not duplicated in Git.
 
+Most cards use `meaning` as both the attested learner gloss and the mnemonic
+keyword. A rare component may deliberately use a more memorable visual image.
+Those exceptions must define all three semantic-layer fields:
+
+- `lexical_gloss`: the attested standalone sense or senses;
+- `mnemonic_keyword`: the explicitly labeled learning image;
+- `keyword_kind`: why the two differ (`visual_comparison`,
+  `historical_form`, or `component_image`).
+
+For compatibility with older clients, `meaning` remains equal to
+`mnemonic_keyword` on these exceptional cards. The UI labels both layers so a
+visual mnemonic cannot be mistaken for a dictionary definition.
+
 ## Verify
 
 ```sh

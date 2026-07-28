@@ -35,6 +35,9 @@ export interface SemanticMnemonicComponent {
 export interface SemanticMnemonicCard {
   character: string;
   meaning: string;
+  lexical_gloss?: string;
+  mnemonic_keyword?: string;
+  keyword_kind?: 'visual_comparison' | 'historical_form' | 'component_image';
   equation: string;
   mnemonic: string;
   components?: SemanticMnemonicComponent[];

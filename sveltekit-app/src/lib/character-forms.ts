@@ -95,7 +95,10 @@ export function mnemonicCardsForEntry(entry: DictionaryEntry): SemanticMnemonicC
  */
 export function learnerGlossForEntry(entry: DictionaryEntry): string {
 	return normalizeLearnerGloss(
-		entry.semantic_mnemonic?.meaning || entry.chinese_char?.gloss || ''
+		entry.semantic_mnemonic?.mnemonic_keyword ||
+			entry.semantic_mnemonic?.meaning ||
+			entry.chinese_char?.gloss ||
+			''
 	);
 }
 

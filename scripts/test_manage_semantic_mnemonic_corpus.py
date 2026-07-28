@@ -176,6 +176,35 @@ class ManageSemanticMnemonicCorpusTests(unittest.TestCase):
         self.assertFalse(self.artifact_path.exists())
         self.assertEqual(result["artifact"]["mnemonics"][1]["meaning"], "pair")
 
+    def test_semantic_layer_fields_round_trip_in_runtime_projection(self) -> None:
+        self.artifact["mnemonics"][0].update(
+            {
+                "meaning": "single stroke",
+                "lexical_gloss": "one",
+                "mnemonic_keyword": "single stroke",
+                "keyword_kind": "visual_comparison",
+            }
+        )
+        self.artifact_path.write_bytes(corpus.canonical_json_bytes(self.artifact))
+
+        result = self.pack()
+        projected = corpus.runtime_card(result["artifact"]["mnemonics"][0])
+
+        self.assertEqual(projected["lexical_gloss"], "one")
+        self.assertEqual(projected["mnemonic_keyword"], "single stroke")
+        self.assertEqual(projected["keyword_kind"], "visual_comparison")
+
+    def test_semantic_layer_fields_must_be_complete_and_compatible(self) -> None:
+        card = self.artifact["mnemonics"][0]
+        card["lexical_gloss"] = "one"
+        with self.assertRaisesRegex(corpus.CorpusError, "must define lexical_gloss"):
+            corpus.validate_artifact(self.artifact, label="fixture")
+
+        card["mnemonic_keyword"] = "single stroke"
+        card["keyword_kind"] = "visual_comparison"
+        with self.assertRaisesRegex(corpus.CorpusError, "meaning equal to"):
+            corpus.validate_artifact(self.artifact, label="fixture")
+
     def test_failed_staging_verification_leaves_current_tree_unchanged(self) -> None:
         self.pack()
         before = {

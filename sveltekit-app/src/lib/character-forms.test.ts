@@ -51,6 +51,25 @@ assert.equal(
 );
 assert.equal(normalizeLearnerGloss('picture (trad/jp)'), 'picture');
 
+const visualKeywordEntry = entry({
+	key: '弋',
+	chinese_char: {
+		char: '弋',
+		gloss: 'shoot with a tethered arrow'
+	} as any,
+	semantic_mnemonic: {
+		...card('弋', 'bladeless halberd'),
+		lexical_gloss: 'wooden stake; tethered hunting arrow',
+		mnemonic_keyword: 'bladeless halberd',
+		keyword_kind: 'visual_comparison'
+	}
+});
+assert.equal(
+	learnerGlossForEntry(visualKeywordEntry),
+	'bladeless halberd',
+	'an explicitly labeled visual keyword drives the learning heading'
+);
+
 const equivalentYu = entry({
 	key: '于',
 	simplified_form_of: '於',

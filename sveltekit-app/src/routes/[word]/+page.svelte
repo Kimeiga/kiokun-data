@@ -547,6 +547,14 @@
 											size="sm"
 										/>
 									</div>
+									{#if data.data.semantic_mnemonic?.mnemonic_keyword && data.data.semantic_mnemonic?.lexical_gloss}
+										<div class="mb-1 text-xs leading-snug text-text-secondary">
+											<span class="font-semibold text-text-tertiary">Mnemonic keyword</span>
+											<span aria-hidden="true"> · </span>
+											<span class="font-semibold text-text-tertiary">Actual meanings:</span>
+											{data.data.semantic_mnemonic.lexical_gloss}
+										</div>
+									{/if}
 									<!-- Taxonomy breadcrumb -->
 									{#if taxonomy && taxonomy.length > 0}
 										<div class="taxonomy-breadcrumb text-xs text-text-tertiary mb-1 flex items-center gap-1 flex-wrap">
