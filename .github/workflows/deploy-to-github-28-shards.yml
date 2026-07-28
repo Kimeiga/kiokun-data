@@ -8,6 +8,7 @@ on:
       - 'data/**'
       - 'scripts/manage_semantic_mnemonic_corpus.py'
       - 'scripts/smoke_semantic_mnemonic_deployment.py'
+      - 'scripts/smoke_korean_word_deployment.py'
       - 'Cargo.toml'
       - '.github/workflows/deploy-to-github-28-shards.yml'
   workflow_dispatch:  # Manual trigger also available
@@ -193,8 +194,8 @@ jobs:
           
           echo "✓ Pushed to kiokun2-dict-${{ matrix.shard }}"
 
-  smoke-test-semantic-mnemonics:
-    name: Smoke test published mnemonic projections
+  smoke-test-published-dictionary:
+    name: Smoke test published dictionary projections
     needs: build-and-deploy
     runs-on: ubuntu-latest
     steps:
@@ -206,6 +207,13 @@ jobs:
       - name: Compare representative published entries with canonical cards
         run: |
           python3 scripts/smoke_semantic_mnemonic_deployment.py \
+            --attempts 18 \
+            --delay 20 \
+            --timeout 30
+
+      - name: Verify Korean homonyms, redirects, and aliases
+        run: |
+          python3 scripts/smoke_korean_word_deployment.py \
             --attempts 18 \
             --delay 20 \
             --timeout 30

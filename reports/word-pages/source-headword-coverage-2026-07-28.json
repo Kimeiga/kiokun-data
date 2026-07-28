@@ -1,0 +1,811 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-07-28",
+  "seed": 20260728,
+  "sampling": {
+    "method": "Take the lowest SHA-256 ranks of seed + language + canonical source headword.",
+    "sample_size_per_language": 50,
+    "base_url": "https://kiokun.com"
+  },
+  "source_contract": {
+    "chinese": "traditional form, falling back to simplified",
+    "japanese": "first JMdict kanji form, falling back to first kana form",
+    "korean": "Hangul-initial KRDICT rows accepted by load_korean_dictionary; Hanja and mixed-script Yomitan index rows are alternate lookup keys"
+  },
+  "krdict_index_summary": {
+    "raw_index_rows": 91481,
+    "raw_unique_terms": 85415,
+    "publishable_hangul_rows": 57601,
+    "publishable_unique_headwords": 52572,
+    "alternate_index_rows_excluded_by_loader": 33880,
+    "alternate_unique_index_terms_excluded_by_loader": 32843
+  },
+  "krdict_loader_summary": {
+    "accepted_rows": 57601,
+    "exact_duplicate_rows": 4,
+    "rows_after_exact_deduplication": 57597,
+    "headwords_with_multiple_source_rows": 3709,
+    "maximum_rows_for_one_headword": 18,
+    "sequence_values": [
+      1
+    ],
+    "finding": "The Yomitan sequence column is constant and cannot identify entries. Deduplicating by headword plus sequence collapses real homonyms.",
+    "remediation": "Deduplicate exact rows, assign stable bank-and-row IDs, retain ambiguous Hangul homonyms together, and redirect only unambiguous forms."
+  },
+  "languages": {
+    "chinese": {
+      "source_pool_count": 144119,
+      "requested": 50,
+      "http_200": 50,
+      "failures": [],
+      "sample": [
+        {
+          "headword": "葇",
+          "url": "https://kiokun.com/%E8%91%87",
+          "status": 200
+        },
+        {
+          "headword": "沒事兒",
+          "url": "https://kiokun.com/%E6%B2%92%E4%BA%8B%E5%85%92",
+          "status": 200
+        },
+        {
+          "headword": "橒",
+          "url": "https://kiokun.com/%E6%A9%92",
+          "status": 200
+        },
+        {
+          "headword": "偵察",
+          "url": "https://kiokun.com/%E5%81%B5%E5%AF%9F",
+          "status": 200
+        },
+        {
+          "headword": "遂",
+          "url": "https://kiokun.com/%E9%81%82",
+          "status": 200
+        },
+        {
+          "headword": "記憶體",
+          "url": "https://kiokun.com/%E8%A8%98%E6%86%B6%E9%AB%94",
+          "status": 200
+        },
+        {
+          "headword": "生養",
+          "url": "https://kiokun.com/%E7%94%9F%E9%A4%8A",
+          "status": 200
+        },
+        {
+          "headword": "皮諾切特",
+          "url": "https://kiokun.com/%E7%9A%AE%E8%AB%BE%E5%88%87%E7%89%B9",
+          "status": 200
+        },
+        {
+          "headword": "物力",
+          "url": "https://kiokun.com/%E7%89%A9%E5%8A%9B",
+          "status": 200
+        },
+        {
+          "headword": "小黃瓜",
+          "url": "https://kiokun.com/%E5%B0%8F%E9%BB%83%E7%93%9C",
+          "status": 200
+        },
+        {
+          "headword": "身孕",
+          "url": "https://kiokun.com/%E8%BA%AB%E5%AD%95",
+          "status": 200
+        },
+        {
+          "headword": "正常工作",
+          "url": "https://kiokun.com/%E6%AD%A3%E5%B8%B8%E5%B7%A5%E4%BD%9C",
+          "status": 200
+        },
+        {
+          "headword": "百無聊賴",
+          "url": "https://kiokun.com/%E7%99%BE%E7%84%A1%E8%81%8A%E8%B3%B4",
+          "status": 200
+        },
+        {
+          "headword": "火機",
+          "url": "https://kiokun.com/%E7%81%AB%E6%A9%9F",
+          "status": 200
+        },
+        {
+          "headword": "年底",
+          "url": "https://kiokun.com/%E5%B9%B4%E5%BA%95",
+          "status": 200
+        },
+        {
+          "headword": "䤫",
+          "url": "https://kiokun.com/%E4%A4%AB",
+          "status": 200
+        },
+        {
+          "headword": "有事",
+          "url": "https://kiokun.com/%E6%9C%89%E4%BA%8B",
+          "status": 200
+        },
+        {
+          "headword": "聎",
+          "url": "https://kiokun.com/%E8%81%8E",
+          "status": 200
+        },
+        {
+          "headword": "殺人犯",
+          "url": "https://kiokun.com/%E6%AE%BA%E4%BA%BA%E7%8A%AF",
+          "status": 200
+        },
+        {
+          "headword": "㿢",
+          "url": "https://kiokun.com/%E3%BF%A2",
+          "status": 200
+        },
+        {
+          "headword": "手足親情",
+          "url": "https://kiokun.com/%E6%89%8B%E8%B6%B3%E8%A6%AA%E6%83%85",
+          "status": 200
+        },
+        {
+          "headword": "閏月",
+          "url": "https://kiokun.com/%E9%96%8F%E6%9C%88",
+          "status": 200
+        },
+        {
+          "headword": "故園",
+          "url": "https://kiokun.com/%E6%95%85%E5%9C%92",
+          "status": 200
+        },
+        {
+          "headword": "一線微光",
+          "url": "https://kiokun.com/%E4%B8%80%E7%B7%9A%E5%BE%AE%E5%85%89",
+          "status": 200
+        },
+        {
+          "headword": "經筵",
+          "url": "https://kiokun.com/%E7%B6%93%E7%AD%B5",
+          "status": 200
+        },
+        {
+          "headword": "雷公打豆腐，揀軟的欺",
+          "url": "https://kiokun.com/%E9%9B%B7%E5%85%AC%E6%89%93%E8%B1%86%E8%85%90%EF%BC%8C%E6%8F%80%E8%BB%9F%E7%9A%84%E6%AC%BA",
+          "status": 200
+        },
+        {
+          "headword": "閅",
+          "url": "https://kiokun.com/%E9%96%85",
+          "status": 200
+        },
+        {
+          "headword": "瞰望",
+          "url": "https://kiokun.com/%E7%9E%B0%E6%9C%9B",
+          "status": 200
+        },
+        {
+          "headword": "客蚤屬",
+          "url": "https://kiokun.com/%E5%AE%A2%E8%9A%A4%E5%B1%AC",
+          "status": 200
+        },
+        {
+          "headword": "石咀山市",
+          "url": "https://kiokun.com/%E7%9F%B3%E5%92%80%E5%B1%B1%E5%B8%82",
+          "status": 200
+        },
+        {
+          "headword": "商水",
+          "url": "https://kiokun.com/%E5%95%86%E6%B0%B4",
+          "status": 200
+        },
+        {
+          "headword": "開封地區",
+          "url": "https://kiokun.com/%E9%96%8B%E5%B0%81%E5%9C%B0%E5%8D%80",
+          "status": 200
+        },
+        {
+          "headword": "䳟",
+          "url": "https://kiokun.com/%E4%B3%9F",
+          "status": 200
+        },
+        {
+          "headword": "莌",
+          "url": "https://kiokun.com/%E8%8E%8C",
+          "status": 200
+        },
+        {
+          "headword": "鐵人三項",
+          "url": "https://kiokun.com/%E9%90%B5%E4%BA%BA%E4%B8%89%E9%A0%85",
+          "status": 200
+        },
+        {
+          "headword": "徯徑",
+          "url": "https://kiokun.com/%E5%BE%AF%E5%BE%91",
+          "status": 200
+        },
+        {
+          "headword": "𥿯",
+          "url": "https://kiokun.com/%F0%A5%BF%AF",
+          "status": 200
+        },
+        {
+          "headword": "未知數",
+          "url": "https://kiokun.com/%E6%9C%AA%E7%9F%A5%E6%95%B8",
+          "status": 200
+        },
+        {
+          "headword": "素雞",
+          "url": "https://kiokun.com/%E7%B4%A0%E9%9B%9E",
+          "status": 200
+        },
+        {
+          "headword": "晚霞",
+          "url": "https://kiokun.com/%E6%99%9A%E9%9C%9E",
+          "status": 200
+        },
+        {
+          "headword": "聽頭",
+          "url": "https://kiokun.com/%E8%81%BD%E9%A0%AD",
+          "status": 200
+        },
+        {
+          "headword": "䪦",
+          "url": "https://kiokun.com/%E4%AA%A6",
+          "status": 200
+        },
+        {
+          "headword": "答對",
+          "url": "https://kiokun.com/%E7%AD%94%E5%B0%8D",
+          "status": 200
+        },
+        {
+          "headword": "公爵夫人",
+          "url": "https://kiokun.com/%E5%85%AC%E7%88%B5%E5%A4%AB%E4%BA%BA",
+          "status": 200
+        },
+        {
+          "headword": "薩",
+          "url": "https://kiokun.com/%E8%96%A9",
+          "status": 200
+        },
+        {
+          "headword": "㮍",
+          "url": "https://kiokun.com/%E3%AE%8D",
+          "status": 200
+        },
+        {
+          "headword": "數字用戶線路",
+          "url": "https://kiokun.com/%E6%95%B8%E5%AD%97%E7%94%A8%E6%88%B6%E7%B7%9A%E8%B7%AF",
+          "status": 200
+        },
+        {
+          "headword": "基布茲",
+          "url": "https://kiokun.com/%E5%9F%BA%E5%B8%83%E8%8C%B2",
+          "status": 200
+        },
+        {
+          "headword": "新技術",
+          "url": "https://kiokun.com/%E6%96%B0%E6%8A%80%E8%A1%93",
+          "status": 200
+        },
+        {
+          "headword": "滕州市",
+          "url": "https://kiokun.com/%E6%BB%95%E5%B7%9E%E5%B8%82",
+          "status": 200
+        }
+      ]
+    },
+    "japanese": {
+      "source_pool_count": 210811,
+      "requested": 50,
+      "http_200": 50,
+      "failures": [],
+      "sample": [
+        {
+          "headword": "どうもこうもない",
+          "url": "https://kiokun.com/%E3%81%A9%E3%81%86%E3%82%82%E3%81%93%E3%81%86%E3%82%82%E3%81%AA%E3%81%84",
+          "status": 200
+        },
+        {
+          "headword": "エンジニア",
+          "url": "https://kiokun.com/%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%8B%E3%82%A2",
+          "status": 200
+        },
+        {
+          "headword": "光沢計",
+          "url": "https://kiokun.com/%E5%85%89%E6%B2%A2%E8%A8%88",
+          "status": 200
+        },
+        {
+          "headword": "世間周知",
+          "url": "https://kiokun.com/%E4%B8%96%E9%96%93%E5%91%A8%E7%9F%A5",
+          "status": 200
+        },
+        {
+          "headword": "酢酸でん粉",
+          "url": "https://kiokun.com/%E9%85%A2%E9%85%B8%E3%81%A7%E3%82%93%E7%B2%89",
+          "status": 200
+        },
+        {
+          "headword": "蛇の目の砂",
+          "url": "https://kiokun.com/%E8%9B%87%E3%81%AE%E7%9B%AE%E3%81%AE%E7%A0%82",
+          "status": 200
+        },
+        {
+          "headword": "国際協力",
+          "url": "https://kiokun.com/%E5%9B%BD%E9%9A%9B%E5%8D%94%E5%8A%9B",
+          "status": 200
+        },
+        {
+          "headword": "ジュネーブ条約",
+          "url": "https://kiokun.com/%E3%82%B8%E3%83%A5%E3%83%8D%E3%83%BC%E3%83%96%E6%9D%A1%E7%B4%84",
+          "status": 200
+        },
+        {
+          "headword": "アンケ",
+          "url": "https://kiokun.com/%E3%82%A2%E3%83%B3%E3%82%B1",
+          "status": 200
+        },
+        {
+          "headword": "視線",
+          "url": "https://kiokun.com/%E8%A6%96%E7%B7%9A",
+          "status": 200
+        },
+        {
+          "headword": "エリジビリティー",
+          "url": "https://kiokun.com/%E3%82%A8%E3%83%AA%E3%82%B8%E3%83%93%E3%83%AA%E3%83%86%E3%82%A3%E3%83%BC",
+          "status": 200
+        },
+        {
+          "headword": "親指姫",
+          "url": "https://kiokun.com/%E8%A6%AA%E6%8C%87%E5%A7%AB",
+          "status": 200
+        },
+        {
+          "headword": "脇役",
+          "url": "https://kiokun.com/%E8%84%87%E5%BD%B9",
+          "status": 200
+        },
+        {
+          "headword": "背丈",
+          "url": "https://kiokun.com/%E8%83%8C%E4%B8%88",
+          "status": 200
+        },
+        {
+          "headword": "獅子",
+          "url": "https://kiokun.com/%E7%8D%85%E5%AD%90",
+          "status": 200
+        },
+        {
+          "headword": "ナタデココ",
+          "url": "https://kiokun.com/%E3%83%8A%E3%82%BF%E3%83%87%E3%82%B3%E3%82%B3",
+          "status": 200
+        },
+        {
+          "headword": "煮えくり返る",
+          "url": "https://kiokun.com/%E7%85%AE%E3%81%88%E3%81%8F%E3%82%8A%E8%BF%94%E3%82%8B",
+          "status": 200
+        },
+        {
+          "headword": "仇",
+          "url": "https://kiokun.com/%E4%BB%87",
+          "status": 200
+        },
+        {
+          "headword": "植生帯",
+          "url": "https://kiokun.com/%E6%A4%8D%E7%94%9F%E5%B8%AF",
+          "status": 200
+        },
+        {
+          "headword": "アーミン",
+          "url": "https://kiokun.com/%E3%82%A2%E3%83%BC%E3%83%9F%E3%83%B3",
+          "status": 200
+        },
+        {
+          "headword": "貯蓄のパラドックス",
+          "url": "https://kiokun.com/%E8%B2%AF%E8%93%84%E3%81%AE%E3%83%91%E3%83%A9%E3%83%89%E3%83%83%E3%82%AF%E3%82%B9",
+          "status": 200
+        },
+        {
+          "headword": "二日間",
+          "url": "https://kiokun.com/%E4%BA%8C%E6%97%A5%E9%96%93",
+          "status": 200
+        },
+        {
+          "headword": "瑠璃羽太",
+          "url": "https://kiokun.com/%E7%91%A0%E7%92%83%E7%BE%BD%E5%A4%AA",
+          "status": 200
+        },
+        {
+          "headword": "カード穿孔機構",
+          "url": "https://kiokun.com/%E3%82%AB%E3%83%BC%E3%83%89%E7%A9%BF%E5%AD%94%E6%A9%9F%E6%A7%8B",
+          "status": 200
+        },
+        {
+          "headword": "規整",
+          "url": "https://kiokun.com/%E8%A6%8F%E6%95%B4",
+          "status": 200
+        },
+        {
+          "headword": "水中スクーターダイブ",
+          "url": "https://kiokun.com/%E6%B0%B4%E4%B8%AD%E3%82%B9%E3%82%AF%E3%83%BC%E3%82%BF%E3%83%BC%E3%83%80%E3%82%A4%E3%83%96",
+          "status": 200
+        },
+        {
+          "headword": "無農薬農法",
+          "url": "https://kiokun.com/%E7%84%A1%E8%BE%B2%E8%96%AC%E8%BE%B2%E6%B3%95",
+          "status": 200
+        },
+        {
+          "headword": "肺呼吸",
+          "url": "https://kiokun.com/%E8%82%BA%E5%91%BC%E5%90%B8",
+          "status": 200
+        },
+        {
+          "headword": "行跡",
+          "url": "https://kiokun.com/%E8%A1%8C%E8%B7%A1",
+          "status": 200
+        },
+        {
+          "headword": "天然林",
+          "url": "https://kiokun.com/%E5%A4%A9%E7%84%B6%E6%9E%97",
+          "status": 200
+        },
+        {
+          "headword": "ストーンウェア",
+          "url": "https://kiokun.com/%E3%82%B9%E3%83%88%E3%83%BC%E3%83%B3%E3%82%A6%E3%82%A7%E3%82%A2",
+          "status": 200
+        },
+        {
+          "headword": "能楽師",
+          "url": "https://kiokun.com/%E8%83%BD%E6%A5%BD%E5%B8%AB",
+          "status": 200
+        },
+        {
+          "headword": "出来すぎる",
+          "url": "https://kiokun.com/%E5%87%BA%E6%9D%A5%E3%81%99%E3%81%8E%E3%82%8B",
+          "status": 200
+        },
+        {
+          "headword": "真田紐",
+          "url": "https://kiokun.com/%E7%9C%9F%E7%94%B0%E7%B4%90",
+          "status": 200
+        },
+        {
+          "headword": "衝羽根朝顔",
+          "url": "https://kiokun.com/%E8%A1%9D%E7%BE%BD%E6%A0%B9%E6%9C%9D%E9%A1%94",
+          "status": 200
+        },
+        {
+          "headword": "鉱柱",
+          "url": "https://kiokun.com/%E9%89%B1%E6%9F%B1",
+          "status": 200
+        },
+        {
+          "headword": "手製",
+          "url": "https://kiokun.com/%E6%89%8B%E8%A3%BD",
+          "status": 200
+        },
+        {
+          "headword": "蜂巣炎",
+          "url": "https://kiokun.com/%E8%9C%82%E5%B7%A3%E7%82%8E",
+          "status": 200
+        },
+        {
+          "headword": "痩ける",
+          "url": "https://kiokun.com/%E7%97%A9%E3%81%91%E3%82%8B",
+          "status": 200
+        },
+        {
+          "headword": "火灯し頃",
+          "url": "https://kiokun.com/%E7%81%AB%E7%81%AF%E3%81%97%E9%A0%83",
+          "status": 200
+        },
+        {
+          "headword": "南米共同市場",
+          "url": "https://kiokun.com/%E5%8D%97%E7%B1%B3%E5%85%B1%E5%90%8C%E5%B8%82%E5%A0%B4",
+          "status": 200
+        },
+        {
+          "headword": "多結晶性",
+          "url": "https://kiokun.com/%E5%A4%9A%E7%B5%90%E6%99%B6%E6%80%A7",
+          "status": 200
+        },
+        {
+          "headword": "何遍",
+          "url": "https://kiokun.com/%E4%BD%95%E9%81%8D",
+          "status": 200
+        },
+        {
+          "headword": "広義の遺伝率",
+          "url": "https://kiokun.com/%E5%BA%83%E7%BE%A9%E3%81%AE%E9%81%BA%E4%BC%9D%E7%8E%87",
+          "status": 200
+        },
+        {
+          "headword": "郡",
+          "url": "https://kiokun.com/%E9%83%A1",
+          "status": 200
+        },
+        {
+          "headword": "水垢離",
+          "url": "https://kiokun.com/%E6%B0%B4%E5%9E%A2%E9%9B%A2",
+          "status": 200
+        },
+        {
+          "headword": "発泡剤",
+          "url": "https://kiokun.com/%E7%99%BA%E6%B3%A1%E5%89%A4",
+          "status": 200
+        },
+        {
+          "headword": "音色",
+          "url": "https://kiokun.com/%E9%9F%B3%E8%89%B2",
+          "status": 200
+        },
+        {
+          "headword": "離昇",
+          "url": "https://kiokun.com/%E9%9B%A2%E6%98%87",
+          "status": 200
+        },
+        {
+          "headword": "寛弘",
+          "url": "https://kiokun.com/%E5%AF%9B%E5%BC%98",
+          "status": 200
+        }
+      ]
+    },
+    "korean": {
+      "source_pool_count": 52572,
+      "requested": 50,
+      "http_200": 50,
+      "failures": [],
+      "sample": [
+        {
+          "headword": "대금",
+          "url": "https://kiokun.com/%EB%8C%80%EA%B8%88",
+          "status": 200
+        },
+        {
+          "headword": "의협심",
+          "url": "https://kiokun.com/%EC%9D%98%ED%98%91%EC%8B%AC",
+          "status": 200
+        },
+        {
+          "headword": "특별시",
+          "url": "https://kiokun.com/%ED%8A%B9%EB%B3%84%EC%8B%9C",
+          "status": 200
+        },
+        {
+          "headword": "참혹",
+          "url": "https://kiokun.com/%EC%B0%B8%ED%98%B9",
+          "status": 200
+        },
+        {
+          "headword": "후보자",
+          "url": "https://kiokun.com/%ED%9B%84%EB%B3%B4%EC%9E%90",
+          "status": 200
+        },
+        {
+          "headword": "아랫자리",
+          "url": "https://kiokun.com/%EC%95%84%EB%9E%AB%EC%9E%90%EB%A6%AC",
+          "status": 200
+        },
+        {
+          "headword": "천 길 물속은 알아도 한 길 사람의 속은 모른다",
+          "url": "https://kiokun.com/%EC%B2%9C%20%EA%B8%B8%20%EB%AC%BC%EC%86%8D%EC%9D%80%20%EC%95%8C%EC%95%84%EB%8F%84%20%ED%95%9C%20%EA%B8%B8%20%EC%82%AC%EB%9E%8C%EC%9D%98%20%EC%86%8D%EC%9D%80%20%EB%AA%A8%EB%A5%B8%EB%8B%A4",
+          "status": 200
+        },
+        {
+          "headword": "경탄하다",
+          "url": "https://kiokun.com/%EA%B2%BD%ED%83%84%ED%95%98%EB%8B%A4",
+          "status": 200
+        },
+        {
+          "headword": "조립식",
+          "url": "https://kiokun.com/%EC%A1%B0%EB%A6%BD%EC%8B%9D",
+          "status": 200
+        },
+        {
+          "headword": "번뜩하다",
+          "url": "https://kiokun.com/%EB%B2%88%EB%9C%A9%ED%95%98%EB%8B%A4",
+          "status": 200
+        },
+        {
+          "headword": "풍선",
+          "url": "https://kiokun.com/%ED%92%8D%EC%84%A0",
+          "status": 200
+        },
+        {
+          "headword": "기가 죽다",
+          "url": "https://kiokun.com/%EA%B8%B0%EA%B0%80%20%EC%A3%BD%EB%8B%A4",
+          "status": 200
+        },
+        {
+          "headword": "직장",
+          "url": "https://kiokun.com/%EC%A7%81%EC%9E%A5",
+          "status": 200
+        },
+        {
+          "headword": "꾀病",
+          "url": "https://kiokun.com/%EA%BE%80%E7%97%85",
+          "status": 200
+        },
+        {
+          "headword": "대표 팀",
+          "url": "https://kiokun.com/%EB%8C%80%ED%91%9C%20%ED%8C%80",
+          "status": 200
+        },
+        {
+          "headword": "쪽門",
+          "url": "https://kiokun.com/%EC%AA%BD%E9%96%80",
+          "status": 200
+        },
+        {
+          "headword": "머리끝에서 발끝까지",
+          "url": "https://kiokun.com/%EB%A8%B8%EB%A6%AC%EB%81%9D%EC%97%90%EC%84%9C%20%EB%B0%9C%EB%81%9D%EA%B9%8C%EC%A7%80",
+          "status": 200
+        },
+        {
+          "headword": "쩍쩍하다",
+          "url": "https://kiokun.com/%EC%A9%8D%EC%A9%8D%ED%95%98%EB%8B%A4",
+          "status": 200
+        },
+        {
+          "headword": "채워",
+          "url": "https://kiokun.com/%EC%B1%84%EC%9B%8C",
+          "status": 200
+        },
+        {
+          "headword": "실종",
+          "url": "https://kiokun.com/%EC%8B%A4%EC%A2%85",
+          "status": 200
+        },
+        {
+          "headword": "납득시키다",
+          "url": "https://kiokun.com/%EB%82%A9%EB%93%9D%EC%8B%9C%ED%82%A4%EB%8B%A4",
+          "status": 200
+        },
+        {
+          "headword": "노임",
+          "url": "https://kiokun.com/%EB%85%B8%EC%9E%84",
+          "status": 200
+        },
+        {
+          "headword": "적재함",
+          "url": "https://kiokun.com/%EC%A0%81%EC%9E%AC%ED%95%A8",
+          "status": 200
+        },
+        {
+          "headword": "신소설",
+          "url": "https://kiokun.com/%EC%8B%A0%EC%86%8C%EC%84%A4",
+          "status": 200
+        },
+        {
+          "headword": "눈에 약하려도 없다",
+          "url": "https://kiokun.com/%EB%88%88%EC%97%90%20%EC%95%BD%ED%95%98%EB%A0%A4%EB%8F%84%20%EC%97%86%EB%8B%A4",
+          "status": 200
+        },
+        {
+          "headword": "분류되다",
+          "url": "https://kiokun.com/%EB%B6%84%EB%A5%98%EB%90%98%EB%8B%A4",
+          "status": 200
+        },
+        {
+          "headword": "분절",
+          "url": "https://kiokun.com/%EB%B6%84%EC%A0%88",
+          "status": 200
+        },
+        {
+          "headword": "평형",
+          "url": "https://kiokun.com/%ED%8F%89%ED%98%95",
+          "status": 200
+        },
+        {
+          "headword": "시시덕이다",
+          "url": "https://kiokun.com/%EC%8B%9C%EC%8B%9C%EB%8D%95%EC%9D%B4%EB%8B%A4",
+          "status": 200
+        },
+        {
+          "headword": "지도급",
+          "url": "https://kiokun.com/%EC%A7%80%EB%8F%84%EA%B8%89",
+          "status": 200
+        },
+        {
+          "headword": "손이 닳도록",
+          "url": "https://kiokun.com/%EC%86%90%EC%9D%B4%20%EB%8B%B3%EB%8F%84%EB%A1%9D",
+          "status": 200
+        },
+        {
+          "headword": "근수",
+          "url": "https://kiokun.com/%EA%B7%BC%EC%88%98",
+          "status": 200
+        },
+        {
+          "headword": "대명천지",
+          "url": "https://kiokun.com/%EB%8C%80%EB%AA%85%EC%B2%9C%EC%A7%80",
+          "status": 200
+        },
+        {
+          "headword": "나풀나풀하다",
+          "url": "https://kiokun.com/%EB%82%98%ED%92%80%EB%82%98%ED%92%80%ED%95%98%EB%8B%A4",
+          "status": 200
+        },
+        {
+          "headword": "지필묵",
+          "url": "https://kiokun.com/%EC%A7%80%ED%95%84%EB%AC%B5",
+          "status": 200
+        },
+        {
+          "headword": "냐데",
+          "url": "https://kiokun.com/%EB%83%90%EB%8D%B0",
+          "status": 200
+        },
+        {
+          "headword": "얻다",
+          "url": "https://kiokun.com/%EC%96%BB%EB%8B%A4",
+          "status": 200
+        },
+        {
+          "headword": "기조",
+          "url": "https://kiokun.com/%EA%B8%B0%EC%A1%B0",
+          "status": 200
+        },
+        {
+          "headword": "따돌림",
+          "url": "https://kiokun.com/%EB%94%B0%EB%8F%8C%EB%A6%BC",
+          "status": 200
+        },
+        {
+          "headword": "건망증",
+          "url": "https://kiokun.com/%EA%B1%B4%EB%A7%9D%EC%A6%9D",
+          "status": 200
+        },
+        {
+          "headword": "미워하다",
+          "url": "https://kiokun.com/%EB%AF%B8%EC%9B%8C%ED%95%98%EB%8B%A4",
+          "status": 200
+        },
+        {
+          "headword": "손가락질을 받다",
+          "url": "https://kiokun.com/%EC%86%90%EA%B0%80%EB%9D%BD%EC%A7%88%EC%9D%84%20%EB%B0%9B%EB%8B%A4",
+          "status": 200
+        },
+        {
+          "headword": "유도",
+          "url": "https://kiokun.com/%EC%9C%A0%EB%8F%84",
+          "status": 200
+        },
+        {
+          "headword": "촉촉이",
+          "url": "https://kiokun.com/%EC%B4%89%EC%B4%89%EC%9D%B4",
+          "status": 200
+        },
+        {
+          "headword": "불문법",
+          "url": "https://kiokun.com/%EB%B6%88%EB%AC%B8%EB%B2%95",
+          "status": 200
+        },
+        {
+          "headword": "욕심이 눈을 가리다",
+          "url": "https://kiokun.com/%EC%9A%95%EC%8B%AC%EC%9D%B4%20%EB%88%88%EC%9D%84%20%EA%B0%80%EB%A6%AC%EB%8B%A4",
+          "status": 200
+        },
+        {
+          "headword": "벌렁벌렁",
+          "url": "https://kiokun.com/%EB%B2%8C%EB%A0%81%EB%B2%8C%EB%A0%81",
+          "status": 200
+        },
+        {
+          "headword": "삐쭉삐쭉하다",
+          "url": "https://kiokun.com/%EC%82%90%EC%AD%89%EC%82%90%EC%AD%89%ED%95%98%EB%8B%A4",
+          "status": 200
+        },
+        {
+          "headword": "빙자하다",
+          "url": "https://kiokun.com/%EB%B9%99%EC%9E%90%ED%95%98%EB%8B%A4",
+          "status": 200
+        },
+        {
+          "headword": "게이지",
+          "url": "https://kiokun.com/%EA%B2%8C%EC%9D%B4%EC%A7%80",
+          "status": 200
+        }
+      ]
+    }
+  }
+}

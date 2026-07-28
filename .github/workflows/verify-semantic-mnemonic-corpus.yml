@@ -21,6 +21,10 @@ on:
       - 'scripts/edit_semantic_mnemonic.py'
       - 'scripts/promote_gpt56_expedited_release.py'
       - 'scripts/smoke_semantic_mnemonic_deployment.py'
+      - 'scripts/smoke_korean_word_deployment.py'
+      - 'scripts/test_smoke_korean_word_deployment.py'
+      - 'scripts/audit_word_page_coverage.py'
+      - 'scripts/test_audit_word_page_coverage.py'
       - 'src/main.rs'
       - 'src/semantic_mnemonic_types.rs'
       - 'Cargo.toml'
@@ -48,6 +52,8 @@ jobs:
           python3 -m unittest scripts/test_manage_semantic_mnemonic_corpus.py
           python3 -m unittest scripts/test_repair_semantic_mnemonic_groupings.py
           python3 -m unittest scripts/test_repair_semantic_mnemonic_random_audit.py
+          python3 -m unittest scripts/test_audit_word_page_coverage.py
+          python3 -m unittest scripts/test_smoke_korean_word_deployment.py
 
       - name: Setup Rust
         uses: actions-rust-lang/setup-rust-toolchain@v1
@@ -59,3 +65,4 @@ jobs:
           cargo test --bin build_dictionary \
             semantic_mnemonic_corpus_tests::loads_complete_bucketed_canonical_corpus \
             -- --exact
+          cargo test --bin build_dictionary korean_content_tests

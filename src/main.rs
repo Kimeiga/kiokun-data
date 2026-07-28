@@ -1385,8 +1385,10 @@ fn load_korean_dictionary(dir_path: &str) -> Result<Vec<korean_types::KoreanWord
     // Regex to extract Hanja from content (〔親〕 format)
     let hanja_regex = Regex::new(r"〔([^〕]+)〕").unwrap();
 
-    // Track processed entries to avoid duplicates (Hangul entries only)
-    let mut processed: HashSet<String> = HashSet::new();
+    // KRDICT's Yomitan export uses the constant value `1` in its sequence
+    // column, so it cannot identify homonyms. Deduplicate only byte-identical
+    // source rows and derive stable IDs from the bank filename plus row index.
+    let mut processed_rows: HashSet<String> = HashSet::new();
     let mut words: Vec<korean_types::KoreanWord> = Vec::new();
 
     for entry in &term_bank_files {
@@ -1398,7 +1400,18 @@ fn load_korean_dictionary(dir_path: &str) -> Result<Vec<korean_types::KoreanWord
         let entries: Vec<serde_json::Value> = serde_json::from_str(&content)
             .with_context(|| format!("Failed to parse {:?}", file_path))?;
 
-        for entry_val in entries {
+        let bank_name = file_path
+            .file_stem()
+            .and_then(|stem| stem.to_str())
+            .unwrap_or("term_bank");
+
+        for (row_index, entry_val) in entries.into_iter().enumerate() {
+            let source_row = serde_json::to_string(&entry_val)
+                .context("Failed to serialize KRDICT row for deduplication")?;
+            if !processed_rows.insert(source_row) {
+                continue;
+            }
+
             if let Some(arr) = entry_val.as_array() {
                 if arr.len() < 7 {
                     continue;
@@ -1409,8 +1422,6 @@ fn load_korean_dictionary(dir_path: &str) -> Result<Vec<korean_types::KoreanWord
                 let tags = arr[2].as_str().unwrap_or("");
                 let score = arr[4].as_i64().unwrap_or(0); // Frequency score (negative = rank)
                 let definitions = &arr[5];
-                let sequence = arr[6].as_i64().unwrap_or(0);
-
                 // Skip if term is empty
                 if term.is_empty() {
                     continue;
@@ -1428,13 +1439,6 @@ fn load_korean_dictionary(dir_path: &str) -> Result<Vec<korean_types::KoreanWord
                 if !is_hangul {
                     continue;
                 }
-
-                // Create unique key to avoid duplicates
-                let unique_key = format!("{}_{}", term, sequence);
-                if processed.contains(&unique_key) {
-                    continue;
-                }
-                processed.insert(unique_key);
 
                 // Extract data from structured content
                 let (extracted_defs, extracted_hanja, extracted_examples) =
@@ -1459,7 +1463,7 @@ fn load_korean_dictionary(dir_path: &str) -> Result<Vec<korean_types::KoreanWord
                 };
 
                 let word = korean_types::KoreanWord {
-                    id: format!("krdict_{}", sequence),
+                    id: format!("krdict_{}_{:05}", bank_name, row_index + 1),
                     hangul: term.to_string(),
                     hanja: extracted_hanja,
                     romanization: None, // Will be added from IPA data
@@ -1769,6 +1773,7 @@ fn is_likely_english(s: &str) -> bool {
 mod korean_content_tests {
     use super::*;
     use serde_json::json;
+    use std::collections::HashMap;
 
     #[test]
     fn preserves_krdict_examples_under_their_source_senses() {
@@ -1872,6 +1877,133 @@ mod korean_content_tests {
         );
         assert_eq!(senses[1].sense_number, Some(2));
         assert_eq!(senses[1].examples[0].korean, "칙칙한 숲.");
+    }
+
+    fn korean_word(id: &str, hangul: &str, hanja: Option<&str>) -> korean_types::KoreanWord {
+        korean_types::KoreanWord {
+            id: id.to_string(),
+            hangul: hangul.to_string(),
+            hanja: hanja.map(str::to_string),
+            romanization: None,
+            pronunciation: None,
+            pos: Some("Noun".to_string()),
+            definitions: Vec::new(),
+            examples: Vec::new(),
+            origin: None,
+            frequency_rank: None,
+        }
+    }
+
+    #[test]
+    fn keeps_korean_homonyms_on_the_hangul_page_and_their_hanja_pages() {
+        let bank = korean_word("bank", "은행", Some("銀行"));
+        let ginkgo = korean_word("ginkgo", "은행", Some("銀杏"));
+        let mut outputs = HashMap::from([
+            (
+                "銀行".to_string(),
+                korean_output("銀行".to_string(), None, Vec::new()),
+            ),
+            (
+                "銀杏".to_string(),
+                korean_output("銀杏".to_string(), None, Vec::new()),
+            ),
+        ]);
+
+        let stats = attach_korean_words(&mut outputs, &[bank, ginkgo], None);
+
+        assert_eq!(stats.merged_into_hanja, 2);
+        assert_eq!(stats.hangul_standalones, 1);
+        assert_eq!(outputs["은행"].redirect, None);
+        assert_eq!(outputs["은행"].korean_words.len(), 2);
+        assert_eq!(outputs["銀行"].korean_words[0].id, "bank");
+        assert_eq!(outputs["銀杏"].korean_words[0].id, "ginkgo");
+    }
+
+    #[test]
+    fn preserves_unambiguous_hangul_redirects() {
+        let word = korean_word("low-rate", "저금리", Some("低金利"));
+        let mut outputs = HashMap::from([(
+            "低金利".to_string(),
+            korean_output("低金利".to_string(), None, Vec::new()),
+        )]);
+
+        let stats = attach_korean_words(&mut outputs, &[word], None);
+
+        assert_eq!(stats.hangul_redirects, 1);
+        assert_eq!(outputs["저금리"].redirect.as_deref(), Some("低金利"));
+        assert_eq!(outputs["低金利"].korean_words.len(), 1);
+    }
+
+    #[test]
+    fn aliases_safe_hanja_without_a_chinese_or_japanese_page() {
+        let word = korean_word("really", "정말", Some("正말"));
+        let mut outputs = HashMap::new();
+
+        let stats = attach_korean_words(&mut outputs, &[word], None);
+
+        assert_eq!(stats.hangul_standalones, 1);
+        assert_eq!(stats.hanja_aliases, 1);
+        assert_eq!(outputs["正말"].redirect.as_deref(), Some("정말"));
+        assert_eq!(outputs["정말"].korean_words.len(), 1);
+    }
+
+    #[test]
+    fn krdict_loader_assigns_unique_ids_to_homonyms() {
+        let temporary = std::env::temp_dir().join(format!(
+            "kiokun-krdict-loader-{}-{}",
+            std::process::id(),
+            std::thread::current().name().unwrap_or("test")
+        ));
+        std::fs::create_dir_all(&temporary).unwrap();
+        let content = json!([
+            [
+                "은행",
+                "",
+                "Noun",
+                "",
+                0,
+                [{
+                    "type": "structured-content",
+                    "content": [
+                        {"tag": "span", "content": "은행 〔銀行〕", "lang": "ko"},
+                        {"tag": "div", "content": [
+                            {"tag": "span", "content": "bank", "lang": "en"}
+                        ], "lang": "en"}
+                    ]
+                }],
+                1
+            ],
+            [
+                "은행",
+                "",
+                "Noun",
+                "",
+                0,
+                [{
+                    "type": "structured-content",
+                    "content": [
+                        {"tag": "span", "content": "은행 〔銀杏〕", "lang": "ko"},
+                        {"tag": "div", "content": [
+                            {"tag": "span", "content": "ginkgo", "lang": "en"}
+                        ], "lang": "en"}
+                    ]
+                }],
+                1
+            ]
+        ]);
+        std::fs::write(
+            temporary.join("term_bank_1.json"),
+            serde_json::to_vec(&content).unwrap(),
+        )
+        .unwrap();
+
+        let words = load_korean_dictionary(temporary.to_str().unwrap()).unwrap();
+        std::fs::remove_dir_all(&temporary).unwrap();
+
+        assert_eq!(words.len(), 2);
+        assert_ne!(words[0].id, words[1].id);
+        assert_eq!(words[0].hanja.as_deref(), Some("銀行"));
+        assert_eq!(words[1].hanja.as_deref(), Some("銀杏"));
     }
 }
 
@@ -3087,6 +3219,159 @@ fn detect_japanese_variant(chinese_char: &ChineseCharacter, chinese_word_entries
     None
 }
 
+#[derive(Debug, Default, PartialEq, Eq)]
+struct KoreanAttachmentStats {
+    merged_into_hanja: usize,
+    hangul_redirects: usize,
+    hangul_standalones: usize,
+    hanja_aliases: usize,
+}
+
+fn korean_output(
+    key: String,
+    redirect: Option<String>,
+    korean_words: Vec<korean_types::KoreanWord>,
+) -> simple_output_types::SimpleOutput {
+    simple_output_types::SimpleOutput {
+        key,
+        redirect,
+        simplified_form_of: None,
+        chinese_words: Vec::new(),
+        chinese_char: None,
+        japanese_words: Vec::new(),
+        japanese_char: None,
+        related_japanese_words: Vec::new(),
+        japanese_names: Vec::new(),
+        contains: Vec::new(),
+        contained_in_chinese: Vec::new(),
+        contained_in_japanese: Vec::new(),
+        korean_words,
+        korean_char: None,
+        semantic_mnemonic: None,
+        semantic_mnemonic_variants: Vec::new(),
+        contained_in_korean: Vec::new(),
+    }
+}
+
+fn is_safe_korean_hanja_alias(value: &str) -> bool {
+    !value.is_empty()
+        && value.chars().any(is_han_character)
+        && value
+            .chars()
+            .all(|character| is_han_character(character) || is_hangul_character(character))
+}
+
+fn attach_korean_words(
+    outputs: &mut std::collections::HashMap<String, simple_output_types::SimpleOutput>,
+    korean_words: &[korean_types::KoreanWord],
+    shard_filter: Option<ShardType>,
+) -> KoreanAttachmentStats {
+    use std::collections::{BTreeMap, BTreeSet};
+
+    let mut stats = KoreanAttachmentStats::default();
+    let mut by_hanja: BTreeMap<String, Vec<&korean_types::KoreanWord>> = BTreeMap::new();
+    let mut by_hangul: BTreeMap<String, Vec<&korean_types::KoreanWord>> = BTreeMap::new();
+
+    for word in korean_words {
+        by_hangul.entry(word.hangul.clone()).or_default().push(word);
+        if let Some(hanja) = word.hanja.as_ref() {
+            by_hanja.entry(hanja.clone()).or_default().push(word);
+        }
+    }
+
+    // Preserve each Korean homonym on its Hanja page when that page already
+    // exists through the Chinese or Japanese dictionaries.
+    let canonical_hanja_keys: BTreeSet<String> = by_hanja
+        .keys()
+        .filter(|hanja| outputs.contains_key(*hanja))
+        .cloned()
+        .collect();
+    for (hanja, words) in &by_hanja {
+        if let Some(output) = outputs.get_mut(hanja) {
+            for word in words {
+                if !output.korean_words.iter().any(|current| current.id == word.id) {
+                    output.korean_words.push((*word).clone());
+                    stats.merged_into_hanja += 1;
+                }
+            }
+        }
+    }
+
+    // A Hangul spelling may represent several Hanja words (은행 is both 銀行
+    // "bank" and 銀杏 "ginkgo"). Redirect only an unambiguous spelling to its
+    // sole existing Hanja page; otherwise publish one Hangul page containing
+    // every homonym.
+    for (hangul, words) in &by_hangul {
+        if shard_filter.is_some_and(|filter| ShardType::from_key(hangul) != filter) {
+            continue;
+        }
+
+        let distinct_hanja: BTreeSet<&str> =
+            words.iter().filter_map(|word| word.hanja.as_deref()).collect();
+        let all_have_hanja = words.iter().all(|word| word.hanja.is_some());
+        let redirect_target = if all_have_hanja && distinct_hanja.len() == 1 {
+            distinct_hanja
+                .first()
+                .filter(|hanja| canonical_hanja_keys.contains(**hanja))
+                .map(|hanja| (*hanja).to_string())
+        } else {
+            None
+        };
+
+        if let Some(target) = redirect_target {
+            if !outputs.contains_key(hangul) {
+                outputs.insert(
+                    hangul.clone(),
+                    korean_output(hangul.clone(), Some(target), Vec::new()),
+                );
+                stats.hangul_redirects += 1;
+            }
+            continue;
+        }
+
+        let output = outputs
+            .entry(hangul.clone())
+            .or_insert_with(|| korean_output(hangul.clone(), None, Vec::new()));
+        output.redirect = None;
+        let was_empty = output.korean_words.is_empty();
+        for word in words {
+            if !output.korean_words.iter().any(|current| current.id == word.id) {
+                output.korean_words.push((*word).clone());
+            }
+        }
+        if was_empty && !output.korean_words.is_empty() {
+            stats.hangul_standalones += 1;
+        }
+    }
+
+    // KRDICT also exposes Hanja/mixed-script lookup rows. When such a form has
+    // no Chinese/Japanese page and maps to exactly one Hangul spelling, publish
+    // a safe alias back to the standalone Hangul page.
+    for (hanja, words) in &by_hanja {
+        if canonical_hanja_keys.contains(hanja) || !is_safe_korean_hanja_alias(hanja) {
+            continue;
+        }
+        let hangul_forms: BTreeSet<&str> =
+            words.iter().map(|word| word.hangul.as_str()).collect();
+        if hangul_forms.len() != 1 {
+            continue;
+        }
+        if shard_filter.is_some_and(|filter| ShardType::from_key(hanja) != filter) {
+            continue;
+        }
+        let hangul = (*hangul_forms.first().expect("one Hangul form")).to_string();
+        if !outputs.contains_key(hanja) {
+            outputs.insert(
+                hanja.clone(),
+                korean_output(hanja.clone(), Some(hangul), Vec::new()),
+            );
+            stats.hanja_aliases += 1;
+        }
+    }
+
+    stats
+}
+
 async fn generate_simple_output_files(
     combined_dict: &CombinedDictionary,
     chinese_chars: &[ChineseCharacter],
@@ -3565,178 +3850,17 @@ async fn generate_simple_output_files(
 
     // Process Korean words
     println!("📝 Processing Korean word entries (KRDICT)...");
-    let mut sino_korean_merged = 0;
-    let mut native_korean_added = 0;
-
-    // Build a map from Hanja to Korean words for efficient lookup
-    // Key is the Hanja (traditional Chinese characters), value is list of Korean words
-    let mut hanja_to_korean: std::collections::HashMap<String, Vec<korean_types::KoreanWord>> =
-        std::collections::HashMap::new();
-    let mut native_korean_words: Vec<korean_types::KoreanWord> = Vec::new();
-
-    for korean_word in korean_words {
-        if let Some(ref hanja) = korean_word.hanja {
-            // Sino-Korean word with Hanja - index by Hanja for merging
-            hanja_to_korean
-                .entry(hanja.clone())
-                .or_default()
-                .push(korean_word.clone());
-        } else {
-            // Native Korean word without Hanja - will create standalone entry
-            native_korean_words.push(korean_word.clone());
-        }
-    }
-
-    println!("  📊 {} Sino-Korean words (with Hanja), {} native Korean words",
-             hanja_to_korean.values().map(|v| v.len()).sum::<usize>(),
-             native_korean_words.len());
-
-    // Merge Sino-Korean words into existing entries by Hanja key
-    // The Hanja should match the traditional Chinese character used as key
-    // Also track which Hangul words need redirects or standalone entries
-    let mut hangul_to_hanja_redirects: Vec<(String, String)> = Vec::new();
-    let mut sino_korean_standalone: Vec<korean_types::KoreanWord> = Vec::new();
-
-    for (hanja, korean_word_list) in &hanja_to_korean {
-        // Check if we have an existing entry for this Hanja
-        if let Some(output) = outputs.get_mut(hanja) {
-            for korean_word in korean_word_list {
-                // Add Korean word to the entry if not already present
-                if !output.korean_words.iter().any(|w| w.id == korean_word.id) {
-                    output.korean_words.push(korean_word.clone());
-                    sino_korean_merged += 1;
-                    // Create redirect from Hangul to Hanja
-                    hangul_to_hanja_redirects.push((korean_word.hangul.clone(), hanja.clone()));
-                }
-            }
-        } else {
-            // No existing entry for this Hanja - create standalone entries for these Korean words
-            for korean_word in korean_word_list {
-                sino_korean_standalone.push(korean_word.clone());
-            }
-        }
-    }
-
-    println!("  ✅ Merged {} Sino-Korean words into existing entries", sino_korean_merged);
-
-    // Create standalone entries for Sino-Korean words that don't have a Hanja entry
-    let mut sino_korean_standalone_added = 0;
-    for korean_word in &sino_korean_standalone {
-        let key = korean_word.hangul.clone();
-
-        // Only create entry if no existing entry with this key
-        if !outputs.contains_key(&key) {
-            // Check shard filter if applicable
-            if let Some(ref filter) = shard_filter {
-                if ShardType::from_key(&key) != *filter {
-                    continue;
-                }
-            }
-
-            let output = SimpleOutput {
-                key: key.clone(),
-                redirect: None,
-                simplified_form_of: None,
-                chinese_words: Vec::new(),
-                chinese_char: None,
-                japanese_words: Vec::new(),
-                japanese_char: None,
-                related_japanese_words: Vec::new(),
-                japanese_names: Vec::new(),
-                contains: Vec::new(),
-                contained_in_chinese: Vec::new(),
-                contained_in_japanese: Vec::new(),
-                korean_words: vec![korean_word.clone()],
-                korean_char: None,
-                semantic_mnemonic: None,
-                semantic_mnemonic_variants: Vec::new(),
-                contained_in_korean: Vec::new(),
-            };
-
-            outputs.insert(key, output);
-            sino_korean_standalone_added += 1;
-        }
-    }
-    println!("  ✅ Created {} standalone entries for Sino-Korean words (no Hanja entry)", sino_korean_standalone_added);
-
-    // Create redirect entries from Hangul to Hanja for merged Sino-Korean words
-    let mut hangul_redirects_created = 0;
-    for (hangul, hanja) in &hangul_to_hanja_redirects {
-        // Only create redirect if no existing entry with this Hangul key
-        if !outputs.contains_key(hangul) {
-            // Check shard filter if applicable
-            if let Some(ref filter) = shard_filter {
-                if ShardType::from_key(hangul) != *filter {
-                    continue;
-                }
-            }
-
-            let redirect_entry = SimpleOutput {
-                key: hangul.clone(),
-                redirect: Some(hanja.clone()),
-                simplified_form_of: None,
-                chinese_words: Vec::new(),
-                chinese_char: None,
-                japanese_words: Vec::new(),
-                japanese_char: None,
-                related_japanese_words: Vec::new(),
-                japanese_names: Vec::new(),
-                contains: Vec::new(),
-                contained_in_chinese: Vec::new(),
-                contained_in_japanese: Vec::new(),
-                korean_words: Vec::new(),
-                korean_char: None,
-                semantic_mnemonic: None,
-                semantic_mnemonic_variants: Vec::new(),
-                contained_in_korean: Vec::new(),
-            };
-
-            outputs.insert(hangul.clone(), redirect_entry);
-            hangul_redirects_created += 1;
-        }
-    }
-    println!("  ✅ Created {} redirect entries from Hangul to Hanja", hangul_redirects_created);
-
-    // Create standalone entries for native Korean words
-    for korean_word in &native_korean_words {
-        let key = korean_word.hangul.clone();
-
-        // Only create entry if no existing entry with this key
-        // (Native Korean words shouldn't conflict with Han character keys)
-        if !outputs.contains_key(&key) {
-            // Check shard filter if applicable
-            if let Some(ref filter) = shard_filter {
-                if ShardType::from_key(&key) != *filter {
-                    continue;
-                }
-            }
-
-            let output = SimpleOutput {
-                key: key.clone(),
-                redirect: None,
-                simplified_form_of: None,
-                chinese_words: Vec::new(),
-                chinese_char: None,
-                japanese_words: Vec::new(),
-                japanese_char: None,
-                related_japanese_words: Vec::new(),
-                japanese_names: Vec::new(),
-                contains: Vec::new(),
-                contained_in_chinese: Vec::new(),
-                contained_in_japanese: Vec::new(),
-                korean_words: vec![korean_word.clone()],
-                korean_char: None,
-                semantic_mnemonic: None,
-                semantic_mnemonic_variants: Vec::new(),
-                contained_in_korean: Vec::new(),
-            };
-
-            outputs.insert(key, output);
-            native_korean_added += 1;
-        }
-    }
-
-    println!("  ✅ Created {} standalone entries for native Korean words", native_korean_added);
+    let korean_stats = attach_korean_words(&mut outputs, korean_words, shard_filter);
+    println!(
+        "  ✅ Merged {} Korean homonyms into Hanja pages",
+        korean_stats.merged_into_hanja
+    );
+    println!(
+        "  ✅ Created {} unambiguous Hangul redirects, {} standalone Hangul pages, and {} Hanja aliases",
+        korean_stats.hangul_redirects,
+        korean_stats.hangul_standalones,
+        korean_stats.hanja_aliases
+    );
 
     // Merge words from traditional variants into merged characters
     // For characters like 制 that have simplified_form_of set (e.g., 製),

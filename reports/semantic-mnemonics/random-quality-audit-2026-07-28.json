@@ -16,6 +16,8 @@
     "uniform": 247
   },
   "word_sample": {
+    "status": "superseded_by_canonical_source_reaudit",
+    "methodological_issue": "The original probe sampled raw JMdict/KRDICT index forms rather than only the forms accepted as publishable headwords by the dictionary loader.",
     "chinese": {
       "requested": 50,
       "http_200": 50
@@ -29,6 +31,24 @@
       "requested": 50,
       "http_200": 36,
       "source_headword_not_published": 14
+    }
+  },
+  "word_sample_reaudit": {
+    "report": "reports/word-pages/source-headword-coverage-2026-07-28.json",
+    "chinese": {
+      "requested": 50,
+      "http_200": 50,
+      "failures": []
+    },
+    "japanese": {
+      "requested": 50,
+      "http_200": 50,
+      "failures": []
+    },
+    "korean": {
+      "requested": 50,
+      "http_200": 50,
+      "failures": []
     }
   },
   "repair_policy": "data/semantic_mnemonic_random_audit_policy.json",
@@ -45,7 +65,9 @@
   ],
   "notes": [
     "Heuristic flags were treated as review signals rather than automatic failures.",
-    "The unserved Japanese and Korean source headword forms were recorded for a separate indexing review; they were not treated as mnemonic defects.",
+    "The original word-page probe overcounted failures by treating alternate dictionary index rows as publishable headwords.",
+    "A reproducible canonical-source reaudit saved every sampled URL and found 150 of 150 published pages available.",
+    "The indexing review separately found that KRDICT's constant sequence value collapsed real Korean homonyms; that loader defect is covered by dedicated regression tests.",
     "Rare cards with uncertain or unattested glosses were not rewritten speculatively.",
     "The 頃 repair changes only the learner-facing gloss and mnemonic; the full Chinese and Japanese dictionary senses remain available on the page."
   ]
