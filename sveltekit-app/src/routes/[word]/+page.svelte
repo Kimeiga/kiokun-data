@@ -19,7 +19,7 @@
 	import SentenceBar from "$lib/components/SentenceBar.svelte";
 	import ShareButton from "$lib/components/ShareButton.svelte";
 	import LazyComponent from "$lib/components/LazyComponent.svelte";
-	import LazySentenceSections from "$lib/components/LazySentenceSections.svelte";
+	import SenseExampleList from "$lib/components/SenseExampleList.svelte";
 	import { dictionaryDefinitions } from "$lib/seo";
 	import CharacterLearningSections from "$lib/components/CharacterLearningSections.svelte";
 
@@ -29,6 +29,8 @@
 	const loadAppearsIn = () => import("$lib/AppearsIn.svelte");
 	const loadArtifactMentions = () => import("$lib/components/ArtifactMentions.svelte");
 	const loadReelsSection = () => import("$lib/components/ReelsSection.svelte");
+	const loadChineseSentenceExamples = () => import("$lib/components/ChineseSentenceExamples.svelte");
+	const loadKoreanSentenceExamples = () => import("$lib/components/KoreanSentenceExamples.svelte");
 
 	let { data }: { data: PageData } = $props();
 
@@ -677,6 +679,14 @@
 								{/if}
 							{/each}
 						</div>
+						<LazyComponent
+							loader={loadChineseSentenceExamples}
+							props={{
+								word: data.word,
+								words: chineseSentenceLookupWords,
+							}}
+							rootMargin="400px 0px"
+						/>
 					</div>
 				{/if}
 
@@ -698,6 +708,9 @@
 						<SectionHeading id="korean">Korean</SectionHeading>
 						<div>
 							{#each data.data.korean_words as word}
+								{@const definitions = (word.definitions || []).filter(
+									(definition) => definition.text && definition.text !== "Sentence"
+								)}
 								<div class="korean-word-entry">
 									<!-- Hangul and Hanja -->
 									<div class="korean-headwords">
@@ -715,14 +728,48 @@
 									</div>
 									{/if}
 									<!-- Definitions -->
-									{#if word.definitions && word.definitions.length > 0}
-										<div class="korean-definitions">
-											{word.definitions.map(d => d.text).join("; ")}
-										</div>
+									{#if definitions.length > 0}
+										<ol class="korean-definitions" class:multiple={definitions.length > 1}>
+											{#each definitions as definition}
+												<li class="korean-definition">
+													<div>{definition.text}</div>
+													{#if definition.examples?.length}
+														<SenseExampleList
+															examples={definition.examples.map((example) => ({
+																text: example.korean,
+																translation: example.translation,
+															}))}
+															language="ko"
+															fromWord={word.hangul}
+														/>
+													{/if}
+												</li>
+											{/each}
+										</ol>
+									{/if}
+									{#if word.examples?.length}
+										<SenseExampleList
+											examples={word.examples.map((example) => ({
+												text: example.korean,
+												translation: example.translation,
+											}))}
+											language="ko"
+											fromWord={word.hangul}
+										/>
 									{/if}
 								</div>
 							{/each}
 						</div>
+						<LazyComponent
+							loader={loadKoreanSentenceExamples}
+							props={{
+								word: data.word,
+								containedInKorean: data.data.contained_in_korean?.map(
+									(entry: any) => typeof entry === "string" ? entry : entry.w || ""
+								) || [],
+							}}
+							rootMargin="400px 0px"
+						/>
 					</div>
 				{/if}
 			</div>
@@ -757,17 +804,6 @@
 				rootMargin="1200px 0px"
 			/>
 		{/if}
-
-		<!-- Example Sentences — unified grid matching the definition columns layout -->
-		<LazySentenceSections
-			word={data.word}
-			japaneseSenses={data.data.japanese_words?.flatMap((w: any) => w.sense) ?? []}
-			hasChineseWords={!!data.data.chinese_words?.length}
-			{chineseSentenceLookupWords}
-			hasKoreanSource={!!(data.data.korean_words?.length || data.data.korean_char || data.data.contained_in_korean?.length)}
-			containedInKorean={data.data.contained_in_korean?.map((w: any) => typeof w === 'string' ? w : w.w || '') || []}
-			rootMargin="1200px 0px"
-		/>
 
 		<!-- Japanese Names Section -->
 		{#if data.data.japanese_names && data.data.japanese_names.length > 0}
@@ -1070,9 +1106,21 @@
 	}
 
 	.korean-definitions {
+		margin: 0;
+		padding: 0;
+		list-style: none;
 		font-size: var(--font-size-footnote);
 		line-height: 1.5;
 		color: var(--text-primary);
+	}
+
+	.korean-definitions.multiple {
+		padding-left: 20px;
+		list-style: decimal;
+	}
+
+	.korean-definition {
+		margin-bottom: var(--spacing-sm);
 	}
 
 	/* Mobile typography adjustments */

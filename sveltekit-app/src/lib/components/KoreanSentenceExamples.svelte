@@ -104,7 +104,7 @@
 	{@const hasMoreSentences = sentences.length > COLLAPSED_COUNT}
 	<div class="kr-examples">
 		<div class="examples-main">
-			<div class="column-header">🇰🇷 ({sentences.length})</div>
+			<div class="column-header">Examples for this word ({sentences.length})</div>
 			<div class="example-list" id="korean-sentence-examples">
 				{#each displayed as s}
 					<a

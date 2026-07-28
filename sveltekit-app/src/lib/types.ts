@@ -366,6 +366,7 @@ export interface KoreanDefinition {
   text: string;
   lang?: string;
   sense_number?: number;
+  examples?: KoreanExample[];
 }
 
 export interface KoreanExample {

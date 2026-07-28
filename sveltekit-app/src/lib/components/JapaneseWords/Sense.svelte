@@ -5,13 +5,13 @@
 	 */
 	import type { JapaneseSense, JapaneseGloss } from '$lib/types';
 	import Tag from '../shared/Tag.svelte';
-	import AnnotatedSentence from '$lib/components/AnnotatedSentence.svelte';
+	import SenseExampleList from '$lib/components/SenseExampleList.svelte';
 	import { japaneseExamplesForSense } from '$lib/japanese-examples';
 	import { getPosLabel, getMiscLabel, getFieldLabel, getDialectLabel } from '$lib/utils/japaneseLabels';
 
 	export let sense: JapaneseSense;
 	export let showPos: boolean = true;
-	$: senseExample = japaneseExamplesForSense(sense)[0];
+	$: senseExamples = japaneseExamplesForSense(sense);
 
 	function getGlossText(gloss: JapaneseGloss): string {
 		return gloss.text;
@@ -80,21 +80,7 @@
 		<span class="info-text"> ({sense.info.join('; ')})</span>
 	{/if}
 
-	{#if senseExample}
-		<a
-			class="sense-example"
-			href="/sentence?text={encodeURIComponent(senseExample.text)}&lang=ja{senseExample.translation ? '&en=' + encodeURIComponent(senseExample.translation) : ''}"
-			aria-label={`Open example sentence: ${senseExample.text}`}
-		>
-			<span class="sense-example-label">Example</span>
-			<span class="sense-example-source" lang="ja">
-				<AnnotatedSentence text={senseExample.text} language="ja" />
-			</span>
-			{#if senseExample.translation}
-				<span class="sense-example-translation">{senseExample.translation}</span>
-			{/if}
-		</a>
-	{/if}
+	<SenseExampleList examples={senseExamples} language="ja" />
 </div>
 
 <style>
@@ -117,44 +103,4 @@
 		color: var(--text-secondary);
 	}
 
-	.sense-example {
-		display: block;
-		margin-top: 0.4rem;
-		padding: 0.4rem 0.625rem;
-		border: 1px solid var(--border-light);
-		border-radius: var(--radius-sm);
-		background: var(--bg-secondary);
-		color: inherit;
-		text-decoration: none;
-	}
-
-	.sense-example:hover {
-		background: var(--bg-tertiary);
-	}
-
-	.sense-example-source {
-		display: block;
-		color: var(--text-primary);
-		font-family: var(--font-cjk);
-		font-size: var(--font-size-body);
-		line-height: 1.8;
-	}
-
-	.sense-example-label {
-		display: block;
-		margin-bottom: 0.125rem;
-		color: var(--text-tertiary);
-		font-size: var(--font-size-caption2);
-		font-weight: 600;
-		letter-spacing: 0.04em;
-		text-transform: uppercase;
-	}
-
-	.sense-example-translation {
-		display: block;
-		margin-top: 0.125rem;
-		color: var(--text-tertiary);
-		font-size: var(--font-size-caption1);
-		line-height: 1.4;
-	}
 </style>

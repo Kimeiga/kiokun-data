@@ -107,7 +107,7 @@
 	{@const hasMoreSentences = sentences.length > COLLAPSED_COUNT}
 	<div class="zh-examples">
 		<div class="column-header-row">
-			<span class="column-header">🇨🇳 ({sentences.length})</span>
+			<span class="column-header">Examples for this word ({sentences.length})</span>
 			<button class="script-toggle" onclick={() => showTraditional = !showTraditional} title={showTraditional ? 'Traditional Chinese' : 'Simplified Chinese'}>
 				{showTraditional ? '🇹🇼' : '🇨🇳'}
 			</button>

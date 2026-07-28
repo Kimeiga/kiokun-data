@@ -58,6 +58,10 @@ pub struct KoreanDefinition {
     /// Sense number or identifier
     #[serde(skip_serializing_if = "Option::is_none")]
     pub sense_number: Option<u32>,
+
+    /// Official KRDICT examples attached to this specific sense
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub examples: Vec<KoreanExample>,
 }
 
 /// Example sentence for a Korean word
@@ -146,4 +150,3 @@ pub struct KoreanDictionary {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub source: Option<String>,
 }
-

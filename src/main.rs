@@ -1503,7 +1503,13 @@ fn extract_korean_content(
             if let Some(obj) = def_obj.as_object() {
                 if obj.get("type").and_then(|v| v.as_str()) == Some("structured-content") {
                     if let Some(content) = obj.get("content") {
-                        let (d, h, e) = parse_structured_content(content, hanja_regex, 1);
+                        let next_sense_number = defs
+                            .last()
+                            .and_then(|definition: &korean_types::KoreanDefinition| definition.sense_number)
+                            .unwrap_or(0)
+                            + 1;
+                        let (d, h, e) =
+                            parse_korean_entry_content(content, hanja_regex, next_sense_number);
                         defs.extend(d);
                         if hanja.is_none() && h.is_some() {
                             hanja = h;
@@ -1518,94 +1524,234 @@ fn extract_korean_content(
     (defs, hanja, examples)
 }
 
-/// Recursively parse structured content to extract text
-fn parse_structured_content(
+fn parse_korean_entry_content(
     content: &serde_json::Value,
     hanja_regex: &regex::Regex,
-    sense_num: u32,
+    first_sense_number: u32,
 ) -> (Vec<korean_types::KoreanDefinition>, Option<String>, Vec<korean_types::KoreanExample>) {
     let mut defs = Vec::new();
-    let mut hanja: Option<String> = None;
-    let mut examples = Vec::new();
+    let hanja = extract_korean_hanja(content, hanja_regex);
 
-    match content {
-        serde_json::Value::String(s) => {
-            // Check for hanja in 〔...〕 format
-            if let Some(caps) = hanja_regex.captures(s) {
-                if let Some(h) = caps.get(1) {
-                    hanja = Some(h.as_str().to_string());
-                }
-            }
-            // Check if this looks like an English definition
-            let trimmed = s.trim();
-            if !trimmed.is_empty()
-                && !trimmed.starts_with("〔")
-                && !trimmed.starts_with("See More")
-                && !trimmed.contains("〔")
-                && is_likely_english(trimmed)
-            {
-                // Skip numbered prefixes like "1. ", "2. ", etc.
-                if !trimmed.chars().next().map_or(false, |c| c.is_ascii_digit()) {
-                    defs.push(korean_types::KoreanDefinition {
-                        text: trimmed.to_string(),
-                        lang: Some("en".to_string()),
-                        sense_number: Some(sense_num),
-                    });
-                }
+    if let Some(items) = content.as_array() {
+        let mut fallback_sense_number = first_sense_number;
+        for item in items {
+            if let Some(definition) = parse_korean_sense(item, fallback_sense_number) {
+                fallback_sense_number = definition.sense_number.unwrap_or(fallback_sense_number) + 1;
+                defs.push(definition);
             }
         }
-        serde_json::Value::Array(arr) => {
-            for item in arr {
-                let (d, h, e) = parse_structured_content(item, hanja_regex, sense_num);
-                defs.extend(d);
-                if hanja.is_none() && h.is_some() {
-                    hanja = h;
-                }
-                examples.extend(e);
+    } else if let Some(definition) = parse_korean_sense(content, first_sense_number) {
+        defs.push(definition);
+    }
+
+    // A few Yomitan exports omit the outer per-sense div. Preserve a useful
+    // definition in that case without inventing a sense/example relationship.
+    if defs.is_empty() {
+        let mut fragments = Vec::new();
+        collect_english_fragments(content, None, &mut fragments);
+        let fragments = clean_definition_fragments(fragments);
+        if !fragments.is_empty() {
+            defs.push(korean_types::KoreanDefinition {
+                text: fragments.join(" — "),
+                lang: Some("en".to_string()),
+                sense_number: Some(first_sense_number),
+                examples: Vec::new(),
+            });
+        }
+    }
+
+    (defs, hanja, Vec::new())
+}
+
+fn parse_korean_sense(
+    value: &serde_json::Value,
+    fallback_sense_number: u32,
+) -> Option<korean_types::KoreanDefinition> {
+    let obj = value.as_object()?;
+    if obj.get("tag").and_then(|value| value.as_str()) != Some("div") {
+        return None;
+    }
+
+    let mut fragments = Vec::new();
+    collect_english_fragments(value, None, &mut fragments);
+    let mut fragments = clean_definition_fragments(fragments);
+    if fragments.is_empty() {
+        return None;
+    }
+
+    let explicit_sense_number = strip_sense_number_prefix(&mut fragments[0]);
+    fragments.retain(|fragment| !fragment.is_empty());
+    if fragments.is_empty() {
+        return None;
+    }
+
+    let mut examples = Vec::new();
+    collect_korean_detail_examples(value, false, &mut examples);
+
+    Some(korean_types::KoreanDefinition {
+        text: fragments.join(" — "),
+        lang: Some("en".to_string()),
+        sense_number: Some(explicit_sense_number.unwrap_or(fallback_sense_number)),
+        examples,
+    })
+}
+
+fn collect_english_fragments(
+    value: &serde_json::Value,
+    inherited_lang: Option<&str>,
+    output: &mut Vec<String>,
+) {
+    match value {
+        serde_json::Value::String(text) => {
+            if inherited_lang == Some("en") {
+                output.push(text.to_string());
+            }
+        }
+        serde_json::Value::Array(items) => {
+            for item in items {
+                collect_english_fragments(item, inherited_lang, output);
             }
         }
         serde_json::Value::Object(obj) => {
-            // Check tag type
-            let tag = obj.get("tag").and_then(|v| v.as_str()).unwrap_or("");
-            let lang = obj.get("lang").and_then(|v| v.as_str()).unwrap_or("");
-
-            // Skip Korean-language content (we want English definitions)
-            if lang == "ko" && tag != "span" {
-                // But still extract hanja from Korean spans
-                if let Some(c) = obj.get("content") {
-                    if let serde_json::Value::String(s) = c {
-                        if let Some(caps) = hanja_regex.captures(s) {
-                            if let Some(h) = caps.get(1) {
-                                hanja = Some(h.as_str().to_string());
-                            }
-                        }
-                    }
-                }
-                return (defs, hanja, examples);
-            }
-
-            // Skip details/summary (expandable sections)
+            let tag = obj.get("tag").and_then(|value| value.as_str()).unwrap_or("");
             if tag == "details" || tag == "summary" {
-                return (defs, hanja, examples);
+                return;
             }
-
-            // Recurse into content
-            if let Some(c) = obj.get("content") {
-                let (d, h, e) = parse_structured_content(c, hanja_regex, sense_num);
-                defs.extend(d);
-                if hanja.is_none() && h.is_some() {
-                    hanja = h;
-                }
-                examples.extend(e);
+            let lang = obj
+                .get("lang")
+                .and_then(|value| value.as_str())
+                .or(inherited_lang);
+            if let Some(content) = obj.get("content") {
+                collect_english_fragments(content, lang, output);
             }
         }
         _ => {}
     }
-
-    (defs, hanja, examples)
 }
 
-/// Check if text is likely English (simple heuristic)
+fn clean_definition_fragments(fragments: Vec<String>) -> Vec<String> {
+    let mut cleaned = Vec::new();
+    for fragment in fragments {
+        let text = decode_basic_html_entities(fragment.trim());
+        if text.is_empty()
+            || text == "Sentence"
+            || text == "See More"
+            || text.starts_with('〔')
+            || !is_likely_english(&text)
+        {
+            continue;
+        }
+        if cleaned.last() != Some(&text) {
+            cleaned.push(text);
+        }
+    }
+    cleaned
+}
+
+fn strip_sense_number_prefix(text: &mut String) -> Option<u32> {
+    let trimmed = text.trim_start();
+    let dot_index = trimmed.find('.')?;
+    let number = &trimmed[..dot_index];
+    if number.is_empty() || !number.chars().all(|character| character.is_ascii_digit()) {
+        return None;
+    }
+
+    let sense_number = number.parse().ok()?;
+    *text = trimmed[dot_index + 1..].trim_start().to_string();
+    Some(sense_number)
+}
+
+fn collect_korean_detail_examples(
+    value: &serde_json::Value,
+    inside_details: bool,
+    output: &mut Vec<korean_types::KoreanExample>,
+) {
+    match value {
+        serde_json::Value::Array(items) => {
+            for item in items {
+                collect_korean_detail_examples(item, inside_details, output);
+            }
+        }
+        serde_json::Value::Object(obj) => {
+            let tag = obj.get("tag").and_then(|value| value.as_str()).unwrap_or("");
+            let now_inside_details = inside_details || tag == "details";
+
+            if now_inside_details && tag == "li" {
+                if let Some(content) = obj.get("content") {
+                    let mut text = String::new();
+                    collect_all_text(content, &mut text);
+                    let text = decode_basic_html_entities(text.trim());
+                    if !text.is_empty()
+                        && text.chars().any(is_hangul_character)
+                        && !output.iter().any(|example| example.korean == text)
+                    {
+                        output.push(korean_types::KoreanExample {
+                            korean: text,
+                            translation: None,
+                        });
+                    }
+                }
+                return;
+            }
+
+            if let Some(content) = obj.get("content") {
+                collect_korean_detail_examples(content, now_inside_details, output);
+            }
+        }
+        _ => {}
+    }
+}
+
+fn collect_all_text(value: &serde_json::Value, output: &mut String) {
+    match value {
+        serde_json::Value::String(text) => output.push_str(text),
+        serde_json::Value::Array(items) => {
+            for item in items {
+                collect_all_text(item, output);
+            }
+        }
+        serde_json::Value::Object(obj) => {
+            if let Some(content) = obj.get("content") {
+                collect_all_text(content, output);
+            }
+        }
+        _ => {}
+    }
+}
+
+fn extract_korean_hanja(
+    value: &serde_json::Value,
+    hanja_regex: &regex::Regex,
+) -> Option<String> {
+    match value {
+        serde_json::Value::String(text) => hanja_regex
+            .captures(text)
+            .and_then(|captures| captures.get(1))
+            .map(|capture| capture.as_str().to_string()),
+        serde_json::Value::Array(items) => items
+            .iter()
+            .find_map(|item| extract_korean_hanja(item, hanja_regex)),
+        serde_json::Value::Object(obj) => obj
+            .get("content")
+            .and_then(|content| extract_korean_hanja(content, hanja_regex)),
+        _ => None,
+    }
+}
+
+fn decode_basic_html_entities(text: &str) -> String {
+    text.replace("&quot;", "\"")
+        .replace("&#39;", "'")
+        .replace("&amp;", "&")
+        .replace("&lt;", "<")
+        .replace("&gt;", ">")
+}
+
+fn is_hangul_character(character: char) -> bool {
+    ('\u{AC00}'..='\u{D7AF}').contains(&character)
+        || ('\u{1100}'..='\u{11FF}').contains(&character)
+        || ('\u{3130}'..='\u{318F}').contains(&character)
+}
+
 fn is_likely_english(s: &str) -> bool {
     // Check if mostly ASCII letters and common punctuation
     let ascii_count = s.chars().filter(|c| c.is_ascii_alphabetic()).count();
@@ -1617,6 +1763,116 @@ fn is_likely_english(s: &str) -> bool {
 
     // At least 70% ASCII alphabetic
     (ascii_count as f64 / total_alpha as f64) > 0.7
+}
+
+#[cfg(test)]
+mod korean_content_tests {
+    use super::*;
+    use serde_json::json;
+
+    #[test]
+    fn preserves_krdict_examples_under_their_source_senses() {
+        let content = json!([
+            {
+                "tag": "span",
+                "lang": "ko",
+                "content": [
+                    { "tag": "span", "content": "칙칙하다", "lang": "ko" },
+                    { "tag": "span", "content": " 〔黯黯하다〕", "lang": "ko" }
+                ]
+            },
+            {
+                "tag": "div",
+                "lang": "en",
+                "content": [
+                    {
+                        "tag": "div",
+                        "lang": "en",
+                        "content": [
+                            { "tag": "span", "content": "1. " },
+                            { "tag": "span", "content": "dusky; dingy; dark", "lang": "en" }
+                        ]
+                    },
+                    {
+                        "tag": "div",
+                        "lang": "en",
+                        "content": "A color or atmosphere being dull and dark."
+                    },
+                    {
+                        "tag": "details",
+                        "lang": "ko",
+                        "content": [
+                            { "tag": "summary", "content": "See More", "lang": "en" },
+                            {
+                                "tag": "ul",
+                                "content": [
+                                    { "tag": "li", "content": "날씨가 칙칙하다.", "lang": "ko" },
+                                    { "tag": "li", "content": "옷이 칙칙하다.", "lang": "ko" }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "tag": "div",
+                "lang": "en",
+                "content": [
+                    {
+                        "tag": "div",
+                        "lang": "en",
+                        "content": [
+                            { "tag": "span", "content": "2. " },
+                            { "tag": "span", "content": "dark; dense", "lang": "en" }
+                        ]
+                    },
+                    {
+                        "tag": "div",
+                        "lang": "en",
+                        "content": "A forest, hairs, etc., being dense and dark."
+                    },
+                    {
+                        "tag": "details",
+                        "lang": "ko",
+                        "content": [
+                            {
+                                "tag": "ul",
+                                "content": [
+                                    { "tag": "li", "content": "칙칙한 숲.", "lang": "ko" }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]);
+        let definitions = json!([
+            { "type": "structured-content", "content": content }
+        ]);
+        let hanja_regex = regex::Regex::new(r"〔([^〕]+)〕").unwrap();
+
+        let (senses, hanja, unmatched_examples) =
+            extract_korean_content(&definitions, &hanja_regex);
+
+        assert_eq!(hanja.as_deref(), Some("黯黯하다"));
+        assert!(unmatched_examples.is_empty());
+        assert_eq!(senses.len(), 2);
+        assert_eq!(senses[0].sense_number, Some(1));
+        assert_eq!(
+            senses[0].text,
+            "dusky; dingy; dark — A color or atmosphere being dull and dark."
+        );
+        assert_eq!(
+            senses[0]
+                .examples
+                .iter()
+                .map(|example| example.korean.as_str())
+                .collect::<Vec<_>>(),
+            vec!["날씨가 칙칙하다.", "옷이 칙칙하다."]
+        );
+        assert_eq!(senses[1].sense_number, Some(2));
+        assert_eq!(senses[1].examples[0].korean, "칙칙한 숲.");
+    }
 }
 
 /// Parse part of speech from KRDICT tags
