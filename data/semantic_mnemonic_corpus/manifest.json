@@ -4,10 +4,10 @@
   "count": 24037,
   "bucket_algorithm": "kiokun_simple_hash_low_byte_v1",
   "bucket_count": 256,
-  "source_artifact_sha256": "sha256:9c40fa26210496cebcae3474cdc47a33f1520d57dc25f1d4ac5c8ad11b25bc74",
-  "source_artifact_byte_count": 58951854,
-  "runtime_projection_sha256": "sha256:a6ae923dc2d4ea3d4649c3a9f9b5dee9f7f86690e70fcda255ea426e5fcb5e2f",
-  "runtime_projection_byte_count": 10201696,
+  "source_artifact_sha256": "sha256:53e33e4306844c28f4ec0d0ba35b08cead55c5d3377f03d6371a94f38e5a0602",
+  "source_artifact_byte_count": 58952092,
+  "runtime_projection_sha256": "sha256:053b846e686e5f8d3290a51be149628404d043b06e62e84715fd483f55d13f15",
+  "runtime_projection_byte_count": 10201667,
   "runtime_card_fields": [
     "character",
     "meaning",
@@ -2076,8 +2076,8 @@
       "bucket": "e2",
       "first_character": "㓢",
       "last_character": "𰗢",
-      "sha256": "sha256:9201dbdf90898ac1ebd633cf27d65d221e7d9ccca025ba8eb01151938b89f47a",
-      "byte_count": 182618,
+      "sha256": "sha256:a1ec44a3cfb3ee9c93567e1705b1f13bb98dcdb5879009c0f4683715c77052a6",
+      "byte_count": 182856,
       "count": 83
     },
     {

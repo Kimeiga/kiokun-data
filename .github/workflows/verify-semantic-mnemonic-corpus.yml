@@ -6,6 +6,7 @@ on:
       - 'data/semantic_mnemonic_corpus/**'
       - 'scripts/manage_semantic_mnemonic_corpus.py'
       - 'scripts/repair_semantic_mnemonic_learning_glosses.py'
+      - 'scripts/test_repair_semantic_mnemonic_learning_glosses.py'
       - 'scripts/repair_semantic_mnemonic_groupings.py'
       - 'scripts/repair_semantic_mnemonic_random_audit.py'
       - 'scripts/test_repair_semantic_mnemonic_groupings.py'
@@ -50,6 +51,7 @@ jobs:
           python3 scripts/repair_semantic_mnemonic_groupings.py --check
           python3 scripts/repair_semantic_mnemonic_random_audit.py --check
           python3 -m unittest scripts/test_manage_semantic_mnemonic_corpus.py
+          python3 -m unittest scripts/test_repair_semantic_mnemonic_learning_glosses.py
           python3 -m unittest scripts/test_repair_semantic_mnemonic_groupings.py
           python3 -m unittest scripts/test_repair_semantic_mnemonic_random_audit.py
           python3 -m unittest scripts/test_audit_word_page_coverage.py
