@@ -46,6 +46,25 @@ def require_hanja(entry: dict[str, Any], expected_hanja: str, expected_gloss: st
         )
 
 
+def require_normalized_japanese_ginkgo(entry: dict[str, Any]) -> None:
+    glosses = [
+        str(gloss.get("text") or "")
+        for word in entry.get("japanese_words") or []
+        if isinstance(word, dict)
+        for sense in word.get("sense") or []
+        if isinstance(sense, dict)
+        for gloss in sense.get("gloss") or []
+        if isinstance(gloss, dict) and gloss.get("lang") == "eng"
+    ]
+    combined = " ".join(glosses).lower()
+    if "gingko" in combined:
+        raise RuntimeError(
+            f"{entry.get('key')}: Japanese glosses retain misspelled 'gingko'"
+        )
+    if "ginkgo" not in combined:
+        raise RuntimeError(f"{entry.get('key')}: Japanese glosses lack 'ginkgo'")
+
+
 def validate_published_entries(*, cache_key: str, timeout: float) -> dict[str, Any]:
     entries = {
         key: published.fetch_entry(key, cache_key=cache_key, timeout=timeout)
@@ -63,6 +82,7 @@ def validate_published_entries(*, cache_key: str, timeout: float) -> dict[str, A
 
     require_hanja(entries["銀行"], "銀行", "bank")
     require_hanja(entries["銀杏"], "銀杏", "ginkgo")
+    require_normalized_japanese_ginkgo(entries["銀杏"])
 
     if entries["저금리"].get("redirect") != "低金利":
         raise RuntimeError("저금리: unambiguous Hangul form should redirect to 低金利")

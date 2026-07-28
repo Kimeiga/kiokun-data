@@ -1238,7 +1238,16 @@ fn load_chinese_dictionary(path: &str) -> Result<Vec<ChineseDictionaryElement>> 
 
 fn load_japanese_dictionary(path: &str) -> Result<JapaneseEntry> {
     let content = fs::read_to_string(path)?;
-    let japanese_dict: JapaneseEntry = serde_json::from_str(&content)?;
+    let mut japanese_dict: JapaneseEntry = serde_json::from_str(&content)?;
+    for word in &mut japanese_dict.words {
+        for sense in &mut word.sense {
+            for gloss in &mut sense.gloss {
+                if gloss.lang == japanese_types::Lan::Eng {
+                    gloss.text = normalize_english_gloss(&gloss.text);
+                }
+            }
+        }
+    }
     println!("  ✅ Loaded {} Japanese words", japanese_dict.words.len());
     Ok(japanese_dict)
 }
@@ -1702,7 +1711,7 @@ fn collect_english_fragments(
 fn clean_definition_fragments(fragments: Vec<String>) -> Vec<String> {
     let mut cleaned = Vec::new();
     for fragment in fragments {
-        let text = normalize_korean_english(&decode_basic_html_entities(fragment.trim()));
+        let text = normalize_english_gloss(&decode_basic_html_entities(fragment.trim()));
         if text.is_empty()
             || text == "Sentence"
             || text == "See More"
@@ -1718,9 +1727,9 @@ fn clean_definition_fragments(fragments: Vec<String>) -> Vec<String> {
     cleaned
 }
 
-fn normalize_korean_english(text: &str) -> String {
-    // KRDICT's English export consistently misspells “ginkgo” as “gingko”.
-    // Correct it in the derived corpus while leaving the upstream archive intact.
+fn normalize_english_gloss(text: &str) -> String {
+    // KRDICT and JMdict include the alternate/misspelled “gingko”. Normalize
+    // derived English glosses while leaving the upstream archives intact.
     text.replace("Gingko", "Ginkgo").replace("gingko", "ginkgo")
 }
 
@@ -2077,6 +2086,14 @@ mod korean_content_tests {
         assert_eq!(words[0].hanja.as_deref(), Some("銀行"));
         assert_eq!(words[1].hanja.as_deref(), Some("銀杏"));
         assert_eq!(words[1].definitions[0].text, "ginkgo");
+    }
+
+    #[test]
+    fn normalizes_jmdict_ginkgo_spelling() {
+        assert_eq!(
+            normalize_english_gloss("gingko nuts under a Gingko tree"),
+            "ginkgo nuts under a Ginkgo tree"
+        );
     }
 }
 

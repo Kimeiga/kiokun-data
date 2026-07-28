@@ -42,6 +42,18 @@ class KoreanDeploymentSmokeTests(unittest.TestCase):
             "銀杏": {
                 "key": "銀杏",
                 "korean_words": [word("ginkgo", "銀杏", "ginkgo")],
+                "japanese_words": [
+                    {
+                        "sense": [
+                            {
+                                "gloss": [
+                                    {"lang": "eng", "text": "ginkgo"},
+                                    {"lang": "eng", "text": "ginkgo nut"},
+                                ]
+                            }
+                        ]
+                    }
+                ],
             },
             "저금리": {"key": "저금리", "redirect": "低金利"},
             "正말": {"key": "正말", "redirect": "정말"},
@@ -56,6 +68,25 @@ class KoreanDeploymentSmokeTests(unittest.TestCase):
             result["ambiguous_hangul"]["hanja"],
             ["銀行", "銀杏"],
         )
+
+    def test_rejects_misspelled_japanese_ginkgo(self) -> None:
+        with self.assertRaisesRegex(RuntimeError, "retain misspelled"):
+            smoke.require_normalized_japanese_ginkgo(
+                {
+                    "key": "銀杏",
+                    "japanese_words": [
+                        {
+                            "sense": [
+                                {
+                                    "gloss": [
+                                        {"lang": "eng", "text": "gingko nut"},
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                }
+            )
 
     def test_rejects_ambiguous_redirect(self) -> None:
         with mock.patch.object(
