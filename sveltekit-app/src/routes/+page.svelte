@@ -457,9 +457,9 @@
 	</section>
 
 	<!-- Sentences -->
-	<section class="section">
+	<section class="section" aria-labelledby="try-sentence-heading">
 		<div class="section-head">
-			<h2>Try a Sentence</h2>
+			<h2 id="try-sentence-heading">Try a Sentence</h2>
 			<p>Click to see every word broken down</p>
 		</div>
 		<div class="sentences-grid">
