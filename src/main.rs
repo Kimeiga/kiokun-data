@@ -5,6 +5,7 @@ mod japanese_types;
 mod korean_types;
 mod chinese_char_types;
 mod japanese_char_types;
+mod japanese_subwords;
 mod ids_types;
 mod combined_types;
 mod jmnedict_types;
@@ -4459,6 +4460,63 @@ async fn generate_simple_output_files(
     println!("🔍 Building 'contains' relationships for multi-character words...");
     let existing_keys: std::collections::HashSet<String> = outputs.keys().cloned().collect();
 
+    #[derive(Clone)]
+    struct DerivedJapaneseSubword {
+        surface: String,
+        source_key: String,
+        word_id: String,
+        reading: Option<String>,
+        frequency_rank: Option<u32>,
+        common: bool,
+    }
+
+    // JMdict indexes dictionary forms, while compounds also contain meaningful
+    // continuative forms (e.g. 先延ばし contains 延ばし from 延ばす). Build a
+    // compact lookup beside the exact keys so the derived card remains embedded
+    // in the parent word's dictionary shard.
+    let mut derived_candidates = Vec::new();
+    for (source_key, output) in &outputs {
+        for japanese_word in &output.japanese_words {
+            let common = japanese_word.kanji.iter().any(|form| form.common)
+                || japanese_word.kana.iter().any(|form| form.common);
+            for form in japanese_subwords::continuative_subword_forms(japanese_word) {
+                if form.surface != *source_key {
+                    derived_candidates.push(DerivedJapaneseSubword {
+                        surface: form.surface,
+                        source_key: source_key.clone(),
+                        word_id: japanese_word.id.clone(),
+                        reading: form.reading,
+                        frequency_rank: japanese_word.frequency_rank,
+                        common,
+                    });
+                }
+            }
+        }
+    }
+    derived_candidates.sort_by(|a, b| {
+        a.surface
+            .cmp(&b.surface)
+            .then_with(|| {
+                a.frequency_rank
+                    .unwrap_or(u32::MAX)
+                    .cmp(&b.frequency_rank.unwrap_or(u32::MAX))
+            })
+            .then_with(|| b.common.cmp(&a.common))
+            .then_with(|| a.source_key.cmp(&b.source_key))
+            .then_with(|| a.word_id.cmp(&b.word_id))
+    });
+    let mut derived_japanese_subwords: StdHashMap<String, DerivedJapaneseSubword> =
+        StdHashMap::new();
+    for candidate in derived_candidates {
+        derived_japanese_subwords
+            .entry(candidate.surface.clone())
+            .or_insert(candidate);
+    }
+    println!(
+        "  ✓ Indexed {} Japanese continuative subword forms",
+        derived_japanese_subwords.len()
+    );
+
     // First pass: collect all contained words
     let mut contains_map: StdHashMap<String, Vec<String>> = StdHashMap::new();
 
@@ -4499,8 +4557,11 @@ async fn generate_simple_output_files(
                         continue;
                     }
 
-                    // Check if this substring exists in the dictionary
-                    if existing_keys.contains(&substring) {
+                    // Exact headwords and attributable Japanese continuative
+                    // forms are both valid containment cards.
+                    if existing_keys.contains(&substring)
+                        || derived_japanese_subwords.contains_key(&substring)
+                    {
                         contained_words.insert(substring);
                     }
                 }
@@ -4527,6 +4588,23 @@ async fn generate_simple_output_files(
             .filter_map(|word_key| {
                 // First try to get the output directly
                 let word_output = outputs.get(word_key);
+
+                if word_output.is_none() {
+                    if let Some(derived) = derived_japanese_subwords.get(word_key) {
+                        let source_output = outputs.get(&derived.source_key)?;
+                        let japanese_word = source_output
+                            .japanese_words
+                            .iter()
+                            .find(|word| word.id == derived.word_id)?;
+                        let mut preview =
+                            word_preview_types::WordPreview::from_japanese(japanese_word);
+                        preview.word = word_key.clone();
+                        if derived.reading.is_some() {
+                            preview.japanese_pronunciation = derived.reading.clone();
+                        }
+                        return Some(preview);
+                    }
+                }
 
                 // If the output is a redirect, follow it to get the actual data
                 let actual_output = word_output.and_then(|wo| {

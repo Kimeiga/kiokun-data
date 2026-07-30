@@ -1,6 +1,7 @@
 <script lang="ts">
 	import SectionHeading from "./components/shared/SectionHeading.svelte";
 	import { languageStore } from '$lib/stores/languages.svelte';
+	import { orderContainsWords } from '$lib/contains-order';
 
 	interface WordPreview {
 		w: string; // word
@@ -10,6 +11,8 @@
 		jp?: string; // Japanese pronunciation (kana reading)
 		kr?: string; // Korean reading (Hangul)
 		d?: string; // definition
+		c?: boolean; // common Japanese word
+		fr?: number; // frequency rank
 	}
 
 	interface Props {
@@ -24,7 +27,9 @@
 	let displayCount = $state(10);
 	const pageSize = 10;
 
-	let containsCards = $derived.by(() => buildContainsCards(words, wordForms));
+	let containsCards = $derived.by(() =>
+		buildContainsCards(orderContainsWords(words, wordForms), wordForms)
+	);
 
 	// Computed slice
 	let displayedWords = $derived(containsCards.slice(0, displayCount));
@@ -50,20 +55,34 @@
 		const used = new Set<WordPreview>();
 		const cards: WordPreview[] = [];
 
-		for (let index = 0; index < length; index += 1) {
-			const variants = unique(formChars.map((chars) => chars[index]).filter(Boolean));
-			const matches = previews.filter((preview) => variants.includes(preview.w));
-			if (matches.length === 0) continue;
-
-			for (const match of matches) used.add(match);
-			cards.push({
-				...matches[0],
-				forms: variants
-			});
-		}
-
 		for (const preview of previews) {
-			if (!used.has(preview)) cards.push(preview);
+			if (used.has(preview)) continue;
+
+			if ([...preview.w].length === 1) {
+				let position = -1;
+				for (let index = 0; index < length; index += 1) {
+					const variantsAtPosition = formChars.map((chars) => chars[index]);
+					if (variantsAtPosition.includes(preview.w)) {
+						position = index;
+						break;
+					}
+				}
+				if (position !== -1) {
+					const variants = unique(formChars.map((chars) => chars[position]).filter(Boolean));
+					const matches = previews.filter(
+						(candidate) => [...candidate.w].length === 1 && variants.includes(candidate.w)
+					);
+					for (const match of matches) used.add(match);
+					cards.push({
+						...matches[0],
+						forms: variants
+					});
+					continue;
+				}
+			}
+
+			used.add(preview);
+			cards.push(preview);
 		}
 
 		return cards.length > 0 ? cards : previews;
