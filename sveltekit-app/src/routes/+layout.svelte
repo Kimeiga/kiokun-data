@@ -36,6 +36,7 @@
 
 	let routeLoading = $state(false);
 	let pendingRouteLabel = $state('');
+	let pendingRouteRecoveryUrl = '';
 	let routeLoadingFallback: ReturnType<typeof setTimeout> | null = null;
 
 	function labelForRoute(url: URL): string {
@@ -59,6 +60,7 @@
 		if (sameDocumentTarget(url)) return;
 
 		pendingRouteLabel = labelForRoute(url);
+		pendingRouteRecoveryUrl = url.href;
 		routeLoading = true;
 
 		if (routeLoadingFallback) clearTimeout(routeLoadingFallback);
@@ -72,6 +74,7 @@
 	function hideRouteLoading(): void {
 		routeLoading = false;
 		pendingRouteLabel = '';
+		pendingRouteRecoveryUrl = '';
 
 		if (routeLoadingFallback) {
 			clearTimeout(routeLoadingFallback);
@@ -90,7 +93,35 @@
 
 	onMount(() => {
 		const isCapacitor = window.location.protocol === 'capacitor:';
+		const preloadReloadKey = 'kiokun:preload-reload-at';
 		document.documentElement.classList.toggle('capacitor-native', isCapacitor);
+
+		const handlePreloadError = (event: Event) => {
+			event.preventDefault();
+
+			let previousReload = 0;
+			try {
+				previousReload = Number(sessionStorage.getItem(preloadReloadKey) || 0);
+			} catch {
+				// Storage can be unavailable in restrictive browsing modes.
+			}
+			const now = Date.now();
+			if (now - previousReload < 30_000) {
+				console.error('A newly deployed application module could not be loaded after refreshing.');
+				return;
+			}
+
+			try {
+				sessionStorage.setItem(preloadReloadKey, String(now));
+			} catch {
+				// Reload recovery still works without the loop guard.
+			}
+			if (pendingRouteRecoveryUrl && pendingRouteRecoveryUrl !== window.location.href) {
+				window.location.assign(pendingRouteRecoveryUrl);
+			} else {
+				window.location.reload();
+			}
+		};
 
 		const handleClick = (event: MouseEvent) => {
 			if (
@@ -115,6 +146,7 @@
 			showRouteLoading(url);
 		};
 
+		window.addEventListener('vite:preloadError', handlePreloadError);
 		document.addEventListener('click', handleClick, { capture: true });
 
 		async function installClientIntegrations() {
@@ -132,7 +164,10 @@
 
 		void installClientIntegrations();
 
-		return () => document.removeEventListener('click', handleClick, { capture: true });
+		return () => {
+			window.removeEventListener('vite:preloadError', handlePreloadError);
+			document.removeEventListener('click', handleClick, { capture: true });
+		};
 	});
 </script>
 

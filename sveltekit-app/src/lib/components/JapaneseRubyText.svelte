@@ -7,7 +7,7 @@
 		readingSize?: string;
 	}
 
-	let { text, reading, readingSize = '0.6em' }: Props = $props();
+	let { text, reading, readingSize = '0.75em' }: Props = $props();
 	let parts = $derived(splitJapaneseRubyParts(text, reading));
 </script>
 

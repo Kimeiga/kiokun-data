@@ -171,6 +171,6 @@
 		line-height: 2.15;
 		padding-top: 0.3em;
 	}
-	.example-sub { font-size: var(--font-size-caption2); color: var(--color-pinyin); margin-top: 1px; }
-	.example-translation { font-size: var(--font-size-caption1); color: var(--text-tertiary); margin-top: 2px; line-height: 1.4; }
+	.example-sub { font-size: var(--font-size-caption1); color: var(--color-pinyin); margin-top: 1px; }
+	.example-translation { font-size: var(--font-size-callout); color: var(--text-tertiary); margin-top: 2px; line-height: 1.4; }
 </style>

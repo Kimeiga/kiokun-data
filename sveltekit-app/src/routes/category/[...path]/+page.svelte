@@ -32,12 +32,12 @@
 		{/each}
 	</nav>
 
-	<div class="learner-intro">
-		<h1>{categoryName}</h1>
-		<p>
-			{data.characters.length} {data.characters.length === 1 ? 'character' : 'characters'}
-			{data.subcategories.length > 0 ? ` across ${data.subcategories.length} subcategories` : ''}
-			with learner meanings and connected forms.
+		<div class="learner-intro">
+			<h1>{categoryName}</h1>
+			<p>
+				{data.totalCharacters} {data.totalCharacters === 1 ? 'character' : 'characters'}
+				{data.subcategories.length > 0 ? ` across ${data.subcategories.length} subcategories` : ''}
+				with learner meanings and connected forms.
 		</p>
 	</div>
 
@@ -64,7 +64,7 @@
 			<h2 class="text-lg font-semibold text-text-secondary mb-4">
 				Characters ({data.characters.length})
 			</h2>
-			<div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3">
+			<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-7 gap-3">
 				{#each data.characters as entry}
 					<a 
 						href="/{entry.char}"

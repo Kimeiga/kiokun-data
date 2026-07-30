@@ -275,6 +275,7 @@
 <style>
 	.speak-button {
 		display: inline-flex;
+		flex-shrink: 0;
 		align-items: center;
 		justify-content: center;
 		min-width: 44px;
@@ -295,8 +296,8 @@
 	}
 
 	.speak-button.compact {
-		min-width: 32px;
-		min-height: 32px;
+		min-width: 44px;
+		min-height: 44px;
 		padding: 2px;
 	}
 

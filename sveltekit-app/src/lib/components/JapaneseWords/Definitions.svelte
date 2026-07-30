@@ -98,7 +98,7 @@
 
 <style>
 	.definitions {
-		font-size: var(--font-size-subhead);
+		font-size: var(--font-size-callout);
 		line-height: 1.5;
 		color: var(--text-primary);
 	}
@@ -129,4 +129,3 @@
 		line-height: 1.5;
 	}
 </style>
-

@@ -1,14 +1,6 @@
 import type { PageLoad } from './$types';
+import { error, isHttpError } from '@sveltejs/kit';
 import { buildReelSeo, type PageSeo } from '$lib/seo';
-
-// SSR enabled: fetches static JSON which SvelteKit serves on the server
-
-interface VideoOccurrence {
-	video_id: string;
-	start_time: number;
-	end_time: number;
-	sentence: string;
-}
 
 interface VideoInfo {
 	url: string;
@@ -20,16 +12,16 @@ interface VideoInfo {
 	duration?: number;
 }
 
-interface VideoData {
-	videos: Record<string, VideoInfo>;
-	words: Record<string, VideoOccurrence[]>;
-}
-
 interface TranscriptSegment {
 	start_time: number;
 	end_time: number;
 	sentence: string;
-	words: string[];
+	words: Array<string | { word?: string }>;
+}
+
+interface ReelIndexPayload {
+	video: VideoInfo;
+	transcript: TranscriptSegment[];
 }
 
 export interface ReelPageData {
@@ -40,7 +32,6 @@ export interface ReelPageData {
 	startTime: number;
 	transcript: TranscriptSegment[];
 	language: 'ja' | 'zh';
-	// Metadata from Instagram
 	sourceUrl: string | null;
 	author: string | null;
 	caption: string | null;
@@ -51,87 +42,47 @@ export interface ReelPageData {
 export const load: PageLoad<ReelPageData> = async ({ params, url, fetch }) => {
 	const videoId = params.id;
 	const highlightWord = url.searchParams.get('word');
-	const startTime = parseFloat(url.searchParams.get('t') || '0');
-	const language = (url.searchParams.get('lang') === 'zh' ? 'zh' : 'ja') as 'ja' | 'zh';
+	const requestedStartTime = Number.parseFloat(url.searchParams.get('t') || '0');
+	const startTime = Number.isFinite(requestedStartTime) ? Math.max(0, requestedStartTime) : 0;
+	const language: 'ja' | 'zh' = url.searchParams.get('lang') === 'zh' ? 'zh' : 'ja';
+	const payloadUrl = `/reel-index/${language}/videos/${encodeURIComponent(videoId)}.json`;
 
-	const videoUrl = `https://cdn.cosmos.so/${videoId}.mp4`;
+	try {
+		const response = await fetch(payloadUrl);
+		if (response.status === 404) throw error(404, 'Reel not found');
+		if (!response.ok) throw error(500, 'Failed to load reel');
 
-	// Load video data based on language
-	const dataFile = language === 'zh' ? '/chinese_video_data.json' : '/video_data.json';
-	const transcriptFile = language === 'zh' ? '/reel_transcripts_zh_full.json' : '/reel_transcripts_full.json';
+		const { video, transcript = [] } = await response.json() as ReelIndexPayload;
+		if (!video) throw error(404, 'Reel not found');
 
-	const [dataResponse, transcriptResponse] = await Promise.all([
-		fetch(dataFile),
-		transcriptFile ? fetch(transcriptFile).catch(() => null) : Promise.resolve(null),
-	]);
-	const videoData: VideoData = await dataResponse.json();
-	const allTranscripts = transcriptResponse ? await transcriptResponse.json().catch(() => ({})) : {};
-
-	// Use full STT transcripts if available, otherwise fall back to word occurrences
-	let transcript: TranscriptSegment[];
-
-	const sttTranscript = allTranscripts[videoId];
-	if (sttTranscript && sttTranscript.length > 0) {
-		// Full GCP STT transcript — every word is present
-		transcript = sttTranscript.map((seg: any) => ({
-			start_time: seg.start_time,
-			end_time: seg.end_time,
-			sentence: seg.sentence,
-			words: seg.words || [],
-		}));
-	} else {
-		// Fallback: build transcript from word occurrences
-		const transcriptMap = new Map<string, TranscriptSegment>();
-
-		for (const [word, occurrences] of Object.entries(videoData.words)) {
-			for (const occ of occurrences) {
-				if (occ.video_id === videoId) {
-					const key = `${occ.start_time}-${occ.end_time}`;
-					if (!transcriptMap.has(key)) {
-						transcriptMap.set(key, {
-							start_time: occ.start_time,
-							end_time: occ.end_time,
-							sentence: occ.sentence,
-							words: []
-						});
-					}
-					const segment = transcriptMap.get(key)!;
-					if (!segment.words.includes(word)) {
-						segment.words.push(word);
-					}
-				}
-			}
-		}
-
-		transcript = Array.from(transcriptMap.values())
-			.sort((a, b) => a.start_time - b.start_time);
-	}
-
-	// Get video metadata
-	const videoInfo = videoData.videos[videoId];
-
-	const pageData = {
-		videoId,
-		videoUrl,
-		posterUrl: videoInfo?.thumbnail ?? null,
-		highlightWord,
-		startTime,
-		transcript,
-		language,
-		sourceUrl: videoInfo?.source_url ?? null,
-		author: videoInfo?.author ?? null,
-		caption: videoInfo?.caption ?? null,
-		duration: videoInfo?.duration ?? null
-	};
-	return {
-		...pageData,
-		seo: buildReelSeo({
-			id: videoId,
-			language,
-			caption: pageData.caption,
-			author: pageData.author,
+		const pageData = {
+			videoId,
+			videoUrl: `https://cdn.cosmos.so/${videoId}.mp4`,
+			posterUrl: video.thumbnail ?? null,
+			highlightWord,
+			startTime,
 			transcript,
-			highlightWord
-		})
-	};
+			language,
+			sourceUrl: video.source_url ?? null,
+			author: video.author ?? null,
+			caption: video.caption ?? null,
+			duration: video.duration ?? null
+		};
+
+		return {
+			...pageData,
+			seo: buildReelSeo({
+				id: videoId,
+				language,
+				caption: pageData.caption,
+				author: pageData.author,
+				transcript,
+				highlightWord
+			})
+		};
+	} catch (err) {
+		if (isHttpError(err)) throw err;
+		console.error('Failed to load reel:', err);
+		throw error(500, 'Failed to load reel');
+	}
 };

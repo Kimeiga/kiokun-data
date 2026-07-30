@@ -474,7 +474,7 @@
 									language={lang.language}
 									pinyin={s.pinyin}
 									rubySegments={s.rubySegments}
-									readingSize="10px"
+									readingSize="12px"
 								/>
 							</span>
 							<span class="sent-label">{s.label}</span>

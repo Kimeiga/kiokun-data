@@ -12,27 +12,51 @@
 		word_count: number;
 	}
 
-	interface VideoData {
-		videos: Record<string, VideoInfo>;
-		words: Record<string, VideoOccurrence[]>;
+	const reelShardCache = new Map<string, Promise<Record<string, VideoOccurrence[]> | null>>();
+	const videoMetadataCache = new Map<string, Promise<Record<string, VideoInfo> | null>>();
+
+	function fetchJson<T>(url: string): Promise<T | null> {
+		return fetch(url)
+			.then((response) => response.ok ? response.json() as Promise<T> : null)
+			.catch(() => null);
 	}
 
-	const videoDataCache: Record<string, VideoData> = {};
+	function loadReelShard(url: string) {
+		let request = reelShardCache.get(url);
+		if (!request) {
+			request = fetchJson<{ words: Record<string, VideoOccurrence[]> }>(url)
+				.then((data) => data?.words ?? null);
+			reelShardCache.set(url, request);
+		}
+		return request;
+	}
+
+	function loadVideoMetadata(url: string) {
+		let request = videoMetadataCache.get(url);
+		if (!request) {
+			request = fetchJson<{ videos: Record<string, VideoInfo> }>(url)
+				.then((data) => data?.videos ?? null);
+			videoMetadataCache.set(url, request);
+		}
+		return request;
+	}
 </script>
 
 <script lang="ts">
 	import SectionHeading from './shared/SectionHeading.svelte';
+	import { reelShardForWord } from '$lib/reel-shards';
 
 	let { word, language = 'ja', id }: { word: string; language?: 'ja' | 'zh'; id?: string } = $props();
 
 	const BATCH_SIZE = 10;
 
-	let videoData: VideoData | null = $state(null);
+	let videos: Record<string, VideoInfo> = $state({});
 	let occurrences: VideoOccurrence[] = $state([]);
 	let loading = $state(false);
 	let visibleCount = $state(BATCH_SIZE);
 	let shouldLoad = $state(false);
 	let sectionEl: HTMLDivElement | null = $state(null);
+	let loadRequestId = 0;
 
 	function loadMore() {
 		visibleCount = Math.min(visibleCount + BATCH_SIZE, occurrences.length);
@@ -41,36 +65,40 @@
 	let hasMore = $derived(visibleCount < occurrences.length);
 	let remainingCount = $derived(occurrences.length - visibleCount);
 
-	// Determine which JSON file to load based on language
-	let dataFile = $derived(language === 'zh' ? '/chinese_video_data.json' : '/video_data.json');
+	let indexLanguage = $derived(language === 'zh' ? 'zh' : 'ja');
+	let shardFile = $derived(`/reel-index/${indexLanguage}/${reelShardForWord(word)}.json`);
+	let videosFile = $derived(`/reel-index/${indexLanguage}/videos.json`);
 	let languageFlag = $derived(language === 'zh' ? '🇨🇳' : '🇯🇵');
 	let languageLabel = $derived(language === 'zh' ? 'Chinese' : 'Japanese');
 
-	async function loadVideoData() {
+	async function loadVideoData(expectedWord: string, expectedShard: string, expectedVideosFile: string) {
+		const requestId = ++loadRequestId;
 		loading = true;
 		try {
-			if (videoDataCache[dataFile]) {
-				videoData = videoDataCache[dataFile];
-			} else {
-				const response = await fetch(dataFile);
-				if (response.ok) {
-					videoData = await response.json();
-					if (videoData) videoDataCache[dataFile] = videoData;
-				}
+			const shardWords = await loadReelShard(expectedShard);
+			if (requestId !== loadRequestId || word !== expectedWord || shardFile !== expectedShard) return;
+
+			occurrences = shardWords?.[expectedWord] ?? [];
+			if (occurrences.length > 0) {
+				const metadata = await loadVideoMetadata(expectedVideosFile);
+				if (requestId !== loadRequestId || word !== expectedWord || videosFile !== expectedVideosFile) return;
+				videos = metadata ?? {};
 			}
-			occurrences = videoData?.words[word] || [];
 			visibleCount = BATCH_SIZE;
 		} catch (err) {
 			console.error(`Failed to load ${languageLabel} video data:`, err);
 		} finally {
-			loading = false;
+			if (requestId === loadRequestId) loading = false;
 		}
 	}
 
 	// Reset when word or language changes. The data itself loads lazily below.
 	$effect(() => {
 		const _word = word;
-		const _dataFile = dataFile;
+		const _shardFile = shardFile;
+		const _videosFile = videosFile;
+		loadRequestId += 1;
+		videos = {};
 		occurrences = [];
 		visibleCount = BATCH_SIZE;
 		loading = false;
@@ -98,12 +126,13 @@
 	$effect(() => {
 		if (!shouldLoad) return;
 		const _word = word;
-		const _dataFile = dataFile;
-		loadVideoData();
+		const _shardFile = shardFile;
+		const _videosFile = videosFile;
+		void loadVideoData(_word, _shardFile, _videosFile);
 	});
 
 	function getThumbnailUrl(videoId: string): string | null {
-		return videoData?.videos[videoId]?.thumbnail ?? null;
+		return videos[videoId]?.thumbnail ?? null;
 	}
 
 	function formatTime(seconds: number): string {

@@ -5,6 +5,7 @@
 	import { deinflect, formatReasonChains } from '$lib/utils/deinflect';
 	import { dev } from '$app/environment';
 	import { goto } from '$app/navigation';
+	import { onMount, tick } from 'svelte';
 
 	interface TranscriptToken {
 		text: string;
@@ -36,6 +37,20 @@
 	let panelLoading = $state(false);
 	let panelLookupWord = $state<string | null>(null);
 	let panelInflection = $state<string | null>(null);
+	let panelElement: HTMLDivElement | null = $state(null);
+	let panelCloseButton: HTMLButtonElement | null = $state(null);
+	let panelTrigger: HTMLButtonElement | null = null;
+	let mobilePanel = $state(false);
+
+	onMount(() => {
+		const mediaQuery = window.matchMedia('(max-width: 768px)');
+		const updatePanelMode = () => {
+			mobilePanel = mediaQuery.matches;
+		};
+		updatePanelMode();
+		mediaQuery.addEventListener('change', updatePanelMode);
+		return () => mediaQuery.removeEventListener('change', updatePanelMode);
+	});
 
 	$effect(() => {
 		if (videoElement && initializedVideoId !== data.videoId) {
@@ -383,15 +398,18 @@
 		return null;
 	}
 
-	async function openWordPanel(word: string) {
+	async function openWordPanel(word: string, trigger?: HTMLButtonElement) {
 		if (!isLookupToken(word)) return;
 		videoElement?.pause();
+		panelTrigger = trigger ?? null;
 		selectedWord = word;
 		panelLookupWord = word;
 		panelInflection = null;
 		panelOpen = true;
 		panelData = null;
 		panelLoading = true;
+		await tick();
+		panelCloseButton?.focus();
 
 		try {
 			let entry = await fetchDictEntry(word);
@@ -430,11 +448,38 @@
 	}
 
 	function closePanel() {
+		const trigger = panelTrigger;
 		panelOpen = false;
 		selectedWord = null;
 		panelData = null;
 		panelLookupWord = null;
 		panelInflection = null;
+		panelTrigger = null;
+		void tick().then(() => trigger?.focus());
+	}
+
+	function handlePanelKeydown(event: KeyboardEvent) {
+		if (event.key === 'Escape') {
+			event.preventDefault();
+			closePanel();
+			return;
+		}
+		if (event.key !== 'Tab' || !mobilePanel || !panelElement) return;
+
+		const focusable = [...panelElement.querySelectorAll<HTMLElement>(
+			'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+		)].filter((element) => element.getClientRects().length > 0);
+		if (focusable.length === 0) return;
+
+		const first = focusable[0];
+		const last = focusable[focusable.length - 1];
+		if (event.shiftKey && document.activeElement === first) {
+			event.preventDefault();
+			last.focus();
+		} else if (!event.shiftKey && document.activeElement === last) {
+			event.preventDefault();
+			first.focus();
+		}
 	}
 
 	function navigateToWord() {
@@ -530,7 +575,10 @@
 													class="word-token"
 													class:selected={isSelectedToken(token.word ?? '')}
 													class:current={segmentIndex === activeSegmentIndex && token.lookupIndex === activeWordIndex}
-													onclick={(e) => { e.stopPropagation(); openWordPanel(token.word ?? ''); }}
+													onclick={(e) => {
+														e.stopPropagation();
+														void openWordPanel(token.word ?? '', e.currentTarget);
+													}}
 												>{token.text}</button>
 											{:else}
 												<span class="non-word">{token.text}</span>
@@ -548,15 +596,30 @@
 
 	<!-- Dictionary Panel -->
 	{#if panelOpen}
-		<button type="button" class="panel-overlay" aria-label="Close dictionary" onclick={closePanel}></button>
-		<div class="dictionary-panel">
+		<button type="button" class="panel-overlay" tabindex="-1" aria-hidden="true" onclick={closePanel}></button>
+		<div
+			bind:this={panelElement}
+			class="dictionary-panel"
+			role="dialog"
+			tabindex="-1"
+			aria-modal={mobilePanel}
+			aria-labelledby="reel-dictionary-heading"
+			aria-busy={panelLoading}
+			onkeydown={handlePanelKeydown}
+		>
 			<div class="panel-header">
-				<h3 class="panel-word">{selectedWord}</h3>
+				<h3 id="reel-dictionary-heading" class="panel-word">{selectedWord}</h3>
 				<div class="panel-actions">
 					{#if panelData}
-						<button class="panel-open-btn" onclick={navigateToWord}>Open →</button>
+						<button type="button" class="panel-open-btn" onclick={navigateToWord}>Open →</button>
 					{/if}
-					<button class="panel-close-btn" onclick={closePanel}>×</button>
+					<button
+						bind:this={panelCloseButton}
+						type="button"
+						class="panel-close-btn"
+						aria-label="Close dictionary"
+						onclick={closePanel}
+					>×</button>
 				</div>
 			</div>
 			<div class="panel-body">
@@ -829,9 +892,10 @@
 	}
 
 	.word-token {
-		display: inline; background: none; border: none;
+		display: inline-flex; align-items: center; justify-content: center;
+		min-width: 24px; min-height: 44px; background: none; border: none;
 		border-bottom: 2px solid transparent;
-		padding: 0 1px; margin: 0; font: inherit; color: inherit;
+		padding: 0 1px; margin: 0 1px; font: inherit; color: inherit;
 		cursor: pointer; transition: border-color 0.15s, color 0.15s;
 	}
 	.word-token:hover { border-bottom-color: var(--accent); color: var(--accent); }
@@ -881,7 +945,7 @@
 	}
 	.panel-open-btn:hover { background: var(--accent-light); }
 	.panel-close-btn {
-		width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--border-color);
+		width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--border-color);
 		background: var(--bg-secondary); color: var(--text-secondary); font-size: 20px;
 		cursor: pointer; display: flex; align-items: center; justify-content: center;
 	}

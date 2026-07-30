@@ -24,10 +24,11 @@
 </script>
 
 <div class="section-heading" class:undivided={!divided} id={id}>
-	<div class="section-heading-content">
-		{@render children()}
+	<span class="section-heading-content">
+		<h2 class="section-heading-title">{@render children()}</h2>
 		{#if id}
 			<button
+				type="button"
 				class="permalink-btn"
 				class:copied
 				onclick={copyPermalink}
@@ -41,7 +42,7 @@
 				{/if}
 			</button>
 		{/if}
-	</div>
+	</span>
 </div>
 
 <style>
@@ -67,12 +68,21 @@
 		gap: 0;
 	}
 
+	.section-heading-title {
+		margin: 0;
+		color: inherit;
+		font: inherit;
+		letter-spacing: inherit;
+		text-transform: inherit;
+	}
+
 	.permalink-btn {
 		all: unset;
 		display: grid;
-		width: 2rem;
-		height: 2rem;
-		margin: -0.45rem -0.65rem -0.45rem -0.45rem;
+		width: 2.75rem;
+		height: 2.75rem;
+		flex: 0 0 2.75rem;
+		margin: -0.75rem -0.75rem -0.75rem -0.5rem;
 		place-items: center;
 		cursor: pointer;
 		opacity: 0;
@@ -88,6 +98,13 @@
 
 	.permalink-btn:hover {
 		opacity: 1 !important;
+	}
+
+	.permalink-btn:focus-visible {
+		opacity: 1 !important;
+		border-radius: var(--radius-sm);
+		outline: 2px solid var(--accent);
+		outline-offset: -4px;
 	}
 
 	.permalink-btn.copied {
@@ -109,7 +126,7 @@
 		}
 
 		.section-heading-content {
-			font-size: var(--font-size-caption2);
+			font-size: var(--font-size-caption1);
 			letter-spacing: 0.3px;
 		}
 

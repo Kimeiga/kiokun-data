@@ -21,7 +21,7 @@
 		language,
 		pinyin = '',
 		rubySegments,
-		readingSize = '0.6em'
+		readingSize = '0.75em'
 	}: Props = $props();
 
 	let enrichedSegments = $state<RubySegment[] | null>(null);

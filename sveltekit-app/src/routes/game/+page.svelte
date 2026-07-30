@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount, tick } from 'svelte';
+	import { onMount, tick, type Component } from 'svelte';
 	import { fly } from 'svelte/transition';
 	import Engine from '@snap-engine/asset-base-svelte/Engine.svelte';
 	import {
@@ -14,9 +14,7 @@
 	import { fetchUnifiedExercise, gradeUnifiedAnswer } from '$lib/game/api';
 	import { languageStore } from '$lib/game/stores/language.svelte';
 	import { chineseScriptStore } from '$lib/game/stores/chineseScript.svelte';
-	import { convertChinese } from '$lib/game/chineseConverter';
 	import { LANGUAGES, type UnifiedExercise, type TileData, type GradeResult, type ApiTile, type Language, type LanguageExercise } from '$lib/game/types';
-	import DictionaryPopup from '$lib/game/DictionaryPopup.svelte';
 	import SpeakButton from '$lib/components/shared/SpeakButton.svelte';
 
 	const snapSortAnimation = {
@@ -128,6 +126,7 @@
 	// Long-press a tile to look it up in the Kiokun dictionary; a short tap still
 	// selects/deselects the tile as before.
 	let lookupTarget = $state<string | null>(null);
+	let DictionaryPopupComponent = $state<Component<any> | null>(null);
 
 	/**
 	 * Strip duojp's display markup from a tile so it can be used as a dictionary
@@ -143,9 +142,11 @@
 			.trim();
 	}
 
-	function openLookup(rawText: string) {
+	async function openLookup(rawText: string) {
 		const w = normalizeForLookup(rawText);
-		if (w) lookupTarget = w;
+		if (!w) return;
+		DictionaryPopupComponent ??= (await import('$lib/game/DictionaryPopup.svelte')).default;
+		lookupTarget = w;
 	}
 
 	/**
@@ -246,10 +247,22 @@
 		return unifiedExercise.exercises[languageStore.value] ?? null;
 	});
 
+	let traditionalConverter = $state<((text: string) => string) | null>(null);
+
+	$effect(() => {
+		const needsTraditionalChinese =
+			languageStore.value === 'zh' && chineseScriptStore.value === 'traditional';
+		if (!needsTraditionalChinese || traditionalConverter) return;
+
+		void import('$lib/game/chineseConverter').then(({ convertChinese }) => {
+			traditionalConverter = (text: string) => convertChinese(text, 'traditional');
+		});
+	});
+
 	// Helper to convert text for display (Chinese conversion, Korean allomorph styling)
 	function displayText(text: string): string {
-		if (languageStore.value === 'zh') {
-			return convertChinese(text, chineseScriptStore.value);
+		if (languageStore.value === 'zh' && chineseScriptStore.value === 'traditional') {
+			return traditionalConverter?.(text) ?? text;
 		}
 		return text;
 	}
@@ -798,11 +811,13 @@ ${questions}
 		</div>
 	{/if}
 
-	<DictionaryPopup
-		word={lookupTarget}
-		lang={languageStore.value}
-		onclose={() => (lookupTarget = null)}
-	/>
+	{#if DictionaryPopupComponent}
+		<DictionaryPopupComponent
+			word={lookupTarget}
+			lang={languageStore.value}
+			onclose={() => (lookupTarget = null)}
+		/>
+	{/if}
 </main>
 
 <style>

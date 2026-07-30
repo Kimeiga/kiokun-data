@@ -5,7 +5,9 @@
 
 import { version } from '$service-worker';
 
-const CACHE_NAME = `kiokun-v${version}`;
+const CACHE_PREFIX = 'kiokun-v';
+const CACHE_NAME = `${CACHE_PREFIX}${version}`;
+const PREVIOUS_APP_CACHE_COUNT = 2;
 
 // Install without downloading every route. The previous full-build precache
 // pulled in route-specific JavaScript, the game engine, and a 4 MB tokenizer
@@ -15,12 +17,21 @@ self.addEventListener('install', (event: ExtendableEvent) => {
 	(self as any).skipWaiting();
 });
 
-// Activate: clean old caches
+// Keep two previous application caches so tabs left open during a deployment
+// can still load their hashed modules. The client also refreshes once when Vite
+// reports a missing preload, covering tabs older than this retention window.
 self.addEventListener('activate', (event: ExtendableEvent) => {
 	event.waitUntil(
-		caches.keys().then(keys =>
-			Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))
-		)
+		caches.keys().then((keys) => {
+			const applicationCaches = keys.filter((key) => key.startsWith(CACHE_PREFIX));
+			const previousCaches = applicationCaches.filter((key) => key !== CACHE_NAME);
+			const retainedPreviousCaches = new Set(previousCaches.slice(-PREVIOUS_APP_CACHE_COUNT));
+			return Promise.all(
+				applicationCaches
+					.filter((key) => key !== CACHE_NAME && !retainedPreviousCaches.has(key))
+					.map((key) => caches.delete(key))
+			);
+		})
 	);
 	(self as any).clients.claim();
 });
@@ -89,7 +100,9 @@ self.addEventListener('fetch', (event: FetchEvent) => {
 					// application files are immutable; language shards are stable.
 					if (response.ok && (
 						url.pathname.startsWith('/_app/immutable/') ||
+						url.pathname.startsWith('/category_data/') ||
 						url.pathname.includes('/pitch/') ||
+						url.pathname.startsWith('/reel-index/') ||
 						url.pathname.includes('/zh_sentences/') ||
 						url.pathname.includes('/kr_sentences/')
 					)) {

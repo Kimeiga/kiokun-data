@@ -116,7 +116,7 @@
 		border-top-color: transparent;
 	}
 	.pitch-label {
-		font-size: 9px;
+		font-size: 12px;
 		color: var(--text-muted);
 		margin-left: 3px;
 		white-space: nowrap;

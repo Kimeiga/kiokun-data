@@ -78,7 +78,7 @@
 	.sense-example-label {
 		margin-bottom: 0.125rem;
 		color: var(--text-tertiary);
-		font-size: var(--font-size-caption2);
+		font-size: var(--font-size-caption1);
 		font-weight: 600;
 		letter-spacing: 0.04em;
 		text-transform: uppercase;
@@ -123,7 +123,7 @@
 		display: block;
 		margin-top: 0.125rem;
 		color: var(--text-tertiary);
-		font-size: var(--font-size-caption1);
+		font-size: var(--font-size-callout);
 		line-height: 1.4;
 	}
 
