@@ -6,8 +6,10 @@
 	import { navigateOrSearch } from '$lib/utils/search-navigation';
 	import { goto } from '$app/navigation';
 	import SearchDropdown from '$lib/components/SearchDropdown.svelte';
+	import AnnotatedSentence from '$lib/components/AnnotatedSentence.svelte';
 	import { getDictionaryUrl } from '$lib/shard-utils';
 	import { dev } from '$app/environment';
+	import type { RubySegment } from '$lib/utils/sentence-ruby';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -127,24 +129,104 @@
 		'happy', 'sun', 'mountain', 'friend', 'time'
 	];
 
-	// Sample sentences for each language
-	const sampleSentences = {
+	type HomeSentenceLanguage = 'ja' | 'zh' | 'ko';
+
+	interface HomeSampleSentence {
+		text: string;
+		label: string;
+		pinyin?: string;
+		rubySegments?: RubySegment[];
+	}
+
+	// Curated readings keep the homepage fully annotated in its initial HTML.
+	const sampleSentences: Record<'japanese' | 'chinese' | 'korean', HomeSampleSentence[]> = {
 		japanese: [
-			{ text: '私は日本語を勉強しています', label: 'I am studying Japanese' },
-			{ text: '今日は天気がいいですね', label: 'The weather is nice today' },
-			{ text: '彼女は音楽が好きです', label: 'She likes music' },
+			{
+				text: '私は日本語を勉強しています',
+				label: 'I am studying Japanese',
+				rubySegments: [
+					{ text: '私', reading: 'わたし', isWord: true },
+					{ text: 'は', isWord: true },
+					{ text: '日本語', reading: 'にほんご', isWord: true },
+					{ text: 'を', isWord: true },
+					{ text: '勉強', reading: 'べんきょう', isWord: true },
+					{ text: 'しています', isWord: true }
+				]
+			},
+			{
+				text: '今日は天気がいいですね',
+				label: 'The weather is nice today',
+				rubySegments: [
+					{ text: '今日', reading: 'きょう', isWord: true },
+					{ text: 'は', isWord: true },
+					{ text: '天気', reading: 'てんき', isWord: true },
+					{ text: 'がいいですね', isWord: true }
+				]
+			},
+			{
+				text: '彼女は音楽が好きです',
+				label: 'She likes music',
+				rubySegments: [
+					{ text: '彼女', reading: 'かのじょ', isWord: true },
+					{ text: 'は', isWord: true },
+					{ text: '音楽', reading: 'おんがく', isWord: true },
+					{ text: 'が', isWord: true },
+					{ text: '好き', reading: 'すき', isWord: true },
+					{ text: 'です', isWord: true }
+				]
+			}
 		],
 		chinese: [
-			{ text: '我今天很开心', label: 'I am very happy today' },
-			{ text: '中国人喜欢吃饭', label: 'Chinese people like to eat' },
-			{ text: '明天下雨吗', label: 'Will it rain tomorrow?' },
+			{ text: '我今天很开心', label: 'I am very happy today', pinyin: 'Wǒ jīntiān hěn kāixīn' },
+			{ text: '中国人喜欢吃饭', label: 'Chinese people like to eat', pinyin: 'Zhōngguó rén xǐhuan chīfàn' },
+			{ text: '明天下雨吗', label: 'Will it rain tomorrow?', pinyin: 'Míngtiān xiàyǔ ma' }
 		],
 		korean: [
-			{ text: '저는 한국어를 공부합니다', label: 'I study Korean' },
-			{ text: '오늘 날씨가 좋습니다', label: 'The weather is nice today' },
-			{ text: '음악을 듣고 있어요', label: 'I am listening to music' },
+			{
+				text: '저는 한국어를 공부합니다',
+				label: 'I study Korean',
+				rubySegments: [
+					{ text: '저는', reading: 'jeoneun', isWord: true },
+					{ text: ' ', isWord: false },
+					{ text: '한국어를', reading: 'hangugeoreul', isWord: true },
+					{ text: ' ', isWord: false },
+					{ text: '공부합니다', reading: 'gongbuhamnida', isWord: true }
+				]
+			},
+			{
+				text: '오늘 날씨가 좋습니다',
+				label: 'The weather is nice today',
+				rubySegments: [
+					{ text: '오늘', reading: 'oneul', isWord: true },
+					{ text: ' ', isWord: false },
+					{ text: '날씨가', reading: 'nalssiga', isWord: true },
+					{ text: ' ', isWord: false },
+					{ text: '좋습니다', reading: 'josseumnida', isWord: true }
+				]
+			},
+			{
+				text: '음악을 듣고 있어요',
+				label: 'I am listening to music',
+				rubySegments: [
+					{ text: '음악을', reading: 'eumageul', isWord: true },
+					{ text: ' ', isWord: false },
+					{ text: '듣고', reading: 'deutkko', isWord: true },
+					{ text: ' ', isWord: false },
+					{ text: '있어요', reading: 'isseoyo', isWord: true }
+				]
+			}
 		]
 	};
+
+	const sentenceLanguages: Array<{
+		flag: string;
+		language: HomeSentenceLanguage;
+		items: HomeSampleSentence[];
+	}> = [
+		{ flag: '🇯🇵', language: 'ja', items: sampleSentences.japanese },
+		{ flag: '🇨🇳', language: 'zh', items: sampleSentences.chinese },
+		{ flag: '🇰🇷', language: 'ko', items: sampleSentences.korean }
+	];
 
 	// Conjugated words
 	const japaneseConjugated = [
@@ -381,16 +463,20 @@
 			<p>Click to see every word broken down</p>
 		</div>
 		<div class="sentences-grid">
-			{#each [
-				{ flag: '🇯🇵', items: sampleSentences.japanese },
-				{ flag: '🇨🇳', items: sampleSentences.chinese },
-				{ flag: '🇰🇷', items: sampleSentences.korean }
-			] as lang}
+			{#each sentenceLanguages as lang}
 				<div class="sent-col">
 					<span class="sent-flag">{lang.flag}</span>
 					{#each lang.items as s}
-						<button class="sent-btn" onclick={() => navigateOrSearch(s.text)}>
-							<span class="sent-text">{s.text}</span>
+						<button type="button" class="sent-btn" onclick={() => navigateOrSearch(s.text)}>
+							<span class="sent-text">
+								<AnnotatedSentence
+									text={s.text}
+									language={lang.language}
+									pinyin={s.pinyin}
+									rubySegments={s.rubySegments}
+									readingSize="10px"
+								/>
+							</span>
 							<span class="sent-label">{s.label}</span>
 						</button>
 					{/each}
@@ -847,10 +933,10 @@
 	}
 	.sent-btn {
 		display: flex;
-		min-height: 52px;
+		min-height: 78px;
 		flex-direction: column;
 		align-items: flex-start;
-		padding: 10px 14px;
+		padding: 16px 14px 10px;
 		background: var(--bg-secondary);
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-sm);
@@ -866,12 +952,15 @@
 		font-size: var(--font-size-callout);
 		color: var(--text-primary);
 		font-family: var(--font-cjk);
-		line-height: 1.5;
+		line-height: 1.8;
+	}
+	.sent-text :global(.word-ruby) {
+		margin-inline: 0.14em;
 	}
 	.sent-label {
 		font-size: var(--font-size-caption1);
 		color: var(--text-muted);
-		margin-top: 4px;
+		margin-top: 2px;
 	}
 
 	/* ===== Conjugation ===== */

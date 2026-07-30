@@ -12,13 +12,22 @@
 		text: string;
 		language: 'ja' | 'zh' | 'ko';
 		pinyin?: string;
+		rubySegments?: RubySegment[];
+		readingSize?: string;
 	}
 
-	let { text, language, pinyin = '' }: Props = $props();
+	let {
+		text,
+		language,
+		pinyin = '',
+		rubySegments,
+		readingSize = '0.6em'
+	}: Props = $props();
 
 	let enrichedSegments = $state<RubySegment[] | null>(null);
 
 	let baseSegments = $derived.by((): RubySegment[] => {
+		if (rubySegments?.length) return rubySegments;
 		if (!text) return [];
 		if (language === 'zh') return buildChineseRubySegments(text, pinyin);
 		if (language === 'ko') return buildKoreanRubySegments(text);
@@ -27,7 +36,7 @@
 
 	$effect(() => {
 		enrichedSegments = null;
-		if (language !== 'ja' || !text) return;
+		if (language !== 'ja' || !text || rubySegments?.length) return;
 
 		let cancelled = false;
 		const segments = baseSegments;
@@ -41,11 +50,11 @@
 	let segments = $derived(enrichedSegments ?? baseSegments);
 </script>
 
-<span class="annotated-sentence">
+<span class="annotated-sentence" style:--annotated-reading-size={readingSize}>
 	{#each segments as segment}
 		{#if segment.reading}
 			{#if language === 'ja'}
-				<JapaneseRubyText text={segment.text} reading={segment.reading} />
+				<JapaneseRubyText text={segment.text} reading={segment.reading} {readingSize} />
 			{:else}
 				<ruby class="word-ruby"><rb>{segment.text}</rb><rt>{segment.reading}</rt></ruby>
 			{/if}
@@ -75,7 +84,7 @@
 
 	rt {
 		font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-		font-size: 0.6em;
+		font-size: var(--annotated-reading-size);
 		font-weight: 500;
 		line-height: 1;
 		color: var(--color-pinyin);
