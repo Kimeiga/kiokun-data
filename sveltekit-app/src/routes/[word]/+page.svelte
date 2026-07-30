@@ -344,6 +344,13 @@
 
 	$effect(() => {
 		const _word = data.word;
+		const currentJapaneseForms = new Set<string>([
+			data.word,
+			...(data.data.japanese_words || []).flatMap((japaneseWord: any) => [
+				...(japaneseWord.kanji || []).map((kanji: any) => kanji.text),
+				...(japaneseWord.kana || []).map((kana: any) => kana.text),
+			]),
+		].filter(Boolean));
 		homophones = [];
 
 		// Extract unique Japanese readings
@@ -360,7 +367,11 @@
 				.then(r => r.ok ? r.json() : null)
 				.then(result => {
 					if (!result?.results?.length) return;
-					const filtered = result.results.filter((w: HomophoneResult) => w.word !== data.word && w.word !== reading);
+					const filtered = result.results.filter(
+						(w: HomophoneResult) =>
+							!currentJapaneseForms.has(w.word) &&
+							w.word !== reading
+					);
 					if (filtered.length > 0) {
 						homophones = [...homophones, { reading, words: filtered }];
 					}

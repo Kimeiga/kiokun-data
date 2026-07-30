@@ -5,6 +5,7 @@
 	import { page } from '$app/stores';
 
 	interface HomophoneWord {
+		i: string; // JMdict entry ID
 		w: string;  // word
 		g: string[]; // glosses
 		c: number;  // common (1/0)
@@ -21,6 +22,8 @@
 	let wordData = $state<HomophoneGroup[]>([]);
 	let charData = $state<HomophoneGroup[]>([]);
 	let loading = $state(true);
+	let sourceEntryId = $state('');
+	let sourceReading = $state('');
 
 	// Filters — initialize from URL params
 	let searchQuery = $state('');
@@ -32,7 +35,11 @@
 
 	onMount(async () => {
 		const params = $page.url.searchParams;
-		if (params.get('q')) searchQuery = params.get('q')!;
+		if (params.get('q')) {
+			searchQuery = params.get('q')!;
+			sourceReading = searchQuery;
+		}
+		if (params.get('id')) sourceEntryId = params.get('id')!;
 		if (params.get('mode') === 'characters') mode = 'characters';
 		if (params.get('min')) minGroupSize = parseInt(params.get('min')!) || 2;
 		if (params.get('syllables')) syllableCount = parseInt(params.get('syllables')!) || 0;
@@ -64,6 +71,9 @@
 		urlSyncTimer = setTimeout(() => {
 			const params = new URLSearchParams();
 			if (q) params.set('q', q);
+			if (sourceEntryId && q === sourceReading && m === 'words') {
+				params.set('id', sourceEntryId);
+			}
 			if (m !== 'words') params.set('mode', m);
 			if (min !== 2) params.set('min', String(min));
 			if (syl > 0) params.set('syllables', String(syl));
@@ -184,7 +194,17 @@
 	let filtered = $derived.by(() => {
 		let result = data;
 
-		if (searchQuery.trim()) {
+		if (
+			mode === 'words' &&
+			sourceEntryId &&
+			searchQuery.trim() === sourceReading
+		) {
+			result = result.filter(
+				(group) =>
+					group.r === sourceReading &&
+					group.w.some((word) => word.i === sourceEntryId)
+			);
+		} else if (searchQuery.trim()) {
 			const q = searchQuery.trim().toLowerCase();
 			const hiraganaQ = romajiToHiragana(q);
 			const isLatin = /^[a-z]+$/i.test(q);
@@ -304,7 +324,7 @@
 					</div>
 					<Notes character={`ja:${group.r}`} compact />
 					<div class="group-words">
-						{#each groupWords(group) as word}
+						{#each groupWords(group) as word (word.i)}
 							<a href="/{word.w}" class="word-entry" class:common={!!word.c}>
 								<div class="word-top">
 									<span class="word-kanji">{word.w}</span>

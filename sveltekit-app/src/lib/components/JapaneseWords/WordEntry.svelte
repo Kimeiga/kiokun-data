@@ -74,7 +74,7 @@
 			<SpeakButton text={speakText} lang="ja" size={18} compact />
 			{#if displayKana.length > 0}
 				<a
-					href="/homophones/japanese?q={encodeURIComponent(displayKana[0].text)}"
+					href="/homophones/japanese?q={encodeURIComponent(displayKana[0].text)}&id={encodeURIComponent(word.id)}"
 					class="homophone-link"
 					title="See homophones for {displayKana[0].text}"
 				>同音</a>
