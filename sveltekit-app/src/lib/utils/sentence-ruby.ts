@@ -3,7 +3,7 @@ import { getDictionaryUrl } from '$lib/shard-utils';
 import type { DictionaryEntry } from '$lib/types';
 import { findWordsWithDeinflection } from '$lib/utils/search-navigation';
 import { alignChinesePinyinReadings } from './chinese-ruby';
-import { trimJapaneseReadingSuffix } from './japanese-ruby';
+import { mergeJapaneseCompoundTokens, trimJapaneseReadingSuffix } from './japanese-ruby';
 import { isWordToken, segmentText } from './segment';
 
 export interface RubySegment {
@@ -58,14 +58,20 @@ export async function enrichJapaneseRubySegments(
 	segments: RubySegment[],
 	fetchFn: typeof fetch = fetch
 ): Promise<RubySegment[]> {
+	const compoundSegments = await mergeJapaneseCompoundTokens(
+		segments,
+		(surface) => getJapaneseReading(surface, fetchFn)
+	);
+
 	return Promise.all(
-		segments.map(async (segment, index) => {
+		compoundSegments.map(async (segment, index) => {
 			if (!segment.isWord || !hasHan(segment.text) || isAllKana(segment.text)) {
 				return segment;
 			}
+			if (segment.reading) return segment;
 
 			const reading = await getJapaneseReading(segment.text, fetchFn)
-				?? await getReadingForSplitJapaneseToken(segments, index, fetchFn);
+				?? await getReadingForSplitJapaneseToken(compoundSegments, index, fetchFn);
 			if (!reading || reading === segment.text) return segment;
 			return { ...segment, reading };
 		})

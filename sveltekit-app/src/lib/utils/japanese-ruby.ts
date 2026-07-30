@@ -3,12 +3,19 @@ export interface JapaneseRubyPart {
 	reading?: string;
 }
 
+export interface JapaneseRubyToken {
+	text: string;
+	reading?: string;
+	isWord: boolean;
+}
+
 interface SurfaceRun {
 	text: string;
 	isKana: boolean;
 }
 
 const KANA_CHAR_RE = /^[\p{Script=Hiragana}\p{Script=Katakana}ー]$/u;
+const HAN_RE = /\p{Script=Han}/u;
 
 /**
  * Align a word's full dictionary reading with the kana already visible in its
@@ -39,6 +46,58 @@ export function trimJapaneseReadingSuffix(reading: string, visibleSuffix: string
 
 	const prefix = normalizedReading.slice(0, -normalizedSuffix.length);
 	return prefix || null;
+}
+
+/**
+ * Recombine adjacent kanji-bearing fragments when their longest joined form
+ * has a dictionary reading. Lightweight tokenizers can otherwise split words
+ * such as 皮表紙 into 皮表 + 紙 and leave the first fragment unannotated.
+ */
+export async function mergeJapaneseCompoundTokens<T extends JapaneseRubyToken>(
+	tokens: T[],
+	lookupReading: (surface: string) => Promise<string | null>,
+	maxParts = 6
+): Promise<T[]> {
+	const merged: T[] = [];
+	let index = 0;
+
+	while (index < tokens.length) {
+		const availableParts = countCompoundParts(tokens, index, maxParts);
+		let matched = false;
+
+		for (let partCount = availableParts; partCount >= 2; partCount -= 1) {
+			const text = tokens.slice(index, index + partCount).map((token) => token.text).join('');
+			const reading = await lookupReading(text);
+			if (!reading || reading === text) continue;
+
+			merged.push({
+				...tokens[index],
+				text,
+				reading,
+				isWord: true
+			});
+			index += partCount;
+			matched = true;
+			break;
+		}
+
+		if (!matched) {
+			merged.push(tokens[index]);
+			index += 1;
+		}
+	}
+
+	return merged;
+}
+
+function countCompoundParts(tokens: JapaneseRubyToken[], start: number, maxParts: number): number {
+	let count = 0;
+	while (count < maxParts) {
+		const token = tokens[start + count];
+		if (!token?.isWord || !HAN_RE.test(token.text)) break;
+		count += 1;
+	}
+	return count;
 }
 
 function alignRuns(
