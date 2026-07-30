@@ -39,8 +39,23 @@ assert.deepEqual(
 
 assert.deepEqual(
 	alignChinesePinyinReadings(['银行', '集团'], 'yínhángjítuán'),
-	[undefined, undefined],
-	'insufficient boundaries degrade without attaching the whole reading to the first word'
+	['yínháng', 'jítuán'],
+	'fully compact pinyin is split at valid syllable boundaries'
+);
+
+assert.deepEqual(
+	alignChinesePinyinReadings(
+		['形', '天', '与', '帝', '至此'],
+		'Xíngtiān yǔ dì zhì cǐ'
+	),
+	['Xíng', 'tiān', 'yǔ', 'dì', 'zhì cǐ'],
+	'compact proper names do not shift every later reading onto the wrong character'
+);
+
+assert.deepEqual(
+	alignChinesePinyinReadings(['长', '羊', '之山'], 'chángyáng zhī shān'),
+	['cháng', 'yáng', 'zhī shān'],
+	'compact two-syllable names split even without a space'
 );
 
 console.log('chinese ruby alignment tests passed');

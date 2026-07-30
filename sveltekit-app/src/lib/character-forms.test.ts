@@ -5,7 +5,9 @@ import {
 	equivalentTraditionalTarget,
 	learnerGlossForEntry,
 	normalizeLearnerGloss,
-	relatedCharacterFormContext
+	relatedCharacterFormContext,
+	shouldShowCharacterFormMeaning,
+	withCharacterFormGlosses
 } from './character-forms';
 
 function card(character: string, meaning: string): SemanticMnemonicCard {
@@ -163,5 +165,34 @@ const mapForms = buildCharacterHeaderForms({
 });
 assert.deepEqual(mapForms.map((form) => form.character), ['圖', '图', '図']);
 assert(mapForms[2].roles.includes('japanese'));
+
+const dryForms = withCharacterFormGlosses(buildCharacterHeaderForms({
+	entry: entry({
+		key: '干',
+		chinese_char: {
+			char: '干',
+			tradVariants: ['乾', '幹', '乹']
+		} as any,
+		semantic_mnemonic: card('干', 'dry')
+	}),
+	word: '干'
+}), {
+	'乾': 'dry (trad/jp)',
+	'幹': 'trunk (trad/jp)',
+	'乹': 'dry (archaic)'
+});
+assert.deepEqual(
+	dryForms.map((form) => [form.character, form.meaning]),
+	[
+		['干', 'dry'],
+		['乾', 'dry'],
+		['幹', 'trunk'],
+		['乹', 'dry (archaic)']
+	]
+);
+assert(
+	dryForms.every((form) => shouldShowCharacterFormMeaning(form, dryForms, 'dry')),
+	'all written forms get parallel labels when the page presents several variants'
+);
 
 console.log('character-forms: all regression tests passed');

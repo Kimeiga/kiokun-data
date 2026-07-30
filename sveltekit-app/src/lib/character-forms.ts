@@ -30,6 +30,34 @@ export interface CharacterHeaderForm {
 	languageTag: 'zh-Hant' | 'zh-Hans' | 'zh-HK' | 'ja' | 'ko';
 }
 
+/**
+ * When a character has several written forms, label every form consistently.
+ * Hiding only the form whose mnemonic meaning matches the page headline makes
+ * the remaining labels look accidental (for example 乾 / 幹 / 乹 on 干).
+ */
+export function shouldShowCharacterFormMeaning(
+	form: CharacterHeaderForm,
+	forms: CharacterHeaderForm[],
+	primaryGloss: string | null | undefined
+): boolean {
+	if (!form.meaning) return false;
+	if (forms.length > 1) return true;
+	return normalizedConcept(form.meaning) !== normalizedConcept(primaryGloss);
+}
+
+export function withCharacterFormGlosses(
+	forms: CharacterHeaderForm[],
+	glosses: Record<string, string>
+): CharacterHeaderForm[] {
+	return forms.map((form) => ({
+		...form,
+		meaning:
+			form.meaning ||
+			normalizeLearnerGloss(glosses[form.character]) ||
+			undefined
+	}));
+}
+
 const ROLE_ORDER: CharacterFormRole[] = [
 	'traditional',
 	'hong-kong',

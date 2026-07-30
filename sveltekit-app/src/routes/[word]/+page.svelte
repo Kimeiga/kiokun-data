@@ -7,6 +7,8 @@
 		buildCharacterHeaderForms,
 		learnerGlossForEntry,
 		normalizeLearnerGloss,
+		shouldShowCharacterFormMeaning,
+		withCharacterFormGlosses,
 		type CharacterHeaderForm,
 	} from "$lib/character-forms";
 	import Header from "$lib/components/Header.svelte";
@@ -314,21 +316,16 @@
 			.slice(0, 4);
 	});
 	let headerForms = $derived.by(() =>
-		buildCharacterHeaderForms({
-			entry: data.data,
-			word: data.word,
-			cards: mnemonicCards,
-			relatedContexts: data.relatedFormContexts,
-		})
+		withCharacterFormGlosses(
+			buildCharacterHeaderForms({
+				entry: data.data,
+				word: data.word,
+				cards: mnemonicCards,
+				relatedContexts: data.relatedFormContexts,
+			}),
+			charGlosses
+		)
 	);
-
-	function hasDifferentFormMeaning(form: CharacterHeaderForm): boolean {
-		return Boolean(
-			form.meaning &&
-			normalizeLearnerGloss(form.meaning).toLocaleLowerCase('en') !==
-				normalizeLearnerGloss(uniqueGloss).toLocaleLowerCase('en')
-		);
-	}
 
 	// Get taxonomy path for the character
 	let taxonomy = $derived(
@@ -526,10 +523,10 @@
 										>
 											{form.flags}
 										</div>
-										{#if hasDifferentFormMeaning(form)}
+										{#if shouldShowCharacterFormMeaning(form, headerForms, uniqueGloss)}
 											<div
 												class="max-w-full text-center text-sm font-medium leading-tight text-accent"
-												title={`Mnemonic keyword for ${form.character}`}
+												title={`Learner meaning for ${form.character}`}
 											>
 												{form.meaning}
 											</div>

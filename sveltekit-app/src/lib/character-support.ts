@@ -22,9 +22,10 @@ export interface CharacterSupportData {
 	componentUses: ComponentUsesMap;
 }
 
-function isCjkUnified(char: string): boolean {
-	const codepoint = char.codePointAt(0) ?? 0;
-	return codepoint >= 0x4e00 && codepoint <= 0x9fff;
+const HAN_CHARACTER_RE = /^\p{Script=Han}$/u;
+
+function isHanCharacter(char: string): boolean {
+	return HAN_CHARACTER_RE.test(char);
 }
 
 export function buildCharacterSupportData(
@@ -50,7 +51,7 @@ export function buildCharacterSupportData(
 
 		for (const typeData of Object.values(uses)) {
 			for (const char of typeData.chars) {
-				if (isCjkUnified(char)) charSet.add(char);
+				if (isHanCharacter(char)) charSet.add(char);
 			}
 		}
 	}

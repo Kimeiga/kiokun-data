@@ -103,6 +103,10 @@ function addSupportChar(chars: Set<string>, value: unknown): void {
 	if (typeof value === 'string' && value) chars.add(value);
 }
 
+function addUsageTarget(components: Set<string>, value: unknown): void {
+	if (typeof value === 'string' && [...value].length === 1) components.add(value);
+}
+
 function addGlyphs(chars: Set<string>, value: unknown): void {
 	if (typeof value !== 'string') return;
 	for (const char of value) {
@@ -165,6 +169,14 @@ function collectSupportKeys(
 	addSupportChar(chars, data.japanese_char?.literal);
 	addSupportChar(chars, data.korean_char?.character);
 	addSupportChar(chars, data.korean_char?.hanjaForm);
+
+	addUsageTarget(components, word);
+	addUsageTarget(components, data.chinese_char?.char);
+	for (const variant of data.chinese_char?.simpVariants || []) addUsageTarget(components, variant);
+	for (const variant of data.chinese_char?.tradVariants || []) addUsageTarget(components, variant);
+	addUsageTarget(components, data.japanese_char?.literal);
+	addUsageTarget(components, data.korean_char?.character);
+	addUsageTarget(components, data.korean_char?.hanjaForm);
 
 	addSupportChar(chars, redirectOriginal?.key);
 	addSupportChar(chars, redirectOriginal?.chinese_char?.char);

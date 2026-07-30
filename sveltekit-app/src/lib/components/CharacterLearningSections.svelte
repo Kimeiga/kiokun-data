@@ -13,6 +13,7 @@
 	import CharacterEquation from "$lib/components/CharacterEquation.svelte";
 	import SectionHeading from "$lib/components/shared/SectionHeading.svelte";
 	import SemanticMnemonicCard from "$lib/components/SemanticMnemonicCard.svelte";
+	import ComponentUses from "$lib/components/ComponentUses.svelte";
 	import LazyComponent from "$lib/components/LazyComponent.svelte";
 	import DisclosureChevron from "$lib/components/shared/DisclosureChevron.svelte";
 	import {
@@ -1360,6 +1361,12 @@ style="background: var(--color-hint-bg); border-color: var(--color-hint-border);
 		</div>
 	{/if}
 	{/if}
+
+	<ComponentUses
+		targetChar={traditionalChar}
+		componentUses={componentUses[traditionalChar] || componentUses[data.word] || null}
+		{charGlosses}
+	/>
 
 	<!-- Statistics section removed - data overlaps with word views -->
 
