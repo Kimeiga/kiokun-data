@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { normalizeCjkAssetCharacter } from './utils/cjk-normalization';
 import type { DictionaryEntry, SemanticMnemonicCard } from './types';
 import {
 	buildCharacterHeaderForms,
@@ -9,6 +10,9 @@ import {
 	shouldShowCharacterFormMeaning,
 	withCharacterFormGlosses
 } from './character-forms';
+
+assert.equal(normalizeCjkAssetCharacter('龍'), '龍');
+assert.equal(normalizeCjkAssetCharacter('龍'), '龍');
 
 function card(character: string, meaning: string): SemanticMnemonicCard {
 	return {

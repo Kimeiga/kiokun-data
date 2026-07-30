@@ -20,6 +20,7 @@
 		animateDisclosureHeight,
 		measureFirstVisualRow,
 	} from "$lib/utils/disclosure-motion";
+	import { normalizeCjkAssetCharacter } from "$lib/utils/cjk-normalization";
 
 	const loadNotes = () => import("$lib/components/Notes.svelte");
 	const loadSimilarCharacters = () => import("$lib/components/SimilarCharacters.svelte");
@@ -519,6 +520,7 @@
 		targetMap: "trad" | "simp",
 	) {
 		console.log(`[COMPONENT-MAP] Loading mappings for ${char} (${targetMap})`);
+		const assetCharacter = normalizeCjkAssetCharacter(char);
 
 		// First, try to use makemeahanzi's matches field (most accurate for Chinese)
 		if (loadMakemeahanziMappings(char, targetMap)) {
@@ -541,7 +543,7 @@
 		// component matches are unavailable.
 		console.log(`[COMPONENT-MAP] Falling back to KanjiVG for ${char}`);
 		try {
-			const codepoint = char
+			const codepoint = assetCharacter
 				.codePointAt(0)
 				?.toString(16)
 				.padStart(5, "0");
@@ -815,6 +817,7 @@
 			onComplete: (data: any) => void,
 			onErrorOriginal: (error: any) => void,
 		) => {
+			const assetCharacter = normalizeCjkAssetCharacter(char);
 			// Wrap onError to restore fallback content
 			const onError = (error: any) => {
 				for (const form of headerForms) {
@@ -842,7 +845,7 @@
 			if (isJapanese) {
 				// Try Japanese data first, fall back to Chinese data, then KanjiVG
 				fetch(
-					`https://cdn.jsdelivr.net/npm/hanzi-writer-data-jp@0/${char}.json`,
+					`https://cdn.jsdelivr.net/npm/hanzi-writer-data-jp@0/${assetCharacter}.json`,
 				)
 					.then((res) => {
 						if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -852,7 +855,7 @@
 					.catch(() => {
 						// Fall back to Chinese data if Japanese data is not available
 						fetch(
-							`https://cdn.jsdelivr.net/npm/hanzi-writer-data@latest/${char}.json`,
+							`https://cdn.jsdelivr.net/npm/hanzi-writer-data@latest/${assetCharacter}.json`,
 						)
 							.then((res) => {
 								if (!res.ok)
@@ -874,7 +877,7 @@
 			} else {
 				// Use Chinese data for Chinese characters, fall back to KanjiVG
 				fetch(
-					`https://cdn.jsdelivr.net/npm/hanzi-writer-data@latest/${char}.json`,
+					`https://cdn.jsdelivr.net/npm/hanzi-writer-data@latest/${assetCharacter}.json`,
 				)
 					.then((res) => {
 						if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -900,8 +903,9 @@
 			onError: (error: any) => void,
 		) => {
 			try {
+				const assetCharacter = normalizeCjkAssetCharacter(char);
 				// Get Unicode codepoint in hex format (e.g., 図 → 56f3)
-				const codepoint = char
+				const codepoint = assetCharacter
 					.codePointAt(0)
 					?.toString(16)
 					.padStart(5, "0");
@@ -1435,7 +1439,7 @@ onerror={(e) => {
 {image.type || 'Unknown'}
 		</div>
 		{#if image.era}
-<div class="text-[9px] text-text-tertiary mt-0.5">
+<div class="text-xs text-text-secondary mt-0.5">
 	{image.era}
 </div>
 		{/if}
@@ -1449,7 +1453,7 @@ onerror={(e) => {
 <div class="text-[11px] font-medium text-text-secondary mt-1.5">
 	Regular
 </div>
-<div class="text-[9px] text-text-tertiary mt-0.5">
+<div class="text-xs text-text-secondary mt-0.5">
 	Modern
 </div>
 		</div>
@@ -1592,10 +1596,6 @@ onerror={(e) => {
 
 		.historical-card .text-\[11px\] {
 			font-size: var(--font-size-caption2);
-		}
-
-		.historical-card .text-\[9px\] {
-			font-size: 9px;
 		}
 	}
 </style>

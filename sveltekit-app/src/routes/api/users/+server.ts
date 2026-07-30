@@ -18,7 +18,6 @@ export async function GET({ platform }: RequestEvent) {
 			.select({
 				id: user.id,
 				name: user.name,
-				email: user.email,
 				image: user.image,
 				createdAt: user.createdAt,
 				noteCount: sql<number>`count(${notes.id})`.as('note_count'),
@@ -34,4 +33,3 @@ export async function GET({ platform }: RequestEvent) {
 		throw error(500, "Failed to fetch users");
 	}
 }
-

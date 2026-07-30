@@ -122,7 +122,7 @@
 	.section-intro {
 		margin: calc(-1 * var(--spacing-xs)) 0 var(--spacing-md);
 		color: var(--text-secondary);
-		font-size: var(--font-size-caption1);
+		font-size: var(--font-size-callout);
 		line-height: 1.45;
 	}
 
@@ -183,8 +183,8 @@
 	}
 
 	.role {
-		color: var(--text-tertiary);
-		font-size: var(--font-size-caption2);
+		color: var(--text-secondary);
+		font-size: var(--font-size-caption1);
 		line-height: 1.25;
 	}
 

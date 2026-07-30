@@ -704,10 +704,10 @@
 		min-width: 0;
 	}
 	.daily-label {
-		font-size: 11px;
+		font-size: var(--font-size-caption1);
 		text-transform: uppercase;
 		letter-spacing: 0.5px;
-		color: var(--text-muted);
+		color: var(--text-secondary);
 		font-weight: 600;
 	}
 	.daily-main {
@@ -810,8 +810,8 @@
 		gap: 10px;
 	}
 	.cjk-meaning {
-		font-size: var(--font-size-caption1);
-		color: var(--text-tertiary);
+		font-size: var(--font-size-callout);
+		color: var(--text-secondary);
 		text-align: center;
 		line-height: 1.3;
 	}
@@ -854,8 +854,8 @@
 		margin: 0;
 	}
 	.section-head p {
-		font-size: var(--font-size-caption1);
-		color: var(--text-tertiary);
+		font-size: var(--font-size-callout);
+		color: var(--text-secondary);
 		margin: 4px 0 0;
 	}
 
@@ -888,12 +888,12 @@
 		font-family: var(--font-cjk);
 	}
 	.word-alt {
-		font-size: var(--font-size-caption1);
-		color: var(--text-muted);
+		font-size: var(--font-size-callout);
+		color: var(--text-secondary);
 	}
 	.word-label {
-		font-size: var(--font-size-caption1);
-		color: var(--text-tertiary);
+		font-size: var(--font-size-callout);
+		color: var(--text-secondary);
 	}
 
 	/* ===== Search Chips ===== */
@@ -961,8 +961,8 @@
 		margin-inline: 0.14em;
 	}
 	.sent-label {
-		font-size: var(--font-size-caption1);
-		color: var(--text-muted);
+		font-size: var(--font-size-callout);
+		color: var(--text-secondary);
 		margin-top: 2px;
 	}
 
@@ -1015,8 +1015,8 @@
 		font-family: var(--font-cjk);
 	}
 	.conj-label {
-		font-size: var(--font-size-caption1);
-		color: var(--text-muted);
+		font-size: var(--font-size-callout);
+		color: var(--text-secondary);
 		margin-left: auto;
 	}
 
@@ -1081,7 +1081,7 @@
 		font-size: 20px;
 	}
 	.cat-name {
-		font-size: var(--font-size-caption1);
+		font-size: var(--font-size-callout);
 		font-weight: 500;
 		color: var(--text-primary);
 		text-align: center;

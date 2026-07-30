@@ -1,92 +1,17 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-
-	interface VideoInfo {
-		url: string;
-		thumbnail: string | null;
-		word_count: number;
-	}
-
-	interface VideoData {
-		videos: Record<string, VideoInfo>;
-		words: Record<string, Array<{ video_id: string; start_time: number }>>;
-	}
+	import featuredReelData from '$lib/generated/featured-reels.json';
 
 	interface ReelItem {
 		video_id: string;
-		thumbnail: string | null;
+		thumbnail: string;
 		language: 'ja' | 'zh';
 		sample_word?: string;
 	}
 
-	let reels: ReelItem[] = $state([]);
-	let loading = $state(true);
-
-	// Shuffle array using Fisher-Yates
-	function shuffle<T>(array: T[]): T[] {
-		const arr = [...array];
-		for (let i = arr.length - 1; i > 0; i--) {
-			const j = Math.floor(Math.random() * (i + 1));
-			[arr[i], arr[j]] = [arr[j], arr[i]];
-		}
-		return arr;
-	}
-
-	onMount(async () => {
-		try {
-			const [jaResponse, zhResponse] = await Promise.all([
-				fetch('/video_data.json'),
-				fetch('/chinese_video_data.json')
-			]);
-
-			const allReels: ReelItem[] = [];
-
-			if (jaResponse.ok) {
-				const jaData: VideoData = await jaResponse.json();
-				const jaVideos = Object.entries(jaData.videos)
-					.filter(([_, info]) => info.thumbnail)
-					.map(([id, info]) => ({
-						video_id: id,
-						thumbnail: info.thumbnail,
-						language: 'ja' as const,
-						sample_word: findSampleWord(jaData.words, id)
-					}));
-				allReels.push(...jaVideos);
-			}
-
-			if (zhResponse.ok) {
-				const zhData: VideoData = await zhResponse.json();
-				const zhVideos = Object.entries(zhData.videos)
-					.filter(([_, info]) => info.thumbnail)
-					.map(([id, info]) => ({
-						video_id: id,
-						thumbnail: info.thumbnail,
-						language: 'zh' as const,
-						sample_word: findSampleWord(zhData.words, id)
-					}));
-				allReels.push(...zhVideos);
-			}
-
-			// Shuffle and take 8 random reels
-			reels = shuffle(allReels).slice(0, 8);
-		} catch (err) {
-			console.error('Failed to load featured reels:', err);
-		} finally {
-			loading = false;
-		}
-	});
-
-	function findSampleWord(words: VideoData['words'], videoId: string): string | undefined {
-		for (const [word, occurrences] of Object.entries(words)) {
-			if (occurrences.some(o => o.video_id === videoId)) {
-				return word;
-			}
-		}
-		return undefined;
-	}
+	const reels = (featuredReelData.reels as ReelItem[]).slice(0, 8);
 </script>
 
-{#if !loading && reels.length > 0}
+{#if reels.length > 0}
 	<section class="featured-reels">
 		<h2 class="section-title">Learn from Videos</h2>
 		<p class="section-subtitle">Watch real content with interactive transcripts</p>
@@ -98,11 +23,14 @@
 					class="reel-card"
 				>
 					<div class="reel-thumbnail">
-						{#if reel.thumbnail}
-							<img src={reel.thumbnail} alt="Video thumbnail" loading="lazy" decoding="async" />
-						{:else}
-							<div class="thumbnail-placeholder">🎬</div>
-						{/if}
+						<img
+							src={reel.thumbnail}
+							alt={reel.sample_word
+								? `${reel.sample_word} — ${reel.language === 'zh' ? 'Chinese' : 'Japanese'} video`
+								: `${reel.language === 'zh' ? 'Chinese' : 'Japanese'} video`}
+							loading="lazy"
+							decoding="async"
+						/>
 						<span class="lang-badge">{reel.language === 'zh' ? '🇨🇳' : '🇯🇵'}</span>
 					</div>
 					{#if reel.sample_word}
@@ -131,8 +59,8 @@
 
 	.section-subtitle {
 		text-align: left;
-		font-size: 13px;
-		color: var(--text-muted);
+		font-size: var(--font-size-callout);
+		color: var(--text-secondary);
 		margin: 0 0 20px;
 	}
 
@@ -168,16 +96,6 @@
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
-	}
-
-	.thumbnail-placeholder {
-		width: 100%;
-		height: 100%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-size: 32px;
-		background: var(--bg-tertiary);
 	}
 
 	.lang-badge {

@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { marked } from 'marked';
 	import DOMPurify from 'isomorphic-dompurify';
 	import Header from '$lib/components/Header.svelte';
@@ -7,7 +6,6 @@
 	interface User {
 		id: string;
 		name: string;
-		email: string;
 		image: string | null;
 	}
 
@@ -24,6 +22,12 @@
 	interface UserNotesResponse {
 		user: User;
 		notes: Note[];
+		pagination: {
+			page: number;
+			pageSize: number;
+			total: number;
+			totalPages: number;
+		};
 	}
 
 	let { data }: { data: { userId: string } } = $props();
@@ -34,46 +38,30 @@
 	let error = $state('');
 	let searchQuery = $state('');
 	let sortBy = $state<'updated' | 'created' | 'character'>('updated');
+	let currentPage = $state(1);
+	let totalNotes = $state(0);
+	let totalPages = $state(1);
+	let pageLoading = $state(false);
 
 	let userId = $derived(data.userId);
-	let filteredNotes = $derived(filterAndSortNotes(notes, searchQuery, sortBy));
-
-	function filterAndSortNotes(allNotes: Note[], query: string, sort: string): Note[] {
-		let filtered = allNotes;
-
-		// Filter by search query
-		if (query.trim()) {
-			const lowerQuery = query.toLowerCase();
-			filtered = filtered.filter(
-				(note) =>
-					note.character.includes(query) ||
-					note.noteText.toLowerCase().includes(lowerQuery)
-			);
-		}
-
-		// Sort
-		const sorted = [...filtered];
-		if (sort === 'updated') {
-			sorted.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
-		} else if (sort === 'created') {
-			sorted.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-		} else if (sort === 'character') {
-			sorted.sort((a, b) => a.character.localeCompare(b.character));
-		}
-
-		return sorted;
-	}
 
 	function renderMarkdown(text: string): string {
 		const html = marked.parse(text) as string;
 		return DOMPurify.sanitize(html);
 	}
 
-	async function loadUserNotes() {
+	async function loadUserNotes(signal: AbortSignal) {
 		try {
-			loading = true;
+			pageLoading = userData !== null;
+			loading = userData === null;
 			error = '';
-			const response = await fetch(`/api/users/${userId}/notes`);
+			const search = new URLSearchParams({
+				page: String(currentPage),
+				pageSize: '50',
+				sort: sortBy
+			});
+			if (searchQuery.trim()) search.set('q', searchQuery.trim());
+			const response = await fetch(`/api/users/${userId}/notes?${search}`, { signal });
 
 			if (!response.ok) {
 				if (response.status === 404) {
@@ -86,12 +74,27 @@
 			const data: UserNotesResponse = await response.json();
 			userData = data.user;
 			notes = data.notes;
+			currentPage = data.pagination.page;
+			totalNotes = data.pagination.total;
+			totalPages = data.pagination.totalPages;
 		} catch (err) {
+			if (err instanceof DOMException && err.name === 'AbortError') return;
 			error = 'Failed to load user notes';
 			console.error('Error loading user notes:', err);
 		} finally {
 			loading = false;
+			pageLoading = false;
 		}
+	}
+
+	function updateSearch(event: Event) {
+		searchQuery = (event.currentTarget as HTMLInputElement).value;
+		currentPage = 1;
+	}
+
+	function updateSort(event: Event) {
+		sortBy = (event.currentTarget as HTMLSelectElement).value as typeof sortBy;
+		currentPage = 1;
 	}
 
 	function formatDate(date: Date): string {
@@ -102,8 +105,23 @@
 		});
 	}
 
-	onMount(() => {
-		loadUserNotes();
+	$effect(() => {
+		const activeUserId = userId;
+		const query = searchQuery;
+		const sort = sortBy;
+		const page = currentPage;
+		if (!activeUserId || !sort || page < 1) return;
+
+		const controller = new AbortController();
+		const timer = window.setTimeout(
+			() => void loadUserNotes(controller.signal),
+			query.trim() ? 250 : 0
+		);
+
+		return () => {
+			window.clearTimeout(timer);
+			controller.abort();
+		};
 	});
 </script>
 
@@ -140,45 +158,78 @@
 					<div class="user-details">
 						<h1>{userData.name}</h1>
 						<p class="note-count">
-							{notes.length} {notes.length === 1 ? 'note' : 'notes'}
+							{totalNotes}
+							{searchQuery
+								? totalNotes === 1
+									? 'matching note'
+									: 'matching notes'
+								: totalNotes === 1
+									? 'note'
+									: 'notes'}
 						</p>
 					</div>
 				</div>
 			</div>
 
-			{#if notes.length > 0}
+			{#if totalNotes > 0 || searchQuery}
 				<div class="controls">
+					<label for="profile-note-search" class="visually-hidden">Search this learner's notes</label>
 					<input
+						id="profile-note-search"
 						type="text"
-						bind:value={searchQuery}
+						value={searchQuery}
+						oninput={updateSearch}
 						placeholder="Search notes..."
 						class="search-input"
 					/>
-					<select bind:value={sortBy} class="sort-select">
+					<label for="profile-note-sort" class="visually-hidden">Sort notes</label>
+					<select id="profile-note-sort" value={sortBy} onchange={updateSort} class="sort-select">
 						<option value="updated">Recently Updated</option>
 						<option value="created">Recently Created</option>
 						<option value="character">Character</option>
 					</select>
 				</div>
 
-				<div class="notes-list">
-					{#each filteredNotes as note}
-						<a href="/{note.character}" class="note-item">
+				<div class="notes-list" aria-busy={pageLoading}>
+					{#each notes as note}
+						<article class="note-item">
 							<div class="note-header">
-								<span class="character">{note.character}</span>
+								<a class="character" href="/{note.character}" aria-label={`Open ${note.character} in the dictionary`}>
+									{note.character}
+								</a>
 								<span class="date">{formatDate(note.updatedAt)}</span>
 							</div>
 							<div class="note-content markdown-content">
 								{@html renderMarkdown(note.noteText)}
 							</div>
-						</a>
+						</article>
 					{/each}
 				</div>
 
-				{#if filteredNotes.length === 0}
+				{#if notes.length === 0}
 					<div class="empty">
 						<p>No notes match your search</p>
 					</div>
+				{/if}
+
+				{#if totalPages > 1}
+					<nav class="pagination" aria-label="Profile notes pages">
+						<button
+							type="button"
+							disabled={currentPage <= 1 || pageLoading}
+							onclick={() => (currentPage -= 1)}
+						>
+							← Previous
+						</button>
+						<span aria-live="polite">Page {currentPage} of {totalPages}</span>
+						<button
+							type="button"
+							disabled={currentPage >= totalPages || pageLoading}
+							onclick={() => (currentPage += 1)}
+						>
+							Next →
+						</button>
+					</nav>
 				{/if}
 			{:else}
 				<div class="empty">
@@ -327,15 +378,12 @@
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-lg);
 		padding: var(--spacing-xl);
-		text-decoration: none;
 		color: inherit;
 		transition: background 0.15s ease, border-color 0.15s ease;
 		display: block;
 	}
 
-	.note-item:hover {
-		transform: translateY(-2px);
-		box-shadow: 0 4px 12px var(--shadow-hover);
+	.note-item:focus-within {
 		border-color: var(--accent);
 	}
 
@@ -349,9 +397,18 @@
 	}
 
 	.character {
+		display: inline-flex;
+		min-width: 44px;
+		min-height: 44px;
+		align-items: center;
 		font-size: var(--font-size-title);
 		font-weight: bold;
-		color: var(--text-primary);
+		color: var(--accent);
+		text-decoration: none;
+	}
+
+	.character:hover {
+		text-decoration: underline;
 	}
 
 	.date {
@@ -403,6 +460,46 @@
 		text-decoration: underline;
 	}
 
+	.pagination {
+		display: grid;
+		grid-template-columns: minmax(7rem, 1fr) auto minmax(7rem, 1fr);
+		align-items: center;
+		gap: var(--spacing-md);
+		margin-top: calc(var(--spacing-xl) * 2);
+		color: var(--text-secondary);
+		font-size: var(--font-size-callout);
+		text-align: center;
+	}
+
+	.pagination button {
+		min-height: 44px;
+		padding: var(--spacing-sm) var(--spacing-lg);
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-md);
+		background: var(--bg-secondary);
+		color: var(--text-primary);
+		font: inherit;
+		cursor: pointer;
+	}
+
+	.pagination button:first-child {
+		justify-self: start;
+	}
+
+	.pagination button:last-child {
+		justify-self: end;
+	}
+
+	.pagination button:hover:not(:disabled) {
+		border-color: var(--accent);
+		color: var(--accent);
+	}
+
+	.pagination button:disabled {
+		opacity: 0.45;
+		cursor: not-allowed;
+	}
+
 	@media (max-width: 768px) {
 		.user-profile {
 			flex-direction: column;
@@ -420,6 +517,20 @@
 		.search-input,
 		.sort-select {
 			width: 100%;
+		}
+
+		.pagination {
+			grid-template-columns: 1fr 1fr;
+		}
+
+		.pagination span {
+			grid-column: 1 / -1;
+			grid-row: 1;
+		}
+
+		.pagination button {
+			grid-row: 2;
+			justify-self: stretch;
 		}
 	}
 </style>

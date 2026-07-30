@@ -100,14 +100,14 @@
 		display: inline-block;
 		min-width: 8.5rem;
 		margin-right: 0.4rem;
-		color: var(--text-tertiary);
+		color: var(--text-secondary);
 		font-weight: 650;
 	}
 
 	.semantic-layer-note {
 		margin: 0.15rem 0 0;
-		color: var(--text-tertiary);
-		font-size: var(--font-size-caption2);
+		color: var(--text-secondary);
+		font-size: var(--font-size-caption1);
 		line-height: 1.4;
 	}
 

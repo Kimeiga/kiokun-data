@@ -40,6 +40,10 @@ jobs:
       - name: Generate frequency list
         run: python3 scripts/generate_frequency_list.py
 
+      - name: Generate compact featured video index
+        working-directory: sveltekit-app
+        run: node scripts/generate-featured-reels.mjs
+
       - name: Build
         working-directory: sveltekit-app
         run: npm run build
@@ -49,8 +53,13 @@ jobs:
         run: node scripts/prune-cloudflare-output.js
       
       - name: Deploy to Cloudflare Pages
+        id: deploy
         uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy sveltekit-app/.svelte-kit/cloudflare --project-name=kiokun --branch=main --commit-dirty=true
+          command: pages deploy sveltekit-app/.svelte-kit/cloudflare --project-name=kiokun --branch=main --commit-dirty=true --skip-caching
+
+      - name: Verify deployed assets and critical routes
+        working-directory: sveltekit-app
+        run: node scripts/verify-pages-deployment.mjs "${{ steps.deploy.outputs.deployment-url }}"

@@ -12,7 +12,7 @@
 			id: 'demo-2',
 			text: 'This note demonstrates the image upload feature. In production, images would be stored in Cloudflare R2 object storage.',
 			image_key: 'demo-image.jpg',
-			image_url: 'https://via.placeholder.com/400x300/3498db/ffffff?text=Demo+Image',
+			image_url: '/og-image.png',
 			created_at: Date.now() - 7200000
 		},
 		{
@@ -87,10 +87,11 @@
 						bind:value={noteText}
 						placeholder="Enter your note here..."
 						rows="4"
+						aria-describedby="demo-image-notice"
 					></textarea>
 				</div>
 
-				<div class="demo-notice">
+				<div id="demo-image-notice" class="demo-notice">
 					ℹ️ Image upload is disabled in demo mode. In production, you can upload images to Cloudflare R2.
 				</div>
 
@@ -108,7 +109,7 @@
 					<div class="note-card">
 						{#if note.image_url}
 							<div class="note-image">
-								<img src={note.image_url} alt="Note attachment" />
+								<img src={note.image_url} alt="Kiokun demo note attachment" />
 							</div>
 						{/if}
 
@@ -161,10 +162,8 @@
 	:global(body) {
 		margin: 0;
 		padding: 0;
-		font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
-			sans-serif;
-		background: #f5f5f5;
-		color: #333;
+		background: var(--bg-primary);
+		color: var(--text-primary);
 	}
 
 	.container {
@@ -177,45 +176,45 @@
 		text-align: center;
 		margin-bottom: 40px;
 		padding: 40px 20px;
-		background: white;
+		background: var(--bg-secondary);
+		border: 1px solid var(--border-color);
 		border-radius: 12px;
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 	}
 
 	.header h1 {
 		margin: 0 0 10px 0;
 		font-size: 2.5rem;
-		color: #2c3e50;
+		color: var(--text-primary);
 	}
 
 	.header p {
 		margin: 0 0 15px 0;
 		font-size: 1.1rem;
-		color: #666;
+		color: var(--text-secondary);
 	}
 
 	.demo-badge {
 		display: inline-block;
 		padding: 8px 16px;
-		background: #f39c12;
-		color: white;
+		background: var(--accent);
+		color: var(--bg-primary);
 		border-radius: 20px;
 		font-size: 0.9rem;
 		font-weight: 600;
 	}
 
 	.upload-section {
-		background: white;
+		background: var(--bg-secondary);
+		border: 1px solid var(--border-color);
 		padding: 30px;
 		border-radius: 12px;
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 		margin-bottom: 40px;
 	}
 
 	.upload-section h2 {
 		margin: 0 0 20px 0;
 		font-size: 1.5rem;
-		color: #2c3e50;
+		color: var(--text-primary);
 	}
 
 	form {
@@ -232,14 +231,16 @@
 
 	label {
 		font-weight: 600;
-		color: #2c3e50;
+		color: var(--text-primary);
 		font-size: 0.95rem;
 	}
 
 	textarea {
 		padding: 12px;
-		border: 2px solid #e0e0e0;
+		border: 1px solid var(--border-color);
 		border-radius: 8px;
+		background: var(--bg-primary);
+		color: var(--text-primary);
 		font-size: 1rem;
 		font-family: inherit;
 		resize: vertical;
@@ -248,22 +249,23 @@
 
 	textarea:focus {
 		outline: none;
-		border-color: #3498db;
+		border-color: var(--accent);
+		box-shadow: 0 0 0 3px var(--accent-light);
 	}
 
 	.demo-notice {
 		padding: 12px;
-		background: #fff3cd;
-		border: 1px solid #ffc107;
+		background: var(--accent-light);
+		border: 1px solid var(--accent);
 		border-radius: 8px;
-		color: #856404;
+		color: var(--text-primary);
 		font-size: 0.9rem;
 	}
 
 	.submit-btn {
 		padding: 14px 24px;
-		background: #3498db;
-		color: white;
+		background: var(--accent);
+		color: var(--bg-primary);
 		border: none;
 		border-radius: 8px;
 		font-size: 1rem;
@@ -273,18 +275,19 @@
 	}
 
 	.submit-btn:hover:not(:disabled) {
-		background: #2980b9;
+		filter: brightness(0.9);
 	}
 
 	.submit-btn:disabled {
-		background: #bdc3c7;
+		background: var(--bg-tertiary);
+		color: var(--text-muted);
 		cursor: not-allowed;
 	}
 
 	.notes-section h2 {
 		margin: 0 0 20px 0;
 		font-size: 1.5rem;
-		color: #2c3e50;
+		color: var(--text-primary);
 	}
 
 	.notes-grid {
@@ -294,23 +297,23 @@
 	}
 
 	.note-card {
-		background: white;
+		background: var(--bg-secondary);
+		border: 1px solid var(--border-color);
 		border-radius: 12px;
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 		overflow: hidden;
 		transition: transform 0.2s, box-shadow 0.2s;
 	}
 
 	.note-card:hover {
 		transform: translateY(-2px);
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+		border-color: var(--accent);
 	}
 
 	.note-image {
 		width: 100%;
 		height: 200px;
 		overflow: hidden;
-		background: #f0f0f0;
+		background: var(--bg-tertiary);
 	}
 
 	.note-image img {
@@ -327,7 +330,7 @@
 		margin: 0 0 15px 0;
 		font-size: 1rem;
 		line-height: 1.6;
-		color: #333;
+		color: var(--text-primary);
 		word-wrap: break-word;
 	}
 
@@ -336,18 +339,18 @@
 		justify-content: space-between;
 		align-items: center;
 		padding-top: 15px;
-		border-top: 1px solid #eee;
+		border-top: 1px solid var(--border-color);
 	}
 
 	.note-date {
 		font-size: 0.85rem;
-		color: #999;
+		color: var(--text-secondary);
 	}
 
 	.delete-btn {
 		padding: 6px 12px;
-		background: #e74c3c;
-		color: white;
+		background: var(--color-error);
+		color: var(--bg-primary);
 		border: none;
 		border-radius: 6px;
 		font-size: 0.85rem;
@@ -356,27 +359,27 @@
 	}
 
 	.delete-btn:hover {
-		background: #c0392b;
+		filter: brightness(0.9);
 	}
 
 	.info-section {
-		background: white;
+		background: var(--bg-secondary);
+		border: 1px solid var(--border-color);
 		padding: 30px;
 		border-radius: 12px;
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 		margin-top: 40px;
 	}
 
 	.info-section h2 {
 		margin: 0 0 20px 0;
 		font-size: 1.5rem;
-		color: #2c3e50;
+		color: var(--text-primary);
 	}
 
 	.info-section h3 {
 		margin: 20px 0 10px 0;
 		font-size: 1.2rem;
-		color: #34495e;
+		color: var(--text-primary);
 	}
 
 	.info-content {
@@ -385,8 +388,8 @@
 
 	.info-content code {
 		padding: 2px 6px;
-		background: #f5f5f5;
-		border: 1px solid #e0e0e0;
+		background: var(--bg-tertiary);
+		border: 1px solid var(--border-color);
 		border-radius: 4px;
 		font-family: var(--font-mono);
 		font-size: 0.9em;

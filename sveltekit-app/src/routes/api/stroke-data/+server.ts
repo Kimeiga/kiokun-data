@@ -1,4 +1,5 @@
 import { error } from '@sveltejs/kit';
+import { normalizeCjkAssetCharacter } from '$lib/utils/cjk-normalization';
 import type { RequestHandler } from './$types';
 
 const STROKE_DATA_ORIGIN =
@@ -13,9 +14,10 @@ export const GET: RequestHandler = async ({ url, fetch }) => {
 	if (!isSingleCharacter(character)) {
 		throw error(400, 'A single character is required');
 	}
+	const assetCharacter = normalizeCjkAssetCharacter(character);
 
 	const upstream = await fetch(
-		`${STROKE_DATA_ORIGIN}/${encodeURIComponent(character)}.json`
+		`${STROKE_DATA_ORIGIN}/${encodeURIComponent(assetCharacter)}.json`
 	);
 	if (upstream.status === 404) {
 		return new Response(null, {
