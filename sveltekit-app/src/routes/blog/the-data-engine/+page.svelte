@@ -318,7 +318,8 @@
 		background: color-mix(in oklch, var(--shu-wash) 40%, transparent);
 		padding: 0.06em 0.34em;
 		border-radius: 3px;
-		white-space: nowrap;
+		white-space: normal;
+		overflow-wrap: anywhere;
 	}
 	blockquote {
 		margin: 1.8rem 0;

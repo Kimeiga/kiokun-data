@@ -390,6 +390,7 @@
 		border-radius: 4px;
 		font-family: var(--font-mono);
 		font-size: 0.9em;
+		overflow-wrap: anywhere;
 	}
 
 	.info-content ol, .info-content ul {

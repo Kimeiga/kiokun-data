@@ -784,11 +784,12 @@
 	/* ===== Characters (cross-CJK glyphs) ===== */
 	.cjk-grid {
 		display: grid;
-		grid-template-columns: repeat(4, 1fr);
-		gap: 10px;
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		gap: var(--spacing-md);
 	}
 	.cjk-card {
 		display: flex;
+		min-width: 0;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
@@ -802,6 +803,8 @@
 	}
 	.cjk-row {
 		display: flex;
+		min-width: 0;
+		max-width: 100%;
 		align-items: center;
 		justify-content: center;
 		gap: 10px;
@@ -1149,6 +1152,10 @@
 			grid-template-columns: 1fr;
 			gap: 24px;
 		}
+		.cjk-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: var(--spacing-lg);
+		}
 	}
 
 	@media (max-width: 480px) {
@@ -1158,14 +1165,20 @@
 		.cat-grid {
 			grid-template-columns: repeat(2, 1fr);
 		}
-		.cjk-grid {
-			grid-template-columns: repeat(2, 1fr);
-		}
 		.cjk-card:nth-child(n + 9) {
 			display: none;
 		}
+		.cjk-card {
+			padding-inline: 6px;
+		}
+		.cjk-row {
+			gap: clamp(4px, 1.8vw, 8px);
+		}
 		.cjk-glyph {
-			font-size: 24px;
+			font-size: clamp(20px, 6.25vw, 24px);
+		}
+		.cjk-sep {
+			font-size: clamp(12px, 4vw, 16px);
 		}
 	}
 

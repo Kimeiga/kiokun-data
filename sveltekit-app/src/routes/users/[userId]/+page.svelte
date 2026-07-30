@@ -360,8 +360,10 @@
 	}
 
 	.note-content {
+		min-width: 0;
 		color: var(--text-primary);
 		line-height: 1.6;
+		overflow-wrap: anywhere;
 	}
 
 	.markdown-content :global(h1),
@@ -394,6 +396,7 @@
 	.markdown-content :global(a) {
 		color: var(--accent);
 		text-decoration: none;
+		overflow-wrap: anywhere;
 	}
 
 	.markdown-content :global(a:hover) {
