@@ -8,6 +8,9 @@
 	import SearchDropdown from '$lib/components/SearchDropdown.svelte';
 	import { getDictionaryUrl } from '$lib/shard-utils';
 	import { dev } from '$app/environment';
+	import type { PageData } from './$types';
+
+	let { data }: { data: PageData } = $props();
 
 	let handwritingInput = $state<HandwritingInput>();
 	let searchDropdown = $state<SearchDropdown>();
@@ -80,68 +83,6 @@
 			await doHeroSearch();
 		}
 	}
-
-	// Character of the Day + Word of the Day — deterministic daily picks
-	let cotdChar = $state('');
-	let cotdGloss = $state('');
-	let wotdWord = $state('');
-	let wotdGloss = $state('');
-
-	// Curated pool of interesting multi-character words
-	const wordPool = [
-		{ w: '友達', g: 'friend' }, { w: '勉強', g: 'study' }, { w: '天気', g: 'weather' },
-		{ w: '家族', g: 'family' }, { w: '約束', g: 'promise' }, { w: '冒険', g: 'adventure' },
-		{ w: '努力', g: 'effort' }, { w: '希望', g: 'hope' }, { w: '自由', g: 'freedom' },
-		{ w: '平和', g: 'peace' }, { w: '感謝', g: 'gratitude' }, { w: '挑戦', g: 'challenge' },
-		{ w: '記憶', g: 'memory' }, { w: '幸福', g: 'happiness' }, { w: '運命', g: 'fate' },
-		{ w: '冒頭', g: 'beginning' }, { w: '宇宙', g: 'universe' }, { w: '地球', g: 'earth' },
-		{ w: '景色', g: 'scenery' }, { w: '季節', g: 'season' }, { w: '旅行', g: 'travel' },
-		{ w: '健康', g: 'health' }, { w: '知識', g: 'knowledge' }, { w: '哲学', g: 'philosophy' },
-		{ w: '芸術', g: 'art' }, { w: '言葉', g: 'word' }, { w: '夢中', g: 'absorbed' },
-		{ w: '感動', g: 'emotion' }, { w: '永遠', g: 'eternity' }, { w: '瞬間', g: 'moment' },
-	];
-
-	function dayHash(seed: string): number {
-		let hash = 0;
-		for (let i = 0; i < seed.length; i++) {
-			hash = ((hash << 5) - hash) + seed.charCodeAt(i);
-			hash = hash & hash;
-		}
-		return Math.abs(hash);
-	}
-
-	onMount(async () => {
-		try {
-			if (!cachedGlosses) {
-				const res = await fetch("/game_data/component_glosses.json");
-				if (res.ok) cachedGlosses = await res.json();
-			}
-			if (cachedGlosses) {
-				const charKeys = Object.keys(cachedGlosses).filter(k => k.length === 1 && k.charCodeAt(0) >= 0x4E00);
-				const today = new Date();
-				const dayStr = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
-				const h = dayHash(dayStr);
-
-				// Character of the Day
-				for (let attempt = 0; attempt < 10; attempt++) {
-					const char = charKeys[(h + attempt) % charKeys.length];
-					const url = await getDictionaryUrl(char, dev, fetch);
-					const resp = await fetch(url, { method: 'HEAD' });
-					if (resp.ok) {
-						cotdChar = char;
-						cotdGloss = cachedGlosses![char] || '';
-						break;
-					}
-				}
-
-				// Word of the Day (use different seed so they're independent)
-				const h2 = dayHash(dayStr + '-word');
-				const pick = wordPool[h2 % wordPool.length];
-				wotdWord = pick.w;
-				wotdGloss = pick.g;
-			}
-		} catch {} }
-	);
 
 	// Compare: characters where traditional, simplified Chinese, and Japanese shinjitai all differ
 	const compareExamples = [
@@ -332,28 +273,39 @@
 	</section>
 
 	<!-- Daily Picks -->
-	{#if cotdChar || wotdWord}
+	{#if data.dailyPicks}
 		<section class="section">
 			<div class="daily-row">
-				{#if cotdChar}
-					<a href="/{cotdChar}" class="daily-card">
-						<span class="daily-text">
-							<span class="daily-label">Character of the Day</span>
-							{#if cotdGloss}<span class="daily-gloss">{cotdGloss}</span>{/if}
-						</span>
-						<span class="daily-main">{cotdChar}</span>
-					</a>
-				{/if}
-				{#if wotdWord}
-					<a href="/{wotdWord}" class="daily-card">
-						<span class="daily-text">
-							<span class="daily-label">Word of the Day</span>
-							{#if wotdGloss}<span class="daily-gloss">{wotdGloss}</span>{/if}
-						</span>
-						<span class="daily-main daily-word">{wotdWord}</span>
-					</a>
-				{/if}
+				<a href="/{data.dailyPicks.character.value}" class="daily-card">
+					<span class="daily-text">
+						<span class="daily-label">Character of the Day</span>
+						<span class="daily-gloss">{data.dailyPicks.character.gloss}</span>
+					</span>
+					<span class="daily-main">{data.dailyPicks.character.value}</span>
+				</a>
+				<a href="/{data.dailyPicks.word.value}" class="daily-card">
+					<span class="daily-text">
+						<span class="daily-label">Word of the Day</span>
+						<span class="daily-gloss">{data.dailyPicks.word.gloss}</span>
+					</span>
+					<span class="daily-main daily-word">{data.dailyPicks.word.value}</span>
+				</a>
 			</div>
+		</section>
+	{:else}
+		<section class="section" aria-busy="true" aria-label="Loading daily picks">
+			<div class="daily-row">
+				{#each [0, 1] as _}
+					<div class="daily-card daily-card-skeleton" aria-hidden="true">
+						<span class="daily-skeleton-copy">
+							<span class="daily-skeleton-line daily-skeleton-label"></span>
+							<span class="daily-skeleton-line daily-skeleton-gloss"></span>
+						</span>
+						<span class="daily-skeleton-glyph"></span>
+					</div>
+				{/each}
+			</div>
+			<span class="visually-hidden">Loading character and word of the day</span>
 		</section>
 	{/if}
 
@@ -646,6 +598,7 @@
 	}
 	.daily-card {
 		display: flex;
+		min-height: 72px;
 		flex-direction: row;
 		align-items: center;
 		justify-content: space-between;
@@ -683,6 +636,63 @@
 		font-size: var(--font-size-callout);
 		color: var(--text-secondary);
 		text-transform: capitalize;
+	}
+	.daily-card-skeleton {
+		position: relative;
+		overflow: hidden;
+		pointer-events: none;
+		contain: paint;
+	}
+	.daily-card-skeleton::after {
+		position: absolute;
+		inset: 0;
+		content: '';
+		background: linear-gradient(
+			90deg,
+			transparent 0%,
+			color-mix(in srgb, var(--text-primary) 8%, transparent) 50%,
+			transparent 100%
+		);
+		transform: translateX(-100%);
+		animation: daily-shimmer 1.4s ease-in-out infinite;
+	}
+	.daily-skeleton-copy {
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+		gap: 7px;
+	}
+	.daily-skeleton-line,
+	.daily-skeleton-glyph {
+		display: block;
+		background: var(--bg-tertiary);
+	}
+	.daily-skeleton-line {
+		height: 10px;
+		border-radius: 3px;
+	}
+	.daily-skeleton-label {
+		width: min(148px, 74%);
+	}
+	.daily-skeleton-gloss {
+		width: min(96px, 52%);
+		height: 14px;
+	}
+	.daily-skeleton-glyph {
+		width: 36px;
+		height: 36px;
+		border-radius: 6px;
+		flex-shrink: 0;
+	}
+	@keyframes daily-shimmer {
+		to {
+			transform: translateX(100%);
+		}
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.daily-card-skeleton::after {
+			animation: none;
+		}
 	}
 
 	/* ===== Characters (cross-CJK glyphs) ===== */
@@ -1053,6 +1063,9 @@
 	}
 
 	@media (max-width: 480px) {
+		.daily-card {
+			min-height: 110px;
+		}
 		.cat-grid {
 			grid-template-columns: repeat(2, 1fr);
 		}
@@ -1064,6 +1077,15 @@
 		}
 		.cjk-glyph {
 			font-size: 24px;
+		}
+	}
+
+	@media (max-width: 340px) {
+		.daily-row {
+			grid-template-columns: 1fr;
+		}
+		.daily-card {
+			min-height: 72px;
 		}
 	}
 </style>
