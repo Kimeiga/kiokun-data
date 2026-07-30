@@ -1,4 +1,5 @@
 <script lang="ts">
+	import JapaneseRubyText from '$lib/components/JapaneseRubyText.svelte';
 	import {
 		buildChineseRubySegments,
 		buildJapaneseRubySegments,
@@ -43,7 +44,11 @@
 <span class="annotated-sentence">
 	{#each segments as segment}
 		{#if segment.reading}
-			<ruby class="word-ruby"><rb>{segment.text}</rb><rt>{segment.reading}</rt></ruby>
+			{#if language === 'ja'}
+				<JapaneseRubyText text={segment.text} reading={segment.reading} />
+			{:else}
+				<ruby class="word-ruby"><rb>{segment.text}</rb><rt>{segment.reading}</rt></ruby>
+			{/if}
 		{:else}
 			<span>{segment.text}</span>
 		{/if}

@@ -12,6 +12,7 @@
 	} from '$lib/utils/sentence-ruby';
 	import { findWordsWithDeinflection } from '$lib/utils/search-navigation';
 	import Header from '$lib/components/Header.svelte';
+	import JapaneseRubyText from '$lib/components/JapaneseRubyText.svelte';
 	import SentenceBar from '$lib/components/SentenceBar.svelte';
 
 	// Read sentence data from URL params
@@ -153,7 +154,15 @@
 								onclick={() => openPanel(token.text)}
 							>
 								{#if token.reading}
-									<ruby class="token-ruby"><rb>{token.text}</rb><rt>{token.reading}</rt></ruby>
+									{#if lang === 'ja'}
+										<JapaneseRubyText
+											text={token.text}
+											reading={token.reading}
+											readingSize="0.45em"
+										/>
+									{:else}
+										<ruby class="token-ruby"><rb>{token.text}</rb><rt>{token.reading}</rt></ruby>
+									{/if}
 								{:else}
 									{token.text}
 								{/if}
@@ -161,7 +170,15 @@
 						{:else}
 							<span class="punct">
 								{#if token.reading}
-									<ruby class="token-ruby"><rb>{token.text}</rb><rt>{token.reading}</rt></ruby>
+									{#if lang === 'ja'}
+										<JapaneseRubyText
+											text={token.text}
+											reading={token.reading}
+											readingSize="0.45em"
+										/>
+									{:else}
+										<ruby class="token-ruby"><rb>{token.text}</rb><rt>{token.reading}</rt></ruby>
+									{/if}
 								{:else}
 									{token.text}
 								{/if}

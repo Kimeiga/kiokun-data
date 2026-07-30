@@ -3,6 +3,7 @@ import { getDictionaryUrl } from '$lib/shard-utils';
 import type { DictionaryEntry } from '$lib/types';
 import { findWordsWithDeinflection } from '$lib/utils/search-navigation';
 import { alignChinesePinyinReadings } from './chinese-ruby';
+import { trimJapaneseReadingSuffix } from './japanese-ruby';
 import { isWordToken, segmentText } from './segment';
 
 export interface RubySegment {
@@ -58,16 +59,41 @@ export async function enrichJapaneseRubySegments(
 	fetchFn: typeof fetch = fetch
 ): Promise<RubySegment[]> {
 	return Promise.all(
-		segments.map(async (segment) => {
+		segments.map(async (segment, index) => {
 			if (!segment.isWord || !hasHan(segment.text) || isAllKana(segment.text)) {
 				return segment;
 			}
 
-			const reading = await getJapaneseReading(segment.text, fetchFn);
+			const reading = await getJapaneseReading(segment.text, fetchFn)
+				?? await getReadingForSplitJapaneseToken(segments, index, fetchFn);
 			if (!reading || reading === segment.text) return segment;
 			return { ...segment, reading };
 		})
 	);
+}
+
+async function getReadingForSplitJapaneseToken(
+	segments: RubySegment[],
+	index: number,
+	fetchFn: typeof fetch
+): Promise<string | null> {
+	const surface = segments[index]?.text ?? '';
+	if (!hasHan(surface) || !getTrailingKana(surface)) return null;
+
+	let appendedKana = '';
+	for (let offset = 1; offset <= 4; offset += 1) {
+		const next = segments[index + offset];
+		if (!next?.isWord || !isAllKana(next.text)) break;
+
+		appendedKana += next.text;
+		const combinedReading = await getJapaneseReading(surface + appendedKana, fetchFn);
+		if (!combinedReading) continue;
+
+		const prefixReading = trimJapaneseReadingSuffix(combinedReading, appendedKana);
+		if (prefixReading) return prefixReading;
+	}
+
+	return null;
 }
 
 export function buildKoreanRubySegments(text: string): RubySegment[] {
