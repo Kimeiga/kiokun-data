@@ -3,6 +3,7 @@ mod chinese_types;
 mod chinese_examples;
 mod japanese_types;
 mod korean_types;
+mod korean_examples;
 mod chinese_char_types;
 mod japanese_char_types;
 mod japanese_subwords;
@@ -581,6 +582,19 @@ async fn main() -> Result<()> {
                 .default_value("data/chinese_definition_examples_kaikki_2026-07-25.jsonl"),
         )
         .arg(
+            Arg::new("export-korean-examples")
+                .long("export-korean-examples")
+                .value_name("PATH")
+                .help("Export the exact KRDICT example occurrences and sense context as JSONL"),
+        )
+        .arg(
+            Arg::new("korean-example-translations")
+                .long("korean-example-translations")
+                .value_name("PATH")
+                .help("English KRDICT example translations to embed in dictionary shards")
+                .default_value("data/krdict-example-translations-en"),
+        )
+        .arg(
             Arg::new("test-hash")
                 .long("test-hash")
                 .value_name("WORD")
@@ -753,6 +767,17 @@ async fn main() -> Result<()> {
             stats.matched_senses, stats.matched_definitions, stats.examples, stats.source_entries
         );
         println!("  📁 Wrote {}", output_path);
+        return Ok(());
+    }
+
+    if let Some(output_path) = matches.get_one::<String>("export-korean-examples") {
+        println!("📚 Loading Korean dictionary for example translation export...");
+        let korean_words =
+            load_korean_dictionary("data/krdict-en").context("Failed to load Korean dictionary")?;
+        let count =
+            korean_examples::export_source_rows(&korean_words, std::path::Path::new(output_path))?;
+        println!("  ✅ Exported {count} Korean example occurrences");
+        println!("  📁 Wrote {output_path}");
         return Ok(());
     }
 
@@ -1109,7 +1134,7 @@ async fn main() -> Result<()> {
     };
 
     // Load Korean dictionary (KRDICT)
-    let korean_words = if excluded_dicts.contains(&"krdict".to_string()) {
+    let mut korean_words = if excluded_dicts.contains(&"krdict".to_string()) {
         println!("⏭️  Skipping Korean dictionary (KRDICT)");
         Vec::new()
     } else if std::path::Path::new("data/krdict-en").exists() {
@@ -1120,6 +1145,29 @@ async fn main() -> Result<()> {
         println!("⚠️  Korean dictionary not found at data/krdict-en, skipping");
         Vec::new()
     };
+
+    let korean_example_translations_path = matches
+        .get_one::<String>("korean-example-translations")
+        .expect("Korean example translation path has a default");
+    if !korean_words.is_empty() {
+        println!("📝 Embedding Korean example translations...");
+        let stats = korean_examples::attach_translations(
+            &mut korean_words,
+            std::path::Path::new(korean_example_translations_path),
+        )?;
+        if stats.missing != 0 || stats.stale != 0 {
+            anyhow::bail!(
+                "Korean example translations are incomplete: {} missing dictionary occurrences, \
+                 {} stale translation records",
+                stats.missing,
+                stats.stale
+            );
+        }
+        println!(
+            "  ✅ Embedded {} of {} translations ({} missing, {} stale)",
+            stats.attached, stats.records, stats.missing, stats.stale
+        );
+    }
 
     println!("📚 Loading IDS (character decomposition) database...");
     let ids_database = load_all_ids_files()

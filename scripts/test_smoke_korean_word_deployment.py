@@ -21,7 +21,17 @@ def word(identifier: str, hanja: str, definition: str) -> dict:
         "id": identifier,
         "hangul": "은행",
         "hanja": hanja,
-        "definitions": [{"text": definition}],
+        "definitions": [
+            {
+                "text": definition,
+                "examples": [
+                    {
+                        "korean": "은행에 갔다.",
+                        "translation": "I went to the bank.",
+                    }
+                ],
+            }
+        ],
     }
 
 
@@ -96,6 +106,23 @@ class KoreanDeploymentSmokeTests(unittest.TestCase):
         ):
             with self.assertRaisesRegex(RuntimeError, "must not redirect"):
                 smoke.validate_published_entries(cache_key="test", timeout=1)
+
+    def test_rejects_missing_korean_example_translation(self) -> None:
+        entry = {
+            "key": "은행",
+            "korean_words": [
+                {
+                    "definitions": [
+                        {
+                            "text": "bank",
+                            "examples": [{"korean": "은행에 갔다."}],
+                        }
+                    ]
+                }
+            ],
+        }
+        with self.assertRaisesRegex(RuntimeError, "lack English translations"):
+            smoke.require_example_translations(entry)
 
 
 if __name__ == "__main__":

@@ -46,6 +46,35 @@ def require_hanja(entry: dict[str, Any], expected_hanja: str, expected_gloss: st
         )
 
 
+def require_example_translations(entry: dict[str, Any]) -> int:
+    examples = [
+        example
+        for word in korean_words(entry)
+        for definition in word.get("definitions") or []
+        if isinstance(definition, dict)
+        for example in definition.get("examples") or []
+        if isinstance(example, dict)
+    ]
+    examples.extend(
+        example
+        for word in korean_words(entry)
+        for example in word.get("examples") or []
+        if isinstance(example, dict)
+    )
+    if not examples:
+        raise RuntimeError(f"{entry.get('key')}: expected published Korean examples")
+    missing = [
+        example.get("korean")
+        for example in examples
+        if not str(example.get("translation") or "").strip()
+    ]
+    if missing:
+        raise RuntimeError(
+            f"{entry.get('key')}: {len(missing)} Korean examples lack English translations"
+        )
+    return len(examples)
+
+
 def require_normalized_japanese_ginkgo(entry: dict[str, Any]) -> None:
     glosses = [
         str(gloss.get("text") or "")
@@ -76,6 +105,7 @@ def validate_published_entries(*, cache_key: str, timeout: float) -> dict[str, A
         raise RuntimeError("은행: ambiguous Hangul homonym must not redirect to one Hanja")
     require_hanja(ambiguous, "銀行", "bank")
     require_hanja(ambiguous, "銀杏", "ginkgo")
+    translated_examples = require_example_translations(ambiguous)
     ids = [word.get("id") for word in korean_words(ambiguous)]
     if len(ids) != len(set(ids)):
         raise RuntimeError("은행: published Korean homonyms do not have unique IDs")
@@ -93,6 +123,7 @@ def validate_published_entries(*, cache_key: str, timeout: float) -> dict[str, A
         "ambiguous_hangul": {
             "key": "은행",
             "hanja": ["銀行", "銀杏"],
+            "translated_examples": translated_examples,
             "url": published.published_url("은행", cache_key=cache_key),
         },
         "unambiguous_redirect": {

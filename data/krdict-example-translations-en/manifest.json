@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "language": "ko",
+  "targetLanguage": "en",
+  "source": "KRDICT examples extracted by the Rust dictionary loader",
+  "model": "gemini-3.6-flash",
+  "reasoningEffort": "minimal",
+  "records": 582216,
+  "parts": 16,
+  "sourceSha256": "9c160159119c04fbcff4e7dc324dac366e6f7a695434bf8df113340ad4503ee3",
+  "generatedAt": "2026-07-30T14:56:40.760927+00:00",
+  "batchJobs": []
+}
