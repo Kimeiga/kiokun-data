@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { marked } from 'marked';
-	import DOMPurify from 'isomorphic-dompurify';
 	import Header from '$lib/components/Header.svelte';
 
 	interface User {
@@ -42,12 +41,13 @@
 	let totalNotes = $state(0);
 	let totalPages = $state(1);
 	let pageLoading = $state(false);
+	let domPurify = $state<typeof import('dompurify').default | null>(null);
 
 	let userId = $derived(data.userId);
 
 	function renderMarkdown(text: string): string {
 		const html = marked.parse(text) as string;
-		return DOMPurify.sanitize(html);
+		return domPurify?.sanitize(html) ?? '';
 	}
 
 	async function loadUserNotes(signal: AbortSignal) {
@@ -72,6 +72,10 @@
 			}
 
 			const data: UserNotesResponse = await response.json();
+			if (!domPurify) {
+				const { default: DOMPurify } = await import('dompurify');
+				domPurify = DOMPurify;
+			}
 			userData = data.user;
 			notes = data.notes;
 			currentPage = data.pagination.page;
