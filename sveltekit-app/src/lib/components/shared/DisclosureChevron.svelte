@@ -82,6 +82,13 @@
 		transform: rotate(180deg);
 	}
 
+	@media (pointer: coarse) {
+		.disclosure-chevron {
+			width: 2.75rem;
+			height: 2.75rem;
+		}
+	}
+
 	@media (prefers-reduced-motion: reduce) {
 		.disclosure-chevron,
 		svg {
