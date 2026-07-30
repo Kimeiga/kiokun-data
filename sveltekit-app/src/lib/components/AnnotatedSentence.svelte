@@ -87,6 +87,7 @@
 		font-size: var(--annotated-reading-size);
 		font-weight: 500;
 		line-height: 1;
+		letter-spacing: 0.01em;
 		color: var(--color-pinyin);
 		text-align: center;
 		white-space: nowrap;
