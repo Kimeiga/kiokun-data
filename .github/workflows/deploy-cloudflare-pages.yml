@@ -1,5 +1,7 @@
 name: Deploy to Cloudflare Pages
 
+# Cloudflare's built-in Git deployments are disabled for this project.
+# Keep this workflow as the single production build and deployment path.
 on:
   push:
     branches: [main]
