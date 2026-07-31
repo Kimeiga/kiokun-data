@@ -10,12 +10,6 @@ export interface LanguagePreferences {
 	cantonese: boolean;
 }
 
-// Check if device is mobile (used for default Korean setting)
-const isMobile = (): boolean => {
-	if (!browser) return false;
-	return window.matchMedia('(max-width: 767px)').matches;
-};
-
 // Initialize preferences from localStorage or defaults
 const getInitialPreferences = (): LanguagePreferences => {
 	if (!browser) {
@@ -38,11 +32,11 @@ const getInitialPreferences = (): LanguagePreferences => {
 		}
 	}
 
-	// Default: all on for desktop, Korean off for mobile
+	// All languages fit in the responsive layout, so keep them available by default.
 	return {
 		chinese: true,
 		japanese: true,
-		korean: !isMobile(),
+		korean: true,
 		cantonese: true  // Cantonese on by default
 	};
 };

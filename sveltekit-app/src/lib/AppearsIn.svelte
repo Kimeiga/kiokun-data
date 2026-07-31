@@ -143,7 +143,7 @@
 		<div class="word-columns" class:two-columns={columnCount === 2} class:three-columns={columnCount === 3}>
 			<!-- Chinese Words Column -->
 			{#if filteredChineseWords.length > 0}
-				<div class="column">
+				<div class="column chinese-column">
 					<SectionHeading id="chinese-words" divided={false}
 						>CHINESE WORDS ({filteredChineseWords.length})</SectionHeading
 					>
@@ -153,21 +153,25 @@
 								<div class="word-header">
 									<span class="word-text">{preview.w}</span>
 									{#if preview.p}
-										<span class="pronunciation"
-											>[{preview.p}]</span
+										<span class="pronunciation" title={preview.p}
+											>{preview.p}</span
 										>
 									{/if}
 									{#if preview.ct && languageStore.preferences.cantonese}
 										<span class="cantonese-pronunciation" title="Cantonese (Jyutping)"
-											>[{preview.ct}]</span
+											>{preview.ct}</span
 										>
 									{/if}
-									{#if preview.fr}
-										<span class="frequency-rank" title="JPDB frequency rank">#{preview.fr.toLocaleString()}</span>
-									{/if}
 								</div>
-								{#if preview.d}
-									<div class="definition">{preview.d}</div>
+								{#if preview.d || preview.fr}
+									<div class="definition-row">
+										{#if preview.d}
+											<div class="definition" title={preview.d}>{preview.d}</div>
+										{/if}
+										{#if preview.fr}
+											<span class="frequency-rank" title="Frequency rank">#{preview.fr.toLocaleString()}</span>
+										{/if}
+									</div>
 								{/if}
 							</a>
 						{/each}
@@ -188,7 +192,7 @@
 
 			<!-- Japanese Words Column -->
 			{#if filteredJapaneseWords.length > 0}
-				<div class="column">
+				<div class="column japanese-column">
 					<SectionHeading id="japanese-words" divided={false}
 						>JAPANESE WORDS ({filteredJapaneseWords.length})</SectionHeading
 					>
@@ -206,20 +210,24 @@
 										{preview.w}
 									</span>
 									{#if preview.jp}
-										<span class="pronunciation"
-											>[{preview.jp}]</span
+										<span class="pronunciation" title={preview.jp}
+											>{preview.jp}</span
 										>
 									{:else if preview.p}
-										<span class="pronunciation"
-											>[{preview.p}]</span
+										<span class="pronunciation" title={preview.p}
+											>{preview.p}</span
 										>
 									{/if}
-									{#if preview.fr}
-										<span class="frequency-rank" title="JPDB frequency rank">#{preview.fr.toLocaleString()}</span>
-									{/if}
 								</div>
-								{#if preview.d}
-									<div class="definition">{preview.d}</div>
+								{#if preview.d || preview.fr}
+									<div class="definition-row">
+										{#if preview.d}
+											<div class="definition" title={preview.d}>{preview.d}</div>
+										{/if}
+										{#if preview.fr}
+											<span class="frequency-rank" title="JPDB frequency rank">#{preview.fr.toLocaleString()}</span>
+										{/if}
+									</div>
 								{/if}
 							</a>
 						{/each}
@@ -240,7 +248,7 @@
 
 			<!-- Korean Words Column -->
 			{#if filteredKoreanWords.length > 0}
-				<div class="column">
+				<div class="column korean-column">
 					<SectionHeading id="korean-words" divided={false}
 						>KOREAN WORDS ({filteredKoreanWords.length})</SectionHeading
 					>
@@ -250,20 +258,24 @@
 								<div class="word-header">
 									<span class="word-text">{preview.w}</span>
 									{#if preview.kr}
-										<span class="pronunciation"
-											>[{preview.kr}]</span
+										<span class="pronunciation" title={preview.kr}
+											>{preview.kr}</span
 										>
 									{:else if preview.p}
-										<span class="pronunciation"
-											>[{preview.p}]</span
+										<span class="pronunciation" title={preview.p}
+											>{preview.p}</span
 										>
 									{/if}
-									{#if preview.fr}
-										<span class="frequency-rank" title="Korean frequency rank">#{preview.fr.toLocaleString()}</span>
-									{/if}
 								</div>
-								{#if preview.d}
-									<div class="definition">{preview.d}</div>
+								{#if preview.d || preview.fr}
+									<div class="definition-row">
+										{#if preview.d}
+											<div class="definition" title={preview.d}>{preview.d}</div>
+										{/if}
+										{#if preview.fr}
+											<span class="frequency-rank" title="Korean frequency rank">#{preview.fr.toLocaleString()}</span>
+										{/if}
+									</div>
 								{/if}
 							</a>
 						{/each}
@@ -289,117 +301,207 @@
 	.word-columns {
 		display: grid;
 		grid-template-columns: 1fr;
-		gap: var(--spacing-xl);
+		border-block: 1px solid var(--border-light);
+		overflow: hidden;
 	}
 
 	.word-columns.two-columns {
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
 
 	.word-columns.three-columns {
-		grid-template-columns: 1fr 1fr 1fr;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
+	.word-columns.two-columns > .column + .column,
+	.word-columns.three-columns > .column + .column {
+		border-inline-start: 1px solid var(--border-light);
+	}
+
+	.word-columns :global(.section-heading) {
+		display: flex;
+		min-height: 2.75rem;
+		margin: 0;
+		padding: 0 10px;
+		align-items: center;
 	}
 
 	@media (max-width: 768px) {
+		.word-columns {
+			margin-inline: -0.75rem;
+		}
+
+		.word-columns :global(.section-heading) {
+			padding-inline: 8px 10px;
+		}
+
 		.word-columns.two-columns,
 		.word-columns.three-columns {
-			/* Keep two columns on mobile */
-			grid-template-columns: 1fr 1fr;
-			gap: var(--spacing-sm);
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.word-columns.three-columns > .korean-column {
+			grid-column: 1 / -1;
+			border-block-start: 1px solid var(--border-light);
+			border-inline-start: 0;
+		}
+
+		.word-columns.three-columns > .korean-column .word-list {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.word-columns.three-columns > .korean-column .word-card:nth-child(even) {
+			border-inline-start: 1px solid var(--border-light);
+		}
+	}
+
+	@media (max-width: 359px) {
+		.word-columns.two-columns,
+		.word-columns.three-columns {
+			grid-template-columns: minmax(0, 1fr);
+		}
+
+		.word-columns.two-columns > .column + .column,
+		.word-columns.three-columns > .column + .column {
+			border-block-start: 1px solid var(--border-light);
+			border-inline-start: 0;
+		}
+
+		.word-columns.three-columns > .korean-column {
+			grid-column: auto;
+		}
+
+		.word-columns.three-columns > .korean-column .word-list {
+			display: flex;
+		}
+
+		.word-columns.three-columns > .korean-column .word-card:nth-child(even) {
+			border-inline-start: 0;
 		}
 	}
 
 	.column {
 		display: flex;
+		min-width: 0;
 		flex-direction: column;
 	}
 
 	.word-list {
 		display: flex;
 		flex-direction: column;
-		gap: var(--spacing-sm);
 	}
 
 	.word-card {
-		display: block;
-		padding: var(--spacing-md);
-		background: var(--bg-secondary);
-		border-radius: var(--radius-sm);
-		border: 1px solid var(--border-light);
+		display: flex;
+		min-height: 2.75rem;
+		padding: 8px 10px;
+		background: var(--bg-primary);
+		border-block-start: 1px solid var(--border-light);
 		text-decoration: none;
 		color: inherit;
-		transition: background 0.15s ease, border-color 0.15s ease;
+		flex-direction: column;
+		justify-content: center;
+		transition: background-color 120ms ease;
 	}
 
 	@media (max-width: 768px) {
 		.word-card {
-			padding: var(--spacing-sm);
-			border-radius: var(--radius-sm);
+			padding: 8px;
 		}
 	}
 
-	.word-card:hover {
+	@media (hover: hover) {
+		.word-card:hover {
+			background: var(--bg-secondary);
+		}
+	}
+
+	.word-card:active {
 		background: var(--bg-tertiary);
-		border-color: var(--accent);
-		transform: translateY(-1px);
-		box-shadow: 0 2px 6px var(--shadow);
+	}
+
+	.word-card:focus-visible {
+		position: relative;
+		z-index: 1;
+		outline: 2px solid var(--accent);
+		outline-offset: -2px;
 	}
 
 	.word-header {
 		display: flex;
 		align-items: baseline;
-		gap: var(--spacing-sm);
-		margin-bottom: 2px;
-		flex-wrap: wrap;
-	}
-
-	@media (max-width: 768px) {
-		.word-header {
-			gap: var(--spacing-xs);
-			margin-bottom: 1px;
-		}
+		column-gap: 4px;
+		min-width: 0;
+		overflow: hidden;
+		margin-bottom: 1px;
+		flex-wrap: nowrap;
 	}
 
 	.word-text {
-		font-size: var(--font-size-subhead);
+		font-size: 17px;
+		line-height: 1.25;
 		font-weight: 600;
 		font-family: var(--font-cjk);
 		color: var(--text-primary);
 		display: flex;
 		align-items: center;
 		gap: var(--spacing-xs);
+		flex: 0 0 auto;
+		white-space: nowrap;
 	}
 
 	.frequency-rank {
-		font-size: var(--font-size-caption2);
+		font-size: 11px;
 		color: var(--text-muted);
 		background: var(--bg-tertiary);
 		padding: 1px var(--spacing-xs);
 		border-radius: var(--radius-sm);
 		font-weight: 500;
 		white-space: nowrap;
+		flex: 0 0 auto;
 	}
 
 	.common-star {
-		font-size: var(--font-size-caption1);
+		font-size: 12px;
 		line-height: 1;
 		opacity: 0.9;
 	}
 
 	.pronunciation {
-		font-size: var(--font-size-footnote);
+		font-size: 13px;
 		color: var(--text-secondary);
+		min-width: 0;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 
 	.cantonese-pronunciation {
-		font-size: var(--font-size-footnote);
+		font-size: 12px;
 		color: var(--color-cantonese, #e67e22);
+		min-width: 0;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.definition-row {
+		display: flex;
+		min-width: 0;
+		align-items: baseline;
+		gap: 4px;
 	}
 
 	.definition {
-		font-size: var(--font-size-caption1);
+		font-size: 15px;
 		color: var(--text-tertiary);
-		line-height: 1.3;
+		line-height: 1.35;
+		min-width: 0;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		flex: 1 1 auto;
 	}
 
 	.observer-target {
