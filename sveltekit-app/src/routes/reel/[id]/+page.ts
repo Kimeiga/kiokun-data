@@ -54,6 +54,9 @@ export const load: PageLoad<ReelPageData> = async ({ params, url, fetch }) => {
 
 		const { video, transcript = [] } = await response.json() as ReelIndexPayload;
 		if (!video) throw error(404, 'Reel not found');
+		if (!video.source_url?.trim() && !video.author?.trim()) {
+			throw error(404, 'Reel attribution unavailable');
+		}
 
 		const pageData = {
 			videoId,

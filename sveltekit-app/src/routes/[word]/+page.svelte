@@ -104,6 +104,13 @@
 	let containsWordForms = $derived.by(() => buildContainsWordForms(data.data, data.word));
 	let sortedContainsWords = $derived.by(() => sortContainsWords(data.data.contains || [], data.word));
 	let chineseSentenceLookupWords = $derived.by(() => buildChineseSentenceLookupWords(data.data, data.word));
+	let hasEmbeddedChineseExamples = $derived(Boolean(
+		data.data.chinese_words?.some((word) =>
+			word.items?.some((item) =>
+				item.definitionExamples?.some((record) => record.examples?.length)
+			)
+		)
+	));
 
 	function sortContainsWords(words: any[], currentWord: string): any[] {
 		return [...words].sort((a, b) => {
@@ -704,14 +711,16 @@
 								{/if}
 							{/each}
 						</div>
-						<LazyComponent
-							loader={loadChineseSentenceExamples}
-							props={{
-								word: data.word,
-								words: chineseSentenceLookupWords,
-							}}
-							rootMargin="400px 0px"
-						/>
+						{#if !hasEmbeddedChineseExamples}
+							<LazyComponent
+								loader={loadChineseSentenceExamples}
+								props={{
+									word: data.word,
+									words: chineseSentenceLookupWords,
+								}}
+								rootMargin="400px 0px"
+							/>
+						{/if}
 					</div>
 				{/if}
 

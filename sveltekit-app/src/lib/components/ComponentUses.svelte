@@ -1,5 +1,9 @@
 <script lang="ts">
 	import type { ComponentTypeData } from "$lib/character-support";
+	import {
+		cleanCharacterUseGloss,
+		sortCharacterUses
+	} from "$lib/component-use-ranking";
 	import DisclosureChevron from "$lib/components/shared/DisclosureChevron.svelte";
 	import SectionHeading from "$lib/components/shared/SectionHeading.svelte";
 
@@ -68,7 +72,7 @@
 			}
 		}
 
-		return [...byCharacter.values()];
+		return sortCharacterUses([...byCharacter.values()], charGlosses, typeOrder);
 	});
 
 	let visibleUses = $derived(
@@ -94,7 +98,7 @@
 					<span class="character" lang="zh">{use.character}</span>
 					<span class="character-copy">
 						{#if charGlosses[use.character]}
-							<span class="gloss" lang="en">{charGlosses[use.character]}</span>
+							<span class="gloss" lang="en">{cleanCharacterUseGloss(charGlosses[use.character])}</span>
 						{/if}
 						<span class="role">{roleLabel(use.roles)}</span>
 					</span>

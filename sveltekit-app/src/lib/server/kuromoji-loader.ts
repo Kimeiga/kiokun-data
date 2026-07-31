@@ -2,10 +2,18 @@
  * Kuromoji tokenizer loader for Cloudflare Workers.
  * Loads dictionary files from R2 bucket instead of filesystem.
  */
-import kuromoji from 'kuromoji';
+import type kuromoji from 'kuromoji';
 import type { R2Bucket } from '@cloudflare/workers-types';
+import { gunzipSync } from 'fflate';
+// Kuromoji exposes only its filesystem-oriented builder publicly. These
+// internal constructors let Workers supply the same dictionary bytes from R2.
+// @ts-expect-error Kuromoji does not publish declarations for internal modules.
+import DictionaryLoader from 'kuromoji/src/loader/DictionaryLoader.js';
+// @ts-expect-error Kuromoji does not publish declarations for internal modules.
+import Tokenizer from 'kuromoji/src/Tokenizer.js';
 
 let cachedTokenizer: kuromoji.Tokenizer<kuromoji.IpadicFeatures> | null = null;
+let cachedTokenizerPromise: Promise<kuromoji.Tokenizer<kuromoji.IpadicFeatures>> | null = null;
 
 /**
  * Get or initialize the kuromoji tokenizer.
@@ -13,7 +21,23 @@ let cachedTokenizer: kuromoji.Tokenizer<kuromoji.IpadicFeatures> | null = null;
  */
 export async function getTokenizer(bucket: R2Bucket): Promise<kuromoji.Tokenizer<kuromoji.IpadicFeatures>> {
 	if (cachedTokenizer) return cachedTokenizer;
+	if (cachedTokenizerPromise) return cachedTokenizerPromise;
 
+	cachedTokenizerPromise = buildTokenizer(bucket);
+	try {
+		cachedTokenizer = await cachedTokenizerPromise;
+		return cachedTokenizer;
+	} catch (error) {
+		// A transient R2 failure should not poison every later request handled
+		// by this worker isolate.
+		cachedTokenizerPromise = null;
+		throw error;
+	}
+}
+
+async function buildTokenizer(
+	bucket: R2Bucket
+): Promise<kuromoji.Tokenizer<kuromoji.IpadicFeatures>> {
 	const dictFiles = [
 		'base.dat.gz', 'cc.dat.gz', 'check.dat.gz',
 		'tid.dat.gz', 'tid_map.dat.gz', 'tid_pos.dat.gz',
@@ -31,30 +55,39 @@ export async function getTokenizer(bucket: R2Bucket): Promise<kuromoji.Tokenizer
 		})
 	);
 
-	// Build tokenizer with custom dictionary loader
+	// Build the tokenizer with a custom dictionary loader. The public Kuromoji
+	// builder constructs its own NodeDictionaryLoader internally, so trying to
+	// patch a `builder.loader` property has no effect.
 	return new Promise((resolve, reject) => {
-		// Monkey-patch the dictionary loader to use our R2 buffers
-		const builder = kuromoji.builder({
-			dicPath: '/dummy/', // Won't actually be used
-		});
-
-		// Override the internal loader
-		(builder as any).loader.load = function (url: string, callback: (err: any, data: any) => void) {
+		const loader = new DictionaryLoader('/r2/kuromoji-dict/');
+		loader.loadArrayBuffer = (
+			url: string,
+			callback: (error: Error | null, data?: ArrayBuffer) => void
+		) => {
 			const filename = url.split('/').pop()!;
 			const buffer = dictBuffers[filename];
-			if (buffer) {
-				callback(null, new Uint8Array(buffer));
-			} else {
-				callback(new Error(`Dictionary file not found: ${filename}`), null);
+			if (!buffer) {
+				callback(new Error(`Dictionary file not found: ${filename}`));
+				return;
+			}
+
+			try {
+				const decompressed = gunzipSync(new Uint8Array(buffer));
+				const exactBuffer = decompressed.buffer.slice(
+					decompressed.byteOffset,
+					decompressed.byteOffset + decompressed.byteLength
+				) as ArrayBuffer;
+				callback(null, exactBuffer);
+			} catch (error) {
+				callback(error instanceof Error ? error : new Error(String(error)));
 			}
 		};
 
-		builder.build((err, tokenizer) => {
+		loader.load((err: Error | null, dictionary: unknown) => {
 			if (err) {
 				reject(err);
 			} else {
-				cachedTokenizer = tokenizer;
-				resolve(tokenizer);
+				resolve(new Tokenizer(dictionary));
 			}
 		});
 	});

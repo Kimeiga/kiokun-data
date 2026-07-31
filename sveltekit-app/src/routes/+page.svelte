@@ -259,13 +259,13 @@
 	// Category highlights
 	const categoryHighlights = [
 		{ name: 'Animals', path: '/category/Nature/Animals', icon: '🐾' },
-		{ name: 'Body', path: '/category/Humanity/Body', icon: '🫀' },
+		{ name: 'Body', path: '/category/Human/Body', icon: '🫀' },
 		{ name: 'Nature', path: '/category/Nature', icon: '🌿' },
-		{ name: 'Numbers', path: '/category/Abstract/Quantity/Numbers', icon: '🔢' },
-		{ name: 'Colors', path: '/category/Abstract/Attribute/Color', icon: '🎨' },
-		{ name: 'Food', path: '/category/Humanity/Sustenance/Food', icon: '🍜' },
+		{ name: 'Numbers', path: '/category/Abstract/Numbers', icon: '🔢' },
+		{ name: 'Colors', path: '/category/Abstract/Colors', icon: '🎨' },
+		{ name: 'Food', path: '/category/Objects/Food', icon: '🍜' },
 		{ name: 'Weather', path: '/category/Nature/Weather', icon: '🌤️' },
-		{ name: 'Family', path: '/category/Humanity/Kinship', icon: '👨‍👩‍👧' },
+		{ name: 'Family', path: '/category/Human/Relations/Family', icon: '👨‍👩‍👧' },
 	];
 </script>
 

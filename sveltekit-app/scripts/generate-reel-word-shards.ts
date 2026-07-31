@@ -47,16 +47,27 @@ async function generateLanguageIndex(
 		readFile(path.join(appDirectory, 'static', transcriptFilename), 'utf8')
 			.then((raw) => JSON.parse(raw) as Record<string, TranscriptSegment[]>)
 	]);
+	const publishableVideos = Object.fromEntries(
+		Object.entries(data.videos).filter(([, video]) =>
+			Boolean(video.source_url?.trim() || video.author?.trim())
+		)
+	);
+	const publishableVideoIds = new Set(Object.keys(publishableVideos));
 	const shards = new Map<string, Record<string, VideoOccurrence[]>>();
 	const fallbackTranscripts = new Map<string, Map<string, TranscriptSegment>>();
 
 	for (const [word, occurrences] of Object.entries(data.words)) {
+		const publishableOccurrences = occurrences.filter((occurrence) =>
+			publishableVideoIds.has(occurrence.video_id)
+		);
+		if (!publishableOccurrences.length) continue;
+
 		const shard = reelShardForWord(word);
 		const shardWords = shards.get(shard) ?? {};
-		shardWords[word] = occurrences;
+		shardWords[word] = publishableOccurrences;
 		shards.set(shard, shardWords);
 
-		for (const occurrence of occurrences) {
+		for (const occurrence of publishableOccurrences) {
 			if (fullTranscripts[occurrence.video_id]?.length) continue;
 			const videoSegments = fallbackTranscripts.get(occurrence.video_id) ?? new Map();
 			const segmentKey = `${occurrence.start_time}-${occurrence.end_time}`;
@@ -85,14 +96,14 @@ async function generateLanguageIndex(
 	);
 	await writeFile(
 		path.join(languageDirectory, 'videos.json'),
-		`${JSON.stringify({ videos: data.videos })}\n`,
+		`${JSON.stringify({ videos: publishableVideos })}\n`,
 		'utf8'
 	);
 
 	const videoDirectory = path.join(languageDirectory, 'videos');
 	await mkdir(videoDirectory, { recursive: true });
 	await Promise.all(
-		Object.entries(data.videos).map(([videoId, video]) => {
+		Object.entries(publishableVideos).map(([videoId, video]) => {
 			const transcript = fullTranscripts[videoId]?.length
 				? fullTranscripts[videoId]
 				: [...(fallbackTranscripts.get(videoId)?.values() ?? [])]
@@ -111,7 +122,8 @@ async function generateLanguageIndex(
 	);
 	console.log(
 		`${language}: ${Object.keys(data.words).length} words across ${shards.size} shards ` +
-			`(largest ${Math.round(largestShard / 1024)} KB; source ${Math.round(sourceBytes / 1024)} KB)`
+			`(largest ${Math.round(largestShard / 1024)} KB; source ${Math.round(sourceBytes / 1024)} KB; ` +
+			`${Object.keys(data.videos).length - publishableVideoIds.size} unattributed videos excluded)`
 	);
 }
 

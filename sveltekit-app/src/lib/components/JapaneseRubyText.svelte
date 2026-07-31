@@ -44,7 +44,7 @@
 
 	rt {
 		font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-		font-size: var(--ruby-reading-size);
+		font-size: max(0.75rem, var(--ruby-reading-size));
 		font-weight: 500;
 		line-height: 1;
 		color: var(--color-pinyin);

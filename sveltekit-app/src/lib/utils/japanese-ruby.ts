@@ -9,6 +9,24 @@ export interface JapaneseRubyToken {
 	isWord: boolean;
 }
 
+export interface JapaneseReadingWord {
+	kanji?: Array<{
+		text: string;
+		common?: boolean;
+		tags?: string[];
+	}>;
+	kana?: Array<{
+		text: string;
+		common?: boolean;
+		tags?: string[];
+		appliesToKanji?: string[];
+	}>;
+	sense?: Array<{
+		misc?: string[];
+	}>;
+	frequencyRank?: number;
+}
+
 interface SurfaceRun {
 	text: string;
 	isKana: boolean;
@@ -16,6 +34,96 @@ interface SurfaceRun {
 
 const KANA_CHAR_RE = /^[\p{Script=Hiragana}\p{Script=Katakana}ー]$/u;
 const HAN_RE = /\p{Script=Han}/u;
+const MARKED_RARE_READING_TAGS = new Set(['sk']);
+const MARKED_RARE_SENSE_TAGS = new Set([
+	'arch',
+	'dated',
+	'hist',
+	'obs',
+	'obsc',
+	'rare'
+]);
+
+/**
+ * Select the learner-useful reading for a surface form instead of trusting
+ * dictionary insertion order. JMdict groups homographs together, so the first
+ * entry for 私 can otherwise be the archaic わらわ rather than わたし.
+ */
+export function selectPreferredJapaneseReading(
+	words: JapaneseReadingWord[] | null | undefined,
+	surface: string,
+	dictionaryForm = surface
+): string | null {
+	if (!words?.length) return null;
+
+	const matching = words
+		.map((word, index) => readingCandidate(word, surface, dictionaryForm, index))
+		.filter((candidate): candidate is ReadingCandidate => Boolean(candidate))
+		.sort((left, right) => left.score - right.score || left.index - right.index);
+
+	if (matching.length > 0) return matching[0].reading;
+
+	// Redirects and unusual kana-only records occasionally omit a matching
+	// kanji restriction. Preserve a deterministic fallback without allowing an
+	// archaic first record to win merely because it appeared first.
+	return words
+		.map((word, index) => readingCandidate(word, surface, dictionaryForm, index, false))
+		.filter((candidate): candidate is ReadingCandidate => Boolean(candidate))
+		.sort((left, right) => left.score - right.score || left.index - right.index)[0]?.reading ?? null;
+}
+
+interface ReadingCandidate {
+	reading: string;
+	score: number;
+	index: number;
+}
+
+function readingCandidate(
+	word: JapaneseReadingWord,
+	surface: string,
+	dictionaryForm: string,
+	index: number,
+	requireMatchingKanji = true
+): ReadingCandidate | null {
+	const kanji = word.kanji || [];
+	const matchingKanji = kanji.find((form) =>
+		form.text === surface || form.text === dictionaryForm
+	);
+	if (requireMatchingKanji && kanji.length > 0 && !matchingKanji) return null;
+
+	const kana = (word.kana || [])
+		.filter((reading) => !reading.tags?.some((tag) => MARKED_RARE_READING_TAGS.has(tag)))
+		.filter((reading) => {
+			const applies = reading.appliesToKanji;
+			return !applies?.length ||
+				applies.includes('*') ||
+				applies.includes(surface) ||
+				applies.includes(dictionaryForm);
+		})
+		.sort((left, right) => Number(Boolean(right.common)) - Number(Boolean(left.common)))[0]
+		?? word.kana?.[0];
+	if (!kana?.text) return null;
+
+	const commonKanji = Boolean(matchingKanji?.common) ||
+		kanji.some((form) => form.common && (form.text === surface || form.text === dictionaryForm));
+	const commonKana = Boolean(kana.common);
+	const allSensesMarkedRare = Boolean(word.sense?.length) && word.sense!.every((sense) =>
+		Boolean(sense.misc?.some((tag) => MARKED_RARE_SENSE_TAGS.has(tag)))
+	);
+	const frequencyRank = Number.isFinite(word.frequencyRank)
+		? Math.max(0, word.frequencyRank as number)
+		: 999_999;
+
+	return {
+		reading: normalizeJapaneseReading(kana.text),
+		score:
+			(commonKanji ? 0 : 10_000_000) +
+			(commonKana ? 0 : 1_000_000) +
+			(allSensesMarkedRare ? 5_000_000 : 0) +
+			Math.min(frequencyRank, 999_999),
+		index
+	};
+}
 
 /**
  * Align a word's full dictionary reading with the kana already visible in its

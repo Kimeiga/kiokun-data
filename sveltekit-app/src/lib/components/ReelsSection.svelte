@@ -10,6 +10,8 @@
 		url: string;
 		thumbnail: string | null;
 		word_count: number;
+		source_url?: string;
+		author?: string;
 	}
 
 	const reelShardCache = new Map<string, Promise<Record<string, VideoOccurrence[]> | null>>();
@@ -78,11 +80,17 @@
 			const shardWords = await loadReelShard(expectedShard);
 			if (requestId !== loadRequestId || word !== expectedWord || shardFile !== expectedShard) return;
 
-			occurrences = shardWords?.[expectedWord] ?? [];
-			if (occurrences.length > 0) {
+			const wordOccurrences = shardWords?.[expectedWord] ?? [];
+			if (wordOccurrences.length > 0) {
 				const metadata = await loadVideoMetadata(expectedVideosFile);
 				if (requestId !== loadRequestId || word !== expectedWord || videosFile !== expectedVideosFile) return;
 				videos = metadata ?? {};
+				occurrences = wordOccurrences.filter((occurrence) => {
+					const video = videos[occurrence.video_id];
+					return Boolean(video?.source_url?.trim() || video?.author?.trim());
+				});
+			} else {
+				occurrences = [];
 			}
 			visibleCount = BATCH_SIZE;
 		} catch (err) {

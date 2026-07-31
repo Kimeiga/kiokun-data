@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import {
 	mergeJapaneseCompoundTokens,
+	selectPreferredJapaneseReading,
 	splitJapaneseRubyParts,
 	trimJapaneseReadingSuffix
 } from './japanese-ruby';
@@ -39,6 +40,37 @@ assert.deepEqual(splitJapaneseRubyParts('伸ばす', 'mismatched'), [
 assert.equal(trimJapaneseReadingSuffix('ノバシ', 'し'), 'のば');
 assert.equal(trimJapaneseReadingSuffix('のばせません', 'せません'), 'のば');
 assert.equal(trimJapaneseReadingSuffix('のばし', 'た'), null);
+
+assert.equal(
+	selectPreferredJapaneseReading([
+		{
+			kanji: [{ text: '私', common: false }],
+			kana: [{ text: 'わらわ', common: false }],
+			sense: [{ misc: ['arch'] }]
+		},
+		{
+			kanji: [{ text: '私', common: true }],
+			kana: [{ text: 'わたし', common: true }],
+			sense: [{ misc: [] }],
+			frequencyRank: 32
+		}
+	], '私'),
+	'わたし'
+);
+
+assert.equal(
+	selectPreferredJapaneseReading([
+		{
+			kanji: [{ text: '行く', common: true }],
+			kana: [
+				{ text: 'ゆく', common: false, appliesToKanji: ['行く'] },
+				{ text: 'いく', common: true, appliesToKanji: ['行く'] }
+			],
+			frequencyRank: 44
+		}
+	], '行く'),
+	'いく'
+);
 
 const compoundReadings = new Map([
 	['皮表紙', 'かわびょうし'],

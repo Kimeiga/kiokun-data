@@ -3,7 +3,11 @@ import { getDictionaryUrl } from '$lib/shard-utils';
 import type { DictionaryEntry } from '$lib/types';
 import { findWordsWithDeinflection } from '$lib/utils/search-navigation';
 import { alignChinesePinyinReadings } from './chinese-ruby';
-import { mergeJapaneseCompoundTokens, trimJapaneseReadingSuffix } from './japanese-ruby';
+import {
+	mergeJapaneseCompoundTokens,
+	selectPreferredJapaneseReading,
+	trimJapaneseReadingSuffix
+} from './japanese-ruby';
 import { isWordToken, segmentText } from './segment';
 
 export interface RubySegment {
@@ -24,6 +28,7 @@ const KR_FINALS = ['', 'k', 'k', 'k', 'n', 'n', 'n', 't', 'l', 'k', 'm', 'p', 'l
 
 const dictionaryEntryCache = new Map<string, Promise<DictionaryEntry | null>>();
 const japaneseReadingCache = new Map<string, Promise<string | null>>();
+const japaneseSentenceAnalysisCache = new Map<string, Promise<RubySegment[] | null>>();
 
 export function buildChineseRubySegments(text: string, pinyin: string): RubySegment[] {
 	const textSegments = segmentText(text, 'zh')
@@ -58,12 +63,34 @@ export async function enrichJapaneseRubySegments(
 	segments: RubySegment[],
 	fetchFn: typeof fetch = fetch
 ): Promise<RubySegment[]> {
-	const compoundSegments = await mergeJapaneseCompoundTokens(
-		segments,
-		(surface) => getJapaneseReading(surface, fetchFn)
-	);
+	const text = segments.map((segment) => segment.text).join('');
+	const analyzed = await analyzeJapaneseSentence(text, fetchFn);
+	if (analyzed?.some((segment) => segment.reading)) {
+		return enrichUnresolvedJapaneseSegments(analyzed, fetchFn);
+	}
 
-	return Promise.all(
+	return enrichUnresolvedJapaneseSegments(segments, fetchFn, true);
+}
+
+async function enrichUnresolvedJapaneseSegments(
+	segments: RubySegment[],
+	fetchFn: typeof fetch,
+	mergeCompounds = false
+): Promise<RubySegment[]> {
+	let compoundSegments = segments;
+	if (mergeCompounds) {
+		try {
+			compoundSegments = await mergeJapaneseCompoundTokens(
+				segments,
+				(surface) => getJapaneseReading(surface, fetchFn)
+			);
+		} catch {
+			// A speculative compound lookup must never suppress the readings
+			// already available for the rest of the sentence.
+		}
+	}
+
+	const results = await Promise.allSettled(
 		compoundSegments.map(async (segment, index) => {
 			if (!segment.isWord || !hasHan(segment.text) || isAllKana(segment.text)) {
 				return segment;
@@ -76,6 +103,79 @@ export async function enrichJapaneseRubySegments(
 			return { ...segment, reading };
 		})
 	);
+
+	return results.map((result, index) =>
+		result.status === 'fulfilled' ? result.value : compoundSegments[index]
+	);
+}
+
+interface JapaneseAnalysisToken {
+	text: string;
+	reading?: string | null;
+	position: number;
+	isWord: boolean;
+}
+
+async function analyzeJapaneseSentence(
+	text: string,
+	fetchFn: typeof fetch
+): Promise<RubySegment[] | null> {
+	if (!text || typeof window === 'undefined') return null;
+
+	let request = japaneseSentenceAnalysisCache.get(text);
+	if (!request) {
+		request = fetchJapaneseSentenceAnalysis(text, fetchFn);
+		japaneseSentenceAnalysisCache.set(text, request);
+	}
+	return request;
+}
+
+async function fetchJapaneseSentenceAnalysis(
+	text: string,
+	fetchFn: typeof fetch
+): Promise<RubySegment[] | null> {
+	try {
+		const response = await fetchFn('/api/sentence/ruby', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ text })
+		});
+		if (!response.ok) return null;
+
+		const payload = await response.json() as { tokens?: JapaneseAnalysisToken[] };
+		const tokens = [...(payload.tokens || [])]
+			.filter((token) => token.text && token.position >= 0)
+			.sort((left, right) => left.position - right.position);
+		if (!tokens.length) return null;
+
+		const result: RubySegment[] = [];
+		let cursor = 0;
+		for (const token of tokens) {
+			let position = token.position;
+			if (position < cursor || text.slice(position, position + token.text.length) !== token.text) {
+				position = text.indexOf(token.text, cursor);
+			}
+			if (position < cursor) continue;
+
+			if (position > cursor) {
+				result.push({
+					text: text.slice(cursor, position),
+					isWord: false
+				});
+			}
+			result.push({
+				text: token.text,
+				reading: token.reading || undefined,
+				isWord: token.isWord
+			});
+			cursor = position + token.text.length;
+		}
+		if (cursor < text.length) result.push({ text: text.slice(cursor), isWord: false });
+
+		return result.map((segment) => segment.text).join('') === text ? result : null;
+	} catch {
+		return null;
+	}
 }
 
 async function getReadingForSplitJapaneseToken(
@@ -254,20 +354,12 @@ function fetchDictionaryBytes(url: string, fetchFn: typeof fetch): Promise<Respo
 }
 
 function extractJapaneseReading(entry: DictionaryEntry | null, surface: string, dictionaryForm: string): string | null {
-	if (!entry?.japanese_words?.length) return null;
-
-	for (const word of entry.japanese_words) {
-		const kanjiForms = word.kanji?.map((kanji) => kanji.text) ?? [];
-		const matchesForm = kanjiForms.length === 0 || kanjiForms.includes(surface) || kanjiForms.includes(dictionaryForm);
-		const kana = word.kana?.find((reading) => !reading.tags?.includes('sk'))?.text ?? word.kana?.[0]?.text;
-		if (matchesForm && kana) {
-			return deriveJapaneseSurfaceReading(surface, dictionaryForm, kana);
-		}
-	}
-
-	const fallbackKana = entry.japanese_words[0].kana?.find((reading) => !reading.tags?.includes('sk'))?.text
-		?? entry.japanese_words[0].kana?.[0]?.text;
-	return fallbackKana ? deriveJapaneseSurfaceReading(surface, dictionaryForm, fallbackKana) : null;
+	const reading = selectPreferredJapaneseReading(
+		entry?.japanese_words,
+		surface,
+		dictionaryForm
+	);
+	return reading ? deriveJapaneseSurfaceReading(surface, dictionaryForm, reading) : null;
 }
 
 function deriveJapaneseSurfaceReading(surface: string, dictionaryForm: string, baseReading: string): string {

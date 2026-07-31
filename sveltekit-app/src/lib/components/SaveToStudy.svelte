@@ -75,7 +75,7 @@
 	}
 
 	const sizeClasses = {
-		sm: 'w-8 h-8 text-xs justify-center',
+		sm: 'w-11 h-11 text-xs justify-center',
 		md: 'min-h-11 px-3 py-2 text-sm gap-1.5',
 		lg: 'min-h-11 px-4 py-2 text-base gap-2',
 	};

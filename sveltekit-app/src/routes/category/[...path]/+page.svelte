@@ -24,11 +24,11 @@
 
 <main id="main-content" class="learner-page">
 	<!-- Breadcrumb navigation -->
-	<nav aria-label="Category breadcrumb" class="text-sm text-text-tertiary mb-5 flex items-center gap-2 flex-wrap">
-		<a href="/category" class="underline hover:text-accent transition-colors">📂 Categories</a>
+	<nav aria-label="Category breadcrumb" class="text-sm text-text-tertiary mb-5 flex items-center gap-1 flex-wrap">
+		<a href="/category" class="min-h-11 px-1 inline-flex items-center underline hover:text-accent transition-colors">📂 Categories</a>
 		{#each breadcrumbs as crumb}
-			<span>→</span>
-			<a href={crumb.path} class="underline hover:text-accent transition-colors">{crumb.name}</a>
+			<span aria-hidden="true">→</span>
+			<a href={crumb.path} class="min-h-11 px-1 inline-flex items-center underline hover:text-accent transition-colors">{crumb.name}</a>
 		{/each}
 	</nav>
 
@@ -74,7 +74,7 @@
 							{entry.char}
 						</div>
 						{#if entry.gloss}
-							<div class="text-xs text-text-tertiary mt-1 line-clamp-2 leading-snug" title={entry.gloss}>
+							<div class="text-sm text-text-tertiary mt-1 line-clamp-2 leading-snug" title={entry.gloss}>
 								{entry.gloss}
 							</div>
 						{/if}
