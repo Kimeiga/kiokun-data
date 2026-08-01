@@ -156,12 +156,15 @@
 
 <style>
 	.japanese-names {
-		margin-bottom: var(--spacing-xs);
 		position: relative;
+		min-width: 0;
+		margin-bottom: var(--spacing-xs);
 	}
 
 	.names-container {
 		position: relative;
+		width: 100%;
+		min-width: 0;
 		max-height: var(--collapsed-height, 4.5rem);
 		overflow: hidden;
 	}
@@ -172,6 +175,8 @@
 
 	.names-grid {
 		display: grid;
+		width: 100%;
+		min-width: 0;
 		grid-template-columns: repeat(3, minmax(0, 1fr));
 		gap: 1px;
 		border-block: 1px solid var(--border-light);
@@ -248,6 +253,12 @@
 	}
 
 	@media (max-width: 768px) {
+		.japanese-names {
+			width: 100dvw;
+			max-width: none;
+			margin-inline: calc(50% - 50dvw);
+		}
+
 		.name-entry {
 			padding: 7px 6px;
 		}
