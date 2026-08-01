@@ -82,6 +82,14 @@ const ROLE_FLAGS: Record<CharacterFormRole, string> = {
 	korean: '🇰🇷'
 };
 
+function isHanCharacterForm(character: string | null | undefined): character is string {
+	return Boolean(
+		character &&
+		[...character].length === 1 &&
+		/^\p{Script=Han}$/u.test(character)
+	);
+}
+
 /**
  * Removes storage-only variant suffixes from learner-facing keywords.
  * These suffixes are useful in the component-gloss index, but are not part of
@@ -196,7 +204,7 @@ function rolesAndOrderForContexts(
 	const order: string[] = [];
 
 	const add = (character: string | null | undefined, role?: CharacterFormRole) => {
-		if (!character || [...character].length !== 1) return;
+		if (!isHanCharacterForm(character)) return;
 		if (!rolesByCharacter.has(character)) {
 			rolesByCharacter.set(character, new Set());
 			order.push(character);
@@ -296,8 +304,7 @@ export function buildCharacterHeaderForms({
 
 	const add = (character: string | null | undefined) => {
 		if (
-			character &&
-			[...character].length === 1 &&
+			isHanCharacterForm(character) &&
 			!order.includes(character)
 		) {
 			order.push(character);

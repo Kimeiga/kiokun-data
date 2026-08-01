@@ -170,6 +170,31 @@ const mapForms = buildCharacterHeaderForms({
 assert.deepEqual(mapForms.map((form) => form.character), ['圖', '图', '図']);
 assert(mapForms[2].roles.includes('japanese'));
 
+const koreanReadingForms = buildCharacterHeaderForms({
+	entry: entry({
+		key: '生',
+		chinese_char: {
+			char: '生'
+		} as any,
+		japanese_char: { literal: '生' } as any,
+		korean_char: {
+			character: '생',
+			hanjaForm: '生',
+			readings: [{ hangul: '생' }],
+			meanings: [],
+			meaningsEn: ['life']
+		},
+		semantic_mnemonic: card('生', 'life')
+	}),
+	word: '생'
+});
+assert.deepEqual(
+	koreanReadingForms.map((form) => form.character),
+	['生'],
+	'Hangul readings stay in the readings row instead of creating a second character-form tile'
+);
+assert(koreanReadingForms[0].roles.includes('korean'));
+
 const dryForms = withCharacterFormGlosses(buildCharacterHeaderForms({
 	entry: entry({
 		key: '干',
