@@ -47,7 +47,7 @@
 
 <style>
 	.section-heading {
-		min-height: 2.25rem;
+		min-height: 1.75rem;
 		margin: var(--spacing-md) 0 0;
 		border-block: 1px solid var(--border-color);
 		background: var(--section-bar-bg);
@@ -60,7 +60,7 @@
 
 	.section-heading-content {
 		display: flex;
-		min-height: 2.25rem;
+		min-height: 1.75rem;
 		padding-inline: var(--spacing-md) 0;
 		align-items: center;
 		gap: 0;
@@ -83,7 +83,7 @@
 		width: 2.75rem;
 		height: 2.75rem;
 		flex: 0 0 2.75rem;
-		margin: -0.75rem -0.75rem -0.75rem -0.5rem;
+		margin: -0.5rem -0.75rem -0.5rem -0.5rem;
 		place-items: center;
 		cursor: pointer;
 		opacity: 0;
@@ -122,7 +122,7 @@
 
 	@media (max-width: 768px) {
 		.section-heading {
-			min-height: 2.5rem;
+			min-height: 1.75rem;
 			margin-top: var(--spacing-md);
 			margin-inline: -0.75rem;
 		}
@@ -132,7 +132,7 @@
 		}
 
 		.section-heading-content {
-			min-height: 2.5rem;
+			min-height: 1.75rem;
 			padding-left: 0.75rem;
 			font-size: var(--font-size-subhead);
 		}
