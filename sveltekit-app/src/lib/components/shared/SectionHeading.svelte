@@ -3,10 +3,12 @@
 		children,
 		id,
 		divided = true,
+		topBorder = true,
 	}: {
 		children: any;
 		id?: string;
 		divided?: boolean;
+		topBorder?: boolean;
 	} = $props();
 
 	let copied = $state(false);
@@ -23,7 +25,7 @@
 	}
 </script>
 
-<div class="section-heading" class:undivided={!divided} id={id}>
+<div class="section-heading" class:undivided={!divided} class:no-top-border={!topBorder} id={id}>
 	<span class="section-heading-content">
 		<h2 class="section-heading-title">{@render children()}</h2>
 		{#if id}
@@ -56,6 +58,10 @@
 
 	.section-heading.undivided {
 		margin-top: 0;
+	}
+
+	.section-heading.no-top-border {
+		border-top: 0;
 	}
 
 	.section-heading-content {

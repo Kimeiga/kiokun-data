@@ -31,6 +31,47 @@
 	});
 
 	let lexicalMeaning = $derived(card?.lexical_gloss || card?.meaning || "");
+
+	type LinkedTextPart = { text: string; character?: string };
+
+	let linkTargets = $derived.by(() => {
+		if (!card) return [];
+		const components = card.visual_components?.length
+			? card.visual_components
+			: card.components || [];
+		return [...new Set([
+			...components.map((component) => component.character),
+			card.character,
+		].filter(Boolean))].sort((left, right) => [...right].length - [...left].length);
+	});
+
+	function linkMnemonicCharacters(text: string): LinkedTextPart[] {
+		if (!text || linkTargets.length === 0) return text ? [{ text }] : [];
+		const parts: LinkedTextPart[] = [];
+		let plainText = "";
+
+		for (let index = 0; index < text.length;) {
+			const codePoint = text.codePointAt(index);
+			const value = codePoint === undefined ? "" : String.fromCodePoint(codePoint);
+			const character = linkTargets.find((target) => text.startsWith(target, index)) ||
+				(/\p{Script=Han}/u.test(value) ? value : undefined);
+			if (!character) {
+				plainText += value;
+				index += value.length || 1;
+				continue;
+			}
+
+			if (plainText) {
+				parts.push({ text: plainText });
+				plainText = "";
+			}
+			parts.push({ text: character, character });
+			index += character.length;
+		}
+
+		if (plainText) parts.push({ text: plainText });
+		return parts;
+	}
 </script>
 
 {#if card}
@@ -58,8 +99,20 @@
 					</p>
 				</div>
 			{/if}
-			<div class="mnemonic-equation" lang="zh">{card.equation}</div>
-			<p class="mnemonic-text">{card.mnemonic}</p>
+			<div class="mnemonic-equation" lang="zh">
+				{#each linkMnemonicCharacters(card.equation) as part}
+					{#if part.character}
+						<a class="mnemonic-character-link" href="/{part.character}">{part.text}</a>
+					{:else}{part.text}{/if}
+				{/each}
+			</div>
+			<p class="mnemonic-text">
+				{#each linkMnemonicCharacters(card.mnemonic) as part}
+					{#if part.character}
+						<a class="mnemonic-character-link" href="/{part.character}" lang="zh">{part.text}</a>
+					{:else}{part.text}{/if}
+				{/each}
+			</p>
 
 			{#if card.alias_of}
 				<a class="alias-link" href="/{card.alias_of}">
@@ -125,6 +178,25 @@
 		color: var(--text-primary);
 		font-size: var(--font-size-body);
 		line-height: 1.65;
+	}
+
+	.mnemonic-character-link {
+		border-radius: 2px;
+		color: inherit;
+		text-decoration: none;
+		text-underline-offset: 0.14em;
+	}
+
+	.mnemonic-character-link:focus-visible {
+		outline: 2px solid var(--accent);
+		outline-offset: 2px;
+	}
+
+	@media (hover: hover) {
+		.mnemonic-character-link:hover {
+			color: var(--accent);
+			text-decoration: underline;
+		}
 	}
 
 	.alias-link {

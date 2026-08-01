@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { dev } from "$app/environment";
+	import { goto } from "$app/navigation";
 	import type {
 		ChineseComponent,
 		SemanticMnemonicCard as SemanticMnemonicCardType,
@@ -107,6 +108,18 @@
 	}
 
 	const showClaudeMnemonics = false;
+
+	function activateComponentCard(event: MouseEvent, char: string) {
+		if ((event.target as HTMLElement | null)?.closest("a, button")) return;
+		void goto(`/${char}`);
+	}
+
+	function handleComponentCardKeydown(event: KeyboardEvent, char: string) {
+		if (event.key !== "Enter" && event.key !== " ") return;
+		if ((event.target as HTMLElement | null)?.closest("a, button")) return;
+		event.preventDefault();
+		void goto(`/${char}`);
+	}
 
 	function componentChar(component: string | ChineseComponent): string | null {
 		if (typeof component === "string") return component;
@@ -312,9 +325,21 @@
 		const components = card?.visual_components?.length ? card.visual_components : card?.components || [];
 		if (!components.length) return undefined;
 		const historicalComponents = visibleHistoricalComponentsForCard(card);
+		const usedFallbackIndexes = new Set<number>();
 
 		return components.map((component, index) => {
-			const fallback = fallbackComponents?.[index];
+			const exactFallbackIndex = fallbackComponents?.findIndex((candidate, candidateIndex) => {
+				if (usedFallbackIndexes.has(candidateIndex)) return false;
+				const candidateChar = componentChar(candidate);
+				return Boolean(candidateChar) &&
+					normalizedComponentChar(candidateChar || "") === normalizedComponentChar(component.character);
+			}) ?? -1;
+			const positionalFallbackIndex = fallbackComponents?.[index] && !usedFallbackIndexes.has(index)
+				? index
+				: fallbackComponents?.findIndex((_, candidateIndex) => !usedFallbackIndexes.has(candidateIndex)) ?? -1;
+			const fallbackIndex = exactFallbackIndex >= 0 ? exactFallbackIndex : positionalFallbackIndex;
+			if (fallbackIndex >= 0) usedFallbackIndexes.add(fallbackIndex);
+			const fallback = fallbackIndex >= 0 ? fallbackComponents?.[fallbackIndex] : undefined;
 			const fallbackTypes =
 				typeof fallback === "string" || !fallback
 					? []
@@ -1211,20 +1236,16 @@ style="background: var(--color-hint-bg); border-color: var(--color-hint-border);
 		{@const showLabels = columnCount > 1}
 
 		{#if columnCount > 0}
-		<SectionHeading id="components">Components</SectionHeading>
+		<SectionHeading id="components" divided={false}>Components</SectionHeading>
 
-		<div class="mb-4">
+		<div class="component-grid mobile-full-bleed" style={`--component-column-count: ${columnCount}`}>
 <!-- Grid with 1-3 columns based on how many variants differ -->
-<div class={
-	columnCount === 3 ? "grid grid-cols-1 md:grid-cols-3 gap-6" :
-	columnCount === 2 ? "grid grid-cols-1 md:grid-cols-2 gap-6" :
-	""
-}>
+<div class="component-columns">
 	<!-- Traditional column -->
 	{#if hasTradComponents}
-		<div class="flex flex-col gap-3">
+		<div class="component-column">
 {#if showLabels}
-	<div class="text-xs font-medium text-text-muted uppercase tracking-wider">
+	<div class="component-variant-label">
 		Traditional ({traditionalChar})
 	</div>
 {/if}
@@ -1254,7 +1275,14 @@ style="background: var(--color-hint-bg); border-color: var(--color-hint-border);
 		{@const typeLabel = isMeaning ? "Meaning" : isPhonetic ? "Phonetic" : isIconic ? "Iconic" : isVisual ? "Visual" : ""}
 		{@const typeClass = isMeaning ? "meaning" : isPhonetic ? "phonetic" : isIconic ? "iconic" : isVisual ? "visual" : "neutral"}
 
-	<div class="component-card flex items-start gap-2 py-2 px-3 rounded-lg w-full">
+	<div
+		class="component-card flex items-start gap-2 py-2 px-3 w-full"
+		role="link"
+		tabindex="0"
+		aria-label={`Open component ${char}`}
+		onclick={(event) => activateComponentCard(event, char)}
+		onkeydown={(event) => handleComponentCardKeydown(event, char)}
+	>
 		<div class="relative w-[60px] h-[60px] flex-shrink-0">
 			{#if tradMakemeahanziImage?.data?.strokes && !tradUsedSequentialFallback}
 				{@const componentStrokes = componentStrokeMap.get(char) || []}
@@ -1308,9 +1336,9 @@ style="background: var(--color-hint-bg); border-color: var(--color-hint-border);
 
 	<!-- Simplified column (only if significantly different from traditional) -->
 	{#if showSimpColumn && hasSimpComponents}
-		<div class="flex flex-col gap-3">
+		<div class="component-column">
 {#if showLabels}
-	<div class="text-xs font-medium text-text-muted uppercase tracking-wider">
+	<div class="component-variant-label">
 		Simplified ({simplifiedChar})
 	</div>
 {/if}
@@ -1340,7 +1368,14 @@ style="background: var(--color-hint-bg); border-color: var(--color-hint-border);
 		{@const typeLabel = isMeaning ? "Meaning" : isPhonetic ? "Phonetic" : isIconic ? "Iconic" : isSimplified ? "Simplified" : isVisual ? "Visual" : ""}
 		{@const typeClass = isMeaning ? "meaning" : isPhonetic ? "phonetic" : isIconic ? "iconic" : isSimplified ? "simplified" : isVisual ? "visual" : "neutral"}
 
-	<div class="component-card flex items-start gap-2 py-2 px-3 rounded-lg w-full">
+	<div
+		class="component-card flex items-start gap-2 py-2 px-3 w-full"
+		role="link"
+		tabindex="0"
+		aria-label={`Open component ${char}`}
+		onclick={(event) => activateComponentCard(event, char)}
+		onkeydown={(event) => handleComponentCardKeydown(event, char)}
+	>
 		<div class="relative w-[60px] h-[60px] flex-shrink-0">
 			{#if simpMakemeahanziImage?.data?.strokes && !simpUsedSequentialFallback}
 				{@const componentStrokes = simpComponentStrokeMap.get(char) || []}
@@ -1393,10 +1428,10 @@ style="background: var(--color-hint-bg); border-color: var(--color-hint-border);
 	{/if}
 
 	<!-- Japanese column (IDS-derived components, simpler cards) -->
-	{#if showJpColumn && hasJpComponents && jpDisplayComponents}
-		<div class="flex flex-col gap-3">
+{#if showJpColumn && hasJpComponents && jpDisplayComponents}
+		<div class="component-column">
 {#if showLabels}
-	<div class="text-xs font-medium text-text-muted uppercase tracking-wider">
+	<div class="component-variant-label">
 		Japanese ({japaneseChar})
 	</div>
 {/if}
@@ -1409,12 +1444,19 @@ style="background: var(--color-hint-bg); border-color: var(--color-hint-border);
 	/>
 {/if}
 {#each jpDisplayComponents as comp}
-	{@const char = comp.character}
+	{@const char = comp.character || ""}
 	{@const curatedGloss = cleanComponentGloss(componentGloss(comp, charGlosses))}
 	{@const originalChar = comp.originalCharacter || ""}
 	{@const originalGloss = cleanComponentGloss(comp.originalGloss || "")}
 
-	<div class="component-card flex items-start gap-2 py-2 px-3 rounded-lg w-full">
+	<div
+		class="component-card flex items-start gap-2 py-2 px-3 w-full"
+		role="link"
+		tabindex="0"
+		aria-label={`Open component ${char}`}
+		onclick={(event) => activateComponentCard(event, char)}
+		onkeydown={(event) => handleComponentCardKeydown(event, char)}
+	>
 		<div class="relative w-[60px] h-[60px] flex-shrink-0">
 			<div class="w-full h-full flex items-center justify-center text-3xl font-serif text-text-primary">{char}</div>
 		</div>
@@ -1589,12 +1631,44 @@ onerror={(e) => {
 	.semantic-mnemonic-grid {
 		display: grid;
 		gap: var(--spacing-md);
-		margin-bottom: var(--spacing-lg);
+		margin-bottom: 0;
+		padding-block: 0.5rem;
 	}
 
 	.semantic-mnemonic-grid.multi-mnemonic-grid {
 		grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
-		gap: var(--spacing-lg);
+		gap: var(--spacing-md);
+	}
+
+	.component-grid,
+	.component-columns,
+	.component-column {
+		min-width: 0;
+	}
+
+	.component-columns {
+		display: grid;
+		grid-template-columns: repeat(var(--component-column-count, 1), minmax(0, 1fr));
+	}
+
+	.component-column + .component-column {
+		border-left: 1px solid var(--border-light);
+	}
+
+	.component-variant-label {
+		padding: 0.375rem 0.75rem;
+		border-bottom: 1px solid var(--border-light);
+		background: var(--divider-cell-bg);
+		color: var(--text-secondary);
+		font-size: var(--font-size-caption1);
+		font-weight: 650;
+		line-height: 1.25;
+	}
+
+	.component-column :global(.character-equation) {
+		margin: 0;
+		padding: var(--spacing-sm) 0.75rem;
+		border-bottom: 1px solid var(--border-light);
 	}
 
 	.component-title-row {
@@ -1726,13 +1800,32 @@ onerror={(e) => {
 	}
 
 	.component-card {
-		border-block: 1px solid var(--border-light);
+		min-height: 5rem;
+		padding: 0.625rem 0.75rem;
+		border: 0;
 		border-radius: 0 !important;
-		transition: background 0.15s ease;
+		background: var(--divider-cell-bg);
+		cursor: pointer;
+		transition: background-color 120ms ease;
+	}
+
+	.component-card + .component-card {
+		border-top: 1px solid var(--border-light);
 	}
 
 	.component-card:hover {
-		background: var(--bg-tertiary);
+		background: var(--divider-cell-hover);
+	}
+
+	.component-card:active {
+		background: var(--divider-cell-active);
+	}
+
+	.component-card:focus-visible {
+		position: relative;
+		z-index: 1;
+		outline: 2px solid var(--accent);
+		outline-offset: -2px;
 	}
 
 	.historical-image {
@@ -1768,6 +1861,15 @@ onerror={(e) => {
 	}
 
 	@media (max-width: 768px) {
+		.component-columns {
+			grid-template-columns: minmax(0, 1fr);
+		}
+
+		.component-column + .component-column {
+			border-top: 1px solid var(--border-light);
+			border-left: 0;
+		}
+
 		.historical-card {
 			flex: 1 1 68px;
 			padding: var(--spacing-sm);
