@@ -1,6 +1,7 @@
 <script lang="ts">
 	import AnnotatedSentence from "$lib/components/AnnotatedSentence.svelte";
 	import DisclosureChevron from "$lib/components/shared/DisclosureChevron.svelte";
+	import { animateDisclosureHeight } from "$lib/utils/disclosure-motion";
 
 	type SentenceLanguage = "ja" | "ko" | "zh";
 
@@ -15,9 +16,14 @@
 	export let fromWord: string | undefined = undefined;
 
 	let expanded = false;
+	let senseExampleList: HTMLDivElement | null = null;
+	let collapsedHeight = 0;
+	let sentenceGlosses: Record<string, Record<string, string>> = {};
+	const requestedGlosses = new Set<string>();
 	$: usableExamples = examples.filter((example) => Boolean(example.text));
 	$: displayedExamples = expanded ? usableExamples : usableExamples.slice(0, 1);
 	$: hasMore = usableExamples.length > 1;
+	$: if (language === "ko") void loadKoreanGlosses(displayedExamples.map((example) => example.text));
 
 	function sentenceHref(example: SenseExample): string {
 		const params = new URLSearchParams({
@@ -29,6 +35,37 @@
 		if (fromWord) params.set("from", fromWord);
 		return `/sentence?${params.toString()}`;
 	}
+
+	function toggleExpanded() {
+		if (!expanded && senseExampleList) collapsedHeight = senseExampleList.scrollHeight;
+		void animateDisclosureHeight({
+			element: senseExampleList,
+			nextExpanded: !expanded,
+			collapsedHeight,
+			setExpanded: (value) => expanded = value,
+		});
+	}
+
+	async function loadKoreanGlosses(texts: string[]) {
+		const pending = texts.filter((text) => text && !requestedGlosses.has(text));
+		if (pending.length === 0) return;
+		for (let index = 0; index < pending.length; index += 8) {
+			const chunk = pending.slice(index, index + 8);
+			for (const text of chunk) requestedGlosses.add(text);
+			try {
+				const response = await fetch("/api/korean-glosses", {
+					method: "POST",
+					headers: { "content-type": "application/json" },
+					body: JSON.stringify({ texts: chunk }),
+				});
+				if (!response.ok) throw new Error("Korean gloss lookup failed");
+				const payload = await response.json();
+				sentenceGlosses = { ...sentenceGlosses, ...(payload.glosses || {}) };
+			} catch {
+				for (const text of chunk) requestedGlosses.delete(text);
+			}
+		}
+	}
 </script>
 
 {#if usableExamples.length > 0}
@@ -36,7 +73,7 @@
 		<div class="sense-example-label">
 			{usableExamples.length === 1 ? "Example" : "Examples"}
 		</div>
-		<div class="sense-example-list">
+		<div class="sense-example-list" bind:this={senseExampleList}>
 			{#each displayedExamples as example}
 				<a
 					class="sense-example"
@@ -47,7 +84,13 @@
 						class="sense-example-source"
 						lang={language === "zh" ? "zh" : language}
 					>
-						<AnnotatedSentence text={example.text} {language} pinyin={example.pinyin || ""} />
+						<AnnotatedSentence
+							text={example.text}
+							{language}
+							pinyin={example.pinyin || ""}
+							glosses={sentenceGlosses[example.text] || {}}
+							showGlosses={language === "ko"}
+						/>
 					</span>
 					{#if example.translation}
 						<span class="sense-example-translation">{example.translation}</span>
@@ -59,7 +102,7 @@
 			<div class="sense-example-disclosure">
 				<DisclosureChevron
 					{expanded}
-					onclick={() => expanded = !expanded}
+					onclick={toggleExpanded}
 					expandLabel={`Show ${usableExamples.length - 1} more examples for this definition`}
 					collapseLabel="Show fewer examples for this definition"
 				/>
@@ -71,7 +114,6 @@
 <style>
 	.sense-examples {
 		margin-top: 0.45rem;
-		padding-left: 0.625rem;
 		border-left: 1px solid var(--border-light);
 	}
 
@@ -87,17 +129,29 @@
 	.sense-example-list {
 		display: flex;
 		flex-direction: column;
+		border-block: 1px solid var(--border-light);
 	}
 
 	.sense-example {
 		display: block;
-		padding: 0.25rem 0;
+		padding: 0.375rem 0.5rem;
+		background: var(--divider-cell-bg);
 		color: inherit;
 		text-decoration: none;
+		transition: background-color 120ms ease;
 	}
 
 	.sense-example + .sense-example {
 		border-top: 1px solid var(--border-light);
+	}
+
+	.sense-example:hover,
+	.sense-example:focus-visible {
+		background: var(--divider-cell-hover);
+	}
+
+	.sense-example:active {
+		background: var(--divider-cell-active);
 	}
 
 	.sense-example-source {
@@ -115,8 +169,7 @@
 
 	.sense-example:focus-visible {
 		outline: 2px solid var(--accent);
-		outline-offset: 2px;
-		border-radius: var(--radius-sm);
+		outline-offset: -2px;
 	}
 
 	.sense-example-translation {
@@ -129,6 +182,7 @@
 
 	.sense-example-disclosure {
 		width: fit-content;
+		margin-left: 0.5rem;
 	}
 
 	@media (prefers-reduced-motion: reduce) {

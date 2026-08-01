@@ -47,25 +47,27 @@
 
 <style>
 	.section-heading {
-		border-top: 1px solid var(--border-color);
-		margin: var(--spacing-sm) 0 var(--spacing-xs) 0;
-		padding-top: var(--spacing-xs);
+		min-height: 2.25rem;
+		margin: var(--spacing-md) 0 0;
+		border-block: 1px solid var(--border-color);
+		background: var(--section-bar-bg);
+		color: var(--section-bar-text);
 	}
 
 	.section-heading.undivided {
-		border-top: 0;
-		padding-top: 0;
+		margin-top: 0;
 	}
 
 	.section-heading-content {
-		font-size: var(--font-size-caption1);
-		font-weight: 700;
-		color: var(--text-secondary);
-		text-transform: uppercase;
-		letter-spacing: 0.4px;
 		display: flex;
+		min-height: 2.25rem;
+		padding-inline: var(--spacing-md) 0;
 		align-items: center;
 		gap: 0;
+		color: inherit;
+		font-size: var(--font-size-subhead);
+		font-weight: 650;
+		letter-spacing: 0.01em;
 	}
 
 	.section-heading-title {
@@ -73,7 +75,6 @@
 		color: inherit;
 		font: inherit;
 		letter-spacing: inherit;
-		text-transform: inherit;
 	}
 
 	.permalink-btn {
@@ -88,7 +89,7 @@
 		opacity: 0;
 		transition: opacity 0.15s ease;
 		font-size: 0.85em;
-		color: var(--text-muted, var(--text-secondary));
+		color: inherit;
 		line-height: 1;
 	}
 
@@ -121,13 +122,19 @@
 
 	@media (max-width: 768px) {
 		.section-heading {
-			margin: var(--spacing-sm) 0 var(--spacing-xs) 0;
-			padding-top: var(--spacing-xs);
+			min-height: 2.5rem;
+			margin-top: var(--spacing-md);
+			margin-inline: -0.75rem;
+		}
+
+		.section-heading.undivided {
+			margin-top: 0;
 		}
 
 		.section-heading-content {
-			font-size: var(--font-size-caption1);
-			letter-spacing: 0.3px;
+			min-height: 2.5rem;
+			padding-left: 0.75rem;
+			font-size: var(--font-size-subhead);
 		}
 
 		/* Always show on mobile since there's no hover */

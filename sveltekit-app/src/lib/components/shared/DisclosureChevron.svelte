@@ -44,9 +44,11 @@
 		position: relative;
 		z-index: 1;
 		display: grid;
-		width: 1.625rem;
-		height: 1.625rem;
-		margin: 0.2rem auto -0.125rem;
+		width: 1.75rem;
+		height: 1.75rem;
+		min-width: 1.75rem;
+		min-height: 1.75rem;
+		margin: 0.375rem auto 0.625rem;
 		padding: 0;
 		place-items: center;
 		border: 0;
@@ -58,6 +60,13 @@
 			background-color 0.15s ease,
 			color 0.15s ease,
 			transform 0.12s ease;
+	}
+
+	.disclosure-chevron::before {
+		content: "";
+		position: absolute;
+		inset: -0.5rem;
+		border-radius: 50%;
 	}
 
 	.disclosure-chevron:hover {
@@ -80,13 +89,6 @@
 
 	.expanded svg {
 		transform: rotate(180deg);
-	}
-
-	@media (pointer: coarse) {
-		.disclosure-chevron {
-			width: 2.75rem;
-			height: 2.75rem;
-		}
 	}
 
 	@media (prefers-reduced-motion: reduce) {

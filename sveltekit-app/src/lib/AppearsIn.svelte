@@ -1,4 +1,3 @@
-<!-- Korean frequency rank display support -->
 <script lang="ts">
 	import SectionHeading from "./components/shared/SectionHeading.svelte";
 	import { languageStore } from '$lib/stores/languages.svelte';
@@ -11,7 +10,6 @@
 		c?: boolean; // common (Japanese words only)
 		jp?: string; // japanese pronunciation
 		kr?: string; // korean pronunciation (hangul)
-		fr?: number; // frequency rank (JPDB)
 	}
 
 	interface Props {
@@ -145,15 +143,15 @@
 			{#if filteredChineseWords.length > 0}
 				<div class="column chinese-column">
 					<SectionHeading id="chinese-words" divided={false}
-						>CHINESE WORDS ({filteredChineseWords.length})</SectionHeading
+						>Chinese Words</SectionHeading
 					>
 					<div class="word-list">
 						{#each displayedChinese as preview}
 							<a href="/{preview.w}" class="word-card">
-								<div class="word-header">
+								<div class="word-header chinese-word-header">
 									<span class="word-text">{preview.w}</span>
 									{#if preview.p}
-										<span class="pronunciation" title={preview.p}
+										<span class="pronunciation mandarin-pronunciation" title={preview.p}
 											>{preview.p}</span
 										>
 									{/if}
@@ -163,14 +161,9 @@
 										>
 									{/if}
 								</div>
-								{#if preview.d || preview.fr}
+								{#if preview.d}
 									<div class="definition-row">
-										{#if preview.d}
-											<div class="definition" title={preview.d}>{preview.d}</div>
-										{/if}
-										{#if preview.fr}
-											<span class="frequency-rank" title="Frequency rank">#{preview.fr.toLocaleString()}</span>
-										{/if}
+										<div class="definition" title={preview.d}>{preview.d}</div>
 									</div>
 								{/if}
 							</a>
@@ -194,7 +187,7 @@
 			{#if filteredJapaneseWords.length > 0}
 				<div class="column japanese-column">
 					<SectionHeading id="japanese-words" divided={false}
-						>JAPANESE WORDS ({filteredJapaneseWords.length})</SectionHeading
+						>Japanese Words</SectionHeading
 					>
 					<div class="word-list">
 						{#each displayedJapanese as preview}
@@ -219,14 +212,9 @@
 										>
 									{/if}
 								</div>
-								{#if preview.d || preview.fr}
+								{#if preview.d}
 									<div class="definition-row">
-										{#if preview.d}
-											<div class="definition" title={preview.d}>{preview.d}</div>
-										{/if}
-										{#if preview.fr}
-											<span class="frequency-rank" title="JPDB frequency rank">#{preview.fr.toLocaleString()}</span>
-										{/if}
+										<div class="definition" title={preview.d}>{preview.d}</div>
 									</div>
 								{/if}
 							</a>
@@ -250,7 +238,7 @@
 			{#if filteredKoreanWords.length > 0}
 				<div class="column korean-column">
 					<SectionHeading id="korean-words" divided={false}
-						>KOREAN WORDS ({filteredKoreanWords.length})</SectionHeading
+						>Korean Words</SectionHeading
 					>
 					<div class="word-list">
 						{#each displayedKorean as preview}
@@ -267,14 +255,9 @@
 										>
 									{/if}
 								</div>
-								{#if preview.d || preview.fr}
+								{#if preview.d}
 									<div class="definition-row">
-										{#if preview.d}
-											<div class="definition" title={preview.d}>{preview.d}</div>
-										{/if}
-										{#if preview.fr}
-											<span class="frequency-rank" title="Korean frequency rank">#{preview.fr.toLocaleString()}</span>
-										{/if}
+										<div class="definition" title={preview.d}>{preview.d}</div>
 									</div>
 								{/if}
 							</a>
@@ -322,17 +305,13 @@
 		display: flex;
 		min-height: 2.75rem;
 		margin: 0;
-		padding: 0 10px;
+		margin-inline: 0;
 		align-items: center;
 	}
 
 	@media (max-width: 768px) {
 		.word-columns {
 			margin-inline: -0.75rem;
-		}
-
-		.word-columns :global(.section-heading) {
-			padding-inline: 8px 10px;
 		}
 
 		.word-columns.two-columns,
@@ -396,7 +375,7 @@
 		display: flex;
 		min-height: 2.75rem;
 		padding: 8px 10px;
-		background: var(--bg-primary);
+		background: var(--divider-cell-bg);
 		border-block-start: 1px solid var(--border-light);
 		text-decoration: none;
 		color: inherit;
@@ -413,12 +392,12 @@
 
 	@media (hover: hover) {
 		.word-card:hover {
-			background: var(--bg-secondary);
+			background: var(--divider-cell-hover);
 		}
 	}
 
 	.word-card:active {
-		background: var(--bg-tertiary);
+		background: var(--divider-cell-active);
 	}
 
 	.word-card:focus-visible {
@@ -438,6 +417,10 @@
 		flex-wrap: nowrap;
 	}
 
+	.chinese-word-header {
+		overflow: visible;
+	}
+
 	.word-text {
 		font-size: 17px;
 		line-height: 1.25;
@@ -449,17 +432,6 @@
 		gap: var(--spacing-xs);
 		flex: 0 0 auto;
 		white-space: nowrap;
-	}
-
-	.frequency-rank {
-		font-size: 11px;
-		color: var(--text-muted);
-		background: var(--bg-tertiary);
-		padding: 1px var(--spacing-xs);
-		border-radius: var(--radius-sm);
-		font-weight: 500;
-		white-space: nowrap;
-		flex: 0 0 auto;
 	}
 
 	.common-star {
@@ -477,6 +449,12 @@
 		white-space: nowrap;
 	}
 
+	.mandarin-pronunciation {
+		flex: 0 0 auto;
+		overflow: visible;
+		text-overflow: clip;
+	}
+
 	.cantonese-pronunciation {
 		font-size: 12px;
 		color: var(--color-cantonese, #e67e22);
@@ -484,6 +462,7 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
+		flex: 1 1 auto;
 	}
 
 	.definition-row {
@@ -494,7 +473,7 @@
 	}
 
 	.definition {
-		font-size: 15px;
+		font-size: var(--font-size-subhead);
 		color: var(--text-tertiary);
 		line-height: 1.35;
 		min-width: 0;

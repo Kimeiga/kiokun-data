@@ -6,6 +6,7 @@
 	} from "$lib/component-use-ranking";
 	import DisclosureChevron from "$lib/components/shared/DisclosureChevron.svelte";
 	import SectionHeading from "$lib/components/shared/SectionHeading.svelte";
+	import { animateDisclosureHeight } from "$lib/utils/disclosure-motion";
 
 	interface ComponentUsesData {
 		[componentType: string]: ComponentTypeData;
@@ -27,6 +28,8 @@
 	} = $props();
 
 	let expanded = $state(false);
+	let characterGrid: HTMLDivElement | null = $state(null);
+	let collapsedHeight = $state(0);
 	const collapsedMaxChars = 8;
 
 	const typeDisplayNames: Record<string, string> = {
@@ -80,8 +83,28 @@
 	);
 	let needsCollapse = $derived(characterUses.length > collapsedMaxChars);
 
+	$effect(() => {
+		const element = characterGrid;
+		const _visibleUses = visibleUses;
+		if (!element || expanded) return;
+		const frame = requestAnimationFrame(() => {
+			collapsedHeight = element.scrollHeight;
+		});
+		return () => cancelAnimationFrame(frame);
+	});
+
 	function roleLabel(roles: string[]): string {
 		return roles.map((role) => typeDisplayNames[role] || role).join(" · ");
+	}
+
+	function toggleExpanded() {
+		if (!expanded && characterGrid) collapsedHeight = characterGrid.scrollHeight;
+		void animateDisclosureHeight({
+			element: characterGrid,
+			nextExpanded: !expanded,
+			collapsedHeight,
+			setExpanded: (value) => expanded = value,
+		});
 	}
 </script>
 
@@ -92,7 +115,7 @@
 			Characters that use <span lang="zh">{targetChar}</span> as a building block.
 		</p>
 
-		<div class="character-grid" id="component-use-list">
+		<div class="character-grid" id="component-use-list" bind:this={characterGrid}>
 			{#each visibleUses as use (use.character)}
 				<a class="character-card" href="/{use.character}">
 					<span class="character" lang="zh">{use.character}</span>
@@ -110,7 +133,7 @@
 			<DisclosureChevron
 				{expanded}
 				controls="component-use-list"
-				onclick={() => (expanded = !expanded)}
+				onclick={toggleExpanded}
 				expandLabel={`Show all ${characterUses.length} containing characters`}
 				collapseLabel="Show fewer containing characters"
 			/>
@@ -124,7 +147,8 @@
 	}
 
 	.section-intro {
-		margin: calc(-1 * var(--spacing-xs)) 0 var(--spacing-md);
+		margin: 0;
+		padding: var(--spacing-sm) 0 var(--spacing-md);
 		color: var(--text-secondary);
 		font-size: var(--font-size-callout);
 		line-height: 1.45;
@@ -139,7 +163,9 @@
 	.character-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
-		gap: var(--spacing-sm);
+		gap: 1px;
+		border-block: 1px solid var(--border-light);
+		background: var(--border-light);
 	}
 
 	.character-card {
@@ -149,17 +175,25 @@
 		min-height: 4.5rem;
 		gap: var(--spacing-sm);
 		padding: var(--spacing-sm);
-		border: 1px solid var(--border-light);
-		border-radius: var(--radius-md);
-		background: var(--bg-secondary);
+		background: var(--divider-cell-bg);
 		color: inherit;
 		text-decoration: none;
-		transition: border-color 0.15s ease, background 0.15s ease;
+		transition: background-color 120ms ease;
 	}
 
 	.character-card:hover {
-		border-color: var(--accent);
-		background: var(--bg-tertiary);
+		background: var(--divider-cell-hover);
+	}
+
+	.character-card:active {
+		background: var(--divider-cell-active);
+	}
+
+	.character-card:focus-visible {
+		position: relative;
+		z-index: 1;
+		outline: 2px solid var(--accent);
+		outline-offset: -2px;
 	}
 
 	.character {
@@ -195,6 +229,7 @@
 	@media (max-width: 520px) {
 		.character-grid {
 			grid-template-columns: repeat(2, minmax(0, 1fr));
+			margin-inline: -0.75rem;
 		}
 
 		.character-card {

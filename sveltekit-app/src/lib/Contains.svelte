@@ -184,9 +184,11 @@
 
 <style>
 	.characters-row {
-		display: flex;
-		flex-wrap: wrap;
-		gap: var(--spacing-md);
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(6rem, 1fr));
+		gap: 1px;
+		border-block: 1px solid var(--border-light);
+		background: var(--border-light);
 	}
 
 	.character-card {
@@ -196,14 +198,25 @@
 		text-align: center;
 		text-decoration: none;
 		color: inherit;
-		padding: var(--spacing-md) var(--spacing-lg);
-		border-radius: var(--radius-md);
-		min-width: 80px;
-		transition: background 0.15s ease;
+		min-width: 0;
+		padding: var(--spacing-sm);
+		background: var(--divider-cell-bg);
+		transition: background-color 120ms ease;
 	}
 
 	.character-card:hover {
-		background: var(--bg-tertiary);
+		background: var(--divider-cell-hover);
+	}
+
+	.character-card:active {
+		background: var(--divider-cell-active);
+	}
+
+	.character-card:focus-visible {
+		position: relative;
+		z-index: 1;
+		outline: 2px solid var(--accent);
+		outline-offset: -2px;
 	}
 
 	.character {
@@ -284,17 +297,22 @@
 
 	@media (max-width: 768px) {
 		.characters-row {
-			gap: var(--spacing-sm);
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+			margin-inline: -0.75rem;
 		}
 
 		.character-card {
-			padding: var(--spacing-sm) var(--spacing-md);
-			min-width: 70px;
-			border-radius: var(--radius-sm);
+			padding: var(--spacing-sm) var(--spacing-xs);
 		}
 
 		.character {
 			font-size: var(--font-size-title);
+		}
+	}
+
+	@media (max-width: 359px) {
+		.characters-row {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
 		}
 	}
 </style>

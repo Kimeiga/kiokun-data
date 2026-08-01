@@ -2,6 +2,7 @@
 	import AnnotatedSentence from '$lib/components/AnnotatedSentence.svelte';
 	import DisclosureChevron from '$lib/components/shared/DisclosureChevron.svelte';
 	import { buildChineseRubySegments } from '$lib/utils/sentence-ruby';
+	import { animateDisclosureHeight } from '$lib/utils/disclosure-motion';
 
 	interface Props { word: string; words?: string[]; hasContent?: boolean; }
 	let { word, words = [], hasContent = $bindable(false) }: Props = $props();
@@ -12,9 +13,23 @@
 	let loaded = $state(false);
 	let showTraditional = $state(false);
 	let expanded = $state(false);
+	let exampleList: HTMLDivElement | null = $state(null);
+	let collapsedHeight = $state(0);
 	let requestId = 0;
+	const COLLAPSED_COUNT = 4;
+	let displayed = $derived(expanded ? sentences : sentences.slice(0, COLLAPSED_COUNT));
 
 	$effect(() => { hasContent = loaded && sentences.length > 0; });
+
+	$effect(() => {
+		const element = exampleList;
+		const _displayed = displayed;
+		if (!element || expanded) return;
+		const frame = requestAnimationFrame(() => {
+			collapsedHeight = element.scrollHeight;
+		});
+		return () => cancelAnimationFrame(frame);
+	});
 
 	let lookupWords = $derived.by(() => {
 		const forms: string[] = [];
@@ -99,11 +114,19 @@
 	$effect(() => {
 		loadSentences(lookupWords);
 	});
+
+	function toggleExpanded() {
+		if (!expanded && exampleList) collapsedHeight = exampleList.scrollHeight;
+		void animateDisclosureHeight({
+			element: exampleList,
+			nextExpanded: !expanded,
+			collapsedHeight,
+			setExpanded: (value) => expanded = value,
+		});
+	}
 </script>
 
 {#if loaded && sentences.length > 0}
-	{@const COLLAPSED_COUNT = 4}
-	{@const displayed = expanded ? sentences : sentences.slice(0, COLLAPSED_COUNT)}
 	{@const hasMoreSentences = sentences.length > COLLAPSED_COUNT}
 	<div class="zh-examples">
 		<div class="column-header-row">
@@ -112,7 +135,7 @@
 				{showTraditional ? '🇹🇼' : '🇨🇳'}
 			</button>
 		</div>
-		<div class="example-list" id="chinese-sentence-examples">
+		<div class="example-list" id="chinese-sentence-examples" bind:this={exampleList}>
 			{#each displayed as s}
 				{@const sentenceText = showTraditional ? s.trad : s.simp}
 				{@const rubySegments = buildChineseRubySegments(sentenceText, s.py)}
@@ -135,7 +158,7 @@
 			<DisclosureChevron
 				{expanded}
 				controls="chinese-sentence-examples"
-				onclick={() => expanded = !expanded}
+				onclick={toggleExpanded}
 				expandLabel={`Show ${sentences.length - COLLAPSED_COUNT} more Chinese examples`}
 				collapseLabel="Show fewer Chinese examples"
 			/>
@@ -144,26 +167,33 @@
 {/if}
 
 <style>
-	.zh-examples { position: relative; }
+	.zh-examples { position: relative; margin-bottom: var(--spacing-xs); }
 	.column-header-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--spacing-sm); }
 	.column-header { font-size: var(--font-size-caption1); font-weight: 600; color: var(--text-secondary); }
 	.script-toggle {
-		min-width: 2.75rem;
-		min-height: 2.75rem;
-		padding: var(--spacing-xs) var(--spacing-sm);
-		border: 1px solid var(--border-light); border-radius: var(--radius-sm);
-		background: var(--bg-tertiary); color: var(--text-muted);
+		position: relative;
+		width: 1.75rem;
+		height: 1.75rem;
+		min-width: 1.75rem;
+		min-height: 1.75rem;
+		padding: 0;
+		border: 1px solid var(--border-light);
+		background: var(--divider-cell-bg); color: var(--text-muted);
 		font-size: var(--font-size-caption1); cursor: pointer;
-		transition: border-color 0.15s, color 0.15s;
+		transition: background-color 120ms ease, color 120ms ease;
 	}
-	.script-toggle:hover { border-color: var(--accent); color: var(--accent); }
-	.example-list { display: flex; flex-direction: column; gap: var(--spacing-xs); }
+	.script-toggle::before { content: ""; position: absolute; inset: -0.5rem; }
+	.script-toggle:hover { background: var(--divider-cell-hover); color: var(--accent); }
+	.script-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+	.example-list { display: flex; flex-direction: column; border-block: 1px solid var(--border-light); }
 	.example-item {
-		display: block; padding: var(--spacing-xs) var(--spacing-sm);
-		background: var(--bg-secondary); border: 1px solid var(--border-light);
-		border-radius: var(--radius-md); text-decoration: none; transition: border-color 0.15s;
+		display: block; padding: var(--spacing-sm);
+		background: var(--divider-cell-bg); text-decoration: none; transition: background-color 120ms ease;
 	}
-	.example-item:hover { border-color: var(--accent); }
+	.example-item + .example-item { border-block-start: 1px solid var(--border-light); }
+	.example-item:hover { background: var(--divider-cell-hover); }
+	.example-item:active { background: var(--divider-cell-active); }
+	.example-item:focus-visible { position: relative; z-index: 1; outline: 2px solid var(--accent); outline-offset: -2px; }
 	.example-text {
 		font-size: var(--font-size-body);
 		font-family: var(--font-cjk);
@@ -173,4 +203,9 @@
 	}
 	.example-sub { font-size: var(--font-size-caption1); color: var(--color-pinyin); margin-top: 1px; }
 	.example-translation { font-size: var(--font-size-callout); color: var(--text-tertiary); margin-top: 2px; line-height: 1.4; }
+
+	@media (max-width: 768px) {
+		.example-list { margin-inline: -0.75rem; }
+		.example-item { padding-inline: 0.75rem; }
+	}
 </style>

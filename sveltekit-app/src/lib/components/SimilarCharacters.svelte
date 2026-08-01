@@ -144,13 +144,15 @@
 	}
 
 	.similar-scroll {
-		display: flex;
-		flex-wrap: wrap;
-		gap: var(--spacing-sm);
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(5.5rem, 1fr));
+		gap: 1px;
 		max-width: 100%;
 		min-width: 0;
 		max-height: var(--collapsed-height, 4.25rem);
 		overflow: hidden;
+		border-block: 1px solid var(--border-light);
+		background: var(--border-light);
 	}
 
 	.similar-scroll.expanded {
@@ -161,20 +163,27 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		flex-shrink: 0;
 		text-decoration: none;
 		color: inherit;
-		padding: var(--spacing-sm) var(--spacing-md);
-		border: 1px solid var(--border-color);
-		border-radius: var(--radius-md);
-		background: var(--bg-secondary);
-		min-width: 60px;
-		transition: border-color 0.15s, background 0.15s;
+		min-width: 0;
+		padding: var(--spacing-sm);
+		background: var(--divider-cell-bg);
+		transition: background-color 120ms ease;
 	}
 
 	.similar-chip:hover {
-		border-color: var(--accent);
-		background: var(--bg-tertiary);
+		background: var(--divider-cell-hover);
+	}
+
+	.similar-chip:active {
+		background: var(--divider-cell-active);
+	}
+
+	.similar-chip:focus-visible {
+		position: relative;
+		z-index: 1;
+		outline: 2px solid var(--accent);
+		outline-offset: -2px;
 	}
 
 	.chip-char {
@@ -186,7 +195,7 @@
 	}
 
 	.chip-gloss {
-		font-size: 10px;
+		font-size: var(--font-size-caption2);
 		color: var(--text-muted);
 		margin-top: 2px;
 		max-width: 70px;
@@ -194,5 +203,18 @@
 		text-overflow: ellipsis;
 		white-space: nowrap;
 		text-align: center;
+	}
+
+	@media (max-width: 768px) {
+		.similar-scroll {
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+			margin-inline: -0.75rem;
+		}
+	}
+
+	@media (max-width: 359px) {
+		.similar-scroll {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
 	}
 </style>

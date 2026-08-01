@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import AnnotatedSentence from '$lib/components/AnnotatedSentence.svelte';
 	import DisclosureChevron from '$lib/components/shared/DisclosureChevron.svelte';
+	import { animateDisclosureHeight } from '$lib/utils/disclosure-motion';
 
 	interface Props {
 		word: string;
@@ -15,8 +16,28 @@
 	let sentences = $state<Sentence[]>([]);
 	let loaded = $state(false);
 	let expanded = $state(false);
+	let exampleList: HTMLDivElement | null = $state(null);
+	let collapsedHeight = $state(0);
+	let sentenceGlosses = $state<Record<string, Record<string, string>>>({});
+	const requestedGlosses = new Set<string>();
+	const COLLAPSED_COUNT = 4;
+	let displayed = $derived(expanded ? sentences : sentences.slice(0, COLLAPSED_COUNT));
 
 	$effect(() => { hasContent = loaded && sentences.length > 0; });
+
+	$effect(() => {
+		const element = exampleList;
+		const _displayed = displayed;
+		if (!element || expanded) return;
+		const frame = requestAnimationFrame(() => {
+			collapsedHeight = element.scrollHeight;
+		});
+		return () => cancelAnimationFrame(frame);
+	});
+
+	$effect(() => {
+		void loadWordGlosses(displayed.map((sentence) => sentence.kr));
+	});
 
 	function simpleHash(str: string): number {
 		let h = 0;
@@ -96,23 +117,59 @@
 		finally { loaded = true; }
 	});
 
+	async function loadWordGlosses(texts: string[]) {
+		const pending = texts.filter((text) => text && !requestedGlosses.has(text));
+		for (let index = 0; index < pending.length; index += 8) {
+			const chunk = pending.slice(index, index + 8);
+			for (const text of chunk) requestedGlosses.add(text);
+			try {
+				const response = await fetch('/api/korean-glosses', {
+					method: 'POST',
+					headers: { 'content-type': 'application/json' },
+					body: JSON.stringify({ texts: chunk }),
+				});
+				if (!response.ok) {
+					for (const text of chunk) requestedGlosses.delete(text);
+					continue;
+				}
+				const payload = await response.json();
+				sentenceGlosses = { ...sentenceGlosses, ...(payload.glosses || {}) };
+			} catch {
+				for (const text of chunk) requestedGlosses.delete(text);
+			}
+		}
+	}
+
+	function toggleExpanded() {
+		if (!expanded && exampleList) collapsedHeight = exampleList.scrollHeight;
+		void animateDisclosureHeight({
+			element: exampleList,
+			nextExpanded: !expanded,
+			collapsedHeight,
+			setExpanded: (value) => expanded = value,
+		});
+	}
+
 </script>
 
 {#if loaded && sentences.length > 0}
-	{@const COLLAPSED_COUNT = 4}
-	{@const displayed = expanded ? sentences : sentences.slice(0, COLLAPSED_COUNT)}
 	{@const hasMoreSentences = sentences.length > COLLAPSED_COUNT}
 	<div class="kr-examples">
 		<div class="examples-main">
 			<div class="column-header">Examples for this word ({sentences.length})</div>
-			<div class="example-list" id="korean-sentence-examples">
+			<div class="example-list" id="korean-sentence-examples" bind:this={exampleList}>
 				{#each displayed as s}
 					<a
 						class="example-item"
 						href="/sentence?text={encodeURIComponent(s.kr)}&lang=ko&en={encodeURIComponent(s.en)}&from={encodeURIComponent(word)}"
 					>
 						<div class="example-text" lang="ko">
-							<AnnotatedSentence text={s.kr} language="ko" />
+							<AnnotatedSentence
+								text={s.kr}
+								language="ko"
+								glosses={sentenceGlosses[s.kr] || {}}
+								showGlosses
+							/>
 						</div>
 						<div class="example-translation">{s.en}</div>
 					</a>
@@ -122,7 +179,7 @@
 				<DisclosureChevron
 					{expanded}
 					controls="korean-sentence-examples"
-					onclick={() => expanded = !expanded}
+					onclick={toggleExpanded}
 					expandLabel={`Show ${sentences.length - COLLAPSED_COUNT} more Korean examples`}
 					collapseLabel="Show fewer Korean examples"
 				/>
@@ -132,22 +189,29 @@
 {/if}
 
 <style>
-	.kr-examples { position: relative; }
-	.column-header { font-size: var(--font-size-caption1); font-weight: 600; color: var(--text-secondary); margin-bottom: var(--spacing-sm); }
+	.kr-examples { position: relative; margin-bottom: var(--spacing-xs); }
+	.column-header { font-size: var(--font-size-caption1); font-weight: 600; color: var(--text-secondary); margin: var(--spacing-sm) 0 var(--spacing-xs); }
 	.examples-main { min-width: 0; }
-	.example-list { display: flex; flex-direction: column; gap: var(--spacing-xs); }
+	.example-list { display: flex; flex-direction: column; border-block: 1px solid var(--border-light); }
 	.example-item {
-		display: block; padding: var(--spacing-xs) var(--spacing-sm); background: var(--bg-secondary);
-		border: 1px solid var(--border-light); border-radius: var(--radius-md);
-		text-decoration: none; transition: border-color 0.15s;
+		display: block; padding: 10px var(--spacing-sm); background: var(--divider-cell-bg);
+		text-decoration: none; transition: background-color 120ms ease;
 	}
-	.example-item:hover { border-color: var(--accent); }
+	.example-item + .example-item { border-block-start: 1px solid var(--border-light); }
+	.example-item:hover { background: var(--divider-cell-hover); }
+	.example-item:active { background: var(--divider-cell-active); }
+	.example-item:focus-visible { position: relative; z-index: 1; outline: 2px solid var(--accent); outline-offset: -2px; }
 	.example-text {
-		font-size: var(--font-size-body);
+		font-size: 18px;
 		font-family: var(--font-cjk);
 		color: var(--text-primary);
-		line-height: 2.15;
-		padding-top: 0.3em;
+		line-height: 2.75;
+		padding-top: 0.55em;
 	}
 	.example-translation { font-size: var(--font-size-callout); color: var(--text-tertiary); margin-top: 2px; line-height: 1.4; }
+
+	@media (max-width: 768px) {
+		.example-list { margin-inline: -0.75rem; }
+		.example-item { padding-inline: 0.75rem; }
+	}
 </style>
