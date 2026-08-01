@@ -164,8 +164,8 @@
 	.group-header { display: flex; justify-content: space-between; align-items: center; padding: var(--spacing-md) var(--spacing-lg); border-bottom: 1px solid var(--border-color); background: var(--bg-tertiary); }
 	.group-reading { font-size: var(--font-size-headline); font-weight: 600; color: var(--color-korean); font-family: var(--font-cjk); }
 	.group-count { font-size: var(--font-size-caption1); color: var(--text-muted); }
-	.group-words { display: flex; flex-wrap: wrap; gap: 1px; background: var(--border-color); }
-	.word-entry { display: flex; min-width: 70px; min-height: 68px; flex-direction: column; align-items: center; justify-content: center; padding: var(--spacing-md); background: var(--bg-secondary); text-decoration: none; transition: background 0.15s; }
+	.group-words { display: flex; flex-wrap: wrap; gap: 1px; background: transparent; }
+	.word-entry { display: flex; min-width: 70px; min-height: 68px; flex-direction: column; align-items: center; justify-content: center; padding: var(--spacing-md); background: var(--bg-secondary); outline: 1px solid var(--border-color); outline-offset: 0; text-decoration: none; transition: background 0.15s; }
 	.word-entry:hover { background: var(--bg-tertiary); }
 	.word-hanja { font-size: 28px; font-weight: 600; color: var(--text-primary); font-family: var(--font-cjk); }
 	.word-gloss { font-size: 10px; color: var(--text-muted); text-align: center; margin-top: 2px; max-width: 80px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

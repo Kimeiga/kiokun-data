@@ -131,7 +131,7 @@
 		grid-template-columns: repeat(5, minmax(0, 1fr));
 		gap: 1px;
 		border-block: 1px solid var(--border-light);
-		background: var(--border-light);
+		background: transparent;
 	}
 
 	.character-card {
@@ -145,6 +145,8 @@
 		flex-direction: column;
 		background: var(--divider-cell-bg);
 		color: inherit;
+		outline: 1px solid var(--border-light);
+		outline-offset: 0;
 		text-align: center;
 		text-decoration: none;
 		transition: background-color 120ms ease;

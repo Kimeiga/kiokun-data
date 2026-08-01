@@ -180,7 +180,7 @@
 		grid-template-columns: repeat(3, minmax(0, 1fr));
 		gap: 1px;
 		border-block: 1px solid var(--border-light);
-		background: var(--border-light);
+		background: transparent;
 	}
 
 	@media (min-width: 768px) {
@@ -200,6 +200,8 @@
 		padding: var(--spacing-sm);
 		break-inside: avoid;
 		background: var(--divider-cell-bg);
+		outline: 1px solid var(--border-light);
+		outline-offset: 0;
 	}
 
 	.name-headwords {

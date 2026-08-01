@@ -1697,7 +1697,7 @@ onerror={(e) => {
 		max-height: var(--collapsed-height, 7.25rem);
 		overflow: hidden;
 		border-block: 1px solid var(--border-light);
-		background: var(--border-light);
+		background: transparent;
 	}
 
 	.historical-scroll.expanded {
@@ -1716,6 +1716,8 @@ onerror={(e) => {
 		min-width: 70px;
 		border-radius: 0;
 		background: var(--divider-cell-bg);
+		outline: 1px solid var(--border-light);
+		outline-offset: 0;
 		transition: background 0.15s ease;
 	}
 

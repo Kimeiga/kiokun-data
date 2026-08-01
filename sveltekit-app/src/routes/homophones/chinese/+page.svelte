@@ -188,8 +188,8 @@
 	.group-header { display: flex; justify-content: space-between; align-items: center; padding: var(--spacing-md) var(--spacing-lg); border-bottom: 1px solid var(--border-color); background: var(--bg-tertiary); }
 	.group-reading { font-size: var(--font-size-headline); font-weight: 600; color: var(--color-pinyin); }
 	.group-count { font-size: var(--font-size-caption1); color: var(--text-muted); }
-	.group-words { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1px; background: var(--border-color); }
-	.word-entry { display: flex; min-height: 68px; flex-direction: column; padding: var(--spacing-md) var(--spacing-lg); background: var(--bg-secondary); text-decoration: none; transition: background 0.15s; }
+	.group-words { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1px; background: transparent; }
+	.word-entry { display: flex; min-height: 68px; flex-direction: column; padding: var(--spacing-md) var(--spacing-lg); background: var(--bg-secondary); outline: 1px solid var(--border-color); outline-offset: 0; text-decoration: none; transition: background 0.15s; }
 	.word-entry:hover { background: var(--bg-tertiary); }
 	.word-kanji { font-size: var(--font-size-headline); font-weight: 600; color: var(--text-primary); font-family: var(--font-cjk); }
 	.word-pinyin { font-size: var(--font-size-caption1); color: var(--color-pinyin); }

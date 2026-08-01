@@ -188,7 +188,7 @@
 		grid-template-columns: repeat(auto-fit, minmax(6rem, 1fr));
 		gap: 1px;
 		border-block: 1px solid var(--border-light);
-		background: var(--border-light);
+		background: transparent;
 	}
 
 	.character-card {
@@ -201,6 +201,8 @@
 		min-width: 0;
 		padding: var(--spacing-sm);
 		background: var(--divider-cell-bg);
+		outline: 1px solid var(--border-light);
+		outline-offset: 0;
 		transition: background-color 120ms ease;
 	}
 

@@ -152,7 +152,7 @@
 		max-height: var(--collapsed-height, 4.25rem);
 		overflow: hidden;
 		border-block: 1px solid var(--border-light);
-		background: var(--border-light);
+		background: transparent;
 	}
 
 	.similar-scroll.expanded {
@@ -168,6 +168,8 @@
 		min-width: 0;
 		padding: var(--spacing-sm);
 		background: var(--divider-cell-bg);
+		outline: 1px solid var(--border-light);
+		outline-offset: 0;
 		transition: background-color 120ms ease;
 	}
 

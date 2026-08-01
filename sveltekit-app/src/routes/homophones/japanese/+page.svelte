@@ -416,11 +416,12 @@
 
 	.group-words {
 		display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-		gap: 1px; background: var(--border-color);
+		gap: 1px; background: transparent;
 	}
 	.word-entry {
 		display: flex; min-height: 68px; flex-direction: column; padding: var(--spacing-md) var(--spacing-lg);
-		background: var(--bg-secondary); text-decoration: none; transition: background 0.15s;
+		background: var(--bg-secondary); outline: 1px solid var(--border-color); outline-offset: 0;
+		text-decoration: none; transition: background 0.15s;
 	}
 	.word-entry:hover { background: var(--bg-tertiary); }
 

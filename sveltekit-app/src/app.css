@@ -425,7 +425,7 @@ html.capacitor-native body {
 	display: grid;
 	gap: 1px !important;
 	border-block: 1px solid var(--border-light);
-	background: var(--border-light);
+	background: transparent;
 }
 
 .divider-grid > .divider-cell,
@@ -439,6 +439,11 @@ html.capacitor-native body {
 	transition:
 		background-color 120ms ease,
 		color 120ms ease;
+}
+
+.divider-grid > .divider-cell {
+	outline: 1px solid var(--border-light);
+	outline-offset: 0;
 }
 
 .divider-grid > .divider-cell:hover,
@@ -475,7 +480,7 @@ html.capacitor-native body {
 	gap: 1px !important;
 	padding: 0 !important;
 	border-block: 1px solid var(--border-light);
-	background: var(--border-light);
+	background: transparent;
 }
 
 .segmented-grid > .segmented-cell {
@@ -492,6 +497,8 @@ html.capacitor-native body {
 	transition:
 		background-color 120ms ease,
 		color 120ms ease;
+	outline: 1px solid var(--border-light);
+	outline-offset: 0;
 }
 
 .segmented-grid > .segmented-cell:hover {
@@ -696,7 +703,7 @@ main .homophones-section .homophone-list {
 	grid-template-columns: repeat(auto-fit, minmax(4.25rem, 1fr));
 	gap: 1px;
 	border-block: 1px solid var(--border-light);
-	background: var(--border-light);
+	background: transparent;
 }
 
 main .homophones-section .homophone-chip {
@@ -706,6 +713,8 @@ main .homophones-section .homophone-chip {
 	border: 0;
 	border-radius: 0;
 	background: var(--divider-cell-bg);
+	outline: 1px solid var(--border-light);
+	outline-offset: 0;
 	transition: background-color 120ms ease, color 120ms ease;
 }
 
