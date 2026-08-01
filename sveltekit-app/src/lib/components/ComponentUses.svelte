@@ -32,17 +32,6 @@
 	let collapsedHeight = $state(0);
 	const collapsedMaxChars = 8;
 
-	const typeDisplayNames: Record<string, string> = {
-		mnemonic: "Mnemonic building block",
-		meaning: "Meaning component",
-		sound: "Sound component",
-		iconic: "Iconic component",
-		simplified: "Simplified component",
-		distinguishing: "Distinguishing component",
-		remnant: "Remnant component",
-		deleted: "Deleted component",
-		unknown: "Unclassified component",
-	};
 	const typeOrder = [
 		"mnemonic",
 		"meaning",
@@ -93,10 +82,6 @@
 		return () => cancelAnimationFrame(frame);
 	});
 
-	function roleLabel(roles: string[]): string {
-		return roles.map((role) => typeDisplayNames[role] || role).join(" · ");
-	}
-
 	function toggleExpanded() {
 		if (!expanded && characterGrid) collapsedHeight = characterGrid.scrollHeight;
 		void animateDisclosureHeight({
@@ -111,20 +96,15 @@
 {#if characterUses.length > 0}
 	<section class="component-uses" aria-labelledby="used-in-characters">
 		<SectionHeading id="used-in-characters">Used in characters</SectionHeading>
-		<p class="section-intro">
-			Characters that use <span lang="zh">{targetChar}</span> as a building block.
-		</p>
 
 		<div class="character-grid" id="component-use-list" bind:this={characterGrid}>
 			{#each visibleUses as use (use.character)}
+				{@const gloss = cleanCharacterUseGloss(charGlosses[use.character] || "")}
 				<a class="character-card" href="/{use.character}">
 					<span class="character" lang="zh">{use.character}</span>
-					<span class="character-copy">
-						{#if charGlosses[use.character]}
-							<span class="gloss" lang="en">{cleanCharacterUseGloss(charGlosses[use.character])}</span>
-						{/if}
-						<span class="role">{roleLabel(use.roles)}</span>
-					</span>
+					{#if gloss}
+						<span class="gloss" lang="en" title={gloss}>{gloss}</span>
+					{/if}
 				</a>
 			{/each}
 		</div>
@@ -146,23 +126,9 @@
 		margin-bottom: var(--spacing-lg);
 	}
 
-	.section-intro {
-		margin: 0;
-		padding: var(--spacing-sm) 0 var(--spacing-md);
-		color: var(--text-secondary);
-		font-size: var(--font-size-callout);
-		line-height: 1.45;
-	}
-
-	.section-intro span {
-		color: var(--text-primary);
-		font-family: var(--font-cjk);
-		font-weight: 700;
-	}
-
 	.character-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+		grid-template-columns: repeat(5, minmax(0, 1fr));
 		gap: 1px;
 		border-block: 1px solid var(--border-light);
 		background: var(--border-light);
@@ -171,12 +137,15 @@
 	.character-card {
 		display: flex;
 		align-items: center;
+		justify-content: center;
 		min-width: 0;
-		min-height: 4.5rem;
-		gap: var(--spacing-sm);
-		padding: var(--spacing-sm);
+		min-height: 4.25rem;
+		gap: 0.25rem;
+		padding: 0.5rem 0.375rem;
+		flex-direction: column;
 		background: var(--divider-cell-bg);
 		color: inherit;
+		text-align: center;
 		text-decoration: none;
 		transition: background-color 120ms ease;
 	}
@@ -197,47 +166,39 @@
 	}
 
 	.character {
-		flex: 0 0 auto;
 		font-family: var(--font-cjk);
 		font-size: 2rem;
 		line-height: 1;
 	}
 
-	.character-copy {
-		display: flex;
-		min-width: 0;
-		flex-direction: column;
-		gap: 0.15rem;
-	}
-
 	.gloss {
+		display: -webkit-box;
+		min-width: 0;
 		overflow: hidden;
 		color: var(--text-primary);
-		font-size: var(--font-size-callout);
-		font-weight: 650;
-		line-height: 1.25;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
-
-	.role {
-		color: var(--text-secondary);
 		font-size: var(--font-size-caption1);
-		line-height: 1.25;
+		font-weight: 550;
+		line-height: 1.2;
+		overflow-wrap: anywhere;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 2;
+		line-clamp: 2;
 	}
 
 	@media (max-width: 520px) {
 		.character-grid {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
+			grid-template-columns: repeat(4, minmax(0, 1fr));
 			margin-inline: -0.75rem;
-		}
-
-		.character-card {
-			min-height: 4rem;
 		}
 
 		.character {
 			font-size: 1.75rem;
+		}
+	}
+
+	@media (max-width: 359px) {
+		.character-grid {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
 		}
 	}
 </style>
