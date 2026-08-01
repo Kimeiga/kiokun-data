@@ -255,6 +255,8 @@
 /* ===== BASE STYLES ===== */
 html {
 	color-scheme: light;
+	max-width: 100%;
+	overflow-x: clip;
 	scroll-padding-top: calc(var(--kiokun-header-height, 4.5rem) + 1rem);
 }
 
@@ -264,9 +266,12 @@ html[data-theme='dark'] {
 
 body {
 	@apply m-0 p-0;
+	width: 100%;
+	max-width: 100%;
 	min-width: 20rem;
 	min-height: 100vh;
 	min-height: 100dvh;
+	overflow-x: clip;
 	font-family: var(--font-ui);
 	line-height: 1.6;
 	color: var(--text-primary);
@@ -529,9 +534,12 @@ html.capacitor-native body {
 
 @media (max-width: 768px) {
 	.mobile-full-bleed {
-		width: 100vw !important;
+		position: static !important;
+		left: auto !important;
+		width: 100dvw !important;
 		max-width: none !important;
-		margin-inline: calc(50% - 50vw) !important;
+		margin-inline: calc(50% - 50dvw) !important;
+		transform: none !important;
 	}
 
 	.segmented-grid.mobile-full-bleed {
@@ -543,6 +551,142 @@ html.capacitor-native body {
 	main .notes-compact .section-heading {
 		width: auto !important;
 		margin-inline: 0 !important;
+	}
+}
+
+/* Sense content follows one stable reading path: definition, metadata, examples. */
+main .definitions .sense-examples {
+	min-width: 0;
+	margin-top: var(--spacing-sm);
+	border-left: 0;
+}
+
+main .sense-example-label {
+	margin: 0;
+	padding: var(--spacing-xs) var(--spacing-sm);
+	border-top: 1px solid var(--border-light);
+}
+
+main .sense-example-list {
+	width: 100%;
+	min-width: 0;
+	overflow: visible;
+}
+
+main .sense-example {
+	min-width: 0;
+	padding: var(--spacing-sm);
+}
+
+main .sense-example-source {
+	min-width: 0;
+	overflow-wrap: anywhere;
+	line-height: 2;
+	white-space: normal;
+}
+
+main .sense-example-source .annotated-sentence {
+	white-space: normal;
+}
+
+main .sense-example-translation {
+	margin-top: var(--spacing-xs);
+}
+
+main .sense-example-disclosure {
+	margin-left: var(--spacing-sm);
+}
+
+main .word-sections-grid,
+main .word-sections-grid > * {
+	min-width: 0;
+}
+
+/* Mobile app chrome uses the same ruled-cell grammar as the content below it. */
+@media (max-width: 767px) {
+	html body .app-header.app-header {
+		--kiokun-header-height: 3.5rem;
+		background: var(--bg-primary);
+		backdrop-filter: none;
+	}
+
+	html body .app-header .app-header-inner {
+		display: grid;
+		grid-template-columns: 3.5rem minmax(0, 1fr) 3.5rem;
+		min-height: var(--kiokun-header-height);
+		max-width: none;
+		gap: 0;
+		padding: 0;
+		background: var(--border-color);
+	}
+
+	html body .app-header .header-logo {
+		width: 3.5rem;
+		height: 3.5rem;
+		background: var(--bg-primary);
+	}
+
+	html body .app-header .header-logo img {
+		width: 2.1rem;
+		height: 2.1rem;
+	}
+
+	html body .app-header .header-search {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) 3.5rem;
+		width: 100%;
+		max-width: none;
+		gap: 1px;
+		background: var(--border-color);
+	}
+
+	html body .app-header .header-search-field,
+	html body .app-header .header-spacer {
+		min-width: 0;
+		height: 3.5rem;
+		background: var(--bg-secondary);
+	}
+
+	html body .app-header .header-search input {
+		height: 3.5rem;
+		padding-inline: var(--spacing-md) 2.8rem;
+		border: 0;
+		border-radius: 0;
+		background: var(--bg-secondary);
+		box-shadow: none;
+	}
+
+	html body .app-header .header-search input:focus {
+		box-shadow: inset 0 -2px 0 var(--accent);
+	}
+
+	html body .app-header .draw-button,
+	html body .app-header .mobile-menu-button {
+		width: 3.5rem;
+		height: 3.5rem;
+		border: 0;
+		border-radius: 0;
+		background: var(--bg-primary);
+	}
+
+	html body .app-header .mobile-navigation-inner {
+		gap: 1px;
+		padding: 0 0 max(var(--spacing-sm), env(safe-area-inset-bottom, 0px));
+		background: var(--border-color);
+	}
+
+	html body .app-header .mobile-navigation a {
+		margin: 0;
+		border: 0;
+		border-radius: 0;
+		background: var(--divider-cell-bg);
+	}
+
+	html body .app-header .mobile-settings,
+	html body .app-header .mobile-account {
+		padding: var(--spacing-sm);
+		border-top: 0;
+		background: var(--bg-primary);
 	}
 }
 

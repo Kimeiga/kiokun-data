@@ -302,11 +302,15 @@
 	}
 
 	.word-columns :global(.section-heading) {
+		position: static;
 		display: flex;
-		min-height: 2.75rem;
+		left: auto;
+		width: 100%;
+		min-height: 2.25rem;
 		margin: 0;
 		margin-inline: 0;
 		align-items: center;
+		transform: none;
 	}
 
 	@media (max-width: 768px) {
@@ -369,7 +373,8 @@
 
 	.word-card {
 		display: flex;
-		min-height: 2.75rem;
+		height: 4.125rem;
+		min-height: 4.125rem;
 		padding: 8px 10px;
 		background: var(--divider-cell-bg);
 		border-block-start: 1px solid var(--border-light);
@@ -382,7 +387,7 @@
 
 	@media (max-width: 768px) {
 		.word-card {
-			padding: 8px;
+			padding: 7px 8px;
 		}
 	}
 

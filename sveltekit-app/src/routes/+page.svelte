@@ -839,6 +839,7 @@
 
 	/* ===== Sections ===== */
 	.section {
+		min-width: 0;
 		padding: 32px 0 0;
 	}
 	.section.compact {
@@ -1181,8 +1182,8 @@
 			grid-template-columns: repeat(2, minmax(0, 1fr));
 		}
 		.section-head h2 {
-			width: 100vw;
-			margin-inline: calc(50% - 50vw);
+			width: 100dvw;
+			margin-inline: calc(50% - 50dvw);
 		}
 		.homo-links {
 			grid-template-columns: 1fr;

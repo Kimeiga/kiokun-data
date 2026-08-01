@@ -122,10 +122,10 @@
 
 	@media (max-width: 768px) {
 		.section-heading {
-			width: 100vw;
+			width: 100dvw;
 			min-height: 1.75rem;
 			margin-top: var(--spacing-md);
-			margin-inline: calc(50% - 50vw);
+			margin-inline: calc(50% - 50dvw);
 		}
 
 		.section-heading.undivided {

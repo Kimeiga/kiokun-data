@@ -335,7 +335,7 @@
 	<div class:notes-compact={compact}>
 	<SectionHeading id="notes">Notes</SectionHeading>
 
-	<div class="mb-2">
+	<div class="notes-body mb-2">
 		{#if error}
 			<div class="p-3 bg-red-50 text-red-700 rounded mb-4">{error}</div>
 		{/if}
@@ -488,6 +488,9 @@
 	.notes-compact {
 		padding: 0 var(--spacing-lg) var(--spacing-md);
 		border-bottom: 1px solid var(--border-light);
+	}
+	.notes-body {
+		margin-top: var(--spacing-md);
 	}
 	.notes-compact :global(.notes-list) {
 		border-top: none;

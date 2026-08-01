@@ -81,6 +81,9 @@ export async function animateDisclosureHeight({
 
 	if (activeAnimations.get(element) === animation) {
 		activeAnimations.delete(element);
+		// A finished animation with `fill: both` otherwise keeps its measured
+		// pixel height and clips content that grows after ruby/gloss enrichment.
+		animation.cancel();
 		element.style.removeProperty("height");
 		element.style.removeProperty("max-height");
 		element.style.removeProperty("overflow");

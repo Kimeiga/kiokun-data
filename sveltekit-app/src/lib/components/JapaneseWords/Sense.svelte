@@ -27,57 +27,40 @@
 </script>
 
 <div class="sense-content">
-	<!-- Part of speech tags -->
-	{#if showPos && sense.partOfSpeech && sense.partOfSpeech.length > 0}
-		<span class="tags">
-			{#each sense.partOfSpeech as pos}
-				<Tag type="pos" text={getPosLabel(pos)} langTag="en" />
+	<div class="sense-primary">
+		{#if sense.gloss && sense.gloss.length > 0}
+			{#each sense.gloss as gloss, index}
+				{#if index > 0}; {/if}
+				{@const typeStr = getGlossType(gloss)}
+				{#if typeStr}
+					<span class="gloss-type">({typeStr})</span>
+				{/if}
+				<span>{getGlossText(gloss)}</span>
 			{/each}
-		</span>
-	{/if}
+		{/if}
 
-	<!-- Field tags -->
-	{#if sense.field && sense.field.length > 0}
-		<span class="tags">
-			{#each sense.field as field}
+		{#if sense.info && sense.info.length > 0}
+			<span class="info-text"> ({sense.info.join('; ')})</span>
+		{/if}
+	</div>
+
+	{#if (showPos && sense.partOfSpeech?.length) || sense.field?.length || sense.misc?.length || sense.dialect?.length}
+		<div class="sense-meta" aria-label="Definition labels">
+			{#if showPos}
+				{#each sense.partOfSpeech || [] as pos}
+					<Tag type="pos" text={getPosLabel(pos)} langTag="en" />
+				{/each}
+			{/if}
+			{#each sense.field || [] as field}
 				<Tag type="field" text={getFieldLabel(field)} langTag="en" />
 			{/each}
-		</span>
-	{/if}
-
-	<!-- Misc tags -->
-	{#if sense.misc && sense.misc.length > 0}
-		<span class="tags">
-			{#each sense.misc as misc}
+			{#each sense.misc || [] as misc}
 				<Tag type="misc" text={getMiscLabel(misc)} langTag="en" />
 			{/each}
-		</span>
-	{/if}
-
-	<!-- Dialect tags -->
-	{#if sense.dialect && sense.dialect.length > 0}
-		<span class="tags">
-			{#each sense.dialect as dial}
+			{#each sense.dialect || [] as dial}
 				<Tag type="dial" text={getDialectLabel(dial)} langTag="en" />
 			{/each}
-		</span>
-	{/if}
-
-	<!-- Glosses -->
-	{#if sense.gloss && sense.gloss.length > 0}
-		{#each sense.gloss as gloss, index}
-			{#if index > 0}; {/if}
-			{@const typeStr = getGlossType(gloss)}
-			{#if typeStr}
-				<span class="gloss-type">({typeStr})</span>
-			{/if}
-			<span>{getGlossText(gloss)}</span>
-		{/each}
-	{/if}
-
-	<!-- Additional info -->
-	{#if sense.info && sense.info.length > 0}
-		<span class="info-text"> ({sense.info.join('; ')})</span>
+		</div>
 	{/if}
 
 	<SenseExampleList examples={senseExamples} language="ja" />
@@ -85,11 +68,28 @@
 
 <style>
 	.sense-content {
+		display: grid;
+		min-width: 0;
+		gap: var(--spacing-xs);
 		color: var(--text-primary);
 	}
 
-	.tags {
-		margin-right: var(--spacing-xs);
+	.sense-primary {
+		min-width: 0;
+		font-size: var(--font-size-body);
+		line-height: 1.45;
+	}
+
+	.sense-meta {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: var(--spacing-xs);
+		min-width: 0;
+	}
+
+	.sense-meta :global(.tag) {
+		margin-right: 0;
 	}
 
 	.gloss-type {

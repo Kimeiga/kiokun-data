@@ -23,11 +23,10 @@
 
 <style>
 	.japanese-ruby-text {
-		display: inline-block;
+		display: inline;
 		box-sizing: border-box;
-		padding-block-start: 0.35em;
-		line-height: 1;
-		white-space: nowrap;
+		line-height: inherit;
+		white-space: normal;
 		vertical-align: baseline;
 	}
 

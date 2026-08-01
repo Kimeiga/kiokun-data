@@ -68,23 +68,27 @@
 			</span>
 		{/if}
 
-		<!-- Audio pronunciation + Pitch accent + Homophones -->
+		<!-- Pronunciation and the two frequent inline actions. -->
 		{#if speakText}
 			<PitchAccent word={speakText} reading={displayKana.length > 0 ? displayKana[0].text : undefined} />
 			<SpeakButton text={speakText} lang="ja" size={18} compact />
-			{#if displayKana.length > 0}
-				<a
-					href="/homophones/japanese?q={encodeURIComponent(displayKana[0].text)}&id={encodeURIComponent(word.id)}"
-					class="homophone-link"
-					title="See homophones for {displayKana[0].text}"
-				>同音</a>
-			{/if}
 			<SaveToStudy word={speakText} language="ja" size="sm" />
 		{/if}
 	</div>
 
 	<!-- Definitions -->
 	<Definitions senses={word.sense} />
+
+	{#if displayKana.length > 0}
+		<a
+			href="/homophones/japanese?q={encodeURIComponent(displayKana[0].text)}&id={encodeURIComponent(word.id)}"
+			class="homophone-link"
+			title="See homophones for {displayKana[0].text}"
+		>
+			<span>Homophones</span>
+			<span class="homophone-reading" lang="ja">{displayKana[0].text}</span>
+		</a>
+	{/if}
 
 	<!-- Conjugation Table (for verbs) -->
 	<ConjugationTable
@@ -95,30 +99,42 @@
 
 <style>
 	.homophone-link {
-		display: inline-flex;
+		display: flex;
 		align-items: center;
-		justify-content: center;
-		min-width: 44px;
-		min-height: 44px;
-		padding: 2px 6px;
-		border: 1px solid var(--border-color);
-		border-radius: var(--radius-full);
-		font-size: 10px;
-		color: var(--text-muted);
+		justify-content: space-between;
+		min-height: 2rem;
+		margin-top: var(--spacing-sm);
+		padding: var(--spacing-xs) var(--spacing-sm);
+		border-block: 1px solid var(--border-light);
+		background: var(--divider-cell-bg);
+		font-size: var(--font-size-caption1);
+		font-weight: 600;
+		color: var(--text-secondary);
 		text-decoration: none;
-		transition: border-color 0.15s, color 0.15s;
+		transition: background-color 120ms ease, color 120ms ease;
 	}
-	.homophone-link:hover { border-color: var(--accent); color: var(--accent); }
+
+	.homophone-link:hover,
+	.homophone-link:focus-visible {
+		background: var(--divider-cell-hover);
+		color: var(--accent);
+	}
+
+	.homophone-reading {
+		font-size: var(--font-size-footnote);
+		font-weight: 500;
+	}
 
 	.headwords {
-		display: flex;
-		align-items: baseline;
-		gap: var(--spacing-sm);
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) auto auto auto;
+		align-items: center;
+		gap: var(--spacing-xs);
 		margin-bottom: var(--spacing-sm);
-		flex-wrap: wrap;
 	}
 
 	.kanji-headwords {
+		min-width: 0;
 		font-size: var(--font-size-title);
 		font-family: var(--font-cjk);
 		font-weight: 600;
@@ -126,6 +142,7 @@
 	}
 
 	.kana-headwords {
+		min-width: 0;
 		font-size: var(--font-size-body);
 		font-family: var(--font-cjk);
 		/* Kana-only words are headwords, not readings — use the primary
@@ -143,5 +160,55 @@
 		display: inline-flex;
 		align-items: center;
 		gap: var(--spacing-xs);
+	}
+
+	.headwords :global(.pitch-display) {
+		margin-left: 0;
+		font-size: 16px;
+	}
+
+	.headwords :global(.pitch-label) {
+		display: none;
+	}
+
+	.headwords :global(.speak-button.compact) {
+		position: relative;
+		width: 1.75rem;
+		height: 1.75rem;
+		min-width: 1.75rem !important;
+		min-height: 1.75rem !important;
+		padding: 0;
+	}
+
+	.headwords :global(.speak-button.compact)::before,
+	.headwords :global(.relative.inline-block > button)::before {
+		content: "";
+		position: absolute;
+		inset: -0.5rem;
+	}
+
+	.headwords :global(.relative.inline-block) {
+		width: 1.75rem;
+		height: 1.75rem;
+	}
+
+	.headwords :global(.relative.inline-block > button) {
+		position: relative;
+		width: 1.75rem !important;
+		height: 1.75rem !important;
+		min-width: 1.75rem !important;
+		min-height: 1.75rem !important;
+		padding: 0 !important;
+	}
+
+	@media (max-width: 359px) {
+		.headwords {
+			grid-template-columns: minmax(0, 1fr) auto auto;
+		}
+
+		.headwords :global(.pitch-anchor) {
+			grid-column: 1 / -1;
+			grid-row: 2;
+		}
 	}
 </style>
