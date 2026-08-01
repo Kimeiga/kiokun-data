@@ -112,7 +112,7 @@
 	{:else if filtered.length === 0}
 		<p class="status">No homophones match your filters.</p>
 	{:else}
-		<div class="groups">
+		<div class="groups mobile-full-bleed">
 			{#each displayed as group (group.r)}
 				<div class="group-card">
 					<div class="group-header">
@@ -139,7 +139,9 @@
 			{/each}
 		</div>
 		{#if hasMore}
-			<button class="load-more" onclick={() => pageNum++}>Load more ({filtered.length - displayed.length} remaining)</button>
+			<div class="load-more-grid divider-grid mobile-full-bleed">
+				<button class="load-more divider-cell" onclick={() => pageNum++}>Load more ({filtered.length - displayed.length} remaining)</button>
+			</div>
 		{/if}
 	{/if}
 </main>
@@ -171,5 +173,7 @@
 	.group-expand:hover { background: var(--accent-light); }
 	.load-more { display: block; width: 100%; padding: var(--spacing-lg); margin-top: var(--spacing-lg); border: 1px solid var(--border-color); border-radius: var(--radius-md); background: var(--bg-secondary); color: var(--accent); font-size: var(--font-size-body); cursor: pointer; }
 	.load-more:hover { background: var(--bg-tertiary); }
+	.load-more-grid { grid-template-columns: 1fr; margin-top: var(--spacing-lg); }
+	.load-more-grid .load-more { margin-top: 0; }
 	@media (max-width: 640px) { .word-entry { min-width: 62px; padding: var(--spacing-sm); } .word-hanja { font-size: 22px; } }
 </style>

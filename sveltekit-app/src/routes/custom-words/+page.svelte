@@ -85,19 +85,21 @@
 <main id="main-content" class="page">
 	<div class="page-header">
 		<h1>Custom Words</h1>
-		{#if $session.data?.user}
-			<a href="/custom-words/new" class="create-btn">+ Create Word</a>
-		{/if}
 	</div>
+	{#if $session.data?.user}
+		<div class="page-actions divider-grid mobile-full-bleed">
+			<a href="/custom-words/new" class="create-btn divider-cell">+ Create Word</a>
+		</div>
+	{/if}
 
 	<!-- Filters -->
-	<div class="filters">
-		<button class="filter-btn" class:active={!langFilter} onclick={() => { langFilter = ''; loadWords(); }}>All</button>
-		<button class="filter-btn" class:active={langFilter === 'zh'} onclick={() => { langFilter = 'zh'; loadWords(); }}>🇨🇳 Chinese</button>
-		<button class="filter-btn" class:active={langFilter === 'ja'} onclick={() => { langFilter = 'ja'; loadWords(); }}>🇯🇵 Japanese</button>
-		<button class="filter-btn" class:active={langFilter === 'ko'} onclick={() => { langFilter = 'ko'; loadWords(); }}>🇰🇷 Korean</button>
+	<div class="filters segmented-grid mobile-full-bleed">
+		<button class="filter-btn segmented-cell" class:active={!langFilter} aria-pressed={!langFilter} onclick={() => { langFilter = ''; loadWords(); }}>All</button>
+		<button class="filter-btn segmented-cell" class:active={langFilter === 'zh'} aria-pressed={langFilter === 'zh'} onclick={() => { langFilter = 'zh'; loadWords(); }}>🇨🇳 Chinese</button>
+		<button class="filter-btn segmented-cell" class:active={langFilter === 'ja'} aria-pressed={langFilter === 'ja'} onclick={() => { langFilter = 'ja'; loadWords(); }}>🇯🇵 Japanese</button>
+		<button class="filter-btn segmented-cell" class:active={langFilter === 'ko'} aria-pressed={langFilter === 'ko'} onclick={() => { langFilter = 'ko'; loadWords(); }}>🇰🇷 Korean</button>
 		{#if $session.data?.user}
-			<button class="filter-btn" class:active={showMine} onclick={() => { showMine = !showMine; loadWords(); }}>My Words</button>
+			<button class="filter-btn segmented-cell" class:active={showMine} aria-pressed={showMine} onclick={() => { showMine = !showMine; loadWords(); }}>My Words</button>
 		{/if}
 	</div>
 
@@ -106,10 +108,10 @@
 	{:else if words.length === 0}
 		<p class="status">No custom words yet. {$session.data?.user ? 'Be the first to create one!' : 'Sign in to create custom words.'}</p>
 	{:else}
-		<div class="word-grid">
+		<div class="word-grid divider-grid mobile-full-bleed">
 			{#each words as cw (cw.id)}
 				{@const defs = typeof cw.definitions === 'string' ? JSON.parse(cw.definitions) : cw.definitions}
-				<div class="word-card">
+				<div class="word-card divider-cell">
 					<a href="/{cw.word}" class="word-link">
 						<div class="word-top">
 							<span class="word-lang">{langLabel(cw.language)}</span>
@@ -135,23 +137,24 @@
 
 <style>
 	.page { max-width: 960px; margin: 0 auto; padding: var(--spacing-xl); }
-	.page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-xl); }
+	.page-header { margin-bottom: var(--spacing-xl); }
 	.page-header h1 { font-size: var(--font-size-title); font-weight: 700; color: var(--text-primary); margin: 0; }
 
 	.create-btn {
+		display: flex;
+		min-height: 44px;
+		align-items: center;
+		justify-content: center;
 		padding: var(--spacing-md) var(--spacing-xl);
-		background: var(--accent);
-		color: white;
-		border: none;
-		border-radius: var(--radius-md);
+		color: var(--accent);
 		font-size: var(--font-size-body);
 		font-weight: 600;
 		text-decoration: none;
 		transition: opacity 0.15s;
 	}
-	.create-btn:hover { opacity: 0.9; }
+	.page-actions { grid-template-columns: 1fr; margin-bottom: var(--spacing-sm); }
 
-	.filters { display: flex; gap: var(--spacing-sm); margin-bottom: var(--spacing-xl); flex-wrap: wrap; }
+	.filters { margin-bottom: var(--spacing-xl); }
 	.filter-btn {
 		padding: var(--spacing-sm) var(--spacing-lg);
 		border: 1px solid var(--border-color);
@@ -166,7 +169,7 @@
 
 	.status { text-align: center; padding: 40px; color: var(--text-secondary); }
 
-	.word-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--spacing-lg); }
+	.word-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
 
 	.word-card {
 		background: var(--bg-secondary);

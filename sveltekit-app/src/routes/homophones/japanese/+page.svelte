@@ -263,11 +263,11 @@
 	</div>
 
 	<!-- Mode Toggle -->
-	<div class="mode-toggle" role="tablist" aria-label="Homophone data">
-		<button class="mode-btn" class:active={mode === 'words'} role="tab" aria-selected={mode === 'words'} onclick={() => mode = 'words'}>
+	<div class="mode-toggle segmented-grid mobile-full-bleed" role="tablist" aria-label="Homophone data">
+		<button class="mode-btn segmented-cell" class:active={mode === 'words'} role="tab" aria-selected={mode === 'words'} onclick={() => mode = 'words'}>
 			Words <span class="mode-count">{wordData.length}</span>
 		</button>
-		<button class="mode-btn" class:active={mode === 'characters'} role="tab" aria-selected={mode === 'characters'} onclick={() => mode = 'characters'}>
+		<button class="mode-btn segmented-cell" class:active={mode === 'characters'} role="tab" aria-selected={mode === 'characters'} onclick={() => mode = 'characters'}>
 			Characters <span class="mode-count">{charData.length}</span>
 		</button>
 	</div>
@@ -315,7 +315,7 @@
 	{:else if filtered.length === 0}
 		<p class="status">No homophones match your filters.</p>
 	{:else}
-		<div class="groups">
+		<div class="groups mobile-full-bleed">
 			{#each displayed as group (group.r)}
 				<div class="group-card">
 					<div class="group-header">
@@ -351,9 +351,11 @@
 		</div>
 
 		{#if hasMore}
-			<button class="load-more" onclick={() => pageNum++}>
-				Load more ({filtered.length - displayed.length} remaining)
-			</button>
+			<div class="load-more-grid divider-grid mobile-full-bleed">
+				<button class="load-more divider-cell" onclick={() => pageNum++}>
+					Load more ({filtered.length - displayed.length} remaining)
+				</button>
+			</div>
 		{/if}
 	{/if}
 
@@ -367,7 +369,7 @@
 	h1 { font-size: var(--font-size-title); font-weight: 700; color: var(--text-primary); margin: 0; }
 	.subtitle { font-size: var(--font-size-body); color: var(--text-secondary); margin: var(--spacing-xs) 0 0; }
 
-	.mode-toggle { display: flex; gap: var(--spacing-sm); margin-bottom: var(--spacing-lg); }
+	.mode-toggle { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-bottom: var(--spacing-lg); }
 	.mode-btn {
 		padding: var(--spacing-sm) var(--spacing-xl);
 		border: 1px solid var(--border-color); border-radius: var(--radius-full);
@@ -474,6 +476,8 @@
 		font-size: var(--font-size-body); cursor: pointer; transition: background 0.15s;
 	}
 	.load-more:hover { background: var(--bg-tertiary); }
+	.load-more-grid { grid-template-columns: 1fr; margin-top: var(--spacing-lg); }
+	.load-more-grid .load-more { margin-top: 0; }
 
 	.attribution {
 		margin-top: var(--spacing-xl); padding-top: var(--spacing-lg);

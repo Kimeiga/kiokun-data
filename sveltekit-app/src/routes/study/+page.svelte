@@ -4,6 +4,7 @@
 	import { useSession } from "$lib/auth-client";
 	import { previewIntervals, formatInterval, type ReviewRating } from "$lib/utils/srs";
 	import { goto } from "$app/navigation";
+	import { page } from "$app/stores";
 	import { getDictionaryUrl } from "$lib/shard-utils";
 	import { dev } from "$app/environment";
 	import { decompressSync, strFromU8 } from "fflate";
@@ -39,6 +40,22 @@
 	let sessionComplete = $state(false);
 	let reviewedCount = $state(0);
 	let totalCardCount = $state<number | null>(null);
+	let deckCounts = $state<Record<string, number>>({
+		all: 0,
+		'searched-words': 0,
+		'searched-sentences': 0,
+	});
+	let selectedDeck = $derived.by(() => {
+		const requested = $page.url.searchParams.get('deck');
+		return requested === 'searched-words' || requested === 'searched-sentences'
+			? requested
+			: 'all';
+	});
+	const deckOptions = [
+		{ id: 'all', label: 'All cards', description: 'Study everything together' },
+		{ id: 'searched-words', label: 'Searched words', description: 'Entries you opened' },
+		{ id: 'searched-sentences', label: 'Searched sentences', description: 'Words from saved sentences' },
+	] as const;
 
 	// Cache for dictionary data per word
 	let cardInfoCache = $state<Map<string, CardInfo>>(new Map());
@@ -66,8 +83,9 @@
 
 	// Load due cards on mount
 	$effect(() => {
+		const deck = selectedDeck;
 		if ($session.data?.user) {
-			loadDueCards();
+			loadDueCards(deck);
 		} else if (!$session.isPending) {
 			isLoading = false;
 		}
@@ -201,13 +219,14 @@
 		}
 	}
 
-	async function loadDueCards() {
+	async function loadDueCards(deck = selectedDeck) {
 		isLoading = true;
 		error = null;
 		try {
+			const deckQuery = deck === 'all' ? '' : `&deck=${encodeURIComponent(deck)}`;
 			const [dueRes, allRes] = await Promise.all([
-				fetch("/api/study?due=true"),
-				fetch("/api/study")
+				fetch(`/api/study?due=true${deckQuery}`),
+				fetch(`/api/study?due=false${deckQuery}`)
 			]);
 
 			if (!dueRes.ok || !allRes.ok) throw new Error("Failed to load cards");
@@ -216,6 +235,7 @@
 
 			cards = dueData.cards || [];
 			totalCardCount = (allData.cards || []).length;
+			deckCounts = allData.deckCounts || deckCounts;
 			currentIndex = 0;
 			isFlipped = false;
 			sessionComplete = cards.length === 0;
@@ -306,22 +326,39 @@
 <Header currentWord="" />
 
 <main id="main-content" class="max-w-2xl mx-auto px-4 py-8">
-	<div class="flex items-center justify-between mb-6">
+	<div class="mb-6">
 		<h1 class="text-3xl font-bold text-text-primary">Study</h1>
 		{#if $session.data?.user}
-			<div class="flex gap-2 flex-wrap">
-				<a href="/study/cards" class="px-4 py-2 border border-border rounded-lg hover:bg-bg-secondary text-sm">
+			<div class="study-nav divider-grid mobile-full-bleed">
+				<a href="/study/cards" class="divider-cell px-4 py-2 text-sm">
 					My Cards
 				</a>
-				<a href="/study/stats" class="px-4 py-2 border border-border rounded-lg hover:bg-bg-secondary text-sm">
+				<a href="/study/stats" class="divider-cell px-4 py-2 text-sm">
 					Stats
 				</a>
-				<a href="/study/decks" class="px-4 py-2 border border-border rounded-lg hover:bg-bg-secondary text-sm">
+				<a href="/study/decks" class="divider-cell px-4 py-2 text-sm">
 					Import Decks
 				</a>
 			</div>
 		{/if}
 	</div>
+
+	{#if $session.data?.user}
+		<nav class="deck-filter divider-grid mobile-full-bleed" aria-label="Study deck">
+			{#each deckOptions as deck}
+				<a
+					href={deck.id === 'all' ? '/study' : `/study?deck=${deck.id}`}
+					class="divider-cell"
+					class:active={selectedDeck === deck.id}
+					aria-current={selectedDeck === deck.id ? 'page' : undefined}
+				>
+					<span class="deck-name">{deck.label}</span>
+					<span class="deck-count">{deckCounts[deck.id] || 0}</span>
+					<span class="deck-description">{deck.description}</span>
+				</a>
+			{/each}
+		</nav>
+	{/if}
 
 	{#if !$session.data?.user && !$session.isPending}
 		<div class="text-center py-12">
@@ -336,17 +373,26 @@
 	{:else if error}
 		<div class="text-center py-12">
 			<p class="text-red-500 mb-4">{error}</p>
-			<button onclick={loadDueCards} class="text-accent hover:underline">Try again</button>
+			<button onclick={() => loadDueCards()} class="text-accent hover:underline">Try again</button>
 		</div>
 	{:else if sessionComplete && totalCardCount === 0}
 		<div class="text-center py-12">
 			<h2 class="text-2xl font-bold text-text-primary mb-2">No Cards Yet</h2>
 			<p class="text-text-secondary mb-6">
-				Start building your vocabulary by adding words to your study deck.
+				{#if selectedDeck === 'searched-words'}
+					Open dictionary entries to build this deck automatically.
+				{:else if selectedDeck === 'searched-sentences'}
+					Save a sentence to build this deck from its words.
+				{:else}
+					Start building your vocabulary by adding words to your study deck.
+				{/if}
 			</p>
-			<div class="flex gap-4 justify-center flex-wrap">
-				<a href="/" class="px-4 py-2 bg-accent text-white rounded-lg hover:opacity-90">Browse Dictionary</a>
-				<a href="/study/decks" class="px-4 py-2 border border-border rounded-lg hover:bg-bg-secondary">Import Pre-made Decks</a>
+			<div class="state-actions divider-grid mobile-full-bleed">
+				<a href="/" class="divider-cell px-4 py-2 text-accent">Browse Dictionary</a>
+				{#if selectedDeck === 'searched-sentences'}
+					<a href="/sentences" class="divider-cell px-4 py-2">Saved Sentences</a>
+				{/if}
+				<a href="/study/decks" class="divider-cell px-4 py-2">Import Pre-made Decks</a>
 			</div>
 			<p class="text-text-tertiary text-sm mt-6">
 				Look up any word and click the + button to add it to your deck
@@ -362,10 +408,10 @@
 					No cards due for review right now. You have {totalCardCount} card{totalCardCount !== 1 ? 's' : ''} in your deck.
 				{/if}
 			</p>
-			<div class="flex gap-4 justify-center flex-wrap">
-				<a href="/" class="px-4 py-2 bg-accent text-white rounded-lg hover:opacity-90">Browse Dictionary</a>
-				<a href="/study/cards" class="px-4 py-2 border border-border rounded-lg hover:bg-bg-secondary">Manage Cards</a>
-				<button onclick={loadDueCards} class="px-4 py-2 border border-border rounded-lg hover:bg-bg-secondary">Refresh</button>
+			<div class="state-actions divider-grid mobile-full-bleed">
+				<a href="/" class="divider-cell px-4 py-2 text-accent">Browse Dictionary</a>
+				<a href="/study/cards" class="divider-cell px-4 py-2">Manage Cards</a>
+				<button onclick={() => loadDueCards()} class="divider-cell px-4 py-2">Refresh</button>
 			</div>
 		</div>
 	{:else if currentCard}
@@ -487,11 +533,11 @@
 
 		<!-- Rating Buttons (only shown when flipped) -->
 		{#if isFlipped && intervals}
-			<div class="grid grid-cols-4 gap-2">
+			<div class="rating-grid divider-grid mobile-full-bleed">
 				<button
 					onclick={() => submitReview('again')}
 					disabled={isReviewing}
-					class="rating-btn bg-red-900/30 text-red-300 hover:bg-red-800/50 disabled:opacity-50"
+					class="rating-btn divider-cell rating-again disabled:opacity-50"
 				>
 					<span class="font-semibold">Again <kbd class="ml-1 px-1 bg-red-800 rounded text-xs">1</kbd></span>
 					<span class="text-xs opacity-70">{intervals.again}</span>
@@ -499,7 +545,7 @@
 				<button
 					onclick={() => submitReview('hard')}
 					disabled={isReviewing}
-					class="rating-btn bg-orange-900/30 text-orange-300 hover:bg-orange-800/50 disabled:opacity-50"
+					class="rating-btn divider-cell rating-hard disabled:opacity-50"
 				>
 					<span class="font-semibold">Hard <kbd class="ml-1 px-1 bg-orange-800 rounded text-xs">2</kbd></span>
 					<span class="text-xs opacity-70">{intervals.hard}</span>
@@ -507,7 +553,7 @@
 				<button
 					onclick={() => submitReview('good')}
 					disabled={isReviewing}
-					class="rating-btn bg-green-900/30 text-green-300 hover:bg-green-800/50 disabled:opacity-50"
+					class="rating-btn divider-cell rating-good disabled:opacity-50"
 				>
 					<span class="font-semibold">Good <kbd class="ml-1 px-1 bg-green-800 rounded text-xs">3</kbd></span>
 					<span class="text-xs opacity-70">{intervals.good}</span>
@@ -515,7 +561,7 @@
 				<button
 					onclick={() => submitReview('easy')}
 					disabled={isReviewing}
-					class="rating-btn bg-blue-900/30 text-blue-300 hover:bg-blue-800/50 disabled:opacity-50"
+					class="rating-btn divider-cell rating-easy disabled:opacity-50"
 				>
 					<span class="font-semibold">Easy <kbd class="ml-1 px-1 bg-blue-800 rounded text-xs">4</kbd></span>
 					<span class="text-xs opacity-70">{intervals.easy}</span>
@@ -530,6 +576,71 @@
 </main>
 
 <style>
+	.study-nav,
+	.state-actions,
+	.rating-grid {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		margin-top: var(--spacing-md);
+	}
+
+	.study-nav a,
+	.state-actions > :global(*) {
+		display: flex;
+		min-height: 44px;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		text-decoration: none;
+	}
+
+	.deck-filter {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		margin-bottom: 1.25rem;
+	}
+
+	.deck-filter a {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) auto;
+		gap: 0.1rem 0.5rem;
+		min-height: 4rem;
+		padding: 0.65rem 0.8rem;
+		border: 1px solid var(--border-color);
+		border-radius: var(--radius-md);
+		background: var(--bg-secondary);
+		color: var(--text-secondary);
+		text-decoration: none;
+	}
+
+	.deck-filter a:hover,
+	.deck-filter a.active {
+		border-color: var(--accent);
+	}
+
+	.deck-filter a.active {
+		background: var(--accent-light);
+		color: var(--accent);
+	}
+
+	.deck-name {
+		overflow: hidden;
+		font-size: var(--font-size-subhead);
+		font-weight: 700;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.deck-count {
+		font-size: var(--font-size-subhead);
+		font-variant-numeric: tabular-nums;
+	}
+
+	.deck-description {
+		grid-column: 1 / -1;
+		color: var(--text-tertiary);
+		font-size: var(--font-size-caption2);
+		line-height: 1.3;
+	}
+
 	.card-container {
 		perspective: 1000px;
 		height: 20rem;
@@ -578,13 +689,27 @@
 		flex-direction: column;
 		align-items: center;
 		padding: 0.75rem;
-		border-radius: 0.75rem;
 		transition: background-color 0.15s;
 		border: none;
 		cursor: pointer;
 	}
 
+	.rating-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+	.rating-again { color: #fca5a5; }
+	.rating-hard { color: #fdba74; }
+	.rating-good { color: #86efac; }
+	.rating-easy { color: #93c5fd; }
+
 	@media (max-width: 640px) {
+		.deck-filter {
+			grid-template-columns: 1fr;
+		}
+
+		.study-nav,
+		.state-actions {
+			grid-template-columns: 1fr;
+		}
+
 		.card-container {
 			height: 18rem;
 		}

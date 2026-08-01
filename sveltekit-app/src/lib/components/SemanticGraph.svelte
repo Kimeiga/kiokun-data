@@ -175,9 +175,11 @@
 		<SectionHeading id="graph">Semantic Network</SectionHeading>
 
 		{#if !expanded}
-			<button class="expand-btn" onclick={() => (expanded = true)}>
-				Show character relationship graph
-			</button>
+			<div class="expand-grid divider-grid mobile-full-bleed">
+				<button class="expand-btn divider-cell" onclick={() => (expanded = true)}>
+					Show character relationship graph
+				</button>
+			</div>
 		{:else}
 			<div class="graph-container">
 				<svg viewBox="0 0 {WIDTH} {HEIGHT}" class="graph-svg">
@@ -254,6 +256,8 @@
 	.semantic-graph {
 		margin-bottom: var(--spacing-lg);
 	}
+
+	.expand-grid { grid-template-columns: 1fr; }
 
 	.expand-btn {
 		display: block;

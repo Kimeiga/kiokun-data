@@ -82,9 +82,9 @@
 		</div>
 
 		<!-- Tab switcher -->
-		<div class="tabs" role="tablist" aria-label="Frequency language">
+		<div class="tabs segmented-grid mobile-full-bleed" role="tablist" aria-label="Frequency language">
 			<button
-				class="tab"
+				class="tab segmented-cell"
 				class:active={activeTab === 'japanese'}
 				onclick={() => { activeTab = 'japanese'; displayCount = PAGE_SIZE; }}
 				role="tab"
@@ -93,7 +93,7 @@
 				🇯🇵 Japanese ({japaneseWords.length})
 			</button>
 			<button
-				class="tab"
+				class="tab segmented-cell"
 				class:active={activeTab === 'chinese'}
 				onclick={() => { activeTab = 'chinese'; displayCount = PAGE_SIZE; }}
 				role="tab"
@@ -102,7 +102,7 @@
 				🇨🇳 Chinese ({chineseWords.length})
 			</button>
 			<button
-				class="tab"
+				class="tab segmented-cell"
 				class:active={activeTab === 'korean'}
 				onclick={() => { activeTab = 'korean'; displayCount = PAGE_SIZE; }}
 				role="tab"
@@ -119,9 +119,9 @@
 		{:else if error}
 			<div class="error" role="alert">Frequency data could not load. {error}</div>
 		{:else}
-			<div class="word-list" role="tabpanel">
+			<div class="word-list divider-grid mobile-full-bleed" role="tabpanel">
 				{#each displayedWords as word, i (word.word + '-' + i)}
-					<a href="/{word.word}" class="word-card">
+					<a href="/{word.word}" class="word-card divider-cell">
 						<span class="rank">#{word.rank}</span>
 						<span class="word-text">{word.word}</span>
 						<span class="reading">{word.reading}</span>
@@ -158,17 +158,12 @@
 	}
 
 	.tabs {
-		display: flex;
-		gap: var(--spacing-sm);
+		grid-template-columns: repeat(3, minmax(0, 1fr));
 		margin-bottom: var(--spacing-xl);
-		overflow-x: auto;
-		padding-bottom: 0.2rem;
-		scrollbar-width: thin;
 	}
 
 	.tab {
 		min-height: 2.75rem;
-		flex: 0 0 auto;
 		padding: var(--spacing-sm) var(--spacing-lg);
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-md);
@@ -205,9 +200,7 @@
 	}
 
 	.word-list {
-		display: flex;
-		flex-direction: column;
-		gap: var(--spacing-sm);
+		grid-template-columns: 1fr;
 	}
 
 	.word-card {
@@ -279,8 +272,8 @@
 	}
 
 	@media (max-width: 768px) {
-		.word-list {
-			gap: var(--spacing-sm);
+		.tabs.segmented-grid {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
 		}
 
 		.word-card {

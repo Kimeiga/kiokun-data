@@ -157,7 +157,7 @@
 	<div class="kr-examples">
 		<div class="examples-main">
 			<div class="column-header">Examples for this word ({sentences.length})</div>
-			<div class="example-list" id="korean-sentence-examples" bind:this={exampleList}>
+			<div class="example-list mobile-full-bleed" id="korean-sentence-examples" bind:this={exampleList}>
 				{#each displayed as s}
 					<a
 						class="example-item"
@@ -211,7 +211,6 @@
 	.example-translation { font-size: var(--font-size-callout); color: var(--text-tertiary); margin-top: 2px; line-height: 1.4; }
 
 	@media (max-width: 768px) {
-		.example-list { margin-inline: -0.75rem; }
 		.example-item { padding-inline: 0.75rem; }
 	}
 </style>

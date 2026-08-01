@@ -68,9 +68,9 @@
 				<p>No users found</p>
 			</div>
 		{:else}
-			<div class="users-grid">
+			<div class="users-grid divider-grid mobile-full-bleed">
 				{#each users as user}
-					<a href="/users/{user.id}" class="user-card">
+					<a href="/users/{user.id}" class="user-card divider-cell">
 						<div class="user-avatar">
 							{#if user.image}
 								<img src={user.image} alt="" loading="lazy" decoding="async" />
@@ -120,9 +120,7 @@
 	}
 
 	.users-grid {
-		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-		gap: 1.5rem;
 		margin-top: 1.5rem;
 	}
 
@@ -197,7 +195,6 @@
 	@media (max-width: 768px) {
 		.users-grid {
 			grid-template-columns: 1fr;
-			gap: 0.65rem;
 		}
 
 		.user-card {

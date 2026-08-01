@@ -102,29 +102,30 @@
 			<h1>Artifacts</h1>
 			<p class="subtitle">Study words where they actually appear: packaging, signs, menus, books, and media.</p>
 		</div>
-		{#if $session.data?.user}
-			<a href="/artifacts/new" class="create-btn">+ New Artifact</a>
-		{/if}
 	</div>
+	{#if $session.data?.user}
+		<div class="page-action-grid divider-grid mobile-full-bleed">
+			<a href="/artifacts/new" class="create-btn divider-cell">+ New Artifact</a>
+		</div>
+	{/if}
 
 	<!-- Filters -->
 	<div class="filter-rows">
-		<div class="filters" role="group" aria-label="Filter by language">
-			<button class="filter-btn" class:active={!langFilter} aria-pressed={!langFilter} onclick={() => langFilter = ''}>All Languages</button>
-			<button class="filter-btn" class:active={langFilter === 'zh'} aria-pressed={langFilter === 'zh'} onclick={() => langFilter = 'zh'}>🇨🇳 Chinese</button>
-			<button class="filter-btn" class:active={langFilter === 'ja'} aria-pressed={langFilter === 'ja'} onclick={() => langFilter = 'ja'}>🇯🇵 Japanese</button>
-			<button class="filter-btn" class:active={langFilter === 'ko'} aria-pressed={langFilter === 'ko'} onclick={() => langFilter = 'ko'}>🇰🇷 Korean</button>
+		<div class="filters segmented-grid mobile-full-bleed" role="group" aria-label="Filter by language">
+			<button class="filter-btn segmented-cell" class:active={!langFilter} aria-pressed={!langFilter} onclick={() => langFilter = ''}>All Languages</button>
+			<button class="filter-btn segmented-cell" class:active={langFilter === 'zh'} aria-pressed={langFilter === 'zh'} onclick={() => langFilter = 'zh'}>🇨🇳 Chinese</button>
+			<button class="filter-btn segmented-cell" class:active={langFilter === 'ja'} aria-pressed={langFilter === 'ja'} onclick={() => langFilter = 'ja'}>🇯🇵 Japanese</button>
+			<button class="filter-btn segmented-cell" class:active={langFilter === 'ko'} aria-pressed={langFilter === 'ko'} onclick={() => langFilter = 'ko'}>🇰🇷 Korean</button>
 		</div>
-		<div class="filters" role="group" aria-label="Filter by artifact type">
-			<button class="filter-btn" class:active={!typeFilter} aria-pressed={!typeFilter} onclick={() => typeFilter = ''}>All Types</button>
-			<button class="filter-btn" class:active={typeFilter === 'packaging'} aria-pressed={typeFilter === 'packaging'} onclick={() => typeFilter = 'packaging'}>📦 Packaging</button>
-			<button class="filter-btn" class:active={typeFilter === 'sign'} aria-pressed={typeFilter === 'sign'} onclick={() => typeFilter = 'sign'}>🪧 Sign</button>
-			<button class="filter-btn" class:active={typeFilter === 'menu'} aria-pressed={typeFilter === 'menu'} onclick={() => typeFilter = 'menu'}>🍜 Menu</button>
-			<button class="filter-btn" class:active={typeFilter === 'book'} aria-pressed={typeFilter === 'book'} onclick={() => typeFilter = 'book'}>📖 Book</button>
-			<button class="filter-btn" class:active={typeFilter === 'media'} aria-pressed={typeFilter === 'media'} onclick={() => typeFilter = 'media'}>📺 Media</button>
+		<div class="filters segmented-grid mobile-full-bleed" role="group" aria-label="Filter by artifact type">
+			<button class="filter-btn segmented-cell" class:active={!typeFilter} aria-pressed={!typeFilter} onclick={() => typeFilter = ''}>All Types</button>
+			<button class="filter-btn segmented-cell" class:active={typeFilter === 'packaging'} aria-pressed={typeFilter === 'packaging'} onclick={() => typeFilter = 'packaging'}>📦 Packaging</button>
+			<button class="filter-btn segmented-cell" class:active={typeFilter === 'sign'} aria-pressed={typeFilter === 'sign'} onclick={() => typeFilter = 'sign'}>🪧 Sign</button>
+			<button class="filter-btn segmented-cell" class:active={typeFilter === 'menu'} aria-pressed={typeFilter === 'menu'} onclick={() => typeFilter = 'menu'}>🍜 Menu</button>
+			<button class="filter-btn segmented-cell" class:active={typeFilter === 'book'} aria-pressed={typeFilter === 'book'} onclick={() => typeFilter = 'book'}>📖 Book</button>
+			<button class="filter-btn segmented-cell" class:active={typeFilter === 'media'} aria-pressed={typeFilter === 'media'} onclick={() => typeFilter = 'media'}>📺 Media</button>
 			{#if $session.data?.user}
-				<span class="filter-separator"></span>
-				<button class="filter-btn" class:active={visibility === 'mine'} aria-pressed={visibility === 'mine'} onclick={() => visibility = visibility === 'mine' ? '' : 'mine'}>My Artifacts</button>
+				<button class="filter-btn segmented-cell" class:active={visibility === 'mine'} aria-pressed={visibility === 'mine'} onclick={() => visibility = visibility === 'mine' ? '' : 'mine'}>My Artifacts</button>
 			{/if}
 		</div>
 	</div>
@@ -134,9 +135,9 @@
 	{:else if artifacts.length === 0}
 		<p class="status">No artifacts yet. {$session.data?.user ? 'Create the first one!' : 'Sign in to create artifacts.'}</p>
 	{:else}
-		<div class="artifact-grid">
+		<div class="artifact-grid divider-grid mobile-full-bleed">
 			{#each artifacts as artifact (artifact.id)}
-				<a href="/artifacts/{artifact.id}" class="artifact-card">
+				<a href="/artifacts/{artifact.id}" class="artifact-card divider-cell">
 					{#if artifact.thumbnailUrl}
 						<div class="card-image">
 							<img src={artifact.thumbnailUrl} alt="" loading="lazy" decoding="async" />
@@ -176,29 +177,29 @@
 
 <style>
 	.page { max-width: var(--content-standard); }
-	.page-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: var(--spacing-xl); gap: var(--spacing-lg); }
+	.page-header { margin-bottom: var(--spacing-xl); }
 	.page-header h1 { color: var(--text-primary); margin: 0; }
 	.subtitle { font-size: var(--font-size-body); color: var(--text-secondary); margin: var(--spacing-xs) 0 0; }
 
 	.create-btn {
+		display: flex;
+		min-height: 44px;
+		align-items: center;
+		justify-content: center;
 		padding: var(--spacing-md) var(--spacing-xl);
-		background: var(--accent);
-		color: white;
-		border: none;
-		border-radius: var(--radius-md);
+		color: var(--accent);
 		font-size: var(--font-size-body);
 		font-weight: 600;
 		text-decoration: none;
 		transition: opacity 0.15s;
 		white-space: nowrap;
 	}
-	.create-btn:hover { opacity: 0.9; }
+	.page-action-grid { grid-template-columns: 1fr; margin-bottom: var(--spacing-sm); }
 
 	.filter-rows { display: flex; flex-direction: column; gap: var(--spacing-sm); margin-bottom: var(--spacing-xl); }
-	.filters { display: flex; gap: var(--spacing-sm); flex-wrap: wrap; align-items: center; }
+	.filters { align-items: stretch; }
 	.filter-btn {
 		min-height: 44px;
-		flex: 0 0 auto;
 		padding: var(--spacing-sm) var(--spacing-lg);
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-full);
@@ -209,11 +210,10 @@
 		transition: border-color 0.15s, color 0.15s;
 	}
 	.filter-btn.active { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
-	.filter-separator { width: 1px; height: 20px; background: var(--border-color); margin: 0 var(--spacing-xs); }
 
 	.status { text-align: center; padding: 40px; color: var(--text-secondary); }
 
-	.artifact-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--spacing-lg); }
+	.artifact-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
 
 	.artifact-card {
 		background: var(--bg-secondary);
@@ -226,7 +226,6 @@
 		display: flex;
 		flex-direction: column;
 	}
-	.artifact-card:hover { border-color: var(--accent); box-shadow: 0 2px 8px var(--shadow); }
 
 	.card-image {
 		width: 100%;
@@ -282,13 +281,7 @@
 	.card-dot { color: var(--border-color); }
 
 	@media (max-width: 768px) {
-		.page-header { flex-direction: column; margin-bottom: 1.25rem; }
+		.page-header { margin-bottom: 1.25rem; }
 		.artifact-grid { grid-template-columns: 1fr; }
-		.filters {
-			flex-wrap: nowrap;
-			overflow-x: auto;
-			padding-bottom: 0.25rem;
-			scrollbar-width: thin;
-		}
 	}
 </style>

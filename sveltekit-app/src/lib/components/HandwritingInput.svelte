@@ -280,20 +280,20 @@
 							ontouchend={endStroke}
 						></canvas>
 					</div>
-					<div class="hw-actions">
-						<button class="hw-btn" type="button" onclick={undoStroke} disabled={strokes.length === 0}>Undo</button>
-						<button class="hw-btn" type="button" onclick={clearCanvas} disabled={strokes.length === 0}>Clear</button>
+					<div class="hw-actions segmented-grid">
+						<button class="hw-btn segmented-cell" type="button" onclick={undoStroke} disabled={strokes.length === 0}>Undo</button>
+						<button class="hw-btn segmented-cell" type="button" onclick={clearCanvas} disabled={strokes.length === 0}>Clear</button>
 					</div>
 				</div>
 
 				<div class="hw-results" aria-live="polite" aria-busy={isRecognizing}>
 					<div class="hw-result-label">Matches</div>
-					<div class="hw-candidates">
+					<div class="hw-candidates divider-grid">
 						{#if isRecognizing && candidates.length === 0}
 							<span class="hw-hint">Recognizing…</span>
 						{:else if candidates.length > 0}
 							{#each candidates as char}
-								<button class="hw-char" type="button" onclick={() => selectCandidate(char)} aria-label={`Use ${char}`}>
+								<button class="hw-char divider-cell" type="button" onclick={() => selectCandidate(char)} aria-label={`Use ${char}`}>
 									{char}
 								</button>
 							{/each}
@@ -410,8 +410,7 @@
 	}
 
 	.hw-actions {
-		display: flex;
-		gap: 0.5rem;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
 
 	.hw-btn {
@@ -449,9 +448,8 @@
 	}
 
 	.hw-candidates {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.5rem;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(3.25rem, 1fr));
 		align-content: flex-start;
 		min-width: 0;
 	}

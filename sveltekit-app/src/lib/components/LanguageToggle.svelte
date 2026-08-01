@@ -45,9 +45,9 @@
 		<div class="text-xs font-semibold text-text-tertiary uppercase tracking-wider">
 			Languages
 		</div>
-		<div class="flex items-center gap-2">
+		<div class="language-grid segmented-grid">
 			<button
-				class="lang-btn-expanded"
+				class="lang-btn-expanded segmented-cell"
 				class:active={languageStore.preferences.chinese}
 				onclick={() => languageStore.toggle('chinese')}
 				aria-pressed={languageStore.preferences.chinese}
@@ -56,7 +56,7 @@
 				<span class="text-sm">Chinese</span>
 			</button>
 			<button
-				class="lang-btn-expanded"
+				class="lang-btn-expanded segmented-cell"
 				class:active={languageStore.preferences.japanese}
 				onclick={() => languageStore.toggle('japanese')}
 				aria-pressed={languageStore.preferences.japanese}
@@ -65,7 +65,7 @@
 				<span class="text-sm">Japanese</span>
 			</button>
 			<button
-				class="lang-btn-expanded"
+				class="lang-btn-expanded segmented-cell"
 				class:active={languageStore.preferences.korean}
 				onclick={() => languageStore.toggle('korean')}
 				aria-pressed={languageStore.preferences.korean}
@@ -119,6 +119,8 @@
 		filter: grayscale(100%);
 		min-height: 44px;
 	}
+
+	.language-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
 	.lang-btn-expanded:hover {
 		opacity: 0.7;

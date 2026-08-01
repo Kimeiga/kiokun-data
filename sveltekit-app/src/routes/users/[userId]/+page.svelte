@@ -194,9 +194,9 @@
 					</select>
 				</div>
 
-				<div class="notes-list" aria-busy={pageLoading}>
+				<div class="notes-list divider-grid mobile-full-bleed" aria-busy={pageLoading}>
 					{#each notes as note}
-						<article class="note-item">
+						<article class="note-item divider-cell">
 							<div class="note-header">
 								<a class="character" href="/{note.character}" aria-label={`Open ${note.character} in the dictionary`}>
 									{note.character}
@@ -217,9 +217,10 @@
 				{/if}
 
 				{#if totalPages > 1}
-					<nav class="pagination" aria-label="Profile notes pages">
+					<nav class="pagination divider-grid mobile-full-bleed" aria-label="Profile notes pages">
 						<button
 							type="button"
+							class="divider-cell"
 							disabled={currentPage <= 1 || pageLoading}
 							onclick={() => (currentPage -= 1)}
 						>
@@ -228,6 +229,7 @@
 						<span aria-live="polite">Page {currentPage} of {totalPages}</span>
 						<button
 							type="button"
+							class="divider-cell"
 							disabled={currentPage >= totalPages || pageLoading}
 							onclick={() => (currentPage += 1)}
 						>
@@ -372,9 +374,7 @@
 	}
 
 	.notes-list {
-		display: flex;
-		flex-direction: column;
-		gap: var(--spacing-lg);
+		grid-template-columns: 1fr;
 	}
 
 	.note-item {
@@ -465,10 +465,8 @@
 	}
 
 	.pagination {
-		display: grid;
 		grid-template-columns: minmax(7rem, 1fr) auto minmax(7rem, 1fr);
 		align-items: center;
-		gap: var(--spacing-md);
 		margin-top: calc(var(--spacing-xl) * 2);
 		color: var(--text-secondary);
 		font-size: var(--font-size-callout);
@@ -492,6 +490,15 @@
 
 	.pagination button:last-child {
 		justify-self: end;
+	}
+
+	.pagination > span {
+		display: flex;
+		min-height: 44px;
+		align-items: center;
+		justify-content: center;
+		padding-inline: var(--spacing-md);
+		background: var(--divider-cell-bg);
 	}
 
 	.pagination button:hover:not(:disabled) {

@@ -44,12 +44,12 @@
 	<!-- Subcategories -->
 	{#if data.subcategories.length > 0}
 		<section class="mb-8">
-			<h2 class="text-lg font-semibold text-text-secondary mb-4">Subcategories</h2>
-			<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+			<h2 class="section-bar-label mobile-full-bleed">Subcategories</h2>
+			<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 divider-grid mobile-full-bleed">
 				{#each data.subcategories as subcat}
 					<a 
 						href="/category/{[...data.categoryPath, subcat].join('/')}"
-						class="min-h-12 p-3 rounded-lg bg-bg-secondary border border-border hover:border-accent hover:bg-bg-tertiary transition-colors text-center flex items-center justify-center"
+						class="divider-cell min-h-12 p-3 text-center flex items-center justify-center"
 					>
 						<span class="text-text-primary font-medium">{subcat}</span>
 					</a>
@@ -61,14 +61,14 @@
 	<!-- Characters in this category -->
 	{#if data.characters.length > 0}
 		<section>
-			<h2 class="text-lg font-semibold text-text-secondary mb-4">
+			<h2 class="section-bar-label mobile-full-bleed">
 				Characters ({data.characters.length})
 			</h2>
-			<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-7 gap-3">
+			<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-7 divider-grid mobile-full-bleed">
 				{#each data.characters as entry}
 					<a 
 						href="/{entry.char}"
-						class="min-h-24 p-3 rounded-lg bg-bg-secondary border border-border hover:border-accent hover:bg-bg-tertiary transition-colors text-center group flex flex-col items-center justify-center"
+						class="divider-cell min-h-24 p-3 text-center group flex flex-col items-center justify-center"
 					>
 						<div class="text-3xl font-cjk text-text-primary group-hover:text-accent transition-colors">
 							{entry.char}

@@ -138,7 +138,7 @@
 {#if filteredChineseWords.length > 0 || filteredJapaneseWords.length > 0 || filteredKoreanWords.length > 0}
 	{@const columnCount = (filteredChineseWords.length > 0 ? 1 : 0) + (filteredJapaneseWords.length > 0 ? 1 : 0) + (filteredKoreanWords.length > 0 ? 1 : 0)}
 	<div class="mb-4">
-		<div class="word-columns" class:two-columns={columnCount === 2} class:three-columns={columnCount === 3}>
+		<div class="word-columns mobile-full-bleed" class:two-columns={columnCount === 2} class:three-columns={columnCount === 3}>
 			<!-- Chinese Words Column -->
 			{#if filteredChineseWords.length > 0}
 				<div class="column chinese-column">
@@ -310,10 +310,6 @@
 	}
 
 	@media (max-width: 768px) {
-		.word-columns {
-			margin-inline: -0.75rem;
-		}
-
 		.word-columns.two-columns,
 		.word-columns.three-columns {
 			grid-template-columns: repeat(2, minmax(0, 1fr));

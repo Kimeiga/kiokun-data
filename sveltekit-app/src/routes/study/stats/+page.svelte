@@ -63,11 +63,11 @@
 <Header currentWord="" />
 
 <main id="main-content" class="max-w-4xl mx-auto px-4 py-8">
-	<div class="flex items-center justify-between mb-6">
+	<div class="mb-6">
 		<h1 class="text-3xl font-bold text-text-primary">Statistics</h1>
-		<a href="/study" class="px-4 py-2 border border-border rounded-lg hover:bg-bg-secondary text-sm">
-			Back to Study
-		</a>
+		<div class="back-grid divider-grid mobile-full-bleed">
+			<a href="/study" class="back-link divider-cell">Back to Study</a>
+		</div>
 	</div>
 
 	{#if !$session.data?.user && !$session.isPending}
@@ -91,27 +91,27 @@
 			<p class="text-text-secondary mb-6">
 				Start adding words to your study deck to track your progress.
 			</p>
-			<div class="flex gap-4 justify-center flex-wrap">
-				<a href="/" class="px-4 py-2 bg-accent text-white rounded-lg hover:opacity-90">Browse Dictionary</a>
-				<a href="/study/decks" class="px-4 py-2 border border-border rounded-lg hover:bg-bg-secondary">Import Pre-made Decks</a>
+			<div class="state-actions divider-grid mobile-full-bleed">
+				<a href="/" class="divider-cell">Browse Dictionary</a>
+				<a href="/study/decks" class="divider-cell">Import Pre-made Decks</a>
 			</div>
 		</div>
 	{:else if stats}
 		<!-- Overview Cards -->
-		<div class="grid gap-3 grid-cols-2 lg:grid-cols-4 mb-6">
-			<div class="stat-card">
+		<div class="stats-grid divider-grid mobile-full-bleed mb-6">
+			<div class="stat-card divider-cell">
 				<div class="text-3xl font-bold text-accent">{stats.totalCards}</div>
 				<div class="text-xs text-text-tertiary">Total Cards</div>
 			</div>
-			<div class="stat-card">
+			<div class="stat-card divider-cell">
 				<div class="text-3xl font-bold text-orange-400">{stats.dueToday}</div>
 				<div class="text-xs text-text-tertiary">Due Today</div>
 			</div>
-			<div class="stat-card">
+			<div class="stat-card divider-cell">
 				<div class="text-3xl font-bold text-green-400">{stats.streak}</div>
 				<div class="text-xs text-text-tertiary">Day Streak</div>
 			</div>
-			<div class="stat-card">
+			<div class="stat-card divider-cell">
 				<div class="text-3xl font-bold text-blue-400">{stats.totalReviews}</div>
 				<div class="text-xs text-text-tertiary">Total Reviews</div>
 			</div>
@@ -174,11 +174,11 @@
 				<p class="text-sm text-text-tertiary mb-3">
 					These cards keep being forgotten. Consider adding mnemonics or studying the full entry.
 				</p>
-				<div class="flex flex-wrap gap-2">
+				<div class="leech-grid divider-grid">
 					{#each stats.leechWords as word}
 						<a
 							href="/{word}"
-							class="px-3 py-1.5 bg-orange-900/20 border border-orange-800/30 rounded-lg text-orange-200 font-cjk text-lg hover:bg-orange-900/40 transition-colors"
+							class="divider-cell px-3 py-1.5 text-orange-200 font-cjk text-lg"
 						>
 							{word}
 						</a>
@@ -191,9 +191,9 @@
 		{#if Object.keys(stats.byLanguage).length > 0}
 			<div class="section-card mb-6">
 				<h2 class="text-lg font-semibold text-text-primary mb-3">Cards by Language</h2>
-				<div class="grid gap-3 sm:grid-cols-3">
+				<div class="language-grid divider-grid">
 					{#each Object.entries(stats.byLanguage) as [lang, count]}
-						<div class="flex items-center gap-3 p-3 bg-bg-secondary rounded-lg">
+						<div class="divider-cell flex items-center gap-3 p-3">
 							<span class="text-2xl">{languageFlags[lang] || '🌐'}</span>
 							<div>
 								<div class="font-semibold text-text-primary">{languageNames[lang] || lang}</div>
@@ -216,10 +216,28 @@
 </main>
 
 <style>
+	.back-grid { grid-template-columns: 1fr; margin-top: var(--spacing-md); }
+	.state-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+	.stats-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+	.language-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+	.leech-grid { grid-template-columns: repeat(auto-fit, minmax(4rem, 1fr)); }
+
+	.back-link,
+	.state-actions > :global(*) {
+		display: flex;
+		min-height: 44px;
+		align-items: center;
+		justify-content: center;
+		padding: var(--spacing-sm) var(--spacing-md);
+		color: var(--accent);
+		text-align: center;
+		text-decoration: none;
+	}
+
 	.stat-card {
 		background: var(--bg-secondary);
 		border: 1px solid var(--border);
-		border-radius: 0.75rem;
+		border-radius: 0;
 		padding: 1rem;
 		text-align: center;
 	}
@@ -227,7 +245,13 @@
 	.section-card {
 		background: var(--bg-secondary);
 		border: 1px solid var(--border);
-		border-radius: 0.75rem;
+		border-radius: 0;
 		padding: 1.25rem;
+	}
+
+	@media (max-width: 640px) {
+		.stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+		.language-grid,
+		.state-actions { grid-template-columns: 1fr; }
 	}
 </style>

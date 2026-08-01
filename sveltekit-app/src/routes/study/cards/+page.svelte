@@ -110,11 +110,11 @@
 
 <main id="main-content" class="min-h-screen bg-bg-primary pb-10 px-4">
 	<div class="max-w-4xl mx-auto">
-		<div class="flex items-center justify-between mb-6">
+		<div class="mb-6">
 			<h1 class="text-3xl font-bold">📇 My Cards</h1>
-			<a href="/study" class="px-4 py-2 border border-border rounded-lg hover:bg-bg-secondary text-sm">
-				← Back to Study
-			</a>
+			<div class="back-grid divider-grid mobile-full-bleed">
+				<a href="/study" class="back-link divider-cell">← Back to Study</a>
+			</div>
 		</div>
 
 		{#if !$session.data?.user && !$session.isPending}
@@ -154,9 +154,9 @@
 					<a href="/study/decks" class="text-accent hover:underline">Import a deck</a> or save words while browsing the dictionary.
 				</div>
 			{:else}
-				<div class="space-y-2">
+				<div class="card-list divider-grid mobile-full-bleed">
 					{#each filteredCards() as card}
-						<div class="flex items-center gap-4 p-3 bg-base-200 rounded-lg">
+						<div class="divider-cell flex items-center gap-4 p-3">
 							<span class="text-xl">{languageFlags[card.language]}</span>
 							<a href="/{card.word}" class="font-cjk text-xl hover:text-accent flex-1">{card.word}</a>
 							<div class="text-sm text-base-content/70 hidden sm:block">
@@ -192,3 +192,20 @@
 		{/if}
 	</div>
 </main>
+
+<style>
+	.back-grid,
+	.card-list { grid-template-columns: 1fr; }
+
+	.back-grid { margin-top: var(--spacing-md); }
+
+	.back-link {
+		display: flex;
+		min-height: 44px;
+		align-items: center;
+		justify-content: center;
+		color: var(--accent);
+		font-size: var(--font-size-callout);
+		text-decoration: none;
+	}
+</style>

@@ -50,14 +50,16 @@
 
 {#if verbType && conjugationTable}
 	<div class="conjugation-section">
-		<button
-			class="toggle-button"
-			on:click={() => expanded = !expanded}
-			aria-expanded={expanded}
-		>
-			<span class="toggle-icon">{expanded ? '▼' : '▶'}</span>
-			<span>Conjugation Table</span>
-		</button>
+		<div class="toggle-grid divider-grid mobile-full-bleed">
+			<button
+				class="toggle-button divider-cell"
+				on:click={() => expanded = !expanded}
+				aria-expanded={expanded}
+			>
+				<span class="toggle-icon">{expanded ? '▼' : '▶'}</span>
+				<span>Conjugation Table</span>
+			</button>
+		</div>
 
 		{#if expanded}
 			<div class="conjugation-table">
@@ -88,7 +90,11 @@
 		padding-top: var(--spacing-md);
 	}
 
+	.toggle-grid { grid-template-columns: 1fr; }
+
 	.toggle-button {
+		width: 100%;
+		min-height: 44px;
 		display: flex;
 		align-items: center;
 		gap: var(--spacing-sm);
@@ -155,4 +161,3 @@
 		color: var(--text-primary, #333);
 	}
 </style>
-

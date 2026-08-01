@@ -180,9 +180,9 @@
 				<p>No notes match your search</p>
 			</div>
 		{:else}
-			<div class="notes-grid">
+			<div class="notes-grid divider-grid mobile-full-bleed">
 				{#each filteredNotes as note (note.id)}
-					<a href="/{note.character}" class="note-card">
+					<a href="/{note.character}" class="note-card divider-cell">
 						<div class="note-header">
 							<div class="character">{note.character}</div>
 							<div class="date">{formatDate(note.updatedAt)}</div>
@@ -202,8 +202,6 @@
 		max-width: 1200px;
 		margin: 0 auto;
 		padding: calc(var(--spacing-xl) * 2) var(--spacing-xl);
-		/* Prevent horizontal overflow */
-		overflow-x: hidden;
 	}
 
 	.page-header {
@@ -326,9 +324,7 @@
 	}
 
 	.notes-grid {
-		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
-		gap: var(--spacing-xl);
 	}
 
 	.note-card {

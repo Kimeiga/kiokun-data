@@ -77,14 +77,13 @@
 					</div>
 
 					<!-- Character cards -->
-					<div class="flex flex-wrap gap-2">
+					<div class="character-grid divider-grid mobile-full-bleed">
 						{#each chars as ch}
 							{@const hasEntry = ch.pinyin.length > 0 || ch.gloss}
 							{#if hasEntry}
 								<a
 									href="/{ch.char}"
-									class="flex items-center gap-2 px-3 py-2 rounded-lg no-underline transition-colors duration-150 hover:border-accent"
-									style="background: var(--bg-secondary); border: 1px solid var(--border-light);"
+									class="divider-cell flex items-center gap-2 px-3 py-2 no-underline"
 								>
 									<span class="text-2xl font-serif" style="color: var(--text-primary);" lang="zh">
 										{ch.char}
@@ -104,8 +103,7 @@
 								</a>
 							{:else}
 								<span
-									class="flex items-center gap-2 px-3 py-2 rounded-lg opacity-40"
-									style="background: var(--bg-secondary); border: 1px solid var(--border-light);"
+									class="divider-cell flex items-center gap-2 px-3 py-2 opacity-40"
 									title="No dictionary entry"
 								>
 									<span class="text-2xl font-serif" style="color: var(--text-primary);" lang="zh">
@@ -124,3 +122,11 @@
 		</div>
 	{/if}
 </main>
+
+<style>
+	.character-grid { grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr)); }
+
+	@media (max-width: 640px) {
+		.character-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+	}
+</style>

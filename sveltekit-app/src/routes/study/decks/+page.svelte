@@ -92,18 +92,18 @@
 		{:else}
 			{#each ['ja', 'zh', 'ko'] as lang}
 				<div class="mb-8">
-					<h2 class="text-xl font-semibold mb-4 flex items-center gap-2">
+					<h2 class="section-bar-label mobile-full-bleed">
 						<span class="text-2xl">{languageFlags[lang]}</span>
 						{languageNames[lang]}
 					</h2>
-					<div class="grid gap-4 sm:grid-cols-2">
+					<div class="grid sm:grid-cols-2 divider-grid mobile-full-bleed">
 						{#each decks.filter(d => d.language === lang) as deck}
-							<div class="card bg-base-200 shadow-sm">
+							<div class="card divider-cell">
 								<div class="card-body p-4">
 									<h3 class="card-title text-lg">{deck.name}</h3>
 									<p class="text-sm text-base-content/70">{deck.description}</p>
 									<p class="text-xs text-base-content/50">{deck.end - deck.start} words</p>
-									<div class="card-actions justify-end mt-2">
+									<div class="card-actions divider-grid justify-end mt-2">
 										{#if importResults[deck.id]}
 											<span class="text-sm text-success">
 												✓ {importResults[deck.id].imported} added
@@ -113,7 +113,7 @@
 											</span>
 										{:else}
 											<button
-												class="btn btn-primary btn-sm"
+												class="btn divider-cell btn-sm"
 												onclick={() => importDeck(deck)}
 												disabled={importing !== null}
 											>
@@ -132,9 +132,24 @@
 				</div>
 			{/each}
 
-			<div class="mt-8">
-				<a href="/study" class="btn btn-outline">← Back to Study</a>
+			<div class="back-grid divider-grid mobile-full-bleed mt-8">
+				<a href="/study" class="back-link divider-cell">← Back to Study</a>
 			</div>
 		{/if}
 	</div>
 </main>
+
+<style>
+	.card-actions,
+	.back-grid { grid-template-columns: 1fr; }
+
+	.card-actions :global(.btn),
+	.back-link {
+		display: flex;
+		min-height: 44px;
+		align-items: center;
+		justify-content: center;
+		color: var(--accent);
+		text-decoration: none;
+	}
+</style>

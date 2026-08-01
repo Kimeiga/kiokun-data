@@ -349,9 +349,9 @@
 					<div class="mb-3">
 						<div class="flex justify-between items-center mb-2">
 							<span class="font-semibold text-text-secondary text-xs">Your Note</span>
-							<div class="note-actions">
-								<button onclick={startEditing} class="edit-btn" title="Edit">Edit</button>
-								<button onclick={deleteNote} class="delete-btn" title="Delete">Delete</button>
+							<div class="note-actions segmented-grid">
+								<button onclick={startEditing} class="edit-btn segmented-cell" title="Edit">Edit</button>
+								<button onclick={deleteNote} class="delete-btn segmented-cell" title="Delete">Delete</button>
 							</div>
 						</div>
 						<div class="text-text-primary leading-relaxed markdown-content">
@@ -364,17 +364,19 @@
 							<div class="flex items-center gap-3">
 								<span class="font-medium text-text-tertiary text-xs">{myNote ? "Edit Your Note" : "Add Your Note"}</span>
 								{#if isExpanded}
-									<div class="editor-tabs">
+									<div class="editor-tabs segmented-grid">
 										<button
-											class="tab"
+											class="tab segmented-cell"
 											class:active={!showPreview}
+											aria-pressed={!showPreview}
 											onclick={() => (showPreview = false)}
 										>
 											Write
 										</button>
 										<button
-											class="tab"
+											class="tab segmented-cell"
 											class:active={showPreview}
+											aria-pressed={showPreview}
 											onclick={() => (showPreview = true)}
 											disabled={!noteText.trim()}
 										>
@@ -384,7 +386,7 @@
 								{/if}
 							</div>
 							{#if isExpanded}
-								<div class="editor-actions">
+								<div class="editor-actions segmented-grid">
 									<input
 										type="file"
 										accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
@@ -396,17 +398,17 @@
 										<button
 											onclick={triggerImageUpload}
 											disabled={uploadingImage}
-											class="image-btn"
+											class="image-btn segmented-cell"
 											title="Upload image"
 										>
 											{uploadingImage ? "..." : "📷"}
 										</button>
 									{/if}
-									<button onclick={saveNote} disabled={loading || !noteText.trim()} class="save-btn">
+									<button onclick={saveNote} disabled={loading || !noteText.trim()} class="save-btn segmented-cell">
 										{loading ? "Saving..." : "Save"}
 									</button>
 									{#if myNote}
-										<button onclick={cancelEditing} class="cancel-btn">Cancel</button>
+										<button onclick={cancelEditing} class="cancel-btn segmented-cell">Cancel</button>
 									{/if}
 								</div>
 							{/if}
@@ -500,7 +502,7 @@
 	}
 
 	.editor-tabs {
-		@apply flex gap-2;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
 
 	.tab {
@@ -521,7 +523,8 @@
 	}
 
 	.editor-actions {
-		@apply flex gap-2 items-center;
+		grid-auto-columns: minmax(4.5rem, 1fr);
+		align-items: stretch;
 	}
 
 	.save-btn {
@@ -597,7 +600,7 @@
 	}
 
 	.note-actions {
-		@apply flex gap-2;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
 
 	.edit-btn,

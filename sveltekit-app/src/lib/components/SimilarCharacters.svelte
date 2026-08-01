@@ -104,7 +104,7 @@
 	<div class="similar-section">
 		<SectionHeading id="similar">Similar Characters</SectionHeading>
 		<div
-			class="similar-scroll"
+			class="similar-scroll mobile-full-bleed"
 			class:expanded
 			id="similar-character-list"
 			bind:this={listElement}
@@ -208,7 +208,6 @@
 	@media (max-width: 768px) {
 		.similar-scroll {
 			grid-template-columns: repeat(4, minmax(0, 1fr));
-			margin-inline: -0.75rem;
 		}
 	}
 

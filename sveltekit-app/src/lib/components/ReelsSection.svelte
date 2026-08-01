@@ -159,7 +159,7 @@
 			{#each occurrences.slice(0, visibleCount) as occ}
 				<a
 					href="/reel/{occ.video_id}?word={encodeURIComponent(word)}&t={occ.start_time}&lang={language}"
-					class="group relative aspect-[9/16] bg-bg-secondary rounded-lg overflow-hidden border border-border hover:border-accent transition-colors"
+					class="group relative aspect-[9/16] bg-bg-secondary overflow-hidden border border-border hover:border-accent transition-colors"
 				>
 					<!-- Static thumbnail image (much faster than loading video) -->
 					{#if getThumbnailUrl(occ.video_id)}
@@ -204,10 +204,10 @@
 		</div>
 		
 		{#if hasMore}
-			<div class="mt-4 text-center">
+			<div class="load-more-grid divider-grid mobile-full-bleed mt-4">
 				<button
 					onclick={loadMore}
-					class="px-4 py-2 text-sm font-medium text-text-secondary bg-bg-secondary hover:bg-bg-tertiary border border-border rounded-lg transition-colors"
+					class="divider-cell px-4 py-2 text-sm font-medium text-text-secondary"
 				>
 					Load more ({remainingCount} remaining)
 				</button>
@@ -221,4 +221,6 @@
 		width: 100%;
 		height: 1px;
 	}
+
+	.load-more-grid { grid-template-columns: 1fr; }
 </style>

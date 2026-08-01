@@ -110,7 +110,7 @@
 				{#each videos as video}
 					<a 
 						href="/learning-resources/japanese/scripting-japan/{video.slug}"
-						class="block bg-bg-secondary border border-border rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
+						class="block bg-bg-secondary border border-border overflow-hidden hover:bg-bg-tertiary transition-colors"
 					>
 						<!-- Thumbnail -->
 						<div class="relative aspect-video bg-bg-tertiary">

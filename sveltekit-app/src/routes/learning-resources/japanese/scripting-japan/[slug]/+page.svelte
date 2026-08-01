@@ -97,7 +97,7 @@
 			<!-- Main Content (Video + Summary) -->
 			<div class="lg:col-span-2 space-y-6">
 				<!-- Video Player -->
-				<div class="aspect-video bg-black rounded-lg overflow-hidden">
+				<div class="aspect-video bg-black overflow-hidden">
 					<iframe
 						src={getYouTubeEmbedUrl(video.videoId)}
 						title={video.title}
@@ -125,7 +125,7 @@
 					</div>
 					
 					<!-- Summary -->
-					<div class="p-4 bg-bg-secondary border border-border rounded-lg">
+					<div class="p-4 bg-bg-secondary border border-border">
 						<h2 class="text-lg font-bold mb-2 text-text-primary">📝 Summary</h2>
 						<p class="text-text-secondary">{video.summary}</p>
 					</div>
@@ -142,7 +142,7 @@
 					{#if words.length === 0}
 						<p class="text-text-secondary">No vocabulary extracted yet.</p>
 					{:else}
-						<div class="space-y-2 max-h-[800px] overflow-y-auto pr-2">
+						<div class="vocabulary-grid divider-grid max-h-[800px] overflow-y-auto">
 							{#each words as word}
 								<WordCard 
 									word={word.word}
@@ -160,3 +160,8 @@
 		</div>
 	{/if}
 </main>
+
+<style>
+	.vocabulary-grid { grid-template-columns: 1fr; }
+	.vocabulary-grid :global(.word-card) { border: 0; border-radius: 0; }
+</style>

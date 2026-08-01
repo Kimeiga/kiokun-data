@@ -135,7 +135,7 @@
 				{showTraditional ? '🇹🇼' : '🇨🇳'}
 			</button>
 		</div>
-		<div class="example-list" id="chinese-sentence-examples" bind:this={exampleList}>
+		<div class="example-list mobile-full-bleed" id="chinese-sentence-examples" bind:this={exampleList}>
 			{#each displayed as s}
 				{@const sentenceText = showTraditional ? s.trad : s.simp}
 				{@const rubySegments = buildChineseRubySegments(sentenceText, s.py)}
@@ -205,7 +205,6 @@
 	.example-translation { font-size: var(--font-size-callout); color: var(--text-tertiary); margin-top: 2px; line-height: 1.4; }
 
 	@media (max-width: 768px) {
-		.example-list { margin-inline: -0.75rem; }
 		.example-item { padding-inline: 0.75rem; }
 	}
 </style>

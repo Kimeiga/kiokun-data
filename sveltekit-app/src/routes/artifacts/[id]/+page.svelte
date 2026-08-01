@@ -612,9 +612,9 @@
 							<input type="checkbox" bind:checked={editIsPublic} />
 							<span>{editIsPublic ? 'Public' : 'Private'}</span>
 						</label>
-						<div class="edit-actions">
-							<button class="btn-secondary" onclick={() => isEditing = false}>Cancel</button>
-							<button class="btn-primary" onclick={saveEdits}>Save</button>
+						<div class="edit-actions segmented-grid">
+							<button class="btn-secondary segmented-cell" onclick={() => isEditing = false}>Cancel</button>
+							<button class="btn-primary segmented-cell" onclick={saveEdits}>Save</button>
 						</div>
 					</div>
 				{:else}
@@ -638,9 +638,9 @@
 							</div>
 						</div>
 						{#if isOwner()}
-							<div class="header-actions">
-								<button class="btn-secondary" onclick={startEditing}>Edit</button>
-								<button class="btn-danger" onclick={deleteArtifact}>Delete</button>
+							<div class="header-actions segmented-grid">
+								<button class="btn-secondary segmented-cell" onclick={startEditing}>Edit</button>
+								<button class="btn-danger segmented-cell" onclick={deleteArtifact}>Delete</button>
 							</div>
 						{/if}
 					</div>
@@ -651,17 +651,19 @@
 			<section class="section">
 				<div class="section-header">
 					<h2>Images & Text</h2>
-					<div class="annotation-toggles">
+					<div class="annotation-toggles segmented-grid">
 						<button
-							class="toggle-pill"
+							class="toggle-pill segmented-cell"
 							class:active={showReadings}
+							aria-pressed={showReadings}
 							onclick={() => showReadings = !showReadings}
 						>
 							{showReadings ? 'Readings on' : 'Readings off'}
 						</button>
 						<button
-							class="toggle-pill"
+							class="toggle-pill segmented-cell"
 							class:active={showGlosses}
+							aria-pressed={showGlosses}
 							onclick={() => showGlosses = !showGlosses}
 						>
 							{showGlosses ? 'Glosses on' : 'Glosses off'}
@@ -760,9 +762,9 @@
 					<div class="section-header" style="margin-top: var(--spacing-xl);">
 						<h3>Other Sentences</h3>
 					</div>
-					<div class="sentences-list">
+					<div class="sentences-list divider-grid mobile-full-bleed">
 						{#each artifact.sentences.filter((s: any) => !s.imageId) as sentence (sentence.id)}
-							<div class="sentence-card">
+							<div class="sentence-card divider-cell">
 								<div class="sentence-text">
 									{#each renderSentenceTokens(sentence) as token}
 										{#if token.isWord}
@@ -984,7 +986,7 @@
 	h1 { font-size: var(--font-size-title); font-weight: 700; color: var(--text-primary); margin: 0; font-family: var(--font-cjk); }
 	.description { font-size: var(--font-size-body); color: var(--text-secondary); margin: var(--spacing-sm) 0 0; line-height: 1.5; }
 	.header-meta { font-size: var(--font-size-caption1); color: var(--text-muted); margin-top: var(--spacing-sm); }
-	.header-actions { display: flex; gap: var(--spacing-sm); flex-shrink: 0; }
+	.header-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); flex-shrink: 0; }
 
 	/* Edit form */
 	.edit-form { display: flex; flex-direction: column; gap: var(--spacing-md); }
@@ -1002,7 +1004,7 @@
 	.edit-input:focus { outline: none; border-color: var(--accent); }
 	.title-input { font-size: var(--font-size-headline); font-weight: 600; }
 	.edit-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md); }
-	.edit-actions { display: flex; gap: var(--spacing-sm); justify-content: flex-end; }
+	.edit-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 	.toggle-label { display: flex; align-items: center; gap: var(--spacing-sm); font-size: var(--font-size-body); color: var(--text-primary); cursor: pointer; }
 	.toggle-label input { width: 18px; height: 18px; accent-color: var(--accent); }
 
@@ -1105,7 +1107,7 @@
 	.img-delete:focus-visible { opacity: 1; }
 
 	/* Sentences */
-	.sentences-list { display: flex; flex-direction: column; gap: var(--spacing-md); }
+	.sentences-list { grid-template-columns: 1fr; }
 
 	.sentence-card {
 		background: var(--bg-secondary);
@@ -1127,7 +1129,7 @@
 	}
 
 	/* Annotation toggles */
-	.annotation-toggles { display: flex; align-items: center; gap: var(--spacing-sm); }
+	.annotation-toggles { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; }
 	.toggle-pill {
 		padding: 4px 12px;
 		border: 1px solid var(--border-color);

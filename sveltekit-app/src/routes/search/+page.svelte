@@ -138,11 +138,11 @@
 			<!-- Only show language columns that have results -->
 			{#if chineseResults.length > 0}
 				<div class="results-column">
-					<h2 class="column-title">Chinese 🇨🇳</h2>
-					<div class="results-list">
+					<h2 class="column-title section-bar-label mobile-full-bleed">Chinese 🇨🇳</h2>
+					<div class="results-list divider-grid mobile-full-bleed">
 						{#each chineseResults.slice(0, visibleChinese) as result}
 							{@const targetWord = result.targetWord || result.word}
-							<a href="/{targetWord}" class="result-card">
+							<a href="/{targetWord}" class="result-card divider-cell">
 								<div class="result-header">
 									<span class="word">
 										{(result.forms?.length ? result.forms.slice(0, 3) : [result.word]).join(' / ')}
@@ -179,10 +179,10 @@
 
 			{#if japaneseResults.length > 0}
 				<div class="results-column">
-					<h2 class="column-title">Japanese 🇯🇵</h2>
-					<div class="results-list">
+					<h2 class="column-title section-bar-label mobile-full-bleed">Japanese 🇯🇵</h2>
+					<div class="results-list divider-grid mobile-full-bleed">
 						{#each japaneseResults.slice(0, visibleJapanese) as result}
-							<a href="/{result.targetWord || result.word}" class="result-card">
+							<a href="/{result.targetWord || result.word}" class="result-card divider-cell">
 								<div class="result-header">
 									<span class="word">{result.word}</span>
 									{#if result.pronunciation}
@@ -217,10 +217,10 @@
 
 			{#if koreanResults.length > 0}
 				<div class="results-column">
-					<h2 class="column-title">Korean 🇰🇷</h2>
-					<div class="results-list">
+					<h2 class="column-title section-bar-label mobile-full-bleed">Korean 🇰🇷</h2>
+					<div class="results-list divider-grid mobile-full-bleed">
 						{#each koreanResults.slice(0, visibleKorean) as result}
-							<a href="/{result.targetWord || result.word}" class="result-card">
+							<a href="/{result.targetWord || result.word}" class="result-card divider-cell">
 								<div class="result-header">
 									<span class="word">{result.word}</span>
 									{#if result.pronunciation}
@@ -257,11 +257,11 @@
 		<!-- Custom Word Results -->
 		{#if customResults.length > 0}
 			<div class="custom-results-section">
-				<h2 class="column-title" style="margin-top: var(--spacing-xl)">Community Words</h2>
-				<div class="results-list">
+				<h2 class="column-title section-bar-label mobile-full-bleed" style="margin-top: var(--spacing-xl)">Community Words</h2>
+				<div class="results-list divider-grid mobile-full-bleed">
 					{#each customResults as cw}
 						{@const defs = typeof cw.definitions === 'string' ? JSON.parse(cw.definitions) : cw.definitions}
-						<a href="/{cw.word}" class="result-card">
+						<a href="/{cw.word}" class="result-card divider-cell">
 							<div class="result-header">
 								<span class="word">
 									{#if cw.language === 'zh' && cw.simplified && cw.traditional && cw.simplified !== cw.traditional}
@@ -384,10 +384,16 @@
 		border-bottom: 1px solid var(--border-color);
 	}
 
+	.column-title.section-bar-label {
+		margin-bottom: 0;
+		padding: 0 var(--spacing-md);
+		border-block: 1px solid var(--border-color);
+		color: var(--section-bar-text);
+		font-size: var(--font-size-subhead);
+	}
+
 	.results-list {
-		display: flex;
-		flex-direction: column;
-		gap: var(--spacing-lg);
+		grid-template-columns: 1fr;
 	}
 
 	.result-card {
@@ -491,10 +497,6 @@
 		}
 
 		.results-column {
-			gap: var(--spacing-md);
-		}
-
-		.results-list {
 			gap: var(--spacing-md);
 		}
 

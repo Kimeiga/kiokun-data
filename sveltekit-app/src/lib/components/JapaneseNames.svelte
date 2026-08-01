@@ -98,7 +98,7 @@
 <div class="japanese-names">
 	<SectionHeading id="names">Japanese Names</SectionHeading>
 	<div
-		class="names-container"
+		class="names-container mobile-full-bleed"
 		class:expanded={showAll}
 		id="japanese-names-list"
 		bind:this={namesContainer}
@@ -248,10 +248,6 @@
 	}
 
 	@media (max-width: 768px) {
-		.names-grid {
-			margin-inline: -0.75rem;
-		}
-
 		.name-entry {
 			padding: 7px 6px;
 		}

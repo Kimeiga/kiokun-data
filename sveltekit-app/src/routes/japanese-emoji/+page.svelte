@@ -92,13 +92,13 @@
 		</p>
 	</header>
 
-	<nav class="section-nav" aria-label="Emoji guide sections">
-		<a href="#kanji-emoji">Kanji</a>
-		<a href="#landmarks">Landmarks</a>
-		<a href="#festivals">Festivals</a>
-		<a href="#food">Food</a>
-		<a href="#symbols">Signs</a>
-		<a href="#examples">Examples</a>
+	<nav class="section-nav segmented-grid mobile-full-bleed" aria-label="Emoji guide sections">
+		<a class="segmented-cell" href="#kanji-emoji">Kanji</a>
+		<a class="segmented-cell" href="#landmarks">Landmarks</a>
+		<a class="segmented-cell" href="#festivals">Festivals</a>
+		<a class="segmented-cell" href="#food">Food</a>
+		<a class="segmented-cell" href="#symbols">Signs</a>
+		<a class="segmented-cell" href="#examples">Examples</a>
 	</nav>
 
 	<!-- Kanji/Semantic Emoji Section -->
@@ -107,9 +107,9 @@
 		<p class="section-intro">
 			These emoji use real Japanese kanji characters. They originated from Japanese signage and are most useful for language learners!
 		</p>
-		<div class="emoji-grid kanji-grid">
+		<div class="emoji-grid kanji-grid divider-grid mobile-full-bleed">
 			{#each kanjiEmoji as item}
-				<div class="emoji-card kanji-card">
+				<div class="emoji-card kanji-card divider-cell">
 					<div class="card-header">
 						<div class="emoji-large">{item.emoji}</div>
 						<div class="kanji-info">
@@ -120,7 +120,7 @@
 					<h3>{item.meaning}</h3>
 					<p class="description">{item.description}</p>
 					<p class="usage"><strong>Usage:</strong> {item.usage}</p>
-					<div class="card-links">
+					<div class="card-links divider-grid">
 						<a href="https://emojipedia.org/{item.emojipedia}" target="_blank" rel="noopener" title="View on Emojipedia">📖 Details</a>
 						<a href="https://x.com/search?q={encodeURIComponent(item.xSearch)}" target="_blank" rel="noopener" title="See real usage on X">🔍 Examples</a>
 						{#if item.dictLink}
@@ -136,13 +136,13 @@
 	<!-- Cultural Emoji Section -->
 	<section id="landmarks" class="emoji-section">
 		<h2>🏯 Icons & Landmarks</h2>
-		<div class="emoji-grid">
+		<div class="emoji-grid divider-grid mobile-full-bleed">
 			{#each culturalEmoji as item}
-				<div class="emoji-card">
+				<div class="emoji-card divider-cell">
 					<div class="emoji-large">{item.emoji}</div>
 					<h3>{item.name}</h3>
 					<p class="description">{item.description}</p>
-					<div class="card-links">
+					<div class="card-links divider-grid">
 						<a href="https://emojipedia.org/{item.emojipedia}" target="_blank" rel="noopener" title="View on Emojipedia">📖 Details</a>
 						<a href="https://x.com/search?q={encodeURIComponent(item.xSearch)}" target="_blank" rel="noopener" title="See real usage on X">🔍 Examples</a>
 						<a href="https://www.google.com/search?tbm=isch&q={encodeURIComponent(item.imageSearch)}" target="_blank" rel="noopener" title="See images on Google">🖼️ Images</a>
@@ -155,13 +155,13 @@
 	<!-- Festival Emoji Section -->
 	<section id="festivals" class="emoji-section">
 		<h2>🎋 Festivals & Traditions</h2>
-		<div class="emoji-grid">
+		<div class="emoji-grid divider-grid mobile-full-bleed">
 			{#each festivalEmoji as item}
-				<div class="emoji-card">
+				<div class="emoji-card divider-cell">
 					<div class="emoji-large">{item.emoji}</div>
 					<h3>{item.name}</h3>
 					<p class="description">{item.description}</p>
-					<div class="card-links">
+					<div class="card-links divider-grid">
 						<a href="https://emojipedia.org/{item.emojipedia}" target="_blank" rel="noopener" title="View on Emojipedia">📖 Details</a>
 						<a href="https://x.com/search?q={encodeURIComponent(item.xSearch)}" target="_blank" rel="noopener" title="See real usage on X">🔍 Examples</a>
 						<a href="https://www.google.com/search?tbm=isch&q={encodeURIComponent(item.imageSearch)}" target="_blank" rel="noopener" title="See images on Google">🖼️ Images</a>
@@ -174,13 +174,13 @@
 	<!-- Food Emoji Section -->
 	<section id="food" class="emoji-section">
 		<h2>🍣 Food & Drink</h2>
-		<div class="emoji-grid">
+		<div class="emoji-grid divider-grid mobile-full-bleed">
 			{#each foodEmoji as item}
-				<div class="emoji-card">
+				<div class="emoji-card divider-cell">
 					<div class="emoji-large">{item.emoji}</div>
 					<h3>{item.name}</h3>
 					<p class="description">{item.description}</p>
-					<div class="card-links">
+					<div class="card-links divider-grid">
 						<a href="https://emojipedia.org/{item.emojipedia}" target="_blank" rel="noopener" title="View on Emojipedia">📖 Details</a>
 						<a href="https://x.com/search?q={encodeURIComponent(item.xSearch)}" target="_blank" rel="noopener" title="See real usage on X">🔍 Examples</a>
 						<a href="https://www.google.com/search?tbm=isch&q={encodeURIComponent(item.imageSearch)}" target="_blank" rel="noopener" title="See images on Google">🖼️ Images</a>
@@ -193,13 +193,13 @@
 	<!-- Symbol Emoji Section -->
 	<section id="symbols" class="emoji-section">
 		<h2>🔰 Symbols & Signs</h2>
-		<div class="emoji-grid">
+		<div class="emoji-grid divider-grid mobile-full-bleed">
 			{#each symbolEmoji as item}
-				<div class="emoji-card">
+				<div class="emoji-card divider-cell">
 					<div class="emoji-large">{item.emoji}</div>
 					<h3>{item.name}</h3>
 					<p class="description">{item.description}</p>
-					<div class="card-links">
+					<div class="card-links divider-grid">
 						<a href="https://emojipedia.org/{item.emojipedia}" target="_blank" rel="noopener" title="View on Emojipedia">📖 Details</a>
 						<a href="https://x.com/search?q={encodeURIComponent(item.xSearch)}" target="_blank" rel="noopener" title="See real usage on X">🔍 Examples</a>
 						<a href="https://www.google.com/search?tbm=isch&q={encodeURIComponent(item.imageSearch)}" target="_blank" rel="noopener" title="See images on Google">🖼️ Images</a>
@@ -215,8 +215,8 @@
 		<p class="section-intro">
 			Want to see how these emoji are used in the wild? Here are some ways to find real examples:
 		</p>
-		<div class="tips-grid">
-			<div class="tip-card">
+		<div class="tips-grid divider-grid mobile-full-bleed">
+			<div class="tip-card divider-cell">
 				<h3>🐦 X/Twitter Search</h3>
 				<p>Search for any emoji directly on X to see how Japanese users use them. Try searching:</p>
 				<ul>
@@ -226,7 +226,7 @@
 				</ul>
 				<a href="https://x.com/search?q=%F0%9F%88%B9" target="_blank" rel="noopener" class="tip-link">Search 🈹 on X →</a>
 			</div>
-			<div class="tip-card">
+			<div class="tip-card divider-cell">
 				<h3>📸 Instagram</h3>
 				<p>Japanese businesses and influencers use these emoji in posts. Search hashtags like:</p>
 				<ul>
@@ -235,7 +235,7 @@
 					<li><code>#花火</code> + 🎐 for summer festival posts</li>
 				</ul>
 			</div>
-			<div class="tip-card">
+			<div class="tip-card divider-cell">
 				<h3>🔎 Google Search</h3>
 				<p>Search the emoji + Japanese context to find usage:</p>
 				<ul>
@@ -244,7 +244,7 @@
 					<li><code>🈲 禁煙</code> - no smoking signs</li>
 				</ul>
 			</div>
-			<div class="tip-card">
+			<div class="tip-card divider-cell">
 				<h3>📰 Emojipedia</h3>
 				<p>For detailed history and cross-platform rendering of each emoji:</p>
 				<a href="https://emojipedia.org/squared-cjk-unified-ideograph-5272" target="_blank" rel="noopener" class="tip-link">View 🈹 on Emojipedia →</a>
@@ -277,19 +277,15 @@
 	}
 
 	.section-nav {
-		display: flex;
-		gap: 0.45rem;
+		grid-template-columns: repeat(6, minmax(0, 1fr));
 		margin-bottom: 1.75rem;
-		overflow-x: auto;
-		padding-bottom: 0.35rem;
-		scrollbar-width: thin;
 	}
 
 	.section-nav a {
 		display: inline-flex;
 		min-height: 44px;
-		flex: 0 0 auto;
 		align-items: center;
+		justify-content: center;
 		padding: 0.55rem 0.85rem;
 		border: 1px solid var(--border-color);
 		border-radius: var(--radius-full);
@@ -311,11 +307,16 @@
 	}
 
 	.emoji-section h2 {
-		font-size: 24px;
+		display: flex;
+		min-height: 1.75rem;
+		align-items: center;
 		margin: 0 0 12px;
-		padding-bottom: 12px;
-		border-bottom: 1px solid var(--border-color);
-		color: var(--text-primary);
+		padding: 0 var(--spacing-md);
+		border-block: 1px solid var(--border-color);
+		background: var(--section-bar-bg);
+		color: var(--section-bar-text);
+		font-size: var(--font-size-subhead);
+		font-weight: 650;
 	}
 
 	.section-intro {
@@ -325,9 +326,7 @@
 	}
 
 	.emoji-grid {
-		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-		gap: 16px;
 	}
 
 	.kanji-grid {
@@ -343,7 +342,6 @@
 	}
 
 	.emoji-card:hover {
-		border-color: var(--accent);
 		background: var(--surface-hover);
 	}
 
@@ -407,12 +405,8 @@
 
 	/* Card Links */
 	.card-links {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 8px;
+		grid-template-columns: repeat(auto-fit, minmax(6rem, 1fr));
 		margin-top: 12px;
-		padding-top: 12px;
-		border-top: 1px solid var(--border-color);
 	}
 
 	.card-links a {
@@ -423,17 +417,16 @@
 		padding: 8px 10px;
 		font-size: 12px;
 		color: var(--text-secondary);
-		background: var(--bg-tertiary);
-		border: 1px solid var(--border-color);
-		border-radius: var(--radius-sm);
+		background: var(--divider-cell-bg);
+		border: 0;
+		border-radius: 0;
 		text-decoration: none;
 		transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
 	}
 
 	.card-links a:hover {
 		color: var(--accent);
-		border-color: var(--accent);
-		background: var(--bg-secondary);
+		background: var(--divider-cell-hover);
 	}
 
 	/* Finding Examples Section */
@@ -508,12 +501,18 @@
 			padding: 0;
 		}
 
+		.section-nav.segmented-grid {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+
 		.subtitle {
 			font-size: 16px;
 		}
 
 		.emoji-section h2 {
-			font-size: 20px;
+			width: 100vw;
+			margin-inline: calc(50% - 50vw);
+			font-size: var(--font-size-subhead);
 		}
 
 		.emoji-section {

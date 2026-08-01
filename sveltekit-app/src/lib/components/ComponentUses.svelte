@@ -97,7 +97,7 @@
 	<section class="component-uses" aria-labelledby="used-in-characters">
 		<SectionHeading id="used-in-characters">Used in characters</SectionHeading>
 
-		<div class="character-grid" id="component-use-list" bind:this={characterGrid}>
+		<div class="character-grid mobile-full-bleed" id="component-use-list" bind:this={characterGrid}>
 			{#each visibleUses as use (use.character)}
 				{@const gloss = cleanCharacterUseGloss(charGlosses[use.character] || "")}
 				<a class="character-card" href="/{use.character}">
@@ -188,7 +188,6 @@
 	@media (max-width: 520px) {
 		.character-grid {
 			grid-template-columns: repeat(4, minmax(0, 1fr));
-			margin-inline: -0.75rem;
 		}
 
 		.character {

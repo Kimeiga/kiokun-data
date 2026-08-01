@@ -309,9 +309,9 @@
 				</label>
 			</div>
 
-			<div class="actions">
-				<a href="/artifacts" class="cancel-btn">Cancel</a>
-				<button class="save-btn" onclick={createArtifact} disabled={saving || uploading || !title.trim()}>
+			<div class="actions divider-grid mobile-full-bleed">
+				<a href="/artifacts" class="cancel-btn divider-cell">Cancel</a>
+				<button class="save-btn divider-cell" onclick={createArtifact} disabled={saving || uploading || !title.trim()}>
 					{saving ? 'Creating...' : 'Create Artifact'}
 				</button>
 			</div>
@@ -444,15 +444,16 @@
 	.toggle-label input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--accent); }
 	.toggle-hint { font-size: var(--font-size-caption1); color: var(--text-muted); font-weight: 400; }
 
-	.actions { display: flex; justify-content: flex-end; gap: var(--spacing-md); margin-top: var(--spacing-xl); }
+	.actions { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: var(--spacing-xl); }
 	.cancel-btn {
+		display: flex; align-items: center; justify-content: center;
 		padding: var(--spacing-md) var(--spacing-xl); border: 1px solid var(--border-color);
 		border-radius: var(--radius-md); background: var(--bg-secondary); color: var(--text-secondary);
 		font-size: var(--font-size-body); text-decoration: none; transition: border-color 0.15s;
 	}
 	.cancel-btn:hover { border-color: var(--text-secondary); }
 	.save-btn {
-		padding: var(--spacing-md) var(--spacing-xl); background: var(--accent); color: white;
+		padding: var(--spacing-md) var(--spacing-xl); color: var(--accent);
 		border: none; border-radius: var(--radius-md); font-size: var(--font-size-body);
 		font-weight: 600; cursor: pointer; transition: opacity 0.15s;
 	}

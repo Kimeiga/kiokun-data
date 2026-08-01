@@ -141,7 +141,7 @@
 	<SectionHeading id="contains">Contains</SectionHeading>
 
 	<div class="mb-4">
-		<div class="characters-row">
+		<div class="characters-row mobile-full-bleed">
 			{#each displayedWords as preview}
 				{@const showChinese = preview.p && languageStore.preferences.chinese}
 				{@const showCantonese = preview.ct && languageStore.preferences.cantonese}
@@ -298,7 +298,6 @@
 	@media (max-width: 768px) {
 		.characters-row {
 			grid-template-columns: repeat(4, minmax(0, 1fr));
-			margin-inline: -0.75rem;
 		}
 
 		.character-card {

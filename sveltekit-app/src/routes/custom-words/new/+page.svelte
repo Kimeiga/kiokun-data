@@ -162,14 +162,14 @@
 			<!-- Language Selector -->
 			<div class="field">
 				<div class="label" id="custom-word-language-label">Language</div>
-				<div class="lang-tabs" role="group" aria-labelledby="custom-word-language-label">
-					<button type="button" class="lang-tab" class:active={language === 'zh'} onclick={() => language = 'zh'}>
+				<div class="lang-tabs segmented-grid mobile-full-bleed" role="group" aria-labelledby="custom-word-language-label">
+					<button type="button" class="lang-tab segmented-cell" class:active={language === 'zh'} aria-pressed={language === 'zh'} onclick={() => language = 'zh'}>
 						🇨🇳 Chinese
 					</button>
-					<button type="button" class="lang-tab" class:active={language === 'ja'} onclick={() => language = 'ja'}>
+					<button type="button" class="lang-tab segmented-cell" class:active={language === 'ja'} aria-pressed={language === 'ja'} onclick={() => language = 'ja'}>
 						🇯🇵 Japanese
 					</button>
-					<button type="button" class="lang-tab" class:active={language === 'ko'} onclick={() => language = 'ko'}>
+					<button type="button" class="lang-tab segmented-cell" class:active={language === 'ko'} aria-pressed={language === 'ko'} onclick={() => language = 'ko'}>
 						🇰🇷 Korean
 					</button>
 				</div>
@@ -237,12 +237,13 @@
 			<!-- Part of Speech -->
 			<div class="field">
 				<div class="label" id="custom-word-pos-label">Part of Speech</div>
-				<div class="pos-grid" role="group" aria-labelledby="custom-word-pos-label">
+				<div class="pos-grid segmented-grid mobile-full-bleed" role="group" aria-labelledby="custom-word-pos-label">
 					{#each allPartsOfSpeech as pos}
 						<button
 							type="button"
-							class="pos-chip"
+							class="pos-chip segmented-cell"
 							class:selected={partOfSpeech.includes(pos)}
+							aria-pressed={partOfSpeech.includes(pos)}
 							onclick={() => togglePOS(pos)}
 						>
 							{pos}
@@ -269,7 +270,9 @@
 						{/if}
 					</div>
 				{/each}
-				<button type="button" class="add-btn" onclick={addDefinition}>+ Add Definition</button>
+				<div class="definition-actions divider-grid mobile-full-bleed">
+					<button type="button" class="add-btn divider-cell" onclick={addDefinition}>+ Add Definition</button>
+				</div>
 			</div>
 
 			<!-- Notes -->
@@ -279,11 +282,11 @@
 			</div>
 
 			<!-- Submit -->
-			<div class="actions">
-				<button type="submit" class="submit-btn" disabled={saving || !word.trim()}>
+			<div class="actions divider-grid mobile-full-bleed">
+				<button type="submit" class="submit-btn divider-cell" disabled={saving || !word.trim()}>
 					{saving ? 'Creating...' : 'Create Word'}
 				</button>
-				<a href="/" class="cancel-link">Cancel</a>
+				<a href="/" class="cancel-link divider-cell">Cancel</a>
 			</div>
 		</form>
 	{/if}
@@ -373,8 +376,7 @@
 	}
 
 	.lang-tabs {
-		display: flex;
-		gap: var(--spacing-sm);
+		grid-template-columns: repeat(3, minmax(0, 1fr));
 	}
 
 	.lang-tab {
@@ -410,9 +412,8 @@
 	}
 
 	.pos-grid {
-		display: flex;
-		flex-wrap: wrap;
-		gap: var(--spacing-sm);
+		grid-auto-flow: row;
+		grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
 	}
 
 	.pos-chip {
@@ -470,6 +471,8 @@
 	}
 
 	.add-btn {
+		width: 100%;
+		min-height: 44px;
 		padding: var(--spacing-sm) var(--spacing-md);
 		border: 1px dashed var(--border-color);
 		border-radius: var(--radius-md);
@@ -480,24 +483,21 @@
 		transition: border-color 0.15s;
 	}
 
+	.definition-actions { grid-template-columns: 1fr; }
+
 	.add-btn:hover {
 		border-color: var(--accent);
 	}
 
 	.actions {
-		display: flex;
-		align-items: center;
-		gap: var(--spacing-lg);
+		grid-template-columns: 1fr 1fr;
 		padding-top: var(--spacing-lg);
-		border-top: 1px solid var(--border-color);
 	}
 
 	.submit-btn {
+		min-height: 44px;
 		padding: var(--spacing-md) var(--spacing-xl);
-		background: var(--accent);
-		color: white;
-		border: none;
-		border-radius: var(--radius-md);
+		color: var(--accent);
 		font-size: var(--font-size-body);
 		font-weight: 600;
 		cursor: pointer;
@@ -514,6 +514,11 @@
 	}
 
 	.cancel-link {
+		display: flex;
+		min-height: 44px;
+		align-items: center;
+		justify-content: center;
+		padding: var(--spacing-md) var(--spacing-xl);
 		color: var(--text-secondary);
 		text-decoration: none;
 		font-size: var(--font-size-body);
@@ -529,8 +534,8 @@
 			gap: 0;
 		}
 
-		.lang-tabs {
-			flex-direction: column;
+		.lang-tabs.segmented-grid {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
 		}
 	}
 </style>

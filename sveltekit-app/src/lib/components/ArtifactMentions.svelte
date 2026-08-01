@@ -58,9 +58,9 @@
 {#if hasLoaded && mentions.length > 0}
 	<div class="artifact-mentions" id="artifacts">
 		<SectionHeading>Found In Artifacts</SectionHeading>
-		<div class="mentions-list">
+		<div class="mentions-list divider-grid mobile-full-bleed">
 			{#each mentions as mention (mention.id)}
-				<a href="/artifacts/{mention.id}" class="mention-card">
+				<a href="/artifacts/{mention.id}" class="mention-card divider-cell">
 					<div class="mention-header">
 						<span class="mention-type">{typeEmoji(mention.type)}</span>
 						<span class="mention-title">{mention.title}</span>
@@ -88,7 +88,7 @@
 <style>
 	.artifact-mentions { margin-top: var(--spacing-xl); }
 
-	.mentions-list { display: flex; flex-direction: column; gap: var(--spacing-md); }
+	.mentions-list { grid-template-columns: 1fr; }
 
 	.mention-card {
 		display: block;

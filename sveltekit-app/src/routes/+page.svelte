@@ -357,15 +357,15 @@
 	<!-- Daily Picks -->
 	{#if data.dailyPicks}
 		<section class="section">
-			<div class="daily-row">
-				<a href="/{data.dailyPicks.character.value}" class="daily-card">
+			<div class="daily-row divider-grid mobile-full-bleed">
+				<a href="/{data.dailyPicks.character.value}" class="daily-card divider-cell">
 					<span class="daily-text">
 						<span class="daily-label">Character of the Day</span>
 						<span class="daily-gloss">{data.dailyPicks.character.gloss}</span>
 					</span>
 					<span class="daily-main">{data.dailyPicks.character.value}</span>
 				</a>
-				<a href="/{data.dailyPicks.word.value}" class="daily-card">
+				<a href="/{data.dailyPicks.word.value}" class="daily-card divider-cell">
 					<span class="daily-text">
 						<span class="daily-label">Word of the Day</span>
 						<span class="daily-gloss">{data.dailyPicks.word.gloss}</span>
@@ -376,9 +376,9 @@
 		</section>
 	{:else}
 		<section class="section" aria-busy="true" aria-label="Loading daily picks">
-			<div class="daily-row">
+			<div class="daily-row divider-grid mobile-full-bleed">
 				{#each [0, 1] as _}
-					<div class="daily-card daily-card-skeleton" aria-hidden="true">
+					<div class="daily-card daily-card-skeleton divider-cell" aria-hidden="true">
 						<span class="daily-skeleton-copy">
 							<span class="daily-skeleton-line daily-skeleton-label"></span>
 							<span class="daily-skeleton-line daily-skeleton-gloss"></span>
@@ -399,9 +399,9 @@
 		<div class="section-head">
 			<h2>Characters</h2>
 		</div>
-		<div class="cjk-grid">
+		<div class="cjk-grid divider-grid mobile-full-bleed">
 			{#each compareExamples as ex}
-				<a href="/{ex.trad}" class="cjk-card">
+				<a href="/{ex.trad}" class="cjk-card divider-cell">
 					<span class="cjk-row">
 						<span class="cjk-glyph">{ex.trad}</span>
 						<span class="cjk-sep">/</span>
@@ -413,7 +413,7 @@
 				</a>
 			{/each}
 		</div>
-		<a href="/category" class="link-more">Browse all character categories →</a>
+		<a href="/category" class="link-more rule-link">Browse all character categories →</a>
 	</section>
 
 	<!-- Words — secondary, denser -->
@@ -421,9 +421,9 @@
 		<div class="section-head">
 			<h2>Words</h2>
 		</div>
-		<div class="word-list">
+		<div class="word-list divider-grid mobile-full-bleed">
 			{#each sharedWords as item}
-				<a href="/{item.trad}" class="word-chip">
+				<a href="/{item.trad}" class="word-chip divider-cell">
 					<span class="word-main">{item.trad}</span>
 					{#if item.simp && item.simp !== item.trad}
 						<span class="word-alt">{item.simp}</span>
@@ -440,9 +440,9 @@
 			<h2>Search by English</h2>
 			<p>Find characters and words by meaning</p>
 		</div>
-		<div class="chip-row">
+		<div class="chip-row divider-grid mobile-full-bleed">
 			{#each searchSuggestions as term}
-				<a href="/search?q={encodeURIComponent(term)}" class="search-chip">{term}</a>
+				<a href="/search?q={encodeURIComponent(term)}" class="search-chip divider-cell">{term}</a>
 			{/each}
 		</div>
 	</section>
@@ -450,9 +450,9 @@
 	<!-- Featured videos (heading intentionally omitted) -->
 	<section class="section">
 		<FeaturedReels />
-		<div class="whats-new-links">
-			<a href="/users" class="link-more">Community →</a>
-			<a href="/artifacts" class="link-more">Artifacts →</a>
+		<div class="whats-new-links divider-grid mobile-full-bleed">
+			<a href="/users" class="link-more divider-cell">Community →</a>
+			<a href="/artifacts" class="link-more divider-cell">Artifacts →</a>
 		</div>
 	</section>
 
@@ -464,10 +464,10 @@
 		</div>
 		<div class="sentences-grid">
 			{#each sentenceLanguages as lang}
-				<div class="sent-col">
+				<div class="sent-col divider-grid mobile-full-bleed">
 					<span class="sent-flag">{lang.flag}</span>
 					{#each lang.items as s}
-						<button type="button" class="sent-btn" onclick={() => navigateOrSearch(s.text)}>
+						<button type="button" class="sent-btn divider-cell" onclick={() => navigateOrSearch(s.text)}>
 							<span class="sent-text">
 								<AnnotatedSentence
 									text={s.text}
@@ -496,10 +496,10 @@
 				{ flag: '🇯🇵', label: 'Japanese', items: japaneseConjugated },
 				{ flag: '🇰🇷', label: 'Korean', items: koreanConjugated }
 			] as lang}
-				<div class="conj-col">
+				<div class="conj-col divider-grid mobile-full-bleed">
 					<h3 class="conj-lang">{lang.flag} {lang.label}</h3>
 					{#each lang.items as c}
-						<button class="conj-btn" onclick={() => navigateOrSearch(c.word)}>
+						<button class="conj-btn divider-cell" onclick={() => navigateOrSearch(c.word)}>
 							<span class="conj-word">{c.word}</span>
 							<span class="conj-arrow">→</span>
 							<span class="conj-base">{c.base}</span>
@@ -517,9 +517,9 @@
 			<h2>Homophones</h2>
 			<p>Same sound, different meaning — a key challenge in CJK languages</p>
 		</div>
-		<div class="homo-grid">
+		<div class="homo-grid divider-grid mobile-full-bleed">
 			{#each homophoneHighlights as h}
-				<a href={h.path} class="homo-card">
+				<a href={h.path} class="homo-card divider-cell">
 					<div class="homo-top">
 						<span class="homo-flag">{h.lang}</span>
 						<span class="homo-reading">{h.reading}</span>
@@ -528,10 +528,10 @@
 				</a>
 			{/each}
 		</div>
-		<div class="homo-links">
-			<a href="/homophones/japanese" class="link-more">Japanese homophones →</a>
-			<a href="/homophones/chinese" class="link-more">Chinese homophones →</a>
-			<a href="/homophones/korean" class="link-more">Korean homophones →</a>
+		<div class="homo-links divider-grid mobile-full-bleed">
+			<a href="/homophones/japanese" class="link-more divider-cell">Japanese homophones →</a>
+			<a href="/homophones/chinese" class="link-more divider-cell">Chinese homophones →</a>
+			<a href="/homophones/korean" class="link-more divider-cell">Korean homophones →</a>
 		</div>
 	</section>
 
@@ -541,28 +541,28 @@
 			<div class="section-head">
 				<h2>Browse by Category</h2>
 			</div>
-			<div class="cat-grid">
+			<div class="cat-grid divider-grid mobile-full-bleed">
 				{#each categoryHighlights as cat}
-					<a href={cat.path} class="cat-chip">
+					<a href={cat.path} class="cat-chip divider-cell">
 						<span class="cat-icon">{cat.icon}</span>
 						<span class="cat-name">{cat.name}</span>
 					</a>
 				{/each}
 			</div>
-			<a href="/category" class="link-more">See all categories →</a>
+			<a href="/category" class="link-more rule-link">See all categories →</a>
 		</section>
 
 		<section class="section compact">
 			<div class="section-head">
 				<h2>Explore</h2>
 			</div>
-			<div class="quick-links">
-				<a href="/learning" class="qlink">🎓 Learning Resources</a>
-				<a href="/artifacts" class="qlink">📦 Artifacts</a>
-				<a href="/frequency" class="qlink">📊 Frequency Lists</a>
-				<a href="/study" class="qlink">📚 Flashcard Review (SRS)</a>
-				<a href="/study/decks" class="qlink">📥 Import JLPT / HSK / TOPIK</a>
-				<a href="/users" class="qlink">👥 Community</a>
+			<div class="quick-links divider-grid mobile-full-bleed">
+				<a href="/learning" class="qlink divider-cell">🎓 Learning Resources</a>
+				<a href="/artifacts" class="qlink divider-cell">📦 Artifacts</a>
+				<a href="/frequency" class="qlink divider-cell">📊 Frequency Lists</a>
+				<a href="/study" class="qlink divider-cell">📚 Flashcard Review (SRS)</a>
+				<a href="/study/decks" class="qlink divider-cell">📥 Import JLPT / HSK / TOPIK</a>
+				<a href="/users" class="qlink divider-cell">👥 Community</a>
 			</div>
 		</section>
 	</div>
@@ -845,13 +845,20 @@
 		padding: 0;
 	}
 	.section-head {
-		margin-bottom: 16px;
+		margin-bottom: var(--spacing-sm);
 	}
 	.section-head h2 {
-		font-size: var(--font-size-headline);
-		font-weight: 700;
-		color: var(--text-primary);
+		display: flex;
+		min-height: 1.75rem;
 		margin: 0;
+		padding: 0 var(--spacing-md);
+		align-items: center;
+		border-block: 1px solid var(--border-color);
+		background: var(--section-bar-bg);
+		color: var(--section-bar-text);
+		font-size: var(--font-size-subhead);
+		font-weight: 650;
+		line-height: 1.2;
 	}
 	.section-head p {
 		font-size: var(--font-size-callout);
@@ -861,9 +868,8 @@
 
 	/* ===== Word List ===== */
 	.word-list {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 8px;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
 	}
 	.word-chip {
 		display: inline-flex;
@@ -898,9 +904,8 @@
 
 	/* ===== Search Chips ===== */
 	.chip-row {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 8px;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
 	}
 	.search-chip {
 		display: inline-flex;
@@ -932,6 +937,8 @@
 		gap: 8px;
 	}
 	.sent-flag {
+		padding: var(--spacing-xs) var(--spacing-md);
+		background: var(--divider-cell-bg);
 		font-size: 20px;
 	}
 	.sent-btn {
@@ -978,10 +985,13 @@
 		gap: 8px;
 	}
 	.conj-lang {
-		font-size: var(--font-size-callout);
-		font-weight: 600;
-		color: var(--text-primary);
-		margin: 0 0 4px;
+		min-height: 1.75rem;
+		margin: 0;
+		padding: var(--spacing-xs) var(--spacing-md);
+		background: var(--section-bar-bg);
+		color: var(--section-bar-text);
+		font-size: var(--font-size-subhead);
+		font-weight: 650;
 	}
 	.conj-btn {
 		display: flex;
@@ -1043,7 +1053,11 @@
 	.homo-flag { font-size: 14px; }
 	.homo-reading { font-size: var(--font-size-headline); font-weight: 600; color: var(--accent); font-family: var(--font-cjk); }
 	.homo-words { font-size: var(--font-size-caption1); color: var(--text-secondary); font-family: var(--font-cjk); }
-	.homo-links { display: flex; gap: 16px; margin-top: 12px; flex-wrap: wrap; }
+	.homo-links {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		margin-top: var(--spacing-sm);
+	}
 
 	/* ===== Bottom Row ===== */
 	.bottom-row {
@@ -1087,9 +1101,9 @@
 		text-align: center;
 	}
 	.whats-new-links {
-		display: flex;
-		gap: 16px;
-		margin-top: 12px;
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		margin-top: var(--spacing-sm);
 	}
 	.link-more {
 		display: inline-flex;
@@ -1100,15 +1114,26 @@
 		color: var(--accent);
 		text-decoration: none;
 	}
+	.rule-link {
+		width: 100%;
+		margin-top: 1px;
+		padding-inline: var(--spacing-md);
+		border-block: 1px solid var(--border-light);
+		background: var(--divider-cell-bg);
+		transition: background-color 120ms ease, color 120ms ease;
+	}
+	.rule-link:hover {
+		background: var(--divider-cell-hover);
+		text-decoration: none;
+	}
 	.link-more:hover {
 		text-decoration: underline;
 	}
 
 	/* ===== Quick Links ===== */
 	.quick-links {
-		display: flex;
-		flex-direction: column;
-		gap: 6px;
+		display: grid;
+		grid-template-columns: 1fr;
 	}
 	.qlink {
 		display: flex;
@@ -1154,7 +1179,13 @@
 		}
 		.cjk-grid {
 			grid-template-columns: repeat(2, minmax(0, 1fr));
-			gap: var(--spacing-lg);
+		}
+		.section-head h2 {
+			width: 100vw;
+			margin-inline: calc(50% - 50vw);
+		}
+		.homo-links {
+			grid-template-columns: 1fr;
 		}
 	}
 

@@ -42,9 +42,12 @@
 	let charGlosses = $derived(support?.charGlosses || {});
 	let componentUses = $derived(support?.componentUses || {});
 	let historicalExpanded = $state(false);
+	let historicalSectionElement: HTMLDivElement | null = $state(null);
 	let historicalListElement: HTMLDivElement | null = $state(null);
 	let historicalCanExpand = $state(false);
 	let historicalCollapsedHeight = $state(116);
+	let historicalImagesReady = $state(false);
+	let historicalVisibleImageCount = $state(4);
 
 	$effect(() => {
 		const element = historicalListElement;
@@ -54,6 +57,7 @@
 			const items = Array.from(element.querySelectorAll<HTMLElement>(".historical-card"));
 			const row = measureFirstVisualRow(element, ".historical-card");
 			if (row.height > 0) historicalCollapsedHeight = row.height;
+			if (row.count > 0) historicalVisibleImageCount = row.count;
 			historicalCanExpand = row.count < items.length;
 		};
 		const frame = requestAnimationFrame(measure);
@@ -67,6 +71,30 @@
 			cancelAnimationFrame(frame);
 			observer.disconnect();
 		};
+	});
+
+	$effect(() => {
+		const element = historicalSectionElement;
+		const _word = data.word;
+		historicalImagesReady = false;
+		if (!element) return;
+
+		if (!("IntersectionObserver" in window)) {
+			historicalImagesReady = true;
+			return;
+		}
+
+		const observer = new IntersectionObserver(
+			(entries) => {
+				if (entries[0]?.isIntersecting) {
+					historicalImagesReady = true;
+					observer.disconnect();
+				}
+			},
+			{ rootMargin: "300px 0px" }
+		);
+		observer.observe(element);
+		return () => observer.disconnect();
 	});
 
 	function toggleHistoricalExpanded() {
@@ -1065,26 +1093,70 @@
 			loadComponentMappings(traditionalChar, "trad");
 		}
 
-			// Load component stroke mappings for the simplified character once its
-			// deferred component data has arrived.
+		// Load component stroke mappings for the simplified character once its
+		// deferred component data has arrived.
 		if (simplifiedChar && simplifiedChar !== traditionalChar && simpDisplayComponents?.length) {
 			simpUsedSequentialFallback = false;
 			loadComponentMappings(simplifiedChar, "simp");
 		}
 	}
 
-	// Re-run animation when data changes
+	// Start the decorative, continuously looping writer only after the visitor
+	// engages with the page and the browser has idle time. The server-rendered
+	// glyph remains immediately visible, and reduced-motion users keep that
+	// stable representation.
 	$effect(() => {
 		const currentWord = data.word;
 		const targetSignature = headerForms
 			.map((form) => `${form.targetId}:${form.character}`)
 			.join('|');
 		if (!currentWord || !targetSignature) return;
+		if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-		const timer = setTimeout(() => {
-			initHanziWriter();
-		}, 50);
-		return () => clearTimeout(timer);
+		let cancelled = false;
+		let idleId: number | undefined;
+		let frameId: number | undefined;
+		let initializationQueued = false;
+
+		const initialize = () => {
+			if (cancelled || initializationQueued) return;
+			initializationQueued = true;
+			window.removeEventListener("pointerdown", initialize);
+			window.removeEventListener("keydown", initialize);
+			if ("requestIdleCallback" in window) {
+				idleId = window.requestIdleCallback(
+					() => {
+						if (!cancelled) {
+							void initHanziWriter().catch((error) => {
+								console.error("Failed to initialize Hanzi Writer:", error);
+							});
+						}
+					},
+					{ timeout: 2500 }
+				);
+			} else {
+				frameId = requestAnimationFrame(() => {
+					if (!cancelled) {
+						void initHanziWriter().catch((error) => {
+							console.error("Failed to initialize Hanzi Writer:", error);
+						});
+					}
+				});
+			}
+		};
+
+		window.addEventListener("pointerdown", initialize, { once: true, passive: true });
+		window.addEventListener("keydown", initialize, { once: true });
+
+		return () => {
+			cancelled = true;
+			window.removeEventListener("pointerdown", initialize);
+			window.removeEventListener("keydown", initialize);
+			if (idleId !== undefined && "cancelIdleCallback" in window) {
+				window.cancelIdleCallback(idleId);
+			}
+			if (frameId !== undefined) window.cancelAnimationFrame(frameId);
+		};
 	});
 
 </script>
@@ -1177,9 +1249,10 @@ style="background: var(--color-hint-bg); border-color: var(--color-hint-border);
 	{@const isMeaning = types.includes("meaning")}
 	{@const isPhonetic = types.includes("phonetic") || types.includes("sound")}
 	{@const isIconic = types.includes("iconic")}
-	{@const isVisual = types.includes("visual")}
-	{@const highlightColor = isMeaning ? "#27ae60" : isPhonetic ? "#e74c3c" : isIconic ? "#3498db" : isVisual ? "#7c5cff" : "#95a5a6"}
-	{@const typeLabel = isMeaning ? "Meaning" : isPhonetic ? "Phonetic" : isIconic ? "Iconic" : isVisual ? "Visual" : ""}
+		{@const isVisual = types.includes("visual")}
+		{@const highlightColor = isMeaning ? "#27ae60" : isPhonetic ? "#e74c3c" : isIconic ? "#3498db" : isVisual ? "#7c5cff" : "#95a5a6"}
+		{@const typeLabel = isMeaning ? "Meaning" : isPhonetic ? "Phonetic" : isIconic ? "Iconic" : isVisual ? "Visual" : ""}
+		{@const typeClass = isMeaning ? "meaning" : isPhonetic ? "phonetic" : isIconic ? "iconic" : isVisual ? "visual" : "neutral"}
 
 	<div class="component-card flex items-start gap-2 py-2 px-3 rounded-lg w-full">
 		<div class="relative w-[60px] h-[60px] flex-shrink-0">
@@ -1188,7 +1261,7 @@ style="background: var(--color-hint-bg); border-color: var(--color-hint-border);
 				<svg width="60" height="60" viewBox="0 0 1024 1024" class="absolute top-0 left-0">
 					<g transform="scale(1, -1) translate(0, -900)">
 						{#each tradMakemeahanziImage.data.strokes as stroke, i}
-							<path d={stroke} fill={componentStrokes.includes(i) ? highlightColor : "#4b5563"} class="transition-colors duration-300" />
+							<path d={stroke} fill={componentStrokes.includes(i) ? highlightColor : "#4b5563"} />
 						{/each}
 					</g>
 				</svg>
@@ -1205,7 +1278,7 @@ style="background: var(--color-hint-bg); border-color: var(--color-hint-border);
 					</span>
 				{/if}
 				{#if typeLabel}
-					<span class="text-xs px-2 py-0.5 rounded-full" style="background-color: {highlightColor}20; color: {highlightColor}; border: 1px solid {highlightColor}40;">
+					<span class="component-type-badge {typeClass}">
 						{typeLabel} component
 					</span>
 				{/if}
@@ -1262,9 +1335,10 @@ style="background: var(--color-hint-bg); border-color: var(--color-hint-border);
 	{@const isPhonetic = types.includes("phonetic") || types.includes("sound")}
 	{@const isIconic = types.includes("iconic")}
 	{@const isSimplified = types.includes("simplified")}
-	{@const isVisual = types.includes("visual")}
-	{@const highlightColor = isMeaning ? "#27ae60" : isPhonetic ? "#e74c3c" : isIconic ? "#3498db" : isSimplified ? "#9b59b6" : isVisual ? "#7c5cff" : "#95a5a6"}
-	{@const typeLabel = isMeaning ? "Meaning" : isPhonetic ? "Phonetic" : isIconic ? "Iconic" : isSimplified ? "Simplified" : isVisual ? "Visual" : ""}
+		{@const isVisual = types.includes("visual")}
+		{@const highlightColor = isMeaning ? "#27ae60" : isPhonetic ? "#e74c3c" : isIconic ? "#3498db" : isSimplified ? "#9b59b6" : isVisual ? "#7c5cff" : "#95a5a6"}
+		{@const typeLabel = isMeaning ? "Meaning" : isPhonetic ? "Phonetic" : isIconic ? "Iconic" : isSimplified ? "Simplified" : isVisual ? "Visual" : ""}
+		{@const typeClass = isMeaning ? "meaning" : isPhonetic ? "phonetic" : isIconic ? "iconic" : isSimplified ? "simplified" : isVisual ? "visual" : "neutral"}
 
 	<div class="component-card flex items-start gap-2 py-2 px-3 rounded-lg w-full">
 		<div class="relative w-[60px] h-[60px] flex-shrink-0">
@@ -1273,7 +1347,7 @@ style="background: var(--color-hint-bg); border-color: var(--color-hint-border);
 				<svg width="60" height="60" viewBox="0 0 1024 1024" class="absolute top-0 left-0">
 					<g transform="scale(1, -1) translate(0, -900)">
 						{#each simpMakemeahanziImage.data.strokes as stroke, i}
-							<path d={stroke} fill={componentStrokes.includes(i) ? highlightColor : "#4b5563"} class="transition-colors duration-300" />
+							<path d={stroke} fill={componentStrokes.includes(i) ? highlightColor : "#4b5563"} />
 						{/each}
 					</g>
 				</svg>
@@ -1290,7 +1364,7 @@ style="background: var(--color-hint-bg); border-color: var(--color-hint-border);
 					</span>
 				{/if}
 				{#if typeLabel}
-					<span class="text-xs px-2 py-0.5 rounded-full" style="background-color: {highlightColor}20; color: {highlightColor}; border: 1px solid {highlightColor}40;">
+					<span class="component-type-badge {typeClass}">
 						{typeLabel} component
 					</span>
 				{/if}
@@ -1382,7 +1456,7 @@ style="background: var(--color-hint-bg); border-color: var(--color-hint-border);
 		<LazyComponent
 loader={loadNotes}
 props={{ character: traditionalChar }}
-rootMargin="1200px 0px"
+rootMargin="400px 0px"
 		/>
 
 		<LazyComponent
@@ -1394,49 +1468,60 @@ props={{
 	componentUses: componentUses,
 	charGlosses: charGlosses,
 }}
-rootMargin="1200px 0px"
+rootMargin="400px 0px"
 		/>
 	{:else}
 		<LazyComponent
 loader={loadNotes}
 props={{ character: traditionalChar }}
-rootMargin="1200px 0px"
+rootMargin="400px 0px"
 		/>
 	{/if}
 
-<!-- Historical Evolution (reference material, below the learning sections) -->
-{#if data.data.chinese_char?.images && data.data.chinese_char.images.filter((img: { url?: string }) => img.url).length > 0}
-	{@const historicalImages = data.data.chinese_char.images.filter((img: { url?: string }) => img.url)}
-	<div class="historical-section">
-	<SectionHeading id="history">Historical Evolution</SectionHeading>
+	<!-- Historical Evolution (reference material, below the learning sections) -->
+	{#if data.data.chinese_char?.images && data.data.chinese_char.images.filter((img: { url?: string }) => img.url).length > 0}
+		{@const historicalImages = data.data.chinese_char.images.filter((img: { url?: string }) => img.url)}
+		<div class="historical-section" bind:this={historicalSectionElement}>
+		<SectionHeading id="history">Historical Evolution</SectionHeading>
 	<div
-		class="historical-scroll"
+		class="historical-scroll mobile-full-bleed"
 		class:expanded={historicalExpanded}
 		id="historical-evolution-list"
 		bind:this={historicalListElement}
 		style={`--collapsed-height: ${historicalCollapsedHeight}px`}
 	>
-		{#each historicalImages as image}
-{#if image.url}
-	<div class="historical-card">
-		<img
-src={image.url}
-alt="{image.type || 'Historical'} {image.era || ''}"
-class="historical-image w-14 h-14 mx-auto object-contain"
-loading="lazy"
-decoding="async"
+			{#each historicalImages as image, index}
+	{#if image.url}
+		<div class="historical-card">
+			{#if historicalImagesReady && (historicalExpanded || index < historicalVisibleImageCount)}
+			<img
+	src={image.url}
+	alt="{image.type || 'Historical'} {image.era || ''}"
+	class="historical-image w-14 h-14 mx-auto object-contain"
+	width="56"
+	height="56"
+	loading="lazy"
+	decoding="async"
 onerror={(e) => {
 	const target = e.currentTarget as HTMLImageElement;
 	target.style.display = 'none';
 	const fallback = target.nextElementSibling as HTMLElement;
 	if (fallback) fallback.style.display = 'flex';
-}}
-		/>
-		<div class="hidden w-14 h-14 mx-auto items-center justify-center text-2xl font-cjk text-text-primary">
-{data.word}
-		</div>
-		<div class="text-[11px] font-medium text-text-secondary mt-1.5">
-{image.type || 'Unknown'}
+	}}
+			/>
+			<div class="hidden w-14 h-14 mx-auto items-center justify-center text-2xl font-cjk text-text-primary">
+	{data.word}
+			</div>
+			{:else}
+			<div
+				class="historical-image-placeholder w-14 h-14 mx-auto flex items-center justify-center text-2xl font-cjk text-text-primary"
+				aria-hidden="true"
+			>
+				{data.word}
+			</div>
+			{/if}
+			<div class="text-[11px] font-medium text-text-secondary mt-1.5">
+	{image.type || 'Unknown'}
 		</div>
 		{#if image.era}
 <div class="text-xs text-text-secondary mt-0.5">
@@ -1465,10 +1550,19 @@ onerror={(e) => {
 			onclick={toggleHistoricalExpanded}
 			expandLabel="Show all historical forms"
 			collapseLabel="Show fewer historical forms"
-		/>
+			/>
+		{/if}
+		<p class="historical-attribution">
+			Historical forms indexed by
+			<a href="https://www.dong-chinese.com/wiki/{encodeURIComponent(traditionalChar)}">Dong Chinese</a>;
+			source scans attributed to
+			<a href="https://wcd-ihp.ascdc.sinica.edu.tw/union/en/cnh/about.html">Academia Sinica</a>.
+			Dong Chinese wiki content is
+			<a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>;
+			source terms may also apply.
+		</p>
+		</div>
 	{/if}
-	</div>
-{/if}
 
 <!-- Comments (from Academia Sinica, etc.) -->
 {#if data.data.chinese_char?.comments && data.data.chinese_char.comments.length > 0}
@@ -1511,6 +1605,61 @@ onerror={(e) => {
 		margin-bottom: 0.125rem;
 	}
 
+	.component-type-badge {
+		--component-type-color: #505b66;
+		padding: 0.125rem 0.5rem;
+		border: 1px solid color-mix(in srgb, var(--component-type-color) 45%, transparent);
+		border-radius: var(--radius-full);
+		background: color-mix(in srgb, var(--component-type-color) 10%, transparent);
+		color: var(--component-type-color);
+		font-size: var(--font-size-caption1);
+		line-height: 1.25;
+	}
+
+	.component-type-badge.meaning {
+		--component-type-color: #0b6b35;
+	}
+
+	.component-type-badge.phonetic {
+		--component-type-color: #a62e24;
+	}
+
+	.component-type-badge.iconic {
+		--component-type-color: #0b5f91;
+	}
+
+	.component-type-badge.simplified {
+		--component-type-color: #6d348b;
+	}
+
+	.component-type-badge.visual {
+		--component-type-color: #5137a3;
+	}
+
+	:global([data-theme='dark']) .component-type-badge {
+		--component-type-color: #b7c0c7;
+	}
+
+	:global([data-theme='dark']) .component-type-badge.meaning {
+		--component-type-color: #5ee38d;
+	}
+
+	:global([data-theme='dark']) .component-type-badge.phonetic {
+		--component-type-color: #ff8a80;
+	}
+
+	:global([data-theme='dark']) .component-type-badge.iconic {
+		--component-type-color: #63b9f1;
+	}
+
+	:global([data-theme='dark']) .component-type-badge.simplified {
+		--component-type-color: #d09aef;
+	}
+
+	:global([data-theme='dark']) .component-type-badge.visual {
+		--component-type-color: #b4a3ff;
+	}
+
 	.component-character-link {
 		display: inline-grid;
 		width: 44px;
@@ -1540,13 +1689,15 @@ onerror={(e) => {
 	}
 
 	.historical-scroll {
-		display: flex;
-		flex-wrap: wrap;
-		gap: var(--spacing-sm);
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(5rem, 1fr));
+		gap: 1px;
 		max-width: 100%;
 		min-width: 0;
 		max-height: var(--collapsed-height, 7.25rem);
 		overflow: hidden;
+		border-block: 1px solid var(--border-light);
+		background: var(--border-light);
 	}
 
 	.historical-scroll.expanded {
@@ -1555,14 +1706,16 @@ onerror={(e) => {
 
 	.historical-section {
 		margin-bottom: 0;
+		content-visibility: auto;
+		contain-intrinsic-size: auto 10rem;
 	}
 
 	.historical-card {
-		flex-shrink: 0;
 		text-align: center;
 		padding: 0.625rem;
 		min-width: 70px;
-		border-radius: var(--radius-sm);
+		border-radius: 0;
+		background: var(--divider-cell-bg);
 		transition: background 0.15s ease;
 	}
 
@@ -1571,6 +1724,8 @@ onerror={(e) => {
 	}
 
 	.component-card {
+		border-block: 1px solid var(--border-light);
+		border-radius: 0 !important;
 		transition: background 0.15s ease;
 	}
 
@@ -1581,6 +1736,29 @@ onerror={(e) => {
 	.historical-image {
 		filter: invert(0);
 		transition: filter 0.15s ease;
+	}
+
+	.historical-image-placeholder {
+		border: 1px solid var(--border-light);
+		border-radius: var(--radius-sm);
+		background: var(--bg-secondary);
+	}
+
+	.historical-attribution {
+		margin: var(--spacing-sm) 0 0;
+		color: var(--text-secondary);
+		font-size: var(--font-size-caption1);
+		line-height: 1.45;
+	}
+
+	.historical-attribution a {
+		color: inherit;
+		text-decoration: underline;
+		text-underline-offset: 0.12em;
+	}
+
+	.historical-attribution a:hover {
+		color: var(--accent);
 	}
 
 	:global([data-theme='dark']) .historical-image {

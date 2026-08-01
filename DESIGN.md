@@ -6,9 +6,12 @@ Kiokun is a dense multilingual reference tool. Its interface should feel direct,
 
 - Section boundaries use full-width charcoal bars with light text. They are navigation landmarks, not decorative headlines.
 - Collections of related, tappable items use a single 1px divider grid. Cells supply their own 8–12px internal padding; nested cards, doubled gutters, and redundant outer padding are avoided.
+- Filters and tabs use the same ruled surface as a segmented grid. Selected cells use a quiet accent wash and a 2px inset edge, never a detached pill.
+- A singular navigation or secondary action becomes a full-width ruled row when space permits. Rounded buttons are reserved for the primary search field, compact semantic badges, circular icon controls, media controls, and platform-native overlays.
 - Mobile sections may bleed through the page gutter so the divider grid uses the full viewport width. Text inside a cell remains aligned to the normal content gutter.
 - The visible part of a compact control may be smaller than 44px, but its hit area must remain at least 44px through an invisible pseudo-element.
 - Hover, focus, and pressed feedback change the cell surface without changing geometry.
+- General cards use square or 2px corners and no decorative shadow. Elevation is reserved for content that actually overlays another surface.
 
 ## Type and hierarchy
 

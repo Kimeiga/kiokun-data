@@ -15,11 +15,11 @@
 
 	<div class="space-y-6">
 		<section id="japanese" class="learning-section">
-			<h2 class="text-2xl font-bold mb-4 text-text-primary">🇯🇵 Japanese</h2>
-			<div class="grid gap-4 md:grid-cols-2">
+			<h2 class="section-bar-label mobile-full-bleed">🇯🇵 Japanese</h2>
+			<div class="grid gap-4 md:grid-cols-2 divider-grid mobile-full-bleed">
 				<a
 					href="/learning-resources/japanese/scripting-japan"
-					class="learning-card block p-6 bg-bg-secondary border border-border rounded-lg"
+					class="learning-card divider-cell block p-6 bg-bg-secondary border border-border rounded-lg"
 				>
 					<div class="flex items-start gap-4">
 						<div class="text-4xl">🎥</div>
@@ -39,7 +39,7 @@
 
 				<a
 					href="/japanese-emoji"
-					class="learning-card block p-6 bg-bg-secondary border border-border rounded-lg"
+					class="learning-card divider-cell block p-6 bg-bg-secondary border border-border rounded-lg"
 				>
 					<div class="flex items-start gap-4">
 						<div class="text-4xl">😊</div>
@@ -60,19 +60,19 @@
 		</section>
 
 		<section class="learning-section">
-			<h2 class="text-2xl font-bold mb-4 text-text-primary">🔊 Homophones</h2>
-			<div class="grid gap-4 md:grid-cols-3">
-				<a href="/homophones/japanese" class="learning-card block p-5 bg-bg-secondary border border-border rounded-lg">
+			<h2 class="section-bar-label mobile-full-bleed">🔊 Homophones</h2>
+			<div class="grid gap-4 md:grid-cols-3 divider-grid mobile-full-bleed">
+				<a href="/homophones/japanese" class="learning-card divider-cell block p-5 bg-bg-secondary border border-border rounded-lg">
 					<div class="text-2xl mb-2">🇯🇵</div>
 					<h3 class="text-lg font-bold mb-1 text-text-primary">Japanese</h3>
 					<p class="text-sm text-text-secondary">9,649 word groups with pitch accent patterns</p>
 				</a>
-				<a href="/homophones/chinese" class="learning-card block p-5 bg-bg-secondary border border-border rounded-lg">
+				<a href="/homophones/chinese" class="learning-card divider-cell block p-5 bg-bg-secondary border border-border rounded-lg">
 					<div class="text-2xl mb-2">🇨🇳</div>
 					<h3 class="text-lg font-bold mb-1 text-text-primary">Chinese</h3>
 					<p class="text-sm text-text-secondary">5,000 word groups by pinyin pronunciation</p>
 				</a>
-				<a href="/homophones/korean" class="learning-card block p-5 bg-bg-secondary border border-border rounded-lg">
+				<a href="/homophones/korean" class="learning-card divider-cell block p-5 bg-bg-secondary border border-border rounded-lg">
 					<div class="text-2xl mb-2">🇰🇷</div>
 					<h3 class="text-lg font-bold mb-1 text-text-primary">Korean</h3>
 					<p class="text-sm text-text-secondary">585 hanja groups by hangul reading</p>
@@ -81,8 +81,9 @@
 		</section>
 
 		<section class="learning-section">
-			<h2 class="text-2xl font-bold mb-4 text-text-primary">📦 Artifacts</h2>
-			<a href="/artifacts" class="learning-card block p-6 bg-bg-secondary border border-border rounded-lg">
+			<h2 class="section-bar-label mobile-full-bleed">📦 Artifacts</h2>
+			<div class="divider-grid mobile-full-bleed">
+			<a href="/artifacts" class="learning-card divider-cell block p-6 bg-bg-secondary border border-border rounded-lg">
 				<h3 class="text-xl font-bold mb-2 text-text-primary">Language in the real world</h3>
 				<p class="text-text-secondary">
 					Upload photos of real-world text — product packaging, signs, menus — and study the
@@ -90,12 +91,13 @@
 					definitions.
 				</p>
 			</a>
+			</div>
 		</section>
 
 		<section class="learning-section">
-			<h2 class="text-2xl font-bold mb-4 text-text-primary">📚 Study &amp; community</h2>
-			<div class="grid gap-4 md:grid-cols-2">
-				<a href="/study" class="learning-card block p-6 bg-bg-secondary border border-border rounded-lg">
+			<h2 class="section-bar-label mobile-full-bleed">📚 Study &amp; community</h2>
+			<div class="grid gap-4 md:grid-cols-2 divider-grid mobile-full-bleed">
+				<a href="/study" class="learning-card divider-cell block p-6 bg-bg-secondary border border-border rounded-lg">
 					<div class="flex items-start gap-4">
 						<div class="text-4xl">📚</div>
 						<div class="flex-1">
@@ -106,7 +108,7 @@
 						</div>
 					</div>
 				</a>
-				<a href="/users" class="learning-card block p-6 bg-bg-secondary border border-border rounded-lg">
+				<a href="/users" class="learning-card divider-cell block p-6 bg-bg-secondary border border-border rounded-lg">
 					<div class="flex items-start gap-4">
 						<div class="text-4xl">👥</div>
 						<div class="flex-1">
@@ -121,8 +123,9 @@
 		</section>
 
 		<section class="learning-section">
-			<h2 class="text-2xl font-bold mb-4 text-text-primary">📓 Behind the scenes</h2>
-			<a href="/blog" class="learning-card block p-6 bg-bg-secondary border border-border rounded-lg">
+			<h2 class="section-bar-label mobile-full-bleed">📓 Behind the scenes</h2>
+			<div class="divider-grid mobile-full-bleed">
+			<a href="/blog" class="learning-card divider-cell block p-6 bg-bg-secondary border border-border rounded-lg">
 				<div class="flex items-start gap-4">
 					<div class="text-4xl">📓</div>
 					<div class="flex-1">
@@ -134,6 +137,7 @@
 					</div>
 				</div>
 			</a>
+			</div>
 		</section>
 	</div>
 </main>

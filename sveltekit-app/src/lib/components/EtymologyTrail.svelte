@@ -91,9 +91,9 @@
 
 			<!-- Modern readings across languages -->
 			{#if hasModern}
-				<div class="modern-readings">
+				<div class="modern-readings divider-grid mobile-full-bleed">
 					{#if modernPinyin && modernPinyin.length > 0}
-						<div class="language-card">
+						<div class="language-card divider-cell">
 							<span class="flag">🇨🇳</span>
 							<span class="lang-label">Mandarin</span>
 							<span class="reading chinese"
@@ -103,7 +103,7 @@
 					{/if}
 
 					{#if cantonese && cantonese.length > 0}
-						<div class="language-card">
+						<div class="language-card divider-cell">
 							<span class="flag">🇭🇰</span>
 							<span class="lang-label">Cantonese</span>
 							<span class="reading cantonese"
@@ -113,7 +113,7 @@
 					{/if}
 
 					{#if japaneseOn && japaneseOn.length > 0}
-						<div class="language-card">
+						<div class="language-card divider-cell">
 							<span class="flag">🇯🇵</span>
 							<span class="lang-label">On'yomi</span>
 							<span class="reading japanese"
@@ -123,7 +123,7 @@
 					{/if}
 
 					{#if japaneseKun && japaneseKun.length > 0}
-						<div class="language-card">
+						<div class="language-card divider-cell">
 							<span class="flag">🇯🇵</span>
 							<span class="lang-label">Kun'yomi</span>
 							<span class="reading japanese"
@@ -133,7 +133,7 @@
 					{/if}
 
 					{#if koreanReadings && koreanReadings.length > 0}
-						<div class="language-card">
+						<div class="language-card divider-cell">
 							<span class="flag">🇰🇷</span>
 							<span class="lang-label">Korean</span>
 							<span class="reading korean"
@@ -226,9 +226,7 @@
 	}
 
 	.modern-readings {
-		display: flex;
-		flex-wrap: wrap;
-		gap: var(--spacing-sm);
+		grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
 	}
 
 	.language-card {
@@ -239,7 +237,6 @@
 		background: var(--bg-tertiary);
 		border: 1px solid var(--border-light);
 		border-radius: var(--radius-sm);
-		flex: 1;
 		min-width: 120px;
 	}
 
@@ -278,7 +275,7 @@
 
 	@media (max-width: 768px) {
 		.modern-readings {
-			flex-direction: column;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
 		}
 
 		.language-card {
