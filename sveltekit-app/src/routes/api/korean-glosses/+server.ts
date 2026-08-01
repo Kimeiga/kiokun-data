@@ -4,6 +4,12 @@ import type { RequestHandler } from './$types';
 import { getRawGitHubUrl } from '$lib/shard-utils';
 import { buildWordTokens } from '$lib/utils/segment';
 import { koreanDeinflect } from '$lib/utils/korean-deinflect';
+import {
+	compactKoreanGloss,
+	getKoreanDisplayTokens,
+	getKoreanMorphologyGloss,
+	getKoreanSuffixGloss,
+} from '$lib/server/korean-gloss-helpers';
 
 const MAX_SENTENCES = 8;
 const MAX_TOTAL_CHARACTERS = 1_200;
@@ -28,16 +34,14 @@ export const POST: RequestHandler = async ({ request, fetch }) => {
 		return json({ error: 'Sentence payload is too large' }, { status: 413 });
 	}
 
-	const words = [...new Set(uniqueTexts.flatMap((text) =>
-		buildWordTokens(text, 'ko').map((token) => token.surfaceForm)
-	))];
-	const entries = await mapWithConcurrency(words, 6, async (word) => [word, await lookupKoreanGloss(word, fetch)] as const);
+	const words = [...new Set(uniqueTexts.flatMap(getKoreanDisplayTokens))];
+	const entries = await mapWithConcurrency(words, 6, async (word) => [word, await lookupVisibleKoreanGloss(word, fetch)] as const);
 	const wordGlosses = new Map(entries.filter((entry): entry is readonly [string, string] => Boolean(entry[1])));
 	const glosses = Object.fromEntries(uniqueTexts.map((text) => [
 		text,
 		Object.fromEntries(
-			buildWordTokens(text, 'ko')
-				.map((token) => [token.surfaceForm, wordGlosses.get(token.surfaceForm)])
+			getKoreanDisplayTokens(text)
+				.map((token) => [token, wordGlosses.get(token)])
 				.filter((entry): entry is [string, string] => Boolean(entry[1]))
 		),
 	]));
@@ -46,6 +50,30 @@ export const POST: RequestHandler = async ({ request, fetch }) => {
 		headers: { 'Cache-Control': 'public, max-age=86400, s-maxage=604800' },
 	});
 };
+
+async function lookupVisibleKoreanGloss(
+	word: string,
+	fetchFn: typeof fetch,
+): Promise<string | null> {
+	const morphologyGloss = getKoreanMorphologyGloss(word);
+	if (morphologyGloss) return morphologyGloss;
+
+	const directGloss = await lookupKoreanGloss(word, fetchFn);
+	if (directGloss) return directGloss;
+
+	const subtokens = buildWordTokens(word, 'ko')
+		.map((token) => token.surfaceForm)
+		.filter((token) => token !== word && /[\p{Script=Han}\p{Script=Latin}\uAC00-\uD7A3]/u.test(token));
+	if (subtokens.length > 0) {
+		const resolved = await Promise.all(subtokens.map(async (token) =>
+			getKoreanMorphologyGloss(token) ?? await lookupKoreanGloss(token, fetchFn)
+		));
+		const componentGlosses = [...new Set(resolved.filter((gloss): gloss is string => Boolean(gloss)))];
+		if (componentGlosses.length > 0) return componentGlosses.join(' · ');
+	}
+
+	return getKoreanSuffixGloss(word);
+}
 
 async function lookupKoreanGloss(
 	word: string,
@@ -67,7 +95,7 @@ async function lookupKoreanGloss(
 		const entry = await fetchDictionaryEntry(candidate.word, fetchFn);
 		const gloss = extractKoreanGloss(entry);
 		if (gloss) {
-			const compact = compactGloss(gloss);
+			const compact = compactKoreanGloss(gloss);
 			cacheGloss(word, compact);
 			return compact;
 		}
@@ -107,15 +135,6 @@ function extractKoreanGloss(entry: any): string | null {
 		}
 	}
 	return null;
-}
-
-function compactGloss(gloss: string): string {
-	const firstSense = gloss.split(/\s+[—–-]\s+|;|\/|,(?=\s)/, 1)[0]
-		.replace(/\s*\([^)]*\)\s*/g, ' ')
-		.replace(/^(?:to|a|an|the)\s+/i, '')
-		.replace(/\s+/g, ' ')
-		.trim();
-	return firstSense.replace(/[.!?]+$/, '').trim();
 }
 
 function particleStrippedForms(word: string): string[] {
