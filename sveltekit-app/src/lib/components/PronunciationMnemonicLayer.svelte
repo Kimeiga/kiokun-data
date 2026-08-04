@@ -16,6 +16,13 @@
 	function toneLabel(reading: PronunciationMnemonicReading): string {
 		return reading.tone === 5 ? 'neutral tone' : reading.tone ? `tone ${reading.tone}` : '';
 	}
+
+	function strategyLabel(reading: PronunciationMnemonicReading): string {
+		if (reading.strategy === 'phonetic_component') return 'Sound component';
+		if (reading.strategy === 'integrated_sound_cue') return 'Sound cue';
+		return 'Word anchor';
+	}
+
 </script>
 
 {#if visibleCards.length > 0}
@@ -24,11 +31,18 @@
 			{@const groups = groupPronunciationReadings(pronunciationCard)}
 			<section class="sound-language" aria-label={pronunciationCard.language === 'zh' ? 'Mandarin pronunciation mnemonic' : 'Japanese pronunciation mnemonic'}>
 				<header class="sound-language-header">
-					<span>{pronunciationCard.language === 'zh' ? 'Mandarin sound layer' : 'Japanese sound layer'}</span>
+					<span>{pronunciationCard.language === 'zh' ? 'Mandarin pronunciation' : 'Japanese pronunciation'}</span>
 					<span class="sound-language-note">
 						{pronunciationCard.language === 'zh' ? 'Tone-marked pinyin' : 'On and Kun stay separate'}
 					</span>
 				</header>
+
+				{#if pronunciationCard.memory_bridge && pronunciationCard.readings.some((reading) => reading.strategy !== 'word_anchor')}
+					<div class="memory-bridge">
+						<span class="memory-bridge-label">Memory path</span>
+						<p>{pronunciationCard.memory_bridge}</p>
+					</div>
+				{/if}
 
 				<div class="reading-grid">
 					{#each groups.core as reading}
@@ -37,14 +51,18 @@
 								<span class="reading-kind">{readingLabel(reading)}</span>
 								<strong lang={pronunciationCard.language === 'zh' ? 'zh-Latn-pinyin' : 'ja'}>{reading.display_reading}</strong>
 								{#if reading.tone}<span class="tone-label">{toneLabel(reading)}</span>{/if}
+								{#if !reading.phonetic_component}
+									<span class:has-sound-cue={reading.strategy !== 'word_anchor'} class="strategy-label">
+										{strategyLabel(reading)}
+									</span>
+								{/if}
+								{#if reading.phonetic_component}
+									<span class="phonetic-signal" title={reading.phonetic_component.relationship}>
+										Sound component <span lang="zh">{reading.phonetic_component.character}</span>
+									</span>
+								{/if}
 							</div>
 							<p class="sound-overlay">{reading.overlay}</p>
-							{#if reading.phonetic_component}
-								<p class="phonetic-note">
-									<span class="phonetic-component" lang="zh">{reading.phonetic_component.character}</span>
-									is the authentic sound-bearing component; the word below fixes its modern sound.
-								</p>
-							{/if}
 							<div class="anchor-list">
 								{#each reading.anchors as anchor}
 									<div class="anchor-word">
@@ -106,6 +124,30 @@
 		font-weight: 700;
 	}
 
+	.memory-bridge {
+		display: grid;
+		grid-template-columns: 7.5rem minmax(0, 1fr);
+		gap: var(--spacing-sm);
+		padding: 0.65rem var(--spacing-sm);
+		border: 1px solid var(--border-color);
+		border-bottom: 0;
+		background: var(--divider-cell-bg, var(--surface-secondary));
+	}
+
+	.memory-bridge-label {
+		color: var(--text-secondary);
+		font-size: var(--font-size-caption2);
+		font-weight: 700;
+	}
+
+	.memory-bridge p {
+		max-width: 72ch;
+		margin: 0;
+		color: var(--text-primary);
+		font-size: var(--font-size-body);
+		line-height: 1.55;
+	}
+
 	.sound-language-note {
 		color: var(--text-tertiary);
 		font-size: var(--font-size-caption2);
@@ -129,6 +171,7 @@
 	.reading-heading {
 		display: flex;
 		align-items: baseline;
+		flex-wrap: wrap;
 		gap: 0.45rem;
 		margin-bottom: 0.35rem;
 	}
@@ -154,6 +197,29 @@
 		font-size: var(--font-size-caption2);
 	}
 
+	.strategy-label {
+		margin-left: auto;
+		color: var(--text-tertiary);
+		font-size: var(--font-size-caption2);
+		font-weight: 650;
+	}
+
+	.strategy-label.has-sound-cue {
+		color: var(--accent);
+	}
+
+	.phonetic-signal {
+		margin-left: auto;
+		color: var(--accent);
+		font-size: var(--font-size-caption2);
+		font-weight: 650;
+	}
+
+	.phonetic-signal span {
+		font-family: var(--font-cjk);
+		color: var(--text-primary);
+	}
+
 	.sound-overlay {
 		margin: 0 0 var(--spacing-xs);
 		color: var(--text-primary);
@@ -161,18 +227,11 @@
 		line-height: 1.5;
 	}
 
-	.phonetic-note,
 	.phonological-note {
 		margin: 0.25rem 0 0;
 		color: var(--text-secondary);
 		font-size: var(--font-size-caption2);
 		line-height: 1.4;
-	}
-
-	.phonetic-component {
-		color: var(--text-primary);
-		font-family: var(--font-cjk);
-		font-weight: 700;
 	}
 
 	.anchor-list {
@@ -230,6 +289,11 @@
 
 		.reading-card {
 			padding: 0.7rem;
+		}
+
+		.memory-bridge {
+			grid-template-columns: 1fr;
+			gap: 0.2rem;
 		}
 	}
 </style>

@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import {
+	deduplicatePronunciationCards,
 	filterPronunciationCards,
 	groupPronunciationReadings
 } from './pronunciation-mnemonics';
@@ -37,5 +38,9 @@ assert.deepEqual(filterPronunciationCards(cards, { chinese: false, japanese: tru
 assert.deepEqual(filterPronunciationCards(cards, { chinese: true, japanese: true }).map((item) => item.language), ['zh', 'ja']);
 assert.equal(groupPronunciationReadings(cards[0]).core.length, 1);
 assert.equal(groupPronunciationReadings(cards[0]).secondary.length, 0);
+assert.deepEqual(
+	deduplicatePronunciationCards([cards[0], structuredClone(cards[0]), cards[1]]).map((item) => item.language),
+	['zh', 'ja']
+);
 
 console.log('pronunciation mnemonic preference tests passed');

@@ -8,6 +8,9 @@ on:
       - 'data/**'
       - 'scripts/manage_semantic_mnemonic_corpus.py'
       - 'scripts/manage_pronunciation_mnemonic_corpus.py'
+      - 'scripts/assemble_ai_pronunciation_mnemonics.py'
+      - 'scripts/bootstrap_pronunciation_mnemonics.py'
+      - 'reports/pronunciation-mnemonics/ai-authoring/**'
       - 'scripts/smoke_semantic_mnemonic_deployment.py'
       - 'scripts/smoke_pronunciation_mnemonic_deployment.py'
       - 'scripts/smoke_korean_word_deployment.py'
@@ -40,6 +43,9 @@ jobs:
         run: |
           python3 scripts/manage_semantic_mnemonic_corpus.py verify
           python3 scripts/select_pronunciation_targets.py --check
+          python3 scripts/assemble_ai_pronunciation_mnemonics.py --check
+          python3 scripts/bootstrap_pronunciation_mnemonics.py
+          git diff --exit-code -- data/pronunciation_mnemonic_corpus
           python3 scripts/manage_pronunciation_mnemonic_corpus.py verify
 
   build-and-deploy:

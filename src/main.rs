@@ -631,6 +631,7 @@ mod semantic_mnemonic_corpus_tests {
         );
         let ja_xing = get("ja", "行");
         assert_eq!(ja_xing.readings.len(), 4);
+        assert!(ja_xing.memory_bridge.as_deref().is_some_and(|bridge| !bridge.is_empty()));
         let ja_sei = get("ja", "生");
         assert_eq!(ja_sei.readings.len(), 5);
         let ja_zu = get("ja", "図");

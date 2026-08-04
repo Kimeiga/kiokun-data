@@ -1,0 +1,192 @@
+{
+  "contract_version": 2,
+  "input_commit": "62ef8ac3483a1344a6c9259e26cf988cf0fe4380",
+  "proposal_sha256": "477e1856e038f8faf0ea941274dc905f39cae7e039746941251184373379108a",
+  "review_scope": "reports/pronunciation-mnemonics/ai-authoring/zh-rank-1-50.jsonl",
+  "reviewed_against": [
+    "data/pronunciation_mnemonic_corpus/targets/zh.json",
+    "data/pronunciation_mnemonic_corpus/cards/*.jsonl",
+    "data/semantic_mnemonic_corpus/cards/*.jsonl",
+    "original pronunciation-mnemonic product requirements"
+  ],
+  "reviewed_counts": {
+    "cards": 50,
+    "readings": 64,
+    "multi_reading_cards": 13,
+    "memory_bridges": 13
+  },
+  "issue_categories": [
+    {
+      "category": "integrated_sound_cue_without_a_real_sound_cue",
+      "affected_readings": 51,
+      "resolution": "Changed these readings to word_anchor and rewrote the overlays around their verified vocabulary. Under contract v2, all eight remaining integrated_sound_cue readings have both an explicit, phonetically defensible hook and an explicit tone path; visual tone motion alone is not accepted as sound retrieval."
+    },
+    {
+      "category": "weak_or_strained_english_pun",
+      "affected_readings": 14,
+      "resolution": "Removed deed/did, she-is, Leo, English men, taaa, HOW, yow, quite, Joe, choo, and similar devices. Retained only close, explicit hooks with strong acoustic and visual value: whoa/wǒ, knee/nǐ, boo/bù, letter E/yī, yo-yo/yǒu, wren/rén, nah/nà, and hen/hěn."
+    },
+    {
+      "category": "sound_retrieval_contract_v2",
+      "affected_readings": 64,
+      "resolution": "Audited every reading by strategy. Eight integrated cues contain an explicit close sound hook plus tone path; three phonetic-component readings remain source-backed; all 53 word anchors are treated only as supporting vocabulary and tone context, never as if their pictures independently supplied the syllable."
+    },
+    {
+      "category": "formulaic_tone_prose",
+      "affected_readings": 38,
+      "resolution": "Replaced generic statements that a syllable rises, falls, or stays level with concrete micro-scenes in which the anchor word, semantic scene, and tone motion perform one memorable action."
+    },
+    {
+      "category": "bridge_merely_summarizes_readings",
+      "affected_cards": 10,
+      "resolution": "Reauthored the weak bridges as single spatial or temporal scenes with a distinct station or action for every reading."
+    },
+    {
+      "category": "semantic_or_anchor_scene_mismatch",
+      "affected_readings": 4,
+      "resolution": "Removed the unsupported shore in 说, represented 那 as 哪 minus its question mouth, tied hái to the supplied 还是 choice anchor, and stopped conflating the 里 distance scene with the 里面 usage scene."
+    },
+    {
+      "category": "tone_sandhi_clarity",
+      "affected_readings": 2,
+      "resolution": "Kept yī and bù as the canonical stored readings while explicitly separating their common connected-speech forms from those canonical values."
+    },
+    {
+      "category": "unsupported_phonetic_component_claim",
+      "affected_readings": 0,
+      "resolution": "No unsupported phonetic component was retained. The only phonetic-component strategies are the canonical, source-backed 门／門→们, 马／馬→吗, and 相→想 relationships."
+    },
+    {
+      "category": "missing_tone_behavior",
+      "affected_readings": 0,
+      "resolution": "Every revised overlay encodes high-level, rising, dip-and-recovery, falling, or neutral behavior as appropriate."
+    }
+  ],
+  "concrete_fixes": [
+    {
+      "character": "的",
+      "reading": "dí",
+      "category": "weak_or_strained_english_pun",
+      "before": "A deed hits the white bullseye and rebounds upward: ‘It dí(d), really!’",
+      "after": "An inspector checks the bullseye and lifts a green flag: 的确, really. Dí rises with the confirming flag."
+    },
+    {
+      "character": "是",
+      "reading": "shì",
+      "category": "weak_or_strained_english_pun",
+      "before": "She plants her straight foot under the sun and declares ‘she IS.’",
+      "after": "The straight foot remains planted beneath the sun while a judge stamps down the 是 verdict, anchored by 但是."
+    },
+    {
+      "character": "了",
+      "reading": "liǎo",
+      "category": "weak_or_strained_english_pun",
+      "before": "Leo bends down to inspect the completed work, then springs up because he understands it.",
+      "after": "The inspector bends over the finished work and straightens as he 了解 it, making the semantic completion scene and third-tone motion do the memory work."
+    },
+    {
+      "character": "们",
+      "reading": "men",
+      "category": "phonetic_component_precision",
+      "before": "The gate is full of English ‘men.’",
+      "after": "门／門 mén supplies the authenticated sound family; 们 relaxes to neutral men in 我们."
+    },
+    {
+      "character": "一",
+      "reading": "yī",
+      "category": "sound_retrieval_and_tone_sandhi_clarity",
+      "before": "The lone horizontal line showed high-level tone and sandhi but supplied no way to retrieve the syllable yī.",
+      "after": "A single letter E now provides the close /iː/ sound hook for yī on the high, level line; the overlay still distinguishes yí before tone 4 and yì before tones 1–3."
+    },
+    {
+      "character": "好",
+      "reading": "hǎo / hào",
+      "category": "weak_puns_and_summary_bridge",
+      "before": "‘How good?’ and a shouted ‘HOW!’ distinguish the readings.",
+      "after": "One woman-and-child scene contains a bow-and-rise greeting for 你好 hǎo and a hobby poster pinned downward for 爱好 hào."
+    },
+    {
+      "character": "会",
+      "reading": "huì / kuài",
+      "category": "summary_bridge_and_weak_pun",
+      "before": "The bridge says people meet for huì while an accountant says ‘quite right’ for kuài.",
+      "after": "A single meeting room now has a raffle station for 机会 huì and a ledger station for 会计 kuài, with no English ‘quite’ approximation."
+    },
+    {
+      "character": "就",
+      "reading": "jiù",
+      "category": "weak_or_strained_english_pun",
+      "before": "The capital summons remarkable Joe.",
+      "after": "The capital summons its remarkable leader at precisely the right moment, and a seal drops on 就是 jiù."
+    },
+    {
+      "character": "说",
+      "reading": "shuō",
+      "category": "semantic_scene_mismatch",
+      "before": "Each speaker stands on the shore, although no shore exists in the semantic decomposition.",
+      "after": "The verified 讠 speech + 兑 exchange scene carries a high, level speech bubble for 说话 shuō."
+    },
+    {
+      "character": "去",
+      "reading": "qù",
+      "category": "weak_or_strained_english_pun",
+      "before": "A departing train supplies English ‘choo.’",
+      "after": "The buried-secret scene continues into a calendar page falling into 过去, tying qù to the verified word without the inaccurate English vowel."
+    },
+    {
+      "character": "还",
+      "reading": "hái",
+      "category": "anchor_gloss_mismatch",
+      "before": "The traveler is merely ‘still moving,’ while the supplied anchor is 还是, glossed ‘or.’",
+      "after": "The traveler pauses at a fork and raises a hand toward the alternative path—还是, this or that—on rising hái."
+    },
+    {
+      "character": "得",
+      "reading": "dé / děi / de",
+      "category": "summary_bridge",
+      "before": "The bridge lists obtain, must, and a neutral structural particle.",
+      "after": "One traveler lifts the obtained prize for dé, slumps and recovers for obligatory děi, then attaches a light structural de tag to the finished action."
+    },
+    {
+      "character": "都",
+      "reading": "dōu / dū",
+      "category": "summary_bridge",
+      "before": "The bridge states that dōu means all and dū means capital.",
+      "after": "One city scene places all residents under a level dōu banner and the 首都 tower under its own level dū line."
+    },
+    {
+      "character": "事",
+      "reading": "shì",
+      "category": "weak_or_strained_english_pun",
+      "before": "An unrelated English ‘she’ drops a marker onto the matter.",
+      "after": "The semantic hand grips the matter marker and stamps the 事情 case file on falling shì."
+    },
+    {
+      "character": "子",
+      "reading": "zǐ / zi",
+      "category": "summary_bridge",
+      "before": "The bridge only states that full zǐ names children and neutral zi is a suffix.",
+      "after": "At one playground the child’s raised arms trace zǐ in 子女, then the same child’s lighter footsteps tag behind 孩 in 孩子."
+    }
+  ],
+  "post_revision_strategy_counts": {
+    "phonetic_component": 3,
+    "integrated_sound_cue": 8,
+    "word_anchor": 53
+  },
+  "validation": {
+    "json_valid": true,
+    "exact_target_count": true,
+    "exact_target_rank_order": true,
+    "exact_canonical_reading_identity_and_order": true,
+    "allowed_keys_only": true,
+    "allowed_strategies_only": true,
+    "all_integrated_cues_have_explicit_sound_hook_and_tone_path": true,
+    "word_anchors_are_described_only_as_supporting_anchors": true,
+    "yi_sandhi_rechecked": true,
+    "bu_sandhi_rechecked": true,
+    "proposal_sha256_matches_exact_jsonl_bytes": true,
+    "diff_check": true
+  },
+  "pass": true
+}

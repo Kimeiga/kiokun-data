@@ -1,0 +1,58 @@
+{
+  "schema_version": 2,
+  "audit_selection": "manual-audit-2026-08-04.json",
+  "seed": 20260804,
+  "sample_per_language": 30,
+  "selected_count": 154,
+  "ai_review_scope": {
+    "result": "pass_after_corrections",
+    "cards": 203,
+    "readings": 368,
+    "partitions": [
+      {
+        "proposal": "zh-rank-1-50.jsonl",
+        "cards": 50,
+        "readings": 64,
+        "sha256": "477e1856e038f8faf0ea941274dc905f39cae7e039746941251184373379108a"
+      },
+      {
+        "proposal": "zh-rank-51-100-plus-xing.jsonl",
+        "cards": 51,
+        "readings": 63,
+        "sha256": "d11953bb7af4eac3a47e1eac51d0f968fb96e543c88b359be2af033512f3381c"
+      },
+      {
+        "proposal": "ja-rank-1-50.jsonl",
+        "cards": 50,
+        "readings": 114,
+        "sha256": "246d89221c4eb0c64f57c9a3136779d90039e32c7e75a82fbeb38995841eccf6"
+      },
+      {
+        "proposal": "ja-rank-51-100-plus-extensions.jsonl",
+        "cards": 52,
+        "readings": 127,
+        "sha256": "9f453ea81f23d0e8184c65bf6e203ec4bb89854396124c96592f13b760c5de93"
+      }
+    ]
+  },
+  "final_strategy_counts": {
+    "integrated_sound_cue": 57,
+    "phonetic_component": 5,
+    "word_anchor": 306
+  },
+  "corrections": [
+    "replaced deterministic learner-facing prose templates with independently authored and reviewed overlays",
+    "demoted vocabulary examples that lacked a defensible sound association from sound cues to word anchors",
+    "reworked multi-reading memory bridges so they contrast readings without claiming one shared lexical meaning",
+    "replaced the bare Japanese 行 reading list with distinct COACH, GYOZA, EEK, and complete-lexeme paths",
+    "gave Mandarin 和 hé an explicit rising HUH retrieval cue while retaining 暖和 huo as an honest word anchor",
+    "deduplicated the pronunciation layer across simplified and traditional semantic variants",
+    "suppressed card-level reading maps when every reading is vocabulary-only",
+    "labeled sound cues, sound components, and word anchors separately in the interface"
+  ],
+  "remaining_limitations": [
+    "Word anchors deliberately provide exact vocabulary practice rather than claiming to encode a pronunciation when no natural sound hook exists.",
+    "Some multi-character Japanese anchors require editorial character-boundary judgment because the structured source reading is not segmented per kanji."
+  ],
+  "unresolved_blockers": []
+}

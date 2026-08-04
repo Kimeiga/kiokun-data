@@ -1,8 +1,11 @@
 import copy
 import importlib.util
+import shutil
 import sys
+import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 
 SCRIPTS = Path(__file__).resolve().parent
@@ -23,6 +26,7 @@ def valid_card():
         "variants": ["妈", "媽"],
         "language": "zh",
         "review_status": "reviewed",
+        "memory_bridge": "One scene connects the readings.",
         "confidence": "high",
         "sources": [{"path": "fixture", "supports": ["reading"]}],
         "readings": [
@@ -60,6 +64,12 @@ class PronunciationCorpusTests(unittest.TestCase):
     def test_accepts_well_formed_fixture(self):
         self.assertEqual(corpus.validate_card(valid_card())["character"], "妈")
 
+    def test_rejects_empty_memory_bridge(self):
+        card = valid_card()
+        card["memory_bridge"] = "  "
+        with self.assertRaisesRegex(corpus.CorpusError, "memory_bridge"):
+            corpus.validate_card(card)
+
     def test_rejects_core_reading_without_anchor(self):
         card = valid_card()
         card["readings"][0]["anchors"] = []
@@ -87,6 +97,33 @@ class PronunciationCorpusTests(unittest.TestCase):
     def test_bucket_uses_language_and_character_identity(self):
         self.assertNotEqual(corpus.bucket_for_key("zh:行"), corpus.bucket_for_key("ja:行"))
 
+    def test_publish_rejects_stale_manifest(self):
+        cards = corpus.verify_corpus(deep=False)["cards"]
+        with self.assertRaisesRegex(corpus.CorpusError, "changed since it was loaded"):
+            corpus.publish_cards(cards, expected_manifest_sha256="sha256:stale")
+
+    def test_post_install_verification_failure_rolls_back(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            target = Path(temporary) / "corpus"
+            shutil.copytree(corpus.DEFAULT_CORPUS_DIR, target)
+            before = (target / "manifest.json").read_bytes()
+            loaded = corpus.verify_corpus(target, deep=False)
+            real_verify = corpus.verify_corpus
+
+            def fail_installed(path=corpus.DEFAULT_CORPUS_DIR, *, deep=True):
+                if Path(path) == target and deep:
+                    raise corpus.CorpusError("synthetic installed failure")
+                return real_verify(path, deep=deep)
+
+            with mock.patch.object(corpus, "verify_corpus", side_effect=fail_installed):
+                with self.assertRaisesRegex(corpus.CorpusError, "synthetic installed failure"):
+                    corpus.publish_cards(
+                        loaded["cards"],
+                        target,
+                        expected_manifest_sha256=loaded["manifest_sha256"],
+                    )
+            self.assertEqual((target / "manifest.json").read_bytes(), before)
+
     def test_published_regression_cards(self):
         result = corpus.verify_corpus(deep=False)
         by_id = {corpus.card_id(card): card for card in result["cards"]}
@@ -94,6 +131,8 @@ class PronunciationCorpusTests(unittest.TestCase):
             [reading["display_reading"] for reading in by_id["zh:行"]["readings"]],
             ["xíng", "háng"],
         )
+        self.assertTrue(by_id["ja:行"].get("memory_bridge"))
+        self.assertEqual(len(by_id["ja:行"]["readings"]), 4)
         self.assertEqual(
             [reading["display_reading"] for reading in by_id["ja:図"]["readings"]],
             ["ズ", "ト", "はかる"],

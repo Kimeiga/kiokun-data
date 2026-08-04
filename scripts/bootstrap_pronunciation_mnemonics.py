@@ -18,6 +18,12 @@ import manage_pronunciation_mnemonic_corpus as corpus
 
 
 ROOT = Path(__file__).resolve().parents[1]
+AUTHORED_MNEMONICS = (
+    ROOT
+    / "data"
+    / "pronunciation_mnemonic_authoring"
+    / "mnemonics.jsonl"
+)
 
 
 # character | display reading | anchor word | full anchor reading
@@ -406,16 +412,6 @@ PHONETIC_COMPONENTS = {
     "妈": ("马／馬", "mǎ"),
 }
 
-INTEGRATED_CUES = {
-    "你": "A knee dips and rises inside the existing scene, cueing third-tone nǐ.",
-    "是": "She drops sharply into the scene, cueing fourth-tone shì.",
-    "不": "A quick “boo!” falls through the scene, cueing fourth-tone bù.",
-    "有": "A yo-yo dips and rises, tracing third-tone yǒu.",
-    "太": "A tie drops sharply across the scene, cueing fourth-tone tài.",
-    "听": "A bell's ting stays high and level, cueing tīng.",
-    "走": "A zooming figure dips and rises along the path, cueing zǒu.",
-}
-
 SURFACE_NOTES = {
     ("出", "シュツ", "出発"): ("しゅっ", "促音化 shortens シュツ to しゅっ before 発."),
     ("発", "ハツ", "出発"): ("ぱつ", "After the sokuon in しゅっ, ハツ surfaces as ぱつ."),
@@ -526,6 +522,55 @@ def short_gloss(value: str | None) -> str:
     return text if len(text) <= 120 else text[:117].rstrip() + "…"
 
 
+def apply_authored_mnemonics(cards: list[dict]) -> list[dict]:
+    """Replace candidate prose with the independently authored/reviewed source."""
+    authored: dict[tuple[str, str], dict] = {}
+    with AUTHORED_MNEMONICS.open(encoding="utf-8") as handle:
+        for line_number, line in enumerate(handle, 1):
+            if not line.strip():
+                continue
+            proposal = json.loads(line)
+            key = (proposal["language"], proposal["character"])
+            if key in authored:
+                raise ValueError(f"duplicate authored mnemonic at line {line_number}: {key}")
+            authored[key] = proposal
+
+    expected = {(card["language"], card["character"]) for card in cards}
+    if set(authored) != expected:
+        raise ValueError(
+            f"authored mnemonic coverage mismatch: missing={expected - set(authored)}, "
+            f"unexpected={set(authored) - expected}"
+        )
+
+    for card in cards:
+        key = (card["language"], card["character"])
+        proposal = authored[key]
+        if proposal.get("target_rank") != card.get("target_rank"):
+            raise ValueError(f"authored target rank changed: {key}")
+        proposal_readings = {
+            (reading["reading_type"], reading["display_reading"]): reading
+            for reading in proposal["readings"]
+        }
+        source_readings = {
+            (reading["reading_type"], reading["display_reading"]): reading
+            for reading in card["readings"]
+        }
+        if set(proposal_readings) != set(source_readings):
+            raise ValueError(f"authored reading identities changed: {key}")
+        for identity, reading in source_readings.items():
+            authored_reading = proposal_readings[identity]
+            reading["strategy"] = authored_reading["strategy"]
+            reading["overlay"] = authored_reading["overlay"]
+            if reading["strategy"] == "phonetic_component" and not reading.get(
+                "phonetic_component"
+            ):
+                raise ValueError(f"authored mnemonic invents a phonetic component: {key} {identity}")
+        card.pop("memory_bridge", None)
+        if proposal.get("memory_bridge"):
+            card["memory_bridge"] = proposal["memory_bridge"]
+    return cards
+
+
 def chinese_cards(targets: dict) -> list[dict]:
     by_character: dict[str, list[list[str]]] = {}
     for row in parse_rows(ZH_DATA, 4):
@@ -536,13 +581,6 @@ def chinese_cards(targets: dict) -> list[dict]:
         raise ValueError(f"Chinese editorial coverage mismatch: {set(by_character) ^ expected}")
     word_index = load_chinese_index()
     cards = []
-    templates = {
-        1: "{word} holds {display} high and level: “{gloss}.”",
-        2: "In {word}, {display} rises toward “{gloss}.”",
-        3: "Let {word} trace {display} down and back up: “{gloss}.”",
-        4: "{word} gives {display} a decisive falling stroke: “{gloss}.”",
-        5: "In {word}, {display} lands lightly and unstressed: “{gloss}.”",
-    }
     for character in sorted(by_character, key=ord):
         target = target_by_character.get(character)
         variants = target["variants"] if target else [character]
@@ -556,10 +594,6 @@ def chinese_cards(targets: dict) -> list[dict]:
             )
             normalized = corpus.normalize_pinyin_syllable(display)
             tone = int(normalized[-1])
-            strategy = "word_anchor"
-            overlay = templates[tone].format(
-                word=word, display=display, gloss=gloss
-            )
             reading = {
                 "reading_type": "mandarin",
                 "display_reading": display,
@@ -567,8 +601,8 @@ def chinese_cards(targets: dict) -> list[dict]:
                 "status": "core",
                 "usage_gloss": gloss,
                 "editorial_reason": f"Promoted because {word} is a common modern anchor for this distinct reading.",
-                "strategy": strategy,
-                "overlay": overlay,
+                "strategy": "word_anchor",
+                "overlay": "",
                 "tone": tone,
                 "sound_cue": {
                     "syllable": normalized[:-1],
@@ -597,17 +631,6 @@ def chinese_cards(targets: dict) -> list[dict]:
                     "relationship": "The repository character source classifies this component as sound-bearing; the anchor fixes the modern reading and tone.",
                     "source": "chinese_dictionary_char_2025-06-25.jsonl components[].type=sound",
                 }
-                reading["overlay"] = (
-                    f"{component} carries the sound family; {word} fixes the modern form as {display}, "
-                    f"with the {corpus.TONE_BEHAVIORS[tone].replace('_', ' ')} tone path."
-                )
-            elif character in INTEGRATED_CUES:
-                reading["strategy"] = "integrated_sound_cue"
-                reading["overlay"] = f"{INTEGRATED_CUES[character]} Anchor it in {word} — {gloss}."
-            if character == "不":
-                reading["overlay"] += " Before another fourth tone it commonly surfaces as bú; bù remains the canonical reading."
-            if character == "一":
-                reading["overlay"] += " In connected speech yī often becomes yí before a fourth tone or yì before first, second, or third tone."
             readings.append(reading)
         cards.append(
             {
@@ -648,16 +671,6 @@ def japanese_cards(targets: dict) -> list[dict]:
         raise ValueError(f"Japanese editorial coverage mismatch: {set(by_character) ^ expected}")
     evidence = corpus.Evidence()
     jpdb = load_jpdb()
-    on_templates = [
-        "Attach {display} to the semantic scene through {word}（{kana}）—“{gloss}.”",
-        "The compound {word}（{kana}）locks in On {display}: “{gloss}.”",
-        "Reuse the scene in {word}（{kana}）; its On sound is {display} and its meaning is “{gloss}.”",
-    ]
-    kun_templates = [
-        "Keep the semantic image, then recall the complete word {word}（{kana}）—“{gloss}.”",
-        "Kun {display} lives in the full lexeme {word}（{kana}）: “{gloss}.”",
-        "Anchor the native reading with the complete lexeme {word}（{kana}）: “{gloss}.”",
-    ]
     cards = []
     for character in sorted(by_character, key=ord):
         target = target_by_character.get(character)
@@ -670,10 +683,6 @@ def japanese_cards(targets: dict) -> list[dict]:
                 short_gloss(
                     evidence.japanese_words[(word, corpus.normalize_japanese_reading(kana))]
                 ),
-            )
-            templates = on_templates if reading_type == "on" else kun_templates
-            overlay = templates[(ord(character) + index) % len(templates)].format(
-                display=display, word=word, kana=kana, gloss=gloss
             )
             surface, note = SURFACE_NOTES.get(
                 (character, display, word),
@@ -709,7 +718,7 @@ def japanese_cards(targets: dict) -> list[dict]:
                     "usage_gloss": gloss,
                     "editorial_reason": f"Promoted because {word}（{kana}）is common, modern, and pedagogically useful.",
                     "strategy": "word_anchor",
-                    "overlay": overlay,
+                    "overlay": "",
                     "anchors": [anchor],
                 }
             )
@@ -749,7 +758,9 @@ def japanese_cards(targets: dict) -> list[dict]:
 def main() -> None:
     corpus_dir = corpus.DEFAULT_CORPUS_DIR
     targets = corpus.load_targets(corpus_dir)
-    cards = chinese_cards(targets["zh"]) + japanese_cards(targets["ja"])
+    cards = apply_authored_mnemonics(
+        chinese_cards(targets["zh"]) + japanese_cards(targets["ja"])
+    )
     result = corpus.publish_cards(cards, corpus_dir)
     print(
         json.dumps(

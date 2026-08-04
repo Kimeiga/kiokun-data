@@ -25,16 +25,26 @@ records without duplicating the semantic mnemonic.
 
 ```sh
 python3 scripts/select_pronunciation_targets.py --check
+python3 scripts/assemble_ai_pronunciation_mnemonics.py --check
+python3 scripts/bootstrap_pronunciation_mnemonics.py
+git diff --exit-code -- data/pronunciation_mnemonic_corpus
 python3 scripts/manage_pronunciation_mnemonic_corpus.py verify
 python3 scripts/manage_pronunciation_mnemonic_corpus.py stats --json
 python3 scripts/manage_pronunciation_mnemonic_corpus.py get --language zh --character 行
 python3 scripts/manage_pronunciation_mnemonic_corpus.py project --character 行
 ```
 
-The verifier checks all targets, readings, anchor words, variants, bucket
-placements, source hashes, packed projections, Mandarin tones, KANJIDIC
-on/kun classifications, complete kun lexemes, and exact repository
-headword/reading pairs in the Chinese dictionary and JMdict.
+The AI author and independent-review records live in
+`reports/pronunciation-mnemonics/ai-authoring/`. The assembler binds each
+review to the exact proposal hash and fixed input commit, then deterministically
+produces `data/pronunciation_mnemonic_authoring/mnemonics.jsonl`. The bootstrap
+requires exact authored coverage and has no prose-template fallback.
+
+The corpus verifier checks exact target and reviewed-extension coverage,
+readings, anchor words, variants, bucket placements, source hashes, packed
+projections, Mandarin tones, source-backed sound components, Chinese word
+ranks, KANJIDIC on/kun classifications, complete kun lexemes, JMdict pairs,
+Japanese character-reading surfaces, and JPDB ranks.
 
 ## Edit, delete, and pack
 
@@ -48,16 +58,18 @@ python3 scripts/manage_pronunciation_mnemonic_corpus.py pack
 
 `upsert`, `delete`, and `pack` build a complete temporary corpus, validate it,
 and use an atomic directory exchange only after success. A failed validation
-cannot leave mixed source and runtime generations. Do not hand-edit packed
-files and do not build a monolithic compatibility artifact.
+cannot leave mixed source and runtime generations. Updates are bound to the
+manifest the writer loaded, reject concurrent changes, and roll back when deep
+post-install verification fails. Do not hand-edit packed files and do not build
+a monolithic compatibility artifact.
 
 ## Audit
 
 ```sh
 python3 scripts/manage_pronunciation_mnemonic_corpus.py audit \
-  --seed 20260803 \
+  --seed 20260804 \
   --sample-per-language 30 \
-  --output reports/pronunciation-mnemonics/manual-audit-2026-08-03.json
+  --output reports/pronunciation-mnemonics/manual-audit-2026-08-04.json
 ```
 
 The deterministic audit includes 30 random records per language plus every

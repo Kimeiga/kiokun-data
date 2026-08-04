@@ -1,0 +1,180 @@
+{
+  "schema_version": 1,
+  "contract_version": 2,
+  "input_commit": "62ef8ac3483a1344a6c9259e26cf988cf0fe4380",
+  "proposal_sha256": "d11953bb7af4eac3a47e1eac51d0f968fb96e543c88b359be2af033512f3381c",
+  "reviewed_file": "reports/pronunciation-mnemonics/ai-authoring/zh-rank-51-100-plus-xing.jsonl",
+  "review_scope": "Chinese target ranks 51-100 plus the supplemental polyphonic regression card 行",
+  "reviewed_counts": {
+    "cards": 51,
+    "readings": 63,
+    "multi_reading_cards": 11,
+    "memory_bridges": 11,
+    "cards_revised": 38,
+    "cards_accepted_without_change": 13
+  },
+  "final_strategy_counts": {
+    "word_anchor": 58,
+    "integrated_sound_cue": 3,
+    "phonetic_component": 2
+  },
+  "issue_categories": [
+    {
+      "category": "semantic_scene_alignment",
+      "affected_cards": 33,
+      "description": "Anchor scenes were revised to reuse the actual component image or visual-form mnemonic instead of floating in an unrelated generic setting. Counts overlap other categories."
+    },
+    {
+      "category": "anchor_specificity_and_natural_english",
+      "affected_cards": 25,
+      "description": "Overlays were tightened into concrete anchor-word micro-scenes, with clearer agency, lexical meaning, or full-word context."
+    },
+    {
+      "category": "tone_and_surface_pronunciation",
+      "affected_cards": 9,
+      "description": "Neutral-tone behavior, citation-versus-surface tone, and common 一 sandhi were made explicit where the original prose could mislead."
+    },
+    {
+      "category": "contrastive_memory_bridge",
+      "affected_cards": 9,
+      "description": "Multi-reading bridges were rebuilt so that one scene orders genuinely different words while clearly preserving each word-specific meaning and tone."
+    },
+    {
+      "category": "variant_handling",
+      "affected_cards": 5,
+      "description": "Simplified/traditional relationships were clarified for 现／現, 后／後, 只／隻, 发／發／髮, and 妈／媽."
+    },
+    {
+      "category": "phonetic_component_precision",
+      "affected_cards": 2,
+      "description": "Authentic sound-bearing components were described as evidence-backed syllable or rhyme relationships without implying an invented exact modern-reading derivation."
+    },
+    {
+      "category": "forced_english_sound_pun",
+      "affected_cards": 1,
+      "description": "The strained English call “zo!” for zǒu was removed and the proposal strategy changed to a vivid 走路 word anchor."
+    },
+    {
+      "category": "sound_retrieval_contract_v2",
+      "affected_readings": 63,
+      "description": "Audited every reading by strategy. All three integrated cues—HUH/hé, ting/tīng, and tie/tài—have an explicit phonetically close hook plus tone path. The 58 word-anchor readings use exact supporting vocabulary and do not claim that a picture independently retrieves the syllable; both phonetic-component readings remain source-backed."
+    }
+  ],
+  "concrete_fixes": [
+    {
+      "character": "走",
+      "before": "A walker calls ‘zo!’ as the 走路 path drops into a valley and climbs out.",
+      "after": "走路 is now explicitly the supporting word for zǒu; the earth path is limited to showing the third-tone contour and does not pretend to supply the syllable. Strategy changed from integrated_sound_cue to word_anchor.",
+      "categories": [
+        "forced_english_sound_pun",
+        "semantic_scene_alignment"
+      ]
+    },
+    {
+      "character": "发",
+      "before": "A strand of 头发 falls, and the overlay treats the anchor as a fully falling fà.",
+      "after": "The revision distinguishes 發 fā from 髮 fà and states that dictionary fà is commonly realized as light fa in 头发（tóu fa）.",
+      "categories": [
+        "tone_and_surface_pronunciation",
+        "variant_handling",
+        "contrastive_memory_bridge"
+      ]
+    },
+    {
+      "character": "着",
+      "before": "Three generic hand actions represented zhe, zháo, and zhuó without reusing the semantic scene.",
+      "after": "One sheep-and-watching-eye film now moves through ongoing 着, worried 着急, and task-starting 着手, preserving all three lexical roles.",
+      "categories": [
+        "semantic_scene_alignment",
+        "contrastive_memory_bridge"
+      ]
+    },
+    {
+      "character": "只",
+      "before": "A spotlight contrasted the readings but omitted the traditional classifier distinction.",
+      "after": "The single-mouth scene now contrasts 只是 zhǐ with animal classifier 只 zhī and records that only the classifier becomes 隻 in traditional writing.",
+      "categories": [
+        "variant_handling",
+        "contrastive_memory_bridge"
+      ]
+    },
+    {
+      "character": "后",
+      "before": "A generic theater curtain represented 后来 while ignoring the semantic queen scene and the 後 variant.",
+      "after": "The queen completes her command before a courtier arrives 后来, with an explicit note that the later sense is 後來 in traditional writing.",
+      "categories": [
+        "semantic_scene_alignment",
+        "variant_handling"
+      ]
+    },
+    {
+      "character": "点",
+      "before": "The overlay displayed 一点 as yī diǎn without noting its ordinary spoken sandhi.",
+      "after": "It preserves citation yī diǎn and explains that 一 surfaces as yì before third-tone diǎn in ordinary speech.",
+      "categories": [
+        "tone_and_surface_pronunciation"
+      ]
+    },
+    {
+      "character": "定",
+      "before": "The overlay displayed 一定 as yī dìng without noting its ordinary spoken sandhi.",
+      "after": "It preserves citation yī dìng and explains that 一 surfaces as yí before fourth-tone dìng in ordinary speech.",
+      "categories": [
+        "tone_and_surface_pronunciation"
+      ]
+    },
+    {
+      "character": "现",
+      "before": "见／見 was said to leave an unspecified sound echo inside 现.",
+      "after": "The overlay calls 见／見 the source-backed sound-bearing component, states the defensible shared -iàn rhyme, and lets 现在 fix modern xiàn and its falling tone.",
+      "categories": [
+        "phonetic_component_precision",
+        "variant_handling"
+      ]
+    },
+    {
+      "character": "妈",
+      "before": "The prose made Mama appear to transform dipping mǎ into level mā.",
+      "after": "马／馬 now preserves the ma syllable family while 妈妈（mā ma） independently fixes first-tone mā and the following neutral ma.",
+      "categories": [
+        "phonetic_component_precision",
+        "tone_and_surface_pronunciation",
+        "variant_handling"
+      ]
+    },
+    {
+      "character": "和",
+      "before": "A generic peace table and stove contrasted hé and huo but barely reused the grain-and-mouth scene.",
+      "after": "The 和平 scene now adds a rising “HUH?”, a defensibly close hook for rising hé, and is reclassified integrated_sound_cue. 暖和 remains an honest supporting word for light neutral huo.",
+      "categories": [
+        "semantic_scene_alignment",
+        "contrastive_memory_bridge",
+        "tone_and_surface_pronunciation",
+        "sound_retrieval_contract_v2"
+      ]
+    },
+    {
+      "character": "行",
+      "before": "The route scene paired rising motion with xíng and háng without stating that the vocabulary—not the picture—carries the syllables.",
+      "after": "行动 and 银行 are explicitly identified as supporting words for xíng and háng; the two uphill movements encode only their shared rising tone and word-specific stations.",
+      "categories": [
+        "contrastive_memory_bridge",
+        "sound_retrieval_contract_v2"
+      ]
+    }
+  ],
+  "validation": {
+    "jsonl_parse": "pass",
+    "card_count": "pass",
+    "rank_order": "pass",
+    "character_identity_against_canonical": "pass",
+    "reading_identity_against_canonical": "pass",
+    "allowed_strategies": "pass",
+    "all_integrated_cues_have_explicit_sound_hook_and_tone_path": "pass",
+    "word_anchors_are_described_only_as_supporting_anchors": "pass",
+    "yi_and_bu_sandhi_rechecked": "pass",
+    "proposal_sha256_matches_exact_jsonl_bytes": "pass",
+    "unresolved_issues": []
+  },
+  "result": "pass"
+}

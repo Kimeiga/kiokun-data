@@ -1,0 +1,1300 @@
+{
+  "schema_version": 1,
+  "seed": 20260804,
+  "sample_per_language": 30,
+  "selected_count": 154,
+  "selected": [
+    {
+      "id": "ja:一",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:三",
+      "reasons": [
+        "multiple_core_readings",
+        "seeded_random_sample"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:上",
+      "reasons": [
+        "multiple_core_readings",
+        "seeded_random_sample"
+      ],
+      "reading_count": 5,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:下",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 8,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:中",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:主",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 3,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:九",
+      "reasons": [
+        "multiple_core_readings",
+        "seeded_random_sample"
+      ],
+      "reading_count": 3,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:事",
+      "reasons": [
+        "multiple_core_readings",
+        "seeded_random_sample"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:二",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:五",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:人",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 3,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:今",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:代",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 3,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:会",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:体",
+      "reasons": [
+        "multiple_core_readings",
+        "seeded_random_sample"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:党",
+      "reasons": [
+        "seeded_random_sample"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:入",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 3,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:全",
+      "reasons": [
+        "multiple_core_readings",
+        "seeded_random_sample"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:八",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:六",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:内",
+      "reasons": [
+        "multiple_core_readings",
+        "seeded_random_sample"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:出",
+      "reasons": [
+        "multiple_core_readings",
+        "phonological_alternation"
+      ],
+      "reading_count": 3,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:分",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 4,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:前",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:力",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 3,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:動",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 3,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:化",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 3,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:十",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:合",
+      "reasons": [
+        "multiple_core_readings",
+        "seeded_random_sample"
+      ],
+      "reading_count": 3,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:同",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:問",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:四",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 3,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:回",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 3,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:図",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 3,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:国",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:地",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:場",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:外",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 5,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:大",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 3,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:子",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:学",
+      "reasons": [
+        "multiple_core_readings",
+        "seeded_random_sample"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:定",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:実",
+      "reasons": [
+        "multiple_core_readings",
+        "phonological_alternation",
+        "seeded_random_sample"
+      ],
+      "reading_count": 3,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:市",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:年",
+      "reasons": [
+        "multiple_core_readings",
+        "seeded_random_sample"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:当",
+      "reasons": [
+        "multiple_core_readings",
+        "seeded_random_sample"
+      ],
+      "reading_count": 3,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:後",
+      "reasons": [
+        "multiple_core_readings",
+        "seeded_random_sample"
+      ],
+      "reading_count": 3,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:戦",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:手",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:政",
+      "reasons": [
+        "seeded_random_sample"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:新",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:方",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:日",
+      "reasons": [
+        "multiple_core_readings",
+        "seeded_random_sample"
+      ],
+      "reading_count": 3,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:明",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 4,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:時",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:最",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:月",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 3,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:本",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:東",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:業",
+      "reasons": [
+        "seeded_random_sample"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:氏",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:決",
+      "reasons": [
+        "multiple_core_readings",
+        "phonological_alternation",
+        "seeded_random_sample"
+      ],
+      "reading_count": 3,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:現",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 3,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:理",
+      "reasons": [
+        "seeded_random_sample"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:生",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 5,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:田",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:発",
+      "reasons": [
+        "phonological_alternation",
+        "seeded_random_sample"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:目",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:相",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:社",
+      "reasons": [
+        "seeded_random_sample"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:立",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 3,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:米",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:経",
+      "reasons": [
+        "seeded_random_sample"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:者",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:自",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:行",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 4,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:表",
+      "reasons": [
+        "multiple_core_readings",
+        "phonological_alternation"
+      ],
+      "reading_count": 4,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:見",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 4,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:言",
+      "reasons": [
+        "multiple_core_readings",
+        "seeded_random_sample"
+      ],
+      "reading_count": 3,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:調",
+      "reasons": [
+        "multiple_core_readings",
+        "seeded_random_sample"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:議",
+      "reasons": [
+        "seeded_random_sample"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:通",
+      "reasons": [
+        "multiple_core_readings",
+        "seeded_random_sample"
+      ],
+      "reading_count": 4,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:連",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:選",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:金",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:長",
+      "reasons": [
+        "multiple_core_readings",
+        "seeded_random_sample"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:開",
+      "reasons": [
+        "multiple_core_readings",
+        "seeded_random_sample"
+      ],
+      "reading_count": 4,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:間",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 4,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:関",
+      "reasons": [
+        "multiple_core_readings",
+        "seeded_random_sample"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:食",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 3,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:首",
+      "reasons": [
+        "multiple_core_readings",
+        "seeded_random_sample"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "ja:高",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:个",
+      "reasons": [
+        "seeded_random_sample",
+        "variant_or_alias"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:为",
+      "reasons": [
+        "multiple_core_readings",
+        "variant_or_alias"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:么",
+      "reasons": [
+        "variant_or_alias"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:也",
+      "reasons": [
+        "seeded_random_sample"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:了",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:事",
+      "reasons": [
+        "seeded_random_sample"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:们",
+      "reasons": [
+        "phonetic_component",
+        "variant_or_alias"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:会",
+      "reasons": [
+        "multiple_core_readings",
+        "seeded_random_sample",
+        "variant_or_alias"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:你",
+      "reasons": [
+        "seeded_random_sample"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:儿",
+      "reasons": [
+        "variant_or_alias"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:出",
+      "reasons": [
+        "variant_or_alias"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:别",
+      "reasons": [
+        "multiple_core_readings",
+        "seeded_random_sample",
+        "variant_or_alias"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:到",
+      "reasons": [
+        "seeded_random_sample"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:发",
+      "reasons": [
+        "multiple_core_readings",
+        "variant_or_alias"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:只",
+      "reasons": [
+        "multiple_core_readings",
+        "variant_or_alias"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:可",
+      "reasons": [
+        "seeded_random_sample"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:后",
+      "reasons": [
+        "variant_or_alias"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:吗",
+      "reasons": [
+        "phonetic_component",
+        "variant_or_alias"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:吧",
+      "reasons": [
+        "seeded_random_sample"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:听",
+      "reasons": [
+        "seeded_random_sample",
+        "variant_or_alias"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:和",
+      "reasons": [
+        "multiple_core_readings",
+        "seeded_random_sample"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:在",
+      "reasons": [
+        "seeded_random_sample"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:多",
+      "reasons": [
+        "seeded_random_sample"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:大",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:好",
+      "reasons": [
+        "multiple_core_readings",
+        "seeded_random_sample"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:如",
+      "reasons": [
+        "seeded_random_sample"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:妈",
+      "reasons": [
+        "phonetic_component",
+        "variant_or_alias"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:子",
+      "reasons": [
+        "multiple_core_readings",
+        "seeded_random_sample"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:定",
+      "reasons": [
+        "seeded_random_sample"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:家",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:对",
+      "reasons": [
+        "seeded_random_sample",
+        "variant_or_alias"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:开",
+      "reasons": [
+        "seeded_random_sample",
+        "variant_or_alias"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:当",
+      "reasons": [
+        "multiple_core_readings",
+        "variant_or_alias"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:得",
+      "reasons": [
+        "multiple_core_readings",
+        "seeded_random_sample"
+      ],
+      "reading_count": 3,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:心",
+      "reasons": [
+        "seeded_random_sample"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:想",
+      "reasons": [
+        "phonetic_component"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:时",
+      "reasons": [
+        "variant_or_alias"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:有",
+      "reasons": [
+        "seeded_random_sample"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:来",
+      "reasons": [
+        "variant_or_alias"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:样",
+      "reasons": [
+        "seeded_random_sample",
+        "variant_or_alias"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:没",
+      "reasons": [
+        "multiple_core_readings",
+        "seeded_random_sample",
+        "variant_or_alias"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:点",
+      "reasons": [
+        "variant_or_alias"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:现",
+      "reasons": [
+        "phonetic_component",
+        "variant_or_alias"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:的",
+      "reasons": [
+        "multiple_core_readings",
+        "seeded_random_sample"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:看",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:着",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 3,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:经",
+      "reasons": [
+        "variant_or_alias"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:给",
+      "reasons": [
+        "multiple_core_readings",
+        "variant_or_alias"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:行",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:要",
+      "reasons": [
+        "multiple_core_readings"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:见",
+      "reasons": [
+        "seeded_random_sample",
+        "variant_or_alias"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:觉",
+      "reasons": [
+        "multiple_core_readings",
+        "variant_or_alias"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:让",
+      "reasons": [
+        "variant_or_alias"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:话",
+      "reasons": [
+        "seeded_random_sample",
+        "variant_or_alias"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:该",
+      "reasons": [
+        "variant_or_alias"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:说",
+      "reasons": [
+        "variant_or_alias"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:谢",
+      "reasons": [
+        "variant_or_alias"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:过",
+      "reasons": [
+        "multiple_core_readings",
+        "seeded_random_sample",
+        "variant_or_alias"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:还",
+      "reasons": [
+        "multiple_core_readings",
+        "variant_or_alias"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:这",
+      "reasons": [
+        "variant_or_alias"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:都",
+      "reasons": [
+        "multiple_core_readings",
+        "seeded_random_sample"
+      ],
+      "reading_count": 2,
+      "review_status": "reviewed"
+    },
+    {
+      "id": "zh:里",
+      "reasons": [
+        "seeded_random_sample",
+        "variant_or_alias"
+      ],
+      "reading_count": 1,
+      "review_status": "reviewed"
+    }
+  ]
+}

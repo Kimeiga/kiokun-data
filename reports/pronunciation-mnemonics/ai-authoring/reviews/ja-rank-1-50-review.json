@@ -1,0 +1,171 @@
+{
+  "contract_version": 2,
+  "input_commit": "62ef8ac3483a1344a6c9259e26cf988cf0fe4380",
+  "proposal_sha256": "246d89221c4eb0c64f57c9a3136779d90039e32c7e75a82fbeb38995841eccf6",
+  "review_scope": "reports/pronunciation-mnemonics/ai-authoring/ja-rank-1-50.jsonl",
+  "reviewed_against": [
+    "data/pronunciation_mnemonic_corpus/targets/ja.json",
+    "data/pronunciation_mnemonic_corpus/cards/*.jsonl",
+    "complete-kun-lexeme and word-specific-meaning requirements",
+    "strict integrated-sound-cue retrieval standard"
+  ],
+  "reviewed_counts": {
+    "cards": 50,
+    "readings": 114,
+    "on_readings": 59,
+    "kun_readings": 55,
+    "multi_reading_cards": 41,
+    "memory_bridges": 41
+  },
+  "issue_categories": [
+    {
+      "category": "integrated_sound_cue_without_phonetic_retrieval_hook",
+      "affected_readings": 114,
+      "resolution": "Audited every reading. Reclassified 111 as word_anchor because their real value is the verified common word, not an invented sound object. Reauthored three 行 readings with defensible retrieval hooks and retained integrated_sound_cue only for those three."
+    },
+    {
+      "category": "formulaic_reading_disclosure_misrepresented_as_mnemonic",
+      "affected_readings": 111,
+      "resolution": "The exact anchor word and visual use scene are now represented honestly as word_anchor. No claim remains that merely labeling the first or last character is an integrated sound mnemonic."
+    },
+    {
+      "category": "bridge_tours_vocabulary_without_contrastive_retrieval",
+      "affected_cards": 4,
+      "resolution": "Rebuilt 出, 行, 見, and 生 around agency, contrastive sound hooks, grammatical role, or word-specific senses rather than a sequence of labeled stops."
+    },
+    {
+      "category": "phonological_alternation_clarity",
+      "affected_readings": 3,
+      "resolution": "Made 出発 explicit: シュツ compresses to しゅっ and ハツ surfaces as ぱつ after small っ. Clarified that 一, not 生, is the element compressed in 一生（いっしょう）."
+    },
+    {
+      "category": "inaccurate_grammatical_label",
+      "affected_readings": 1,
+      "resolution": "Removed the vague ‘causative-like’ label from 見せる and described its actual transitive showing scene."
+    },
+    {
+      "category": "collapsed_word_specific_meanings",
+      "affected_readings": 9,
+      "resolution": "行 now keeps action, line, go, and perform explicitly distinct; 見 separates opinion, active seeing, visibility, and showing; 生 distinguishes life, whole life, living, birth, and fresh/unprocessed usage."
+    },
+    {
+      "category": "strained_english_pun_in_original",
+      "affected_readings": 0,
+      "resolution": "The original file did not contain English sound puns to remove. New sound hooks were admitted only where the match is transparent: the opening of COACH→コウ, ギョウザ→ギョウ, and EEK→いく."
+    },
+    {
+      "category": "incomplete_kun_lexeme",
+      "affected_readings": 0,
+      "resolution": "All 55 Kun entries preserve complete canonical lexemes and okurigana where applicable."
+    }
+  ],
+  "concrete_fixes": [
+    {
+      "character": "日",
+      "reading": "ニチ",
+      "category": "strategy_truthfulness",
+      "before": "A Sunday page is labeled 日曜日 and the prose states that its first character is ニチ, while calling this an integrated sound cue.",
+      "after": "The same verified Sunday scene remains, but it is correctly classified as a word anchor rather than a phonetic retrieval device."
+    },
+    {
+      "character": "一",
+      "reading": "ひとつ",
+      "category": "strategy_truthfulness",
+      "before": "One apple is counted 一つ and the prose says the word fixes ひとつ, labeled as integrated_sound_cue.",
+      "after": "The complete native counter remains intact and is honestly classified as word_anchor."
+    },
+    {
+      "character": "出",
+      "reading": "シュツ",
+      "category": "phonological_alternation_clarity",
+      "before": "The overlay says シュツ is used ‘despite the compound’s audible gemination.’",
+      "after": "The 出発（しゅっぱつ） board explicitly shows canonical シュツ compressing to しゅっ before 発."
+    },
+    {
+      "character": "出",
+      "reading": "でる / だす",
+      "category": "contrastive_grammar",
+      "before": "The bridge tours two outward-motion scenes and names one intransitive and one transitive.",
+      "after": "One threshold now contrasts a passenger who personally 出る with a passenger who 出す a suitcase, making agency and object movement retrievable."
+    },
+    {
+      "character": "行",
+      "reading": "コウ",
+      "category": "missing_phonetic_retrieval_hook",
+      "before": "A 行動 signal starts an action and the prose simply instructs the learner to read コウ.",
+      "after": "A COACH launches the 行動 action team; the opening sound of COACH retrieves コウ while the anchor retains the specific meaning ‘action.’"
+    },
+    {
+      "character": "行",
+      "reading": "ギョウ",
+      "category": "missing_phonetic_retrieval_hook",
+      "before": "A line chants ギョウ without any reason the learner could reconstruct that sound.",
+      "after": "A ギョウザ cart joins the 行列 line; the exact initial sound of ギョウザ retrieves ギョウ."
+    },
+    {
+      "character": "行",
+      "reading": "いく",
+      "category": "missing_phonetic_retrieval_hook",
+      "before": "The learner is told to say 行く before going, which only repeats the answer.",
+      "after": "A spider at the fork makes the traveler squeak EEK and 行く; the close sound retrieves いく from the complete verb."
+    },
+    {
+      "character": "行",
+      "reading": "おこなう",
+      "category": "word_specific_meaning",
+      "before": "The fourth stop of a path says 行う means perform, but the whole bridge remains a vocabulary tour.",
+      "after": "A stage ceremony supplies a precise, complete-word anchor for 行う（おこなう）, ‘to perform,’ without pretending that this reading means ‘go’ or forcing a pun."
+    },
+    {
+      "character": "見",
+      "reading": "みせる",
+      "category": "inaccurate_grammatical_label",
+      "before": "見せる is called a ‘causative-like verb.’",
+      "after": "The owner deliberately holds up a painting for another person; the scene accurately presents 見せる as transitive ‘to show.’"
+    },
+    {
+      "character": "生",
+      "reading": "ショウ",
+      "category": "phonological_alternation_clarity",
+      "before": "The text vaguely says ショウ is heard ‘after the compounded sound change.’",
+      "after": "The overlay states precisely that 一 compresses to いっ while 生 itself realizes ショウ in 一生（いっしょう）."
+    },
+    {
+      "character": "生",
+      "reading": "なま",
+      "category": "word_specific_meaning",
+      "before": "Fresh draft beer is one stop in a generic life-cycle tour.",
+      "after": "The tap scene explicitly anchors 生ビール as fresh/unprocessed usage, not as another synonym for life or birth."
+    },
+    {
+      "character": "発",
+      "reading": "ハツ",
+      "category": "phonological_alternation_clarity",
+      "before": "The overlay says underlying ハツ is heard ‘through’ っぱつ without explaining the realization.",
+      "after": "It now states that canonical ハツ surfaces as ぱつ after small っ in 出発（しゅっぱつ）."
+    },
+    {
+      "character": "上",
+      "reading": "あげる / あがる / のぼる",
+      "category": "strategy_truthfulness",
+      "before": "Exact lift scenes and complete verbs were labeled integrated sound cues even though they contained no phonetic hook.",
+      "after": "The transitive raising, intransitive rising, and climbing scenes remain complete and accurate, now honestly classified as word anchors."
+    }
+  ],
+  "post_revision_strategy_counts": {
+    "phonetic_component": 0,
+    "integrated_sound_cue": 3,
+    "word_anchor": 111
+  },
+  "validation": {
+    "json_valid": true,
+    "exact_target_count": true,
+    "exact_target_rank_order": true,
+    "exact_canonical_reading_type_identity_and_order": true,
+    "all_kun_lexemes_complete": true,
+    "allowed_keys_only": true,
+    "allowed_strategies_only": true,
+    "diff_check": true
+  },
+  "result": "pass"
+}

@@ -5,8 +5,12 @@ on:
     paths:
       - 'data/semantic_mnemonic_corpus/**'
       - 'data/pronunciation_mnemonic_corpus/**'
+      - 'data/pronunciation_mnemonic_authoring/**'
+      - 'reports/pronunciation-mnemonics/ai-authoring/**'
       - 'scripts/bucket_native_corpus.py'
       - 'scripts/bootstrap_pronunciation_mnemonics.py'
+      - 'scripts/assemble_ai_pronunciation_mnemonics.py'
+      - 'scripts/test_assemble_ai_pronunciation_mnemonics.py'
       - 'scripts/manage_semantic_mnemonic_corpus.py'
       - 'scripts/manage_pronunciation_mnemonic_corpus.py'
       - 'scripts/select_pronunciation_targets.py'
@@ -26,6 +30,7 @@ on:
       - 'sveltekit-app/src/lib/character-forms.test.ts'
       - 'sveltekit-app/src/lib/character-corpus-invariants.test.ts'
       - 'sveltekit-app/src/lib/components/SemanticMnemonicCard.svelte'
+      - 'sveltekit-app/src/lib/components/CharacterLearningSections.svelte'
       - 'sveltekit-app/src/lib/components/PronunciationMnemonicLayer.svelte'
       - 'sveltekit-app/src/lib/pronunciation-mnemonics.ts'
       - 'sveltekit-app/src/lib/pronunciation-mnemonics.test.ts'
@@ -38,8 +43,12 @@ on:
     paths:
       - 'data/semantic_mnemonic_corpus/**'
       - 'data/pronunciation_mnemonic_corpus/**'
+      - 'data/pronunciation_mnemonic_authoring/**'
+      - 'reports/pronunciation-mnemonics/ai-authoring/**'
       - 'scripts/bucket_native_corpus.py'
       - 'scripts/bootstrap_pronunciation_mnemonics.py'
+      - 'scripts/assemble_ai_pronunciation_mnemonics.py'
+      - 'scripts/test_assemble_ai_pronunciation_mnemonics.py'
       - 'scripts/manage_semantic_mnemonic_corpus.py'
       - 'scripts/manage_pronunciation_mnemonic_corpus.py'
       - 'scripts/select_pronunciation_targets.py'
@@ -59,6 +68,7 @@ on:
       - 'sveltekit-app/src/lib/character-forms.test.ts'
       - 'sveltekit-app/src/lib/character-corpus-invariants.test.ts'
       - 'sveltekit-app/src/lib/components/SemanticMnemonicCard.svelte'
+      - 'sveltekit-app/src/lib/components/CharacterLearningSections.svelte'
       - 'sveltekit-app/src/lib/components/PronunciationMnemonicLayer.svelte'
       - 'sveltekit-app/src/lib/pronunciation-mnemonics.ts'
       - 'sveltekit-app/src/lib/pronunciation-mnemonics.test.ts'
@@ -104,8 +114,12 @@ jobs:
         run: |
           python3 scripts/manage_semantic_mnemonic_corpus.py verify
           python3 scripts/select_pronunciation_targets.py --check
+          python3 scripts/assemble_ai_pronunciation_mnemonics.py --check
+          python3 scripts/bootstrap_pronunciation_mnemonics.py
+          git diff --exit-code -- data/pronunciation_mnemonic_corpus
           python3 scripts/manage_pronunciation_mnemonic_corpus.py verify
           python3 -m unittest \
+            scripts/test_assemble_ai_pronunciation_mnemonics.py \
             scripts/test_select_pronunciation_targets.py \
             scripts/test_manage_pronunciation_mnemonic_corpus.py
 

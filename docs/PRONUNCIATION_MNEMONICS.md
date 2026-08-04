@@ -7,14 +7,22 @@ Kiokun keeps two learning layers independent:
 1. The semantic mnemonic is language-neutral and remains the stable visual
    backbone.
 2. A pronunciation card supplies one Mandarin or Japanese sound layer. The UI
-   places that layer directly after the semantic scene, but it never merges
-   Chinese and Japanese prose.
+   places one deduplicated layer after the complete semantic-variant group, so
+   simplified/traditional cards do not repeat identical pronunciation prose.
+   It never merges Chinese and Japanese prose.
 
 Language preferences are authoritative. Chinese-only mode renders Mandarin;
 Japanese-only mode renders Japanese; enabling both produces two explicitly
 labeled groups. Japanese cards label `On` and `Kun`, while Mandarin displays
 tone-marked pinyin. Existing speech synthesis reads the complete anchor word,
 not isolated romanization.
+
+The UI names the evidence honestly. `Sound cue` means the prose contains a
+phonetically defensible retrieval hook. `Sound component` means structured
+dictionary metadata supports the component as sound-bearing. `Word anchor`
+means the exact vocabulary item is useful practice but does not itself encode
+the reading. A word anchor is never presented as though seeing its spelling
+explains its pronunciation.
 
 ## What counts as a core reading
 
@@ -100,12 +108,57 @@ All cards include editorial justification, usage-specific gloss, confidence,
 review status, sources, and frequency/usefulness evidence. Secondary readings,
 when added later, remain behind progressive disclosure in the UI.
 
-## Authoring workflow
+Polyphonic cards may also provide one card-level `memory_bridge`. This is the
+single scene that connects otherwise separate reading anchors; it avoids both
+pretending that every reading has the same lexical meaning and presenting a
+bare list of compounds as though the list itself were a mnemonic.
+The UI renders this path only when at least one reading has a genuine sound
+cue or sound component. An all-word-anchor map remains editorial context and
+does not become another repetitive learner-facing block.
 
-Use the commands documented in the corpus README. The canonical workflow is
-`get` → edit one record → `upsert` → `verify` → `pack`. The shared API reads and
-writes stable buckets directly. It never materializes the former 59 MB semantic
-mnemonic monolith. Packing is deterministic and transactional.
+## AI authoring and review
+
+The learner-facing prose is not generated from sentence templates. Four model
+authors worked from fixed reading identities, exact anchors, semantic scenes,
+and evidence at input commit
+`62ef8ac3483a1344a6c9259e26cf988cf0fe4380`. Four different model reviewers
+then checked and revised those partitions. The versioned proposals, review
+contracts, proposal hashes, prompts, and representative corrections live in
+`reports/pronunciation-mnemonics/ai-authoring/`.
+
+`scripts/assemble_ai_pronunciation_mnemonics.py` accepts a partition only when
+its independent review is bound to the exact proposal bytes, input commit,
+card count, and reading count. It also rejects missing or extra identities,
+changed ranks, invented phonetic-component claims, duplicated overlays, and
+known bootstrap boilerplate. Its deterministic output is
+`data/pronunciation_mnemonic_authoring/mnemonics.jsonl`.
+
+The bootstrap requires exact authored coverage; it has no learner-facing prose
+fallback. Reproduce the complete source-to-runtime build with:
+
+```sh
+python3 scripts/select_pronunciation_targets.py --check
+python3 scripts/assemble_ai_pronunciation_mnemonics.py --check
+python3 scripts/bootstrap_pronunciation_mnemonics.py
+git diff --exit-code -- data/pronunciation_mnemonic_corpus
+python3 scripts/manage_pronunciation_mnemonic_corpus.py verify
+```
+
+The verifier requires the exact top-100 identities plus the explicitly named
+regression extensions, exact ranks and variants, authentic Chinese sound
+components, Chinese word ranks, Japanese character classifications, JMdict
+word/reading pairs, character-reading surfaces, and JPDB ranks. It also checks
+every bucket hash and runtime projection.
+
+Corpus replacement is deterministic and transactional. Writers bind their
+update to the manifest they loaded, recheck it immediately before exchange,
+and roll back if deep post-install verification fails. The shared API never
+materializes the former 59 MB semantic-mnemonic monolith.
+
+Structured sources do not provide reliable per-character segmentation for
+every multi-kanji word or a single canonical usage gloss for every anchor.
+Those two editorial judgments remain covered by independent review rather than
+being overstated as mechanically proven.
 
 Before expanding beyond 100, update the relevant target manifest rule or add a
 clearly labeled reviewed extension, author anchors from structured repository

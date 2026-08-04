@@ -14,6 +14,7 @@
 	import CharacterEquation from "$lib/components/CharacterEquation.svelte";
 	import SectionHeading from "$lib/components/shared/SectionHeading.svelte";
 	import SemanticMnemonicCard from "$lib/components/SemanticMnemonicCard.svelte";
+	import PronunciationMnemonicLayer from "$lib/components/PronunciationMnemonicLayer.svelte";
 	import ComponentUses from "$lib/components/ComponentUses.svelte";
 	import LazyComponent from "$lib/components/LazyComponent.svelte";
 	import DisclosureChevron from "$lib/components/shared/DisclosureChevron.svelte";
@@ -22,6 +23,7 @@
 		measureFirstVisualRow,
 	} from "$lib/utils/disclosure-motion";
 	import { normalizeCjkAssetCharacter } from "$lib/utils/cjk-normalization";
+	import { deduplicatePronunciationCards } from "$lib/pronunciation-mnemonics";
 
 	const loadNotes = () => import("$lib/components/Notes.svelte");
 	const loadSimilarCharacters = () => import("$lib/components/SimilarCharacters.svelte");
@@ -300,6 +302,12 @@
 				label: mnemonicVariantLabel(card),
 			}));
 	});
+
+	let pronunciationMnemonicCards = $derived.by(() =>
+		deduplicatePronunciationCards(
+			semanticMnemonicCards.flatMap(({ card }) => card.pronunciation_mnemonics || []),
+		),
+	);
 
 	// Japanese components from the trad entry's japanese_char.ids field
 	let japaneseComponents = $derived.by(() => {
@@ -1209,6 +1217,7 @@ style="background: var(--color-hint-bg); border-color: var(--color-hint-border);
 	/>
 {/each}
 		</div>
+		<PronunciationMnemonicLayer cards={pronunciationMnemonicCards} />
 	{/if}
 
 	<!-- Unified Components + Equation Section -->

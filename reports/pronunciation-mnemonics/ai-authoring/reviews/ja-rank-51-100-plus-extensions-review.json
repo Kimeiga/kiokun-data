@@ -1,0 +1,185 @@
+{
+  "contract_version": 2,
+  "input_commit": "62ef8ac3483a1344a6c9259e26cf988cf0fe4380",
+  "proposal_sha256": "9f453ea81f23d0e8184c65bf6e203ec4bb89854396124c96592f13b760c5de93",
+  "review_scope": "reports/pronunciation-mnemonics/ai-authoring/ja-rank-51-100-plus-extensions.jsonl",
+  "reviewed_against": [
+    "data/pronunciation_mnemonic_corpus/targets/ja.json",
+    "data/pronunciation_mnemonic_corpus/cards/*.jsonl",
+    "strict sound-retrieval distinction",
+    "complete-kun-lexeme, word-specific-meaning, register, and alternation requirements"
+  ],
+  "reviewed_counts": {
+    "cards": 52,
+    "ranked_cards": 50,
+    "extension_cards": 2,
+    "readings": 127,
+    "on_readings": 58,
+    "kun_readings": 69,
+    "multi_reading_cards": 43,
+    "memory_bridges": 43
+  },
+  "sound_mnemonic_standard": "A scene, anchor word, or stated reading is supporting evidence but is not by itself a sound mnemonic. integrated_sound_cue requires an explicit, close phonetic retrieval hook that lets the learner reconstruct the reading. When no natural close hook exists, word_anchor is the honest strategy and no pun is forced.",
+  "issue_categories": [
+    {
+      "category": "integrated_sound_cue_classification_audit",
+      "reviewed_readings": 67,
+      "demoted_to_word_anchor": 24,
+      "retained_after_close_hook_review": 43,
+      "resolution": "Every retained integrated cue now has an explicit close hook, such as SHIN→シン, SHOE→シュ, MAY→メイ, ZOO→ズ, SHOCK→ショク, or COO→くう."
+    },
+    {
+      "category": "strained_or_incomplete_sound_pun",
+      "affected_readings": 24,
+      "resolution": "Removed or rejected SEND→セン, KEY→カイ, TEA→て, tall-kite→たかい, GETS→ケツ, Kim→きめる, COAT→こ, English me→め, generate→ゲン, you→いう, GEM→ゲン, BAKER→ばける, CAP→カ, SHEET→した, HOW→ホウ, TABLE→たべる, GAWK→ガク, TWO→ツウ, and English L/R approximations where the match was not reliable enough."
+    },
+    {
+      "category": "scene_then_states_reading",
+      "affected_readings": 24,
+      "resolution": "Reclassified these as word anchors and rewrote them so the exact common word, complete verb, or contrastive usage scene does honest evidentiary work without being presented as phonetic encoding."
+    },
+    {
+      "category": "bridge_without_contrastive_retrieval",
+      "affected_cards": 21,
+      "resolution": "Rebuilt bridges around agency, grammatical pairing, separate lexical meanings, register, or grouped retrieval panels. Dense 下 is now grouped into signs, position/levers, and downward paths."
+    },
+    {
+      "category": "phonological_alternation_clarity",
+      "affected_readings": 2,
+      "resolution": "Clarified that canonical ケツ compresses to けっ in 決定（けってい）, and that 発 contributes はっ while ヒョウ surfaces as ぴょう in 発表（はっぴょう）. Existing correct alternation notes were preserved."
+    },
+    {
+      "category": "word_specific_meaning_or_register",
+      "affected_readings": 19,
+      "resolution": "Strengthened contrasts for transitive/intransitive pairs, bound readings, separate lexical senses, 図 map/library/plan usage, and 食’s neutral everyday 食べる versus rougher casual 食う."
+    },
+    {
+      "category": "incomplete_kun_lexeme",
+      "affected_readings": 0,
+      "resolution": "All 69 Kun readings retain the exact canonical complete lexeme and okurigana where applicable."
+    },
+    {
+      "category": "on_kun_identity_or_order_error",
+      "affected_readings": 0,
+      "resolution": "All canonical On/Kun identities and per-card reading order were preserved."
+    }
+  ],
+  "concrete_fixes": [
+    {
+      "character": "選",
+      "reading": "セン",
+      "category": "strained_pun",
+      "before": "‘Send the player’ is said to cue セン.",
+      "after": "選手（せんしゅ）, the selected athlete, is used honestly as a word anchor; the SEND comparison is removed."
+    },
+    {
+      "character": "開",
+      "reading": "カイ",
+      "category": "phonetic_mismatch",
+      "before": "English KEY is claimed to retrieve カイ.",
+      "after": "The opening ceremony and exact compound 開始（かいし） anchor On カイ without a false key sound."
+    },
+    {
+      "character": "手",
+      "reading": "て",
+      "category": "phonetic_mismatch",
+      "before": "English TEA is claimed to retrieve て.",
+      "after": "The standalone native noun 手（て） is presented as a word anchor; no English vowel match is claimed."
+    },
+    {
+      "character": "高",
+      "reading": "たかい",
+      "category": "strained_fragment_splice",
+      "before": "‘Tall kite’ is spliced together to cue たかい.",
+      "after": "Looking from the school tower’s base to its roof anchors the complete adjective 高い（たかい）, high."
+    },
+    {
+      "character": "決",
+      "reading": "ケツ",
+      "category": "strained_pun_and_alternation",
+      "before": "GETS is claimed to cue ケツ, and the text vaguely says the following て doubles.",
+      "after": "決定（けってい） is the word anchor, with the precise note that canonical ケツ compresses to けっ before テイ."
+    },
+    {
+      "character": "目",
+      "reading": "め",
+      "category": "phonetic_mismatch",
+      "before": "English ME is claimed to retrieve め even though it is pronounced closer to み.",
+      "after": "The eye itself, 目（め）, is used as the standalone word anchor and the false comparison is explicitly rejected."
+    },
+    {
+      "character": "表",
+      "reading": "ヒョウ",
+      "category": "alternation_accuracy",
+      "before": "The text says ヒョウ is merely surfaced with a doubled consonant after はつ.",
+      "after": "The overlay states that 発 contributes はっ and ヒョウ surfaces as ぴょう after small っ in 発表（はっぴょう）."
+    },
+    {
+      "character": "通",
+      "reading": "ツウ",
+      "category": "phonetic_mismatch",
+      "before": "English TWO is claimed to retrieve ツウ despite lacking the initial affricate.",
+      "after": "交通（こうつう） remains the exact word anchor, and no integrated sound claim is made."
+    },
+    {
+      "character": "下",
+      "reading": "all eight readings",
+      "category": "dense_noncontrastive_bridge",
+      "before": "One sentence lists カ, ゲ, した, さげる, さがる, くだる, くださる, and おりる with little retrieval structure.",
+      "after": "The bridge uses three panels: signs for カ/ゲ, position and agency for した/さげる/さがる, and downward paths or social transfer for くだる/くださる/おりる."
+    },
+    {
+      "character": "下",
+      "reading": "ゲ",
+      "category": "retained_close_sound_hook",
+      "before": "The scene says ‘get off’ and states ゲ without explaining the phonetic relationship.",
+      "after": "The opening sound of GET in the actual command GET OFF explicitly retrieves ゲ in 下車（げしゃ）."
+    },
+    {
+      "character": "図",
+      "reading": "ズ / ト / はかる",
+      "category": "word_specific_meanings_and_retrieval",
+      "before": "ZOOM and TOTE are attached to a map tour, while はかる is only described as measuring a route.",
+      "after": "A ZOO on 地図 retrieves ズ, a TOME entering 図書館 retrieves ト, and the complete verb 図る（はかる） anchors planning or attempting. Map, library, and plan remain distinct meanings."
+    },
+    {
+      "character": "食",
+      "reading": "ショク / たべる / くう",
+      "category": "retrieval_and_register",
+      "before": "TABLE is treated as a sound cue for たべる, and 食う is only called rougher colloquial.",
+      "after": "SHOCK retrieves ショク; 食べる is honestly a neutral everyday word anchor; COO retrieves くう, with an explicit warning that 食う is rougher and more casual, not a polite interchangeable synonym."
+    },
+    {
+      "character": "学",
+      "reading": "ガク",
+      "category": "overstated_sound_match",
+      "before": "English GAWK is treated as a close cue for ガク.",
+      "after": "学生（がくせい） is retained as a foundational word anchor and the forced pun is removed."
+    },
+    {
+      "character": "六",
+      "reading": "ロク",
+      "category": "sound_hook_repair",
+      "before": "LOCK requires an English L/Japanese R approximation.",
+      "after": "ROCK closely retrieves ロク while holding down the 六月 calendar page."
+    }
+  ],
+  "post_revision_strategy_counts": {
+    "phonetic_component": 0,
+    "integrated_sound_cue": 43,
+    "word_anchor": 84
+  },
+  "validation": {
+    "json_valid": true,
+    "exact_card_count": true,
+    "exact_rank_and_extension_order": true,
+    "exact_canonical_reading_type_identity_and_order": true,
+    "all_kun_lexemes_complete": true,
+    "all_retained_integrated_cues_have_explicit_close_hooks": true,
+    "allowed_keys_only": true,
+    "allowed_strategies_only": true,
+    "diff_check": true,
+    "proposal_hash_matches": true
+  },
+  "result": "pass"
+}

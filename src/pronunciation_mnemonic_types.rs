@@ -21,6 +21,8 @@ pub struct PronunciationMnemonicCard {
     pub variants: Vec<String>,
     pub language: String,
     pub review_status: String,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub memory_bridge: Option<String>,
     pub readings: Vec<PronunciationMnemonicReading>,
 }
 

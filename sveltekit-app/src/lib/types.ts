@@ -59,6 +59,7 @@ export interface PronunciationMnemonicCard {
   variants: string[];
   language: PronunciationLanguage;
   review_status: 'reviewed' | 'needs_review';
+  memory_bridge?: string;
   readings: PronunciationMnemonicReading[];
 }
 

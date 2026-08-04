@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 from collections import Counter, defaultdict
+import csv
 import hashlib
 import json
 import os
@@ -143,8 +144,10 @@ class Evidence:
         self.root = root
         self._chinese_chars: dict[str, set[str]] | None = None
         self._chinese_words: dict[tuple[str, str], dict[str, Any]] | None = None
+        self._chinese_sound_components: dict[str, set[str]] | None = None
         self._japanese_chars: dict[str, dict[str, set[str]]] | None = None
         self._japanese_words: dict[tuple[str, str], str] | None = None
+        self._jpdb: dict[tuple[str, str], int] | None = None
 
     @property
     def chinese_chars(self) -> dict[str, set[str]]:
@@ -189,6 +192,20 @@ class Evidence:
                             result[(word, normalized)] = row
             self._chinese_words = result
         return self._chinese_words
+
+    @property
+    def chinese_sound_components(self) -> dict[str, set[str]]:
+        if self._chinese_sound_components is None:
+            result: dict[str, set[str]] = defaultdict(set)
+            path = self.root / CHINESE_CHAR_SOURCE.relative_to(ROOT)
+            with path.open(encoding="utf-8") as handle:
+                for line in handle:
+                    row = json.loads(line)
+                    for component in row.get("components") or []:
+                        if "sound" in (component.get("type") or []):
+                            result[row["char"]].add(component["character"])
+            self._chinese_sound_components = dict(result)
+        return self._chinese_sound_components
 
     @property
     def japanese_chars(self) -> dict[str, dict[str, set[str]]]:
@@ -238,6 +255,19 @@ class Evidence:
             self._japanese_words = result
         return self._japanese_words
 
+    @property
+    def jpdb(self) -> dict[tuple[str, str], int]:
+        if self._jpdb is None:
+            result: dict[tuple[str, str], int] = {}
+            path = self.root / JPDB_SOURCE.relative_to(ROOT)
+            with path.open(encoding="utf-8-sig", newline="") as handle:
+                for row in csv.DictReader(handle, delimiter="\t"):
+                    key = (row["term"], normalize_japanese_reading(row["reading"]))
+                    rank = int(row["frequency"])
+                    result[key] = min(result.get(key, rank), rank)
+            self._jpdb = result
+        return self._jpdb
+
 
 def validate_card(card: Any, *, evidence: Evidence | None = None) -> dict[str, Any]:
     if not isinstance(card, dict):
@@ -262,6 +292,11 @@ def validate_card(card: Any, *, evidence: Evidence | None = None) -> dict[str, A
         raise CorpusError(f"{identity}: invalid confidence")
     if not isinstance(card.get("sources"), list) or not card["sources"]:
         raise CorpusError(f"{identity}: source metadata is required")
+    memory_bridge = card.get("memory_bridge")
+    if memory_bridge is not None and (
+        not isinstance(memory_bridge, str) or not memory_bridge.strip()
+    ):
+        raise CorpusError(f"{identity}: memory_bridge must be a non-empty string")
     readings = card.get("readings")
     if not isinstance(readings, list) or not readings:
         raise CorpusError(f"{identity}: at least one reading is required")
@@ -306,6 +341,15 @@ def validate_card(card: Any, *, evidence: Evidence | None = None) -> dict[str, A
             reading.get("phonetic_component"), dict
         ):
             raise CorpusError(f"{label}: phonetic-component evidence is required")
+        if strategy == "phonetic_component" and evidence is not None:
+            claimed = set(reading["phonetic_component"]["character"].split("／"))
+            supported = {
+                component
+                for variant in variants
+                for component in evidence.chinese_sound_components.get(variant, set())
+            }
+            if not claimed.intersection(supported):
+                raise CorpusError(f"{label}: phonetic component is absent from source metadata")
         anchors = reading.get("anchors")
         if status == "core" and (not isinstance(anchors, list) or not anchors):
             raise CorpusError(f"{label}: every core reading needs an anchor word")
@@ -338,6 +382,13 @@ def validate_card(card: Any, *, evidence: Evidence | None = None) -> dict[str, A
                         raise CorpusError(
                             f"{label}: anchor {anchor['word']} {anchor['reading']} is absent from repository Chinese data"
                         )
+                    frequency = anchor["frequency"]
+                    if frequency.get("source") == CHINESE_WORD_SOURCE.name:
+                        expected_rank = (evidence.chinese_words[key].get("statistics") or {}).get(
+                            "movieWordRank"
+                        )
+                        if frequency.get("rank") != expected_rank:
+                            raise CorpusError(f"{label}: Chinese anchor frequency rank is stale")
         elif evidence is not None:
             source_reading = reading.get("source_reading", display)
             known = evidence.japanese_chars.get(character, {}).get(reading_type, set())
@@ -351,6 +402,13 @@ def validate_card(card: Any, *, evidence: Evidence | None = None) -> dict[str, A
                     raise CorpusError(
                         f"{label}: anchor {anchor['word']}（{anchor['reading']}） is absent from JMdict"
                     )
+                surface = normalize_japanese_reading(anchor["character_reading"])
+                if surface not in key[1]:
+                    raise CorpusError(f"{label}: character_reading is absent from anchor pronunciation")
+                frequency = anchor["frequency"]
+                if frequency.get("source") == JPDB_SOURCE.name:
+                    if frequency.get("rank") != evidence.jpdb.get(key):
+                        raise CorpusError(f"{label}: JPDB anchor frequency rank is stale")
             if reading_type == "kun" and "." in source_reading:
                 complete = normalize_japanese_reading(source_reading)
                 if normalized != complete:
@@ -359,7 +417,7 @@ def validate_card(card: Any, *, evidence: Evidence | None = None) -> dict[str, A
 
 
 def runtime_card(card: dict[str, Any]) -> dict[str, Any]:
-    return {
+    result = {
         "character": card["character"],
         "variants": card["variants"],
         "language": card["language"],
@@ -387,6 +445,9 @@ def runtime_card(card: dict[str, Any]) -> dict[str, Any]:
             for reading in card["readings"]
         ],
     }
+    if "memory_bridge" in card:
+        result["memory_bridge"] = card["memory_bridge"]
+    return result
 
 
 def load_targets(corpus_dir: Path) -> dict[str, dict[str, Any]]:
@@ -419,6 +480,7 @@ def _read_cards(corpus_dir: Path) -> list[dict[str, Any]]:
 def _validate_collection(
     cards: list[dict[str, Any]], targets: dict[str, dict[str, Any]], evidence: Evidence | None
 ) -> dict[str, Any]:
+    reviewed_extensions = {"zh": {"行"}, "ja": {"図", "食"}}
     seen_ids: set[str] = set()
     claimed_variants: set[tuple[str, str]] = set()
     by_language_character: dict[tuple[str, str], dict[str, Any]] = {}
@@ -452,6 +514,29 @@ def _validate_collection(
         ]
         if missing:
             raise CorpusError(f"{language} target lacks reviewed coverage: {missing}")
+        entries_by_identity = {entry["identity"]: entry for entry in target["entries"]}
+        expected_identities = set(entries_by_identity) | reviewed_extensions[language]
+        actual_identities = {
+            character
+            for card_language, character in by_language_character
+            if card_language == language
+        }
+        if actual_identities != expected_identities:
+            raise CorpusError(
+                f"{language} corpus identity mismatch: "
+                f"missing={sorted(expected_identities - actual_identities)}, "
+                f"unexpected={sorted(actual_identities - expected_identities)}"
+            )
+        for identity, entry in entries_by_identity.items():
+            card = by_language_character[(language, identity)]
+            if card.get("target_rank") != entry["rank"]:
+                raise CorpusError(f"{language}:{identity}: target_rank is stale")
+            if card["variants"] != entry["variants"]:
+                raise CorpusError(f"{language}:{identity}: target variants are stale")
+        for identity in reviewed_extensions[language] - set(entries_by_identity):
+            card = by_language_character[(language, identity)]
+            if card.get("target_rank") is not None:
+                raise CorpusError(f"{language}:{identity}: extension must not claim a target rank")
 
     reading_counts = Counter(
         reading["reading_type"]
@@ -529,7 +614,9 @@ def _write_tree(
 
 
 def verify_corpus(corpus_dir: Path = DEFAULT_CORPUS_DIR, *, deep: bool = True) -> dict[str, Any]:
-    manifest = _load_json(corpus_dir / "manifest.json", "pronunciation corpus manifest")
+    manifest_path = corpus_dir / "manifest.json"
+    manifest_encoded = manifest_path.read_bytes()
+    manifest = _load_json(manifest_path, "pronunciation corpus manifest")
     if manifest.get("bucket_algorithm") != BUCKET_ALGORITHM or manifest.get(
         "bucket_count"
     ) != BUCKET_COUNT:
@@ -559,10 +646,27 @@ def verify_corpus(corpus_dir: Path = DEFAULT_CORPUS_DIR, *, deep: bool = True) -
         expected = [runtime_card(card) for card in cards if bucket_for_key(card_id(card)) == bucket]
         if actual != expected:
             raise CorpusError(f"packed projection is stale for bucket {bucket}")
-    return {"manifest": manifest, "cards": cards, **stats}
+    return {
+        "manifest": manifest,
+        "manifest_sha256": sha256_bytes(manifest_encoded),
+        "cards": cards,
+        **stats,
+    }
 
 
-def publish_cards(cards: list[dict[str, Any]], corpus_dir: Path = DEFAULT_CORPUS_DIR) -> dict[str, Any]:
+def publish_cards(
+    cards: list[dict[str, Any]],
+    corpus_dir: Path = DEFAULT_CORPUS_DIR,
+    *,
+    expected_manifest_sha256: str | None = None,
+) -> dict[str, Any]:
+    manifest_path = corpus_dir / "manifest.json"
+    current_manifest_sha256 = sha256_bytes(manifest_path.read_bytes())
+    if (
+        expected_manifest_sha256 is not None
+        and expected_manifest_sha256 != current_manifest_sha256
+    ):
+        raise CorpusError("canonical corpus changed since it was loaded; reload before publishing")
     targets = load_targets(corpus_dir)
     staging = Path(
         tempfile.mkdtemp(prefix=f".{corpus_dir.name}.pack-", dir=corpus_dir.parent)
@@ -573,10 +677,24 @@ def publish_cards(cards: list[dict[str, Any]], corpus_dir: Path = DEFAULT_CORPUS
         if (corpus_dir / "README.md").exists():
             shutil.copy2(corpus_dir / "README.md", staging / "README.md")
         verify_corpus(staging, deep=False)
+        if sha256_bytes(manifest_path.read_bytes()) != current_manifest_sha256:
+            raise CorpusError("canonical corpus changed while the replacement was being built")
         atomic_exchange_directories(staging, corpus_dir)
         exchanged = True
-        result = verify_corpus(corpus_dir, deep=True)
-        shutil.rmtree(staging)
+        try:
+            result = verify_corpus(corpus_dir, deep=True)
+        except Exception:
+            try:
+                atomic_exchange_directories(staging, corpus_dir)
+                exchanged = False
+            except Exception as rollback_exc:  # pragma: no cover - catastrophic path
+                raise CorpusError(
+                    "installed corpus verification failed and rollback failed; "
+                    f"previous corpus preserved at {staging}: {rollback_exc}"
+                ) from rollback_exc
+            raise
+        exchanged = False
+        shutil.rmtree(staging, ignore_errors=True)
         return result
     except (OSError, TransactionError) as exc:
         if exchanged:
@@ -679,7 +797,11 @@ def main() -> None:
     result = verify_corpus(args.corpus_dir, deep=False)
     cards = result["cards"]
     if args.command == "pack":
-        published = publish_cards(cards, args.corpus_dir)
+        published = publish_cards(
+            cards,
+            args.corpus_dir,
+            expected_manifest_sha256=result["manifest_sha256"],
+        )
         print(json.dumps({"card_count": published["card_count"], "status": "packed"}, indent=2))
     elif args.command == "stats":
         stats = {key: result[key] for key in ("card_count", "unique_character_count", "core_reading_counts", "strategy_counts")}
@@ -694,14 +816,22 @@ def main() -> None:
         validate_card(record, evidence=Evidence())
         identity = card_id(record)
         updated = [card for card in cards if card_id(card) != identity] + [record]
-        publish_cards(updated, args.corpus_dir)
+        publish_cards(
+            updated,
+            args.corpus_dir,
+            expected_manifest_sha256=result["manifest_sha256"],
+        )
         print(f"upserted {identity}")
     elif args.command == "delete":
         identity = f"{args.language}:{args.character}"
         updated = [card for card in cards if card_id(card) != identity]
         if len(updated) == len(cards):
             raise CorpusError(f"card not found: {identity}")
-        publish_cards(updated, args.corpus_dir)
+        publish_cards(
+            updated,
+            args.corpus_dir,
+            expected_manifest_sha256=result["manifest_sha256"],
+        )
         print(f"deleted {identity}")
     elif args.command == "project":
         projections = [

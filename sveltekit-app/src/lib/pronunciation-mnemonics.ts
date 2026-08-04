@@ -14,6 +14,18 @@ export function filterPronunciationCards(
 	);
 }
 
+export function deduplicatePronunciationCards(
+	cards: PronunciationMnemonicCard[] | undefined
+): PronunciationMnemonicCard[] {
+	const seen = new Set<string>();
+	return (cards || []).filter((card) => {
+		const key = `${card.language}:${card.character}`;
+		if (seen.has(key)) return false;
+		seen.add(key);
+		return true;
+	});
+}
+
 export function groupPronunciationReadings(card: PronunciationMnemonicCard) {
 	return {
 		core: card.readings.filter((reading) => reading.status === 'core'),
