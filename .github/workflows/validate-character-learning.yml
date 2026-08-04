@@ -4,6 +4,17 @@ on:
   pull_request:
     paths:
       - 'data/semantic_mnemonic_corpus/**'
+      - 'data/pronunciation_mnemonic_corpus/**'
+      - 'scripts/bucket_native_corpus.py'
+      - 'scripts/bootstrap_pronunciation_mnemonics.py'
+      - 'scripts/manage_semantic_mnemonic_corpus.py'
+      - 'scripts/manage_pronunciation_mnemonic_corpus.py'
+      - 'scripts/select_pronunciation_targets.py'
+      - 'scripts/test_manage_pronunciation_mnemonic_corpus.py'
+      - 'scripts/test_select_pronunciation_targets.py'
+      - 'src/pronunciation_mnemonic_types.rs'
+      - 'src/semantic_mnemonic_types.rs'
+      - 'src/main.rs'
       - 'scripts/repair_semantic_mnemonic_learning_glosses.py'
       - 'scripts/repair_semantic_mnemonic_groupings.py'
       - 'scripts/repair_semantic_mnemonic_random_audit.py'
@@ -15,6 +26,9 @@ on:
       - 'sveltekit-app/src/lib/character-forms.test.ts'
       - 'sveltekit-app/src/lib/character-corpus-invariants.test.ts'
       - 'sveltekit-app/src/lib/components/SemanticMnemonicCard.svelte'
+      - 'sveltekit-app/src/lib/components/PronunciationMnemonicLayer.svelte'
+      - 'sveltekit-app/src/lib/pronunciation-mnemonics.ts'
+      - 'sveltekit-app/src/lib/pronunciation-mnemonics.test.ts'
       - 'sveltekit-app/src/lib/types.ts'
       - 'sveltekit-app/src/routes/[word]/+page.svelte'
       - 'sveltekit-app/package.json'
@@ -23,6 +37,17 @@ on:
     branches: [main]
     paths:
       - 'data/semantic_mnemonic_corpus/**'
+      - 'data/pronunciation_mnemonic_corpus/**'
+      - 'scripts/bucket_native_corpus.py'
+      - 'scripts/bootstrap_pronunciation_mnemonics.py'
+      - 'scripts/manage_semantic_mnemonic_corpus.py'
+      - 'scripts/manage_pronunciation_mnemonic_corpus.py'
+      - 'scripts/select_pronunciation_targets.py'
+      - 'scripts/test_manage_pronunciation_mnemonic_corpus.py'
+      - 'scripts/test_select_pronunciation_targets.py'
+      - 'src/pronunciation_mnemonic_types.rs'
+      - 'src/semantic_mnemonic_types.rs'
+      - 'src/main.rs'
       - 'scripts/repair_semantic_mnemonic_learning_glosses.py'
       - 'scripts/repair_semantic_mnemonic_groupings.py'
       - 'scripts/repair_semantic_mnemonic_random_audit.py'
@@ -34,6 +59,9 @@ on:
       - 'sveltekit-app/src/lib/character-forms.test.ts'
       - 'sveltekit-app/src/lib/character-corpus-invariants.test.ts'
       - 'sveltekit-app/src/lib/components/SemanticMnemonicCard.svelte'
+      - 'sveltekit-app/src/lib/components/PronunciationMnemonicLayer.svelte'
+      - 'sveltekit-app/src/lib/pronunciation-mnemonics.ts'
+      - 'sveltekit-app/src/lib/pronunciation-mnemonics.test.ts'
       - 'sveltekit-app/src/lib/types.ts'
       - 'sveltekit-app/src/routes/[word]/+page.svelte'
       - 'sveltekit-app/package.json'
@@ -60,8 +88,26 @@ jobs:
         working-directory: sveltekit-app
         run: npm ci --include=optional
 
+      - name: Prepare Japanese pronunciation evidence
+        run: |
+          tar -xzf data/jmdict-examples.json.tgz -C data
+          curl -L -o data/kanjidic2.json.tgz \
+            https://github.com/scriptin/jmdict-simplified/releases/download/3.6.1%2B20251013122507/kanjidic2-en-3.6.1%2B20251013122507.json.tgz
+          mkdir data/kanjidic-download
+          tar -xzf data/kanjidic2.json.tgz -C data/kanjidic-download
+          find data/kanjidic-download -name "kanjidic2-en-3.6.1*.json" \
+            -exec mv {} data/kanjidic2-en-3.6.1.json \;
+          rm -r data/kanjidic-download
+          rm data/kanjidic2.json.tgz
+
       - name: Verify canonical mnemonic corpus
-        run: python3 scripts/manage_semantic_mnemonic_corpus.py verify
+        run: |
+          python3 scripts/manage_semantic_mnemonic_corpus.py verify
+          python3 scripts/select_pronunciation_targets.py --check
+          python3 scripts/manage_pronunciation_mnemonic_corpus.py verify
+          python3 -m unittest \
+            scripts/test_select_pronunciation_targets.py \
+            scripts/test_manage_pronunciation_mnemonic_corpus.py
 
       - name: Verify curated learning-gloss policy
         run: |
@@ -71,4 +117,12 @@ jobs:
 
       - name: Run character learning invariants
         working-directory: sveltekit-app
-        run: npm run test:character-forms && npm run test:character-corpus
+        run: |
+          npm run test:character-forms
+          npm run test:character-corpus
+          npx tsx src/lib/pronunciation-mnemonics.test.ts
+          npm run check
+          npm run build
+
+      - name: Test Rust pronunciation projection loader
+        run: cargo test --bin build_dictionary semantic_mnemonic_corpus_tests

@@ -1,0 +1,712 @@
+{
+  "schema_version": 1,
+  "language": "ja",
+  "count": 100,
+  "selection": {
+    "source": "data/kanjidic2-en-3.6.1.json",
+    "field": "characters[].misc.frequency",
+    "rule": "Lowest 100 KANJIDIC usage-frequency values; ties resolve by Unicode code-point order. JLPT level is not used."
+  },
+  "entries": [
+    {
+      "identity": "日",
+      "rank": 1,
+      "variants": [
+        "日"
+      ]
+    },
+    {
+      "identity": "一",
+      "rank": 2,
+      "variants": [
+        "一"
+      ]
+    },
+    {
+      "identity": "国",
+      "rank": 3,
+      "variants": [
+        "国"
+      ]
+    },
+    {
+      "identity": "会",
+      "rank": 4,
+      "variants": [
+        "会"
+      ]
+    },
+    {
+      "identity": "人",
+      "rank": 5,
+      "variants": [
+        "人"
+      ]
+    },
+    {
+      "identity": "年",
+      "rank": 6,
+      "variants": [
+        "年"
+      ]
+    },
+    {
+      "identity": "大",
+      "rank": 7,
+      "variants": [
+        "大"
+      ]
+    },
+    {
+      "identity": "十",
+      "rank": 8,
+      "variants": [
+        "十"
+      ]
+    },
+    {
+      "identity": "二",
+      "rank": 9,
+      "variants": [
+        "二"
+      ]
+    },
+    {
+      "identity": "本",
+      "rank": 10,
+      "variants": [
+        "本"
+      ]
+    },
+    {
+      "identity": "中",
+      "rank": 11,
+      "variants": [
+        "中"
+      ]
+    },
+    {
+      "identity": "長",
+      "rank": 12,
+      "variants": [
+        "長"
+      ]
+    },
+    {
+      "identity": "出",
+      "rank": 13,
+      "variants": [
+        "出"
+      ]
+    },
+    {
+      "identity": "三",
+      "rank": 14,
+      "variants": [
+        "三"
+      ]
+    },
+    {
+      "identity": "同",
+      "rank": 15,
+      "variants": [
+        "同"
+      ]
+    },
+    {
+      "identity": "時",
+      "rank": 16,
+      "variants": [
+        "時"
+      ]
+    },
+    {
+      "identity": "政",
+      "rank": 17,
+      "variants": [
+        "政"
+      ]
+    },
+    {
+      "identity": "事",
+      "rank": 18,
+      "variants": [
+        "事"
+      ]
+    },
+    {
+      "identity": "自",
+      "rank": 19,
+      "variants": [
+        "自"
+      ]
+    },
+    {
+      "identity": "行",
+      "rank": 20,
+      "variants": [
+        "行"
+      ]
+    },
+    {
+      "identity": "社",
+      "rank": 21,
+      "variants": [
+        "社"
+      ]
+    },
+    {
+      "identity": "見",
+      "rank": 22,
+      "variants": [
+        "見"
+      ]
+    },
+    {
+      "identity": "月",
+      "rank": 23,
+      "variants": [
+        "月"
+      ]
+    },
+    {
+      "identity": "分",
+      "rank": 24,
+      "variants": [
+        "分"
+      ]
+    },
+    {
+      "identity": "議",
+      "rank": 25,
+      "variants": [
+        "議"
+      ]
+    },
+    {
+      "identity": "後",
+      "rank": 26,
+      "variants": [
+        "後"
+      ]
+    },
+    {
+      "identity": "前",
+      "rank": 27,
+      "variants": [
+        "前"
+      ]
+    },
+    {
+      "identity": "民",
+      "rank": 28,
+      "variants": [
+        "民"
+      ]
+    },
+    {
+      "identity": "生",
+      "rank": 29,
+      "variants": [
+        "生"
+      ]
+    },
+    {
+      "identity": "連",
+      "rank": 30,
+      "variants": [
+        "連"
+      ]
+    },
+    {
+      "identity": "五",
+      "rank": 31,
+      "variants": [
+        "五"
+      ]
+    },
+    {
+      "identity": "発",
+      "rank": 32,
+      "variants": [
+        "発"
+      ]
+    },
+    {
+      "identity": "間",
+      "rank": 33,
+      "variants": [
+        "間"
+      ]
+    },
+    {
+      "identity": "対",
+      "rank": 34,
+      "variants": [
+        "対"
+      ]
+    },
+    {
+      "identity": "上",
+      "rank": 35,
+      "variants": [
+        "上"
+      ]
+    },
+    {
+      "identity": "部",
+      "rank": 36,
+      "variants": [
+        "部"
+      ]
+    },
+    {
+      "identity": "東",
+      "rank": 37,
+      "variants": [
+        "東"
+      ]
+    },
+    {
+      "identity": "者",
+      "rank": 38,
+      "variants": [
+        "者"
+      ]
+    },
+    {
+      "identity": "党",
+      "rank": 39,
+      "variants": [
+        "党"
+      ]
+    },
+    {
+      "identity": "地",
+      "rank": 40,
+      "variants": [
+        "地"
+      ]
+    },
+    {
+      "identity": "合",
+      "rank": 41,
+      "variants": [
+        "合"
+      ]
+    },
+    {
+      "identity": "市",
+      "rank": 42,
+      "variants": [
+        "市"
+      ]
+    },
+    {
+      "identity": "業",
+      "rank": 43,
+      "variants": [
+        "業"
+      ]
+    },
+    {
+      "identity": "内",
+      "rank": 44,
+      "variants": [
+        "内"
+      ]
+    },
+    {
+      "identity": "相",
+      "rank": 45,
+      "variants": [
+        "相"
+      ]
+    },
+    {
+      "identity": "方",
+      "rank": 46,
+      "variants": [
+        "方"
+      ]
+    },
+    {
+      "identity": "四",
+      "rank": 47,
+      "variants": [
+        "四"
+      ]
+    },
+    {
+      "identity": "定",
+      "rank": 48,
+      "variants": [
+        "定"
+      ]
+    },
+    {
+      "identity": "今",
+      "rank": 49,
+      "variants": [
+        "今"
+      ]
+    },
+    {
+      "identity": "回",
+      "rank": 50,
+      "variants": [
+        "回"
+      ]
+    },
+    {
+      "identity": "新",
+      "rank": 51,
+      "variants": [
+        "新"
+      ]
+    },
+    {
+      "identity": "場",
+      "rank": 52,
+      "variants": [
+        "場"
+      ]
+    },
+    {
+      "identity": "金",
+      "rank": 53,
+      "variants": [
+        "金"
+      ]
+    },
+    {
+      "identity": "員",
+      "rank": 54,
+      "variants": [
+        "員"
+      ]
+    },
+    {
+      "identity": "九",
+      "rank": 55,
+      "variants": [
+        "九"
+      ]
+    },
+    {
+      "identity": "入",
+      "rank": 56,
+      "variants": [
+        "入"
+      ]
+    },
+    {
+      "identity": "選",
+      "rank": 57,
+      "variants": [
+        "選"
+      ]
+    },
+    {
+      "identity": "立",
+      "rank": 58,
+      "variants": [
+        "立"
+      ]
+    },
+    {
+      "identity": "開",
+      "rank": 59,
+      "variants": [
+        "開"
+      ]
+    },
+    {
+      "identity": "手",
+      "rank": 60,
+      "variants": [
+        "手"
+      ]
+    },
+    {
+      "identity": "米",
+      "rank": 61,
+      "variants": [
+        "米"
+      ]
+    },
+    {
+      "identity": "力",
+      "rank": 62,
+      "variants": [
+        "力"
+      ]
+    },
+    {
+      "identity": "学",
+      "rank": 63,
+      "variants": [
+        "学"
+      ]
+    },
+    {
+      "identity": "問",
+      "rank": 64,
+      "variants": [
+        "問"
+      ]
+    },
+    {
+      "identity": "高",
+      "rank": 65,
+      "variants": [
+        "高"
+      ]
+    },
+    {
+      "identity": "代",
+      "rank": 66,
+      "variants": [
+        "代"
+      ]
+    },
+    {
+      "identity": "明",
+      "rank": 67,
+      "variants": [
+        "明"
+      ]
+    },
+    {
+      "identity": "実",
+      "rank": 68,
+      "variants": [
+        "実"
+      ]
+    },
+    {
+      "identity": "円",
+      "rank": 69,
+      "variants": [
+        "円"
+      ]
+    },
+    {
+      "identity": "関",
+      "rank": 70,
+      "variants": [
+        "関"
+      ]
+    },
+    {
+      "identity": "決",
+      "rank": 71,
+      "variants": [
+        "決"
+      ]
+    },
+    {
+      "identity": "子",
+      "rank": 72,
+      "variants": [
+        "子"
+      ]
+    },
+    {
+      "identity": "動",
+      "rank": 73,
+      "variants": [
+        "動"
+      ]
+    },
+    {
+      "identity": "京",
+      "rank": 74,
+      "variants": [
+        "京"
+      ]
+    },
+    {
+      "identity": "全",
+      "rank": 75,
+      "variants": [
+        "全"
+      ]
+    },
+    {
+      "identity": "目",
+      "rank": 76,
+      "variants": [
+        "目"
+      ]
+    },
+    {
+      "identity": "表",
+      "rank": 77,
+      "variants": [
+        "表"
+      ]
+    },
+    {
+      "identity": "戦",
+      "rank": 78,
+      "variants": [
+        "戦"
+      ]
+    },
+    {
+      "identity": "経",
+      "rank": 79,
+      "variants": [
+        "経"
+      ]
+    },
+    {
+      "identity": "通",
+      "rank": 80,
+      "variants": [
+        "通"
+      ]
+    },
+    {
+      "identity": "外",
+      "rank": 81,
+      "variants": [
+        "外"
+      ]
+    },
+    {
+      "identity": "最",
+      "rank": 82,
+      "variants": [
+        "最"
+      ]
+    },
+    {
+      "identity": "言",
+      "rank": 83,
+      "variants": [
+        "言"
+      ]
+    },
+    {
+      "identity": "氏",
+      "rank": 84,
+      "variants": [
+        "氏"
+      ]
+    },
+    {
+      "identity": "現",
+      "rank": 85,
+      "variants": [
+        "現"
+      ]
+    },
+    {
+      "identity": "理",
+      "rank": 86,
+      "variants": [
+        "理"
+      ]
+    },
+    {
+      "identity": "調",
+      "rank": 87,
+      "variants": [
+        "調"
+      ]
+    },
+    {
+      "identity": "体",
+      "rank": 88,
+      "variants": [
+        "体"
+      ]
+    },
+    {
+      "identity": "化",
+      "rank": 89,
+      "variants": [
+        "化"
+      ]
+    },
+    {
+      "identity": "田",
+      "rank": 90,
+      "variants": [
+        "田"
+      ]
+    },
+    {
+      "identity": "当",
+      "rank": 91,
+      "variants": [
+        "当"
+      ]
+    },
+    {
+      "identity": "八",
+      "rank": 92,
+      "variants": [
+        "八"
+      ]
+    },
+    {
+      "identity": "六",
+      "rank": 93,
+      "variants": [
+        "六"
+      ]
+    },
+    {
+      "identity": "約",
+      "rank": 94,
+      "variants": [
+        "約"
+      ]
+    },
+    {
+      "identity": "主",
+      "rank": 95,
+      "variants": [
+        "主"
+      ]
+    },
+    {
+      "identity": "題",
+      "rank": 96,
+      "variants": [
+        "題"
+      ]
+    },
+    {
+      "identity": "下",
+      "rank": 97,
+      "variants": [
+        "下"
+      ]
+    },
+    {
+      "identity": "首",
+      "rank": 98,
+      "variants": [
+        "首"
+      ]
+    },
+    {
+      "identity": "意",
+      "rank": 99,
+      "variants": [
+        "意"
+      ]
+    },
+    {
+      "identity": "法",
+      "rank": 100,
+      "variants": [
+        "法"
+      ]
+    }
+  ]
+}

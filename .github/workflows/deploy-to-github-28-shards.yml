@@ -7,7 +7,9 @@ on:
       - 'src/**'
       - 'data/**'
       - 'scripts/manage_semantic_mnemonic_corpus.py'
+      - 'scripts/manage_pronunciation_mnemonic_corpus.py'
       - 'scripts/smoke_semantic_mnemonic_deployment.py'
+      - 'scripts/smoke_pronunciation_mnemonic_deployment.py'
       - 'scripts/smoke_korean_word_deployment.py'
       - 'Cargo.toml'
       - '.github/workflows/deploy-to-github-28-shards.yml'
@@ -22,8 +24,23 @@ jobs:
         with:
           lfs: false
 
-      - name: Verify canonical mnemonic buckets and runtime projection
-        run: python3 scripts/manage_semantic_mnemonic_corpus.py verify
+      - name: Prepare Japanese pronunciation evidence
+        run: |
+          tar -xzf data/jmdict-examples.json.tgz -C data
+          curl -L -o data/kanjidic2.json.tgz \
+            https://github.com/scriptin/jmdict-simplified/releases/download/3.6.1%2B20251013122507/kanjidic2-en-3.6.1%2B20251013122507.json.tgz
+          mkdir data/kanjidic-download
+          tar -xzf data/kanjidic2.json.tgz -C data/kanjidic-download
+          find data/kanjidic-download -name "kanjidic2-en-3.6.1*.json" \
+            -exec mv {} data/kanjidic2-en-3.6.1.json \;
+          rm -r data/kanjidic-download
+          rm data/kanjidic2.json.tgz
+
+      - name: Verify canonical mnemonic buckets and runtime projections
+        run: |
+          python3 scripts/manage_semantic_mnemonic_corpus.py verify
+          python3 scripts/select_pronunciation_targets.py --check
+          python3 scripts/manage_pronunciation_mnemonic_corpus.py verify
 
   build-and-deploy:
     needs: verify-semantic-mnemonic-corpus
@@ -207,6 +224,10 @@ jobs:
       - name: Compare representative published entries with canonical cards
         run: |
           python3 scripts/smoke_semantic_mnemonic_deployment.py \
+            --attempts 18 \
+            --delay 20 \
+            --timeout 30
+          python3 scripts/smoke_pronunciation_mnemonic_deployment.py \
             --attempts 18 \
             --delay 20 \
             --timeout 30

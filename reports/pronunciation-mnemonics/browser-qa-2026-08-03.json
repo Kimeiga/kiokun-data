@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "page": "/行",
+  "fixture_languages": [
+    "zh",
+    "ja"
+  ],
+  "checks": {
+    "both_enabled": {
+      "mandarin_layers": 1,
+      "japanese_layers": 1,
+      "result": "pass"
+    },
+    "chinese_only": {
+      "mandarin_layers": 1,
+      "japanese_layers": 0,
+      "result": "pass"
+    },
+    "japanese_only": {
+      "mandarin_layers": 0,
+      "japanese_layers": 1,
+      "on_labels": 2,
+      "kun_labels": 2,
+      "result": "pass"
+    },
+    "responsive_390x844": {
+      "document_client_width": 390,
+      "document_scroll_width": 390,
+      "result": "pass"
+    },
+    "dark_theme": "pass",
+    "light_theme": "pass",
+    "anchor_audio_controls_visible": true
+  },
+  "result": "pass"
+}

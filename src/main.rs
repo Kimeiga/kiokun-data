@@ -15,6 +15,7 @@ mod simple_output_types;
 mod word_preview_types;
 mod search_index_builder;
 mod semantic_mnemonic_types;
+mod pronunciation_mnemonic_types;
 mod romaji;
 mod pinyin;
 mod jyutping;
@@ -52,6 +53,9 @@ use combined_types::{
 use legacy_unification::semantic_unification_engine::SemanticUnificationEngine;
 use semantic_mnemonic_types::{
     SemanticMnemonicCard, SemanticMnemonicCorpusManifest,
+};
+use pronunciation_mnemonic_types::{
+    PronunciationMnemonicCard, PronunciationMnemonicCorpusManifest,
 };
 
 /// Determines which shard a key belongs to based on Han character count and hash
@@ -277,6 +281,149 @@ fn is_han_character(c: char) -> bool {
 
 const SEMANTIC_MNEMONICS_MANIFEST_PATH: &str =
     "data/semantic_mnemonic_corpus/manifest.json";
+const PRONUNCIATION_MNEMONICS_MANIFEST_PATH: &str =
+    "data/pronunciation_mnemonic_corpus/manifest.json";
+
+fn load_pronunciation_mnemonics() -> Result<Vec<PronunciationMnemonicCard>> {
+    load_pronunciation_mnemonics_from_manifest(std::path::Path::new(
+        PRONUNCIATION_MNEMONICS_MANIFEST_PATH,
+    ))
+}
+
+fn load_pronunciation_mnemonics_from_manifest(
+    manifest_path: &std::path::Path,
+) -> Result<Vec<PronunciationMnemonicCard>> {
+    let manifest_file = File::open(manifest_path).with_context(|| {
+        format!(
+            "Failed to open pronunciation mnemonic manifest: {}",
+            manifest_path.display()
+        )
+    })?;
+    let manifest: PronunciationMnemonicCorpusManifest =
+        serde_json::from_reader(BufReader::new(manifest_file)).with_context(|| {
+            format!(
+                "Failed to parse pronunciation mnemonic manifest: {}",
+                manifest_path.display()
+            )
+        })?;
+    const BUCKET_ALGORITHM: &str = "kiokun_simple_hash_low_byte_v1";
+    const BUCKET_COUNT: usize = 256;
+    if manifest.bucket_algorithm != BUCKET_ALGORITHM
+        || manifest.bucket_count != BUCKET_COUNT
+        || manifest.packed_buckets.len() != BUCKET_COUNT
+    {
+        anyhow::bail!("Unsupported pronunciation mnemonic bucket layout");
+    }
+
+    let corpus_dir = manifest_path
+        .parent()
+        .unwrap_or_else(|| std::path::Path::new("."));
+    let mut cards = Vec::with_capacity(manifest.card_count);
+    let mut seen = std::collections::HashSet::new();
+    for (bucket_index, reference) in manifest.packed_buckets.iter().enumerate() {
+        let expected_bucket = format!("{:02x}", bucket_index);
+        if reference.bucket != expected_bucket {
+            anyhow::bail!(
+                "Pronunciation mnemonic bucket {} declares {:?}",
+                bucket_index,
+                reference.bucket
+            );
+        }
+        let relative_path = std::path::Path::new(&reference.path);
+        if relative_path.is_absolute()
+            || relative_path.components().any(|component| {
+                matches!(
+                    component,
+                    std::path::Component::ParentDir
+                        | std::path::Component::RootDir
+                        | std::path::Component::Prefix(_)
+                )
+            })
+        {
+            anyhow::bail!(
+                "Unsafe pronunciation mnemonic bucket path: {}",
+                reference.path
+            );
+        }
+        let path = corpus_dir.join(relative_path);
+        let bucket_file = File::open(&path)
+            .with_context(|| format!("Failed to open pronunciation bucket: {}", path.display()))?;
+        let bucket_cards: Vec<PronunciationMnemonicCard> =
+            serde_json::from_reader(BufReader::new(bucket_file)).with_context(|| {
+                format!("Failed to parse pronunciation bucket: {}", path.display())
+            })?;
+        if bucket_cards.len() != reference.count {
+            anyhow::bail!(
+                "Pronunciation bucket {} contains {} cards, expected {}",
+                path.display(),
+                bucket_cards.len(),
+                reference.count
+            );
+        }
+        for card in bucket_cards {
+            let identity = format!("{}:{}", card.language, card.character);
+            let actual_bucket = format!("{:02x}", ShardType::simple_hash(&identity) & 0xff);
+            if actual_bucket != expected_bucket {
+                anyhow::bail!(
+                    "Pronunciation card {:?} is in bucket {}, expected {}",
+                    identity,
+                    expected_bucket,
+                    actual_bucket
+                );
+            }
+            if !seen.insert(identity.clone()) {
+                anyhow::bail!("Duplicate pronunciation mnemonic card {:?}", identity);
+            }
+            cards.push(card);
+        }
+    }
+    if cards.len() != manifest.card_count {
+        anyhow::bail!(
+            "Loaded {} pronunciation cards, manifest declares {}",
+            cards.len(),
+            manifest.card_count
+        );
+    }
+    println!(
+        "  ✅ Loaded {} language-specific pronunciation mnemonic cards",
+        cards.len()
+    );
+    Ok(cards)
+}
+
+fn attach_pronunciation_mnemonics(
+    semantic_mnemonics: &mut HashMap<String, SemanticMnemonicCard>,
+    pronunciation_mnemonics: Vec<PronunciationMnemonicCard>,
+) -> Result<usize> {
+    let mut projection_count = 0usize;
+    for card in pronunciation_mnemonics {
+        let mut attached = 0usize;
+        for variant in &card.variants {
+            if let Some(semantic) = semantic_mnemonics.get_mut(variant) {
+                if !semantic.pronunciation_mnemonics.iter().any(|existing| {
+                    existing.language == card.language && existing.character == card.character
+                }) {
+                    semantic.pronunciation_mnemonics.push(card.clone());
+                    attached += 1;
+                }
+            }
+        }
+        if attached == 0 {
+            anyhow::bail!(
+                "Pronunciation mnemonic {}:{} has no semantic projection target",
+                card.language,
+                card.character
+            );
+        }
+        projection_count += attached;
+    }
+    for semantic in semantic_mnemonics.values_mut() {
+        semantic.pronunciation_mnemonics.sort_by(|left, right| {
+            (&left.language, &left.character).cmp(&(&right.language, &right.character))
+        });
+    }
+    Ok(projection_count)
+}
 
 fn load_semantic_mnemonics() -> Result<HashMap<String, SemanticMnemonicCard>> {
     load_semantic_mnemonics_from_manifest(std::path::Path::new(
@@ -457,6 +604,59 @@ mod semantic_mnemonic_corpus_tests {
         assert_eq!(qiao.meaning, "lofty");
         assert_eq!(qiao.components.len(), 2);
         assert!(qiao.mnemonic.contains("夭 die young"));
+    }
+
+    #[test]
+    fn loads_reviewed_pronunciation_regressions() {
+        let cards = load_pronunciation_mnemonics_from_manifest(std::path::Path::new(
+            PRONUNCIATION_MNEMONICS_MANIFEST_PATH,
+        ))
+        .expect("pronunciation corpus should load");
+        assert_eq!(cards.len(), 203);
+
+        let get = |language: &str, character: &str| {
+            cards
+                .iter()
+                .find(|card| card.language == language && card.character == character)
+                .expect("regression card should exist")
+        };
+        let zh_xing = get("zh", "行");
+        assert_eq!(
+            zh_xing
+                .readings
+                .iter()
+                .map(|reading| reading.display_reading.as_str())
+                .collect::<Vec<_>>(),
+            vec!["xíng", "háng"]
+        );
+        let ja_xing = get("ja", "行");
+        assert_eq!(ja_xing.readings.len(), 4);
+        let ja_sei = get("ja", "生");
+        assert_eq!(ja_sei.readings.len(), 5);
+        let ja_zu = get("ja", "図");
+        assert_eq!(
+            ja_zu
+                .readings
+                .iter()
+                .map(|reading| reading.display_reading.as_str())
+                .collect::<Vec<_>>(),
+            vec!["ズ", "ト", "はかる"]
+        );
+        let ja_shoku = get("ja", "食");
+        assert!(ja_shoku
+            .readings
+            .iter()
+            .any(|reading| reading.display_reading == "たべる"
+                && reading.anchors[0].word == "食べる"));
+        assert!(get("ja", "議")
+            .readings
+            .iter()
+            .all(|reading| reading.reading_type == "on"));
+        assert!(get("zh", "发").variants.contains(&"髮".to_string()));
+        assert!(get("zh", "的")
+            .readings
+            .iter()
+            .any(|reading| reading.display_reading == "de" && reading.tone == Some(5)));
     }
 }
 
@@ -3551,8 +3751,18 @@ async fn generate_simple_output_files(
     }
 
     println!("🧠 Loading semantic mnemonic cards...");
-    let semantic_mnemonics = load_semantic_mnemonics()
+    let mut semantic_mnemonics = load_semantic_mnemonics()
         .context("Failed to load semantic mnemonic cards")?;
+    println!("🔊 Loading language-specific pronunciation mnemonic cards...");
+    let pronunciation_mnemonics = load_pronunciation_mnemonics()
+        .context("Failed to load pronunciation mnemonic cards")?;
+    let pronunciation_projection_count =
+        attach_pronunciation_mnemonics(&mut semantic_mnemonics, pronunciation_mnemonics)
+            .context("Failed to attach pronunciation mnemonics to semantic scenes")?;
+    println!(
+        "  ✅ Attached {} pronunciation projections to semantic scenes",
+        pronunciation_projection_count
+    );
 
     // Index Chinese characters by character string
     // When there are duplicates (e.g., U+50CF and U+2F80B for 像), prefer the entry with more sources

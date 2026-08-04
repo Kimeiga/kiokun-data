@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "audit_report": "manual-audit-2026-08-03.json",
+  "seed": 20260803,
+  "sample_per_language": 30,
+  "selected_count": 159,
+  "selection_policy": [
+    "30 seeded random cards per language",
+    "every multiple-core-reading card",
+    "every authentic phonetic-component card",
+    "every simplified/traditional variant or alias card",
+    "every card with a phonological-alternation note"
+  ],
+  "review_completed": true,
+  "result": "pass_after_corrections",
+  "corrections_applied": [
+    "restricted Japanese anchor glosses to senses that apply to the selected kanji spelling",
+    "replaced misleading first-sense glosses for common Chinese particles, measure words, and compounds",
+    "made Japanese kun display readings complete lexemes while retaining the character-reading stem",
+    "added surface-form notes for Japanese anchors with voicing, gemination, or other alternation",
+    "made simplified and traditional forms explicit in Chinese phonetic-component evidence"
+  ],
+  "unresolved_blockers": []
+}

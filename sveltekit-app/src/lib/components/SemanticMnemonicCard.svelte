@@ -1,5 +1,6 @@
 <script lang="ts">
 	import SectionHeading from "$lib/components/shared/SectionHeading.svelte";
+	import PronunciationMnemonicLayer from "$lib/components/PronunciationMnemonicLayer.svelte";
 	import type { SemanticMnemonicCard as SemanticMnemonicCardType } from "$lib/types";
 
 	let {
@@ -113,6 +114,8 @@
 					{:else}{part.text}{/if}
 				{/each}
 			</p>
+
+			<PronunciationMnemonicLayer cards={card.pronunciation_mnemonics} />
 
 			{#if card.alias_of}
 				<a class="alias-link" href="/{card.alias_of}">

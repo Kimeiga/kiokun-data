@@ -1,0 +1,950 @@
+{
+  "schema_version": 1,
+  "language": "zh",
+  "count": 100,
+  "selection": {
+    "source": "data/chinese_dictionary_char_2025-06-25.jsonl",
+    "field": "statistics.movieCharRank",
+    "rule": "Ranks 1-100; group equal-rank linked graphical variants; prefer the source-linked modern simplified projection, then a non-variant row, then Unicode order."
+  },
+  "entries": [
+    {
+      "identity": "我",
+      "rank": 1,
+      "variants": [
+        "我"
+      ],
+      "movie_char_count": 2058980,
+      "movie_char_count_percent": 0.04395669896458659
+    },
+    {
+      "identity": "的",
+      "rank": 2,
+      "variants": [
+        "的"
+      ],
+      "movie_char_count": 1762079,
+      "movie_char_count_percent": 0.037618226575692706
+    },
+    {
+      "identity": "你",
+      "rank": 3,
+      "variants": [
+        "你"
+      ],
+      "movie_char_count": 1444831,
+      "movie_char_count_percent": 0.03084537067951248
+    },
+    {
+      "identity": "是",
+      "rank": 4,
+      "variants": [
+        "是"
+      ],
+      "movie_char_count": 1172098,
+      "movie_char_count_percent": 0.025022855463867552
+    },
+    {
+      "identity": "了",
+      "rank": 5,
+      "variants": [
+        "了"
+      ],
+      "movie_char_count": 993990,
+      "movie_char_count_percent": 0.02122046800056796
+    },
+    {
+      "identity": "不",
+      "rank": 6,
+      "variants": [
+        "不"
+      ],
+      "movie_char_count": 904675,
+      "movie_char_count_percent": 0.019313702238869426
+    },
+    {
+      "identity": "们",
+      "rank": 7,
+      "variants": [
+        "们",
+        "們"
+      ],
+      "movie_char_count": 701754,
+      "movie_char_count_percent": 0.01498158764300503
+    },
+    {
+      "identity": "这",
+      "rank": 8,
+      "variants": [
+        "这",
+        "這"
+      ],
+      "movie_char_count": 633842,
+      "movie_char_count_percent": 0.013531749694077404
+    },
+    {
+      "identity": "一",
+      "rank": 9,
+      "variants": [
+        "一"
+      ],
+      "movie_char_count": 604056,
+      "movie_char_count_percent": 0.012895855107748651
+    },
+    {
+      "identity": "他",
+      "rank": 10,
+      "variants": [
+        "他"
+      ],
+      "movie_char_count": 564477,
+      "movie_char_count_percent": 0.012050891976334372
+    },
+    {
+      "identity": "么",
+      "rank": 11,
+      "variants": [
+        "么",
+        "麼"
+      ],
+      "movie_char_count": 557804,
+      "movie_char_count_percent": 0.011908431606544142
+    },
+    {
+      "identity": "在",
+      "rank": 12,
+      "variants": [
+        "在"
+      ],
+      "movie_char_count": 546367,
+      "movie_char_count_percent": 0.011664265676783787
+    },
+    {
+      "identity": "有",
+      "rank": 13,
+      "variants": [
+        "有"
+      ],
+      "movie_char_count": 533631,
+      "movie_char_count_percent": 0.011392367689424523
+    },
+    {
+      "identity": "个",
+      "rank": 14,
+      "variants": [
+        "个",
+        "個"
+      ],
+      "movie_char_count": 452923,
+      "movie_char_count_percent": 0.009669350826689647
+    },
+    {
+      "identity": "好",
+      "rank": 15,
+      "variants": [
+        "好"
+      ],
+      "movie_char_count": 412760,
+      "movie_char_count_percent": 0.008811920011181635
+    },
+    {
+      "identity": "来",
+      "rank": 16,
+      "variants": [
+        "來",
+        "来"
+      ],
+      "movie_char_count": 377902,
+      "movie_char_count_percent": 0.008067744442449757
+    },
+    {
+      "identity": "人",
+      "rank": 17,
+      "variants": [
+        "人"
+      ],
+      "movie_char_count": 373292,
+      "movie_char_count_percent": 0.00796932659369613
+    },
+    {
+      "identity": "那",
+      "rank": 18,
+      "variants": [
+        "那"
+      ],
+      "movie_char_count": 365024,
+      "movie_char_count_percent": 0.007792814929163594
+    },
+    {
+      "identity": "要",
+      "rank": 19,
+      "variants": [
+        "要"
+      ],
+      "movie_char_count": 355730,
+      "movie_char_count_percent": 0.007594399422370488
+    },
+    {
+      "identity": "会",
+      "rank": 20,
+      "variants": [
+        "会",
+        "會"
+      ],
+      "movie_char_count": 321488,
+      "movie_char_count_percent": 0.006863374698504606
+    },
+    {
+      "identity": "就",
+      "rank": 21,
+      "variants": [
+        "就"
+      ],
+      "movie_char_count": 313793,
+      "movie_char_count_percent": 0.00669909588155034
+    },
+    {
+      "identity": "什",
+      "rank": 22,
+      "variants": [
+        "什"
+      ],
+      "movie_char_count": 307184,
+      "movie_char_count_percent": 0.00655800183330463
+    },
+    {
+      "identity": "没",
+      "rank": 23,
+      "variants": [
+        "沒",
+        "没"
+      ],
+      "movie_char_count": 293874,
+      "movie_char_count_percent": 0.006273849649592963
+    },
+    {
+      "identity": "到",
+      "rank": 24,
+      "variants": [
+        "到"
+      ],
+      "movie_char_count": 290231,
+      "movie_char_count_percent": 0.006196076065426051
+    },
+    {
+      "identity": "说",
+      "rank": 25,
+      "variants": [
+        "說",
+        "说"
+      ],
+      "movie_char_count": 281841,
+      "movie_char_count_percent": 0.006016959850449275
+    },
+    {
+      "identity": "吗",
+      "rank": 26,
+      "variants": [
+        "吗",
+        "嗎"
+      ],
+      "movie_char_count": 253338,
+      "movie_char_count_percent": 0.0054084557413333
+    },
+    {
+      "identity": "为",
+      "rank": 27,
+      "variants": [
+        "为",
+        "為"
+      ],
+      "movie_char_count": 249231,
+      "movie_char_count_percent": 0.0053207763259686255
+    },
+    {
+      "identity": "想",
+      "rank": 28,
+      "variants": [
+        "想"
+      ],
+      "movie_char_count": 247453,
+      "movie_char_count_percent": 0.00528281820555996
+    },
+    {
+      "identity": "能",
+      "rank": 29,
+      "variants": [
+        "能"
+      ],
+      "movie_char_count": 241617,
+      "movie_char_count_percent": 0.005158226759719142
+    },
+    {
+      "identity": "上",
+      "rank": 30,
+      "variants": [
+        "上"
+      ],
+      "movie_char_count": 236451,
+      "movie_char_count_percent": 0.005047938992547506
+    },
+    {
+      "identity": "去",
+      "rank": 31,
+      "variants": [
+        "去"
+      ],
+      "movie_char_count": 232346,
+      "movie_char_count_percent": 0.004960302274731098
+    },
+    {
+      "identity": "道",
+      "rank": 32,
+      "variants": [
+        "道"
+      ],
+      "movie_char_count": 230531,
+      "movie_char_count_percent": 0.004921554249679507
+    },
+    {
+      "identity": "她",
+      "rank": 33,
+      "variants": [
+        "她"
+      ],
+      "movie_char_count": 230468,
+      "movie_char_count_percent": 0.004920209276909121
+    },
+    {
+      "identity": "很",
+      "rank": 34,
+      "variants": [
+        "很"
+      ],
+      "movie_char_count": 219622,
+      "movie_char_count_percent": 0.0046886604726614324
+    },
+    {
+      "identity": "看",
+      "rank": 35,
+      "variants": [
+        "看"
+      ],
+      "movie_char_count": 213974,
+      "movie_char_count_percent": 0.004568082596357639
+    },
+    {
+      "identity": "可",
+      "rank": 36,
+      "variants": [
+        "可"
+      ],
+      "movie_char_count": 212670,
+      "movie_char_count_percent": 0.004540243794888066
+    },
+    {
+      "identity": "知",
+      "rank": 37,
+      "variants": [
+        "知"
+      ],
+      "movie_char_count": 211542,
+      "movie_char_count_percent": 0.00451616237766592
+    },
+    {
+      "identity": "得",
+      "rank": 38,
+      "variants": [
+        "得"
+      ],
+      "movie_char_count": 208054,
+      "movie_char_count_percent": 0.00444169785348964
+    },
+    {
+      "identity": "过",
+      "rank": 39,
+      "variants": [
+        "过",
+        "過"
+      ],
+      "movie_char_count": 198278,
+      "movie_char_count_percent": 0.004232992237564377
+    },
+    {
+      "identity": "吧",
+      "rank": 40,
+      "variants": [
+        "吧"
+      ],
+      "movie_char_count": 197159,
+      "movie_char_count_percent": 0.004209102959309429
+    },
+    {
+      "identity": "还",
+      "rank": 41,
+      "variants": [
+        "还",
+        "還"
+      ],
+      "movie_char_count": 192389,
+      "movie_char_count_percent": 0.004107269306694504
+    },
+    {
+      "identity": "对",
+      "rank": 42,
+      "variants": [
+        "对",
+        "對"
+      ],
+      "movie_char_count": 191793,
+      "movie_char_count_percent": 0.004094545437311171
+    },
+    {
+      "identity": "里",
+      "rank": 43,
+      "variants": [
+        "裡",
+        "里"
+      ],
+      "movie_char_count": 190694,
+      "movie_char_count_percent": 0.004071083134538886
+    },
+    {
+      "identity": "以",
+      "rank": 44,
+      "variants": [
+        "以"
+      ],
+      "movie_char_count": 184508,
+      "movie_char_count_percent": 0.00393901961775148
+    },
+    {
+      "identity": "都",
+      "rank": 45,
+      "variants": [
+        "都"
+      ],
+      "movie_char_count": 180587,
+      "movie_char_count_percent": 0.003855311074375564
+    },
+    {
+      "identity": "事",
+      "rank": 46,
+      "variants": [
+        "事"
+      ],
+      "movie_char_count": 179716,
+      "movie_char_count_percent": 0.003836716292105627
+    },
+    {
+      "identity": "子",
+      "rank": 47,
+      "variants": [
+        "子"
+      ],
+      "movie_char_count": 177693,
+      "movie_char_count_percent": 0.0037935277220343495
+    },
+    {
+      "identity": "生",
+      "rank": 48,
+      "variants": [
+        "生"
+      ],
+      "movie_char_count": 162725,
+      "movie_char_count_percent": 0.0034739792708099898
+    },
+    {
+      "identity": "时",
+      "rank": 49,
+      "variants": [
+        "时",
+        "時"
+      ],
+      "movie_char_count": 162611,
+      "movie_char_count_percent": 0.0034715455105588156
+    },
+    {
+      "identity": "样",
+      "rank": 50,
+      "variants": [
+        "样",
+        "樣"
+      ],
+      "movie_char_count": 161409,
+      "movie_char_count_percent": 0.00344588428405082
+    },
+    {
+      "identity": "也",
+      "rank": 51,
+      "variants": [
+        "也"
+      ],
+      "movie_char_count": 159926,
+      "movie_char_count_percent": 0.0034142240520114208
+    },
+    {
+      "identity": "和",
+      "rank": 52,
+      "variants": [
+        "和"
+      ],
+      "movie_char_count": 155937,
+      "movie_char_count_percent": 0.0033290637919944533
+    },
+    {
+      "identity": "下",
+      "rank": 53,
+      "variants": [
+        "下"
+      ],
+      "movie_char_count": 153565,
+      "movie_char_count_percent": 0.003278424499750721
+    },
+    {
+      "identity": "真",
+      "rank": 54,
+      "variants": [
+        "真"
+      ],
+      "movie_char_count": 140928,
+      "movie_char_count_percent": 0.003008640041030636
+    },
+    {
+      "identity": "现",
+      "rank": 55,
+      "variants": [
+        "现",
+        "現"
+      ],
+      "movie_char_count": 137777,
+      "movie_char_count_percent": 0.002941370053737213
+    },
+    {
+      "identity": "做",
+      "rank": 56,
+      "variants": [
+        "做"
+      ],
+      "movie_char_count": 136328,
+      "movie_char_count_percent": 0.0029104356800183397
+    },
+    {
+      "identity": "大",
+      "rank": 57,
+      "variants": [
+        "大"
+      ],
+      "movie_char_count": 135159,
+      "movie_char_count_percent": 0.0028854789630567363
+    },
+    {
+      "identity": "啊",
+      "rank": 58,
+      "variants": [
+        "啊"
+      ],
+      "movie_char_count": 131345,
+      "movie_char_count_percent": 0.0028040547385130626
+    },
+    {
+      "identity": "怎",
+      "rank": 59,
+      "variants": [
+        "怎"
+      ],
+      "movie_char_count": 129740,
+      "movie_char_count_percent": 0.0027697899560294244
+    },
+    {
+      "identity": "出",
+      "rank": 60,
+      "variants": [
+        "出",
+        "齣"
+      ],
+      "movie_char_count": 129404,
+      "movie_char_count_percent": 0.0027626167679207
+    },
+    {
+      "identity": "点",
+      "rank": 61,
+      "variants": [
+        "点",
+        "點"
+      ],
+      "movie_char_count": 128025,
+      "movie_char_count_percent": 0.0027331768083911443
+    },
+    {
+      "identity": "起",
+      "rank": 62,
+      "variants": [
+        "起"
+      ],
+      "movie_char_count": 127575,
+      "movie_char_count_percent": 0.0027235698600312458
+    },
+    {
+      "identity": "天",
+      "rank": 63,
+      "variants": [
+        "天"
+      ],
+      "movie_char_count": 127053,
+      "movie_char_count_percent": 0.0027124257999337634
+    },
+    {
+      "identity": "把",
+      "rank": 64,
+      "variants": [
+        "把"
+      ],
+      "movie_char_count": 126881,
+      "movie_char_count_percent": 0.0027087538107828687
+    },
+    {
+      "identity": "开",
+      "rank": 65,
+      "variants": [
+        "开",
+        "開"
+      ],
+      "movie_char_count": 126802,
+      "movie_char_count_percent": 0.002707067257626353
+    },
+    {
+      "identity": "让",
+      "rank": 66,
+      "variants": [
+        "讓",
+        "让"
+      ],
+      "movie_char_count": 125114,
+      "movie_char_count_percent": 0.002671030526889667
+    },
+    {
+      "identity": "给",
+      "rank": 67,
+      "variants": [
+        "給",
+        "给"
+      ],
+      "movie_char_count": 123887,
+      "movie_char_count_percent": 0.0026448355810283434
+    },
+    {
+      "identity": "但",
+      "rank": 68,
+      "variants": [
+        "但"
+      ],
+      "movie_char_count": 122236,
+      "movie_char_count_percent": 0.0026095887549345822
+    },
+    {
+      "identity": "谢",
+      "rank": 69,
+      "variants": [
+        "謝",
+        "谢"
+      ],
+      "movie_char_count": 120668,
+      "movie_char_count_percent": 0.002576113877093869
+    },
+    {
+      "identity": "着",
+      "rank": 70,
+      "variants": [
+        "着"
+      ],
+      "movie_char_count": 117476,
+      "movie_char_count_percent": 0.0025079685900609885
+    },
+    {
+      "identity": "只",
+      "rank": 71,
+      "variants": [
+        "只",
+        "隻"
+      ],
+      "movie_char_count": 117406,
+      "movie_char_count_percent": 0.002506474175871671
+    },
+    {
+      "identity": "些",
+      "rank": 72,
+      "variants": [
+        "些"
+      ],
+      "movie_char_count": 113122,
+      "movie_char_count_percent": 0.0024150160274854365
+    },
+    {
+      "identity": "如",
+      "rank": 73,
+      "variants": [
+        "如"
+      ],
+      "movie_char_count": 113103,
+      "movie_char_count_percent": 0.0024146104007769075
+    },
+    {
+      "identity": "家",
+      "rank": 74,
+      "variants": [
+        "家"
+      ],
+      "movie_char_count": 112387,
+      "movie_char_count_percent": 0.0023993246784976023
+    },
+    {
+      "identity": "后",
+      "rank": 75,
+      "variants": [
+        "后",
+        "後"
+      ],
+      "movie_char_count": 109915,
+      "movie_char_count_percent": 0.0023465505088405593
+    },
+    {
+      "identity": "儿",
+      "rank": 76,
+      "variants": [
+        "儿",
+        "兒"
+      ],
+      "movie_char_count": 105402,
+      "movie_char_count_percent": 0.0022502034911778433
+    },
+    {
+      "identity": "多",
+      "rank": 77,
+      "variants": [
+        "多"
+      ],
+      "movie_char_count": 104049,
+      "movie_char_count_percent": 0.002221318599775748
+    },
+    {
+      "identity": "意",
+      "rank": 78,
+      "variants": [
+        "意"
+      ],
+      "movie_char_count": 103354,
+      "movie_char_count_percent": 0.0022064812017532384
+    },
+    {
+      "identity": "别",
+      "rank": 79,
+      "variants": [
+        "別",
+        "别"
+      ],
+      "movie_char_count": 102034,
+      "movie_char_count_percent": 0.002178300819897536
+    },
+    {
+      "identity": "所",
+      "rank": 80,
+      "variants": [
+        "所"
+      ],
+      "movie_char_count": 100444,
+      "movie_char_count_percent": 0.002144356269025894
+    },
+    {
+      "identity": "话",
+      "rank": 81,
+      "variants": [
+        "話",
+        "话"
+      ],
+      "movie_char_count": 99879,
+      "movie_char_count_percent": 0.002132294211640688
+    },
+    {
+      "identity": "小",
+      "rank": 82,
+      "variants": [
+        "小"
+      ],
+      "movie_char_count": 99468,
+      "movie_char_count_percent": 0.002123519865471981
+    },
+    {
+      "identity": "自",
+      "rank": 83,
+      "variants": [
+        "自"
+      ],
+      "movie_char_count": 98698,
+      "movie_char_count_percent": 0.002107081309389488
+    },
+    {
+      "identity": "回",
+      "rank": 84,
+      "variants": [
+        "回"
+      ],
+      "movie_char_count": 92711,
+      "movie_char_count_percent": 0.0019792661986545706
+    },
+    {
+      "identity": "然",
+      "rank": 85,
+      "variants": [
+        "然"
+      ],
+      "movie_char_count": 91514,
+      "movie_char_count_percent": 0.00195371171601724
+    },
+    {
+      "identity": "果",
+      "rank": 86,
+      "variants": [
+        "果"
+      ],
+      "movie_char_count": 91471,
+      "movie_char_count_percent": 0.0019527937187295164
+    },
+    {
+      "identity": "发",
+      "rank": 87,
+      "variants": [
+        "发",
+        "發",
+        "髮"
+      ],
+      "movie_char_count": 87630,
+      "movie_char_count_percent": 0.0018707930772842488
+    },
+    {
+      "identity": "见",
+      "rank": 88,
+      "variants": [
+        "見",
+        "见"
+      ],
+      "movie_char_count": 85723,
+      "movie_char_count_percent": 0.001830080965012412
+    },
+    {
+      "identity": "心",
+      "rank": 89,
+      "variants": [
+        "心"
+      ],
+      "movie_char_count": 83418,
+      "movie_char_count_percent": 0.0017808720406355984
+    },
+    {
+      "identity": "走",
+      "rank": 90,
+      "variants": [
+        "走"
+      ],
+      "movie_char_count": 82765,
+      "movie_char_count_percent": 0.0017669312911266788
+    },
+    {
+      "identity": "定",
+      "rank": 91,
+      "variants": [
+        "定"
+      ],
+      "movie_char_count": 81657,
+      "movie_char_count_percent": 0.0017432768493871951
+    },
+    {
+      "identity": "听",
+      "rank": 92,
+      "variants": [
+        "听",
+        "聽"
+      ],
+      "movie_char_count": 81570,
+      "movie_char_count_percent": 0.0017414195060376147
+    },
+    {
+      "identity": "觉",
+      "rank": 93,
+      "variants": [
+        "覺",
+        "觉"
+      ],
+      "movie_char_count": 81155,
+      "movie_char_count_percent": 0.001732559764772375
+    },
+    {
+      "identity": "太",
+      "rank": 94,
+      "variants": [
+        "太"
+      ],
+      "movie_char_count": 80890,
+      "movie_char_count_percent": 0.0017269023396271014
+    },
+    {
+      "identity": "该",
+      "rank": 95,
+      "variants": [
+        "該",
+        "该"
+      ],
+      "movie_char_count": 80641,
+      "movie_char_count_percent": 0.0017215864948679576
+    },
+    {
+      "identity": "当",
+      "rank": 96,
+      "variants": [
+        "噹",
+        "当",
+        "當"
+      ],
+      "movie_char_count": 80228,
+      "movie_char_count_percent": 0.001712769451150984
+    },
+    {
+      "identity": "经",
+      "rank": 97,
+      "variants": [
+        "經",
+        "经"
+      ],
+      "movie_char_count": 80207,
+      "movie_char_count_percent": 0.0017123211268941887
+    },
+    {
+      "identity": "妈",
+      "rank": 98,
+      "variants": [
+        "妈",
+        "媽"
+      ],
+      "movie_char_count": 79529,
+      "movie_char_count_percent": 0.0016978466580319415
+    },
+    {
+      "identity": "用",
+      "rank": 99,
+      "variants": [
+        "用"
+      ],
+      "movie_char_count": 79299,
+      "movie_char_count_percent": 0.0016929364399813267
+    },
+    {
+      "identity": "打",
+      "rank": 100,
+      "variants": [
+        "打"
+      ],
+      "movie_char_count": 79262,
+      "movie_char_count_percent": 0.0016921465353384017
+    }
+  ]
+}

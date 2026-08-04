@@ -48,6 +48,53 @@ export interface SemanticMnemonicCard {
   alias_of?: string;
   alias_kind?: string;
   alias_reason?: string;
+  pronunciation_mnemonics?: PronunciationMnemonicCard[];
+}
+
+export type PronunciationLanguage = 'zh' | 'ja';
+export type PronunciationReadingType = 'mandarin' | 'on' | 'kun';
+
+export interface PronunciationMnemonicCard {
+  character: string;
+  variants: string[];
+  language: PronunciationLanguage;
+  review_status: 'reviewed' | 'needs_review';
+  readings: PronunciationMnemonicReading[];
+}
+
+export interface PronunciationMnemonicReading {
+  reading_type: PronunciationReadingType;
+  display_reading: string;
+  normalized_reading: string;
+  source_reading?: string;
+  status: 'core' | 'secondary';
+  usage_gloss: string;
+  editorial_reason: string;
+  strategy: 'phonetic_component' | 'integrated_sound_cue' | 'word_anchor';
+  overlay: string;
+  tone?: number;
+  sound_cue?: { syllable: string; tone_behavior: string };
+  phonetic_component?: {
+    character: string;
+    reading: string;
+    relationship: string;
+    source: string;
+  };
+  anchors: PronunciationAnchorWord[];
+}
+
+export interface PronunciationAnchorWord {
+  word: string;
+  reading: string;
+  character_reading: string;
+  gloss: string;
+  phonological_note?: string;
+  frequency: {
+    source: string;
+    field: string;
+    rank?: number;
+    usefulness?: string;
+  };
 }
 
 // ============================================================================

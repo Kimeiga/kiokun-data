@@ -21,7 +21,6 @@ editorial tools.
 from __future__ import annotations
 
 import argparse
-import ctypes
 import hashlib
 import json
 import os
@@ -30,6 +29,11 @@ import shutil
 import sys
 import tempfile
 from typing import Any, Iterable
+
+from bucket_native_corpus import (
+    TransactionError,
+    atomic_exchange_directories as shared_atomic_exchange_directories,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -433,55 +437,12 @@ def build_corpus_tree(
 
 
 def atomic_exchange_directories(left: Path, right: Path) -> None:
-    """Atomically exchange two directories on Linux or macOS."""
+    """Use the same transactional primitive as other bucket-native corpora."""
 
-    if sys.platform.startswith("linux"):
-        libc = ctypes.CDLL(None, use_errno=True)
-        renameat2 = getattr(libc, "renameat2", None)
-        if renameat2 is None:
-            raise CorpusError("transactional corpus publishing requires renameat2")
-        renameat2.argtypes = [
-            ctypes.c_int,
-            ctypes.c_char_p,
-            ctypes.c_int,
-            ctypes.c_char_p,
-            ctypes.c_uint,
-        ]
-        renameat2.restype = ctypes.c_int
-        result = renameat2(
-            -100,  # AT_FDCWD
-            os.fsencode(left),
-            -100,
-            os.fsencode(right),
-            2,  # RENAME_EXCHANGE
-        )
-    elif sys.platform == "darwin":
-        libc = ctypes.CDLL(None, use_errno=True)
-        renamex_np = getattr(libc, "renamex_np", None)
-        if renamex_np is None:
-            raise CorpusError("transactional corpus publishing requires renamex_np")
-        renamex_np.argtypes = [
-            ctypes.c_char_p,
-            ctypes.c_char_p,
-            ctypes.c_uint,
-        ]
-        renamex_np.restype = ctypes.c_int
-        result = renamex_np(
-            os.fsencode(left),
-            os.fsencode(right),
-            2,  # RENAME_SWAP
-        )
-    else:
-        raise CorpusError(
-            f"transactional corpus publishing is unsupported on {sys.platform}"
-        )
-
-    if result != 0:
-        error_number = ctypes.get_errno()
-        raise CorpusError(
-            "cannot atomically exchange corpus directories: "
-            f"{os.strerror(error_number)}"
-        )
+    try:
+        shared_atomic_exchange_directories(left, right)
+    except TransactionError as exc:
+        raise CorpusError(str(exc)) from exc
 
 
 def load_corpus(

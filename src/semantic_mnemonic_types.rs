@@ -1,5 +1,7 @@
 use serde::{Deserialize, Serialize};
 
+use crate::pronunciation_mnemonic_types::PronunciationMnemonicCard;
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SemanticMnemonicCorpusManifest {
     pub count: usize,
@@ -60,6 +62,11 @@ pub struct SemanticMnemonicCard {
 
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub alias_reason: Option<String>,
+
+    /// Independently-authored, language-specific sound layers attached by the
+    /// dictionary builder after the semantic corpus has been loaded.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub pronunciation_mnemonics: Vec<PronunciationMnemonicCard>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
