@@ -745,9 +745,12 @@ main .word-sections-grid > * {
 }
 
 /* Dense related-word controls share one divider surface instead of pill chrome. */
+/* auto-fill, not auto-fit: a reading with two homophones should fill two
+   cells and leave the rest of the row transparent, the way every other grid
+   here behaves, rather than stretching two chips across the whole width. */
 main .homophones-section .homophone-list {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(4.25rem, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(4.25rem, 1fr));
 	gap: 1px;
 	border-block-end: 1px solid var(--border-light);
 	background: transparent;
