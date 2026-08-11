@@ -388,7 +388,7 @@
 <Header currentWord={data.conjugatedFrom || data.word} />
 <SentenceBar currentWord={data.word} />
 
-<main id="main-content" class="max-w-6xl mx-auto px-3 py-2 md:px-5 md:py-3">
+<main id="main-content" class="word-page max-w-6xl mx-auto px-3 py-2 md:px-5 md:py-3">
 	<h1 class="visually-hidden">{data.word} dictionary entry</h1>
 	<!-- Conjugation Info Box (shown when arriving via deinflection) -->
 	{#if data.conjugatedFrom && data.conjugationInfo}
@@ -637,11 +637,11 @@
 
 		<!-- Chinese, Japanese, and Korean Words -->
 		{#if showChineseWords || showJapaneseWords || showKoreanWords}
-			<div class="word-sections-grid" class:two-primary-word-grid={twoPrimaryWordColumns}>
+			<div class="word-sections-grid mobile-full-bleed" class:two-primary-word-grid={twoPrimaryWordColumns}>
 				<!-- Chinese Words -->
 				{#if data.data.chinese_words?.length && languageStore.preferences.chinese}
 					<div class="word-section-chinese">
-						<SectionHeading id="chinese">Chinese</SectionHeading>
+						<SectionHeading id="chinese" divided={false}>Chinese</SectionHeading>
 						<div>
 							{#each data.data.chinese_words as word}
 								{#if word.items && word.items.length > 0}
@@ -727,7 +727,7 @@
 				<!-- Japanese Words -->
 				{#if data.data.japanese_words?.length && languageStore.preferences.japanese}
 					<div class="word-section-japanese">
-						<SectionHeading id="japanese">Japanese</SectionHeading>
+						<SectionHeading id="japanese" divided={false}>Japanese</SectionHeading>
 						<div lang="ja">
 							<WordTable
 								words={data.data.japanese_words}
@@ -739,7 +739,7 @@
 				<!-- Korean Words -->
 				{#if data.data.korean_words?.length && languageStore.preferences.korean}
 					<div class="word-section-korean" lang="ko">
-						<SectionHeading id="korean">Korean</SectionHeading>
+						<SectionHeading id="korean" divided={false}>Korean</SectionHeading>
 						<div>
 							{#each data.data.korean_words as word}
 								{@const definitions = (word.definitions || []).filter(
@@ -818,7 +818,7 @@
 						{#if homophones.length > 1}
 							<div class="homophone-reading">{group.reading}</div>
 						{/if}
-						<div class="homophone-list">
+						<div class="homophone-list mobile-full-bleed">
 							{#each group.words as hp}
 								<a href="/{hp.word}" class="homophone-chip" class:common={hp.is_common}>
 									{hp.word}
@@ -897,7 +897,7 @@
 </main>
 
 <style>
-	/* Homophones */
+	/* Homophones — chrome lives in app.css with the other ruled surfaces. */
 	.homophones-section { margin-bottom: var(--spacing-lg); }
 
 	.homophone-group { margin-bottom: var(--spacing-sm); }
@@ -906,22 +906,14 @@
 		color: var(--text-tertiary);
 		margin-bottom: var(--spacing-xs);
 	}
-	.homophone-list { display: flex; flex-wrap: wrap; gap: 6px; }
 	.homophone-chip {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		min-width: 44px;
-		min-height: 44px;
-		padding: 3px 10px;
-		border-radius: var(--radius-full);
-		border: 1px solid var(--border-color);
 		font-size: var(--font-size-body);
 		color: var(--text-primary);
 		text-decoration: none;
-		transition: border-color 0.15s, color 0.15s;
 	}
-	.homophone-chip:hover { border-color: var(--accent); color: var(--accent); }
 	.homophone-chip.common { font-weight: 500; }
 
 	/* Level badges */
@@ -1048,17 +1040,34 @@
 	}
 
 	/* Responsive column layout for Chinese, Japanese, and Korean word sections.
-	   Adapts to 1, 2, or 3 columns based on how many languages have content. */
+	   Adapts to 1, 2, or 3 columns based on how many languages have content.
+
+	   The columns share one ruled surface so their section bars meet edge to
+	   edge and read as a single full-width bar, the same grammar the rest of
+	   the page uses. Copy keeps the page gutter; the bars do not. */
 	.word-sections-grid {
 		display: grid;
 		grid-template-columns: 1fr;
-		gap: var(--spacing-lg);
+		margin-top: var(--spacing-md);
+		gap: 0;
+	}
+
+	.word-sections-grid > * {
+		padding-inline: var(--page-gutter);
+		padding-bottom: var(--spacing-lg);
+	}
+
+	.word-sections-grid > * > :global(.section-heading) {
+		margin-inline: calc(-1 * var(--page-gutter));
 	}
 
 	@media (min-width: 768px) {
 		.word-sections-grid {
 			grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-			gap: var(--spacing-lg);
+		}
+
+		.word-sections-grid > * + * {
+			border-inline-start: 1px solid var(--border-light);
 		}
 
 		.word-sections-grid.two-primary-word-grid {
@@ -1066,8 +1075,11 @@
 			align-items: start;
 		}
 
-		.word-sections-grid.two-primary-word-grid .word-section-korean {
+		/* Korean drops to its own full-width row, so it is ruled above instead. */
+		.word-sections-grid.two-primary-word-grid > .word-section-korean {
 			grid-column: 1 / -1;
+			border-block-start: 1px solid var(--border-light);
+			border-inline-start: 0;
 		}
 	}
 

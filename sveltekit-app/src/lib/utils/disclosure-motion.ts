@@ -19,7 +19,10 @@ export function measureFirstVisualRow(
 	);
 
 	return {
-		height: Math.ceil(bottom - containerRect.top),
+		// Unrounded: callers clip to this height and add the surface's closing
+		// rule back on top of it. Rounding here lands the clip a fraction of a
+		// pixel off the row's own edge, which shows up as a doubled hairline.
+		height: bottom - containerRect.top,
 		count: firstRow.length,
 	};
 }

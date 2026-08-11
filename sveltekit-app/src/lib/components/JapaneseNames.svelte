@@ -165,7 +165,9 @@
 		position: relative;
 		width: 100%;
 		min-width: 0;
-		max-height: var(--collapsed-height, 4.5rem);
+		/* --collapsed-height stops at the first row's baseline; add the grid's
+		   closing rule back so the clip does not cut it off. */
+		max-height: calc(var(--collapsed-height, 4.5rem) + 1px);
 		overflow: hidden;
 	}
 
@@ -255,12 +257,6 @@
 	}
 
 	@media (max-width: 768px) {
-		.japanese-names {
-			width: 100dvw;
-			max-width: none;
-			margin-inline: calc(50% - 50dvw);
-		}
-
 		.name-entry {
 			padding: 7px 6px;
 		}

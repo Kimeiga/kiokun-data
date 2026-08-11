@@ -26,7 +26,7 @@
 </script>
 
 {#if visibleCards.length > 0}
-	<div class="sound-layers" aria-label="Pronunciation sound layers">
+	<div class="sound-layers mobile-full-bleed" aria-label="Pronunciation sound layers">
 		{#each visibleCards as pronunciationCard}
 			{@const groups = groupPronunciationReadings(pronunciationCard)}
 			<section class="sound-language" aria-label={pronunciationCard.language === 'zh' ? 'Mandarin pronunciation mnemonic' : 'Japanese pronunciation mnemonic'}>
@@ -98,7 +98,7 @@
 <style>
 	.sound-layers {
 		display: grid;
-		gap: var(--spacing-sm);
+		gap: 0;
 		margin-top: var(--spacing-md);
 		padding-top: var(--spacing-md);
 		border-top: 1px solid var(--border-color);
@@ -108,8 +108,11 @@
 		min-width: 0;
 	}
 
+	/* Overlap the previous reading grid's closing rule instead of drawing a
+	   second one a few pixels below it. */
 	.sound-language + .sound-language {
-		padding-top: var(--spacing-sm);
+		margin-top: -1px;
+		padding-top: var(--spacing-md);
 		border-top: 1px solid var(--border-color);
 	}
 
@@ -119,6 +122,8 @@
 		justify-content: space-between;
 		gap: var(--spacing-sm);
 		margin-bottom: var(--spacing-xs);
+		/* The surface bleeds to the page edge; its copy keeps the gutter. */
+		padding-inline: var(--page-gutter, 0px);
 		color: var(--text-primary);
 		font-size: var(--font-size-caption1);
 		font-weight: 700;
@@ -128,10 +133,9 @@
 		display: grid;
 		grid-template-columns: 7.5rem minmax(0, 1fr);
 		gap: var(--spacing-sm);
-		padding: 0.65rem var(--spacing-sm);
-		border: 1px solid var(--border-color);
-		border-bottom: 0;
-		background: var(--divider-cell-bg, var(--surface-secondary));
+		padding: 0.65rem max(var(--page-gutter, 0px), var(--spacing-sm));
+		border-block-start: 1px solid var(--border-color);
+		background: var(--divider-cell-bg);
 	}
 
 	.memory-bridge-label {
@@ -154,18 +158,22 @@
 		font-weight: 500;
 	}
 
+	/* Same ruled-cell grammar as the rest of the page: cells carry the rules
+	   so unused grid space stays transparent instead of showing a grey slab. */
 	.reading-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
 		gap: 1px;
-		border: 1px solid var(--border-color);
-		background: var(--border-color);
+		border-block: 1px solid var(--border-color);
+		background: transparent;
 	}
 
 	.reading-card {
 		min-width: 0;
 		padding: var(--spacing-sm);
-		background: var(--surface-primary, var(--background));
+		background: var(--divider-cell-bg);
+		outline: 1px solid var(--border-color);
+		outline-offset: 0;
 	}
 
 	.reading-heading {

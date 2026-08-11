@@ -1777,7 +1777,10 @@ onerror={(e) => {
 		gap: 1px;
 		max-width: 100%;
 		min-width: 0;
-		max-height: var(--collapsed-height, 7.25rem);
+		/* --collapsed-height measures one row of cards; the box is border-box,
+		   so add the rules back or the clip crops the row's own edge and
+		   leaves a second hairline beside the closing rule. */
+		max-height: calc(var(--collapsed-height, 7.25rem) + 1px);
 		overflow: hidden;
 		border-block: 1px solid var(--border-light);
 		background: transparent;
@@ -1788,6 +1791,11 @@ onerror={(e) => {
 	}
 
 	.historical-section {
+		/* content-visibility implies paint containment, which would clip the
+		   bar and grid where they bleed past the copy. Widen the section to the
+		   page container's edge so there is nothing left to clip. */
+		margin-inline: calc(-1 * var(--page-gutter, 0px));
+		padding-inline: var(--page-gutter, 0px);
 		margin-bottom: 0;
 		content-visibility: auto;
 		contain-intrinsic-size: auto 10rem;

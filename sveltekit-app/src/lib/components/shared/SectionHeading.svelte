@@ -3,12 +3,10 @@
 		children,
 		id,
 		divided = true,
-		topBorder = true,
 	}: {
 		children: any;
 		id?: string;
 		divided?: boolean;
-		topBorder?: boolean;
 	} = $props();
 
 	let copied = $state(false);
@@ -25,7 +23,7 @@
 	}
 </script>
 
-<div class="section-heading" class:undivided={!divided} class:no-top-border={!topBorder} id={id}>
+<div class="section-heading" class:undivided={!divided} id={id}>
 	<span class="section-heading-content">
 		<h2 class="section-heading-title">{@render children()}</h2>
 		{#if id}
@@ -48,10 +46,15 @@
 </div>
 
 <style>
+	/*
+	 * The filled bar is the divider. Bordering it as well stacks a second
+	 * hairline against the rule the neighbouring ruled surface already draws,
+	 * which is what made section boundaries read as double lines.
+	 */
 	.section-heading {
 		min-height: 1.75rem;
 		margin: var(--spacing-md) 0 0;
-		border-block: 1px solid var(--border-color);
+		margin-inline: calc(-1 * var(--surface-bleed));
 		background: var(--section-bar-bg);
 		color: var(--section-bar-text);
 	}
@@ -60,14 +63,11 @@
 		margin-top: 0;
 	}
 
-	.section-heading.no-top-border {
-		border-top: 0;
-	}
-
 	.section-heading-content {
 		display: flex;
 		min-height: 1.75rem;
-		padding-inline: var(--spacing-md) 0;
+		/* Label sits on the page gutter so it lines up with the copy below. */
+		padding-inline: max(var(--surface-bleed), var(--spacing-md)) 0;
 		align-items: center;
 		gap: 0;
 		color: inherit;
@@ -127,6 +127,7 @@
 	}
 
 	@media (max-width: 768px) {
+		/* The page container already fills the viewport on phones. */
 		.section-heading {
 			width: 100dvw;
 			min-height: 1.75rem;
@@ -140,7 +141,7 @@
 
 		.section-heading-content {
 			min-height: 1.75rem;
-			padding-left: 0.75rem;
+			padding-left: max(var(--surface-bleed), 0.75rem);
 			font-size: var(--font-size-subhead);
 		}
 

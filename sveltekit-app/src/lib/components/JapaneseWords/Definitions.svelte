@@ -49,4 +49,10 @@
 		padding-left: var(--spacing-xs);
 		line-height: 1.5;
 	}
+
+	/* No trailing space inside an entry — whatever follows owns the gap. */
+	.single-sense:last-child,
+	.sense-item:last-child {
+		margin-bottom: 0;
+	}
 </style>

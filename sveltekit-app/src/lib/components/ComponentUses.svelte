@@ -95,7 +95,7 @@
 
 {#if characterUses.length > 0}
 	<section class="component-uses" aria-labelledby="used-in-characters">
-		<SectionHeading id="used-in-characters" divided={false} topBorder={false}>Used in characters</SectionHeading>
+		<SectionHeading id="used-in-characters" divided={false}>Used in characters</SectionHeading>
 
 		<div class="character-grid mobile-full-bleed" id="component-use-list" bind:this={characterGrid}>
 			{#each visibleUses as use (use.character)}

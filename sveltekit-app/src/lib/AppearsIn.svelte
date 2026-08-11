@@ -281,10 +281,12 @@
 {/if}
 
 <style>
+	/* The section bars are the first row, so the surface is ruled below only —
+	   a top rule here would stack against the previous section's closing rule. */
 	.word-columns {
 		display: grid;
 		grid-template-columns: 1fr;
-		border-block: 1px solid var(--border-light);
+		border-block-end: 1px solid var(--border-light);
 		overflow: hidden;
 	}
 
@@ -299,6 +301,16 @@
 	.word-columns.two-columns > .column + .column,
 	.word-columns.three-columns > .column + .column {
 		border-inline-start: 1px solid var(--border-light);
+	}
+
+	/* Column bars stay inside their column and butt together into one bar,
+	   with their labels on the same gutter as the cards below them. */
+	.word-columns > .column {
+		--surface-bleed: 0px;
+	}
+
+	.word-columns :global(.section-heading-content) {
+		padding-inline-start: 10px;
 	}
 
 	.word-columns :global(.section-heading) {
@@ -388,6 +400,10 @@
 	@media (max-width: 768px) {
 		.word-card {
 			padding: 7px 8px;
+		}
+
+		.word-columns :global(.section-heading-content) {
+			padding-inline-start: 8px;
 		}
 	}
 

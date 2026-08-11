@@ -103,7 +103,9 @@
 		align-items: center;
 		justify-content: space-between;
 		min-height: 2rem;
-		margin-top: var(--spacing-sm);
+		/* Overlaps the sense list's closing rule so the two hairlines land on
+		   the same pixel instead of stacking a few pixels apart. */
+		margin-top: -1px;
 		padding: var(--spacing-xs) var(--spacing-sm);
 		border-block: 1px solid var(--border-light);
 		background: var(--divider-cell-bg);

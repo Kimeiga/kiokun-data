@@ -149,7 +149,10 @@
 		gap: 1px;
 		max-width: 100%;
 		min-width: 0;
-		max-height: var(--collapsed-height, 4.25rem);
+		/* --collapsed-height measures one row of chips; the box is border-box,
+		   so add the rules back or the clip crops the row's own edge and
+		   leaves a second hairline beside the closing rule. */
+		max-height: calc(var(--collapsed-height, 4.25rem) + 1px);
 		overflow: hidden;
 		border-block: 1px solid var(--border-light);
 		background: transparent;

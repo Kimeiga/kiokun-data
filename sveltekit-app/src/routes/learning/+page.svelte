@@ -143,10 +143,11 @@
 </main>
 
 <style>
+	/* The section bar is the divider; a second rule at copy width just reads
+	   as a short line floating inside the full-width ruled surfaces. */
 	.learning-section + .learning-section {
 		margin-top: 2rem;
 		padding-top: 2rem;
-		border-top: 1px solid var(--border-color);
 	}
 
 	.learning-section h2 {

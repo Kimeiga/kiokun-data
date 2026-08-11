@@ -306,7 +306,7 @@
 	}
 
 	.speak-button.speaking {
-		color: var(--accent-color, #3b82f6);
+		color: var(--accent);
 	}
 
 	.speak-button-label {
@@ -341,8 +341,8 @@
 	}
 
 	.speak-button.pill.speaking {
-		border-color: var(--blue-primary, var(--accent-color, #3b82f6));
-		color: var(--blue-primary, var(--accent-color, #3b82f6));
+		border-color: var(--blue-primary, var(--accent));
+		color: var(--blue-primary, var(--accent));
 		background: var(--bg-secondary, #f5f5f5);
 	}
 

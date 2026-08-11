@@ -386,8 +386,7 @@
 
 	.column-title.section-bar-label {
 		margin-bottom: 0;
-		padding: 0 var(--spacing-md);
-		border-block: 1px solid var(--border-color);
+		border-bottom: 0;
 		color: var(--section-bar-text);
 		font-size: var(--font-size-subhead);
 	}

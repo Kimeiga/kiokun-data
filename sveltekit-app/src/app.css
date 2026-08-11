@@ -152,6 +152,15 @@
 	--spacing-md: 12px;
 	--spacing-lg: 16px;
 	--spacing-xl: 24px;
+
+	/*
+	 * ── Ruled-surface bleed ──
+	 * A page sets --surface-bleed to its own horizontal padding. Section bars
+	 * and ruled grids then run to the page container's edge while copy keeps
+	 * the gutter, so every rule on the page shares one left and right edge.
+	 * Defaults to 0 so pages that have not opted in are unaffected.
+	 */
+	--surface-bleed: 0px;
 }
 
 /* ===== DARK THEME ===== */
@@ -369,9 +378,11 @@ html.capacitor-native body {
 }
 
 .learner-page {
+	--page-gutter: clamp(0.85rem, 3vw, 1.5rem);
+	--surface-bleed: var(--page-gutter);
 	width: min(100%, var(--content-standard));
 	margin: 0 auto;
-	padding: clamp(1.1rem, 3vw, 2rem) clamp(0.85rem, 3vw, 1.5rem) 4rem;
+	padding: clamp(1.1rem, 3vw, 2rem) var(--page-gutter) 4rem;
 }
 
 .learner-page--wide {
@@ -380,6 +391,18 @@ html.capacitor-native body {
 
 .learner-page--narrow {
 	width: min(100%, var(--content-narrow));
+}
+
+/* Dictionary entry page: gutter matches its px-3 / md:px-5 padding. */
+.word-page {
+	--page-gutter: 12px;
+	--surface-bleed: var(--page-gutter);
+}
+
+@media (min-width: 769px) {
+	.word-page {
+		--page-gutter: 20px;
+	}
 }
 
 .learner-intro {
@@ -525,18 +548,43 @@ html.capacitor-native body {
 	outline-offset: -2px;
 }
 
+/*
+ * A section bar is its own divider: the filled bar separates what is above it
+ * from what is below, so it carries no border of its own. Adding one stacks a
+ * second hairline against the rule that the neighbouring ruled surface already
+ * draws.
+ */
 .section-bar-label {
 	display: flex;
 	min-height: 1.75rem;
 	margin: 0;
-	padding: 0 var(--spacing-md);
+	/* Label sits on the page gutter so it lines up with the copy below it. */
+	padding: 0 max(var(--surface-bleed), var(--spacing-md));
 	align-items: center;
-	border-block: 1px solid var(--border-color);
 	background: var(--section-bar-bg);
 	color: var(--section-bar-text);
 	font-size: var(--font-size-subhead);
 	font-weight: 650;
 	line-height: 1.2;
+}
+
+/*
+ * Ruled surfaces run to the page container's edge. Phones bleed to the
+ * viewport (the container already fills it); wider viewports bleed by the
+ * page's own gutter, which pages declare through --surface-bleed.
+ */
+@media (min-width: 769px) {
+	.mobile-full-bleed,
+	.section-bar-label {
+		width: auto !important;
+		max-width: none !important;
+		margin-inline: calc(-1 * var(--surface-bleed));
+	}
+}
+
+/* Compact embedded sections belong to their parent card, not the page edge. */
+main .notes-compact {
+	--surface-bleed: 0px;
 }
 
 @media (max-width: 768px) {
@@ -554,7 +602,6 @@ html.capacitor-native body {
 		grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
 	}
 
-	/* Compact embedded sections belong to their parent card, not the viewport. */
 	main .notes-compact .section-heading {
 		width: auto !important;
 		margin-inline: 0 !important;
@@ -702,7 +749,7 @@ main .homophones-section .homophone-list {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(4.25rem, 1fr));
 	gap: 1px;
-	border-block: 1px solid var(--border-light);
+	border-block-end: 1px solid var(--border-light);
 	background: transparent;
 }
 
@@ -736,7 +783,6 @@ main .homophones-section .homophone-chip:focus-visible {
 @media (max-width: 768px) {
 	main .homophones-section .homophone-list {
 		grid-template-columns: repeat(4, minmax(0, 1fr));
-		margin-inline: -0.75rem;
 	}
 }
 
