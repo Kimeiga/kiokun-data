@@ -356,10 +356,11 @@
 		color: var(--text-tertiary);
 	}
 
+	/* The column bars below are the divider; a rule at copy width would read
+	   as a short line floating inside the full-width ruled surface. */
 	.results-header {
 		margin-bottom: var(--spacing-xl);
 		padding-bottom: var(--spacing-md);
-		border-bottom: 1px solid var(--border-color);
 		color: var(--text-secondary);
 	}
 
@@ -386,6 +387,8 @@
 
 	.column-title.section-bar-label {
 		margin-bottom: 0;
+		/* Match the cards' gutter so the label lines up with the results. */
+		padding-inline: var(--spacing-lg);
 		border-bottom: 0;
 		color: var(--section-bar-text);
 		font-size: var(--font-size-subhead);
