@@ -20,6 +20,38 @@ function upstreamErrorStatus(status: number): number {
 	return status;
 }
 
+function cacheKeyForWord(request: Request, word: string): Request {
+	const url = new URL(request.url);
+	url.pathname = '/api/dictionary';
+	url.search = '';
+	url.searchParams.set('word', word);
+	return new Request(url, { method: 'GET' });
+}
+
+async function safeCacheMatch(
+	cache: Cache | undefined,
+	cacheKey: Request
+): Promise<Response | undefined> {
+	try {
+		return await cache?.match(cacheKey);
+	} catch (cause) {
+		console.warn('Dictionary edge cache read failed:', cause);
+		return undefined;
+	}
+}
+
+async function fetchUpstream(
+	fetchFn: FetchLike,
+	url: string
+): Promise<Response | null> {
+	try {
+		return await fetchFn(url);
+	} catch (cause) {
+		console.warn(`Dictionary upstream fetch failed for ${new URL(url).hostname}:`, cause);
+		return null;
+	}
+}
+
 export async function proxyDictionaryBytes({
 	word,
 	fetchFn,
@@ -34,18 +66,26 @@ export async function proxyDictionaryBytes({
 	if (!word) return new Response('Dictionary word is required', { status: 400 });
 
 	const cache = platform?.caches?.default;
-	const cacheKey = new Request(new URL(request.url).toString(), { method: 'GET' });
-	const cached = await cache?.match(cacheKey);
+	// Build IDs and the optional-probe flag are client concerns. Keeping either in
+	// the edge cache key cold-started the same dictionary entry after every deploy
+	// and prevented speculative lookups from sharing a successful response.
+	const cacheKey = cacheKeyForWord(request, word);
+	const cached = await safeCacheMatch(cache, cacheKey);
 	if (cached) return cached;
 
-	let upstream = await fetchFn(getRawGitHubUrl(word));
-	if (!upstream.ok && upstream.status !== 404) {
-		upstream = await fetchFn(getJsDelivrUrl(word));
+	let upstream = await fetchUpstream(fetchFn, getRawGitHubUrl(word));
+	// A raw GitHub 404 is authoritative. Network errors, throttling, and upstream
+	// 5xx responses are retried through jsDelivr so a transient provider problem
+	// cannot abort client-side navigation.
+	if (!upstream || (!upstream.ok && upstream.status !== 404)) {
+		upstream = await fetchUpstream(fetchFn, getJsDelivrUrl(word));
 	}
 
-	if (!upstream.ok) {
-		return new Response(`Dictionary upstream returned ${upstream.status}`, {
-			status: upstreamErrorStatus(upstream.status)
+	if (!upstream || !upstream.ok) {
+		const status = upstream?.status ?? 503;
+		return new Response(`Dictionary upstream returned ${status}`, {
+			status: upstreamErrorStatus(status),
+			headers: { 'cache-control': 'no-store' }
 		});
 	}
 
@@ -54,6 +94,12 @@ export async function proxyDictionaryBytes({
 		headers: cacheHeaders()
 	});
 
-	platform?.context?.waitUntil(cache?.put(cacheKey, response.clone()) ?? Promise.resolve());
+	if (cache) {
+		const cacheWrite = cache.put(cacheKey, response.clone()).catch((cause) => {
+			console.warn('Dictionary edge cache write failed:', cause);
+		});
+		if (platform?.context) platform.context.waitUntil(cacheWrite);
+		else void cacheWrite;
+	}
 	return response;
 }

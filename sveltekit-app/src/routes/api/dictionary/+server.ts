@@ -5,11 +5,16 @@ export const GET: RequestHandler = async ({ url, fetch, platform, request }) => 
 	const word = url.searchParams.get('word')?.trim() ?? '';
 	const response = await proxyDictionaryBytes({ word, fetchFn: fetch, platform, request });
 
-	if (url.searchParams.get('optional') === '1' && response.status === 404) {
+	if (
+		url.searchParams.get('optional') === '1' &&
+		(response.status === 404 || response.status === 429 || response.status >= 500)
+	) {
+		const unavailable = response.status !== 404;
 		return new Response(null, {
 			status: 204,
 			headers: {
-				'Cache-Control': 'public, max-age=300'
+				'Cache-Control': unavailable ? 'no-store' : 'public, max-age=300',
+				...(unavailable ? { 'X-Kiokun-Degraded': 'dictionary-upstream' } : {})
 			}
 		});
 	}

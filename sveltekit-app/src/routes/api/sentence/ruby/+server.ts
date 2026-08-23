@@ -7,6 +7,18 @@ const WORD_CONTENT_RE = /[\p{Script=Han}\p{Script=Latin}\p{N}\u3040-\u30ff\u31f0
 const HAN_RE = /\p{Script=Han}/u;
 const ALL_KANA_RE = /^[\u3040-\u30ff\u31f0-\u31ffー]+$/u;
 
+function degradedRubyResponse(reason: string): Response {
+	return json(
+		{ tokens: [] },
+		{
+			headers: {
+				'Cache-Control': 'no-store',
+				'X-Kiokun-Degraded': reason
+			}
+		}
+	);
+}
+
 export const POST: RequestHandler = async ({ request, platform }) => {
 	const body = await request.json().catch(() => null);
 	const text = typeof body?.text === 'string' ? body.text : '';
@@ -17,7 +29,7 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 	}
 
 	const bucket = platform?.env?.BUCKET;
-	if (!bucket) throw error(503, 'Japanese sentence analysis is unavailable');
+	if (!bucket) return degradedRubyResponse('japanese-ruby-unavailable');
 
 	try {
 		const tokenizer = await getTokenizer(bucket);
@@ -45,6 +57,9 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 		);
 	} catch (cause) {
 		console.error('Japanese ruby analysis failed:', cause);
-		throw error(503, 'Japanese sentence analysis is temporarily unavailable');
+		// Ruby annotation is progressive enhancement. The browser already has a
+		// lightweight tokenizer and dictionary-reading fallback, so return a valid
+		// empty result instead of surfacing an optional dependency outage as a 503.
+		return degradedRubyResponse('japanese-ruby-unavailable');
 	}
 };

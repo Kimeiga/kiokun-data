@@ -20,20 +20,41 @@ function loadSource(fetchFn: typeof fetch): Promise<CharacterSupportSource> {
 		charGlosses,
 		charTaxonomy,
 		componentUses
-	}));
+	})).catch((cause) => {
+		// Do not permanently poison a warm Worker isolate after one failed static
+		// asset read. A later request can retry the source load.
+		sourcePromise = null;
+		throw cause;
+	});
 
 	return sourcePromise;
 }
 
 export const GET: RequestHandler = async ({ fetch, url }) => {
-	const source = await loadSource(fetch);
-	const chars = url.searchParams.getAll('char');
-	const components = url.searchParams.getAll('component');
-	const support = buildCharacterSupportData(source, { chars, components });
+	try {
+		const source = await loadSource(fetch);
+		const chars = url.searchParams.getAll('char');
+		const components = url.searchParams.getAll('component');
+		const support = buildCharacterSupportData(source, { chars, components });
 
-	return json(support, {
-		headers: {
-			'cache-control': 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800'
-		}
-	});
+		return json(support, {
+			headers: {
+				'cache-control': 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800'
+			}
+		});
+	} catch (cause) {
+		// Character glosses and component links enrich the page but are not needed
+		// to navigate to or read the dictionary entry. Return the valid empty shape
+		// instead of turning a transient static-asset failure into a route failure.
+		console.error('Character support source unavailable:', cause);
+		return json(
+			{ charGlosses: {}, charTaxonomy: {}, componentUses: {} },
+			{
+				headers: {
+					'cache-control': 'no-store',
+					'x-kiokun-degraded': 'character-support'
+				}
+			}
+		);
+	}
 };
