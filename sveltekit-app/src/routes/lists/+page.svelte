@@ -10,6 +10,7 @@
 		character: string;
 		noteText: string;
 		isAdmin: boolean;
+		isPublic: boolean;
 		createdAt: Date;
 		updatedAt: Date;
 	}
@@ -185,7 +186,10 @@
 					<a href="/{note.character}" class="note-card divider-cell">
 						<div class="note-header">
 							<div class="character">{note.character}</div>
-							<div class="date">{formatDate(note.updatedAt)}</div>
+							<div class="note-meta">
+								<span>{note.isPublic ? 'Shared' : 'Private'}</span>
+								<div class="date">{formatDate(note.updatedAt)}</div>
+							</div>
 						</div>
 						<div class="note-content markdown-content">
 							{@html renderMarkdown(note.noteText)}
@@ -367,6 +371,15 @@
 	.date {
 		font-size: var(--font-size-footnote);
 		color: var(--text-muted);
+	}
+
+	.note-meta {
+		display: flex;
+		align-items: flex-end;
+		flex-direction: column;
+		gap: var(--spacing-xs);
+		color: var(--text-tertiary);
+		font-size: var(--font-size-caption2);
 	}
 
 	.note-content {

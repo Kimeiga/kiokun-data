@@ -5,6 +5,57 @@ import { cut as jiebaCut } from 'jieba-wasm';
 
 const jaSegmenter = new TinySegmenter();
 
+const JAPANESE_FIXED_EXPRESSIONS = [
+	'ませんでした',
+	'よろしくお願いします',
+	'ごちそうさまでした',
+	'おはようございます',
+	'いってらっしゃい',
+	'ありがとうございます',
+	'ありがとうございました',
+	'お願いします',
+	'いってきます',
+	'おかえりなさい',
+	'どうやって',
+	'すみません',
+	'こんにちは',
+	'こんばんは',
+	'ありがとう',
+	'ください',
+	'ません',
+	'ました',
+	'でした',
+] as const;
+const CONNECTED_LATIN_RE = /^[\p{Script=Latin}\p{N}]+(?:[\-‐‑‒–—./・][\p{Script=Latin}\p{N}]+)+$/u;
+
+function mergeJapaneseSegments(segments: string[]): string[] {
+	const merged: string[] = [];
+	for (let index = 0; index < segments.length; index += 1) {
+		let match = '';
+		let end = index;
+
+		for (let cursor = index; cursor < segments.length; cursor += 1) {
+			const candidate = segments.slice(index, cursor + 1).join('');
+			if (
+				JAPANESE_FIXED_EXPRESSIONS.includes(candidate as typeof JAPANESE_FIXED_EXPRESSIONS[number]) ||
+				CONNECTED_LATIN_RE.test(candidate)
+			) {
+				match = candidate;
+				end = cursor;
+			}
+			if (candidate.length > 24 || /\s/u.test(candidate)) break;
+		}
+
+		if (match) {
+			merged.push(match);
+			index = end;
+		} else {
+			merged.push(segments[index]);
+		}
+	}
+	return merged;
+}
+
 /**
  * Segment CJK text into word tokens.
  * - Japanese: TinySegmenter (lightweight, good okurigana handling)
@@ -20,7 +71,7 @@ export function segmentText(text: string, language: string): string[] {
 		} else if (segments.length > 0 && segments[0].startsWith('。')) {
 			segments[0] = segments[0].slice(1);
 		}
-		return segments;
+		return mergeJapaneseSegments(segments);
 	}
 
 	if (language === 'zh') {
@@ -47,7 +98,7 @@ export function segmentText(text: string, language: string): string[] {
  */
 export function isWordToken(segment: string): boolean {
 	const trimmed = segment.trim();
-	return trimmed.length > 0 && !/^[.,;:!?。、！？「」『』（）〈〉《》【】〔〕・…―─ー～\s※●⚠️＜＞〜？]+$/.test(trimmed);
+	return trimmed.length > 0 && !/^[.,;:!?，：；。、！？「」『』（）〈〉《》【】〔〕・…―─ー～\s※●⚠️＜＞〜？]+$/.test(trimmed);
 }
 
 /**

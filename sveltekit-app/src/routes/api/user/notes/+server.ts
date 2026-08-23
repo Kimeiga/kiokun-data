@@ -21,6 +21,7 @@ export async function GET({ locals, platform }: RequestEvent) {
 			character: notes.character,
 			noteText: notes.noteText,
 			isAdmin: notes.isAdmin,
+			isPublic: notes.isPublic,
 			createdAt: notes.createdAt,
 			updatedAt: notes.updatedAt,
 		})
@@ -30,4 +31,3 @@ export async function GET({ locals, platform }: RequestEvent) {
 
 	return json(userNotes);
 }
-

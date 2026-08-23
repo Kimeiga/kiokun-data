@@ -25,13 +25,94 @@ export interface TokenizedSentence {
 	tokens: TokenizedWord[];
 }
 
+// Han-only text needs more than a script-range check: kanji and hanzi share the
+// same Unicode block. These character forms are strong evidence because modern
+// Japanese and simplified Chinese normally use different variants.
+const JAPANESE_FORM_MARKERS = /[働込峠辻畑榊栃匂凪駅円気発広辺沢黒関営済実験処図専団楽帰払]/u;
+const SIMPLIFIED_CHINESE_MARKERS = /[这们吗为发后个门见时实认让请进过还从对开关间车东业书长云电广边泽图气应专团乐归处验码钟员]/u;
+
+// Common Japanese compound/register patterns help with signage and noun
+// phrases that contain only kanji. A threshold prevents a shared word such as
+// 募集 or 禁止 on its own from being treated as conclusive.
+const JAPANESE_HAN_CONTEXT = [
+	'入居',
+	'退居',
+	'者募集',
+	'募集中',
+	'募集要項',
+	'立入',
+	'取扱',
+	'受付',
+	'申込',
+	'引越',
+	'乗換',
+	'払戻',
+	'持込',
+	'持帰',
+	'貸出',
+	'駐車',
+	'駐輪',
+	'営業時間',
+	'定休日',
+	'関係者',
+	'無断',
+	'厳禁',
+	'禁止',
+	'専用',
+	'無料',
+	'有料',
+] as const;
+
+const CHINESE_HAN_CONTEXT = [
+	'入住',
+	'招募',
+	'招聘',
+	'人员',
+	'人員',
+	'验证码',
+	'驗證碼',
+	'分钟',
+	'分鐘',
+	'请勿',
+	'請勿',
+	'您的',
+	'我们',
+	'我們',
+	'他们',
+	'他們',
+	'这个',
+	'這個',
+	'有效期',
+] as const;
+
+function contextScore(text: string, markers: readonly string[]): number {
+	let score = 0;
+	for (const marker of markers) {
+		if (text.includes(marker)) score += Array.from(marker).length;
+	}
+	return score;
+}
+
+function detectHanOnlyLanguage(text: string): SupportedLanguage {
+	if (SIMPLIFIED_CHINESE_MARKERS.test(text)) return 'zh';
+	if (JAPANESE_FORM_MARKERS.test(text)) return 'ja';
+
+	const japaneseScore = contextScore(text, JAPANESE_HAN_CONTEXT);
+	const chineseScore = contextScore(text, CHINESE_HAN_CONTEXT);
+
+	// Require multiple characters of contextual evidence and a clear margin.
+	// Unresolved Han-only strings remain Chinese for backwards compatibility.
+	if (japaneseScore >= 4 && japaneseScore >= chineseScore + 2) return 'ja';
+	return 'zh';
+}
+
 /**
  * Detect the language of a text based on character ranges
  */
 export function detectLanguage(text: string): SupportedLanguage {
 	// Count characters in different script ranges
 	let japanese = 0; // Hiragana and Katakana
-	let chinese = 0;  // CJK without Japanese-specific scripts
+	let han = 0;      // Shared Chinese hanzi / Japanese kanji
 	let korean = 0;   // Hangul
 
 	for (const char of text) {
@@ -48,7 +129,7 @@ export function detectLanguage(text: string): SupportedLanguage {
 		}
 		// CJK Unified Ideographs: U+4E00-U+9FFF
 		else if (code >= 0x4E00 && code <= 0x9FFF) {
-			chinese++; // Could be Chinese or Japanese kanji
+			han++;
 		}
 	}
 
@@ -56,7 +137,8 @@ export function detectLanguage(text: string): SupportedLanguage {
 	if (japanese > 0) return 'ja';
 	// If we have hangul, it's Korean
 	if (korean > 0) return 'ko';
-	// Default to Chinese for CJK characters
+	if (han > 0) return detectHanOnlyLanguage(text);
+	// Preserve the existing fallback for non-CJK text.
 	return 'zh';
 }
 
@@ -135,4 +217,3 @@ export function getWords(tokenized: TokenizedSentence): TokenizedWord[] {
 export function isSegmenterSupported(): boolean {
 	return typeof Intl !== 'undefined' && typeof Intl.Segmenter !== 'undefined';
 }
-

@@ -102,6 +102,109 @@ export interface TokenizedWord {
 	position: number; // character position in text
 }
 
+const LATIN_WORD_RE = /^[\p{Script=Latin}\p{N}]+$/u;
+const INLINE_WORD_CONNECTOR_RE = /^[\-‐‑‒–—./・]$/u;
+
+const JAPANESE_EXPRESSION_FORMS = [
+	{ surface: 'ませんでした', basicForm: 'ます', reading: 'ませんでした' },
+	{ surface: 'よろしくお願いします', basicForm: 'よろしくお願いします', reading: 'よろしくおねがいします' },
+	{ surface: 'ありがとうございました', basicForm: '有難うございました', reading: 'ありがとうございました' },
+	{ surface: 'ありがとうございます', basicForm: '有難うございます', reading: 'ありがとうございます' },
+	{ surface: 'ごちそうさまでした', basicForm: 'ご馳走様でした', reading: 'ごちそうさまでした' },
+	{ surface: 'おはようございます', basicForm: 'お早うございます', reading: 'おはようございます' },
+	{ surface: 'いってらっしゃい', basicForm: '行ってらっしゃい', reading: 'いってらっしゃい' },
+	{ surface: 'お願いします', basicForm: 'お願いします', reading: 'おねがいします' },
+	{ surface: 'いってきます', basicForm: '行ってきます', reading: 'いってきます' },
+	{ surface: 'おかえりなさい', basicForm: 'お帰りなさい', reading: 'おかえりなさい' },
+	{ surface: 'どうやって', basicForm: 'どうやって', reading: 'どうやって' },
+	{ surface: 'ません', basicForm: 'ます', reading: 'ません' },
+	{ surface: 'ました', basicForm: 'ます', reading: 'ました' },
+	{ surface: 'でした', basicForm: 'です', reading: 'でした' },
+] as const;
+
+export function mergeJapaneseExpressionTokens(tokens: TokenizedWord[]): TokenizedWord[] {
+	const merged: TokenizedWord[] = [];
+
+	for (let index = 0; index < tokens.length; index += 1) {
+		let matched: typeof JAPANESE_EXPRESSION_FORMS[number] | null = null;
+		let matchedEnd = index;
+		let candidate = '';
+
+		for (let cursor = index; cursor < tokens.length; cursor += 1) {
+			candidate += tokens[cursor].surfaceForm;
+			const expression = JAPANESE_EXPRESSION_FORMS.find((item) => item.surface === candidate);
+			if (expression) {
+				matched = expression;
+				matchedEnd = cursor;
+			}
+			if (!JAPANESE_EXPRESSION_FORMS.some((item) => item.surface.startsWith(candidate))) break;
+		}
+
+		if (!matched) {
+			merged.push(tokens[index]);
+			continue;
+		}
+
+		merged.push({
+			...tokens[index],
+			surfaceForm: matched.surface,
+			basicForm: matched.basicForm,
+			reading: matched.reading,
+			pos: '表現',
+			conjugation: null,
+		});
+		index = matchedEnd;
+	}
+
+	return merged;
+}
+
+/**
+ * Kuromoji treats mixed-script product terms such as `Wi-Fi` as three noun
+ * tokens. Keep connector-bound Latin runs together so the reader reproduces
+ * the useful term instead of offering dead `Wi` and `Fi` lookups.
+ */
+export function mergeConnectedLatinTokens(tokens: TokenizedWord[]): TokenizedWord[] {
+	const merged: TokenizedWord[] = [];
+
+	for (let index = 0; index < tokens.length; index += 1) {
+		const first = tokens[index];
+		if (!LATIN_WORD_RE.test(first.surfaceForm)) {
+			merged.push(first);
+			continue;
+		}
+
+		let surfaceForm = first.surfaceForm;
+		let cursor = index;
+		while (
+			cursor + 2 < tokens.length &&
+			INLINE_WORD_CONNECTOR_RE.test(tokens[cursor + 1].surfaceForm) &&
+			LATIN_WORD_RE.test(tokens[cursor + 2].surfaceForm) &&
+			tokens[cursor + 1].position === tokens[cursor].position + tokens[cursor].surfaceForm.length &&
+			tokens[cursor + 2].position === tokens[cursor + 1].position + tokens[cursor + 1].surfaceForm.length
+		) {
+			surfaceForm += tokens[cursor + 1].surfaceForm + tokens[cursor + 2].surfaceForm;
+			cursor += 2;
+		}
+
+		if (cursor === index) {
+			merged.push(first);
+			continue;
+		}
+
+		merged.push({
+			...first,
+			surfaceForm,
+			basicForm: surfaceForm,
+			reading: null,
+			conjugation: null,
+		});
+		index = cursor;
+	}
+
+	return merged;
+}
+
 /**
  * Tokenize Japanese text using kuromoji.
  * Returns enriched tokens with reading, dictionary form, and POS.
@@ -128,7 +231,7 @@ export function tokenizeJapanese(
 		});
 	}
 
-	return result;
+	return mergeConnectedLatinTokens(mergeJapaneseExpressionTokens(result));
 }
 
 /**

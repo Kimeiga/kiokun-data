@@ -5,7 +5,7 @@ import { notes, user } from "$lib/server/db/schema";
 import { and, asc, count, desc, eq, like, or } from "drizzle-orm";
 
 // GET /api/users/[userId]/notes - Get all notes for a specific user
-export async function GET({ params, platform, url }: RequestEvent) {
+export async function GET({ params, locals, platform, url }: RequestEvent) {
 	const { userId } = params;
 	const requestedPage = Number.parseInt(url.searchParams.get("page") ?? "1", 10);
 	const requestedPageSize = Number.parseInt(url.searchParams.get("pageSize") ?? "50", 10);
@@ -54,9 +54,14 @@ export async function GET({ params, platform, url }: RequestEvent) {
 	const searchCondition = query
 		? or(like(notes.character, `%${query}%`), like(notes.noteText, `%${query}%`))
 		: undefined;
-	const whereCondition = searchCondition
-		? and(eq(notes.userId, userId), searchCondition)
-		: eq(notes.userId, userId);
+	const visibilityCondition = locals.user?.id === userId
+		? undefined
+		: or(eq(notes.isPublic, true), eq(notes.isAdmin, true));
+	const whereCondition = and(
+		eq(notes.userId, userId),
+		visibilityCondition,
+		searchCondition,
+	);
 	const orderBy =
 		sort === "created"
 			? [desc(notes.createdAt), desc(notes.id)]
@@ -77,6 +82,7 @@ export async function GET({ params, platform, url }: RequestEvent) {
 				character: notes.character,
 				noteText: notes.noteText,
 				isAdmin: notes.isAdmin,
+				isPublic: notes.isPublic,
 				createdAt: notes.createdAt,
 				updatedAt: notes.updatedAt,
 			})

@@ -347,7 +347,7 @@ async function loadDictionaryEntry(word: string, fetchFn: typeof fetch, redirect
 }
 
 function fetchDictionaryBytes(url: string, fetchFn: typeof fetch): Promise<Response> {
-	if (typeof window !== 'undefined' || url.startsWith('http')) {
+	if (url.startsWith('http')) {
 		return globalThis.fetch(url);
 	}
 	return fetchFn(url);

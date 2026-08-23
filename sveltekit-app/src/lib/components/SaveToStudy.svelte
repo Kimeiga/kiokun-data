@@ -1,34 +1,59 @@
 <script lang="ts">
-	import { useSession } from "$lib/auth-client";
+	import { page } from "$app/state";
 
 	interface Props {
 		word: string;
 		language: 'zh' | 'ja' | 'ko';
 		size?: 'sm' | 'md' | 'lg';
+		showLabel?: boolean;
+		context?: { sentence: string; translation?: string | null };
+		deck?: 'searched-words' | 'searched-sentences';
 	}
 
-	let { word, language, size = 'md' }: Props = $props();
-	
-	const session = useSession();
+	let {
+		word,
+		language,
+		size = 'md',
+		showLabel = false,
+		context,
+		deck = 'searched-words',
+	}: Props = $props();
+	let user = $derived(page.data.user ?? null);
 	
 	let isSaved = $state(false);
 	let isLoading = $state(false);
 	let justSaved = $state(false);
 	let showSignInHint = $state(false);
+	let contextSaved = $state(false);
+	let checkRequest = 0;
+	let showsSavedState = $derived(isSaved && (!context?.sentence || contextSaved));
 
 	// Check if card already exists on mount
 	$effect(() => {
-		if ($session.data?.user) {
-			checkIfSaved();
+		const currentWord = word;
+		const requestId = ++checkRequest;
+		isSaved = false;
+		contextSaved = false;
+		if (user) {
+			checkIfSaved(currentWord, requestId);
 		}
 	});
 
-	async function checkIfSaved() {
+	async function checkIfSaved(currentWord: string, requestId: number) {
 		try {
 			const res = await fetch(`/api/study?due=false`);
 			if (res.ok) {
 				const data = await res.json();
-				isSaved = data.cards?.some((c: { word: string }) => c.word === word) ?? false;
+				if (requestId === checkRequest && currentWord === word) {
+					const card = data.cards?.find((candidate: {
+						word: string;
+						context?: { sentence?: string } | null;
+					}) => candidate.word === currentWord);
+					isSaved = Boolean(card);
+					contextSaved = Boolean(
+						context?.sentence && card?.context?.sentence === context.sentence.trim()
+					);
+				}
 			}
 		} catch (e) {
 			console.error("Error checking study card:", e);
@@ -36,7 +61,7 @@
 	}
 
 	async function toggleSave() {
-		if (!$session.data?.user) {
+		if (!user) {
 			showSignInHint = true;
 			setTimeout(() => showSignInHint = false, 3000);
 			return;
@@ -44,7 +69,7 @@
 
 		isLoading = true;
 		try {
-			if (isSaved) {
+			if (isSaved && (!context?.sentence || contextSaved)) {
 				// Remove from study
 				const res = await fetch('/api/study', {
 					method: 'DELETE',
@@ -53,16 +78,18 @@
 				});
 				if (res.ok) {
 					isSaved = false;
+					contextSaved = false;
 				}
 			} else {
 				// Add to study
 				const res = await fetch('/api/study', {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify({ word, language }),
+					body: JSON.stringify({ word, language, context, deck }),
 				});
 				if (res.ok) {
 					isSaved = true;
+					contextSaved = Boolean(context?.sentence);
 					justSaved = true;
 					setTimeout(() => justSaved = false, 2000);
 				}
@@ -85,11 +112,15 @@
 	<button
 		onclick={toggleSave}
 		disabled={isLoading}
-		aria-label={isSaved ? `Remove ${word} from study` : `Save ${word} to study`}
-		aria-pressed={isSaved}
-		class="inline-flex items-center rounded-full font-medium transition-colors duration-150
+		aria-label={showsSavedState
+			? `Remove ${word} from study`
+			: isSaved && context?.sentence
+				? `Add this sentence to ${word}`
+				: `Save ${word} to study`}
+		aria-pressed={showsSavedState}
+		class="inline-flex items-center rounded font-medium transition-colors duration-150
 			{sizeClasses[size]}
-			{isSaved
+			{showsSavedState
 				? 'bg-accent/15 text-accent hover:bg-accent/25'
 				: 'bg-accent/10 text-accent hover:bg-accent/20'}
 			{isLoading ? 'opacity-50 cursor-wait' : 'cursor-pointer'}
@@ -100,7 +131,7 @@
 				<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
 				<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
 			</svg>
-		{:else if isSaved}
+		{:else if showsSavedState}
 			<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
 				<path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
 			</svg>
@@ -109,11 +140,14 @@
 				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
 			</svg>
 		{/if}
+		{#if showLabel}
+			<span>{showsSavedState ? 'Saved' : isSaved ? 'Add sentence' : 'Save word'}</span>
+		{/if}
 	</button>
 
 	{#if showSignInHint}
 		<div role="status" class="absolute top-full left-1/2 -translate-x-1/2 mt-2 px-3 py-2 bg-bg-tertiary text-text-primary text-xs rounded-lg shadow-lg whitespace-nowrap z-10 border border-border">
-			Sign in to save words
+			Sign in to save this word
 		</div>
 	{/if}
 </div>

@@ -14,6 +14,7 @@
 		character: string;
 		noteText: string;
 		isAdmin: boolean;
+		isPublic: boolean;
 		createdAt: Date;
 		updatedAt: Date;
 	}

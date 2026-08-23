@@ -2,10 +2,10 @@ import { error, json } from "@sveltejs/kit";
 import type { RequestEvent } from "@sveltejs/kit";
 import { getDb } from "$lib/server/db";
 import { notes, user } from "$lib/server/db/schema";
-import { eq, desc, and } from "drizzle-orm";
+import { eq, desc, and, or } from "drizzle-orm";
 
 // GET /api/notes/[character] - Get all notes for a character
-export async function GET({ params, platform }: RequestEvent) {
+export async function GET({ params, locals, platform }: RequestEvent) {
 	const { character } = params;
 
 	if (!character) {
@@ -13,6 +13,13 @@ export async function GET({ params, platform }: RequestEvent) {
 	}
 
 	const db = getDb(platform!.env.DB);
+	const visibleToViewer = locals.user
+		? or(
+			eq(notes.isPublic, true),
+			eq(notes.isAdmin, true),
+			eq(notes.userId, locals.user.id),
+		)
+		: or(eq(notes.isPublic, true), eq(notes.isAdmin, true));
 
 	const characterNotes = await db
 		.select({
@@ -21,6 +28,7 @@ export async function GET({ params, platform }: RequestEvent) {
 			character: notes.character,
 			noteText: notes.noteText,
 			isAdmin: notes.isAdmin,
+			isPublic: notes.isPublic,
 			createdAt: notes.createdAt,
 			updatedAt: notes.updatedAt,
 			user: {
@@ -31,7 +39,7 @@ export async function GET({ params, platform }: RequestEvent) {
 		})
 		.from(notes)
 		.leftJoin(user, eq(notes.userId, user.id))
-		.where(eq(notes.character, character))
+		.where(and(eq(notes.character, character), visibleToViewer))
 		.orderBy(desc(notes.isAdmin), desc(notes.createdAt));
 
 	return json(characterNotes);
@@ -52,6 +60,7 @@ export async function POST({ params, locals, request, platform }: RequestEvent) 
 
 	const body = await request.json();
 	const { noteText } = body;
+	const requestedVisibility = typeof body?.isPublic === "boolean" ? body.isPublic : null;
 
 	if (!noteText || typeof noteText !== "string" || noteText.trim().length === 0) {
 		throw error(400, "Note text is required");
@@ -74,6 +83,7 @@ export async function POST({ params, locals, request, platform }: RequestEvent) 
 			.update(notes)
 			.set({
 				noteText: noteText.trim(),
+				...(requestedVisibility === null ? {} : { isPublic: requestedVisibility }),
 				updatedAt: now,
 			})
 			.where(eq(notes.id, existingNotes[0].id));
@@ -89,6 +99,7 @@ export async function POST({ params, locals, request, platform }: RequestEvent) 
 			character,
 			noteText: noteText.trim(),
 			isAdmin: locals.isAdmin,
+			isPublic: requestedVisibility === true,
 			createdAt: now,
 			updatedAt: now,
 		});
@@ -107,6 +118,7 @@ export async function PUT({ params, locals, request, platform }: RequestEvent) {
 
 	const body = await request.json();
 	const { noteId, noteText } = body;
+	const requestedVisibility = typeof body?.isPublic === "boolean" ? body.isPublic : null;
 
 	if (!noteId || !noteText) {
 		throw error(400, "Note ID and text are required");
@@ -136,6 +148,7 @@ export async function PUT({ params, locals, request, platform }: RequestEvent) {
 		.update(notes)
 		.set({
 			noteText: noteText.trim(),
+			...(requestedVisibility === null ? {} : { isPublic: requestedVisibility }),
 			updatedAt: new Date(),
 		})
 		.where(eq(notes.id, noteId));
@@ -182,4 +195,3 @@ export async function DELETE({ params, locals, request, platform }: RequestEvent
 
 	return json({ success: true });
 }
-

@@ -20,6 +20,11 @@
 		interval: number;
 		repetitions: number;
 		nextReview: string;
+		context: {
+			sentence: string;
+			translation: string | null;
+			language: string;
+		} | null;
 	}
 
 	interface CardInfo {
@@ -527,6 +532,18 @@
 							<a href="/{currentCard.word}" class="text-accent hover:underline">View full entry →</a>
 						</div>
 					{/if}
+
+					{#if currentCard.context}
+						<div class="source-context">
+							<div class="source-label">From your sentence</div>
+							<div class="source-sentence" lang={currentCard.context.language}>
+								{currentCard.context.sentence}
+							</div>
+							{#if currentCard.context.translation}
+								<div class="source-translation">{currentCard.context.translation}</div>
+							{/if}
+						</div>
+					{/if}
 				</div>
 			</div>
 		</div>
@@ -643,7 +660,7 @@
 
 	.card-container {
 		perspective: 1000px;
-		height: 20rem;
+		height: 23rem;
 	}
 
 	.card-inner {
@@ -684,6 +701,35 @@
 		transform: rotateY(180deg);
 	}
 
+	.source-context {
+		width: min(100%, 30rem);
+		margin-top: 0.75rem;
+		padding-top: 0.75rem;
+		border-top: 1px solid color-mix(in srgb, var(--border-color) 70%, transparent);
+		text-align: center;
+	}
+
+	.source-label {
+		margin-bottom: 0.25rem;
+		color: var(--text-tertiary);
+		font-size: var(--font-size-caption2);
+		font-weight: 700;
+	}
+
+	.source-sentence {
+		color: var(--text-primary);
+		font-family: var(--font-cjk);
+		font-size: var(--font-size-body);
+		line-height: 1.45;
+	}
+
+	.source-translation {
+		margin-top: 0.25rem;
+		color: var(--text-tertiary);
+		font-size: var(--font-size-caption1);
+		line-height: 1.4;
+	}
+
 	.rating-btn {
 		display: flex;
 		flex-direction: column;
@@ -711,7 +757,7 @@
 		}
 
 		.card-container {
-			height: 18rem;
+			height: 21rem;
 		}
 	}
 </style>

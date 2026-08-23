@@ -65,6 +65,7 @@ export const notes = sqliteTable("notes", {
 	character: text("character").notNull(),
 	noteText: text("noteText").notNull(), // Markdown supported
 	isAdmin: integer("isAdmin", { mode: "boolean" }).notNull().default(false),
+	isPublic: integer("isPublic", { mode: "boolean" }).notNull().default(false),
 	createdAt: integer("createdAt", { mode: "timestamp" }).notNull(),
 	updatedAt: integer("updatedAt", { mode: "timestamp" }).notNull(),
 }, (table) => ({
@@ -92,6 +93,77 @@ export const studyCards = sqliteTable("study_cards", {
 }, (table) => ({
 	// One card per user per word
 	userWordUnique: unique().on(table.userId, table.word),
+}));
+
+// Named, auto-composed deck membership is separate from SRS state so one card
+// can appear in multiple study views without duplicating review progress.
+export const studyCardDeckMemberships = sqliteTable("study_card_deck_memberships", {
+	id: text("id").primaryKey(),
+	cardId: text("cardId")
+		.notNull()
+		.references(() => studyCards.id, { onDelete: "cascade" }),
+	deck: text("deck").notNull(), // 'searched-words' | 'searched-sentences'
+	createdAt: integer("createdAt", { mode: "timestamp" }).notNull(),
+}, (table) => ({
+	cardDeckUnique: unique().on(table.cardId, table.deck),
+}));
+
+// The sentence where a learner encountered a card is first-class study data.
+// A card may keep several examples while the review screen shows the latest.
+export const studyCardContexts = sqliteTable("study_card_contexts", {
+	id: text("id").primaryKey(),
+	cardId: text("cardId")
+		.notNull()
+		.references(() => studyCards.id, { onDelete: "cascade" }),
+	sentence: text("sentence").notNull(),
+	translation: text("translation"),
+	language: text("language").notNull(),
+	createdAt: integer("createdAt", { mode: "timestamp" }).notNull(),
+	updatedAt: integer("updatedAt", { mode: "timestamp" }).notNull(),
+}, (table) => ({
+	cardSentenceUnique: unique().on(table.cardId, table.sentence),
+}));
+
+export const userLearningSettings = sqliteTable("user_learning_settings", {
+	userId: text("userId")
+		.primaryKey()
+		.references(() => user.id, { onDelete: "cascade" }),
+	autoSaveSentences: integer("autoSaveSentences", { mode: "boolean" }).notNull().default(false),
+	createdAt: integer("createdAt", { mode: "timestamp" }).notNull(),
+	updatedAt: integer("updatedAt", { mode: "timestamp" }).notNull(),
+});
+
+export const savedSentences = sqliteTable("saved_sentences", {
+	id: text("id").primaryKey(),
+	userId: text("userId")
+		.notNull()
+		.references(() => user.id, { onDelete: "cascade" }),
+	text: text("text").notNull(),
+	language: text("language").notNull(), // 'zh', 'ja', 'ko'
+	translation: text("translation"),
+	pinyin: text("pinyin"),
+	saveMode: text("saveMode").notNull().default("manual"), // 'manual' | 'auto'
+	createdAt: integer("createdAt", { mode: "timestamp" }).notNull(),
+	updatedAt: integer("updatedAt", { mode: "timestamp" }).notNull(),
+}, (table) => ({
+	userSentenceUnique: unique().on(table.userId, table.language, table.text),
+}));
+
+// Keeps the generated sentence deck traceable to the sentence that supplied
+// each word, which also lets deletion remove only obsolete memberships.
+export const savedSentenceWords = sqliteTable("saved_sentence_words", {
+	id: text("id").primaryKey(),
+	sentenceId: text("sentenceId")
+		.notNull()
+		.references(() => savedSentences.id, { onDelete: "cascade" }),
+	cardId: text("cardId")
+		.notNull()
+		.references(() => studyCards.id, { onDelete: "cascade" }),
+	surfaceForm: text("surfaceForm").notNull(),
+	position: integer("position").notNull(),
+	createdAt: integer("createdAt", { mode: "timestamp" }).notNull(),
+}, (table) => ({
+	sentencePositionUnique: unique().on(table.sentenceId, table.position),
 }));
 
 // Custom words - user-coined dictionary entries

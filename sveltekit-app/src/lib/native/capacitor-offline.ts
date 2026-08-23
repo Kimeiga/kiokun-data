@@ -15,6 +15,7 @@ interface LocalNote {
 	character: string;
 	noteText: string;
 	isAdmin: boolean;
+	isPublic: boolean;
 	createdAt: number;
 	updatedAt: number;
 	user: {
@@ -166,6 +167,7 @@ async function handleLocalNoteRequest(
 			character,
 			noteText,
 			isAdmin: false,
+			isPublic: body?.isPublic === true,
 			createdAt: existing?.createdAt ?? now,
 			updatedAt: now,
 			user: {

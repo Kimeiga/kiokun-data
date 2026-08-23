@@ -7,7 +7,12 @@
  *
  * Example: /私?s=私は日本語を勉強しています&i=0
  */
-import { tokenizeSentence, type TokenizedSentence, type SupportedLanguage } from '$lib/utils/sentence-tokenizer';
+import {
+	detectLanguage,
+	tokenizeSentence,
+	type TokenizedSentence,
+	type SupportedLanguage,
+} from '$lib/utils/sentence-tokenizer';
 
 export interface SentenceContext {
 	/** The original sentence */
@@ -40,7 +45,7 @@ export function parseSentenceFromURL(searchParams: URLSearchParams): SentenceCon
 		const chars = Array.from(sentence);
 		tokenized = {
 			original: sentence,
-			language: detectCJKLanguage(sentence),
+			language: detectLanguage(sentence),
 			tokens: chars.map((char, idx) => ({
 				segment: char,
 				index: idx,
@@ -70,18 +75,6 @@ export function parseSentenceFromURL(searchParams: URLSearchParams): SentenceCon
 		tokenized,
 		currentIndex
 	};
-}
-
-/**
- * Simple language detection for CJK text
- */
-function detectCJKLanguage(text: string): SupportedLanguage {
-	// Check for Korean first (Hangul)
-	if (/[\uac00-\ud7af]/.test(text)) return 'ko';
-	// Check for Japanese hiragana/katakana
-	if (/[\u3040-\u309f\u30a0-\u30ff]/.test(text)) return 'ja';
-	// Default to Chinese
-	return 'zh';
 }
 
 /**

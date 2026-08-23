@@ -12,6 +12,7 @@
 		character: string;
 		noteText: string;
 		isAdmin: boolean;
+		isPublic: boolean;
 		createdAt: Date;
 		updatedAt: Date;
 		user: {
@@ -35,6 +36,7 @@
 	let myNote = $state<Note | null>(null); // Current user's note
 	let otherNotes = $state<Note[]>([]); // Other users' notes
 	let noteText = $state(""); // Text for creating/editing
+	let noteIsPublic = $state(false);
 	let loading = $state(false);
 	let error = $state("");
 	let isEditing = $state(false);
@@ -70,7 +72,9 @@
 		return note.isAdmin || name === "claude" || userId === "claude" || userId.includes("claude");
 	}
 
-	let visibleCommunityNotes = $derived(otherNotes.filter((note) => !isLegacyClaudeNote(note)));
+	let visibleCommunityNotes = $derived(
+		otherNotes.filter((note) => note.isPublic && !isLegacyClaudeNote(note))
+	);
 	let adminNote = $derived(
 		showClaudeMnemonics ? otherNotes.find((note) => note.isAdmin) || null : null
 	);
@@ -105,6 +109,7 @@
 			// If editing and we have a note, populate the text
 			if (myNote && isEditing) {
 				noteText = myNote.noteText;
+				noteIsPublic = Boolean(myNote.isPublic);
 			}
 		} catch (err) {
 			error = "Failed to load notes";
@@ -123,7 +128,7 @@
 			const response = await fetch(`/api/notes/${encodeURIComponent(character)}`, {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ noteText }),
+				body: JSON.stringify({ noteText, isPublic: noteIsPublic }),
 			});
 
 			if (!response.ok) throw new Error("Failed to save note");
@@ -142,6 +147,7 @@
 	function startEditing() {
 		isEditing = true;
 		noteText = myNote?.noteText || "";
+		noteIsPublic = Boolean(myNote?.isPublic);
 		isExpanded = true; // Expand when editing existing note
 	}
 
@@ -149,6 +155,7 @@
 		isEditing = false;
 		showPreview = false;
 		noteText = myNote?.noteText || "";
+		noteIsPublic = Boolean(myNote?.isPublic);
 		isExpanded = false;
 	}
 
@@ -308,6 +315,7 @@
 					myNote = null;
 					otherNotes = [];
 					noteText = "";
+					noteIsPublic = false;
 					isEditing = false;
 					showPreview = false;
 					isExpanded = false;
@@ -348,7 +356,10 @@
 				{#if myNote && !isEditing}
 					<div class="mb-3">
 						<div class="flex justify-between items-center mb-2">
-							<span class="font-semibold text-text-secondary text-xs">Your Note</span>
+							<div class="note-title-line">
+								<span class="font-semibold text-text-secondary text-xs">Your Note</span>
+								<span class="visibility-status">{myNote.isPublic ? 'Shared' : 'Private'}</span>
+							</div>
 							<div class="note-actions segmented-grid">
 								<button onclick={startEditing} class="edit-btn segmented-cell" title="Edit">Edit</button>
 								<button onclick={deleteNote} class="delete-btn segmented-cell" title="Delete">Delete</button>
@@ -443,6 +454,30 @@
 								{@html renderMarkdown(noteText)}
 							</div>
 						{/if}
+
+						{#if isExpanded}
+							<div class="visibility-control">
+								<div class="visibility-options segmented-grid" role="group" aria-label="Note visibility">
+									<button
+										type="button"
+										class="visibility-option segmented-cell"
+										class:active={!noteIsPublic}
+										aria-pressed={!noteIsPublic}
+										onclick={() => (noteIsPublic = false)}
+									>Private</button>
+									<button
+										type="button"
+										class="visibility-option segmented-cell"
+										class:active={noteIsPublic}
+										aria-pressed={noteIsPublic}
+										onclick={() => (noteIsPublic = true)}
+									>Share with community</button>
+								</div>
+								<p>{noteIsPublic
+									? 'Anyone viewing this word can read your note.'
+									: 'Only you can read this note.'}</p>
+							</div>
+						{/if}
 					</div>
 				{/if}
 			{/if}
@@ -491,6 +526,47 @@
 	}
 	.notes-body {
 		margin-top: var(--spacing-md);
+	}
+	.note-title-line {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-sm);
+	}
+	.visibility-status {
+		padding: 0.15rem 0.4rem;
+		border: 1px solid var(--border-color);
+		border-radius: 2px;
+		color: var(--text-tertiary);
+		font-size: var(--font-size-caption2);
+	}
+	.visibility-control {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--spacing-md);
+		margin-top: var(--spacing-sm);
+	}
+	.visibility-options {
+		grid-template-columns: repeat(2, max-content);
+	}
+	.visibility-option {
+		min-height: 2.75rem;
+		padding: 0 var(--spacing-md);
+		border: 1px solid var(--border-color);
+		background: var(--bg-secondary);
+		color: var(--text-secondary);
+		font-size: var(--font-size-caption1);
+		cursor: pointer;
+	}
+	.visibility-option.active {
+		border-color: var(--accent);
+		background: var(--accent-light);
+		color: var(--accent);
+	}
+	.visibility-control p {
+		margin: 0;
+		color: var(--text-tertiary);
+		font-size: var(--font-size-caption1);
 	}
 	.notes-compact :global(.notes-list) {
 		border-top: none;
@@ -716,5 +792,20 @@
 
 	button:disabled {
 		@apply opacity-50 cursor-not-allowed;
+	}
+
+	@media (max-width: 42rem) {
+		.visibility-control {
+			align-items: stretch;
+			flex-direction: column;
+		}
+
+		.visibility-options {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.visibility-option {
+			padding-inline: var(--spacing-sm);
+		}
 	}
 </style>

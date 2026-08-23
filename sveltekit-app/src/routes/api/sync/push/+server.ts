@@ -185,7 +185,11 @@ export async function POST({ locals, request, platform }: RequestEvent) {
 						.where(and(eq(notes.userId, userId), eq(notes.character, character)))
 						.limit(1);
 					if (existing.length > 0) {
-						await db.update(notes).set({ noteText, updatedAt: changedAt }).where(eq(notes.id, existing[0].id));
+						await db.update(notes).set({
+							noteText,
+							isPublic: payload["isPublic"] === true,
+							updatedAt: changedAt,
+						}).where(eq(notes.id, existing[0].id));
 					} else {
 						await db.insert(notes).values({
 							id: asString(payload["id"]) || crypto.randomUUID(),
@@ -193,6 +197,7 @@ export async function POST({ locals, request, platform }: RequestEvent) {
 							character,
 							noteText,
 							isAdmin: locals.isAdmin,
+							isPublic: payload["isPublic"] === true,
 							createdAt: asDate(payload["createdAt"], changedAt),
 							updatedAt: changedAt,
 						});
