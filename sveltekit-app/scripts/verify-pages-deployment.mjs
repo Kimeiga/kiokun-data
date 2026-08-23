@@ -57,19 +57,31 @@ async function fetchWithRetry(url, expectedStatus, attempts = 8) {
 async function verifyJapaneseSentenceAnalysis() {
 	const url = new URL('/api/sentence/analyze', deploymentUrl);
 	const requests = Array.from({ length: 12 }, async (_, index) => {
-		const response = await fetch(url, {
-			method: 'POST',
-			headers: {
-				'Cache-Control': 'no-cache',
-				'Content-Type': 'application/json',
-				'User-Agent': `kiokun-deployment-verifier/${index}`
-			},
-			body: JSON.stringify({
-				text: 'すみません、空港までどうやって行きますか。',
-				language: 'ja'
-			})
-		});
-		const responseText = await response.text();
+		let response;
+		let responseText = '';
+		for (let attempt = 1; attempt <= 6; attempt += 1) {
+			response = await fetch(url, {
+				method: 'POST',
+				headers: {
+					'Cache-Control': 'no-cache',
+					'Content-Type': 'application/json',
+					'User-Agent': `kiokun-deployment-verifier/${index}`
+				},
+				body: JSON.stringify({
+					text: 'すみません、空港までどうやって行きますか。',
+					language: 'ja'
+				})
+			});
+			responseText = await response.text();
+			if (response.status !== 404 || attempt === 6) break;
+			// A new Pages deployment can briefly return its generic 404 while
+			// functions propagate. Never retry 1102 or any other worker failure.
+			await new Promise((resolve) => setTimeout(resolve, attempt * 500));
+		}
+
+		if (!response) {
+			throw new Error(`Japanese sentence analysis request ${index + 1} was not sent`);
+		}
 		if (!response.ok) {
 			throw new Error(
 				`Japanese sentence analysis request ${index + 1} returned ${response.status}: ${responseText.slice(0, 160)}`
