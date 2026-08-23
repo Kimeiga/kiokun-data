@@ -56,10 +56,11 @@ async function fetchWithRetry(url, expectedStatus, attempts = 8) {
 
 async function verifyJapaneseSentenceAnalysis() {
 	const url = new URL('/api/sentence/analyze', deploymentUrl);
+	const propagationAttempts = 15;
 	const requests = Array.from({ length: 12 }, async (_, index) => {
 		let response;
 		let responseText = '';
-		for (let attempt = 1; attempt <= 6; attempt += 1) {
+		for (let attempt = 1; attempt <= propagationAttempts; attempt += 1) {
 			response = await fetch(url, {
 				method: 'POST',
 				headers: {
@@ -73,10 +74,10 @@ async function verifyJapaneseSentenceAnalysis() {
 				})
 			});
 			responseText = await response.text();
-			if (response.status !== 404 || attempt === 6) break;
+			if (response.status !== 404 || attempt === propagationAttempts) break;
 			// A new Pages deployment can briefly return its generic 404 while
 			// functions propagate. Never retry 1102 or any other worker failure.
-			await new Promise((resolve) => setTimeout(resolve, attempt * 500));
+			await new Promise((resolve) => setTimeout(resolve, Math.min(attempt * 500, 3_000)));
 		}
 
 		if (!response) {
