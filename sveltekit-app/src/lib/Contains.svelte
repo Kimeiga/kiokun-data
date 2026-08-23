@@ -9,6 +9,7 @@
 		p?: string; // pronunciation (Chinese pinyin)
 		ct?: string; // Cantonese pronunciation (Jyutping)
 		jp?: string; // Japanese pronunciation (kana reading)
+		jo?: string; // Japanese on'yomi (character previews)
 		kr?: string; // Korean reading (Hangul)
 		d?: string; // definition
 		c?: boolean; // common Japanese word
@@ -146,10 +147,11 @@
 				{@const showChinese = preview.p && languageStore.preferences.chinese}
 				{@const showCantonese = preview.ct && languageStore.preferences.cantonese}
 				{@const showJapanese = preview.jp && languageStore.preferences.japanese}
+				{@const showJapaneseOn = preview.jo && preview.jo !== preview.jp && languageStore.preferences.japanese}
 				{@const showKorean = preview.kr && languageStore.preferences.korean}
 				<a href="/{preview.w}" class="character-card">
 					<div class="character">{displayText(preview)}</div>
-					{#if showChinese || showCantonese || showJapanese || showKorean}
+					{#if showChinese || showCantonese || showJapanese || showJapaneseOn || showKorean}
 						<div class="pronunciations">
 							{#if showChinese}
 								<span class="chinese-reading">{preview.p}</span>
@@ -157,8 +159,27 @@
 							{#if showCantonese}
 								<span class="cantonese-reading">{preview.ct}</span>
 							{/if}
-							{#if showJapanese}
-								<span class="japanese-reading">{preview.jp}</span>
+							{#if showJapanese || showJapaneseOn}
+								<span class="japanese-readings" lang="ja">
+									{#if showJapanese}
+										<span
+											class:kunyomi-reading={showJapaneseOn}
+											class="japanese-reading"
+											aria-label={showJapaneseOn
+												? `Japanese kun’yomi: ${preview.jp}`
+												: `Japanese reading: ${preview.jp}`}
+										>{preview.jp}</span>
+									{/if}
+									{#if showJapanese && showJapaneseOn}
+										<span class="japanese-reading-separator" aria-hidden="true">·</span>
+									{/if}
+									{#if showJapaneseOn}
+										<span
+											class="japanese-onyomi-reading"
+											aria-label={`Japanese on’yomi: ${preview.jo}`}
+										>{preview.jo}</span>
+									{/if}
+								</span>
 							{/if}
 							{#if showKorean}
 								<span class="korean-reading">{preview.kr}</span>
@@ -265,6 +286,27 @@
 		font-size: var(--font-size-caption2);
 		color: var(--text-secondary);
 		font-weight: 400;
+	}
+
+	.japanese-readings {
+		display: inline-flex;
+		align-items: baseline;
+		gap: 0.3em;
+	}
+
+	.japanese-reading.kunyomi-reading {
+		color: var(--color-kunyomi);
+	}
+
+	.japanese-onyomi-reading {
+		font-size: var(--font-size-caption2);
+		color: var(--color-onyomi);
+		font-weight: 500;
+	}
+
+	.japanese-reading-separator {
+		font-size: var(--font-size-caption2);
+		color: var(--text-muted);
 	}
 
 	.korean-reading {

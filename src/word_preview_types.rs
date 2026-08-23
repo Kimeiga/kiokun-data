@@ -20,6 +20,10 @@ pub struct WordPreview {
     #[serde(rename = "jp", skip_serializing_if = "Option::is_none")]
     pub japanese_pronunciation: Option<String>,
 
+    /// Japanese on'yomi for character previews when it differs from the primary Japanese reading
+    #[serde(rename = "jo", skip_serializing_if = "Option::is_none")]
+    pub japanese_onyomi: Option<String>,
+
     /// Korean reading (Hangul) - for characters with Korean readings
     #[serde(rename = "kr", skip_serializing_if = "Option::is_none")]
     pub korean_reading: Option<String>,
@@ -62,6 +66,7 @@ impl WordPreview {
             pronunciation,
             cantonese,
             japanese_pronunciation: None,
+            japanese_onyomi: None,
             korean_reading: None,
             definition,
             common: None, // Chinese words don't have a common field
@@ -89,6 +94,7 @@ impl WordPreview {
             pronunciation,
             cantonese,
             japanese_pronunciation: None,
+            japanese_onyomi: None,
             korean_reading: None,
             definition,
             common: None,
@@ -121,6 +127,7 @@ impl WordPreview {
             pronunciation: None, // Japanese words don't have pinyin
             cantonese: None, // Japanese words don't have Cantonese
             japanese_pronunciation,
+            japanese_onyomi: None,
             korean_reading: None,
             definition,
             common: Some(is_common),
@@ -183,6 +190,7 @@ impl WordPreview {
             pronunciation,
             cantonese,
             japanese_pronunciation,
+            japanese_onyomi: None,
             korean_reading: None, // Multi-character words don't have Korean readings yet
             definition,
             common,
@@ -207,6 +215,7 @@ impl WordPreview {
             pronunciation: word.romanization.clone(), // Korean romanization goes in pronunciation field
             cantonese: None, // Korean words don't have Cantonese
             japanese_pronunciation: None,
+            japanese_onyomi: None,
             korean_reading: None, // Korean words already show Hangul as the word text
             definition,
             common: None, // Korean words don't have a common field
@@ -249,6 +258,23 @@ impl WordPreview {
             })
         });
 
+        // Keep on'yomi alongside the primary (usually kun'yomi) character
+        // reading. Omit it when the primary reading already is the same
+        // on'yomi so older on-only character cards do not show duplicates.
+        let japanese_onyomi = japanese_char
+            .and_then(|jc| {
+                jc.reading_meaning.as_ref().and_then(|rm| {
+                    rm.groups.iter().find_map(|group| {
+                        group
+                            .readings
+                            .iter()
+                            .find(|reading| reading.reading_type == "ja_on")
+                            .map(|reading| reading.value.clone())
+                    })
+                })
+            })
+            .filter(|reading| japanese_pronunciation.as_deref() != Some(reading.as_str()));
+
         // Get Korean reading (first Hangul reading)
         let korean_reading = korean_char.and_then(|kc| {
             kc.readings.first().map(|r| r.hangul.clone())
@@ -273,6 +299,7 @@ impl WordPreview {
             pronunciation,
             cantonese,
             japanese_pronunciation,
+            japanese_onyomi,
             korean_reading,
             definition,
             common: None,
@@ -281,3 +308,68 @@ impl WordPreview {
     }
 }
 
+#[cfg(test)]
+mod tests {
+    use super::WordPreview;
+    use crate::japanese_char_types::{
+        KanjiCharacter, Misc, Reading, ReadingMeaning, ReadingMeaningGroup,
+    };
+
+    fn reading(reading_type: &str, value: &str) -> Reading {
+        Reading {
+            reading_type: reading_type.to_string(),
+            on_type: None,
+            status: None,
+            value: value.to_string(),
+        }
+    }
+
+    fn character_with_readings(readings: Vec<Reading>) -> KanjiCharacter {
+        KanjiCharacter {
+            literal: "逃".to_string(),
+            codepoints: vec![],
+            radicals: vec![],
+            misc: Misc {
+                grade: None,
+                stroke_counts: vec![],
+                variants: vec![],
+                frequency: None,
+                radical_names: vec![],
+                jlpt_level: None,
+            },
+            dictionary_references: vec![],
+            query_codes: vec![],
+            reading_meaning: Some(ReadingMeaning {
+                groups: vec![ReadingMeaningGroup {
+                    readings,
+                    meanings: vec![],
+                }],
+                nanori: vec![],
+            }),
+            ids: None,
+            ids_apparent: None,
+        }
+    }
+
+    #[test]
+    fn combined_character_preview_preserves_kun_and_on_readings() {
+        let character =
+            character_with_readings(vec![reading("ja_on", "トウ"), reading("ja_kun", "に.げる")]);
+
+        let preview = WordPreview::from_combined_char(None, Some(&character), None, "逃");
+
+        assert_eq!(preview.japanese_pronunciation.as_deref(), Some("に.げる"));
+        assert_eq!(preview.japanese_onyomi.as_deref(), Some("トウ"));
+        assert_eq!(serde_json::to_value(preview).unwrap()["jo"], "トウ");
+    }
+
+    #[test]
+    fn combined_character_preview_does_not_duplicate_an_on_only_reading() {
+        let character = character_with_readings(vec![reading("ja_on", "トウ")]);
+
+        let preview = WordPreview::from_combined_char(None, Some(&character), None, "逃");
+
+        assert_eq!(preview.japanese_pronunciation.as_deref(), Some("トウ"));
+        assert_eq!(preview.japanese_onyomi, None);
+    }
+}

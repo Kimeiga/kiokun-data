@@ -5,6 +5,7 @@
 	import type { SemanticMnemonicCard as SemanticMnemonicCardType } from "$lib/types";
 	import {
 		buildCharacterHeaderForms,
+		characterWriterDomKey,
 		learnerGlossForEntry,
 		normalizeLearnerGloss,
 		shouldShowCharacterFormMeaning,
@@ -513,7 +514,7 @@
 						<div class="character-identity-grid">
 							<!-- Character Variants with Stroke Animations -->
 							<div class="character-form-list">
-								{#each headerForms as form}
+								{#each headerForms as form (characterWriterDomKey(data.word, form))}
 									<div class="character-form">
 										<div
 											id={form.targetId}

@@ -854,13 +854,23 @@
 		}
 	}
 // Initialize Hanzi Writer for stroke animations
-	let writerInstance: any = null;
+	let activeWriterInstances: any[] = [];
+	let writerGeneration = 0;
 
-	async function initHanziWriter() {
+	function pauseActiveWriters() {
+		const staleWriters = activeWriterInstances;
+		activeWriterInstances = [];
+		for (const writer of staleWriters) {
+			void writer.pauseAnimation().catch(() => {});
+		}
+	}
+
+	async function initHanziWriter(generation: number) {
 		if (typeof window === "undefined") return;
 
 		// Dynamically import Hanzi Writer
 		const HanziWriter = (await import("hanzi-writer")).default;
+		if (generation !== writerGeneration) return;
 
 		const strokeColor =
 			getComputedStyle(document.documentElement)
@@ -1104,13 +1114,15 @@
 
 		// Helper to animate a character with fallback on error
 		function animateChar(targetId: string, char: string) {
+			if (generation !== writerGeneration) return;
 			const target = document.getElementById(targetId);
 			if (!target) return;
 			targetFallbacks.set(targetId, target.innerHTML);
 			target.innerHTML = "";
 			try {
 				const writer = HanziWriter.create(target, char, writerConfig);
-				writer.loopCharacterAnimation();
+				activeWriterInstances.push(writer);
+				void writer.loopCharacterAnimation();
 			} catch {
 				target.innerHTML = targetFallbacks.get(targetId) || "";
 			}
@@ -1143,6 +1155,8 @@
 		const targetSignature = headerForms
 			.map((form) => `${form.targetId}:${form.character}`)
 			.join('|');
+		const generation = ++writerGeneration;
+		pauseActiveWriters();
 		if (!currentWord || !targetSignature) return;
 		if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
@@ -1160,7 +1174,7 @@
 				idleId = window.requestIdleCallback(
 					() => {
 						if (!cancelled) {
-							void initHanziWriter().catch((error) => {
+							void initHanziWriter(generation).catch((error) => {
 								console.error("Failed to initialize Hanzi Writer:", error);
 							});
 						}
@@ -1170,7 +1184,7 @@
 			} else {
 				frameId = requestAnimationFrame(() => {
 					if (!cancelled) {
-						void initHanziWriter().catch((error) => {
+						void initHanziWriter(generation).catch((error) => {
 							console.error("Failed to initialize Hanzi Writer:", error);
 						});
 					}
@@ -1183,6 +1197,8 @@
 
 		return () => {
 			cancelled = true;
+			if (generation === writerGeneration) writerGeneration += 1;
+			pauseActiveWriters();
 			window.removeEventListener("pointerdown", initialize);
 			window.removeEventListener("keydown", initialize);
 			if (idleId !== undefined && "cancelIdleCallback" in window) {

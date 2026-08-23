@@ -3,6 +3,7 @@ import { normalizeCjkAssetCharacter } from './utils/cjk-normalization';
 import type { DictionaryEntry, SemanticMnemonicCard } from './types';
 import {
 	buildCharacterHeaderForms,
+	characterWriterDomKey,
 	equivalentTraditionalTarget,
 	learnerGlossForEntry,
 	normalizeLearnerGloss,
@@ -10,6 +11,18 @@ import {
 	shouldShowCharacterFormMeaning,
 	withCharacterFormGlosses
 } from './character-forms';
+
+assert.notEqual(
+	characterWriterDomKey('逃', {
+		targetId: 'character-writer-target-0',
+		character: '逃'
+	}),
+	characterWriterDomKey('兆', {
+		targetId: 'character-writer-target-0',
+		character: '兆'
+	}),
+	'client navigation remounts the externally mutated stroke-order target'
+);
 
 assert.equal(normalizeCjkAssetCharacter('龍'), '龍');
 assert.equal(normalizeCjkAssetCharacter('龍'), '龍');

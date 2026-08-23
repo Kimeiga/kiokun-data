@@ -30,6 +30,13 @@ export interface CharacterHeaderForm {
 	languageTag: 'zh-Hant' | 'zh-Hans' | 'zh-HK' | 'ja' | 'ko';
 }
 
+export function characterWriterDomKey(
+	word: string,
+	form: Pick<CharacterHeaderForm, 'targetId' | 'character'>
+): string {
+	return `${word}\u0000${form.targetId}\u0000${form.character}`;
+}
+
 /**
  * When a character has several written forms, label every form consistently.
  * Hiding only the form whose mnemonic meaning matches the page headline makes

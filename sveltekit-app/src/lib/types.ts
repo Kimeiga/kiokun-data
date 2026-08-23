@@ -106,6 +106,7 @@ export interface WordPreview {
   w: string;           // word
   p?: string;          // pronunciation (Chinese pinyin)
   jp?: string;         // Japanese pronunciation (kana reading)
+  jo?: string;         // Japanese on'yomi (character previews)
   kr?: string;         // Korean reading (Hangul)
   d?: string;          // definition
   c?: boolean;         // common (Japanese words only)
