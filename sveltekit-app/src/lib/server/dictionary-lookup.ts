@@ -80,6 +80,31 @@ export async function findJapaneseReadingMatch(
 	}
 }
 
+export async function findJapaneseWordMatch(
+	word: string,
+	db?: D1Database
+): Promise<JapaneseReadingRow | null> {
+	if (!db || !word) return null;
+
+	try {
+		const result = await db.prepare(`
+			SELECT word, pronunciation, definition, is_common
+			FROM dictionary_search
+			WHERE language = 'japanese'
+			  AND word = ?
+			  AND definition IS NOT NULL
+			  AND definition != ''
+			ORDER BY is_common DESC, LENGTH(definition) ASC, rowid ASC
+			LIMIT 1
+		`).bind(word).all<JapaneseReadingRow>();
+
+		return result.results?.[0] || null;
+	} catch (error) {
+		console.error('Japanese word lookup failed:', error);
+		return null;
+	}
+}
+
 function extractJapaneseReading(data: any): string | null {
 	if (data.japanese_words?.length > 0) {
 		const jw = data.japanese_words[0];
@@ -215,6 +240,20 @@ async function lookupForm(
 	options: DictionaryLookupOptions,
 	reading: string | null
 ): Promise<(LookupResult & { matchedForm: string }) | null> {
+	if (language === 'ja' && options.db) {
+		const localMatch = isAllJapaneseKana(form)
+			? await findJapaneseReadingMatch(reading || form, options.db)
+			: await findJapaneseWordMatch(form, options.db);
+		if (localMatch) {
+			return {
+				matchedForm: localMatch.word,
+				dictionaryForm: localMatch.word === form ? null : localMatch.word,
+				reading: localMatch.pronunciation,
+				gloss: localMatch.definition,
+			};
+		}
+	}
+
 	const data = await fetchEntry(form);
 	const gloss = data ? extractGloss(data, language) : null;
 	if (data && (gloss || language !== 'ja')) {

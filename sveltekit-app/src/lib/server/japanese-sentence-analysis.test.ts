@@ -1,9 +1,13 @@
 import assert from 'node:assert/strict';
 import kuromoji from 'kuromoji';
 import type { D1Database } from '@cloudflare/workers-types';
-import { findJapaneseReadingMatch } from './dictionary-lookup';
+import { findJapaneseReadingMatch, findJapaneseWordMatch } from './dictionary-lookup';
 import { tokenizeJapanese } from './kuromoji-loader';
-import { japaneseContextualMeaning } from './sentence-analysis';
+import {
+	analyzeSentence,
+	japaneseContextualMeaning,
+	japaneseLightweightMeaning,
+} from './sentence-analysis';
 import { segmentText } from '$lib/utils/segment';
 
 function buildTokenizer(): Promise<kuromoji.Tokenizer<kuromoji.IpadicFeatures>> {
@@ -47,6 +51,9 @@ assert.deepEqual(segmentText('こんにちは', 'ja'), ['こんにちは']);
 assert.deepEqual(segmentText('ありがとう', 'ja'), ['ありがとう']);
 assert.ok(segmentText('これをください', 'ja').includes('ください'));
 assert.ok(segmentText('Wi-Fiはありますか', 'ja').includes('Wi-Fi'));
+assert.deepEqual(segmentText('日本語が少し分かります。', 'ja'), [
+	'日本語', 'が', '少し', '分かり', 'ます', '。',
+]);
 
 assert.deepEqual(japaneseContextualMeaning({ surfaceForm: 'ます', pos: '助動詞' }), {
 	gloss: 'polite verb ending',
@@ -61,6 +68,28 @@ assert.deepEqual(japaneseContextualMeaning({ surfaceForm: 'ください', pos: '
 	dictionaryForm: '下さい',
 });
 assert.equal(japaneseContextualMeaning({ surfaceForm: 'ます', pos: '名詞' }), null);
+assert.deepEqual(japaneseLightweightMeaning('すみません'), {
+	gloss: 'excuse me; sorry',
+	dictionaryForm: '済みません',
+});
+assert.deepEqual(japaneseLightweightMeaning('よろしくお願いします'), {
+	gloss: 'please; pleased to meet you',
+	dictionaryForm: null,
+});
+
+const lightweightWords = await analyzeSentence(
+	'これをください。よろしくお願いします。',
+	'ja'
+);
+assert.deepEqual(
+	lightweightWords.map((word) => [word.surfaceForm, word.dictionaryForm, word.gloss]),
+	[
+		['これ', '此れ', 'this'],
+		['を', null, 'indicates direct object of action'],
+		['ください', '下さい', 'please (do or give this for me)'],
+		['よろしくお願いします', null, 'please; pleased to meet you'],
+	]
+);
 
 for (const expression of [
 	'どうやって',
@@ -113,6 +142,35 @@ assert.deepEqual(await findJapaneseReadingMatch('ドコ', fakeDb), {
 	word: '何処',
 	pronunciation: 'どこ',
 	definition: 'where; what place',
+	is_common: 1,
+});
+
+const exactWordDb = {
+	prepare() {
+		return {
+			bind(value: string) {
+				assert.equal(value, '空港');
+				return {
+					async all() {
+						return {
+							results: [{
+								word: '空港',
+								pronunciation: 'くうこう',
+								definition: 'airport',
+								is_common: 1,
+							}],
+						};
+					},
+				};
+			},
+		};
+	},
+} as unknown as D1Database;
+
+assert.deepEqual(await findJapaneseWordMatch('空港', exactWordDb), {
+	word: '空港',
+	pronunciation: 'くうこう',
+	definition: 'airport',
 	is_common: 1,
 });
 

@@ -1,7 +1,6 @@
-import type { D1Database, R2Bucket } from '@cloudflare/workers-types';
+import type { D1Database } from '@cloudflare/workers-types';
 import { buildWordTokens } from '$lib/utils/segment';
 import { lookupWord } from '$lib/server/dictionary-lookup';
-import { getTokenizer, tokenizeJapanese } from '$lib/server/kuromoji-loader';
 import type { SentenceLanguage, SentenceWordAnalysis } from '$lib/sentence-analysis';
 
 function isAllKana(text: string): boolean {
@@ -35,77 +34,92 @@ export function japaneseContextualMeaning(token: {
 	surfaceForm: string;
 	pos: string;
 }): { gloss: string; dictionaryForm: string | null } | null {
-	if (token.surfaceForm === 'ください') {
-		return { gloss: 'please (do or give this for me)', dictionaryForm: '下さい' };
-	}
-
-	const auxiliaryGlosses: Record<string, string> = {
-		'ます': 'polite verb ending',
-		'ました': 'polite past-tense ending',
-		'ません': 'polite negative verb ending',
-		'ませんでした': 'polite negative past-tense ending',
-		'です': 'polite copula (is; be)',
-		'でした': 'polite past copula (was)',
-		'た': 'past-tense ending',
-	};
-	const gloss = auxiliaryGlosses[token.surfaceForm];
-	if (gloss && (token.pos === '助動詞' || token.pos === '表現')) {
-		return { gloss, dictionaryForm: null };
-	}
+	const meaning = japaneseLightweightMeaning(token.surfaceForm);
+	if (token.surfaceForm === 'ください') return meaning;
+	if (meaning && JAPANESE_AUXILIARY_FORMS.has(token.surfaceForm) &&
+		(token.pos === '助動詞' || token.pos === '表現')) return meaning;
 	return null;
+}
+
+const JAPANESE_AUXILIARY_FORMS = new Set([
+	'ます', 'ました', 'ません', 'ませんでした', 'です', 'でした', 'た', 'たい',
+]);
+
+const JAPANESE_LIGHTWEIGHT_MEANINGS: Record<
+	string,
+	{ gloss: string; dictionaryForm: string | null }
+> = {
+	'すみません': { gloss: 'excuse me; sorry', dictionaryForm: '済みません' },
+	'こんにちは': { gloss: 'hello; good afternoon', dictionaryForm: '今日は' },
+	'こんばんは': { gloss: 'good evening', dictionaryForm: '今晩は' },
+	'ありがとう': { gloss: 'thank you', dictionaryForm: '有難う' },
+	'ありがとうございます': { gloss: 'thank you', dictionaryForm: '有難うございます' },
+	'ありがとうございました': { gloss: 'thank you very much', dictionaryForm: '有難うございました' },
+	'おはようございます': { gloss: 'good morning', dictionaryForm: 'お早うございます' },
+	'お願いします': { gloss: 'please', dictionaryForm: null },
+	'よろしくお願いします': { gloss: 'please; pleased to meet you', dictionaryForm: null },
+	'いってきます': { gloss: "I'm leaving; see you later", dictionaryForm: '行ってきます' },
+	'いってらっしゃい': { gloss: 'take care; see you later', dictionaryForm: '行ってらっしゃい' },
+	'おかえりなさい': { gloss: 'welcome home', dictionaryForm: 'お帰りなさい' },
+	'ごちそうさまでした': { gloss: 'thank you for the meal', dictionaryForm: 'ご馳走様でした' },
+	'どうやって': { gloss: 'how; by what means', dictionaryForm: null },
+	'ください': { gloss: 'please (do or give this for me)', dictionaryForm: '下さい' },
+	'ます': { gloss: 'polite verb ending', dictionaryForm: null },
+	'ました': { gloss: 'polite past-tense ending', dictionaryForm: null },
+	'ません': { gloss: 'polite negative verb ending', dictionaryForm: null },
+	'ませんでした': { gloss: 'polite negative past-tense ending', dictionaryForm: null },
+	'です': { gloss: 'polite copula (is; be)', dictionaryForm: null },
+	'でした': { gloss: 'polite past copula (was)', dictionaryForm: null },
+	'た': { gloss: 'past-tense ending', dictionaryForm: null },
+	'たい': { gloss: 'want to (verb ending)', dictionaryForm: null },
+	'は': { gloss: 'indicates sentence topic', dictionaryForm: null },
+	'が': { gloss: 'indicates the subject of a sentence', dictionaryForm: null },
+	'を': { gloss: 'indicates direct object of action', dictionaryForm: null },
+	'に': { gloss: 'to; at; on (target marker)', dictionaryForm: null },
+	'で': { gloss: 'at; by; with (location or means)', dictionaryForm: null },
+	'へ': { gloss: 'toward; to', dictionaryForm: null },
+	'と': { gloss: 'with; and; quotation marker', dictionaryForm: null },
+	'も': { gloss: 'also; too', dictionaryForm: null },
+	'まで': { gloss: 'until; as far as', dictionaryForm: null },
+	'から': { gloss: 'from; because', dictionaryForm: null },
+	'か': { gloss: 'indicates a question', dictionaryForm: null },
+	'これ': { gloss: 'this', dictionaryForm: '此れ' },
+	'どこ': { gloss: 'where', dictionaryForm: '何処' },
+	'いくら': { gloss: 'how much', dictionaryForm: '幾ら' },
+	'おすすめ': { gloss: 'recommendation', dictionaryForm: 'お勧め' },
+};
+
+/**
+ * Small, deterministic grammar and travel-expression layer used by the
+ * production worker. It avoids loading Kuromoji's multi-megabyte dictionary
+ * on a cold isolate while keeping the most learner-sensitive tokens accurate.
+ */
+export function japaneseLightweightMeaning(
+	surfaceForm: string
+): { gloss: string; dictionaryForm: string | null } | null {
+	return JAPANESE_LIGHTWEIGHT_MEANINGS[surfaceForm] || null;
 }
 
 export async function analyzeSentence(
 	text: string,
 	language: SentenceLanguage,
-	bucket?: R2Bucket,
 	db?: D1Database
 ): Promise<SentenceWordAnalysis[]> {
-	if (language === 'ja' && bucket) {
-		try {
-			const tokenizer = await getTokenizer(bucket);
-			const tokens = tokenizeJapanese(tokenizer, text);
-
-			const enriched = await Promise.all(tokens.map(async (token) => {
-				const lookupKey = token.basicForm || token.surfaceForm;
-				const dictionary = await lookupWord(lookupKey, language, {
-					db,
-					reading: isAllKana(lookupKey) ? lookupKey : token.reading,
-				});
-				const reading = isAllKana(token.surfaceForm)
-					? null
-					: token.reading || dictionary.reading;
-				const contextual = japaneseContextualMeaning(token);
-
-				return {
-					surfaceForm: token.surfaceForm,
-					wordSlug: token.surfaceForm,
-					// Kuromoji word_position is one-based.
-					position: Math.max(0, token.position - 1),
-					dictionaryForm: contextual
-						? contextual.dictionaryForm
-						: dictionary.dictionaryForm || (
-						token.basicForm && token.basicForm !== token.surfaceForm
-							? token.basicForm
-							: null
-						),
-					reading: reading || null,
-					gloss: contextual?.gloss || dictionary.gloss,
-					conjugation: token.conjugation,
-				} satisfies SentenceWordAnalysis;
-			}));
-
-			return enriched.filter((word) =>
-				word.surfaceForm.trim().length > 0 &&
-				isLexicalWord(word.surfaceForm)
-			);
-		} catch (error) {
-			console.error('Kuromoji sentence analysis failed, using lightweight segmentation:', error);
-		}
-	}
-
 	const tokens = buildWordTokens(text, language);
 	const enriched = await Promise.all(tokens.map(async (token, index) => {
+		const contextual = language === 'ja'
+			? japaneseLightweightMeaning(token.surfaceForm)
+			: null;
+		if (contextual) {
+			return {
+				...token,
+				dictionaryForm: contextual.dictionaryForm,
+				reading: null,
+				gloss: contextual.gloss,
+				conjugation: null,
+			} satisfies SentenceWordAnalysis;
+		}
+
 		const nextSurface = tokens[index + 1]?.surfaceForm || '';
 		const preferDeconjugation = language === 'ja' && (
 			/^(?:ます|ませ|たい|たく)$/u.test(nextSurface) ||

@@ -17,7 +17,6 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 	const words = await analyzeSentence(
 		text,
 		language,
-		platform?.env?.BUCKET,
 		platform?.env?.DB
 	);
 	return json({ words });

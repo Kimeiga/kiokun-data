@@ -3,82 +3,15 @@ import type { RequestEvent } from "@sveltejs/kit";
 import { getDb } from "$lib/server/db";
 import { artifacts, artifactSentences, sentenceWords } from "$lib/server/db/schema";
 import { eq } from "drizzle-orm";
-import { buildWordTokens } from "$lib/utils/segment";
-import { lookupWord } from "$lib/server/dictionary-lookup";
-import { getTokenizer, tokenizeJapanese } from "$lib/server/kuromoji-loader";
-import type { R2Bucket } from "@cloudflare/workers-types";
+import { analyzeSentence } from "$lib/server/sentence-analysis";
+import type { D1Database } from "@cloudflare/workers-types";
+import type { SentenceLanguage } from "$lib/sentence-analysis";
 
-/**
- * Check if a token is content (not punctuation/whitespace).
- */
-function isContentToken(pos: string): boolean {
-	// Skip particles (助詞), auxiliary verbs (助動詞), symbols, punctuation
-	// Actually, keep everything meaningful — particles are useful for learners
-	return pos !== '記号'; // Only skip punctuation symbols
-}
-
-/**
- * Check if a surface form is all kana (hiragana or katakana)
- */
-function isAllKana(text: string): boolean {
-	return /^[\u3040-\u309F\u30A0-\u30FF\u31F0-\u31FFー]+$/.test(text);
-}
-
-/**
- * Tokenize and enrich a sentence. Uses kuromoji for Japanese if available,
- * falls back to tiny-segmenter + dictionary lookups.
- */
-async function tokenizeAndEnrich(text: string, language: string, bucket?: R2Bucket) {
-	// For Japanese with R2 available, use kuromoji (best quality)
-	if (language === 'ja' && bucket) {
-		try {
-			const tokenizer = await getTokenizer(bucket);
-			const tokens = tokenizeJapanese(tokenizer, text);
-
-			// For each token, look up gloss from our dictionary
-			const enriched = await Promise.all(
-				tokens.map(async (t) => {
-					// Use kuromoji's dictionary form for the lookup
-					const lookupKey = t.basicForm || t.surfaceForm;
-					const dictData = await lookupWord(lookupKey, language);
-
-					// Reading: use kuromoji's reading, but skip if it's the same as surface (all kana)
-					let reading = t.reading;
-					if (reading && isAllKana(t.surfaceForm)) reading = null;
-
-					return {
-						surfaceForm: t.surfaceForm,
-						wordSlug: t.surfaceForm,
-						position: t.position,
-						dictionaryForm: t.basicForm !== t.surfaceForm ? t.basicForm : null,
-						reading: reading || dictData.reading,
-						gloss: dictData.gloss,
-						conjugation: t.conjugation,
-					};
-				})
-			);
-
-			return enriched.filter(t => t.surfaceForm.trim().length > 0 && t.surfaceForm !== '。' && t.surfaceForm !== '、');
-		} catch (err) {
-			console.error('Kuromoji tokenization failed, falling back:', err);
-		}
-	}
-
-	// Fallback: tiny-segmenter + dictionary lookup heuristics
-	const tokens = buildWordTokens(text, language);
-	const enriched = await Promise.all(
-		tokens.map(async (token) => {
-			const lookup = await lookupWord(token.surfaceForm, language);
-			return {
-				...token,
-				dictionaryForm: lookup.dictionaryForm,
-				reading: lookup.reading,
-				gloss: lookup.gloss,
-				conjugation: null,
-			};
-		})
-	);
-	return enriched;
+async function tokenizeAndEnrich(text: string, language: string, db?: D1Database) {
+	const supportedLanguage: SentenceLanguage = language === 'zh' || language === 'ko'
+		? language
+		: 'ja';
+	return analyzeSentence(text, supportedLanguage, db);
 }
 
 // POST /api/artifacts/[id]/sentences
@@ -130,7 +63,7 @@ export async function POST({ params, locals, request, platform }: RequestEvent) 
 	});
 
 	// Tokenize with kuromoji (or fallback) and store enriched words
-	const words = await tokenizeAndEnrich(originalText.trim(), language, platform?.env.BUCKET);
+	const words = await tokenizeAndEnrich(originalText.trim(), language, platform?.env.DB);
 	for (const word of words) {
 		await db.insert(sentenceWords).values({
 			id: crypto.randomUUID(),
@@ -182,7 +115,7 @@ export async function PUT({ params, locals, request, platform }: RequestEvent) {
 	await db.delete(sentenceWords).where(eq(sentenceWords.sentenceId, sentenceId));
 
 	const now = new Date();
-	const words = await tokenizeAndEnrich(originalText.trim(), existing[0].language, platform?.env.BUCKET);
+	const words = await tokenizeAndEnrich(originalText.trim(), existing[0].language, platform?.env.DB);
 	for (const word of words) {
 		await db.insert(sentenceWords).values({
 			id: crypto.randomUUID(),

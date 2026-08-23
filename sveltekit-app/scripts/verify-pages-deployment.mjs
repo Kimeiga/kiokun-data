@@ -54,6 +54,49 @@ async function fetchWithRetry(url, expectedStatus, attempts = 8) {
 	throw new Error(`${url} returned ${lastStatus || 'no response'}, expected ${expectedStatus}${detail}`);
 }
 
+async function verifyJapaneseSentenceAnalysis() {
+	const url = new URL('/api/sentence/analyze', deploymentUrl);
+	const requests = Array.from({ length: 12 }, async (_, index) => {
+		const response = await fetch(url, {
+			method: 'POST',
+			headers: {
+				'Cache-Control': 'no-cache',
+				'Content-Type': 'application/json',
+				'User-Agent': `kiokun-deployment-verifier/${index}`
+			},
+			body: JSON.stringify({
+				text: 'すみません、空港までどうやって行きますか。',
+				language: 'ja'
+			})
+		});
+		const responseText = await response.text();
+		if (!response.ok) {
+			throw new Error(
+				`Japanese sentence analysis request ${index + 1} returned ${response.status}: ${responseText.slice(0, 160)}`
+			);
+		}
+
+		const result = JSON.parse(responseText);
+		if (!Array.isArray(result.words) || result.words.length < 6) {
+			throw new Error(`Japanese sentence analysis request ${index + 1} returned incomplete words`);
+		}
+		if (!result.words.some((word) => word.surfaceForm === 'どうやって')) {
+			throw new Error(`Japanese sentence analysis request ${index + 1} missed the travel phrase`);
+		}
+		if (
+			!result.words.some(
+				(word) => word.surfaceForm === '行き' && word.dictionaryForm === '行く'
+			)
+		) {
+			throw new Error(
+				`Japanese sentence analysis request ${index + 1} missed the verb form`
+			);
+		}
+	});
+
+	await Promise.all(requests);
+}
+
 await fetchWithRetry(new URL('/', deploymentUrl), 200);
 
 const immutableFiles = await collectFiles(immutableDirectory);
@@ -92,7 +135,8 @@ await fetchWithRetry(
 	404
 );
 await fetchWithRetry(new URL('/api/stroke-data?char=%EF%A7%84', deploymentUrl), 200);
+await verifyJapaneseSentenceAnalysis();
 
 console.log(
-	`Verified ${immutableUrls.length} immutable assets and critical API responses at ${deploymentUrl}`
+	`Verified ${immutableUrls.length} immutable assets, critical APIs, and repeated Japanese sentence analysis at ${deploymentUrl}`
 );

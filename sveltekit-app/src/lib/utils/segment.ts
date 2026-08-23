@@ -27,6 +27,16 @@ const JAPANESE_FIXED_EXPRESSIONS = [
 	'でした',
 ] as const;
 const CONNECTED_LATIN_RE = /^[\p{Script=Latin}\p{N}]+(?:[\-‐‑‒–—./・][\p{Script=Latin}\p{N}]+)+$/u;
+const JAPANESE_ADVERB_PREFIXES = [
+	'あまり', 'もっと', 'とても', 'すぐ', '少し', '全く', 'よく', 'もう', 'まだ',
+] as const;
+
+function splitJapaneseAdverbPrefix(segment: string): string[] {
+	const prefix = JAPANESE_ADVERB_PREFIXES.find((candidate) =>
+		segment.startsWith(candidate) && segment.length >= candidate.length + 2
+	);
+	return prefix ? [prefix, segment.slice(prefix.length)] : [segment];
+}
 
 function mergeJapaneseSegments(segments: string[]): string[] {
 	const merged: string[] = [];
@@ -50,7 +60,7 @@ function mergeJapaneseSegments(segments: string[]): string[] {
 			merged.push(match);
 			index = end;
 		} else {
-			merged.push(segments[index]);
+			merged.push(...splitJapaneseAdverbPrefix(segments[index]));
 		}
 	}
 	return merged;
