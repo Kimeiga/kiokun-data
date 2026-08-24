@@ -7,9 +7,9 @@
   "blocks": [
     {
       "type": "image",
-      "src": "/published-artifact-images/anata-no-kansou-desu-yo-ne/hiroyuki-kansou.jpg",
-      "alt": "TV frame of Hiroyuki with the large Japanese caption あなたの感想ですよね",
-      "caption": "Source frame from the Tenor GIF supplied in ChatGPT."
+      "src": "https://media1.tenor.com/m/mWxWctN5OAcAAAAC/hiroyuki-%E3%81%B2%E3%82%8D%E3%82%86%E3%81%8D.gif",
+      "alt": "Animated Tenor GIF of Hiroyuki with the caption あなたの感想ですよね",
+      "caption": "Original animated Tenor GIF."
     },
     {
       "type": "sentence",
@@ -17,37 +17,12 @@
       "literalTranslation": "It's your impression, isn't it?",
       "translation": "That's just your opinion / impression, right?",
       "tokens": [
-        {
-          "surface": "あなた",
-          "meaning": "you",
-          "wordSlug": "あなた"
-        },
-        {
-          "surface": "の",
-          "meaning": "your / of",
-          "wordSlug": "の"
-        },
-        {
-          "surface": "感想",
-          "reading": "かんそう",
-          "meaning": "impression; reaction",
-          "wordSlug": "感想"
-        },
-        {
-          "surface": "です",
-          "meaning": "is (polite)",
-          "wordSlug": "です"
-        },
-        {
-          "surface": "よ",
-          "meaning": "asserts / emphasizes",
-          "wordSlug": "よ"
-        },
-        {
-          "surface": "ね",
-          "meaning": "right?; seeks agreement",
-          "wordSlug": "ね"
-        }
+        { "surface": "あなた", "meaning": "you", "wordSlug": "あなた" },
+        { "surface": "の", "meaning": "your / of", "wordSlug": "の" },
+        { "surface": "感想", "reading": "かんそう", "meaning": "impression; reaction", "wordSlug": "感想" },
+        { "surface": "です", "meaning": "is (polite)", "wordSlug": "です" },
+        { "surface": "よ", "meaning": "asserts / emphasizes", "wordSlug": "よ" },
+        { "surface": "ね", "meaning": "right?; seeks agreement", "wordSlug": "ね" }
       ],
       "note": "よね combines よ, which presents the statement assertively, with ね, which invites or presumes agreement. That gives the ending a pointed ‘…right?’ feel rather than a neutral question."
     },
@@ -62,44 +37,13 @@
       "literalTranslation": "Making the internet real-name-based — effective for crime and bullying?",
       "translation": "Would requiring real names online be effective against crime and bullying?",
       "tokens": [
-        {
-          "surface": "ネット",
-          "meaning": "internet / online",
-          "wordSlug": "ネット"
-        },
-        {
-          "surface": "の",
-          "meaning": "of / modifying",
-          "wordSlug": "の"
-        },
-        {
-          "surface": "実名化",
-          "reading": "じつめいか",
-          "meaning": "making real-name based",
-          "wordSlug": "実名化"
-        },
-        {
-          "surface": "犯罪",
-          "reading": "はんざい",
-          "meaning": "crime",
-          "wordSlug": "犯罪"
-        },
-        {
-          "surface": "いじめ",
-          "meaning": "bullying",
-          "wordSlug": "いじめ"
-        },
-        {
-          "surface": "に",
-          "meaning": "for / against",
-          "wordSlug": "に"
-        },
-        {
-          "surface": "有効",
-          "reading": "ゆうこう",
-          "meaning": "effective",
-          "wordSlug": "有効"
-        }
+        { "surface": "ネット", "meaning": "internet / online", "wordSlug": "ネット" },
+        { "surface": "の", "meaning": "of / modifying", "wordSlug": "の" },
+        { "surface": "実名化", "reading": "じつめいか", "meaning": "making real-name based", "wordSlug": "実名化" },
+        { "surface": "犯罪", "reading": "はんざい", "meaning": "crime", "wordSlug": "犯罪" },
+        { "surface": "いじめ", "meaning": "bullying", "wordSlug": "いじめ" },
+        { "surface": "に", "meaning": "for / against", "wordSlug": "に" },
+        { "surface": "有効", "reading": "ゆうこう", "meaning": "effective", "wordSlug": "有効" }
       ],
       "note": "This is TV-headline Japanese, so particles and a full predicate are compressed away. In ordinary prose you would expect something closer to ネットの実名化は犯罪やいじめに有効？."
     }
