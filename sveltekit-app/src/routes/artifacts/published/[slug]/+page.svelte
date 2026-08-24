@@ -1,6 +1,9 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import Header from '$lib/components/Header.svelte';
+	import type { PageData } from './$types';
+
+	let { data }: { data: PageData } = $props();
+	let artifact = $derived(data.artifact);
 
 	type Token = {
 		surface: string;
@@ -9,140 +12,78 @@
 		wordSlug?: string | null;
 	};
 
-	type ImageBlock = {
-		type: 'image';
-		src: string;
-		alt: string;
-		caption?: string;
-	};
-
-	type SentenceBlock = {
-		type: 'sentence';
-		original: string;
-		translation: string;
-		literalTranslation?: string;
-		note?: string;
-		tokens: Token[];
-	};
-
-	type ProseBlock = {
-		type: 'prose';
-		heading?: string;
-		body: string;
-	};
-
-	type Artifact = {
-		title: string;
-		description?: string;
-		language: string;
-		sourceUrl?: string;
-		publishedAt?: string;
-		blocks: Array<ImageBlock | SentenceBlock | ProseBlock>;
-	};
-
-	let artifact = $state<Artifact | null>(null);
-	let loading = $state(true);
-	let error = $state('');
-	const slug = $derived($page.params.slug);
-
-	$effect(() => {
-		if (!slug) return;
-		void loadArtifact(slug);
-	});
-
-	async function loadArtifact(currentSlug: string) {
-		loading = true;
-		error = '';
-		try {
-			const response = await fetch(`/published-artifacts/${encodeURIComponent(currentSlug)}.json`);
-			if (!response.ok) throw new Error(`Artifact request failed: ${response.status}`);
-			artifact = await response.json();
-		} catch {
-			artifact = null;
-			error = 'Artifact not found';
-		} finally {
-			loading = false;
-		}
-	}
-
 	function dictionaryHref(token: Token): string | null {
 		if (!token.wordSlug) return null;
 		return `/${encodeURIComponent(token.wordSlug)}`;
 	}
 </script>
 
-<svelte:head>
-	<title>{artifact ? `${artifact.title} · Kiokun` : 'Published artifact · Kiokun'}</title>
-	<meta
-		name="description"
-		content={artifact?.description ?? 'A language-learning artifact on Kiokun'}
-	/>
-</svelte:head>
-
 <Header />
 
 <main class="artifact-page">
-	{#if loading}
-		<div class="state">Loading…</div>
-	{:else if error || !artifact}
-		<div class="state error">{error || 'Artifact not found'}</div>
-	{:else}
-		<header class="artifact-header">
-			<div class="eyebrow">Japanese artifact</div>
-			<h1>{artifact.title}</h1>
-			{#if artifact.description}
-				<p class="dek">{artifact.description}</p>
+	<header class="artifact-header">
+		<div class="eyebrow">Japanese artifact</div>
+		<h1>{artifact.title}</h1>
+		{#if artifact.description}
+			<p class="dek">{artifact.description}</p>
+		{/if}
+		<div class="meta">
+			{#if artifact.publishedAt}<span>{artifact.publishedAt}</span>{/if}
+			{#if artifact.sourceUrl}
+				<a href={artifact.sourceUrl} target="_blank" rel="noreferrer">Source ↗</a>
 			{/if}
-			<div class="meta">
-				{#if artifact.publishedAt}<span>{artifact.publishedAt}</span>{/if}
-				{#if artifact.sourceUrl}
-					<a href={artifact.sourceUrl} target="_blank" rel="noreferrer">Source ↗</a>
-				{/if}
-			</div>
-		</header>
+		</div>
+	</header>
 
-		<article class="blocks">
-			{#each artifact.blocks as block}
-				{#if block.type === 'image'}
-					<figure class="image-block">
-						<img src={block.src} alt={block.alt} loading="eager" decoding="async" />
-						{#if block.caption}<figcaption>{block.caption}</figcaption>{/if}
-					</figure>
-				{:else if block.type === 'sentence'}
-					<section class="sentence-block" lang="ja">
-						<div class="sentence-label">{block.original}</div>
-						<div class="tokens" aria-label={`Word-by-word breakdown of ${block.original}`}>
-							{#each block.tokens as token}
-								{@const href = dictionaryHref(token)}
-								<div class="token-group">
-									<div class="reading">{token.reading || '\u00a0'}</div>
-									{#if href}
-										<a class="surface" href={href}>{token.surface}</a>
-									{:else}
-										<span class="surface">{token.surface}</span>
-									{/if}
-									<div class="meaning" lang="en">{token.meaning}</div>
-								</div>
-							{/each}
-						</div>
+	<article class="blocks">
+		{#each artifact.blocks as block}
+			{#if block.type === 'image'}
+				<figure class="image-block">
+					<img
+						src={block.src}
+						alt={block.alt}
+						width={block.width}
+						height={block.height}
+						loading="eager"
+						fetchpriority="high"
+						decoding="async"
+					/>
+					{#if block.caption}<figcaption>{block.caption}</figcaption>{/if}
+				</figure>
+			{:else if block.type === 'sentence'}
+				<section class="sentence-block" lang="ja">
+					<div class="sentence-label">{block.original}</div>
+					<div class="tokens" aria-label={`Word-by-word breakdown of ${block.original}`}>
+						{#each block.tokens as token}
+							{@const href = dictionaryHref(token)}
+							<div class="token-group">
+								<div class="reading">{token.reading || '\u00a0'}</div>
+								{#if href}
+									<a class="surface" href={href}>{token.surface}</a>
+								{:else}
+									<span class="surface">{token.surface}</span>
+								{/if}
+								<div class="meaning" lang="en">{token.meaning}</div>
+							</div>
+						{/each}
+					</div>
 
-						<div class="translation" lang="en">
-							{#if block.literalTranslation}
-								<div><span>Literal</span>{block.literalTranslation}</div>
-							{/if}
-							<div><span>Natural</span>{block.translation}</div>
-						</div>
-						{#if block.note}<p class="sentence-note" lang="en">{block.note}</p>{/if}
-					</section>
-				{:else}
-					<section class="prose-block" lang="en">
-						{#if block.heading}<h2>{block.heading}</h2>{/if}
-						<p>{block.body}</p>
-					</section>
-				{/if}
-			{/each}
-		</article>
-	{/if}
+					<div class="translation" lang="en">
+						{#if block.literalTranslation}
+							<div><span>Literal</span>{block.literalTranslation}</div>
+						{/if}
+						<div><span>Natural</span>{block.translation}</div>
+					</div>
+					{#if block.note}<p class="sentence-note" lang="en">{block.note}</p>{/if}
+				</section>
+			{:else}
+				<section class="prose-block" lang="en">
+					{#if block.heading}<h2>{block.heading}</h2>{/if}
+					<p>{block.body}</p>
+				</section>
+			{/if}
+		{/each}
+	</article>
 </main>
 
 <style>
@@ -157,14 +98,6 @@
 		margin: 0 auto;
 		padding: 56px 0 96px;
 	}
-
-	.state {
-		padding: 80px 0;
-		text-align: center;
-		opacity: 0.72;
-	}
-
-	.error { color: #eaa; }
 
 	.artifact-header {
 		max-width: 760px;
