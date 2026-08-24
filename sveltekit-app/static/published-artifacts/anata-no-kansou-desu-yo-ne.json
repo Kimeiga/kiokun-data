@@ -1,0 +1,107 @@
+{
+  "title": "「あなたの感想ですよね」— ひろゆき",
+  "description": "A compact breakdown of ひろゆき's well-known line, with the smaller TV prompt visible in the source frame.",
+  "language": "ja",
+  "sourceUrl": "https://tenor.com/bstv7.gif",
+  "publishedAt": "2026-08-24",
+  "blocks": [
+    {
+      "type": "image",
+      "src": "/published-artifact-images/anata-no-kansou-desu-yo-ne/hiroyuki-kansou.jpg",
+      "alt": "TV frame of Hiroyuki with the large Japanese caption あなたの感想ですよね",
+      "caption": "Source frame from the Tenor GIF supplied in ChatGPT."
+    },
+    {
+      "type": "sentence",
+      "original": "あなたの感想ですよね",
+      "literalTranslation": "It's your impression, isn't it?",
+      "translation": "That's just your opinion / impression, right?",
+      "tokens": [
+        {
+          "surface": "あなた",
+          "meaning": "you",
+          "wordSlug": "あなた"
+        },
+        {
+          "surface": "の",
+          "meaning": "your / of",
+          "wordSlug": "の"
+        },
+        {
+          "surface": "感想",
+          "reading": "かんそう",
+          "meaning": "impression; reaction",
+          "wordSlug": "感想"
+        },
+        {
+          "surface": "です",
+          "meaning": "is (polite)",
+          "wordSlug": "です"
+        },
+        {
+          "surface": "よ",
+          "meaning": "asserts / emphasizes",
+          "wordSlug": "よ"
+        },
+        {
+          "surface": "ね",
+          "meaning": "right?; seeks agreement",
+          "wordSlug": "ね"
+        }
+      ],
+      "note": "よね combines よ, which presents the statement assertively, with ね, which invites or presumes agreement. That gives the ending a pointed ‘…right?’ feel rather than a neutral question."
+    },
+    {
+      "type": "prose",
+      "heading": "Why 感想 matters here",
+      "body": "感想 means an impression, reaction, or personal take. In this line it contrasts a subjective reaction with something supported by evidence, which is why a natural English rendering often becomes ‘That’s just your opinion, right?’ rather than the more literal ‘That’s your impression, right?’ The phrase is strongly associated with ひろゆき and is often quoted or memed with that dismissive force."
+    },
+    {
+      "type": "sentence",
+      "original": "ネットの実名化　犯罪・いじめに有効？",
+      "literalTranslation": "Making the internet real-name-based — effective for crime and bullying?",
+      "translation": "Would requiring real names online be effective against crime and bullying?",
+      "tokens": [
+        {
+          "surface": "ネット",
+          "meaning": "internet / online",
+          "wordSlug": "ネット"
+        },
+        {
+          "surface": "の",
+          "meaning": "of / modifying",
+          "wordSlug": "の"
+        },
+        {
+          "surface": "実名化",
+          "reading": "じつめいか",
+          "meaning": "making real-name based",
+          "wordSlug": "実名化"
+        },
+        {
+          "surface": "犯罪",
+          "reading": "はんざい",
+          "meaning": "crime",
+          "wordSlug": "犯罪"
+        },
+        {
+          "surface": "いじめ",
+          "meaning": "bullying",
+          "wordSlug": "いじめ"
+        },
+        {
+          "surface": "に",
+          "meaning": "for / against",
+          "wordSlug": "に"
+        },
+        {
+          "surface": "有効",
+          "reading": "ゆうこう",
+          "meaning": "effective",
+          "wordSlug": "有効"
+        }
+      ],
+      "note": "This is TV-headline Japanese, so particles and a full predicate are compressed away. In ordinary prose you would expect something closer to ネットの実名化は犯罪やいじめに有効？."
+    }
+  ]
+}
