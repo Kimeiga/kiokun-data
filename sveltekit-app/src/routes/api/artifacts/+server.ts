@@ -2,7 +2,32 @@ import { error, json } from "@sveltejs/kit";
 import type { RequestEvent } from "@sveltejs/kit";
 import { getDb } from "$lib/server/db";
 import { artifacts, artifactImages, artifactSentences, user } from "$lib/server/db/schema";
+import { publishedArtifacts } from "$lib/server/published-artifacts";
 import { eq, desc, and, or, like, sql } from "drizzle-orm";
+
+function getPublishedArtifacts({
+	language,
+	type,
+	visibility,
+	q,
+}: {
+	language: string | null;
+	type: string | null;
+	visibility: string | null;
+	q: string | null;
+}) {
+	if (visibility === "mine") return [];
+	const needle = q?.trim().toLocaleLowerCase();
+	return publishedArtifacts.filter((artifact) => {
+		if (language && artifact.language !== language) return false;
+		if (type && artifact.type !== type) return false;
+		if (needle) {
+			const haystack = `${artifact.title} ${artifact.description || ""}`.toLocaleLowerCase();
+			if (!haystack.includes(needle)) return false;
+		}
+		return true;
+	});
+}
 
 // GET /api/artifacts - List artifacts with optional filters
 export async function GET({ url, locals, platform }: RequestEvent) {
@@ -80,6 +105,9 @@ export async function GET({ url, locals, platform }: RequestEvent) {
 		}
 
 		const results = await query;
+		const published = userId
+			? []
+			: getPublishedArtifacts({ language, type, visibility, q });
 
 		// Fetch image counts and first image for each artifact
 		const artifactIds = results.map(r => r.id);
@@ -111,15 +139,20 @@ export async function GET({ url, locals, platform }: RequestEvent) {
 				.groupBy(artifactSentences.artifactId);
 
 			const countMap = new Map(sentenceCounts.map(s => [s.artifactId, s.count]));
-
-			return json(results.map(r => ({
+			const dbArtifacts = results.map(r => ({
 				...r,
 				thumbnailUrl: imagesByArtifact.get(r.id) || null,
 				sentenceCount: countMap.get(r.id) || 0,
-			})));
+			}));
+
+			return json([...published, ...dbArtifacts]
+				.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+				.slice(0, limit));
 		}
 
-		return json(results.map(r => ({ ...r, thumbnailUrl: null, sentenceCount: 0 })));
+		return json([...published, ...results.map(r => ({ ...r, thumbnailUrl: null, sentenceCount: 0 }))]
+			.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+			.slice(0, limit));
 	} catch (err) {
 		console.error("Artifacts list error:", err);
 		throw error(500, "Failed to list artifacts");
