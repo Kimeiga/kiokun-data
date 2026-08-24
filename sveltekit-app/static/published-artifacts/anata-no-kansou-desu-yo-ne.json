@@ -1,6 +1,8 @@
 {
   "title": "「あなたの感想ですよね」— ひろゆき",
   "description": "A compact breakdown of ひろゆき's well-known line, with the smaller TV prompt visible in the source frame.",
+  "seoTitle": "あなたの感想ですよね — Meaning & Japanese Breakdown | Kiokun",
+  "seoDescription": "What does あなたの感想ですよね mean? See the pronunciation, word-by-word breakdown, natural translation, and nuance of Hiroyuki's famous phrase.",
   "language": "ja",
   "sourceUrl": "https://tenor.com/bstv7.gif",
   "publishedAt": "2026-08-24",
@@ -9,7 +11,10 @@
       "type": "image",
       "src": "https://media1.tenor.com/m/mWxWctN5OAcAAAAC/hiroyuki-%E3%81%B2%E3%82%8D%E3%82%86%E3%81%8D.gif",
       "alt": "Animated Tenor GIF of Hiroyuki with the caption あなたの感想ですよね",
-      "caption": "Original animated Tenor GIF."
+      "caption": "Original animated Tenor GIF.",
+      "width": 498,
+      "height": 280,
+      "mediaType": "image/gif"
     },
     {
       "type": "sentence",
