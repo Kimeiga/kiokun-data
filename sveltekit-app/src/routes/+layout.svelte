@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { LayoutData } from './$types';
 	import '../app.css';
+	import '../ruled-surfaces.css';
 	import { afterNavigate, beforeNavigate } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import KeyboardShortcuts from '$lib/components/KeyboardShortcuts.svelte';
