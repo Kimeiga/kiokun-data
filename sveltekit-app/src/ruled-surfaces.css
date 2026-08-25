@@ -137,7 +137,8 @@
 	.mobile-full-bleed,
 	.component-grid,
 	.names-container,
-	.semantic-mnemonic-grid
+	.semantic-mnemonic-grid,
+	.notes-body
 ) {
 	margin-block-start: 0 !important;
 }
@@ -146,6 +147,16 @@
  * title bar. Keep its bottom rhythm, but attach the content to the bar. */
 .word-page .section-heading + .semantic-mnemonic-grid {
 	padding-block-start: 0 !important;
+}
+
+/* Notes are prose/editing rather than a matrix, but the section bar and body
+ * still need to read as one surface. The body supplies one enclosing rule and
+ * its controls can keep using the shared segmented-grid primitive inside it. */
+.word-page .section-heading + .notes-body {
+	padding: var(--spacing-sm) max(var(--page-gutter, 0px), var(--spacing-sm)) !important;
+	border-inline: 1px solid var(--border-light) !important;
+	border-block-end: 1px solid var(--border-light) !important;
+	box-sizing: border-box !important;
 }
 
 /* Pronunciation mnemonic rows are part of the mnemonic surface, not a second
@@ -255,7 +266,8 @@
 		.historical-scroll,
 		.homophone-list,
 		.reading-grid,
-		.example-list
+		.example-list,
+		.notes-body
 	) {
 		box-sizing: border-box !important;
 	}
