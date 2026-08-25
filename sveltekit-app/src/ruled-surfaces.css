@@ -56,7 +56,8 @@
 	.names-grid,
 	.similar-scroll,
 	.historical-scroll,
-	.homophone-list
+	.homophone-list,
+	.reading-grid
 ) {
 	gap: 0 !important;
 	border: 0 !important;
@@ -71,7 +72,8 @@
 .word-page .names-grid > .name-entry,
 .word-page .similar-scroll > .similar-chip,
 .word-page .historical-scroll > .historical-card,
-.word-page .homophone-list > .homophone-chip {
+.word-page .homophone-list > .homophone-chip,
+.word-page .reading-grid > .reading-card {
 	border: 0 !important;
 	border-inline-start: 1px solid var(--border-light) !important;
 	border-block-start: 1px solid var(--border-light) !important;
@@ -146,6 +148,41 @@
 	padding-block-start: 0 !important;
 }
 
+/* Pronunciation mnemonic rows are part of the mnemonic surface, not a second
+ * floating card group. Remove the moat/rule that used to separate the layer,
+ * turn each language header into a compact grid header, and let the reading
+ * grid own the next single divider. */
+.word-page .sound-layers {
+	margin-block-start: 0 !important;
+	padding-block-start: 0 !important;
+	border-block-start: 0 !important;
+}
+
+.word-page .sound-language + .sound-language {
+	margin-block-start: 0 !important;
+	padding-block-start: 0 !important;
+	border-block-start: 0 !important;
+}
+
+.word-page .sound-language-header {
+	min-height: 2rem;
+	margin-block-end: 0 !important;
+	padding: 0.35rem max(var(--page-gutter, 0px), var(--spacing-sm)) !important;
+	background: var(--section-bar-bg) !important;
+	color: var(--section-bar-text) !important;
+}
+
+.word-page .sound-language-header .sound-language-note {
+	color: color-mix(in srgb, var(--section-bar-text) 78%, transparent) !important;
+}
+
+/* The memory bridge is a normal row between the language header and reading
+ * cells. It already owns only its top rule; complete its inline edges. */
+.word-page .sound-language .memory-bridge {
+	border-inline: 1px solid var(--border-light) !important;
+	border-block-start-color: var(--border-light) !important;
+}
+
 /*
  * Conjugation is the clearest remaining card-within-card holdover on the word
  * page. Flatten it into rows so expanding the table does not reintroduce the
@@ -217,6 +254,7 @@
 		.similar-scroll,
 		.historical-scroll,
 		.homophone-list,
+		.reading-grid,
 		.example-list
 	) {
 		box-sizing: border-box !important;
