@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import AnnotatedSentence from '$lib/components/AnnotatedSentence.svelte';
-	import DisclosureChevron from '$lib/components/shared/DisclosureChevron.svelte';
-	import { animateDisclosureHeight } from '$lib/utils/disclosure-motion';
+	import ScrollWindow from '$lib/components/shared/ScrollWindow.svelte';
 
 	interface Props {
 		word: string;
@@ -15,28 +14,13 @@
 
 	let sentences = $state<Sentence[]>([]);
 	let loaded = $state(false);
-	let expanded = $state(false);
-	let exampleList: HTMLDivElement | null = $state(null);
-	let collapsedHeight = $state(0);
 	let sentenceGlosses = $state<Record<string, Record<string, string>>>({});
 	const requestedGlosses = new Set<string>();
-	const COLLAPSED_COUNT = 4;
-	let displayed = $derived(expanded ? sentences : sentences.slice(0, COLLAPSED_COUNT));
 
 	$effect(() => { hasContent = loaded && sentences.length > 0; });
 
 	$effect(() => {
-		const element = exampleList;
-		const _displayed = displayed;
-		if (!element || expanded) return;
-		const frame = requestAnimationFrame(() => {
-			collapsedHeight = element.scrollHeight;
-		});
-		return () => cancelAnimationFrame(frame);
-	});
-
-	$effect(() => {
-		void loadWordGlosses(displayed.map((sentence) => sentence.kr));
+		void loadWordGlosses(sentences.map((sentence) => sentence.kr));
 	});
 
 	function simpleHash(str: string): number {
@@ -78,7 +62,6 @@
 						results.push({ kr: d[idx][0], en: d[idx][1] });
 					}
 				}
-			}
 		}
 		return results;
 	}
@@ -139,26 +122,20 @@
 			}
 		}
 	}
-
-	function toggleExpanded() {
-		if (!expanded && exampleList) collapsedHeight = exampleList.scrollHeight;
-		void animateDisclosureHeight({
-			element: exampleList,
-			nextExpanded: !expanded,
-			collapsedHeight,
-			setExpanded: (value) => expanded = value,
-		});
-	}
-
 </script>
 
 {#if loaded && sentences.length > 0}
-	{@const hasMoreSentences = sentences.length > COLLAPSED_COUNT}
 	<div class="kr-examples">
 		<div class="examples-main">
 			<div class="column-header">Examples for this word ({sentences.length})</div>
-			<div class="example-list mobile-full-bleed" id="korean-sentence-examples" bind:this={exampleList}>
-				{#each displayed as s}
+			<ScrollWindow
+				class="mobile-full-bleed"
+				viewportClass="example-list"
+				id="korean-sentence-examples"
+				maxHeight="min(46svh, 28rem)"
+				ariaLabel={`Korean example sentences for ${word}`}
+			>
+				{#each sentences as s}
 					<a
 						class="example-item"
 						href="/sentence?text={encodeURIComponent(s.kr)}&lang=ko&en={encodeURIComponent(s.en)}&from={encodeURIComponent(word)}"
@@ -174,16 +151,7 @@
 						<div class="example-translation">{s.en}</div>
 					</a>
 				{/each}
-			</div>
-			{#if hasMoreSentences}
-				<DisclosureChevron
-					{expanded}
-					controls="korean-sentence-examples"
-					onclick={toggleExpanded}
-					expandLabel={`Show ${sentences.length - COLLAPSED_COUNT} more Korean examples`}
-					collapseLabel="Show fewer Korean examples"
-				/>
-			{/if}
+			</ScrollWindow>
 		</div>
 	</div>
 {/if}
@@ -192,7 +160,7 @@
 	.kr-examples { position: relative; margin-bottom: var(--spacing-xs); }
 	.column-header { font-size: var(--font-size-caption1); font-weight: 600; color: var(--text-secondary); margin: var(--spacing-sm) 0 var(--spacing-xs); }
 	.examples-main { min-width: 0; }
-	.example-list { display: flex; flex-direction: column; border-block: 1px solid var(--border-light); }
+	.example-list { display: flex; flex-direction: column; border: 1px solid var(--border-light); }
 	.example-item {
 		display: block; padding: 10px var(--spacing-sm); background: var(--divider-cell-bg);
 		text-decoration: none; transition: background-color 120ms ease;
