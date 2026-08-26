@@ -1,3 +1,4 @@
+import { dev } from '$app/environment';
 import { env } from '$env/dynamic/private';
 import { error, json, type RequestHandler } from '@sveltejs/kit';
 import { lookupWord } from '$lib/server/dictionary-lookup';
@@ -252,7 +253,7 @@ async function dictionaryEvidence(exercise: TutorExercise, platform: App.Platfor
 
 	const values = await Promise.all(exercise.dictionaryTerms.slice(0, 5).map(async (term) => {
 		const result = await lookupWord(term, exercise.language, {
-			db: platform?.env?.DB,
+			db: dev ? undefined : platform?.env?.DB,
 			preferDeconjugation: true
 		});
 		return result.gloss ? {
