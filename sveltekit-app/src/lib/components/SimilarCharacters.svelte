@@ -1,10 +1,6 @@
 <script lang="ts">
 	import SectionHeading from "./shared/SectionHeading.svelte";
-	import DisclosureChevron from "./shared/DisclosureChevron.svelte";
-	import {
-		animateDisclosureHeight,
-		measureFirstVisualRow,
-	} from "$lib/utils/disclosure-motion";
+	import ScrollWindow from "./shared/ScrollWindow.svelte";
 
 	interface Props {
 		targetChar: string;
@@ -19,11 +15,6 @@
 
 	let { targetChar, targetStrokeCount, targetComponents, componentUses, charGlosses }: Props =
 		$props();
-	let expanded = $state(false);
-	let listElement: HTMLDivElement | null = $state(null);
-	let canExpand = $state(false);
-	let visibleCollapsedCount = $state(20);
-	let collapsedHeight = $state(68);
 
 	// Find similar characters: share at least one component with the target
 	let similarChars = $derived.by(() => {
@@ -64,77 +55,32 @@
 			.sort((a, b) => b.score - a.score)
 			.slice(0, 20);
 	});
-
-	$effect(() => {
-		const element = listElement;
-		const _items = similarChars;
-		if (!element || expanded || typeof ResizeObserver === "undefined") return;
-
-		const measure = () => {
-			const items = Array.from(element.querySelectorAll<HTMLElement>(".similar-chip"));
-			const row = measureFirstVisualRow(element, ".similar-chip");
-			visibleCollapsedCount = row.count || items.length;
-			if (row.height > 0) collapsedHeight = row.height;
-			canExpand = visibleCollapsedCount < items.length;
-		};
-		const frame = requestAnimationFrame(measure);
-		const observer = new ResizeObserver(measure);
-		observer.observe(element);
-		for (const item of element.querySelectorAll(".similar-chip")) {
-			observer.observe(item);
-		}
-
-		return () => {
-			cancelAnimationFrame(frame);
-			observer.disconnect();
-		};
-	});
-
-	function toggleExpanded() {
-		void animateDisclosureHeight({
-			element: listElement,
-			nextExpanded: !expanded,
-			collapsedHeight,
-			setExpanded: (value) => expanded = value,
-		});
-	}
 </script>
 
 {#if similarChars.length > 0}
 	<div class="similar-section">
 		<SectionHeading id="similar">Similar Characters</SectionHeading>
-		<div
-			class="similar-scroll mobile-full-bleed"
-			class:expanded
+		<ScrollWindow
+			class="mobile-full-bleed"
 			id="similar-character-list"
-			bind:this={listElement}
-			style={`--collapsed-height: ${collapsedHeight}px`}
-			lang="zh"
+			maxHeight="min(30svh, 10.5rem)"
+			ariaLabel={`Characters similar to ${targetChar}`}
 		>
-			{#each similarChars as item, index}
-				<a
-					href="/{item.char}"
-					class="similar-chip"
-					title={item.gloss || item.char}
-					aria-hidden={!expanded && index >= visibleCollapsedCount}
-					tabindex={!expanded && index >= visibleCollapsedCount ? -1 : undefined}
-				>
-					<span class="chip-char">{item.char}</span>
-					{#if item.gloss}
-						<span class="chip-gloss">{item.gloss}</span>
-					{/if}
-				</a>
-			{/each}
-		</div>
-		{#if canExpand || expanded}
-			<DisclosureChevron
-				{expanded}
-				controls="similar-character-list"
-				onclick={toggleExpanded}
-				expandLabel="Show all similar characters"
-				collapseLabel="Show fewer similar characters"
-			/>
-		{/if}
+			<div class="similar-scroll" lang="zh">
+				{#each similarChars as item}
+					<a
+						href="/{item.char}"
+						class="similar-chip"
+						title={item.gloss || item.char}
+					>
+						<span class="chip-char">{item.char}</span>
+						{#if item.gloss}
+							<span class="chip-gloss">{item.gloss}</span>
+						{/if}
+					</a>
+				{/each}
+			</div>
+		</ScrollWindow>
 	</div>
 {/if}
 
@@ -149,17 +95,8 @@
 		gap: 1px;
 		max-width: 100%;
 		min-width: 0;
-		/* --collapsed-height measures one row of chips; the box is border-box,
-		   so add the rules back or the clip crops the row's own edge and
-		   leaves a second hairline beside the closing rule. */
-		max-height: calc(var(--collapsed-height, 4.25rem) + 1px);
-		overflow: hidden;
 		border-block: 1px solid var(--border-light);
 		background: transparent;
-	}
-
-	.similar-scroll.expanded {
-		max-height: none;
 	}
 
 	.similar-chip {

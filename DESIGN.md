@@ -17,9 +17,17 @@ Kiokun is a dense multilingual reference tool. Its interface should feel direct,
 - Hover, focus, and pressed feedback change the cell surface without changing geometry.
 - General cards use square or 2px corners and no decorative shadow. Elevation is reserved for content that actually overlays another surface.
 
+## Long repeated lists
+
+- When a disclosure only means “show more items of the same kind,” prefer a bounded scroll window instead of expanding the page. Examples include sentence examples, names, similar characters, and character-use lists.
+- Scroll windows keep all items in one ruled surface, use vertical scrolling, and show a subtle inset/fade at the bottom while more content remains. Once the user scrolls, a matching top affordance may appear to communicate hidden content above.
+- The scroll affordance is not a button and must not cover or intercept the list’s links. The scroll region itself remains keyboard-scrollable when it actually overflows.
+- Do not replace semantic disclosures with scroll windows when expansion changes the meaning, explanation depth, or task state rather than simply revealing more peer items.
+
 ## Rule ownership
 
-- Every normal divider is painted exactly once. True grids use zero CSS gap: cells own their logical start edges (top/left in LTR) and the parent surface closes the logical end edges (right/bottom in LTR).
+- Every normal divider is painted exactly once. True grids use zero CSS gap: the parent surface owns the logical start edges (top/left in LTR) and every real cell owns its logical end edges (right/bottom in LTR).
+- End-edge cell ownership is required for ragged final rows. The last real item must draw its own closing right and bottom edges instead of relying on a parent border across empty grid tracks.
 - Structural grid lines use borders inside `border-box`, not outlines. Outlines are reserved for focus indication so full-bleed mobile edges cannot be clipped by page overflow.
 - When two independently implemented ruled surfaces must touch, overlap the shared 1px boundary or remove one owner; never display two coincident or closely spaced hairlines.
 
@@ -33,7 +41,8 @@ Kiokun is a dense multilingual reference tool. Its interface should feel direct,
 
 ## Motion
 
-- Disclosure content expands and collapses with a short measured-height transition. The chevron rotates in the same interval.
+- Semantic disclosure content expands and collapses with a short measured-height transition. The chevron rotates in the same interval.
+- Repeated peer-item lists use scroll windows instead of disclosure animation when a bounded viewport preserves context better.
 - Motion must preserve layout continuity and respect `prefers-reduced-motion`.
 - Avoid generic entrance animation; reference content should be immediately stable and scannable.
 
@@ -42,4 +51,5 @@ Kiokun is a dense multilingual reference tool. Its interface should feel direct,
 - Dense cross-language word lists use two columns on normal mobile widths and one below 360px when necessary.
 - Short Japanese-name entries use three columns on normal mobile widths, increasing on larger viewports.
 - Related matrices may collapse from multiple columns to one on phones, but their groups should remain one continuous ruled surface rather than acquiring mobile-only gutters.
+- Bounded scroll windows should use viewport-relative maximum heights on phones so they never dominate the whole screen.
 - Content must not require horizontal page scrolling at 320px.

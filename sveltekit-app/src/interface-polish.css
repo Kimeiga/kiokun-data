@@ -11,16 +11,16 @@
 .word-page .semantic-mnemonic-grid {
 	gap: 0 !important;
 	padding-block: 0 !important;
-	border-inline-end: 1px solid var(--border-light) !important;
-	border-block-end: 1px solid var(--border-light) !important;
+	border-inline-start: 1px solid var(--border-light) !important;
+	border-block-start: 1px solid var(--border-light) !important;
 	box-sizing: border-box !important;
 }
 
 .word-page .semantic-mnemonic-grid > .semantic-mnemonic-section {
 	min-width: 0;
 	padding: var(--spacing-sm) var(--spacing-md) !important;
-	border-inline-start: 1px solid var(--border-light) !important;
-	border-block-start: 1px solid var(--border-light) !important;
+	border-inline-end: 1px solid var(--border-light) !important;
+	border-block-end: 1px solid var(--border-light) !important;
 	box-sizing: border-box !important;
 }
 
@@ -118,8 +118,9 @@
 	margin-top: -1px !important;
 }
 
-/* Sentence language columns used to be three independent islands. The parent
- * now closes the right/bottom edge while each flag/cell owns its left/top rule. */
+/* Sentence language columns are one comparison matrix. These columns are
+ * always complete groups, so the parent closes the outside while each flag
+ * starts the column; the shared generic grid primitive handles ragged lists. */
 .page .sentences-grid {
 	gap: 0 !important;
 	border-inline-end: 1px solid var(--border-light) !important;

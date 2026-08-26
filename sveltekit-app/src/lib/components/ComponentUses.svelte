@@ -4,9 +4,8 @@
 		cleanCharacterUseGloss,
 		sortCharacterUses
 	} from "$lib/component-use-ranking";
-	import DisclosureChevron from "$lib/components/shared/DisclosureChevron.svelte";
+	import ScrollWindow from "$lib/components/shared/ScrollWindow.svelte";
 	import SectionHeading from "$lib/components/shared/SectionHeading.svelte";
-	import { animateDisclosureHeight } from "$lib/utils/disclosure-motion";
 
 	interface ComponentUsesData {
 		[componentType: string]: ComponentTypeData;
@@ -26,11 +25,6 @@
 		componentUses: ComponentUsesData | null;
 		charGlosses?: Record<string, string>;
 	} = $props();
-
-	let expanded = $state(false);
-	let characterGrid: HTMLDivElement | null = $state(null);
-	let collapsedHeight = $state(0);
-	const collapsedMaxChars = 8;
 
 	const typeOrder = [
 		"mnemonic",
@@ -66,58 +60,30 @@
 
 		return sortCharacterUses([...byCharacter.values()], charGlosses, typeOrder);
 	});
-
-	let visibleUses = $derived(
-		expanded ? characterUses : characterUses.slice(0, collapsedMaxChars)
-	);
-	let needsCollapse = $derived(characterUses.length > collapsedMaxChars);
-
-	$effect(() => {
-		const element = characterGrid;
-		const _visibleUses = visibleUses;
-		if (!element || expanded) return;
-		const frame = requestAnimationFrame(() => {
-			collapsedHeight = element.scrollHeight;
-		});
-		return () => cancelAnimationFrame(frame);
-	});
-
-	function toggleExpanded() {
-		if (!expanded && characterGrid) collapsedHeight = characterGrid.scrollHeight;
-		void animateDisclosureHeight({
-			element: characterGrid,
-			nextExpanded: !expanded,
-			collapsedHeight,
-			setExpanded: (value) => expanded = value,
-		});
-	}
 </script>
 
 {#if characterUses.length > 0}
 	<section class="component-uses" aria-labelledby="used-in-characters">
 		<SectionHeading id="used-in-characters" divided={false}>Used in characters</SectionHeading>
 
-		<div class="character-grid mobile-full-bleed" id="component-use-list" bind:this={characterGrid}>
-			{#each visibleUses as use (use.character)}
-				{@const gloss = cleanCharacterUseGloss(charGlosses[use.character] || "")}
-				<a class="character-card" href="/{use.character}">
-					<span class="character" lang="zh">{use.character}</span>
-					{#if gloss}
-						<span class="gloss" lang="en" title={gloss}>{gloss}</span>
-					{/if}
-				</a>
-			{/each}
-		</div>
-
-		{#if needsCollapse}
-			<DisclosureChevron
-				{expanded}
-				controls="component-use-list"
-				onclick={toggleExpanded}
-				expandLabel={`Show all ${characterUses.length} containing characters`}
-				collapseLabel="Show fewer containing characters"
-			/>
-		{/if}
+		<ScrollWindow
+			class="mobile-full-bleed"
+			id="component-use-list"
+			maxHeight="min(34svh, 14rem)"
+			ariaLabel={`Characters that use ${targetChar}`}
+		>
+			<div class="character-grid">
+				{#each characterUses as use (use.character)}
+					{@const gloss = cleanCharacterUseGloss(charGlosses[use.character] || "")}
+					<a class="character-card" href="/{use.character}">
+						<span class="character" lang="zh">{use.character}</span>
+						{#if gloss}
+							<span class="gloss" lang="en" title={gloss}>{gloss}</span>
+						{/if}
+					</a>
+				{/each}
+			</div>
+		</ScrollWindow>
 	</section>
 {/if}
 

@@ -3,11 +3,7 @@
 	// Based on 10ten-ja-reader's NameEntry component
 	import Tag from "./shared/Tag.svelte";
 	import SectionHeading from "./shared/SectionHeading.svelte";
-	import DisclosureChevron from "./shared/DisclosureChevron.svelte";
-	import {
-		animateDisclosureHeight,
-		measureFirstVisualRow,
-	} from "$lib/utils/disclosure-motion";
+	import ScrollWindow from "./shared/ScrollWindow.svelte";
 
 	interface JmnedictName {
 		id: string;
@@ -30,46 +26,6 @@
 	}
 
 	let { names, word }: Props = $props();
-
-	let showAll = $state(false);
-	let namesContainer: HTMLDivElement | null = $state(null);
-	let canExpand = $state(false);
-	let visibleCollapsedCount = $state(3);
-	let collapsedHeight = $state(72);
-
-	$effect(() => {
-		const element = namesContainer;
-		const _names = names;
-		if (!element || showAll || typeof ResizeObserver === "undefined") return;
-
-		const measure = () => {
-			const items = Array.from(element.querySelectorAll<HTMLElement>(".name-entry"));
-			const row = measureFirstVisualRow(element, ".name-entry");
-			if (row.height > 0) collapsedHeight = row.height;
-			visibleCollapsedCount = row.count || items.length;
-			canExpand = row.count < items.length;
-		};
-		const frame = requestAnimationFrame(measure);
-		const observer = new ResizeObserver(measure);
-		observer.observe(element);
-		for (const item of element.querySelectorAll(".name-entry")) {
-			observer.observe(item);
-		}
-
-		return () => {
-			cancelAnimationFrame(frame);
-			observer.disconnect();
-		};
-	});
-
-	function toggleExpanded() {
-		void animateDisclosureHeight({
-			element: namesContainer,
-			nextExpanded: !showAll,
-			collapsedHeight,
-			setExpanded: (value) => showAll = value,
-		});
-	}
 
 	// Type display names (English labels for tags)
 	const typeLabels: Record<string, string> = {
@@ -97,61 +53,52 @@
 
 <div class="japanese-names">
 	<SectionHeading id="names">Japanese Names</SectionHeading>
-	<div
-		class="names-container mobile-full-bleed"
-		class:expanded={showAll}
+	<ScrollWindow
+		class="mobile-full-bleed"
 		id="japanese-names-list"
-		bind:this={namesContainer}
-		style={`--collapsed-height: ${collapsedHeight}px`}
+		maxHeight="min(34svh, 11rem)"
+		ariaLabel={`Japanese names matching ${word}`}
 	>
-		<div class="names-grid">
-			{#each names as name, index}
-				<div class="name-entry" aria-hidden={!showAll && index >= visibleCollapsedCount}>
-					<!-- Kanji and Kana on same line -->
-					<div class="name-headwords" lang="ja">
-						{#if name.kanji.length > 0}
-							<span class="kanji-forms">
-								{name.kanji.map((k) => k.text).join("、")}
-							</span>
-						{/if}
-						<span class="kana-forms">
-							{name.kana.map((k) => k.text).join("、")}
-						</span>
-					</div>
-
-					<!-- Translations with inline tags -->
-					<div class="name-translations">
-						{#each name.translation as trans}
-							<div class="translation-line">
-								<span class="translation-text">
-									{trans.translation
-										.map((t) => t.text)
-										.join(", ")}
+		<div class="names-container">
+			<div class="names-grid">
+				{#each names as name}
+					<div class="name-entry">
+						<!-- Kanji and Kana on same line -->
+						<div class="name-headwords" lang="ja">
+							{#if name.kanji.length > 0}
+								<span class="kanji-forms">
+									{name.kanji.map((k) => k.text).join("、")}
 								</span>
-								{#each trans.type as type}
-									<Tag
-										type={getTagType(type)}
-										text={typeLabels[type] || type}
-										langTag="en"
-									/>
-								{/each}
-							</div>
-						{/each}
-					</div>
-				</div>
-			{/each}
-		</div>
-	</div>
+							{/if}
+							<span class="kana-forms">
+								{name.kana.map((k) => k.text).join("、")}
+							</span>
+						</div>
 
-	{#if canExpand || showAll}
-		<DisclosureChevron
-			expanded={showAll}
-			controls="japanese-names-list"
-			onclick={toggleExpanded}
-			expandLabel="Show all Japanese names"
-			collapseLabel="Show fewer Japanese names"
-		/>
-	{/if}
+						<!-- Translations with inline tags -->
+						<div class="name-translations">
+							{#each name.translation as trans}
+								<div class="translation-line">
+									<span class="translation-text">
+										{trans.translation
+											.map((t) => t.text)
+											.join(", ")}
+									</span>
+									{#each trans.type as type}
+										<Tag
+											type={getTagType(type)}
+											text={typeLabels[type] || type}
+											langTag="en"
+										/>
+									{/each}
+								</div>
+							{/each}
+						</div>
+					</div>
+				{/each}
+			</div>
+		</div>
+	</ScrollWindow>
 </div>
 
 <style>
@@ -162,17 +109,8 @@
 	}
 
 	.names-container {
-		position: relative;
 		width: 100%;
 		min-width: 0;
-		/* --collapsed-height stops at the first row's baseline; add the grid's
-		   closing rule back so the clip does not cut it off. */
-		max-height: calc(var(--collapsed-height, 4.5rem) + 1px);
-		overflow: hidden;
-	}
-
-	.names-container.expanded {
-		max-height: none;
 	}
 
 	.names-grid {

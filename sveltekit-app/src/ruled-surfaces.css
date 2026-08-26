@@ -7,21 +7,21 @@
  * clip it at the viewport edge.
  *
  * Contract for true grids:
- *   - the surface owns the logical end edges (right + bottom in LTR)
- *   - every cell owns the logical start edges (left + top in LTR)
+ *   - the surface owns the logical start edges (left + top in LTR)
+ *   - every real cell owns the logical end edges (right + bottom in LTR)
  *   - normal 1px outlines and 1px CSS gaps are never used as dividers
  *
- * This makes the first row/column provide the top/left outer edges, later
- * rows/columns provide the internal rules, and the surface closes the
- * right/bottom edges. No two elements paint the same normal divider.
+ * End-edge cell ownership is important for ragged final rows: the last real
+ * cell closes itself instead of relying on a parent border at the far edge of
+ * an empty grid track. Full rows still draw every divider exactly once.
  */
 
 /* Shared grid primitives used across the site. */
 :where(.divider-grid, .segmented-grid) {
 	gap: 0 !important;
 	border: 0 !important;
-	border-inline-end: 1px solid var(--border-light) !important;
-	border-block-end: 1px solid var(--border-light) !important;
+	border-inline-start: 1px solid var(--border-light) !important;
+	border-block-start: 1px solid var(--border-light) !important;
 	box-sizing: border-box !important;
 	background: transparent !important;
 }
@@ -29,8 +29,8 @@
 .divider-grid > .divider-cell,
 .segmented-grid > .segmented-cell {
 	border: 0 !important;
-	border-inline-start: 1px solid var(--border-light) !important;
-	border-block-start: 1px solid var(--border-light) !important;
+	border-inline-end: 1px solid var(--border-light) !important;
+	border-block-end: 1px solid var(--border-light) !important;
 	border-radius: 0 !important;
 	outline: 0 !important;
 	box-shadow: none !important;
@@ -61,8 +61,8 @@
 ) {
 	gap: 0 !important;
 	border: 0 !important;
-	border-inline-end: 1px solid var(--border-light) !important;
-	border-block-end: 1px solid var(--border-light) !important;
+	border-inline-start: 1px solid var(--border-light) !important;
+	border-block-start: 1px solid var(--border-light) !important;
 	box-sizing: border-box !important;
 	background: transparent !important;
 }
@@ -75,8 +75,8 @@
 .word-page .homophone-list > .homophone-chip,
 .word-page .reading-grid > .reading-card {
 	border: 0 !important;
-	border-inline-start: 1px solid var(--border-light) !important;
-	border-block-start: 1px solid var(--border-light) !important;
+	border-inline-end: 1px solid var(--border-light) !important;
+	border-block-end: 1px solid var(--border-light) !important;
 	border-radius: 0 !important;
 	outline: 0 !important;
 	box-sizing: border-box !important;
@@ -144,7 +144,15 @@
 }
 
 /* Mnemonic content had legacy card-era breathing room immediately under its
- * title bar. Keep its bottom rhythm, but attach the content to the bar. */
+ * title bar. It also needs the exact same horizontal bleed as that bar: the
+ * title and its content are one surface, not a full-width bar over an inset box. */
+.word-page .semantic-mnemonic-grid {
+	width: auto !important;
+	max-width: none !important;
+	margin-inline: calc(-1 * var(--surface-bleed)) !important;
+	box-sizing: border-box !important;
+}
+
 .word-page .section-heading + .semantic-mnemonic-grid {
 	padding-block-start: 0 !important;
 }
@@ -234,27 +242,27 @@
 .word-page .conjugation-table .forms-grid {
 	grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr)) !important;
 	gap: 0 !important;
+	border-inline-start: 1px solid var(--border-light) !important;
 }
 
 .word-page .conjugation-table .form-row {
 	min-width: 0;
 	padding: 0.375rem 0.5rem !important;
 	border-radius: 0 !important;
-	border-inline-start: 1px solid var(--border-light) !important;
-	border-block-start: 1px solid var(--border-light) !important;
-	background: var(--divider-cell-bg) !important;
-}
-
-/* The forms grid supplies the left/top rules; close only the inline end so
- * there is never a second coincident vertical line from adjacent rows. */
-.word-page .conjugation-table .forms-grid {
 	border-inline-end: 1px solid var(--border-light) !important;
+	border-block-end: 1px solid var(--border-light) !important;
+	background: var(--divider-cell-bg) !important;
 }
 
 /* On phones, full-bleed surfaces sit exactly on the viewport. Keeping borders
  * in border-box and never using normal outlines is what makes both outer edges
  * survive overflow-x: clip on html/body. */
 @media (max-width: 768px) {
+	.word-page .semantic-mnemonic-grid {
+		width: 100dvw !important;
+		margin-inline: calc(50% - 50dvw) !important;
+	}
+
 	.word-page :where(
 		.component-grid,
 		.word-columns,
