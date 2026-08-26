@@ -1,8 +1,7 @@
 <script lang="ts">
 	import AnnotatedSentence from '$lib/components/AnnotatedSentence.svelte';
-	import DisclosureChevron from '$lib/components/shared/DisclosureChevron.svelte';
+	import ScrollWindow from '$lib/components/shared/ScrollWindow.svelte';
 	import { buildChineseRubySegments } from '$lib/utils/sentence-ruby';
-	import { animateDisclosureHeight } from '$lib/utils/disclosure-motion';
 
 	interface Props { word: string; words?: string[]; hasContent?: boolean; }
 	let { word, words = [], hasContent = $bindable(false) }: Props = $props();
@@ -12,24 +11,9 @@
 	let sentences = $state<Sentence[]>([]);
 	let loaded = $state(false);
 	let showTraditional = $state(false);
-	let expanded = $state(false);
-	let exampleList: HTMLDivElement | null = $state(null);
-	let collapsedHeight = $state(0);
 	let requestId = 0;
-	const COLLAPSED_COUNT = 4;
-	let displayed = $derived(expanded ? sentences : sentences.slice(0, COLLAPSED_COUNT));
 
 	$effect(() => { hasContent = loaded && sentences.length > 0; });
-
-	$effect(() => {
-		const element = exampleList;
-		const _displayed = displayed;
-		if (!element || expanded) return;
-		const frame = requestAnimationFrame(() => {
-			collapsedHeight = element.scrollHeight;
-		});
-		return () => cancelAnimationFrame(frame);
-	});
 
 	let lookupWords = $derived.by(() => {
 		const forms: string[] = [];
@@ -114,20 +98,9 @@
 	$effect(() => {
 		loadSentences(lookupWords);
 	});
-
-	function toggleExpanded() {
-		if (!expanded && exampleList) collapsedHeight = exampleList.scrollHeight;
-		void animateDisclosureHeight({
-			element: exampleList,
-			nextExpanded: !expanded,
-			collapsedHeight,
-			setExpanded: (value) => expanded = value,
-		});
-	}
 </script>
 
 {#if loaded && sentences.length > 0}
-	{@const hasMoreSentences = sentences.length > COLLAPSED_COUNT}
 	<div class="zh-examples">
 		<div class="column-header-row">
 			<span class="column-header">Examples for this word ({sentences.length})</span>
@@ -135,8 +108,14 @@
 				{showTraditional ? '🇹🇼' : '🇨🇳'}
 			</button>
 		</div>
-		<div class="example-list mobile-full-bleed" id="chinese-sentence-examples" bind:this={exampleList}>
-			{#each displayed as s}
+		<ScrollWindow
+			class="mobile-full-bleed"
+			viewportClass="example-list"
+			id="chinese-sentence-examples"
+			maxHeight="min(46svh, 26rem)"
+			ariaLabel={`Chinese example sentences for ${word}`}
+		>
+			{#each sentences as s}
 				{@const sentenceText = showTraditional ? s.trad : s.simp}
 				{@const rubySegments = buildChineseRubySegments(sentenceText, s.py)}
 				{@const hasRuby = rubySegments.some((segment) => segment.reading)}
@@ -153,16 +132,7 @@
 					<div class="example-translation">{s.en}</div>
 				</a>
 			{/each}
-		</div>
-		{#if hasMoreSentences}
-			<DisclosureChevron
-				{expanded}
-				controls="chinese-sentence-examples"
-				onclick={toggleExpanded}
-				expandLabel={`Show ${sentences.length - COLLAPSED_COUNT} more Chinese examples`}
-				collapseLabel="Show fewer Chinese examples"
-			/>
-		{/if}
+		</ScrollWindow>
 	</div>
 {/if}
 
@@ -185,7 +155,7 @@
 	.script-toggle::before { content: ""; position: absolute; inset: -0.5rem; }
 	.script-toggle:hover { background: var(--divider-cell-hover); color: var(--accent); }
 	.script-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-	.example-list { display: flex; flex-direction: column; border-block: 1px solid var(--border-light); }
+	.example-list { display: flex; flex-direction: column; border: 1px solid var(--border-light); }
 	.example-item {
 		display: block; padding: var(--spacing-sm);
 		background: var(--divider-cell-bg); text-decoration: none; transition: background-color 120ms ease;
