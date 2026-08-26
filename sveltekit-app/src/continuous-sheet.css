@@ -1,0 +1,137 @@
+/*
+ * Continuous reference-sheet spacing
+ *
+ * Section bars are separators, so adjacent reference sections do not need a
+ * second separator made from page-background whitespace. This layer removes
+ * only external section spacing; readable padding inside prose/data cells is
+ * deliberately preserved.
+ */
+
+/* ===== Dictionary entry: one continuous reference sheet after the header ===== */
+.word-page .word-sections-grid {
+	margin-top: 0 !important;
+}
+
+/* Keep a small amount of breathing room INSIDE language cells, never outside
+ * the ruled surface. */
+.word-page .word-sections-grid > * {
+	padding-bottom: var(--spacing-sm) !important;
+}
+
+.word-page :where(
+	.component-uses,
+	.japanese-names,
+	.similar-section,
+	.artifact-mentions,
+	.homophones-section,
+	.historical-section,
+	.kr-examples,
+	.zh-examples
+) {
+	margin-block: 0 !important;
+}
+
+.word-page .homophone-group {
+	margin-bottom: 0 !important;
+}
+
+/* Older lazy sections still wrap their ruled surface in Tailwind margin
+ * utilities. Remove those external gaps without affecting unrelated mb-4
+ * content in the entry header/body. */
+.word-page .mb-4:has(> .characters-row),
+.word-page .mb-4:has(> .word-columns) {
+	margin-bottom: 0 !important;
+}
+
+/* Media tiles stay media tiles, but the media SECTION no longer floats away
+ * from the reference sheet above/below it. */
+.word-page .reels-section-anchor {
+	height: 0 !important;
+}
+
+.word-page .reels-section-anchor + .mb-6 {
+	margin-bottom: 0 !important;
+}
+
+/* A disclosure/workbench may keep internal rhythm, but an entire section
+ * wrapper must not reintroduce a page-background moat. */
+.word-page :where(.notes-body, .names-container, .semantic-mnemonic-grid) {
+	margin-block-end: 0 !important;
+}
+
+/* ===== Homepage: after the hero, stack the product tour as one document ===== */
+.page > .section {
+	padding-top: 0 !important;
+}
+
+.page .section-head {
+	margin-bottom: 0 !important;
+}
+
+/* Tutor + courses already share an edge. Daily picks and every following
+ * reference section should continue that same sheet rather than restarting
+ * after 32px of page background. */
+.page .courses-entry + .section,
+.page .section + .section,
+.page .section + .bottom-row {
+	margin-top: 0 !important;
+}
+
+/* The two final browse groups are one two-column matrix on desktop and one
+ * stacked matrix on mobile, not detached cards separated by 24–32px. */
+.page .bottom-row {
+	gap: 0 !important;
+	margin-top: 0 !important;
+	padding-top: 0 !important;
+	border-top: 0 !important;
+}
+
+.page .bottom-row > .section + .section {
+	border-inline-start: 1px solid var(--border-light);
+}
+
+/* The last navigation row belongs to the surface immediately above it. */
+.page :where(.whats-new-links, .homo-links) {
+	margin-top: -1px !important;
+}
+
+/* ===== Shared learner/catalog pages ===== */
+.learner-page .learning-section + .learning-section {
+	margin-top: 0 !important;
+	padding-top: 0 !important;
+}
+
+/* Most modern browse/course pages are composed from direct child sections.
+ * This catches new surfaces automatically without flattening nested prose or
+ * controls inside a section. */
+.learner-page > section + section {
+	margin-top: 0 !important;
+	padding-top: 0 !important;
+}
+
+/* Stacked filter grids are one control matrix. Content after them may still
+ * use its own internal padding, but the controls themselves should not float. */
+.learner-page .filter-rows {
+	gap: 0 !important;
+}
+
+.learner-page .page-action-grid {
+	margin-bottom: 0 !important;
+}
+
+/* ===== Touch/narrow-screen corrections ===== */
+@media (max-width: 768px) {
+	.page .bottom-row {
+		gap: 0 !important;
+	}
+
+	.page .bottom-row > .section + .section {
+		border-inline-start: 0;
+		border-block-start: 1px solid var(--border-light);
+	}
+
+	/* Mobile language matrices stack vertically but remain one sheet. */
+	.word-page .word-sections-grid > * {
+		padding-bottom: var(--spacing-sm) !important;
+	}
+}
