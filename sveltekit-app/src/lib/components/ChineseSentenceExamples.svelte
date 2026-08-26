@@ -110,28 +110,29 @@
 		</div>
 		<ScrollWindow
 			class="mobile-full-bleed"
-			viewportClass="example-list"
 			id="chinese-sentence-examples"
 			maxHeight="min(46svh, 26rem)"
 			ariaLabel={`Chinese example sentences for ${word}`}
 		>
-			{#each sentences as s}
-				{@const sentenceText = showTraditional ? s.trad : s.simp}
-				{@const rubySegments = buildChineseRubySegments(sentenceText, s.py)}
-				{@const hasRuby = rubySegments.some((segment) => segment.reading)}
-				<a
-					class="example-item"
-					href="/sentence?text={encodeURIComponent(sentenceText)}&lang=zh&en={encodeURIComponent(s.en)}&py={encodeURIComponent(s.py)}&from={encodeURIComponent(word)}"
-				>
-					<div class="example-text" lang={showTraditional ? 'zh-Hant' : 'zh-Hans'}>
-						<AnnotatedSentence text={sentenceText} language="zh" pinyin={s.py} />
-					</div>
-					{#if !hasRuby}
-						<div class="example-sub">{s.py}</div>
-					{/if}
-					<div class="example-translation">{s.en}</div>
-				</a>
-			{/each}
+			<div class="example-list">
+				{#each sentences as s}
+					{@const sentenceText = showTraditional ? s.trad : s.simp}
+					{@const rubySegments = buildChineseRubySegments(sentenceText, s.py)}
+					{@const hasRuby = rubySegments.some((segment) => segment.reading)}
+					<a
+						class="example-item"
+						href="/sentence?text={encodeURIComponent(sentenceText)}&lang=zh&en={encodeURIComponent(s.en)}&py={encodeURIComponent(s.py)}&from={encodeURIComponent(word)}"
+					>
+						<div class="example-text" lang={showTraditional ? 'zh-Hant' : 'zh-Hans'}>
+							<AnnotatedSentence text={sentenceText} language="zh" pinyin={s.py} />
+						</div>
+						{#if !hasRuby}
+							<div class="example-sub">{s.py}</div>
+						{/if}
+						<div class="example-translation">{s.en}</div>
+					</a>
+				{/each}
+			</div>
 		</ScrollWindow>
 	</div>
 {/if}
