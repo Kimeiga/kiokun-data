@@ -32,6 +32,7 @@
 		'study',
 		'test',
 		'terms',
+		'tutor',
 		'users'
 	]);
 

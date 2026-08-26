@@ -5,6 +5,7 @@ const SITE_URL = 'https://kiokun.com';
 const publicPaths = [
 	'/',
 	'/learning',
+	'/tutor',
 	'/frequency',
 	'/homophones/chinese',
 	'/homophones/japanese',
