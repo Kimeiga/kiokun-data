@@ -92,6 +92,7 @@
 		overscroll-behavior-y: contain;
 		scrollbar-color: var(--border-light) transparent;
 		scrollbar-width: thin;
+		touch-action: pan-y;
 		-webkit-overflow-scrolling: touch;
 	}
 
