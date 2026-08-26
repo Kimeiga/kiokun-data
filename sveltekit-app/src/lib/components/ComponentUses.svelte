@@ -68,20 +68,21 @@
 
 		<ScrollWindow
 			class="mobile-full-bleed"
-			viewportClass="character-grid"
 			id="component-use-list"
 			maxHeight="min(34svh, 14rem)"
 			ariaLabel={`Characters that use ${targetChar}`}
 		>
-			{#each characterUses as use (use.character)}
-				{@const gloss = cleanCharacterUseGloss(charGlosses[use.character] || "")}
-				<a class="character-card" href="/{use.character}">
-					<span class="character" lang="zh">{use.character}</span>
-					{#if gloss}
-						<span class="gloss" lang="en" title={gloss}>{gloss}</span>
-					{/if}
-				</a>
-			{/each}
+			<div class="character-grid">
+				{#each characterUses as use (use.character)}
+					{@const gloss = cleanCharacterUseGloss(charGlosses[use.character] || "")}
+					<a class="character-card" href="/{use.character}">
+						<span class="character" lang="zh">{use.character}</span>
+						{#if gloss}
+							<span class="gloss" lang="en" title={gloss}>{gloss}</span>
+						{/if}
+					</a>
+				{/each}
+			</div>
 		</ScrollWindow>
 	</section>
 {/if}
