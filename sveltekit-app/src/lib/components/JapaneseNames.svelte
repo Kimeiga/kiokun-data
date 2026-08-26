@@ -55,47 +55,48 @@
 	<SectionHeading id="names">Japanese Names</SectionHeading>
 	<ScrollWindow
 		class="mobile-full-bleed"
-		viewportClass="names-container"
 		id="japanese-names-list"
 		maxHeight="min(34svh, 11rem)"
 		ariaLabel={`Japanese names matching ${word}`}
 	>
-		<div class="names-grid">
-			{#each names as name}
-				<div class="name-entry">
-					<!-- Kanji and Kana on same line -->
-					<div class="name-headwords" lang="ja">
-						{#if name.kanji.length > 0}
-							<span class="kanji-forms">
-								{name.kanji.map((k) => k.text).join("、")}
-							</span>
-						{/if}
-						<span class="kana-forms">
-							{name.kana.map((k) => k.text).join("、")}
-						</span>
-					</div>
-
-					<!-- Translations with inline tags -->
-					<div class="name-translations">
-						{#each name.translation as trans}
-							<div class="translation-line">
-								<span class="translation-text">
-									{trans.translation
-										.map((t) => t.text)
-										.join(", ")}
+		<div class="names-container">
+			<div class="names-grid">
+				{#each names as name}
+					<div class="name-entry">
+						<!-- Kanji and Kana on same line -->
+						<div class="name-headwords" lang="ja">
+							{#if name.kanji.length > 0}
+								<span class="kanji-forms">
+									{name.kanji.map((k) => k.text).join("、")}
 								</span>
-								{#each trans.type as type}
-									<Tag
-										type={getTagType(type)}
-										text={typeLabels[type] || type}
-										langTag="en"
-									/>
-								{/each}
-							</div>
-						{/each}
+							{/if}
+							<span class="kana-forms">
+								{name.kana.map((k) => k.text).join("、")}
+							</span>
+						</div>
+
+						<!-- Translations with inline tags -->
+						<div class="name-translations">
+							{#each name.translation as trans}
+								<div class="translation-line">
+									<span class="translation-text">
+										{trans.translation
+											.map((t) => t.text)
+											.join(", ")}
+									</span>
+									{#each trans.type as type}
+										<Tag
+											type={getTagType(type)}
+											text={typeLabels[type] || type}
+											langTag="en"
+										/>
+									{/each}
+								</div>
+							{/each}
+						</div>
 					</div>
-				</div>
-			{/each}
+				{/each}
+			</div>
 		</div>
 	</ScrollWindow>
 </div>
