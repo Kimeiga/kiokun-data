@@ -3,6 +3,7 @@
 	import '../app.css';
 	import '../ruled-surfaces.css';
 	import '../interface-polish.css';
+	import '../continuous-sheet.css';
 	import { afterNavigate, beforeNavigate } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import KeyboardShortcuts from '$lib/components/KeyboardShortcuts.svelte';

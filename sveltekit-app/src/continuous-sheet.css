@@ -1,0 +1,370 @@
+/*
+ * Continuous reference-sheet spacing
+ *
+ * Section bars are separators, so adjacent reference sections do not need a
+ * second separator made from page-background whitespace. This layer removes
+ * only external section spacing; readable padding inside prose/data cells is
+ * deliberately preserved.
+ */
+
+/* ===== Dictionary entry: one continuous reference sheet after the header ===== */
+.word-page .word-sections-grid {
+	margin-top: 0 !important;
+}
+
+/* Keep a small amount of breathing room INSIDE language cells, never outside
+ * the ruled surface. */
+.word-page .word-sections-grid > * {
+	padding-bottom: var(--spacing-sm) !important;
+}
+
+.word-page :where(
+	.component-uses,
+	.japanese-names,
+	.similar-section,
+	.artifact-mentions,
+	.homophones-section,
+	.historical-section,
+	.kr-examples,
+	.zh-examples
+) {
+	margin-block: 0 !important;
+}
+
+.word-page .homophone-group {
+	margin-bottom: 0 !important;
+}
+
+/* Older lazy sections still wrap their ruled surface in Tailwind margin
+ * utilities. Remove those external gaps without affecting unrelated mb-4
+ * content in the entry header/body. */
+.word-page .mb-4:has(> .characters-row),
+.word-page .mb-4:has(> .word-columns) {
+	margin-bottom: 0 !important;
+}
+
+/* Media tiles stay media tiles, but the media SECTION no longer floats away
+ * from the reference sheet above/below it. */
+.word-page .reels-section-anchor {
+	height: 0 !important;
+}
+
+.word-page .reels-section-anchor + .mb-6 {
+	margin-bottom: 0 !important;
+}
+
+/* A disclosure/workbench may keep internal rhythm, but an entire section
+ * wrapper must not reintroduce a page-background moat. */
+.word-page :where(.notes-body, .names-container, .semantic-mnemonic-grid) {
+	margin-block-end: 0 !important;
+}
+
+/* ===== Homepage: after the hero, stack the product tour as one document ===== */
+main.page:not(.learner-page) > .section {
+	padding-top: 0 !important;
+}
+
+main.page:not(.learner-page) .section-head {
+	margin-bottom: 0 !important;
+}
+
+/* Tutor + courses already share an edge. Daily picks and every following
+ * reference section should continue that same sheet rather than restarting
+ * after 32px of page background. */
+main.page:not(.learner-page) .courses-entry + .section,
+main.page:not(.learner-page) .section + .section,
+main.page:not(.learner-page) .section + .bottom-row {
+	margin-top: 0 !important;
+}
+
+/* The two final browse groups are one two-column matrix on desktop and one
+ * stacked matrix on mobile, not detached cards separated by 24–32px. */
+main.page:not(.learner-page) .bottom-row {
+	gap: 0 !important;
+	margin-top: 0 !important;
+	padding-top: 0 !important;
+	border-top: 0 !important;
+}
+
+main.page:not(.learner-page) .bottom-row > .section + .section {
+	border-inline-start: 1px solid var(--border-light);
+}
+
+/* The last navigation row belongs to the surface immediately above it. */
+main.page:not(.learner-page) :where(.whats-new-links, .homo-links) {
+	margin-top: -1px !important;
+}
+
+/* ===== Shared learner/catalog pages ===== */
+.learner-page .learning-section + .learning-section {
+	margin-top: 0 !important;
+	padding-top: 0 !important;
+}
+
+/* Most modern browse pages are composed from direct child sections. Sections
+ * that begin with an actual Kiokun bar are reference sections and therefore
+ * cannot carry a legacy Tailwind mb-* gutter after themselves. */
+.learner-page > section + section {
+	margin-top: 0 !important;
+	padding-top: 0 !important;
+}
+
+.learner-page > section:has(> .section-bar-label) {
+	margin-bottom: 0 !important;
+}
+
+/* Stacked filter grids are one control matrix. Content after them may still
+ * use its own internal padding, but the controls themselves should not float. */
+.learner-page .filter-rows {
+	gap: 0 !important;
+	margin-bottom: var(--spacing-md) !important;
+}
+
+.learner-page .page-action-grid {
+	margin-bottom: 0 !important;
+}
+
+/* ===== Search results: one cross-language result matrix ===== */
+.search-page .results-header {
+	margin-bottom: 0 !important;
+	padding: 0.35rem var(--spacing-md) !important;
+	border-inline: 1px solid var(--border-light);
+	border-block-start: 1px solid var(--border-light);
+	background: var(--divider-cell-bg);
+	font-size: var(--font-size-footnote);
+}
+
+.search-page .results-header p {
+	margin: 0;
+}
+
+.search-page .results-container {
+	gap: 0 !important;
+}
+
+.search-page .results-column {
+	--surface-bleed: 0px;
+	gap: 0 !important;
+	min-width: 0;
+}
+
+.search-page .results-column + .results-column {
+	border-inline-start: 1px solid var(--border-light);
+}
+
+.search-page .show-more {
+	width: 100%;
+	min-height: 44px;
+	margin-top: -1px !important;
+	padding: var(--spacing-sm) var(--spacing-md) !important;
+	border: 1px solid var(--border-light) !important;
+	border-radius: 0 !important;
+	background: var(--divider-cell-bg) !important;
+	color: var(--accent);
+}
+
+.search-page .show-more:hover,
+.search-page .show-more:focus-visible {
+	background: var(--divider-cell-hover) !important;
+}
+
+.search-page .custom-results-section,
+.search-page .custom-results-section .column-title {
+	margin-top: 0 !important;
+}
+
+/* ===== Frequency: tabs, rows and pagination are one surface ===== */
+.frequency-page .tabs {
+	margin-bottom: 0 !important;
+}
+
+.frequency-page .load-more {
+	margin-top: -1px !important;
+	padding: var(--spacing-md) !important;
+	border: 1px solid var(--border-light) !important;
+	border-radius: 0 !important;
+	background: var(--divider-cell-bg) !important;
+	color: var(--accent);
+}
+
+.frequency-page .load-more:hover,
+.frequency-page .load-more:focus-visible {
+	background: var(--divider-cell-hover) !important;
+}
+
+/* ===== Homophone browsers: pronunciation groups are rows, not cards ===== */
+.learner-page .groups {
+	gap: 0 !important;
+}
+
+.learner-page .groups > .group-card {
+	margin: 0 !important;
+	border-radius: 0 !important;
+	box-shadow: none !important;
+}
+
+.learner-page .groups > .group-card + .group-card {
+	margin-top: -1px !important;
+}
+
+.learner-page .groups .group-expand {
+	border-radius: 0 !important;
+	background: var(--divider-cell-bg) !important;
+}
+
+.learner-page .groups .group-expand:hover,
+.learner-page .groups .group-expand:focus-visible {
+	background: var(--divider-cell-hover) !important;
+}
+
+.learner-page .load-more-grid {
+	margin-top: -1px !important;
+}
+
+.learner-page .load-more-grid .load-more {
+	margin-top: 0 !important;
+	border-radius: 0 !important;
+}
+
+/* ===== Community directory ===== */
+.users-page .users-grid {
+	margin-top: 0 !important;
+}
+
+/* ===== My Notes: dense personal reference workspace ===== */
+#main-content.container .page-header {
+	margin-bottom: var(--spacing-xl) !important;
+	text-align: left !important;
+}
+
+#main-content.container .page-header h1 {
+	margin-bottom: var(--spacing-xs) !important;
+	font-size: clamp(1.75rem, 5vw, 2.6rem) !important;
+	line-height: 1.08;
+	letter-spacing: -0.025em;
+}
+
+#main-content.container .page-header .subtitle {
+	font-size: var(--font-size-body) !important;
+}
+
+#main-content.container .controls {
+	gap: var(--spacing-sm) var(--spacing-md) !important;
+	margin-bottom: var(--spacing-md) !important;
+}
+
+#main-content.container .notes-grid .note-card {
+	padding: var(--spacing-md) !important;
+	transform: none !important;
+}
+
+#main-content.container .notes-grid .note-card:hover {
+	transform: none !important;
+	box-shadow: none !important;
+}
+
+#main-content.container .notes-grid .note-header {
+	margin-bottom: var(--spacing-sm) !important;
+	padding-bottom: var(--spacing-sm) !important;
+}
+
+/* ===== Public learner notes: identity header + continuous notes ===== */
+.user-notes-page {
+	padding: var(--spacing-xl) var(--spacing-lg) 4rem !important;
+}
+
+.user-notes-page .back-link {
+	margin-bottom: var(--spacing-md) !important;
+}
+
+.user-notes-page .user-header {
+	margin-bottom: var(--spacing-lg) !important;
+}
+
+.user-notes-page .user-profile {
+	padding: var(--spacing-lg) !important;
+	border-radius: var(--radius-md) !important;
+}
+
+.user-notes-page .controls {
+	gap: var(--spacing-sm) var(--spacing-md) !important;
+	margin-bottom: var(--spacing-md) !important;
+}
+
+.user-notes-page .note-item {
+	padding: var(--spacing-md) !important;
+}
+
+.user-notes-page .note-header {
+	margin-bottom: var(--spacing-sm) !important;
+	padding-bottom: var(--spacing-sm) !important;
+}
+
+.user-notes-page .pagination {
+	margin-top: -1px !important;
+}
+
+/* ===== Study statistics: one analytical sheet, not stacked cards ===== */
+#main-content .stats-grid {
+	margin-bottom: -1px !important;
+}
+
+#main-content .stats-grid + .section-card,
+#main-content .section-card + .section-card {
+	margin-top: 0 !important;
+}
+
+#main-content .section-card {
+	margin-bottom: -1px !important;
+	border-radius: 0 !important;
+	box-shadow: none !important;
+}
+
+#main-content .section-card > h2:first-child {
+	margin: -1.25rem -1.25rem 1rem !important;
+	padding: 0.4rem 0.75rem !important;
+	border-bottom: 1px solid var(--border-light);
+	background: var(--bg-tertiary);
+	color: var(--text-primary) !important;
+	font-size: var(--font-size-subhead) !important;
+	font-weight: 700 !important;
+	line-height: 1.3;
+}
+
+/* ===== Study decks: language groups are one catalog ===== */
+#main-content .max-w-4xl > .mb-8:has(> .section-bar-label) {
+	margin-bottom: 0 !important;
+}
+
+#main-content .max-w-4xl > .mb-8:has(> .section-bar-label) + .mb-8:has(> .section-bar-label) {
+	margin-top: 0 !important;
+}
+
+#main-content .back-grid.mt-8 {
+	margin-top: -1px !important;
+}
+
+/* ===== Touch/narrow-screen corrections ===== */
+@media (max-width: 768px) {
+	main.page:not(.learner-page) .bottom-row {
+		gap: 0 !important;
+	}
+
+	main.page:not(.learner-page) .bottom-row > .section + .section {
+		border-inline-start: 0;
+		border-block-start: 1px solid var(--border-light);
+	}
+
+	/* Mobile language matrices stack vertically but remain one sheet. */
+	.word-page .word-sections-grid > * {
+		padding-bottom: var(--spacing-sm) !important;
+	}
+
+	.search-page .results-column + .results-column {
+		border-inline-start: 0;
+	}
+
+	.user-notes-page .user-profile {
+		padding: var(--spacing-md) !important;
+	}
+}

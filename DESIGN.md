@@ -5,7 +5,9 @@ Kiokun is a dense multilingual reference tool. Its interface should feel direct,
 ## Spatial system
 
 - Section boundaries use full-width charcoal bars with light text. They are navigation landmarks, not decorative headlines.
-- A top-level section bar attaches directly to its first content row. Do not leave page-background space between a bar and the grid, prose block, description, or control it introduces; explanatory copy becomes a compact ruled row when needed.
+- Adjacent reference/browse sections stack with **no page-background gap between them**. External whitespace is not a section separator; the section bar or single ruled boundary is the separator. Reserve page-level whitespace for intros/heroes, true media composition, editing workspaces, and task transitions.
+- A top-level section bar attaches directly to both the section above and its first content row below. Do not leave page-background space before a bar or between a bar and the grid, prose block, description, or control it introduces; explanatory copy becomes a compact ruled row when needed.
+- Readability comes from padding **inside** cells/prose rows and from line-height, not from gutters between neighboring sections. A dense sheet may still have 8–12px internal cell padding even when its next section bar touches its closing rule.
 - Nested labels inside a section should be quieter than the top-level landmark: prefer a tertiary-surface ruled header with normal text instead of stacking another charcoal bar immediately below a charcoal bar.
 - Collections of related, tappable items use a single 1px divider grid. Cells supply their own 8–12px internal padding; nested cards, doubled gutters, and redundant outer padding are avoided.
 - A matrix that compares languages, variants, examples, or related forms should have one parent surface. Do not split its columns or row groups into separately bordered islands with page-background gaps between them.
