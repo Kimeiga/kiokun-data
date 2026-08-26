@@ -13,6 +13,7 @@
 		'artifacts',
 		'blog',
 		'category',
+		'courses',
 		'custom-words',
 		'demo',
 		'frequency',

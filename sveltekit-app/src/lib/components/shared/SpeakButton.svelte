@@ -13,8 +13,8 @@
 	interface Props {
 		/** The text to speak (should be the actual characters, not romanization) */
 		text: string;
-		/** The language code: 'zh' for Chinese, 'ja' for Japanese, 'ko' for Korean */
-		lang: 'zh' | 'ja' | 'ko';
+		/** The language code: 'zh' Mandarin, 'yue' Cantonese, 'ja' Japanese, 'ko' Korean */
+		lang: 'zh' | 'yue' | 'ja' | 'ko';
 		/** Optional: size of the icon (default: 16) */
 		size?: number;
 		/** Optional: visible text label rendered inside the button (e.g. "Listen").
@@ -109,6 +109,14 @@
 		{ name: 'Microsoft Zhiwei - Chinese (Traditional, Taiwan)', quality: 'normal' },
 	];
 
+	const CANTONESE_VOICES = [
+		{ name: 'Microsoft HiuGaai Online (Natural) - Chinese (Cantonese Traditional)', quality: 'veryHigh' },
+		{ name: 'Microsoft HiuMaan Online (Natural) - Chinese (Cantonese Traditional)', quality: 'veryHigh' },
+		{ name: 'Microsoft WanLung Online (Natural) - Chinese (Cantonese Traditional)', quality: 'veryHigh' },
+		{ name: 'Google 粵語（香港）', quality: 'high' },
+		{ name: 'Sinji', quality: 'high', altNames: ['Sinji (Enhanced)', 'Sinji (Chinese (Hong Kong))'] }
+	];
+
 	// Check if SpeechSynthesis is supported
 	$effect(() => {
 		if (typeof window !== 'undefined') {
@@ -120,14 +128,17 @@
 	 * Find the best available voice for the given language
 	 * Iterates through recommended voices in quality order and returns first match
 	 */
-	function findBestVoice(voices: SpeechSynthesisVoice[], targetLang: 'zh' | 'ja' | 'ko'): SpeechSynthesisVoice | null {
+	function findBestVoice(voices: SpeechSynthesisVoice[], targetLang: 'zh' | 'yue' | 'ja' | 'ko'): SpeechSynthesisVoice | null {
 		const recommendedVoices = targetLang === 'ja' ? JAPANESE_VOICES
 			: targetLang === 'ko' ? KOREAN_VOICES
+			: targetLang === 'yue' ? CANTONESE_VOICES
 			: CHINESE_VOICES;
 		const langPrefixes = targetLang === 'ja'
 			? ['ja-JP', 'ja']
 			: targetLang === 'ko'
 			? ['ko-KR', 'ko']
+			: targetLang === 'yue'
+			? ['yue-HK', 'zh-HK', 'yue']
 			: ['zh-CN', 'zh-TW', 'cmn-CN', 'cmn-TW', 'zh'];
 
 		// First, try to find a voice from our recommended list (in quality order)
@@ -187,7 +198,7 @@
 
 			// Set language based on prop
 			// Use specific locale codes for better voice matching
-			utterance.lang = lang === 'zh' ? 'zh-CN' : lang === 'ko' ? 'ko-KR' : 'ja-JP';
+			utterance.lang = lang === 'zh' ? 'zh-CN' : lang === 'yue' ? 'yue-HK' : lang === 'ko' ? 'ko-KR' : 'ja-JP';
 
 			// Find the best available voice
 			const voices = cachedVoices.length > 0 ? cachedVoices : synth.getVoices();

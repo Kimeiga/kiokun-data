@@ -1,4 +1,5 @@
 import type { RequestHandler } from './$types';
+import { languageCourses } from '$lib/courses/catalog';
 
 const SITE_URL = 'https://kiokun.com';
 
@@ -19,7 +20,11 @@ const publicPaths = [
 	'/blog/japanese-reel-stt-benchmark',
 	'/blog/semantic-mnemonic-bakeoff',
 	'/blog/translation-model-bakeoff',
-	'/learning-resources/japanese/scripting-japan'
+	'/learning-resources/japanese/scripting-japan',
+	...languageCourses.flatMap((course) => [
+		'/courses/' + course.slug,
+		...course.lessons.map((lesson) => '/courses/' + course.slug + '/' + lesson.id)
+	])
 ];
 
 function escapeXml(value: string): string {

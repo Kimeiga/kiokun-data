@@ -1,0 +1,14 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "geist",
+        "createdAt": "2026-08-26T00:10:56.382Z",
+        "reason": "Project-established type system: app.css installs Geist Variable and assigns it through the shared UI and CJK font tokens; this course refinement does not authorize a global typography replacement."
+      }
+    ]
+  }
+}

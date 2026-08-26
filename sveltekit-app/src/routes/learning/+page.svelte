@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Header from '$lib/components/Header.svelte';
+	import { languageCourses } from '$lib/courses/catalog';
 </script>
 
 <Header currentWord="" />
@@ -14,8 +15,40 @@
 	</div>
 
 	<div class="space-y-6">
+		<section id="courses" class="learning-section">
+			<h2 class="section-bar-label mobile-full-bleed">Language courses</h2>
+			<div class="grid gap-4 md:grid-cols-2 divider-grid mobile-full-bleed">
+				{#each languageCourses as course}
+					<a
+						href={'/courses/' + course.slug}
+						class="learning-card divider-cell block p-6 bg-bg-secondary border border-border rounded-lg"
+					>
+						<div class="flex items-start gap-4">
+							<div class="course-glyph" lang={course.htmlLanguage} aria-hidden="true">
+								{course.glyph}
+							</div>
+							<div class="flex-1">
+								<div class="course-label">{course.languageName} · {course.level}</div>
+								<h3 class="text-xl font-bold mb-2 text-text-primary">{course.title}</h3>
+								<p class="text-text-secondary mb-3">{course.description}</p>
+								<div class="flex flex-wrap items-center gap-2 text-sm text-text-tertiary">
+									<span class="px-2 py-1 bg-bg-tertiary rounded">
+										{course.lessons.length} lessons
+									</span>
+									<span class="px-2 py-1 bg-bg-tertiary rounded">
+										{course.lessons.filter((lesson) => lesson.kind === 'mission').length} missions
+									</span>
+									<span class="px-2 py-1 bg-bg-tertiary rounded">Dictionary-linked</span>
+								</div>
+							</div>
+						</div>
+					</a>
+				{/each}
+			</div>
+		</section>
+
 		<section id="japanese" class="learning-section">
-			<h2 class="section-bar-label mobile-full-bleed">🇯🇵 Japanese</h2>
+			<h2 class="section-bar-label mobile-full-bleed">Japanese resources</h2>
 			<div class="grid gap-4 md:grid-cols-2 divider-grid mobile-full-bleed">
 				<a
 					href="/learning-resources/japanese/scripting-japan"
@@ -163,6 +196,28 @@
 	.learning-card:hover {
 		border-color: var(--accent);
 		background: var(--surface-hover);
+	}
+
+	.course-glyph {
+		display: grid;
+		width: 3rem;
+		height: 3rem;
+		flex: 0 0 auto;
+		place-items: center;
+		border: 1px solid var(--accent);
+		color: var(--accent);
+		font-family: var(--font-cjk);
+		font-size: 1.45rem;
+		font-weight: 720;
+	}
+
+	.course-label {
+		margin-bottom: 0.25rem;
+		color: var(--accent);
+		font-size: 0.7rem;
+		font-weight: 760;
+		letter-spacing: 0.07em;
+		text-transform: uppercase;
 	}
 
 	@media (max-width: 640px) {
