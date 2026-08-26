@@ -62,6 +62,16 @@
 
 .word-page .mentions-list .mention-header {
 	margin-bottom: var(--spacing-xs) !important;
+	flex-wrap: wrap !important;
+}
+
+.word-page .mentions-list .mention-title {
+	min-width: 0;
+	overflow-wrap: anywhere;
+}
+
+.word-page .mentions-list .mention-author {
+	margin-left: auto !important;
 }
 
 .word-page .mentions-list .mention-translation {
@@ -167,14 +177,14 @@
  * focus control disappears; the session number remains the stable anchor. */
 @media (max-width: 359px) {
 	.tutor-shell .practice-name strong {
-		max-width: 6.5rem;
+		max-width: 5.75rem;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
 	}
 
 	.tutor-shell .tutor-focus > strong {
-		max-width: 5.25rem;
+		max-width: 5rem;
 	}
 }
 
