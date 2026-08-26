@@ -130,27 +130,28 @@
 			<div class="column-header">Examples for this word ({sentences.length})</div>
 			<ScrollWindow
 				class="mobile-full-bleed"
-				viewportClass="example-list"
 				id="korean-sentence-examples"
 				maxHeight="min(46svh, 28rem)"
 				ariaLabel={`Korean example sentences for ${word}`}
 			>
-				{#each sentences as s}
-					<a
-						class="example-item"
-						href="/sentence?text={encodeURIComponent(s.kr)}&lang=ko&en={encodeURIComponent(s.en)}&from={encodeURIComponent(word)}"
-					>
-						<div class="example-text" lang="ko">
-							<AnnotatedSentence
-								text={s.kr}
-								language="ko"
-								glosses={sentenceGlosses[s.kr] || {}}
-								showGlosses
-							/>
-						</div>
-						<div class="example-translation">{s.en}</div>
-					</a>
-				{/each}
+				<div class="example-list">
+					{#each sentences as s}
+						<a
+							class="example-item"
+							href="/sentence?text={encodeURIComponent(s.kr)}&lang=ko&en={encodeURIComponent(s.en)}&from={encodeURIComponent(word)}"
+						>
+							<div class="example-text" lang="ko">
+								<AnnotatedSentence
+									text={s.kr}
+									language="ko"
+									glosses={sentenceGlosses[s.kr] || {}}
+									showGlosses
+								/>
+							</div>
+							<div class="example-translation">{s.en}</div>
+						</a>
+					{/each}
+				</div>
 			</ScrollWindow>
 		</div>
 	</div>
