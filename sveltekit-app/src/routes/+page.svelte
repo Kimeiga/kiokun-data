@@ -371,6 +371,39 @@
 		</a>
 	</section>
 
+	<section class="courses-entry mobile-full-bleed" aria-label="Language courses">
+		<a href="/courses" class="courses-entry-link">
+			<span class="courses-entry-copy">
+				<span class="courses-entry-title">Structured beginner courses</span>
+				<span class="courses-entry-description">
+					Japanese, Mandarin, Cantonese, and Korean, each beginning with its writing or
+					sound system.
+				</span>
+			</span>
+			<span class="courses-entry-scripts" aria-hidden="true">
+				<span lang="ja">あ</span>
+				<span lang="zh-Hans">汉</span>
+				<span lang="yue-Hant">粵</span>
+				<span lang="ko">한</span>
+			</span>
+			<span class="courses-entry-action">
+				<span>View all courses</span>
+				<svg
+					class="courses-entry-arrow"
+					aria-hidden="true"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<path d="M5 12h14M13 6l6 6-6 6" />
+				</svg>
+			</span>
+		</a>
+	</section>
+
 	<!-- Daily Picks -->
 	{#if data.dailyPicks}
 		<section class="section">
@@ -768,6 +801,92 @@
 		transform: translateX(3px);
 	}
 	.tutor-entry-link:focus-visible {
+		outline: 3px solid var(--accent);
+		outline-offset: 3px;
+	}
+
+	/* ===== Courses ===== */
+	.courses-entry {
+		margin-top: var(--spacing-md);
+		border: 1px solid var(--border-color);
+		background: var(--bg-secondary);
+	}
+	.courses-entry-link {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) auto 10.5rem;
+		min-height: 84px;
+		align-items: stretch;
+		color: var(--text-primary);
+		text-decoration: none;
+	}
+	.courses-entry-copy {
+		display: flex;
+		min-width: 0;
+		flex-direction: column;
+		justify-content: center;
+		gap: 4px;
+		padding: 14px 20px;
+	}
+	.courses-entry-title,
+	.courses-entry-description {
+		display: block;
+	}
+	.courses-entry-title {
+		font-size: var(--font-size-headline);
+		font-weight: 700;
+		letter-spacing: -0.01em;
+	}
+	.courses-entry-description {
+		max-width: 56ch;
+		color: var(--text-secondary);
+		font-size: var(--font-size-callout);
+		line-height: 1.45;
+	}
+	.courses-entry-scripts {
+		display: grid;
+		grid-template-columns: repeat(4, 2.7rem);
+		align-content: center;
+		border-left: 1px solid var(--border-color);
+	}
+	.courses-entry-scripts span {
+		display: grid;
+		min-height: 44px;
+		place-items: center;
+		border-left: 1px solid var(--border-color);
+		font-family: var(--font-cjk);
+		font-size: 1.2rem;
+		font-weight: 680;
+	}
+	.courses-entry-scripts span:first-child {
+		border-left: 0;
+	}
+	.courses-entry-action {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 10px;
+		padding: 14px 18px;
+		border-left: 1px solid var(--border-color);
+		color: var(--accent);
+		font-size: var(--font-size-callout);
+		font-weight: 700;
+		text-align: center;
+		transition: background-color 120ms ease, color 120ms ease;
+	}
+	.courses-entry-arrow {
+		width: 20px;
+		height: 20px;
+		flex: 0 0 auto;
+		transition: transform 120ms ease;
+	}
+	.courses-entry-link:hover .courses-entry-action {
+		background: var(--accent);
+		color: var(--accent-contrast);
+	}
+	.courses-entry-link:hover .courses-entry-arrow {
+		transform: translateX(3px);
+	}
+	.courses-entry-link:focus-visible {
 		outline: 3px solid var(--accent);
 		outline-offset: 3px;
 	}
@@ -1292,6 +1411,24 @@
 			white-space: nowrap;
 			border: 0;
 		}
+		.courses-entry-link {
+			grid-template-columns: minmax(0, 1fr) 9rem;
+		}
+		.courses-entry-scripts {
+			grid-column: 1 / -1;
+			grid-row: 1;
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+			border-left: 0;
+			border-bottom: 1px solid var(--border-color);
+		}
+		.courses-entry-copy {
+			grid-column: 1;
+			grid-row: 2;
+		}
+		.courses-entry-action {
+			grid-column: 2;
+			grid-row: 2;
+		}
 		.sentences-grid {
 			grid-template-columns: 1fr;
 			gap: 16px;
@@ -1317,6 +1454,23 @@
 	}
 
 	@media (max-width: 480px) {
+		.courses-entry-link {
+			grid-template-columns: minmax(0, 1fr) 52px;
+		}
+		.courses-entry-action {
+			padding: 0;
+		}
+		.courses-entry-action > span {
+			position: absolute;
+			width: 1px;
+			height: 1px;
+			padding: 0;
+			margin: -1px;
+			overflow: hidden;
+			clip: rect(0, 0, 0, 0);
+			white-space: nowrap;
+			border: 0;
+		}
 		.daily-card {
 			min-height: 110px;
 		}
@@ -1346,6 +1500,16 @@
 		}
 		.daily-card {
 			min-height: 72px;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.courses-entry-arrow {
+			transition: none;
+		}
+
+		.courses-entry-link:hover .courses-entry-arrow {
+			transform: none;
 		}
 	}
 </style>

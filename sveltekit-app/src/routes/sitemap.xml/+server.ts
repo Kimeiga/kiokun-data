@@ -5,6 +5,7 @@ const SITE_URL = 'https://kiokun.com';
 
 const publicPaths = [
 	'/',
+	'/courses',
 	'/learning',
 	'/tutor',
 	'/frequency',
