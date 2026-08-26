@@ -1,0 +1,74 @@
+name: One-shot production deploy
+
+on:
+  pull_request_target:
+    types: [opened]
+    branches: [main]
+
+jobs:
+  deploy:
+    if: github.event.pull_request.head.repo.full_name == github.repository && startsWith(github.event.pull_request.head.ref, 'deploy/oneshot-')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v7
+        with:
+          ref: main
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+
+      - name: Install dependencies
+        working-directory: sveltekit-app
+        run: npm ci --include=optional
+
+      - name: Test
+        working-directory: sveltekit-app
+        run: npm test
+
+      - name: Check
+        working-directory: sveltekit-app
+        run: npm run check
+
+      - name: Generate frequency list
+        run: python3 scripts/generate_frequency_list.py
+
+      - name: Generate compact featured video index
+        working-directory: sveltekit-app
+        run: node scripts/generate-featured-reels.mjs
+
+      - name: Build
+        working-directory: sveltekit-app
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npm run build
+
+      - name: Prune source-only assets from Pages output
+        working-directory: sveltekit-app
+        run: node scripts/prune-cloudflare-output.js
+
+      - name: Apply sentence-learning database schema
+        working-directory: sveltekit-app
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: node scripts/apply-sentence-learning-schema.mjs
+
+      - name: Deploy to Cloudflare Pages
+        id: deploy
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy .svelte-kit/cloudflare --cwd=sveltekit-app --project-name=kiokun --branch=main --commit-dirty=true --skip-caching
+
+      - name: Verify deployed assets and critical routes
+        working-directory: sveltekit-app
+        run: node scripts/verify-pages-deployment.mjs "${{ steps.deploy.outputs.deployment-url }}"
