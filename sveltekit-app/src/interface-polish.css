@@ -91,6 +91,97 @@
 	font-weight: 650;
 }
 
+/* ===== Homepage: one continuous reference grammar ===== */
+/* Filled bars are landmarks. The explanatory copy, when present, is the first
+ * ruled row beneath the bar; no empty moat separates a title from its data. */
+.page .section-head {
+	margin-bottom: 0 !important;
+}
+
+.page .section-head h2 {
+	border: 0 !important;
+}
+
+.page .section-head p {
+	margin: 0 !important;
+	padding: 0.35rem var(--spacing-md) !important;
+	border-inline: 1px solid var(--border-light) !important;
+	background: var(--divider-cell-bg) !important;
+	color: var(--text-secondary) !important;
+	font-size: var(--font-size-subhead) !important;
+	line-height: 1.4 !important;
+}
+
+/* Tutor and Courses are sibling learning destinations. Stack them as one
+ * catalog surface instead of two cards separated by page background. */
+.page .tutor-entry + .courses-entry {
+	margin-top: -1px !important;
+}
+
+/* Sentence language columns used to be three independent islands. The parent
+ * now closes the right/bottom edge while each flag/cell owns its left/top rule. */
+.page .sentences-grid {
+	gap: 0 !important;
+	border-inline-end: 1px solid var(--border-light) !important;
+	border-block-end: 1px solid var(--border-light) !important;
+	box-sizing: border-box !important;
+}
+
+.page .sent-col {
+	gap: 0 !important;
+	border-inline-end: 0 !important;
+	border-block-end: 0 !important;
+}
+
+.page .sent-flag {
+	min-height: 2rem;
+	padding: 0.3rem var(--spacing-md) !important;
+	border-inline-start: 1px solid var(--border-light) !important;
+	border-block-start: 1px solid var(--border-light) !important;
+	box-sizing: border-box;
+	background: var(--bg-tertiary) !important;
+	font-size: var(--font-size-subhead) !important;
+}
+
+.page .sent-btn {
+	min-height: 4.5rem !important;
+	padding: 0.65rem var(--spacing-md) !important;
+}
+
+/* Conjugation examples are another comparison matrix, not two mini cards. */
+.page .conj-grid {
+	gap: 0 !important;
+	border-inline-end: 1px solid var(--border-light) !important;
+	border-block-end: 1px solid var(--border-light) !important;
+	box-sizing: border-box !important;
+}
+
+.page .conj-col {
+	gap: 0 !important;
+	border-inline-end: 0 !important;
+	border-block-end: 0 !important;
+}
+
+.page .conj-lang {
+	border-inline-start: 1px solid var(--border-light) !important;
+	border-block-start: 1px solid var(--border-light) !important;
+	box-sizing: border-box;
+}
+
+/* Secondary navigation is the final row of its parent surface. Overlap the
+ * shared boundary so one divider remains visible instead of two. */
+.page .homo-links,
+.page .whats-new-links {
+	margin-top: -1px !important;
+}
+
+.page .rule-link {
+	margin-top: -1px !important;
+	padding-inline: var(--spacing-md) !important;
+	border: 1px solid var(--border-light) !important;
+	box-sizing: border-box;
+}
+
 /* ===== Tutor: preserve the workbench, tighten the chrome ===== */
 .tutor-shell .grammar-notes {
 	margin-top: clamp(2rem, 5vh, 3rem) !important;
@@ -170,6 +261,11 @@
 	.tutor-shell .grammar-grid article {
 		min-height: 0 !important;
 		padding: 0.9rem 1rem !important;
+	}
+
+	.page .sentences-grid,
+	.page .conj-grid {
+		grid-template-columns: 1fr !important;
 	}
 }
 
