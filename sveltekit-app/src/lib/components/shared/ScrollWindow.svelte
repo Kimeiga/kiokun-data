@@ -90,6 +90,7 @@
 		overflow-x: hidden;
 		overflow-y: auto;
 		overscroll-behavior-y: contain;
+		scrollbar-color: var(--border-light) transparent;
 		scrollbar-width: thin;
 		-webkit-overflow-scrolling: touch;
 	}
