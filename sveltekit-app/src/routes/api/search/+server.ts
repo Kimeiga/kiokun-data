@@ -28,7 +28,17 @@ interface GroupedResult {
 	is_common: boolean;
 }
 
-function buildCjkSearchSql(searchTerms: string[]) {
+function isJapaneseKanaQuery(query: string): boolean {
+	return /^[\u3040-\u30ff]+$/u.test(query.trim());
+}
+
+function normalizeJapaneseReading(query: string): string {
+	return query.trim().replace(/[\u30a1-\u30f6]/gu, (character) =>
+		String.fromCharCode(character.charCodeAt(0) - 0x60)
+	);
+}
+
+function buildCjkSearchSql(searchTerms: string[], includeJapaneseReading: boolean) {
 	const whereClause = searchTerms.map(() => "word LIKE ? || '%'").join(" OR ");
 	const exactRank = searchTerms
 		.map((_, index) => `WHEN word = ? THEN ${index === 0 ? 1000 : 900}`)
@@ -36,6 +46,12 @@ function buildCjkSearchSql(searchTerms: string[]) {
 	const prefixRank = searchTerms
 		.map((_, index) => `WHEN word LIKE ? || '%' THEN ${index === 0 ? 500 : 450}`)
 		.join("\n");
+	const readingRank = includeJapaneseReading
+		? "WHEN language = 'japanese' AND pronunciation = ? THEN 875"
+		: "";
+	const readingWhere = includeJapaneseReading
+		? "OR (language = 'japanese' AND pronunciation = ?)"
+		: "";
 
 	return `
 		SELECT
@@ -47,11 +63,12 @@ function buildCjkSearchSql(searchTerms: string[]) {
 			is_common,
 			CASE
 				${exactRank}
+				${readingRank}
 				${prefixRank}
 				ELSE 0
 			END as custom_rank
 		FROM dictionary_search
-		WHERE ${whereClause}
+		WHERE (${whereClause}) ${readingWhere}
 		ORDER BY
 			custom_rank DESC,
 			is_common DESC,
@@ -106,17 +123,21 @@ export async function GET({ url, platform }: RequestEvent) {
 			// CJK input: search the typed form plus canonical/script variants.
 			// Examples: 地図 ⇄ 地圖, 地图 → 地圖, 学 ⇄ 學.
 			const searchTerms = getCjkSearchTerms(query);
+			const includeJapaneseReading = isJapaneseKanaQuery(query);
 			const cjkLimit = Math.min(
 				limit * Math.max(4, Math.min(searchTerms.length, 12)),
 				1000
 			);
+			const readingBindings = includeJapaneseReading ? [normalizeJapaneseReading(query)] : [];
 
 			results = await platform.env.DB
-				.prepare(buildCjkSearchSql(searchTerms))
+				.prepare(buildCjkSearchSql(searchTerms, includeJapaneseReading))
 				.bind(
 					...searchTerms,
+					...readingBindings,
 					...searchTerms,
 					...searchTerms,
+					...readingBindings,
 					cjkLimit
 				)
 				.all();

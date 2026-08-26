@@ -70,7 +70,12 @@
 
 		<!-- Pronunciation and the two frequent inline actions. -->
 		{#if speakText}
-			<PitchAccent word={speakText} reading={displayKana.length > 0 ? displayKana[0].text : undefined} />
+			{#if displayKana.length > 0}
+				<span class="pronunciation-slot" lang="ja">
+					<span class="kana-pronunciation">{displayKana[0].text}</span>
+					<PitchAccent word={speakText} reading={displayKana[0].text} />
+				</span>
+			{/if}
 			<SpeakButton text={speakText} lang="ja" size={18} compact />
 			<SaveToStudy word={speakText} language="ja" size="sm" />
 		{/if}
@@ -162,6 +167,27 @@
 		display: inline-flex;
 		align-items: center;
 		gap: var(--spacing-xs);
+	}
+
+	.pronunciation-slot {
+		display: inline-grid;
+		align-items: center;
+		font-family: var(--font-cjk);
+		font-size: 16px;
+		line-height: 1.3;
+	}
+
+	.pronunciation-slot > .kana-pronunciation,
+	.pronunciation-slot > :global(.pitch-anchor) {
+		grid-area: 1 / 1;
+	}
+
+	.kana-pronunciation {
+		color: var(--reading-highlight, #e74c3c);
+	}
+
+	.pronunciation-slot:has(:global(.pitch-display)) .kana-pronunciation {
+		visibility: hidden;
 	}
 
 	.headwords :global(.pitch-display) {
