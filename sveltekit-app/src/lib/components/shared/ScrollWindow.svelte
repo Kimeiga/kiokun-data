@@ -59,6 +59,8 @@
 	class={`scroll-window-shell ${className}`}
 	style={`--scroll-window-max-height: ${maxHeight}`}
 >
+	<!-- Keyboard focus is intentional only while this region overflows, so keyboard users can scroll it directly. -->
+	<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 	<div
 		{id}
 		class={`scroll-window-viewport ${viewportClass}`}
