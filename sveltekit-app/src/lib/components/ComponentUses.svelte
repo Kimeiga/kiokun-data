@@ -89,7 +89,7 @@
 
 <style>
 	.component-uses {
-		margin-bottom: var(--spacing-lg);
+		margin-bottom: 0;
 	}
 
 	.character-grid {
