@@ -347,6 +347,26 @@
 	}
 }
 
+/* ===== Study: a flashcard can flip without looking like a generic SaaS card ===== */
+#main-content .card-face {
+	border-radius: var(--radius-md) !important;
+	box-shadow: none !important;
+}
+
+#main-content .card-front,
+#main-content .card-back {
+	border-color: var(--border-color) !important;
+}
+
+#main-content .card-back {
+	border-block-end: 2px solid var(--accent) !important;
+}
+
+#main-content .deck-filter kbd,
+#main-content .rating-grid kbd {
+	border-radius: var(--radius-sm) !important;
+}
+
 /* ===== Course catalog: small density corrections only ===== */
 @media (max-width: 640px) {
 	.courses-page .course-overview,
