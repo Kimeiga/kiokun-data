@@ -47,13 +47,14 @@
 
 <style>
 	/*
-	 * The filled bar is the divider. Bordering it as well stacks a second
-	 * hairline against the rule the neighbouring ruled surface already draws,
-	 * which is what made section boundaries read as double lines.
+	 * The filled bar is the divider. It deliberately owns no external vertical
+	 * margin: reference sections stack into one continuous sheet and the bar's
+	 * fill provides all the separation they need. Bordering it as well would
+	 * stack a second hairline against the neighbouring ruled surface.
 	 */
 	.section-heading {
 		min-height: 1.75rem;
-		margin: var(--spacing-md) 0 0;
+		margin: 0;
 		margin-inline: calc(-1 * var(--surface-bleed));
 		background: var(--section-bar-bg);
 		color: var(--section-bar-text);
@@ -131,7 +132,7 @@
 		.section-heading {
 			width: 100dvw;
 			min-height: 1.75rem;
-			margin-top: var(--spacing-md);
+			margin-top: 0;
 			margin-inline: calc(50% - 50dvw);
 		}
 
