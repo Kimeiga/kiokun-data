@@ -62,23 +62,24 @@
 		<SectionHeading id="similar">Similar Characters</SectionHeading>
 		<ScrollWindow
 			class="mobile-full-bleed"
-			viewportClass="similar-scroll"
 			id="similar-character-list"
 			maxHeight="min(30svh, 10.5rem)"
 			ariaLabel={`Characters similar to ${targetChar}`}
 		>
-			{#each similarChars as item}
-				<a
-					href="/{item.char}"
-					class="similar-chip"
-					title={item.gloss || item.char}
-				>
-					<span class="chip-char">{item.char}</span>
-					{#if item.gloss}
-						<span class="chip-gloss">{item.gloss}</span>
-					{/if}
-				</a>
-			{/each}
+			<div class="similar-scroll" lang="zh">
+				{#each similarChars as item}
+					<a
+						href="/{item.char}"
+						class="similar-chip"
+						title={item.gloss || item.char}
+					>
+						<span class="chip-char">{item.char}</span>
+						{#if item.gloss}
+							<span class="chip-gloss">{item.gloss}</span>
+						{/if}
+					</a>
+				{/each}
+			</div>
 		</ScrollWindow>
 	</div>
 {/if}
