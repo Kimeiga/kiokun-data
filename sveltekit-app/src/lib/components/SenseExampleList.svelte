@@ -1,7 +1,6 @@
 <script lang="ts">
 	import AnnotatedSentence from "$lib/components/AnnotatedSentence.svelte";
-	import DisclosureChevron from "$lib/components/shared/DisclosureChevron.svelte";
-	import { animateDisclosureHeight } from "$lib/utils/disclosure-motion";
+	import ScrollWindow from "$lib/components/shared/ScrollWindow.svelte";
 
 	type SentenceLanguage = "ja" | "ko" | "zh";
 
@@ -15,15 +14,10 @@
 	export let language: SentenceLanguage;
 	export let fromWord: string | undefined = undefined;
 
-	let expanded = false;
-	let senseExampleList: HTMLDivElement | null = null;
-	let collapsedHeight = 0;
 	let sentenceGlosses: Record<string, Record<string, string>> = {};
 	const requestedGlosses = new Set<string>();
 	$: usableExamples = examples.filter((example) => Boolean(example.text));
-	$: displayedExamples = expanded ? usableExamples : usableExamples.slice(0, 1);
-	$: hasMore = usableExamples.length > 1;
-	$: if (language === "ko") void loadKoreanGlosses(displayedExamples.map((example) => example.text));
+	$: if (language === "ko") void loadKoreanGlosses(usableExamples.map((example) => example.text));
 
 	function sentenceHref(example: SenseExample): string {
 		const params = new URLSearchParams({
@@ -34,16 +28,6 @@
 		if (example.pinyin) params.set("py", example.pinyin);
 		if (fromWord) params.set("from", fromWord);
 		return `/sentence?${params.toString()}`;
-	}
-
-	function toggleExpanded() {
-		if (!expanded && senseExampleList) collapsedHeight = senseExampleList.scrollHeight;
-		void animateDisclosureHeight({
-			element: senseExampleList,
-			nextExpanded: !expanded,
-			collapsedHeight,
-			setExpanded: (value) => expanded = value,
-		});
 	}
 
 	async function loadKoreanGlosses(texts: string[]) {
@@ -71,10 +55,14 @@
 {#if usableExamples.length > 0}
 	<div class="sense-examples">
 		<div class="sense-example-label">
-			{usableExamples.length === 1 ? "Example" : "Examples"}
+			{usableExamples.length === 1 ? "Example" : `Examples (${usableExamples.length})`}
 		</div>
-		<div class="sense-example-list" bind:this={senseExampleList}>
-			{#each displayedExamples as example}
+		<ScrollWindow
+			viewportClass="sense-example-list"
+			maxHeight="min(38svh, 19rem)"
+			ariaLabel="Example sentences for this definition"
+		>
+			{#each usableExamples as example}
 				<a
 					class="sense-example"
 					href={sentenceHref(example)}
@@ -97,17 +85,7 @@
 					{/if}
 				</a>
 			{/each}
-		</div>
-		{#if hasMore}
-			<div class="sense-example-disclosure">
-				<DisclosureChevron
-					{expanded}
-					onclick={toggleExpanded}
-					expandLabel={`Show ${usableExamples.length - 1} more examples for this definition`}
-					collapseLabel="Show fewer examples for this definition"
-				/>
-			</div>
-		{/if}
+		</ScrollWindow>
 	</div>
 {/if}
 
@@ -129,7 +107,7 @@
 	.sense-example-list {
 		display: flex;
 		flex-direction: column;
-		border-block: 1px solid var(--border-light);
+		border: 1px solid var(--border-light);
 	}
 
 	.sense-example {
@@ -178,16 +156,5 @@
 		color: var(--text-tertiary);
 		font-size: var(--font-size-callout);
 		line-height: 1.4;
-	}
-
-	.sense-example-disclosure {
-		width: fit-content;
-		margin-left: 0.5rem;
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		.sense-example-source {
-			transition: none;
-		}
 	}
 </style>
