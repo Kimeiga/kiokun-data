@@ -101,12 +101,16 @@
 	padding-top: 0 !important;
 }
 
-/* Most modern browse/course pages are composed from direct child sections.
- * This catches new surfaces automatically without flattening nested prose or
- * controls inside a section. */
+/* Most modern browse pages are composed from direct child sections. Sections
+ * that begin with an actual Kiokun bar are reference sections and therefore
+ * cannot carry a legacy Tailwind mb-* gutter after themselves. */
 .learner-page > section + section {
 	margin-top: 0 !important;
 	padding-top: 0 !important;
+}
+
+.learner-page > section:has(> .section-bar-label) {
+	margin-bottom: 0 !important;
 }
 
 /* Stacked filter grids are one control matrix. Content after them may still
@@ -117,6 +121,108 @@
 
 .learner-page .page-action-grid {
 	margin-bottom: 0 !important;
+}
+
+/* ===== Search results: one cross-language result matrix ===== */
+.search-page .results-header {
+	margin-bottom: 0 !important;
+	padding: 0.35rem var(--spacing-md) !important;
+	border-inline: 1px solid var(--border-light);
+	border-block-start: 1px solid var(--border-light);
+	background: var(--divider-cell-bg);
+	font-size: var(--font-size-footnote);
+}
+
+.search-page .results-header p {
+	margin: 0;
+}
+
+.search-page .results-container {
+	gap: 0 !important;
+}
+
+.search-page .results-column {
+	--surface-bleed: 0px;
+	gap: 0 !important;
+	min-width: 0;
+}
+
+.search-page .results-column + .results-column {
+	border-inline-start: 1px solid var(--border-light);
+}
+
+.search-page .show-more {
+	width: 100%;
+	min-height: 44px;
+	margin-top: -1px !important;
+	padding: var(--spacing-sm) var(--spacing-md) !important;
+	border: 1px solid var(--border-light) !important;
+	border-radius: 0 !important;
+	background: var(--divider-cell-bg) !important;
+	color: var(--accent);
+}
+
+.search-page .show-more:hover,
+.search-page .show-more:focus-visible {
+	background: var(--divider-cell-hover) !important;
+}
+
+.search-page .custom-results-section,
+.search-page .custom-results-section .column-title {
+	margin-top: 0 !important;
+}
+
+/* ===== Frequency: tabs, rows and pagination are one surface ===== */
+.frequency-page .tabs {
+	margin-bottom: 0 !important;
+}
+
+.frequency-page .load-more {
+	margin-top: -1px !important;
+	padding: var(--spacing-md) !important;
+	border: 1px solid var(--border-light) !important;
+	border-radius: 0 !important;
+	background: var(--divider-cell-bg) !important;
+	color: var(--accent);
+}
+
+.frequency-page .load-more:hover,
+.frequency-page .load-more:focus-visible {
+	background: var(--divider-cell-hover) !important;
+}
+
+/* ===== Homophone browsers: pronunciation groups are rows, not cards ===== */
+.learner-page .groups {
+	gap: 0 !important;
+}
+
+.learner-page .groups > .group-card {
+	margin: 0 !important;
+	border-radius: 0 !important;
+	box-shadow: none !important;
+}
+
+.learner-page .groups > .group-card + .group-card {
+	margin-top: -1px !important;
+}
+
+.learner-page .groups .group-expand {
+	border-radius: 0 !important;
+	background: var(--divider-cell-bg) !important;
+}
+
+.learner-page .groups .group-expand:hover,
+.learner-page .groups .group-expand:focus-visible {
+	background: var(--divider-cell-hover) !important;
+}
+
+.learner-page .load-more-grid {
+	margin-top: -1px !important;
+}
+
+.learner-page .load-more-grid .load-more {
+	margin-top: 0 !important;
+	border-radius: 0 !important;
 }
 
 /* ===== Touch/narrow-screen corrections ===== */
@@ -133,5 +239,9 @@
 	/* Mobile language matrices stack vertically but remain one sheet. */
 	.word-page .word-sections-grid > * {
 		padding-bottom: var(--spacing-sm) !important;
+	}
+
+	.search-page .results-column + .results-column {
+		border-inline-start: 0;
 	}
 }
