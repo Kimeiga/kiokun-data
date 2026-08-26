@@ -354,6 +354,23 @@
 		</form>
 	</section>
 
+	<section class="tutor-entry mobile-full-bleed" aria-label="Translation practice">
+		<a href="/tutor" class="tutor-entry-link">
+			<span class="tutor-entry-kicker">
+				<span class="tutor-entry-glyph" aria-hidden="true">訳</span>
+				<span>Translation tutor</span>
+			</span>
+			<span class="tutor-entry-copy">
+				<span class="tutor-entry-title">Learn one sentence at a time.</span>
+				<span class="tutor-entry-description">Translate Japanese or Mandarin. Revise what is almost right. Learn why.</span>
+			</span>
+			<span class="tutor-entry-action">
+				<span class="tutor-entry-action-label">Start practicing</span>
+				<span class="tutor-entry-arrow" aria-hidden="true">→</span>
+			</span>
+		</a>
+	</section>
+
 	<!-- Daily Picks -->
 	{#if data.dailyPicks}
 		<section class="section">
@@ -674,6 +691,85 @@
 	.hero-action-btn.active {
 		background: var(--accent);
 		color: white;
+	}
+
+	/* ===== Translation Tutor ===== */
+	.tutor-entry {
+		border: 1px solid var(--border-color);
+		background: var(--bg-secondary);
+	}
+	.tutor-entry-link {
+		display: grid;
+		grid-template-columns: 10.5rem minmax(0, 1fr) auto;
+		min-height: 88px;
+		align-items: stretch;
+		color: var(--text-primary);
+		text-decoration: none;
+	}
+	.tutor-entry-kicker,
+	.tutor-entry-action {
+		display: flex;
+		align-items: center;
+	}
+	.tutor-entry-kicker {
+		gap: 10px;
+		padding: 14px 18px;
+		border-right: 1px solid var(--border-color);
+		color: var(--text-secondary);
+		font-size: var(--font-size-caption1);
+		font-weight: 650;
+		letter-spacing: 0.02em;
+	}
+	.tutor-entry-glyph {
+		color: var(--accent);
+		font-family: var(--font-cjk);
+		font-size: 30px;
+		font-weight: 700;
+		line-height: 1;
+	}
+	.tutor-entry-copy {
+		display: flex;
+		min-width: 0;
+		flex-direction: column;
+		justify-content: center;
+		gap: 4px;
+		padding: 14px 20px;
+	}
+	.tutor-entry-title {
+		font-size: var(--font-size-headline);
+		font-weight: 700;
+		letter-spacing: -0.01em;
+	}
+	.tutor-entry-description {
+		color: var(--text-secondary);
+		font-size: var(--font-size-callout);
+		line-height: 1.45;
+	}
+	.tutor-entry-action {
+		justify-content: center;
+		gap: 10px;
+		padding: 14px 20px;
+		border-left: 1px solid var(--border-color);
+		color: var(--accent);
+		font-size: var(--font-size-callout);
+		font-weight: 700;
+		transition: background-color 120ms ease, color 120ms ease;
+	}
+	.tutor-entry-arrow {
+		font-size: 22px;
+		line-height: 1;
+		transition: transform 120ms ease;
+	}
+	.tutor-entry-link:hover .tutor-entry-action {
+		background: var(--accent);
+		color: white;
+	}
+	.tutor-entry-link:hover .tutor-entry-arrow {
+		transform: translateX(3px);
+	}
+	.tutor-entry-link:focus-visible {
+		outline: 3px solid var(--accent);
+		outline-offset: 3px;
 	}
 
 	/* ===== Daily Picks ===== */
@@ -1165,6 +1261,36 @@
 		}
 		.hero-title {
 			font-size: 36px;
+		}
+		.tutor-entry-link {
+			grid-template-columns: minmax(0, 1fr) 52px;
+		}
+		.tutor-entry-kicker {
+			grid-column: 1 / -1;
+			min-height: 34px;
+			padding: 6px 14px;
+			border-right: 0;
+			border-bottom: 1px solid var(--border-color);
+		}
+		.tutor-entry-glyph {
+			font-size: 19px;
+		}
+		.tutor-entry-copy {
+			padding: 13px 16px 14px;
+		}
+		.tutor-entry-action {
+			padding: 0;
+		}
+		.tutor-entry-action-label {
+			position: absolute;
+			width: 1px;
+			height: 1px;
+			padding: 0;
+			margin: -1px;
+			overflow: hidden;
+			clip: rect(0, 0, 0, 0);
+			white-space: nowrap;
+			border: 0;
 		}
 		.sentences-grid {
 			grid-template-columns: 1fr;
