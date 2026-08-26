@@ -58,33 +58,34 @@
 			{usableExamples.length === 1 ? "Example" : `Examples (${usableExamples.length})`}
 		</div>
 		<ScrollWindow
-			viewportClass="sense-example-list"
 			maxHeight="min(38svh, 19rem)"
 			ariaLabel="Example sentences for this definition"
 		>
-			{#each usableExamples as example}
-				<a
-					class="sense-example"
-					href={sentenceHref(example)}
-					aria-label={`Open example sentence: ${example.text}`}
-				>
-					<span
-						class="sense-example-source"
-						lang={language === "zh" ? "zh" : language}
+			<div class="sense-example-list">
+				{#each usableExamples as example}
+					<a
+						class="sense-example"
+						href={sentenceHref(example)}
+						aria-label={`Open example sentence: ${example.text}`}
 					>
-						<AnnotatedSentence
-							text={example.text}
-							{language}
-							pinyin={example.pinyin || ""}
-							glosses={sentenceGlosses[example.text] || {}}
-							showGlosses={language === "ko"}
-						/>
-					</span>
-					{#if example.translation}
-						<span class="sense-example-translation">{example.translation}</span>
-					{/if}
-				</a>
-			{/each}
+						<span
+							class="sense-example-source"
+							lang={language === "zh" ? "zh" : language}
+						>
+							<AnnotatedSentence
+								text={example.text}
+								{language}
+								pinyin={example.pinyin || ""}
+								glosses={sentenceGlosses[example.text] || {}}
+								showGlosses={language === "ko"}
+							/>
+						</span>
+						{#if example.translation}
+							<span class="sense-example-translation">{example.translation}</span>
+						{/if}
+					</a>
+				{/each}
+			</div>
 		</ScrollWindow>
 	</div>
 {/if}
