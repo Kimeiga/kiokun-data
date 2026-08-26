@@ -62,6 +62,7 @@
 						results.push({ kr: d[idx][0], en: d[idx][1] });
 					}
 				}
+			}
 		}
 		return results;
 	}
