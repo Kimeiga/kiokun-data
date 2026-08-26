@@ -284,6 +284,69 @@
 	}
 }
 
+/* ===== Learning directory: remove legacy resource-card chrome ===== */
+.learner-page .space-y-6 > :not([hidden]) ~ :not([hidden]) {
+	margin-top: 0 !important;
+}
+
+.learner-page .learning-section + .learning-section {
+	margin-top: 1.5rem !important;
+	padding-top: 0 !important;
+}
+
+.learner-page .learning-card {
+	padding: 1rem !important;
+}
+
+.learner-page .learning-card h3 {
+	margin-bottom: 0.3rem !important;
+	font-size: var(--font-size-headline) !important;
+	line-height: 1.2 !important;
+}
+
+.learner-page .learning-card p {
+	margin-bottom: 0.5rem !important;
+	font-size: var(--font-size-callout) !important;
+	line-height: 1.5 !important;
+}
+
+/* Metadata reads faster as inline reference text than as a row of pills. */
+.learner-page .learning-card .text-text-tertiary > span {
+	padding: 0 !important;
+	border: 0 !important;
+	border-radius: 0 !important;
+	background: transparent !important;
+	font-size: var(--font-size-caption1) !important;
+}
+
+.learner-page .learning-card .text-4xl {
+	font-size: 1.5rem !important;
+}
+
+.learner-page .learning-card .text-2xl {
+	font-size: 1.25rem !important;
+}
+
+.learner-page .course-glyph {
+	width: 2.5rem !important;
+	height: 2.5rem !important;
+	font-size: 1.2rem !important;
+}
+
+@media (max-width: 640px) {
+	.learner-page .learning-section + .learning-section {
+		margin-top: 1rem !important;
+	}
+
+	.learner-page .learning-card {
+		padding: 0.75rem !important;
+	}
+
+	.learner-page .learning-card .gap-4 {
+		gap: var(--spacing-sm) !important;
+	}
+}
+
 /* ===== Course catalog: small density corrections only ===== */
 @media (max-width: 640px) {
 	.courses-page .course-overview,
