@@ -1,4 +1,5 @@
 import { japaneseDailyFoodLessons } from './japanese-a1-daily-food';
+import { japaneseFamilyHomeLessons } from './japanese-a1-family-home';
 import { japaneseFoundationsLessons } from './japanese-a1-foundations';
 import { japanesePlacesLessons } from './japanese-a1-places';
 import type { JapaneseCourse, JapaneseLesson, JapaneseUnit } from './types';
@@ -6,7 +7,8 @@ import type { JapaneseCourse, JapaneseLesson, JapaneseUnit } from './types';
 const lessons: JapaneseLesson[] = [
 	...japaneseFoundationsLessons,
 	...japaneseDailyFoodLessons,
-	...japanesePlacesLessons
+	...japanesePlacesLessons,
+	...japaneseFamilyHomeLessons
 ].map((lesson, index) => ({ ...lesson, sequence: index + 1 }));
 
 const units: JapaneseUnit[] = [
@@ -59,6 +61,16 @@ const units: JapaneseUnit[] = [
 		canDo: 'Ask where a place is, follow simple directions, propose a plan, negotiate one detail, and confirm where and when.',
 		mission: 'Invite someone, settle an exact plan, and navigate to the meeting point.',
 		lessonIds: lessons.filter((lesson) => lesson.unitId === 'places-plans').map((lesson) => lesson.id)
+	},
+	{
+		id: 'family-home',
+		sequence: 5,
+		title: 'Family & home',
+		nativeTitle: '家族と家',
+		strapline: 'Family relationships, people counters, residence, rooms, and location at home.',
+		canDo: 'Identify family members, state who is present, describe a home, and locate a person, animal, or object.',
+		mission: 'Give a connected description of a family and home while choosing います and あります by meaning.',
+		lessonIds: lessons.filter((lesson) => lesson.unitId === 'family-home').map((lesson) => lesson.id)
 	}
 ];
 
@@ -76,7 +88,7 @@ export const japaneseA1Course: JapaneseCourse = {
 	readingLabel: 'Reading',
 	level: 'Launchpad–A1',
 	description:
-		'A 28-lesson introductory Japanese course for independent adults, covering script, sound, everyday exchanges, retrieval practice, open production, and transfer checks.',
+		'A 32-lesson introductory Japanese course for independent adults, covering script, sound, everyday exchanges, family and home descriptions, retrieval practice, open production, and transfer checks.',
 	designPromise:
 		'Each lesson contains an initial example, form-focused explanation, closed retrieval, open production, and a reduced-support transfer task.',
 	units,

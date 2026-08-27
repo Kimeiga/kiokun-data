@@ -4,12 +4,12 @@
 
 | Course | Route | Lessons | Foundation sequence |
 | --- | --- | ---: | --- |
-| Japanese | `/courses/japanese` | 28 | Hiragana and katakana charts, five vowels, kana rows, dakuten and handakuten, contracted sounds, ヴ, long vowels, small っ, and ん |
-| Mandarin | `/courses/mandarin` | 20 | Pinyin syllables and four tones plus neutral tone, initials, palatal and sibilant contrasts, finals and ü, and common tone changes |
-| Cantonese | `/courses/cantonese` | 20 | Jyutping structure, six tone categories, onsets and aspiration, finals and vowel length, stop codas, and syllabic nasals |
-| Korean | `/courses/korean` | 20 | Hangul syllable blocks, basic consonants and vowels, plain/aspirated/tense series, compound vowels, batchim, linking, and initial word reading |
+| Japanese | `/courses/japanese` | 32 | Hiragana and katakana charts, five vowels, kana rows, dakuten and handakuten, contracted sounds, ヴ, long vowels, small っ, and ん |
+| Mandarin | `/courses/mandarin` | 24 | Pinyin syllables and four tones plus neutral tone, initials, palatal and sibilant contrasts, finals and ü, and common tone changes |
+| Cantonese | `/courses/cantonese` | 24 | Jyutping structure, six tone categories, onsets and aspiration, finals and vowel length, stop codas, and syllabic nasals |
+| Korean | `/courses/korean` | 24 | Hangul syllable blocks, basic consonants and vowels, plain/aspirated/tense series, compound vowels, batchim, linking, and initial word reading |
 
-Each course then covers introductions, basic personal information, days and time, routines, scheduling, ordering, prices, and locations. Lessons use the same explicit sequence: example, form-focused analysis, explanation, dictionary-linked vocabulary, closed retrieval, open production, and a reduced-support transfer task.
+Each course then covers introductions, basic personal information, days and time, routines, scheduling, ordering, prices, locations, family relationships, possession or existence, household counts, and home descriptions. Lessons use the same explicit sequence: example, form-focused analysis, explanation, dictionary-linked vocabulary, closed retrieval, open production, and a reduced-support transfer task.
 
 ## Language-specific implementation
 
@@ -29,6 +29,15 @@ The foundation order and notation conventions were checked against primary insti
 
 These sources establish script and notation facts, not permission to copy a commercial course. The lesson wording, examples, activities, sequencing decisions, and Kiokun integrations are original to this implementation.
 
+The family-and-home expansion was checked against established beginner curricula for each language:
+
+- The Japan Foundation's [Irodori Starter table of contents](https://www.irodori.jpf.go.jp/assets/data/starter/pdf/X_contents_en.pdf) places family, rooms, possession or existence, and location within its A1 sequence.
+- [HSK Standard Course 1](https://www.hskstandardcourse.com/hsk-standard-course-level-1/hsk-standard-course-1-textbook/) includes family identification, family age, ability, and workplace location among its 15 beginner lessons.
+- The Education University of Hong Kong's [Cantonese Self-learning Class](https://cantonese-self-learning-class.eduhk.hk/about) combines Jyutping foundations with structured daily-life units. The Chinese University of Hong Kong's elementary program explicitly includes [family and location topics](https://yccla.cuhk.edu.hk/_files/ugd/9e5885_1e0ca2e5d0624cedaec21e095d9aae3e.pdf).
+- King Sejong Institute's beginner materials include location, possession, family, and practical communication after the separate Hangul introduction.
+
+These sources support coverage decisions. They do not establish that Kiokun produces equivalent proficiency outcomes.
+
 ## Verification
 
-`src/lib/courses/catalog.test.ts` checks the four-course catalog, lesson sequencing, unit references, activity identifiers, reference charts, lesson content requirements, and language-specific mappings. `src/lib/courses/japanese-a1.test.ts` retains the deeper Japanese script and grading checks.
+`src/lib/courses/catalog.test.ts` checks the four-course catalog, lesson sequencing, unit references, activity identifiers, reference charts, lesson content requirements, and language-specific mappings. It also submits every option in all 120 multiple-choice questions. The test proves that each answer matches exactly one option, every distractor grades as `target_mismatch`, and empty submissions grade as `invalid_input`. `src/lib/courses/japanese-a1.test.ts` retains the deeper Japanese script and grading checks. Both course tests run from the default `npm test` command.

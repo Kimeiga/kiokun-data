@@ -7,7 +7,7 @@
 
 ## Scope
 
-The pilot contains 28 lessons in five units. The eight-lesson Launchpad establishes the writing and sound system before scenario-based A1 material:
+The course contains 32 lessons in six units. The eight-lesson Launchpad establishes the writing and sound system before scenario-based A1 material:
 
 1. Japanese writing systems and complete hiragana/katakana gojūon charts
 2. Japanese vowel timing
@@ -18,7 +18,7 @@ The pilot contains 28 lessons in five units. The eight-lesson Launchpad establis
 7. Contracted sounds, small katakana vowels, and ヴ
 8. Long vowels, small っ, and ん
 
-The remaining units cover introductions, daily routine and time, food ordering, and places and plans.
+The remaining units cover introductions, daily routine and time, food ordering, places and plans, and family and home descriptions.
 
 ## Lesson model
 

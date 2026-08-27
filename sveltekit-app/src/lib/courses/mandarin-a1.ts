@@ -368,6 +368,62 @@ const lessons = [
 		arrange: { prompt: 'Build “The restroom is beside the door.”', tiles: ['门', '在', '洗手间', '旁边'], answer: ['洗手间', '在', '门', '旁边'], translation: 'The restroom is beside the door.', rationale: 'The reference place 门 precedes 旁边.' },
 		production: { mode: 'speak', prompt: 'Order two items, ask the total, then ask where the restroom is.', modelAnswer: '请给我一杯茶和一碗面。一共多少钱？洗手间在哪儿？', modelReading: 'Qǐng gěi wǒ yì bēi chá hé yì wǎn miàn. Yígòng duōshao qián? Xǐshǒujiān zài nǎr?', checklist: ['Two quantified items ordered', 'Total requested with 一共多少钱', 'Location requested with 在哪儿', 'Request remains intelligible without reading support'] },
 		transferPrompt: 'Repeat the exchange with different items, a different total, and a different destination.', transferSupport: '请给我…；一共多少钱？…在哪儿？'
+	}),
+	lesson({
+		id: 'zh-20-family-photo', unitId: 'mandarin-family-home', title: 'Identifying family members', shortTitle: 'Family photo',
+		canDo: 'Identify one person in a family photo and state that person’s relationship to you.',
+		focus: ['这是谁', '我 + family noun', '他／她'],
+		scenario: [['王明', '这是谁？', 'Zhè shì shéi?', 'Who is this?'], ['林娜', '这是我姐姐。她在上海工作。', 'Zhè shì wǒ jiějie. Tā zài Shànghǎi gōngzuò.', 'This is my older sister. She works in Shanghai.']],
+		notice: ['谁 asks for a person’s identity; 这 refers to the person shown in the photo.', '的 is commonly omitted between a pronoun and a close family relationship: 我姐姐.'],
+		explanation: ['这是… identifies the person. In careful or contrastive speech, 我的姐姐 is also possible.', 'The location phrase 在上海 precedes the action verb 工作 in this example.'],
+		vocabulary: [['谁', 'shéi', 'who'], ['姐姐', 'jiějie', 'older sister'], ['她', 'tā', 'she; her'], ['工作', 'gōngzuò', 'work']],
+		choice: { prompt: 'What information does 这是谁 request?', options: [['person', 'The person’s identity'], ['place', 'The person’s location'], ['age', 'The person’s age']], answer: 'person', rationale: '谁 means “who” and asks for a person’s identity.' },
+		reviewChoices: [{ prompt: 'Which phrase naturally identifies your own older sister?', options: [['sister', '我姐姐'], ['teacher', '我老师'], ['younger', '我妹妹']], answer: 'sister', rationale: '我姐姐 means “my older sister”; 的 is commonly omitted with close kinship terms.' }],
+		arrange: { prompt: 'Build “This is my older sister.”', tiles: ['我姐姐', '这', '谁', '是'], answer: ['这', '是', '我姐姐'], translation: 'This is my older sister.', rationale: '这 is the subject, 是 identifies, and 我姐姐 supplies the relationship.' },
+		production: { mode: 'speak', prompt: 'Identify one person in a photo and say where that person works or lives.', modelAnswer: '这是我姐姐。她在上海工作。', modelReading: 'Zhè shì wǒ jiějie. Tā zài Shànghǎi gōngzuò.', checklist: ['Identification begins with 这是', 'Relationship follows 我', 'Location precedes the activity verb'] },
+		transferPrompt: 'Identify a different family member and replace Shanghai and work with new information.', transferSupport: '这是我…。他／她在…工作／住。'
+	}),
+	lesson({
+		id: 'zh-21-family-existence', unitId: 'mandarin-family-home', title: 'Saying who is in your family', shortTitle: 'Who is in the family',
+		canDo: 'Ask whether someone has siblings and give a positive or negative counted answer.',
+		focus: ['有／没有', '兄弟姐妹', 'number + 个 + person'],
+		scenario: [['林娜', '你有兄弟姐妹吗？', 'Nǐ yǒu xiōngdì jiěmèi ma?', 'Do you have any siblings?'], ['王明', '我有一个妹妹。', 'Wǒ yǒu yí ge mèimei.', 'I have one younger sister.']],
+		notice: ['有 expresses possession or existence. Its negative form is 没有, not 不有.', '个 appears between the number and 妹妹 in the counted answer.'],
+		explanation: ['The subject comes before 有: 我有… means “I have…”. A yes–no question can add 吗 without changing the internal order.', '一 is written with first tone in citation form but is normally pronounced with second tone before fourth-tone 个.'],
+		vocabulary: [['有', 'yǒu', 'have; exist'], ['没有', 'méiyǒu', 'not have; not exist'], ['兄弟姐妹', 'xiōngdì jiěmèi', 'siblings'], ['妹妹', 'mèimei', 'younger sister']],
+		choice: { prompt: 'Which form means “do not have”?', options: [['meiyou', '没有'], ['buyou', '不有'], ['bushi', '不是']], answer: 'meiyou', rationale: '没有 is the standard negative of 有.' },
+		reviewChoices: [{ prompt: 'Which sentence says “I have one younger sister”?', options: [['one', '我有一个妹妹。'], ['no-classifier', '我有一妹妹。'], ['negative', '我没有妹妹。']], answer: 'one', rationale: 'The counted noun phrase uses 一 + 个 + 妹妹 after 有.' }],
+		arrange: { prompt: 'Build “I have one younger sister.”', tiles: ['一个', '我', '有', '妹妹'], answer: ['我', '有', '一个', '妹妹'], translation: 'I have one younger sister.', rationale: 'The order is possessor + 有 + number–measure phrase + noun.' },
+		production: { mode: 'speak', prompt: 'Ask about siblings and answer positively or negatively with one detail.', modelAnswer: '你有兄弟姐妹吗？我有一个妹妹。', modelReading: 'Nǐ yǒu xiōngdì jiěmèi ma? Wǒ yǒu yí ge mèimei.', checklist: ['Question uses 有…吗', 'Negative answer uses 没有 when needed', 'Counted person includes 个'] },
+		transferPrompt: 'Give a new answer with no siblings or with a different number and relationship.', transferSupport: '我没有兄弟姐妹。／我有…个…。'
+	}),
+	lesson({
+		id: 'zh-22-home-rooms', unitId: 'mandarin-family-home', title: 'Rooms and location at home', shortTitle: 'Rooms at home',
+		canDo: 'Ask how many rooms a home has and locate a person, animal, or object inside it.',
+		focus: ['你家有几个…', '在 + place + 里', '几 + measure word'],
+		scenario: [['王明', '你家有几个房间？', 'Nǐ jiā yǒu jǐ ge fángjiān?', 'How many rooms does your home have?'], ['林娜', '有三个。猫在客厅里。', 'Yǒu sān ge. Māo zài kètīng li.', 'It has three. The cat is in the living room.']],
+		notice: ['几 comes before the measure word 个 when asking for an expected small number.', 'The location pattern is subject + 在 + place; 里 specifies the inside of the room.'],
+		explanation: ['The answer can omit 房间 because the question already establishes what is being counted.', '在 expresses where people, animals, and objects are located; Mandarin does not require separate animate and inanimate existence verbs.'],
+		vocabulary: [['家', 'jiā', 'home; family'], ['房间', 'fángjiān', 'room'], ['几个', 'jǐ ge', 'how many'], ['猫', 'māo', 'cat'], ['客厅', 'kètīng', 'living room']],
+		choice: { prompt: 'How many rooms are in the example home?', options: [['three', 'Three'], ['one', 'One'], ['five', 'Five']], answer: 'three', rationale: '有三个 states that there are three.' },
+		reviewChoices: [{ prompt: 'Which sentence correctly puts the cat in the living room?', options: [['location', '猫在客厅里。'], ['reversed', '客厅在猫里。'], ['identity', '猫是客厅。']], answer: 'location', rationale: 'The located subject comes before 在, followed by 客厅里.' }],
+		arrange: { prompt: 'Build “The cat is in the living room.”', tiles: ['猫', '客厅里', '有', '在'], answer: ['猫', '在', '客厅里'], translation: 'The cat is in the living room.', rationale: 'The location pattern is subject + 在 + place.' },
+		production: { mode: 'speak', prompt: 'State how many rooms a home has and locate one person, animal, or object.', modelAnswer: '我家有三个房间。猫在客厅里。', modelReading: 'Wǒ jiā yǒu sān ge fángjiān. Māo zài kètīng li.', checklist: ['Room count uses 个', 'Location uses 在', 'Place follows 在'] },
+		transferPrompt: 'Change the room count and locate a different person or object in another room.', transferSupport: '我家有…个房间。…在…里。'
+	}),
+	lesson({
+		id: 'zh-23-family-home-mission', unitId: 'mandarin-family-home', title: 'Mission: describe a family and home', shortTitle: 'Family and home mission', kind: 'mission', durationMinutes: 20,
+		canDo: 'Give a short connected description of family size, relationships, residence, and one home location.',
+		focus: ['几口人', '父母', '住在', '家里有…'],
+		scenario: [['林娜', '你家有几口人？', 'Nǐ jiā yǒu jǐ kǒu rén?', 'How many people are in your family?'], ['王明', '我家有四口人：我父母、我姐姐和我。我们住在北京。家里有一只猫。', 'Wǒ jiā yǒu sì kǒu rén: wǒ fùmǔ, wǒ jiějie hé wǒ. Wǒmen zhù zài Běijīng. Jiā li yǒu yì zhī māo.', 'There are four people in my family: my parents, my older sister, and me. We live in Beijing. There is a cat at home.']],
+		notice: ['口 is a conventional measure word for members of a household; 个 is not used in this fixed family-count question.', '住在 places the location after the verb, while 家里有 introduces what exists at home.'],
+		explanation: ['A connected description can move from family count to relationships, residence, and a home detail without repeating every noun.', '只 is a common measure word for many animals, including cats in this context.'],
+		vocabulary: [['口', 'kǒu', 'measure word for household members'], ['父母', 'fùmǔ', 'parents'], ['我们', 'wǒmen', 'we; us'], ['住', 'zhù', 'live; reside'], ['只', 'zhī', 'measure word for many animals']],
+		choice: { prompt: 'How many people are in Wang Ming’s family description?', options: [['four', 'Four'], ['three', 'Three'], ['five', 'Five']], answer: 'four', rationale: '我家有四口人 gives the family count as four.' },
+		reviewChoices: [{ prompt: 'Which phrase correctly states “We live in Beijing”?', options: [['live', '我们住在北京。'], ['reversed', '我们在住北京。'], ['exist', '我们有北京。']], answer: 'live', rationale: '住在 is followed by the place of residence.' }],
+		arrange: { prompt: 'Build “There is a cat at home.”', tiles: ['一只猫', '有', '家里', '在'], answer: ['家里', '有', '一只猫'], translation: 'There is a cat at home.', rationale: 'The location frame comes first, followed by 有 and the existing noun phrase.' },
+		production: { mode: 'speak', prompt: 'Describe a real or invented family and home in at least four connected statements.', modelAnswer: '我家有四口人。我有一个姐姐。我们住在北京。我家有三个房间。', modelReading: 'Wǒ jiā yǒu sì kǒu rén. Wǒ yǒu yí ge jiějie. Wǒmen zhù zài Běijīng. Wǒ jiā yǒu sān ge fángjiān.', checklist: ['Family count uses 口', 'At least one relationship is named', 'Residence uses 住在', 'One home detail uses 有 or 在'] },
+		transferPrompt: 'Repeat the description with a different family size, city, room count, and home-location detail.', transferSupport: '我家有…口人。我有…。我们住在…。家里有…。'
 	})
 ].map((item, index) => ({ ...item, sequence: index + 1 }));
 
@@ -375,7 +431,8 @@ const units: CourseUnit[] = [
 	{ id: 'mandarin-launchpad', sequence: 0, title: 'Pinyin and sound system', nativeTitle: '拼音和语音', strapline: 'Pinyin initials, finals, tones, and connected-speech changes.', canDo: 'Use Pinyin to decode beginner syllables and preserve contrasts that distinguish words.', mission: 'Read an unfamiliar beginner word from characters plus Pinyin and identify its initial, final, and tone.', lessonIds: lessons.filter((item) => item.unitId === 'mandarin-launchpad').map((item) => item.id) },
 	{ id: 'mandarin-introductions', sequence: 1, title: 'Introductions and identity', nativeTitle: '介绍自己', strapline: 'Names, identity, questions, numbers, and a complete first meeting.', canDo: 'Introduce yourself, exchange one personal detail, and return a matching question.', mission: 'Complete a first meeting with a name, identity, age or origin, and one follow-up question.', lessonIds: lessons.filter((item) => item.unitId === 'mandarin-introductions').map((item) => item.id) },
 	{ id: 'mandarin-daily', sequence: 2, title: 'Daily routine and time', nativeTitle: '日常和时间', strapline: 'Dates, clock time, routine descriptions, frequency, and scheduling.', canDo: 'Describe a short routine and negotiate a specific day and time.', mission: 'Propose, revise, and confirm a meeting time.', lessonIds: lessons.filter((item) => item.unitId === 'mandarin-daily').map((item) => item.id) },
-	{ id: 'mandarin-food-places', sequence: 3, title: 'Food, prices, and places', nativeTitle: '点餐和地点', strapline: 'Measure words, orders, prices, totals, and simple locations.', canDo: 'Order common items, confirm a price, and ask where a place is.', mission: 'Complete an order and obtain one location inside the same service exchange.', lessonIds: lessons.filter((item) => item.unitId === 'mandarin-food-places').map((item) => item.id) }
+	{ id: 'mandarin-food-places', sequence: 3, title: 'Food, prices, and places', nativeTitle: '点餐和地点', strapline: 'Measure words, orders, prices, totals, and simple locations.', canDo: 'Order common items, confirm a price, and ask where a place is.', mission: 'Complete an order and obtain one location inside the same service exchange.', lessonIds: lessons.filter((item) => item.unitId === 'mandarin-food-places').map((item) => item.id) },
+	{ id: 'mandarin-family-home', sequence: 4, title: 'Family and home', nativeTitle: '家庭和住处', strapline: 'Relationships, possession, household counts, rooms, and locations at home.', canDo: 'Identify family members, state who is in a household, describe a home, and locate a person, animal, or object.', mission: 'Give a connected description of a family and home with accurate measure words and location patterns.', lessonIds: lessons.filter((item) => item.unitId === 'mandarin-family-home').map((item) => item.id) }
 ];
 
 export const mandarinA1Course: LanguageCourse = {
@@ -391,7 +448,7 @@ export const mandarinA1Course: LanguageCourse = {
 	speechLanguage: 'zh',
 	readingLabel: 'Pinyin',
 	level: 'Launchpad–A1',
-	description: 'A 20-lesson introductory Mandarin course covering Pinyin, tones, characters, everyday exchanges, retrieval, open production, and transfer checks.',
+	description: 'A 24-lesson introductory Mandarin course covering Pinyin, tones, characters, everyday exchanges, family and home descriptions, retrieval, open production, and transfer checks.',
 	designPromise: 'Each lesson connects characters to Pinyin and meaning, checks a constrained target, requires original use, and ends with reduced support.',
 	units,
 	lessons

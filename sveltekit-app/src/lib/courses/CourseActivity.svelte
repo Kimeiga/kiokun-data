@@ -23,15 +23,24 @@
 	let typedAnswer = $state('');
 	let modelVisible = $state(false);
 	let checkedCriteria = $state<boolean[]>([]);
+	let initialStatusHydrated = $state(initialStatus !== undefined);
 
 	$effect(() => {
-		if (initialStatus && !status) status = initialStatus;
+		if (!initialStatusHydrated && initialStatus) {
+			if (!status) status = initialStatus;
+			initialStatusHydrated = true;
+		}
 	});
 
 	let selectedTiles = $derived(
 		activity.type === 'arrange'
 			? selectedTileIndexes.map((index) => activity.tiles[index])
 			: []
+	);
+	let choiceReference = $derived(
+		activity.type === 'choice'
+			? activity.options.find((option) => option.value === activity.answer)?.label
+			: undefined
 	);
 
 	function saveStatus(nextStatus: AnswerStatus): void {
@@ -101,27 +110,32 @@
 					: 'Open writing'
 				: activity.title}
 		</p>
-		<h3>{activity.prompt}</h3>
+		<h3 id={activity.id + '-prompt'}>{activity.prompt}</h3>
 	</header>
 
 	{#if activity.type === 'choice'}
-		<div class="choice-list" role="radiogroup" aria-label={activity.prompt}>
+		<fieldset class="choice-list" aria-labelledby={activity.id + '-prompt'}>
+			<legend>Choose one answer</legend>
 			{#each activity.options as option}
-				<button
-					type="button"
+				<label
+					class="choice-option"
 					class:selected={selectedChoice === option.value}
-					onclick={() => {
-						selectedChoice = option.value;
-						status = undefined;
-					}}
-					role="radio"
-					aria-checked={selectedChoice === option.value}
+					class:correct={(status === 'certified_correct' && selectedChoice === option.value) ||
+						(status === 'target_mismatch' && activity.answer === option.value)}
+					class:incorrect={status === 'target_mismatch' && selectedChoice === option.value}
 				>
+					<input
+						type="radio"
+						name={'choice-' + activity.id}
+						value={option.value}
+						bind:group={selectedChoice}
+						onchange={() => (status = undefined)}
+					/>
 					<span class="choice-mark" aria-hidden="true"></span>
-					{option.label}
-				</button>
+					<span>{option.label}</span>
+				</label>
 			{/each}
-		</div>
+		</fieldset>
 	{:else if activity.type === 'arrange'}
 		<div class="arrange-answer" aria-label="Your sentence">
 			{#if selectedTiles.length === 0}
@@ -215,6 +229,8 @@
 						<p class="reference" lang={language}>Target: {activity.referenceAnswer}</p>
 					{:else if activity.type === 'arrange'}
 						<p class="reference" lang={language}>Target: {activity.answer.join('')}</p>
+					{:else if activity.type === 'choice' && choiceReference}
+						<p class="reference">Accepted answer: {choiceReference}</p>
 					{/if}
 				{/if}
 			{/if}
@@ -254,9 +270,23 @@
 		display: grid;
 		gap: 0.55rem;
 		margin-top: 1.1rem;
+		padding: 0;
+		border: 0;
 	}
 
-	.choice-list button {
+	.choice-list legend {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
+	}
+
+	.choice-option {
 		display: flex;
 		min-height: 3rem;
 		align-items: center;
@@ -270,10 +300,31 @@
 		cursor: pointer;
 	}
 
-	.choice-list button:hover,
-	.choice-list button.selected {
+	.choice-option input {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		opacity: 0;
+	}
+
+	.choice-option:hover,
+	.choice-option.selected {
 		border-color: var(--accent);
 		background: var(--accent-light);
+	}
+
+	.choice-option:has(input:focus-visible) {
+		outline: 2px solid var(--accent);
+		outline-offset: 2px;
+	}
+
+	.choice-option.correct {
+		border-color: color-mix(in srgb, var(--accent) 65%, var(--border-color));
+		background: color-mix(in srgb, var(--accent-light) 55%, var(--bg-primary));
+	}
+
+	.choice-option.incorrect {
+		border-color: var(--color-error);
 	}
 
 	.choice-mark {
@@ -284,7 +335,7 @@
 		border-radius: 50%;
 	}
 
-	.choice-list button.selected .choice-mark {
+	.choice-option.selected .choice-mark {
 		border: 3px solid var(--accent);
 	}
 

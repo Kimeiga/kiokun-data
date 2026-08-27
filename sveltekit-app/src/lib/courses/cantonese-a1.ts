@@ -366,6 +366,62 @@ const lessons = [
 		arrange: { prompt: 'Build “The restroom is beside the entrance.”', tiles: ['門口', '喺', '洗手間', '隔離'], answer: ['洗手間', '喺', '門口', '隔離'], translation: 'The restroom is beside the entrance.', rationale: 'The landmark 門口 precedes 隔離.' },
 		production: { mode: 'speak', prompt: 'Order two items, ask the total, then ask where the restroom is.', modelAnswer: '唔該，我想要一杯茶同一碗麵。一共幾多錢呀？洗手間喺邊度呀？', modelReading: 'm4 goi1, ngo5 soeng2 jiu3 jat1 bui1 caa4 tung4 jat1 wun2 min6. jat1 gung6 gei2 do1 cin2 aa3? sai2 sau2 gaan1 hai2 bin1 dou6 aa3?', checklist: ['Two classified items ordered', 'Total requested with 一共幾多錢', 'Location requested with 喺邊度', 'Tone numbers prepared before speaking'] },
 		transferPrompt: 'Repeat the exchange with different items, a different total, and a different destination.', transferSupport: '唔該，我想要…；一共幾多錢呀？…喺邊度呀？'
+	}),
+	lesson({
+		id: 'yue-20-family-photo', unitId: 'cantonese-family-home', title: 'Identifying family members', shortTitle: 'Family photo',
+		canDo: 'Identify one person in a family photo and state that person’s relationship to you.',
+		focus: ['呢個係邊個呀', '我 + kinship noun', '佢'],
+		scenario: [['陳生', '呢個係邊個呀？', 'Ni1 go3 hai6 bin1 go3 aa3?', 'Who is this?'], ['美玲', '呢個係我家姐。佢喺中環返工。', 'Ni1 go3 hai6 ngo5 gaa1 ze1. Keoi5 hai2 Zung1 Waan4 faan1 gung1.', 'This is my older sister. She works in Central.']],
+		notice: ['邊個 asks “who”; 呢個 refers to the nearby person or image being indicated.', 'Cantonese normally places the kinship noun directly after 我: 我家姐.'],
+		explanation: ['係 links the person being identified to the relationship. 呀 keeps the information question neutral and conversational.', '佢 can mean he, she, or that person; the surrounding context supplies gender when it matters.'],
+		vocabulary: [['邊個', 'bin1 go3', 'who'], ['家姐', 'gaa1 ze1', 'older sister'], ['佢', 'keoi5', 'he; she; that person'], ['返工', 'faan1 gung1', 'go to work; work']],
+		choice: { prompt: 'What information does 呢個係邊個呀 request?', options: [['person', 'The person’s identity'], ['place', 'The person’s location'], ['age', 'The person’s age']], answer: 'person', rationale: '邊個 means “who” and asks for a person’s identity.' },
+		reviewChoices: [{ prompt: 'Which phrase means “my older sister”?', options: [['older', '我家姐'], ['younger', '我細妹'], ['brother', '我細佬']], answer: 'older', rationale: '家姐 is an older sister; 我 marks the relationship as “my.”' }],
+		arrange: { prompt: 'Build “This is my older sister.”', tiles: ['我家姐', '呢個', '邊個', '係'], answer: ['呢個', '係', '我家姐'], translation: 'This is my older sister.', rationale: 'The identifying pattern is 呢個 + 係 + relationship.' },
+		production: { mode: 'speak', prompt: 'Identify one person in a photo and say where that person works or lives.', modelAnswer: '呢個係我家姐。佢喺中環返工。', modelReading: 'Ni1 go3 hai6 ngo5 gaa1 ze1. Keoi5 hai2 Zung1 Waan4 faan1 gung1.', checklist: ['Identification uses 呢個係', 'Relationship follows 我', 'Location uses 喺'] },
+		transferPrompt: 'Identify a different family member and replace Central and work with new information.', transferSupport: '呢個係我…。佢喺…返工／住。'
+	}),
+	lesson({
+		id: 'yue-21-family-existence', unitId: 'cantonese-family-home', title: 'Saying who is in your family', shortTitle: 'Who is in the family',
+		canDo: 'Ask whether someone has siblings and give a positive or negative counted answer.',
+		focus: ['有冇', '冇', 'number + 個 + person'],
+		scenario: [['美玲', '你有冇兄弟姊妹呀？', 'Nei5 jau5 mou5 hing1 dai6 zi2 mui6 aa3?', 'Do you have any siblings?'], ['陳生', '我有一個細佬。', 'Ngo5 jau5 jat1 go3 sai3 lou2.', 'I have one younger brother.']],
+		notice: ['有冇 is the affirmative–negative question built from 有 and 冇.', '個 appears between the number and 細佬 in the counted answer.'],
+		explanation: ['冇 is the ordinary spoken Cantonese negative of 有. Do not substitute Mandarin 沒有 inside this Cantonese pattern.', 'The subject comes before 有 or 冇: 我有… means “I have…,” and 我冇… means “I do not have…”.'],
+		vocabulary: [['有冇', 'jau5 mou5', 'have or not; do you have'], ['冇', 'mou5', 'not have; not exist'], ['兄弟姊妹', 'hing1 dai6 zi2 mui6', 'siblings'], ['細佬', 'sai3 lou2', 'younger brother']],
+		choice: { prompt: 'Which form means “do not have” in spoken Cantonese?', options: [['mou', '冇'], ['mhai', '唔係'], ['m', '唔']], answer: 'mou', rationale: '冇 is the negative form paired with 有.' },
+		reviewChoices: [{ prompt: 'Which sentence says “I have one younger brother”?', options: [['one', '我有一個細佬。'], ['negative', '我冇細佬。'], ['older', '我有一個阿哥。']], answer: 'one', rationale: 'The answer uses 有 + 一個 + 細佬.' }],
+		arrange: { prompt: 'Build “I have one younger brother.”', tiles: ['一個', '我', '有', '細佬'], answer: ['我', '有', '一個', '細佬'], translation: 'I have one younger brother.', rationale: 'The order is possessor + 有 + number–classifier phrase + noun.' },
+		production: { mode: 'speak', prompt: 'Ask about siblings and answer positively or negatively with one detail.', modelAnswer: '你有冇兄弟姊妹呀？我有一個細佬。', modelReading: 'Nei5 jau5 mou5 hing1 dai6 zi2 mui6 aa3? Ngo5 jau5 jat1 go3 sai3 lou2.', checklist: ['Question uses 有冇', 'Negative answer uses 冇 when needed', 'Counted person includes 個'] },
+		transferPrompt: 'Give a new answer with no siblings or with a different number and relationship.', transferSupport: '我冇兄弟姊妹。／我有…個…。'
+	}),
+	lesson({
+		id: 'yue-22-home-rooms', unitId: 'cantonese-family-home', title: 'Rooms and location at home', shortTitle: 'Rooms at home',
+		canDo: 'Ask how many rooms a home has and locate a person, animal, or object inside it.',
+		focus: ['屋企有幾多間…', '喺 + place + 入面', 'classifiers 間 and 隻'],
+		scenario: [['陳生', '你屋企有幾多間房呀？', 'Nei5 uk1 kei2 jau5 gei2 do1 gaan1 fong2 aa3?', 'How many rooms does your home have?'], ['美玲', '有三間。隻貓喺客廳入面。', 'Jau5 saam1 gaan1. Zek3 maau1 hai2 haak3 teng1 jap6 min6.', 'It has three. The cat is in the living room.']],
+		notice: ['幾多 asks for a quantity, and 間 classifies rooms and other enclosed spaces.', 'The location pattern is subject + 喺 + place; 入面 specifies the inside.'],
+		explanation: ['The short answer can omit 房 because the question already establishes what 間 counts.', '隻 is a common classifier for animals. Its use is independent of the location marker 喺.'],
+		vocabulary: [['屋企', 'uk1 kei2', 'home'], ['房', 'fong2', 'room'], ['間', 'gaan1', 'classifier for rooms and enclosed spaces'], ['隻', 'zek3', 'classifier for many animals'], ['客廳', 'haak3 teng1', 'living room']],
+		choice: { prompt: 'How many rooms are in the example home?', options: [['three', 'Three'], ['one', 'One'], ['five', 'Five']], answer: 'three', rationale: '有三間 states that there are three rooms.' },
+		reviewChoices: [{ prompt: 'Which sentence correctly puts the cat in the living room?', options: [['location', '隻貓喺客廳入面。'], ['reversed', '客廳喺隻貓入面。'], ['identity', '隻貓係客廳。']], answer: 'location', rationale: 'The located subject comes before 喺, followed by 客廳入面.' }],
+		arrange: { prompt: 'Build “The cat is in the living room.”', tiles: ['隻貓', '客廳入面', '有', '喺'], answer: ['隻貓', '喺', '客廳入面'], translation: 'The cat is in the living room.', rationale: 'The location pattern is subject + 喺 + place.' },
+		production: { mode: 'speak', prompt: 'State how many rooms a home has and locate one person, animal, or object.', modelAnswer: '我屋企有三間房。隻貓喺客廳入面。', modelReading: 'Ngo5 uk1 kei2 jau5 saam1 gaan1 fong2. Zek3 maau1 hai2 haak3 teng1 jap6 min6.', checklist: ['Room count uses 間', 'Location uses 喺', 'Place follows 喺'] },
+		transferPrompt: 'Change the room count and locate a different person or object in another room.', transferSupport: '我屋企有…間房。…喺…入面。'
+	}),
+	lesson({
+		id: 'yue-23-family-home-mission', unitId: 'cantonese-family-home', title: 'Mission: describe a family and home', shortTitle: 'Family and home mission', kind: 'mission', durationMinutes: 20,
+		canDo: 'Give a short connected description of family size, relationships, residence, and one home location.',
+		focus: ['屋企有幾多個人', '屋企人', '住喺', '屋企有…'],
+		scenario: [['美玲', '你屋企有幾多個人呀？', 'Nei5 uk1 kei2 jau5 gei2 do1 go3 jan4 aa3?', 'How many people are in your family?'], ['陳生', '我屋企有四個人：我阿爸、阿媽、家姐同我。我哋住喺九龍。屋企有一隻貓。', 'Ngo5 uk1 kei2 jau5 sei3 go3 jan4: ngo5 aa3 baa1, aa3 maa1, gaa1 ze1 tung4 ngo5. Ngo5 dei6 zyu6 hai2 Gau2 Lung4. Uk1 kei2 jau5 jat1 zek3 maau1.', 'There are four people in my family: my father, mother, older sister, and me. We live in Kowloon. There is a cat at home.']],
+		notice: ['個 is the general classifier in this family-count question; 同 links the listed family members.', '住喺 is followed by the place of residence, while 屋企有 introduces what exists at home.'],
+		explanation: ['A connected answer can move from family count to relationships, residence, and a home detail without repeating 我屋企 in every clause.', 'Written Cantonese records the spoken forms 阿爸, 阿媽, 我哋, 喺, and 屋企 used in this dialogue.'],
+		vocabulary: [['屋企人', 'uk1 kei2 jan4', 'family members'], ['阿爸', 'aa3 baa1', 'father; dad'], ['阿媽', 'aa3 maa1', 'mother; mom'], ['我哋', 'ngo5 dei6', 'we; us'], ['住喺', 'zyu6 hai2', 'live at; live in']],
+		choice: { prompt: 'How many people are in Chan’s family description?', options: [['four', 'Four'], ['three', 'Three'], ['five', 'Five']], answer: 'four', rationale: '我屋企有四個人 gives the family count as four.' },
+		reviewChoices: [{ prompt: 'Which phrase correctly states “We live in Kowloon”?', options: [['live', '我哋住喺九龍。'], ['location-only', '我哋喺九龍。'], ['possess', '我哋有九龍。']], answer: 'live', rationale: '住喺 is followed by the place of residence.' }],
+		arrange: { prompt: 'Build “There is a cat at home.”', tiles: ['一隻貓', '有', '屋企', '喺'], answer: ['屋企', '有', '一隻貓'], translation: 'There is a cat at home.', rationale: 'The location frame comes first, followed by 有 and the classified noun phrase.' },
+		production: { mode: 'speak', prompt: 'Describe a real or invented family and home in at least four connected statements.', modelAnswer: '我屋企有四個人。我有一個家姐。我哋住喺九龍。我屋企有三間房。', modelReading: 'Ngo5 uk1 kei2 jau5 sei3 go3 jan4. Ngo5 jau5 jat1 go3 gaa1 ze1. Ngo5 dei6 zyu6 hai2 Gau2 Lung4. Ngo5 uk1 kei2 jau5 saam1 gaan1 fong2.', checklist: ['Family count uses 個人', 'At least one relationship is named', 'Residence uses 住喺', 'One home detail uses 有 or 喺'] },
+		transferPrompt: 'Repeat the description with a different family size, district, room count, and home-location detail.', transferSupport: '我屋企有…個人。我有…。我哋住喺…。屋企有…。'
 	})
 ].map((item, index) => ({ ...item, sequence: index + 1 }));
 
@@ -373,7 +429,8 @@ const units: CourseUnit[] = [
 	{ id: 'cantonese-launchpad', sequence: 0, title: 'Jyutping and sound system', nativeTitle: '粵拼同語音', strapline: 'Jyutping structure, six tone categories, onsets, finals, and stop codas.', canDo: 'Use Jyutping to decode beginner Cantonese syllables and preserve tone and coda contrasts.', mission: 'Read an unfamiliar beginner word from characters plus Jyutping and identify its onset, final, and tone.', lessonIds: lessons.filter((item) => item.unitId === 'cantonese-launchpad').map((item) => item.id) },
 	{ id: 'cantonese-introductions', sequence: 1, title: 'Introductions and identity', nativeTitle: '自我介紹', strapline: 'Names, identity, questions, numbers, and a complete first meeting.', canDo: 'Introduce yourself, exchange one personal detail, and ask a matching question.', mission: 'Complete a first meeting with a name, identity, age or origin, and one follow-up question.', lessonIds: lessons.filter((item) => item.unitId === 'cantonese-introductions').map((item) => item.id) },
 	{ id: 'cantonese-daily', sequence: 2, title: 'Daily routine and time', nativeTitle: '日常同時間', strapline: 'Dates, clock time, routine descriptions, frequency, and scheduling.', canDo: 'Describe a short routine and negotiate a specific day and time.', mission: 'Propose, revise, and confirm a meeting time.', lessonIds: lessons.filter((item) => item.unitId === 'cantonese-daily').map((item) => item.id) },
-	{ id: 'cantonese-food-places', sequence: 3, title: 'Food, prices, and places', nativeTitle: '點餐同地方', strapline: 'Classifiers, service requests, prices, totals, and simple locations.', canDo: 'Order common items, confirm a price, and ask where a place is.', mission: 'Complete an order and obtain one location in the same service exchange.', lessonIds: lessons.filter((item) => item.unitId === 'cantonese-food-places').map((item) => item.id) }
+	{ id: 'cantonese-food-places', sequence: 3, title: 'Food, prices, and places', nativeTitle: '點餐同地方', strapline: 'Classifiers, service requests, prices, totals, and simple locations.', canDo: 'Order common items, confirm a price, and ask where a place is.', mission: 'Complete an order and obtain one location in the same service exchange.', lessonIds: lessons.filter((item) => item.unitId === 'cantonese-food-places').map((item) => item.id) },
+	{ id: 'cantonese-family-home', sequence: 4, title: 'Family and home', nativeTitle: '屋企人同屋企', strapline: 'Relationships, possession, household counts, rooms, and locations at home.', canDo: 'Identify family members, state who is in a household, describe a home, and locate a person, animal, or object.', mission: 'Give a connected description of a family and home with Cantonese classifiers and location patterns.', lessonIds: lessons.filter((item) => item.unitId === 'cantonese-family-home').map((item) => item.id) }
 ];
 
 export const cantoneseA1Course: LanguageCourse = {
@@ -389,7 +446,7 @@ export const cantoneseA1Course: LanguageCourse = {
 	speechLanguage: 'yue',
 	readingLabel: 'Jyutping',
 	level: 'Launchpad–A1',
-	description: 'A 20-lesson introductory Cantonese course covering Jyutping, tones, Traditional Chinese, everyday exchanges, retrieval, open production, and transfer checks.',
+	description: 'A 24-lesson introductory Cantonese course covering Jyutping, tones, Traditional Chinese, everyday exchanges, family and home descriptions, retrieval, open production, and transfer checks.',
 	designPromise: 'Each lesson connects Traditional Chinese to Jyutping and meaning, checks a constrained target, requires original use, and ends with reduced support.',
 	units,
 	lessons

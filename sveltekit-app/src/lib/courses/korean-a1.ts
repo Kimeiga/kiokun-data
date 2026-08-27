@@ -432,6 +432,62 @@ const lessons = [
 		arrange: { prompt: 'Build “The restroom is beside the door.”', tiles: ['문', '있어요', '화장실은', '옆에'], answer: ['화장실은', '문', '옆에', '있어요'], translation: 'The restroom is beside the door.', rationale: 'The landmark 문 precedes 옆에 있어요.' },
 		production: { mode: 'speak', prompt: 'Order two items, ask the total, then ask where the restroom is.', modelAnswer: '비빔밥 하나하고 차 한 잔 주세요. 모두 얼마예요? 화장실이 어디에 있어요?', modelReading: 'bibimbap hanahago cha han jan juseyo. modu eolmayeyo? hwajangsiri eodie isseoyo?', checklist: ['Two counted items ordered', 'Total requested with 모두 얼마예요', 'Location requested with 어디에 있어요', 'Polite endings maintained'] },
 		transferPrompt: 'Repeat the exchange with different items, a different total, and a different destination.', transferSupport: '… 주세요. 모두 얼마예요? …이/가 어디에 있어요?'
+	}),
+	lesson({
+		id: 'ko-20-family-photo', unitId: 'korean-family-home', title: 'Identifying family members', shortTitle: 'Family photo',
+		canDo: 'Identify one person in a family photo and state that person’s relationship to you.',
+		focus: ['이분은 누구예요', '제 + family noun', '언니 versus 누나'],
+		scenario: [['준호', '이분은 누구예요?', 'ibuneun nuguyeyo?', 'Who is this person?'], ['민지', '제 언니예요. 서울에서 일해요.', 'je eonniyeyo. seoureseo ilhaeyo.', 'She is my older sister. She works in Seoul.']],
+		notice: ['이분 is a respectful way to refer to “this person”; 누구 asks who the person is.', '제 is the polite contracted form of 저의 and marks the relationship as “my.”'],
+		explanation: ['A woman normally calls her older sister 언니; a man normally calls his older sister 누나. The speaker’s gender determines the term.', '에서 marks the place where an action such as working happens.'],
+		vocabulary: [['이분', 'ibun', 'this person (respectful)'], ['누구', 'nugu', 'who'], ['언니', 'eonni', 'older sister of a female'], ['제', 'je', 'my (polite)'], ['일하다', 'ilhada', 'work']],
+		choice: { prompt: 'What information does 이분은 누구예요 request?', options: [['person', 'The person’s identity'], ['place', 'The person’s location'], ['age', 'The person’s age']], answer: 'person', rationale: '누구 means “who” and asks for a person’s identity.' },
+		reviewChoices: [{ prompt: 'Which term does a female speaker normally use for her older sister?', options: [['eonni', '언니'], ['nuna', '누나'], ['namdongsaeng', '남동생']], answer: 'eonni', rationale: 'A female speaker normally refers to her older sister as 언니.' }],
+		arrange: { prompt: 'Build “She is my older sister.”', tiles: ['언니예요', '제', '누구예요', '저는'], answer: ['제', '언니예요'], translation: 'She is my older sister.', rationale: '제 modifies 언니, and the noun predicate ends in 예요.' },
+		production: { mode: 'speak', prompt: 'Identify one person in a photo and say where that person works or lives.', modelAnswer: '제 언니예요. 서울에서 일해요.', modelReading: 'je eonniyeyo. seoureseo ilhaeyo.', checklist: ['Relationship uses 제', 'Sibling term matches the intended speaker', 'Work location uses 에서'] },
+		transferPrompt: 'Identify a different family member and replace Seoul and work with new information.', transferSupport: '제 …예요/이에요. …에서 일해요.／…에 살아요.'
+	}),
+	lesson({
+		id: 'ko-21-family-existence', unitId: 'korean-family-home', title: 'Saying who is in your family', shortTitle: 'Who is in the family',
+		canDo: 'Ask whether someone has siblings and give a positive or negative counted answer.',
+		focus: ['있어요／없어요', '형제자매', '한 명'],
+		scenario: [['민지', '형제자매가 있어요?', 'hyeongje-jamaega isseoyo?', 'Do you have any siblings?'], ['준호', '네, 남동생이 한 명 있어요.', 'ne, namdongsaengi han myeong isseoyo.', 'Yes, I have one younger brother.']],
+		notice: ['있어요 expresses existence or possession; 없어요 gives the corresponding negative.', '명 counts people, and 하나 shortens to 한 before the counter.'],
+		explanation: ['Korean commonly expresses possession by saying that someone or something exists in the speaker’s situation.', 'The person marked by 이/가 comes before the count: 남동생이 한 명 있어요.'],
+		vocabulary: [['형제자매', 'hyeongje-jamae', 'siblings'], ['있다', 'itda', 'exist; have'], ['없다', 'eopda', 'not exist; not have'], ['남동생', 'namdongsaeng', 'younger brother'], ['명', 'myeong', 'counter for people']],
+		choice: { prompt: 'Which form means “do not have” or “there is not”?', options: [['eopseoyo', '없어요'], ['isseoyo', '있어요'], ['anieyo', '아니에요']], answer: 'eopseoyo', rationale: '없어요 is the negative existence or possession form.' },
+		reviewChoices: [{ prompt: 'Which sentence says “I have one younger brother”?', options: [['one', '남동생이 한 명 있어요.'], ['object', '남동생을 한 명 있어요.'], ['negative', '남동생이 없어요.']], answer: 'one', rationale: 'The person takes 이, the count is 한 명, and the sentence ends in 있어요.' }],
+		arrange: { prompt: 'Build “I have one younger brother.”', tiles: ['한 명', '있어요', '남동생이', '없어요'], answer: ['남동생이', '한 명', '있어요'], translation: 'I have one younger brother.', rationale: 'The person marked by 이 comes before the count and existence verb.' },
+		production: { mode: 'speak', prompt: 'Ask about siblings and answer positively or negatively with one detail.', modelAnswer: '형제자매가 있어요? 네, 남동생이 한 명 있어요.', modelReading: 'hyeongje-jamaega isseoyo? ne, namdongsaengi han myeong isseoyo.', checklist: ['Question uses 있어요', 'Negative answer uses 없어요 when needed', 'Counted person uses 명'] },
+		transferPrompt: 'Give a new answer with no siblings or with a different number and relationship.', transferSupport: '형제자매가 없어요.／…이/가 … 명 있어요.'
+	}),
+	lesson({
+		id: 'ko-22-home-rooms', unitId: 'korean-family-home', title: 'Rooms and location at home', shortTitle: 'Rooms at home',
+		canDo: 'Ask how many rooms a home has and locate a person, animal, or object inside it.',
+		focus: ['집에…있어요', '몇 개', 'place + 에 있어요'],
+		scenario: [['준호', '집에 방이 몇 개 있어요?', 'jibe bangi myeot gae isseoyo?', 'How many rooms are in your home?'], ['민지', '세 개 있어요. 고양이는 거실에 있어요.', 'se gae isseoyo. goyangineun geosire isseoyo.', 'There are three. The cat is in the living room.']],
+		notice: ['몇 comes before the counter 개 to ask how many things there are.', '에 marks both the broader setting 집 and the specific location 거실.'],
+		explanation: ['The answer can omit 방 because the question already establishes what 개 counts.', '있어요 expresses both the presence of the rooms and the cat; Korean does not use separate animate and inanimate verbs here.'],
+		vocabulary: [['집', 'jip', 'home; house'], ['방', 'bang', 'room'], ['몇 개', 'myeot gae', 'how many things'], ['고양이', 'goyangi', 'cat'], ['거실', 'geosil', 'living room']],
+		choice: { prompt: 'How many rooms are in the example home?', options: [['three', 'Three'], ['one', 'One'], ['five', 'Five']], answer: 'three', rationale: '세 개 있어요 states that there are three.' },
+		reviewChoices: [{ prompt: 'Which sentence correctly puts the cat in the living room?', options: [['location', '고양이는 거실에 있어요.'], ['object', '고양이는 거실을 있어요.'], ['identity', '고양이는 거실이에요.']], answer: 'location', rationale: 'The location takes 에 and is followed by 있어요.' }],
+		arrange: { prompt: 'Build “The cat is in the living room.”', tiles: ['거실에', '고양이는', '없어요', '있어요'], answer: ['고양이는', '거실에', '있어요'], translation: 'The cat is in the living room.', rationale: 'The location marked by 에 precedes 있어요.' },
+		production: { mode: 'speak', prompt: 'State how many rooms a home has and locate one person, animal, or object.', modelAnswer: '집에 방이 세 개 있어요. 고양이는 거실에 있어요.', modelReading: 'jibe bangi se gae isseoyo. goyangineun geosire isseoyo.', checklist: ['Room count uses 개', 'Location uses 에', 'Existence statement ends in 있어요 or 없어요'] },
+		transferPrompt: 'Change the room count and locate a different person or object in another room.', transferSupport: '집에 방이 … 개 있어요. …은/는 …에 있어요.'
+	}),
+	lesson({
+		id: 'ko-23-family-home-mission', unitId: 'korean-family-home', title: 'Mission: describe a family and home', shortTitle: 'Family and home mission', kind: 'mission', durationMinutes: 20,
+		canDo: 'Give a short connected description of family size, relationships, residence, and one home location.',
+		focus: ['가족이 몇 명이에요', '부모님', 'place + 에 살아요', '한 마리'],
+		scenario: [['준호', '가족이 몇 명이에요?', 'gajogi myeot myeong-ieyo?', 'How many people are in your family?'], ['민지', '네 명이에요. 부모님, 언니, 저예요. 서울에 살아요. 집에 고양이 한 마리가 있어요.', 'ne myeong-ieyo. bumonim, eonni, jeoyeyo. seoure sarayo. jibe goyangi han mariga isseoyo.', 'There are four: my parents, older sister, and me. We live in Seoul. There is one cat at home.']],
+		notice: ['네 is the shortened native Korean form used before 명; 부모님 refers respectfully to one’s parents.', '살아요 takes the residence location marked by 에, while 마리 counts animals.'],
+		explanation: ['A connected answer can move from family count to relationships, residence, and a home detail without repeating 가족 in every sentence.', 'Counters match the noun category: 명 for people, 개 for general things, and 마리 for animals.'],
+		vocabulary: [['가족', 'gajok', 'family'], ['부모님', 'bumonim', 'parents (honorific)'], ['살다', 'salda', 'live; reside'], ['마리', 'mari', 'counter for animals'], ['네 명', 'ne myeong', 'four people']],
+		choice: { prompt: 'How many people are in Minji’s family description?', options: [['four', 'Four'], ['three', 'Three'], ['five', 'Five']], answer: 'four', rationale: '네 명이에요 gives the family count as four.' },
+		reviewChoices: [{ prompt: 'Which phrase correctly states “We live in Seoul”?', options: [['live', '서울에 살아요.'], ['subject', '서울이 살아요.'], ['object', '서울을 살아요.']], answer: 'live', rationale: 'The residence location is marked by 에 before 살아요 in this lesson.' }],
+		arrange: { prompt: 'Build “There is one cat at home.”', tiles: ['한 마리가', '있어요', '집에', '고양이'], answer: ['집에', '고양이', '한 마리가', '있어요'], translation: 'There is one cat at home.', rationale: 'The setting comes first, followed by the animal, its counted subject phrase, and 있어요.' },
+		production: { mode: 'speak', prompt: 'Describe a real or invented family and home in at least four connected statements.', modelAnswer: '가족이 네 명이에요. 부모님, 언니, 저예요. 서울에 살아요. 집에 방이 세 개 있어요.', modelReading: 'gajogi ne myeong-ieyo. bumonim, eonni, jeoyeyo. seoure sarayo. jibe bangi se gae isseoyo.', checklist: ['Family count uses 명', 'At least one relationship is named', 'Residence uses 에 살아요', 'One home detail uses 있어요 or 없어요'] },
+		transferPrompt: 'Repeat the description with a different family size, city, room count, and home-location detail.', transferSupport: '가족이 … 명이에요. …예요/이에요. …에 살아요. 집에 …이/가 있어요.'
 	})
 ].map((item, index) => ({ ...item, sequence: index + 1 }));
 
@@ -439,7 +495,8 @@ const units: CourseUnit[] = [
 	{ id: 'korean-launchpad', sequence: 0, title: 'Hangul and sound system', nativeTitle: '한글과 발음', strapline: 'Syllable blocks, consonants, vowels, batchim, and basic sound changes.', canDo: 'Decode beginner Hangul words directly and recognize the sound changes needed for connected reading.', mission: 'Read and type unfamiliar beginner words without depending on romanization.', lessonIds: lessons.filter((item) => item.unitId === 'korean-launchpad').map((item) => item.id) },
 	{ id: 'korean-introductions', sequence: 1, title: 'Introductions and identity', nativeTitle: '자기소개', strapline: 'Names, identity, origin, language study, and a complete first meeting.', canDo: 'Introduce yourself politely, exchange one personal detail, and ask a matching question.', mission: 'Complete a first meeting with a name, identity, origin, and one follow-up question.', lessonIds: lessons.filter((item) => item.unitId === 'korean-introductions').map((item) => item.id) },
 	{ id: 'korean-daily', sequence: 2, title: 'Daily routine and time', nativeTitle: '일상과 시간', strapline: 'Dates, clock time, routine descriptions, and scheduling.', canDo: 'Describe a short routine and negotiate a specific day and time.', mission: 'Propose, revise, and confirm a meeting time.', lessonIds: lessons.filter((item) => item.unitId === 'korean-daily').map((item) => item.id) },
-	{ id: 'korean-food-places', sequence: 3, title: 'Food, prices, and places', nativeTitle: '음식과 장소', strapline: 'Counters, service requests, prices, totals, and simple locations.', canDo: 'Order common items, confirm a price, and ask where a place is.', mission: 'Complete an order and obtain one location in the same service exchange.', lessonIds: lessons.filter((item) => item.unitId === 'korean-food-places').map((item) => item.id) }
+	{ id: 'korean-food-places', sequence: 3, title: 'Food, prices, and places', nativeTitle: '음식과 장소', strapline: 'Counters, service requests, prices, totals, and simple locations.', canDo: 'Order common items, confirm a price, and ask where a place is.', mission: 'Complete an order and obtain one location in the same service exchange.', lessonIds: lessons.filter((item) => item.unitId === 'korean-food-places').map((item) => item.id) },
+	{ id: 'korean-family-home', sequence: 4, title: 'Family and home', nativeTitle: '가족과 집', strapline: 'Relationships, existence, people and animal counters, rooms, and locations at home.', canDo: 'Identify family members, state who is in a household, describe a home, and locate a person, animal, or object.', mission: 'Give a connected description of a family and home with accurate counters, particles, and existence forms.', lessonIds: lessons.filter((item) => item.unitId === 'korean-family-home').map((item) => item.id) }
 ];
 
 export const koreanA1Course: LanguageCourse = {
@@ -455,7 +512,7 @@ export const koreanA1Course: LanguageCourse = {
 	speechLanguage: 'ko',
 	readingLabel: 'Romanization',
 	level: 'Launchpad–A1',
-	description: 'A 20-lesson introductory Korean course covering Hangul, sound changes, everyday exchanges, retrieval, open production, and transfer checks.',
+	description: 'A 24-lesson introductory Korean course covering Hangul, sound changes, everyday exchanges, family and home descriptions, retrieval, open production, and transfer checks.',
 	designPromise: 'Each lesson moves from Hangul form to sound and meaning, checks a constrained target, requires original use, and ends with reduced support.',
 	units,
 	lessons

@@ -18,7 +18,7 @@ export type VocabularyInput = [
 	dictionaryAnchor?: string
 ];
 
-interface ChoiceInput {
+export interface ChoiceInput {
 	prompt: string;
 	options: Array<[value: string, label: string]>;
 	answer: string;
@@ -56,6 +56,7 @@ export interface LessonInput {
 	scriptCharts?: ScriptChart[];
 	vocabulary: VocabularyInput[];
 	choice: ChoiceInput;
+	reviewChoices?: ChoiceInput[];
 	arrange: ArrangeInput;
 	production: ProductionInput;
 	transferPrompt: string;
@@ -81,9 +82,9 @@ function vocabulary(input: VocabularyInput): CourseVocabularyItem {
 	};
 }
 
-function choice(id: string, input: ChoiceInput): ChoiceActivity {
+function choice(id: string, input: ChoiceInput, index = 0): ChoiceActivity {
 	return {
-		id: `${id}-check`,
+		id: index === 0 ? `${id}-check` : `${id}-check-${index + 1}`,
 		type: 'choice',
 		title: 'Meaning check',
 		prompt: input.prompt,
@@ -135,7 +136,14 @@ export function lesson(input: LessonInput): CourseLesson {
 		explanation: input.explanation,
 		scriptCharts: input.scriptCharts,
 		vocabulary: input.vocabulary.map(vocabulary),
-		activities: [choice(input.id, input.choice), arrange(input.id, input.arrange), production(input.id, input.production)],
+		activities: [
+			choice(input.id, input.choice),
+			...(input.reviewChoices ?? []).map((reviewChoice, index) =>
+				choice(input.id, reviewChoice, index + 1)
+			),
+			arrange(input.id, input.arrange),
+			production(input.id, input.production)
+		],
 		transferPrompt: input.transferPrompt,
 		transferSupport: input.transferSupport
 	};

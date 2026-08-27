@@ -1,12 +1,15 @@
 import assert from 'node:assert/strict';
 import { languageCourses } from './catalog';
+import { gradeChoice } from './grading';
 
 const expectedLessonCounts = new Map([
-	['japanese', 28],
-	['mandarin', 20],
-	['cantonese', 20],
-	['korean', 20]
+	['japanese', 32],
+	['mandarin', 24],
+	['cantonese', 24],
+	['korean', 24]
 ]);
+
+let choiceCount = 0;
 
 assert.deepEqual(
 	languageCourses.map((course) => course.slug),
@@ -58,8 +61,43 @@ for (const course of languageCourses) {
 			lesson.id + ' needs open production'
 		);
 		assert.ok(lesson.transferPrompt.length > 20, lesson.id + ' needs a transfer task');
+
+		for (const activity of lesson.activities) {
+			if (activity.type !== 'choice') continue;
+			choiceCount += 1;
+
+			assert.ok(activity.prompt.trim().length > 0, activity.id + ' needs a prompt');
+			assert.ok(activity.rationale.trim().length > 0, activity.id + ' needs corrective feedback');
+			assert.ok(activity.options.length >= 3, activity.id + ' needs at least three options');
+			assert.equal(
+				new Set(activity.options.map((option) => option.value)).size,
+				activity.options.length,
+				activity.id + ' option values must be unique'
+			);
+			assert.equal(
+				new Set(activity.options.map((option) => option.label.normalize('NFKC').trim())).size,
+				activity.options.length,
+				activity.id + ' option labels must be unique'
+			);
+			assert.equal(
+				activity.options.filter((option) => option.value === activity.answer).length,
+				1,
+				activity.id + ' answer must match exactly one option'
+			);
+			assert.equal(gradeChoice(activity, ''), 'invalid_input', activity.id + ' must reject an empty attempt');
+
+			for (const option of activity.options) {
+				assert.equal(
+					gradeChoice(activity, option.value),
+					option.value === activity.answer ? 'certified_correct' : 'target_mismatch',
+					activity.id + ': ' + option.value + ' must grade deterministically'
+				);
+			}
+		}
 	}
 }
+
+assert.equal(choiceCount, 120, 'every authored multiple-choice question must be validated');
 
 const mandarin = languageCourses.find((course) => course.slug === 'mandarin');
 const cantonese = languageCourses.find((course) => course.slug === 'cantonese');
@@ -68,6 +106,9 @@ const korean = languageCourses.find((course) => course.slug === 'korean');
 assert.ok(mandarin?.lessons.some((lesson) => lesson.id === 'zh-04-tone-changes'));
 assert.ok(cantonese?.lessons.some((lesson) => lesson.id === 'yue-04-stop-codas'));
 assert.ok(korean?.lessons.some((lesson) => lesson.id === 'ko-05-batchim'));
+assert.ok(mandarin?.lessons.some((lesson) => lesson.id === 'zh-23-family-home-mission'));
+assert.ok(cantonese?.lessons.some((lesson) => lesson.id === 'yue-23-family-home-mission'));
+assert.ok(korean?.lessons.some((lesson) => lesson.id === 'ko-23-family-home-mission'));
 assert.equal(cantonese?.speechLanguage, 'yue');
 assert.equal(cantonese?.studyLanguage, 'zh');
 
