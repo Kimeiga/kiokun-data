@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { languageCourses } from './catalog';
+import { getCourseCatalogEntry, languageCourses } from './catalog';
 import { gradeChoice } from './grading';
 
 const expectedLessonCounts = new Map([
@@ -17,6 +17,18 @@ assert.deepEqual(
 );
 
 for (const course of languageCourses) {
+	const catalogEntry = getCourseCatalogEntry(course);
+	assert.ok(catalogEntry.preview.chart.rows.length > 0, course.id + ' needs a catalog chart preview');
+	assert.ok(catalogEntry.preview.dialogue.text.length > 0, course.id + ' needs a catalog example');
+	assert.ok(catalogEntry.preview.question.options.length >= 3, course.id + ' needs a catalog question');
+	assert.equal(
+		catalogEntry.preview.question.options.filter(
+			(option) => option.value === catalogEntry.preview.question.answer
+		).length,
+		1,
+		course.id + ' catalog answer must match exactly one option'
+	);
+
 	const expectedCount = expectedLessonCounts.get(course.slug);
 	assert.equal(course.lessons.length, expectedCount, course.slug + ' lesson count');
 	assert.deepEqual(
