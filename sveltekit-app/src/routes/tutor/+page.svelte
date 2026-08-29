@@ -10,6 +10,7 @@ FORM: An established-world extension of the approved sentence canvas; the task r
 	import { onMount } from 'svelte';
 	import Header from '$lib/components/Header.svelte';
 	import TutorReferencePane from '$lib/tutor/TutorReferencePane.svelte';
+	import type { CourseLessonRecommendation } from '$lib/courses/recommendations';
 	import { chooseNextTutorExercise } from '$lib/tutor/exercises';
 	import type {
 		TutorExercise,
@@ -73,6 +74,8 @@ FORM: An established-world extension of the approved sentence canvas; the task r
 	let currentExercise: TutorExercise = chooseNextTutorExercise(profile, null);
 	let answer = '';
 	let result: TutorResult | null = null;
+	let lessonRecommendation: CourseLessonRecommendation | null = null;
+	let recommendationRequest = 0;
 	let editing = true;
 	let checking = false;
 	let requestError = '';
@@ -98,6 +101,17 @@ FORM: An established-world extension of the approved sentence canvas; the task r
 	function persistProfile(next: TutorLearnerProfile) {
 		profile = next;
 		localStorage.setItem('kiokun-tutor-profile-v1', JSON.stringify(next));
+	}
+
+	function loadLessonRecommendation(exercise: TutorExercise) {
+		const request = ++recommendationRequest;
+		lessonRecommendation = null;
+		void import('$lib/tutor/recommendations').then(({ recommendTutorLesson }) => {
+			if (request !== recommendationRequest || currentExercise.id !== exercise.id) return;
+			lessonRecommendation = recommendTutorLesson(exercise);
+		}).catch(() => {
+			if (request === recommendationRequest) lessonRecommendation = null;
+		});
 	}
 
 	function nthIndexOf(haystack: string, needle: string, occurrence: number): number {
@@ -178,6 +192,8 @@ FORM: An established-world extension of the approved sentence canvas; the task r
 		checking = true;
 		requestError = '';
 		expandedIssue = null;
+		lessonRecommendation = null;
+		recommendationRequest += 1;
 
 		const requestBody: TutorRequest = {
 			exerciseId: currentExercise.id,
@@ -214,6 +230,7 @@ FORM: An established-world extension of the approved sentence canvas; the task r
 				attempts: profile.attempts + 1,
 				correct: profile.correct + (result.status === 'correct' && !alreadyComplete ? 1 : 0)
 			});
+			if (result.status === 'correct') loadLessonRecommendation(currentExercise);
 		} catch (cause) {
 			requestError = cause instanceof Error ? cause.message : 'The tutor could not check that answer.';
 		} finally {
@@ -235,6 +252,8 @@ FORM: An established-world extension of the approved sentence canvas; the task r
 		currentExercise = chooseNextTutorExercise(profile, currentExercise.id);
 		answer = '';
 		result = null;
+		lessonRecommendation = null;
+		recommendationRequest += 1;
 		editing = true;
 		attempt = 1;
 		priorHints = [];
@@ -408,6 +427,15 @@ FORM: An established-world extension of the approved sentence canvas; the task r
 									</article>
 								{/each}
 							</div>
+							{#if lessonRecommendation}
+								<a class="lesson-recommendation" href={lessonRecommendation.href}>
+									<span>
+										<small>Related course lesson</small>
+										<strong>{lessonRecommendation.lessonTitle}</strong>
+									</span>
+									<span>Open lesson <span aria-hidden="true">→</span></span>
+								</a>
+							{/if}
 							<button type="button" class="next-button" onclick={nextExercise}>Next sentence <span aria-hidden="true">→</span></button>
 						</section>
 					{/if}
@@ -941,6 +969,46 @@ FORM: An established-world extension of the approved sentence canvas; the task r
 		border-top: 1px solid var(--border-color);
 	}
 
+	.lesson-recommendation {
+		display: flex;
+		min-height: 5.25rem;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1.5rem;
+		margin-top: 1.5rem;
+		padding: 1rem 0;
+		border-block: 1px solid var(--border-color);
+		color: var(--text-primary);
+		text-decoration: none;
+	}
+
+	.lesson-recommendation > span:first-child {
+		display: grid;
+		gap: 0.25rem;
+	}
+
+	.lesson-recommendation small {
+		color: var(--text-muted);
+		font-size: var(--font-size-caption2);
+		font-weight: 520;
+	}
+
+	.lesson-recommendation strong { font-size: var(--font-size-subhead); }
+
+	.lesson-recommendation > span:last-child {
+		flex: 0 0 auto;
+		font-size: var(--font-size-caption1);
+		font-weight: 760;
+	}
+
+	.lesson-recommendation:hover strong,
+	.lesson-recommendation:hover > span:last-child { color: var(--accent); }
+
+	.lesson-recommendation:focus-visible {
+		outline: 2px solid var(--accent);
+		outline-offset: 0.35rem;
+	}
+
 	.request-error {
 		display: grid;
 		grid-template-columns: 8.75rem 1fr auto;
@@ -1089,6 +1157,7 @@ FORM: An established-world extension of the approved sentence canvas; the task r
 		.issue-detail > button { margin-top: 0.75rem; }
 		.grammar-grid { grid-template-columns: 1fr; }
 		.grammar-grid article { min-height: 0; }
+		.lesson-recommendation { align-items: flex-start; }
 
 		.request-error {
 			display: flex;

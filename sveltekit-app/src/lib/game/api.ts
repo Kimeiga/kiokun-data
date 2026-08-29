@@ -12,7 +12,7 @@ export async function fetchUnifiedExercise(
 		id !== undefined && id !== null && `${id}` !== ''
 			? `?id=${encodeURIComponent(id)}`
 			: '';
-	const res = await fetch(`${API_BASE}/exercise${qs}`, { cache: 'no-store' });
+	const res = await fetch(`${API_BASE}/exercise${qs}`);
 	if (!res.ok) throw new Error('Failed to fetch exercise');
 	return res.json();
 }

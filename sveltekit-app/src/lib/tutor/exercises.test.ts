@@ -18,15 +18,20 @@ assert.equal(
 );
 assert.equal(normalizeTutorAnswer('既然你已经决定了。'), normalizeTutorAnswer('既然你已经决定了'));
 
-const first = chooseNextTutorExercise(profile, null);
-assert.equal(first.direction, 'to_english', 'new sessions should favor comprehension');
+const firstCandidate = chooseNextTutorExercise(profile, null, () => 0);
+const lastCandidate = chooseNextTutorExercise(profile, null, () => 0.999999);
+assert.notEqual(firstCandidate.id, lastCandidate.id, 'the random value should change the first exercise');
 
 const next = chooseNextTutorExercise(
-	{ ...profile, completedExerciseIds: [first.id] },
-	first.id
+	{ ...profile, completedExerciseIds: [firstCandidate.id] },
+	firstCandidate.id,
+	() => 0
 );
-assert.notEqual(next.id, first.id, 'the next exercise should not immediately repeat');
-assert.equal(next.direction, 'to_english', 'unseen comprehension should remain the default');
+assert.notEqual(next.id, firstCandidate.id, 'the next exercise should not immediately repeat');
+
+const completedIds = tutorExercises.slice(0, -1).map((exercise) => exercise.id);
+const onlyUnseen = chooseNextTutorExercise({ ...profile, completedExerciseIds: completedIds }, null, () => 0.5);
+assert.equal(onlyUnseen.id, tutorExercises.at(-1)?.id, 'unseen exercises should be chosen before repeats');
 
 assert.ok(tutorExercises.length >= 8, 'the tutor should ship with a balanced seed set');
 for (const exercise of tutorExercises) {

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { getCourseBySlug, getCourseLesson } from '$lib/courses/catalog';
-import { recommendCourseLesson } from './course-recommendations';
+import { recommendCourseLesson } from './recommendations';
 
 const cases = [
 	['ja', 'Where is the station?', '駅はどこですか。', 'japanese', 'u4-01-find-place'],
@@ -20,6 +20,5 @@ for (const [language, english, target, slug, expectedLessonId] of cases) {
 
 const fallback = recommendCourseLesson('ko', 'This is an unusual sentence.', '특이한 문장이에요.');
 assert.equal(fallback?.lessonId, 'ko-00-blocks');
-assert.equal(recommendCourseLesson('tr', 'Hello.', 'Merhaba.'), null);
 
 console.log('Course recommendation invariants passed');

@@ -1,8 +1,7 @@
 import { getCourseBySlug, getCourseLesson } from '$lib/courses/catalog';
 import type { CourseLesson } from '$lib/courses/types';
-import type { Language } from './types';
 
-type RecommendableLanguage = Extract<Language, 'ja' | 'zh' | 'ko'>;
+export type CourseRecommendationLanguage = 'ja' | 'zh' | 'ko';
 
 export interface CourseLessonRecommendation {
 	courseName: string;
@@ -14,17 +13,17 @@ export interface CourseLessonRecommendation {
 
 interface TopicRule {
 	patterns: RegExp[];
-	lessonIds: Record<RecommendableLanguage, string>;
+	lessonIds: Record<CourseRecommendationLanguage, string>;
 	reason: string;
 }
 
-const courseSlug: Record<RecommendableLanguage, string> = {
+const courseSlug: Record<CourseRecommendationLanguage, string> = {
 	ja: 'japanese',
 	zh: 'mandarin',
 	ko: 'korean'
 };
 
-const fallbackLessonId: Record<RecommendableLanguage, string> = {
+const fallbackLessonId: Record<CourseRecommendationLanguage, string> = {
 	ja: 'lp-00-writing-systems',
 	zh: 'zh-00-pinyin-tones',
 	ko: 'ko-00-blocks'
@@ -72,6 +71,11 @@ const topicRules: TopicRule[] = [
 		reason: 'Review the course pattern for suggesting an activity and making a plan.'
 	},
 	{
+		patterns: [/\b(ask|asked|accept|accepted|refuse|decline|persuade)\b/i, /頼|引き受け|断る|劝|说服/],
+		lessonIds: { ja: 'u4-03-invite', zh: 'zh-27-weekend-mission', ko: 'ko-27-weekend-mission' },
+		reason: 'Review the course patterns for proposing, accepting, and declining an activity.'
+	},
+	{
 		patterns: [/\b(how much|price|cost|costs|cheap|expensive|pay|buy|shop|store)\b/i, /いくら|円|買|多少钱|块|买|얼마|원|사요/],
 		lessonIds: { ja: 'u3-04-restriction-total', zh: 'zh-17-prices', ko: 'ko-17-prices' },
 		reason: 'Review the course pattern for prices and payment.'
@@ -82,7 +86,7 @@ const topicRules: TopicRule[] = [
 		reason: 'Review the course pattern for ordering food and drink.'
 	},
 	{
-		patterns: [/\b(where|station|airport|restroom|bathroom|located|near|beside|behind|left|right)\b/i, /どこ|駅|空港|右|左|在哪|哪里|旁边|机场|화장실|어디|옆|공항/],
+		patterns: [/\b(where|station|train|driver|airport|restroom|bathroom|located|near|beside|behind|left|right)\b/i, /どこ|駅|電車|空港|右|左|在哪|哪里|末班车|司机|旁边|机场|화장실|어디|옆|공항/],
 		lessonIds: { ja: 'u4-01-find-place', zh: 'zh-18-location', ko: 'ko-18-location' },
 		reason: 'Review the course pattern for asking where a place is.'
 	},
@@ -140,8 +144,8 @@ function lexicalScore(lesson: CourseLesson, english: string, target: string): nu
 	return score;
 }
 
-function makeRecommendation(
-	language: RecommendableLanguage,
+export function createCourseLessonRecommendation(
+	language: CourseRecommendationLanguage,
 	lessonId: string,
 	reason: string
 ): CourseLessonRecommendation | null {
@@ -161,16 +165,14 @@ function makeRecommendation(
 }
 
 export function recommendCourseLesson(
-	language: Language,
+	language: CourseRecommendationLanguage,
 	english: string,
 	target: string
 ): CourseLessonRecommendation | null {
-	if (language !== 'ja' && language !== 'zh' && language !== 'ko') return null;
-
 	const combined = `${english}\n${target}`;
 	for (const rule of topicRules) {
 		if (rule.patterns.some((pattern) => pattern.test(combined))) {
-			return makeRecommendation(language, rule.lessonIds[language], rule.reason);
+			return createCourseLessonRecommendation(language, rule.lessonIds[language], rule.reason);
 		}
 	}
 
@@ -181,14 +183,14 @@ export function recommendCourseLesson(
 		.sort((a, b) => b.score - a.score || a.lesson.sequence - b.lesson.sequence)[0];
 
 	if (lexicalMatch) {
-		return makeRecommendation(
+		return createCourseLessonRecommendation(
 			language,
 			lexicalMatch.lesson.id,
 			'Review the course vocabulary and sentence pattern used in this exercise.'
 		);
 	}
 
-	return makeRecommendation(
+	return createCourseLessonRecommendation(
 		language,
 		fallbackLessonId[language],
 		'Review how this writing system represents the sounds in the sentence.'

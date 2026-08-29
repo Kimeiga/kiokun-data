@@ -15,9 +15,9 @@
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "deploy": "npm run build && node scripts/prune-cloudflare-output.js && wrangler pages deploy .svelte-kit/cloudflare --project-name=kiokun --commit-dirty=true",
     "cf-typegen": "wrangler types",
-    "test": "svelte-kit sync && node extract_homophones.test.mjs && npx tsx src/lib/utils/korean-deinflect.test.ts && npx tsx src/lib/server/korean-gloss-helpers.test.ts && npx tsx src/lib/utils/chinese-ruby.test.ts && npx tsx src/lib/utils/japanese-ruby.test.ts && npx tsx src/lib/contains-order.test.ts && npx tsx src/lib/character-forms.test.ts && npx tsx src/lib/seo.test.ts && npx tsx src/lib/character-corpus-invariants.test.ts && npx tsx src/lib/pronunciation-mnemonics.test.ts && npx tsx src/lib/sentence-analysis.test.ts && npx tsx src/lib/server/japanese-sentence-analysis.test.ts && npm run test:game && npm run test:courses",
-    "test:game": "npx tsx src/lib/game/random-exercises.test.ts && npx tsx src/lib/game/course-recommendations.test.ts",
-    "test:courses": "npx tsx src/lib/courses/catalog.test.ts && npx tsx src/lib/courses/japanese-a1.test.ts",
+    "test": "svelte-kit sync && node extract_homophones.test.mjs && npx tsx src/lib/utils/korean-deinflect.test.ts && npx tsx src/lib/server/korean-gloss-helpers.test.ts && npx tsx src/lib/utils/chinese-ruby.test.ts && npx tsx src/lib/utils/japanese-ruby.test.ts && npx tsx src/lib/contains-order.test.ts && npx tsx src/lib/character-forms.test.ts && npx tsx src/lib/seo.test.ts && npx tsx src/lib/character-corpus-invariants.test.ts && npx tsx src/lib/pronunciation-mnemonics.test.ts && npx tsx src/lib/sentence-analysis.test.ts && npx tsx src/lib/server/japanese-sentence-analysis.test.ts && npm run test:tutor && npm run test:courses",
+    "test:tutor": "npx tsx src/lib/tutor/exercises.test.ts && npx tsx src/lib/tutor/recommendations.test.ts",
+    "test:courses": "npx tsx src/lib/courses/catalog.test.ts && npx tsx src/lib/courses/japanese-a1.test.ts && npx tsx src/lib/courses/recommendations.test.ts",
     "test:character-forms": "npx tsx src/lib/character-forms.test.ts",
     "test:character-corpus": "npx tsx src/lib/character-corpus-invariants.test.ts"
   },

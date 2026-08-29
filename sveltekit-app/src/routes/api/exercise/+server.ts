@@ -44,7 +44,7 @@ interface LanguageExercise {
 let cachedManifest: UnifiedManifest | null = null;
 let cachedDistractors: Record<Language, string[]> | null = null;
 
-// Game data is served straight from the duojp
+// Game data (216k sentences / 217 chunks) is served straight from the duojp
 // repo via GitHub's raw CDN — same approach as Kiokun's dictionary shards
 // ($lib/shard-utils getRawGitHubUrl), which deliberately avoids jsDelivr to
 // dodge cross-region CDN cache inconsistency. The data is public, immutable,
@@ -234,16 +234,12 @@ export const GET: RequestHandler = async ({ fetch, url }) => {
 
 		// Return unified response. exercise_id is the stable global position
 		// (the shareable locator), not the source sentence id.
-		return json(
-			{
-				exercise_id: position,
-				source_id: sentence.id,
-				total_exercises: manifest.total,
-				english: sentence.en,
-				exercises // Contains ja, zh, ko with tiles for each
-			},
-			{ headers: { 'cache-control': 'no-store' } }
-		);
+		return json({
+			exercise_id: position,
+			source_id: sentence.id,
+			english: sentence.en,
+			exercises  // Contains ja, zh, ko with tiles for each
+		});
 	} catch (error) {
 		console.error('Error generating exercise:', error);
 		return json({ error: 'Failed to generate exercise' }, { status: 500 });

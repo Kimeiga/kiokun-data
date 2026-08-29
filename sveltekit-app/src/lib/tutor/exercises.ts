@@ -142,21 +142,25 @@ export const tutorExercises: TutorExercise[] = [
 
 export const tutorExerciseById = new Map(tutorExercises.map((exercise) => [exercise.id, exercise]));
 
-export function chooseNextTutorExercise(profile: TutorLearnerProfile, currentId: string | null): TutorExercise {
+export function chooseNextTutorExercise(
+	profile: TutorLearnerProfile,
+	currentId: string | null,
+	random: () => number = Math.random
+): TutorExercise {
 	const unseen = tutorExercises.filter((exercise) => !profile.completedExerciseIds.includes(exercise.id) && exercise.id !== currentId);
 	const pool = unseen.length ? unseen : tutorExercises.filter((exercise) => exercise.id !== currentId);
 	const nearLevel = pool.filter((exercise) => Math.abs(exercise.level - profile.level) <= 1);
 	const candidates = nearLevel.length ? nearLevel : pool;
+	const focused = candidates.filter((exercise) => exercise.grammarTargets.some((target) =>
+		profile.focus.some((focus) => target.includes(focus) || focus.includes(target))
+	));
+	const selectionPool = focused.length ? [...candidates, ...focused] : candidates;
+	const randomIndex = Math.min(
+		selectionPool.length - 1,
+		Math.max(0, Math.floor(random() * selectionPool.length))
+	);
 
-	return [...candidates].sort((a, b) => {
-		const focusScore = (exercise: TutorExercise) => exercise.grammarTargets.some((target) =>
-			profile.focus.some((focus) => target.includes(focus) || focus.includes(target))
-		) ? 1 : 0;
-		const scoreDifference = focusScore(b) - focusScore(a);
-		if (scoreDifference) return scoreDifference;
-		if (a.direction !== b.direction) return a.direction === 'to_english' ? -1 : 1;
-		return Math.abs(a.level - profile.level) - Math.abs(b.level - profile.level);
-	})[0] ?? tutorExercises[0];
+	return selectionPool[randomIndex] ?? tutorExercises[0];
 }
 
 export function normalizeTutorAnswer(value: string): string {
