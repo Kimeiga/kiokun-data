@@ -12,9 +12,11 @@
 		SnapSortDomRemoveEvent
 	} from '@snap-engine/snapsort';
 	import { fetchUnifiedExercise, gradeUnifiedAnswer } from '$lib/game/api';
+	import { chooseUnseenExerciseId } from '$lib/game/random-exercises';
 	import { languageStore } from '$lib/game/stores/language.svelte';
 	import { chineseScriptStore } from '$lib/game/stores/chineseScript.svelte';
 	import { LANGUAGES, type UnifiedExercise, type TileData, type GradeResult, type ApiTile, type Language, type LanguageExercise } from '$lib/game/types';
+	import type { CourseLessonRecommendation } from '$lib/game/course-recommendations';
 	import SpeakButton from '$lib/components/shared/SpeakButton.svelte';
 
 	const snapSortAnimation = {
@@ -224,6 +226,10 @@
 	let bankTiles: TileData[] = $state([]);
 	let result: GradeResult | null = $state(null);
 	let loading = $state(true);
+	let lessonRecommendation: CourseLessonRecommendation | null = $state(null);
+	let recommendationRequest = 0;
+	let preserveExerciseIdInUrl = false;
+	const seenExerciseIds = new Set<number>();
 
 	// Store answer/bank state per language (ja, zh, ko, tr)
 	// For Chinese, both simplified and traditional share the same 'zh' state
@@ -327,25 +333,53 @@
 		}));
 	}
 
-	// Keep the current exercise + language in the URL (?id=…&lang=…) so a
-	// question can be reloaded or shared exactly. Pure query change — no
-	// navigation/reload.
+	// An inbound ?id= remains a shareable permalink. Normal random play keeps
+	// only the language in the URL so reloading starts with a new sentence.
 	function syncUrl() {
 		if (typeof window === 'undefined' || !unifiedExercise) return;
 		const u = new URL(window.location.href);
-		u.searchParams.set('id', String(unifiedExercise.exercise_id));
+		if (preserveExerciseIdInUrl) {
+			u.searchParams.set('id', String(unifiedExercise.exercise_id));
+		} else {
+			u.searchParams.delete('id');
+		}
 		u.searchParams.set('lang', languageStore.value);
 		window.history.replaceState(window.history.state, '', u);
 	}
 
-	async function loadExercise(id?: number | string | null) {
+	async function loadExercise(
+		id?: number | string | null,
+		preserveId = false,
+		requireUnseen = false
+	) {
 		loading = true;
 		result = null;
+		lessonRecommendation = null;
+		recommendationRequest += 1;
 		answerTiles = [];
 		// Reset all saved language states for new exercise
 		languageStates = { ja: null, zh: null, ko: null, tr: null };
 		try {
-			unifiedExercise = await fetchUnifiedExercise(id);
+			let nextExercise = await fetchUnifiedExercise(id);
+
+			if (requireUnseen) {
+				for (let attempt = 0; seenExerciseIds.has(nextExercise.exercise_id) && attempt < 6; attempt += 1) {
+					nextExercise = await fetchUnifiedExercise();
+				}
+
+				if (seenExerciseIds.has(nextExercise.exercise_id)) {
+					if (seenExerciseIds.size >= nextExercise.total_exercises) seenExerciseIds.clear();
+					const unseenId = chooseUnseenExerciseId(
+						nextExercise.total_exercises,
+						seenExerciseIds
+					);
+					nextExercise = await fetchUnifiedExercise(unseenId);
+				}
+			}
+
+			unifiedExercise = nextExercise;
+			seenExerciseIds.add(nextExercise.exercise_id);
+			preserveExerciseIdInUrl = preserveId;
 			// Initialize tiles for current language
 			const langExercise = unifiedExercise.exercises[languageStore.value];
 			if (langExercise) {
@@ -367,6 +401,10 @@
 		}
 	}
 
+	function loadNextExercise() {
+		return loadExercise(null, false, true);
+	}
+
 	// Save current language state
 	function saveCurrentLanguageState() {
 		const currentLang = languageStore.value;
@@ -385,6 +423,8 @@
 
 		languageStore.set(lang);
 		result = null;
+		lessonRecommendation = null;
+		recommendationRequest += 1;
 
 		// Check if we have saved state for this language
 		const savedState = languageStates[lang];
@@ -485,6 +525,17 @@
 		const userTokens = answerTiles.map((t) => t.text);
 		// Client-side grading with Korean-aware token comparison
 		result = gradeUnifiedAnswer(currentExercise, userTokens, languageStore.value);
+		lessonRecommendation = null;
+		const request = ++recommendationRequest;
+		if (!result.correct || !unifiedExercise) return;
+
+		const language = languageStore.value;
+		const english = unifiedExercise.english;
+		const target = currentExercise.text;
+		void import('$lib/game/course-recommendations').then(({ recommendCourseLesson }) => {
+			if (request !== recommendationRequest) return;
+			lessonRecommendation = recommendCourseLesson(language, english, target);
+		});
 	}
 
 	// Listen-to-answer TTS. For JA/ZH/KO we reuse Kiokun's shared SpeakButton
@@ -593,11 +644,16 @@ ${questions}
 		if (sharedLang === 'ja' || sharedLang === 'zh' || sharedLang === 'ko' || sharedLang === 'tr') {
 			languageStore.set(sharedLang);
 		}
-		loadExercise(params.get('id'));
+		const sharedId = params.get('id');
+		loadExercise(sharedId, sharedId !== null);
 	});
 </script>
 
-<main id="main-content">
+<main
+	id="main-content"
+	data-exercise-id={unifiedExercise?.exercise_id}
+	data-total-exercises={unifiedExercise?.total_exercises}
+>
 	<h1 class="visually-hidden">Sentence game</h1>
 	{#if loading}
 		<div class="loading">Loading...</div>
@@ -764,11 +820,21 @@ ${questions}
 			<section class="result" class:correct={result.correct} class:incorrect={!result.correct} transition:fly={{ y: 20 }}>
 				{#if result.correct}
 					<div class="result-icon">✓</div>
-					<p class="result-text">Correct! 🎉</p>
+					<p class="result-text">Correct</p>
 				{:else}
 					<div class="result-icon">✗</div>
 					<p class="result-text">Not quite right</p>
 					<p class="expected">Expected: {displayText(result.expected)}</p>
+				{/if}
+				{#if result.correct && lessonRecommendation}
+					<div class="lesson-recommendation">
+						<p class="lesson-recommendation-label">Related course lesson</p>
+						<a href={lessonRecommendation.href}>
+							<span>{lessonRecommendation.lessonTitle}</span>
+							<span aria-hidden="true">→</span>
+						</a>
+						<p>{lessonRecommendation.reason}</p>
+					</div>
 				{/if}
 				{#if currentExercise && answerSpeakLang}
 					<span class="speak-answer-wrap">
@@ -791,7 +857,7 @@ ${questions}
 						🔊 Listen
 					</button>
 				{/if}
-				<button class="btn next" onclick={() => loadExercise()}>Next Exercise →</button>
+				<button class="btn next" onclick={loadNextExercise}>Next Exercise →</button>
 			</section>
 		{/if}
 
@@ -1220,6 +1286,54 @@ ${questions}
 		color: var(--text-secondary);
 		margin: 0.5rem 0 1rem;
 		font-size: 1.1rem;
+	}
+
+	.lesson-recommendation {
+		max-width: 34rem;
+		margin: 1rem auto;
+		padding: 1rem;
+		border: 1px solid color-mix(in srgb, var(--green-primary) 42%, var(--border-color));
+		border-radius: 12px;
+		background: color-mix(in srgb, var(--bg-primary) 82%, transparent);
+		text-align: left;
+	}
+
+	.lesson-recommendation-label {
+		margin: 0 0 0.35rem;
+		color: var(--text-secondary);
+		font-size: 0.75rem;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+	}
+
+	.lesson-recommendation a {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		color: var(--text-primary);
+		font-size: 1rem;
+		font-weight: 700;
+		text-decoration: underline;
+		text-decoration-color: color-mix(in srgb, var(--green-primary) 55%, transparent);
+		text-underline-offset: 0.25em;
+	}
+
+	.lesson-recommendation a:hover {
+		color: var(--green-dark);
+	}
+
+	.lesson-recommendation a:focus-visible {
+		outline: 3px solid var(--blue-primary);
+		outline-offset: 4px;
+	}
+
+	.lesson-recommendation > p:last-child {
+		margin: 0.45rem 0 0;
+		color: var(--text-secondary);
+		font-size: 0.9rem;
+		line-height: 1.45;
 	}
 
 	.btn.next {

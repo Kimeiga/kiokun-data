@@ -3,10 +3,10 @@ import { getCourseCatalogEntry, languageCourses } from './catalog';
 import { gradeChoice } from './grading';
 
 const expectedLessonCounts = new Map([
-	['japanese', 32],
-	['mandarin', 24],
-	['cantonese', 24],
-	['korean', 24]
+	['japanese', 36],
+	['mandarin', 28],
+	['cantonese', 28],
+	['korean', 28]
 ]);
 
 let choiceCount = 0;
@@ -109,7 +109,7 @@ for (const course of languageCourses) {
 	}
 }
 
-assert.equal(choiceCount, 120, 'every authored multiple-choice question must be validated');
+assert.equal(choiceCount, 136, 'every authored multiple-choice question must be validated');
 
 const mandarin = languageCourses.find((course) => course.slug === 'mandarin');
 const cantonese = languageCourses.find((course) => course.slug === 'cantonese');
@@ -121,6 +121,9 @@ assert.ok(korean?.lessons.some((lesson) => lesson.id === 'ko-05-batchim'));
 assert.ok(mandarin?.lessons.some((lesson) => lesson.id === 'zh-23-family-home-mission'));
 assert.ok(cantonese?.lessons.some((lesson) => lesson.id === 'yue-23-family-home-mission'));
 assert.ok(korean?.lessons.some((lesson) => lesson.id === 'ko-23-family-home-mission'));
+assert.ok(mandarin?.lessons.some((lesson) => lesson.id === 'zh-27-weekend-mission'));
+assert.ok(cantonese?.lessons.some((lesson) => lesson.id === 'yue-27-weekend-mission'));
+assert.ok(korean?.lessons.some((lesson) => lesson.id === 'ko-27-weekend-mission'));
 assert.equal(cantonese?.speechLanguage, 'yue');
 assert.equal(cantonese?.studyLanguage, 'zh');
 

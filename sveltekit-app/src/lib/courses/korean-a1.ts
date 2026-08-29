@@ -488,6 +488,58 @@ const lessons = [
 		arrange: { prompt: 'Build “There is one cat at home.”', tiles: ['한 마리가', '있어요', '집에', '고양이'], answer: ['집에', '고양이', '한 마리가', '있어요'], translation: 'There is one cat at home.', rationale: 'The setting comes first, followed by the animal, its counted subject phrase, and 있어요.' },
 		production: { mode: 'speak', prompt: 'Describe a real or invented family and home in at least four connected statements.', modelAnswer: '가족이 네 명이에요. 부모님, 언니, 저예요. 서울에 살아요. 집에 방이 세 개 있어요.', modelReading: 'gajogi ne myeong-ieyo. bumonim, eonni, jeoyeyo. seoure sarayo. jibe bangi se gae isseoyo.', checklist: ['Family count uses 명', 'At least one relationship is named', 'Residence uses 에 살아요', 'One home detail uses 있어요 or 없어요'] },
 		transferPrompt: 'Repeat the description with a different family size, city, room count, and home-location detail.', transferSupport: '가족이 … 명이에요. …예요/이에요. …에 살아요. 집에 …이/가 있어요.'
+	}),
+	lesson({
+		id: 'ko-24-hobbies', unitId: 'korean-leisure-weather', title: 'Talking about hobbies', shortTitle: 'Hobbies and interests',
+		canDo: 'Ask about someone’s hobby and name one activity as your own hobby.',
+		focus: ['취미가 뭐예요', 'verb stem + 기', 'noun + 예요/이에요'],
+		scenario: [['민지', '취미가 뭐예요?', 'chwimiga mwoyeyo?', 'What is your hobby?'], ['준호', '제 취미는 영화 보기예요.', 'je chwimineun yeonghwa bogiyeyo.', 'My hobby is watching movies.']],
+		notice: ['뭐 asks what the hobby is, while 취미 takes the subject marker 가 in the question.', '보기 turns 보다 into an activity noun that can be identified as a hobby.'],
+		explanation: ['Attach 기 to a verb stem to name the activity: 보다 becomes 보기 and 듣다 becomes 듣기.', 'Because 보기 ends in a vowel, the noun predicate takes 예요 rather than 이에요.'],
+		vocabulary: [['취미', 'chwimi', 'hobby'], ['뭐', 'mwo', 'what'], ['영화', 'yeonghwa', 'movie'], ['보기', 'bogi', 'watching; seeing']],
+		choice: { prompt: 'Which form names “watching” as an activity?', options: [['bogi', '보기'], ['bwayo', '봐요'], ['bwasseoyo', '봤어요']], answer: 'bogi', rationale: 'Verb stem 보- plus 기 forms the activity noun 보기.' },
+		arrange: { prompt: 'Build “My hobby is watching movies.”', tiles: ['제 취미는', '영화 보기예요', '뭐예요', '봤어요'], answer: ['제 취미는', '영화 보기예요'], translation: 'My hobby is watching movies.', rationale: 'The topic phrase is followed by the activity noun and 예요.' },
+		production: { mode: 'speak', prompt: 'Ask about a hobby and answer with a different activity.', modelAnswer: '취미가 뭐예요? 제 취미는 음악 듣기예요.', modelReading: 'chwimiga mwoyeyo? je chwimineun eumak deutgiyeyo.', checklist: ['Question uses 취미가 뭐예요', 'Answer turns a verb into an activity with 기', 'Noun ending uses 예요 or 이에요 correctly'] },
+		transferPrompt: 'Replace watching movies with a different hobby and ask a new person the same question.', transferSupport: '취미가 뭐예요? 제 취미는 …기예요.'
+	}),
+	lesson({
+		id: 'ko-25-weather', unitId: 'korean-leisure-weather', title: 'Describing today’s weather', shortTitle: 'Today’s weather',
+		canDo: 'Ask about today’s weather and give a short description with two linked details.',
+		focus: ['날씨가 어때요', 'descriptive verb ending', '-고 linking'],
+		scenario: [['준호', '오늘 날씨가 어때요?', 'oneul nalssiga eottaeyo?', 'How is the weather today?'], ['민지', '따뜻하고 맑아요.', 'ttatteuthago malgayo.', 'It is warm and clear.']],
+		notice: ['어때요 asks for a description of the subject marked by 가.', '-고 links 따뜻하다 to the following description without making a second sentence.'],
+		explanation: ['Korean descriptive verbs conjugate as predicates, so the sentence does not add a separate copula before 따뜻해요 or 맑아요.', 'Use -고 on the first description and a polite ending on the final one.'],
+		vocabulary: [['오늘', 'oneul', 'today'], ['날씨', 'nalssi', 'weather'], ['따뜻하다', 'ttatteuthada', 'be warm'], ['맑다', 'makda', 'be clear']],
+		choice: { prompt: 'Which line gives two linked weather descriptions?', options: [['linked', '따뜻하고 맑아요.'], ['noun', '따뜻한 맑아요.'], ['copula', '따뜻하고 맑은이에요.']], answer: 'linked', rationale: '-고 links the first descriptive verb to the final polite predicate.' },
+		arrange: { prompt: 'Build “It is warm and clear.”', tiles: ['따뜻하고', '맑아요', '날씨가', '있어요'], answer: ['따뜻하고', '맑아요'], translation: 'It is warm and clear.', rationale: 'The first description takes -고, and the last carries the polite ending.' },
+		production: { mode: 'speak', prompt: 'Ask about the weather and answer with two conditions.', modelAnswer: '오늘 날씨가 어때요? 춥고 흐려요.', modelReading: 'oneul nalssiga eottaeyo? chupgo heuryeoyo.', checklist: ['Question uses 날씨가 어때요', 'First description connects with -고', 'Final description has a polite ending'] },
+		transferPrompt: 'Change both weather details and the day while keeping the question and linked answer complete.', transferSupport: '… 날씨가 어때요? …고 …아요/어요.'
+	}),
+	lesson({
+		id: 'ko-26-weekend-past', unitId: 'korean-leisure-weather', title: 'Reporting a completed weekend activity', shortTitle: 'What you did',
+		canDo: 'Ask what someone did over the weekend and report one completed activity.',
+		focus: ['주말에 뭐 했어요', 'past -았/었-', 'activity location + 에서'],
+		scenario: [['민지', '주말에 뭐 했어요?', 'jumare mwo haesseoyo?', 'What did you do over the weekend?'], ['준호', '공원에서 산책했어요.', 'gongwoneseo sanchaekhaesseoyo.', 'I took a walk in the park.']],
+		notice: ['했어요 is the polite past form of 하다.', '에서 marks the location where the walking activity occurred.'],
+		explanation: ['The past marker appears inside the polite verb ending: 하다 becomes 했어요 and 보다 becomes 봤어요.', 'The question and answer share a completed weekend frame, so the answer does not need to repeat 주말에.'],
+		vocabulary: [['주말', 'jumal', 'weekend'], ['뭐', 'mwo', 'what'], ['공원', 'gongwon', 'park'], ['산책하다', 'sanchaekhada', 'take a walk']],
+		choice: { prompt: 'Which form reports a completed activity politely?', options: [['past', '산책했어요'], ['present', '산책해요'], ['future', '산책할 거예요']], answer: 'past', rationale: '했어요 contains the polite past form of 하다.' },
+		arrange: { prompt: 'Build “I took a walk in the park.”', tiles: ['공원에서', '산책했어요', '산책해요', '좋아해요'], answer: ['공원에서', '산책했어요'], translation: 'I took a walk in the park.', rationale: 'The activity location marked by 에서 comes before the polite past verb.' },
+		production: { mode: 'speak', prompt: 'Ask about the weekend and answer with one completed activity.', modelAnswer: '주말에 뭐 했어요? 영화를 봤어요.', modelReading: 'jumare mwo haesseoyo? yeonghwareul bwasseoyo.', checklist: ['Question uses 뭐 했어요', 'Answer uses a polite past verb', 'Object or activity location has the needed particle'] },
+		transferPrompt: 'Replace the park walk with a different completed activity and a different past time expression.', transferSupport: '…에 뭐 했어요? …았어요/었어요/했어요.'
+	}),
+	lesson({
+		id: 'ko-27-weekend-mission', unitId: 'korean-leisure-weather', title: 'Mission: make a weather-aware plan', shortTitle: 'Weekend plan', kind: 'mission', durationMinutes: 20,
+		canDo: 'Use a forecast to suggest an activity, accept it, and confirm a meeting time.',
+		focus: ['내일 날씨가 좋아요', '같이…갈까요', 'time + 에 만나요'],
+		scenario: [['준호', '내일 날씨가 좋아요. 같이 공원에 갈까요?', 'naeil nalssiga joayo. gachi gongwone galkkayo?', 'The weather will be good tomorrow. Shall we go to the park together?'], ['민지', '좋아요. 세 시에 만나요.', 'joayo. se sie mannayo.', 'Sounds good. Let’s meet at three.']],
+		notice: ['-(으)ㄹ까요 proposes a shared action and asks for the listener’s response.', 'The meeting time takes 에 before 만나요.'],
+		explanation: ['The weather statement gives a practical reason for the suggestion.', 'After accepting, confirm a concrete time or place so the exchange produces a complete plan.'],
+		vocabulary: [['내일', 'naeil', 'tomorrow'], ['같이', 'gachi', 'together'], ['갈까요', 'galkkayo', 'shall we go'], ['만나다', 'mannada', 'meet']],
+		choice: { prompt: 'Which line makes the suggestion?', options: [['suggest', '같이 공원에 갈까요?'], ['weather', '내일 날씨가 좋아요.'], ['time', '세 시에 만나요.']], answer: 'suggest', rationale: '갈까요 asks whether to go together.' },
+		arrange: { prompt: 'Build “Shall we go to the park together?”', tiles: ['같이', '공원에', '갈까요', '갔어요'], answer: ['같이', '공원에', '갈까요'], translation: 'Shall we go to the park together?', rationale: '같이 precedes the destination and the shared-action proposal.' },
+		production: { mode: 'speak', prompt: 'State the weather, suggest an activity, then accept and set a time.', modelAnswer: '내일 날씨가 좋아요. 같이 공원에 갈까요? 좋아요. 세 시에 만나요.', modelReading: 'naeil nalssiga joayo. gachi gongwone galkkayo? joayo. se sie mannayo.', checklist: ['Weather supports the activity', 'Suggestion uses -(으)ㄹ까요', 'Response accepts or declines', 'Plan includes a time marked by 에'] },
+		transferPrompt: 'Change the forecast, activity, and meeting time while keeping the suggestion and confirmation complete.', transferSupport: '내일 날씨가 …. 같이 …에 갈까요? 좋아요. … 시에 만나요.'
 	})
 ].map((item, index) => ({ ...item, sequence: index + 1 }));
 
@@ -496,7 +548,8 @@ const units: CourseUnit[] = [
 	{ id: 'korean-introductions', sequence: 1, title: 'Introductions and identity', nativeTitle: '자기소개', strapline: 'Names, identity, origin, language study, and a complete first meeting.', canDo: 'Introduce yourself politely, exchange one personal detail, and ask a matching question.', mission: 'Complete a first meeting with a name, identity, origin, and one follow-up question.', lessonIds: lessons.filter((item) => item.unitId === 'korean-introductions').map((item) => item.id) },
 	{ id: 'korean-daily', sequence: 2, title: 'Daily routine and time', nativeTitle: '일상과 시간', strapline: 'Dates, clock time, routine descriptions, and scheduling.', canDo: 'Describe a short routine and negotiate a specific day and time.', mission: 'Propose, revise, and confirm a meeting time.', lessonIds: lessons.filter((item) => item.unitId === 'korean-daily').map((item) => item.id) },
 	{ id: 'korean-food-places', sequence: 3, title: 'Food, prices, and places', nativeTitle: '음식과 장소', strapline: 'Counters, service requests, prices, totals, and simple locations.', canDo: 'Order common items, confirm a price, and ask where a place is.', mission: 'Complete an order and obtain one location in the same service exchange.', lessonIds: lessons.filter((item) => item.unitId === 'korean-food-places').map((item) => item.id) },
-	{ id: 'korean-family-home', sequence: 4, title: 'Family and home', nativeTitle: '가족과 집', strapline: 'Relationships, existence, people and animal counters, rooms, and locations at home.', canDo: 'Identify family members, state who is in a household, describe a home, and locate a person, animal, or object.', mission: 'Give a connected description of a family and home with accurate counters, particles, and existence forms.', lessonIds: lessons.filter((item) => item.unitId === 'korean-family-home').map((item) => item.id) }
+	{ id: 'korean-family-home', sequence: 4, title: 'Family and home', nativeTitle: '가족과 집', strapline: 'Relationships, existence, people and animal counters, rooms, and locations at home.', canDo: 'Identify family members, state who is in a household, describe a home, and locate a person, animal, or object.', mission: 'Give a connected description of a family and home with accurate counters, particles, and existence forms.', lessonIds: lessons.filter((item) => item.unitId === 'korean-family-home').map((item) => item.id) },
+	{ id: 'korean-leisure-weather', sequence: 5, title: 'Leisure, weather, and plans', nativeTitle: '취미, 날씨와 계획', strapline: 'Hobbies, simple weather, completed activities, and concrete weekend plans.', canDo: 'Discuss a hobby, describe the weather, report a completed activity, and make a specific plan.', mission: 'Use the weather to suggest an activity, respond, and confirm when to meet.', lessonIds: lessons.filter((item) => item.unitId === 'korean-leisure-weather').map((item) => item.id) }
 ];
 
 export const koreanA1Course: LanguageCourse = {
@@ -512,7 +565,7 @@ export const koreanA1Course: LanguageCourse = {
 	speechLanguage: 'ko',
 	readingLabel: 'Romanization',
 	level: 'Launchpad–A1',
-	description: 'A 24-lesson introductory Korean course covering Hangul, sound changes, everyday exchanges, family and home descriptions, retrieval, open production, and transfer checks.',
+	description: 'A 28-lesson introductory Korean course covering Hangul, sound changes, everyday exchanges, family and home descriptions, leisure and weather, retrieval, open production, and transfer checks.',
 	designPromise: 'Each lesson moves from Hangul form to sound and meaning, checks a constrained target, requires original use, and ends with reduced support.',
 	units,
 	lessons

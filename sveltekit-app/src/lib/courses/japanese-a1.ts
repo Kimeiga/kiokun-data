@@ -1,6 +1,7 @@
 import { japaneseDailyFoodLessons } from './japanese-a1-daily-food';
 import { japaneseFamilyHomeLessons } from './japanese-a1-family-home';
 import { japaneseFoundationsLessons } from './japanese-a1-foundations';
+import { japaneseLeisureWeatherLessons } from './japanese-a1-leisure-weather';
 import { japanesePlacesLessons } from './japanese-a1-places';
 import type { JapaneseCourse, JapaneseLesson, JapaneseUnit } from './types';
 
@@ -8,7 +9,8 @@ const lessons: JapaneseLesson[] = [
 	...japaneseFoundationsLessons,
 	...japaneseDailyFoodLessons,
 	...japanesePlacesLessons,
-	...japaneseFamilyHomeLessons
+	...japaneseFamilyHomeLessons,
+	...japaneseLeisureWeatherLessons
 ].map((lesson, index) => ({ ...lesson, sequence: index + 1 }));
 
 const units: JapaneseUnit[] = [
@@ -71,6 +73,16 @@ const units: JapaneseUnit[] = [
 		canDo: 'Identify family members, state who is present, describe a home, and locate a person, animal, or object.',
 		mission: 'Give a connected description of a family and home while choosing います and あります by meaning.',
 		lessonIds: lessons.filter((lesson) => lesson.unitId === 'family-home').map((lesson) => lesson.id)
+	},
+	{
+		id: 'leisure-weather',
+		sequence: 6,
+		title: 'Leisure, weather & plans',
+		nativeTitle: '好きなことと天気',
+		strapline: 'Preferences, simple weather, completed activities, and concrete weekend plans.',
+		canDo: 'Discuss an interest, describe the weather, report a completed activity, and make a specific plan.',
+		mission: 'Use the weather to propose an activity, respond, and confirm when to meet.',
+		lessonIds: lessons.filter((lesson) => lesson.unitId === 'leisure-weather').map((lesson) => lesson.id)
 	}
 ];
 
@@ -88,7 +100,7 @@ export const japaneseA1Course: JapaneseCourse = {
 	readingLabel: 'Reading',
 	level: 'Launchpad–A1',
 	description:
-		'A 32-lesson introductory Japanese course for independent adults, covering script, sound, everyday exchanges, family and home descriptions, retrieval practice, open production, and transfer checks.',
+		'A 36-lesson introductory Japanese course for independent adults, covering script, sound, everyday exchanges, family and home descriptions, leisure and weather, retrieval practice, open production, and transfer checks.',
 	designPromise:
 		'Each lesson contains an initial example, form-focused explanation, closed retrieval, open production, and a reduced-support transfer task.',
 	units,

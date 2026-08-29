@@ -40,6 +40,8 @@ export interface LanguageExercise {
 /** Unified exercise with all language translations */
 export interface UnifiedExercise {
 	exercise_id: number;
+	source_id: number;
+	total_exercises: number;
 	english: string;
 	exercises: Partial<Record<Language, LanguageExercise>>;
 }
@@ -59,4 +61,3 @@ export interface GradeResult {
 	expected: string;
 	submitted: string;
 }
-

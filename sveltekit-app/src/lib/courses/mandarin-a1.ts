@@ -424,6 +424,58 @@ const lessons = [
 		arrange: { prompt: 'Build “There is a cat at home.”', tiles: ['一只猫', '有', '家里', '在'], answer: ['家里', '有', '一只猫'], translation: 'There is a cat at home.', rationale: 'The location frame comes first, followed by 有 and the existing noun phrase.' },
 		production: { mode: 'speak', prompt: 'Describe a real or invented family and home in at least four connected statements.', modelAnswer: '我家有四口人。我有一个姐姐。我们住在北京。我家有三个房间。', modelReading: 'Wǒ jiā yǒu sì kǒu rén. Wǒ yǒu yí ge jiějie. Wǒmen zhù zài Běijīng. Wǒ jiā yǒu sān ge fángjiān.', checklist: ['Family count uses 口', 'At least one relationship is named', 'Residence uses 住在', 'One home detail uses 有 or 在'] },
 		transferPrompt: 'Repeat the description with a different family size, city, room count, and home-location detail.', transferSupport: '我家有…口人。我有…。我们住在…。家里有…。'
+	}),
+	lesson({
+		id: 'zh-24-likes', unitId: 'mandarin-leisure-weather', title: 'Talking about things you like', shortTitle: 'Likes and interests',
+		canDo: 'Ask what someone likes doing and give one specific preference.',
+		focus: ['喜欢 + noun or verb phrase', '做什么', 'question and answer'],
+		scenario: [['林娜', '你喜欢做什么？', 'Nǐ xǐhuan zuò shénme?', 'What do you like doing?'], ['王明', '我喜欢看电影。', 'Wǒ xǐhuan kàn diànyǐng.', 'I like watching movies.']],
+		notice: ['喜欢 comes before the thing or activity that is liked.', '什么 occupies the object position after 做 in the question.'],
+		explanation: ['喜欢 can take a noun or a verb phrase without an added infinitive marker.', 'Replace 看电影 with a familiar activity to make a new answer.'],
+		vocabulary: [['喜欢', 'xǐhuan', 'like'], ['做', 'zuò', 'do'], ['什么', 'shénme', 'what'], ['看电影', 'kàn diànyǐng', 'watch a movie']],
+		choice: { prompt: 'Which sentence says “I like watching movies”?', options: [['like', '我喜欢看电影。'], ['watch', '我看喜欢电影。'], ['question', '我喜欢什么？']], answer: 'like', rationale: '喜欢 precedes the activity 看电影.' },
+		arrange: { prompt: 'Build “I like watching movies.”', tiles: ['我', '喜欢', '看电影', '什么'], answer: ['我', '喜欢', '看电影'], translation: 'I like watching movies.', rationale: 'The order is subject + 喜欢 + activity.' },
+		production: { mode: 'speak', prompt: 'Ask what someone likes doing and answer with a different activity.', modelAnswer: '你喜欢做什么？我喜欢听音乐。', modelReading: 'Nǐ xǐhuan zuò shénme? Wǒ xǐhuan tīng yīnyuè.', checklist: ['Question uses 做什么', 'Answer places 喜欢 before the activity', 'Activity is specific'] },
+		transferPrompt: 'Replace the movie activity with a different interest and ask a new person the same question.', transferSupport: '你喜欢做什么？我喜欢…。'
+	}),
+	lesson({
+		id: 'zh-25-weather', unitId: 'mandarin-leisure-weather', title: 'Describing today’s weather', shortTitle: 'Today’s weather',
+		canDo: 'Ask about today’s weather and give a short description with two details.',
+		focus: ['天气怎么样', '很 + adjective', 'adjective predicate'],
+		scenario: [['王明', '今天天气怎么样？', 'Jīntiān tiānqì zěnmeyàng?', 'How is the weather today?'], ['林娜', '很暖和，也很晴朗。', 'Hěn nuǎnhuo, yě hěn qínglǎng.', 'It is warm and also clear.']],
+		notice: ['怎么样 asks for a description of the weather.', 'A Mandarin adjective can serve as the predicate without 是; 很 commonly appears before it in a neutral description.'],
+		explanation: ['Do not insert 是 before 暖和 in this pattern. The adjective itself describes the subject.', '也 adds a second parallel description and appears before the second adjective phrase.'],
+		vocabulary: [['今天', 'jīntiān', 'today'], ['天气', 'tiānqì', 'weather'], ['暖和', 'nuǎnhuo', 'warm'], ['晴朗', 'qínglǎng', 'clear; sunny']],
+		choice: { prompt: 'Which sentence naturally says “It is warm”?', options: [['warm', '天气很暖和。'], ['copula', '天气是暖和。'], ['object', '天气有暖和。']], answer: 'warm', rationale: 'The adjective phrase 很暖和 acts as the predicate without 是.' },
+		arrange: { prompt: 'Build “The weather is very warm today.”', tiles: ['今天', '天气', '很暖和', '是'], answer: ['今天', '天气', '很暖和'], translation: 'The weather is very warm today.', rationale: 'The time and topic come before the adjective predicate.' },
+		production: { mode: 'speak', prompt: 'Ask about the weather and answer with two conditions.', modelAnswer: '今天天气怎么样？很冷，也有风。', modelReading: 'Jīntiān tiānqì zěnmeyàng? Hěn lěng, yě yǒu fēng.', checklist: ['Question ends in 怎么样', 'Answer omits 是 before an adjective', 'Two weather details are given'] },
+		transferPrompt: 'Change both weather details and the day while keeping the question and description complete.', transferSupport: '…天气怎么样？很…，也…。'
+	}),
+	lesson({
+		id: 'zh-26-weekend-past', unitId: 'mandarin-leisure-weather', title: 'Reporting a completed weekend activity', shortTitle: 'What you did',
+		canDo: 'Ask what someone did over the weekend and report one completed activity.',
+		focus: ['做什么了', 'completed-action 了', 'time frame'],
+		scenario: [['林娜', '周末你做什么了？', 'Zhōumò nǐ zuò shénme le?', 'What did you do over the weekend?'], ['王明', '我去公园散步了。', 'Wǒ qù gōngyuán sànbù le.', 'I went for a walk in the park.']],
+		notice: ['Sentence-final 了 presents the weekend activity as a completed event in this exchange.', 'The destination 公园 follows 去, and the activity 散步 completes the event description.'],
+		explanation: ['了 does not encode past time by itself in every sentence. Here, 周末 supplies the time frame and 了 marks a completed change or event.', 'A new answer can replace the destination and activity while keeping the completed-event frame.'],
+		vocabulary: [['周末', 'zhōumò', 'weekend'], ['公园', 'gōngyuán', 'park'], ['散步', 'sànbù', 'take a walk'], ['了', 'le', 'completed-event particle in this pattern']],
+		choice: { prompt: 'Which line reports a completed weekend activity?', options: [['completed', '我去公园散步了。'], ['habit', '我每天去公园。'], ['future', '我明天去公园。']], answer: 'completed', rationale: 'The weekend context and final 了 present the walk as completed.' },
+		arrange: { prompt: 'Build “I went for a walk in the park.”', tiles: ['我', '去公园', '散步了', '喜欢'], answer: ['我', '去公园', '散步了'], translation: 'I went for a walk in the park.', rationale: 'The destination and activity follow the subject, with 了 completing the event.' },
+		production: { mode: 'speak', prompt: 'Ask about the weekend and answer with one completed activity.', modelAnswer: '周末你做什么了？我看电影了。', modelReading: 'Zhōumò nǐ zuò shénme le? Wǒ kàn diànyǐng le.', checklist: ['Question includes the weekend frame', 'Answer names a completed activity', '了 appears in the completed-event pattern'] },
+		transferPrompt: 'Replace the park walk with a different completed activity and a different past time expression.', transferSupport: '…你做什么了？我…了。'
+	}),
+	lesson({
+		id: 'zh-27-weekend-mission', unitId: 'mandarin-leisure-weather', title: 'Mission: make a weather-aware plan', shortTitle: 'Weekend plan', kind: 'mission', durationMinutes: 20,
+		canDo: 'Use a forecast to suggest an activity, accept it, and confirm a meeting time.',
+		focus: ['明天天气很好', '一起…吧', '几点见'],
+		scenario: [['王明', '明天天气很好。我们一起去公园吧。', 'Míngtiān tiānqì hěn hǎo. Wǒmen yìqǐ qù gōngyuán ba.', 'The weather will be good tomorrow. Let’s go to the park together.'], ['林娜', '好啊。我们几点见？三点见。', 'Hǎo a. Wǒmen jǐ diǎn jiàn? Sān diǎn jiàn.', 'Sure. What time shall we meet? Let’s meet at three.']],
+		notice: ['吧 softens the statement into a suggestion for shared action.', '几点 asks for the meeting time; the reply can omit the already established subject.'],
+		explanation: ['The weather statement gives a practical reason for the suggestion.', 'An accepted suggestion should be followed by a concrete time or place so the plan is complete.'],
+		vocabulary: [['明天', 'míngtiān', 'tomorrow'], ['一起', 'yìqǐ', 'together'], ['吧', 'ba', 'suggestion particle'], ['见', 'jiàn', 'meet; see']],
+		choice: { prompt: 'Which line makes the suggestion?', options: [['suggest', '我们一起去公园吧。'], ['weather', '明天天气很好。'], ['time', '我们几点见？']], answer: 'suggest', rationale: '一起…吧 proposes a shared activity.' },
+		arrange: { prompt: 'Build “Let’s go to the park together.”', tiles: ['我们', '一起', '去公园', '吧', '了'], answer: ['我们', '一起', '去公园', '吧'], translation: 'Let’s go to the park together.', rationale: 'The shared subject and adverb come before the activity, with 吧 marking the suggestion.' },
+		production: { mode: 'speak', prompt: 'State the weather, suggest an activity, then accept and set a time.', modelAnswer: '明天天气很好。我们一起去公园吧。好啊。三点见。', modelReading: 'Míngtiān tiānqì hěn hǎo. Wǒmen yìqǐ qù gōngyuán ba. Hǎo a. Sān diǎn jiàn.', checklist: ['Weather supports the activity', 'Suggestion ends in 吧', 'Response accepts or declines', 'Plan includes a specific time'] },
+		transferPrompt: 'Change the forecast, activity, and meeting time while keeping the suggestion and confirmation complete.', transferSupport: '明天天气…。我们一起…吧。好啊。…点见。'
 	})
 ].map((item, index) => ({ ...item, sequence: index + 1 }));
 
@@ -432,7 +484,8 @@ const units: CourseUnit[] = [
 	{ id: 'mandarin-introductions', sequence: 1, title: 'Introductions and identity', nativeTitle: '介绍自己', strapline: 'Names, identity, questions, numbers, and a complete first meeting.', canDo: 'Introduce yourself, exchange one personal detail, and return a matching question.', mission: 'Complete a first meeting with a name, identity, age or origin, and one follow-up question.', lessonIds: lessons.filter((item) => item.unitId === 'mandarin-introductions').map((item) => item.id) },
 	{ id: 'mandarin-daily', sequence: 2, title: 'Daily routine and time', nativeTitle: '日常和时间', strapline: 'Dates, clock time, routine descriptions, frequency, and scheduling.', canDo: 'Describe a short routine and negotiate a specific day and time.', mission: 'Propose, revise, and confirm a meeting time.', lessonIds: lessons.filter((item) => item.unitId === 'mandarin-daily').map((item) => item.id) },
 	{ id: 'mandarin-food-places', sequence: 3, title: 'Food, prices, and places', nativeTitle: '点餐和地点', strapline: 'Measure words, orders, prices, totals, and simple locations.', canDo: 'Order common items, confirm a price, and ask where a place is.', mission: 'Complete an order and obtain one location inside the same service exchange.', lessonIds: lessons.filter((item) => item.unitId === 'mandarin-food-places').map((item) => item.id) },
-	{ id: 'mandarin-family-home', sequence: 4, title: 'Family and home', nativeTitle: '家庭和住处', strapline: 'Relationships, possession, household counts, rooms, and locations at home.', canDo: 'Identify family members, state who is in a household, describe a home, and locate a person, animal, or object.', mission: 'Give a connected description of a family and home with accurate measure words and location patterns.', lessonIds: lessons.filter((item) => item.unitId === 'mandarin-family-home').map((item) => item.id) }
+	{ id: 'mandarin-family-home', sequence: 4, title: 'Family and home', nativeTitle: '家庭和住处', strapline: 'Relationships, possession, household counts, rooms, and locations at home.', canDo: 'Identify family members, state who is in a household, describe a home, and locate a person, animal, or object.', mission: 'Give a connected description of a family and home with accurate measure words and location patterns.', lessonIds: lessons.filter((item) => item.unitId === 'mandarin-family-home').map((item) => item.id) },
+	{ id: 'mandarin-leisure-weather', sequence: 5, title: 'Leisure, weather, and plans', nativeTitle: '爱好、天气和计划', strapline: 'Preferences, simple weather, completed activities, and concrete weekend plans.', canDo: 'Discuss an interest, describe the weather, report a completed activity, and make a specific plan.', mission: 'Use the weather to suggest an activity, respond, and confirm when to meet.', lessonIds: lessons.filter((item) => item.unitId === 'mandarin-leisure-weather').map((item) => item.id) }
 ];
 
 export const mandarinA1Course: LanguageCourse = {
@@ -448,7 +501,7 @@ export const mandarinA1Course: LanguageCourse = {
 	speechLanguage: 'zh',
 	readingLabel: 'Pinyin',
 	level: 'Launchpad–A1',
-	description: 'A 24-lesson introductory Mandarin course covering Pinyin, tones, characters, everyday exchanges, family and home descriptions, retrieval, open production, and transfer checks.',
+	description: 'A 28-lesson introductory Mandarin course covering Pinyin, tones, characters, everyday exchanges, family and home descriptions, leisure and weather, retrieval, open production, and transfer checks.',
 	designPromise: 'Each lesson connects characters to Pinyin and meaning, checks a constrained target, requires original use, and ends with reduced support.',
 	units,
 	lessons

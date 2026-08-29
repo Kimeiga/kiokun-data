@@ -12,7 +12,7 @@ export async function fetchUnifiedExercise(
 		id !== undefined && id !== null && `${id}` !== ''
 			? `?id=${encodeURIComponent(id)}`
 			: '';
-	const res = await fetch(`${API_BASE}/exercise${qs}`);
+	const res = await fetch(`${API_BASE}/exercise${qs}`, { cache: 'no-store' });
 	if (!res.ok) throw new Error('Failed to fetch exercise');
 	return res.json();
 }
@@ -91,4 +91,3 @@ export function gradeAnswer(exercise: Exercise, userAnswer: string): GradeResult
 		submitted: userAnswer
 	};
 }
-

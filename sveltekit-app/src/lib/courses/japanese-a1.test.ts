@@ -3,13 +3,13 @@ import { gradeArrangement, gradeChoice, gradeShortAnswer, normalizeCourseAnswer 
 import { japaneseA1Course } from './japanese-a1';
 import type { ArrangeActivity, ChoiceActivity, ShortAnswerActivity } from './types';
 
-assert.equal(japaneseA1Course.units.length, 6);
-assert.equal(japaneseA1Course.lessons.length, 32);
+assert.equal(japaneseA1Course.units.length, 7);
+assert.equal(japaneseA1Course.lessons.length, 36);
 assert.deepEqual(
 	japaneseA1Course.lessons.map((lesson) => lesson.sequence),
-	Array.from({ length: 32 }, (_, index) => index + 1)
+	Array.from({ length: 36 }, (_, index) => index + 1)
 );
-assert.equal(new Set(japaneseA1Course.lessons.map((lesson) => lesson.id)).size, 32);
+assert.equal(new Set(japaneseA1Course.lessons.map((lesson) => lesson.id)).size, 36);
 assert.equal(japaneseA1Course.units[0].lessonIds.length, 8);
 assert.equal(japaneseA1Course.lessons[0].id, 'lp-00-writing-systems');
 assert.equal(japaneseA1Course.lessons[0].scriptCharts?.length, 2);
@@ -26,6 +26,10 @@ assert.ok(
 assert.ok(
 	japaneseA1Course.lessons.some((lesson) => lesson.id === 'u5-04-family-home-mission'),
 	'course needs an integrated family and home mission'
+);
+assert.ok(
+	japaneseA1Course.lessons.some((lesson) => lesson.id === 'u6-04-weekend-mission'),
+	'course needs an integrated leisure and weather mission'
 );
 
 for (const unit of japaneseA1Course.units) {

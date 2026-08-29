@@ -422,6 +422,58 @@ const lessons = [
 		arrange: { prompt: 'Build “There is a cat at home.”', tiles: ['一隻貓', '有', '屋企', '喺'], answer: ['屋企', '有', '一隻貓'], translation: 'There is a cat at home.', rationale: 'The location frame comes first, followed by 有 and the classified noun phrase.' },
 		production: { mode: 'speak', prompt: 'Describe a real or invented family and home in at least four connected statements.', modelAnswer: '我屋企有四個人。我有一個家姐。我哋住喺九龍。我屋企有三間房。', modelReading: 'Ngo5 uk1 kei2 jau5 sei3 go3 jan4. Ngo5 jau5 jat1 go3 gaa1 ze1. Ngo5 dei6 zyu6 hai2 Gau2 Lung4. Ngo5 uk1 kei2 jau5 saam1 gaan1 fong2.', checklist: ['Family count uses 個人', 'At least one relationship is named', 'Residence uses 住喺', 'One home detail uses 有 or 喺'] },
 		transferPrompt: 'Repeat the description with a different family size, district, room count, and home-location detail.', transferSupport: '我屋企有…個人。我有…。我哋住喺…。屋企有…。'
+	}),
+	lesson({
+		id: 'yue-24-likes', unitId: 'cantonese-leisure-weather', title: 'Talking about things you like', shortTitle: 'Likes and interests',
+		canDo: 'Ask what someone likes doing and give one specific preference.',
+		focus: ['鍾意 + activity', '做咩', '呀 in an open question'],
+		scenario: [['美玲', '你鍾意做咩呀？', 'Nei5 zung1 ji3 zou6 me1 aa3?', 'What do you like doing?'], ['陳生', '我鍾意睇戲。', 'Ngo5 zung1 ji3 tai2 hei3.', 'I like watching movies.']],
+		notice: ['鍾意 comes before the thing or activity that is liked.', '咩 fills the object position after 做, while 呀 gives the open question a natural spoken ending.'],
+		explanation: ['鍾意 can take a noun or a verb phrase directly.', 'Written Cantonese uses spoken forms such as 咩 and 睇 rather than replacing them with Standard Written Chinese equivalents.'],
+		vocabulary: [['鍾意', 'zung1 ji3', 'like'], ['做', 'zou6', 'do'], ['咩', 'me1', 'what'], ['睇戲', 'tai2 hei3', 'watch a movie']],
+		choice: { prompt: 'Which sentence says “I like watching movies”?', options: [['like', '我鍾意睇戲。'], ['watch', '我睇鍾意戲。'], ['question', '我鍾意咩？']], answer: 'like', rationale: '鍾意 precedes the activity 睇戲.' },
+		arrange: { prompt: 'Build “I like watching movies.”', tiles: ['我', '鍾意', '睇戲', '咩'], answer: ['我', '鍾意', '睇戲'], translation: 'I like watching movies.', rationale: 'The order is subject + 鍾意 + activity.' },
+		production: { mode: 'speak', prompt: 'Ask what someone likes doing and answer with a different activity.', modelAnswer: '你鍾意做咩呀？我鍾意聽歌。', modelReading: 'Nei5 zung1 ji3 zou6 me1 aa3? Ngo5 zung1 ji3 teng1 go1.', checklist: ['Question uses 做咩', 'Answer places 鍾意 before the activity', 'Open question ends naturally'] },
+		transferPrompt: 'Replace watching movies with a different interest and ask a new person the same question.', transferSupport: '你鍾意做咩呀？我鍾意…。'
+	}),
+	lesson({
+		id: 'yue-25-weather', unitId: 'cantonese-leisure-weather', title: 'Describing today’s weather', shortTitle: 'Today’s weather',
+		canDo: 'Ask about today’s weather and give a short description with two details.',
+		focus: ['天氣點呀', '好 + adjective', '仲有 + condition'],
+		scenario: [['陳生', '今日天氣點呀？', 'Gam1 jat6 tin1 hei3 dim2 aa3?', 'How is the weather today?'], ['美玲', '好暖，仲有太陽。', 'Hou2 nyun5, zung6 jau5 taai3 joeng4.', 'It is warm and also sunny.']],
+		notice: ['點 asks how the weather is in this context.', '好 strengthens the adjective 暖, while 仲有 adds a second weather condition.'],
+		explanation: ['Cantonese adjective predicates do not require 係 in this pattern.', '有太陽 literally states that there is sun and functions as an everyday sunny-weather description.'],
+		vocabulary: [['今日', 'gam1 jat6', 'today'], ['天氣', 'tin1 hei3', 'weather'], ['暖', 'nyun5', 'warm'], ['太陽', 'taai3 joeng4', 'sun']],
+		choice: { prompt: 'Which sentence naturally says that the weather is warm?', options: [['warm', '天氣好暖。'], ['copula', '天氣係暖。'], ['object', '天氣有暖。']], answer: 'warm', rationale: '好暖 acts as the adjective predicate without 係.' },
+		arrange: { prompt: 'Build “The weather is warm today.”', tiles: ['今日', '天氣', '好暖', '係'], answer: ['今日', '天氣', '好暖'], translation: 'The weather is warm today.', rationale: 'The time and topic come before the adjective predicate.' },
+		production: { mode: 'speak', prompt: 'Ask about the weather and answer with two conditions.', modelAnswer: '今日天氣點呀？好凍，仲有風。', modelReading: 'Gam1 jat6 tin1 hei3 dim2 aa3? Hou2 dung3, zung6 jau5 fung1.', checklist: ['Question uses 天氣點呀', 'Answer omits 係 before an adjective', 'Two weather details are given'] },
+		transferPrompt: 'Change both weather details and the day while keeping the question and description complete.', transferSupport: '…天氣點呀？好…，仲有…。'
+	}),
+	lesson({
+		id: 'yue-26-weekend-past', unitId: 'cantonese-leisure-weather', title: 'Reporting a completed weekend activity', shortTitle: 'What you did',
+		canDo: 'Ask what someone did over the weekend and report one completed activity.',
+		focus: ['做咗咩', 'verb + 咗', 'past time frame'],
+		scenario: [['美玲', '上個星期六你做咗咩呀？', 'Soeng6 go3 sing1 kei4 luk6 nei5 zou6 zo2 me1 aa3?', 'What did you do last Saturday?'], ['陳生', '我去咗公園散步。', 'Ngo5 heoi3 zo2 gung1 jyun2 saan3 bou6.', 'I went for a walk in the park.']],
+		notice: ['咗 follows the verb and presents the action as completed.', 'The past time expression establishes when the event happened; Cantonese verbs do not change form for tense.'],
+		explanation: ['Aspect marker 咗 marks completion in this pattern. It is not a general past-tense ending added to every past statement.', 'A new answer can replace the destination and activity while keeping the completed-action frame.'],
+		vocabulary: [['上個星期六', 'soeng6 go3 sing1 kei4 luk6', 'last Saturday'], ['咗', 'zo2', 'completed-action marker'], ['公園', 'gung1 jyun2', 'park'], ['散步', 'saan3 bou6', 'take a walk']],
+		choice: { prompt: 'Which line reports a completed activity?', options: [['completed', '我去咗公園散步。'], ['habit', '我日日去公園。'], ['future', '我聽日去公園。']], answer: 'completed', rationale: '咗 after 去 marks the completed trip in the stated past time frame.' },
+		arrange: { prompt: 'Build “I went for a walk in the park.”', tiles: ['我', '去咗公園', '散步', '鍾意'], answer: ['我', '去咗公園', '散步'], translation: 'I went for a walk in the park.', rationale: 'The completed motion verb comes before the destination and activity.' },
+		production: { mode: 'speak', prompt: 'Ask about a past day and answer with one completed activity.', modelAnswer: '上個星期六你做咗咩呀？我睇咗戲。', modelReading: 'Soeng6 go3 sing1 kei4 luk6 nei5 zou6 zo2 me1 aa3? Ngo5 tai2 zo2 hei3.', checklist: ['Question includes a past time frame', 'Question uses 做咗咩', 'Answer marks a completed activity with 咗'] },
+		transferPrompt: 'Replace the park walk with a different completed activity and a different past time expression.', transferSupport: '…你做咗咩呀？我…咗…。'
+	}),
+	lesson({
+		id: 'yue-27-weekend-mission', unitId: 'cantonese-leisure-weather', title: 'Mission: make a weather-aware plan', shortTitle: 'Weekend plan', kind: 'mission', durationMinutes: 20,
+		canDo: 'Use a forecast to suggest an activity, accept it, and confirm a meeting time.',
+		focus: ['聽日天氣好好', '一齊…好唔好', 'time + 見'],
+		scenario: [['陳生', '聽日天氣好好。我哋一齊去公園，好唔好？', 'Ting1 jat6 tin1 hei3 hou2 hou2. Ngo5 dei6 jat1 cai4 heoi3 gung1 jyun2, hou2 m4 hou2?', 'The weather will be good tomorrow. Shall we go to the park together?'], ['美玲', '好呀。三點見。', 'Hou2 aa3. Saam1 dim2 gin3.', 'Sure. See you at three.']],
+		notice: ['好唔好 asks whether the proposed shared activity is acceptable.', 'The meeting-time expression comes directly before 見 in the compact confirmation.'],
+		explanation: ['The weather statement gives a practical reason for the suggestion.', 'After accepting, a short time + 見 line completes the plan because the participants and activity are already known.'],
+		vocabulary: [['聽日', 'ting1 jat6', 'tomorrow'], ['一齊', 'jat1 cai4', 'together'], ['好唔好', 'hou2 m4 hou2', 'is that okay; shall we'], ['見', 'gin3', 'meet; see']],
+		choice: { prompt: 'Which line makes the suggestion?', options: [['suggest', '我哋一齊去公園，好唔好？'], ['weather', '聽日天氣好好。'], ['time', '三點見。']], answer: 'suggest', rationale: '一齊…好唔好 proposes a shared activity and asks for agreement.' },
+		arrange: { prompt: 'Build “Shall we go to the park together?”', tiles: ['我哋', '一齊', '去公園', '好唔好', '咗'], answer: ['我哋', '一齊', '去公園', '好唔好'], translation: 'Shall we go to the park together?', rationale: 'The shared subject and adverb precede the activity, followed by 好唔好.' },
+		production: { mode: 'speak', prompt: 'State the weather, suggest an activity, then accept and set a time.', modelAnswer: '聽日天氣好好。我哋一齊去公園，好唔好？好呀。三點見。', modelReading: 'Ting1 jat6 tin1 hei3 hou2 hou2. Ngo5 dei6 jat1 cai4 heoi3 gung1 jyun2, hou2 m4 hou2? Hou2 aa3. Saam1 dim2 gin3.', checklist: ['Weather supports the activity', 'Suggestion uses 好唔好', 'Response accepts or declines', 'Plan includes a specific time'] },
+		transferPrompt: 'Change the forecast, activity, and meeting time while keeping the suggestion and confirmation complete.', transferSupport: '聽日天氣…。我哋一齊…，好唔好？好呀。…點見。'
 	})
 ].map((item, index) => ({ ...item, sequence: index + 1 }));
 
@@ -430,7 +482,8 @@ const units: CourseUnit[] = [
 	{ id: 'cantonese-introductions', sequence: 1, title: 'Introductions and identity', nativeTitle: '自我介紹', strapline: 'Names, identity, questions, numbers, and a complete first meeting.', canDo: 'Introduce yourself, exchange one personal detail, and ask a matching question.', mission: 'Complete a first meeting with a name, identity, age or origin, and one follow-up question.', lessonIds: lessons.filter((item) => item.unitId === 'cantonese-introductions').map((item) => item.id) },
 	{ id: 'cantonese-daily', sequence: 2, title: 'Daily routine and time', nativeTitle: '日常同時間', strapline: 'Dates, clock time, routine descriptions, frequency, and scheduling.', canDo: 'Describe a short routine and negotiate a specific day and time.', mission: 'Propose, revise, and confirm a meeting time.', lessonIds: lessons.filter((item) => item.unitId === 'cantonese-daily').map((item) => item.id) },
 	{ id: 'cantonese-food-places', sequence: 3, title: 'Food, prices, and places', nativeTitle: '點餐同地方', strapline: 'Classifiers, service requests, prices, totals, and simple locations.', canDo: 'Order common items, confirm a price, and ask where a place is.', mission: 'Complete an order and obtain one location in the same service exchange.', lessonIds: lessons.filter((item) => item.unitId === 'cantonese-food-places').map((item) => item.id) },
-	{ id: 'cantonese-family-home', sequence: 4, title: 'Family and home', nativeTitle: '屋企人同屋企', strapline: 'Relationships, possession, household counts, rooms, and locations at home.', canDo: 'Identify family members, state who is in a household, describe a home, and locate a person, animal, or object.', mission: 'Give a connected description of a family and home with Cantonese classifiers and location patterns.', lessonIds: lessons.filter((item) => item.unitId === 'cantonese-family-home').map((item) => item.id) }
+	{ id: 'cantonese-family-home', sequence: 4, title: 'Family and home', nativeTitle: '屋企人同屋企', strapline: 'Relationships, possession, household counts, rooms, and locations at home.', canDo: 'Identify family members, state who is in a household, describe a home, and locate a person, animal, or object.', mission: 'Give a connected description of a family and home with Cantonese classifiers and location patterns.', lessonIds: lessons.filter((item) => item.unitId === 'cantonese-family-home').map((item) => item.id) },
+	{ id: 'cantonese-leisure-weather', sequence: 5, title: 'Leisure, weather, and plans', nativeTitle: '消遣、天氣同計劃', strapline: 'Preferences, simple weather, completed activities, and concrete weekend plans.', canDo: 'Discuss an interest, describe the weather, report a completed activity, and make a specific plan.', mission: 'Use the weather to suggest an activity, respond, and confirm when to meet.', lessonIds: lessons.filter((item) => item.unitId === 'cantonese-leisure-weather').map((item) => item.id) }
 ];
 
 export const cantoneseA1Course: LanguageCourse = {
@@ -446,7 +499,7 @@ export const cantoneseA1Course: LanguageCourse = {
 	speechLanguage: 'yue',
 	readingLabel: 'Jyutping',
 	level: 'Launchpad–A1',
-	description: 'A 24-lesson introductory Cantonese course covering Jyutping, tones, Traditional Chinese, everyday exchanges, family and home descriptions, retrieval, open production, and transfer checks.',
+	description: 'A 28-lesson introductory Cantonese course covering Jyutping, tones, Traditional Chinese, everyday exchanges, family and home descriptions, leisure and weather, retrieval, open production, and transfer checks.',
 	designPromise: 'Each lesson connects Traditional Chinese to Jyutping and meaning, checks a constrained target, requires original use, and ends with reduced support.',
 	units,
 	lessons
