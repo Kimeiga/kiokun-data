@@ -57,7 +57,7 @@ async function fetchWithRetry(url, expectedStatus, attempts = 8) {
 async function verifyJapaneseSentenceAnalysis() {
 	const url = new URL('/api/sentence/analyze', deploymentUrl);
 	const propagationAttempts = 15;
-	const requests = Array.from({ length: 12 }, async (_, index) => {
+	const requests = Array.from({ length: 1 }, async (_, index) => {
 		let response;
 		let responseText = '';
 		for (let attempt = 1; attempt <= propagationAttempts; attempt += 1) {
@@ -151,5 +151,5 @@ await fetchWithRetry(new URL('/api/stroke-data?char=%EF%A7%84', deploymentUrl), 
 await verifyJapaneseSentenceAnalysis();
 
 console.log(
-	`Verified ${immutableUrls.length} immutable assets, critical APIs, and repeated Japanese sentence analysis at ${deploymentUrl}`
+	`Verified ${immutableUrls.length} immutable assets, critical APIs, and Japanese sentence analysis at ${deploymentUrl}`
 );

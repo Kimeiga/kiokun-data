@@ -60,8 +60,9 @@ export async function findJapaneseReadingMatch(
 		const result = await db.prepare(`
 			SELECT word, pronunciation, definition, is_common
 			FROM dictionary_search
-			WHERE language = 'japanese'
-			  AND pronunciation = ?
+			WHERE pronunciation MATCH ('"' || replace(?1, '"', '""') || '"')
+			  AND language = 'japanese'
+			  AND pronunciation = ?1
 			  AND definition IS NOT NULL
 			  AND definition != ''
 			ORDER BY is_common DESC, LENGTH(word) ASC, rowid ASC
@@ -90,8 +91,9 @@ export async function findJapaneseWordMatch(
 		const result = await db.prepare(`
 			SELECT word, pronunciation, definition, is_common
 			FROM dictionary_search
-			WHERE language = 'japanese'
-			  AND word = ?
+			WHERE word MATCH ('"' || replace(?1, '"', '""') || '"')
+			  AND language = 'japanese'
+			  AND word = ?1
 			  AND definition IS NOT NULL
 			  AND definition != ''
 			ORDER BY is_common DESC, LENGTH(definition) ASC, rowid ASC

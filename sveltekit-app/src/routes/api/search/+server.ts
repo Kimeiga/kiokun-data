@@ -38,8 +38,17 @@ function normalizeJapaneseReading(query: string): string {
 	);
 }
 
+function fts5Phrase(value: string): string {
+	return `"${value.replace(/"/g, '""')}"`;
+}
+
+function buildCjkMatchQuery(searchTerms: string[], japaneseReading: string | null): string {
+	const clauses = searchTerms.map((term) => `word : ${fts5Phrase(term)}*`);
+	if (japaneseReading) clauses.push(`pronunciation : ${fts5Phrase(japaneseReading)}*`);
+	return clauses.join(' OR ');
+}
+
 function buildCjkSearchSql(searchTerms: string[], includeJapaneseReading: boolean) {
-	const whereClause = searchTerms.map(() => "word LIKE ? || '%'").join(" OR ");
 	const exactRank = searchTerms
 		.map((_, index) => `WHEN word = ? THEN ${index === 0 ? 1000 : 900}`)
 		.join("\n");
@@ -48,9 +57,6 @@ function buildCjkSearchSql(searchTerms: string[], includeJapaneseReading: boolea
 		.join("\n");
 	const readingRank = includeJapaneseReading
 		? "WHEN language = 'japanese' AND pronunciation = ? THEN 875"
-		: "";
-	const readingWhere = includeJapaneseReading
-		? "OR (language = 'japanese' AND pronunciation = ?)"
 		: "";
 
 	return `
@@ -68,7 +74,7 @@ function buildCjkSearchSql(searchTerms: string[], includeJapaneseReading: boolea
 				ELSE 0
 			END as custom_rank
 		FROM dictionary_search
-		WHERE (${whereClause}) ${readingWhere}
+		WHERE dictionary_search MATCH ?
 		ORDER BY
 			custom_rank DESC,
 			is_common DESC,
@@ -128,7 +134,9 @@ export async function GET({ url, platform }: RequestEvent) {
 				limit * Math.max(4, Math.min(searchTerms.length, 12)),
 				1000
 			);
-			const readingBindings = includeJapaneseReading ? [normalizeJapaneseReading(query)] : [];
+			const normalizedReading = includeJapaneseReading ? normalizeJapaneseReading(query) : null;
+			const readingBindings = normalizedReading ? [normalizedReading] : [];
+			const matchQuery = buildCjkMatchQuery(searchTerms, normalizedReading);
 
 			results = await platform.env.DB
 				.prepare(buildCjkSearchSql(searchTerms, includeJapaneseReading))
@@ -136,8 +144,7 @@ export async function GET({ url, platform }: RequestEvent) {
 					...searchTerms,
 					...readingBindings,
 					...searchTerms,
-					...searchTerms,
-					...readingBindings,
+					matchQuery,
 					cjkLimit
 				)
 				.all();
