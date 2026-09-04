@@ -1,0 +1,95 @@
+name: One-shot D1 row-exhaustion hotfix v2
+
+on:
+  push:
+    branches: [fix/d1-row-exhaustion]
+
+permissions:
+  contents: write
+
+jobs:
+  patch-test-commit:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: fix/d1-row-exhaustion
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+
+      - name: Apply and refine hotfix
+        run: |
+          python3 <<'PY'
+          from pathlib import Path
+          import textwrap
+
+          workflow = Path('.github/workflows/d1-hotfix.yml').read_text()
+          patch = workflow.split("python3 <<'PY'\n", 1)[1].split("\n          PY", 1)[0]
+          exec(textwrap.dedent(patch), {'__name__': '__main__'})
+
+          dictionary = Path('sveltekit-app/src/lib/server/dictionary-lookup.ts')
+          text = dictionary.read_text()
+          text = text.replace("""\nfunction fts5Phrase(value: string): string {\n\treturn `\"${value.replace(/\"/g, '\"\"')}\"`;\n}\n""", "")
+          text = text.replace(
+              """WHERE pronunciation MATCH ?\n\t\t\t  AND language = 'japanese'\n\t\t\t  AND pronunciation = ?""",
+              """WHERE pronunciation MATCH ('\"' || replace(?1, '\"', '\"\"') || '\"')\n\t\t\t  AND language = 'japanese'\n\t\t\t  AND pronunciation = ?1""",
+          )
+          text = text.replace(
+              "`).bind(fts5Phrase(normalized), normalized).all<JapaneseReadingRow>();",
+              "`).bind(normalized).all<JapaneseReadingRow>();",
+          )
+          text = text.replace(
+              """WHERE word MATCH ?\n\t\t\t  AND language = 'japanese'\n\t\t\t  AND word = ?""",
+              """WHERE word MATCH ('\"' || replace(?1, '\"', '\"\"') || '\"')\n\t\t\t  AND language = 'japanese'\n\t\t\t  AND word = ?1""",
+          )
+          text = text.replace(
+              "`).bind(fts5Phrase(word), word).all<JapaneseReadingRow>();",
+              "`).bind(word).all<JapaneseReadingRow>();",
+          )
+          dictionary.write_text(text)
+
+          reading = Path('sveltekit-app/src/routes/api/lookup-reading/+server.ts')
+          text = reading.read_text()
+          text = text.replace("""\nfunction fts5Phrase(value: string): string {\n\treturn `\"${value.replace(/\"/g, '\"\"')}\"`;\n}\n""", "")
+          text = text.replace(
+              """WHERE pronunciation MATCH ?\n\t\t\t\t  AND language = 'japanese'\n\t\t\t\t  AND pronunciation = ?""",
+              """WHERE pronunciation MATCH ('\"' || replace(?1, '\"', '\"\"') || '\"')\n\t\t\t\t  AND language = 'japanese'\n\t\t\t\t  AND pronunciation = ?1""",
+          )
+          text = text.replace(
+              ".bind(fts5Phrase(query.trim()), query.trim(), limit)",
+              ".bind(query.trim(), limit)",
+          )
+          text = text.replace("LIMIT ?\n", "LIMIT ?2\n", 1)
+          reading.write_text(text)
+
+          test = Path('sveltekit-app/src/lib/server/d1-query-shape.test.ts')
+          text = test.read_text()
+          text = text.replace(r"/WHERE pronunciation MATCH \\?/", r"/WHERE pronunciation MATCH/")
+          text = text.replace(r"/WHERE word MATCH \\?/", r"/WHERE word MATCH/")
+          test.write_text(text)
+          PY
+
+      - name: Install dependencies
+        working-directory: sveltekit-app
+        run: npm ci --include=optional
+
+      - name: Test
+        working-directory: sveltekit-app
+        run: npm test
+
+      - name: Typecheck
+        working-directory: sveltekit-app
+        run: npm run check
+
+      - name: Commit tested hotfix
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm .github/workflows/d1-hotfix.yml .github/workflows/d1-hotfix-v2.yml
+          git add sveltekit-app
+          git commit -m 'Fix D1 dictionary query amplification'
+          git push origin HEAD:fix/d1-row-exhaustion
