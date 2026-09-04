@@ -54,7 +54,7 @@ if (!response.ok || payload.errors?.length) {
 }
 
 const projectsResponse = await fetch(
-  `https://api.cloudflare.com/client/v4/accounts/${accountId}/pages/projects?page=1&per_page=20`,
+  `https://api.cloudflare.com/client/v4/accounts/${accountId}/pages/projects`,
   { headers }
 );
 const projectsPayload = await projectsResponse.json();
