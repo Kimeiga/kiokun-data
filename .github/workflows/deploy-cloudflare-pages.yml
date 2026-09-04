@@ -57,14 +57,36 @@ jobs:
         working-directory: sveltekit-app
         run: node scripts/prune-cloudflare-output.js
 
+      - name: Resolve Pages production branch
+        id: pages-project
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          response="$(curl --fail --silent --show-error \
+            -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
+            "https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/pages/projects/kiokun")"
+          production_branch="$(printf '%s' "$response" | node -e '
+            let body = "";
+            process.stdin.on("data", chunk => body += chunk);
+            process.stdin.on("end", () => {
+              const payload = JSON.parse(body);
+              const branch = payload?.result?.production_branch;
+              if (!payload?.success || !branch) process.exit(1);
+              process.stdout.write(branch);
+            });
+          ')"
+          echo "production_branch=${production_branch}" >> "$GITHUB_OUTPUT"
+          echo "Cloudflare Pages production branch: ${production_branch}"
+
       - name: Deploy to Cloudflare Pages
         id: deploy
         uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy .svelte-kit/cloudflare --cwd=sveltekit-app --project-name=kiokun --branch=main --commit-dirty=true --skip-caching
+          command: pages deploy .svelte-kit/cloudflare --cwd=sveltekit-app --project-name=kiokun --branch=${{ steps.pages-project.outputs.production_branch }} --commit-dirty=true --skip-caching
 
       - name: Verify deployed assets and critical routes
         working-directory: sveltekit-app
-        run: node scripts/verify-pages-deployment.mjs "${{ steps.deploy.outputs.deployment-url }}"
+        run: node scripts/verify-pages-deployment.mjs "https://kiokun.com"
