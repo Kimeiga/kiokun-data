@@ -13,8 +13,14 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: '24'
-      - name: Query Workers analytics
+      - name: Query Kiokun Pages traffic over time
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: node .github/scripts/diagnose-cloudflare-usage.mjs
+      - name: Query Kiokun D1 insights by rows read
+        working-directory: sveltekit-app
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npx --yes wrangler@latest d1 insights kiokun-dictionary --time-period=1d --sort-type=sum --sort-by=reads --sort-direction=DESC --limit=20 --json
