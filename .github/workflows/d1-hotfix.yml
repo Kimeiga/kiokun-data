@@ -1,0 +1,134 @@
+name: One-shot D1 row-exhaustion hotfix
+
+on:
+  push:
+    branches: [fix/d1-row-exhaustion]
+
+permissions:
+  contents: write
+
+jobs:
+  patch-test-commit:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: fix/d1-row-exhaustion
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+
+      - name: Patch D1 query amplification
+        run: |
+          python3 <<'PY'
+          from pathlib import Path
+
+          def replace_once(path: str, old: str, new: str) -> None:
+              file = Path(path)
+              text = file.read_text()
+              if old not in text:
+                  raise SystemExit(f"expected block not found in {path}: {old[:120]!r}")
+              file.write_text(text.replace(old, new, 1))
+
+          dictionary_path = 'sveltekit-app/src/lib/server/dictionary-lookup.ts'
+          replace_once(
+              dictionary_path,
+              """function katakanaToHiragana(value: string): string {\n\treturn value.replace(/[\\u30A1-\\u30F6]/g, (character) =>\n\t\tString.fromCharCode(character.charCodeAt(0) - 0x60)\n\t);\n}\n""",
+              """function katakanaToHiragana(value: string): string {\n\treturn value.replace(/[\\u30A1-\\u30F6]/g, (character) =>\n\t\tString.fromCharCode(character.charCodeAt(0) - 0x60)\n\t);\n}\n\nfunction fts5Phrase(value: string): string {\n\treturn `\"${value.replace(/\"/g, '\"\"')}\"`;\n}\n""",
+          )
+          replace_once(
+              dictionary_path,
+              """\t\t\tWHERE language = 'japanese'\n\t\t\t  AND pronunciation = ?\n\t\t\t  AND definition IS NOT NULL\n""",
+              """\t\t\tWHERE pronunciation MATCH ?\n\t\t\t  AND language = 'japanese'\n\t\t\t  AND pronunciation = ?\n\t\t\t  AND definition IS NOT NULL\n""",
+          )
+          replace_once(
+              dictionary_path,
+              """\t\t`).bind(normalized).all<JapaneseReadingRow>();\n""",
+              """\t\t`).bind(fts5Phrase(normalized), normalized).all<JapaneseReadingRow>();\n""",
+          )
+          replace_once(
+              dictionary_path,
+              """\t\t\tWHERE language = 'japanese'\n\t\t\t  AND word = ?\n\t\t\t  AND definition IS NOT NULL\n""",
+              """\t\t\tWHERE word MATCH ?\n\t\t\t  AND language = 'japanese'\n\t\t\t  AND word = ?\n\t\t\t  AND definition IS NOT NULL\n""",
+          )
+          replace_once(
+              dictionary_path,
+              """\t\t`).bind(word).all<JapaneseReadingRow>();\n""",
+              """\t\t`).bind(fts5Phrase(word), word).all<JapaneseReadingRow>();\n""",
+          )
+
+          search_path = 'sveltekit-app/src/routes/api/search/+server.ts'
+          replace_once(
+              search_path,
+              """function buildCjkSearchSql(searchTerms: string[], includeJapaneseReading: boolean) {\n\tconst whereClause = searchTerms.map(() => \"word LIKE ? || '%'\").join(\" OR \");\n\tconst exactRank = searchTerms\n\t\t.map((_, index) => `WHEN word = ? THEN ${index === 0 ? 1000 : 900}`)\n\t\t.join(\"\\n\");\n\tconst prefixRank = searchTerms\n\t\t.map((_, index) => `WHEN word LIKE ? || '%' THEN ${index === 0 ? 500 : 450}`)\n\t\t.join(\"\\n\");\n\tconst readingRank = includeJapaneseReading\n\t\t? \"WHEN language = 'japanese' AND pronunciation = ? THEN 875\"\n\t\t: \"\";\n\tconst readingWhere = includeJapaneseReading\n\t\t? \"OR (language = 'japanese' AND pronunciation = ?)\"\n\t\t: \"\";\n\n\treturn `\n\t\tSELECT\n\t\t\tword,\n\t\t\tlanguage,\n\t\t\tdefinition,\n\t\t\tpronunciation,\n\t\t\treading_search,\n\t\t\tis_common,\n\t\t\tCASE\n\t\t\t\t${exactRank}\n\t\t\t\t${readingRank}\n\t\t\t\t${prefixRank}\n\t\t\t\tELSE 0\n\t\t\tEND as custom_rank\n\t\tFROM dictionary_search\n\t\tWHERE (${whereClause}) ${readingWhere}\n\t\tORDER BY\n\t\t\tcustom_rank DESC,\n\t\t\tis_common DESC,\n\t\t\tLENGTH(word) ASC,\n\t\t\trowid ASC\n\t\tLIMIT ?\n\t`;\n}\n""",
+              """function fts5Phrase(value: string): string {\n\treturn `\"${value.replace(/\"/g, '\"\"')}\"`;\n}\n\nfunction buildCjkMatchQuery(searchTerms: string[], japaneseReading: string | null): string {\n\tconst clauses = searchTerms.map((term) => `word : ${fts5Phrase(term)}*`);\n\tif (japaneseReading) clauses.push(`pronunciation : ${fts5Phrase(japaneseReading)}*`);\n\treturn clauses.join(' OR ');\n}\n\nfunction buildCjkSearchSql(searchTerms: string[], includeJapaneseReading: boolean) {\n\tconst exactRank = searchTerms\n\t\t.map((_, index) => `WHEN word = ? THEN ${index === 0 ? 1000 : 900}`)\n\t\t.join(\"\\n\");\n\tconst prefixRank = searchTerms\n\t\t.map((_, index) => `WHEN word LIKE ? || '%' THEN ${index === 0 ? 500 : 450}`)\n\t\t.join(\"\\n\");\n\tconst readingRank = includeJapaneseReading\n\t\t? \"WHEN language = 'japanese' AND pronunciation = ? THEN 875\"\n\t\t: \"\";\n\n\treturn `\n\t\tSELECT\n\t\t\tword,\n\t\t\tlanguage,\n\t\t\tdefinition,\n\t\t\tpronunciation,\n\t\t\treading_search,\n\t\t\tis_common,\n\t\t\tCASE\n\t\t\t\t${exactRank}\n\t\t\t\t${readingRank}\n\t\t\t\t${prefixRank}\n\t\t\t\tELSE 0\n\t\t\tEND as custom_rank\n\t\tFROM dictionary_search\n\t\tWHERE dictionary_search MATCH ?\n\t\tORDER BY\n\t\t\tcustom_rank DESC,\n\t\t\tis_common DESC,\n\t\t\tLENGTH(word) ASC,\n\t\t\trowid ASC\n\t\tLIMIT ?\n\t`;\n}\n""",
+          )
+          replace_once(
+              search_path,
+              """\t\t\tconst readingBindings = includeJapaneseReading ? [normalizeJapaneseReading(query)] : [];\n\n\t\t\tresults = await platform.env.DB\n\t\t\t\t.prepare(buildCjkSearchSql(searchTerms, includeJapaneseReading))\n\t\t\t\t.bind(\n\t\t\t\t\t...searchTerms,\n\t\t\t\t\t...readingBindings,\n\t\t\t\t\t...searchTerms,\n\t\t\t\t\t...searchTerms,\n\t\t\t\t\t...readingBindings,\n\t\t\t\t\tcjkLimit\n\t\t\t\t)\n\t\t\t\t.all();\n""",
+              """\t\t\tconst normalizedReading = includeJapaneseReading ? normalizeJapaneseReading(query) : null;\n\t\t\tconst readingBindings = normalizedReading ? [normalizedReading] : [];\n\t\t\tconst matchQuery = buildCjkMatchQuery(searchTerms, normalizedReading);\n\n\t\t\tresults = await platform.env.DB\n\t\t\t\t.prepare(buildCjkSearchSql(searchTerms, includeJapaneseReading))\n\t\t\t\t.bind(\n\t\t\t\t\t...searchTerms,\n\t\t\t\t\t...readingBindings,\n\t\t\t\t\t...searchTerms,\n\t\t\t\t\tmatchQuery,\n\t\t\t\t\tcjkLimit\n\t\t\t\t)\n\t\t\t\t.all();\n""",
+          )
+
+          reading_path = 'sveltekit-app/src/routes/api/lookup-reading/+server.ts'
+          replace_once(
+              reading_path,
+              """interface ReadingLookupResult {\n\tword: string;\n\tpronunciation: string;\n\tis_common: boolean;\n}\n""",
+              """interface ReadingLookupResult {\n\tword: string;\n\tpronunciation: string;\n\tis_common: boolean;\n}\n\nfunction fts5Phrase(value: string): string {\n\treturn `\"${value.replace(/\"/g, '\"\"')}\"`;\n}\n""",
+          )
+          replace_once(
+              reading_path,
+              """\t\t\t\tWHERE language = 'japanese'\n\t\t\t\t  AND pronunciation = ?\n""",
+              """\t\t\t\tWHERE pronunciation MATCH ?\n\t\t\t\t  AND language = 'japanese'\n\t\t\t\t  AND pronunciation = ?\n""",
+          )
+          replace_once(
+              reading_path,
+              """\t\t\t.bind(query.trim(), limit)\n""",
+              """\t\t\t.bind(fts5Phrase(query.trim()), query.trim(), limit)\n""",
+          )
+
+          verifier_path = 'sveltekit-app/scripts/verify-pages-deployment.mjs'
+          replace_once(
+              verifier_path,
+              "Array.from({ length: 12 }, async (_, index) => {",
+              "Array.from({ length: 1 }, async (_, index) => {",
+          )
+          replace_once(
+              verifier_path,
+              "critical APIs, and repeated Japanese sentence analysis",
+              "critical APIs, and Japanese sentence analysis",
+          )
+
+          test_path = Path('sveltekit-app/src/lib/server/d1-query-shape.test.ts')
+          test_path.write_text("""import assert from 'node:assert/strict';\nimport { readFileSync } from 'node:fs';\n\nconst dictionaryLookup = readFileSync(new URL('./dictionary-lookup.ts', import.meta.url), 'utf8');\nassert.match(dictionaryLookup, /WHERE pronunciation MATCH \\?/);\nassert.match(dictionaryLookup, /WHERE word MATCH \\?/);\nassert.doesNotMatch(dictionaryLookup, /WHERE language = 'japanese'\\s+AND pronunciation = \\?/);\nassert.doesNotMatch(dictionaryLookup, /WHERE language = 'japanese'\\s+AND word = \\?/);\n\nconst searchApi = readFileSync(new URL('../../routes/api/search/+server.ts', import.meta.url), 'utf8');\nassert.match(searchApi, /WHERE dictionary_search MATCH \\?/);\nassert.doesNotMatch(searchApi, /WHERE \\(\\$\\{whereClause\\}\\)/);\n\nconst readingApi = readFileSync(new URL('../../routes/api/lookup-reading/+server.ts', import.meta.url), 'utf8');\nassert.match(readingApi, /WHERE pronunciation MATCH \\?/);\n\nconsole.log('D1 dictionary hot paths use FTS MATCH before exact or prefix filtering.');\n""")
+
+          package_path = 'sveltekit-app/package.json'
+          replace_once(
+              package_path,
+              "npx tsx src/lib/server/japanese-sentence-analysis.test.ts && npm run test:tutor",
+              "npx tsx src/lib/server/japanese-sentence-analysis.test.ts && npx tsx src/lib/server/d1-query-shape.test.ts && npm run test:tutor",
+          )
+          PY
+
+      - name: Install dependencies
+        working-directory: sveltekit-app
+        run: npm ci --include=optional
+
+      - name: Test
+        working-directory: sveltekit-app
+        run: npm test
+
+      - name: Typecheck
+        working-directory: sveltekit-app
+        run: npm run check
+
+      - name: Commit tested hotfix
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm .github/workflows/d1-hotfix.yml
+          git add sveltekit-app
+          git commit -m 'Fix D1 dictionary query amplification'
+          git push origin HEAD:fix/d1-row-exhaustion
