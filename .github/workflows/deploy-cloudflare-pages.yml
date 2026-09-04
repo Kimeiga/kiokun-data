@@ -57,13 +57,6 @@ jobs:
         working-directory: sveltekit-app
         run: node scripts/prune-cloudflare-output.js
 
-      - name: Apply sentence-learning database schema
-        working-directory: sveltekit-app
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        run: node scripts/apply-sentence-learning-schema.mjs
-      
       - name: Deploy to Cloudflare Pages
         id: deploy
         uses: cloudflare/wrangler-action@v4
