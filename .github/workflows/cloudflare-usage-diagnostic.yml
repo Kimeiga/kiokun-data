@@ -38,26 +38,19 @@ jobs:
               with urllib.request.urlopen(req, timeout=30) as response:
                   return json.load(response)
 
-          q = r'''
-          query {
-            __type(name: "Account") {
-              fields {
-                name
-                args {
-                  name
-                  type { kind name ofType { kind name ofType { kind name ofType { kind name } } } }
-                }
-                type { kind name ofType { kind name ofType { kind name ofType { kind name } } } }
-              }
-            }
-          }
-          '''
-          payload = graphql(q)
+          type_shape = 'kind name ofType { kind name ofType { kind name ofType { kind name } } }'
+          payload = graphql(f'''query {{
+            upper: __type(name: "Account") {{ fields {{ name args {{ name type {{ {type_shape} }} }} type {{ {type_shape} }} }} }}
+            lower: __type(name: "account") {{ fields {{ name args {{ name type {{ {type_shape} }} }} type {{ {type_shape} }} }} }}
+          }}''')
           if payload.get('errors'):
               print(json.dumps(payload['errors'], indent=2))
               raise SystemExit(1)
-          fields = payload['data']['__type']['fields']
-          target = next(field for field in fields if field['name'] == 'pagesFunctionsInvocationsAdaptiveGroups')
+
+          account_type = payload.get('data', {}).get('upper') or payload.get('data', {}).get('lower')
+          if not account_type:
+              raise SystemExit('Could not resolve Cloudflare Account GraphQL type')
+          target = next(field for field in account_type['fields'] if field['name'] == 'pagesFunctionsInvocationsAdaptiveGroups')
           print('PAGES_FIELD')
           print(json.dumps(target, indent=2))
 
@@ -68,14 +61,13 @@ jobs:
 
           group_type = named_type(target['type'])
           print('GROUP_TYPE', group_type)
-          if group_type:
-              detail = graphql(f'''query {{ __type(name: "{group_type}") {{ fields {{ name type {{ kind name ofType {{ kind name }} }} }} }} }}''')
-              print('GROUP_FIELDS')
-              print(json.dumps(detail, indent=2))
-              for field in detail.get('data', {}).get('__type', {}).get('fields') or []:
-                  child = named_type(field['type'])
-                  if field['name'] in ('dimensions', 'sum', 'count', 'avg', 'max', 'min') and child:
-                      child_detail = graphql(f'''query {{ __type(name: "{child}") {{ fields {{ name type {{ kind name ofType {{ kind name }} }} }} }} }}''')
-                      print('CHILD_TYPE', field['name'], child)
-                      print(json.dumps(child_detail, indent=2))
+          detail = graphql(f'''query {{ __type(name: "{group_type}") {{ fields {{ name type {{ {type_shape} }} }} }} }}''')
+          print('GROUP_FIELDS')
+          print(json.dumps(detail, indent=2))
+          for field in detail.get('data', {}).get('__type', {}).get('fields') or []:
+              child = named_type(field['type'])
+              if field['name'] in ('dimensions', 'sum', 'count', 'avg', 'max', 'min') and child:
+                  child_detail = graphql(f'''query {{ __type(name: "{child}") {{ fields {{ name type {{ {type_shape} }} }} }} }}''')
+                  print('CHILD_TYPE', field['name'], child)
+                  print(json.dumps(child_detail, indent=2))
           PY
