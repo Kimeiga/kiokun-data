@@ -4,11 +4,12 @@ if (!accountId || !apiToken) throw new Error('Missing Cloudflare credentials');
 
 const now = new Date();
 const start = new Date(now);
+start.setUTCDate(start.getUTCDate() - 7);
 start.setUTCHours(0, 0, 0, 0);
 const scriptName = 'pages-worker--8543377-production';
 
 const query = `
-query KiokunPagesHourly($accountTag: string, $start: string, $end: string, $scriptName: string) {
+query KiokunPagesDaily($accountTag: string, $start: string, $end: string, $scriptName: string) {
   viewer {
     accounts(filter: { accountTag: $accountTag }) {
       pagesFunctionsInvocationsAdaptiveGroups(
@@ -18,10 +19,10 @@ query KiokunPagesHourly($accountTag: string, $start: string, $end: string, $scri
           datetime_leq: $end
           scriptName: $scriptName
         }
-        orderBy: [datetimeHour_ASC]
+        orderBy: [date_ASC]
       ) {
         sum { requests subrequests errors }
-        dimensions { datetimeHour status }
+        dimensions { date status }
       }
     }
   }
@@ -51,23 +52,22 @@ if (!response.ok || payload.errors?.length) {
 }
 
 const rows = payload?.data?.viewer?.accounts?.[0]?.pagesFunctionsInvocationsAdaptiveGroups ?? [];
-const hourly = new Map();
+const daily = new Map();
 for (const row of rows) {
-  const hour = row.dimensions?.datetimeHour;
-  if (!hour) continue;
-  const current = hourly.get(hour) ?? { requests: 0, subrequests: 0, errors: 0, statuses: {} };
+  const date = row.dimensions?.date;
+  if (!date) continue;
+  const current = daily.get(date) ?? { requests: 0, subrequests: 0, errors: 0, statuses: {} };
   current.requests += Number(row.sum?.requests || 0);
   current.subrequests += Number(row.sum?.subrequests || 0);
   current.errors += Number(row.sum?.errors || 0);
   const status = row.dimensions?.status || '(unknown)';
   current.statuses[status] = (current.statuses[status] || 0) + Number(row.sum?.requests || 0);
-  hourly.set(hour, current);
+  daily.set(date, current);
 }
 
-const hours = [...hourly.entries()].map(([hour, values]) => ({ hour, ...values }));
+const days = [...daily.entries()].map(([date, values]) => ({ date, ...values }));
 console.log(JSON.stringify({
   scriptName,
   utcWindow: { start: start.toISOString(), end: now.toISOString() },
-  totalRequests: hours.reduce((sum, row) => sum + row.requests, 0),
-  hourly: hours
+  daily: days
 }, null, 2));
