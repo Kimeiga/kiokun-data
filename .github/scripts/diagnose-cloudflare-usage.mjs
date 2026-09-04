@@ -12,16 +12,16 @@ query KiokunPagesHourly($accountTag: string, $start: string, $end: string, $scri
   viewer {
     accounts(filter: { accountTag: $accountTag }) {
       pagesFunctionsInvocationsAdaptiveGroups(
-        limit: 10000
+        limit: 1000
         filter: {
           datetime_geq: $start
           datetime_leq: $end
           scriptName: $scriptName
         }
-        orderBy: [datetime_ASC]
+        orderBy: [datetimeHour_ASC]
       ) {
         sum { requests subrequests errors }
-        dimensions { datetime status }
+        dimensions { datetimeHour status }
       }
     }
   }
@@ -53,9 +53,8 @@ if (!response.ok || payload.errors?.length) {
 const rows = payload?.data?.viewer?.accounts?.[0]?.pagesFunctionsInvocationsAdaptiveGroups ?? [];
 const hourly = new Map();
 for (const row of rows) {
-  const datetime = row.dimensions?.datetime;
-  if (!datetime) continue;
-  const hour = datetime.slice(0, 13) + ':00:00Z';
+  const hour = row.dimensions?.datetimeHour;
+  if (!hour) continue;
   const current = hourly.get(hour) ?? { requests: 0, subrequests: 0, errors: 0, statuses: {} };
   current.requests += Number(row.sum?.requests || 0);
   current.subrequests += Number(row.sum?.subrequests || 0);
