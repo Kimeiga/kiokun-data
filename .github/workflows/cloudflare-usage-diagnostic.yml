@@ -130,4 +130,4 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
-          npx --yes wrangler@4.45.0 d1 insights 21f5b45e-ce53-4a63-b07b-dec1a0b44fcc --sort-type=sum --sort-by=reads --sort-direction=DESC --limit=20 --timePeriod=1d --json
+          npx --yes wrangler@4.45.0 d1 insights kiokun-dictionary --sort-type=sum --sort-by=reads --sort-direction=DESC --limit=20 --timePeriod=1d --json
