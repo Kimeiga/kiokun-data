@@ -1,0 +1,126 @@
+name: Cloudflare Usage Diagnostic
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/cloudflare-usage-diagnostic.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Query Cloudflare usage analytics
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          python3 - <<'PY'
+          import datetime as dt
+          import json
+          import os
+          import urllib.request
+
+          token = os.environ['CLOUDFLARE_API_TOKEN']
+          account = os.environ['CLOUDFLARE_ACCOUNT_ID']
+          now = dt.datetime.now(dt.timezone.utc)
+          start = now.replace(hour=0, minute=0, second=0, microsecond=0)
+          endpoint = 'https://api.cloudflare.com/client/v4/graphql'
+
+          def graphql(query, variables):
+              req = urllib.request.Request(
+                  endpoint,
+                  data=json.dumps({'query': query, 'variables': variables}).encode(),
+                  headers={
+                      'Authorization': f'Bearer {token}',
+                      'Content-Type': 'application/json',
+                      'Accept': 'application/json',
+                  },
+                  method='POST',
+              )
+              with urllib.request.urlopen(req, timeout=30) as response:
+                  return json.load(response)
+
+          workers_query = r'''
+          query GetWorkersAnalytics($accountTag: string, $datetimeStart: string, $datetimeEnd: string) {
+            viewer {
+              accounts(filter: {accountTag: $accountTag}) {
+                workersInvocationsAdaptive(
+                  limit: 10000,
+                  filter: {datetime_geq: $datetimeStart, datetime_leq: $datetimeEnd}
+                ) {
+                  sum { requests errors subrequests }
+                  dimensions { scriptName status }
+                }
+              }
+            }
+          }
+          '''
+
+          d1_query = r'''
+          query D1Usage($accountTag: string!, $start: Date, $end: Date) {
+            viewer {
+              accounts(filter: {accountTag: $accountTag}) {
+                d1AnalyticsAdaptiveGroups(
+                  limit: 10000,
+                  filter: {date_geq: $start, date_leq: $end}
+                ) {
+                  sum { rowsRead rowsWritten readQueries writeQueries }
+                  dimensions { databaseId date }
+                }
+              }
+            }
+          }
+          '''
+
+          variables_workers = {
+              'accountTag': account,
+              'datetimeStart': start.isoformat().replace('+00:00', 'Z'),
+              'datetimeEnd': now.isoformat().replace('+00:00', 'Z'),
+          }
+          variables_d1 = {
+              'accountTag': account,
+              'start': start.date().isoformat(),
+              'end': now.date().isoformat(),
+          }
+
+          print(f'UTC window: {variables_workers["datetimeStart"]} -> {variables_workers["datetimeEnd"]}')
+
+          workers = graphql(workers_query, variables_workers)
+          if workers.get('errors'):
+              print('WORKERS_GRAPHQL_ERRORS')
+              print(json.dumps(workers['errors'], indent=2))
+          else:
+              rows = workers['data']['viewer']['accounts'][0]['workersInvocationsAdaptive']
+              totals = {}
+              for row in rows:
+                  name = row.get('dimensions', {}).get('scriptName') or '(unknown)'
+                  item = totals.setdefault(name, {'requests': 0, 'errors': 0, 'subrequests': 0})
+                  for key in item:
+                      item[key] += int(row.get('sum', {}).get(key) or 0)
+              print('WORKERS_BY_SCRIPT')
+              for name, item in sorted(totals.items(), key=lambda pair: pair[1]['requests'], reverse=True):
+                  print(json.dumps({'scriptName': name, **item}, sort_keys=True))
+              print('WORKERS_TOTAL_REQUESTS', sum(item['requests'] for item in totals.values()))
+
+          d1 = graphql(d1_query, variables_d1)
+          if d1.get('errors'):
+              print('D1_GRAPHQL_ERRORS')
+              print(json.dumps(d1['errors'], indent=2))
+          else:
+              rows = d1['data']['viewer']['accounts'][0]['d1AnalyticsAdaptiveGroups']
+              totals = {}
+              for row in rows:
+                  database_id = row.get('dimensions', {}).get('databaseId') or '(unknown)'
+                  item = totals.setdefault(database_id, {'rowsRead': 0, 'rowsWritten': 0, 'readQueries': 0, 'writeQueries': 0})
+                  for key in item:
+                      item[key] += int(row.get('sum', {}).get(key) or 0)
+              print('D1_BY_DATABASE')
+              for database_id, item in sorted(totals.items(), key=lambda pair: pair[1]['rowsRead'], reverse=True):
+                  print(json.dumps({'databaseId': database_id, **item}, sort_keys=True))
+              print('D1_TOTAL_ROWS_READ', sum(item['rowsRead'] for item in totals.values()))
+          PY
