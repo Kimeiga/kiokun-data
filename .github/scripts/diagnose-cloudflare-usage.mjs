@@ -54,7 +54,7 @@ if (!response.ok || payload.errors?.length) {
 }
 
 const projectsResponse = await fetch(
-  `https://api.cloudflare.com/client/v4/accounts/${accountId}/pages/projects?per_page=100`,
+  `https://api.cloudflare.com/client/v4/accounts/${accountId}/pages/projects?page=1&per_page=20`,
   { headers }
 );
 const projectsPayload = await projectsResponse.json();
@@ -101,6 +101,12 @@ const total = (items) => items.reduce((sum, item) => sum + item.requests, 0);
 
 console.log(JSON.stringify({
   utcWindow: { start: start.toISOString(), end: now.toISOString() },
+  pagesProjects: projects.map((project) => ({
+    name: project.name,
+    production_script_name: project.production_script_name,
+    subdomain: project.subdomain,
+    domains: project.domains ?? []
+  })),
   workers: { totalRequests: total(workers), scripts: workers },
   pagesFunctions: { totalRequests: total(pages), scripts: pages },
   combinedRequests: total(workers) + total(pages)
