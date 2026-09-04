@@ -124,3 +124,10 @@ jobs:
                   print(json.dumps({'databaseId': database_id, **item}, sort_keys=True))
               print('D1_TOTAL_ROWS_READ', sum(item['rowsRead'] for item in totals.values()))
           PY
+
+      - name: Show Kiokun D1 queries with the most rows read
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          npx --yes wrangler@4.45.0 d1 insights 21f5b45e-ce53-4a63-b07b-dec1a0b44fcc --sort-type=sum --sort-by=reads --sort-direction=DESC --limit=20 --timePeriod=1d --json
