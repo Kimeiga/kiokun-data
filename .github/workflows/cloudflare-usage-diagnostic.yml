@@ -14,132 +14,36 @@ jobs:
   inspect:
     runs-on: ubuntu-latest
     steps:
-      - name: Query Pages Functions usage and probe sites
+      - name: Map Pages scripts to projects
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           python3 - <<'PY'
-          import datetime as dt
-          import json
-          import os
-          import urllib.error
-          import urllib.request
+          import json, os, urllib.request
 
-          endpoint = 'https://api.cloudflare.com/client/v4/graphql'
           token = os.environ['CLOUDFLARE_API_TOKEN']
           account = os.environ['CLOUDFLARE_ACCOUNT_ID']
-          now = dt.datetime.now(dt.timezone.utc)
-          start = now.replace(hour=0, minute=0, second=0, microsecond=0)
-
-          def graphql(query, variables=None):
-              req = urllib.request.Request(
-                  endpoint,
-                  data=json.dumps({'query': query, 'variables': variables or {}}).encode(),
-                  headers={
-                      'Authorization': f'Bearer {token}',
-                      'Content-Type': 'application/json',
-                      'Accept': 'application/json',
-                  },
-                  method='POST',
-              )
-              with urllib.request.urlopen(req, timeout=30) as response:
-                  return json.load(response)
-
-          filter_schema = graphql(r'''
-          query {
-            __type(name: "AccountPagesFunctionsInvocationsAdaptiveGroupsFilter_InputObject") {
-              inputFields { name type { kind name ofType { kind name } } }
-            }
-          }
-          ''')
-          fields = filter_schema.get('data', {}).get('__type', {}).get('inputFields') or []
-          names = {field['name'] for field in fields}
-          print('PAGES_FILTER_TIME_FIELDS', sorted(name for name in names if 'date' in name.lower() or 'time' in name.lower()))
-
-          if 'datetime_geq' in names and 'datetime_leq' in names:
-              filter_clause = 'datetime_geq: $start, datetime_leq: $end'
-              var_defs = '$accountTag: string, $start: string, $end: string'
-              variables = {
-                  'accountTag': account,
-                  'start': start.isoformat().replace('+00:00', 'Z'),
-                  'end': now.isoformat().replace('+00:00', 'Z'),
-              }
-          elif 'date_geq' in names and 'date_leq' in names:
-              filter_clause = 'date_geq: $start, date_leq: $end'
-              var_defs = '$accountTag: string, $start: Date, $end: Date'
-              variables = {
-                  'accountTag': account,
-                  'start': start.date().isoformat(),
-                  'end': now.date().isoformat(),
-              }
-          else:
-              raise SystemExit('Could not find Pages Functions time filter fields')
-
-          pages_query = f'''
-          query GetPagesFunctions({var_defs}) {{
-            viewer {{
-              accounts(filter: {{accountTag: $accountTag}}) {{
-                pagesFunctionsInvocationsAdaptiveGroups(
-                  limit: 10000,
-                  filter: {{{filter_clause}}}
-                ) {{
-                  sum {{ requests errors subrequests clientDisconnects }}
-                  dimensions {{ scriptName status usageModel }}
-                }}
-              }}
-            }}
-          }}
-          '''
-          pages = graphql(pages_query, variables)
-          if pages.get('errors'):
-              print('PAGES_GRAPHQL_ERRORS')
-              print(json.dumps(pages['errors'], indent=2))
-          else:
-              rows = pages['data']['viewer']['accounts'][0]['pagesFunctionsInvocationsAdaptiveGroups']
-              totals = {}
-              statuses = {}
-              for row in rows:
-                  dims = row.get('dimensions') or {}
-                  sums = row.get('sum') or {}
-                  script = dims.get('scriptName') or '(unknown)'
-                  item = totals.setdefault(script, {'requests': 0, 'errors': 0, 'subrequests': 0, 'clientDisconnects': 0})
-                  for key in item:
-                      item[key] += int(sums.get(key) or 0)
-                  skey = (script, dims.get('status') or '(unknown)', dims.get('usageModel') or '(unknown)')
-                  statuses[skey] = statuses.get(skey, 0) + int(sums.get('requests') or 0)
-              print('PAGES_FUNCTIONS_BY_SCRIPT')
-              for script, item in sorted(totals.items(), key=lambda pair: pair[1]['requests'], reverse=True):
-                  print(json.dumps({'scriptName': script, **item}, sort_keys=True))
-              print('PAGES_FUNCTIONS_TOTAL_REQUESTS', sum(item['requests'] for item in totals.values()))
-              print('PAGES_FUNCTIONS_BY_STATUS')
-              for (script, status, model), count in sorted(statuses.items(), key=lambda pair: pair[1], reverse=True):
-                  print(json.dumps({'scriptName': script, 'status': status, 'usageModel': model, 'requests': count}, sort_keys=True))
-
-          print('LIVE_PROBES')
-          for url in ('https://sehyo.com/', 'https://kiokun.com/', 'https://240010a0.kiokun.pages.dev/'):
-              req = urllib.request.Request(url, headers={'User-Agent': 'quota-diagnostic/1.0', 'Cache-Control': 'no-cache'})
-              try:
-                  with urllib.request.urlopen(req, timeout=20) as response:
-                      body = response.read(500).decode('utf-8', 'replace')
-                      print(json.dumps({
-                          'url': url,
-                          'status': response.status,
-                          'server': response.headers.get('server'),
-                          'cfRay': response.headers.get('cf-ray'),
-                          'contentType': response.headers.get('content-type'),
-                          'bodyPrefix': body,
-                      }, sort_keys=True))
-              except urllib.error.HTTPError as error:
-                  body = error.read(500).decode('utf-8', 'replace')
-                  print(json.dumps({
-                      'url': url,
-                      'status': error.code,
-                      'server': error.headers.get('server'),
-                      'cfRay': error.headers.get('cf-ray'),
-                      'contentType': error.headers.get('content-type'),
-                      'bodyPrefix': body,
-                  }, sort_keys=True))
-              except Exception as error:
-                  print(json.dumps({'url': url, 'error': str(error)}, sort_keys=True))
+          url = f'https://api.cloudflare.com/client/v4/accounts/{account}/pages/projects?per_page=100'
+          req = urllib.request.Request(url, headers={'Authorization': f'Bearer {token}', 'Accept': 'application/json'})
+          with urllib.request.urlopen(req, timeout=30) as response:
+              payload = json.load(response)
+          if payload.get('success') is not True:
+              print(json.dumps(payload.get('errors'), indent=2))
+              raise SystemExit(1)
+          print('PAGES_PROJECTS')
+          for project in payload.get('result') or []:
+              latest = project.get('latest_deployment') or {}
+              canonical = project.get('canonical_deployment') or {}
+              print(json.dumps({
+                  'name': project.get('name'),
+                  'id': project.get('id'),
+                  'productionScriptName': project.get('production_script_name'),
+                  'previewScriptName': project.get('preview_script_name'),
+                  'usesFunctions': project.get('uses_functions'),
+                  'domains': project.get('domains'),
+                  'subdomain': project.get('subdomain'),
+                  'latestDeploymentUrl': latest.get('url'),
+                  'canonicalDeploymentUrl': canonical.get('url'),
+              }, sort_keys=True))
           PY
