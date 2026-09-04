@@ -36,13 +36,10 @@ jobs:
         working-directory: sveltekit-app
         run: npm run check
 
-      - name: Commit tested hotfix
+      - name: Commit tested application hotfix
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git rm .github/workflows/d1-hotfix.yml .github/workflows/d1-hotfix-v2.yml .github/workflows/d1-hotfix-v3.yml
-          git rm .github/scripts/apply_d1_hotfix.py
-          git rm -f --ignore-unmatch .d1-hotfix-trigger
-          git add .github/workflows/deploy-cloudflare-pages.yml sveltekit-app
+          git add sveltekit-app
           git commit -m 'Fix D1 dictionary query amplification'
           git push origin HEAD:fix/d1-row-exhaustion
