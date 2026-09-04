@@ -31,10 +31,10 @@ jobs:
           start = now.replace(hour=0, minute=0, second=0, microsecond=0)
           endpoint = 'https://api.cloudflare.com/client/v4/graphql'
 
-          def graphql(query, variables):
+          def graphql(query, variables=None):
               req = urllib.request.Request(
                   endpoint,
-                  data=json.dumps({'query': query, 'variables': variables}).encode(),
+                  data=json.dumps({'query': query, 'variables': variables or {}}).encode(),
                   headers={
                       'Authorization': f'Bearer {token}',
                       'Content-Type': 'application/json',
@@ -123,11 +123,25 @@ jobs:
               for database_id, item in sorted(totals.items(), key=lambda pair: pair[1]['rowsRead'], reverse=True):
                   print(json.dumps({'databaseId': database_id, **item}, sort_keys=True))
               print('D1_TOTAL_ROWS_READ', sum(item['rowsRead'] for item in totals.values()))
-          PY
 
-      - name: Show Kiokun D1 queries with the most rows read
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        run: |
-          npx --yes wrangler@4.45.0 d1 insights kiokun-dictionary --sort-type=sum --sort-by=reads --sort-direction=DESC --limit=20 --timePeriod=1d --json
+          introspection = graphql(r'''
+          query {
+            upper: __type(name: "Account") { fields { name } }
+            lower: __type(name: "account") { fields { name } }
+          }
+          ''')
+          print('RELEVANT_ACCOUNT_ANALYTICS_FIELDS')
+          if introspection.get('errors'):
+              print(json.dumps(introspection['errors'], indent=2))
+          else:
+              names = set()
+              for key in ('upper', 'lower'):
+                  obj = introspection.get('data', {}).get(key) or {}
+                  for field in obj.get('fields') or []:
+                      name = field.get('name', '')
+                      lowered = name.lower()
+                      if any(term in lowered for term in ('worker', 'page', 'function', 'request')):
+                          names.add(name)
+              for name in sorted(names):
+                  print(name)
+          PY
