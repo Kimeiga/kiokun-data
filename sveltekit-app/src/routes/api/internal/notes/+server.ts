@@ -8,9 +8,17 @@ const PUBLIC_KEY_SPKI_BASE64 = 'MCowBQYDK2VwAyEAcibx8K6sLDtzCWH5borVDTe1LsXojHbS
 const MAX_CLOCK_SKEW_MS = 5 * 60 * 1000;
 const encoder = new TextEncoder();
 
-function base64ToBytes(value: string): Uint8Array {
+function base64ToArrayBuffer(value: string): ArrayBuffer {
 	const binary = atob(value);
-	return Uint8Array.from(binary, (char) => char.charCodeAt(0));
+	const bytes = new Uint8Array(binary.length);
+	for (let index = 0; index < binary.length; index += 1) {
+		bytes[index] = binary.charCodeAt(index);
+	}
+	return bytes.buffer;
+}
+
+function textToArrayBuffer(value: string): ArrayBuffer {
+	return encoder.encode(value).buffer as ArrayBuffer;
 }
 
 async function verifyRequest(rawBody: string, timestamp: string, signature: string): Promise<boolean> {
@@ -22,7 +30,7 @@ async function verifyRequest(rawBody: string, timestamp: string, signature: stri
 	try {
 		const publicKey = await crypto.subtle.importKey(
 			'spki',
-			base64ToBytes(PUBLIC_KEY_SPKI_BASE64),
+			base64ToArrayBuffer(PUBLIC_KEY_SPKI_BASE64),
 			{ name: 'Ed25519' },
 			false,
 			['verify'],
@@ -30,8 +38,8 @@ async function verifyRequest(rawBody: string, timestamp: string, signature: stri
 		return crypto.subtle.verify(
 			'Ed25519',
 			publicKey,
-			base64ToBytes(signature),
-			encoder.encode(`${timestamp}.${rawBody}`),
+			base64ToArrayBuffer(signature),
+			textToArrayBuffer(`${timestamp}.${rawBody}`),
 		);
 	} catch {
 		return false;
