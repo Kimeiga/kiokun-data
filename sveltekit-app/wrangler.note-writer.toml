@@ -1,0 +1,13 @@
+name = "kiokun-note-writer"
+main = "src/worker/kiokun-note-writer.ts"
+compatibility_date = "2026-09-04"
+workers_dev = true
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+ADMIN_EMAIL = "hak7alp@gmail.com"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "kiokun-dictionary"
+database_id = "21f5b45e-ce53-4a63-b07b-dec1a0b44fcc"
