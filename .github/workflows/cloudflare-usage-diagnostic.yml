@@ -14,34 +14,95 @@ jobs:
   inspect:
     runs-on: ubuntu-latest
     steps:
-      - name: Map Kiokun and Sehyo production scripts
+      - name: Inspect Kiokun HTTP traffic
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           python3 - <<'PY'
-          import json, os, urllib.error, urllib.request
+          import datetime as dt
+          import json
+          import os
+          import urllib.error
+          import urllib.parse
+          import urllib.request
 
           token = os.environ['CLOUDFLARE_API_TOKEN']
-          account = os.environ['CLOUDFLARE_ACCOUNT_ID']
-          for name in ('kiokun', 'sehyo'):
-              url = f'https://api.cloudflare.com/client/v4/accounts/{account}/pages/projects/{name}'
-              req = urllib.request.Request(url, headers={'Authorization': f'Bearer {token}', 'Accept': 'application/json'})
-              try:
-                  with urllib.request.urlopen(req, timeout=30) as response:
-                      payload = json.load(response)
-              except urllib.error.HTTPError as error:
-                  print(name, 'HTTP', error.code, error.read().decode('utf-8', 'replace')[:1000])
-                  continue
-              project = payload.get('result') or {}
-              print(json.dumps({
-                  'name': project.get('name'),
-                  'id': project.get('id'),
-                  'productionScriptName': project.get('production_script_name'),
-                  'previewScriptName': project.get('preview_script_name'),
-                  'usesFunctions': project.get('uses_functions'),
-                  'domains': project.get('domains'),
-                  'subdomain': project.get('subdomain'),
-                  'failOpen': (project.get('deployment_configs') or {}).get('production', {}).get('fail_open'),
-              }, sort_keys=True))
+          headers = {'Authorization': f'Bearer {token}', 'Accept': 'application/json'}
+          zone_url = 'https://api.cloudflare.com/client/v4/zones?' + urllib.parse.urlencode({'name': 'kiokun.com'})
+          req = urllib.request.Request(zone_url, headers=headers)
+          try:
+              with urllib.request.urlopen(req, timeout=30) as response:
+                  zone_payload = json.load(response)
+          except urllib.error.HTTPError as error:
+              print('ZONE_LOOKUP_HTTP', error.code, error.read().decode('utf-8', 'replace')[:2000])
+              raise SystemExit(0)
+          zones = zone_payload.get('result') or []
+          if not zones:
+              print('NO_KIOKUN_ZONE')
+              raise SystemExit(0)
+          zone = zones[0]
+          zone_id = zone['id']
+          print('ZONE', json.dumps({'name': zone.get('name'), 'id': zone_id, 'status': zone.get('status')}, sort_keys=True))
+
+          endpoint = 'https://api.cloudflare.com/client/v4/graphql'
+          now = dt.datetime.now(dt.timezone.utc)
+          start = now.replace(hour=0, minute=0, second=0, microsecond=0)
+          variables = {
+              'zoneTag': zone_id,
+              'start': start.isoformat().replace('+00:00', 'Z'),
+              'end': now.isoformat().replace('+00:00', 'Z'),
+          }
+          query = r'''
+          query Traffic($zoneTag: string, $start: string, $end: string) {
+            viewer {
+              zones(filter: {zoneTag: $zoneTag}) {
+                topPaths: httpRequestsAdaptiveGroups(
+                  filter: {datetime_geq: $start, datetime_leq: $end, requestSource: "eyeball"}
+                  limit: 50
+                  orderBy: [count_DESC]
+                ) {
+                  count
+                  dimensions { clientRequestPath clientRequestHTTPHost }
+                }
+                topAgents: httpRequestsAdaptiveGroups(
+                  filter: {datetime_geq: $start, datetime_leq: $end, requestSource: "eyeball"}
+                  limit: 50
+                  orderBy: [count_DESC]
+                ) {
+                  count
+                  dimensions { userAgent }
+                }
+                hourly: httpRequestsAdaptiveGroups(
+                  filter: {datetime_geq: $start, datetime_leq: $end, requestSource: "eyeball"}
+                  limit: 100
+                  orderBy: [datetimeHour_ASC]
+                ) {
+                  count
+                  dimensions { datetimeHour }
+                }
+              }
+            }
+          }
+          '''
+          gql_req = urllib.request.Request(
+              endpoint,
+              data=json.dumps({'query': query, 'variables': variables}).encode(),
+              headers={**headers, 'Content-Type': 'application/json'},
+              method='POST',
+          )
+          with urllib.request.urlopen(gql_req, timeout=30) as response:
+              payload = json.load(response)
+          if payload.get('errors'):
+              print('GRAPHQL_ERRORS', json.dumps(payload['errors'], indent=2))
+              raise SystemExit(0)
+          data = payload['data']['viewer']['zones'][0]
+          print('TOP_PATHS')
+          for row in data['topPaths']:
+              print(json.dumps({'count': row['count'], **row['dimensions']}, sort_keys=True))
+          print('TOP_USER_AGENTS')
+          for row in data['topAgents']:
+              print(json.dumps({'count': row['count'], **row['dimensions']}, sort_keys=True))
+          print('HOURLY_REQUESTS')
+          for row in data['hourly']:
+              print(json.dumps({'count': row['count'], **row['dimensions']}, sort_keys=True))
           PY
