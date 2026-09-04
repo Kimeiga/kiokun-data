@@ -49,12 +49,13 @@ export async function GET({ url, platform }: RequestEvent) {
 					pronunciation,
 					is_common
 				FROM dictionary_search
-				WHERE language = 'japanese'
-				  AND pronunciation = ?
+				WHERE pronunciation MATCH ('"' || replace(?1, '"', '""') || '"')
+				  AND language = 'japanese'
+				  AND pronunciation = ?1
 				ORDER BY
 					is_common DESC,
 					LENGTH(word) ASC
-				LIMIT ?
+				LIMIT ?2
 			`)
 			.bind(query.trim(), limit)
 			.all();
