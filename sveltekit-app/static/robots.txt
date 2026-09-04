@@ -1,9 +1,31 @@
-# Allow normal search engines full access
+# Keep search-engine crawling on Kiokun's curated public surfaces, but do not
+# let crawlers recursively traverse the open-ended SSR dictionary graph.
+# Human users can still open every dictionary URL normally.
 User-agent: *
-Allow: /
+Disallow: /
+Allow: /$
+Allow: /sitemap.xml$
+Allow: /courses$
+Allow: /courses/
+Allow: /learning$
+Allow: /learning/
+Allow: /learning-resources/
+Allow: /tutor$
+Allow: /frequency$
+Allow: /homophones/
+Allow: /japanese-emoji$
+Allow: /artifacts$
+Allow: /artifacts/
+Allow: /users$
+Allow: /game$
+Allow: /blog$
+Allow: /blog/
+Allow: /_app/
+Allow: /assets/
+Allow: /fonts/
 Sitemap: https://kiokun.com/sitemap.xml
 
-# Block AI training / scraping crawlers
+# Explicitly block known AI training / scraping crawlers as well.
 User-agent: GPTBot
 Disallow: /
 
