@@ -14,27 +14,20 @@ jobs:
   inspect:
     runs-on: ubuntu-latest
     steps:
-      - name: Query Cloudflare usage analytics
+      - name: Inspect Pages Functions analytics schema
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           python3 - <<'PY'
-          import datetime as dt
-          import json
-          import os
-          import urllib.request
+          import json, os, urllib.request
 
-          token = os.environ['CLOUDFLARE_API_TOKEN']
-          account = os.environ['CLOUDFLARE_ACCOUNT_ID']
-          now = dt.datetime.now(dt.timezone.utc)
-          start = now.replace(hour=0, minute=0, second=0, microsecond=0)
           endpoint = 'https://api.cloudflare.com/client/v4/graphql'
+          token = os.environ['CLOUDFLARE_API_TOKEN']
 
-          def graphql(query, variables=None):
+          def graphql(query):
               req = urllib.request.Request(
                   endpoint,
-                  data=json.dumps({'query': query, 'variables': variables or {}}).encode(),
+                  data=json.dumps({'query': query}).encode(),
                   headers={
                       'Authorization': f'Bearer {token}',
                       'Content-Type': 'application/json',
@@ -45,103 +38,44 @@ jobs:
               with urllib.request.urlopen(req, timeout=30) as response:
                   return json.load(response)
 
-          workers_query = r'''
-          query GetWorkersAnalytics($accountTag: string, $datetimeStart: string, $datetimeEnd: string) {
-            viewer {
-              accounts(filter: {accountTag: $accountTag}) {
-                workersInvocationsAdaptive(
-                  limit: 10000,
-                  filter: {datetime_geq: $datetimeStart, datetime_leq: $datetimeEnd}
-                ) {
-                  sum { requests errors subrequests }
-                  dimensions { scriptName status }
-                }
-              }
-            }
-          }
-          '''
-
-          d1_query = r'''
-          query D1Usage($accountTag: string!, $start: Date, $end: Date) {
-            viewer {
-              accounts(filter: {accountTag: $accountTag}) {
-                d1AnalyticsAdaptiveGroups(
-                  limit: 10000,
-                  filter: {date_geq: $start, date_leq: $end}
-                ) {
-                  sum { rowsRead rowsWritten readQueries writeQueries }
-                  dimensions { databaseId date }
-                }
-              }
-            }
-          }
-          '''
-
-          variables_workers = {
-              'accountTag': account,
-              'datetimeStart': start.isoformat().replace('+00:00', 'Z'),
-              'datetimeEnd': now.isoformat().replace('+00:00', 'Z'),
-          }
-          variables_d1 = {
-              'accountTag': account,
-              'start': start.date().isoformat(),
-              'end': now.date().isoformat(),
-          }
-
-          print(f'UTC window: {variables_workers["datetimeStart"]} -> {variables_workers["datetimeEnd"]}')
-
-          workers = graphql(workers_query, variables_workers)
-          if workers.get('errors'):
-              print('WORKERS_GRAPHQL_ERRORS')
-              print(json.dumps(workers['errors'], indent=2))
-          else:
-              rows = workers['data']['viewer']['accounts'][0]['workersInvocationsAdaptive']
-              totals = {}
-              for row in rows:
-                  name = row.get('dimensions', {}).get('scriptName') or '(unknown)'
-                  item = totals.setdefault(name, {'requests': 0, 'errors': 0, 'subrequests': 0})
-                  for key in item:
-                      item[key] += int(row.get('sum', {}).get(key) or 0)
-              print('WORKERS_BY_SCRIPT')
-              for name, item in sorted(totals.items(), key=lambda pair: pair[1]['requests'], reverse=True):
-                  print(json.dumps({'scriptName': name, **item}, sort_keys=True))
-              print('WORKERS_TOTAL_REQUESTS', sum(item['requests'] for item in totals.values()))
-
-          d1 = graphql(d1_query, variables_d1)
-          if d1.get('errors'):
-              print('D1_GRAPHQL_ERRORS')
-              print(json.dumps(d1['errors'], indent=2))
-          else:
-              rows = d1['data']['viewer']['accounts'][0]['d1AnalyticsAdaptiveGroups']
-              totals = {}
-              for row in rows:
-                  database_id = row.get('dimensions', {}).get('databaseId') or '(unknown)'
-                  item = totals.setdefault(database_id, {'rowsRead': 0, 'rowsWritten': 0, 'readQueries': 0, 'writeQueries': 0})
-                  for key in item:
-                      item[key] += int(row.get('sum', {}).get(key) or 0)
-              print('D1_BY_DATABASE')
-              for database_id, item in sorted(totals.items(), key=lambda pair: pair[1]['rowsRead'], reverse=True):
-                  print(json.dumps({'databaseId': database_id, **item}, sort_keys=True))
-              print('D1_TOTAL_ROWS_READ', sum(item['rowsRead'] for item in totals.values()))
-
-          introspection = graphql(r'''
+          q = r'''
           query {
-            upper: __type(name: "Account") { fields { name } }
-            lower: __type(name: "account") { fields { name } }
+            __type(name: "Account") {
+              fields {
+                name
+                args {
+                  name
+                  type { kind name ofType { kind name ofType { kind name ofType { kind name } } } }
+                }
+                type { kind name ofType { kind name ofType { kind name ofType { kind name } } } }
+              }
+            }
           }
-          ''')
-          print('RELEVANT_ACCOUNT_ANALYTICS_FIELDS')
-          if introspection.get('errors'):
-              print(json.dumps(introspection['errors'], indent=2))
-          else:
-              names = set()
-              for key in ('upper', 'lower'):
-                  obj = introspection.get('data', {}).get(key) or {}
-                  for field in obj.get('fields') or []:
-                      name = field.get('name', '')
-                      lowered = name.lower()
-                      if any(term in lowered for term in ('worker', 'page', 'function', 'request')):
-                          names.add(name)
-              for name in sorted(names):
-                  print(name)
+          '''
+          payload = graphql(q)
+          if payload.get('errors'):
+              print(json.dumps(payload['errors'], indent=2))
+              raise SystemExit(1)
+          fields = payload['data']['__type']['fields']
+          target = next(field for field in fields if field['name'] == 'pagesFunctionsInvocationsAdaptiveGroups')
+          print('PAGES_FIELD')
+          print(json.dumps(target, indent=2))
+
+          def named_type(t):
+              while t and not t.get('name'):
+                  t = t.get('ofType')
+              return (t or {}).get('name')
+
+          group_type = named_type(target['type'])
+          print('GROUP_TYPE', group_type)
+          if group_type:
+              detail = graphql(f'''query {{ __type(name: "{group_type}") {{ fields {{ name type {{ kind name ofType {{ kind name }} }} }} }} }}''')
+              print('GROUP_FIELDS')
+              print(json.dumps(detail, indent=2))
+              for field in detail.get('data', {}).get('__type', {}).get('fields') or []:
+                  child = named_type(field['type'])
+                  if field['name'] in ('dimensions', 'sum', 'count', 'avg', 'max', 'min') and child:
+                      child_detail = graphql(f'''query {{ __type(name: "{child}") {{ fields {{ name type {{ kind name ofType {{ kind name }} }} }} }} }}''')
+                      print('CHILD_TYPE', field['name'], child)
+                      print(json.dumps(child_detail, indent=2))
           PY
