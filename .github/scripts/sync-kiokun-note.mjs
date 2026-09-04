@@ -88,7 +88,7 @@ async function exportBridgeTables() {
 }
 
 function loadExport(sql) {
-  const db = new DatabaseSync(':memory:');
+  const db = new DatabaseSync(':memory:', { enableForeignKeyConstraints: false });
   db.exec(sql);
   return db;
 }
