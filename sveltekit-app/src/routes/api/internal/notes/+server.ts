@@ -1,6 +1,6 @@
 import { error, json } from '@sveltejs/kit';
 import type { RequestEvent } from '@sveltejs/kit';
-import { eq, and } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
 import { getDb } from '$lib/server/db';
 import { notes, user } from '$lib/server/db/schema';
 
@@ -86,12 +86,10 @@ export async function POST({ request, platform }: RequestEvent) {
 	const now = new Date();
 	if (existing.length > 0) {
 		const current = existing[0].noteText.trim();
-		const nextText =
-			mode === 'replace' || !current || current.includes(noteText)
-				? mode === 'replace' || !current
-					? noteText
-					: current
-				: `${current}\n\n${noteText}`;
+		let nextText = noteText;
+		if (mode === 'append' && current) {
+			nextText = current.includes(noteText) ? current : `${current}\n\n${noteText}`;
+		}
 
 		await db
 			.update(notes)
