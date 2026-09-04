@@ -2,85 +2,26 @@ const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;
 const apiToken = process.env.CLOUDFLARE_API_TOKEN;
 if (!accountId || !apiToken) throw new Error('Missing Cloudflare credentials');
 
-const headers = {
-  Authorization: `Bearer ${apiToken}`,
-  Accept: 'application/json',
-  'Content-Type': 'application/json'
-};
-
 const now = new Date();
 const start = new Date(now);
 start.setUTCHours(0, 0, 0, 0);
-
-async function jsonFetch(url) {
-  const response = await fetch(url, { headers });
-  const payload = await response.json();
-  if (!response.ok || payload.success === false) {
-    console.error(JSON.stringify({ status: response.status, errors: payload.errors ?? payload }, null, 2));
-    process.exit(1);
-  }
-  return payload;
-}
-
-const zonesPayload = await jsonFetch(`https://api.cloudflare.com/client/v4/zones?name=kiokun.com`);
-const zone = zonesPayload.result?.[0];
-if (!zone?.id) throw new Error('Could not resolve kiokun.com zone');
+const scriptName = 'pages-worker--8543377-production';
 
 const query = `
-query KiokunTraffic($zoneTag: string, $start: Time, $end: Time) {
+query KiokunPagesHourly($accountTag: string, $start: string, $end: string, $scriptName: string) {
   viewer {
-    zones(filter: { zoneTag: $zoneTag }) {
-      topPaths: httpRequestsAdaptiveGroups(
-        limit: 50
-        orderBy: [count_DESC]
+    accounts(filter: { accountTag: $accountTag }) {
+      pagesFunctionsInvocationsAdaptiveGroups(
+        limit: 10000
         filter: {
           datetime_geq: $start
           datetime_leq: $end
-          requestSource: "eyeball"
-          clientRequestHTTPHost_in: ["kiokun.com", "www.kiokun.com"]
+          scriptName: $scriptName
         }
+        orderBy: [datetime_ASC]
       ) {
-        count
-        dimensions { clientRequestPath clientRequestHTTPHost }
-      }
-      topAgents: httpRequestsAdaptiveGroups(
-        limit: 30
-        orderBy: [count_DESC]
-        filter: {
-          datetime_geq: $start
-          datetime_leq: $end
-          requestSource: "eyeball"
-          clientRequestHTTPHost_in: ["kiokun.com", "www.kiokun.com"]
-        }
-      ) {
-        count
-        dimensions { userAgent }
-      }
-      hourly: httpRequestsAdaptiveGroups(
-        limit: 48
-        orderBy: [datetimeHour_ASC]
-        filter: {
-          datetime_geq: $start
-          datetime_leq: $end
-          requestSource: "eyeball"
-          clientRequestHTTPHost_in: ["kiokun.com", "www.kiokun.com"]
-        }
-      ) {
-        count
-        dimensions { datetimeHour }
-      }
-      statuses: httpRequestsAdaptiveGroups(
-        limit: 20
-        orderBy: [count_DESC]
-        filter: {
-          datetime_geq: $start
-          datetime_leq: $end
-          requestSource: "eyeball"
-          clientRequestHTTPHost_in: ["kiokun.com", "www.kiokun.com"]
-        }
-      ) {
-        count
-        dimensions { edgeResponseStatus }
+        sum { requests subrequests errors }
+        dimensions { datetime status }
       }
     }
   }
@@ -88,13 +29,18 @@ query KiokunTraffic($zoneTag: string, $start: Time, $end: Time) {
 
 const response = await fetch('https://api.cloudflare.com/client/v4/graphql', {
   method: 'POST',
-  headers,
+  headers: {
+    Authorization: `Bearer ${apiToken}`,
+    Accept: 'application/json',
+    'Content-Type': 'application/json'
+  },
   body: JSON.stringify({
     query,
     variables: {
-      zoneTag: zone.id,
+      accountTag: accountId,
       start: start.toISOString(),
-      end: now.toISOString()
+      end: now.toISOString(),
+      scriptName
     }
   })
 });
@@ -104,12 +50,25 @@ if (!response.ok || payload.errors?.length) {
   process.exit(1);
 }
 
-const data = payload?.data?.viewer?.zones?.[0] ?? {};
+const rows = payload?.data?.viewer?.accounts?.[0]?.pagesFunctionsInvocationsAdaptiveGroups ?? [];
+const hourly = new Map();
+for (const row of rows) {
+  const datetime = row.dimensions?.datetime;
+  if (!datetime) continue;
+  const hour = datetime.slice(0, 13) + ':00:00Z';
+  const current = hourly.get(hour) ?? { requests: 0, subrequests: 0, errors: 0, statuses: {} };
+  current.requests += Number(row.sum?.requests || 0);
+  current.subrequests += Number(row.sum?.subrequests || 0);
+  current.errors += Number(row.sum?.errors || 0);
+  const status = row.dimensions?.status || '(unknown)';
+  current.statuses[status] = (current.statuses[status] || 0) + Number(row.sum?.requests || 0);
+  hourly.set(hour, current);
+}
+
+const hours = [...hourly.entries()].map(([hour, values]) => ({ hour, ...values }));
 console.log(JSON.stringify({
-  zone: { id: zone.id, name: zone.name },
+  scriptName,
   utcWindow: { start: start.toISOString(), end: now.toISOString() },
-  topPaths: data.topPaths ?? [],
-  topAgents: data.topAgents ?? [],
-  hourly: data.hourly ?? [],
-  statuses: data.statuses ?? []
+  totalRequests: hours.reduce((sum, row) => sum + row.requests, 0),
+  hourly: hours
 }, null, 2));
