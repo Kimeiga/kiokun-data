@@ -160,6 +160,7 @@
 			{/if}
 			<a href="/game" class="nav-icon" title="Sentence game" aria-label="Sentence game">🎮</a>
 			<a href="/tutor" class="nav-icon" title="AI translation tutor" aria-label="AI translation tutor">✍️</a>
+			<a href="/drill" class="nav-icon" title="Pronunciation drill" aria-label="Pronunciation drill">⚡</a>
 			<a href="/learning" class="nav-icon" title="Learning" aria-label="Learning">🎓</a>
 			<a href="/blog" class="nav-icon" title="The Kiokun Notebook" aria-label="The Kiokun Notebook">📓</a>
 			{#if $session.data?.user}
@@ -199,6 +200,7 @@
 			<div class="mobile-navigation-inner">
 				<a href="/game" onclick={closeMobileMenu}><span aria-hidden="true">🎮</span>Sentence Game</a>
 				<a href="/tutor" onclick={closeMobileMenu}><span aria-hidden="true">✍️</span>Translation Tutor</a>
+				<a href="/drill" onclick={closeMobileMenu}><span aria-hidden="true">⚡</span>Pronunciation Drill</a>
 				<a href="/learning" onclick={closeMobileMenu}><span aria-hidden="true">🎓</span>Learning</a>
 				<a href="/blog" onclick={closeMobileMenu}><span aria-hidden="true">📓</span>Notebook</a>
 				{#if $session.data?.user}

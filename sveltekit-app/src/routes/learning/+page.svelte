@@ -15,6 +15,26 @@
 	</div>
 
 	<div class="space-y-6">
+		<section class="learning-section">
+			<h2 class="section-bar-label mobile-full-bleed">Quick practice</h2>
+			<div class="divider-grid mobile-full-bleed">
+				<a
+					href="/drill"
+					class="learning-card divider-cell block p-6 bg-bg-secondary border border-border rounded-lg"
+				>
+					<div class="flex items-start gap-4">
+						<div class="course-glyph" lang="ja" aria-hidden="true">読</div>
+						<div class="flex-1">
+							<h3 class="text-xl font-bold mb-2 text-text-primary">Pronunciation drill</h3>
+							<p class="text-text-secondary">
+								Type the readings of common Japanese and Mandarin words in a fast, adaptive loop.
+							</p>
+						</div>
+					</div>
+				</a>
+			</div>
+		</section>
+
 		<section id="courses" class="learning-section">
 			<h2 class="section-bar-label mobile-full-bleed">Language courses</h2>
 			<div class="grid gap-4 md:grid-cols-2 divider-grid mobile-full-bleed">

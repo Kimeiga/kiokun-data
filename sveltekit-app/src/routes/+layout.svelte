@@ -18,6 +18,7 @@
 		'courses',
 		'custom-words',
 		'demo',
+		'drill',
 		'frequency',
 		'game',
 		'homophones',

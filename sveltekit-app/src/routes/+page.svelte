@@ -607,6 +607,7 @@
 				<h2>Explore</h2>
 			</div>
 			<div class="quick-links divider-grid mobile-full-bleed">
+				<a href="/drill" class="qlink divider-cell">⚡ Pronunciation Drill</a>
 				<a href="/learning" class="qlink divider-cell">🎓 Learning Resources</a>
 				<a href="/artifacts" class="qlink divider-cell">📦 Artifacts</a>
 				<a href="/frequency" class="qlink divider-cell">📊 Frequency Lists</a>
