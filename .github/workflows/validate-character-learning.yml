@@ -3,6 +3,7 @@ name: Validate Character Learning
 on:
   pull_request:
     paths:
+      - '.github/workflows/validate-character-learning.yml'
       - 'data/semantic_mnemonic_corpus/**'
       - 'data/pronunciation_mnemonic_corpus/**'
       - 'data/pronunciation_mnemonic_authoring/**'
@@ -41,6 +42,7 @@ on:
   push:
     branches: [main]
     paths:
+      - '.github/workflows/validate-character-learning.yml'
       - 'data/semantic_mnemonic_corpus/**'
       - 'data/pronunciation_mnemonic_corpus/**'
       - 'data/pronunciation_mnemonic_authoring/**'
@@ -136,7 +138,7 @@ jobs:
           npm run test:character-corpus
           npx tsx src/lib/pronunciation-mnemonics.test.ts
           npm run check
-          npm run build
+          KIOKUN_CAPACITOR=1 VITE_KIOKUN_CAPACITOR=1 npm run build
 
       - name: Test Rust pronunciation projection loader
         run: cargo test --bin build_dictionary semantic_mnemonic_corpus_tests

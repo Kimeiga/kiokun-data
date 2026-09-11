@@ -11,6 +11,7 @@ if (!deploymentUrlArgument) {
 const deploymentUrl = new URL(deploymentUrlArgument);
 const outputDirectory = path.resolve(outputDirectoryArgument);
 const immutableDirectory = path.join(outputDirectory, '_app', 'immutable');
+const immutableAssetPropagationAttempts = 60;
 
 async function collectFiles(directory) {
 	const entries = await readdir(directory, { withFileTypes: true });
@@ -41,21 +42,27 @@ async function fetchWithRetry(url, expectedStatus, attempts = 8) {
 				}
 			});
 			lastStatus = response.status;
+			if (response.status === expectedStatus) {
+				const responseUrl = new URL(response.url);
+				await response.body?.cancel();
+				return responseUrl;
+			}
 			await response.body?.cancel();
-			if (response.status === expectedStatus) return;
 		} catch (error) {
 			lastError = error;
 		}
 
-		await new Promise((resolve) => setTimeout(resolve, Math.min(attempt * 750, 4000)));
+		if (attempt < attempts) {
+			await new Promise((resolve) => setTimeout(resolve, Math.min(attempt * 750, 4000)));
+		}
 	}
 
 	const detail = lastError instanceof Error ? ` (${lastError.message})` : '';
 	throw new Error(`${url} returned ${lastStatus || 'no response'}, expected ${expectedStatus}${detail}`);
 }
 
-async function verifyJapaneseSentenceAnalysis() {
-	const url = new URL('/api/sentence/analyze', deploymentUrl);
+async function verifyJapaneseSentenceAnalysis(baseUrl) {
+	const url = new URL('/api/sentence/analyze', baseUrl);
 	const propagationAttempts = 15;
 	const requests = Array.from({ length: 1 }, async (_, index) => {
 		let response;
@@ -110,12 +117,13 @@ async function verifyJapaneseSentenceAnalysis() {
 	await Promise.all(requests);
 }
 
-await fetchWithRetry(new URL('/', deploymentUrl), 200);
+const publicUrl = await fetchWithRetry(new URL('/', deploymentUrl), 200);
+await fetchWithRetry(new URL('/drill', publicUrl), 200);
 
 const immutableFiles = await collectFiles(immutableDirectory);
 const immutableUrls = immutableFiles.map((file) => {
 	const relativePath = path.relative(outputDirectory, file).split(path.sep).join('/');
-	return new URL(`/${relativePath}`, deploymentUrl);
+	return new URL(`/${relativePath}`, publicUrl);
 });
 
 const failures = [];
@@ -128,7 +136,7 @@ async function worker() {
 		nextIndex += 1;
 		const url = immutableUrls[index];
 		try {
-			await fetchWithRetry(url, 200, 3);
+			await fetchWithRetry(url, 200, immutableAssetPropagationAttempts);
 		} catch (error) {
 			failures.push(error instanceof Error ? error.message : String(error));
 		}
@@ -144,12 +152,12 @@ if (failures.length > 0) {
 }
 
 await fetchWithRetry(
-	new URL('/api/users/this-user-does-not-exist/notes', deploymentUrl),
+	new URL('/api/users/this-user-does-not-exist/notes', publicUrl),
 	404
 );
-await fetchWithRetry(new URL('/api/stroke-data?char=%EF%A7%84', deploymentUrl), 200);
-await verifyJapaneseSentenceAnalysis();
+await fetchWithRetry(new URL('/api/stroke-data?char=%EF%A7%84', publicUrl), 200);
+await verifyJapaneseSentenceAnalysis(publicUrl);
 
 console.log(
-	`Verified ${immutableUrls.length} immutable assets, critical APIs, and Japanese sentence analysis at ${deploymentUrl}`
+	`Verified ${immutableUrls.length} immutable assets, critical APIs, and Japanese sentence analysis at ${publicUrl}`
 );
