@@ -20,6 +20,7 @@ const chineseDictionaryPath = path.join(
 	'chinese_dictionary_word_2025-06-25.jsonl'
 );
 const outputPath = path.join(appDirectory, 'static', 'pronunciation_drill.json');
+const HAN_SCRIPT_RE = /\p{Script=Han}/u;
 
 function unique(values) {
 	const seen = new Set();
@@ -150,7 +151,8 @@ function buildCards(language, words, details) {
 }
 
 const frequency = JSON.parse(await readFile(frequencyPath, 'utf8'));
-const japaneseTargets = new Set((frequency.japanese || []).map((word) => word.word));
+const japaneseWords = (frequency.japanese || []).filter((word) => HAN_SCRIPT_RE.test(word.word));
+const japaneseTargets = new Set(japaneseWords.map((word) => word.word));
 const chineseTargets = new Set((frequency.chinese || []).map((word) => word.word));
 
 const [japaneseDetails, chineseDetails] = await Promise.all([
@@ -161,7 +163,7 @@ const [japaneseDetails, chineseDetails] = await Promise.all([
 const output = {
 	version: 1,
 	languages: {
-		ja: buildCards('ja', frequency.japanese || [], japaneseDetails),
+		ja: buildCards('ja', japaneseWords, japaneseDetails),
 		zh: buildCards('zh', frequency.chinese || [], chineseDetails)
 	}
 };

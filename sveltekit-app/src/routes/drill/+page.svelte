@@ -3,7 +3,10 @@
 	import {
 		cardKey,
 		createDrillProgress,
+		DRILL_MAX_LEVEL,
+		DRILL_START_LEVEL,
 		gradePronunciation,
+		isPronunciationCardEligible,
 		pickNextCard,
 		romanizeJapaneseReading,
 		updateDrillProgress,
@@ -16,17 +19,23 @@
 	interface HistoryEntry extends PronunciationCard {
 		answer: string;
 		correct: boolean;
+		skipped?: boolean;
 		answeredAt: string;
 	}
 
 	interface StoredSession {
-		version: 1;
+		version: 1 | 2;
 		history: HistoryEntry[];
 		progress: DrillProgress;
 		lastLanguage: DrillLanguage | null;
+		currentKey?: string | null;
+		answer?: string;
+		revealed?: boolean | null;
+		skipped?: boolean;
 	}
 
-	const STORAGE_KEY = 'kiokun:pronunciation-drill:v1';
+	const STORAGE_KEY = 'kiokun:pronunciation-drill:v2';
+	const LEGACY_STORAGE_KEY = 'kiokun:pronunciation-drill:v1';
 	const LANGUAGE: Record<DrillLanguage, { flag: string; name: string; inputLabel: string }> = {
 		ja: { flag: '🇯🇵', name: 'Japanese', inputLabel: 'Type the reading in romaji or kana' },
 		zh: { flag: '🇨🇳', name: 'Mandarin', inputLabel: 'Type the reading in Pinyin' }
@@ -36,13 +45,20 @@
 	let current = $state<PronunciationCard | null>(null);
 	let answer = $state('');
 	let revealed = $state<boolean | null>(null);
+	let skipped = $state(false);
 	let history = $state<HistoryEntry[]>([]);
 	let progress = $state<DrillProgress>(createDrillProgress());
 	let lastLanguage = $state<DrillLanguage | null>(null);
 	let loading = $state(true);
 	let loadError = $state('');
+	let answerFocused = $state(false);
+	let drillShell = $state<HTMLElement | null>(null);
 	let inputElement = $state<HTMLInputElement | null>(null);
 	let historyDialog = $state<HTMLDialogElement | null>(null);
+	let restoredCurrentKey: string | null = null;
+	let restoredAnswer = '';
+	let restoredRevealed: boolean | null = null;
+	let restoredSkipped = false;
 
 	const correctCount = $derived(history.filter((entry) => entry.correct).length);
 	const accuracy = $derived(history.length ? Math.round((correctCount / history.length) * 100) : 0);
@@ -54,24 +70,72 @@
 	onMount(() => {
 		restoreSession();
 		void loadDrill();
+		syncVisualViewport();
 
 		const refocus = () => {
 			if (!historyDialog?.open) void focusAnswer();
 		};
+		const persist = () => saveSession();
+		const visualViewport = window.visualViewport;
 		window.addEventListener('focus', refocus);
-		return () => window.removeEventListener('focus', refocus);
+		window.addEventListener('resize', syncVisualViewport);
+		window.addEventListener('pagehide', persist);
+		visualViewport?.addEventListener('resize', syncVisualViewport);
+		visualViewport?.addEventListener('scroll', syncVisualViewport);
+		return () => {
+			window.removeEventListener('focus', refocus);
+			window.removeEventListener('resize', syncVisualViewport);
+			window.removeEventListener('pagehide', persist);
+			visualViewport?.removeEventListener('resize', syncVisualViewport);
+			visualViewport?.removeEventListener('scroll', syncVisualViewport);
+		};
 	});
+
+	function syncVisualViewport(): void {
+		if (typeof window === 'undefined') return;
+		const viewport = window.visualViewport;
+		const height = Math.round(viewport?.height ?? window.innerHeight);
+		const offsetTop = Math.round(viewport?.offsetTop ?? 0);
+		drillShell?.style.setProperty('--drill-viewport-height', `${height}px`);
+		drillShell?.style.setProperty('--drill-viewport-top', `${offsetTop}px`);
+	}
+
+	function restoreProgress(stored: StoredSession): DrillProgress {
+		const fresh = createDrillProgress();
+		const minimumLevel = stored.version === 1 ? DRILL_START_LEVEL : 0;
+		const restoreLanguage = (language: DrillLanguage) => {
+			const candidate = stored.progress?.[language];
+			if (!candidate) return fresh[language];
+			const level = Number.isFinite(candidate.level)
+				? Math.max(minimumLevel, Math.min(DRILL_MAX_LEVEL, Math.trunc(candidate.level)))
+				: fresh[language].level;
+			const correctRun = Number.isFinite(candidate.correctRun)
+				? Math.max(0, Math.min(2, Math.trunc(candidate.correctRun)))
+				: 0;
+			return { level, correctRun };
+		};
+
+		return { ja: restoreLanguage('ja'), zh: restoreLanguage('zh') };
+	}
 
 	function restoreSession(): void {
 		try {
-			const raw = localStorage.getItem(STORAGE_KEY);
+			const raw = localStorage.getItem(STORAGE_KEY) ?? localStorage.getItem(LEGACY_STORAGE_KEY);
 			if (!raw) return;
 			const stored = JSON.parse(raw) as Partial<StoredSession>;
-			if (stored.version !== 1 || !Array.isArray(stored.history)) return;
+			if ((stored.version !== 1 && stored.version !== 2) || !Array.isArray(stored.history)) return;
 			history = stored.history;
-			if (stored.progress?.ja && stored.progress?.zh) progress = stored.progress;
+			if (stored.progress?.ja && stored.progress?.zh) {
+				progress = restoreProgress(stored as StoredSession);
+			}
 			if (stored.lastLanguage === 'ja' || stored.lastLanguage === 'zh') {
 				lastLanguage = stored.lastLanguage;
+			}
+			if (stored.version === 2) {
+				restoredCurrentKey = typeof stored.currentKey === 'string' ? stored.currentKey : null;
+				restoredAnswer = typeof stored.answer === 'string' ? stored.answer : '';
+				restoredRevealed = typeof stored.revealed === 'boolean' ? stored.revealed : null;
+				restoredSkipped = stored.skipped === true && restoredRevealed === false;
 			}
 		} catch {
 			// A blocked or malformed local store should not prevent practice.
@@ -80,7 +144,16 @@
 
 	function saveSession(): void {
 		try {
-			const session: StoredSession = { version: 1, history, progress, lastLanguage };
+			const session: StoredSession = {
+				version: 2,
+				history,
+				progress,
+				lastLanguage,
+				currentKey: current ? cardKey(current) : null,
+				answer,
+				revealed,
+				skipped
+			};
 			localStorage.setItem(STORAGE_KEY, JSON.stringify(session));
 		} catch {
 			// Practice remains usable when storage is unavailable.
@@ -98,12 +171,29 @@
 				throw new Error('Pronunciation data has an unsupported format');
 			}
 			drillData = data;
-			chooseNextCard();
+			if (!restoreCurrentCard()) chooseNextCard();
 		} catch (error) {
 			loadError = error instanceof Error ? error.message : 'Pronunciation data could not load';
 		} finally {
 			loading = false;
 		}
+	}
+
+	function restoreCurrentCard(): boolean {
+		if (!drillData || !restoredCurrentKey) return false;
+		const card = [...drillData.languages.ja, ...drillData.languages.zh].find(
+			(candidate) => cardKey(candidate) === restoredCurrentKey
+		);
+		if (!card || !isPronunciationCardEligible(card)) return false;
+
+		current = card;
+		lastLanguage = card.language;
+		answer = restoredAnswer;
+		revealed = restoredRevealed;
+		skipped = restoredSkipped;
+		saveSession();
+		void focusAnswer();
+		return true;
 	}
 
 	function chooseNextCard(): void {
@@ -113,13 +203,31 @@
 		if (current) lastLanguage = current.language;
 		answer = '';
 		revealed = null;
+		skipped = false;
+		saveSession();
 		void focusAnswer();
 	}
 
 	async function focusAnswer(): Promise<void> {
 		await tick();
 		inputElement?.focus({ preventScroll: true });
-		if (!revealed) inputElement?.select();
+		if (revealed === null) inputElement?.select();
+	}
+
+	function handleAnswerFocus(): void {
+		answerFocused = true;
+		syncVisualViewport();
+		requestAnimationFrame(syncVisualViewport);
+	}
+
+	function handleAnswerBlur(): void {
+		answerFocused = false;
+		requestAnimationFrame(syncVisualViewport);
+	}
+
+	function handleAnswerInput(event: Event): void {
+		answer = (event.currentTarget as HTMLInputElement).value;
+		saveSession();
 	}
 
 	function submitAnswer(event: SubmitEvent): void {
@@ -131,20 +239,21 @@
 		}
 
 		const trimmedAnswer = answer.trim();
-		if (!trimmedAnswer) return;
-
-		const correct = gradePronunciation(current, trimmedAnswer);
+		const didSkip = !trimmedAnswer;
+		const correct = !didSkip && gradePronunciation(current, trimmedAnswer);
 		progress = updateDrillProgress(progress, current.language, correct);
 		history = [
 			{
 				...current,
 				answer: trimmedAnswer,
 				correct,
+				skipped: didSkip,
 				answeredAt: new Date().toISOString()
 			},
 			...history
 		];
 		revealed = correct;
+		skipped = didSkip;
 		saveSession();
 		void focusAnswer();
 	}
@@ -173,7 +282,12 @@
 	/>
 </svelte:head>
 
-<main id="main-content" class="drill-shell">
+<main
+	bind:this={drillShell}
+	id="main-content"
+	class="drill-shell"
+	class:answer-focused={answerFocused}
+>
 	<header class="app-bar">
 		<div class="language-marker" aria-live="polite">
 			<span class="flag" aria-hidden="true">{language?.flag ?? '語'}</span>
@@ -211,27 +325,44 @@
 
 		{#if current}
 			<form class="answer-zone" onsubmit={submitAnswer}>
-				<label for="pronunciation-answer">{language?.inputLabel}</label>
+				<label for="pronunciation-answer">
+					<span class="input-flag" aria-hidden="true">{language?.flag}</span>
+					{language?.inputLabel}
+				</label>
 				<input
 					bind:this={inputElement}
-					bind:value={answer}
+					value={answer}
 					id="pronunciation-answer"
 					class:answer-correct={revealed === true}
-					class:answer-wrong={revealed === false}
+					class:answer-wrong={revealed === false && !skipped}
+					class:answer-skipped={skipped}
 					type="text"
 					name="pronunciation"
 					autocomplete="off"
 					autocapitalize="none"
+					enterkeyhint="done"
 					spellcheck="false"
 					readonly={revealed !== null}
-					aria-invalid={revealed === false ? 'true' : undefined}
+					aria-invalid={revealed === false && !skipped ? 'true' : undefined}
+					onfocus={handleAnswerFocus}
+					onblur={handleAnswerBlur}
+					oninput={handleAnswerInput}
 				/>
 
 				{#if revealed === null}
-					<p class="enter-hint">Enter to check</p>
+					<p class="enter-hint">Enter to check. Leave blank if you don’t know.</p>
 				{:else}
-					<div class="feedback" class:correct={revealed} class:wrong={!revealed} aria-live="polite">
-						<p class="verdict"><span aria-hidden="true">{revealed ? '✓' : '×'}</span> {revealed ? 'Correct' : 'Not quite'}</p>
+					<div
+						class="feedback"
+						class:correct={revealed}
+						class:wrong={!revealed && !skipped}
+						class:skipped
+						aria-live="polite"
+					>
+						<p class="verdict">
+							<span aria-hidden="true">{revealed ? '✓' : skipped ? '?' : '×'}</span>
+							{revealed ? 'Correct' : skipped ? 'Not known yet' : 'Not quite'}
+						</p>
 						<div class="readings" aria-label="Accepted readings">
 							{#each current.readings as reading}
 								<span>{displayReading(current, reading)}</span>
@@ -250,21 +381,26 @@
 	<div class="history-header">
 		<div>
 			<h2>History</h2>
-			<p>{history.length} answered{history.length ? `, ${accuracy}% correct` : ''}</p>
+			<p>{history.length} reviewed{history.length ? `, ${accuracy}% correct` : ''}</p>
 		</div>
 		<button type="button" onclick={closeHistory} aria-label="Close history">Close</button>
 	</div>
 
 	{#if history.length === 0}
-		<p class="empty-history">Answered words will appear here.</p>
+		<p class="empty-history">Reviewed words will appear here.</p>
 	{:else}
 		<ol class="history-list">
 			{#each history as entry, index (`${entry.language}:${entry.word}:${entry.answeredAt}:${index}`)}
 				<li>
 					<a href={`/${encodeURIComponent(entry.word)}`} target="_blank" rel="noreferrer">
-						<span class="history-result" class:correct={entry.correct} class:wrong={!entry.correct}>
-							<span aria-hidden="true">{entry.correct ? '✓' : '×'}</span>
-							<span class="sr-only">{entry.correct ? 'Correct' : 'Incorrect'}</span>
+						<span
+							class="history-result"
+							class:correct={entry.correct}
+							class:wrong={!entry.correct && !entry.skipped}
+							class:skipped={entry.skipped}
+						>
+							<span aria-hidden="true">{entry.correct ? '✓' : entry.skipped ? '?' : '×'}</span>
+							<span class="sr-only">{entry.correct ? 'Correct' : entry.skipped ? 'Not known yet' : 'Incorrect'}</span>
 						</span>
 						<span class="history-word" lang={entry.language === 'ja' ? 'ja' : 'zh-Hans'}>{entry.word}</span>
 						<span class="history-reading">
@@ -279,20 +415,26 @@
 </dialog>
 
 <style>
+	:global(html:has(.drill-shell)),
 	:global(body:has(.drill-shell)) {
 		overflow: hidden;
+		overscroll-behavior: none;
 	}
 
 	.drill-shell {
 		--drill-success: #15803d;
 		--drill-error: #c2413b;
+		--drill-skip: #a16207;
+		position: fixed;
+		top: var(--drill-viewport-top, 0);
+		left: 0;
 		display: grid;
 		grid-template-rows: auto minmax(0, 1fr);
 		width: 100%;
-		height: 100vh;
-		height: 100dvh;
-		min-height: 100svh;
+		height: var(--drill-viewport-height, 100dvh);
+		min-height: 0;
 		overflow: hidden;
+		overscroll-behavior: none;
 		background: var(--bg-primary);
 		color: var(--text-primary);
 		font-family: var(--font-ui);
@@ -301,6 +443,7 @@
 	:global([data-theme='dark']) .drill-shell {
 		--drill-success: #4ade80;
 		--drill-error: #fb7185;
+		--drill-skip: #facc15;
 	}
 
 	.app-bar {
@@ -426,10 +569,17 @@
 	}
 
 	.answer-zone label {
-		display: block;
+		display: flex;
+		align-items: center;
+		gap: 0.4rem;
 		margin-bottom: 0.35rem;
 		color: var(--text-secondary);
 		font-size: 0.78rem;
+	}
+
+	.input-flag {
+		font-size: 0.95rem;
+		line-height: 1;
 	}
 
 	.answer-zone input {
@@ -459,6 +609,10 @@
 		border-bottom-color: var(--drill-error);
 	}
 
+	.answer-zone input.answer-skipped {
+		border-bottom-color: var(--drill-skip);
+	}
+
 	.enter-hint {
 		margin: 0.55rem 0 0;
 		color: var(--text-muted);
@@ -483,6 +637,11 @@
 	.feedback.wrong .verdict,
 	.history-result.wrong {
 		color: var(--drill-error);
+	}
+
+	.feedback.skipped .verdict,
+	.history-result.skipped {
+		color: var(--drill-skip);
 	}
 
 	.readings {
@@ -659,6 +818,50 @@
 		.history-dialog {
 			height: 100dvh;
 			border: 0;
+		}
+
+		.drill-shell.answer-focused .app-bar {
+			min-height: 2.75rem;
+		}
+
+		.drill-shell.answer-focused .practice {
+			grid-template-rows: minmax(6.5rem, 1fr) auto;
+		}
+
+		.drill-shell.answer-focused .prompt-stage {
+			padding: 0.5rem 1rem;
+			overflow: hidden;
+		}
+
+		.drill-shell.answer-focused .prompt-word {
+			font-size: clamp(2.4rem, 14vw, 4.5rem);
+			line-height: 1;
+		}
+
+		.drill-shell.answer-focused .rank-label {
+			margin-top: 0.3rem;
+		}
+
+		.drill-shell.answer-focused .answer-zone {
+			min-height: 7.75rem;
+			padding-top: 0.65rem;
+			padding-bottom: max(0.65rem, env(safe-area-inset-bottom));
+		}
+
+		.drill-shell.answer-focused .answer-zone input {
+			height: 2.5rem;
+		}
+
+		.drill-shell.answer-focused .feedback {
+			padding-top: 0.45rem;
+		}
+
+		.drill-shell.answer-focused .definition {
+			display: -webkit-box;
+			overflow: hidden;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 2;
+			line-clamp: 2;
 		}
 	}
 
