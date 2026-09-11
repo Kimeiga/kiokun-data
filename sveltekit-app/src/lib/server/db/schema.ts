@@ -1,4 +1,4 @@
-import { sqliteTable, text, integer, unique } from "drizzle-orm/sqlite-core";
+import { index, sqliteTable, text, integer, unique } from "drizzle-orm/sqlite-core";
 
 // Better Auth tables
 export const user = sqliteTable("user", {
@@ -71,6 +71,8 @@ export const notes = sqliteTable("notes", {
 }, (table) => ({
 	// Unique constraint: one note per user per character
 	userCharacterUnique: unique().on(table.userId, table.character),
+	// Public note lookups filter by character without a user ID.
+	characterIndex: index("notes_character_idx").on(table.character),
 }));
 
 // Study cards table for spaced repetition system (SRS)
