@@ -23,9 +23,11 @@ export interface LanguageProgress {
 export type DrillProgress = Record<DrillLanguage, LanguageProgress>;
 
 export const DRILL_BAND_SIZE = 100;
+export const DRILL_START_LEVEL = 4;
 export const DRILL_MAX_LEVEL = 9;
 
 const JAPANESE_SCRIPT_RE = /[\u3040-\u30ff\u31f0-\u31ff]/u;
+const HAN_SCRIPT_RE = /\p{Script=Han}/u;
 const PINYIN_SEPARATOR_RE = /[\s\u200b-\u200d\ufeff·・'’._-]+/gu;
 const JAPANESE_SEPARATOR_RE = /[\s\u200b-\u200d\ufeff·・._-]+/gu;
 
@@ -187,10 +189,14 @@ export function cardKey(card: Pick<PronunciationCard, 'language' | 'word'>): str
 	return `${card.language}:${card.word}`;
 }
 
+export function isPronunciationCardEligible(card: PronunciationCard): boolean {
+	return card.language === 'zh' || HAN_SCRIPT_RE.test(card.word);
+}
+
 export function createDrillProgress(): DrillProgress {
 	return {
-		ja: { level: 0, correctRun: 0 },
-		zh: { level: 0, correctRun: 0 }
+		ja: { level: DRILL_START_LEVEL, correctRun: 0 },
+		zh: { level: DRILL_START_LEVEL, correctRun: 0 }
 	};
 }
 
@@ -220,7 +226,7 @@ function unseenCards(
 	cards: PronunciationCard[],
 	seen: ReadonlySet<string>
 ): PronunciationCard[] {
-	return cards.filter((card) => !seen.has(cardKey(card)));
+	return cards.filter((card) => isPronunciationCardEligible(card) && !seen.has(cardKey(card)));
 }
 
 function cardsNearLevel(
