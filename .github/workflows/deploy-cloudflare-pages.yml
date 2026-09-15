@@ -63,6 +63,12 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: node scripts/apply-sentence-learning-schema.mjs
+
+      - name: Enforce Cloudflare edge bot protection
+        working-directory: sveltekit-app
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: node scripts/configure-cloudflare-bot-protection.mjs
       
       - name: Deploy to Cloudflare Pages
         id: deploy
