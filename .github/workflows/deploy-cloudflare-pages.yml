@@ -65,6 +65,7 @@ jobs:
         run: node scripts/apply-sentence-learning-schema.mjs
 
       - name: Enforce Cloudflare edge bot protection
+        continue-on-error: true
         working-directory: sveltekit-app
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
